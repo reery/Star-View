@@ -1,6 +1,8 @@
-import { Globe, Sun, createElement } from 'lucide'
+import { Globe, Sparkle, Sun, createElement } from 'lucide'
 import { starDisplayColor, type StarColorMode } from './astronomy'
 import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
+import { renderFact, type Fact } from './comparison-tiles'
+import { renderPlotMarkers, type PlotPoint } from './plot-markers'
 import { disposeConstellationStars, renderConstellationStars } from './constellation-star-appearance'
 import { MISSING_VALUE } from './format'
 import { typicalMassRangePosition } from './mass-classification'
@@ -19,6 +21,10 @@ const scientific = (value: number | null, unit: string) => {
   return `${number(Number(coefficient))} × 10${exponent(Number(power))} ${unit}`
 }
 const solar = (value: number) => `${value < 0.001 || value >= 1e6 ? scientific(value, '').trim() : value >= 1000 ? `${number(value / 1000)}k` : number(value)} L☉`
+const comparisonSolar = (value: number) => value >= 1000 ? solar(value)
+  : `${value.toLocaleString('en-US', value < 0.01 ? { maximumSignificantDigits: 1 } : { maximumFractionDigits: 2 })} L☉`
+const markerDistance = (value: number) => value < 0.05 ? number(value)
+  : value.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
 const factor = (value: number | null) => value === null ? MISSING_VALUE
   : value < 0.001 || value >= 1e6 ? scientific(value, '').replace(' × ', ' · ').trim()
     : value >= 1000 ? `${number(value / 1000)}k` : number(value)
@@ -40,12 +46,11 @@ export function nearbySolarOrbit(distanceAu: number): string | null {
 export function solarOrbitMarkers(maximumAu: number): { name: string; distanceAu: number }[] {
   if (!Number.isFinite(maximumAu) || maximumAu <= 0) return []
   const orbit = (name: string) => solarPlanets.find((planet) => planet.name === name)!.semiMajorAxisAu
-  // Keep the outer scales sparse once Saturn's orbit fits; Neptune takes over when it fits.
+  // Keep the outer scales sparse once Saturn's orbit fits: Jupiter plus the farthest of Saturn and Uranus; Neptune takes over when it fits.
   const names = maximumAu < 1.3 ? ['Mercury', 'Venus']
     : maximumAu < orbit('Saturn') ? ['Mars', 'Jupiter']
-      : maximumAu < orbit('Neptune') ? ['Jupiter'] : ['Neptune']
-  return solarPlanets.filter((planet) => names.includes(planet.name) && planet.semiMajorAxisAu <= maximumAu
-    && (planet.name !== 'Jupiter' || maximumAu > 6))
+      : maximumAu < orbit('Neptune') ? ['Jupiter', maximumAu < orbit('Uranus') ? 'Saturn' : 'Uranus'] : ['Neptune']
+  return solarPlanets.filter((planet) => (planet.name === 'Earth' ? maximumAu > 1 : names.includes(planet.name)) && planet.semiMajorAxisAu <= maximumAu)
     .map((planet) => ({ name: planet.name, distanceAu: planet.semiMajorAxisAu }))
 }
 
@@ -71,11 +76,14 @@ export function luminosityClassRange(star: Pick<Star, 'type' | 'spectral_type'>)
   return null
 }
 
-export function renderLuminosityCard(card: HTMLElement, star: Star, origin: Star, sun: Star, colorMode: StarColorMode): void {
+export function renderLuminosityCard(card: HTMLElement, star: Star, origin: Star, sun: Star, colorMode: StarColorMode, other?: Star): void {
+  const comparing = other !== undefined
+  const reference = other ?? origin
   const get = (id: string) => card.querySelector<HTMLElement>(`#${id}`)!
   const set = (id: string, value: string) => { get(id).textContent = value }
   const luminosity = star.luminosity_solar!
   const color = starDisplayColor(star, colorMode).getStyle()
+  card.classList.toggle('has-comparison', comparing)
   card.style.setProperty('--luminosity-star-color', color)
   // The result illustrates perceived color, independent of exaggerated scene colors.
   card.style.setProperty('--luminosity-real-color', starDisplayColor(star, 'real').getStyle())
@@ -83,95 +91,95 @@ export function renderLuminosityCard(card: HTMLElement, star: Star, origin: Star
     get(id).replaceChildren(createElement(shape, { width: 36, height: 36, 'stroke-width': 1.3, 'aria-hidden': 'true' }))
   }
   const properties = luminosityProperties(star)
-  set('luminosity-area', factor(properties.areaSolar))
-  set('luminosity-surface-flux', factor(properties.surfaceFluxSolar))
-  set('luminosity-calculated-value', factor(properties.calculatedSolar))
-  for (const id of ['luminosity-area', 'luminosity-surface-flux', 'luminosity-calculated-value']) {
-    get(id).classList.toggle('luminosity-long-value', get(id).textContent!.length > 5)
+  const comparisonProperties = other ? luminosityProperties(other) : undefined
+  // A comparison pairs both objects in one row per factor, as on the Mass card.
+  get('luminosity-facts').hidden = !comparing
+  card.querySelector<HTMLElement>('.luminosity-equation')!.hidden = comparing
+  if (other) {
+    const facts = [properties, comparisonProperties!].map((entry) => ([['Surface area', Globe, entry.areaSolar, 'A☉'], ['Surface flux', Sun, entry.surfaceFluxSolar, 'F☉'],
+      ['Bolometric luminosity', Sparkle, entry.catalogSolar, 'L☉']] as const).map(([title, icon, value, unit]): Fact => ({ title, icon, value: factor(value), unit: value === null ? '' : unit, notes: [] })))
+    get('luminosity-facts').replaceChildren(...facts[0]!.map((_, row) => renderFact(facts.map((entry) => entry[row]!), [star, other], colorMode, row === 2)))
   }
-  get('luminosity-calculated-unit').hidden = properties.calculatedSolar === null
-  const missing = [properties.areaM2 === null ? 'radius' : '', properties.surfaceFlux === null ? 'effective temperature' : ''].filter(Boolean)
-  const difference = properties.calculatedSolar === null ? 0 : Math.abs(properties.calculatedSolar / luminosity - 1)
-  set('luminosity-calculation-note', missing.length ? `Catalog ${missing.join(' and ')} unavailable; the surface calculation cannot be completed.`
-    : difference > 0.05 ? `Catalog R, T and L differ by ${number(difference * 100)}%; comparisons use catalog L.` : '')
-  get('luminosity-calculation-note').hidden = !get('luminosity-calculation-note').textContent
+  for (const [id, field] of [['area', 'areaSolar'], ['surface-flux', 'surfaceFluxSolar'], ['value', 'catalogSolar']] as const) {
+    const value = factor(properties[field])
+    set(`luminosity-${id}`, value)
+    get(`luminosity-${id}`).classList.toggle('luminosity-long-value', value.length > 5)
+  }
+  get('luminosity-unit').hidden = properties.catalogSolar === null
+  const calculationNotes = (other ? [{ object: star, properties }, { object: other, properties: comparisonProperties! }] : [{ object: star, properties }])
+    .flatMap(({ object, properties }) => properties.areaM2 === null
+      ? [`${comparing ? `${object.name}: radius` : 'Radius'} unavailable; surface area and surface flux cannot be derived.${properties.catalogSolar === null ? '' : ' Catalog luminosity is shown.'}`] : [])
+  set('luminosity-calculation-note', calculationNotes.join(' '))
+  get('luminosity-calculation-note').hidden = calculationNotes.length === 0
 
-  const originFlux = originFluxAtAu(origin)
-  const reference = originFlux === null ? sun : origin
-  const flux = originFluxAtAu(reference)
-  set('luminosity-flux-origin-value', originFlux === null ? '' : `${number(originFlux)} W/m²`)
-  get('luminosity-flux-origin-value').hidden = originFlux === null
-  const rows = [['origin', origin], ['selected', star], ['sun', sun]] as const
+  // Every distance matches today's solar irradiance at Earth, independently of the pair or map origin.
+  const flux = originFluxAtAu(sun)
+  const rows = comparing ? [['selected', star], ['origin', reference], ['sun', sun]] as const
+    : [['origin', reference], ['selected', star], ['sun', sun]] as const
   const shownObjects = new Set<string>()
   const distances = rows.map(([id, object]) => {
-    const comparison = equalFluxDistance(object, reference)
-    const visible = !shownObjects.has(object.id)
+    const comparison = equalFluxDistance(object, sun)
+    const visible = !shownObjects.has(object.id) && (!comparing || id !== 'sun')
     shownObjects.add(object.id)
-    return { id, object, ...comparison, visible }
+    return { id, object, ...comparison, visible, stellarFlux: originFluxAtAu(object) }
   })
-  const maximum = Math.max(1, ...distances.flatMap((row) => row.visible && !row.insidePhotosphere && row.distanceAu !== null ? [row.distanceAu] : [])) * 1.08
+  const farthest = Math.max(0, ...distances.flatMap((row) => row.visible && row.object.id !== sun.id && !row.insidePhotosphere && row.distanceAu !== null ? [row.distanceAu] : []))
+  const maximum = farthest < 0.9 ? 1 : Math.max(1, farthest) * 1.08
   const orbitMarkers = flux === null ? [] : solarOrbitMarkers(maximum)
-  const bottomBarId = distances.findLast((row) => row.visible && !row.insidePhotosphere && row.distanceAu !== null)?.id
   const notes: string[] = []
-  if (originFlux === null) {
-    notes.push(origin.luminosity_solar === null ? `${origin.name} has no catalog bolometric luminosity.` : 'The origin is not a supported radiating star, or 1 AU is inside its photosphere.')
-    if (flux !== null) notes.push(`Using the Sun’s flux at 1 AU (${number(flux)} W/m²) as the reference.`)
-  }
+  const fluxBar = get('luminosity-flux-bar')
   for (const row of distances) {
-    get(`luminosity-flux-${row.id}`).hidden = !row.visible
-    set(`luminosity-flux-${row.id}-name`, row.object.name)
     const available = flux !== null && row.distanceAu !== null && !row.insidePhotosphere
+    if (!available && flux !== null && row.visible) {
+      notes.push(row.insidePhotosphere ? `${row.object.name}: the calculated distance lies inside its photosphere.` : `${row.object.name}: bolometric luminosity unavailable.`)
+    }
+    // A comparison shows its pair on the shared bar alone; the listed rows stay hidden.
+    get(`luminosity-flux-${row.id}`).hidden = comparing || !row.visible
+    if (comparing || !row.visible) continue
+    set(`luminosity-flux-${row.id}-name`, row.object.name)
     set(`luminosity-flux-${row.id}-distance`, available ? `${number(row.distanceAu!)} AU` : MISSING_VALUE)
-    const orbit = available && row.object.id !== sun.id ? nearbySolarOrbit(row.distanceAu!) : null
-    set(`luminosity-flux-${row.id}-orbit`, orbit ? `(about ${orbit}’s orbit)` : '')
-    get(`luminosity-flux-${row.id}-orbit`).hidden = !orbit
+    set(`luminosity-flux-${row.id}-value`, row.stellarFlux === null ? '' : `${number(row.stellarFlux)} W/m² at 1 AU`)
+    get(`luminosity-flux-${row.id}-value`).hidden = row.stellarFlux === null
     const preview = get(`luminosity-flux-${row.id}-star`) as HTMLCanvasElement
     preview.hidden = !STELLAR_OBJECT_TYPES.some((type) => type === row.object.type)
-    if (row.visible && !preview.hidden) {
-      // Use the scene's exact core/halo materials at a fixed illustrative size.
-      renderConstellationStars(preview, [{ object: row.object, x: 16, y: 16, magnitude: null }], 32, 32, colorMode, true)
-    }
-    const bar = get(`luminosity-flux-${row.id}-bar`)
-    const track = bar.querySelector<HTMLElement>('.mass-ratio-track')!
-    track.querySelectorAll('.luminosity-orbit-tick').forEach((tick) => tick.remove())
-    const markers = row.id === bottomBarId ? orbitMarkers : []
-    bar.classList.toggle('mass-scale', markers.length > 0)
-    for (const marker of markers) {
-      const tick = document.createElement('span')
-      tick.className = 'mass-scale-tick luminosity-orbit-tick'
-      tick.dataset.planet = marker.name
-      tick.setAttribute('aria-hidden', 'true')
-      const percent = marker.distanceAu / maximum * 100
-      tick.style.left = `${percent}%`
-      tick.style.setProperty('--mass-tick-offset', percent < 15 ? '0%' : percent > 85 ? '-100%' : '-50%')
-      const label = document.createElement('span')
-      label.textContent = marker.name
-      tick.append(label)
-      track.append(tick)
-    }
-    bar.hidden = !available
-    bar.style.setProperty('--luminosity-star-color', starDisplayColor(row.object, colorMode).getStyle())
-    if (available) {
-      bar.style.setProperty('--mass-ratio-position', `${row.distanceAu! / maximum * 100}%`)
-      const references = markers.length ? ` Solar orbit references: ${markers.map((marker) => `${marker.name} at ${number(marker.distanceAu)} AU`).join(', ')}.` : ''
-      bar.setAttribute('aria-label', `${row.object.name}: Earth at ${number(row.distanceAu!)} AU receives ${number(flux!)} watts per square meter. Shared linear distance scale from zero to ${number(maximum)} AU.${references}`)
-    } else if (flux !== null && row.visible && !(row.id === 'origin' && originFlux === null)) notes.push(row.insidePhotosphere ? `${row.object.name}: the calculated distance lies inside its photosphere.` : `${row.object.name}: bolometric luminosity unavailable.`)
+    if (!preview.hidden) renderConstellationStars(preview, [{ object: row.object, x: 16, y: 16, magnitude: null }], 32, 32, colorMode, true)
   }
+  const availableDistances = distances.filter((row) => flux !== null && row.visible && !row.insidePhotosphere && row.distanceAu !== null)
+  const positions = availableDistances.map((row) => row.distanceAu! / maximum * 100)
+  fluxBar.style.setProperty('--luminosity-flux-au-position', `${100 / maximum}%`)
+  fluxBar.style.setProperty('--luminosity-flux-near-position', `${positions.length ? Math.min(...positions) : 0}%`)
+  fluxBar.style.setProperty('--luminosity-flux-far-position', `${Math.max(0, ...positions)}%`)
+  fluxBar.hidden = flux === null
   set('luminosity-distance-axis-high', `${number(maximum)} AU`)
-  get('luminosity-distance-axis').hidden = flux === null
+  renderPlotMarkers(fluxBar, flux === null ? [] : [
+    ...orbitMarkers.map((marker) => ({ name: marker.name, position: marker.distanceAu / maximum * 100 })),
+    ...availableDistances.map((row) => ({ name: row.object.name, object: row.object, position: row.distanceAu! / maximum * 100,
+      role: row.id === 'selected' ? 'selected' : row.id === 'origin' ? 'reference' : 'sun',
+      value: `(${markerDistance(row.distanceAu!)} AU)`, inlineValue: true,
+      detail: comparing && row.stellarFlux !== null ? `${number(row.stellarFlux)} W/m² at 1 AU` : undefined })),
+  ], colorMode, true)
+  fluxBar.setAttribute('aria-label', `${availableDistances.map((row) => `${row.object.name}: Earth at ${number(row.distanceAu!)} AU receives ${number(flux!)} watts per square meter.`).join(' ')} Shared linear distance scale from zero to ${number(maximum)} AU. Solar orbit references: ${orbitMarkers.map((marker) => `${marker.name} at ${number(marker.distanceAu)} AU`).join(', ')}.`)
   set('luminosity-flux-note', notes.join(' '))
   get('luminosity-flux-note').hidden = notes.length === 0
 
-  const lowPower = Math.min(-6, Math.floor(Math.log10(luminosity)))
-  const highPower = Math.max(6, Math.ceil(Math.log10(luminosity)))
+  const referenceLuminosity = comparing ? reference.luminosity_solar : 1
+  const referenceAvailable = referenceLuminosity !== null && referenceLuminosity > 0 && Number.isFinite(referenceLuminosity)
+  const includeSun = comparing && star.id !== sun.id && reference.id !== sun.id
+  const lowPower = Math.min(-6, Math.floor(Math.log10(luminosity)), referenceAvailable ? Math.floor(Math.log10(referenceLuminosity)) : 0)
+  const highPower = Math.max(6, Math.ceil(Math.log10(luminosity)), referenceAvailable ? Math.ceil(Math.log10(referenceLuminosity)) : 0)
   const scale = get('luminosity-scale')
-  scale.style.setProperty('--mass-ratio-position', `${(Math.log10(luminosity) - lowPower) / (highPower - lowPower) * 100}%`)
-  scale.style.setProperty('--luminosity-sun-position', `${-lowPower / (highPower - lowPower) * 100}%`)
-  scale.querySelector<HTMLElement>('.mass-ratio-sun')!.style.left = `${-lowPower / (highPower - lowPower) * 100}%`
+  const position = (value: number) => (Math.log10(value) - lowPower) / (highPower - lowPower) * 100
+  scale.style.setProperty('--mass-ratio-position', `${position(luminosity)}%`)
   set('luminosity-scale-low', `10${exponent(lowPower)} L☉`)
   set('luminosity-scale-high', `10${exponent(highPower)} L☉`)
   set('luminosity-scale-value', solar(luminosity))
-  scale.setAttribute('aria-label', `${star.name}: ${number(luminosity)} solar luminosities. Logarithmic scale from 10 to the power ${lowPower} to 10 to the power ${highPower} solar luminosities; Sun at one solar luminosity.`)
+  get('luminosity-scale-value').parentElement!.hidden = comparing
+  const scalePoints: PlotPoint[] = [{ name: star.name, object: star, position: position(luminosity), role: 'selected', value: comparing ? comparisonSolar(luminosity) : undefined }]
+  if (referenceAvailable && (comparing || star.id !== sun.id)) scalePoints.push({ name: comparing ? reference.name : 'Sun', object: comparing ? reference : sun,
+    position: position(referenceLuminosity), role: 'reference', value: comparing ? comparisonSolar(referenceLuminosity) : '1 L☉' })
+  if (includeSun) scalePoints.push({ name: sun.name, object: sun, position: position(1), role: 'sun', value: '1 L☉' })
+  renderPlotMarkers(scale, scalePoints, colorMode, true)
+  scale.setAttribute('aria-label', `${star.name}: ${number(luminosity)} solar luminosities. Logarithmic scale from 10 to the power ${lowPower} to 10 to the power ${highPower} solar luminosities; ${comparing ? `${reference.name}: ${referenceAvailable ? `${number(referenceLuminosity)} solar luminosities` : 'individual luminosity unavailable'}` : 'Sun at one solar luminosity'}.${includeSun ? ' Sun: 1 solar luminosity.' : ''}`)
 
   const range = luminosityClassRange(star)
   const classification = luminosityComparisonClass(star)
@@ -190,29 +198,33 @@ export function renderLuminosityCard(card: HTMLElement, star: Star, origin: Star
   source.textContent = range?.sourceLabel ?? ''
   const classBar = get('luminosity-class-bar')
   classBar.hidden = !range
+  get('luminosity-class-median-value').hidden = !range || range.median === null
   if (range) {
-    const axis = typicalMassRangePosition(luminosity, [range.low, range.high])
-    classBar.style.setProperty('--mass-ratio-position', `${axis.position}%`)
-    classBar.style.setProperty('--mass-range-low-position', `${axis.rangeLowPosition}%`)
-    classBar.style.setProperty('--mass-range-high-position', `${axis.rangeHighPosition}%`)
-    classBar.querySelector<HTMLElement>('.mass-typical-low')!.style.left = `${axis.rangeLowPosition}%`
-    classBar.querySelector<HTMLElement>('.mass-typical-high')!.style.left = `${axis.rangeHighPosition}%`
-    const position = (value: number) => Math.log(value / axis.low) / Math.log(axis.high / axis.low) * 100
+    const baseAxis = typicalMassRangePosition(luminosity, [range.low, range.high])
+    const low = Math.min(baseAxis.low, comparing && referenceAvailable ? referenceLuminosity : baseAxis.low, includeSun ? 1 : baseAxis.low)
+    const high = Math.max(baseAxis.high, comparing && referenceAvailable ? referenceLuminosity : baseAxis.high, includeSun ? 1 : baseAxis.high)
+    const classPosition = (value: number) => Math.log(value / low) / Math.log(high / low) * 100
+    classBar.querySelector<HTMLElement>('.mass-typical-low')!.style.left = `${classPosition(range.low)}%`
+    classBar.querySelector<HTMLElement>('.mass-typical-high')!.style.left = `${classPosition(range.high)}%`
     const band = classBar.querySelector<HTMLElement>('.luminosity-class-range')!
     band.hidden = !range.centralRange
     if (range.centralRange) {
-      classBar.style.setProperty('--luminosity-distribution-low-position', `${position(range.centralRange[0])}%`)
-      classBar.style.setProperty('--luminosity-distribution-high-position', `${position(range.centralRange[1])}%`)
+      classBar.style.setProperty('--luminosity-distribution-low-position', `${classPosition(range.centralRange[0])}%`)
+      classBar.style.setProperty('--luminosity-distribution-high-position', `${classPosition(range.centralRange[1])}%`)
     }
     const median = classBar.querySelector<HTMLElement>('.luminosity-class-median')!
     median.hidden = range.median === null
-    if (range.median !== null) median.style.left = `${position(range.median)}%`
-    set('luminosity-class-low', solar(axis.low))
-    set('luminosity-class-high', solar(axis.high))
-    set('luminosity-class-median-value', range.median === null ? '' : `Median ${solar(range.median)}`)
+    if (range.median !== null) median.style.left = `${classPosition(range.median)}%`
+    set('luminosity-class-low', solar(low))
+    set('luminosity-class-high', solar(high))
+    get('luminosity-class-median-value').querySelector('span')!.textContent = range.median === null ? '' : `Median ${solar(range.median)}`
+    const classPoints: PlotPoint[] = [{ name: star.name, object: star, position: classPosition(luminosity), role: 'selected', value: comparing ? comparisonSolar(luminosity) : undefined }]
+    if (comparing && referenceAvailable) classPoints.push({ name: reference.name, object: reference, position: classPosition(referenceLuminosity), role: 'reference', value: comparisonSolar(referenceLuminosity) })
+    if (includeSun) classPoints.push({ name: sun.name, object: sun, position: classPosition(1), role: 'sun', value: '1 L☉' })
+    renderPlotMarkers(classBar, classPoints, colorMode, true)
     const distribution = range.centralRange ? ` Middle 80% of catalog luminosities from ${number(range.centralRange[0])} to ${number(range.centralRange[1])} solar luminosities.` : ''
-    const reference = range.median === null ? '' : ` Catalog median ${number(range.median)} solar luminosities.`
-    classBar.setAttribute('aria-label', `${star.name}: ${number(luminosity)} solar luminosities. ${range.label} ${range.context.toLowerCase()} from ${number(range.low)} to ${number(range.high)} solar luminosities.${distribution}${reference} Logarithmic axis from ${number(axis.low)} to ${number(axis.high)}; marked class boundaries remain visible for outliers.`)
+    const medianNote = range.median === null ? '' : ` Catalog median ${number(range.median)} solar luminosities.`
+    classBar.setAttribute('aria-label', `${star.name}: ${number(luminosity)} solar luminosities.${comparing ? ` ${reference.name}: ${referenceAvailable ? `${number(referenceLuminosity)} solar luminosities` : 'individual luminosity unavailable'}.` : ''}${includeSun ? ' Sun: 1 solar luminosity.' : ''} ${range.label} ${range.context.toLowerCase()} from ${number(range.low)} to ${number(range.high)} solar luminosities.${distribution}${medianNote} Logarithmic axis from ${number(low)} to ${number(high)}; marked class boundaries remain visible for outliers.`)
   }
 }
 

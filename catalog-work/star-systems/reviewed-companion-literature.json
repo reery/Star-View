@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedOn": "2026-10-16",
+  "reviewedOn": "2026-10-18",
   "policy": "Exact individual membership and reviewed component scope; fill unavailable values only, preserve earlier reviews. Published model and calibration estimates retain their status. No system-total or subsystem-total masses, blended flux, minimum masses, assumed abundance, or fabricated component velocities.",
   "inputSha256": {
     "catalog-work/star-systems/literature-components/debcat-20261011.dat": "51af2a4e465a4e2dd8a5671926a1e1069b49eadd80402c4a8bec6785c3505bbe",
@@ -12,7 +12,18 @@
     "catalog-work/star-systems/literature-components/piccotti-2020-table7.dat": "ce64da40f7d8aea35ffdba9ee16541323622430ee9d671880b81c467c0b0e1d2",
     "catalog-work/star-systems/component-gap-adoptions.json": "1a85f8171211ecfbe16809bf8c400341ddeced623994b958b2d38d4fc09d4537",
     "catalog-work/star-systems/component-gap-literature-review.json": "cf48db55ac96e9b22e4b212b02f49f1af08b407c10bf38ee5e88e71aec03b8eb",
-    "catalog-work/star-systems/catalog-companions-cifuentes.json": "bdd35ae8d422a55660f6055417684ec7dbe7bf8df6ec1657129b448bc73346b8"
+    "catalog-work/star-systems/catalog-companions-cifuentes.json": "bdd35ae8d422a55660f6055417684ec7dbe7bf8df6ec1657129b448bc73346b8",
+    "catalog-work/bright-stars/literature/npoi-selected-tables.json": "334a19776550ebcd6863e55a65439283bdfa96a07d9148755b8b5ad655d6d9ca",
+    "catalog-work/bright-stars/literature/tess-bright-selected-tables.json": "ed174e07068f8c09ea96da39570cb43b4573bfea5e50f097970967e7993a32c3",
+    "catalog-work/bright-stars/literature/castor-selected-tables.json": "39576bba5c6364b0b0c19d831b46d1ef93e53ebcd762f9bd291b684affe6e60c",
+    "catalog-work/bright-stars/literature/polaris-selected-tables.json": "c50506b4acc884ffc878d252ec0a37335f170f46510e453e42963ce7fd25df1a",
+    "catalog-work/bright-stars/literature/zhao-selected-tables.json": "ec25429ec2b3d82a5feddc3380591d28167c335a4a1dfd0305eb5b2b1a926304",
+    "catalog-work/bright-stars/literature/canopus-selected-tables.json": "74595c5f6a9d101a7b7dbd18725566c22f4884642627de1deefccdca1133495b",
+    "catalog-work/bright-stars/literature/rasalhague-selected-tables.json": "ef1db9967b2707b826935eab7787d8183c14366ae71d4f400b8bbbcc7df43187",
+    "catalog-work/bright-stars/literature/stock-2018-ReadMe": "4db003dc4e59f8c1cc011b26fabccd44822035e0f91fccc2bccfe196b29b8b41",
+    "catalog-work/bright-stars/literature/stock-2018-selected.dat": "28621160a64c4cbd6c7cd00942146c89e7e5f9ba9a8b7994045c3b1dff8b4eb9",
+    "catalog-work/bright-stars/literature/algol-selected-tables.json": "cffb1740e2dee974b0ac32466c69d61e8491c52241c5012cc9b5e1b7eb8ef604",
+    "catalog-work/bright-stars/literature/deneb-selected-tables.json": "7a062cc68c7a7ec883c9099677a0d7b1d518af489c430b01aa82625d6b58544b"
   },
   "objects": {
     "bright-dschubba": {
@@ -2348,6 +2359,381 @@
       },
       "note": "Resolved individual main-sequence luminosity class restored from Cifuentes et al. (2025) Table A.1, attributed there to Alonso-Floriano et al. (2015). Existing numeric physical values and motion are preserved.",
       "gaiaDr3Id": "2079073928612821760"
+    },
+    "bright-izar": {
+      "expectedName": "Izar A",
+      "systemId": "msc-14450+2704",
+      "component": "A",
+      "fields": {
+        "mass_solar": {
+          "value": 5.36,
+          "uncertainty": 0.48,
+          "status": "asteroseismic",
+          "reference": "2026MNRAS.547.stag413R",
+          "sourceUrl": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+          "section": "Table 1; section 4",
+          "method": "Published nu_max scaling using independently measured radius and effective temperature; not a dynamical mass",
+          "inputs": {
+            "source_temperature_k": 4755,
+            "source_temperature_uncertainty_k": 66,
+            "source_radius_solar": 37.61,
+            "source_radius_uncertainty_solar": 1.38
+          }
+        }
+      },
+      "note": " Rudrasingam et al. (2026): approximate seismic mass from nu_max and independent radius. Formal source errors omit scaling systematics. Published mass is approximate and inherits seismic-scaling systematics; existing adopted quantities retain their independent sources."
+    },
+    "bright-dubhe": {
+      "expectedName": "Dubhe A",
+      "systemId": "msc-11037+6145",
+      "component": "A",
+      "fields": {},
+      "note": " Rudrasingam et al. (2026): approximate seismic mass from nu_max and independent radius. Formal source errors omit scaling systematics. Schedar/Izar high masses warrant further confirmation; original values elsewhere remain unchanged."
+    },
+    "bright-aljanah": {
+      "expectedName": "Aljanah Aa",
+      "systemId": "msc-20462+3358",
+      "component": "Aa",
+      "fields": {
+        "mass_solar": {
+          "value": 1.56,
+          "uncertainty": 0.11,
+          "status": "asteroseismic",
+          "reference": "2026MNRAS.547.stag413R",
+          "sourceUrl": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+          "section": "Table 1; section 4",
+          "method": "Published nu_max scaling using independently measured radius and effective temperature; not a dynamical mass",
+          "inputs": {
+            "source_temperature_k": 4659,
+            "source_temperature_uncertainty_k": 6,
+            "source_radius_solar": 12.41,
+            "source_radius_uncertainty_solar": 0.29
+          }
+        },
+        "radius_solar": {
+          "value": 12.41,
+          "uncertainty": 0.29,
+          "status": "interferometric",
+          "reference": "Rudrasingam et al. 2026 Table 1; arXiv/DOI:10.1093/mnras/stag413",
+          "sourceUrl": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+          "section": "Table 1; NPOI radius attributed to Baines et al. 2023",
+          "scope": "Dominant giant Aljanah Aa photosphere; not unseen Ab or wide D"
+        },
+        "luminosity_solar": {
+          "value": 65.37461061066777,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "Rudrasingam et al. 2026 Table 1; arXiv/DOI:10.1093/mnras/stag413",
+          "sourceUrl": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+          "section": "Derived here from Table 1 R and Teff",
+          "inputs": {
+            "radius_solar": 12.41,
+            "radius_uncertainty_solar": 0.29,
+            "temperature_k": 4659,
+            "temperature_uncertainty_k": 6,
+            "solar_temperature_k": 5772
+          },
+          "method": "Stefan-Boltzmann from the coherent source inputs, independent of the existing adopted temperature"
+        }
+      },
+      "note": " Rudrasingam et al. (2026): approximate seismic mass from nu_max and independent radius. Formal source errors omit scaling systematics. Published mass is approximate and inherits seismic-scaling systematics; existing adopted quantities retain their independent sources. Giant-primary interferometric radius and source-input Stefan-Boltzmann luminosity now supersede the blanket physical withholding for Aa; no secondary flux is inferred."
+    },
+    "bright-castor": {
+      "expectedName": "Castor Aa",
+      "systemId": "msc-07346+3153",
+      "component": "Aa",
+      "fields": {
+        "mass_solar": {
+          "value": 2.371,
+          "uncertainty": 0.015,
+          "status": "dynamical",
+          "reference": "Torres et al. 2022; arXiv:2210.16322",
+          "sourceUrl": "https://arxiv.org/html/2210.16322",
+          "section": "Table 6"
+        },
+        "radius_solar": {
+          "value": 2.089,
+          "uncertainty": 0.005,
+          "status": "interferometric",
+          "reference": "Torres et al. 2022; arXiv:2210.16322",
+          "sourceUrl": "https://arxiv.org/html/2210.16322",
+          "section": "Section IV.1",
+          "caveat": "Castor Ba angular radius has potential observational systematics discussed by authors"
+        }
+      },
+      "note": " Torres et al. (2022) exact Aa/Ab/Ba/Bb component masses, distinct from A/B subsystem sums. CHARA radii apply only to Aa/Ba. Luminosity, where subsequently derived, uses adopted component inputs."
+    },
+    "msc-07346+3153-ab": {
+      "expectedName": "Castor Ab",
+      "systemId": "msc-07346+3153",
+      "component": "Ab",
+      "fields": {
+        "mass_solar": {
+          "value": 0.3859,
+          "uncertainty": 0.0018,
+          "status": "dynamical",
+          "reference": "Torres et al. 2022; arXiv:2210.16322",
+          "sourceUrl": "https://arxiv.org/html/2210.16322",
+          "section": "Table 6"
+        }
+      },
+      "note": " Torres et al. (2022) exact Aa/Ab/Ba/Bb component masses, distinct from A/B subsystem sums. CHARA radii apply only to Aa/Ba. Luminosity, where subsequently derived, uses adopted component inputs."
+    },
+    "msc-07346+3153-ba": {
+      "expectedName": "Castor Ba",
+      "systemId": "msc-07346+3153",
+      "component": "Ba",
+      "fields": {
+        "mass_solar": {
+          "value": 1.789,
+          "uncertainty": 0.016,
+          "status": "dynamical",
+          "reference": "Torres et al. 2022; arXiv:2210.16322",
+          "sourceUrl": "https://arxiv.org/html/2210.16322",
+          "section": "Table 6"
+        },
+        "radius_solar": {
+          "value": 1.648,
+          "uncertainty": 0.011,
+          "status": "interferometric",
+          "reference": "Torres et al. 2022; arXiv:2210.16322",
+          "sourceUrl": "https://arxiv.org/html/2210.16322",
+          "section": "Section IV.1",
+          "caveat": "Castor Ba angular radius has potential observational systematics discussed by authors"
+        }
+      },
+      "note": " Torres et al. (2022) exact Aa/Ab/Ba/Bb component masses, distinct from A/B subsystem sums. CHARA radii apply only to Aa/Ba. Luminosity, where subsequently derived, uses adopted component inputs."
+    },
+    "msc-07346+3153-bb": {
+      "expectedName": "Castor Bb",
+      "systemId": "msc-07346+3153",
+      "component": "Bb",
+      "fields": {
+        "mass_solar": {
+          "value": 0.3865,
+          "uncertainty": 0.002,
+          "status": "dynamical",
+          "reference": "Torres et al. 2022; arXiv:2210.16322",
+          "sourceUrl": "https://arxiv.org/html/2210.16322",
+          "section": "Table 6"
+        }
+      },
+      "note": " Torres et al. (2022) exact Aa/Ab/Ba/Bb component masses, distinct from A/B subsystem sums. CHARA radii apply only to Aa/Ba. Luminosity, where subsequently derived, uses adopted component inputs."
+    },
+    "bright-polaris": {
+      "expectedName": "Polaris Aa",
+      "systemId": "msc-02318+8916",
+      "component": "Aa",
+      "fields": {
+        "mass_solar": {
+          "value": 5.13,
+          "uncertainty": 0.28,
+          "status": "dynamical",
+          "reference": "Evans et al. 2024; arXiv:2407.09641",
+          "sourceUrl": "https://arxiv.org/html/2407.09641",
+          "section": "Table 5 preferred replicated solution"
+        },
+        "radius_solar": {
+          "value": 46.27,
+          "uncertainty": 0.42,
+          "status": "interferometric",
+          "reference": "Evans et al. 2024; arXiv:2407.09641",
+          "sourceUrl": "https://arxiv.org/html/2407.09641",
+          "section": "Section III.1"
+        }
+      },
+      "note": " Evans et al. (2024): Cepheid Polaris Aa mass and pulsation-averaged CHARA radius at Gaia Polaris B distance 136.90 +/-0.34 pc. Not Aa+Ab total; no instantaneous pulsation phase inferred."
+    },
+    "msc-02318+8916-ab": {
+      "expectedName": "Polaris Ab",
+      "systemId": "msc-02318+8916",
+      "component": "Ab",
+      "fields": {
+        "mass_solar": {
+          "value": 1.316,
+          "uncertainty": 0.028,
+          "status": "dynamical",
+          "reference": "Evans et al. 2024; arXiv:2407.09641",
+          "sourceUrl": "https://arxiv.org/html/2407.09641",
+          "section": "Table 5 preferred replicated solution"
+        }
+      },
+      "note": " Evans et al. (2024): Polaris Ab dynamical mass, distinct from the Cepheid Aa."
+    },
+    "bright-algol": {
+      "expectedName": "Algol Aa",
+      "systemId": "msc-03082+4057",
+      "component": "Aa",
+      "fields": {
+        "mass_solar": {
+          "value": 3.39,
+          "uncertainty": 0.06,
+          "status": "dynamical",
+          "reference": "2015MNRAS.451.4150K",
+          "sourceUrl": "https://arxiv.org/abs/1506.01254",
+          "section": "Table 5"
+        },
+        "radius_solar": {
+          "value": 2.87,
+          "uncertainty": 0.04,
+          "status": "derived",
+          "reference": "2015MNRAS.451.4150K",
+          "sourceUrl": "https://arxiv.org/abs/1506.01254",
+          "section": "Table 5"
+        },
+        "luminosity_solar": {
+          "value": 184.09136038396818,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2015MNRAS.451.4150K",
+          "sourceUrl": "https://arxiv.org/abs/1506.01254",
+          "section": "Derived here from Table 5 component R and Teff",
+          "inputs": {
+            "radius_solar": 2.87,
+            "radius_uncertainty_solar": 0.04,
+            "temperature_k": 12550,
+            "temperature_uncertainty_k": 120
+          }
+        }
+      },
+      "note": " Kolbas et al. (2015) resolved Algol A/B/C correspond to MSC Aa/Ab/B respectively. Mass and radius/temperature are individual; luminosity derived from that same source pair, never integrated Algol light."
+    },
+    "msc-03082+4057-ab": {
+      "expectedName": "Algol Ab",
+      "systemId": "msc-03082+4057",
+      "component": "Ab",
+      "fields": {
+        "mass_solar": {
+          "value": 0.77,
+          "uncertainty": 0.009,
+          "status": "dynamical",
+          "reference": "2015MNRAS.451.4150K",
+          "sourceUrl": "https://arxiv.org/abs/1506.01254",
+          "section": "Table 5"
+        },
+        "radius_solar": {
+          "value": 3.43,
+          "uncertainty": 0.01,
+          "status": "derived",
+          "reference": "2015MNRAS.451.4150K",
+          "sourceUrl": "https://arxiv.org/abs/1506.01254",
+          "section": "Table 5"
+        },
+        "temperature_k": {
+          "value": 4900,
+          "uncertainty": 300,
+          "status": "spectroscopic",
+          "reference": "2015MNRAS.451.4150K",
+          "sourceUrl": "https://arxiv.org/abs/1506.01254",
+          "section": "Table 5"
+        },
+        "luminosity_solar": {
+          "value": 6.110366647611653,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2015MNRAS.451.4150K",
+          "sourceUrl": "https://arxiv.org/abs/1506.01254",
+          "section": "Derived here from Table 5 component R and Teff",
+          "inputs": {
+            "radius_solar": 3.43,
+            "radius_uncertainty_solar": 0.01,
+            "temperature_k": 4900,
+            "temperature_uncertainty_k": 300
+          }
+        }
+      },
+      "note": " Kolbas et al. (2015) resolved Algol A/B/C correspond to MSC Aa/Ab/B respectively. Mass and radius/temperature are individual; luminosity derived from that same source pair, never integrated Algol light."
+    },
+    "msc-03082+4057-b": {
+      "expectedName": "Algol B",
+      "systemId": "msc-03082+4057",
+      "component": "B",
+      "fields": {
+        "mass_solar": {
+          "value": 1.58,
+          "uncertainty": 0.09,
+          "status": "dynamical",
+          "reference": "2015MNRAS.451.4150K",
+          "sourceUrl": "https://arxiv.org/abs/1506.01254",
+          "section": "Table 5"
+        },
+        "radius_solar": {
+          "value": 1.7,
+          "uncertainty": 0.3,
+          "status": "derived",
+          "reference": "2015MNRAS.451.4150K",
+          "sourceUrl": "https://arxiv.org/abs/1506.01254",
+          "section": "Table 5"
+        },
+        "luminosity_solar": {
+          "value": 8.460194733704313,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2015MNRAS.451.4150K",
+          "sourceUrl": "https://arxiv.org/abs/1506.01254",
+          "section": "Derived here from Table 5 component R and Teff",
+          "inputs": {
+            "radius_solar": 1.7,
+            "radius_uncertainty_solar": 0.3,
+            "temperature_k": 7550,
+            "temperature_uncertainty_k": 250
+          }
+        }
+      },
+      "note": " Kolbas et al. (2015) resolved Algol A/B/C correspond to MSC Aa/Ab/B respectively. Mass and radius/temperature are individual; luminosity derived from that same source pair, never integrated Algol light."
+    },
+    "bright-antares": {
+      "expectedName": "Antares A",
+      "systemId": "spectroscopic-bright-antares",
+      "component": "A",
+      "fields": {
+        "temperature_k": {
+          "value": 3660,
+          "uncertainty": 120,
+          "status": "interferometric",
+          "reference": "2013A&A...555A..24O",
+          "sourceUrl": "https://arxiv.org/abs/1304.4800",
+          "section": "Section 3"
+        },
+        "luminosity_solar": {
+          "value": 75857.75750291836,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2013A&A...555A..24O",
+          "sourceUrl": "https://arxiv.org/abs/1304.4800",
+          "section": "Section 3",
+          "inputs": {
+            "log_luminosity_solar": 4.88,
+            "uncertainty_dex": 0.23
+          }
+        },
+        "radius_solar": {
+          "value": 680,
+          "uncertainty": null,
+          "status": "interferometric",
+          "reference": "2013A&A...555A..24O",
+          "sourceUrl": "https://arxiv.org/abs/1304.4800",
+          "section": "Section 3",
+          "caveat": "No formal radius error supplied for the rounded 680-solar-radius value; source parallax 5.89 +/-1.00 mas dominates."
+        }
+      },
+      "note": " Ohnaka et al. (2013) Antares A photospheric radius and bolometric luminosity at their Hipparcos distance; molecular atmosphere is larger. The 15 +/-5 solar evolutionary track mass is not adopted as a present-day mass."
+    },
+    "bright-adhara": {
+      "expectedName": "Adhara A",
+      "systemId": "adhara",
+      "component": "A",
+      "fields": {
+        "mass_solar": {
+          "value": 13.1,
+          "uncertainty": 2.3,
+          "reference": "Shull et al. 2025; arXiv:2412.06919",
+          "sourceUrl": "https://arxiv.org/html/2412.06919",
+          "section": "Section II.1 equation 4 (Table 1 instead rounds uncertainty to 2.4)",
+          "status": "spectroscopic"
+        }
+      },
+      "note": "Primary gravitational mass from its interferometric radius and spectroscopic surface gravity at 124 pc. Formal mass error is 2.3 in equation 4; table lists 2.4. No faint B-component flux/mass inferred."
     }
   },
   "sourceReviews": {

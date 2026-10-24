@@ -44,7 +44,8 @@ describe('scoped WISE 0855-0714 observations', () => {
     for (const frame of ['solar', 'galactic'] as const) expect(displayMotionForStar(wise, frame)?.mode).toBe('transverse')
     expect(missingCatalogMeasurements(before, wise)).toEqual([])
     expect(completed).toHaveLength(completeCatalogCompanions(stars).length)
-    expect(completed.filter((star) => star.id !== wise.id)).toEqual(completeCatalogCompanions(stars).filter((star) => star.id !== wise.id))
+    const reviewedIds = new Set([wise.id, '10pc-0068', '10pc-0084'])
+    expect(completed.filter((star) => !reviewedIds.has(star.id))).toEqual(completeCatalogCompanions(stars).filter((star) => !reviewedIds.has(star.id)))
   })
 
   it('rejects a mismatched object identity and preserves the observations across payload loading and catalog merging', () => {
@@ -56,5 +57,37 @@ describe('scoped WISE 0855-0714 observations', () => {
     expect(loaded.find((star) => star.id === wise.id)?.stellar_observations).toEqual(wise.stellar_observations)
     const { stellar_observations: _observations, ...withoutObservations } = wise
     expect(mergeCatalogStars([withoutObservations], [wise])[0]?.stellar_observations).toEqual(wise.stellar_observations)
+  })
+})
+
+describe('cold brown dwarf enrichment', () => {
+  it.each(catalogs.slice(1))('preserves J0722 model scenarios and both objects’ infrared scope in $path', ({ stars }) => {
+    const completed = supplementStellarObservations(stars)
+    const ugps = completed.find((star) => star.id === '10pc-0068')!
+    const wise = completed.find((star) => star.id === '10pc-0084')!
+    expect(ugps).toMatchObject({ temperature_k: null, mass_solar: null, radius_solar: null, age_gyr: null,
+      metallicity_dex: null, absolute_mag: null, apparent_mag: null })
+    expect(ugps.stellar_observations).toMatchObject({
+      temperature_range: { min_k: 502, max_k: 539 },
+      mass_range: { min_jupiter: 10.7, max_jupiter: 25.8, assumed_age_min_gyr: 1, assumed_age_max_gyr: 5 },
+      radius_range: { min_jupiter: 0.886, max_jupiter: 1.0192 },
+      infrared_photometry: { instrument: 'JWST/NIRISS', band: 'F480M', magnitude: 12.016, error_mag: 0.011 },
+    })
+    expect(ugps.raw_astrometry).toMatchObject({ radial_velocity_kms: 35.8, radial_velocity_error_kms: 0.16,
+      radial_velocity_ref: '2023ApJ...953..170H' })
+    expect(ugps.notes).toContain('46.9 +/- 2.5')
+    expect(ugps.notes).toContain('https://arxiv.org/abs/1109.2897')
+    expect(wise).toMatchObject({ temperature_k: 361, age_gyr: null, metallicity_dex: null,
+      absolute_mag: null, apparent_mag: null, vx_kms: null, vy_kms: null, vz_kms: null })
+    expect(wise.stellar_observations?.infrared_photometry).toMatchObject({ instrument: 'JWST/NIRCam',
+      band: 'F480M', magnitude: 13.487, error_mag: 0.005 })
+    expect(wise.notes).toContain('5 +/- 3 Gyr')
+    expect(wise.raw_astrometry?.radial_velocity_kms).toBeNull()
+    for (const star of [ugps, wise]) expect(magnitudeCardAvailable(star)).toBe(false)
+    expect(massProperties(ugps).mass).toBeNull()
+    expect(() => supplementStellarObservations([{ ...ugps, designations: ['WISE J163940.83-684738.6'] }])).toThrow('identity drifted')
+    const loaded = parseCatalogPayload({ schemaVersion: 2, catalogId: DEFAULT_CATALOG_MANIFEST.id,
+      sourceObjectCount: completed.length, stars: completed }, { ...DEFAULT_CATALOG_MANIFEST, objectCount: completed.length })
+    expect(loaded.find((star) => star.id === ugps.id)?.stellar_observations).toEqual(ugps.stellar_observations)
   })
 })

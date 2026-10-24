@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "sources": {
+    "spica-2016": {
+      "sourceUrl": "https://arxiv.org/html/1601.08069",
+      "retrievedOn": "2026-10-19",
+      "documentSha256": "70e101fc8b47889a07f82561a84a19c860542affacb234fb3999209f141b4896",
+      "selectedTables": [
+        [
+          [
+            "Parameter",
+            "Unit",
+            "Primary",
+            "Secondary"
+          ],
+          [
+            "Mass, M",
+            "M \u2299",
+            "11.43 \u00b1",
+            "1.15",
+            "7.21 \u00b1",
+            "0.75"
+          ],
+          [
+            "Radius, R",
+            "R \u2299",
+            "7.47 \u00b1",
+            "0.54",
+            "3.74 \u00b1",
+            "0.53"
+          ],
+          [
+            "Luminosity, log \u2061 L",
+            "L \u2299",
+            "4.312 \u00b1",
+            "0.095",
+            "3.353 \u00b1",
+            "0.181"
+          ],
+          [
+            "Effective temperature 1 , T eff",
+            "K",
+            "25 300 \u00b1",
+            "500",
+            "20 900 \u00b1",
+            "800"
+          ],
+          [
+            "Surface gravity 1 , log \u2061 g",
+            "dex",
+            "3.71 \u00b1",
+            "0.10",
+            "4.15 \u00b1",
+            "0.15"
+          ],
+          [
+            "1 adopted from spectroscopy (see Table 4 )",
+            "",
+            "",
+            ""
+          ]
+        ]
+      ]
+    },
+    "yygem-2019": {
+      "sourceUrl": "https://arxiv.org/html/1902.04157",
+      "retrievedOn": "2026-10-19",
+      "documentSha256": "c4854c68dd7330dff4e170741763ff237e3fe296fc0822407089a5044f93a8f3",
+      "selectedTables": [
+        [
+          [
+            "Parameter",
+            "Value"
+          ],
+          [
+            "Fitted quantities:"
+          ],
+          [
+            "P orb (d)",
+            "0.814282212 a a Adopted from Torres & Ribas [69] ."
+          ],
+          [
+            "H \u200b J \u200b D 0",
+            "2449345.116643 \u00b1 0.000068"
+          ],
+          [
+            "K A (km s -1 )",
+            "121.337 \u00b1 0.072"
+          ],
+          [
+            "K B (km s -1 )",
+            "121.264 \u00b1 0.064"
+          ],
+          [
+            "\u03b3 (km s -1 )",
+            "2.287 \u00b1 0.038"
+          ],
+          [
+            "e",
+            "0.0 b b Circular orbit is assumed."
+          ],
+          [
+            "Derived quantities:"
+          ],
+          [
+            "M B / M A",
+            "1.00060 \u00b1 0.00080"
+          ],
+          [
+            "M A \u200b sin 3 \u2061 i ( M \u2299 )",
+            "0.60217 \u00b1 0.00058"
+          ],
+          [
+            "M B \u200b sin 3 \u2061 i ( M \u2299 )",
+            "0.60253 \u00b1 0.00060"
+          ],
+          [
+            "M A ( M \u2299 )",
+            "0.60597 \u00b1 0.00058 c c Calculated assuming i = 86 \u200b . \u2218 \u200b 29 \u00b1 0 \u200b . \u2218 \u200b 1 [ 69 ] ."
+          ],
+          [
+            "M B ( M \u2299 )",
+            "0.60633 \u00b1 0.00061 c c Calculated assuming i = 86 \u200b . \u2218 \u200b 29 \u00b1 0 \u200b . \u2218 \u200b 1 [ 69 ] ."
+          ],
+          [
+            "a A \u200b sin \u2061 i ( \u00d7 10 6 km)",
+            "1.35863 \u00b1 0.00081"
+          ],
+          [
+            "a B \u200b sin \u2061 i ( \u00d7 10 6 km)",
+            "1.35782 \u00b1 0.00072"
+          ]
+        ]
+      ],
+      "sectionV1": {
+        "radius_solar": {
+          "YY Gem A": {
+            "value": 0.614,
+            "uncertainty": 0.01
+          },
+          "YY Gem B": {
+            "value": 0.612,
+            "uncertainty": 0.01
+          }
+        },
+        "componentConvention": "A is eclipsed at phase zero; retain published ordering, not mass or brightness ordering."
+      },
+      "sectionVI": {
+        "adoptedTemperatureK": 3800,
+        "temperatureStatus": "Atmosphere-model assumption; not a new temperature measurement. Source compares Torres & Ribas 2002 / Stassun & Torres 2016: 3820 +/- 100 K and MacDonald & Mullan 2014: approximately 3770 +/- 100 K."
+      }
+    },
+    "nunki-2026": {
+      "sourceUrl": "https://arxiv.org/html/2603.17011",
+      "retrievedOn": "2026-10-19",
+      "documentSha256": "af2bcea9ab26a7e61da77b7a3f880ee98ad493d533782d4b9dd15affa6e3d25d",
+      "selectedTables": [
+        [
+          [
+            "a (mas) (au)",
+            "18.0 \u00b1 0.2 1.26 \u00b1 0.05"
+          ],
+          [
+            "e",
+            "0.492 \u00b1 0.003"
+          ],
+          [
+            "i (deg)",
+            "19.7 \u00b1 1.9"
+          ],
+          [
+            "\u03a9 (deg)",
+            "45.9 \u00b1 8.0"
+          ],
+          [
+            "\u03c9 (deg)",
+            "76.4 \u00b1 7.1"
+          ],
+          [
+            "P (days)",
+            "134.779 \u00b1 0.025"
+          ],
+          [
+            "T p (MJD)",
+            "48588.1 \u00b1 2.2"
+          ],
+          [
+            "a p (au)",
+            "0.64 \u00b1 0.03"
+          ],
+          [
+            "M dyn ( M \u2299 )",
+            "14.6 \u00b1 1.8"
+          ]
+        ]
+      ],
+      "sections3_1and4_1": {
+        "Aa": {
+          "mass_solar": 6.5,
+          "radius_solar": 4.1
+        },
+        "Ab": {
+          "mass_solar": 6.3,
+          "radius_solar": 3.9
+        },
+        "status": "Approximate individual isochrone values from Waisberg et al. 2025, explicitly retained in sections 3.1/4.1. No formal individual errors published here.",
+        "combinedSpectrumTemperatureK": 18500,
+        "combinedSpectrumScope": "System temperature estimate from unresolved line ratios, not two independent component temperatures."
+      },
+      "table1ValidationOffsetsMas": [
+        {
+          "mjd": 57950.11,
+          "east": -22.76,
+          "north": 11.08
+        },
+        {
+          "mjd": 57992.06,
+          "east": -3.58,
+          "north": 19.55
+        },
+        {
+          "mjd": 58005.07,
+          "east": 5.05,
+          "north": 14.47
+        }
+      ]
+    },
+    "frost-2025": {
+      "sourceUrl": "https://arxiv.org/html/2505.02300",
+      "retrievedOn": "2026-10-19",
+      "documentSha256": "59528efdec317ecbd7d4a824405b3029ec0dad34857f5baafd1791c4990bba5d",
+      "selectedTables": [
+        [
+          [
+            "HD 116658",
+            "0.331 \u2212 0.007 + 0.01",
+            "0.168 \u2212 0.020 + 0.05"
+          ]
+        ],
+        [
+          [
+            "",
+            "HD 116658",
+            "Harrington et al. (2016)",
+            "P =4.0145d"
+          ]
+        ]
+      ]
+    },
+    "beta-aur-2026": {
+      "sourceUrl": "https://arxiv.org/html/2609.03886v1",
+      "retrievedOn": "2026-10-19",
+      "documentSha256": "9487e89bb8a1bf4628fd520cb92d1309d5081ab9eeaae85ecd93dc134006b80a",
+      "selectedTable8": {
+        "primary": {
+          "mass_solar": {
+            "value": 2.359,
+            "uncertainty": 0.005
+          },
+          "radius_solar": {
+            "value": 2.752,
+            "uncertainty": 0.002
+          }
+        },
+        "secondary": {
+          "mass_solar": {
+            "value": 2.293,
+            "uncertainty": 0.004
+          },
+          "radius_solar": {
+            "value": 2.622,
+            "uncertainty": 0.002
+          }
+        },
+        "distance_pc": {
+          "value": 24.3,
+          "uncertainty": 0.05
+        }
+      },
+      "temperatureAssumptions": {
+        "section": "5.1 and Table 6",
+        "fixedPrimaryK": 9350,
+        "fittedSecondaryToPrimaryRatio": 0.997543,
+        "ratioErrorMinus": 8.7e-05,
+        "ratioErrorPlus": 9.6e-05,
+        "scope": "Absolute primary temperature inherited from Southworth et al. 2007, not newly measured; its calibration uncertainty dominates the inferred secondary temperature."
+      },
+      "epochConvention": {
+        "section": "Equations 4 and 5",
+        "combinedModelEpoch": "HJD = JD + heliocentric correction - 2400000",
+        "table6PeriastronReducedHjd": 53827.2048,
+        "fullPeriastronHjd": 2453827.2048,
+        "scope": "Interferometric observation timestamps are MJD; the combined fit uses reduced HJD. Do not label Table 6 periastron as MJD."
+      },
+      "table3ValidationOffsetsMas": [
+        {
+          "mjd": 60232.4493,
+          "east": -2.003,
+          "north": 0.238
+        },
+        {
+          "mjd": 60234.5388,
+          "east": 2.377,
+          "north": -0.496
+        },
+        {
+          "mjd": 60259.3951,
+          "east": 1.507,
+          "north": -1.401
+        }
+      ]
+    }
+  }
+}

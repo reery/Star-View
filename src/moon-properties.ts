@@ -36,7 +36,7 @@ export function planetMoonSpecs(moon: PlanetMoon, planetName: string): PlanetSpe
     ['surface-gravity', 'Surface gravity', moon.surfaceGravityMs2 === null ? '—' : `${estimate}${format(moon.surfaceGravityMs2)} m/s²`,
       `How strongly ${moon.name} pulls objects toward its surface.${gravityFraction === null ? '' : ` About 1/${gravityFraction} of Earth’s gravity, so you would weigh about that fraction of your Earth weight.`}`],
     ['semi-major-axis', moon.orbitReference === 'barycenter' ? 'Barycentric semi-major axis' : 'Orbital semi-major axis', moon.semiMajorAxisKm === null ? '—' : `${format(moon.semiMajorAxisKm)} km`,
-      moon.orbitReference === 'barycenter' ? 'Orbital semi-major axis relative to the Pluto–Charon barycenter, not Pluto’s center. This is an orbital size, not a current distance.' : `The size of the moon’s orbit: halfway between its closest and farthest distances from ${planetName}, measured between their centers. It is not a current distance.${moon.id === 'nereid' ? ' This orbit is very stretched out, so the distance changes a lot.' : ''}`],
+      moon.orbitReference === 'barycenter' ? 'The average size of the orbit, measured from the balance point that Pluto and Charon circle together rather than from Pluto’s center.' : `The size of the moon’s orbit: halfway between its closest and farthest distances from ${planetName}, measured between their centers. It is not a current distance.${moon.id === 'nereid' ? ' This orbit is very stretched out, so the distance changes a lot.' : ''}`],
     ['sidereal-orbit', 'Sidereal orbital period', moon.siderealOrbitDays === null ? '—' : `${format(moon.siderealOrbitDays)} d${moon.id === 'triton' ? ' · retrograde' : ''}`,
       `Time for ${moon.name} to go once all the way around ${planetName}. A day here means 24 hours.${moon.id === 'triton' ? ' Triton travels in the opposite direction to Neptune’s spin.' : ''}`],
     ['phase-cycle', 'Phase cycle', moon.phaseCycleDays === null ? '—' : `${format(moon.phaseCycleDays)} d`,
@@ -49,9 +49,10 @@ export function planetMoonSpecs(moon: PlanetMoon, planetName: string): PlanetSpe
     'sidereal-orbit': moon.siderealOrbitDetail,
     'phase-cycle': moon.phaseCycleDetail,
   }
-  return specs.map(([id, label, value, detail]) => ({
+  return specs.map(([id, label, value, definition]) => ({
     id: `moon-${moon.id}-${id}`, label, value, comparison: '',
-    detail: `${detail}${notes[id] ? ` ${notes[id]}` : ''} ${moon.sourceLabel}.`,
+    definition,
+    detail: `${notes[id] ? `${notes[id]} ` : ''}${moon.sourceLabel}.`,
     sourceUrl: moon.source,
   }))
 }

@@ -14,24 +14,25 @@ All files are served locally. Mercury imagery was downloaded October 7, 2026; th
 ## mercury-hollows.jpg
 
 - **NASA image:** [PIA15372 — Hollows, Hollows, Hollows](https://science.nasa.gov/photojournal/hollows-hollows-hollows/).
-- **Downloaded file:** [original JPEG](https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia15/pia15372/PIA15372.jpg), 1934 × 1067 pixels.
+- **Downloaded file:** [original JPEG](https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia15/pia15372/PIA15372.jpg), 1934 × 1067 pixels; the delivery copy is resized (see Delivery sizes).
 - **Credit:** NASA / Johns Hopkins University Applied Physics Laboratory / Carnegie Institution of Washington.
 - **Acquired:** January 26, 2012, MESSENGER MDIS Narrow Angle Camera; 119 m/pixel. The large crater is approximately 90 km across.
 - **Representation:** Monochrome camera observation showing bright hollows on the crater floor and central peaks. The whole original frame is displayed.
 - **Reuse:** NASA informational imagery, with no separate copyright restriction stated on the image entry. Used under [NASA Images and Media Guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/), retaining NASA acknowledgement, full credits and a link to the original entry. No NASA logo or endorsement is used.
 
-## mercury-surface-map.png
+## mercury-surface-map.webp
 
 - **Source:** [Mercury — complete mono basemap 2500mpp equirectangular, Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Mercury_-_complete_mono_basemap_2500mpp_equirectangular.png), from the [MESSENGER global mosaics](https://messenger.jhuapl.edu/Explore/Images.html#global-mosaics).
 - **Downloaded file:** [1280 × 640 PNG thumbnail](https://thumb.wikimedia.org/wikipedia/commons/thumb/0/04/Mercury_-_complete_mono_basemap_2500mpp_equirectangular.png/1280px-Mercury_-_complete_mono_basemap_2500mpp_equirectangular.png). Downloaded October 7, 2026; the original on Commons is 5760 × 2880. This existing thumbnail keeps the map's full extent and 2:1 projection while limiting the small globe's texture payload to approximately 539 KB.
 - **Credit:** NASA / Johns Hopkins University Applied Physics Laboratory.
 - **Representation:** Global monochrome morphology mosaic of actual MESSENGER imagery, in equirectangular projection. Used as surface color on a shaded sphere, without false-color enhancement or elevation inferred from brightness. Lighting and starting orientation are illustrative. The probe photo in Info remains the natural-color view.
 - **Reuse:** Commons marks this NASA image public domain in the United States and links the mission's image-use policy. The app retains NASA acknowledgement in the planet imagery credits and source documentation. No image edits were made after download.
+- **Delivery:** Converted from the downloaded PNG to WebP quality 94 on 2026-10-20 (323,804 bytes instead of 550,976), still 1280 × 640: 44.62 dB PSNR and 0.99877 SSIM against the PNG; no resampling, cropping or tonal change.
 
-## venus-natural-color.png
+## venus-natural-color.webp
 
 - **Source:** [Venus in natural color from MESSENGER, The Planetary Society](https://www.planetary.org/space-images/venus_messenger_3447783055_7201387b94_o).
-- **Downloaded file:** [original PNG](https://planetary.s3.amazonaws.com/web/assets/pictures/20120913_3447783055_7201387b94_o.png), 1000 × 1024 pixels, approximately 867 KB. Downloaded October 8, 2026, unmodified; the complete original frame is displayed without cropping or color edits. The camera frame itself clips part of the left limb.
+- **Downloaded file:** [original PNG](https://planetary.s3.amazonaws.com/web/assets/pictures/20120913_3447783055_7201387b94_o.png), 1000 × 1024 pixels, approximately 867 KB. Downloaded October 8, 2026; the complete original frame is displayed without cropping or color edits. Converted to WebP quality 100 on 2026-10-20 (65,120 bytes, still 1000 × 1024): 46.95 dB PSNR against the PNG. Lower qualities and JPEG were rejected because they flatten the planet's faint cloud streaks, which are only one to two 8-bit levels deep. The camera frame itself clips part of the left limb.
 - **Credit:** NASA / Johns Hopkins University Applied Physics Laboratory / Carnegie Institution of Washington / color composite by Gordan Ugarkovic.
 - **Acquired:** June 5, 2007, MESSENGER's second Venus flyby approach.
 - **Representation:** A composite of visible red, green and blue filter observations approximating natural color. The pale, nearly featureless appearance shows opaque clouds rather than exposed surface terrain. It is not a complete continuous-spectrum measurement or an ultraviolet/infrared false-color composite.
@@ -42,7 +43,7 @@ All files are served locally. Mercury imagery was downloaded October 7, 2026; th
 - **Source:** [NASA/JPL Solar System Simulator: Venus texture maps](https://maps.jpl.nasa.gov/tmaps/venus.html), the final Mariner / fictitious entry.
 - **Downloaded file:** [ven0mss2.jpg](https://maps.jpl.nasa.gov/tmaps/pix/ven0mss2.jpg), 1440 × 720 pixels, approximately 45 KB. Downloaded October 8, 2026; stored unmodified.
 - **Credit:** David Seal / NASA / JPL-Caltech.
-- **Representation:** JPL states that the global map is cloned from a single visible-frequency Mariner 10 image. It is an illustrative repeated cloud texture, not a global observation or current weather map. The globe blends the texture at 4% with a near-white ivory tint in linear color space, reducing the map's golden coloring and strong contrast to approximate Venus's pale, low-contrast visible-light appearance. No bump/displacement map or surface terrain is inferred. The Info hero retains actual visible-color observations and is not derived from this map.
+- **Representation:** JPL states that the global map is cloned from a single visible-frequency Mariner 10 image. It is an illustrative repeated cloud texture, not a global observation or current weather map. The globe blends the texture at 4% with a near-white ivory tint in linear color space, reducing the map's golden coloring and strong contrast to approximate Venus's pale, low-contrast visible-light appearance. Venus's outgoing light is scaled to 68% before display conversion and bloom is disabled, retaining a soft daylight gradient without clipping the pale clouds to white. This exposure is illustrative, not a calibrated photometric model, and does not alter the Earth comparison's lighting. No bump/displacement map or surface terrain is inferred. The Info hero retains actual visible-color observations and is not derived from this map.
 - **Reuse:** JPL's simulator offers the texture for download with creator/owner attribution. Used for informational visualization under [JPL's image-use policy](https://www.jpl.nasa.gov/jpl-image-use-policy/) and [NASA Images and Media Guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/), preserving credit, provenance and the illustrative qualification in the globe's tooltip and documentation. No endorsement or logo is used.
 
 ## earth-blue-marble.jpg
@@ -65,7 +66,7 @@ All files are served locally. Mercury imagery was downloaded October 7, 2026; th
 
 ## mars-natural-color.jpg
 
-- **Source:** [NASA: Global Color Views of Mars (PIA00407)](https://science.nasa.gov/resource/global-color-views-of-mars/), published June 8, 1998. Local image: 1920 × 1920 pixels; the published full-resolution mosaic is 6787 × 6787.
+- **Source:** [NASA: Global Color Views of Mars (PIA00407)](https://science.nasa.gov/resource/global-color-views-of-mars/), published June 8, 1998. Downloaded image: 1920 × 1920 pixels, delivered at 1080 × 1080 (see Delivery sizes); the published full-resolution mosaic is 6787 × 6787.
 - **Credit:** NASA / JPL-Caltech / USGS, from Viking Orbiter observations.
 - **Representation:** A processed global mosaic centered at 20° latitude and 60° longitude, assembled from red- and violet-filter imagery with a synthesized green channel and interpolated coverage gaps. The source approximates natural color in bright regions but stretches dark regions' color and contrast. It is not a single photograph or a uniformly natural-color measurement. Info preserves the local file's full frame, with no additional color changes or cropping.
 - **Reuse:** Informational use under [NASA Images and Media Guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/), retaining institutional credit, source and processing context.
@@ -80,44 +81,44 @@ All files are served locally. Mercury imagery was downloaded October 7, 2026; th
 ## jupiter-natural-color.jpg
 
 - **Source:** [NASA / JPL: Cassini Jupiter Portrait (PIA04866)](https://www.jpl.nasa.gov/images/pia04866-cassini-jupiter-portrait/), also cataloged by [NASA Science](https://science.nasa.gov/resource/cassini-jupiter-portrait/).
-- **Downloaded file:** [Published JPEG](https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA04866.jpg), 1920 × 2400 pixels, approximately 175 KB. Downloaded October 8, 2026, unmodified. The complete published frame and aspect ratio are preserved, including the shadowed right limb.
+- **Downloaded file:** [Published JPEG](https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA04866.jpg), 1920 × 2400 pixels, approximately 175 KB. Downloaded October 8, 2026; the delivery copy is resized only (see Delivery sizes). The complete published frame and aspect ratio are preserved, including the shadowed right limb.
 - **Credit:** NASA / JPL / Space Science Institute. Cassini narrow-angle camera observations, December 29, 2000.
 - **Representation:** A true-color mosaic assembled from 27 red-, green- and blue-filter images, approximating human-eye colors. Not a single exposure or a current view.
 - **Reuse:** Informational use under [JPL's image-use policy](https://www.jpl.nasa.gov/jpl-image-use-policy/) and [NASA media guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/), retaining institutional and mission attribution.
 
 ## Jupiter globe: shared Hubble map
 
-The planet globe reuses `../radius-comparison/jupiter-map.png`, the existing 3600 × 1800 [Hubble OPAL global map (2019)](https://science.nasa.gov/asset/hubble/jupiter-global-map-2019/). Credit: NASA, ESA, A. Simon (Goddard Space Flight Center), and M. H. Wong (University of California, Berkeley). Original download and usage policies remain documented in [the radius imagery README](../radius-comparison/README.md).
+The planet globe reuses `../radius-comparison/jupiter-map.webp`, the existing 3600 × 1800 [Hubble OPAL global map (2019)](https://science.nasa.gov/asset/hubble/jupiter-global-map-2019/). Credit: NASA, ESA, A. Simon (Goddard Space Flight Center), and M. H. Wong (University of California, Berkeley). Original download and usage policies remain documented in [the radius imagery README](../radius-comparison/README.md).
 
 The mesh uses Jupiter’s 1-bar equatorial and polar radii (71,492 / 66,854 km), normalized by its volumetric mean radius, with recomputed ellipsoid normals. UV sampling extends the nearest mapped rows into the unobserved caps above 80° latitude, matching the existing comparison renderer. The initial meridian places the Great Red Spot slightly left of center. The center retains the photographic map colors. Toward the inner limb, a small derivative-based cloud blur progressively softens detail, and pale scattering follows the daylight with a smooth grazing-angle falloff. The treatment is visually guided by the [Hubble 2019 portrait](https://science.nasa.gov/asset/hubble/jupiter-2019/), rather than fitted to an atmospheric model. It remains within the mesh silhouette and rotates correctly with the oblate body. Roughness removes a solid-surface specular appearance, and bloom is disabled for Jupiter. No terrain displacement, invented cloud heights or weather animation is added. Lighting and orientation remain illustrative; the globe tooltip records the historical composite and polar coverage limits. The Earth comparison uses the same physical scale for both meshes.
 
 ## saturn-natural-color.jpg
 
 - **Source:** [NASA: So Far from Home (PIA21345)](https://science.nasa.gov/photojournal/so-far-from-home/).
-- **Downloaded file:** [Original JPEG](https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia21/pia21345/PIA21345.jpg), 3545 × 1834 pixels, approximately 236 KB. Downloaded October 8, 2026, unmodified; Info preserves the complete published frame and aspect ratio.
+- **Downloaded file:** [Original JPEG](https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia21/pia21345/PIA21345.jpg), 3545 × 1834 pixels, approximately 236 KB. Downloaded October 8, 2026; the delivery copy is resized only (see Delivery sizes); Info preserves the complete published frame and aspect ratio.
 - **Credit:** NASA / JPL-Caltech / Space Science Institute. Cassini wide-angle camera, October 28, 2016.
 - **Representation:** Red-, green- and blue-filter images combined into a natural-color view from about 25° above the sunlit ring plane. A historical composite, not a current view or a single exposure.
 - **Reuse:** Informational use under [NASA media guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/) and [JPL image-use policy](https://www.jpl.nasa.gov/jpl-image-use-policy/), retaining credit and source links.
 
-## saturn-cloud-atlas.png, saturn-rings.png and saturn-mesh.json
+## saturn-cloud-atlas.webp, saturn-rings.png and saturn-mesh.json
 
 - **Source:** [NASA Saturn 3D Model](https://science.nasa.gov/resource/saturn-3d-model/), published April 22, 2019. Credit: NASA Visualization Technology Applications and Development (VTAD).
 - **Downloaded model:** [Saturn_1_120536.glb](https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/s/Saturn_1_120536.glb), October 8, 2026.
-- **Extraction:** The two embedded PNG byte streams are retained without image edits: `saturn_diff.jpg` (the embedded name; actual MIME type PNG), 4096 × 3072, and `saturn_rings_25sat_outterRings.png`, 4096 × 16. The JSON stores the cloud mesh's original positions, normals, UVs and indices. No original model file is shipped.
+- **Extraction:** The model originally supplied two embedded PNG byte streams: `saturn_diff.jpg` (the embedded name; actual MIME type PNG), 4096 × 3072, and `saturn_rings_25sat_outterRings.png`, 4096 × 16. The cloud atlas delivery copy was converted to WebP at quality 94 on 2026-10-19 (386,220 bytes instead of 5,374,880); dimensions and every decoded alpha value are unchanged. The ring PNG remains unmodified. The JSON stores the cloud mesh's original positions, normals, UVs and indices. Since 2026-10-20 each float is written as the shortest decimal that converts to the identical float32 value (164,256 bytes instead of 282,612); the globe applies `Math.fround` before scaling, so the geometry is unchanged. It is fetched only when Saturn is shown. No original model file is shipped.
 - **Representation:** The cloud image is a cube atlas, not an equirectangular map. The globe uses the model's corresponding UVs, scales its geometry to the reviewed 1-bar ellipsoid and transforms normals accordingly. The ring image is a radial color/opacity strip, sampled on a double-sided equatorial annulus. Model textures approximate Saturn's appearance; NASA's model page does not establish acquisition dates or a complete observational cloud map. No current weather, invented relief or precise optical-depth measurement is implied. Rotation, starting orientation, lighting and shadow mapping are illustrative. Earth comparison and rings use the same physical scale; camera framing includes the ring extent during rotation.
 - **Reuse:** NASA distributes the model for informational visualization; use follows its media guidelines with VTAD attribution retained in the globe tooltip and this documentation.
 
 ## uranus-voyager.jpg
 
 - **Source:** [NASA: Uranus as seen by Voyager 2 (PIA18182)](https://science.nasa.gov/photojournal/uranus-as-seen-by-nasas-voyager-2/).
-- **Downloaded file:** [Original JPEG](https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia18/pia18182/PIA18182.jpg), 1720 × 1720 pixels, 78,816 bytes. Downloaded October 8, 2026, unchanged; the complete frame is displayed.
+- **Downloaded file:** [Original JPEG](https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia18/pia18182/PIA18182.jpg), 1720 × 1720 pixels, 78,816 bytes. Downloaded October 8, 2026; the delivery copy is resized only (see Delivery sizes); the complete frame is displayed.
 - **Credit:** NASA / JPL-Caltech. Voyager 2, 1986. The source does not supply a complete color-calibration recipe; the app identifies the published Voyager image without claiming a precise human-eye calibration.
 - **Reuse:** NASA informational imagery under [NASA media guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/) and [JPL image-use policy](https://www.jpl.nasa.gov/jpl-image-use-policy/), with source and institutional credit retained.
 
 ## neptune-voyager.jpg
 
 - **Source:** [NASA: Neptune Full Disk View (PIA01492)](https://science.nasa.gov/photojournal/neptune-full-disk-view/).
-- **Downloaded file:** [Original JPEG](https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia01/pia01492/PIA01492.jpg), 2188 × 2185 pixels, 259,000 bytes approximately. Downloaded October 8, 2026, unchanged; Info preserves the entire frame and aspect ratio.
+- **Downloaded file:** [Original JPEG](https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia01/pia01492/PIA01492.jpg), 2188 × 2185 pixels, 259,000 bytes approximately. Downloaded October 8, 2026; the delivery copy is resized only (see Delivery sizes); Info preserves the entire frame and aspect ratio.
 - **Credit:** NASA / JPL. Voyager 2 narrow-angle camera, August 1989. Composite of green- and orange-filter images taken about four days and twenty hours before closest approach.
 - **Representation:** A historical composite showing the Great Dark Spot and bright clouds. Published Voyager processing emphasizes blue and cloud contrast, as discussed in [NASA Neptune facts](https://science.nasa.gov/neptune/neptune-facts/) and [Oxford's 2024 reconstruction](https://www.ox.ac.uk/news/2024-01-05-new-images-reveal-what-neptune-and-uranus-really-look-0). The caption and hover credit identify the composite; it is not described as calibrated natural color or present weather.
 - **Reuse:** Informational imagery under NASA media guidelines and JPL image-use policy, retaining institutional and mission attribution.
@@ -129,3 +130,16 @@ The mesh uses Jupiter’s 1-bar equatorial and polar radii (71,492 / 66,854 km),
 - **Credit:** David Seal (Uranus), Don Davis (Neptune), NASA / JPL-Caltech. JPL explicitly labels both fictional: Uranus is a solid-color map, Neptune an artist-created cloud map.
 - **Rendering:** Uranus uses an illustrative pale tint (`#abd5d3`) with zero contribution from the supplied saturated solid-color map. Neptune blends 18% of its map with `#a8cfd3` in linear RGB, retaining subtle clouds while greatly softening the original saturated blue. These are visual approximations guided by the [Irwin et al. 2024 reconstruction](https://www.ox.ac.uk/news/2024-01-05-new-images-reveal-what-neptune-and-uranus-really-look-0), not sampled or calibrated colors. Faint rings are omitted, as for Jupiter. Globes use the sourced 1-bar ellipsoids; Uranus starts tipped sideways. No terrain, weather animation, surface displacement or observed global coverage is inferred. Lighting and orientation are illustrative, and these limitations appear in globe hover/accessibility metadata.
 - **Reuse:** Informational visualization under JPL image-use policy and NASA media guidelines, preserving creator/owner attribution. Info uses separate spacecraft images.
+
+## Delivery sizes
+
+Display photos are delivered at most 1080 px wide (2026-10-20). Measured photo slots are at most 350 CSS px wide on a 430 px phone, which is 1050 device pixels at 3x density, and 418 CSS px on desktop. The copies use a Lanczos-3 resize, conversion to sRGB and JPEG quality 88 (mozjpeg). Crop, aspect ratio and colors are unchanged. Files that would shrink by less than 10% keep their original encoding.
+
+| File | Source pixels | Delivered pixels | Source bytes | Delivered bytes |
+| --- | ---: | ---: | ---: | ---: |
+| `uranus-voyager.jpg` | 1720 × 1720 | 1080 × 1080 | 78,816 | 33,836 |
+| `mars-natural-color.jpg` | 1920 × 1920 | 1080 × 1080 | 391,600 | 178,219 |
+| `jupiter-natural-color.jpg` | 1920 × 2400 | 1080 × 1350 | 179,416 | 80,844 |
+| `mercury-hollows.jpg` | 1934 × 1067 | 1080 × 596 | 264,827 | 128,751 |
+| `neptune-voyager.jpg` | 2188 × 2185 | 1080 × 1079 | 258,997 | 78,122 |
+| `saturn-natural-color.jpg` | 3545 × 1834 | 1080 × 559 | 241,571 | 38,128 |

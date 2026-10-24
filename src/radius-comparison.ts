@@ -1,12 +1,13 @@
 import { starDisplayColor } from './astronomy'
 import { MISSING_VALUE } from './format'
 import { isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, type Star } from './catalog-model'
-import jupiterMapUrl from './assets/radius-comparison/jupiter-map.png?url'
-import earthMapUrl from './assets/radius-comparison/earth-map.png?url'
+import { SOLAR_RADIUS_METERS } from './luminosity-properties'
+import jupiterMapUrl from './assets/radius-comparison/jupiter-map.webp?url'
+import earthMapUrl from './assets/radius-comparison/earth-map.webp?url'
 import earthCloudsUrl from './assets/radius-comparison/earth-clouds.jpg?url'
 
 // IAU 2015 Resolution B3: https://arxiv.org/abs/1510.07674
-export const SOLAR_RADIUS_KM = 695_700
+export const SOLAR_RADIUS_KM = SOLAR_RADIUS_METERS / 1000
 export const JUPITER_RADIUS_KM = 71_492
 const JUPITER_POLAR_RADIUS_KM = 66_854
 export const EARTH_RADIUS_KM = 6_378.1
@@ -105,7 +106,7 @@ export function radiusSummary(comparison: RadiusComparison): string {
   return `${selected.name} is ${dimensionNumber(ratio)}× the diameter of ${reference.name}, with ${dimensionNumber(volumeRatio)}× its volume.`
 }
 
-const renderedComparisons = new WeakMap<HTMLCanvasElement, string>()
+let renderedComparisons = new WeakMap<HTMLCanvasElement, string>()
 const WIDTH = 340
 const HEIGHT = 172
 const MIDLINE = HEIGHT / 2
@@ -120,21 +121,38 @@ function planetTexture(kind: PlanetTexture): TextureEntry {
   const entry: TextureEntry = { settled: false, promise: Promise.resolve() }
   entry.promise = new Promise<void>((resolve) => {
     const image = new Image()
-    image.onload = () => {
-      const surface = document.createElement('canvas')
-      surface.width = image.naturalWidth
-      surface.height = image.naturalHeight
-      const context = surface.getContext('2d')!
-      context.drawImage(image, 0, 0)
-      entry.pixels = context.getImageData(0, 0, surface.width, surface.height)
+    const settle = () => {
+      // Blink can keep the element alive; detached handlers no longer retain this entry's pixels.
+      image.onload = image.onerror = null
+      image.removeAttribute('src')
       entry.settled = true
       resolve()
     }
-    image.onerror = () => { entry.settled = true; resolve() }
+    image.onload = () => {
+      // A released entry is no longer drawn; skip decoding its pixels.
+      if (planetTextures.get(kind) === entry) {
+        const surface = document.createElement('canvas')
+        surface.width = image.naturalWidth
+        surface.height = image.naturalHeight
+        // A CPU-backed canvas: a GPU canvas would keep a second, accelerated copy for this one-time readback.
+        const context = surface.getContext('2d', { willReadFrequently: true })!
+        context.drawImage(image, 0, 0)
+        entry.pixels = context.getImageData(0, 0, surface.width, surface.height)
+        surface.width = surface.height = 0
+      }
+      settle()
+    }
+    image.onerror = settle
     image.src = kind === 'jupiter' ? jupiterMapUrl : kind === 'earth' ? earthMapUrl : earthCloudsUrl
   })
   planetTextures.set(kind, entry)
   return entry
+}
+
+/** Free the decoded planet maps (tens of MB) once the radius card closes; they reload on next use. */
+export function releaseRadiusComparisonTextures(): void {
+  planetTextures.clear()
+  renderedComparisons = new WeakMap()
 }
 
 export function renderRadiusComparison(canvas: HTMLCanvasElement, comparison: RadiusComparison): string {

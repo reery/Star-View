@@ -3,8 +3,8 @@
   "abbreviation": "Cam",
   "name": "Camelopardalis",
   "center": {
-    "ra_deg": 62.30033863281262,
-    "dec_deg": 68.25932372274586
+    "ra_deg": 62.300338633,
+    "dec_deg": 68.259323723
   },
   "stars": [
     {
@@ -71,7 +71,7 @@
         "vy_kms": -16.757198,
         "vz_kms": -11.687924,
         "temperature_k": 7927.0,
-        "mass_solar": null,
+        "mass_solar": 2.98,
         "luminosity_solar": 157.16925132595384,
         "radius_solar": 6.646894,
         "metallicity_dex": null,
@@ -84,7 +84,7 @@
         "constellation": "Camelopardalis",
         "spectral_type": "A2IVn",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 17959; Stellarium Cam). SIMBAD identity * gam Cam; SIMBAD compiled Johnson V=4.604; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 17959; Stellarium Cam). SIMBAD identity * gam Cam; SIMBAD compiled Johnson V=4.604; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Gamma Cam. Exact * gam Cam / HD 23401, HIP 17959. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2012A&A...537A.120Z. Existing non-null values retain their independent sources. Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr. Shared exact-identity physical supplements (mass_solar: 2012A&A...537A.120Z).",
         "designations": [
           "HIP 17959"
         ],
@@ -120,7 +120,7 @@
         "vy_kms": 1.821518,
         "vz_kms": 5.864869,
         "temperature_k": 9626.0,
-        "mass_solar": null,
+        "mass_solar": 3.14,
         "luminosity_solar": 135.2168029809195,
         "radius_solar": 4.180962,
         "metallicity_dex": null,
@@ -133,7 +133,7 @@
         "constellation": "Camelopardalis",
         "spectral_type": "B9IV",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 18505; Stellarium Cam). SIMBAD identity HD  24479; SIMBAD compiled Johnson V=5.04; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 18505; Stellarium Cam). SIMBAD identity HD  24479; SIMBAD compiled Johnson V=5.04; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe HD 24479. Exact HD  24479 / HIP 18505. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2012A&A...537A.120Z. Existing non-null values retain their independent sources. Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr. Shared exact-identity physical supplements (mass_solar: 2012A&A...537A.120Z).",
         "designations": [
           "HIP 18505"
         ],
@@ -168,10 +168,10 @@
         "vx_kms": 26.213853,
         "vy_kms": 37.548946,
         "vz_kms": 37.971433,
-        "temperature_k": 9200.0,
+        "temperature_k": 29000.0,
         "mass_solar": null,
-        "luminosity_solar": 53568.29891422859,
-        "radius_solar": 91.102631,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": -0.9277,
         "age_gyr": null,
         "absolute_mag": -6.884856,
@@ -182,7 +182,7 @@
         "constellation": "Camelopardalis",
         "spectral_type": "O9Ia",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 22783; Stellarium Cam). SIMBAD identity * alf Cam; SIMBAD compiled Johnson V=4.29; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 22783; Stellarium Cam). SIMBAD identity * alf Cam; SIMBAD compiled Johnson V=4.29; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2024A&A...687A.228D, HD 30614, J/A+A/687/A228/tabled1, 29000 K. Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 22783"
         ],
@@ -2364,7 +2364,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

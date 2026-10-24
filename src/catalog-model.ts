@@ -206,6 +206,24 @@ export interface StellarObservations {
     source_url: string
     scope: string
   }
+  temperature_range?: {
+    min_k: number
+    max_k: number
+    summary: string
+    status: 'model-derived'
+    reference: string
+    source_url: string
+    scope: string
+  }
+  radius_range?: {
+    min_jupiter: number
+    max_jupiter: number
+    summary: string
+    status: 'model-derived'
+    reference: string
+    source_url: string
+    scope: string
+  }
   infrared_photometry?: {
     band: string
     instrument: string
@@ -227,6 +245,10 @@ export interface StellarObservations {
 }
 
 export interface Star {
+  // Transport metadata for deferred source notes; never scientific measurements.
+  catalog_detail_key?: string
+  catalog_note_supplements?: { key?: string; notes?: string; fields: string[] }[]
+  catalog_flags?: { withheld?: string[]; barycenter?: boolean; source_rv?: boolean }
   type: ObjectType
   id: string
   name: string
@@ -270,6 +292,8 @@ export interface Star {
   // Original catalog records survive component replacement with their scope.
   // Source quantities never become individual physical/rendering inputs.
   catalog_sources?: CatalogSource[]
+  // Retained but scientifically rejected fields must not reappear as UI fallbacks.
+  withheld_source_fields?: string[]
   spectral_type: string | null
   constellation: string | null
   x_pc: number

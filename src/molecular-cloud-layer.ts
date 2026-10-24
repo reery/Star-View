@@ -1,7 +1,7 @@
 import {
   AdditiveBlending, Camera, CanvasTexture, Color, DepthTexture, Float32BufferAttribute, Group, HalfFloatType,
   InstancedBufferAttribute, InstancedBufferGeometry, LinearFilter, Mesh, NormalBlending, OrthographicCamera,
-  Material, PlaneGeometry, Scene, ShaderMaterial, Vector2, WebGLRenderer, WebGLRenderTarget,
+  Material, PlaneGeometry, RedFormat, Scene, ShaderMaterial, Vector2, WebGLRenderer, WebGLRenderTarget,
 } from 'three'
 import type { Star } from './catalog-model'
 import type { StarColorMode } from './astronomy'
@@ -280,7 +280,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       void main() {
         float r2 = dot(vUv, vUv);
         if (r2 >= 1.0) discard;
-        // Keep foreground opaque sources clear, using their actual scene depth.
+        // Include transparent source surfaces as well as opaque stellar cores.
         if (gl_FragCoord.z > texture2D(sceneDepth, gl_FragCoord.xy / viewportSize).r) discard;
         float falloff = pow(1.0 - r2, 1.65);
         float noise = texture2D(noiseMap, vNoiseUv).r;
@@ -360,9 +360,15 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
   compositeScene.add(composite)
   let sceneTarget: WebGLRenderTarget | undefined
   let absorptionTarget: WebGLRenderTarget | undefined
+  function releaseTargets(): void {
+    sceneTarget?.dispose()
+    absorptionTarget?.dispose()
+    sceneTarget = absorptionTarget = undefined
+  }
   const viewportSize = new Vector2()
   const clearColor = new Color()
   const displayCapture = { value: false }
+  const depthCapture = { value: false }
   const capturedMaterials = new WeakSet<Material>()
 
   function prepareDisplayCapture(scene: Scene): void {
@@ -380,15 +386,50 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
         material.onBeforeCompile = function (shader, renderer) {
           compile.call(this, shader, renderer)
           shader.uniforms.cloudDisplayCapture = displayCapture
-          shader.fragmentShader = `uniform bool cloudDisplayCapture;\n${shader.fragmentShader}`.replace(
+          shader.uniforms.cloudDepthCapture = depthCapture
+          shader.fragmentShader = `uniform bool cloudDisplayCapture;\nuniform bool cloudDepthCapture;\n${shader.fragmentShader}`.replace(
             '#include <colorspace_fragment>',
-            'if (cloudDisplayCapture) gl_FragColor = sRGBTransferOETF(gl_FragColor);\nelse {\n#include <colorspace_fragment>\n}',
+            'if (cloudDepthCapture && gl_FragColor.a <= 0.0) discard;\nif (cloudDisplayCapture) gl_FragColor = sRGBTransferOETF(gl_FragColor);\nelse {\n#include <colorspace_fragment>\n}',
           )
         }
         material.customProgramCacheKey = () => `${cacheKey}:cloud-display-capture`
         material.needsUpdate = true
       }
     })
+  }
+
+  function captureSourceDepth(renderer: WebGLRenderer, scene: Scene, camera: Camera): void {
+    // Halos and emitting gas normally leave depth untouched so their light can
+    // blend. Record their visible fragments only after capturing that color,
+    // otherwise clouds behind them incorrectly attenuate the foreground light.
+    const materials = new Map<Material, { colorWrite: boolean; depthWrite: boolean; visible: boolean }>()
+    const autoClear = renderer.autoClear
+    const background = scene.background
+    root.visible = false
+    scene.traverseVisible((object) => {
+      const objectMaterial = (object as Mesh).material
+      if (!objectMaterial) return
+      for (const material of Array.isArray(objectMaterial) ? objectMaterial : [objectMaterial]) {
+        if (materials.has(material)) continue
+        materials.set(material, { colorWrite: material.colorWrite, depthWrite: material.depthWrite, visible: material.visible })
+        // Opaque cores already supplied depth; screen overlays do not occlude.
+        material.visible &&= material.depthTest && !material.depthWrite
+        material.colorWrite = false
+        material.depthWrite = true
+      }
+    })
+    try {
+      renderer.autoClear = false
+      scene.background = null
+      depthCapture.value = true
+      renderer.render(scene, camera)
+    } finally {
+      depthCapture.value = false
+      scene.background = background
+      renderer.autoClear = autoClear
+      root.visible = true
+      for (const [material, state] of materials) Object.assign(material, state)
+    }
   }
   const cloudIndexById = new Map(clouds.map((cloud, index) => [cloud.id, index]))
   let visibility: boolean[] = clouds.map(() => false)
@@ -403,7 +444,11 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
     geometry.instanceCount = count
     root.visible = count > 0
     uniforms.alphaScale.value = 1 / fraction
-    if (count === 0) return
+    if (count === 0) {
+      // The full-screen capture targets are tens of MB; recreate them when clouds return.
+      releaseTargets()
+      return
+    }
     for (const [, attribute] of attributes) {
       attribute.clearUpdateRanges()
       attribute.addUpdateRange(0, count * attribute.itemSize)
@@ -446,7 +491,8 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
           samples: renderer.getContext().getContextAttributes()?.antialias ? 4 : 0,
         })
         sceneTarget.depthTexture = new DepthTexture(viewportSize.x, viewportSize.y)
-        absorptionTarget = new WebGLRenderTarget(viewportSize.x, viewportSize.y, { type: HalfFloatType, depthBuffer: false })
+        // Only optical depth (red) is read back, so a single half-float channel suffices.
+        absorptionTarget = new WebGLRenderTarget(viewportSize.x, viewportSize.y, { type: HalfFloatType, format: RedFormat, depthBuffer: false })
         sourceAbsorptionMaterial.uniforms.sceneDepth!.value = sceneTarget.depthTexture
         compositeMaterial.uniforms.sceneColor!.value = sceneTarget.texture
         compositeMaterial.uniforms.opticalDepth!.value = absorptionTarget.texture
@@ -467,6 +513,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
         renderer.setClearColor(clearColor.clone().convertLinearToSRGB(), clearAlpha)
         renderer.setRenderTarget(sceneTarget)
         renderer.render(scene, camera)
+        captureSourceDepth(renderer, scene, camera)
         scene.background = background
         displayCapture.value = false
         renderer.setRenderTarget(absorptionTarget!)
@@ -487,8 +534,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       geometry.dispose()
       bodyMaterial.dispose()
       sourceAbsorptionMaterial.dispose()
-      sceneTarget?.dispose()
-      absorptionTarget?.dispose()
+      releaseTargets()
       compositeGeometry.dispose()
       compositeMaterial.dispose()
       rimMaterial.dispose()

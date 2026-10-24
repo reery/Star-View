@@ -1,10 +1,14 @@
 import { isCompactObject, type Star } from './catalog-model.ts'
+import { massComparisonClass } from './mass-classification.ts'
+import { SOLAR_RADIUS_METERS as SOLAR_RADIUS_M } from './luminosity-properties.ts'
 
-// IAU 2015 B3 nominal GM and radius: https://arxiv.org/abs/1510.07674
+// IAU 2015 B3 nominal GM: https://arxiv.org/abs/1510.07674
 const SOLAR_GM = 1.3271244e20
-const SOLAR_RADIUS_M = 695_700_000
 const EARTH_GM = 3.986004e14
 const G = 6.67430e-11 // CODATA 2022, m³ kg⁻¹ s⁻²
+const LIGHT_SPEED = 299792458
+// IAU 2015 B3 nominal Jupiter GM divided by nominal solar GM.
+export const JUPITER_MASS_SOLAR = 1.2668653e17 / SOLAR_GM
 const SOLAR_GRAVITY = SOLAR_GM / SOLAR_RADIUS_M ** 2
 const SOLAR_ESCAPE_KMS = Math.sqrt(2 * SOLAR_GM / SOLAR_RADIUS_M) / 1000
 const SOLAR_DENSITY = (SOLAR_GM / G) / (4 * Math.PI * SOLAR_RADIUS_M ** 3 / 3) / 1000
@@ -34,54 +38,42 @@ export function massProperties(star: Pick<Star, 'type' | 'mass_solar' | 'radius_
     escapeRatio, escapeKms: escapeRatio === null ? null : escapeRatio * SOLAR_ESCAPE_KMS,
     densityRatio, density: densityRatio === null ? null : densityRatio * SOLAR_DENSITY,
     luminosityPerMass: mass === null || luminosity === null ? null : luminosity / mass,
+    // Non-rotating (Schwarzschild) horizon radius.
+    horizonKm: star.type !== 'black_hole' || gm === null ? null : 2 * gm / LIGHT_SPEED ** 2 / 1000,
   }
 }
 
-export function massEvolution(star: Star): { description: string; outcome: string; comment: string } {
-  // Broad single-star guidance: https://science.nasa.gov/universe/stars/types/
-  const mass = positive(star.mass_solar)
-  if (star.type === 'white_dwarf') return {
-    description: 'This is a stellar remnant. Its light mainly comes from stored heat, rather than sustained core fusion; luminosity per unit mass describes its present cooling state.',
-    outcome: 'Cooling white dwarf',
-    comment: 'Already a white dwarf. Its present mass is the surviving core’s mass, not the original star’s birth mass. Accretion or a merger can change its future.',
-  }
-  if (star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf') return {
-    description: 'This substellar object cannot sustain hydrogen fusion like a main-sequence star. It gradually cools and fades; some brown dwarfs briefly fuse deuterium.',
-    outcome: 'Continued cooling and fading',
-    comment: 'The approximate 0.08 M☉ hydrogen-burning limit depends on composition. Luminosity here reflects cooling and any temporary fusion, rather than a steady stellar fuel supply.',
-  }
-  if (isCompactObject(star)) return {
-    description: 'This is a compact remnant. Present mass does not describe its progenitor’s fusion rate; any observed light can come from cooling, rotation, or accretion.',
-    outcome: star.type === 'black_hole' ? 'Black hole remnant' : 'Neutron star remnant',
-    comment: `${star.compact?.confidence === 'candidate' ? 'Candidate classification. ' : ''}The current mass is a remnant mass. Accretion, interactions, and mergers can change its later evolution.`,
-  }
-  const mainSequence = /\d(?:\.\d+)?\s*V(?!I)/i.test(star.spectral_type ?? '')
-  const description = mainSequence
-    ? 'Mass is a star’s evolutionary accelerator. On the main sequence, more mass generally creates higher central pressure and temperature, accelerating fusion disproportionately.'
-    : 'Mass strongly shapes stellar evolution. Higher birth mass generally accelerates fusion, but current luminosity also depends on evolutionary stage, composition, and mass loss.'
-  if (mass === null) return { description, outcome: 'End state unknown', comment: 'No catalog mass is available to suggest an evolutionary path.' }
-  if (mass < 0.08) return { description, outcome: 'Hydrogen-burning status uncertain', comment: 'The catalog mass lies below the approximate hydrogen-burning limit. Mass uncertainty and composition matter near this boundary.' }
-  if (mass >= 6 && mass <= 10) return { description, outcome: 'White dwarf or core collapse', comment: 'Near the approximate 8 M☉ initial-mass boundary, composition, mass loss, and binary interactions can change the outcome.' }
-  if (mass > 10) return { description, outcome: 'Neutron star or black hole', comment: 'Core collapse is favored for a star this massive. The remaining core, mass loss, and binary history determine which remnant forms.' }
-  return {
-    description,
-    outcome: mainSequence ? 'White dwarf' : 'White dwarf possible',
-    comment: mainSequence
-      ? `A ~${mass.toLocaleString('en-US', { maximumSignificantDigits: 2 })} M☉ star is below the approximate initial-mass range normally associated with core-collapse supernovae.${mass < 0.5 ? ' Low-mass stars can take far longer than the present age of the Universe to reach this stage.' : ''}`
-      : 'A low or intermediate birth mass usually leads to a white dwarf. This catalog gives current mass; an evolved or stripped star may have started much heavier.',
-  }
-}
+export type MassFuel =
+  | { kind: 'lifetime'; gyr: number; lowerBound: boolean }
+  | { kind: 'burn-rate'; ratio: number; reason: string }
+  | { kind: 'density'; density: number | null; reason: string }
+  | { kind: 'no-fusion'; label: string; reason: string }
+  | { kind: 'unavailable'; reason: string }
 
-export function massGravityContext(star: Star): string {
-  const { mass, radius, gravityRatio } = massProperties(star)
-  if (star.type === 'black_hole') return 'A black hole has an event horizon, not a photosphere. Ordinary surface gravity, escape velocity, and mean stellar density comparisons do not apply.'
-  if (isCompactObject(star)) return 'Neutron-star surface gravity and escape require a radius and a relativistic model. No ordinary photosphere comparison is shown.'
-  if (mass === null || radius === null || gravityRatio === null) return 'Both catalog mass and radius are needed to derive photosphere gravity, surface escape velocity, and mean density.'
-  if (star.id === 'sun') return 'The Sun sets the reference: photosphere gravity depends on mass divided by radius squared.'
-  const size = radius.toLocaleString('en-US', { maximumFractionDigits: 3 })
-  if (mass > 1 && gravityRatio < 1) return `More massive but weaker surface gravity, because ${star.name} is also ${size}× as wide as the Sun. Gravity decreases with radius squared.`
-  if (mass < 1 && gravityRatio > 1) return `Less massive but stronger surface gravity: ${star.name} has only ${size}× the Sun’s radius, concentrating its gravity at a smaller surface.`
-  return `${star.name} has ${gravityRatio === 1 ? 'the same' : gravityRatio > 1 ? 'stronger' : 'weaker'} surface gravity than the Sun. Its radius is ${size} R☉; surface gravity scales as mass ÷ radius².`
+/** Main-sequence fuel lifetime, or why it does not apply and what the card shows instead. */
+export function massFuel(star: Star): MassFuel {
+  const { mass, luminosity, luminosityPerMass, density } = massProperties(star)
+  if (star.type === 'white_dwarf') return { kind: 'density', density, reason: density === null ? 'No fuel left; it shines by stored heat. Catalog radius needed for density.' : 'No fuel left; it shines by stored heat.' }
+  if (star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf') {
+    // Deuterium burning starts near 13 Jupiter masses: https://arxiv.org/abs/1008.5150
+    const deuterium = mass !== null && mass >= 13 * JUPITER_MASS_SOLAR
+    return deuterium ? { kind: 'no-fusion', label: 'Deuterium only', reason: 'Too light to fuse hydrogen; brief deuterium fusion, then it cools and fades.' }
+      : { kind: 'no-fusion', label: 'None', reason: mass === null ? 'Too light to fuse hydrogen; it cools and fades.' : 'Too light for any fusion; it cools from its formation heat.' }
+  }
+  if (star.type === 'black_hole') return { kind: 'no-fusion', label: 'None', reason: 'A remnant: any glow comes from infalling matter.' }
+  if (isCompactObject(star)) return { kind: 'no-fusion', label: 'None', reason: 'A remnant: light comes from cooling, rotation or accretion.' }
+  const classification = massComparisonClass(star)
+  // An explicit V or VI class; annotated stages such as A0mA1Va keep their stated V.
+  const mainSequence = (classification?.stage === 'V' || classification?.stage === 'VI')
+    && (!classification.assumedStage || /\d(?:\.\d+)?\s*V(?!I)/i.test(star.spectral_type ?? ''))
+  const reason = mainSequence ? '' : classification === null ? 'Evolutionary stage unknown; no lifetime estimate.'
+    : classification.assumedStage ? 'Luminosity class unknown; no lifetime estimate.'
+      : 'Left the main sequence: its lifetime estimate no longer applies.'
+  if (luminosityPerMass === null || luminosityPerMass <= 0) return { kind: 'unavailable', reason: mass === null ? 'Catalog mass needed.' : luminosity === null ? 'Catalog luminosity needed.' : 'No measurable luminosity.' }
+  // Fuel scales with mass and consumption with luminosity, calibrated to the Sun's ~10 Gyr.
+  // Fully convective dwarfs burn almost all of their hydrogen, so the estimate is a lower bound.
+  if (mainSequence) return { kind: 'lifetime', gyr: 10 / luminosityPerMass, lowerBound: mass! < 0.35 }
+  return { kind: 'burn-rate', ratio: luminosityPerMass, reason }
 }
 
 export function solarBarScale(ratio: number): { position: number; low: number; high: number } {

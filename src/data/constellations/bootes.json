@@ -3,8 +3,8 @@
   "abbreviation": "Boo",
   "name": "Bootes",
   "center": {
-    "ra_deg": 217.61695331584198,
-    "dec_deg": 26.437578926946205
+    "ra_deg": 217.616953316,
+    "dec_deg": 26.437578927
   },
   "stars": [
     {
@@ -67,13 +67,13 @@
         "x_pc": 3.311944829,
         "y_pc": 0.306570476,
         "z_pc": 10.899821633,
-        "vx_kms": null,
-        "vy_kms": null,
-        "vz_kms": null,
+        "vx_kms": 10.915536,
+        "vy_kms": -16.890201,
+        "vz_kms": 3.192477,
         "temperature_k": 6220.0,
-        "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "mass_solar": 1.4,
+        "luminosity_solar": 8.50365388813,
+        "radius_solar": 2.79,
         "metallicity_dex": 0.34,
         "age_gyr": null,
         "absolute_mag": 2.396236,
@@ -84,7 +84,7 @@
         "constellation": "Bootes",
         "spectral_type": "G0IV",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Corrected CNS5 3442; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Shared exact-identity physical supplements (temperature_k: 2025A&A...703A.128B; metallicity_dex: 2025A&A...703A.128B). Prefer the frozen 2025 spectroscopic temperature over the 1999 model temperature; retain primary-dominated spectral scope and withhold individual mass, radius, luminosity and age as in the existing reviewed catalogs.",
+        "notes": "Muphrid (Eta Boo): published subgiant-primary mass 1.40 +/-0.41 solar from Bale et al. (2025), Table A.1. NPOI interferometric radius 2.79 +/-0.04 solar from Baines et al. (2025), Table 7; luminosity derived from that source radius and source Teff=5901 +/-24 K. Existing adopted spectroscopic Teff=6220 K and [Fe/H]=+0.34 remain independent measurements and do not define that luminosity. Primary-dominated quantities, not unseen companion or binary-total properties. Frozen SIMBAD radial velocity 5.77111 km/s adopted as a compiled primary/system bulk-motion proxy, not a fitted gamma; uncertainty and individual orbital phase are unknown. Previous withholding and source data retained in catalog-work/bright-stars/gap-physical-review.json.",
         "designations": [
           "HIP 67927"
         ],
@@ -97,11 +97,11 @@
           "pm_ra_error_masyr": 1.1399999856948853,
           "pm_dec_masyr": -356.29,
           "pm_dec_error_masyr": 0.7300000190734863,
-          "radial_velocity_kms": null,
+          "radial_velocity_kms": 5.77111,
           "radial_velocity_error_kms": null,
           "epoch": 1991.25,
           "astrometry_ref": "2007A&A...474..653V",
-          "radial_velocity_ref": null
+          "radial_velocity_ref": "Frozen SIMBAD HIP 67927; compiled primary/system RV proxy; not fitted gamma; shared systemic velocity approximation"
         }
       }
     },
@@ -1376,7 +1376,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

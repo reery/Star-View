@@ -3,8 +3,8 @@
   "abbreviation": "And",
   "name": "Andromeda",
   "center": {
-    "ra_deg": 14.049377709186704,
-    "dec_deg": 36.56218475076692
+    "ra_deg": 14.049377709,
+    "dec_deg": 36.562184751
   },
   "stars": [
     {
@@ -218,9 +218,9 @@
         "vy_kms": -41.670427,
         "vz_kms": -25.264822,
         "temperature_k": 3802.0,
-        "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "mass_solar": 3.47,
+        "luminosity_solar": 2454.708916,
+        "radius_solar": 120.5727584,
         "metallicity_dex": -0.03,
         "age_gyr": null,
         "absolute_mag": -1.85995,
@@ -1519,7 +1519,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

@@ -1,12 +1,5 @@
-import { expect, test, type Locator, type Page } from '@playwright/test'
-import { openFilter, openPreferences, openSpecs, openViewer, zoomViewer } from './support'
-
-async function selectObject(page: Page, name: string): Promise<void> {
-  await page.getByRole('button', { name: 'Objects', exact: true }).click()
-  await page.getByLabel('Search objects').fill(name)
-  await page.getByRole('button', { name: `Select ${name}`, exact: true }).click()
-  await page.getByRole('button', { name: 'Objects', exact: true }).click()
-}
+import { expect, test, type Locator } from '@playwright/test'
+import { openFilter, openPreferences, openSpecs, openViewer, selectObject, zoomViewer } from './support'
 
 test('persists constellation latitude across reloads and ignores unsupported stored values', async ({ page }) => {
   await openViewer(page)
@@ -79,7 +72,7 @@ test('spends a small label budget on stars and nebulae before molecular clouds',
   await openPreferences(page)
   await page.getByLabel('Labels', { exact: true }).fill('20')
   await openFilter(page)
-  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await page.getByRole('switch', { name: 'Interstellar medium', exact: true }).check()
   await page.getByLabel('Object visibility distance', { exact: true }).fill('20')
   await expect(page.locator('.projected-labels')).toHaveAttribute('data-molecular-cloud-puff-count', /[1-9]\d*/)

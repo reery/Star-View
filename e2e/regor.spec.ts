@@ -6,7 +6,7 @@ test('Regor exposes separate stellar properties and the measured inner orbit', a
   page.on('pageerror', (error) => errors.push(error.message))
   await openViewer(page)
   await openFilter(page)
-  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await expect(page.locator('#scene-status')).toBeHidden()
   await page.getByLabel('Object visibility distance', { exact: true }).fill('24')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()

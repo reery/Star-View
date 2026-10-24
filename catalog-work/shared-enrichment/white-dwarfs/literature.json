@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-10-20",
+  "policy": "Individual peer-reviewed fits for bundled white dwarfs without an uncontaminated O'Brien et al. (2024) Table A1 fit. Values are read from the cited table; quantities that depend on an assumed surface gravity are not adopted.",
+  "objects": {
+    "cns5-0544": {
+      "reference": "2013MNRAS.430..652F",
+      "url": "https://arxiv.org/abs/1212.5601",
+      "sourceUrl": "https://arxiv.org/pdf/1212.5601",
+      "section": "Farihi et al. (2013) Table 3 and section 3.1",
+      "fields": {
+        "temperature_k": {
+          "value": 8180,
+          "uncertainty": 120,
+          "status": "measured",
+          "method": "Weighted mean of DQ model-atmosphere fits to HST/WFC3 photometry (8210 +/- 180 K) and the HST/STIS G430L spectrum (8145 +/- 180 K)",
+          "caveat": "F225W and F275W are excluded because the models over-predict C I absorption there; including them gives 8420 +/- 90 K (section 3.1).",
+          "inputs": {
+            "logGCgs": 8.02,
+            "logGErrorCgs": 0.02,
+            "logCarbonToHelium": -4.8,
+            "logCarbonToHeliumError": 0.2,
+            "coolingAgeGyr": 1.25,
+            "coolingAgeErrorGyr": 0.05,
+            "parallaxMas": 92.74
+          }
+        },
+        "mass_solar": {
+          "value": 0.59,
+          "uncertainty": 0.01,
+          "status": "model-derived",
+          "method": "Radius from the fitted solid angle and the Hipparcos parallax, converted with the Fontaine et al. (2001) mass-radius relation",
+          "caveat": "Independent dynamical masses: 0.595 +/- 0.010 (Brandt, Dupuy & Bowler 2019, AJ 158, 140, Table 6) agrees; 0.5425 +/- 0.0042 (Zeng et al. 2022, AJ 164, 188, Table 3) differs by about 5 sigma. Neither replaces the atmospheric value here."
+        },
+        "radius_solar": {
+          "value": 0.01245,
+          "uncertainty": 0.0015,
+          "status": "model-derived",
+          "method": "Fitted solid angle and Hipparcos parallax (92.74 mas)",
+          "caveat": "The uncertainty is retained as printed; it is about ten times wider than the quoted mass and log g errors imply."
+        }
+      },
+      "deriveLuminosity": true,
+      "note": "Farihi et al. (2013) DQ6 fit of HST photometry and STIS spectroscopy: Teff 8180 +/- 120 K, log g 8.02 +/- 0.02, mass 0.59 +/- 0.01 solar masses, radius 0.01245 solar radii; luminosity from radius and Teff. Brandt et al. (2019) find a consistent dynamical mass of 0.595 +/- 0.010; Zeng et al. (2022) find 0.5425 +/- 0.0042. The 1.25 Gyr cooling age is not adopted as total age."
+    },
+    "hip-45336-component-b": {
+      "withheld": "Detected only in EUV/UV as an unresolved companion of a B9.5V star. Burleigh & Barstow (1999, A&A 341, 795, Table 3) fit Teff 25,800-30,800 K for assumed log g 7.5-9.0, and Vennes et al. (1998, ApJ 502, 763) 28,700-32,700 K for an assumed log g 9.0. No surface gravity, mass or radius has been measured. Holberg et al. (2013, MNRAS 435, 2077, Tables 1-2) list 30,700 K and 1.21 solar masses without uncertainties or a stated source; these match an assumed log g of about 9. No value that depends on an assumed gravity is adopted."
+    }
+  }
+}

@@ -1,6 +1,8 @@
 import { readdirSync, readFileSync, rmSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { createHash } from 'node:crypto'
+import { isDeepStrictEqual } from 'node:util'
 import { buildCatalog, catalogCoverage, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from '../src/catalogs.ts'
 import { parseCompactOverlayManifest, parseCompactOverlayPayload } from '../src/compact-overlay-model.ts'
 import { parseNebulaOverlayManifest, parseNebulaOverlayPayload } from '../src/nebula-overlay-model.ts'
@@ -9,6 +11,8 @@ import { hydrateBubbleSurfaceGridFiles, parseBubbleOverlayManifest, parseBubbleO
 import { containedInput, safeOutputDirectory, writeManagedFiles } from './filesystem.ts'
 import { parseObjectIdentities, supplementObjectIdentities } from '../src/designations.ts'
 import { buildCatalogClassReferences } from '../src/catalog-class-references.ts'
+import { buildWhiteDwarfClassReferences } from '../src/white-dwarf-models.ts'
+import { requiredWhiteDwarfReferences } from '../src/white-dwarf-class.ts'
 import { parseObjectStats, supplementObjectStats } from '../src/object-stats.ts'
 import { auditCatalogConsistency } from '../src/catalog-consistency.ts'
 import { completeCatalogCompanions } from '../src/stellar-companions.ts'
@@ -22,8 +26,13 @@ import planetDetails from '../src/data/planet-details.json' with { type: 'json' 
 import smallBodies from '../src/data/solar-small-bodies.json' with { type: 'json' }
 import starInfo from '../src/data/star-info.json' with { type: 'json' }
 import nearest100Info from '../src/data/nearest-100-info.json' with { type: 'json' }
+import brightStarInfo from '../src/data/bright-star-info.json' with { type: 'json' }
+import legacyStarIds from '../src/data/legacy-star-ids.json' with { type: 'json' }
 import { starComponentIdentity } from '../src/star-systems.ts'
 import type { ConstellationChart } from '../src/constellations.ts'
+import type { Star } from '../src/catalog-model.ts'
+import { splitCatalogDetails } from '../src/catalog-detail-model.ts'
+import stellarOrbits from '../src/data/stellar-orbits.json' with { type: 'json' }
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 const identities = parseObjectIdentities(JSON.parse(readFileSync(join(root, 'src/data/object-designations.json'), 'utf8')))
@@ -115,7 +124,41 @@ function requireConsistentCatalogs(catalogs: Parameters<typeof auditCatalogConsi
   console.log(`Shared details: ${audit.sharedObjects} objects checked across ${catalogs.length} catalogs; no inconsistencies.`)
 }
 
-function generate(): void {
+/** These directories contain only derived payloads; discard obsolete versions. */
+function writeGeneratedData(directory: string, files: Record<string, string>): void {
+  const output = safeOutputDirectory(join(root, 'src/data/generated', directory))
+  writeManagedFiles(output, files, true)
+  for (const entry of readdirSync(output, { withFileTypes: true })) {
+    if (entry.isFile() && entry.name.endsWith('.json') && !Object.hasOwn(files, entry.name)) rmSync(join(output, entry.name))
+  }
+}
+
+const WHITE_DWARF_REFERENCES = join(root, 'src/data/white-dwarf-class-references.json')
+
+function shippedStars(catalogs: { stars: Parameters<typeof completeCatalogCompanions>[0] }[]) {
+  return catalogs.flatMap((catalog) => completeCatalogCompanions(catalog.stars))
+}
+
+/** The committed table must hold exactly the references bundled white dwarfs request; the grid is not needed here. */
+function requireWhiteDwarfReferences(catalogs: { stars: Parameters<typeof completeCatalogCompanions>[0] }[]): void {
+  const required = [...requiredWhiteDwarfReferences(shippedStars(catalogs)).keys()]
+  const committed = Object.keys((JSON.parse(readFileSync(WHITE_DWARF_REFERENCES, 'utf8')) as { references: Record<string, unknown> }).references)
+  if (JSON.stringify(required) !== JSON.stringify(committed)) {
+    const missing = required.filter((key) => !committed.includes(key))
+    const unused = committed.filter((key) => !required.includes(key))
+    throw new Error(`White dwarf class references are stale (missing: ${missing.join(', ') || 'none'}; unused: ${unused.join(', ') || 'none'}). Run \`npm run catalog:white-dwarf-references\`.`)
+  }
+}
+
+function writeWhiteDwarfReferences(): void {
+  const catalogs = loadCatalogPackages()
+  writeManagedFiles(safeOutputDirectory(join(root, 'src/data')), {
+    'white-dwarf-class-references.json': JSON.stringify(buildWhiteDwarfClassReferences(shippedStars(catalogs)), null, 2) + '\n',
+  }, true)
+  console.log(`Wrote ${requiredWhiteDwarfReferences(shippedStars(catalogs)).size} white dwarf class references.`)
+}
+
+function loadCatalogPackages() {
   const packages = [
     { manifest: DEFAULT_CATALOG_MANIFEST, csv: readFileSync(join(root, 'src/data/stars.csv'), 'utf8') },
     ...readdirSync(join(root, 'src/data/catalogs'), { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => {
@@ -126,16 +169,36 @@ function generate(): void {
       }
     }),
   ]
-  const catalogs = packages.map((definition) => ({
+  return packages.map((definition) => ({
     id: definition.manifest.id,
     stars: supplement(loadCatalog(definition)),
   }))
+}
+
+function generate(): void {
+  const catalogs = loadCatalogPackages()
   requireConsistentCatalogs(catalogs)
+  const detailFiles: Record<string, string> = {}
+  const mapRecords = (stars: Parameters<typeof splitCatalogDetails>[0][]) => stars.map((star) => {
+    const content = JSON.stringify({ notes: star.notes, ...(star.catalog_sources ? { catalog_sources: star.catalog_sources } : {}) })
+    const key = `${star.id}-${createHash('sha256').update(content).digest('hex').slice(0, 16)}`
+    const { mapStar, details } = splitCatalogDetails(star, key)
+    const { catalog_detail_key: _key, catalog_flags: _flags, ...record } = mapStar
+    if (!isDeepStrictEqual({ ...record, ...details }, star)) throw new Error(`Catalog detail split lost data: ${star.id}`)
+    const file = `catalog-detail-${key}.json`
+    if (detailFiles[file] && detailFiles[file] !== content + '\n') throw new Error(`Catalog detail key collision: ${key}`)
+    detailFiles[file] = content + '\n'
+    return mapStar
+  })
   const files = Object.fromEntries(catalogs.map(({ id, stars }) =>
-    [`${id}.json`, JSON.stringify({ schemaVersion: 2, catalogId: id, sourceObjectCount: stars.length, stars: completeCatalogCompanions(stars) }) + '\n']))
+    [`${id}.json`, JSON.stringify({ schemaVersion: 3, catalogId: id, sourceObjectCount: stars.length, stars: mapRecords(supplementObjectIdentities(completeCatalogCompanions(stars), identities, { preserveAuthoredNames: true })) }) + '\n']))
+  writeGeneratedData('catalog-details', detailFiles)
   const references = buildCatalogClassReferences(catalogs.map((catalog) => ({ ...catalog, stars: completeCatalogCompanions(catalog.stars) })), (id) => components.get(id))
+  requireWhiteDwarfReferences(catalogs)
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data')), {
-    'catalog-class-references.json': JSON.stringify(references, null, 2) + '\n',
+    // Display summaries: six significant digits exceed the cards' precision and halve the bundled file.
+    'catalog-class-references.json': JSON.stringify(references, (_key, value: unknown) =>
+      typeof value === 'number' && !Number.isInteger(value) ? Number(value.toPrecision(6)) : value, 2) + '\n',
   }, true)
   console.log(`Generated ${references.classes.length} class samples from ${references.uniqueObjects} distinct objects across ${catalogs.length} catalogs.`)
   const output = safeOutputDirectory(join(root, 'src/data/generated/catalogs'))
@@ -149,15 +212,28 @@ function generate(): void {
     const chart = JSON.parse(readFileSync(join(root, 'src/data/constellations', file), 'utf8')) as ConstellationChart
     const needed = new Set(completeCatalogCompanions(chart.stars.map((figure) => figure.object))
       .map((star) => starComponentIdentity(star.id)?.canonicalStarId ?? star.id))
-    chartCompanions[`${chart.name}.json`] = JSON.stringify(companionData.stars.filter((star) => needed.has(star.id))) + '\n'
+    chartCompanions[`${chart.name}.json`] = JSON.stringify(supplementObjectIdentities((companionData.stars as Star[]).filter((star) => needed.has(star.id)), identities, { preserveAuthoredNames: true })) + '\n'
   }
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated/constellation-companions')), chartCompanions, true)
+  // Retired IDs serve their article from the surviving record; component IDs already resolve by identity.
+  const legacyIds: Record<string, string> = legacyStarIds.ids
+  const articleId = (id: string) => starComponentIdentity(id) ? id : legacyIds[id] ?? id
+  const articleFiles = Object.fromEntries([starInfo, nearest100Info, brightStarInfo].flatMap((dataset) =>
+    Object.entries(dataset.articles).map(([id, article]) => [`star-article-${articleId(id)}.json`, JSON.stringify({ reviewedAt: dataset.reviewedAt, article }) + '\n'])))
+  writeGeneratedData('star-articles', articleFiles)
+  const orbitFiles = Object.fromEntries(stellarOrbits.systems.map((system) =>
+    [`stellar-orbit-${system.systemId}.json`, JSON.stringify(system.orbits) + '\n']))
+  writeGeneratedData('stellar-orbits', orbitFiles)
+  const systemFiles = Object.fromEntries([...planetarySystems.systems, ...nearbyPlanets.systems].map((system) =>
+    [`planetary-system-${system.hostStarId}.json`, JSON.stringify({ system, planets: nearbyPlanets.planets.filter((planet) => planet.hostStarId === system.hostStarId) }) + '\n']))
+  writeGeneratedData('planetary-systems', systemFiles)
   const planetCounts = Object.fromEntries([...planetarySystems.systems, ...nearbyPlanets.systems].map((system) => [system.hostStarId, system.planets.length]))
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated')), {
-    'startup-index.json': JSON.stringify({ planetCounts, starInfoIds: [...new Set([...Object.keys(starInfo.articles), ...Object.keys(nearest100Info.articles)])], planetInfoIds: [...planetDetails.planets, ...smallBodies.objects].map((planet) => planet.id) }) + '\n',
+    'startup-index.json': JSON.stringify({ planetCounts, starInfoIds: [...new Set([starInfo, nearest100Info, brightStarInfo].flatMap((dataset) => Object.keys(dataset.articles).map(articleId)))], planetInfoIds: [...planetDetails.planets, ...smallBodies.objects].map((planet) => planet.id) }) + '\n',
     'planet-details.json': JSON.stringify({ earth: planetDetails.earth, planets: planetDetails.planets }) + '\n',
     'planet-moons.json': JSON.stringify({ ...planetDetails.moons, ...smallBodies.moons }) + '\n',
     'small-body-details.json': JSON.stringify({ objects: smallBodies.objects }) + '\n',
+    'exoplanet-source.json': JSON.stringify({ retrieved: nearbyPlanets.retrieved }) + '\n',
   }, true)
   const { manifest: overlayManifest, objects } = loadCompactOverlay()
   const nebulae = loadNebulaOverlay()
@@ -176,6 +252,7 @@ function generate(): void {
 try {
   if (command === 'validate' && args.length <= 1) validate(args[0])
   else if (command === 'generate' && args.length === 0) generate()
+  else if (command === 'white-dwarf-references' && args.length === 0) writeWhiteDwarfReferences()
   else if (command === 'build' && (args.length === 2 || (args.length === 3 && args[2] === '--force'))) {
     const inputPath = resolve(args[0]!)
     const output = resolve(args[1]!)
@@ -190,7 +267,7 @@ try {
     const files = { 'catalog.json': JSON.stringify(built.manifest, null, 2) + '\n', 'stars.csv': built.csv, 'provenance.json': JSON.stringify(built.provenance, null, 2) + '\n' }
     writeManagedFiles(output, files, force)
     validate(output)
-  } else throw new Error('Usage: catalogs.ts validate [catalog-directory] | generate | build <adopted-input.json> <output-directory> [--force]')
+  } else throw new Error('Usage: catalogs.ts validate [catalog-directory] | generate | white-dwarf-references | build <adopted-input.json> <output-directory> [--force]')
 } catch (error) {
   console.error(error instanceof Error ? error.message : String(error))
   process.exitCode = 1

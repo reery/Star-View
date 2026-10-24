@@ -3,8 +3,8 @@
   "abbreviation": "Eri",
   "name": "Eridanus",
   "center": {
-    "ra_deg": 55.14676958624913,
-    "dec_deg": -26.785115986725646
+    "ra_deg": 55.146769586,
+    "dec_deg": -26.785115987
   },
   "stars": [
     {
@@ -1349,7 +1349,7 @@
         "luminosity_solar": 2030.9558705808413,
         "radius_solar": 10.426544,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.021,
         "absolute_mag": -2.924912,
         "epoch": 2000.0,
         "type": "star",
@@ -1358,7 +1358,7 @@
         "constellation": "Eridanus",
         "spectral_type": "B2III(e)p",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 23972; Stellarium Eri). SIMBAD identity * lam Eri; SIMBAD compiled Johnson V=4.27; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 23972; Stellarium Eri). SIMBAD identity * lam Eri; SIMBAD compiled Johnson V=4.27; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Lambda Eri. Exact * lam Eri / HD 33328, HIP 23972. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T).",
         "designations": [
           "HIP 23972"
         ],
@@ -3067,7 +3067,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

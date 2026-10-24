@@ -1,0 +1,264 @@
+J/AJ/162/198     Fundamental parameters of 44 stars with NPOI    (Baines+, 2021)
+================================================================================
+Angular diameters and fundamental parameters of forty-four stars from the Navy
+Precision Optical Interferometer.
+    Baines E.K., Armstrong J.T., Clark J.H., Gorney J., Hutter D.J.,
+    Jorgensen A.M., Kyte C., Mozurkewich D., Nisley I., Sanborn J.,
+    Schmitt H.R., Van Belle G.T.
+   <Astron. J., 162, 198-198 (2021)>
+   =2021AJ....162..198B    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Interferometry; Optical; Parallaxes, trigonometric;
+              Spectral types; Effective temperatures; Positional data
+
+Keywords: Fundamental parameters of stars; High angular resolution
+          Optical interferometry
+
+Abstract:
+    We measured the angular diameters of 44 stars with the Navy Precision
+    Optical Interferometer, obtaining uncertainties on the limb-darkened
+    diameter of 2% or less for all but four stars. We then used our
+    diameters with Gaia or Hipparcos parallaxes to calculate each star's
+    physical radius. We gathered information from the literature to
+    determine bolometric flux and luminosity, and combined that with our
+    diameters to produce an effective temperature. Our sample consists of
+    mostly giant stars, and spans a wide range of spectral classes from B
+    to M.
+
+Description:
+    The Navy Precision Optical Interferometer (NPOI) is an optical
+    interferometer located on Anderson Mesa, AZ. The NPOI uses a 12.5cm
+    diameter region of a 50cm siderostat in both the astrometric and
+    imaging stations. We can combine light from any of the astrometric and
+    imaging stations that are appropriate for our science goals, up to six
+    stations at a time. The current magnitude limit is ~5.5 in the V band
+    under normal conditions and ~6.0 in excellent conditions.
+
+    We observed the 44 targets from 1997 to 2021, a data set that totals
+    over 85000 calibrated data points.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName    Lrecl    Records    Explanations
+--------------------------------------------------------------------------------
+ReadMe          80          .    This file
+table1.dat      76         44    Sample star properties
+table2.dat      64        347    Observing log
+table3.dat      87         49    Calibrator stars SED inputs & angular diameters
+table4.dat      84         44    Interferometric results
+table5.dat      88         44    Derived stellar parameters
+table6.dat      54        135    Interferometric angular diameter comparison
+--------------------------------------------------------------------------------
+
+See also:
+ B/wds : The Washington Visual Double Star Catalog (Mason+ 2001-2020)
+ B/pastel : The PASTEL catalogue (Soubiran+, 2016-)
+ II/5    : UBV Photometry of Bright Stars (Johnson+ 1966)
+ II/84   : 13-color photometry of 1380 bright stars (Johnson+ 1975)
+ II/62   : Catalogue of Extinction Data (Neckel+, 1980)
+ II/182  : UBV Photometry of Stars with Accurate Positions (Oja 1984-1993)
+ III/164 : Catalog of Eq.Widths of Interstellar 217nm Band (Friedemann 1992)
+ I/259   : The Tycho-2 Catalogue (Hog+ 2000)
+ I/276   : Tycho Double Star Catalogue   (TDSC) (Fabricius+ 2002)
+ I/284   : The USNO-B1.0 Catalog (Monet+ 2003)
+ I/311   : Hipparcos, the New Reduction (van Leeuwen, 2007)
+ V/137   : Extended Hipparcos Compilation (XHIP) (Anderson+, 2012)
+ I/345   : Gaia DR2 (Gaia Collaboration, 2018)
+ II/361  : MDFC Version 10 (Cruzalebes+, 2019)
+ J/ApJ/746/101  : Diameters and temperatures of AFG stars (Boyajian+, 2012)
+ J/ApJ/757/112  : Stellar diameters. II. K and M-stars (Boyajian+, 2012)
+ J/ApJS/199/8   : Compilation interstellar column densities (Gudennavar+, 2012)
+ J/MNRAS/419/1637 : Nearby red clump stars JHK observations (Laney+, 2012)
+ J/A+A/549/A129 : Equivalent widths of cool stars (Cesetti+, 2013)
+ J/ApJ/775/45   : PTI carbon star angular size survey (van Belle+, 2013)
+ J/ApJS/210/20  : Small Kepler planets radial velocities (Marcy+, 2014)
+ J/A+A/586/A94  : Exoplanetary parameters for 18 bright stars (Ligi+, 2016)
+ J/A+A/593/A51  : Debris discs around nearby FGK stars (Montesinos+, 2016)
+ J/MNRAS/459/1170 : Coulour-Period relation for Cepheids (Scowcroft+, 2016)
+ J/AJ/153/16    : Calibrator stars catalog for interferometers (Swihart+, 2017)
+ J/ApJ/836/77   : Library of high-S/N optical spectra of FGKM stars (Yee+, 2017)
+ J/MNRAS/471/770 : Parameters & IR excesses of Gaia DR1 stars (McDonald+, 2017)
+ J/A+A/619/A134 : ATHOS. Flux ratio based stellar param. (Hanke+, 2018)
+ J/AJ/155/30 : Fundamental parameters of 87 stars from the NPOI (Baines+, 2018)
+ J/ApJ/869/37   : Optical interferometry of 6 O-type HD stars (Gordon+, 2018)
+ J/ApJ/873/91   : Interfero. obs. of B-type stars with CHARA (Gordon+, 2019)
+ J/A+A/633/A34  : Lithium in red giant stars (Charbonnel+, 2020)
+ J/A+A/640/A25  : Metal-poor stars limb-darkening coeffs (Karovicova+, 2020)
+ J/ApJS/255/6   : Warm Jupiters TESS FFIs 1st yr (2018-2019July) (Dong+, 2021)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  6 I6     ---     Target  Henry Draper Catalog identifier of Target
+   8- 11 I4     ---     HR      Yale Bright Star Catalog identifier
+  13- 16 A4     ---     FK5     FK5 identifier
+  18- 32 A15    ---     OName   Other Name
+  34- 43 A10    ---     SpT     Spectral Type, from SIMBAD
+  45- 48 F4.2   mag     Vmag    [0.37/5.32] V-band magnitude (1)
+  50- 53 F4.2   mag   e_Vmag    [0/0.1] Uncertainty in Vmag
+  55- 60 F6.2   mas     Plx     [1/285] Parallax
+  62- 65 F4.2   mas   e_Plx     [0.08/2] Uncertainty in Par
+  67- 67 I1     ---   r_Plx     Reference for Plx (2)
+  69- 73 F5.2   ---     [Fe/H]  [-0.65/0.2]? Metallicity
+  75- 76 I2     ---   r_[Fe/H]  Reference for [Fe/H] (2)
+--------------------------------------------------------------------------------
+Note (1): V-band magnitudes from Mermilliod, 2006, II/168.
+Note (2): References as follows :
+     1 = Gaia Collaboration, 2020, I/350
+     2 = van Leeuwen, 2007, I/311
+     3 = Gaia Collaboration+, 2018, I/345
+     4 = Montesinos+, 2016, J/A+A/593/A51
+     5 = Anderson & Francis, 2012, V/317
+     6 = no [Fe/H] was available
+     7 = Yee+, 2017, J/ApJ/836/77
+     8 = Charbonnel+, 2020, J/A+A/633/34
+     9 = Hanke+, 2018, J/A+A/619/A134
+    10 = Scowcroft+, 2016, J/MNRAS/459/1170
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label   Explanations
+--------------------------------------------------------------------------------
+   1-  6 I6     ---     Target  Henry Draper Catalog identifier of Target
+   8- 13 I6     ---     Calib   Henry Draper Catalog identifier of Calibrator
+  15- 18 I4     yr      Obs.Y   [1997/2021] Observation UT date, Year
+  20- 22 A3     "month" Obs.M   Observation UT date, Month
+  24- 25 I2     d       Obs.D   Observation UT date, Day in Month
+  27- 59 A33    ---     BL      Baselines Used (1)
+  61- 64 I4     ---     Num     [13/1390] Number of data points
+--------------------------------------------------------------------------------
+Note (1): The maximum baseline lengths are AC-AE 18.9m, AC-AW 22.2m,
+    AC-E6 34.4m, AC-W7 51.3m, AE-W7 64.2m, AW-E2 31.9m, AW-E4 14.0m,
+    AW-E6 53.3m, E2-E4 7.8m, and E6-W7 79.4m.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label      Explanations
+--------------------------------------------------------------------------------
+   1-  6 I6     ---       Calib      Henry Draper Catalog identifier of
+                                      Calibrator
+   8- 16 A9     ---       SpT        Spectral Type, SIMBAD
+  18- 21 F4.2   mag       Umag       [0.55/5.34] U-band magnitude (1)
+  23- 26 F4.2   mag       Bmag       [1.41/5.23] B-band magnitude (1)
+  28- 31 F4.2   mag       Vmag       [1.64/5.16] V-band magnitude (1)
+  33- 36 F4.2   mag       Rmag       [1.71/5.1] R-band magnitude (2)
+  38- 41 F4.2   mag       Imag       [1.84/5.08] I-band magnitude (2)
+  43- 46 F4.2   mag       Jmag       [2.15/5.19] J-band magnitude (3)
+  48- 51 F4.2   mag       Hmag       [2.36/5.04] H-band magnitude (3)
+  53- 56 F4.2   mag       Kmag       [2.29/4.92] K-band magnitude (3)
+  58- 62 I5     K         Teff       [6761/26405] Surface effective temperature
+  64- 67 F4.2   [cm/s2]   logg       [2.05/4.37] log, surface gravity
+  69- 69 I1     ---       Ref        References for Teff, logg (4)
+  71- 74 F4.2   mag       E(B-V)     B-V color excess
+  76- 77 I2     ---     r_E(B-V)     Reference for E(B-V) (4)
+  79- 82 F4.2   mas       theta-est  Estimated angular diameter, Section 2
+  84- 87 F4.2   mas     e_theta-est  Uncertainty in theta-est
+--------------------------------------------------------------------------------
+Note (1): UBV-band magnitudes from Mermilliod, 2006, II/168.
+Note (2): RI-band magnitudes from Monet+, 2003, I/284.
+Note (3): JHK-band magnitudes from Cutri+, 2003, II/246.
+Note (4): References as follows:
+     1 = Prugniel+, 2007astro.ph..3658P
+     2 = Allende Prieto & Lambert, 1999, J/A+A/352/555
+     3 = Wu+, 2011, J/A+A/525/A71
+     4 = Lafrasse+, 2010SPIE.7734E..4EL
+     5 = Sanchez-Blazquez+, 2006, J/MNRAS/371/703
+     6 = Neckel+, 1980, II/62
+     7 = Zorec+, 2009, J/A+A//501/297
+     8 = Jamar+, 1995, III/39
+     9 = Friedemann, 1992, III/164
+    10 = Alonso+, 1996, J/A+AS/117/227A
+    11 = Gontcharov & Mosenkov, 2018, II/354
+    12 = van Belle+, 2008, J/ApJS/176/276
+    13 = Otte & Dixon, 2006, J/ApJ/647/312
+    14 = Gudennavar+, 2012, J/ApJS/199/8
+    15 = Karatas & Schuster, 2006, J/MNRAS/371/1793
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units     Label      Explanations
+--------------------------------------------------------------------------------
+  1-  6 I6     ---       Target     Henry Draper Catalog identifier of Target
+  8- 13 F6.3   mas       theta-ud   [0.9/11.1] Apparent uniform disk angular
+                                     diameter
+ 15- 19 F5.3   mas     e_theta-ud   [0.006/0.09] Uncertainty in theta-ud
+ 21- 25 I5     K         Teff       [3382/14859] Surface effective temperature
+ 27- 31 F5.2   [cm/s2]   logg       [-0.22/4.33] log, surface gravity
+ 33- 33 I1     ---       Ref        References for Teff, logg (1)
+ 35- 38 F4.2   ---       mu-i       [0.33/0.86] Initial limb-darkening
+                                     coefficient (2)
+ 40- 45 F6.3   mas       theta-ld-i [0.89/12.2] Initial limb-darkening angular
+                                     diameter
+ 47- 51 F5.3   mas     e_theta-ld-i [0.006/0.13] Uncertainty in theta-ld-i
+ 53- 56 F4.2   ---       mu-f       [0.35/0.86] Final limb-darkening coefficient
+                                     (2)
+ 58- 63 F6.3   mas       theta-ld-f [0.9/12.2] Final limb-darkening angular
+                                     diameter
+ 65- 69 F5.3   mas     e_theta-ld-f [0.006/0.13] Uncertainty in theta-ld-f
+ 71- 73 F3.1   %         sigtheta   [0.1/5.4] Percent uncertainty {theta}-ld-f
+ 75- 79 F5.1   10+6/s    MaxSF      [23.8/151] maximum spatial frequency for the
+                                     diameter measurement, 10+6 cycles/second
+ 81- 84 I4     ---       Nfit       [140/8812] Number of data points in angular
+                                     diameter fit
+--------------------------------------------------------------------------------
+Note (1): References as follows:
+    1 = Allende Prieto & Lambert, 1999, J/A+A/352/555
+    2 = Prugniel+, 2011, J/A+A/531A/165
+    3 = Borde+, 2002, J/A+A/393/183
+    4 = Soubiran+, 2016, B/pastel
+    5 = Valdes+, 2004, J/ApJS/152/251
+    6 = McDonald+, 2017, J/MNRAS/471/770
+    7 = Cesetti+, 2013, J/A+A/549/A129
+Note (2): The initial linear, limb-darkening coefficient, mu-i, is based on
+    the Teff and logg listed in the table; the final m-f is based on the new
+    Teff determination.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units      Label   Explanations
+--------------------------------------------------------------------------------
+  1-  6 I6     ---        Target  Henry Draper Catalog identifier of Target
+  8- 13 A6     ---        SpT     Spectral Type
+ 15- 20 F6.2   Rsun       Rad     [1.1/780] Derived stellar radius, solar units
+ 22- 26 F5.2   Rsun     E_Rad     [0.01/77.3] Upper uncertainty in Rad
+ 28- 32 F5.2   Rsun     e_Rad     [0.01/96.4] Lower uncertainty in Rad
+ 34- 37 F4.1   %          sigRad  [0.5/27.5] Percent uncertainty in Rad
+ 39- 43 F5.2   10-9W/m2   FBol    [0.47/17.9] Bolometric flux, 10-6erg/s/cm2
+ 45- 48 F4.2   10-9W/m2 e_FBol    [0.01/2.42] Uncertainty in FBol
+ 50- 53 F4.2   mag        AVmag   [0/2.47] V-band reddening
+ 55- 58 F4.2   mag      e_AVmag   [0.02/0.2] Uncertainty in AVmag
+ 60- 64 I5     K          Teff    [3394/12026] Final derived stellar effective
+                                   temperature
+ 66- 68 I3     K        e_Teff    [23/291] Uncertainty in Teff
+ 70- 72 F3.1   %          sigTeff [0.5/6.7] Percent uncertainty in Teff
+ 74- 80 F7.1   Lsun       Lum     [2.1/72881] Stellar luminosity, solar units
+ 82- 88 F7.1   Lsun     e_Lum     [0.1/16307] Uncertainty in Lum
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units   Label         Explanations
+--------------------------------------------------------------------------------
+  1-  6 I6     ---     Target        Henry Draper Catalog identifier of Target
+  8- 13 F6.3   mas     theta-ld-f    [0.9/12.2] Final {theta}LD derived in this
+                                      work (Table 4)
+ 15- 19 F5.3   mas   e_theta-ld-f    [0.006/0.2] Uncertainty in theta-ld-f
+ 21- 26 F6.3   mas     theta-ld-lit  [1/12.6]? Literature value of {theta}_LD
+ 28- 32 F5.3   mas   e_theta-ld-lit  [0.006/2]? Uncertainty in theta-ld-lit
+ 34- 34 A1     ---   f_theta-ld-lit  Flag for uniform disk angular diameter (1)
+ 36- 54 A19    ---   r_theta-ld-lit  Reference (ADS Bibcode) for theta-ld-lit
+--------------------------------------------------------------------------------
+Note (1): Flag as follows:
+   *= No LD diameter was provided, therefore we list the UD diameter here
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)                          Prepraed by [AAS], Coralie Fix [CDS], 10-Jan-2022

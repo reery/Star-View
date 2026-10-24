@@ -17,8 +17,21 @@
       "sha256": "8e88908ce6de75b304b830edc18ef7fe470ed98777287dccca91fdd2b783fc09",
       "frozenInput": "catalog-work/star-systems/reviewed-regor.json",
       "retrievedOn": "2026-10-15"
+    },
+    {
+      "url": "https://arxiv.org/html/2603.17011",
+      "sha256": "85324ad75f8eb25783c8c908957eb5069a6be89a6f52d1563b29474cdc896177",
+      "frozenInput": "catalog-work/star-systems/reviewed-constellation-orbits.json",
+      "retrievedOn": "2026-10-19"
     }
   ],
+  "refreshedSystems": [
+    "msc-03492+2403",
+    "msc-08400-5303",
+    "msc-08424-5307",
+    "msc-12349+2238"
+  ],
+  "scope": "Only these systems refreshed; every other existing orbital solution retained verbatim.",
   "policy": "Exact reviewed WDS/HIP identities only; explicit pair scopes; no positional matches, estimated wide periods or photocenter axes. Angular relative axes converted to AU with the identified catalog parallax. Reviewed published physical axes retain their source distance; component conventions are checked against measured offsets. Unknown MSC zeros stay null.",
   "identityInputs": [
     {
@@ -27,7 +40,7 @@
     },
     {
       "frozenInput": "src/data/stellar-companions.json",
-      "sha256": "83a315a191415a3eb4f22bf3f45394a85cc2e9a896e928eed93a322d2ee8751c"
+      "sha256": "ce83b5a1f3bc541404db2ad1fb06453cf721d24451dd7697a827163ecb751eb8"
     },
     {
       "frozenInput": "src/data/object-designations.json",
@@ -35,8 +48,8 @@
     }
   ],
   "systemsReviewed": 341,
-  "systemsWithSolutions": 238,
-  "orbitCount": 299,
+  "systemsWithSolutions": 240,
+  "orbitCount": 302,
   "reconciled": [
     {
       "systemId": "msc-00084+2905",
@@ -525,12 +538,6 @@
     },
     {
       "systemId": "msc-07346+3153",
-      "pair": "Ca,Cb",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "SB_463"
-    },
-    {
-      "systemId": "msc-07346+3153",
       "pair": "Cab,Cc",
       "reason": "Unresolved or overlapping component scope",
       "reference": "2018A&A...620A..72W A=0.0034d"
@@ -694,6 +701,68 @@
         "secondary": "Ab",
         "semiMajorAxisAu": null,
         "axisDerivation": null
+      }
+    },
+    {
+      "systemId": "msc-07346+3153",
+      "adoptedReference": "Kochukhov & Shulyak 2019 Table 2",
+      "retainedSolution": {
+        "periodYears": 0.0022294318959616703,
+        "eccentricity": null,
+        "inclinationDeg": null,
+        "nodeDeg": null,
+        "argumentDeg": null,
+        "periastronEpoch": 24989.1,
+        "epochKind": "JD \u2212 2400000",
+        "grade": null,
+        "reference": "SB_463",
+        "catalog": "MSC",
+        "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+        "nodeAmbiguous": true,
+        "argumentComponent": "Ca",
+        "primaryIds": [
+          "msc-07346+3153-c"
+        ],
+        "secondaryIds": [
+          "msc-07346+3153-cb"
+        ],
+        "primary": "Ca",
+        "secondary": "Cb",
+        "semiMajorAxisAu": null,
+        "axisDerivation": null
+      }
+    },
+    {
+      "systemId": "orb6-05595+4457-aa-ab",
+      "adoptedReference": "Jonak et al. 2026 Table 6",
+      "retainedSolution": {
+        "periodYears": 0.01084188911704312,
+        "eccentricity": 0.0,
+        "inclinationDeg": 76.0,
+        "nodeDeg": 115.4,
+        "argumentDeg": 0.0,
+        "periastronEpoch": 47438.65,
+        "epochKind": "JD \u2212 2400000",
+        "grade": 2.0,
+        "reference": "MkT1995",
+        "catalog": "ORB6",
+        "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+        "nodeAmbiguous": true,
+        "argumentComponent": "Ab",
+        "primaryIds": [
+          "bright-menkalinan"
+        ],
+        "secondaryIds": [
+          "orb6-05595+4457-aa-ab-ab"
+        ],
+        "primary": "Aa",
+        "secondary": "Ab",
+        "semiMajorAxisAu": 0.08206914,
+        "axisDerivation": {
+          "angularAxisArcsec": 0.0033,
+          "parallaxMas": 40.21,
+          "parallaxStarId": "bright-menkalinan"
+        }
       }
     }
   ],
@@ -1012,10 +1081,6 @@
       "name": "Cor Caroli"
     },
     {
-      "systemId": "msc-13252-1110",
-      "name": "Spica"
-    },
-    {
       "systemId": "msc-13496-4228",
       "name": "Mu Cen"
     },
@@ -1058,10 +1123,6 @@
     {
       "systemId": "msc-18448+3736",
       "name": "Zeta1 Lyr"
-    },
-    {
-      "systemId": "msc-18553-2618",
-      "name": "Nunki"
     },
     {
       "systemId": "msc-19563+3505",

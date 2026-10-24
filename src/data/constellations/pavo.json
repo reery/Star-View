@@ -3,8 +3,8 @@
   "abbreviation": "Pav",
   "name": "Pavo",
   "center": {
-    "ra_deg": 291.1312777578645,
-    "dec_deg": -66.26727866051588
+    "ra_deg": 291.131277758,
+    "dec_deg": -66.267278661
   },
   "stars": [
     {
@@ -218,11 +218,11 @@
         "vy_kms": -22.721497,
         "vz_kms": -5.591547,
         "temperature_k": 11282.0,
-        "mass_solar": null,
+        "mass_solar": 12.5,
         "luminosity_solar": 2921.9502430002362,
         "radius_solar": 14.148711,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.0158,
         "absolute_mag": -3.459117,
         "epoch": 2000.0,
         "type": "star",
@@ -231,7 +231,7 @@
         "constellation": "Pavo",
         "spectral_type": "B2Ve",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 92609; Stellarium Pav). SIMBAD identity * lam Pav; SIMBAD compiled Johnson V=4.207; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 92609; Stellarium Pav). SIMBAD identity * lam Pav; SIMBAD compiled Johnson V=4.207; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Lambda Pav. Exact * lam Pav / HD 173948, HIP 92609. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Published object-specific median of evolutionary models; not a dynamical mass. Model-to-model deviation does not include all source photometry, rotation or metallicity systematics. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T; mass_solar: 2011MNRAS.410..190T).",
         "designations": [
           "HIP 92609"
         ],
@@ -364,12 +364,12 @@
         "vx_kms": -48.480003,
         "vy_kms": -13.472607,
         "vz_kms": -15.090638,
-        "temperature_k": 5438.0,
-        "mass_solar": 0.94,
-        "luminosity_solar": 1.2535083,
-        "radius_solar": 1.2615935,
-        "metallicity_dex": 0.0321,
-        "age_gyr": null,
+        "temperature_k": 5571.0,
+        "mass_solar": 1.07,
+        "luminosity_solar": 1.24,
+        "radius_solar": 1.197,
+        "metallicity_dex": 0.371,
+        "age_gyr": 6.1,
         "absolute_mag": 4.633611,
         "epoch": 2000.0,
         "type": "star",
@@ -377,8 +377,8 @@
         "name": "Delta Pav",
         "constellation": "Pavo",
         "spectral_type": "G8IV",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 99240; Stellarium Pav). SIMBAD identity * del Pav; SIMBAD compiled Johnson V=3.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 99240; Stellarium Pav). SIMBAD identity * del Pav; SIMBAD compiled Johnson V=3.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical parameters: Carvalho-Silva et al. 2025 Table 1 (HIP 99240): mass 1.07 +/- 0.01 solar (isochrone-derived), [Fe/H] +0.371 +/- 0.008 dex (differential HARPS spectroscopy), isochronal age 6.10 -0.26/+0.25 Gyr. Rains et al. 2020 Table 4 (HD 190248): interferometric/bolometric Teff 5571 +/- 48 K, radius 1.197 +/- 0.016 solar, luminosity 1.24 +/- 0.03 solar. Formal internal errors do not include all method systematics; previous catalog models and the alternative 2025 spectroscopic temperature 5609 +/- 8 K are retained in the frozen Delta Pav review.",
         "designations": [
           "HIP 99240"
         ],
@@ -1316,7 +1316,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

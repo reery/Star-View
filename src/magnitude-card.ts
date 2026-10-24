@@ -1,26 +1,22 @@
-import { Binoculars, Eye, Telescope, createElement, type IconNode } from 'lucide'
+import { MAGNITUDE_VISIBILITY_GUIDES } from './magnitude-properties'
+export { magnitudeCardAvailable, MAGNITUDE_VISIBILITY_GUIDES, NAKED_EYE_MAGNITUDE } from './magnitude-properties'
+import { Eye, Sun, createElement } from 'lucide'
 import { starDisplayColor, type StarColorMode } from './astronomy'
 import type { Star } from './catalog-model'
 import { catalogSourceFor } from './catalog-source'
+import { renderComparisonName } from './comparison-tiles'
 import { MISSING_VALUE } from './format'
 
 type MagnitudeKind = 'absolute' | 'apparent'
-export const NAKED_EYE_MAGNITUDE = 6
-// Representative stellar limits, rather than averages across unlike instruments.
-// Celestron's visual limits span sky conditions and apertures; ESO's FORS V-band
-// direct-imaging table reaches about +27 with a large telescope and long exposure.
-export const MAGNITUDE_VISIBILITY_GUIDES = [
-  { id: 'eye', name: 'Naked eye', limit: NAKED_EYE_MAGNITUDE, detail: 'Dark skies and dark-adapted eyesight.', icon: Eye },
-  { id: 'binoculars', name: 'Binoculars', limit: 10, detail: 'Typical 40–50 mm binoculars; sky conditions matter.', icon: Binoculars },
-  { id: 'telescope', name: 'Telescope', limit: 13, detail: 'Typical 100–150 mm amateur telescope under good skies.', icon: Telescope },
-  { id: 'observatory', name: 'Observatory', limit: 27, detail: 'Long-exposure camera imaging with a large professional telescope.', icon: [
-    ['path', { d: 'M4 12a8 8 0 0 1 16 0M3 12h18v8H3zM2 20h20M12 4v8M15 4.6V12' }],
-    ['path', { d: 'M10 20v-4h4v4' }],
-  ] as IconNode },
-] as const
+const CITY_VISIBILITY_STORAGE_KEY = 'star-view-magnitude-city'
 type VisibilityGuide = typeof MAGNITUDE_VISIBILITY_GUIDES[number]
+const DEFAULT_VISIBILITY_GUIDE = MAGNITUDE_VISIBILITY_GUIDES[1]
 
 export function initializeMagnitudeVisibility(card: HTMLElement, onChange: () => void, signal: AbortSignal): void {
+  let city = false
+  try { city = localStorage.getItem(CITY_VISIBILITY_STORAGE_KEY) === 'true' } catch {}
+  card.dataset.defaultVisibilityGuide = city ? 'city' : 'eye'
+  card.dataset.visibilityGuide = card.dataset.defaultVisibilityGuide
   const controls = card.querySelector<HTMLElement>('#magnitude-visibility-controls')!
   controls.replaceChildren(...MAGNITUDE_VISIBILITY_GUIDES.map((guide, index) => {
     const button = document.createElement('button')
@@ -29,7 +25,7 @@ export function initializeMagnitudeVisibility(card: HTMLElement, onChange: () =>
     button.dataset.visibility = guide.id
     const label = `${guide.name} visibility (about +${guide.limit})`
     button.setAttribute('aria-label', label)
-    button.setAttribute('aria-pressed', String(index === 0))
+    button.setAttribute('aria-pressed', String(guide.id === card.dataset.visibilityGuide))
     button.setAttribute('aria-controls', 'magnitude-apparent-scale')
     const tooltip = document.createElement('span')
     tooltip.id = `magnitude-${guide.id}-tooltip`
@@ -41,6 +37,9 @@ export function initializeMagnitudeVisibility(card: HTMLElement, onChange: () =>
     button.append(createElement(guide.icon, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' }), tooltip)
     button.addEventListener('click', () => {
       card.dataset.visibilityGuide = guide.id
+      // Remember city observing conditions; instrument guides remain per-object choices.
+      card.dataset.defaultVisibilityGuide = guide.id === 'city' ? 'city' : 'eye'
+      try { localStorage.setItem(CITY_VISIBILITY_STORAGE_KEY, String(guide.id === 'city')) } catch {}
       onChange()
     }, { signal })
     return button
@@ -49,10 +48,6 @@ export function initializeMagnitudeVisibility(card: HTMLElement, onChange: () =>
 const finiteMagnitude = (value: number | null | undefined): value is number => typeof value === 'number' && Number.isFinite(value)
 export const magnitudeNumber = (value: number | null | undefined): string => !finiteMagnitude(value) ? MISSING_VALUE
   : `${value < 0 ? '−' : value > 0 ? '+' : ''}${Math.abs(value).toLocaleString('en-US', { maximumFractionDigits: 2 })}`
-
-export function magnitudeCardAvailable(star: Star): boolean {
-  return finiteMagnitude(star.absolute_mag) || finiteMagnitude(star.apparent_mag)
-}
 
 /** Equal-distance visible brightness, using adopted V magnitudes rather than bolometric L. */
 export function magnitudeBrightnessRatio(selected: number | null | undefined, reference: number | null | undefined): number | null {
@@ -71,16 +66,19 @@ export interface MagnitudePoint {
 }
 
 /** Only adopted individual magnitudes can enter a comparison scale. */
-export function magnitudePoints(kind: MagnitudeKind, star: Star, origin: Star, sun: Star, sirius?: Star): MagnitudePoint[] {
+/** With a comparison star, it replaces the origin and is never labeled as the origin. */
+export function magnitudePoints(kind: MagnitudeKind, star: Star, mapOrigin: Star, sun: Star, sirius?: Star, other?: Star): MagnitudePoint[] {
+  const comparing = other !== undefined
+  const origin = other ?? mapOrigin
   const field = kind === 'absolute' ? 'absolute_mag' : 'apparent_mag'
   const objects = [sun, ...(origin.id !== sun.id ? [origin] : []), star]
   const points = new Map<string, MagnitudePoint>()
   for (const object of objects) {
-    if (kind === 'apparent' && object.id === sun.id) continue
+    if (kind === 'apparent' && object.id === sun.id && (!comparing || star.id !== sun.id && origin.id !== sun.id)) continue
     const value = object[field]
     if (!finiteMagnitude(value)) continue
     points.set(object.id, { id: object.id, name: object.name, value, object,
-      selected: object.id === star.id, origin: object.id === origin.id && origin.id !== sun.id })
+      selected: object.id === star.id, origin: !comparing && object.id === origin.id && origin.id !== sun.id })
   }
   if (kind === 'apparent') {
     // Fixed Earth-view benchmarks, independent of the active catalog.
@@ -120,7 +118,7 @@ function renderScale(card: HTMLElement, kind: MagnitudeKind, points: MagnitudePo
     band.className = 'magnitude-visible-band'
     const faintPosition = axis.position(visibility.limit)
     band.style.left = `${faintPosition}%`
-    band.style.setProperty('--magnitude-visibility-fade-end', `${(axis.position(visibility.limit - 2) - faintPosition) / (100 - faintPosition) * 100}%`)
+    band.style.setProperty('--magnitude-visibility-fade-end', `${(axis.position(visibility.fadeStart) - faintPosition) / (100 - faintPosition) * 100}%`)
     band.setAttribute('aria-hidden', 'true')
     track.append(band)
     const limit = document.createElement('span')
@@ -171,26 +169,58 @@ function renderScale(card: HTMLElement, kind: MagnitudeKind, points: MagnitudePo
     tick.style.setProperty('--magnitude-label-lane', String(lane))
   }
   scale.style.setProperty('--magnitude-label-lanes', String(Math.max(1, occupied.length)))
-  scale.setAttribute('aria-label', `${kind === 'absolute' ? 'Absolute V magnitude at 10 parsecs' : 'Apparent V magnitude from Earth'}. ${kind === 'apparent' ? 'Nighttime scale: ' : ''}fainter ${magnitudeNumber(axis.faint)} to brighter ${magnitudeNumber(axis.bright)}. ${points.map((point) => `${point.name}${point.selected ? ', selected' : ''}${point.origin ? ', origin' : ''}: ${magnitudeNumber(point.value)}`).join('; ')}.${kind === 'apparent' ? ` ${visibility.name} brightness band: approximately +${visibility.limit} or brighter, fading between +${visibility.limit - 2} and +${visibility.limit}. ${visibility.detail}` : ''}`)
+  scale.setAttribute('aria-label', `${kind === 'absolute' ? 'Absolute V magnitude at 10 parsecs' : 'Apparent V magnitude from Earth'}. ${kind === 'apparent' ? 'Nighttime scale: ' : ''}fainter ${magnitudeNumber(axis.faint)} to brighter ${magnitudeNumber(axis.bright)}. ${points.map((point) => `${point.name}${point.selected ? ', selected' : ''}${point.origin ? ', origin' : ''}: ${magnitudeNumber(point.value)}`).join('; ')}.${kind === 'apparent' ? ` ${visibility.name} brightness band: approximately +${visibility.limit} or brighter, fading between +${visibility.fadeStart} and +${visibility.limit}. ${visibility.detail}` : ''}`)
 }
 
-export function renderMagnitudeCard(card: HTMLElement, star: Star, origin: Star, sun: Star, colorMode: StarColorMode, sirius?: Star): void {
-  const visibility = MAGNITUDE_VISIBILITY_GUIDES.find((guide) => guide.id === card.dataset.visibilityGuide) ?? MAGNITUDE_VISIBILITY_GUIDES[0]
+function renderComparisonValues(card: HTMLElement, kind: MagnitudeKind, star: Star, other: Star | undefined, colorMode: StarColorMode): void {
+  const grid = card.querySelector<HTMLElement>(`#magnitude-${kind}-comparison`)!
+  grid.hidden = !other
+  grid.replaceChildren()
+  card.querySelector<HTMLElement>(`#magnitude-${kind}-value`)!.hidden = Boolean(other)
+  card.querySelector<HTMLElement>(`#magnitude-${kind}-icon`)!.hidden = Boolean(other)
+  if (!other) return
+
+  for (const object of [star, other]) {
+    const tile = document.createElement('div')
+    tile.className = 'planet-fact-tile magnitude-comparison-tile'
+    tile.dataset.objectId = object.id
+    tile.setAttribute('role', 'group')
+    tile.setAttribute('aria-label', `${object.name} · ${kind} V magnitude`)
+    const heading = document.createElement('span')
+    heading.className = 'magnitude-factor-name'
+    renderComparisonName(heading, object, colorMode)
+    const quantity = document.createElement('div')
+    quantity.className = 'magnitude-tile-quantity'
+    const value = document.createElement('strong')
+    value.textContent = magnitudeNumber(object[kind === 'absolute' ? 'absolute_mag' : 'apparent_mag'])
+    quantity.append(createElement(kind === 'absolute' ? Sun : Eye, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' }), value)
+    tile.append(heading, quantity)
+    grid.append(tile)
+  }
+}
+
+export function renderMagnitudeCard(card: HTMLElement, star: Star, mapOrigin: Star, sun: Star, colorMode: StarColorMode, sirius?: Star, other?: Star): void {
+  const comparing = other !== undefined
+  const origin = other ?? mapOrigin
+  card.classList.toggle('has-comparison', comparing)
+  const visibility = MAGNITUDE_VISIBILITY_GUIDES.find((guide) => guide.id === card.dataset.visibilityGuide) ?? DEFAULT_VISIBILITY_GUIDE
   for (const button of card.querySelectorAll<HTMLButtonElement>('[data-visibility]')) {
     button.setAttribute('aria-pressed', String(button.dataset.visibility === visibility.id))
   }
   const comparison = card.querySelector<HTMLElement>('#magnitude-visible-comparison')!
-  const ratio = magnitudeBrightnessRatio(star.absolute_mag, sun.absolute_mag)
-  comparison.hidden = ratio === null || star.id === sun.id
+  const reference = comparing ? origin : sun
+  const ratio = magnitudeBrightnessRatio(star.absolute_mag, reference.absolute_mag)
+  comparison.hidden = ratio === null || star.id === reference.id
   if (!comparison.hidden) {
     const amount = ratio! >= 1 ? ratio! : 1 / ratio!
     const value = amount.toLocaleString('en-US', { maximumSignificantDigits: 3, notation: amount >= 1e6 ? 'compact' : 'standard' })
     card.querySelector<HTMLElement>('#magnitude-visible-ratio')!.textContent = ratio! >= 1 ? `${value}×` : `1/${value}`
-    card.querySelector<HTMLElement>('#magnitude-visible-reference')!.textContent = ratio! >= 1 ? ' the Sun’s visible brightness' : ' of the Sun’s visible brightness'
+    card.querySelector<HTMLElement>('#magnitude-visible-reference')!.textContent = `${ratio! >= 1 ? ' ' : ' of '}${comparing ? `${origin.name}’s` : 'the Sun’s'} visible brightness`
   }
   for (const kind of ['absolute', 'apparent'] as const) {
     const field = kind === 'absolute' ? 'absolute_mag' : 'apparent_mag'
-    card.querySelector<HTMLElement>(`#magnitude-${kind}-value`)!.textContent = magnitudeNumber(star[field])
+    if (!other) card.querySelector<HTMLElement>(`#magnitude-${kind}-value`)!.textContent = magnitudeNumber(star[field])
+    renderComparisonValues(card, kind, star, other, colorMode)
     const notes: string[] = []
     if (!finiteMagnitude(star[field])) {
       notes.push(`Individual ${kind} V magnitude unavailable.`)
@@ -203,6 +233,6 @@ export function renderMagnitudeCard(card: HTMLElement, star: Star, origin: Star,
     const note = card.querySelector<HTMLElement>(`#magnitude-${kind}-note`)!
     note.textContent = notes.join(' ')
     note.hidden = notes.length === 0
-    renderScale(card, kind, magnitudePoints(kind, star, origin, sun, sirius), sun, colorMode, visibility)
+    renderScale(card, kind, magnitudePoints(kind, star, mapOrigin, sun, sirius, other), sun, colorMode, visibility)
   }
 }

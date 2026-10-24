@@ -56,6 +56,10 @@ def build():
     for path in [ROOT / "src/data/stars.csv", *sorted((ROOT / "src/data/catalogs").glob("*/stars.csv"))]:
         for row in csv_rows(path):
             inventory.setdefault(row["id"], row)
+    # Retired bright rows remain only where their ID is still a reviewed component identity.
+    for row in csv_rows(ROOT / "catalog-work/bright-stars/retired-catalog/stars.csv"):
+        if row["id"] in identities:
+            inventory.setdefault(row["id"], row)
     for path in sorted((ROOT / "src/data/overlays").glob("*/objects.json")):
         for row in json.loads(path.read_text())["objects"]:
             inventory.setdefault(row["id"], row)

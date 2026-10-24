@@ -1,4 +1,5 @@
-import { describe, expect, it, beforeAll } from 'vitest'
+import { describe, expect, it, beforeAll, afterAll, vi } from 'vitest'
+import { generatedJsonFetch } from './test-support/generated-json'
 import { readFileSync } from 'node:fs'
 import { parseStarCatalog } from './catalog'
 import { completeCatalogCompanions } from './stellar-companions'
@@ -9,9 +10,60 @@ import audit from '../catalog-work/star-systems/stellar-orbits-audit.json'
 
 const stars = completeCatalogCompanions(parseStarCatalog(readFileSync(new URL('./data/stars.csv', import.meta.url), 'utf8')))
 const systems = indexStarSystems(stars)
-beforeAll(loadStellarOrbits)
+beforeAll(async () => {
+  vi.stubGlobal('fetch', generatedJsonFetch)
+  await Promise.all(data.systems.map((system) => loadStellarOrbits(system.systemId)))
+})
+afterAll(() => vi.unstubAllGlobals())
 
 describe('reviewed stellar orbits', () => {
+  it('keeps the new relative Nunki orbit and close Spica/YY Gem scope explicit', () => {
+    const nunki = data.systems.find((system) => system.systemId === 'msc-18553-2618')!.orbits[0]!
+    expect(nunki.primaryIds).toEqual(['bright-nunki'])
+    expect(nunki.secondaryIds).toEqual(['msc-18553-2618-ab'])
+    expect(nunki.periodYears * 365.25).toBeCloseTo(134.779, 6)
+    expect(nunki.semiMajorAxisAu).toBe(1.26)
+    expect(nunki.sourceUrl).toContain('2603.17011')
+    const spica = data.systems.find((system) => system.systemId === 'msc-13252-1110')!.orbits[0]!
+    expect(spica.secondaryIds).toEqual(['msc-13252-1110-ab'])
+    expect(spica.periodYears * 365.25).toBeCloseTo(4.0145, 6)
+    expect(orbitHasGeometry(spica)).toBe(false)
+    const castor = data.systems.find((system) => system.systemId === 'msc-07346+3153')!.orbits
+    const yyGem = castor.find((orbit) => orbit.primary === 'Ca' && orbit.secondary === 'Cb')!
+    expect(yyGem.eccentricity).toBe(0)
+    expect(yyGem.periastronEpoch).toBeNull() // Eclipse timing is not periastron.
+    expect(orbitHasGeometry(yyGem)).toBe(false)
+    expect(castor.find((orbit) => orbit.secondary === 'C')?.secondaryIds)
+      .toEqual(['msc-07346+3153-c', 'msc-07346+3153-cb'])
+  })
+
+  it('reproduces published signed offsets and keeps the beta Aur HJD convention distinct from MJD', () => {
+    const predict = (orbit: StellarOrbit, elapsedDays: number, angularAxisMas: number) => {
+      const mean = 2 * Math.PI * ((elapsedDays / (orbit.periodYears * 365.25) % 1 + 1) % 1)
+      let anomaly = mean
+      for (let step = 0; step < 15; step++) anomaly -= (anomaly - orbit.eccentricity! * Math.sin(anomaly) - mean)
+        / (1 - orbit.eccentricity! * Math.cos(anomaly))
+      const point = projectedOrbitPoint(orbit, anomaly)
+      return { east: -point.x * angularAxisMas, north: -point.y * angularAxisMas }
+    }
+    const nunki = data.systems.find((system) => system.systemId === 'msc-18553-2618')!.orbits[0]!
+    for (const [mjd, east, north] of [[57950.11, -22.76, 11.08], [57992.06, -3.58, 19.55], [58005.07, 5.05, 14.47]]) {
+      const point = predict(nunki, mjd! - nunki.periastronEpoch!, 18)
+      expect(Math.abs(point.east - east!)).toBeLessThan(.1)
+      expect(Math.abs(point.north - north!)).toBeLessThan(.1)
+    }
+    const betaAur = data.systems.find((system) => system.systemId === 'orb6-05595+4457-aa-ab')!.orbits[0]!
+    expect(betaAur.epochKind).toBe('HJD')
+    expect(betaAur.periastronEpoch).toBe(2453827.2048)
+    for (const [mjd, east, north] of [[60232.4493, -2.003, .238], [60234.5388, 2.377, -.496], [60259.3951, 1.507, -1.401]]) {
+      // Omitting the small heliocentric correction is adequate at this 0.04 mas
+      // tolerance; confusing reduced HJD with MJD shifts the orbit by 0.5 day.
+      const point = predict(betaAur, mjd! + 2400000.5 - betaAur.periastronEpoch!, 3.36514)
+      expect(Math.abs(point.east - east!)).toBeLessThan(.04)
+      expect(Math.abs(point.north - north!)).toBeLessThan(.04)
+    }
+  })
+
   it('audits every reviewed system and retains exact disjoint component scopes', () => {
     expect(new Set(data.systems.map((s) => s.systemId))).toEqual(new Set(reviewedStarSystems.map((s) => s.id)))
     for (const system of data.systems) {

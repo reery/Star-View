@@ -1,0 +1,800 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-10-17",
+  "policy": "Exact identities; retain all pre-enrichment source records. Adopt Hood 2023 radial velocity; keep Bochanski 2011 as an explicitly non-adopted alternative. Evolutionary scenarios and assumed ages are not measured scalar properties.",
+  "before": {
+    "nearest-100": {
+      "10pc-0068": {
+        "type": "brown_dwarf",
+        "id": "10pc-0068",
+        "name": "UGPS J072227.51-054031.2",
+        "spectral_type": "> T9",
+        "x_pc": "-3.074259736",
+        "y_pc": "-2.723599784",
+        "z_pc": "0.306480415",
+        "vx_kms": "",
+        "vy_kms": "",
+        "vz_kms": "",
+        "temperature_k": "",
+        "mass_solar": "",
+        "luminosity_solar": "",
+        "radius_solar": "",
+        "metallicity_dex": "",
+        "age_gyr": "",
+        "metallicity_kind": "",
+        "absolute_mag": "",
+        "epoch": "2000.0",
+        "notes": "10pc census (2023-08-25), object 68, system 32; UGPS J072227.51-054031.2. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. Unknown, limited, peculiar, subdwarf or unsupported spectral classification. Johnson V unknown in source; no G/IR substitution. No orbital model.",
+        "constellation": "Monoceros",
+        "ra_deg": "110.614629",
+        "dec_deg": "-5.675336",
+        "astrometry_epoch": "2000.0",
+        "parallax_mas": "242.8",
+        "parallax_error_mas": "2.4",
+        "pm_ra_cosdec_masyr": "-903.738",
+        "pm_ra_error_masyr": "1.5842",
+        "pm_dec_masyr": "351.808",
+        "pm_dec_error_masyr": "0.6167",
+        "radial_velocity_kms": "",
+        "radial_velocity_error_kms": "",
+        "astrometry_ref": "2012ApJ...748...74L; 2012ApJS..201...19D",
+        "radial_velocity_ref": ""
+      },
+      "10pc-0084": {
+        "type": "brown_dwarf",
+        "id": "10pc-0084",
+        "name": "WISE J163940.83-684738.6",
+        "spectral_type": "Y0pec",
+        "x_pc": "3.436753222",
+        "y_pc": "-2.762208487",
+        "z_pc": "-1.138168640",
+        "vx_kms": "",
+        "vy_kms": "",
+        "vz_kms": "",
+        "temperature_k": "",
+        "mass_solar": "",
+        "luminosity_solar": "",
+        "radius_solar": "",
+        "metallicity_dex": "",
+        "age_gyr": "",
+        "metallicity_kind": "",
+        "absolute_mag": "",
+        "epoch": "2000.0",
+        "notes": "10pc census (2023-08-25), object 84, system 40; WISE J163940.83-684738.6. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. Unknown, limited, peculiar, subdwarf or unsupported spectral classification. Johnson V unknown in source; no G/IR substitution. No orbital model.",
+        "constellation": "Triangulum Australe",
+        "ra_deg": "249.922582",
+        "dec_deg": "-68.798903",
+        "astrometry_epoch": "2015.9",
+        "parallax_mas": "219.6",
+        "parallax_error_mas": "2.3",
+        "pm_ra_cosdec_masyr": "578.1",
+        "pm_ra_error_masyr": "1.1",
+        "pm_dec_masyr": "-3107.5",
+        "pm_dec_error_masyr": "1.1",
+        "radial_velocity_kms": "",
+        "radial_velocity_error_kms": "",
+        "astrometry_ref": "2021ApJS..253....7K",
+        "radial_velocity_ref": ""
+      }
+    },
+    "nearest-1000": {
+      "10pc-0068": {
+        "type": "brown_dwarf",
+        "id": "10pc-0068",
+        "name": "UGPS J072227.51-054031.2",
+        "designations": "",
+        "spectral_type": "> T9",
+        "x_pc": "-3.074259736",
+        "y_pc": "-2.723599784",
+        "z_pc": "0.306480415",
+        "vx_kms": "",
+        "vy_kms": "",
+        "vz_kms": "",
+        "temperature_k": "",
+        "mass_solar": "",
+        "luminosity_solar": "",
+        "radius_solar": "",
+        "metallicity_dex": "",
+        "metallicity_kind": "",
+        "age_gyr": "",
+        "absolute_mag": "",
+        "epoch": "2000.0",
+        "notes": "10pc census (2023-08-25), object 68, system 32; UGPS J072227.51-054031.2. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. Unknown, limited, peculiar, subdwarf or unsupported spectral classification. Johnson V unknown in source; no G/IR substitution. No orbital model.",
+        "constellation": "Monoceros",
+        "ra_deg": "110.614629",
+        "dec_deg": "-5.675336",
+        "astrometry_epoch": "2000.0",
+        "parallax_mas": "242.8",
+        "parallax_error_mas": "2.4",
+        "pm_ra_cosdec_masyr": "-903.738",
+        "pm_ra_error_masyr": "1.5842",
+        "pm_dec_masyr": "351.808",
+        "pm_dec_error_masyr": "0.6167",
+        "radial_velocity_kms": "",
+        "radial_velocity_error_kms": "",
+        "astrometry_ref": "2012ApJ...748...74L; 2012ApJS..201...19D",
+        "radial_velocity_ref": ""
+      },
+      "10pc-0084": {
+        "type": "brown_dwarf",
+        "id": "10pc-0084",
+        "name": "WISE J163940.83-684738.6",
+        "designations": "",
+        "spectral_type": "Y0pec",
+        "x_pc": "3.436753222",
+        "y_pc": "-2.762208487",
+        "z_pc": "-1.138168640",
+        "vx_kms": "",
+        "vy_kms": "",
+        "vz_kms": "",
+        "temperature_k": "",
+        "mass_solar": "",
+        "luminosity_solar": "",
+        "radius_solar": "",
+        "metallicity_dex": "",
+        "metallicity_kind": "",
+        "age_gyr": "",
+        "absolute_mag": "",
+        "epoch": "2000.0",
+        "notes": "10pc census (2023-08-25), object 84, system 40; WISE J163940.83-684738.6. J2000 Sun-relative Galactic position via Astropy; transverse-only; unknown/withheld RV, no exported velocity. Unknown, limited, peculiar, subdwarf or unsupported spectral classification. Johnson V unknown in source; no G/IR substitution. No orbital model.",
+        "constellation": "Triangulum Australe",
+        "ra_deg": "249.922582",
+        "dec_deg": "-68.798903",
+        "astrometry_epoch": "2015.9",
+        "parallax_mas": "219.6",
+        "parallax_error_mas": "2.3",
+        "pm_ra_cosdec_masyr": "578.1",
+        "pm_ra_error_masyr": "1.1",
+        "pm_dec_masyr": "-3107.5",
+        "pm_dec_error_masyr": "1.1",
+        "radial_velocity_kms": "",
+        "radial_velocity_error_kms": "",
+        "astrometry_ref": "2021ApJS..253....7K",
+        "radial_velocity_ref": ""
+      }
+    }
+  },
+  "beforeProvenance": {
+    "nearest-100": {
+      "10pc-0068": {
+        "id": "10pc-0068",
+        "sourceRow": "68",
+        "systemId": "32",
+        "sourceObjectName": "UGPS J072227.51-054031.2",
+        "sourceObjectType": "BD",
+        "identifiers": {
+          "GaiaEDR3": null,
+          "GaiaDR2": null,
+          "SIMBAD": "UGPS J072227.51-054031.2",
+          "GJ": null,
+          "HIP": null
+        },
+        "sourceMeasurements": {
+          "RAdeg": "110.614629",
+          "DEdeg": "-5.675336",
+          "Epoch": "2000.0",
+          "plx": "242.8",
+          "e_plx": "2.4",
+          "r_plx": "2012ApJ...748...74L",
+          "pmRA": "-903.738",
+          "e_pmRA": "1.5842",
+          "pmDE": "351.808",
+          "e_pmDE": "0.6167",
+          "r_pmDE": "2012ApJS..201...19D",
+          "RV": null,
+          "e_RV": null,
+          "r_RV": null,
+          "SpType": "> T9",
+          "r_SpType": "2010MNRAS.408L..56L",
+          "SpMethod": "NIR Spec",
+          "Vmag": null,
+          "r_Sys": null,
+          "Com": "..."
+        },
+        "adoptedJ2000": {
+          "frame": "ICRS",
+          "raDeg": 110.614629,
+          "decDeg": -5.675335999999999,
+          "distancePc": 4.118616144975289,
+          "method": "transverse-only; unknown/withheld RV, no exported velocity"
+        },
+        "fields": {
+          "type": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:ObjType"
+            ]
+          },
+          "id": {
+            "status": "assigned",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68"
+            ],
+            "detail": "Stable component identity; existing shared IDs take precedence."
+          },
+          "name": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68"
+            ]
+          },
+          "spectral_type": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:SpType"
+            ],
+            "detail": "2010MNRAS.408L..56L"
+          },
+          "x_pc": {
+            "status": "derived",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+            ],
+            "detail": "transverse-only; unknown/withheld RV, no exported velocity"
+          },
+          "y_pc": {
+            "status": "derived",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+            ],
+            "detail": "transverse-only; unknown/withheld RV, no exported velocity"
+          },
+          "z_pc": {
+            "status": "derived",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+            ],
+            "detail": "transverse-only; unknown/withheld RV, no exported velocity"
+          },
+          "vx_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:pmRA,pmDE,RV"
+            ],
+            "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
+          },
+          "vy_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:pmRA,pmDE,RV"
+            ],
+            "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
+          },
+          "vz_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:pmRA,pmDE,RV"
+            ],
+            "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
+          },
+          "temperature_k": {
+            "status": "unknown",
+            "sourceRefs": [],
+            "detail": "Unknown, limited, peculiar, subdwarf or unsupported spectral classification."
+          },
+          "mass_solar": {
+            "status": "unknown",
+            "sourceRefs": [],
+            "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          },
+          "luminosity_solar": {
+            "status": "unknown",
+            "sourceRefs": [],
+            "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          },
+          "absolute_mag": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:Vmag"
+            ],
+            "detail": "Johnson V unknown in source; no G/IR substitution."
+          },
+          "epoch": {
+            "status": "adopted",
+            "sourceRefs": [],
+            "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+          },
+          "notes": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68"
+            ]
+          },
+          "constellation": {
+            "status": "derived",
+            "sourceRefs": [
+              "astropy:7.1.1:Roman1987"
+            ],
+            "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+          },
+          "ra_deg": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:RAdeg"
+            ]
+          },
+          "dec_deg": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:DEdeg"
+            ]
+          },
+          "astrometry_epoch": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:Epoch"
+            ]
+          },
+          "parallax_mas": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:plx"
+            ]
+          },
+          "parallax_error_mas": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:e_plx"
+            ]
+          },
+          "pm_ra_cosdec_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:pmRA"
+            ]
+          },
+          "pm_ra_error_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:e_pmRA"
+            ]
+          },
+          "pm_dec_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:pmDE"
+            ]
+          },
+          "pm_dec_error_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:e_pmDE"
+            ]
+          },
+          "radial_velocity_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:RV"
+            ]
+          },
+          "radial_velocity_error_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:e_RV"
+            ]
+          },
+          "astrometry_ref": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:r_plx,r_pmDE"
+            ]
+          },
+          "radial_velocity_ref": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=68:r_RV"
+            ]
+          },
+          "radius_solar": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "metallicity_dex": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "age_gyr": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "metallicity_kind": {
+            "status": "unknown",
+            "sourceRefs": []
+          }
+        },
+        "overrides": [],
+        "physicalSupplements": {
+          "identity": {
+            "cns5_id": "1828",
+            "simbad_id": "WISE J072227.27-054029.9",
+            "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+          },
+          "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+        }
+      },
+      "10pc-0084": {
+        "id": "10pc-0084",
+        "sourceRow": "84",
+        "systemId": "40",
+        "sourceObjectName": "WISE J163940.83-684738.6",
+        "sourceObjectType": "BD",
+        "identifiers": {
+          "GaiaEDR3": null,
+          "GaiaDR2": null,
+          "SIMBAD": "WISE J163940.83-684738.6",
+          "GJ": null,
+          "HIP": null
+        },
+        "sourceMeasurements": {
+          "RAdeg": "249.922582",
+          "DEdeg": "-68.798903",
+          "Epoch": "2015.9",
+          "plx": "219.6",
+          "e_plx": "2.3",
+          "r_plx": "2021ApJS..253....7K",
+          "pmRA": "578.1",
+          "e_pmRA": "1.1",
+          "pmDE": "-3107.5",
+          "e_pmDE": "1.1",
+          "r_pmDE": "2021ApJS..253....7K",
+          "RV": null,
+          "e_RV": null,
+          "r_RV": null,
+          "SpType": "Y0pec",
+          "r_SpType": "2015ApJ...804...92S",
+          "SpMethod": "NIR Spec",
+          "Vmag": null,
+          "r_Sys": null,
+          "Com": "..."
+        },
+        "adoptedJ2000": {
+          "frame": "ICRS",
+          "raDeg": 249.9155261374743,
+          "decDeg": -68.78517806203493,
+          "distancePc": 4.553734323363781,
+          "method": "transverse-only; unknown/withheld RV, no exported velocity"
+        },
+        "fields": {
+          "type": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:ObjType"
+            ]
+          },
+          "id": {
+            "status": "assigned",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84"
+            ],
+            "detail": "Stable component identity; existing shared IDs take precedence."
+          },
+          "name": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84"
+            ]
+          },
+          "spectral_type": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:SpType"
+            ],
+            "detail": "2015ApJ...804...92S"
+          },
+          "x_pc": {
+            "status": "derived",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+            ],
+            "detail": "transverse-only; unknown/withheld RV, no exported velocity"
+          },
+          "y_pc": {
+            "status": "derived",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+            ],
+            "detail": "transverse-only; unknown/withheld RV, no exported velocity"
+          },
+          "z_pc": {
+            "status": "derived",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:RAdeg,DEdeg,Epoch,plx,pmRA,pmDE,RV"
+            ],
+            "detail": "transverse-only; unknown/withheld RV, no exported velocity"
+          },
+          "vx_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:pmRA,pmDE,RV"
+            ],
+            "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
+          },
+          "vy_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:pmRA,pmDE,RV"
+            ],
+            "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
+          },
+          "vz_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:pmRA,pmDE,RV"
+            ],
+            "detail": "Incomplete/withheld space-motion inputs; placeholders are not exported."
+          },
+          "temperature_k": {
+            "status": "unknown",
+            "sourceRefs": [],
+            "detail": "Unknown, limited, peculiar, subdwarf or unsupported spectral classification."
+          },
+          "mass_solar": {
+            "status": "unknown",
+            "sourceRefs": [],
+            "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          },
+          "luminosity_solar": {
+            "status": "unknown",
+            "sourceRefs": [],
+            "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          },
+          "absolute_mag": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:Vmag"
+            ],
+            "detail": "Johnson V unknown in source; no G/IR substitution."
+          },
+          "epoch": {
+            "status": "adopted",
+            "sourceRefs": [],
+            "detail": "Static J2000.0 snapshot; source decimal years treated as Julian years TT."
+          },
+          "notes": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84"
+            ]
+          },
+          "constellation": {
+            "status": "derived",
+            "sourceRefs": [
+              "astropy:7.1.1:Roman1987"
+            ],
+            "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
+          },
+          "ra_deg": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:RAdeg"
+            ]
+          },
+          "dec_deg": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:DEdeg"
+            ]
+          },
+          "astrometry_epoch": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:Epoch"
+            ]
+          },
+          "parallax_mas": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:plx"
+            ]
+          },
+          "parallax_error_mas": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:e_plx"
+            ]
+          },
+          "pm_ra_cosdec_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:pmRA"
+            ]
+          },
+          "pm_ra_error_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:e_pmRA"
+            ]
+          },
+          "pm_dec_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:pmDE"
+            ]
+          },
+          "pm_dec_error_masyr": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:e_pmDE"
+            ]
+          },
+          "radial_velocity_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:RV"
+            ]
+          },
+          "radial_velocity_error_kms": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:e_RV"
+            ]
+          },
+          "astrometry_ref": {
+            "status": "compiled",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:r_plx,r_pmDE"
+            ]
+          },
+          "radial_velocity_ref": {
+            "status": "unknown",
+            "sourceRefs": [
+              "10pc:tablea1:Seq=84:r_RV"
+            ]
+          },
+          "radius_solar": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "metallicity_dex": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "age_gyr": {
+            "status": "unknown",
+            "sourceRefs": []
+          },
+          "metallicity_kind": {
+            "status": "unknown",
+            "sourceRefs": []
+          }
+        },
+        "overrides": [],
+        "physicalSupplements": {
+          "identity": {
+            "cns5_id": "4091",
+            "simbad_id": "WISE J163940.83-684738.6",
+            "identity_method": "nearest-100 source row; frozen CNS5 match; exact SIMBAD CNS5 identity"
+          },
+          "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
+        }
+      }
+    },
+    "nearest-1000": {
+      "10pc-0068": {
+        "id": "10pc-0068",
+        "status": "higher-curation nearest-100 override"
+      },
+      "10pc-0084": {
+        "id": "10pc-0084",
+        "status": "higher-curation nearest-100 override"
+      }
+    }
+  },
+  "radialVelocities": {
+    "WISE J072227.27-054029.9": {
+      "starViewIds": [
+        "10pc-0068"
+      ],
+      "expectedName": "UGPS J072227.51-054031.2",
+      "value": 35.8,
+      "uncertainty": 0.16,
+      "reference": "2023ApJ...953..170H",
+      "sourceRecordId": "UGPS J072227.51-054031.2: preferred FIRE retrieval, Figure 22 and section 4.2",
+      "url": "https://arxiv.org/abs/2303.04885",
+      "scope": "Spectroscopic atmospheric-retrieval radial velocity. Figure 22 gives 35.80 -0.15/+0.16 km/s; the larger side (0.16) is used by the symmetric-error astrometry export. Formal posterior precision excludes systematic effects. Static linear space-motion approximation; no orbital trajectory.",
+      "publishedUncertainty": {
+        "lower": 0.15,
+        "upper": 0.16
+      },
+      "alternativeMeasurements": [
+        {
+          "value": 46.9,
+          "uncertainty": 2.5,
+          "reference": "2011AJ....142..169B",
+          "url": "https://arxiv.org/abs/1109.2897",
+          "status": "not-adopted",
+          "reason": "Earlier cross-correlation analysis of the same FIRE spectrum; Hood 2023 section 4.2 discusses the discrepancy and updated molecular line lists. Not an independent observing epoch or evidence of acceleration."
+        }
+      ]
+    }
+  },
+  "rejectedPhysicalFit": {
+    "id": "10pc-0068",
+    "reference": "2023ApJ...953..170H",
+    "radiusJupiter": 0.5,
+    "massJupiter": 1.5,
+    "temperatureK": 711,
+    "reason": "Hood 2023 explicitly identifies an unphysically small retrieved radius and model shortcomings; do not adopt its dependent mass/temperature as established physical properties."
+  },
+  "luminosityConversions": {
+    "10pc-0068": {
+      "log10Solar": -6.2,
+      "errorDex": 0.03,
+      "valueSolar": 6.30957344480193e-07,
+      "uncertaintySolar": {
+        "lower": 4.211368912460457e-08,
+        "upper": 4.5125630911788945e-08
+      }
+    },
+    "10pc-0084": {
+      "log10Solar": -6.82,
+      "errorDex": 0.05,
+      "valueSolar": 1.5135612484362072e-07,
+      "uncertaintySolar": {
+        "lower": 1.6459836584455398e-08,
+        "upper": 1.846824040255352e-08
+      }
+    }
+  },
+  "evolutionaryScenarios": {
+    "10pc-0068": {
+      "reference": "2013Sci...341.1492D:Table S5",
+      "status": "model-derived",
+      "scope": "Two fixed-age evolutionary solutions, not a confidence interval or measured ages.",
+      "scenarios": [
+        {
+          "assumedAgeGyr": 1,
+          "temperatureK": {
+            "value": 502,
+            "uncertainty": 10
+          },
+          "massJupiter": {
+            "value": 10.7,
+            "uncertainty": 0.2
+          },
+          "radiusJupiter": {
+            "value": 1.0192,
+            "uncertainty": 0.0005
+          }
+        },
+        {
+          "assumedAgeGyr": 5,
+          "temperatureK": {
+            "value": 539,
+            "uncertainty": 12
+          },
+          "massJupiter": {
+            "value": 25.8,
+            "uncertainty": 0.9
+          },
+          "radiusJupiter": {
+            "value": 0.886,
+            "uncertainty": 0.005
+          }
+        }
+      ]
+    },
+    "10pc-0084": {
+      "reference": "2023MNRAS.526.1783F:Table 3 and section 3.2",
+      "model": "ATMO 2020",
+      "agePriorGyr": {
+        "mean": 5,
+        "sigma": 3,
+        "scope": "Population prior; not an object age measurement."
+      },
+      "sourceParallaxMas": {
+        "value": 211.1,
+        "uncertainty": 0.6
+      },
+      "temperatureK": {
+        "value": 361,
+        "uncertainty": 14
+      },
+      "massJupiter": {
+        "value": 13,
+        "uncertainty": 4
+      },
+      "radiusDerivation": "sqrt(10**-6.82) * (5772 / 361)**2 solar radii; correlated inputs, no independent uncertainty supplied."
+    }
+  }
+}

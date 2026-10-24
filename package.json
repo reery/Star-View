@@ -1,22 +1,26 @@
 {
   "name": "star-view",
   "private": true,
-  "version": "0.5.0",
+  "version": "0.6.0",
   "type": "module",
   "scripts": {
     "dev": "npm run catalog:generate && vite",
+    "dev:manual": "npm run catalog:generate && vite --mode manual",
     "pretypecheck": "npm run catalog:generate",
     "typecheck": "tsc --noEmit",
+    "pretypecheck:watch": "npm run catalog:generate",
+    "typecheck:watch": "tsc --noEmit --watch",
     "pretest": "npm run catalog:generate",
     "test": "vitest run src",
     "test:e2e": "npm run build && playwright test",
     "build": "npm run catalog:validate && npm run catalog:generate && tsc && vite build",
     "catalog:preservation": "python3 scripts/audit-catalog-preservation.py",
-    "catalog:validate": "npm run catalog:preservation && python3 scripts/author-stellar-companions.py --check && node scripts/catalogs.ts validate",
+    "catalog:validate": "npm run catalog:preservation && python3 scripts/author-stellar-companions.py --check && python3 scripts/author-constellations.py && python3 scripts/author-top-lists.py --check && node scripts/catalogs.ts validate",
     "catalog:generate": "python3 scripts/author-stellar-companions.py --check && node scripts/catalogs.ts generate",
     "catalog:companions": "python3 scripts/author-stellar-companions.py --write",
     "catalog:build": "node scripts/catalogs.ts build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "catalog:white-dwarf-references": "python3 scripts/extract-white-dwarf-references.py && node scripts/catalogs.ts white-dwarf-references"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",

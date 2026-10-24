@@ -3,8 +3,8 @@
   "abbreviation": "UMa",
   "name": "Ursa Major",
   "center": {
-    "ra_deg": 162.60776309538178,
-    "dec_deg": 54.90562543693933
+    "ra_deg": 162.607763095,
+    "dec_deg": 54.905625437
   },
   "stars": [
     {
@@ -659,11 +659,11 @@
         "vy_kms": 3.14819,
         "vz_kms": -8.130072,
         "temperature_k": 9503.0,
-        "mass_solar": null,
+        "mass_solar": 2.27,
         "luminosity_solar": 63.88,
         "radius_solar": 2.9486,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.241,
         "absolute_mag": 0.406984,
         "epoch": 2000.0,
         "type": "star",
@@ -817,7 +817,7 @@
         "id": "hip-65378",
         "name": "Mizar",
         "constellation": "Ursa Major",
-        "spectral_type": null,
+        "spectral_type": "A1.5Vas",
         "metallicity_kind": "[Fe/H]",
         "notes": "Western constellation line-figure star (HIP 65378; Stellarium UMa). SIMBAD identity * zet UMa; Hipparcos Johnson V=2.23 (SIMBAD V unavailable); inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, metallicity_dex.",
         "designations": [
@@ -2501,7 +2501,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

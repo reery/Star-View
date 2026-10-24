@@ -3,8 +3,8 @@
   "abbreviation": "Vel",
   "name": "Vela",
   "center": {
-    "ra_deg": 142.9926511663364,
-    "dec_deg": -49.49189863558581
+    "ra_deg": 142.992651166,
+    "dec_deg": -49.491898636
   },
   "stars": [
     {
@@ -84,7 +84,7 @@
         "constellation": "Vela",
         "spectral_type": "B3/5(V)",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 42536; Stellarium Vel). SIMBAD identity * omi Vel; SIMBAD compiled Johnson V=3.63; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 42536; Stellarium Vel). SIMBAD identity * omi Vel; SIMBAD compiled Johnson V=3.63; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar. Omicron Velorum Cluster landmark star; Six brightest SIMBAD IC 2391 members with cluster-consistent parallaxes. SIMBAD identity * omi Vel; SIMBAD compiled Johnson V=3.63; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
         "designations": [
           "HIP 42536"
         ],
@@ -320,7 +320,7 @@
         "luminosity_solar": 13860.483836548914,
         "radius_solar": 30.554981,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.0226,
         "absolute_mag": -5.255795,
         "epoch": 2000.0,
         "type": "star",
@@ -329,7 +329,7 @@
         "constellation": "Vela",
         "spectral_type": "B5Ib",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 48774; Stellarium Vel). SIMBAD identity * phi Vel; SIMBAD compiled Johnson V=3.45; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 48774; Stellarium Vel). SIMBAD identity * phi Vel; SIMBAD compiled Johnson V=3.45; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Phi Vel. Exact * phi Vel / HD 86440, HIP 48774. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T).",
         "designations": [
           "HIP 48774"
         ],
@@ -1233,7 +1233,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

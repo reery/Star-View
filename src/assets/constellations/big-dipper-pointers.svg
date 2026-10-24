@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 480" role="img" aria-labelledby="title desc">
+  <title id="title">Following the Big Dipper</title>
+  <desc id="desc">A line from Merak through Dubhe leads to Polaris; the curve of the handle arcs to Arcturus. Positions are projected from catalogue coordinates, north up and east left.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffba68"/></marker></defs>
+  <rect width="840" height="480" fill="#101112"/>
+  <g font-family="system-ui, sans-serif">
+    <path d="M445.2 245.6L479.2 228.0" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M479.2 228.0L502.5 231.7" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M502.5 231.7L530.7 233.8" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M530.7 233.8L578.4 213.6" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M578.4 213.6L581.4 240.6" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M581.4 240.6L543.2 253.2" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M543.2 253.2L530.7 233.8" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M571.8 56.0L549.2 58.0" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M549.2 58.0L524.0 66.8" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M524.0 66.8L507.0 90.3" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M507.0 90.3L491.6 83.6" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M491.6 83.6L483.1 114.8" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M483.1 114.8L501.1 117.6" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M501.1 117.6L507.0 90.3" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M578.4 213.6L572.2 65.5" stroke="#ffba68" stroke-width="2.5" stroke-dasharray="9 8" marker-end="url(#arrow)" fill="none"/>
+    <path d="M451.2 253.6Q336.4 301.9 268.6 408.0" stroke="#ffba68" stroke-width="2.5" stroke-dasharray="9 8" fill="none" marker-end="url(#arrow)"/>
+    <circle cx="581.4" cy="240.6" r="5.5" fill="#ded8ce"/>
+    <circle cx="578.4" cy="213.6" r="6.4" fill="#ded8ce"/>
+    <circle cx="543.2" cy="253.2" r="5.4" fill="#ded8ce"/>
+    <circle cx="530.7" cy="233.8" r="3.9" fill="#ded8ce"/>
+    <circle cx="502.5" cy="231.7" r="6.5" fill="#ded8ce"/>
+    <circle cx="479.2" cy="228.0" r="5.7" fill="#ded8ce"/>
+    <circle cx="445.2" cy="245.6" r="6.4" fill="#ded8ce"/>
+    <circle cx="571.8" cy="56.0" r="6.2" fill="#ded8ce"/>
+    <circle cx="501.1" cy="117.6" r="6.0" fill="#ded8ce"/>
+    <circle cx="483.1" cy="114.8" r="4.4" fill="#ded8ce"/>
+    <circle cx="507.0" cy="90.3" r="2.6" fill="#ded8ce"/>
+    <circle cx="491.6" cy="83.6" r="2.6" fill="#ded8ce"/>
+    <circle cx="524.0" cy="66.8" r="2.6" fill="#ded8ce"/>
+    <circle cx="549.2" cy="58.0" r="2.6" fill="#ded8ce"/>
+    <circle cx="258.6" cy="424.0" r="9.6" fill="#f0a868"/>
+    <text x="578.4" y="195.6" text-anchor="middle" fill="#ded8ce" font-size="24">Dubhe</text>
+    <text x="593.4" y="270.6" text-anchor="start" fill="#ded8ce" font-size="24">Merak</text>
+    <text x="585.8" y="44.0" text-anchor="start" fill="#ded8ce" font-size="24">Polaris</text>
+    <text x="439.2" y="229.6" text-anchor="end" fill="#ded8ce" font-size="24">Alkaid</text>
+    <text x="242.6" y="432.0" text-anchor="end" fill="#ded8ce" font-size="24">Arcturus</text>
+    <text x="477.2" y="214.0" text-anchor="middle" fill="#a5a29e" font-size="20">Mizar</text>
+    <text x="520.7" y="309.8" text-anchor="middle" fill="#a5a29e" font-size="24">Big Dipper</text>
+    <text x="501.1" y="151.6" text-anchor="middle" fill="#a5a29e" font-size="24">Little Dipper</text>
+  </g>
+</svg>

@@ -27,3 +27,16 @@ Additional stellar photographs:
 Descriptions are original short summaries informed by the Wikipedia articles linked in each card; no article introductions are copied verbatim. Hotter stellar-subtype cards share a representative Hubble image of Sirius A; the generic star, Sun-like star, and orange-dwarf cards use the Sun in visible light. The red-dwarf card shows Proxima Centauri. The bubble image shows a stellar-wind bubble rather than the Local Bubble itself. The sub-brown-dwarf illustration is framed at the bottom to show the planetary-mass object 2M1207 b and exclude its companion; definitions distinguishing such objects from planets depend on formation and remain debated. LH 95 is a star-forming association: its photograph illustrates the surrounding gas and dust, rather than presenting LH 95 as the name of a molecular cloud.
 
 The white-dwarf and neutron-star images are AI-generated illustrations of unresolved compact objects, not photographs or numerical simulations. The full prompts and production details are recorded in [generation-prompts.md](generation-prompts.md).
+
+## Delivery sizes
+
+Display photos are delivered at most 1080 px wide (2026-10-20). Measured photo slots are at most 350 CSS px wide on a 430 px phone, which is 1050 device pixels at 3x density, and 418 CSS px on desktop. The copies use a Lanczos-3 resize, conversion to sRGB and JPEG quality 88 (mozjpeg). Crop, aspect ratio and colors are unchanged. Files that would shrink by less than 10% keep their original encoding.
+
+| File | Source pixels | Delivered pixels | Source bytes | Delivered bytes |
+| --- | ---: | ---: | ---: | ---: |
+| `star.jpg` | 1200 × 1200 | 1080 × 1080 | 441,314 | 149,402 |
+| `hii_region.jpg` | 1200 × 576 | 1080 × 518 | 225,021 | 79,926 |
+| `neutron_star.jpg` | 1200 × 675 | 1080 × 608 | 73,937 | 27,642 |
+| `white_dwarf.jpg` | 1200 × 675 | 1080 × 608 | 85,423 | 33,534 |
+| `white_star.jpg` | 1280 × 1398 | 1080 × 1180 | 176,877 | 106,005 |
+| `molecular_cloud.jpg` | 1280 × 819 | 1080 × 691 | 387,918 | 235,082 |

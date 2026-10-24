@@ -3,8 +3,8 @@
   "abbreviation": "Lup",
   "name": "Lupus",
   "center": {
-    "ra_deg": 230.31456606343133,
-    "dec_deg": -42.50611138481857
+    "ra_deg": 230.314566063,
+    "dec_deg": -42.506111385
   },
   "stars": [
     {
@@ -124,7 +124,7 @@
         "luminosity_solar": 3129.88,
         "radius_solar": 13.866,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.0225,
         "absolute_mag": -3.482314,
         "epoch": 2000.0,
         "type": "star",
@@ -267,11 +267,11 @@
         "vy_kms": -10.500115,
         "vz_kms": -7.042081,
         "temperature_k": 21001.0,
-        "mass_solar": null,
+        "mass_solar": 11.9,
         "luminosity_solar": 5532.2266002914685,
         "radius_solar": 5.61853,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.0154,
         "absolute_mag": -2.703378,
         "epoch": 2000.0,
         "type": "star",
@@ -280,7 +280,7 @@
         "constellation": "Lupus",
         "spectral_type": "B1.5IV",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 75141; Stellarium Lup). SIMBAD identity * del Lup; SIMBAD compiled Johnson V=3.19; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 75141; Stellarium Lup). SIMBAD identity * del Lup; SIMBAD compiled Johnson V=3.19; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Delta Lup. Exact * del Lup / HD 136298, HIP 75141. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Published object-specific median of evolutionary models; not a dynamical mass. Model-to-model deviation does not include all source photometry, rotation or metallicity systematics. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T; mass_solar: 2011MNRAS.410..190T).",
         "designations": [
           "HIP 75141"
         ],
@@ -316,9 +316,9 @@
         "vy_kms": -33.757642,
         "vz_kms": -15.977117,
         "temperature_k": 3800.0,
-        "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "mass_solar": 1.78,
+        "luminosity_solar": 1412.537545,
+        "radius_solar": 86.71324756,
         "metallicity_dex": -0.4,
         "age_gyr": null,
         "absolute_mag": -1.113483,
@@ -329,7 +329,7 @@
         "constellation": "Lupus",
         "spectral_type": "K4III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 75177; Stellarium Lup). SIMBAD identity * phi01 Lup; SIMBAD compiled Johnson V=3.546; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2020A&A...633A..34C; metallicity_dex: 2020A&A...633A..34C).",
+        "notes": "Western constellation line-figure star (HIP 75177; Stellarium Lup). SIMBAD identity * phi01 Lup; SIMBAD compiled Johnson V=3.546; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical values describe Phi1 Lup. Exact * phi01 Lup / HD 136422, HIP 75177. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2020A&A...633A..34C. Existing non-null values retain their independent sources. STAREVOL likelihood estimate, evolutionary-stage and source-parallax dependent; source asymmetric errors retained. Published adopted luminosity at the source parallax and photometric method; not rescaled to map distance. Shared exact-identity physical supplements (mass_solar: 2020A&A...633A..34C; luminosity_solar: 2020A&A...633A..34C; radius_solar: 2020A&A...633A..34C; temperature_k: 2020A&A...633A..34C; metallicity_dex: 2020A&A...633A..34C).",
         "designations": [
           "HIP 75177"
         ],
@@ -1243,7 +1243,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

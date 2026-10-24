@@ -5,6 +5,9 @@ import culture from '../catalog-work/western-constellation-stars/stellarium-west
 import { completeCatalogCompanions } from './stellar-companions'
 import { catalogMeasurement, missingCatalogMeasurements } from './catalog-source'
 import { luminosityCardAvailable } from './luminosity-properties'
+import { parseStarCatalog } from './catalog'
+import { starComponentIdentity } from './star-systems'
+import westernCsv from './data/catalogs/western-constellation-stars/stars.csv?raw'
 
 const object = (overrides: Partial<Star> = {}): Star => ({
   type: 'star', id: 'sirius-a', name: 'Sirius A', constellation: 'Canis Major', spectral_type: 'A1V',
@@ -48,9 +51,17 @@ describe('all 88 constellation charts', () => {
       expect(chart.abbreviation).toBe(figure.iau)
       const ids = new Set(chart.stars.map((star) => star.hip))
       const sourceLines = (figure.lines as (number | string)[][]).map((line) => line.filter((hip): hip is number => typeof hip === 'number'))
-      expect(chart.lines).toEqual(sourceLines.flatMap((line) => line.slice(1).map((hip, i) => [line[i], hip])))
-      expect([...ids].sort((a, b) => a - b)).toEqual([...new Set(sourceLines.flat())].sort((a, b) => a - b))
+      const sourceSegments = sourceLines.flatMap((line) => line.slice(1).map((hip, i) => [line[i]!, hip]))
+      // Only spur tips belonging to a neighbouring constellation are omitted; shared vertices remain.
+      expect(chart.lines).toEqual(sourceSegments.filter((segment) => segment.every((hip) => ids.has(hip))))
+      for (const hip of new Set(sourceLines.flat())) {
+        if (!ids.has(hip)) expect(sourceSegments.filter((segment) => segment.includes(hip)), `${name} ${hip}`).toHaveLength(1)
+      }
+      for (const star of chart.stars) if (star.object.constellation !== name) {
+        expect(chart.lines.filter((line) => line.includes(star.hip)).length, `${name} ${star.name}`).toBeGreaterThan(1)
+      }
       expect(chart.lines.every((line) => line.every((hip) => ids.has(hip)))).toBe(true)
+      if (name === 'Carina') expect(chart.stars.some((star) => ['Pipit', 'Naos'].includes(star.name))).toBe(false)
       const starts = chart.boundaries.map((boundary) => JSON.stringify(boundary.points[0])).sort()
       const ends = chart.boundaries.map((boundary) => JSON.stringify(boundary.points.at(-1))).sort()
       expect(ends, `${name} region closure`).toEqual(starts)
@@ -73,6 +84,25 @@ describe('all 88 constellation charts', () => {
     const neighbors = (await loadConstellationChart(object({ constellation: 'Ophiuchus' })))!.boundaries
     expect(neighbors.filter((boundary) => boundary.neighbor === 'Serpens').map((boundary) => boundary.neighbor_abbreviation))
       .toEqual(expect.arrayContaining(['SER1', 'SER2']))
+  })
+
+  it('keeps unloaded chart science consistent with the current catalog for every figure star', async () => {
+    const canonical = (id: string) => starComponentIdentity(id)?.canonicalStarId ?? id
+    const current = new Map(completeCatalogCompanions(parseStarCatalog(westernCsv))
+      .map((star) => [canonical(star.id), star]))
+    const fields = ['temperature_k', 'mass_solar', 'radius_solar', 'luminosity_solar',
+      'metallicity_dex', 'metallicity_kind', 'age_gyr', 'absolute_mag', 'spectral_type',
+      'x_pc', 'y_pc', 'z_pc', 'vx_kms', 'vy_kms', 'vz_kms', 'raw_astrometry'] as const
+    for (const figure of culture.constellations) {
+      const chart = (await loadConstellationChart(object({ constellation: figure.common_name.native })))!
+      const unloaded = constellationStarObjects(chart, [])
+      for (const vertex of chart.stars) {
+        const expected = current.get(canonical(vertex.object.id))!
+        expect(expected, `${chart.name}/${vertex.hip}`).toBeDefined()
+        for (const field of fields) expect(unloaded.get(vertex.hip)?.[field], `${chart.name}/${vertex.hip}/${field}`)
+          .toEqual(expected[field])
+      }
+    }
   })
 
   it('encloses both celestial poles and retains pipe-separated catalogue aliases', async () => {

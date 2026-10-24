@@ -3,8 +3,8 @@
   "abbreviation": "Psc",
   "name": "Pisces",
   "center": {
-    "ra_deg": 11.358389654482668,
-    "dec_deg": 9.935659952178181
+    "ra_deg": 11.358389654,
+    "dec_deg": 9.935659952
   },
   "stars": [
     {
@@ -316,11 +316,11 @@
         "vy_kms": -93.055272,
         "vz_kms": -18.890784,
         "temperature_k": 4107.0,
-        "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "mass_solar": 1.25,
+        "luminosity_solar": 186.2087137,
+        "radius_solar": 26.70509932,
         "metallicity_dex": -0.373,
-        "age_gyr": null,
+        "age_gyr": 5.57,
         "absolute_mag": -0.314639,
         "epoch": 2000.0,
         "type": "star",
@@ -329,7 +329,7 @@
         "constellation": "Pisces",
         "spectral_type": "K3III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 7007; Stellarium Psc). SIMBAD identity * mu. Psc; SIMBAD compiled Johnson V=4.84; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2022ApJS..259...35A; metallicity_dex: 2022ApJS..259...35A).",
+        "notes": "Western constellation line-figure star (HIP 7007; Stellarium Psc). SIMBAD identity * mu. Psc; SIMBAD compiled Johnson V=4.84; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical values describe Mu Psc. Exact * mu. Psc / HD 9138, HIP 7007. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2015AJ....150...88L. Existing non-null values retain their independent sources. Published mean of available evolutionary-grid determinations; source tabulates no formal error for this mean. Shared exact-identity physical supplements (mass_solar: 2015AJ....150...88L; age_gyr: 2015AJ....150...88L; luminosity_solar: 2015AJ....150...88L; radius_solar: 2015AJ....150...88L; temperature_k: 2022ApJS..259...35A; metallicity_dex: 2022ApJS..259...35A).",
         "designations": [
           "HIP 7007"
         ],
@@ -2001,7 +2001,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

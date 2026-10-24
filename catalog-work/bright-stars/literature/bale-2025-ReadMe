@@ -1,0 +1,136 @@
+J/A+A/703/A128         Chromospherically active stars              (Bale+, 2025)
+================================================================================
+Chromospherically active stars:
+Lithium and CNO abundances in northern RS CVn stars.
+    Bale B., Tautvaisiene G., Minkeviciute R., Drazdauskas A., Mikolaitis S.,
+    Stonkute E., Ambrosch M.
+    <Astron. Astrophys. 703, A128 (2025)>
+    =2025A&A...703A.128B        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, variable ; Magnetic fields ; Abundances
+Keywords: stars: abundances - stars: evolution - stars: magnetic field
+
+Abstract:
+    We carried out a detailed investigation of Lthium and CNO abundances,
+    including carbon isotope ratios, in RS CVn stars to assess the role of
+    magnetic activity in the mixing of stellar atmospheres.
+
+    High-resolution spectra were observed at the Moletai Astronomical
+    Observatory to determine the lithium abundances by spectral synthesis
+    of the 6707{AA} line and the CNO abundances using the C2 band heads at
+    5135 and 5635.5{AA}, CN bands at 6470-6490{AA} and 7980-8005{AA}, and
+    the [O I] line at 6300{AA}. By fitting the ^13^CN band at 8004.7{AA},
+    we determined the carbon isotope ratios.
+
+    We determined the main atmospheric parameters and investigated the
+    chemical composition for 32 RS CVn stars. Lithium NLTE abundances were
+    determined for 13 additional stars using archival spectra. We found
+    that iota Gem and HD 179094 have carbon isotope ratios already
+    affected by extra-mixing, even though being in the evolutionary stage
+    below the red giant branch luminosity bump. About half of the low-mass
+    giants, for which the lithium abundance was determined, follow the
+    first dredge-up predictions; however, other stars have Li abundances
+    reduced as predicted by the thermohaline-induced mixing. The
+    intermediate-mass stars have Li abundances reduced as predicted by the
+    rotation-induced mixing.
+
+    We found that in low-mass chromospherically active RS CVn stars extra
+    mixing of lithium along with carbon isotopes may begin earlier than in
+    normal giants. The Li-rich RS CVn giant V* OP And has quite large C/N
+    and carbon isotope ratios, and raises questions about the origin of
+    its lithium enhancement.
+
+Description:
+    High resolution spectroscopic analysis of 32 RS CVn stars in the
+    northern hemisphere are presented. The observations are collected with
+    the 1.65m telescope and VUES spectrograph at the Moletai Astronomical
+    Observatory of Institute of Theoretical Physics and Astronomy, Vilnius
+    University. This spectrograph has a wavelength coverage from 400 to
+    900nm. For observations in this study, we used the spectral
+    resolutions R~36000 and R~68000. Lithium NLTE abundances were
+    determined for 13 additional stars using archival spectra.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+tablea1.dat      172       41   Atmospheric parameters
+tablea2.dat       51       61   Lithium abundances
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tablea1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label     Explanations
+--------------------------------------------------------------------------------
+   1- 15  A15   ---       ID        Tycho-2 catalogue identification
+  17- 28  A12   ---       Name      Stellar name
+  30- 34  I5    ---       Res       Spectral resolution
+  36- 39  I4    K         Teff      Effective temperature
+  41- 42  I2    K       e_Teff      Uncertainity in effective temperature
+  44- 47  F4.2  [cm/s2]   logg      Stellar surface gravity
+  49- 52  F4.2  [cm/s2] e_logg      Uncertainity in stellar surface gravity
+  54- 58  F5.2  [-]       [Fe/H]    Metallicity
+  60- 63  F4.2  [-]     e_[FeI/H]   Uncertainity in [Fe I/H]
+  65- 66  I2    ---     o_FeI       Number of Fe I lines
+  68- 71  F4.2  [-]     e_[FeII/H]  Uncertainity in [Fe II/H]
+      73  I1    ---     o_FeII      Number of Fe II lines
+  75- 78  F4.2  km/s      Vt        Microturbulence velocity
+  80- 83  F4.2  km/s    e_Vt        Uncertainity in microturbulence velocity
+  85- 89  F5.2  [-]       [C/H]     ?=- Carbon abundance
+  91- 94  F4.2  [-]     e_[C/H]     ?=- Uncertainity in carbon abundance
+  96- 98  I3    ---     o_C         ?=- Number of C2 lines
+ 100-104  F5.2  [-]       [N/H]     ?=- Nitrogen abundance
+ 106-109  F4.2  [-]     e_[N/H]     ?=- Uncertainity in nitrogen abundance
+ 111-113  I3    ---     o_N         ?=- Number of CN lines
+ 115-119  F5.2  [-]       [O/H]     ?=- Oxygen abundance
+ 121-124  F4.2  [-]     e_[O/H]     Uncertainity in oxygen abundance
+     126  I1    ---     o_O         Number of oxygen lines
+ 128-132  F5.2  [-]       [Mg/H]    Magnesium abundance
+ 134-137  F4.2  [-]     e_[Mg/H]    Uncertainity in magnesium abundance
+ 139-142  F4.2  ---     o_Mg        Number of magnesium lines
+ 144-146  I3    ---       12C/13C   ?=- Carbon isotope ratio
+ 148-150  I3    ---     e_12C/13C   ?=- Uncertainity in carbon isotope ratio
+ 152-155  F4.2  ---       C/N       ?=- Carbon-to-nitrogen abundance ratio
+ 157-160  F4.2  Msun      Mass      Stellar mass
+ 162-165  F4.2  Msun    e_Mass      Uncertainity of mass
+ 167-168  A2    ---       Evol      Evolutionary stage (1)
+ 170-172  A3    ---       Em        [YES -] YES if emission is visible in the
+                                     CaII lines
+--------------------------------------------------------------------------------
+Note (1): Evolutionary stage as follows:
+           BB = stars below the RGB luminosity bump
+           AB = stars above the RGB luminosity bump
+           RC = Clump stars
+           SG = subgiant stars
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tablea2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 15  A15   ---     ID        Tycho-2 catalogue identification
+  17- 28  A12   ---     Name      Stellar name
+  30- 34  I5    ---     Res       Spectral resolution
+  36- 39  F4.2  [-]     A(Li)LTE  ?=- Lithium abundance in LTE
+  41- 44  F4.2  [-]     A(Li)NLTE ?=- Lithium abundance in NLTE
+  46- 49  F4.2  [-]   e_A(Li)     ?=- Uncertainity in lithium abundance
+      51  I1    ---   l_A(Li)     [0/1]?=- Limit flag on A(Li)
+                                   (1 for upper limit)
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+    From Barkha Bale, barkha.bale(at)ff.vu.lt
+
+    We acknowledge funding from the Research Council of Lithuania (LMTLT,
+    grant No. S-MIP-23-24). This work has made use of data from the
+    European Space Agency (ESA) mission Gaia
+    (https://www.cosmos.esa.int/gaia), processed by the Gaia Data
+    Processing and Analysis Consortium (DPAC,
+    https://www.cosmos.esa.int/web/gaia/dpac/ consortium). Funding for the
+    DPAC has been provided by national institutions, in particular, the
+    institutions participating in the Gaia Multilateral Agreement. We have
+    made extensive use of the NASA ADS and SIMBAD databases.
+
+================================================================================
+(End)     Barkha Bale [ITPA, VU], Patricia Vannier [CDS]             29-Oct-2025

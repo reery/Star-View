@@ -1,0 +1,339 @@
+J/AJ/155/30   Fundamental parameters of 87 stars from the NPOI   (Baines+, 2018)
+================================================================================
+Fundamental parameters of 87 stars from the Navy Precision Optical
+Interferometer.
+    Baines E.K., Armstrong J.T., Schmitt H.R., Zavala R.T., Benson J.A.,
+    Hutter D.J., Tycner C., van Belle G.T.
+   <Astron. J., 155, 30-30 (2018)>
+   =2018AJ....155...30B    (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, giant ; Interferometry ; Spectral types ; Stars, masses ;
+              Effective temperatures ; Abundances, [Fe/H] ; Stars, ages ;
+              Photometry, UBVRI ; Photometry, infrared ; Stars, diameters
+Keywords: stars: fundamental parameters - techniques: high angular resolution -
+          techniques: interferometric
+
+Abstract:
+    We present the fundamental properties of 87 stars based on angular
+    diameter measurements from the Navy Precision Optical Interferometer,
+    36 of which have not been measured previously using interferometry.
+    Our sample consists of 5 dwarfs, 3 subgiants, 69 giants, 3 bright
+    giants, and 7 supergiants, and span a wide range of spectral classes
+    from B to M. We combined our angular diameters with photometric and
+    distance information from the literature to determine each star's
+    physical radius, effective temperature, bolometric flux, luminosity,
+    mass, and age.
+
+Description:
+    The Navy Precision Optical Interferometer (NPOI) is an optical
+    interferometer located on Anderson Mesa, AZ (see Armstrong et al.
+    1998ApJ...496..550A for the instrument description and Hummel et al.
+    2003AJ....125.2630H and Benson et al. 2003SPIE.4838..358B for details
+    about the beam combiner). The NPOI consists of two nested arrays: the
+    four fixed stations of the astrometric array (AC, AE, AW, and AN, which
+    stand for astrometric center, east, west, and north, respectively)
+    that are clustered at the center of the array, and the stations of the
+    imaging array.
+    We observed 87 stars from 2004 to 2016, a data set that totals over
+    100000 calibrated data points. We used the "Classic" beam combiner
+    that takes data over 16 spectral channels spanning 550-850 nm
+    (Hummel et al. 2003AJ....125.2630H; Hutter et al. 2016ApJS..227....4H).
+    Each observation consisted of a 30 s coherent (on the fringe) scan where
+    the fringe contrast was measured every 2 ms. Every coherent scan was
+    paired with an incoherent (off the fringe) scan that was used to estimate
+    the additive bias affecting fringe measurements (Hummel et al.
+    2003AJ....125.2630H).
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+table1.dat        71       87   Sample Star Properties
+table2.dat        72      661   Observing Log
+table3.dat        88       71   Calibrator Stars' SED Inputs and Angular
+                                Diameters
+table4.dat        74       87   Interferometric Results
+table5.dat        95       87   Derived Stellar Parameters
+table6.dat        27       80   Stellar Masses and Ages
+table7.dat        84      183   Interferometric Angular Diameter Comparison
+--------------------------------------------------------------------------------
+
+See also:
+ III/39   : UV Bright Star Spectrophotometric Catalog (Jamar+, 1976)
+ II/114   : UV Interstellar Extinction (Savage+ 1985)
+ I/149    : Fifth Fundamental Catalogue (FK5) Part I (Fricke+, 1988)
+ III/135  : Henry Draper Catalogue and Extension (Cannon+ 1918-1924; ADC 1989)
+ I/175    : Fifth Fundamental Catalogue (FK5) - Extension (Fricke+ 1991)
+ II/168   : Homogeneous Means in the UBV System (Mermilliod 1991)
+ V/50     : Bright Star Catalogue, 5th Revised Ed. (Hoffleit+, 1991)
+ I/284    : The USNO-B1.0 Catalog (Monet+ 2003)
+ II/246   : 2MASS All-Sky Catalog of Point Sources (Cutri+ 2003)
+ III/232  : STELIB: A library of stellar spectra at R 2000 (Le Borgne+, 2003)
+ I/311    : Hipparcos, the New Reduction (van Leeuwen, 2007)
+ V/137    : Extended Hipparcos Compilation (XHIP) (Anderson+, 2012)
+ B/pastel : The PASTEL catalogue (Soubiran+, 2016-)
+ J/A+AS/117/227   : Dwarf effective temperatures (Alonso+ 1996)
+ J/A+A/352/555    : Fundamental parameters of stars (Allende Prieto+, 1999)
+ J/AJ/119/1448    : Improved properties for cool stars (Houdashelt+, 2000)
+ J/AJ/121/2148    : Precise spectral types for 372 A, F + G stars (Gray+, 2001)
+ J/A+A/393/183    : Catalogue of calibrator stars for LBSI (Borde+, 2002)
+ J/AJ/126/2048    : NStars project: the Northern Sample. I. (Gray+, 2003)
+ J/AJ/127/1227    : Synthetic Stroemgren photometry (Clem+, 2004)
+ J/ApJS/152/251   : Indo-US library of coude feed stellar spectra
+                                                                 (Valdes+, 2004)
+ J/ApJ/626/446    : Effective temperature scale of FGK stars (Ramirez+, 2005)
+ J/ApJ/647/312    : FUSE survey of OVI in the Milky Way (Otte+, 2006)
+ J/MNRAS/371/703  : MILES library of empirical spectra (Sanchez-Blazquez+, 2006)
+ J/A+A/475/1003   : Stellar parameters of G and K giant stars (Hekker+, 2007)
+ J/ApJS/176/276   : PTI calibrator catalog (van Belle+, 2008)
+ J/MNRAS/389/1336 : Reddenings of FGK supergiants + Cepheids (Kovtyukh+, 2008)
+ J/A+A/501/297    : Effective temperatures of B Supergiants (Zorec+, 2009)
+ J/A+A/522/A79    : Faint, high-Galactic-latitude red clump stars
+                                                              (Valentini+, 2010)
+ J/AN/331/349     : O, B-type + red supergiant masses and luminosities
+                                                                  (Hohle+, 2010)
+ J/ApJ/722/605    : A stellar rotation census of B stars (Huang+, 2010)
+ J/A+A/525/A71    : Atmospheric parameters for 1273 stars (Wu+, 2011)
+ J/A+A/525/A90    : Thick disc vertical properties (Katz+, 2011)
+ J/A+A/531/A165   : MILES atmospheric parameters (Prugniel+, 2011)
+ J/MNRAS/414/1227 : Mg/Fe ratio of MILES stars (Milone+, 2011)
+ J/A+A/538/A143   : Atmospheric parameters of stars for UV models
+                                                                 (Koleva+, 2012)
+ J/A+A/556/A121   : Identification of metal-poor stars with ANN
+                                                               (Giridhar+, 2013)
+ J/A+A/574/A116   : G and K giant stars stellar parameters (Reffert+, 2015)
+ J/MNRAS/454/2863 : Teff against colours calibrations (Huang+, 2015)
+
+Byte-by-byte Description of file: table1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label  Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---     HD     [432/222404] Henry Draper Catalogue identifier
+                                (Cat. III/135)
+   8- 11  I4    ---     HR     [21/8974] Bright Star Catalogue identifier
+                                (Cat. V/50)
+  13- 16  I4    ---     FK5    [2/3799]? Fifth Fundamental Catalogue identifier
+                                (Cat. I/149 and I/175)
+  18- 30  A13   ---     OName  Other Name
+  32- 40  A9    ---     SpType MK spectral type from SIMBAD
+  42- 45  F4.2  mag     Vmag   [0.03/5.01] V band magnitude, from Mermilliod
+                                (1991, Cat. II/168)
+  47- 50  F4.2  mag   e_Vmag   [0.01/0.14] Uncertainty in Vmag
+  52- 57  F6.2  mas     Plx    [1.18/194.95] Parallax, from van Leeuwen
+                                (2007, Cat. I/311)
+  59- 62  F4.2  mas   e_Plx    [0.09/1.29] Uncertainty in Plx
+  64- 68  F5.2  [-]     [Fe/H] [-0.56/0.25] Metallicity
+  70- 71  I2    ---   r_[Fe/H] [1/6] Reference for [Fe/H] (1)
+--------------------------------------------------------------------------------
+Note (1): Reference for metallicity as follows:
+  1 = Anderson & Francis (2012, Cat. V/137);
+  2 = No [Fe/H] was available so 0.00 was used;
+  3 = Reffert et al. (2015, J/A+A/574/A116);
+  4 = Giridhar et al. (2013, J/A+A/556/A121);
+  5 = Katz et al. (2011, J/A+A/525/A90);
+  6 = Soubiran et al. (2016, Cat. B/pastel).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label  Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---     HD     [432/222404] Henry Draper Catalogue identifier
+                                (Cat. III/135)
+   8- 13  I6    ---     Calib  [886/222603] HD identifier of calibrator
+  15- 25  A11   "date"  Date   UT date of observation
+  27- 66  A40   ---     Base   Baseline(s) used (1)
+  68- 72  I5    ---     Nobs   [6/1098] Number of observations
+--------------------------------------------------------------------------------
+Note (1): The maximum baseline lengths are AC-AE 18.9 m, AC-AN 22.8 m,
+  AC-AW 22.2 m, AC-E6 34.4 m, AC-W7 51.3 m, AE-AN 34.9 m, AE-W7 64.2 m,
+  AW-E6 53.3 m, and E6-W7 79.4 m.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label    Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---       Calib    [886/222603] Henry Draper Catalogue
+                                    identifier of calibrator (Cat. III/135)
+   8- 15  A8    ---       SpType   MK spectral type from SIMBAD
+  17- 20  F4.2  mag       Umag     [1.75/6.71] U band magnitude (1)
+  22- 25  F4.2  mag       Bmag     [2.44/6.07] B band magnitude (1)
+  27- 30  F4.2  mag       Vmag     [2.44/5.13] V band magnitude (1)
+  32- 35  F4.2  mag       Rmag     [2.36/4.98] R band magnitude (2)
+  37- 40  F4.2  mag       Imag     [2.35/5.03] I band magnitude (2)
+  42- 45  F4.2  mag       Jmag     [2.38/5.1] 2MASS J band magnitude (3)
+  47- 50  F4.2  mag       Hmag     [2.49/5] 2MASS H band magnitude (3)
+  52- 55  F4.2  mag       Ksmag    [2.43/4.96] 2MASS K_s_ band magnitude (3)
+  57- 61  I5    K         Teff     [4800/22160] Surface effective temperature
+  63- 66  F4.2  [cm/s2]   logg     [1.52/4.37] Surface gravity
+  68- 70  A3    ---       Ref      Reference(s) for T_eff_ and logg (4)
+  72- 75  F4.2  mag       E(B-V)   [0/0.33] B-V color excess
+  77- 78  I2    ---     r_E(B-V)   [2/25]? Reference for E(B-V) (4)
+  80- 83  F4.2  mas       theta-e  [0.29/1.29] Estimated angular diameter
+                                    {theta}_est_
+  85- 88  F4.2  mas     e_theta-e  [0.01/0.06] Uncertainty in theta-e
+--------------------------------------------------------------------------------
+Note (1): UBV values are from Mermilliod (1991, Cat. II/168).
+Note (2): RI values are from Monet et al. (2003, Cat. I/284).
+Note (3): JHK values are from Cutri et al. (2003, Cat. II/246).
+Note (4): T_eff_, log g and E(B-V) values are from individual references
+  described as follows:
+   1 = Prugniel et al. (2007astro.ph..3658P);
+   2 = Zorec et al. (2009, J/A+A/501/297);
+   3 = Cox (2000asqu.book.....C) based on SIMBAD spectral type;
+   4 = Lafrasse et al. (2010SPIE.7734E..4EL);
+   5 = Allende Prieto & Lambert (1999, J/A+A/352/555);
+   6 = Huang et al. (2010, J/ApJ/722/605);
+   7 = Soubiran et al. (2016, Cat. B/pastel);
+   8 = Gray et al. (2003, J/AJ/126/2048);
+   9 = Wu et al. (2011, J/A+A/525/A71);
+  10 = Gray et al. (2001, J/AJ/121/2148);
+  11 = Sanchez-Blazquez et al. (2006, J/MNRAS/371/703);
+  12 = Savage et al. (1985, Cat. II/114);
+  13 = Neckel et al. (1980BICDS..19...61N);
+  14 = Friedemann (1992BICDS..40...31F);
+  15 = Alonso et al. (1996, J/A+AS/117/227);
+  16 = Berghoefer et al. (1996, J/A+AS/118/481);
+  17 = Valentini & Munari (2010, J/A+A/522/A79);
+  18 = Huang et al. (2015, J/MNRAS/454/2863);
+  19 = Ramirez & Melendez (2005, J/ApJ/626/446);
+  20 = van Belle et al. (2008, J/ApJS/176/276);
+  21 = Otte & Dixon (2006, J/ApJ/647/312);
+  22 = Koleva & Vazdekis (2012, J/A+A/538/A143);
+  23 = Jamar et al. (1995, Cat. III/39);
+  24 = Kovtyukh et al. (2008, J/MNRAS/389/1336);
+  25 = Clem et al. (2004, J/AJ/127/1227).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label      Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---       HD         [432/222404] Henry Draper Catalogue
+                                      identifier (Cat. III/135)
+   8- 12  F5.3  mas       theta-UD   [0.783/7.57] Uniform disk angular size
+                                      {theta}_UD_ (1)
+  14- 18  I5    K         Teff       [3500/11220] Surface effective temperature
+  20- 23  F4.2  [cm/s2]   logg       [0.14/4.37] Surface gravity
+  25- 29  A5    ---       Ref        Reference(s) for T_eff_ and logg (2)
+  31- 34  F4.2  ---       mu-LDi     [0.37/0.84] Initial linear limb-darkening
+                                      coefficient {mu}_{lambda}_ (3)
+  36- 40  F5.3  mas       theta-LDi  [0.822/8.108] Initial limb-darkened angular
+                                      size {theta}_LD_
+  42- 46  F5.3  mas     e_theta-LDi  [0.002/0.144] Uncertainty in theta-LDi
+  48- 51  F4.2  ---       mu-LDf     [0.3/0.84] Final linear limb-darkening
+                                      coefficient {mu}_{lambda}_ (3)
+  53- 57  F5.3  mas       theta-LDf  [0.822/8.134] Final limb-darkened angular
+                                      size {theta}_LD_
+  59- 63  F5.3  mas     e_theta-LDf  [0.005/0.144] Uncertainty in theta-LDf
+  65- 68  F4.1  %         sig-LD     [0.2/14.7] Column limb-darkened
+                                      relationship error {sigma}_LD_
+  70- 74  F5.1  10+6/s    MaxSF      [33.5/150.7] Maximum spatial frequency for
+                                      that star's diameter measurement
+                                      (in 10^+6^ cycles/s)
+--------------------------------------------------------------------------------
+Note (1): The errors on the UD diameter are the same as those on the LD
+  diameter.
+Note (2): The T_eff_ and log g come from the following sources:
+   1 = Prugniel et al. (2007astro.ph..3658P);
+   2 = Lafrasse et al. (2010SPIE.7734E..4EL);
+   3 = Allende Prieto & Lambert (1999, J/A+A/352/555);
+   4 = Cox (2000asqu.book.....C) based on the star's SIMBAD spectral type;
+   5 = Le Borgne et al. (2003, Cat. III/232);
+   6 = Houdashelt et al. (2000, J/AJ/119/1448);
+   7 = Katz et al. (2011, J/A+A/525/A90);
+   8 = Valdes et al. (2004, J/ApJS/152/251);
+   9 = Soubiran et al. (2016, B/pastel);
+  10 = Milone et al. (2011, J/MNRAS/414/1227);
+  11 = Prugniel et al. (2011, J/A+A/531/A165);
+  12 = Borde et al. (2002, J/A+A/393/183);
+  13 = Hekker & Melendez (2007, J/A+A/475/1003);
+  14 = Hohle et al. (2010, J/AN/331/349).
+Note (3): The initial linear limb-darkening coefficient, mu-LDi, is based on the
+  T_eff_ and log g listed in the table, and the final linear limb-darkening
+  coefficient, mu-LDf is based on the new T_eff_ determination. See Section 3.2
+  for more details.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units      Label   Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---        HD      [432/222404] Henry Draper Catalogue
+                                    identifier (Cat. III/135)
+   8- 15  A8    ---        SpType  MK spectral type, best SED fit (1)
+  17- 22  F6.2  Rsun       Rad     [1.03/319.2]? Derived radius
+  24- 28  F5.2  Rsun     e_Rad     [0.01/31.4]? Lower or symmetric uncertainty
+                                    in Rad
+  30- 34  F5.2  Rsun     E_Rad     [0.2/46.2]? Upper uncertainty in Rad
+      36  A1    ---      f_Rad     [*] Flag on Rad (2)
+  38- 41  F4.1  %          sigRad  [0.3/24]? Radius relationship error
+                                     {sigma}_R_
+  43- 47  F5.2  10-9W/m2   Fbol    [0.42/28.8] Bolometric flux (1)
+  49- 52  F4.2  10-9W/m2 e_Fbol    [0.02/1.44] Uncertainty in Fbol
+  54- 57  F4.2  mag        Av      [0/1.58] Reddening (1)
+  59- 62  F4.2  mag      e_Av      [0/1.91] Uncertainty in Av
+  64- 68  I5    K          Teff    [3500/15540] Derived surface effective
+                                    temperature
+  70- 73  I4    K        e_Teff    [30/1157] Uncertainty in Teff
+  75- 77  F3.1  %          sigTeff [0.6/8.3] Temperature relationship error
+                                    {sigma}_T_
+  79- 85  F7.1  Lsun       Lum     [1.2/61515]? Derived luminosity
+  87- 93  F7.1  Lsun     e_Lum     [0.1/11486]? Uncertainty in Lum
+      95  A1    ---      f_Lum     [*] Flag on Lum (3)
+--------------------------------------------------------------------------------
+Note (1): The spectral types are those that provide the best SED fit as
+  described in Section 3.2. The SED fits are also the source of F_bol_ and A_v_.
+  The other parameters are derived as described in Section 3.2.
+Note (2): Flag as follows:
+  * = The large error on the parallax measurement made the radius determination
+      unuseful, considering the error would be more than 50%.
+Note (3): Flag as follows:
+  * = Because the errors on the parallax measurements are unusually high
+      (>=20%), the errors on the subsequent luminosity calculations render them
+      unhelpful for these stars.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label  Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---     HD     [432/222404] Henry Draper Catalogue identifier
+                                (Cat. III/135)
+   8- 11  F4.2  Msun    Mass   [0.92/5.29] Derived mass
+  13- 16  F4.2  Msun  e_Mass   [0/0.69] Uncertainty in Mass
+  18- 22  F5.2  Gyr     Age    [0.1/11.69] Derived age
+  24- 27  F4.2  Gyr   e_Age    [0/3.59] Uncertainty in Age
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---     HD        [432/222404] Henry Draper Catalogue identifier
+                                   (Cat. III/135)
+   8- 12  F5.3  mas     theta-LDh [0.822/8.134]? Interferometric measured
+                                   angular diameter {theta}_LD,here_
+  14- 18  F5.3  mas   e_theta-LDh [0.005/0.144]? Uncertainty in theta-LDh
+  20- 24  F5.3  mas     theta-LDp [0.786/9.26]? Previously published
+                                   interferometric angular diameter
+                                   {theta}_LD,previous_
+  26- 30  F5.3  mas   e_theta-LDp [0.004/0.7]? Uncertainty in theta-LDp
+      31  A1    ---   n_theta-LDp [a] Note on theta-LDp (1)
+  33- 64  A32   ---     Ref       Reference
+  66- 84  A19   ---     Bibcode   Bibcode of the reference
+--------------------------------------------------------------------------------
+Note (1): Note as follows:
+  a = No LD diameter was provided; therefore, we list the UD diameter here.
+      Figure 4 shows a graphical representation of this table. If more than one
+      diameter was available in the literature, we used the most recent one when
+      plotting the results in Figure 4.
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+================================================================================
+(End)            Prepared by [AAS], Tiphaine Pouvreau [CDS]          14-Sep-2018

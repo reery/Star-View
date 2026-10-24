@@ -66,9 +66,9 @@ describe('published directional bubble shell', () => {
 
   it('generates one compact indexed surface within the published coordinate envelope', () => {
     const surface = generateBubbleSurface(localBubble)
-    expect(surface.indices).toHaveLength(16_128 * 3)
-    expect(surface.positions.length / 3).toBeLessThan(8_500)
-    expect(surface.bounds.max.y).toBeGreaterThan(580)
+    expect(surface.indices).toHaveLength(5_120 * 3)
+    expect(surface.positions.length / 3).toBe(2_562)
+    expect(surface.bounds.max.y).toBeGreaterThan(460)
     expect(surface.bounds.max.y).toBeLessThan(605)
     expect(surface.bounds.max.x - surface.bounds.min.x).toBeLessThan(630)
     expect(surface.bounds.max.z - surface.bounds.min.z).toBeLessThan(805)
@@ -78,7 +78,7 @@ describe('published directional bubble shell', () => {
     const layer = createBubbleLayer(bubbles, 'real')
     const visible = layer.mesh.geometry.getAttribute('bubbleVisible')
     const selected = layer.mesh.geometry.getAttribute('bubbleSelected')
-    expect(layer.triangleCount()).toBe(16_128)
+    expect(layer.triangleCount()).toBe(5_120)
     expect(layer.mesh.visible).toBe(false)
     expect(visible.getX(0)).toBe(0)
     layer.setVisible([true])

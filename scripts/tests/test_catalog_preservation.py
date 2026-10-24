@@ -1,4 +1,5 @@
 import sys
+import copy
 import unittest
 from pathlib import Path
 
@@ -41,6 +42,23 @@ class CatalogPreservationTests(unittest.TestCase):
             "id": "a", "raw_astrometry": {"parallax_mas": 9, "parallax_error_mas": None}}}]}
         self.assertEqual(preservation.pool_losses({"stars": [star]}, {"stars": [new]}, []),
                          ["a: catalog_sources.western.raw_astrometry.parallax_error_mas"])
+
+    def test_membership_removal_requires_exact_complete_archive_and_evidence(self):
+        path = "src/data/catalogs/nearest-1000/stars.csv"
+        old = {"id": "cns5-3707", "parallax_mas": "174.03640225187837", "parallax_error_mas": "1.8315082"}
+        retirements = [{"path": path, "id": old["id"], "reason": "Background object", "reviewPath": "review.json"}]
+        item = {"id": old["id"], "status": "excluded-background-object", "reason": "Spectroscopic follow-up",
+                "references": [{"url": "https://arxiv.org/pdf/2312.03639"}],
+                "previousCatalogRecords": [{"path": path, "record": old.copy()}]}
+        check = lambda record, review: preservation.reviewed_record_removal(path, record, retirements, lambda _: {"objects": [review]})
+        self.assertTrue(check(old, item))
+        self.assertFalse(check({**old, "parallax_error_mas": "2.0"}, item))
+        self.assertFalse(check({**old, "id": "other"}, item))
+        for field, empty in [("references", []), ("reason", ""), ("status", "candidate"), ("previousCatalogRecords", [])]:
+            with self.subTest(field=field):
+                changed = copy.deepcopy(item)
+                changed[field] = empty
+                self.assertFalse(check(old, changed))
 
 
 if __name__ == "__main__":

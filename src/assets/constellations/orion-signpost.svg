@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 480" role="img" aria-labelledby="title desc">
+  <title id="title">Orion’s Belt as a signpost</title>
+  <desc id="desc">Orion’s three belt stars point southeast to Sirius and northwest to Aldebaran and the Pleiades. Positions are projected from catalogue coordinates, north up and east left.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffba68"/></marker></defs>
+  <rect width="840" height="480" fill="#101112"/>
+  <g font-family="system-ui, sans-serif">
+    <path d="M374.4 288.2L383.6 282.2" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M383.6 282.2L392.1 274.9" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M345.9 212.6L374.4 288.2" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M374.4 288.2L359.7 352.3" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M359.7 352.3L427.2 339.4" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M427.2 339.4L392.1 274.9" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M392.1 274.9L406.0 221.8" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M406.0 221.8L386.2 192.8" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M386.2 192.8L345.9 212.6" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M392.1 274.9L495.7 146.3" stroke="#ffba68" stroke-width="2.5" stroke-dasharray="9 8" marker-end="url(#arrow)" fill="none"/>
+    <path d="M503.5 136.6L596.3 64.1" stroke="#ffba68" stroke-width="2.5" stroke-dasharray="9 8" marker-end="url(#arrow)" fill="none"/>
+    <path d="M374.4 288.2L240.5 417.2" stroke="#ffba68" stroke-width="2.5" stroke-dasharray="9 8" marker-end="url(#arrow)" fill="none"/>
+    <circle cx="427.2" cy="339.4" r="9.2" fill="#ded8ce"/>
+    <circle cx="406.0" cy="221.8" r="6.7" fill="#ded8ce"/>
+    <circle cx="392.1" cy="274.9" r="5.7" fill="#ded8ce"/>
+    <circle cx="386.2" cy="192.8" r="3.7" fill="#ded8ce"/>
+    <circle cx="383.6" cy="282.2" r="6.6" fill="#ded8ce"/>
+    <circle cx="374.4" cy="288.2" r="6.5" fill="#ded8ce"/>
+    <circle cx="359.7" cy="352.3" r="6.0" fill="#ded8ce"/>
+    <circle cx="345.9" cy="212.6" r="8.7" fill="#ded8ce"/>
+    <circle cx="345.9" cy="212.6" r="8.7" fill="#e0805c"/>
+    <circle cx="427.2" cy="339.4" r="9.2" fill="#8da9d6"/>
+    <circle cx="503.5" cy="136.6" r="8.0" fill="#f0a868"/>
+    <circle cx="233.4" cy="424.0" r="11.9" fill="#dfe8ff"/>
+    <circle cx="606.6" cy="56.0" r="3" fill="#8da9d6"/>
+    <circle cx="597.6" cy="51.0" r="3" fill="#8da9d6"/>
+    <circle cx="614.6" cy="49.0" r="3" fill="#8da9d6"/>
+    <circle cx="602.6" cy="64.0" r="3" fill="#8da9d6"/>
+    <circle cx="616.6" cy="62.0" r="3" fill="#8da9d6"/>
+    <circle cx="593.6" cy="60.0" r="3" fill="#8da9d6"/>
+    <text x="329.9" y="220.6" text-anchor="end" fill="#ded8ce" font-size="24">Betelgeuse</text>
+    <text x="443.2" y="349.4" text-anchor="start" fill="#ded8ce" font-size="24">Rigel</text>
+    <text x="361.6" y="304.2" text-anchor="end" fill="#a5a29e" font-size="24">Belt</text>
+    <text x="487.5" y="142.6" text-anchor="end" fill="#ded8ce" font-size="24">Aldebaran</text>
+    <text x="606.6" y="34.0" text-anchor="middle" fill="#ded8ce" font-size="24">Pleiades</text>
+    <text x="233.4" y="460.0" text-anchor="middle" fill="#ded8ce" font-size="24">Sirius</text>
+  </g>
+</svg>

@@ -3,6 +3,10 @@ import { LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type StarC
 import { constellationStarObjects, objectSkyPosition, projectConstellationPosition, type ConstellationChart } from './constellations'
 import { constellationStarDiameter, disposeConstellationStars, renderConstellationStars, type ConstellationMarker } from './constellation-star-appearance'
 import { renderConstellationVisibility } from './constellation-visibility-card'
+import { constellationGrid } from './constellation-grid'
+import { constellationInfoAvailable, constellationInfoLinks, loadConstellationInfo } from './constellation-info'
+import { createLoadError } from './load-recovery'
+import { renderObjectInfoContent } from './object-info-content'
 import { MISSING_VALUE, quantity } from './format'
 import { starComponentIdentity } from './star-systems'
 import { svgNode as svg } from './spectral-chart'
@@ -10,11 +14,17 @@ import { svgNode as svg } from './spectral-chart'
 type Point = { x: number; y: number }
 type Box = { left: number; top: number; right: number; bottom: number }
 const intersects = (a: Box, b: Box) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top
-interface CardOptions { objects: readonly Star[]; colorMode: StarColorMode; distanceUnit: DistanceUnit; magnified: boolean; onSelect: (object: Star) => void }
+interface CardOptions { objects: readonly Star[]; colorMode: StarColorMode; distanceUnit: DistanceUnit; magnified: boolean; equatorialGrid: boolean; onSelect: (object: Star) => void }
 const MAGNIFICATION = 3
-let active: { root: HTMLElement; object: Star; chart: ConstellationChart; options: CardOptions } | undefined
-let observer: ResizeObserver | undefined
-let lastWidth = 0
+interface CardState {
+  object: Star | null; chart: ConstellationChart; options: CardOptions; observer: ResizeObserver; width: number; height: number
+  info: boolean; infoFor?: readonly [ConstellationChart, readonly Star[]]
+}
+const cards = new Map<HTMLElement, CardState>()
+
+function part<T extends HTMLElement = HTMLElement>(root: HTMLElement, name: string): T {
+  return root.querySelector<T>(`[data-constellation-part="constellation-${name}"]`)!
+}
 
 function placeLabels(diagram: SVGSVGElement, width: number, height: number): void {
   const markers = [...diagram.querySelectorAll<SVGGElement>('.constellation-star')]
@@ -23,7 +33,7 @@ function placeLabels(diagram: SVGSVGElement, width: number, height: number): voi
     const r = marker.classList.contains('is-selected') ? 12 : 8
     return { left: x - r, top: y - r, right: x + r, bottom: y + r }
   })
-  for (const text of diagram.querySelectorAll<SVGTextElement>('.constellation-neighbor')) {
+  for (const text of diagram.querySelectorAll<SVGTextElement>('.constellation-neighbor, .constellation-grid-label')) {
     const box = text.getBBox()
     obstacles.push({ left: box.x - 3, top: box.y - 3, right: box.x + box.width + 3, bottom: box.y + box.height + 3 })
   }
@@ -77,18 +87,30 @@ function placeLabels(diagram: SVGSVGElement, width: number, height: number): voi
   }
 }
 
-function drawChart(root: HTMLElement, object: Star, chart: ConstellationChart, options: CardOptions): void {
-  const container = root.querySelector<HTMLElement>('#constellation-chart')!
-  const focused = document.activeElement?.closest<SVGGElement>('.constellation-star')?.dataset.hip
-  const width = Math.max(250, container.clientWidth || 380), height = Math.max(340, Math.round(width * 0.94))
-  lastWidth = container.clientWidth
-  const position = objectSkyPosition(object)
-  const selectedPoint = position && projectConstellationPosition(position, chart.center)
-  const magnified = Boolean(options.magnified && selectedPoint)
-  const magnifyButton = root.querySelector<HTMLButtonElement>('#constellation-magnify')!
-  magnifyButton.disabled = !selectedPoint
-  magnifyButton.setAttribute('aria-pressed', String(magnified))
-  magnifyButton.title = magnified ? 'Reset constellation view' : 'Magnify selected star'
+function drawChart(root: HTMLElement, object: Star | null, chart: ConstellationChart, options: CardOptions): void {
+  const container = part(root, 'chart')
+  const focused = root.contains(document.activeElement) ? document.activeElement?.closest<SVGGElement>('.constellation-star')?.dataset.hip : undefined
+  const width = Math.max(250, container.clientWidth || 380)
+  const preferredHeight = Math.max(340, Math.round(width * 0.94))
+  const headingHeight = part(root, 'heading').closest<HTMLElement>('.panel-heading')!.offsetHeight
+  // Discover's full overview fits below its heading, including on short screens.
+  // Convert available CSS pixels to the SVG's coordinate scale on narrow cards.
+  const availableHeight = (root.clientHeight - headingHeight - 1) * width / Math.max(1, container.clientWidth)
+  const height = !object && root.clientHeight ? Math.max(96, Math.min(preferredHeight, Math.floor(availableHeight))) : preferredHeight
+  cards.get(root)!.width = container.clientWidth
+  cards.get(root)!.height = root.clientHeight
+  const position = object ? objectSkyPosition(object) : chart.center
+  const selectedPoint = object && position && projectConstellationPosition(position, chart.center)
+  const magnified = Boolean(options.magnified && (!object || selectedPoint))
+  const magnifyButton = part<HTMLButtonElement>(root, 'magnify')
+  if (magnifyButton) {
+    magnifyButton.disabled = Boolean(object && !selectedPoint)
+    magnifyButton.setAttribute('aria-pressed', String(magnified))
+    magnifyButton.title = magnified ? 'Reset constellation view' : object ? 'Magnify selected star' : 'Magnify constellation'
+  }
+  const gridButton = part<HTMLButtonElement>(root, 'grid')
+  gridButton.setAttribute('aria-pressed', String(options.equatorialGrid))
+  gridButton.title = options.equatorialGrid ? 'Hide equatorial grid' : 'Show equatorial grid'
   const points = chart.stars.map((star) => ({ star, point: projectConstellationPosition(star, chart.center)! }))
   const borders = chart.boundaries.map((boundary) => ({ ...boundary, projected: boundary.points.map((point) => projectConstellationPosition(point, chart.center)!) }))
   // Favor a large figure, with just enough room to keep the IAU outline visible.
@@ -103,20 +125,42 @@ function drawChart(root: HTMLElement, object: Star, chart: ConstellationChart, o
   const halfWidth = (width / 2 - 14) / scale, halfHeight = (height / 2 - 14) / scale
   let centerX = Math.max(outlineRight - halfWidth, Math.min(outlineLeft + halfWidth, (left + right) / 2))
   let centerY = Math.max(outlineBottom - halfHeight, Math.min(outlineTop + halfHeight, (top + bottom) / 2))
-  if (options.magnified && selectedPoint) {
-    scale *= MAGNIFICATION
-    centerX = selectedPoint.x
-    centerY = selectedPoint.y
+  if (magnified) {
+    scale *= object ? MAGNIFICATION : 1.75
+    centerX = selectedPoint ? selectedPoint.x : (left + right) / 2
+    centerY = selectedPoint ? selectedPoint.y : (top + bottom) / 2
   }
   const screen = (p: Point): Point => ({ x: width / 2 + (p.x - centerX) * scale, y: height / 2 + (p.y - centerY) * scale })
-  const diagram = svg('svg', { viewBox: `0 0 ${width} ${height}`, role: 'group', 'aria-label': `${chart.name}: ${object.name}`, 'aria-describedby': 'constellation-chart-description' })
-  diagram.append(svg('desc', { id: 'constellation-chart-description' }, `Catalogue sky view from Earth, north up and east left. ${magnified ? `Magnified around ${object.name}. ` : ''}${selectedPoint ? `${object.name} is circled in orange.` : `A sky position is unavailable for ${object.name}.`} Figure stars: ${chart.stars.map((star) => star.name).join(', ')}. Solid lines show the Western figure; spaced dashed lines show IAU boundaries. Neighboring constellations: ${[...new Set(borders.map((border) => border.neighbor))].join(', ')}. Stars can be selected; focus or hover reveals their distance from the Sun and apparent magnitude.`))
-  const lineMask = svg('mask', { id: 'constellation-line-mask', maskUnits: 'userSpaceOnUse', x: 0, y: 0, width, height })
+  const id = (suffix: string) => `${container.id}-${suffix}`
+  const diagram = svg('svg', { viewBox: `0 0 ${width} ${height}`, role: 'group', 'aria-label': object ? `${chart.name}: ${object.name}` : chart.name, 'aria-describedby': id('description') })
+  diagram.append(svg('desc', { id: id('description') }, `Catalogue sky view from Earth, north up and east left. ${magnified ? object ? `Magnified around ${object.name}. ` : 'Magnified constellation overview. ' : ''}${object ? selectedPoint ? `${object.name} is circled in orange.` : `A sky position is unavailable for ${object.name}.` : ''} Figure stars: ${chart.stars.map((star) => star.name).join(', ')}. Solid lines show the Western figure; spaced dashed lines show IAU boundaries. Neighboring constellations: ${[...new Set(borders.map((border) => border.neighbor))].join(', ')}. Stars can be selected; focus or hover reveals their distance from the Sun and apparent magnitude.`))
+  const lineMask = svg('mask', { id: id('line-mask'), maskUnits: 'userSpaceOnUse', x: 0, y: 0, width, height })
   lineMask.append(svg('rect', { x: 0, y: 0, width, height, fill: 'white' }))
   const definitions = svg('defs')
   definitions.append(lineMask)
-  const lines = svg('g', { mask: 'url(#constellation-line-mask)' })
+  const lines = svg('g', { mask: `url(#${id('line-mask')})` })
   diagram.append(definitions, lines)
+  if (options.equatorialGrid) {
+    const grid = constellationGrid({ center: chart.center, centerX, centerY, scale, width, height })
+    const layer = svg('g', { class: 'constellation-grid', 'data-ra-step': grid.raStep, 'data-dec-step': grid.decStep, 'aria-hidden': 'true' })
+    const labels: Box[] = []
+    for (const line of grid.lines) {
+      layer.append(svg('path', { d: line.path, class: 'constellation-grid-line', 'data-axis': line.axis, 'data-coordinate': line.value }))
+      if (!line.edge) continue
+      const x = Math.max(6, Math.min(width - 6, line.edge.x))
+      const y = Math.max(13, Math.min(height - 6, line.edge.y))
+      const anchor = x < 40 ? 'start' : x > width - 40 ? 'end' : 'middle'
+      const labelWidth = line.label.length * 7
+      const left = x - (anchor === 'end' ? labelWidth : anchor === 'middle' ? labelWidth / 2 : 0)
+      const box = { left: left - 4, right: left + labelWidth + 4, top: y - 14, bottom: y + 5 }
+      if (labels.some((other) => intersects(box, other))) continue
+      labels.push(box)
+      layer.append(svg('text', { x, y, 'text-anchor': anchor, class: 'constellation-grid-label' }, line.label))
+    }
+    // Grid strokes stay behind boundaries, figure strokes, and selectable stars.
+    diagram.insertBefore(layer, lines)
+    diagram.querySelector('desc')!.textContent += ` Equatorial grid: right ascension every ${grid.raStep / 15} hours and declination every ${grid.decStep} degrees.`
+  }
   const neighborEdges = new Map<string, typeof borders[number]>()
   for (const boundary of borders) {
     const path = boundary.projected.map((point, i) => { const p = screen(point); return `${i ? 'L' : 'M'}${p.x},${p.y}` }).join(' ')
@@ -140,7 +184,7 @@ function drawChart(root: HTMLElement, object: Star, chart: ConstellationChart, o
     const start = byHip.get(a)!, end = byHip.get(b)!
     lines.append(svg('line', { x1: start.x, y1: start.y, x2: end.x, y2: end.y, class: 'constellation-line' }))
   }
-  const canonicalId = starComponentIdentity(object.id)?.canonicalStarId ?? object.id
+  const canonicalId = object ? starComponentIdentity(object.id)?.canonicalStarId ?? object.id : null
   const figureObjects = constellationStarObjects(chart, options.objects)
   const marks: ConstellationMarker[] = []
   const tooltips: HTMLElement[] = []
@@ -198,8 +242,8 @@ function drawChart(root: HTMLElement, object: Star, chart: ConstellationChart, o
     // Identity, not proximity: Sirius B must retain its own name and marker.
     const figureId = starComponentIdentity(`hip-${star.hip}`)?.canonicalStarId ?? `hip-${star.hip}`
     const knownObject = figureObjects.get(star.hip)!
-    const selected = canonicalId === figureId || knownObject.id === object.id
-    const physical = selected ? object : knownObject
+    const selected = canonicalId === figureId || knownObject.id === object?.id
+    const physical = selected && object ? object : knownObject
     const p = screen(selected && selectedPoint ? selectedPoint : point)
     // Cropped stars must not leave invisible buttons or labels in the zoomed view.
     if (magnified && (p.x < 12 || p.x > width - 12 || p.y < 12 || p.y > height - 12)) continue
@@ -212,18 +256,18 @@ function drawChart(root: HTMLElement, object: Star, chart: ConstellationChart, o
     marker.style.setProperty('--constellation-star-color', color)
     if (star.bayer) marker.append(svg('text', { x: p.x - 16, y: p.y + 4, 'text-anchor': 'end', class: 'constellation-bayer' }, star.bayer))
     if (selected) marker.append(svg('circle', { cx: p.x, cy: p.y, r: 11, class: 'constellation-selected-ring' }))
-    if (selected) marker.append(svg('text', { x: p.x, y: p.y, class: 'constellation-star-name' }, object.name))
-    attachTooltip(marker, physical, p, `constellation-tooltip-${star.hip}`, magnitude)
+    if (selected) marker.append(svg('text', { x: p.x, y: p.y, class: 'constellation-star-name' }, physical.name))
+    attachTooltip(marker, physical, p, id(`tooltip-${star.hip}`), magnitude)
     diagram.append(marker)
   }
-  if (selectedPoint && !diagram.querySelector('.is-selected')) {
+  if (object && selectedPoint && !diagram.querySelector('.is-selected')) {
     const p = screen(selectedPoint)
     marks.push({ object, x: p.x, y: p.y, magnitude: object.apparent_mag ?? null })
     const marker = svg('g', { class: 'constellation-star is-selected', 'data-object-id': object.id, 'data-object-type': object.type, 'data-x': p.x, 'data-y': p.y,
       role: 'button', tabindex: 0, 'aria-label': `Select ${object.name}`, 'aria-pressed': 'true' })
     marker.append(svg('circle', { cx: p.x, cy: p.y, r: 12, class: 'constellation-star-hit' }), svg('circle', { cx: p.x, cy: p.y, r: 11, class: 'constellation-selected-ring' }),
       svg('text', { x: p.x, y: p.y, class: 'constellation-star-name' }, object.name))
-    attachTooltip(marker, object, p, `constellation-tooltip-${object.id}`)
+    attachTooltip(marker, object, p, id(`tooltip-${object.id}`))
     diagram.append(marker)
   }
   const canvas = document.createElement('canvas')
@@ -237,17 +281,33 @@ function drawChart(root: HTMLElement, object: Star, chart: ConstellationChart, o
   renderConstellationStars(canvas, marks, width, height, options.colorMode)
   placeLabels(diagram, width, height)
   if (focused) diagram.querySelector<SVGGElement>(`[data-hip="${focused}"]`)?.focus({ preventScroll: true })
-  const note = root.querySelector<HTMLElement>('#constellation-missing')!
-  note.hidden = Boolean(selectedPoint)
-  note.textContent = selectedPoint ? '' : `Sky position unavailable for ${object.name}.`
-  renderConstellationVisibility(root.querySelector<HTMLElement>('#constellation-visibility')!, position, object.name)
+  const note = part(root, 'missing')
+  note.hidden = !object || Boolean(selectedPoint)
+  note.textContent = !object || selectedPoint ? '' : `Sky position unavailable for ${object.name}.`
+  renderConstellationVisibility(part(root, 'visibility'), position, object?.name ?? chart.name)
 }
 
-export function renderConstellationCard(root: HTMLElement, object: Star, chart: ConstellationChart, options: CardOptions): void {
-  active = { root, object, chart, options }
-  root.querySelector<HTMLElement>('#constellation-heading')!.textContent = chart.name
+export function renderConstellationCard(root: HTMLElement, object: Star | null, chart: ConstellationChart, options: CardOptions): void {
+  let state = cards.get(root)
+  if (!state) {
+    const observer = new ResizeObserver(() => {
+      const current = cards.get(root)
+      if (!current || part(root, 'chart').closest('[hidden]')) return
+      if (part(root, 'chart').clientWidth !== current.width || (!current.object && root.clientHeight !== current.height)) {
+        drawChart(root, current.object, current.chart, current.options)
+      }
+    })
+    state = { object, chart, options, observer, width: 0, height: 0, info: false }
+    cards.set(root, state)
+    observer.observe(part(root, 'chart'))
+    if (!object) observer.observe(root)
+  }
+  // Info is not remembered: another constellation opens on its chart.
+  if (state.chart !== chart) state.info = false
+  Object.assign(state, { object, chart, options })
+  part(root, 'heading').textContent = chart.name
   root.dataset.constellation = chart.abbreviation
-  const links = root.querySelector<HTMLElement>('#constellation-source-links')!
+  const links = part(root, 'source-links')
   links.replaceChildren(...chart.sources.map((source) => {
     const link = document.createElement('a')
     link.href = source.url
@@ -256,18 +316,66 @@ export function renderConstellationCard(root: HTMLElement, object: Star, chart: 
     link.textContent = source.label
     return link
   }))
-  drawChart(root, object, chart, options)
-  observer ??= new ResizeObserver(() => {
-    if (!active || active.root.hidden) return
-    const container = active.root.querySelector<HTMLElement>('#constellation-chart')!
-    if (container.clientWidth !== lastWidth) drawChart(active.root, active.object, active.chart, active.options)
-  })
-  observer.observe(root.querySelector('#constellation-chart')!)
+  syncInfo(root)
 }
 
-export function disposeConstellationCard(): void {
-  observer?.disconnect()
-  observer = undefined
-  active = undefined
-  disposeConstellationStars()
+/** The Info toggle swaps the sky chart for the article while the card stays on this constellation. */
+function syncInfo(root: HTMLElement): void {
+  const state = cards.get(root)!
+  const available = constellationInfoAvailable(state.chart.name)
+  const showing = state.info && available
+  const toggle = part<HTMLButtonElement>(root, 'info-toggle')
+  toggle.disabled = !available
+  toggle.title = available ? 'Info' : 'Info · No data yet'
+  toggle.setAttribute('aria-label', toggle.title)
+  toggle.setAttribute('aria-pressed', String(showing))
+  toggle.onclick = () => {
+    state.info = !showing
+    syncInfo(root)
+    root.querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
+  }
+  part(root, 'sky').hidden = showing
+  part(root, 'info').hidden = !showing
+  // The chart controls do not apply to the article; drawChart restores the magnifier's own state.
+  part<HTMLButtonElement>(root, 'grid').disabled = showing
+  part<HTMLButtonElement>(root, 'magnify').disabled = showing
+  if (showing) void renderInfo(root, state)
+  else drawChart(root, state.object, state.chart, state.options)
+}
+
+async function renderInfo(root: HTMLElement, state: CardState): Promise<void> {
+  const { chart, options } = state
+  if (state.infoFor?.[0] === chart && state.infoFor[1] === options.objects) return
+  const container = part(root, 'info')
+  // Links resolve against the loaded objects, so a catalog or layer change re-renders the article.
+  if (state.infoFor?.[0] !== chart) container.replaceChildren()
+  const request = state.infoFor = [chart, options.objects] as const
+  const current = () => cards.get(root) === state && state.infoFor === request
+  container.setAttribute('aria-busy', 'true')
+  try {
+    const info = await loadConstellationInfo(chart.name)
+    if (!current()) return
+    renderObjectInfoContent(container, info, constellationInfoLinks(chart, options.objects, options.onSelect))
+  } catch (error) {
+    if (!current()) return
+    state.infoFor = undefined
+    container.replaceChildren(createLoadError(`${chart.name} Info`, () => syncInfo(root)))
+    console.error('Could not load constellation Info.', error)
+  }
+  container.removeAttribute('aria-busy')
+}
+
+/** Closing a card forgets Info, so it reopens on the chart. */
+export function resetConstellationInfo(root: HTMLElement): void {
+  const state = cards.get(root)
+  if (state) state.info = false
+}
+
+export function disposeConstellationCard(root?: HTMLElement): void {
+  for (const [card, state] of cards) {
+    if (root && card !== root) continue
+    state.observer.disconnect()
+    cards.delete(card)
+  }
+  if (!cards.size) disposeConstellationStars()
 }

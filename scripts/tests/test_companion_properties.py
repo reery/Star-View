@@ -77,6 +77,29 @@ class CompanionPropertiesTests(unittest.TestCase):
         self.assertIsNone(self.star["radius_solar"])
         self.assertIn("temperature_k", property_coverage({"pair-b": self.star})["missingByComponent"]["pair-b"])
 
+    def test_explicit_photometry_pair_replaces_blended_flux_coherently(self):
+        self.star.update(apparent_mag=2, absolute_mag=2)
+        self.review['fields'] = {
+            'absolute_mag': self.observation(3,replaces={'value':2}),
+            'apparent_mag': self.observation(3,replaces={'value':2}),
+        }
+        self.apply()
+        self.assertEqual(self.star['apparent_mag'],3)
+        self.assertEqual(self.star['absolute_mag'],3)
+
+    def test_withholding_blended_abundance_retains_original_value_and_quantity(self):
+        self.star.update(metallicity_dex=-1.4,metallicity_kind='[M/H]')
+        self.review.update(retainPreviousRecord=True,withheldFields={
+            'metallicity_dex':{'expectedPrevious':-1.4,'reason':'Unresolved Gaia atmosphere.'}})
+        self.apply()
+        self.assertIsNone(self.star['metallicity_dex'])
+        self.assertIsNone(self.star['metallicity_kind'])
+        original=self.star['catalog_sources'][0]['record']
+        self.assertEqual(original['metallicity_dex'],-1.4)
+        self.assertEqual(original['metallicity_kind'],'[M/H]')
+        self.assertIn('Unresolved Gaia',self.audit['componentRecords']['pair-b']
+            ['reviewedLiterature']['withheld']['metallicity_dex']['reason'])
+
     def test_withheld_derivation_has_no_value_or_misleading_note(self):
         self.star.update(spectral_type="G2V", notes="Withheld individual fields: temperature_k.")
         complete_properties(self.star, {})
@@ -135,6 +158,18 @@ class CompanionPropertiesTests(unittest.TestCase):
         self.assertIn('Withheld individual fields: mass_solar.', self.star['notes'])
         self.assertIsNone(self.star['mass_solar'])
         self.assertEqual(evidence['supersededNotes'][0]['text'], statement)
+
+    def test_newer_adoption_retains_the_previous_measurement_and_its_uncertainty(self):
+        self.review['fields'] = {'mass_solar': self.observation(1.2, uncertainty=.1)}
+        self.apply()
+        previous = self.audit['componentRecords']['pair-b']['reviewedLiterature'].copy()
+        self.review['fields'] = {'mass_solar': self.observation(1.3, uncertainty=.02, replaces={'value': 1.2})}
+        self.apply()
+        evidence = self.audit['componentRecords']['pair-b']['reviewedLiterature']
+        self.assertEqual(evidence['previousReview'], previous)
+        self.assertEqual(evidence['replaced']['mass_solar']['value'], 1.2)
+        self.assertEqual(evidence['replaced']['mass_solar']['sourceEvidence']['uncertainty'], .1)
+        self.assertEqual(evidence['adopted']['mass_solar']['uncertainty'], .02)
 
 
 if __name__ == "__main__":

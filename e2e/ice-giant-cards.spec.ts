@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test'
 
 for (const planet of [
-  { id: 'uranus', temperature: '76 K', moons: ['Miranda', 'Ariel', 'Umbriel', 'Titania', 'Oberon'], imageWidth: 1720 },
-  { id: 'neptune', temperature: '72 K', moons: ['Proteus', 'Triton', 'Nereid'], imageWidth: 2188 },
+  { id: 'uranus', temperature: '76 K', moons: ['Miranda', 'Ariel', 'Umbriel', 'Titania', 'Oberon'], imageWidth: 1080 },
+  { id: 'neptune', temperature: '72 K', moons: ['Proteus', 'Triton', 'Nereid'], imageWidth: 1080 },
 ]) {
   test(`${planet.id} card supports globe comparison, Info and only major moons`, { tag: '@mobile' }, async ({ page }, testInfo) => {
     const errors: string[] = []

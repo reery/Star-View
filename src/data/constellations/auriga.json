@@ -3,8 +3,8 @@
   "abbreviation": "Aur",
   "name": "Auriga",
   "center": {
-    "ra_deg": 81.62266953510425,
-    "dec_deg": 38.66934029412768
+    "ra_deg": 81.622669535,
+    "dec_deg": 38.669340294
   },
   "stars": [
     {
@@ -22,7 +22,7 @@
         "vy_kms": -7.886564,
         "vz_kms": -7.179711,
         "temperature_k": 4146.0,
-        "mass_solar": null,
+        "mass_solar": 5.23,
         "luminosity_solar": 4079.74,
         "radius_solar": 123.797,
         "metallicity_dex": -0.11,
@@ -1148,7 +1148,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

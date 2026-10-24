@@ -1,10 +1,48 @@
 import { expect, test } from '@playwright/test'
+import { readFileSync } from 'node:fs'
+import { PNG } from 'pngjs'
+import { Vector3 } from 'three'
+import { galacticToWorld } from '../src/astronomy'
+import { parseStarCatalog } from '../src/catalog'
 import { arrowIntersectsRect, motionArrows, openFilter, openPreferences, openViewer, selectCatalog, zoomViewer } from './support'
+
+test('refreshes the rendered distance texture when selecting a distant cluster star', { tag: '@mobile' }, async ({ page }) => {
+  const textureErrors: string[] = []
+  page.on('console', (message) => {
+    if (/texSubImage2D|texStorage2D|GL_INVALID_VALUE/.test(message.text())) textureErrors.push(message.text())
+  })
+  await openViewer(page)
+  await openFilter(page)
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
+  await expect(page.locator('#scene-status')).toBeHidden()
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
+  await expect(page.locator('.distance-label')).toHaveText('8.61 ly')
+  // Let the initial Sirius texture reach the GPU before changing its dimensions.
+  await page.evaluate(() => new Promise(requestAnimationFrame))
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('HD 93194')
+  await page.getByRole('button', { name: 'Select HD 93194', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByRole('button', { name: 'Reset view', exact: true }).click()
+  await expect(page.locator('.distance-label')).toHaveText('478.84 ly')
+  await expect(page.locator('#star-distance')).toHaveText('478.84 ly')
+  await openPreferences(page)
+  await page.getByLabel('pc', { exact: true }).check()
+  await expect(page.locator('.distance-label')).toHaveText('146.81 pc')
+  await page.getByLabel('ly', { exact: true }).check()
+  await page.getByRole('button', { name: 'Preferences', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('Sirius')
+  await page.getByRole('button', { name: 'Select Sirius A', exact: true }).click()
+  await expect(page.locator('.distance-label')).toHaveText('8.61 ly')
+  await page.evaluate(() => new Promise(requestAnimationFrame))
+  expect(textureErrors).toEqual([])
+})
 
 test('shows selected Dschubba component names from the Sun without individual visual magnitudes', async ({ page }, testInfo) => {
   await openViewer(page)
   await openFilter(page)
-  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await expect(page.locator('#scene-status')).toBeHidden()
   await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
@@ -21,7 +59,7 @@ test('shows selected Dschubba component names from the Sun without individual vi
   await page.getByRole('button', { name: 'Select Dschubba A', exact: true }).click()
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
 
-  for (const [id, name] of [['bright-dschubba', 'Dschubba A'], ['orb6-16003-2237-a-b-b', 'Dschubba B']] as const) {
+  for (const [id, name] of [['hip-78401', 'Dschubba A'], ['orb6-16003-2237-a-b-b', 'Dschubba B']] as const) {
     await page.locator(`#star-components [data-component-id="${id}"]`).click()
     await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', id)
     await page.evaluate(() => new Promise(requestAnimationFrame))
@@ -268,4 +306,70 @@ test('centers the distance label on the midpoint of the Sun line', async ({ page
     return Math.hypot(label.left + label.width / 2 - (sun.left + sirius.left) / 2, label.top + label.height / 2 - (sun.top + sirius.top) / 2)
   })
   expect(await labelOffset(), 'distance label center to line midpoint').toBeLessThan(1)
+})
+
+test('depth-tests the midpoint distance label against either endpoint star', { tag: '@mobile' }, async ({ page }, testInfo) => {
+  await openViewer(page)
+  await page.getByRole('button', { name: 'Saved views', exact: true }).click()
+  await page.getByRole('textbox', { name: 'View name' }).fill('Depth test')
+  await page.getByRole('button', { name: 'Save current view', exact: true }).click()
+  const stars = parseStarCatalog(readFileSync('src/data/stars.csv', 'utf8'))
+  const sun = galacticToWorld(stars.find((star) => star.id === 'sun')!)
+  const sirius = galacticToWorld(stars.find((star) => star.id === 'sirius-a')!)
+  const midpoint = sun.clone().lerp(sirius, 0.5)
+  const direction = sirius.clone().sub(sun).normalize()
+  const side = new Vector3().crossVectors(new Vector3(0, 1, 0), direction).normalize()
+  const viewport = (await page.locator('#scene canvas').boundingBox())!
+  const focalLength = viewport.height / (2 * Math.tan(22 * Math.PI / 180))
+  // Keep both cores inside the label, but separated enough to sample independently.
+  const sideOffset = 24 * 36 / (focalLength * sun.distanceTo(sirius))
+  const views = [-1, 1].map((sign) => ({
+    name: sign < 0 ? 'Sun foreground' : 'Sirius foreground',
+    position: midpoint.clone().addScaledVector(direction, sign * 6).addScaledVector(side, sideOffset).toArray(),
+    target: midpoint.toArray(),
+  }))
+  await page.evaluate((views) => {
+    const template = JSON.parse(localStorage.getItem('star-view-saved-views')!)[0]
+    localStorage.setItem('star-view-saved-views', JSON.stringify(views.map((view, index) => ({
+      ...template, id: `depth-${index}`, name: view.name,
+      settings: {
+        ...template.settings, earthOrbitMode: 'off', milkyWayVisible: false,
+        motionArrowsVisible: false, gridVisible: false,
+        viewState: { position: view.position, target: view.target, home: false, observerRollRadians: 0 },
+      },
+    }))))
+  }, views)
+  await openViewer(page)
+  await page.addStyleTag({ content: '.star-label { visibility: hidden; } .selection-ring { display: none !important; }' })
+  for (const view of views) {
+    const toggle = page.getByRole('button', { name: 'Saved views', exact: true })
+    if (await toggle.getAttribute('aria-expanded') === 'false') await toggle.click()
+    await page.getByRole('row', { name: `Load saved view ${view.name}`, exact: true }).click()
+    await expect(page.locator('#saved-views-status')).toHaveText(`Loaded “${view.name}”`)
+    if (await toggle.getAttribute('aria-expanded') === 'true') await toggle.click()
+    await page.evaluate(() => new Promise(requestAnimationFrame))
+    const positions = await page.evaluate(() => Object.fromEntries(['sun', 'sirius-a'].map((id) => {
+      const point = document.querySelector<HTMLElement>(`[data-star-id="${id}"]`)!.getBoundingClientRect()
+      return [id, { x: point.left, y: point.top }]
+    })))
+    const label = (await page.locator('.distance-label').boundingBox())!
+    const png = PNG.sync.read(await page.screenshot({ scale: 'css', path: testInfo.outputPath(`${view.name}.png`) }))
+    const blueAtCore = (id: string) => {
+      const point = positions[id]!
+      expect(point.x).toBeGreaterThan(label.x)
+      expect(point.x).toBeLessThan(label.x + label.width)
+      expect(point.y).toBeGreaterThan(label.y)
+      expect(point.y).toBeLessThan(label.y + label.height)
+      let blue = 0
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+        const offset = ((Math.round(point.y) + dy) * png.width + Math.round(point.x) + dx) * 4
+        blue = Math.max(blue, png.data[offset + 2]!)
+      }
+      return blue
+    }
+    const near = view.name === 'Sun foreground' ? 'sun' : 'sirius-a'
+    const far = near === 'sun' ? 'sirius-a' : 'sun'
+    expect(blueAtCore(near), `${near} shines in front of the label`).toBeGreaterThan(230)
+    expect(blueAtCore(far), `${far} is covered by the label`).toBeLessThan(210)
+  }
 })

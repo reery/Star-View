@@ -3,8 +3,8 @@
   "abbreviation": "Cen",
   "name": "Centaurus",
   "center": {
-    "ra_deg": 203.0024573327532,
-    "dec_deg": -48.80538234572324
+    "ra_deg": 203.002457333,
+    "dec_deg": -48.805382346
   },
   "stars": [
     {
@@ -119,10 +119,10 @@
         "vx_kms": -25.886861,
         "vy_kms": -28.223299,
         "vz_kms": -13.645131,
-        "temperature_k": 8850.0,
+        "temperature_k": 22150.0,
         "mass_solar": null,
-        "luminosity_solar": 1308.99,
-        "radius_solar": 15.3898,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -3.844527,
@@ -133,7 +133,7 @@
         "constellation": "Centaurus",
         "spectral_type": "B2Vne",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 59196; Stellarium Cen). SIMBAD identity * del Cen; SIMBAD compiled Johnson V=2.52; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 59196; Stellarium Cen). SIMBAD identity * del Cen; SIMBAD compiled Johnson V=2.52; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2018MNRAS.474.5287A, HD 105435, Table B1, 22150 K. Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 59196"
         ],
@@ -561,11 +561,11 @@
         "vy_kms": -19.35997,
         "vz_kms": -7.122282,
         "temperature_k": 21001.0,
-        "mass_solar": null,
+        "mass_solar": 7.9,
         "luminosity_solar": 2404.0786591614606,
         "radius_solar": 3.703796,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.013,
         "absolute_mag": -1.717377,
         "epoch": 2000.0,
         "type": "star",
@@ -574,7 +574,7 @@
         "constellation": "Centaurus",
         "spectral_type": "B2IV-V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 68282; Stellarium Cen). SIMBAD identity * ups01 Cen; SIMBAD compiled Johnson V=3.87; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 68282; Stellarium Cen). SIMBAD identity * ups01 Cen; SIMBAD compiled Johnson V=3.87; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Upsilon1 Cen. Exact * ups01 Cen / HD 121790, HIP 68282. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Published object-specific median of evolutionary models; not a dynamical mass. Model-to-model deviation does not include all source photometry, rotation or metallicity systematics. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T; mass_solar: 2011MNRAS.410..190T).",
         "designations": [
           "HIP 68282"
         ],
@@ -2000,7 +2000,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

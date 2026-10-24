@@ -3,8 +3,8 @@
   "abbreviation": "Cet",
   "name": "Cetus",
   "center": {
-    "ra_deg": 32.75203708181395,
-    "dec_deg": -4.1994788729002615
+    "ra_deg": 32.752037082,
+    "dec_deg": -4.199478873
   },
   "stars": [
     {
@@ -414,7 +414,7 @@
         "vy_kms": 0.008324,
         "vz_kms": -8.627077,
         "temperature_k": 8905.0,
-        "mass_solar": null,
+        "mass_solar": 3.29,
         "luminosity_solar": 267.50855872225145,
         "radius_solar": 6.871533,
         "metallicity_dex": null,
@@ -427,7 +427,7 @@
         "constellation": "Cetus",
         "spectral_type": "A0V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 11345; Stellarium Cet). SIMBAD identity * rho Cet; SIMBAD compiled Johnson V=4.866; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 11345; Stellarium Cet). SIMBAD identity * rho Cet; SIMBAD compiled Johnson V=4.866; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Rho Cet. Exact * rho Cet / HD 15130, HIP 11345. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2012A&A...537A.120Z. Existing non-null values retain their independent sources. Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr. Shared exact-identity physical supplements (mass_solar: 2012A&A...537A.120Z).",
         "designations": [
           "HIP 11345"
         ],
@@ -855,7 +855,7 @@
         "vy_kms": -9.726807,
         "vz_kms": -10.300592,
         "temperature_k": 10799.0,
-        "mass_solar": null,
+        "mass_solar": 5.01,
         "luminosity_solar": 268.34729951410714,
         "radius_solar": 4.679874,
         "metallicity_dex": null,
@@ -868,7 +868,7 @@
         "constellation": "Cetus",
         "spectral_type": "B6III",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 13954; Stellarium Cet). SIMBAD identity * lam Cet; SIMBAD compiled Johnson V=4.7; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 13954; Stellarium Cet). SIMBAD identity * lam Cet; SIMBAD compiled Johnson V=4.7; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Lambda Cet. Exact * lam Cet / HD 18604, HIP 13954. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2010AN....331..349H. Existing non-null values retain their independent sources. Shared exact-identity physical supplements (mass_solar: 2010AN....331..349H).",
         "designations": [
           "HIP 13954"
         ],
@@ -1890,7 +1890,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

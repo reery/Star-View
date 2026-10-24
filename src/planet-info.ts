@@ -1,6 +1,6 @@
 import mercuryNaturalColor from './assets/planets/mercury-natural-color.jpg'
 import mercuryHollows from './assets/planets/mercury-hollows.jpg'
-import venusNaturalColor from './assets/planets/venus-natural-color.png'
+import venusNaturalColor from './assets/planets/venus-natural-color.webp'
 import earthBlueMarble from './assets/planets/earth-blue-marble.jpg'
 import marsNaturalColor from './assets/planets/mars-natural-color.jpg'
 import jupiterNaturalColor from './assets/planets/jupiter-natural-color.jpg'
@@ -57,8 +57,8 @@ const mercuryInfo: PlanetInfo = {
       }],
       image: {
         src: mercuryHollows,
-        width: 1934,
-        height: 1067,
+        width: 1080,
+        height: 596,
         alt: 'A MESSENGER monochrome close-up of a 90 km crater, with bright hollows across its floor and central peaks.',
         caption: 'Bright hollows · 90 km crater · NASA / MESSENGER',
         credit: 'NASA / Johns Hopkins University Applied Physics Laboratory / Carnegie Institution of Washington. January 26, 2012. Monochrome Narrow Angle Camera image.',
@@ -383,8 +383,8 @@ const marsFacts: InfoSource = {
 const marsInfo: PlanetInfo = {
   image: {
     src: marsNaturalColor,
-    width: 1920,
-    height: 1920,
+    width: 1080,
+    height: 1080,
     alt: 'A global color mosaic of Mars, showing its north polar cap, rust-colored plains, dark regions, Tharsis volcanoes and Valles Marineris.',
     caption: 'NASA / JPL-Caltech / USGS · Viking color mosaic',
     credit: 'NASA / JPL-Caltech / USGS. Viking Orbiter mosaic, published June 8, 1998 (PIA00407). Red- and violet-filter observations with a synthesized green channel. Bright regions approximate natural color; dark regions have stretched color and contrast. A processed composite, not a single photograph.',
@@ -490,8 +490,8 @@ const jupiterExploration: InfoSource = {
 const jupiterInfo: PlanetInfo = {
   image: {
     src: jupiterNaturalColor,
-    width: 1920,
-    height: 2400,
+    width: 1080,
+    height: 1350,
     alt: 'A partly illuminated Jupiter against black space, with cream and reddish-brown cloud bands, white storm ovals and the Great Red Spot; the right limb fades into shadow.',
     caption: 'NASA / JPL / SSI · Cassini true-color mosaic',
     credit: 'NASA / JPL / Space Science Institute. Cassini narrow-angle camera, December 29, 2000 (PIA04866). A mosaic of 27 red-, green- and blue-filter images approximating the human-eye view; not a single exposure.',
@@ -589,7 +589,7 @@ const saturnExploration: InfoSource = { title: 'NASA: Saturn exploration', url: 
 
 const saturnInfo: PlanetInfo = {
   image: {
-    src: saturnNaturalColor, width: 3545, height: 1834,
+    src: saturnNaturalColor, width: 1080, height: 559,
     alt: 'Saturn against black space, with soft gold cloud bands, its north pole facing the viewer and broad pale rings crossed by the planet’s shadow.',
     caption: 'NASA / JPL / SSI · Cassini natural-color view',
     credit: 'NASA / JPL-Caltech / Space Science Institute. Cassini wide-angle camera, October 28, 2016 (PIA21345). Red-, green- and blue-filter images combined into a natural-color view, looking about 25° above the ring plane. Full published frame, unmodified.',
@@ -655,7 +655,7 @@ const iceGiantColors: InfoSource = {
 
 const uranusInfo: PlanetInfo = {
   image: {
-    src: uranusVoyager, width: 1720, height: 1720,
+    src: uranusVoyager, width: 1080, height: 1080,
     alt: 'The pale blue-green disk of Uranus against black space, with a smooth, hazy atmosphere and a shaded limb.',
     caption: 'NASA / JPL-Caltech · Voyager 2 (1986)',
     credit: 'NASA / JPL-Caltech. Voyager 2 image of Uranus in 1986 (PIA18182). The full published frame is displayed unchanged; the source does not specify a complete color-calibration recipe.',
@@ -698,7 +698,7 @@ const uranusInfo: PlanetInfo = {
 
 const neptuneInfo: PlanetInfo = {
   image: {
-    src: neptuneVoyager, width: 2188, height: 2185,
+    src: neptuneVoyager, width: 1080, height: 1079,
     alt: 'Neptune in a published blue Voyager composite, with the Great Dark Spot and bright clouds against black space.',
     caption: 'NASA / JPL · Voyager 2 color composite (1989)',
     credit: 'NASA / JPL. Voyager 2 narrow-angle camera, August 1989 (PIA01492), assembled from green- and orange-filter images. Historical color processing emphasizes blue and cloud contrast; this is not a calibrated human-eye view. Full published frame, unmodified.',

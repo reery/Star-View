@@ -3,8 +3,8 @@
   "abbreviation": "Peg",
   "name": "Pegasus",
   "center": {
-    "ra_deg": 340.8744187023266,
-    "dec_deg": 21.011039089046438
+    "ra_deg": 340.874418702,
+    "dec_deg": 21.011039089
   },
   "stars": [
     {
@@ -120,7 +120,7 @@
         "vy_kms": 0.398181,
         "vz_kms": -19.032333,
         "temperature_k": 4275.0,
-        "mass_solar": null,
+        "mass_solar": 7.2,
         "luminosity_solar": 9008.43,
         "radius_solar": 173.0234,
         "metallicity_dex": 0.08,
@@ -612,8 +612,8 @@
         "vz_kms": 4.849643,
         "temperature_k": 3864.0,
         "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "luminosity_solar": 2511.886432,
+        "radius_solar": 109.0,
         "metallicity_dex": -0.11,
         "age_gyr": null,
         "absolute_mag": -1.474233,
@@ -1892,7 +1892,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

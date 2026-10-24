@@ -1,45 +1,57 @@
-import './style.css'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsLeftRight, ChevronsRightLeft, CircleHelp, Clock, Cloud, Crosshair, Earth, Eye, Filter, Focus, Grid2X2, List, Lock, Minus, Moon, Orbit, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, X, createElement, type IconNode } from 'lucide'
+import { SaveCheck } from 'lucide'
+import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChartColumn, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, Telescope, Trophy, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
+import { ConstellationIcon } from './constellation-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogMeasurement, catalogSourceFor } from './catalog-source'
 import { completeLoadedCompanions as completeCatalogCompanions } from './constellation-companions'
 import { objectDesignations } from './designations'
+import { completeCompanionRecords } from './companion-records'
 import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
 import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
 import { loadMolecularClouds, molecularCloudOverlayManifest } from './molecular-cloud-overlay'
 import { bubbleOverlayManifest, loadBubbles } from './bubble-overlay'
 import { catalogs, catalogErrors } from './registry'
+import legacyStarIds from './data/legacy-star-ids.json'
 import { formatDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { isObjectMapVisible } from './viewer-primitives'
 import { renderSelectedStarPreview } from './selected-star-preview'
+import { COMPARISON_DETAIL_TOGGLES, initializeStarComparison } from './star-comparison'
+import { radialVelocitySource, specValues, type SpecValue } from './spec-values'
 import { starInfoAvailable } from './star-info-availability'
-import type { MassReference } from './mass-comparison'
-import { hrCardAvailable, hrMagnitude, renderHrDiagram, type HrMagnitudeMode } from './hr-diagram'
-import { renderMkDiagram } from './mk-diagram'
-import { spectralReference } from './spectral-chart'
+import type { HrMagnitudeMode } from './hr-diagram'
+import { hrCardAvailable, spectralReference } from './spectral-properties'
+import { positionCardHeaderTooltips } from './card-header-tooltips'
 import { massCardAvailable } from './mass-properties'
 import { luminosityCardAvailable } from './luminosity-properties'
-import { initializeMagnitudeVisibility, magnitudeCardAvailable, renderMagnitudeCard as renderMagnitudeComparison } from './magnitude-card'
+import { MAGNITUDE_VISIBILITY_GUIDES, magnitudeCardAvailable } from './magnitude-properties'
 import { temperatureCardAvailable } from './temperature-properties'
 import { constellationCardAvailable, loadConstellationChart, type ConstellationChart } from './constellations'
 import type { RadiusReference } from './radius-comparison'
 import { indexStarSystems, type StarSystem } from './star-systems'
 import { loadStellarOrbits } from './stellar-orbits'
-import { loadPlanetarySystems, planetCountForStar, planetarySystemForStar } from './planetary-systems'
+import { loadPlanetarySystem, planetCountForStar, planetarySystemForStar } from './planetary-systems'
+import { loadStarDetails, starDetailsLoaded } from './selected-star-details'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES,
   filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey,
 } from './object-filter'
-import { ObjectList } from './object-list'
+import { ObjectList, type ObjectListFilter } from './object-list'
 import { SelectionHistory } from './selection-history'
-import { objectTypeIntroduction } from './object-type-info'
+import { appendConstellationContent } from './constellation-card-content'
+import { initializeToolbarTouch } from './toolbar-touch'
+import { initializeTouchTooltips } from './touch-tooltips'
 import { objectSubtypeDescription } from './object-subtype-info'
-import { MISSING_VALUE, measurement, preciseMeasurement, quantity, scientificQuantity } from './format'
+import { MISSING_VALUE, preciseMeasurement, quantity, scientificQuantity } from './format'
 import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
+import type { SkyGridMode } from './sky-grid'
+import { browserDataSize, deleteBrowserData } from './browser-data'
+import { readSavedFilter, SAVED_FILTER_STORAGE_KEY, type SavedFilter } from './saved-filter'
+import { DEFAULT_PAINT_LEVEL, isPaintSettingId, PAINT_LEVEL_RANGE, PAINT_SETTINGS, starPainter, type PaintSettingId } from './star-paint'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -47,20 +59,44 @@ function element<ElementType extends HTMLElement = HTMLElement>(id: string): Ele
   return found as ElementType
 }
 
-function text(id: string, value: string): void {
-  element(id).textContent = value
+function loadCardFeature<T>(id: string, label: string, load: () => Promise<T>, isCurrent?: () => boolean) {
+  const card = element(`${id}-card`)
+  const target = card.querySelector<HTMLElement>(':scope > .card-scroll-content') ?? card
+  return loadWithRecovery(target, load, {
+    label,
+    isCurrent: () => !events.signal.aborted && (isCurrent?.() ?? true),
+    retry: () => {
+      element(`${id}-close`).click()
+      element(`${id}-toggle`).click()
+    },
+    focusTarget: element(`${id}-close`),
+    onChange: syncObjectTypeLayout,
+  })
 }
 
-function sourceMeasurement<T extends Parameters<typeof catalogSourceFor>[1]>(id: string, star: Star, field: T, format: (value: Exclude<Star[T], undefined> | null) => string): void {
-  const source = catalogSourceFor(star, field)
-  text(id, format(catalogMeasurement(star, field)))
-  element(id).title = source?.scope ?? ''
-  element(id).classList.toggle('unresolved-measurement', Boolean(source))
+function text(id: string, value: string): void {
+  const target = element(id)
+  target.textContent = value
+  target.classList.toggle('missing-value', value === MISSING_VALUE)
+}
+
+// Values with selection-specific markup stay in renderSelection; Specs owns the rest.
+const SPECS_OWNED_BY_SELECTION = new Set(['distance-toggle', 'known-planets', 'object-subtypes-empty'])
+
+function showSpec(id: string, value: SpecValue): void {
+  const target = element(id)
+  target.textContent = value.text
+  if (value.title) target.title = value.title
+  else target.removeAttribute('title')
+  target.classList.toggle('unresolved-measurement', Boolean(value.unresolved))
+  target.classList.toggle('missing-value', value.text === MISSING_VALUE)
+  if (value.label !== undefined) target.closest('.properties > div')!.querySelector('dt')!.textContent = value.label
 }
 
 function sourceCardTooltip(metric: 'luminosity' | 'radius' | 'temperature', star: Star, propertiesHidden: boolean): void {
   const visible = catalogSourceFor(star, metric === 'temperature' ? 'temperature_k' : `${metric}_solar`) !== undefined && !propertiesHidden
   const row = element(`${metric}-row`)
+  element(`${metric}-source-tooltip`).removeAttribute('data-model-range')
   element(`${metric}-source-tooltip`).hidden = !visible
   text(`${metric}-source-tooltip`, visible
     ? `Unresolved system value. ${star.name}’s individual ${metric} is unavailable, so the card is disabled.` : '')
@@ -75,8 +111,36 @@ function icon(id: string, shape: IconNode): void {
   element(id).replaceChildren(createElement(shape, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
 }
 
+appendConstellationContent(element('constellation-card'))
+
+icon('discover-icon', Compass)
+icon('constellations-icon', ConstellationIcon)
+icon('top-lists-icon', Trophy)
+icon('top-lists-lock-icon', Lock)
+icon('top-lists-close-icon', X)
+icon('graphs-icon', ChartColumn)
+icon('graphs-width-icon', ChevronsRightLeft)
+icon('graphs-clear-icon', FunnelX)
+icon('graph-filter-active-icon', ChartColumn)
+icon('paint-active-icon', Paintbrush)
+icon('motion-active-icon', Clock)
+icon('graphs-lock-icon', Lock)
+icon('graphs-close-icon', X)
+icon('paint-icon', Paintbrush)
+icon('paint-reset-icon', RotateCcw)
+icon('paint-lock-icon', Lock)
+icon('paint-close-icon', X)
+icon('constellations-search-icon', Search)
+icon('constellations-maximize-icon', ChevronsUpDown)
+icon('constellations-lock-icon', Lock)
+icon('constellations-close-icon', X)
+icon('discover-constellation-magnify-icon', Search)
+icon('discover-constellation-grid-icon', Globe)
+icon('discover-constellation-info-icon', BookOpen)
 icon('reset-icon', Focus)
 icon('grid-icon', Grid2X2)
+icon('equatorial-grid-icon', Globe)
+icon('galactic-grid-icon', Galaxy)
 icon('views-icon', Save)
 icon('save-view-icon', Save)
 icon('selection-back-icon', ArrowLeft)
@@ -86,6 +150,7 @@ icon('set-sun-origin-icon', Sun)
 icon('go-to-origin-icon', Crosshair)
 icon('observer-view-icon', Eye)
 icon('observer-view-origin-icon', ObserverOriginIcon)
+icon('observer-telescope-icon', Telescope)
 icon('observer-roll-counterclockwise-icon', RotateCcw)
 icon('observer-roll-reset-icon', Crosshair)
 icon('observer-roll-clockwise-icon', RotateCw)
@@ -100,12 +165,16 @@ icon('info-icon', CircleHelp)
 icon('info-brand-icon', Orbit)
 icon('filter-lock-icon', Lock)
 icon('filter-reset-icon', RotateCcw)
+icon('filter-save-icon', Save)
 icon('preferences-lock-icon', Lock)
 icon('objects-lock-icon', Lock)
 icon('objects-close-icon', X)
 icon('objects-expand-icon', ChevronsLeftRight)
+icon('objects-shrink-icon', ChevronsDownUp)
+icon('objects-maximize-icon', ChevronsUpDown)
 icon('motion-icon', Clock)
 icon('motion-lock-icon', Lock)
+icon('motion-close-icon', X)
 const detailCardClosers = {
   'object-type': closeObjectTypeCard,
   metallicity: closeMetallicityCard,
@@ -129,13 +198,15 @@ for (const name of detailCardNames) {
 icon('magnitude-absolute-icon', Sun)
 icon('magnitude-apparent-icon', Eye)
 icon('constellation-magnify-icon', Search)
+icon('constellation-grid-icon', Globe)
+icon('constellation-info-icon', BookOpen)
 icon('planet-specs-icon', List)
 icon('planet-info-icon', BookOpen)
 icon('planet-moons-icon', Moon)
 icon('planet-earth-icon', Earth)
 icon('planet-earth-plus-icon', Plus)
 icon('planet-earth-minus-icon', Minus)
-icon('planet-stats-icon', ArrowLeftRight)
+icon('planet-stats-icon', Ellipsis)
 icon('planet-atmosphere-icon', Cloud)
 icon('planet-atmosphere-chevron', ChevronUp)
 icon('time-play-icon', Play)
@@ -146,11 +217,21 @@ icon('time-faster-icon', Plus)
 icon('object-specs-icon', List)
 icon('object-info-icon', BookOpen)
 icon('object-system-icon', Orbit)
+icon('object-compare-icon', ArrowLeftRight)
 
 const events = new AbortController()
-let glossaryLoad: Promise<void> | undefined
+initializeTouchTooltips(events.signal)
+initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, events.signal)
+let constellationBrowser: ReturnType<typeof import('./constellation-browser').initializeConstellationBrowser> | undefined
+let topLists: ReturnType<typeof import('./top-lists').initializeTopLists> | undefined
+let graphs: ReturnType<typeof import('./graphs').initializeGraphs> | undefined
+let graphFilter: ObjectListFilter | null = null
+let glossaryInitialized = false
+const paintSettings = new Map<PaintSettingId, number>()
 let viewer: StarViewer | undefined
 let stars: Star[] = []
+let starIndex = new Map<string, Star>()
+const starById = (id: string | null | undefined): Star | undefined => id ? starIndex.get(id) : undefined
 // Chart selections are explicit additions, independent of the overlay switches.
 // Retain them across catalog refreshes so origin and selection history stay valid.
 const constellationSelectedStars = new Map<string, Star>()
@@ -162,14 +243,15 @@ let observerId = 'sirius-a'
 let referenceId = 'sun'
 let magnitudeLimit = 7
 let objectDistanceLimitLy = 100
-let showAlwaysBright = false
 let showWesternConstellationStars = false
-let showFamousClusterStars = false
 let gridVisible = true
+let skyGridMode: SkyGridMode = 'off'
 let observerView = false
 let observerViewAnchorId: string | null = null
 let powerSavingMode = false
-let labelLimit = 40
+// Touch-first devices start with fewer labels; a stored preference overrides this below.
+const touchFirstInput = window.matchMedia('(hover: none) and (pointer: coarse)')
+let labelLimit = touchFirstInput.matches ? 20 : 40
 let motionArrowsVisible = true
 let earthOrbitMode: EarthOrbitMode = 'now'
 let milkyWayVisible = true
@@ -193,14 +275,26 @@ const availableKeys = availableFilterKeys(compactOverlayManifest.counts, nebulaO
 let visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
 let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
-const BRIGHT_CATALOG_ID = 'bright-stars'
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
-const FAMOUS_CLUSTER_CATALOG_ID = 'famous-cluster-stars'
-const ADDITIVE_CATALOG_IDS = new Set([BRIGHT_CATALOG_ID, WESTERN_CONSTELLATION_CATALOG_ID, FAMOUS_CLUSTER_CATALOG_ID])
+// Retired catalog IDs (bright-stars) restore saved selections on their surviving records.
+const legacyStarId = (id: string) => (legacyStarIds.ids as Record<string, string>)[id] ?? id
 
-// Nearest-N catalogs form an ordered size progression; landmark catalogs are independent additive toggles.
-const sliderCatalogs = catalogs.filter((catalog) => !ADDITIVE_CATALOG_IDS.has(catalog.manifest.id))
+// Nearest-N catalogs form an ordered size progression; the landmark catalog is an additive toggle.
+const sliderCatalogs = catalogs.filter((catalog) => catalog.manifest.id !== WESTERN_CONSTELLATION_CATALOG_ID)
   .sort((first, second) => first.manifest.objectCount - second.manifest.objectCount)
+const savedFilter = readSavedFilter(sliderCatalogs.map((catalog) => catalog.manifest.id))
+const initialCatalogId = savedFilter?.catalogId ?? 'nearest-neighbors'
+if (savedFilter) {
+  // The retired bright-star switch now maps to the constellation catalog that contains its stars.
+  showWesternConstellationStars = savedFilter.showWesternConstellationStars || savedFilter.showAlwaysBright
+  filterCategories.clear()
+  savedFilter.filterCategories.forEach((category) => filterCategories.add(category))
+  filterSubtypes.clear()
+  savedFilter.filterSubtypes.forEach((subtype) => filterSubtypes.add(subtype))
+  magnitudeLimit = savedFilter.magnitudeLimit
+  objectDistanceLimitLy = savedFilter.objectDistanceLimitLy
+  visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
+}
 let savedViews = readSavedViews()
 let savedViewMenuRow: HTMLTableRowElement | null = null
 try {
@@ -226,25 +320,27 @@ labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${lab
 text('label-limit-value', labelLimit === 0 ? 'Off' : String(labelLimit))
 const cameraViews = ['top', 'side', 'front'] as const
 const cameraViewButtonIds = ['reset-view', ...cameraViews.map((view) => `${view}-view`)]
-const viewButtons = [...cameraViewButtonIds, 'toggle-grid', 'views-toggle'].map((id) => element<HTMLButtonElement>(id))
+const viewButtons = [...cameraViewButtonIds, 'toggle-grid', 'toggle-equatorial-grid', 'toggle-galactic-grid', 'views-toggle'].map((id) => element<HTMLButtonElement>(id))
 const timelineButtons = ['time-play', 'time-now', 'time-follow'].map((id) => element<HTMLButtonElement>(id))
 const timeSlider = element<HTMLInputElement>('time-slider')
 // Evenly spaced timeline ticks; set via CSSOM because the CSP forbids inline style attributes.
 const timeMarkers = document.querySelectorAll<HTMLElement>('.time-markers i')
 timeMarkers.forEach((marker, index) => marker.style.setProperty('--marker-position', `${index / (timeMarkers.length - 1) * 100}%`))
 const selectionHistory = new SelectionHistory(selectedId)
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'preferences', 'info'] as const
-const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'preferences'] as const
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'preferences', 'info'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'preferences'] as const
+// Discover panels open from the flyout, so focus returns to its toggle.
+const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'motion' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 
 function selectedStarAvailable(id: string): boolean {
-  return stars.some((star) => star.id === id)
+  return starIndex.has(id)
 }
 
 function updateSelectionHistoryControls(): void {
   for (const direction of ['back', 'forward'] as const) {
     const id = direction === 'back' ? selectionHistory.peekBack(selectedStarAvailable) : selectionHistory.peekForward(selectedStarAvailable)
-    const star = stars.find((star) => star.id === id)
+    const star = starById(id)
     const prefix = `selection-${direction}`
     const label = direction === 'back' ? 'Previous selection' : 'Next selection'
     const button = element<HTMLButtonElement>(prefix)
@@ -254,21 +350,23 @@ function updateSelectionHistoryControls(): void {
     text(`${prefix}-name`, star?.name ?? '')
     element(`${prefix}-swatch`).style.background = star ? starDisplayColor(star, starColorMode).getStyle() : ''
   }
+  // Keep forward navigation reachable when history is already at its first entry.
+  element('selection-controls').tabIndex = element<HTMLButtonElement>('selection-back').disabled && !element<HTMLButtonElement>('selection-forward').disabled ? 0 : -1
 }
 
 function updateReferenceControl(): void {
-  const sun = stars.find((star) => star.id === 'sun')
+  const sun = starById('sun')
   element<HTMLButtonElement>('set-sun-origin').disabled = sceneBusy || !sun || referenceId === 'sun'
   element('set-sun-origin-swatch').style.background = sun ? starDisplayColor(sun, starColorMode).getStyle() : ''
   const setOrigin = element<HTMLButtonElement>('set-origin')
-  const selected = stars.find((star) => star.id === selectedId)
+  const selected = starById(selectedId)
   setOrigin.disabled = sceneBusy || selectedId === null || selectedId === referenceId
   setOrigin.setAttribute('aria-label', `Set ${selected?.name ?? 'selected object'} as origin`)
   text('set-origin-name', selected?.name ?? 'selected object')
   element('set-origin-swatch').hidden = !selected
   element('set-origin-swatch').style.background = selected ? starDisplayColor(selected, starColorMode).getStyle() : ''
   const goToOrigin = element<HTMLButtonElement>('go-to-origin')
-  const origin = stars.find((star) => star.id === referenceId)
+  const origin = starById(referenceId)
   goToOrigin.disabled = sceneBusy || !origin
   goToOrigin.setAttribute('aria-label', origin ? `Go to ${origin.name}` : 'Go to set origin')
   text('go-to-origin-name', origin?.name ?? 'set origin')
@@ -280,9 +378,9 @@ function updateReferenceControl(): void {
 
 function updateObserverControl(): void {
   const button = element<HTMLButtonElement>('observer-view')
-  const selected = stars.find((star) => star.id === selectedId)
-  const origin = stars.find((star) => star.id === referenceId)
-  const observer = observerViewAnchorId === null ? undefined : stars.find((star) => star.id === observerViewAnchorId)
+  const selected = starById(selectedId)
+  const origin = starById(referenceId)
+  const observer = starById(observerViewAnchorId)
   button.disabled = sceneBusy || (!observerView && !selected)
   button.setAttribute('aria-pressed', String(observerView))
   button.setAttribute('aria-label', observerView ? 'Exit observer view' : selected ? `Observe from ${selected.name}` : 'Enter observer view')
@@ -310,7 +408,8 @@ function updateObserverControl(): void {
     element('observer-object-swatch').style.background = color
     element('observer-direction-card').style.setProperty('--observer-star-color', color)
   }
-  for (const id of ['observer-roll-counterclockwise', 'observer-roll-reset', 'observer-roll-clockwise']) {
+  element('observer-telescope').setAttribute('aria-pressed', String(observerView && Boolean(viewer?.getViewState().observerTelescope)))
+  for (const id of ['observer-telescope', 'observer-roll-counterclockwise', 'observer-roll-reset', 'observer-roll-clockwise']) {
     element<HTMLButtonElement>(id).disabled = sceneBusy || !observerView
   }
   for (const id of cameraViewButtonIds) {
@@ -332,14 +431,89 @@ function panelIsOpen(name: typeof panelNames[number]): boolean {
 }
 
 function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
+  if (name === 'filter' && !open) setFilterSaveIndicator(false)
   if (name === 'views' && !open) closeSavedViewContextMenu()
   if (name === 'objects' && !open) objectList.closeColumnFilter()
   element<HTMLButtonElement>(`${name}-toggle`).setAttribute('aria-expanded', String(open))
   element(`${name}-panel`).hidden = !open
-  if (name === 'glossary' && open) {
-    glossaryLoad ??= import('./glossary').then(({ initializeGlossary }) => initializeGlossary(events.signal))
-      .catch((error: unknown) => { glossaryLoad = undefined; console.error('Could not load the glossary.', error) })
+  if (name === 'preferences' && open) updateBrowserDataSize()
+  if (name === 'glossary' && open && !glossaryInitialized) void loadGlossaryPanel()
+  if (name === 'constellations') {
+    if (!open) constellationBrowser?.close()
+    else if (constellationBrowser) constellationBrowser.open()
+    else void loadConstellationsPanel()
   }
+  if (name === 'top-lists' && open) {
+    if (topLists) topLists.open()
+    else void loadTopListsPanel()
+  }
+  if (name === 'graphs' && open) {
+    if (graphs) graphs.open()
+    else void loadGraphsPanel()
+  }
+}
+
+async function loadGlossaryPanel(): Promise<void> {
+  const result = await loadWithRecovery(element('glossary-panel').querySelector<HTMLElement>('.glossary-body')!,
+    () => import('./glossary'), {
+      label: 'Glossary', retry: () => { void loadGlossaryPanel() },
+      isCurrent: () => !events.signal.aborted && panelIsOpen('glossary'),
+      focusTarget: element('glossary-close'), onChange: syncPanelLayout,
+    })
+  if (!result || glossaryInitialized) return
+  result.value.initializeGlossary(events.signal)
+  glossaryInitialized = true
+}
+
+async function loadConstellationsPanel(): Promise<void> {
+  const result = await loadWithRecovery(element('constellations-panel').querySelector<HTMLElement>('.glossary-body')!,
+    () => import('./constellation-browser'), {
+      label: 'Constellations', retry: () => { void loadConstellationsPanel() },
+      isCurrent: () => !events.signal.aborted && panelIsOpen('constellations'),
+      focusTarget: element('constellations-close'), onChange: syncPanelLayout,
+    })
+  if (!result || constellationBrowser) return
+  constellationBrowser = result.value.initializeConstellationBrowser(events.signal,
+    () => ({ objects: stars, colorMode: starColorMode, distanceUnit, onSelect: (object) => { void selectConstellationStar(object) } }),
+    starById(selectedId)?.constellation ?? undefined)
+  constellationBrowser.open()
+}
+
+async function loadTopListsPanel(): Promise<void> {
+  const result = await loadWithRecovery(element('top-lists-panel').querySelector<HTMLElement>('.glossary-body')!,
+    () => import('./top-lists'), {
+      label: 'Top lists', retry: () => { void loadTopListsPanel() },
+      isCurrent: () => !events.signal.aborted && panelIsOpen('top-lists'),
+      focusTarget: element('top-lists-close'), onChange: syncPanelLayout,
+    })
+  if (!result || topLists) return
+  topLists = result.value.initializeTopLists(events.signal, () => ({ distanceUnit, onSelect: (object) => { void selectTopListObject(object) } }))
+  topLists.open()
+}
+
+async function loadGraphsPanel(): Promise<void> {
+  const result = await loadWithRecovery(element('graphs-panel').querySelector<HTMLElement>('.glossary-body')!,
+    () => import('./graphs'), {
+      label: 'Graphs', retry: () => { void loadGraphsPanel() },
+      isCurrent: () => !events.signal.aborted && panelIsOpen('graphs'),
+      focusTarget: element('graphs-close'), onChange: syncPanelLayout,
+    })
+  if (!result) return
+  initializeGraphs(result.value).open()
+}
+
+function initializeGraphs(module: typeof import('./graphs')): NonNullable<typeof graphs> {
+  return graphs ??= module.initializeGraphs(events.signal,
+    () => ({ items: objectList.mapItems(baseObjectListFilter()), onFilter: setGraphFilter, sun: starById('sun'), referenceName: starById(referenceId)?.name ?? 'Sun', systems: starSystems, distanceUnit, colorMode: starColorMode }))
+}
+
+/** Prefer the loaded record of a merged identity; otherwise add the listed catalog record. */
+async function selectTopListObject(object: import('./top-lists').TopListObject): Promise<void> {
+  const loaded = starById(object.id) ?? (object.designation === null ? undefined : stars.find((star) => objectDesignations(star).includes(object.designation!)))
+  if (loaded) return selectConstellationStar(loaded)
+  const payload = await catalogs.find((catalog) => catalog.manifest.id === object.catalog)!.load()
+  const record = payload.find((star) => star.id === object.id)
+  if (record) await selectConstellationStar(record, new Map(payload.map((star) => [star.id, star])))
 }
 
 function syncPanelLayout(): void {
@@ -357,6 +531,7 @@ function syncPanelLayout(): void {
 }
 
 function closeObjectTypeCard(restoreFocus = false): void {
+  objectTypeRenderRequest++
   const card = element('object-type-card')
   if (card.hidden) return
   card.hidden = true
@@ -376,6 +551,7 @@ function closeRadiusCard(restoreFocus = false): void {
   const card = element('radius-card')
   if (card.hidden) return
   card.hidden = true
+  radiusModules?.comparison.releaseRadiusComparisonTextures()
   element('radius-toggle').setAttribute('aria-expanded', 'false')
   if (restoreFocus) element('radius-toggle').focus()
 }
@@ -405,6 +581,7 @@ function closeLuminosityCard(restoreFocus = false): void {
 }
 
 function closeMagnitudeCard(restoreFocus = false): void {
+  magnitudeRenderRequest++
   const card = element('magnitude-card')
   if (card.hidden) return
   card.hidden = true
@@ -413,60 +590,78 @@ function closeMagnitudeCard(restoreFocus = false): void {
 }
 
 let constellationMagnified = false
+let constellationEquatorialGrid = false
 let constellationOpenRequest = 0
 let constellationCardModule: typeof import('./constellation-card') | undefined
 let activeConstellationChart: ConstellationChart | null = null
+let constellationStarId: string | undefined
+let objectTypeStarId: string | undefined
+
+function sideDetailStar(id: string | undefined): Star | undefined {
+  const other = starComparison.other
+  return other && other.id === id ? other : starById(selectedId)
+}
+
+/** Detail cards compare with the comparison star when one is active, otherwise with the map origin. */
+function cardReferences(): { sun: Star; origin: Star; other: Star | undefined; reference: Star } {
+  const sun = starById('sun')!
+  const origin = starById(referenceId) ?? sun
+  const other = starComparison.other
+  return { sun, origin, other, reference: other ?? origin }
+}
 
 function closeConstellationCard(restoreFocus = false): void {
   constellationOpenRequest++
   const card = element('constellation-card')
   if (card.hidden) return
   card.hidden = true
+  constellationCardModule?.resetConstellationInfo(card)
   element('constellation-toggle').setAttribute('aria-expanded', 'false')
   if (restoreFocus) element('constellation-toggle').focus()
 }
 
 function renderConstellationCard(star: Star): void {
   if (!constellationCardModule) return
+  constellationStarId = star.id
   if (activeConstellationChart?.name !== star.constellation) {
     const request = ++constellationOpenRequest
-    void loadConstellationChart(star).then((chart) => {
-      if (!chart || request !== constellationOpenRequest || selectedId !== star.id || element('constellation-card').hidden) return
-      activeConstellationChart = chart
+    void loadCardFeature('constellation', 'constellation chart', () => loadConstellationChart(star),
+      () => request === constellationOpenRequest && sideDetailStar(constellationStarId)?.id === star.id).then((result) => {
+      if (!result?.value) return
+      activeConstellationChart = result.value
       renderConstellationCard(star)
     })
     return
   }
   constellationCardModule.renderConstellationCard(element('constellation-card'), star, activeConstellationChart, {
-    objects: stars, colorMode: starColorMode, distanceUnit, magnified: constellationMagnified,
+    objects: stars, colorMode: starColorMode, distanceUnit, magnified: constellationMagnified, equatorialGrid: constellationEquatorialGrid,
     onSelect: (object) => { void selectConstellationStar(object) },
   })
   syncObjectTypeLayout()
 }
 
-async function selectConstellationStar(object: Star): Promise<void> {
+/** Companions complete from the loaded chart records unless the caller supplies its source payload. */
+async function selectConstellationStar(object: Star, records?: ReadonlyMap<string, Star>): Promise<void> {
   const request = ++constellationSelectionRequest
-  const existing = stars.find((star) => star.id === object.id)
+  const existing = starById(object.id)
   if (!existing) {
-    for (const component of completeCatalogCompanions([object])) constellationSelectedStars.set(component.id, component)
+    const components = records ? completeCompanionRecords([object], records) : completeCatalogCompanions([object])
+    for (const component of components) constellationSelectedStars.set(component.id, component)
     await switchCatalog(activeCatalogId, true)
     if (request !== constellationSelectionRequest) return
   }
   selectStar(object.id)
 }
 
-async function toggleConstellationCard(): Promise<void> {
-  if (!element('constellation-card').hidden) {
+async function toggleConstellationCard(other = false): Promise<void> {
+  const star = other ? starComparison.other : starById(selectedId)
+  if (!star || !constellationCardAvailable(star)) return
+  if (!element('constellation-card').hidden && constellationStarId === star.id) {
     closeConstellationCard(true)
     return
   }
-  const star = stars.find((candidate) => candidate.id === selectedId)
-  if (!star || !constellationCardAvailable(star)) return
+  constellationStarId = star.id
   const request = ++constellationOpenRequest
-  const [module, chart] = await Promise.all([import('./constellation-card'), loadConstellationChart(star)])
-  if (!chart || request !== constellationOpenRequest || selectedId !== star.id) return
-  constellationCardModule = module
-  activeConstellationChart = chart
   closePlanetCard()
   closeObjectTypeCard()
   closeMetallicityCard()
@@ -479,12 +674,21 @@ async function toggleConstellationCard(): Promise<void> {
   closeSpectralCard()
   element('constellation-card').hidden = false
   element('constellation-toggle').setAttribute('aria-expanded', 'true')
+  const result = await loadCardFeature('constellation', 'constellation chart',
+    () => Promise.all([import('./constellation-card'), loadConstellationChart(star)]),
+    () => request === constellationOpenRequest && sideDetailStar(constellationStarId)?.id === star.id)
+  if (!result) return
+  const [module, chart] = result.value
+  if (!chart) return
+  constellationCardModule = module
+  activeConstellationChart = chart
   renderConstellationCard(star)
   element('constellation-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
   element('constellation-close').focus({ preventScroll: true })
 }
 
 function closeSpectralCard(restoreFocus = false): void {
+  spectralRenderRequest++
   const card = element('spectral-card')
   if (card.hidden) return
   card.hidden = true
@@ -495,19 +699,37 @@ function closeSpectralCard(restoreFocus = false): void {
 let spectralMagnitudeMode: HrMagnitudeMode | null = null
 let spectralDiagram: 'hr' | 'mk' = 'hr'
 
-function renderSpectralCard(star: Star): void {
-  const sun = stars.find((candidate) => candidate.id === 'sun')!
-  const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
-  const reference = spectralReference(origin, sun)
+let spectralRenderRequest = 0
+const spectralModules = new Map<'hr' | 'mk', typeof import('./hr-diagram') | typeof import('./mk-diagram')>()
+
+async function renderSpectralCard(star: Star): Promise<void> {
+  const request = ++spectralRenderRequest
+  const diagram = spectralDiagram
+  let module = spectralModules.get(diagram)
+  if (!module) {
+    const result = await loadCardFeature<typeof import('./hr-diagram') | typeof import('./mk-diagram')>('spectral', 'spectral diagram',
+      () => diagram === 'hr' ? import('./hr-diagram') : import('./mk-diagram'),
+      () => request === spectralRenderRequest && selectedId === star.id)
+    if (!result) return
+    module = result.value
+    spectralModules.set(diagram, module)
+  } else {
+    clearLoadRecovery(element('spectral-card').querySelector<HTMLElement>('.card-scroll-content')!)
+  }
+  if (request !== spectralRenderRequest || element('spectral-card').hidden || selectedId !== star.id) return
+  const { sun, origin, other } = cardReferences()
+  const reference = other ?? spectralReference(origin, sun)
   for (const diagram of ['hr', 'mk'] as const) {
     element(`spectral-${diagram}`).setAttribute('aria-pressed', String(spectralDiagram === diagram))
     element(`spectral-${diagram}-content`).hidden = spectralDiagram !== diagram
   }
-  if (spectralDiagram === 'hr') {
+  if ('renderHrDiagram' in module) {
+    const { hrMagnitude, renderHrDiagram } = module
     const mode = spectralMagnitudeMode ?? (hrMagnitude(star, 'visual') === null && hrMagnitude(star, 'bolometric') !== null ? 'bolometric' : 'visual')
     renderHrDiagram(element('spectral-card'), star, reference, mode)
-  } else renderMkDiagram(element('spectral-card'), star, reference)
+  } else module.renderMkDiagram(element('spectral-card'), star, reference)
   syncObjectTypeLayout()
+  positionCardHeaderTooltips(element('spectral-card'))
 }
 
 function toggleSpectralCard(): void {
@@ -536,6 +758,7 @@ function toggleSpectralCard(): void {
 }
 
 let activePlanetId: string | null = null
+let planetOpenRequest = 0
 const planetSections = ['specs', 'info', 'moons'] as const
 
 // Planet details, imagery and the globe renderer load only when a planet is opened.
@@ -545,6 +768,7 @@ type PlanetModules = {
   disposePlanetGlobe: typeof import('./planet-globe').disposePlanetGlobe
   resetPlanetGlobe: typeof import('./planet-globe').resetPlanetGlobe
   renderPlanetSection: typeof import('./planet-card').renderPlanetSection
+  releasePlanetCardGlobes: typeof import('./planet-card').releasePlanetCardGlobes
 }
 let planetModules: PlanetModules | undefined
 async function loadPlanetModules(): Promise<PlanetModules> {
@@ -556,6 +780,7 @@ async function loadPlanetModules(): Promise<PlanetModules> {
     disposePlanetGlobe: globe.disposePlanetGlobe,
     resetPlanetGlobe: globe.resetPlanetGlobe,
     renderPlanetSection: card.renderPlanetSection,
+    releasePlanetCardGlobes: card.releasePlanetCardGlobes,
   }
 }
 
@@ -565,16 +790,18 @@ function showPlanetSection(section: typeof planetSections[number]): void {
     element(`planet-${candidate}-toggle`).setAttribute('aria-expanded', String(candidate === section))
   }
   void planetModules?.renderPlanetSection(element('planet-card'), section).then(syncObjectTypeLayout)
-  const globe = element(`planet-${section}`).querySelector<HTMLCanvasElement>('canvas')
+  const globe = element('planet-card').querySelector<HTMLCanvasElement>(section === 'specs' ? '#planet-globe' : `#planet-${section} canvas`)
   if (globe) planetModules?.resetPlanetGlobe(globe)
   element('planet-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
   syncObjectTypeLayout()
 }
 
 function closePlanetCard(restoreFocus = false): void {
+  planetOpenRequest++
   const card = element('planet-card')
   if (card.hidden) return
   card.hidden = true
+  planetModules?.releasePlanetCardGlobes(card)
   const system = element('object-system')
   const selectedRow = system.querySelector<HTMLElement>('.planet-row:has([aria-pressed="true"])')
   const selectedPlanet = selectedRow?.dataset.planetId ?? null
@@ -587,8 +814,17 @@ function closePlanetCard(restoreFocus = false): void {
 }
 
 async function selectSystemPlanet(planetId: string): Promise<void> {
+  const request = ++planetOpenRequest
   const system = element('object-system')
-  const { planetDescriptionForId, renderPlanetCard } = await loadPlanetModules()
+  const hostId = selectedId
+  const result = await loadWithRecovery(system, loadPlanetModules, {
+    label: 'planet details', keepContent: true,
+    retry: () => { void selectSystemPlanet(planetId) },
+    isCurrent: () => request === planetOpenRequest && selectedId === hostId && element<HTMLDetailsElement>('object-card-details').open,
+    onChange: syncObjectTypeLayout,
+  })
+  if (!result) return
+  const { planetDescriptionForId, renderPlanetCard } = result.value
   const description = planetDescriptionForId(planetId)
   const selected = system.querySelector<HTMLButtonElement>(`.planet-row[data-planet-id="${planetId}"] button`)?.getAttribute('aria-pressed') === 'true'
   if (!description) {
@@ -618,22 +854,19 @@ async function selectSystemPlanet(planetId: string): Promise<void> {
   element('planet-specs-toggle').focus({ preventScroll: true })
 }
 
-let massReference: MassReference = 'class'
 let luminosityCardModule: typeof import('./luminosity-card') | undefined
 
 function renderLuminosityCard(star: Star): void {
   if (!luminosityCardModule) return
-  const sun = stars.find((candidate) => candidate.id === 'sun')!
-  const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
-  luminosityCardModule.renderLuminosityCard(element('luminosity-card'), star, origin, sun, starColorMode)
+  const { sun, origin, other } = cardReferences()
+  luminosityCardModule.renderLuminosityCard(element('luminosity-card'), star, origin, sun, starColorMode, other)
   syncObjectTypeLayout()
 }
 
 function renderTemperatureCard(star: Star): void {
   if (!temperatureCardModule) return
-  const sun = stars.find((candidate) => candidate.id === 'sun')!
-  const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
-  temperatureCardModule.renderTemperatureCard(element('temperature-card'), star, origin, sun, starColorMode)
+  const { sun, origin, other } = cardReferences()
+  temperatureCardModule.renderTemperatureCard(element('temperature-card'), star, origin, sun, starColorMode, other)
   syncObjectTypeLayout()
 }
 
@@ -659,7 +892,11 @@ async function toggleTemperatureCard(): Promise<void> {
   closeConstellationCard()
   element('temperature-card').hidden = false
   element('temperature-toggle').setAttribute('aria-expanded', 'true')
-  temperatureCardModule ??= await import('./temperature-card')
+  if (!temperatureCardModule) {
+    const result = await loadCardFeature('temperature', 'temperature comparison', () => import('./temperature-card'))
+    if (!result) return
+    temperatureCardModule = result.value
+  }
   const current = stars.find((candidate) => candidate.id === selectedId)
   if (!current || element('temperature-card').hidden) return
   renderTemperatureCard(current)
@@ -667,10 +904,29 @@ async function toggleTemperatureCard(): Promise<void> {
   element('temperature-close').focus({ preventScroll: true })
 }
 
-function renderMagnitudeCard(star: Star): void {
-  const sun = stars.find((candidate) => candidate.id === 'sun')!
-  const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
-  renderMagnitudeComparison(element('magnitude-card'), star, origin, sun, starColorMode, stars.find((candidate) => candidate.id === 'sirius-a'))
+let magnitudeRenderRequest = 0
+let magnitudeVisibilityInitialized = false
+let magnitudeCardModule: typeof import('./magnitude-card') | undefined
+
+async function renderMagnitudeCard(star: Star): Promise<void> {
+  const request = ++magnitudeRenderRequest
+  if (!magnitudeCardModule) {
+    const result = await loadCardFeature('magnitude', 'magnitude comparison', () => import('./magnitude-card'),
+      () => request === magnitudeRenderRequest && selectedId === star.id)
+    if (!result) return
+    magnitudeCardModule = result.value
+  }
+  const { initializeMagnitudeVisibility, renderMagnitudeCard: renderMagnitudeComparison } = magnitudeCardModule
+  if (request !== magnitudeRenderRequest || element('magnitude-card').hidden || selectedId !== star.id) return
+  if (!magnitudeVisibilityInitialized) {
+    initializeMagnitudeVisibility(element('magnitude-card'), () => {
+      const current = stars.find((candidate) => candidate.id === selectedId)
+      if (current && !element('magnitude-card').hidden) void renderMagnitudeCard(current)
+    }, events.signal)
+    magnitudeVisibilityInitialized = true
+  }
+  const { sun, origin, other } = cardReferences()
+  renderMagnitudeComparison(element('magnitude-card'), star, origin, sun, starColorMode, starById('sirius-a'), other)
   syncObjectTypeLayout()
 }
 
@@ -705,7 +961,6 @@ async function toggleLuminosityCard(): Promise<void> {
     closeLuminosityCard(true)
     return
   }
-  luminosityCardModule ??= await import('./luminosity-card')
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || !luminosityCardAvailable(star) || element<HTMLButtonElement>('luminosity-toggle').disabled) return
   closeTemperatureCard()
@@ -720,7 +975,14 @@ async function toggleLuminosityCard(): Promise<void> {
   closeConstellationCard()
   element('luminosity-card').hidden = false
   element('luminosity-toggle').setAttribute('aria-expanded', 'true')
-  renderLuminosityCard(star)
+  if (!luminosityCardModule) {
+    const result = await loadCardFeature('luminosity', 'luminosity comparison', () => import('./luminosity-card'))
+    if (!result) return
+    luminosityCardModule = result.value
+  }
+  const current = stars.find((candidate) => candidate.id === selectedId)
+  if (!current || element('luminosity-card').hidden) return
+  renderLuminosityCard(current)
   element('luminosity-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
   element('luminosity-close').focus({ preventScroll: true })
 }
@@ -729,16 +991,8 @@ let massCardModule: typeof import('./mass-card') | undefined
 
 function renderMassCard(star: Star): void {
   if (!massCardModule) return
-  const origin = stars.find((candidate) => candidate.id === referenceId) ?? stars.find((candidate) => candidate.id === 'sun')!
-  const referenceMode = origin.id === 'sun' && massReference === 'origin' ? 'sun' : massReference
-  text('mass-reference-origin', `vs ${origin.name}`)
-  element('mass-reference-origin').hidden = origin.id === 'sun'
-  element('mass-reference-origin').title = `Compare mass properties with ${origin.name}`
-  element('mass-reference-origin').setAttribute('aria-label', `Compare mass properties with ${origin.name}`)
-  for (const mode of ['class', 'origin', 'sun'] as const) {
-    element(`mass-reference-${mode}`).setAttribute('aria-pressed', String(referenceMode === mode))
-  }
-  massCardModule.renderMassCardContent(element('mass-card'), star, origin, referenceMode)
+  const { sun, origin, other } = cardReferences()
+  massCardModule.renderMassCardContent(element('mass-card'), star, origin, sun, starColorMode, other)
   syncObjectTypeLayout()
 }
 
@@ -748,7 +1002,6 @@ async function toggleMassCard(): Promise<void> {
     closeMassCard(true)
     return
   }
-  massCardModule ??= await import('./mass-card')
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (!star || !massCardAvailable(star) || element<HTMLButtonElement>('mass-toggle').disabled) return
   closeLuminosityCard()
@@ -763,7 +1016,14 @@ async function toggleMassCard(): Promise<void> {
   closeConstellationCard()
   element('mass-card').hidden = false
   element('mass-toggle').setAttribute('aria-expanded', 'true')
-  renderMassCard(star)
+  if (!massCardModule) {
+    const result = await loadCardFeature('mass', 'mass comparison', () => import('./mass-card'))
+    if (!result) return
+    massCardModule = result.value
+  }
+  const current = stars.find((candidate) => candidate.id === selectedId)
+  if (!current || element('mass-card').hidden) return
+  renderMassCard(current)
   element('mass-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
   element('mass-close').focus({ preventScroll: true })
 }
@@ -782,19 +1042,18 @@ function closeDistanceCard(restoreFocus = false): void {
 
 function renderDistanceCard(star: Star): void {
   if (!distanceCardModule) return
-  const sun = stars.find((candidate) => candidate.id === 'sun')!
-  const origin = stars.find((candidate) => candidate.id === referenceId) ?? sun
-  const referenceMode = origin.id === 'sun' ? 'sun' : distanceReference
+  const { sun, origin, other } = cardReferences()
+  const referenceMode = other || origin.id === 'sun' ? 'sun' : distanceReference
   const originLabel = `from ${origin.name}`
   text('distance-reference-origin', originLabel)
-  element('distance-reference-origin').hidden = origin.id === 'sun'
+  element('distance-reference-origin').hidden = Boolean(other) || origin.id === 'sun'
   element('distance-reference-origin').title = originLabel
   element('distance-reference-origin').setAttribute('aria-label', originLabel)
   for (const mode of ['origin', 'sun'] as const) {
     element(`distance-reference-${mode}`).setAttribute('aria-pressed', String(referenceMode === mode))
   }
   const reference = referenceMode === 'sun' ? sun : origin
-  distanceCardModule.renderDistanceComparison(element<HTMLCanvasElement>('distance-comparison'), star, reference, starColorMode, distanceUnit, simulationYears, motionFrame)
+  distanceCardModule.renderDistanceComparison(element<HTMLCanvasElement>('distance-comparison'), star, reference, starColorMode, distanceUnit, simulationYears, motionFrame, other)
   lastDistanceCardRender = performance.now()
   syncObjectTypeLayout()
 }
@@ -824,7 +1083,11 @@ async function toggleDistanceCard(): Promise<void> {
   closeConstellationCard()
   element('distance-card').hidden = false
   element('distance-toggle').setAttribute('aria-expanded', 'true')
-  distanceCardModule ??= await import('./distance-comparison')
+  if (!distanceCardModule) {
+    const result = await loadCardFeature('distance', 'distance comparison', () => import('./distance-comparison'))
+    if (!result) return
+    distanceCardModule = result.value
+  }
   const current = stars.find((candidate) => candidate.id === selectedId)
   if (!current || element('distance-card').hidden) return
   renderDistanceCard(current)
@@ -837,8 +1100,8 @@ let radiusModules: { comparison: typeof import('./radius-comparison'); card: typ
 function renderRadiusCard(star: Star): void {
   if (!radiusModules) return
   const { radiusComparison, radiusStats, radiusSummary, renderRadiusComparison } = radiusModules.comparison
-  const sun = stars.find((candidate) => candidate.id === 'sun')!
-  const origin = star.id === referenceId ? sun : stars.find((candidate) => candidate.id === referenceId) ?? sun
+  const references = cardReferences()
+  const origin = references.other ?? (star.id === referenceId ? references.sun : references.origin)
   const comparison = radiusComparison(star, origin, radiusReference)
   text('radius-selected-name', comparison.selected.name)
   text('radius-selected-column', comparison.selected.name)
@@ -893,7 +1156,10 @@ async function toggleRadiusCard(): Promise<void> {
   element('radius-card').hidden = false
   element('radius-toggle').setAttribute('aria-expanded', 'true')
   if (!radiusModules) {
-    const [comparison, card] = await Promise.all([import('./radius-comparison'), import('./radius-card')])
+    const result = await loadCardFeature('radius', 'radius comparison',
+      () => Promise.all([import('./radius-comparison'), import('./radius-card')]))
+    if (!result) return
+    const [comparison, card] = result.value
     radiusModules = { comparison, card }
   }
   const current = stars.find((candidate) => candidate.id === selectedId)
@@ -903,18 +1169,26 @@ async function toggleRadiusCard(): Promise<void> {
 }
 
 function renderMetallicityCard(star: Star): void {
+  const other = starComparison.other
   const source = catalogSourceFor(star, 'metallicity_dex')
   const value = catalogMeasurement(star, 'metallicity_dex')
   const kind = source?.record.metallicity_kind ?? star.metallicity_kind
   const iron = kind === '[Fe/H]'
   const ratioName = iron ? 'iron-to-hydrogen' : 'metal-to-hydrogen'
-  text('metallicity-heading', `Metallicity ${kind ?? ''}${source ? ' · system' : ''}`.trim())
+  const otherSource = other ? catalogSourceFor(other, 'metallicity_dex') : undefined
+  const otherValue = other ? catalogMeasurement(other, 'metallicity_dex') : null
+  const otherKind = other ? otherSource?.record.metallicity_kind ?? other.metallicity_kind : undefined
+  text('metallicity-heading', `Metallicity ${other && kind !== otherKind ? '' : kind ?? ''}${source ? ' · system' : ''}`.trim())
   const limit = 2
   const outsideScale = value !== null && Math.abs(value) > limit
-  const position = value === null ? 50 : Math.max(0, Math.min(100, (value + limit) / (2 * limit) * 100))
+  const scalePosition = (dex: number | null) => dex === null ? 50 : Math.max(0, Math.min(100, (dex + limit) / (2 * limit) * 100))
+  const labelOffset = (percent: number) => percent < 35 ? '0%' : percent > 65 ? '-100%' : '-50%'
+  const position = scalePosition(value)
   const scale = element('metallicity-scale')
+  scale.classList.toggle('has-comparison', Boolean(other))
+  scale.querySelector('[data-comparison-metallicity]')?.remove()
   scale.style.setProperty('--metallicity-position', `${position}%`)
-  scale.style.setProperty('--metallicity-label-offset', position < 35 ? '0%' : position > 65 ? '-100%' : '-50%')
+  scale.style.setProperty('--metallicity-label-offset', labelOffset(position))
   const formatPercent = (percent: number): string => `${percent.toLocaleString('en-US', {
     notation: percent > 1000 ? 'compact' : 'standard',
     ...(percent > 1000 ? { maximumSignificantDigits: 3 } : { maximumFractionDigits: percent < 1 ? 2 : 0 }),
@@ -944,6 +1218,32 @@ function renderMetallicityCard(star: Star): void {
   element('metallicity-marker').hidden = value === null
   element('metallicity-fill').hidden = value === null
   text('metallicity-marker-value', value === null ? '' : `${value > 0 ? '+' : ''}${quantity(value, 'dex', 2)} (${percentageLabel})`)
+  let comparisonNote = ''
+  if (other) {
+    const label = element('metallicity-marker-value')
+    label.prepend(document.createTextNode(`${star.name} ${kind ?? ''} · `))
+    label.style.maxWidth = `${scale.clientWidth - 16}px`
+    const otherLabel = `${other.name} ${otherKind ?? ''}${otherSource ? ' · system' : ''}: ${otherValue === null ? 'unavailable' : `${otherValue > 0 ? '+' : ''}${quantity(otherValue, 'dex', 2)} (${formatPercent(10 ** otherValue * 100)} of Sun)`}`
+    scale.setAttribute('aria-label', `${scale.getAttribute('aria-label')} ${otherLabel}.${otherSource ? ` ${otherSource.scope}` : ''}`)
+    const marker = document.createElement('span')
+    marker.className = 'metallicity-marker metallicity-comparison-marker'
+    marker.dataset.comparisonMetallicity = ''
+    marker.dataset.objectId = other.id
+    const otherPosition = scalePosition(otherValue)
+    marker.style.left = `${otherPosition}%`
+    marker.style.setProperty('--metallicity-label-offset', labelOffset(otherPosition))
+    const caption = document.createElement('span')
+    caption.className = 'metallicity-marker-value'
+    caption.style.maxWidth = `${scale.clientWidth - 16}px`
+    caption.textContent = otherLabel
+    marker.append(caption)
+    marker.classList.toggle('is-missing', otherValue === null)
+    element('metallicity-marker').parentElement!.append(marker)
+    if (otherValue === null) comparisonNote += ` ${other.name}: individual metallicity unavailable.`
+    else if (otherSource) comparisonNote += ` ${other.name}: unresolved system measurement. ${otherSource.scope}`
+    if (otherValue !== null && Math.abs(otherValue) > limit) comparisonNote += ` ${other.name} is outside the displayed range; its marker sits at the nearest edge.`
+    if (kind !== otherKind) comparisonNote += ' [Fe/H] and [M/H] describe different abundances; each star’s measurement is labeled on the scale.'
+  } else element('metallicity-marker-value').style.removeProperty('max-width')
   let description = `No metallicity measurement is available for ${star.name}. [Fe/H] measures iron relative to hydrogen; [M/H] describes overall metallicity. They are distinct quantities.`
   if (value !== null) {
     description = iron
@@ -952,7 +1252,7 @@ function renderMetallicityCard(star: Star): void {
     description += source ? ` Unresolved system value; ${star.name}’s individual metallicity is unavailable. ${source.scope}` : ` ${metallicityContext(star)}`
     if (outsideScale) description += ' Its value is beyond the displayed −2 to +2 dex range; the marker sits at the nearest edge.'
   }
-  text('metallicity-description', description)
+  text('metallicity-description', `${description}${comparisonNote}`)
   syncObjectTypeLayout()
 }
 
@@ -996,7 +1296,20 @@ function toggleMetallicityCard(): void {
   element('metallicity-close').focus({ preventScroll: true })
 }
 
-function renderObjectTypeCard(star: Star): void {
+let objectTypeRenderRequest = 0
+let objectTypeModule: typeof import('./object-type-info') | undefined
+
+async function renderObjectTypeCard(star: Star): Promise<void> {
+  objectTypeStarId = star.id
+  const request = ++objectTypeRenderRequest
+  if (!objectTypeModule) {
+    const result = await loadCardFeature('object-type', 'object type', () => import('./object-type-info'),
+      () => request === objectTypeRenderRequest && sideDetailStar(objectTypeStarId)?.id === star.id)
+    if (!result) return
+    objectTypeModule = result.value
+  }
+  const { objectTypeIntroduction } = objectTypeModule
+  if (request !== objectTypeRenderRequest || element('object-type-card').hidden || sideDetailStar(objectTypeStarId)?.id !== star.id) return
   const introduction = objectTypeIntroduction(star)
   text('object-type-heading', introduction.title)
   text('object-type-description', introduction.description)
@@ -1014,13 +1327,14 @@ function renderObjectTypeCard(star: Star): void {
   syncObjectTypeLayout()
 }
 
-function toggleObjectTypeCard(): void {
-  if (!element('object-type-card').hidden) {
+function toggleObjectTypeCard(other = false): void {
+  const star = other ? starComparison.other : starById(selectedId)
+  if (!star) return
+  if (!element('object-type-card').hidden && objectTypeStarId === star.id) {
     closeObjectTypeCard(true)
     return
   }
-  const star = stars.find((candidate) => candidate.id === selectedId)
-  if (!star) return
+  objectTypeStarId = star.id
   closePlanetCard()
   closeMetallicityCard()
   closeRadiusCard()
@@ -1040,11 +1354,26 @@ function toggleObjectTypeCard(): void {
 function syncObjectTypeLayout(): void {
   const inspector = element('inspector')
   const selectedCard = element('selected-object-card')
+  inspector.style.removeProperty('--object-detail-max-width')
   if (!selectedCard.hidden && !element<HTMLDetailsElement>('object-card-details').open) {
     const inspectorBounds = inspector.getBoundingClientRect()
     const selectedBounds = selectedCard.getBoundingClientRect()
     inspector.style.setProperty('--object-detail-top', `${selectedBounds.bottom - inspectorBounds.top + 12}px`)
     inspector.style.setProperty('--object-detail-left', `${selectedBounds.left - inspectorBounds.left}px`)
+  } else if (selectedCard.classList.contains('is-comparing')) {
+    const inspectorBounds = inspector.getBoundingClientRect()
+    const selectedBounds = selectedCard.getBoundingClientRect()
+    const left = selectedBounds.right - inspectorBounds.left + 12
+    const remaining = inspectorBounds.width - left - 66
+    if (remaining >= 240) {
+      inspector.style.setProperty('--object-detail-left', `${left}px`)
+      inspector.style.setProperty('--object-detail-max-width', `${remaining}px`)
+      inspector.style.removeProperty('--object-detail-top')
+    } else {
+      const summaryBounds = element('object-card-details').querySelector('summary')!.getBoundingClientRect()
+      inspector.style.setProperty('--object-detail-left', `${selectedBounds.left - inspectorBounds.left}px`)
+      inspector.style.setProperty('--object-detail-top', `${summaryBounds.bottom - inspectorBounds.top + 12}px`)
+    }
   } else {
     inspector.style.removeProperty('--object-detail-top')
     inspector.style.removeProperty('--object-detail-left')
@@ -1076,8 +1405,19 @@ function syncSelectedObjectLayout(): void {
   selectedCard.style.maxHeight = `${Math.max(68, availableHeight)}px`
 }
 
+function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active', active: boolean): void {
+  const indicator = element(id)
+  if (indicator.hidden !== active) return
+  indicator.hidden = !active
+  syncVisibilityObserverLayout()
+}
+
 function syncVisibilityObserverLayout(): void {
   const caption = document.querySelector<HTMLElement>('.visibility-observer')!
+  // Active-state buttons beside Info push the caption further left.
+  const indicators = document.querySelector<HTMLElement>('.dock-indicators')!
+  const indicatorWidth = getComputedStyle(indicators).position === 'absolute' ? indicators.getBoundingClientRect().width : 0
+  caption.style.marginRight = indicatorWidth ? `${indicatorWidth + 4}px` : ''
   caption.classList.remove('is-avoiding-motion')
   const motionPanel = element('motion-panel')
   if (motionPanel.hidden) return
@@ -1108,6 +1448,11 @@ function togglePanel(name: typeof panelNames[number]): void {
   if (name !== 'motion' && !selectedCard.hidden && objectDetails.open && !cardsHaveClearance(selectedCard, element(`${name}-panel`))) objectDetails.open = false
 }
 
+function onSceneInteraction(): void {
+  dismissOpenPanel()
+  if (touchFirstInput.matches) element<HTMLDetailsElement>('object-card-details').open = false
+}
+
 function dismissOpenPanel(): void {
   for (const name of detailCardNames) {
     if (!lockedDetailCards.has(name)) detailCardClosers[name]()
@@ -1136,6 +1481,7 @@ function sceneStatus(message: string | null): void {
   status.textContent = message
   status.hidden = message === null
   sceneBusy = message !== null
+  element<HTMLButtonElement>('filter-save').disabled = sceneBusy || !viewer
   if (sceneBusy) setSimulationPlaying(false)
   viewButtons.forEach((button) => { button.disabled = sceneBusy })
   timelineButtons.forEach((button) => { button.disabled = sceneBusy })
@@ -1163,6 +1509,7 @@ function renderSimulationTime(): void {
   timeSlider.style.setProperty('--time-fill-end', `${Math.max(50, position)}%`)
   timeSlider.setAttribute('aria-valuetext', formatted.accessible)
   text('time-value', formatted.short)
+  setActiveIndicator('motion-active', simulationYears !== 0 || simulationPlaying)
 }
 
 function renderPlaybackState(): void {
@@ -1170,6 +1517,7 @@ function renderPlaybackState(): void {
   play.setAttribute('aria-pressed', String(simulationPlaying))
   play.setAttribute('aria-label', simulationPlaying ? 'Pause stellar motion' : 'Play stellar motion')
   icon('time-play-icon', simulationPlaying ? Pause : Play)
+  setActiveIndicator('motion-active', simulationYears !== 0 || simulationPlaying)
 }
 
 function renderPlaybackSpeed(): void {
@@ -1251,6 +1599,7 @@ let systemCardModule: typeof import('./system-card') | undefined
 let systemLoad: Promise<void> | undefined
 let starInfoModule: typeof import('./star-info') | undefined
 let infoContentStarId: string | null = null
+let specsContentStar: Star | undefined
 
 function highlightSystemPlanet(...args: Parameters<typeof import('./system-card').highlightSystemPlanet>): void {
   systemCardModule?.highlightSystemPlanet(...args)
@@ -1260,20 +1609,34 @@ async function renderActiveObjectSection(): Promise<void> {
   const request = ++objectSectionRequest
   const section = activeObjectSection
   const star = stars.find((candidate) => candidate.id === selectedId)
-  if (!star || !element<HTMLDetailsElement>('object-card-details').open || section === 'specs') return
+  if (!star || !element<HTMLDetailsElement>('object-card-details').open) return
   const container = element(`object-${section}`)
   try {
-    if (section === 'info') {
+    if (section === 'specs') {
+      if (starDetailsLoaded(star)) {
+        container.removeAttribute('aria-busy')
+        if (specsContentStar !== star) renderSelection()
+        return
+      }
+      container.setAttribute('aria-busy', 'true')
+      text('star-notes', 'Loading source notes…')
+      await loadStarDetails(star)
+    } else if (section === 'info') {
       if (infoContentStarId === star.id) return
       starInfoModule ??= await import('./star-info')
+      await starInfoModule.loadStarInfo(star.id)
     } else {
-      systemLoad ??= Promise.all([import('./system-card'), loadPlanetarySystems(), loadStellarOrbits()])
-        .then(([module]) => { systemCardModule = module })
+      systemLoad ??= import('./system-card')
+        .then((module) => { systemCardModule = module })
         .catch((error: unknown) => { systemLoad = undefined; throw error })
-      await systemLoad
+      const system = starSystems.get(star.id)
+      await Promise.all([systemLoad, loadPlanetarySystem(star.id), system ? loadStellarOrbits(system.id) : Promise.resolve()])
     }
     if (request !== objectSectionRequest || selectedId !== star.id || container.hidden || !element<HTMLDetailsElement>('object-card-details').open) return
-    if (section === 'info') {
+    container.removeAttribute('aria-busy')
+    if (section === 'specs') {
+      renderSelection()
+    } else if (section === 'info') {
       starInfoModule!.renderStarInfo(container, star.id)
       infoContentStarId = star.id
     } else {
@@ -1283,15 +1646,12 @@ async function renderActiveObjectSection(): Promise<void> {
     syncSelectedObjectLayout()
     syncObjectTypeLayout()
   } catch (error) {
-    if (request !== objectSectionRequest) return
-    const message = document.createElement('p')
-    message.textContent = `Could not load ${section === 'info' ? 'Info' : 'System'}.`
-    const retry = document.createElement('button')
-    retry.type = 'button'
-    retry.className = 'object-type-toggle'
-    retry.textContent = 'Retry'
-    retry.addEventListener('click', () => { void renderActiveObjectSection() }, { once: true })
-    container.replaceChildren(message, retry)
+    if (request !== objectSectionRequest || selectedId !== star.id || container.hidden || !element<HTMLDetailsElement>('object-card-details').open) return
+    container.removeAttribute('aria-busy')
+    const recovery = createLoadError(section === 'specs' ? 'source notes' : section === 'info' ? 'Info' : 'System',
+      () => { void renderActiveObjectSection() })
+    if (section === 'specs') element('star-notes').replaceChildren(recovery)
+    else container.replaceChildren(recovery)
     console.error(`Could not load object ${section}.`, error)
   }
 }
@@ -1365,6 +1725,33 @@ element('known-planets-row').addEventListener('click', () => {
 }, { signal: events.signal })
 syncObjectSections()
 
+let detailComparisonId: string | undefined
+const starComparison = initializeStarComparison({
+  context: () => ({ selectedId, unit: distanceUnit, colorMode: starColorMode }),
+  star: starById,
+  system: (id) => starSystems.get(id),
+  select: selectStar,
+  detailTarget: (metric) => sideDetailStar(metric === 'object-type' ? objectTypeStarId : constellationStarId)?.id,
+  update: (showSpecs) => {
+    renderSelection()
+    if (!showSpecs) {
+      syncObjectTypeLayout()
+      return
+    }
+    activeObjectSection = 'specs'
+    element<HTMLDetailsElement>('object-card-details').open = true
+    syncObjectSections()
+  },
+  detailAvailable: (metric) => metric === 'constellation'
+    ? Boolean(starComparison.other && constellationCardAvailable(starComparison.other))
+    : !element<HTMLButtonElement>(COMPARISON_DETAIL_TOGGLES[metric]!).disabled,
+  openDetail: (metric) => {
+    if (metric === 'object-type') toggleObjectTypeCard(true)
+    else if (metric === 'constellation') void toggleConstellationCard(true)
+    else element(COMPARISON_DETAIL_TOGGLES[metric]!).click()
+  },
+}, events.signal)
+
 function renderSystemComponents(system: StarSystem | undefined, selectedComponentId: string): void {
   const group = element('star-components')
   group.hidden = !system
@@ -1411,13 +1798,20 @@ element('star-components').addEventListener('click', (event) => {
 }, { signal: events.signal })
 
 function renderSelection(): void {
-  const sun = stars.find((star) => star.id === 'sun')!
-  const reference = stars.find((star) => star.id === referenceId) ?? sun
+  const comparisonId = starComparison.other?.id
+  if (comparisonId !== detailComparisonId) {
+    // A comparison shows both stars directly; leaving it restores the default references.
+    radiusReference = comparisonId ? 'origin' : 'auto'
+    detailComparisonId = comparisonId
+  }
+  starComparison.clearColumns()
+  const sun = starById('sun')!
+  const reference = starById(referenceId) ?? sun
   const star = stars.find((candidate) => candidate.id === selectedId)
   const magnitudeCard = element('magnitude-card')
   if (magnitudeCard.dataset.objectId !== (star?.id ?? '')) {
     magnitudeCard.dataset.objectId = star?.id ?? ''
-    magnitudeCard.dataset.visibilityGuide = 'eye'
+    magnitudeCard.dataset.visibilityGuide = magnitudeCard.dataset.defaultVisibilityGuide ?? 'eye'
   }
   text('reference-base', reference.name)
   text('visibility-base', stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun')
@@ -1429,6 +1823,7 @@ function renderSelection(): void {
   updateReferenceControl()
   updateObserverControl()
   if (!star) {
+    starComparison.render()
     if (!lockedDetailCards.has('planet')) closePlanetCard()
     closeObjectTypeCard()
     closeMetallicityCard()
@@ -1448,7 +1843,7 @@ function renderSelection(): void {
     text('selection-announcement', 'No object selected.')
     return
   }
-  const metrics = sunRelativeMetrics(star, sun)
+  const specs = specValues(star, sun, distanceUnit)
   const displayedDistancePc = selectedDistancePc ?? sunRelativeMetrics(star, reference).distancePc
   const color = starDisplayColor(star, starColorMode).getStyle()
   element('inspector').dataset.selectedStar = star.id
@@ -1483,30 +1878,30 @@ function renderSelection(): void {
     syncObjectSections()
   }
   syncObjectInfoAvailability()
-  void renderActiveObjectSection()
   if (knownPlanetCount > 0) element<HTMLCanvasElement>('selected-swatch').title = `${knownPlanetCount} known planets · illustrative orbit`
-  text('distance-value', formatDistance(metrics.distancePc, distanceUnit).split(' ')[0]!)
+  for (const [id, value] of Object.entries(specs)) if (!SPECS_OWNED_BY_SELECTION.has(id)) showSpec(id, value)
+  text('distance-value', specs['distance-toggle']!.text.split(' ')[0]!)
   text('distance-unit', ` ${distanceUnit}`)
   element('distance-toggle').setAttribute('aria-label', `Visualize distance and direction of ${star.name}`)
   refreshDistanceCard()
-  text('object-type', describeObject(star))
   element('object-type-toggle').setAttribute('aria-label', `Learn about ${describeObject(star).toLowerCase()}`)
-  if (!element('object-type-card').hidden) renderObjectTypeCard(star)
+  if (!element('object-type-card').hidden) renderObjectTypeCard(sideDetailStar(objectTypeStarId) ?? star)
   element('constellation-row').hidden = star.id === 'sun'
-  text('constellation', star.constellation ?? MISSING_VALUE)
   const constellationAvailable = constellationCardAvailable(star)
   element<HTMLButtonElement>('constellation-toggle').disabled = !constellationAvailable
   element('constellation-toggle').title = constellationAvailable ? `Show ${star.constellation}` : 'Constellation chart not available yet'
   element('constellation-toggle').setAttribute('aria-label', constellationAvailable ? `Explore ${star.constellation} constellation` : `${star.constellation ?? 'Constellation'}: chart not available yet`)
-  if (!constellationAvailable) closeConstellationCard()
-  else if (!element('constellation-card').hidden) renderConstellationCard(star)
+  const constellationTarget = sideDetailStar(constellationStarId) ?? star
+  if (!constellationCardAvailable(constellationTarget)) closeConstellationCard()
+  else if (!element('constellation-card').hidden) renderConstellationCard(constellationTarget)
   text('known-planets', String(knownPlanetCount))
   element('known-planets').title = 'Show confirmed planets in this system from the adopted NASA Exoplanet Archive snapshot.'
   element('known-planets').setAttribute('aria-label', `Show system with ${knownPlanetCount} known planets`)
   const subtypes = star.subtypes ?? []
   const subtypeDetails = element<HTMLDetailsElement>('object-subtypes-row')
   subtypeDetails.hidden = subtypes.length === 0
-  if (!subtypes.length) subtypeDetails.open = false
+  // During a comparison, the comparison column closes these details only when both lists are empty.
+  if (!subtypes.length && !starComparison.other) subtypeDetails.open = false
   text('object-subtypes-count', String(subtypes.length))
   element('object-subtypes').replaceChildren(...subtypes.map((subtype) => {
     const item = document.createElement('li')
@@ -1537,21 +1932,19 @@ function renderSelection(): void {
   for (const row of document.querySelectorAll<HTMLElement>('.pulsar-property')) row.hidden = star.type !== 'pulsar'
   for (const row of document.querySelectorAll<HTMLElement>('.rotation-property')) row.hidden = star.type === 'black_hole' || !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.orbit-property')) row.hidden = !compact || (compact.orbital_period_days === null && compact.companion === null)
-  sourceMeasurement('spectral-type', star, 'spectral_type', (value: string | null) => value ?? MISSING_VALUE)
   element<HTMLButtonElement>('spectral-toggle').disabled = star.spectral_type === null || !hrCardAvailable(star)
   element('spectral-toggle').setAttribute('aria-label', `Explore spectral type of ${star.name}`)
   if (element<HTMLButtonElement>('spectral-toggle').disabled) closeSpectralCard()
   else if (!element('spectral-card').hidden) renderSpectralCard(star)
-  sourceMeasurement('temperature', star, 'temperature_k', (value: number | null) => quantity(value, 'K', 0))
   sourceCardTooltip('temperature', star, stellarPropertiesHidden)
+  const temperatureRange = star.temperature_k === null ? star.stellar_observations?.temperature_range : undefined
   const atmosphereTemperature = star.temperature_k === null ? star.stellar_observations?.atmosphere_temperature : undefined
-  element('temperature-row').querySelector('dt')!.textContent = atmosphereTemperature ? 'Temperature T*' : 'Temperature'
-  if (atmosphereTemperature && !stellarPropertiesHidden) {
-    text('temperature', `${atmosphereTemperature.value_k.toLocaleString('en-US')} ± ${quantity(atmosphereTemperature.error_k, 'K', 0)}`)
-    element('temperature').classList.remove('unresolved-measurement')
+  if ((temperatureRange || atmosphereTemperature) && !stellarPropertiesHidden) {
+    // The row tooltip carries the model or atmosphere scope instead of a native title.
     element('temperature').removeAttribute('title')
     element('temperature-source-tooltip').hidden = false
-    text('temperature-source-tooltip', atmosphereTemperature.scope)
+    element('temperature-source-tooltip').toggleAttribute('data-model-range', Boolean(temperatureRange))
+    text('temperature-source-tooltip', temperatureRange?.summary ?? atmosphereTemperature!.scope)
     element('temperature-row').tabIndex = 0
     element('temperature-row').setAttribute('aria-describedby', 'temperature-source-tooltip')
   }
@@ -1559,41 +1952,36 @@ function renderSelection(): void {
   element('temperature-toggle').setAttribute('aria-label', `Explore temperature of ${star.name}`)
   if (element<HTMLButtonElement>('temperature-toggle').disabled) closeTemperatureCard()
   else if (!element('temperature-card').hidden) renderTemperatureCard(star)
-  sourceMeasurement('luminosity', star, 'luminosity_solar', (value: number | null) => value !== null && value < 1
-    ? `${value.toLocaleString('en-US', { maximumSignificantDigits: 3 })} L☉` : quantity(value, 'L☉'))
   sourceCardTooltip('luminosity', star, stellarPropertiesHidden)
   element<HTMLButtonElement>('luminosity-toggle').disabled = !luminosityCardAvailable(star) || stellarPropertiesHidden
   element('luminosity-toggle').setAttribute('aria-label', `Explore bolometric luminosity of ${star.name}`)
   if (element<HTMLButtonElement>('luminosity-toggle').disabled) closeLuminosityCard()
   else if (!element('luminosity-card').hidden) renderLuminosityCard(star)
-  sourceMeasurement('mass', star, 'mass_solar', (value: number | null) => compact
-    ? preciseMeasurement(value, compact.mass_error_solar, 'M☉') : quantity(value, 'M☉'))
   const massRange = star.mass_solar === null ? star.stellar_observations?.mass_range : undefined
-  text('mass-label', massRange ? 'Mass (model)' : 'Mass')
-  if (massRange) {
-    text('mass', `${quantity(massRange.min_jupiter)}–${quantity(massRange.max_jupiter)} M♃`)
-    element('mass').classList.remove('unresolved-measurement')
-    element('mass').title = `${massRange.reference}. ${massRange.scope}`
-    element('mass').setAttribute('aria-label', `Model mass: ${massRange.min_jupiter} to ${massRange.max_jupiter} Jupiter masses, assuming an age of ${massRange.assumed_age_min_gyr} to ${massRange.assumed_age_max_gyr} billion years.`)
-  } else element('mass').removeAttribute('aria-label')
+  if (massRange) element('mass').setAttribute('aria-label', `Model mass: ${massRange.min_jupiter} to ${massRange.max_jupiter} Jupiter masses, assuming an age of ${massRange.assumed_age_min_gyr} to ${massRange.assumed_age_max_gyr} billion years.`)
+  else element('mass').removeAttribute('aria-label')
   element<HTMLButtonElement>('mass-toggle').disabled = star.mass_solar === null || !massCardAvailable(star)
   element('mass-toggle').setAttribute('aria-label', `Explore mass of ${star.name}`)
   if (element<HTMLButtonElement>('mass-toggle').disabled) closeMassCard()
   else if (!element('mass-card').hidden) renderMassCard(star)
-  sourceMeasurement('radius', star, 'radius_solar', (value: number | null) => quantity(value, 'R☉'))
   sourceCardTooltip('radius', star, stellarPropertiesHidden)
+  const radiusRange = star.radius_solar === null ? star.stellar_observations?.radius_range : undefined
+  if (radiusRange && !stellarPropertiesHidden) {
+    element('radius').removeAttribute('title')
+    element('radius-source-tooltip').hidden = false
+    element('radius-source-tooltip').setAttribute('data-model-range', '')
+    text('radius-source-tooltip', radiusRange.summary)
+    element('radius-row').tabIndex = 0
+    element('radius-row').setAttribute('aria-describedby', 'radius-source-tooltip')
+  }
   element<HTMLButtonElement>('radius-toggle').disabled = star.radius_solar === null || stellarPropertiesHidden
   element('radius-toggle').setAttribute('aria-label', `Compare radius of ${star.name} with origin`)
   if (element<HTMLButtonElement>('radius-toggle').disabled) closeRadiusCard()
   else if (!element('radius-card').hidden) renderRadiusCard(star)
-  sourceMeasurement('metallicity', star, 'metallicity_dex', (value: number | null) => quantity(value, 'dex'))
   element<HTMLButtonElement>('metallicity-toggle').disabled = catalogMeasurement(star, 'metallicity_dex') === null || stellarPropertiesHidden
-  const metallicitySource = catalogSourceFor(star, 'metallicity_dex')
-  text('metallicity-label', `Metallicity ${(metallicitySource ? metallicitySource.record.metallicity_kind : star.metallicity_kind) ?? ''}`.trim())
   element('metallicity-toggle').setAttribute('aria-label', `Explain metallicity of ${star.name}`)
   if (element<HTMLButtonElement>('metallicity-toggle').disabled) closeMetallicityCard()
   else if (!element('metallicity-card').hidden) renderMetallicityCard(star)
-  sourceMeasurement('age', star, 'age_gyr', (value: number | null) => quantity(value, 'Gyr'))
   if (compact) {
     text('compact-status', compact.confidence === 'confirmed' ? 'Confirmed' : 'Candidate')
     const rotation = preciseMeasurement(compact.rotation_period_s, compact.rotation_period_error_s, 's')
@@ -1646,80 +2034,19 @@ function renderSelection(): void {
     source.textContent = bubble.source_label
     source.href = bubble.source_url
   }
-  text('coordinate-x', formatDistance(star.x_pc, distanceUnit, 3))
-  text('coordinate-y', formatDistance(star.y_pc, distanceUnit, 3))
-  text('coordinate-z', formatDistance(star.z_pc, distanceUnit, 3))
-  text('plane-distance', formatDistance(metrics.planeDistancePc, distanceUnit, 3))
-  text('epoch', `J${star.epoch.toFixed(1)}`)
-  sourceMeasurement('velocity-x', star, 'vx_kms', (value: number | null) => quantity(value, 'km/s'))
-  sourceMeasurement('velocity-y', star, 'vy_kms', (value: number | null) => quantity(value, 'km/s'))
-  sourceMeasurement('velocity-z', star, 'vz_kms', (value: number | null) => quantity(value, 'km/s'))
-  const raw = star.raw_astrometry
-  const fullVelocity = [star.vx_kms, star.vy_kms, star.vz_kms].every((value) => value !== null) || (raw !== null && raw.radial_velocity_kms !== null)
-  const systemicMotion = raw?.radial_velocity_ref?.includes('; shared systemic velocity approximation') ?? false
-  text('motion-data', fullVelocity ? systemicMotion ? 'System bulk motion' : 'Full space motion' : raw ? 'Transverse only; radial velocity unavailable' : MISSING_VALUE)
-  element('motion-data').title = systemicMotion ? 'Approximate system bulk motion using a shared center-of-mass radial velocity; individual orbital velocities are not modeled.' : ''
-  const sky = raw ?? compact ?? nebula ?? null
-  text('right-ascension', sky ? `${sky.ra_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : MISSING_VALUE)
-  text('declination', sky ? `${sky.dec_deg.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg` : MISSING_VALUE)
-  text('astrometry-epoch', raw ? `J${raw.epoch.toFixed(1)}` : MISSING_VALUE)
-  text('parallax', raw ? measurement(raw.parallax_mas, raw.parallax_error_mas, 'mas', 6) : MISSING_VALUE)
-  text('proper-motion-ra', raw ? measurement(raw.pm_ra_cosdec_masyr, raw.pm_ra_error_masyr, 'mas/yr', 6) : MISSING_VALUE)
-  text('proper-motion-dec', raw ? measurement(raw.pm_dec_masyr, raw.pm_dec_error_masyr, 'mas/yr', 6) : MISSING_VALUE)
-  text('radial-velocity', raw ? measurement(raw.radial_velocity_kms, raw.radial_velocity_error_kms, 'km/s', 6) : MISSING_VALUE)
-  const sourceRv = raw?.radial_velocity_kms == null ? star.catalog_sources?.find((source) => source.record.raw_astrometry?.radial_velocity_kms != null) : undefined
-  if (sourceRv) {
-    const sourceRaw = sourceRv.record.raw_astrometry!
-    text('radial-velocity', measurement(sourceRaw.radial_velocity_kms, sourceRaw.radial_velocity_error_kms, 'km/s', 6))
-    if (!fullVelocity && raw) text('motion-data', 'Transverse component motion')
-  }
-  element('radial-velocity').title = sourceRv?.scope ?? raw?.radial_velocity_ref ?? ''
-  const rvReview = star.stellar_observations?.radial_velocity_review
-  if (rvReview && raw?.radial_velocity_kms == null && !sourceRv) {
-    element('radial-velocity').title = `${rvReview.reference}. ${rvReview.reason}`
-    element('motion-data').title = rvReview.reason
-  }
-  const observedRv = star.radial_velocity_observation
-  if (observedRv) {
-    text('radial-velocity', measurement(observedRv.value_kms, observedRv.error_kms, 'km/s', 6))
-    element('radial-velocity').title = `${observedRv.reference}; ${observedRv.observed_from} to ${observedRv.observed_to}. ${observedRv.uncertainty_kind} ${observedRv.scope}`
-    if (!fullVelocity && raw) {
-      text('motion-data', 'Transverse only')
-      element('motion-data').title = 'The measured component radial velocity includes orbital motion and belongs to a different epoch from the catalog proper motion; a constant bulk space-motion vector is not inferred.'
-    }
-  }
-  text('astrometry-source', raw?.astrometry_ref || compact?.position_source || nebula?.position_source || molecularCloud?.position_source || bubble?.position_source || MISSING_VALUE)
-  sourceMeasurement('absolute-mag', star, 'absolute_mag', (value: number | null) => quantity(value))
-  const unresolvedPhotometry = star.apparent_mag == null ? star.unresolved_photometry : undefined
-  const resolvedPhotometry = star.resolved_photometry
-  text('apparent-mag-label', 'Apparent mag. (V)')
-  text('apparent-mag', resolvedPhotometry
-    ? measurement(resolvedPhotometry.magnitude_v, resolvedPhotometry.error_mag, '').trim()
-    : unresolvedPhotometry
-    ? measurement(unresolvedPhotometry.magnitude_v, unresolvedPhotometry.error_mag, '').trim()
-    : quantity(star.apparent_mag ?? null))
-  element('apparent-mag').classList.toggle('unresolved-measurement', Boolean(unresolvedPhotometry))
-  element('apparent-mag').title = resolvedPhotometry
-    ? `${resolvedPhotometry.reference}; ${resolvedPhotometry.observed_on}. ${resolvedPhotometry.scope}`
-    : unresolvedPhotometry
-    ? `${unresolvedPhotometry.scope}. ${unresolvedPhotometry.source}. Earth-view snapshot; component fluxes are not separated.`
-    : 'Earth-view catalog V magnitude; a snapshot, not current variable-star photometry.'
-  if (star.apparent_mag == null && !unresolvedPhotometry) sourceMeasurement('apparent-mag', star, 'apparent_mag', (value: number | null) => quantity(value))
   const infrared = star.stellar_observations?.infrared_photometry
   element('infrared-magnitude-row').hidden = !infrared || stellarPropertiesHidden
-  text('infrared-magnitude-label', infrared ? `Apparent mag. (${infrared.band})` : '')
-  text('infrared-magnitude', infrared ? measurement(infrared.magnitude, infrared.error_mag, '').trim() : '')
-  element('infrared-magnitude').title = infrared
-    ? `${infrared.instrument} ${infrared.band}, ${infrared.wavelength_microns} μm, ${infrared.system} system; ${infrared.observed_on.join(', ')}. ${infrared.reference}. ${infrared.scope}` : ''
+  // Leave the hidden row empty, so a comparison column can mark the missing value explicitly.
+  if (!infrared) text('infrared-magnitude', '')
   element<HTMLButtonElement>('magnitude-toggle').disabled = !magnitudeCardAvailable(star) || stellarPropertiesHidden
   element('magnitude-toggle').setAttribute('aria-label', `Explore absolute and apparent magnitude of ${star.name}`)
   if (element<HTMLButtonElement>('magnitude-toggle').disabled) closeMagnitudeCard()
   else if (!element('magnitude-card').hidden) renderMagnitudeCard(star)
-  const designations = objectDesignations(star)
+  const designations = objectDesignations(star).sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }))
   element('designations-row').hidden = designations.length === 0
   element('designations-empty-row').hidden = designations.length > 0
   text('designations-empty', MISSING_VALUE)
-  if (designations.length === 0) element<HTMLDetailsElement>('designations-row').open = false
+  if (designations.length === 0 && !starComparison.other) element<HTMLDetailsElement>('designations-row').open = false
   element('object-designations').replaceChildren(...designations.map((name) => {
     const item = document.createElement('li')
     item.textContent = name
@@ -1728,30 +2055,48 @@ function renderSelection(): void {
   const sourceNotes = new Set(['spectral_type', 'temperature_k', 'luminosity_solar', 'mass_solar', 'radius_solar',
     'metallicity_dex', 'age_gyr', 'absolute_mag', 'vx_kms', 'vy_kms', 'vz_kms'].map((field) =>
     catalogSourceFor(star, field as Parameters<typeof catalogSourceFor>[1])).filter((source) => source !== undefined))
-  if (sourceRv) sourceNotes.add(sourceRv)
+  const rvSource = radialVelocitySource(star)
+  if (rvSource) sourceNotes.add(rvSource)
   const observations = star.stellar_observations
-  const observationNotes = [observations?.mass_range, observations?.infrared_photometry, observations?.radial_velocity_review, observations?.atmosphere_temperature]
+  const observationNotes = new Set([observations?.mass_range, observations?.temperature_range, observations?.radius_range, observations?.infrared_photometry, observations?.radial_velocity_review, observations?.atmosphere_temperature]
     .filter((observation) => observation !== undefined)
-    .map((observation) => `${'scope' in observation ? observation.scope : observation.reason} ${observation.reference}: ${observation.source_url}`)
-  text('star-notes', [star.notes, ...observationNotes, ...[...sourceNotes].map((source) => `${source.scope} ${source.record.notes}`)]
-    .filter(Boolean).join('\n\n') || 'No source notes available.')
+    .map((observation) => `${'scope' in observation ? observation.scope : observation.reason} ${observation.reference}: ${observation.source_url}`))
+  text('star-notes', starDetailsLoaded(star) ? [star.notes, ...observationNotes, ...[...sourceNotes].map((source) => `${source.scope} ${source.record.notes}`)]
+    .filter(Boolean).join('\n\n') || 'No source notes available.' : 'Loading source notes…')
+  specsContentStar = starDetailsLoaded(star) ? star : undefined
+  starComparison.render()
   const referenceName = reference.id === 'sun' ? 'the Sun' : reference.name
   text('selection-announcement', `${star.name}, ${formatDistance(displayedDistancePc, distanceUnit)} from ${referenceName}.`)
+  void renderActiveObjectSection()
+}
+
+function baseObjectListFilter(): ObjectListFilter {
+  return (star, distancePc) => isObjectMapVisible(star, visibleKeys, selectedId, observerId, distancePc * LIGHT_YEARS_PER_PARSEC, objectDistanceLimitLy)
+}
+
+/** The map filter narrowed by any Graphs selection, as the 3D view applies it. */
+function objectListFilter(): ObjectListFilter {
+  const base = baseObjectListFilter(), graph = graphFilter
+  return graph ? (star, distancePc) => base(star, distancePc) && graph(star, distancePc) : base
+}
+
+function setGraphFilter(filter: ObjectListFilter | null): void {
+  graphFilter = filter
+  viewer?.setObjectPredicate(filter)
+  setActiveIndicator('graph-filter-active', !!filter)
+  updateObjectListFilter()
 }
 
 function updateObjectListFilter(): void {
-  const reference = stars.find((star) => star.id === referenceId) ?? stars.find((star) => star.id === 'sun')
-  if (!reference) return
-  objectList.setFilter((star) => {
-    const distanceLy = sunRelativeMetrics(star, reference).distanceLy
-    return isObjectMapVisible(star, visibleKeys, selectedId, observerId, distanceLy, objectDistanceLimitLy)
-  })
+  objectList.setFilter(objectListFilter())
+  graphs?.refresh()
 }
 
 function selectStar(id: string | null, recordHistory = true): void {
-  if (id !== null && !stars.some((star) => star.id === id)) return
+  if (id !== null && !starIndex.has(id)) return
+  if (starComparison.consumeSelection(id)) return
   constellationSelectionRequest++
-  if (id !== null && recordHistory) selectionHistory.record(id)
+  if (recordHistory) selectionHistory.record(id)
   selectedDistancePc = null
   selectedId = id
   if (id !== null && !observerView) observerId = id
@@ -1763,6 +2108,11 @@ function selectStar(id: string | null, recordHistory = true): void {
 }
 
 function navigateSelectionHistory(direction: 'back' | 'forward'): void {
+  if (starComparison.waiting) {
+    const id = direction === 'back' ? selectionHistory.peekBack(selectedStarAvailable) : selectionHistory.peekForward(selectedStarAvailable)
+    if (id !== null) selectStar(id)
+    return
+  }
   const id = selectionHistory[direction](selectedStarAvailable)
   if (id !== null) selectStar(id, false)
 }
@@ -1772,11 +2122,11 @@ function setSelectedAsOrigin(): void {
 }
 
 function setOrigin(id: string): void {
-  if (sceneBusy || id === referenceId || !stars.some((star) => star.id === id)) return
+  if (sceneBusy || id === referenceId || !starIndex.has(id)) return
   referenceId = id
   selectedDistancePc = null
-  objectList.setReference(referenceId)
-  updateObjectListFilter()
+  objectList.setReference(referenceId, objectListFilter())
+  graphs?.refresh()
   viewer?.setReference(referenceId)
   renderSelection()
 }
@@ -1789,7 +2139,7 @@ function toggleObserverView(): void {
 function setObserverViewAnchor(anchorId: string | null): void {
   if (!viewer || sceneBusy) return
   if (anchorId !== null) {
-    if (!stars.some((star) => star.id === anchorId)) return
+    if (!starIndex.has(anchorId)) return
     observerView = viewer.setObserverView(true, anchorId)
     observerViewAnchorId = observerView ? anchorId : null
     if (observerView) observerId = anchorId
@@ -1813,6 +2163,7 @@ function renderDistances(): void {
   element<HTMLInputElement>(`unit-${distanceUnit}`).checked = true
   renderGridScale(currentGridScale)
   objectList.setDistanceUnit(distanceUnit)
+  graphs?.refresh()
   if (viewerDistancePc !== null) renderViewerDistance(viewerDistancePc)
   renderSelection()
 }
@@ -1825,24 +2176,19 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   sceneStatus(`Loading ${definition.manifest.label}...`)
   let nextStars: Star[]
   try {
-    const selectedCatalog = await definition.load()
-    const loadAdditiveCatalog = (enabled: boolean, catalogId: string) => enabled && id !== catalogId
-      ? catalogs.find((catalog) => catalog.manifest.id === catalogId)!.load()
-      : Promise.resolve([])
     const loadOverlay = (types: readonly FilterKey[], load: () => Promise<Star[]>) =>
       types.some((type) => visibleKeys.has(type)) ? load() : Promise.resolve([])
-    const [brightCatalog, westernConstellationCatalog, famousClusterCatalog, compactObjects, nebulae, molecularClouds, bubbles] = await Promise.all([
-      loadAdditiveCatalog(showAlwaysBright, BRIGHT_CATALOG_ID),
-      loadAdditiveCatalog(showWesternConstellationStars, WESTERN_CONSTELLATION_CATALOG_ID),
-      loadAdditiveCatalog(showFamousClusterStars, FAMOUS_CLUSTER_CATALOG_ID),
+    const [selectedCatalog, westernConstellationCatalog, compactObjects, nebulae, molecularClouds, bubbles] = await Promise.all([
+      definition.load(),
+      showWesternConstellationStars && id !== WESTERN_CONSTELLATION_CATALOG_ID
+        ? catalogs.find((catalog) => catalog.manifest.id === WESTERN_CONSTELLATION_CATALOG_ID)!.load() : Promise.resolve([]),
       loadOverlay(COMPACT_OBJECT_TYPES, loadCompactRemnants),
       loadOverlay(NEBULA_OBJECT_TYPES, loadNebulae),
       loadOverlay(MOLECULAR_CLOUD_OBJECT_TYPES, loadMolecularClouds),
       loadOverlay(BUBBLE_OBJECT_TYPES, loadBubbles),
     ])
-    const withBrightStars = mergeCatalogStars(selectedCatalog, brightCatalog)
-    const withConstellationStars = mergeCatalogStars(withBrightStars, westernConstellationCatalog)
-    nextStars = [...mergeCatalogStars(withConstellationStars, famousClusterCatalog), ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles]
+    const withConstellationStars = mergeCatalogStars(selectedCatalog, westernConstellationCatalog)
+    nextStars = [...withConstellationStars, ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles]
     nextStars = mergeCatalogStars(nextStars, [...constellationSelectedStars.values()])
   } catch (error) {
     if (request !== catalogRequest) return
@@ -1856,29 +2202,32 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   const retained = catalogSelection(nextStars, selectedId, observerId)
   viewer?.dispose()
   viewer = undefined
-  stars = nextStars
+  // Source details hydrate only the current scene, never the memoized map payload.
+  stars = nextStars.map((star) => ({ ...star }))
+  starIndex = new Map(stars.map((star) => [star.id, star]))
+  constellationBrowser?.refresh()
   starSystems = indexStarSystems(stars)
   activeCatalogId = id
   selectedDistancePc = null
   selectedId = retained.selectedId
   observerId = retained.observerId
-  const retainedObserverView = observerView
-  if (observerViewAnchorId && !nextStars.some((star) => star.id === observerViewAnchorId)) {
+  if (observerViewAnchorId && !starIndex.has(observerViewAnchorId)) {
     observerView = false
     observerViewAnchorId = null
   }
-  referenceId = nextStars.some((star) => star.id === referenceId) ? referenceId : 'sun'
-  text('scene-epoch', `J${definition.manifest.epoch.toFixed(1)}`)
+  referenceId = starIndex.has(referenceId) ? referenceId : 'sun'
+  text('catalog-epoch', `J${definition.manifest.epoch.toFixed(1)}`)
   renderCatalogRange(id)
   element('catalog-range').title = `${definition.manifest.description} ${definition.manifest.snapshot}`
   element<HTMLInputElement>('object-search').value = ''
-  objectList.setStars(stars, distanceUnit, selectedId, referenceId)
-  updateObjectListFilter()
+  objectList.setStars(stars, distanceUnit, selectedId, referenceId, objectListFilter())
+  graphs?.refresh()
   renderDistances()
   try {
     viewer = createStarViewer(element('scene'), stars, {
-      onInteraction: dismissOpenPanel,
+      onInteraction: onSceneInteraction,
       onSelect: selectStar,
+      onHover: (id) => starComparison.hover(id),
       onSelectedDistance(distancePc) {
         selectedDistancePc = distancePc
         if (distancePc !== null && selectedId !== null) renderSelectedDistance(distancePc)
@@ -1901,6 +2250,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setVisibility(observerId, magnitudeLimit)
   viewer.setObjectDistanceLimit(objectDistanceLimitLy)
   viewer.setObjectFilter([...visibleKeys])
+  viewer.setObjectPredicate(graphFilter)
   viewer.setLabelLimit(labelLimit)
   viewer.setMotionArrowsVisible(motionArrowsVisible)
   viewer.setMotionFrame(motionFrame)
@@ -1910,11 +2260,14 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setSimulationPlaying(simulationPlaying)
   viewer.setPowerSavingMode(powerSavingMode)
   viewer.setGridVisible(gridVisible)
-  // A home view refits to the new visible set; manual views keep their camera.
-  if (retainedView && !retainedView.home && (!retainedObserverView || observerView)) {
+  viewer.setSkyGrid(skyGridMode)
+  viewer.setStarPaint(starPainter(paintSettings))
+  // Filtering changes the visible objects, not the camera, including the initial overview.
+  if (retainedView) {
     viewer.setViewState({ ...retainedView, home: false })
   }
   observerView = viewer.setObserverView(observerView, observerViewAnchorId ?? undefined, retainedView?.observerRollRadians)
+  viewer.setObserverTelescope(Boolean(retainedView?.observerTelescope), false)
   if (!observerView) observerViewAnchorId = null
   sceneStatus(null)
 }
@@ -2023,16 +2376,16 @@ renderObjectFilter()
 
 const catalogRange = element<HTMLInputElement>('catalog-range')
 catalogRange.max = String(Math.max(0, sliderCatalogs.length - 1))
-element('catalog-range-bounds').replaceChildren(...[sliderCatalogs[0], sliderCatalogs.at(-1)].map((catalog) => {
-  const bound = document.createElement('span')
-  bound.textContent = `${catalog?.manifest.objectCount ?? 0} objects`
-  return bound
+element('catalog-range-markers').replaceChildren(...sliderCatalogs.map((catalog, index) => {
+  const marker = document.createElement('span')
+  marker.textContent = String(catalog.manifest.objectCount)
+  marker.style.left = `${index / Math.max(1, sliderCatalogs.length - 1) * 100}%`
+  return marker
 }))
 
 function previewCatalogRange(index: number): void {
   const manifest = sliderCatalogs[index]?.manifest
   if (!manifest) return
-  text('catalog-range-value', manifest.label)
   catalogRange.setAttribute('aria-valuetext', manifest.label)
 }
 
@@ -2059,6 +2412,7 @@ function writeSavedViews(next: SavedView[]): boolean {
   try {
     localStorage.setItem(SAVED_VIEWS_STORAGE_KEY, JSON.stringify(next))
     savedViews = next
+    updateBrowserDataSize()
     return true
   } catch {
     setSavedViewsStatus('Could not write saved views to browser storage')
@@ -2129,9 +2483,9 @@ function currentSavedViewSettings(): SavedViewSettings | null {
   if (!viewer || sceneBusy) return null
   return {
     catalogId: activeCatalogId,
-    showAlwaysBright,
+    showAlwaysBright: false,
     showWesternConstellationStars,
-    showFamousClusterStars,
+    showFamousClusterStars: false,
     filterCategories: [...filterCategories],
     filterSubtypes: [...filterSubtypes],
     magnitudeLimit,
@@ -2142,6 +2496,7 @@ function currentSavedViewSettings(): SavedViewSettings | null {
     motionYears,
     motionFrame,
     gridVisible,
+    skyGridMode,
     simulationYears,
     simulationPlaying,
     simulationDirection,
@@ -2154,6 +2509,8 @@ function currentSavedViewSettings(): SavedViewSettings | null {
     observerViewAnchorId,
     objectSearch: element<HTMLInputElement>('object-search').value,
     viewState: viewer.getViewState(),
+    graphFilter: graphs?.save() ?? [],
+    paint: [...paintSettings],
   }
 }
 
@@ -2175,7 +2532,7 @@ function saveCurrentView(): void {
     version: 1,
     id: globalThis.crypto?.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`,
     name,
-    originName: stars.find((star) => star.id === referenceId)?.name ?? referenceId,
+    originName: starById(referenceId)?.name ?? referenceId,
     savedAt,
     settings,
   }
@@ -2188,9 +2545,7 @@ function saveCurrentView(): void {
 
 function syncFilterInputs(): void {
   renderCatalogRange(activeCatalogId)
-  element<HTMLInputElement>('show-always-bright').checked = showAlwaysBright
   element<HTMLInputElement>('show-western-constellation-stars').checked = showWesternConstellationStars
-  element<HTMLInputElement>('show-famous-cluster-stars').checked = showFamousClusterStars
   const distanceIndex = OBJECT_DISTANCE_STEPS_LY.indexOf(objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])
   const distanceInput = element<HTMLInputElement>('object-distance-limit')
   distanceInput.value = String(Math.max(0, distanceIndex))
@@ -2213,9 +2568,7 @@ function syncSceneAndMotionInputs(): void {
 }
 
 function resetAllFilters(): void {
-  showAlwaysBright = false
   showWesternConstellationStars = false
-  showFamousClusterStars = false
   filterCategories.clear()
   DEFAULT_FILTER_CATEGORIES.forEach((category) => filterCategories.add(category))
   filterSubtypes.clear()
@@ -2228,13 +2581,49 @@ function resetAllFilters(): void {
   void switchCatalog('nearest-neighbors', true)
 }
 
-function syncSavedSettingsInputs(): void {
-  syncFilterInputs()
-  syncSceneAndMotionInputs()
+function setFilterSaveIndicator(saved: boolean): void {
+  icon('filter-save-icon', saved ? SaveCheck : Save)
+  element('filter-save').title = saved ? 'Current filter saved as default' : 'Save filter as default'
+}
+
+function saveCurrentFilter(): void {
+  if (!viewer || sceneBusy) return
+  const filter: SavedFilter = {
+    version: 1,
+    catalogId: activeCatalogId,
+    showAlwaysBright: false,
+    showWesternConstellationStars,
+    filterCategories: [...filterCategories],
+    filterSubtypes: [...filterSubtypes],
+    magnitudeLimit,
+    objectDistanceLimitLy,
+  }
+  try {
+    localStorage.setItem(SAVED_FILTER_STORAGE_KEY, JSON.stringify(filter))
+    setFilterSaveIndicator(true)
+    updateBrowserDataSize()
+  } catch {
+    setFilterSaveIndicator(false)
+    element('filter-save').title = 'Could not save filter. Please try again.'
+  }
+}
+
+function syncGridInputs(): void {
   const gridButton = element<HTMLButtonElement>('toggle-grid')
   gridButton.setAttribute('aria-pressed', String(gridVisible))
   text('grid-tooltip', gridVisible ? 'Hide grid' : 'Show grid')
   element('grid-legend').hidden = !gridVisible
+  for (const frame of ['equatorial', 'galactic'] as const) {
+    const active = skyGridMode === frame
+    element(`toggle-${frame}-grid`).setAttribute('aria-pressed', String(active))
+    text(`${frame}-grid-tooltip`, `${active ? 'Hide' : 'Show'} ${frame} grid`)
+  }
+}
+
+function syncSavedSettingsInputs(): void {
+  syncFilterInputs()
+  syncSceneAndMotionInputs()
+  syncGridInputs()
   renderSimulationTime()
   renderPlaybackState()
   renderPlaybackSpeed()
@@ -2252,9 +2641,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   if (observerView) viewer?.setObserverView(false)
   observerView = false
   observerViewAnchorId = null
-  showAlwaysBright = settings.showAlwaysBright
-  showWesternConstellationStars = settings.showWesternConstellationStars
-  showFamousClusterStars = settings.showFamousClusterStars
+  showWesternConstellationStars = settings.showWesternConstellationStars || settings.showFamousClusterStars || settings.showAlwaysBright
   filterCategories.clear()
   settings.filterCategories.forEach((category) => filterCategories.add(category))
   filterSubtypes.clear()
@@ -2268,13 +2655,14 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   motionYears = settings.motionYears
   motionFrame = settings.motionFrame
   gridVisible = settings.gridVisible
+  skyGridMode = settings.skyGridMode ?? 'off'
   simulationYears = settings.simulationYears
   simulationDirection = settings.simulationDirection
   playbackSecondsPerThousandYears = settings.playbackSecondsPerThousandYears
   followSelection = settings.followSelection
-  selectedId = settings.selectedId
-  observerId = settings.observerId
-  referenceId = settings.referenceId
+  selectedId = settings.selectedId === null ? null : legacyStarId(settings.selectedId)
+  observerId = legacyStarId(settings.observerId)
+  referenceId = legacyStarId(settings.referenceId)
   objectList.setColorMode(starColorMode)
   syncSavedSettingsInputs()
   await switchCatalog(settings.catalogId, true)
@@ -2285,18 +2673,24 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   element<HTMLInputElement>('object-search').value = settings.objectSearch
   objectList.setQuery(settings.objectSearch)
   viewer.setViewState(settings.viewState)
-  const savedObserverAnchorId = settings.observerViewAnchorId
-  const anchorAvailable = savedObserverAnchorId !== null && stars.some((star) => star.id === savedObserverAnchorId)
+  const savedObserverAnchorId = settings.observerViewAnchorId === null ? null : legacyStarId(settings.observerViewAnchorId)
+  const anchorAvailable = savedObserverAnchorId !== null && starIndex.has(savedObserverAnchorId)
   if (settings.observerView && anchorAvailable) {
     observerViewAnchorId = savedObserverAnchorId
     observerId = savedObserverAnchorId
     viewer.setVisibility(observerId, magnitudeLimit)
     observerView = viewer.setObserverView(true, savedObserverAnchorId, settings.viewState.observerRollRadians)
+    viewer.setObserverTelescope(Boolean(settings.viewState.observerTelescope), false)
     if (!observerView) observerViewAnchorId = null
   }
-  if (selectedId !== null) selectionHistory.record(selectedId)
-  updateObjectListFilter()
-  objectList.setReference(referenceId)
+  selectionHistory.record(selectedId)
+  objectList.setReference(referenceId, objectListFilter())
+  applyPaint(settings.paint ?? [])
+  const graphFilter = settings.graphFilter ?? []
+  // The graphs module loads only when the view holds a graph filter; failing that, the view opens without it.
+  if (graphFilter.length && !graphs) await import('./graphs').then(initializeGraphs, () => undefined)
+  graphs?.restore(graphFilter)
+  graphs?.refresh()
   renderDistances()
   renderSelection()
   syncSavedSettingsInputs()
@@ -2323,8 +2717,65 @@ function deleteSavedView(id: string): void {
 }
 
 renderSavedViews()
-renderCatalogRange('nearest-neighbors')
-void switchCatalog('nearest-neighbors')
+
+function updateBrowserDataSize(): void {
+  const button = element<HTMLButtonElement>('delete-browser-data')
+  try {
+    const size = browserDataSize()
+    text('browser-data-size', size)
+    text('browser-data-question', `Do you really want to delete ${size} of Star View data stored on this browser?`)
+    button.disabled = false
+  } catch {
+    text('browser-data-size', 'Unavailable')
+    button.disabled = true
+  }
+}
+
+function positionBrowserDataDialog(): void {
+  const dialog = element<HTMLDialogElement>('browser-data-dialog')
+  if (!dialog.open) return
+  const panel = element('preferences-panel').getBoundingClientRect()
+  const bounds = dialog.getBoundingClientRect()
+  dialog.style.left = `${Math.max(16, Math.min(panel.left + (panel.width - bounds.width) / 2, window.innerWidth - bounds.width - 16))}px`
+  dialog.style.top = `${Math.max(16, Math.min(panel.top + (panel.height - bounds.height) / 2, window.innerHeight - bounds.height - 16))}px`
+}
+
+updateBrowserDataSize()
+element('delete-browser-data').addEventListener('click', () => {
+  updateBrowserDataSize()
+  if (element<HTMLButtonElement>('delete-browser-data').disabled) return
+  element('browser-data-error').hidden = true
+  element('preferences-panel').setAttribute('data-delete-confirmation', '')
+  element<HTMLDialogElement>('browser-data-dialog').showModal()
+  positionBrowserDataDialog()
+}, { signal: events.signal })
+element('browser-data-no').addEventListener('click', () => {
+  element<HTMLDialogElement>('browser-data-dialog').close()
+}, { signal: events.signal })
+element('browser-data-dialog').addEventListener('close', () => {
+  element('preferences-panel').removeAttribute('data-delete-confirmation')
+  updateBrowserDataSize()
+  element('delete-browser-data').focus({ preventScroll: true })
+}, { signal: events.signal })
+element('browser-data-yes').addEventListener('click', () => {
+  try {
+    deleteBrowserData()
+    window.location.reload()
+  } catch {
+    text('browser-data-error', 'Could not delete all browser data. Please try again.')
+    element('browser-data-error').hidden = false
+    updateBrowserDataSize()
+    positionBrowserDataDialog()
+  }
+}, { signal: events.signal })
+for (const type of ['input', 'change']) {
+  element('preferences-panel').addEventListener(type, updateBrowserDataSize, { signal: events.signal })
+}
+window.addEventListener('storage', updateBrowserDataSize, { signal: events.signal })
+window.addEventListener('resize', positionBrowserDataDialog, { signal: events.signal })
+syncFilterInputs()
+renderCatalogRange(initialCatalogId)
+void switchCatalog(initialCatalogId)
 if (catalogErrors.length) catalogError(catalogErrors.join('\n'))
 
 element('object-search').addEventListener('input', () => objectList.setQuery(element<HTMLInputElement>('object-search').value), { signal: events.signal })
@@ -2334,12 +2785,14 @@ element('objects-expand').addEventListener('click', () => {
   const search = panel.querySelector<HTMLElement>('.object-search')!
   if (expanded) {
     panel.style.setProperty('--objects-height', `${panel.getBoundingClientRect().height}px`)
-    panel.querySelector('.objects-heading')!.insertBefore(search, element('objects-expand'))
+    panel.querySelector('.objects-heading')!.insertBefore(search, element('objects-shrink'))
   } else {
     panel.insertBefore(search, element('star-list'))
     panel.style.removeProperty('--objects-height')
   }
   panel.classList.toggle('is-expanded', expanded)
+  element('objects-shrink').hidden = !expanded
+  element('objects-maximize').hidden = !expanded
   element('control-dock').toggleAttribute('data-objects-expanded', expanded)
   const button = element('objects-expand')
   const label = expanded ? 'Collapse objects list' : 'Expand objects list'
@@ -2350,22 +2803,147 @@ element('objects-expand').addEventListener('click', () => {
   objectList.setExpanded(expanded)
   syncPanelLayout()
 }, { signal: events.signal })
+element('objects-shrink').addEventListener('click', () => {
+  const panel = element('objects-panel')
+  // Keep the heading, table header, one data row, and scrollbar accessible.
+  const minimumHeight = panel.querySelector('.objects-heading')!.getBoundingClientRect().height + 50 + 36 + 18
+  const currentHeight = panel.getBoundingClientRect().height
+  panel.style.setProperty('--objects-height', `${Math.min(currentHeight, Math.max(minimumHeight, currentHeight / 2))}px`)
+  syncPanelLayout()
+}, { signal: events.signal })
+element('objects-maximize').addEventListener('click', () => {
+  element('objects-panel').style.setProperty('--objects-height', '100dvh')
+  syncPanelLayout()
+}, { signal: events.signal })
+// Choosing a Discover card retracts the flyout until the pointer returns to Discover or keyboard navigation resumes.
+const discoverControls = element('discover-toggle').parentElement!
+element('discover-options').addEventListener('click', (event) => {
+  if (event.target instanceof Element && event.target.closest('button')) discoverControls.setAttribute('data-dismissed', '')
+}, { signal: events.signal })
+element('discover-toggle').addEventListener('pointerenter', () => discoverControls.removeAttribute('data-dismissed'), { signal: events.signal })
+document.addEventListener('keydown', (event) => { if (event.key === 'Tab') discoverControls.removeAttribute('data-dismissed') }, { signal: events.signal })
+element('graph-filter-active').addEventListener('click', () => togglePanel('graphs'), { signal: events.signal })
+element('paint-active').addEventListener('click', () => togglePanel('paint'), { signal: events.signal })
+element('motion-active').addEventListener('click', () => togglePanel('motion'), { signal: events.signal })
+element('graphs-width').addEventListener('click', () => {
+  const compact = element('control-dock').toggleAttribute('data-graphs-compact')
+  const button = element('graphs-width')
+  const label = `${compact ? 'Widen' : 'Shrink'} graphs card width`
+  button.setAttribute('aria-expanded', String(!compact))
+  button.setAttribute('aria-label', label)
+  button.title = label
+  icon('graphs-width-icon', compact ? ChevronsLeftRight : ChevronsRightLeft)
+  syncPanelLayout()
+}, { signal: events.signal })
+function setConstellationsMaximized(maximized: boolean): void {
+  element('constellations-panel').classList.toggle('is-maximized', maximized)
+  const button = element('constellations-maximize')
+  const label = `${maximized ? 'Minimize' : 'Maximize'} constellations card height`
+  button.setAttribute('aria-pressed', String(maximized))
+  button.setAttribute('aria-label', label)
+  button.title = label
+  icon('constellations-maximize-icon', maximized ? ChevronsDownUp : ChevronsUpDown)
+}
+// Desktop opens the constellations card at full height; smaller and touch-first screens keep the compact card.
+if (window.matchMedia('(min-width: 721px)').matches && !touchFirstInput.matches) setConstellationsMaximized(true)
+element('constellations-maximize').addEventListener('click', () => {
+  setConstellationsMaximized(!element('constellations-panel').classList.contains('is-maximized'))
+  syncPanelLayout()
+}, { signal: events.signal })
 catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.valueAsNumber), { signal: events.signal })
 element('filter-reset').addEventListener('click', resetAllFilters, { signal: events.signal })
+const paintIcon = (shape: IconNode) => createElement(shape, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' })
+element('paint-settings').append(...PAINT_SETTINGS.map(({ id, label, legend, gradient }) => {
+  const setting = document.createElement('section')
+  setting.className = 'planet-atmosphere paint-setting'
+  setting.dataset.paintSetting = id
+  const heading = document.createElement('div')
+  heading.className = 'card-subgroup-heading paint-setting-heading'
+  const toggle = document.createElement('button')
+  Object.assign(toggle, { type: 'button', className: 'paint-setting-toggle', title: `Paint by ${label.toLowerCase()}` })
+  toggle.setAttribute('aria-label', toggle.title)
+  toggle.setAttribute('aria-pressed', 'false')
+  toggle.append(paintIcon(Sun))
+  const body = document.createElement('div')
+  Object.assign(body, { id: `paint-${id}-body`, className: 'paint-setting-body' })
+  const expand = document.createElement('button')
+  Object.assign(expand, { type: 'button', className: 'paint-setting-expand' })
+  expand.setAttribute('aria-expanded', 'true')
+  expand.setAttribute('aria-controls', body.id)
+  expand.append(Object.assign(document.createElement('span'), { textContent: label }), paintIcon(ChevronUp))
+  heading.append(toggle, expand)
+  const bar = document.createElement('div')
+  bar.className = 'paint-legend'
+  const level = document.createElement('input')
+  Object.assign(level, { type: 'range', min: String(PAINT_LEVEL_RANGE[0]), max: String(PAINT_LEVEL_RANGE[1]), step: '0.01', value: String(DEFAULT_PAINT_LEVEL) })
+  level.setAttribute('aria-label', `${label} midpoint`)
+  bar.style.setProperty('--paint-legend', gradient(DEFAULT_PAINT_LEVEL))
+  bar.append(level)
+  const bounds = document.createElement('div')
+  bounds.className = 'range-bounds'
+  bounds.setAttribute('aria-hidden', 'true')
+  bounds.append(...legend.bounds.map((bound) => Object.assign(document.createElement('span'), { textContent: bound })))
+  body.append(bar, bounds)
+  if (legend.note) body.append(Object.assign(document.createElement('p'), { className: 'filter-hint', textContent: legend.note }))
+  setting.append(heading, body)
+  return setting
+}))
+function paintSettingParts(setting: HTMLElement) {
+  const id = setting.dataset.paintSetting
+  if (!isPaintSettingId(id)) return null
+  return {
+    id, gradient: PAINT_SETTINGS.find((candidate) => candidate.id === id)!.gradient,
+    toggle: setting.querySelector<HTMLButtonElement>('.paint-setting-toggle')!,
+    level: setting.querySelector<HTMLInputElement>('input[type="range"]')!,
+  }
+}
+element('paint-settings').addEventListener('click', (event) => {
+  const button = event.target instanceof Element ? event.target.closest('button') : null
+  const parts = button ? paintSettingParts(button.closest<HTMLElement>('[data-paint-setting]')!) : null
+  if (!button || !parts) return
+  if (button.classList.contains('paint-setting-expand')) {
+    const expanded = button.getAttribute('aria-expanded') !== 'true'
+    button.setAttribute('aria-expanded', String(expanded))
+    element(button.getAttribute('aria-controls')!).hidden = !expanded
+    return
+  }
+  if (paintSettings.has(parts.id)) paintSettings.delete(parts.id)
+  else paintSettings.set(parts.id, parts.level.valueAsNumber)
+  button.setAttribute('aria-pressed', String(paintSettings.has(parts.id)))
+  setActiveIndicator('paint-active', paintSettings.size > 0)
+  viewer?.setStarPaint(starPainter(paintSettings))
+}, { signal: events.signal })
+element('paint-settings').addEventListener('input', (event) => {
+  const input = event.target
+  const parts = input instanceof HTMLInputElement ? paintSettingParts(input.closest<HTMLElement>('[data-paint-setting]')!) : null
+  if (!parts || !Number.isFinite(parts.level.valueAsNumber)) return
+  parts.level.parentElement!.style.setProperty('--paint-legend', parts.gradient(parts.level.valueAsNumber))
+  if (!paintSettings.has(parts.id)) return
+  paintSettings.set(parts.id, parts.level.valueAsNumber)
+  viewer?.setStarPaint(starPainter(paintSettings))
+}, { signal: events.signal })
+/** Paints by the given settings; settings left out are off at their default level. */
+function applyPaint(entries: readonly (readonly [PaintSettingId, number])[]): void {
+  paintSettings.clear()
+  entries.forEach(([id, level]) => paintSettings.set(id, level))
+  element('paint-settings').querySelectorAll<HTMLElement>('[data-paint-setting]').forEach((setting) => {
+    const parts = paintSettingParts(setting)!
+    const level = paintSettings.get(parts.id) ?? DEFAULT_PAINT_LEVEL
+    parts.toggle.setAttribute('aria-pressed', String(paintSettings.has(parts.id)))
+    parts.level.value = String(level)
+    parts.level.parentElement!.style.setProperty('--paint-legend', parts.gradient(level))
+  })
+  setActiveIndicator('paint-active', paintSettings.size > 0)
+  viewer?.setStarPaint(paintSettings.size ? starPainter(paintSettings) : null)
+}
+element('paint-reset').addEventListener('click', () => applyPaint([]), { signal: events.signal })
+element('filter-save').addEventListener('click', saveCurrentFilter, { signal: events.signal })
 catalogRange.addEventListener('change', () => {
   const catalog = sliderCatalogs[catalogRange.valueAsNumber]
   if (catalog) void switchCatalog(catalog.manifest.id)
 }, { signal: events.signal })
-element('show-always-bright').addEventListener('change', () => {
-  showAlwaysBright = element<HTMLInputElement>('show-always-bright').checked
-  void switchCatalog(activeCatalogId, true)
-}, { signal: events.signal })
 element('show-western-constellation-stars').addEventListener('change', () => {
   showWesternConstellationStars = element<HTMLInputElement>('show-western-constellation-stars').checked
-  void switchCatalog(activeCatalogId, true)
-}, { signal: events.signal })
-element('show-famous-cluster-stars').addEventListener('change', () => {
-  showFamousClusterStars = element<HTMLInputElement>('show-famous-cluster-stars').checked
   void switchCatalog(activeCatalogId, true)
 }, { signal: events.signal })
 element('distance-units').addEventListener('change', () => {
@@ -2381,7 +2959,17 @@ element('star-colors').addEventListener('change', () => {
   renderSelection()
   updateSelectionHistoryControls()
   viewer?.setStarColorMode(starColorMode)
+  graphs?.refresh()
 }, { signal: events.signal })
+const magnitudeLimitInput = element<HTMLInputElement>('magnitude-limit')
+const magnitudeLimitGuides = MAGNITUDE_VISIBILITY_GUIDES.filter((guide) => guide.limit <= Number(magnitudeLimitInput.max))
+element('magnitude-limit-markers').replaceChildren(...magnitudeLimitGuides.map((guide) => {
+  const marker = document.createElement('span')
+  marker.style.left = `${guide.limit / Number(magnitudeLimitInput.max) * 100}%`
+  marker.append(createElement(guide.icon, { width: 12, height: 12, 'stroke-width': 1.7 }))
+  return marker
+}))
+text('magnitude-limit-guides', `Approximate visibility limits: ${magnitudeLimitGuides.map((guide) => `${guide.name.toLowerCase()} +${guide.limit}`).join(', ')}.`)
 element('magnitude-limit').addEventListener('input', () => {
   const input = element<HTMLInputElement>('magnitude-limit')
   if (!input.validity.valid || !Number.isFinite(input.valueAsNumber)) return
@@ -2482,6 +3070,7 @@ element('time-faster').addEventListener('click', () => {
 window.addEventListener('resize', () => {
   syncSelectedObjectLayout()
   syncObjectTypeLayout()
+  if (!element('spectral-card').hidden) positionCardHeaderTooltips(element('spectral-card'))
   syncVisibilityObserverLayout()
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (star && !element('radius-card').hidden) renderRadiusCard(star)
@@ -2515,11 +3104,11 @@ for (const name of panelNames) {
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
 }
-for (const name of ['objects', 'glossary'] as const) {
+for (const name of ['motion', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()
-    element(`${name}-toggle`).focus()
+    element(panelToggleId(name)).focus()
   }, { signal: events.signal })
 }
 element<HTMLFormElement>('save-view-form').addEventListener('submit', (event) => {
@@ -2580,6 +3169,7 @@ element('saved-view-context-menu').addEventListener('keydown', (event) => {
 }, { signal: events.signal })
 window.addEventListener('resize', () => closeSavedViewContextMenu(), { signal: events.signal })
 document.addEventListener('keydown', (event) => {
+  if (element<HTMLDialogElement>('browser-data-dialog').open) return
   if (!element('saved-view-context-menu').hidden) {
     if (event.key === 'Escape' || event.key === 'Tab') {
       closeSavedViewContextMenu(true)
@@ -2588,6 +3178,10 @@ document.addEventListener('keydown', (event) => {
     }
   }
   if (event.key !== 'Escape') return
+  if (starComparison.abort()) {
+    event.preventDefault()
+    return
+  }
   if (!element('constellation-card').hidden) {
     closeConstellationCard(true)
     return
@@ -2636,7 +3230,7 @@ document.addEventListener('keydown', (event) => {
     ?? (panelIsOpen('motion') ? 'motion' : undefined)
   if (!open) return
   togglePanel(open)
-  element(`${open}-toggle`).focus()
+  element(panelToggleId(open)).focus()
 }, { signal: events.signal })
 for (const name of detailCardNames) {
   element(`${name}-close`).addEventListener('click', () => detailCardClosers[name](true), { signal: events.signal })
@@ -2646,16 +3240,22 @@ for (const name of detailCardNames) {
     element(`${name}-lock`).setAttribute('aria-pressed', String(lockedDetailCards.has(name)))
   }, { signal: events.signal })
 }
-document.querySelector('.object-type-row')!.addEventListener('click', toggleObjectTypeCard, { signal: events.signal })
+document.querySelector('.object-type-row')!.addEventListener('click', () => toggleObjectTypeCard(), { signal: events.signal })
 document.querySelector('.metallicity-row')!.addEventListener('click', toggleMetallicityCard, { signal: events.signal })
 document.querySelector('.distance-row')!.addEventListener('click', toggleDistanceCard, { signal: events.signal })
 element('constellation-row').addEventListener('click', () => {
   if (!element<HTMLButtonElement>('constellation-toggle').disabled) void toggleConstellationCard()
 }, { signal: events.signal })
 element('constellation-magnify').addEventListener('click', () => {
-  const star = stars.find((candidate) => candidate.id === selectedId)
+  const star = sideDetailStar(constellationStarId)
   if (!star) return
   constellationMagnified = !constellationMagnified
+  renderConstellationCard(star)
+}, { signal: events.signal })
+element('constellation-grid').addEventListener('click', () => {
+  const star = sideDetailStar(constellationStarId)
+  if (!star) return
+  constellationEquatorialGrid = !constellationEquatorialGrid
   renderConstellationCard(star)
 }, { signal: events.signal })
 for (const section of planetSections) {
@@ -2671,17 +3271,6 @@ element('mass-row').addEventListener('click', toggleMassCard, { signal: events.s
 element('temperature-row').addEventListener('click', toggleTemperatureCard, { signal: events.signal })
 element('luminosity-row').addEventListener('click', toggleLuminosityCard, { signal: events.signal })
 element('magnitude-row').addEventListener('click', toggleMagnitudeCard, { signal: events.signal })
-initializeMagnitudeVisibility(element('magnitude-card'), () => {
-  const star = stars.find((candidate) => candidate.id === selectedId)
-  if (star && !element('magnitude-card').hidden) renderMagnitudeCard(star)
-}, events.signal)
-for (const mode of ['class', 'origin', 'sun'] as const) {
-  element(`mass-reference-${mode}`).addEventListener('click', () => {
-    massReference = mode
-    const star = stars.find((candidate) => candidate.id === selectedId)
-    if (star && !element('mass-card').hidden) renderMassCard(star)
-  }, { signal: events.signal })
-}
 document.querySelector('.radius-row')!.addEventListener('click', toggleRadiusCard, { signal: events.signal })
 document.querySelector('.spectral-row')!.addEventListener('click', toggleSpectralCard, { signal: events.signal })
 for (const diagram of ['hr', 'mk'] as const) {
@@ -2718,13 +3307,18 @@ for (const view of cameraViews) {
 }
 element('toggle-grid').addEventListener('click', () => {
   if (!viewer) return
-  const button = element('toggle-grid')
   gridVisible = !gridVisible
   viewer.setGridVisible(gridVisible)
-  button.setAttribute('aria-pressed', String(gridVisible))
-  text('grid-tooltip', gridVisible ? 'Hide grid' : 'Show grid')
-  element('grid-legend').hidden = !gridVisible
+  syncGridInputs()
 }, { signal: events.signal })
+for (const frame of ['equatorial', 'galactic'] as const) {
+  element(`toggle-${frame}-grid`).addEventListener('click', () => {
+    if (!viewer) return
+    skyGridMode = skyGridMode === frame ? 'off' : frame
+    viewer.setSkyGrid(skyGridMode)
+    syncGridInputs()
+  }, { signal: events.signal })
+}
 element('selection-back').addEventListener('click', () => navigateSelectionHistory('back'), { signal: events.signal })
 element('selection-forward').addEventListener('click', () => navigateSelectionHistory('forward'), { signal: events.signal })
 element('set-origin').addEventListener('click', setSelectedAsOrigin, { signal: events.signal })
@@ -2740,6 +3334,11 @@ element('observer-object').addEventListener('click', () => {
   if (observerViewAnchorId !== null) selectStar(observerViewAnchorId)
 }, { signal: events.signal })
 element('observer-roll-counterclockwise').addEventListener('click', () => rollObserverView('counterclockwise'), { signal: events.signal })
+element('observer-telescope').addEventListener('click', () => {
+  if (!viewer || sceneBusy || !observerView) return
+  viewer.setObserverTelescope(!viewer.getViewState().observerTelescope)
+  updateObserverControl()
+}, { signal: events.signal })
 element('observer-roll-reset').addEventListener('click', () => rollObserverView('center'), { signal: events.signal })
 element('observer-roll-clockwise').addEventListener('click', () => rollObserverView('clockwise'), { signal: events.signal })
 

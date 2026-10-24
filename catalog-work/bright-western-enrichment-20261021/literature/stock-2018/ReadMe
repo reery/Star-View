@@ -1,0 +1,207 @@
+J/A+A/616/A33      Stellar parameters of 372 giant stars         (Stock+, 2018)
+================================================================================
+Precise radial velocities of giant stars.
+X. Bayesian stellar parameters and evolutionary stages for 372 giant stars
+from the Lick planet search.
+    Stock S., Reffert S., Quirrenbach A.
+    <Astron. Astrophys. 616, A33 (2018)>
+    =2018A&A...616A..33S        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Stars, masses ; Stars, ages ; Stars, giant ; Stars, K-type
+Keywords: stars: fundamental parameters - stars: late-type - stars: evolution -
+          Hertzsprung-Russell and C-M diagrams - planetary systems -
+          methods: statistical
+
+Abstract:
+    The determination of accurate stellar parameters of giant stars is
+    essential for our understanding of such stars in general and as
+    exoplanet host stars in particular. Precise stellar masses are vital
+    for determining the lower mass limit of potential substellar
+    companions with the radial velocity method.
+
+    Our goal is to determine stellar parameters, including mass, radius,
+    age, surface gravity, effective temperature and luminosity, for the
+    sample of giants observed by the Lick planet search. Furthermore, we
+    want to derive the probability of these stars being on the horizontal
+    branch (HB) or red giant branch (RGB), respectively.
+
+    We compare spectroscopic, photometric and astrometric observables to
+    grids of stellar evolutionary models using Bayesian inference. We
+    provide tables of stellar parameters, probabilities for the current
+    post-main sequence evolutionary stage, and probability density
+    functions for 372 giants from the Lick planet search.
+
+    We find that 81% of the stars in our sample are more probably on the
+    HB. In particular, this is the case for 15 of the 16 planet host stars
+    in the sample. We tested the reliability of our methodology by
+    comparing our stellar parameters to literature values and find very
+    good agreement. Furthermore, we created a small test sample of 26
+    giants with available asteroseismic masses and evolutionary stages and
+    compared these to our estimates. The mean difference of the stellar
+    masses for the 24 stars with the same evolutionary stages by both
+    methods is only {Delta}M=0.01+/-0.20M_{sun}_. We do not find any
+    evidence for large systematic differences between our results and
+    estimates of stellar parameters based on other methods. In particular
+    we find no significant systematic offset between stellar masses
+    provided by asteroseismology to our Bayesian estimates based on
+    evolutionary models.
+
+Description:
+    For the 372 giant stars we studied, we provide in our table the
+    determined stellar parameters which includes mass (M), radius (R), age
+    (A), surface gravity (G), effective temperature (T) and luminosity
+    (L). For each stellar parameter we provide the value that was
+    determined from the maximum (mode) of the probability density function
+    (PDF) as well as the mean value of the PDF for this stellar parameter.
+    We also provide the 1-sigma and 3-sigma confidence interval for each
+    stellar parameter. Additionally, each giant can have two solutions of
+    stellar parameters depending on the assigned post-main sequence
+    evolutionary stage which can be red-giant branch (RGB) or horizontal
+    branch (HB). We provide a probability (P) for each case. Stars with
+    less 1% probability for a specific evolutionary stage have no
+    determined stellar parameters for this specific solution. The
+    tabulated stellar masses and surface gravities are corrected with the
+    Reimer's mass loss along the RGB. Input parameters for the
+    determination of the tabulated solutions were parallaxes by van
+    Leeuwen (2007, Cat. I/311), metallicities by Hekker & Melendez
+    (2007A&A...475.1003H) and BV photometry included in the Hipparcos
+    catalog (ESA, 1997. Cat. I/239). We compared these observables to
+    grids of stellar evolutionary models by Bressan et al.
+    (2012MNRAS.427..127B) using Bayesian inference.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+giants.dat       290      744   List of derived stellar parameters for 372
+                                 giant stars
+images/*           .      593   PDFs of HB and RGB solutions as fits files
+--------------------------------------------------------------------------------
+
+See also:
+   J/A+A/475/1003 : Stellar parameters of G and K giant stars (Hekker+, 2007)
+   J/A+A/574/A116 : G and K giant stars stellar parameters (Reffert+, 2015)
+   J/A+A/595/A55  : Radial velocity data of HD 59686 A (Ortiz+, 2016)
+
+Byte-by-byte Description of file: giants.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label    Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---       HIP      Hipparcos identifier of the star
+   8- 10  A3    ---       Stage    Evolutionary Stage (1)
+  12- 15  F4.2  ---       P        Probability of the evolutionary stage
+  17- 20  F4.2  Msun      Mmode    ? Stellar mass determined from mode
+  22- 25  F4.2  Msun      Mmean    ? Stellar mass determined from mean
+  27- 30  F4.2  Msun    e_M        ? Lower boundary of 1-sigma range for the
+                                    stellar mass
+  32- 35  F4.2  Msun    E_M        ? Upper boundary of 1-sigma range for the
+                                    stellar mass
+  37- 40  F4.2  Msun   e3_M        ? Lower boundary of 3-sigma range for the
+                                    stellar mass
+  42- 46  F5.2  Msun   E3_M        ? Upper boundary of 3-sigma range for the
+                                    stellar mass
+  48- 53  F6.2  Rsun      Rmode    ? Stellar radius determined from mode
+  55- 60  F6.2  Rsun      Rmean    ? Stellar radius determined from mean
+  62- 67  F6.2  Rsun    e_R        ? Lower boundary of 1-sigma range for the
+                                    stellar radius
+  69- 74  F6.2  Rsun    E_R        ? Upper boundary of 1-sigma range for the
+                                    stellar radius
+  76- 81  F6.2  Rsun   e3_R        ? Lower boundary of 3-sigma range for the
+                                    stellar radius
+  83- 88  F6.2  Rsun   E3_R        ? Upper boundary of 3-sigma range for the
+                                    stellar radius
+  90- 93  F4.2  [cm/2]    logGmode ? Logarithm of stellar surface gravity
+                                    determined from mode
+  95- 98  F4.2  [cm/2]    logGmean ? Logarithm of stellar surface gravity
+                                    determined from mean
+ 100-103  F4.2  [cm/2]  e_logG     ? Lower boundary of 1-sigma range for the
+                                    logarithm of the stellar surface gravity
+ 105-108  F4.2  [cm/2]  E_logG     ? Upper boundary of 1-sigma range for the
+                                    logarithm of the stellar surface gravity
+ 110-114  F5.2  [cm/2] e3_logG     ? Lower boundary of 3-sigma range for the
+                                    logarithm of the stellar surface gravity
+ 116-119  F4.2  [cm/2] E3_logG     ? Upper boundary of 3-sigma range for the
+                                    logarithm of the stellar surface gravity
+ 121-125  F5.2  [yr]      logAmode ? Logarithm of stellar age determined
+                                    from mode
+ 127-131  F5.2  [yr]      logAmean ? Logarithm of stellar age determined
+                                    from mean
+ 133-137  F5.2  [yr]    e_logA     ? Lower boundary of 1-sigma range for the
+                                    logarithm of the stellar age
+ 139-143  F5.2  [yr]    E_logA     ? Upper boundary of 1-sigma range for the
+                                    logarithm of the stellar age
+ 145-148  F4.2  [yr]    e3_logA    ? Lower boundary of 3-sigma range for the
+                                    logarithm of the stellar age
+ 150-154  F5.2  [yr]    E3_logA    ? Upper boundary of 3-sigma range for the
+                                    logarithm of the stellar age
+ 156-161  F6.1  K         Tmode    ? Stellar effective temperature determined
+                                    from mode
+ 163-168  F6.1  K         Tmean    ? Stellar effective temperature determined
+                                    from mean
+ 170-175  F6.1  K       e_T        ? Lower boundary of 1-sigma range for the
+                                    stellar effective temperature
+ 177-182  F6.1  K       E_T        ? Upper boundary of 1-sigma range for the
+                                    stellar effective temperature
+ 184-189  F6.1  K      e3_T        ? Lower boundary of 3-sigma range for the
+                                    stellar effective temperature
+ 191-196  F6.1  K      E3_T        ? Upper boundary of 3-sigma range for the
+                                    stellar effective temperature
+ 198-205  F8.2  Lsun      Lmode    ? Stellar luminosity determined from mode
+ 207-214  F8.2  Lsun      Lmean    ? Stellar luminosity determined from mean
+ 216-223  F8.2  Lsun    e_L        ? Lower boundary of 1-sigma range for the
+                                    stellar luminosity
+ 225-232  F8.2  Lsun    E_L        ? Upper boundary of 1-sigma range for the
+                                    stellar luminosity
+ 234-240  F7.2  Lsun   e3_L        ? Lower boundary of 3-sigma range for the
+                                    stellar luminosity
+ 242-249  F8.2  Lsun   E3_L        ? Upper boundary of 3-sigma range for the
+                                    stellar luminosity
+ 251-271  A21   ---       Flag     Flag for catalog (2)
+ 273-290  A18   ---       PDF      PDFs of HB or RGB solution fits filename
+                                    in subdirectory images
+--------------------------------------------------------------------------------
+Note (1): Evolutionary Stage as follows:
+        RGB = red-giant branch
+        HB  = horizontal branch
+Note (2): FlagR as follows:
+        V = V-I color index used to determine stellar parameters
+            (instead of B-V)
+        D = Degeneracy for late-type K giants resolved by applying a cut to
+            the stellar evolutionary models based on the spectroscopic
+            effective temperature
+        L = RGB mass loss below threshold (<0.001M_{sun}_)
+        P = Probability of evolutionary stage less than 1%,
+            no stellar parameters provided
+       MM = Multi-modal PDF of the stellar mass
+       RM = Multi-modal PDF of the stellar radius
+       AM = Multi-modal PDF of the stellar age
+       TM = Multi-modal PDF of the stellar effective temperature
+       GM = Multi-modal PDF of the stellar surface gravity
+       LM = Multi-modal PDF of the stellar luminosity
+       MC = Mean of mass PDF is outside the 1-sigma confidence interval
+       RC = Mean of radius PDF is outside the 1-sigma confidence interval
+       AC = Mean of age PDF is outside the 1-sigma confidence interval
+       TC = Mean of effective temperature PDF is outside the 1-sigma
+             confidence interval
+       GC = Mean of surface gravity PDF is outside the 1-sigma
+             confidence interval
+       LC = Mean of luminosity PDF is outside the 1-sigma confidence interval
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+   Stephan Stock, sstock(at)lsw.uni-heidelberg.de
+
+References:
+   Hekker et al.,     Paper I      2006A&A...454..943H
+   Reffert et al.,    Paper II     2006ApJ...652..661R
+   Hekker & Melendez, Paper III    2007A&A...475.1003H, Cat. J/A+A/475/1003
+   Hekker et al.,     Paper IV     2008A&A...480..215H
+   Mitchell et al.,   Paper V      2013A&A...555A..87M
+   Trifonov et al.,   Paper VI     2014A&A...568A..64T
+   Reffert et al.,    Paper VII    2015A&A...574A.116R, Cat. J/A+A/574/A116
+   Trifonov et al.,   Paper VIII   2015A&A...582A..54T
+   Ortiz et al.,      Paper IX     2016A&A...595A..55O, Cat. J/A+A/595/A55
+
+================================================================================
+(End)                                        Patricia Vannier CDS    23-May-2018

@@ -3,8 +3,8 @@
   "abbreviation": "Hya",
   "name": "Hydra",
   "center": {
-    "ra_deg": 149.70573992698473,
-    "dec_deg": -8.988114335698327
+    "ra_deg": 149.705739927,
+    "dec_deg": -8.988114336
   },
   "stars": [
     {
@@ -365,7 +365,7 @@
         "vy_kms": 9.075387,
         "vz_kms": -0.153191,
         "temperature_k": 4362.0,
-        "mass_solar": null,
+        "mass_solar": 2.4,
         "luminosity_solar": 790.63,
         "radius_solar": 49.2343,
         "metallicity_dex": -0.08,
@@ -611,8 +611,8 @@
         "vz_kms": -19.780143,
         "temperature_k": 4138.0,
         "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "luminosity_solar": 478.6300923,
+        "radius_solar": 45.0,
         "metallicity_dex": -0.12,
         "age_gyr": null,
         "absolute_mag": -0.559154,
@@ -623,7 +623,7 @@
         "constellation": "Hydra",
         "spectral_type": "K4III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 51069; Stellarium Hya). SIMBAD identity * mu. Hya; SIMBAD compiled Johnson V=3.81; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2022A&A...663A...4S; metallicity_dex: 2022A&A...663A...4S).",
+        "notes": "Western constellation line-figure star (HIP 51069; Stellarium Hya). SIMBAD identity * mu. Hya; SIMBAD compiled Johnson V=3.81; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical values describe Mu Hya. Exact * mu. Hya / HD 90432, HIP 51069. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2008AJ....135..209M. Existing non-null values retain their independent sources. Source radius tabulated to whole solar radii, without an individual radius uncertainty; preserve that limited precision. Shared exact-identity physical supplements (radius_solar: 2008AJ....135..209M; luminosity_solar: 2008AJ....135..209M; temperature_k: 2022A&A...663A...4S; metallicity_dex: 2022A&A...663A...4S).",
         "designations": [
           "HIP 51069"
         ],
@@ -2587,7 +2587,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

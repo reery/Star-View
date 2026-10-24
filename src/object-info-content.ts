@@ -41,7 +41,9 @@ function sourceLink(source: InfoSource): HTMLAnchorElement {
   return link
 }
 
-function infoParagraph(paragraph: InfoParagraph): HTMLParagraphElement {
+export type InfoInline = (text: string) => (string | Node)[]
+
+function infoParagraph(paragraph: InfoParagraph, inline?: InfoInline): HTMLParagraphElement {
   const element = document.createElement('p')
   if (paragraph.label) {
     const label = document.createElement('strong')
@@ -52,7 +54,7 @@ function infoParagraph(paragraph: InfoParagraph): HTMLParagraphElement {
     } else label.textContent = paragraph.label
     element.append(label, ' ')
   }
-  element.append(paragraph.text)
+  element.append(...(inline ? inline(paragraph.text) : [paragraph.text]))
   return element
 }
 
@@ -85,12 +87,12 @@ function infoFigure(image: InfoImage, hero = false): HTMLElement {
   return figure
 }
 
-/** Shared sourced article layout for the selected-object and planet cards. */
-export function renderObjectInfoContent(container: HTMLElement, info: ObjectInfo | undefined): boolean {
+/** Shared sourced article layout for the selected-object, planet and constellation cards. */
+export function renderObjectInfoContent(container: HTMLElement, info: ObjectInfo | undefined, inline?: InfoInline): boolean {
   container.replaceChildren()
   if (!info) return false
   if (info.image) container.append(infoFigure(info.image, true))
-  container.append(infoParagraph(info.introduction))
+  container.append(infoParagraph(info.introduction, inline))
   for (const entry of info.sections) {
     const section = document.createElement('section')
     const heading = document.createElement('h3')
@@ -105,7 +107,7 @@ export function renderObjectInfoContent(container: HTMLElement, info: ObjectInfo
       link.textContent = '↗'
       heading.append(link)
     }
-    section.append(heading, ...entry.paragraphs.map(infoParagraph))
+    section.append(heading, ...entry.paragraphs.map((paragraph) => infoParagraph(paragraph, inline)))
     if (entry.image) section.append(infoFigure(entry.image))
     container.append(section)
   }

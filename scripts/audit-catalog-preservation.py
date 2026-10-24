@@ -13,7 +13,7 @@ import json
 import subprocess
 from pathlib import Path
 
-from catalog_sources.preservation import lost_fields, pool_losses, reviewed_fields
+from catalog_sources.preservation import lost_fields, pool_losses, reviewed_fields, reviewed_record_removal
 
 ROOT = Path(__file__).resolve().parents[1]
 POOL = "src/data/stellar-companions.json"
@@ -28,17 +28,31 @@ def audit(base):
         cwd=ROOT, check=True, capture_output=True, text=True).stdout
     errors = []
     rows = 0
-    retirements = json.loads((ROOT / "catalog-work/reviewed-data-retirements.json").read_text())["retirements"]
+    retirement_review = json.loads((ROOT / "catalog-work/reviewed-data-retirements.json").read_text())
+    retirements = retirement_review["retirements"]
     reviewed = 0
+    migrations = json.loads((ROOT / "catalog-work/catalog-migrations.json").read_text())["migrations"]
 
     for path in paths:
         old = list(csv.DictReader(io.StringIO(previous(path))))
         new_path = ROOT / path
+        migration = next((entry for entry in migrations if entry["sourcePath"] == path), None)
+        if migration and not new_path.exists():
+            archived = list(csv.DictReader((ROOT / migration["archivePath"]).open()))
+            if old != archived or not migration.get("reason"):
+                errors.append(f"{path}: migrated source archive differs from baseline or lacks a reason")
+            new_path = ROOT / migration["targetPath"]
+        # A migration may name the surviving ID of the same object in its target.
+        id_map = {**(maps := json.loads((ROOT / migration["idMapPath"]).read_text()))["ids"], **maps["sharedIds"]} if migration and migration.get("idMapPath") else {}
         new = {row["id"]: row for row in csv.DictReader(io.StringIO(new_path.read_text()))} if new_path.exists() else {}
         for record in old:
             rows += 1
-            identifier = record["id"]
+            identifier = id_map.get(record["id"], record["id"])
             if identifier not in new:
+                if reviewed_record_removal(path, record, retirement_review.get("recordRetirements", []),
+                                           lambda review_path: json.loads((ROOT / review_path).read_text())):
+                    reviewed += 1
+                    continue
                 errors.append(f"{path}/{identifier}: missing record")
                 continue
             missing = lost_fields(record, new[identifier])
@@ -63,7 +77,7 @@ def main():
     rows, errors, reviewed = audit(args.base)
     if errors:
         raise SystemExit("Catalog preservation failed:\n" + "\n".join(errors))
-    print(f"Catalog preservation: {rows} catalog/component records compared with {args.base}; no unexplained record/field loss; {reviewed} explicitly reviewed classification correction(s).")
+    print(f"Catalog preservation: {rows} catalog/component records compared with {args.base}; no unexplained record/field loss; {reviewed} explicitly reviewed correction(s).")
 
 
 if __name__ == "__main__":

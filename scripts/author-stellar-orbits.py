@@ -6,6 +6,7 @@ import json
 import math
 from pathlib import Path
 import re
+import argparse
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / 'catalog-work/star-systems'
@@ -24,6 +25,9 @@ def number(value):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--system', action='append', default=[], help='Refresh only this reviewed system; preserve every other existing solution')
+    args = parser.parse_args()
     systems = {s['id']: s for file in ['src/data/star-systems.json', 'src/data/stellar-companions.json']
                for s in read(file)['systems']}
     stars = {}
@@ -279,15 +283,22 @@ def main():
     # compiled solution when adopting a newer, explicitly scoped publication.
     review_path = WORK / 'reviewed-regor.json'
     review = json.loads(review_path.read_text())
+    constellation_path = WORK / 'reviewed-constellation-orbits.json'
+    constellation_review = json.loads(constellation_path.read_text())
+    for relative, digest in constellation_review['inputSha256'].items():
+        if hashlib.sha256((ROOT / relative).read_bytes()).hexdigest() != digest:
+            raise ValueError(f'Reviewed constellation orbit source drifted: {relative}')
     superseded = []
-    for orbit in review['orbits']:
-        sid, first, second = review['systemId'], orbit['primary'], orbit['secondary']
-        if identities.get(sid, {}).get(first) != orbit['primaryIds'][0] or identities.get(sid, {}).get(second) != orbit['secondaryIds'][0]:
-            raise ValueError('Reviewed Regor orbit component identity drifted')
-        for _, old in results[sid].values():
-            if old['primaryIds'] == orbit['primaryIds'] and old['secondaryIds'] == orbit['secondaryIds']:
-                superseded.append({'systemId': sid, 'adoptedReference': orbit['reference'], 'retainedSolution': old})
-        add(sid, first, second, dict(orbit), (-1, 0))
+    for source_review in [review, constellation_review]:
+        for orbit in source_review['orbits']:
+            sid = orbit.get('systemId', source_review.get('systemId'))
+            first, second = orbit['primary'], orbit['secondary']
+            if identities.get(sid, {}).get(first) != orbit['primaryIds'][0] or identities.get(sid, {}).get(second) != orbit['secondaryIds'][0]:
+                raise ValueError(f'Reviewed orbit component identity drifted: {sid}')
+            for _, old in results[sid].values():
+                if old['primaryIds'] == orbit['primaryIds'] and old['secondaryIds'] == orbit['secondaryIds']:
+                    superseded.append({'systemId': sid, 'adoptedReference': orbit['reference'], 'retainedSolution': old})
+            add(sid, first, second, dict(orbit), (-1, 0))
 
     output = []
     for sid, system in systems.items():
@@ -295,7 +306,13 @@ def main():
         for index, orbit in enumerate(orbits):
             orbit['id'] = f'{sid}-{index}'
         output.append({'systemId': sid, 'name': system['name'], 'orbits': orbits})
-    payload = {'schemaVersion': 1, 'retrievedOn': max('2026-10-09', review['reviewedOn']), 'systems': output}
+    if args.system:
+        previous = read('src/data/stellar-orbits.json')['systems']
+        by_id = {s['systemId']: s for s in output}
+        if set(by_id) != {s['systemId'] for s in previous} or set(args.system) - set(by_id):
+            raise ValueError('Scoped orbit refresh requires unchanged system membership and exact system IDs')
+        output = [by_id[s['systemId']] if s['systemId'] in args.system else s for s in previous]
+    payload = {'schemaVersion': 1, 'retrievedOn': max('2026-10-09', review['reviewedOn'], constellation_review['reviewedOn']), 'systems': output}
     (ROOT / 'src/data/stellar-orbits.json').write_text(json.dumps(payload, indent=2) + '\n')
     # Audit the UI's fallback name groups too: these were previously invisible
     # to the source-coverage report and caused the EZ Aquarii omission.
@@ -312,7 +329,10 @@ def main():
          'sha256': hashlib.sha256((WORK / 'orb6-20261009.txt').read_bytes()).hexdigest(), 'retrievedOn': '2026-10-09'},
         {'url': msc['url'], 'sha256': msc['archiveSha256'], 'frozenInput': 'catalog-work/star-systems/catalog-companions-msc.json'},
         {'url': review['sourceUrl'], 'sha256': hashlib.sha256(review_path.read_bytes()).hexdigest(),
-         'frozenInput': str(review_path.relative_to(ROOT)), 'retrievedOn': review['reviewedOn']}],
+         'frozenInput': str(review_path.relative_to(ROOT)), 'retrievedOn': review['reviewedOn']},
+        {'url': constellation_review['sourceUrl'], 'sha256': hashlib.sha256(constellation_path.read_bytes()).hexdigest(),
+         'frozenInput': str(constellation_path.relative_to(ROOT)), 'retrievedOn': constellation_review['reviewedOn']}],
+        **({'refreshedSystems': sorted(set(args.system)), 'scope': 'Only these systems refreshed; every other existing orbital solution retained verbatim.'} if args.system else {}),
         'policy': 'Exact reviewed WDS/HIP identities only; explicit pair scopes; no positional matches, estimated wide periods or photocenter axes. Angular relative axes converted to AU with the identified catalog parallax. Reviewed published physical axes retain their source distance; component conventions are checked against measured offsets. Unknown MSC zeros stay null.',
         'identityInputs': [{'frozenInput': path, 'sha256': hashlib.sha256((ROOT / path).read_bytes()).hexdigest()}
                            for path in ['src/data/star-systems.json', 'src/data/stellar-companions.json', 'src/data/object-designations.json']],

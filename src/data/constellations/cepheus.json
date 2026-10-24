@@ -3,8 +3,8 @@
   "abbreviation": "Cep",
   "name": "Cepheus",
   "center": {
-    "ra_deg": 332.22033526336537,
-    "dec_deg": 67.44737042709916
+    "ra_deg": 332.220335263,
+    "dec_deg": 67.447370427
   },
   "stars": [
     {
@@ -22,9 +22,9 @@
         "vy_kms": -16.37662,
         "vz_kms": -7.777783,
         "temperature_k": 7300.0,
-        "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "mass_solar": 1.92,
+        "luminosity_solar": 18.1,
+        "radius_solar": 2.51311324,
         "metallicity_dex": -0.4,
         "age_gyr": null,
         "absolute_mag": 1.574108,
@@ -2535,7 +2535,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
-import { openFilter, openSpecs, selectCatalog } from './support'
+import { openFilter, openSpecs } from './support'
 
 async function ready(page: Page) {
   await page.goto('/')
@@ -39,8 +39,14 @@ test('resets visibility on selection changes and avoids origin self comparisons'
   await expect(page.locator('#radius-reference-origin')).toHaveText('Sun')
   await expect(page.locator('#radius-reference-heading')).toHaveText('Radius vs Sun')
   await expect(page.locator('#radius-reference-column')).toHaveText('Sun')
+  const jupiterMap = page.waitForResponse(/\/jupiter-map-[^/]+\.webp$/)
   await page.locator('#radius-reference-jupiter').click()
+  const mapResponse = await jupiterMap
+  expect(mapResponse.ok()).toBe(true)
+  expect(mapResponse.headers()['content-type']).toContain('image/webp')
+  await mapResponse.finished()
   await expect(page.locator('#radius-reference-column')).toHaveText('Jupiter')
+  await page.locator('#radius-card').screenshot({ path: testInfo.outputPath('jupiter-radius-webp.png') })
   await page.locator('#radius-reference-earth').click()
   await expect(page.locator('#radius-reference-column')).toHaveText('Earth')
   await page.locator('#radius-close').click()
@@ -56,28 +62,8 @@ test('resets visibility on selection changes and avoids origin self comparisons'
   await expect(page.locator('#luminosity-flux-sun')).toBeHidden()
 })
 
-test('shows clipped Mass reference labels below the buttons and centers temperature icons', { tag: '@mobile' }, async ({ page }, testInfo) => {
+test('centers temperature icons', { tag: '@mobile' }, async ({ page }, testInfo) => {
   await ready(page)
-  await page.locator('#mass-toggle').click()
-  await expect(page.locator('#mass-reference-sun').locator('..')).toHaveAttribute('data-clipped', 'false')
-  await page.locator('#mass-close').click()
-  await select(page, 'Proxima Centauri')
-  await page.locator('#set-origin').click()
-  await page.locator('#mass-toggle').click()
-  const button = page.locator('#mass-reference-origin')
-  await expect(button.locator('..')).toHaveAttribute('data-clipped', 'true')
-  await button.focus()
-  const tooltip = page.locator('#mass-reference-origin-tooltip')
-  await expect(tooltip).toBeVisible()
-  await expect(tooltip).toHaveText('vs Proxima Centauri')
-  const anchor = (await button.boundingBox())!
-  const popup = (await tooltip.boundingBox())!
-  const card = (await page.locator('#mass-card').boundingBox())!
-  expect(popup.y).toBeGreaterThanOrEqual(anchor.y + anchor.height)
-  expect(popup.x).toBeGreaterThanOrEqual(card.x)
-  expect(popup.x + popup.width).toBeLessThanOrEqual(card.x + card.width)
-  await page.locator('#mass-card').screenshot({ path: testInfo.outputPath('mass-reference-tooltip.png') })
-  await page.locator('#mass-close').click()
   await page.locator('#temperature-toggle').click()
   const centers = await page.locator('.temperature-facts .planet-fact-tile').evaluateAll((tiles) => tiles.map((tile) => {
     const bounds = tile.getBoundingClientRect()
@@ -89,38 +75,36 @@ test('shows clipped Mass reference labels below the buttons and centers temperat
   await page.locator('#temperature-card').screenshot({ path: testInfo.outputPath('temperature-icons.png') })
 })
 
-test('aligns all Mass tooltip triangles with Luyten’s Star as origin and Antinous selected', async ({ page }, testInfo) => {
+test('keeps Mass limit tooltips inside the card with their triangles on the limit labels', { tag: '@mobile' }, async ({ page }, testInfo) => {
   await ready(page)
-  await selectCatalog(page, 'nearest-100')
-  await page.locator('#filter-toggle').click()
-  await select(page, "Luyten's Star")
-  await page.locator('#set-origin').click()
-  await openFilter(page)
-  await page.locator('#show-western-constellation-stars').check()
-  await page.locator('#object-distance-limit').fill('24')
-  await page.locator('#filter-toggle').click()
-  await select(page, 'Antinous Aa')
-  await page.locator('#mass-toggle').click()
-  for (const reference of ['class', 'origin', 'sun']) {
-    const button = page.locator(`#mass-reference-${reference}`)
-    await button.focus()
-    const tooltip = page.locator(`#mass-reference-${reference}-tooltip`)
-    if (await button.locator('..').getAttribute('data-clipped') !== 'true') continue
-    await expect(tooltip).toBeVisible()
-    const anchor = (await button.boundingBox())!
-    const popup = (await tooltip.boundingBox())!
-    const arrowCenter = await tooltip.evaluate((element) => {
-      const arrow = getComputedStyle(element, '::before')
-      return element.getBoundingClientRect().left + parseFloat(getComputedStyle(element).borderLeftWidth)
-        + parseFloat(arrow.left) + parseFloat(arrow.width) / 2
-    })
-    expect(arrowCenter).toBeGreaterThan(popup.x + 8)
-    expect(arrowCenter).toBeLessThan(popup.x + popup.width - 8)
-    expect(Math.abs(arrowCenter - (anchor.x + anchor.width / 2)), JSON.stringify({ reference, arrowCenter, anchor, popup })).toBeLessThanOrEqual(1)
-    expect(popup.y).toBeGreaterThanOrEqual(anchor.y + anchor.height)
+  for (const name of ['Sun', 'Sirius B']) {
+    await select(page, name)
+    await page.locator('#mass-toggle').click()
+    const card = (await page.locator('#mass-card').boundingBox())!
+    const labels = page.locator('#mass-spectrum-axis .mass-scale-help')
+    await expect(labels).toHaveCount(2)
+    const bounds = await labels.evaluateAll((elements) => elements.map((element) => element.getBoundingClientRect().toJSON()))
+    expect(bounds[0].right).toBeLessThanOrEqual(bounds[1].left)
+    for (const index of [0, 1]) {
+      const button = labels.nth(index).locator('button')
+      await button.focus()
+      const tooltip = labels.nth(index).locator('.tooltip')
+      await expect(tooltip).toBeVisible()
+      const anchor = (await button.boundingBox())!
+      const popup = (await tooltip.boundingBox())!
+      const arrowCenter = await tooltip.evaluate((element) => {
+        const arrow = getComputedStyle(element, '::before')
+        return element.getBoundingClientRect().left + parseFloat(getComputedStyle(element).borderLeftWidth)
+          + parseFloat(arrow.left) + parseFloat(arrow.width) / 2
+      })
+      expect(popup.x).toBeGreaterThanOrEqual(card.x)
+      expect(popup.x + popup.width).toBeLessThanOrEqual(card.x + card.width)
+      expect(popup.y).toBeGreaterThanOrEqual(anchor.y + anchor.height)
+      expect(Math.abs(arrowCenter - (anchor.x + anchor.width / 2))).toBeLessThanOrEqual(1)
+    }
+    await page.locator('#mass-card').screenshot({ path: testInfo.outputPath(`mass-limits-${name}.png`) })
+    await page.locator('#mass-close').click()
   }
-  await expect(page.locator('#mass-reference-sun-tooltip')).toBeVisible()
-  await page.locator('#mass-card').screenshot({ path: testInfo.outputPath('sun-tooltip-triangle.png') })
 })
 
 test('shows sourced orbit inclinations and axial tilts for all eight planets', async ({ page }, testInfo) => {
@@ -140,7 +124,7 @@ test('shows sourced orbit inclinations and axial tilts for all eight planets', a
     await expect(page.locator('[data-planet-spec="axial-inclination"] .planet-fact-value')).toHaveText(axial!)
     await expect(page.locator('[data-planet-spec="axial-inclination"] dt button')).toHaveText('Axial tilt')
     await page.locator('[data-planet-spec="orbit-inclination"] button').focus()
-    await expect(page.locator('#planet-orbit-inclination-detail-tooltip')).toContainText('ecliptic')
+    await expect(page.locator('#planet-orbit-inclination-detail-tooltip')).toContainText('tilted compared with Earth’s orbit')
     await expect(page.locator('#planet-orbit-inclination-detail-tooltip')).toBeVisible()
     if (id === 'uranus') await page.locator('#planet-card').screenshot({ path: testInfo.outputPath('planet-inclinations.png') })
     await page.locator('#planet-close').click()

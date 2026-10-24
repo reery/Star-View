@@ -106,7 +106,9 @@ test('opens one magnitude card from either row and shows readable visual scales'
   expect(band.gradient).toContain('rgba(0, 0, 0, 0)')
   expect(Number.parseFloat(band.fadeEnd)).toBeCloseTo(100 / 6, 3)
   const visibility = page.getByRole('group', { name: 'Visibility guide', exact: true })
-  await expect(visibility.getByRole('button')).toHaveCount(4)
+  await expect(visibility.getByRole('button')).toHaveCount(5)
+  await expect(visibility.getByRole('button').first()).toHaveAttribute('data-visibility', 'city')
+  await expect(visibility.getByRole('button').nth(1)).toHaveAttribute('data-visibility', 'eye')
   const absoluteScaleBefore = await page.locator('#magnitude-absolute-scale').getAttribute('aria-label')
   const brightness = await page.locator('#magnitude-absolute-scale .mass-ratio-track').evaluate((track) => getComputedStyle(track).backgroundImage)
   const luminosityBrightness = await page.locator('.luminosity-scale .mass-ratio-track').evaluate((track) => getComputedStyle(track).backgroundImage)
@@ -122,9 +124,10 @@ test('opens one magnitude card from either row and shows readable visual scales'
   })
   expect(glow).toEqual(luminosityGlow)
   expect(glow.filter).toBe('blur(5px)')
-  for (const [id, name, limit, faint] of [
-    ['binoculars', 'Binoculars', 10, 16], ['telescope', 'Telescope', 13, 16],
-    ['observatory', 'Observatory', 27, 28], ['eye', 'Naked eye', 6, 16],
+  for (const [id, name, limit, faint, fadeWidth] of [
+    ['city', 'City sky', 4.5, 16, 0.5],
+    ['binoculars', 'Binoculars', 10, 16, 2], ['telescope', 'Telescope', 13, 16, 2],
+    ['observatory', 'Observatory', 27, 28, 2], ['eye', 'Naked eye', 6, 16, 2],
   ] as const) {
     const button = visibility.getByRole('button', { name: `${name} visibility (about +${limit})`, exact: true })
     await expect(button.locator('svg')).toBeVisible()
@@ -136,6 +139,8 @@ test('opens one magnitude card from either row and shows readable visual scales'
     await expect(page.locator('#magnitude-apparent-faint')).toHaveText(`Fainter+${faint}`)
     const start = await page.locator('.magnitude-visible-band').evaluate((element) => parseFloat((element as HTMLElement).style.left))
     expect(start).toBeCloseTo((faint - limit) / (faint + 6) * 100, 3)
+    const fade = await page.locator('.magnitude-visible-band').evaluate((element) => parseFloat((element as HTMLElement).style.getPropertyValue('--magnitude-visibility-fade-end')))
+    expect(fade).toBeCloseTo(fadeWidth / (limit + 6) * 100, 3)
     const tooltipBox = (await page.locator(`#magnitude-${id}-tooltip`).boundingBox())!
     const cardBox = (await card.boundingBox())!
     expect(tooltipBox.x).toBeGreaterThanOrEqual(cardBox.x)
@@ -165,7 +170,11 @@ test('opens one magnitude card from either row and shows readable visual scales'
   await expect(card).toBeVisible()
   await page.locator('#magnitude-close').click()
   await expect(card).toBeHidden()
-  await expect(page.locator('#magnitude-toggle')).toBeFocused()
+  if (isMobile) {
+    // Touch scene interactions collapse Specs, hiding the focus-return target.
+    await expect(page.locator('#object-specs')).toBeHidden()
+    await openSpecs(page)
+  } else await expect(page.locator('#magnitude-toggle')).toBeFocused()
   await page.locator('#magnitude-toggle').press('Enter')
   await expect(card).toBeVisible()
   await page.keyboard.press('Escape')
@@ -177,6 +186,7 @@ test('opens one magnitude card from either row and shows readable visual scales'
   await expect(lock).toHaveAttribute('aria-pressed', 'false')
   await interactWithScene()
   await expect(card).toBeHidden()
+  await openSpecs(page)
   await page.locator('#magnitude-row dt span').first().click()
   await expect(card).toBeVisible()
   // Detail cards cover the inspector on a narrow screen, so use its close control first.
@@ -189,6 +199,43 @@ test('opens one magnitude card from either row and shows readable visual scales'
   await expect(page.locator('#luminosity-card')).toBeHidden()
   await expect(card).toBeVisible()
   expect(errors).toEqual([])
+})
+
+test('remembers city visibility across selections and reloads, with naked eye as the default', { tag: '@mobile' }, async ({ page }, testInfo) => {
+  const ready = async () => {
+    await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+    await openSpecs(page)
+    await page.locator('#magnitude-toggle').click()
+    await expect(page.locator('#magnitude-card')).toBeVisible()
+  }
+  await page.goto('/')
+  await ready()
+  const city = page.locator('[data-visibility="city"]')
+  const eye = page.locator('[data-visibility="eye"]')
+  await expect(eye).toHaveAttribute('aria-pressed', 'true')
+  await expect(city).toHaveAttribute('aria-pressed', 'false')
+  const apparent = await page.locator('#magnitude-apparent-value').textContent()
+  const absolute = await page.locator('#magnitude-absolute-scale').getAttribute('aria-label')
+  await city.click()
+  await expect(city).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.locator('#magnitude-apparent-scale')).toHaveAttribute('aria-label', /fading between \+4 and \+4.5/)
+  await expect(page.locator('#magnitude-apparent-value')).toHaveText(apparent!)
+  await expect(page.locator('#magnitude-absolute-scale')).toHaveAttribute('aria-label', absolute!)
+  expect(await page.evaluate(() => localStorage.getItem('star-view-magnitude-city'))).toBe('true')
+  // Move focus off the tooltip for an unobstructed visual reference.
+  await page.locator('#magnitude-apparent-value').click()
+  await page.locator('#magnitude-card').screenshot({ path: testInfo.outputPath('magnitude-city.png') })
+  await select(page, 'Sun')
+  await page.locator('#magnitude-toggle').click()
+  await expect(city).toHaveAttribute('aria-pressed', 'true')
+  await page.reload()
+  await ready()
+  await expect(city).toHaveAttribute('aria-pressed', 'true')
+  await eye.click()
+  expect(await page.evaluate(() => localStorage.getItem('star-view-magnitude-city'))).toBe('false')
+  await page.reload()
+  await ready()
+  await expect(eye).toHaveAttribute('aria-pressed', 'true')
 })
 
 test('compares a non-Sun origin, merges identical roles and follows selection and color settings', async ({ page }, testInfo) => {

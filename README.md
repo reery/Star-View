@@ -1,14 +1,23 @@
-<img src="starview_v11.png" alt="Star View v0.5 screenshot" width="800">
+<img src="starview_v11.png" alt="Star View v0.6 screenshot" width="800">
 
 # Star View
 
 A 3D map of nearby stars, brown dwarfs and compact remnants that runs in the browser. It starts Sun-centered and lets any object become the active origin. Built with TypeScript, Three.js and Vite. All data, fonts and icons are bundled, so it runs without a backend or network access.
 
+Main focus of this app is:
+- Exploration
+- Evoking questions
+- Investigation
+- Gaining understanding
+
+Every added feature should answer this question:
+Does this feature help the user notice something, formulate a question, investigate it, or understand what they've discovered?
+
 This project is still in active development and there are a lot of features to come.
 
 ## Features
 
-- Four bundled stellar catalogs: **Nearest neighbors** (21 objects plus the Sun, default), **Nearest 100**, **Nearest 1000**, and magnitude-limited **Bright stars** within 3000 light-years
+- Three bundled stellar catalogs: **Nearest neighbors** (21 objects plus the Sun, default), **Nearest 100** and **Nearest 1000**, plus the optional **Western constellation stars** overlay with all constellation figure stars, cluster landmarks and the former bright-star landmarks
 - Optional, separately loaded compact-remnant overlay: 266 ATNF pulsars, Gaia NS1, Gaia BH1 and Gaia BH3 within 3000 light-years; all three type filters start off
 - Optional extended-object overlays for 65 voxel-mapped nearby molecular clouds, nearby nebulae and a translucent Local Bubble shell downsampled from a published 3D dust surface
 - Orbit, zoom and pan with mouse or touch; selecting an object centers it
@@ -35,16 +44,18 @@ Open the local URL printed by Vite.
 | Command | Purpose |
 | --- | --- |
 | `npm run dev` | Start the development server |
+| `npm run dev:manual` | Start development with manual browser refreshes |
 | `npm run build` | Validate catalogs, type-check and build into `dist/` |
 | `npm run preview` | Serve the production build |
 | `npm run typecheck` | Type-check without building |
+| `npm run typecheck:watch` | Continuously type-check while developing |
 | `npm run test` | Run unit tests (Vitest) |
 | `npm run test:e2e` | Build, then run desktop and mobile browser tests (Playwright) |
 | `npm run catalog:validate` | Validate all bundled catalogs |
 
 Before the first browser test run, install Chromium with `npx playwright install chromium`, or use installed Chrome via `PLAYWRIGHT_CHANNEL=chrome npm run test:e2e`.
 
-`dist/` is a static site. When hosting it, configure the compression and caching headers described in [Development](docs/development.md#build-and-hosting).
+`dist/` is a static site, deployed as Cloudflare Workers static assets. Builds generate its Cloudflare `_headers` and `.assetsignore`; other hosts need the compression and caching headers described in [Development](docs/development.md#build-and-hosting).
 
 ## Controls
 

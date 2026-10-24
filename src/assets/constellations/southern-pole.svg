@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 480" role="img" aria-labelledby="title desc">
+  <title id="title">Finding the south celestial pole</title>
+  <desc id="desc">Extending the long bar of the Southern Cross, and the perpendicular through the middle of the Pointers Alpha Centauri and Hadar, leads to the south celestial pole. The dark Coalsack lies beside the Cross. Positions are projected from catalogue coordinates, north up and east left.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ffba68"/></marker></defs>
+  <rect width="840" height="480" fill="#101112"/>
+  <g font-family="system-ui, sans-serif">
+    <path d="M501.2 60.0L492.7 129.0" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M471.9 86.0L520.2 84.0" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M492.7 129.0L457.6 414.0" stroke="#ffba68" stroke-width="2.5" stroke-dasharray="9 8" marker-end="url(#arrow)" fill="none"/>
+    <path d="M319.8 113.0L366.1 96.2" stroke="#77736e" stroke-width="2" fill="none"/>
+    <path d="M343.0 104.6L423.0 407.4" stroke="#ffba68" stroke-width="2.5" stroke-dasharray="9 8" marker-end="url(#arrow)" fill="none"/>
+    <ellipse cx="471.7" cy="121.8" rx="30" ry="22" fill="#000" stroke="#77736e" stroke-dasharray="3 5"/>
+    <circle cx="520.2" cy="84.0" r="4.8" fill="#ded8ce"/>
+    <circle cx="492.7" cy="129.0" r="8.2" fill="#ded8ce"/>
+    <circle cx="501.2" cy="60.0" r="6.8" fill="#ded8ce"/>
+    <circle cx="471.9" cy="86.0" r="7.4" fill="#ded8ce"/>
+    <circle cx="319.8" cy="113.0" r="9.7" fill="#f6e8b8"/>
+    <circle cx="366.1" cy="96.2" r="8.5" fill="#8da9d6"/>
+    <circle cx="426.3" cy="420.0" r="12" fill="none" stroke="#ffba68" stroke-width="2.5"/>
+    <text x="506.7" y="143.0" text-anchor="start" fill="#ded8ce" font-size="24">Acrux</text>
+    <text x="515.2" y="54.0" text-anchor="start" fill="#ded8ce" font-size="24">Gacrux</text>
+    <text x="319.8" y="151.0" text-anchor="middle" fill="#ded8ce" font-size="24">Alpha Centauri</text>
+    <text x="366.1" y="76.2" text-anchor="middle" fill="#ded8ce" font-size="24">Hadar</text>
+    <text x="426.3" y="460.0" text-anchor="middle" fill="#ded8ce" font-size="24">South celestial pole</text>
+    <text x="471.7" y="167.8" text-anchor="middle" fill="#a5a29e" font-size="20">Coalsack</text>
+  </g>
+</svg>

@@ -1,0 +1,1 @@
+SELECT t.original_ext_source_id,g.*,p.* FROM gaiadr3.tmass_psc_xsc_best_neighbour t JOIN gaiadr3.gaia_source g ON g.source_id=t.source_id LEFT JOIN gaiadr3.astrophysical_parameters p ON p.source_id=g.source_id WHERE t.original_ext_source_id='12350326+2237254'

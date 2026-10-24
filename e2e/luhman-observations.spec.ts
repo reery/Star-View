@@ -9,8 +9,8 @@ test('shows resolved Luhman 16 magnitudes and epoch-scoped radial velocities', a
   await openSpecs(page)
   await page.getByText('Coordinates & source', { exact: true }).click()
   for (const [component, apparent, absolute, rv] of [
-    ['a', '23.25 ± 0.1', '26.749', '16.7 ± 0.3 km/s'],
-    ['b', '24.07 ± 0.1', '27.569', '20.4 ± 0.4 km/s'],
+    ['a', '23.25 ± 0.1', '26.75', '16.7 ± 0.3 km/s'],
+    ['b', '24.07 ± 0.1', '27.57', '20.4 ± 0.4 km/s'],
   ]) {
     await page.locator(`#star-components [data-component-id="luhman-16-${component}"]`).click()
     await expect(page.locator('#apparent-mag')).toHaveText(apparent!)

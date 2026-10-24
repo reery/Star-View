@@ -2,7 +2,7 @@ import type { CatalogSource, Star } from './catalog-model.ts'
 
 /** Individual measurements always win. The retained source is display-only. */
 export function catalogSourceFor(star: Star, field: keyof CatalogSource['record']): CatalogSource | undefined {
-  if (star[field] != null) return undefined
+  if (star[field] != null || star.withheld_source_fields?.includes(field)) return undefined
   return star.catalog_sources?.find((source) => source.record[field] != null)
 }
 

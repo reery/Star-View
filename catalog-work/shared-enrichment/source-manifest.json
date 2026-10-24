@@ -18,7 +18,7 @@
     "catalog-work/landmark-stars/sed.csv": "19b6662da85caf0ec75c57e6ba0b862d321fdc441dfcafc8bc9a56cab712e5ea",
     "catalog-work/landmark-stars/gaia.csv": "851bbf5865d45987d14cdda74691fd8b1b291e0af6353a8096bdb1524ef35d72",
     "catalog-work/nearest-100/source-input.json": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
-    "catalog-work/nearest-100/physical-overrides.json": "21125920c7039be1394dda156d0b8c6db962f98b03c86b7a3f602e893e3f5872",
+    "catalog-work/nearest-100/physical-overrides.json": "9bbfe6982d5fad43b205a5cbf36fc9bb3ac967d285959292cc544abd3f1bd297",
     "catalog-work/shared-enrichment/reviewed-physical.json": "2dcb63be0f2c010af2d48a3e85fdb70616503aac0c5f2dc2fa9a6dcf67467353",
     "catalog-work/shared-enrichment/literature/fundamental.adql": "8127e71c93bc01fbc3ebc6de69bb2399d0d8a7dd38af1de099323e6e384d2048",
     "catalog-work/shared-enrichment/literature/fundamental.csv": "87e9d805d41c01526cf5501b8520b2dba4f34ea825b80acddc2de4ff04e988a4",
@@ -27,7 +27,7 @@
     "catalog-work/shared-enrichment/literature/source-manifest.json": "6f2a78d2688ee3dc8108d1e9a2dcd9c710fddf79a8248227174ab750eacd0b26",
     "catalog-work/shared-enrichment/literature/spectroscopy.adql": "c75754a01ac2ba2c142ab399ed628e25ff9f9d5613429af4633ea4a5cd9b62b8",
     "catalog-work/shared-enrichment/literature/spectroscopy.csv": "85da8f4ab1bef2d73d791b9a72a804fe69173ac3ac84772ddda926759a4afc0e",
-    "catalog-work/shared-enrichment/reviewed-objects.json": "8a84ed2e2c7ec7639d762f0129f3372c04d8aed9698ae34458ce00c20aa8d15a",
+    "catalog-work/shared-enrichment/reviewed-objects.json": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
     "catalog-work/shared-enrichment/reviewed-ultracool.json": "540681df4cd2ea0390f3b73fcf4e0a91de90c0df7329fbb4493b6f940a7b5de9",
     "catalog-work/shared-enrichment/ultracool/source-manifest.json": "233e2e3b90041608423ffad8e356eb78950e69e7eec5f8a608eec396d668ed8b",
     "catalog-work/shared-enrichment/hot-star-temperature-review.json": "281b229abf68b70eae174ae1dc17dd7deee2487f4662a29e26eedda2327017d5",
@@ -35,7 +35,22 @@
     "catalog-work/shared-enrichment/kruger-60-review.json": "6d7565088750c4564714401d0adc6d986075c36c200df7d97d339127ef6b785b",
     "catalog-work/shared-enrichment/kruger-60-bioverse.tsv": "da55282c822e545fb9f57c4dab79dcb27fda7fdfa6f1bfa8d36d58f149cc8c6c",
     "catalog-work/shared-enrichment/delta-pav-review.json": "111e346d2dd2a5f9806ffa63068b03286bdec444682665a84e1c7d6a415a72c4",
-    "catalog-work/shared-enrichment/delta-pav-2025-table1.txt": "610b4c09dfbf6876eb1ffdb90822f3693e47567f6650215d37d7104e4e5145c9"
+    "catalog-work/shared-enrichment/delta-pav-2025-table1.txt": "610b4c09dfbf6876eb1ffdb90822f3693e47567f6650215d37d7104e4e5145c9",
+    "catalog-work/shared-enrichment/van-maanen-review.json": "7171f3e3c10ba2ae48091429e19b25bb8010ff273baea94aac1c60623ab73fd3",
+    "catalog-work/shared-enrichment/cold-brown-dwarfs-review.json": "ebe17a6e6d187da64da73eb1a3a69a219e5d68c141fec8399927107e7cd40875",
+    "src/data/stellar-observations.json": "18240a8440404652cc6db3ecd603c38e34b8b7a8f90a95fbe8cbfaa2ab9e4823",
+    "catalog-work/shared-enrichment/compact-system-review.json": "34726db884d6177f740a13c7fe679252596ce1468edcd558214652678af14928",
+    "catalog-work/shared-enrichment/ez-aquarii-review.json": "4172cc74ae09294905167e1835f644ac99b68030742ec6c7eb2c23e9e016eba0",
+    "catalog-work/shared-enrichment/nearby-gaps-review.json": "68ceac86656629eb07de06853b1d7dff0ce6399188fc7b44414f15b99003a8f3",
+    "catalog-work/bright-stars/gap-physical-review.json": "aefb6c8ecc9b324d0f68abe664ae32e5179fbc06d78e4273ec6c19d41b0e2d13",
+    "catalog-work/bright-stars/gap-motion-review.json": "30b852b317927f0a2ed13cb82d28f3de17ea67569d44f26637bb2f9b128b1685",
+    "catalog-work/famous-cluster-stars/physical-review.json": "f00056a5081fc59a3393ff62626cace1d4e5f049177efe057f89a7e372eb48aa",
+    "catalog-work/famous-cluster-stars/astrometry-review.json": "4e6009a83a86c8cf7993381c50ac20887f448f30471b26f01e12b9d09176f117",
+    "catalog-work/famous-cluster-stars/motion-review.json": "64548a4c015a186b47c8e269352fe8efa7a375537726e23f0f2527095edd0334",
+    "catalog-work/shared-enrichment/reviewed-white-dwarfs.json": "a5949a4d5e9641b09e9e0e00d549b5db4be83c186240c0ea8ac1ebb6c36c7128",
+    "catalog-work/shared-enrichment/white-dwarfs/source-manifest.json": "d453134bb9ddb9dbf3401d3f6eaf651ce09a4fd7fdac0b92a7de078180d1870f",
+    "catalog-work/bright-western-enrichment-20261021/physical-review.json": "c23c2b4057e0c6e559acfb5230307719b75185ee272414026939d71aefe605cd",
+    "catalog-work/bright-western-enrichment-20261021/source-manifest.json": "e4c8b0b4c42568e768167fc146e2ac45db4fa47cc781ebad2887e0da77127fdc"
   },
   "sources": [
     {
@@ -107,7 +122,7 @@
       "url": "https://arxiv.org/html/2404.08746v1"
     },
     {
-      "name": "Neuhäuser et al. 2022, alternative Betelgeuse initial MIST track and model age (context, not adopted)",
+      "name": "Neuh\u00e4user et al. 2022, alternative Betelgeuse initial MIST track and model age (context, not adopted)",
       "url": "https://arxiv.org/abs/2207.04702"
     },
     {
@@ -115,7 +130,7 @@
       "url": "https://arxiv.org/abs/2006.09837"
     },
     {
-      "name": "Montargès et al. 2026, Betelgeuse A current mass and model age ranges adopted in companion analysis",
+      "name": "Montarg\u00e8s et al. 2026, Betelgeuse A current mass and model age ranges adopted in companion analysis",
       "url": "https://www.eso.org/public/archives/releases/sciencepapers/eso2611/eso2611a.pdf"
     },
     {
@@ -201,6 +216,335 @@
     {
       "name": "Rains et al. 2020, Delta Pav VLTI/PIONIER radius and bolometric temperature/luminosity, Table 4 HD 190248",
       "url": "https://arxiv.org/abs/2004.02343"
+    },
+    {
+      "name": "Giammichele et al. 2012, Table 2, van Maanen 2 atmospheric and physical parameters",
+      "url": "https://arxiv.org/abs/1202.5581"
+    },
+    {
+      "name": "Burleigh et al. 2008, van Maanen 2 progenitor and total evolutionary age",
+      "url": "https://arxiv.org/abs/0801.2917"
+    },
+    {
+      "name": "Lindegren & Dravins 2021, Table 1, van Maanen 2 astrometric radial velocity",
+      "url": "https://arxiv.org/abs/2105.09014"
+    },
+    {
+      "name": "Hood et al. 2023, UGPS J0722 preferred FIRE radial velocity; unphysical retrieval radius withheld",
+      "url": "https://arxiv.org/abs/2303.04885"
+    },
+    {
+      "name": "Bochanski et al. 2011, UGPS J0722 earlier radial velocity retained as non-adopted source",
+      "url": "https://arxiv.org/abs/1109.2897"
+    },
+    {
+      "name": "Dupuy & Kraus 2013, UGPS J0722 bolometric luminosity and age-conditioned evolutionary scenarios, Table S5",
+      "url": "https://arxiv.org/abs/1309.1422"
+    },
+    {
+      "name": "Fontanive et al. 2023, WISE J1639 HST photometry and ATMO 2020 estimates, Table 3 and section 3.2",
+      "url": "https://arxiv.org/abs/2309.09923"
+    },
+    {
+      "name": "Albert et al. 2025, exact-coordinate-identified JWST infrared photometry, Tables 2 and 4",
+      "url": "https://arxiv.org/abs/2501.14100"
+    },
+    {
+      "name": "Kervella et al. 2016, GJ 65 systemic radial velocity and system proper motion",
+      "url": "https://arxiv.org/html/1607.04351"
+    },
+    {
+      "name": "Chevalier et al. 2023, resolved Wolf 424 dynamical masses, Table 3",
+      "url": "https://arxiv.org/html/2307.16719"
+    },
+    {
+      "name": "Benedict et al. 2016, resolved Ross 614 masses, photometry and fitted systemic RV",
+      "url": "https://www.astro.gsu.edu/RECONS/published37.pdf"
+    },
+    {
+      "name": "Dieterich et al. 2021, resolved GJ 1245 A/C dynamical masses and atmospheric fits",
+      "url": "https://www.astro.gsu.edu/RECONS/published47.pdf"
+    },
+    {
+      "name": "Cifuentes et al. 2025, exact resolved GJ 1245 B estimates, Table A.1",
+      "url": "https://arxiv.org/html/2412.12264"
+    },
+    {
+      "name": "Morin et al. 2010, GJ 1245 B radial velocity",
+      "url": "https://academic.oup.com/mnras/article/407/4/2269/999815"
+    },
+    {
+      "name": "Torres et al. 1999, resolved Wolf 424 Johnson V photometry, Table 4",
+      "url": "https://www.as.utexas.edu/~fritz/astrometry/Papers_in_pdf/%7BTor99%7DWolf424.pdf"
+    },
+    {
+      "name": "Segransan et al. 2000, EZ Aquarii individual dynamical masses, Table 3",
+      "url": "https://arxiv.org/abs/astro-ph/0010585"
+    },
+    {
+      "name": "Delfosse et al. 2000, EZ Aquarii component V photometry and B infrared magnitudes, Tables 1-3",
+      "url": "https://arxiv.org/abs/astro-ph/0010586"
+    },
+    {
+      "name": "Torres et al. 2010, EZ Aquarii approximate component luminosities and indirect B estimates, Table 5",
+      "url": "https://arxiv.org/abs/0908.2624"
+    },
+    {
+      "name": "Gonzalez-Payo et al. 2026, EZ Aquarii A/Aa, C/Ab and B spectral classifications, Table 4",
+      "url": "https://arxiv.org/html/2605.04094v1"
+    },
+    {
+      "name": "Casagrande et al. 2008, unresolved LHS 68 temperature and explicit triple-system caveat, section 7.2",
+      "url": "https://arxiv.org/abs/0806.2471"
+    },
+    {
+      "name": "Taylor et al. 2024, unresolved EZ Aqr photometric atmospheric/model estimates, Table 3",
+      "url": "https://arxiv.org/html/2402.00934v1"
+    },
+    {
+      "name": "RECONS 100 nearest star systems, GJ 412 A/B individual rows",
+      "url": "https://chara.gsu.edu/~thenry/RECONS/TOP100.posted.htm"
+    },
+    {
+      "name": "Burt et al. 2014, Table 1 and section 2",
+      "url": "https://arxiv.org/pdf/1405.2929"
+    },
+    {
+      "name": "Lindgren & Heiter 2017, Tables 1-3 and 5, sections 3.2.2 and 4.2",
+      "url": "https://arxiv.org/pdf/1705.08785"
+    },
+    {
+      "name": "Bright-star gap review: 2026 TESS seismic masses",
+      "url": "https://academic.oup.com/mnras/article/547/4/stag413/8502134"
+    },
+    {
+      "name": "Baines et al. 2025 NPOI radii",
+      "url": "https://arxiv.org/html/2506.02912"
+    },
+    {
+      "name": "2025A&A...703A.128B",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/703/A128"
+    },
+    {
+      "name": "2018A&A...616A..33S",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/"
+    },
+    {
+      "name": "2021A&A...654A..19D",
+      "url": "https://arxiv.org/html/2109.07153"
+    },
+    {
+      "name": "2008A&A...479..849S",
+      "url": "https://arxiv.org/abs/0712.0040"
+    },
+    {
+      "name": "2022NatAs...6..154C",
+      "url": "https://arxiv.org/abs/2205.11679"
+    },
+    {
+      "name": "2009ApJ...701..209Z",
+      "url": "https://arxiv.org/html/0906.2241"
+    },
+    {
+      "name": "Shull et al. 2025; arXiv:2508.03800",
+      "url": "https://arxiv.org/html/2508.03800"
+    },
+    {
+      "name": "Che et al. 2011, as adopted by Zwintz et al. 2020; arXiv:2009.04784",
+      "url": "https://arxiv.org/html/2009.04784"
+    },
+    {
+      "name": "2020ApJ...890...86S",
+      "url": "https://arxiv.org/abs/2001.04966"
+    },
+    {
+      "name": "arXiv:2404.14504",
+      "url": "https://arxiv.org/abs/2404.14504"
+    },
+    {
+      "name": "2013ApJ...766..119M",
+      "url": "https://arxiv.org/abs/1302.4021"
+    },
+    {
+      "name": "2022A&A...667A.111K",
+      "url": "https://arxiv.org/abs/2209.07537"
+    },
+    {
+      "name": "2013A&A...559L...4R",
+      "url": "https://www.aanda.org/articles/aa/pdf/2013/11/aa22515-13.pdf"
+    },
+    {
+      "name": "2021ApJ...921...41G",
+      "url": "https://arxiv.org/abs/2107.02844"
+    },
+    {
+      "name": "2018ApJ...855....1G",
+      "url": "https://arxiv.org/abs/1802.00468"
+    },
+    {
+      "name": "2022A&A...658A..92P",
+      "url": "https://arxiv.org/abs/2111.03887"
+    },
+    {
+      "name": "2007A&A...467.1215S",
+      "url": "https://arxiv.org/abs/astro-ph/0703634"
+    },
+    {
+      "name": "2020MNRAS.492.2709P",
+      "url": "https://doi.org/10.1093/mnras/stz3616"
+    },
+    {
+      "name": "2020MNRAS.492.5794B",
+      "url": "https://doi.org/10.1093/mnras/stz3637"
+    },
+    {
+      "name": "2005ApJ...632..659K",
+      "url": "https://arxiv.org/abs/astro-ph/0506434"
+    },
+    {
+      "name": "arXiv:1709.00478",
+      "url": "https://arxiv.org/pdf/1709.00478"
+    },
+    {
+      "name": "2025AJ....170...52G",
+      "url": "https://arxiv.org/html/2505.12563v1"
+    },
+    {
+      "name": "2025A&A...693A.228C",
+      "url": "https://arxiv.org/html/2412.12264v1"
+    },
+    {
+      "name": "Torres et al. 2022; arXiv:2210.16322",
+      "url": "https://arxiv.org/html/2210.16322"
+    },
+    {
+      "name": "Evans et al. 2024; arXiv:2407.09641",
+      "url": "https://arxiv.org/html/2407.09641"
+    },
+    {
+      "name": "2015MNRAS.451.4150K",
+      "url": "https://arxiv.org/abs/1506.01254"
+    },
+    {
+      "name": "2013A&A...555A..24O",
+      "url": "https://arxiv.org/abs/1304.4800"
+    },
+    {
+      "name": "Shull et al. 2025; arXiv:2412.06919",
+      "url": "https://arxiv.org/html/2412.06919"
+    },
+    {
+      "name": "Arroyo-Torres et al. 2014; arXiv:1404.7384",
+      "url": "https://arxiv.org/html/1404.7384"
+    },
+    {
+      "name": "Reviewed exact-object Famous cluster star parameters, component identities, preferred Phyllon Kissinou C astrometry and scoped orbital systemic velocities (2026-10-19)",
+      "url": "https://gea.esac.esa.int/archive/",
+      "review": "catalog-work/famous-cluster-stars/physical-review.json"
+    },
+    {
+      "name": "O'Brien et al. 2024, The 40 pc sample of white dwarfs from Gaia (Table A1), MNRAS 527, 8687",
+      "url": "https://arxiv.org/abs/2312.02735"
+    },
+    {
+      "name": "Farihi et al. 2013, Gliese 86B DQ white dwarf parameters, MNRAS 430, 652",
+      "url": "https://arxiv.org/abs/1212.5601"
+    },
+    {
+      "name": "2008AJ....135..209M; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/135/209/"
+    },
+    {
+      "name": "2018A&A...616A..33S; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/"
+    },
+    {
+      "name": "2010AN....331..349H; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/AN/331/349/"
+    },
+    {
+      "name": "2011MNRAS.410..190T; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/410/190/"
+    },
+    {
+      "name": "2018AJ....155...30B; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/155/30/"
+    },
+    {
+      "name": "2025AJ....169..293B; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/169/293/"
+    },
+    {
+      "name": "2020A&A...633A..34C; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/633/A34/"
+    },
+    {
+      "name": "2012A&A...537A.120Z; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/537/A120/"
+    },
+    {
+      "name": "2015ApJ...804..146D; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/804/146/"
+    },
+    {
+      "name": "2015A&A...580A..24D; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/580/A24/"
+    },
+    {
+      "name": "2015AJ....150...88L; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/AJ/150/88/"
+    },
+    {
+      "name": "2019A&A...624A..35K; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://arxiv.org/html/1902.07531"
+    },
+    {
+      "name": "2017MNRAS.468.3533E; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://arxiv.org/html/1611.05041"
+    },
+    {
+      "name": "2023A&A...672A..31O; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://arxiv.org/html/2301.10290"
+    },
+    {
+      "name": "2025 arXiv:2509.01577; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://arxiv.org/html/2509.01577"
+    },
+    {
+      "name": "2013A&A...554A..52H; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://arxiv.org/html/1306.0330"
+    },
+    {
+      "name": "Rudrasingam et al. 2026, arXiv:2609.25343; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://arxiv.org/html/2609.25343"
+    },
+    {
+      "name": "2024AstBu..79..445D; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://arxiv.org/html/2409.15063"
+    },
+    {
+      "name": "2010A&ARv..18...67T; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://arxiv.org/html/0908.2624"
+    },
+    {
+      "name": "2005AJ....130.2866M; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://arxiv.org/html/astro-ph/0507585"
+    },
+    {
+      "name": "Cheng et al. 2025; 2025Natur.641..853C; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://www.nature.com/articles/s41586-025-09006-x"
+    },
+    {
+      "name": "2011A&A...532A..50M; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://arxiv.org/html/1106.2383"
+    },
+    {
+      "name": "2004A&A...413..711W; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://arxiv.org/html/astro-ph/0310128"
+    },
+    {
+      "name": "2004A&A...421..703W; reviewed missing-field additions for the frozen 151 bright/Western targets (2026-10-21)",
+      "url": "https://arxiv.org/html/astro-ph/0404248"
     }
   ]
 }

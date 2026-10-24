@@ -1,0 +1,616 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "policy": "Only explicitly identified orbital systemic solutions or a measured wide-companion proxy are adopted. A single spectroscopic component velocity, zero placeholder, minimum mass, or unrelated cluster mean cannot supply an unknown system velocity. Native wide companions remain independent. All proxies are labelled System bulk motion and keep their donor/formal-error scope.",
+  "retainedCatalogId": "cluster-motion-before-20261019",
+  "inputSha256": {
+    "catalog-work/famous-cluster-stars/literature/reviewed-selected-tables.json": "db4c9ecfc59a78adc4ca0405e4aa4fd613fa5634fe1c1bb0588c493d5adfa929",
+    "catalog-work/famous-cluster-stars/literature/phyllon-c-gaia-dr3.json": "8e56e7cf1f0a6456530b7bc0ad41c67079336769d6c7f7e06277cd08b7f58446",
+    "catalog-work/star-systems/catalog-companions-msc.json": "b81210724ff9914c3c286c5971155df5bf20613252baaa9472eee085f0cd0f41"
+  },
+  "systems": [
+    {
+      "systemId": "msc-04287+1552",
+      "expectedName": "Theta1 Tau",
+      "expectedComponents": {
+        "hip-20885": "Ba",
+        "msc-04287+1552-bb": "Bb"
+      },
+      "primaryStarId": "hip-20885",
+      "expectedInputs": {
+        "hip-20885": {
+          "raw_astrometry": {
+            "ra_deg": 67.143717,
+            "dec_deg": 15.962301,
+            "epoch": 2000,
+            "parallax_mas": 21.42,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": 111.3,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": -62.2,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        },
+        "msc-04287+1552-bb": {
+          "raw_astrometry": {
+            "ra_deg": 67.143717,
+            "dec_deg": 15.962301,
+            "epoch": 2000,
+            "parallax_mas": 21.42,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": 111.3,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": -62.2,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        }
+      },
+      "excludedComponents": {},
+      "motionInputs": {
+        "ra_deg": 67.143717,
+        "dec_deg": 15.962301,
+        "epoch": 2000,
+        "parallax_mas": 21.42,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": 111.3,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": -62.2,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+        "radial_velocity_ref": null
+      },
+      "radialVelocity": {
+        "valueKms": 39.29,
+        "uncertaintyKms": null,
+        "status": "published-systemic",
+        "reference": "2008AJ....135..209M; MSC SB9_2601 orbit",
+        "sourceUrl": "https://doi.org/10.1088/0004-6256/135/1/209",
+        "scope": "MSC exact Ba,Bb spectroscopic solution (6091 d). Formal systemic uncertainty is absent from the frozen MSC row and remains null."
+      },
+      "scope": "MSC exact Ba,Bb spectroscopic solution (6091 d). Formal systemic uncertainty is absent from the frozen MSC row and remains null. Common Galactic vector is a linear propagation approximation; individual orbital velocities and phases remain unmodelled."
+    },
+    {
+      "systemId": "msc-05353-0524",
+      "expectedName": "Theta1 Orionis",
+      "expectedComponents": {
+        "trapezium-theta1-orionis-a": "Aa1",
+        "msc-05353-0524-aa2": "Aa2",
+        "msc-05353-0524-ab": "Ab"
+      },
+      "primaryStarId": "trapezium-theta1-orionis-a",
+      "expectedInputs": {
+        "trapezium-theta1-orionis-a": {
+          "raw_astrometry": {
+            "ra_deg": 83.815939,
+            "dec_deg": -5.387315,
+            "epoch": 2000,
+            "parallax_mas": 2.48,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": 1.5,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 1.0,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        },
+        "msc-05353-0524-aa2": {
+          "raw_astrometry": {
+            "ra_deg": 83.815939,
+            "dec_deg": -5.387315,
+            "epoch": 2000,
+            "parallax_mas": 2.48,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": 1.5,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 1.0,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        }
+      },
+      "excludedComponents": {
+        "msc-05353-0524-ab": "Outside the identified inner spectroscopic subsystem, or an independently measured wide component; no shared inner-subsystem RV assigned."
+      },
+      "motionInputs": {
+        "ra_deg": 83.815939,
+        "dec_deg": -5.387315,
+        "epoch": 2000,
+        "parallax_mas": 2.48,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": 1.5,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": 1.0,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+        "radial_velocity_ref": null
+      },
+      "radialVelocity": {
+        "valueKms": 28.01,
+        "uncertaintyKms": null,
+        "status": "published-subsystem-proxy",
+        "reference": "2000Obs...120..141S; MSC SB9_340",
+        "sourceUrl": "https://ui.adsabs.harvard.edu/abs/2000Obs...120..141S",
+        "scope": "Exact 65.43-day eclipsing Aa1,Aa2 pair; outer Ab is excluded. This is the close subsystem barycentre, not a solved global triple velocity."
+      },
+      "scope": "Exact 65.43-day eclipsing Aa1,Aa2 pair; outer Ab is excluded. This is the close subsystem barycentre, not a solved global triple velocity. Common Galactic vector is a linear propagation approximation; individual orbital velocities and phases remain unmodelled."
+    },
+    {
+      "systemId": "msc-08400-5303",
+      "expectedName": "HD 74146",
+      "expectedComponents": {
+        "hip-42504": "Aa",
+        "msc-08400-5303-ab": "Ab",
+        "msc-08400-5303-b": "B"
+      },
+      "primaryStarId": "hip-42504",
+      "expectedInputs": {
+        "hip-42504": {
+          "raw_astrometry": {
+            "ra_deg": 129.989994,
+            "dec_deg": -53.054727,
+            "epoch": 2000,
+            "parallax_mas": 6.56,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -24.8,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 23.4,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        },
+        "msc-08400-5303-ab": {
+          "raw_astrometry": {
+            "ra_deg": 129.989994,
+            "dec_deg": -53.054727,
+            "epoch": 2000,
+            "parallax_mas": 6.56,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -24.8,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 23.4,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        }
+      },
+      "excludedComponents": {
+        "msc-08400-5303-b": "Outside the identified inner spectroscopic subsystem, or an independently measured wide component; no shared inner-subsystem RV assigned."
+      },
+      "motionInputs": {
+        "ra_deg": 129.989994,
+        "dec_deg": -53.054727,
+        "epoch": 2000,
+        "parallax_mas": 6.56,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": -24.8,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": 23.4,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+        "radial_velocity_ref": null
+      },
+      "radialVelocity": {
+        "valueKms": 14.5,
+        "uncertaintyKms": null,
+        "status": "published-subsystem-proxy",
+        "reference": "1988Ap&SS.146..361L; MSC SB9_1782",
+        "sourceUrl": "https://ui.adsabs.harvard.edu/abs/1988Ap%26SS.146..361L",
+        "scope": "Exact 3.1923-day Aa,Ab spectroscopic solution. The SIMBAD primary value -43.93 km/s is not the systemic solution and is not propagated to companions. Outer B remains independent."
+      },
+      "scope": "Exact 3.1923-day Aa,Ab spectroscopic solution. The SIMBAD primary value -43.93 km/s is not the systemic solution and is not propagated to companions. Outer B remains independent. Common Galactic vector is a linear propagation approximation; individual orbital velocities and phases remain unmodelled."
+    },
+    {
+      "systemId": "msc-08424-5307",
+      "expectedName": "HD 74560",
+      "expectedComponents": {
+        "hip-42726": "Aa",
+        "msc-08424-5307-ab": "Ab",
+        "hip-42715": "B",
+        "msc-08424-5307-c": "C"
+      },
+      "primaryStarId": "hip-42726",
+      "expectedInputs": {
+        "hip-42726": {
+          "raw_astrometry": {
+            "ra_deg": 130.605778,
+            "dec_deg": -53.113984,
+            "epoch": 2000,
+            "parallax_mas": 6.65,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -24.5,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 23.5,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        },
+        "msc-08424-5307-ab": {
+          "raw_astrometry": {
+            "ra_deg": 130.605778,
+            "dec_deg": -53.113984,
+            "epoch": 2000,
+            "parallax_mas": 6.65,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -24.5,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 23.5,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        }
+      },
+      "excludedComponents": {
+        "hip-42715": "Outside the identified inner spectroscopic subsystem, or an independently measured wide component; no shared inner-subsystem RV assigned.",
+        "msc-08424-5307-c": "Outside the identified inner spectroscopic subsystem, or an independently measured wide component; no shared inner-subsystem RV assigned."
+      },
+      "motionInputs": {
+        "ra_deg": 130.605778,
+        "dec_deg": -53.113984,
+        "epoch": 2000,
+        "parallax_mas": 6.65,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": -24.5,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": 23.5,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+        "radial_velocity_ref": null
+      },
+      "radialVelocity": {
+        "valueKms": 15.6,
+        "uncertaintyKms": null,
+        "status": "published-subsystem-proxy",
+        "reference": "2000A&A...355.1015D; MSC SB9_2017",
+        "sourceUrl": "https://ui.adsabs.harvard.edu/abs/2000A%26A...355.1015D",
+        "scope": "Exact 8.378-day Aa,Ab spectroscopic solution. Wide BC subsystem excluded; its component observations are not replaced by Aa,Ab gamma."
+      },
+      "scope": "Exact 8.378-day Aa,Ab spectroscopic solution. Wide BC subsystem excluded; its component observations are not replaced by Aa,Ab gamma. Common Galactic vector is a linear propagation approximation; individual orbital velocities and phases remain unmodelled."
+    },
+    {
+      "systemId": "msc-10465-6416",
+      "expectedName": "HD 93549",
+      "expectedComponents": {
+        "hip-52701": "Aa",
+        "msc-10465-6416-ab": "Ab",
+        "msc-10465-6416-b": "B",
+        "msc-10465-6416-c": "C"
+      },
+      "primaryStarId": "hip-52701",
+      "expectedInputs": {
+        "hip-52701": {
+          "raw_astrometry": {
+            "ra_deg": 161.623284,
+            "dec_deg": -64.263237,
+            "epoch": 2000,
+            "parallax_mas": 6.69,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -17.7,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 10.0,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        },
+        "msc-10465-6416-ab": {
+          "raw_astrometry": {
+            "ra_deg": 161.623284,
+            "dec_deg": -64.263237,
+            "epoch": 2000,
+            "parallax_mas": 6.69,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -17.7,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 10.0,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        }
+      },
+      "excludedComponents": {
+        "msc-10465-6416-b": "Outside the identified inner spectroscopic subsystem, or an independently measured wide component; no shared inner-subsystem RV assigned.",
+        "msc-10465-6416-c": "Outside the identified inner spectroscopic subsystem, or an independently measured wide component; no shared inner-subsystem RV assigned."
+      },
+      "motionInputs": {
+        "ra_deg": 161.623284,
+        "dec_deg": -64.263237,
+        "epoch": 2000,
+        "parallax_mas": 6.69,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": -17.7,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": 10.0,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+        "radial_velocity_ref": null
+      },
+      "radialVelocity": {
+        "valueKms": 7.0,
+        "uncertaintyKms": null,
+        "status": "published-subsystem-proxy",
+        "reference": "1988Ap&SS.148..163G; MSC SB9_1783",
+        "sourceUrl": "https://ui.adsabs.harvard.edu/abs/1988Ap%26SS.148..163G",
+        "scope": "Exact 5.4999-day Aa,Ab spectroscopic solution. Wider B and C are excluded; this is an inner-subsystem proxy, not the total quadruple systemic velocity."
+      },
+      "scope": "Exact 5.4999-day Aa,Ab spectroscopic solution. Wider B and C are excluded; this is an inner-subsystem proxy, not the total quadruple systemic velocity. Common Galactic vector is a linear propagation approximation; individual orbital velocities and phases remain unmodelled."
+    },
+    {
+      "systemId": "msc-12225+2551",
+      "expectedName": "12 Com",
+      "expectedComponents": {
+        "hip-60351": "Aa",
+        "msc-12225+2551-ab": "Ab"
+      },
+      "primaryStarId": "hip-60351",
+      "expectedInputs": {
+        "hip-60351": {
+          "raw_astrometry": {
+            "ra_deg": 185.626291,
+            "dec_deg": 25.846161,
+            "epoch": 2000,
+            "parallax_mas": 11.49,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -11.4,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": -8.1,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        },
+        "msc-12225+2551-ab": {
+          "raw_astrometry": {
+            "ra_deg": 185.626291,
+            "dec_deg": 25.846161,
+            "epoch": 2000,
+            "parallax_mas": 11.49,
+            "parallax_error_mas": null,
+            "pm_ra_cosdec_masyr": -11.4,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": -8.1,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+            "radial_velocity_ref": null
+          },
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        }
+      },
+      "excludedComponents": {},
+      "motionInputs": {
+        "ra_deg": 185.626291,
+        "dec_deg": 25.846161,
+        "epoch": 2000,
+        "parallax_mas": 11.49,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": -11.4,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": -8.1,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
+        "radial_velocity_ref": null
+      },
+      "radialVelocity": {
+        "valueKms": 0.51,
+        "uncertaintyKms": 0.02,
+        "uncertaintyKind": "1-sigma",
+        "status": "published-subsystem-proxy",
+        "reference": "2023AJ....166...29L; Table 6 primary gamma",
+        "sourceUrl": "https://arxiv.org/abs/2304.07397",
+        "scope": "Primary-based orbital gamma. The same paper finds secondary gamma -2.75 +/-0.20 km/s, an unexplained offset; 0.02 km/s is the primary formal fit error, not the total absolute-systematic uncertainty. Used only as a labelled shared primary-based proxy."
+      },
+      "scope": "Primary-based orbital gamma. The same paper finds secondary gamma -2.75 +/-0.20 km/s, an unexplained offset; 0.02 km/s is the primary formal fit error, not the total absolute-systematic uncertainty. Used only as a labelled shared primary-based proxy. Common Galactic vector is a linear propagation approximation; individual orbital velocities and phases remain unmodelled."
+    },
+    {
+      "systemId": "orb6-08405+1933-aa-ab",
+      "expectedName": "Meleph",
+      "expectedComponents": {
+        "hip-42556": "Aa",
+        "orb6-08405+1933-aa-ab-ab": "Ab"
+      },
+      "primaryStarId": "hip-42556",
+      "expectedInputs": {
+        "hip-42556": {
+          "raw_astrometry": null,
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        },
+        "orb6-08405+1933-aa-ab-ab": {
+          "raw_astrometry": null,
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        }
+      },
+      "excludedComponents": {},
+      "motionInputs": {
+        "ra_deg": 130.11254206308,
+        "dec_deg": 19.544812309289995,
+        "parallax_mas": 5.3836,
+        "parallax_error_mas": 0.0474,
+        "pm_ra_cosdec_masyr": -36.293,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": -12.133,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": 29.9,
+        "radial_velocity_error_kms": null,
+        "epoch": 2000.0,
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+        "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+      },
+      "radialVelocity": {
+        "valueKms": 34.71,
+        "uncertaintyKms": 0.03,
+        "uncertaintyKind": "1-sigma",
+        "status": "published-systemic",
+        "reference": "2022AJ....164..126S; Table 3 primary gamma",
+        "sourceUrl": "https://arxiv.org/abs/2205.10690",
+        "scope": "Published binary orbital solution: primary gamma 34.71 +/-0.03, secondary 34.88 +/-0.09 km/s. Use the primary zero point; formal error does not include line-dependent offsets."
+      },
+      "scope": "Published binary orbital solution: primary gamma 34.71 +/-0.03, secondary 34.88 +/-0.09 km/s. Use the primary zero point; formal error does not include line-dependent offsets. Common Galactic vector is a linear propagation approximation; individual orbital velocities and phases remain unmodelled."
+    },
+    {
+      "systemId": "msc-12349+2238",
+      "expectedName": "Phyllon Kissinou",
+      "expectedComponents": {
+        "hip-61394": "A",
+        "msc-12349+2238-b": "B",
+        "msc-12349+2238-c": "C"
+      },
+      "primaryStarId": "hip-61394",
+      "expectedInputs": {
+        "hip-61394": {
+          "raw_astrometry": {
+            "ra_deg": 188.71280340925497,
+            "dec_deg": 22.62920599761361,
+            "parallax_mas": 10.531158793728094,
+            "parallax_error_mas": 0.018495932,
+            "pm_ra_cosdec_masyr": -58.83,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 22.771,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": -16.0,
+            "radial_velocity_error_kms": null,
+            "epoch": 2000.0,
+            "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01; adopted shared C parallax; Gaia DR3 3958707782341673216; native AB astrometry retained as source",
+            "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+          },
+          "vx_kms": -27.732674,
+          "vy_kms": -3.279157,
+          "vz_kms": -16.807285
+        },
+        "msc-12349+2238-b": {
+          "raw_astrometry": {
+            "ra_deg": 188.712803,
+            "dec_deg": 22.629206,
+            "epoch": 2000,
+            "parallax_mas": 10.531158793728094,
+            "parallax_error_mas": 0.018495932,
+            "pm_ra_cosdec_masyr": -58.8,
+            "pm_ra_error_masyr": null,
+            "pm_dec_masyr": 22.8,
+            "pm_dec_error_masyr": null,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate); adopted shared C parallax; Gaia DR3 3958707782341673216; native AB astrometry retained as source",
+            "radial_velocity_ref": null
+          },
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        }
+      },
+      "excludedComponents": {
+        "msc-12349+2238-c": "Outside the identified inner spectroscopic subsystem, or an independently measured wide component; no shared inner-subsystem RV assigned."
+      },
+      "motionInputs": {
+        "ra_deg": 188.76329950712517,
+        "dec_deg": 22.62385165777992,
+        "epoch": 2016.0,
+        "parallax_mas": 10.531158793728094,
+        "parallax_error_mas": 0.018495932,
+        "pm_ra_cosdec_masyr": -62.80471680457957,
+        "pm_ra_error_masyr": 0.019742882,
+        "pm_dec_masyr": 20.599297271532258,
+        "pm_dec_error_masyr": 0.017755691,
+        "radial_velocity_kms": -16.114805,
+        "radial_velocity_error_kms": 0.5842682,
+        "astrometry_ref": "Gaia DR3 3958707782341673216; official exact 2MASS best-neighbour identity; ref_epoch=2016.0; RUWE=1.523",
+        "radial_velocity_ref": "Gaia DR3 3958707782341673216; individual wide C measurement"
+      },
+      "radialVelocity": {
+        "valueKms": -16.114805,
+        "uncertaintyKms": 0.5842682,
+        "uncertaintyKind": "1-sigma",
+        "status": "measured-wide-companion-proxy",
+        "reference": "Gaia DR3 3958707782341673216; measured wide C proxy",
+        "sourceUrl": "https://gea.esac.esa.int/archive/",
+        "scope": "Measured wide C radial velocity supplies an approximate AB bulk RV, avoiding the close pair orbital velocities. C retains its independent measured astrometry and full vector. Donor formal error excludes unknown wide-orbit velocity; this is not a fitted total-system gamma."
+      },
+      "scope": "Measured wide C radial velocity supplies an approximate AB bulk RV, avoiding the close pair orbital velocities. C retains its independent measured astrometry and full vector. Donor formal error excludes unknown wide-orbit velocity; this is not a fitted total-system gamma. Common Galactic vector is a linear propagation approximation; individual orbital velocities and phases remain unmodelled. The full C astrometric basis, not A photocentre proper motion, supplies the shared AB vector.",
+      "motionSourceStarId": "msc-12349+2238-c"
+    }
+  ]
+}

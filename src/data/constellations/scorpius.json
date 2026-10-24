@@ -3,8 +3,8 @@
   "abbreviation": "Sco",
   "name": "Scorpius",
   "center": {
-    "ra_deg": 252.73823369244946,
-    "dec_deg": -34.248270377560196
+    "ra_deg": 252.738233692,
+    "dec_deg": -34.248270378
   },
   "stars": [
     {
@@ -70,10 +70,10 @@
         "vx_kms": -4.626899,
         "vy_kms": -22.569275,
         "vz_kms": -14.051217,
-        "temperature_k": 8798.0,
+        "temperature_k": 30900.0,
         "mass_solar": 19.61,
-        "luminosity_solar": 2261.5,
-        "radius_solar": 20.4684,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -3.56916,
@@ -84,7 +84,7 @@
         "constellation": "Scorpius",
         "spectral_type": "B0.3IV",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 78401; Stellarium Sco). SIMBAD identity * del Sco; SIMBAD compiled Johnson V=2.32; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 78401; Stellarium Sco). SIMBAD identity * del Sco; SIMBAD compiled Johnson V=2.32; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2018MNRAS.474.5287A, HD 143275, Table B1, 30900 K. Published errors are the authors' assumed 1 percent for temperature, not an independent posterior error; Be disk variability and rotational gravity darkening add systematics. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 78401"
         ],
@@ -119,10 +119,10 @@
         "vx_kms": 0.593057,
         "vy_kms": -12.526653,
         "vz_kms": -7.244296,
-        "temperature_k": 9546.0,
+        "temperature_k": 30540.0,
         "mass_solar": null,
-        "luminosity_solar": 1322.39,
-        "radius_solar": 13.295,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -2.845632,
@@ -133,7 +133,7 @@
         "constellation": "Scorpius",
         "spectral_type": "B1V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 78820; Stellarium Sco). SIMBAD identity * bet01 Sco; SIMBAD compiled Johnson V=2.62; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 78820; Stellarium Sco). SIMBAD identity * bet01 Sco; SIMBAD compiled Johnson V=2.62; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2009A&A...501..297Z, HD 144217, J/A+A/501/297/catalog, 30540 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. Blended angular diameter is not assigned to an individual component. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 78820"
         ],
@@ -364,10 +364,10 @@
         "vx_kms": -30.961771,
         "vy_kms": -13.25569,
         "vz_kms": -17.072958,
-        "temperature_k": 5830.0,
+        "temperature_k": 17200.0,
         "mass_solar": null,
-        "luminosity_solar": 34155.497402783134,
-        "radius_solar": 181.15313,
+        "luminosity_solar": 851138.0382,
+        "radius_solar": 103.0,
         "metallicity_dex": -1.5744,
         "age_gyr": null,
         "absolute_mag": -6.380595,
@@ -378,7 +378,7 @@
         "constellation": "Scorpius",
         "spectral_type": "B1.5Ia+",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 82671; Stellarium Sco). SIMBAD identity * zet01 Sco; SIMBAD compiled Johnson V=4.79; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 82671; Stellarium Sco). SIMBAD identity * zet01 Sco; SIMBAD compiled Johnson V=4.79; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical values describe Zeta1 Scorpii (HD 152236). Exact SIMBAD * zet01 Sco / HIP 82671 / HD 152236; not the unrelated visual neighbour Zeta2 Scorpii. Clark et al. 2012 Table 4 and section 4.2: dedicated non-LTE atmosphere analysis, including reddening E(B-V)=0.66 and R_V=3.3. Supersedes the McDonald et al. 2012 zero-reddening broadband SED fit (HIP 82671: 5830 K, 7204.66 solar luminosities at 787.4 pc) and its derived radius. Adopt the internally consistent published 1.64-kpc solution (log L/Lsun=5.93, R=103 solar radii); the paper also gives a 2-kpc solution. Luminosity/radius remain at the publication distance rather than rescaled to the catalog distance. No mass, age or metallicity correction is adopted here. Physical parameters: Gaia DR3 model values for metallicity_dex.",
         "designations": [
           "HIP 82671"
         ],
@@ -565,7 +565,7 @@
         "luminosity_solar": 11560.0,
         "radius_solar": 8.1218,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.0251,
         "absolute_mag": -3.467481,
         "epoch": 2000.0,
         "type": "star",
@@ -1516,7 +1516,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

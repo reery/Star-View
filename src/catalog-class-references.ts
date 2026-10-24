@@ -19,7 +19,7 @@ export function buildCatalogClassReferences(
   componentIdentity: (id: string) => { canonicalStarId: string } | undefined = () => undefined,
 ) {
   // Prefer reviewed nearby components, then the smaller nearby catalogs, then landmarks.
-  const priority = ['nearest-1000', 'nearest-100', 'nearest-neighbors', 'bright-stars', 'western-constellation-stars', 'famous-cluster-stars']
+  const priority = ['nearest-1000', 'nearest-100', 'nearest-neighbors', 'western-constellation-stars']
   const rank = (id: string) => priority.indexOf(id) < 0 ? priority.length : priority.indexOf(id)
   const ordered = [...catalogs].sort((a, b) => rank(a.id) - rank(b.id) || a.id.localeCompare(b.id))
   const stars = ordered.reduce<Star[]>((merged, catalog) => mergeCatalogStarLayers(merged, catalog.stars, componentIdentity), [])

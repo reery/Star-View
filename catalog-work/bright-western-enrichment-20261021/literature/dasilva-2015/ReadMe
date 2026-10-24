@@ -1,0 +1,231 @@
+J/A+A/580/A24     Abundances in dwarfs, subgiants, and giants  (da Silva+, 2015)
+================================================================================
+Homogeneous abundance analysis of FGK dwarf, subgiant, and giant stars with and
+without giant planets.
+    da Silva R., Milone A.C., Rocha-Pinto H.J.
+   <Astron. Astrophys. 580, A24 (2015)>
+   =2015A&A...580A..24D
+================================================================================
+ADC_Keywords: Stars, fundamental ; Abundances ; Spectroscopy
+Keywords: stars: fundamental parameters - stars: abundances -
+          planetary systems - methods: data analysis -
+          methods: statistical - techniques: spectroscopic
+
+Abstract:
+    We have analyzed high-resolution and high signal-to-noise ratio
+    optical spectra of nearby FGK stars with and without detected giant
+    planets in order to homogeneously measure their photospheric
+    parameters, mass, age, and the abundances of volatile (C, N, and O)
+    and refractory (Na, Mg, Si, Ca, Ti, V, Mn, Fe, Ni, Cu, and Ba)
+    elements. Our sample contains 309 stars from the solar neighborhood
+    (up to the distance of 100pc), out of which 140 are dwarfs, 29 are
+    subgiants, and 140 are giants. The photospheric parameters are derived
+    from the equivalent widths (EWs) of FeI and FeII lines. Masses and
+    ages come from the interpolation in evolutionary tracks and isochrones
+    on the HR diagram. The abundance determination is based on the
+    equivalent widths of selected atomic lines of the refractory elements
+    and on the spectral synthesis of C_2_, CN, CI, OI, and NaI features.
+    We apply a set of statistical methods to analyze the abundances
+    derived for the three subsamples. Our results show that: i) giant
+    stars systematically exhibit underabundance in [C/Fe] and
+    overabundance in [N/Fe] and [Na/Fe] in comparison with dwarfs, a
+    result that is normally attributed to evolution-induced mixing
+    processes in the envelope of evolved stars; ii) for solar analogs
+    only, the abundance trends with the condensation temperature of the
+    elements are correlated with age and anticorrelated with the surface
+    gravity, which is in agreement with recent studies; iii) as in the
+    case of [Fe/H], dwarf stars with giant planets are systematically
+    enriched in [X/H] for all the analyzed elements, except for O and Ba
+    (the former due to limitations of statistics), confirming previous
+    findings in the literature that not only iron has an important
+    relation with the planetary formation; and iv) giant planet hosts are
+    also significantly overabundant for the same metallicity when the
+    elements from Mg to Cu are combined together.
+
+Description:
+    Photospheric parameters mass, age, and the abundances of C, N, O, Na,
+    Mg, Si, Ca, Ti, V, Mn, Fe, Ni, Cu, and Ba for a sample of FGK dwarfs,
+    subgiants, and giants are derived. We used spectra of high-resolution
+    (R~42,000) and high S/N (>150 on average) available in the ELODIE
+    online database (Moultaka et al., 2004PASP..116..693M). These are
+    spectra collected with the ELODIE high-resolution spectrograph
+    (Baranne et al. 1996) of the Haute Provence Observatory (France). Only
+    spectra with individual S/N>20 and with an image type classified as
+    "object fibre only" (OBJO) were used.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+table4.dat    254      309   Photospheric parameters and [X/Fe] abundances
+table7.dat    111      309   Photometric and evolutionary parameters together
+                               with the population membership
+table8.dat    112      120   Slopes of the linear regressions on [X/Fe] vs. Tc
+table2.dat     35      178   Atomic line parameters and solar EWs
+table3.dat     31      109   Atomic parameters for lines with important
+                               hyperfine structure
+table5.dat     43     9183   Atomic and molecular line parameters
+table6.dat     34       57   Atomic parameters for strong atomic lines
+--------------------------------------------------------------------------------
+
+See also:
+    J/A+A/526/A71 : C abundances in G and K nearby stars (da Silva+, 2011)
+
+Byte-by-byte Description of file: table4.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 10  A10   ---     Name      HD, BD, or HIP stellar number
+  13- 20  A8    ---     SpType    Spectral type
+  23- 27  F5.2  km/s    Vbroad    [0/15] Broadening velocity
+  30- 33  I4    K       Teff      [4169/6503] Star's effective temperature
+  36- 38  I3    K     e_Teff      [21/163] Error in star's effective temperature
+  41- 44  F4.2  ---     logg      [1/5] Star's surface gravity
+  47- 50  F4.2  ---   e_logg      [0.1/0.6] Error in the star's surface gravity
+  53- 56  F4.2  km/s    xi        [0.03/5.6] Star's microturbulent velocity {xi}
+  59- 62  F4.2  km/s  e_xi        [[0.03/3] Error in microturbulent velocity
+  65- 69  F5.2 [Sun]    [Fe/H]    Abundance ratio [Fe/H]
+  72- 75  F4.2 [Sun]  e_[Fe/H]    Error in [Fe/H]
+  78- 82  F5.2 [Sun]    [C/Fe]    ? Abundance ratio [C/Fe]
+  85- 88  F4.2 [Sun]  e_[C/Fe]    ? Error in [C/Fe]
+  91- 95  F5.2 [Sun]    [N/Fe]    ? Abundance ratio [N/Fe]
+  98-101  F4.2 [Sun]  e_[N/Fe]    ? Error in [N/Fe]
+ 104-108  F5.2 [Sun]    [O/Fe]    ? Abundance ratio [O/Fe]
+ 111-114  F4.2 [Sun]  e_[O/Fe]    ? Error in [O/Fe]
+ 117-121  F5.2 [Sun]    [Na/Fe]   ? Abundance ratio [Na/Fe]
+ 124-127  F4.2 [Sun]  e_[Na/Fe]   ? Error in [Na/Fe]
+ 130-134  F5.2 [Sun]    [Mg/Fe]   ? Abundance ratio [Mg/Fe]
+ 137-140  F4.2 [Sun]  e_[Mg/Fe]   ? Error in [Mg/Fe]
+ 143-147  F5.2 [Sun]    [Si/Fe]   ? Abundance ratio [Si/Fe]
+ 150-153  F4.2 [Sun]  e_[Si/Fe]   ? Error in [Si/Fe]
+ 156-160  F5.2 [Sun]    [Ca/Fe]   ? Abundance ratio [Ca/Fe]
+ 163-166  F4.2 [Sun]  e_[Ca/Fe]   ? Error in [Ca/Fe]
+ 169-173  F5.2 [Sun]    [Ti/Fe]   ? Abundance ratio [Ti/Fe]
+ 176-179  F4.2 [Sun]  e_[Ti/Fe]   ? Error in [Ti/Fe]
+ 182-186  F5.2 [Sun]    [V/Fe]    ? Abundance ratio [V/Fe]
+ 189-192  F4.2 [Sun]  e_[V/Fe]    ? Error in [V/Fe]
+ 195-199  F5.2 [Sun]    [Mn/Fe]   ? Abundance ratio [Mn/Fe]
+ 202-205  F4.2 [Sun]  e_[Mn/Fe]   ? Error in [Mn/Fe]
+ 208-212  F5.2 [Sun]    [Ni/Fe]   ? Abundance ratio [Ni/Fe]
+ 215-218  F4.2 [Sun]  e_[Ni/Fe]   ? Error in [Ni/Fe]
+ 221-225  F5.2 [Sun]    [Cu/Fe]   ? Abundance ratio [Cu/Fe]
+ 228-231  F4.2 [Sun]  e_[Cu/Fe]   ? Error in [Cu/Fe]
+ J234-238  F5.2 [Sun]    [Ba/Fe]   ? Abundance ratio [Ba/Fe]
+ 241-244  F4.2 [Sun]  e_[Ba/Fe]   ? Error in [Ba/Fe]
+ 247-254  A8   [Sun]    Class     Spectral luinosity classification: dwarf,
+                                    giant or subgiant
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table7.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 10  A10   ---     Name      HD, BD, or HIP stellar number
+  13- 17  F5.3  mag     B-V       [0.47/1.3] B-V color index
+  20- 24  F5.2  mag     VMag      [-0.71/7.7] Absolute magnitude at the V band
+  27- 31  F5.1  pc      Dist      [3/100] Heliocentric distance
+  34- 39  F6.3  ---     BC        [-0.9/0.02] Bolometric correction
+  42- 47  F6.3 [Lsun]   logL      [-1/2.3] Logarithmic luminosity
+  50- 54  F5.3 [Lsun] e_logL      [0.005/0.09] Error in the logarithmic luminosity
+  57- 60  F4.2  Msun    Mass      [0.6/3.6]? Mass of the star
+  63- 66  F4.2  Msun  e_Mass      [0.01/9.99]? Error in the stellar mass
+  69- 72  F4.1  Gyr     Age       [0.1/32]? Age of the star
+  75- 78  F4.1  Gyr   e_Age       [0/12]? Lower error in the stellar age
+  81- 84  F4.1  Gyr   E_Age       [0/12]? Upper error in the stellar age
+  87- 96  A10   ---     Popul     Population membership (thin, thick or a
+                                  transition population thin/thick)
+  99-106  A8    ---     Rem       Remarks on some special cases (1)
+ 109-111  A3    ---     Ref       References related to the special cases (2)
+--------------------------------------------------------------------------------
+Note (1): The special cases are:
+     a = errors in age are larger than 4Gyr (not used in the analysis)
+     b = star located outside the evolutionary tracks and isochrones used
+     c = star hosting at least one giant planet
+     d = member of a stellar moving group:
+         U: Ursa Major; P: Pleiades; H: Hyades; W: Wolf 630
+     e = subdwarf candidate
+Note (2): The references for some of the special cases are as follows:
+     1 = http://exoplanet.eu, for case c
+     2 = Montes et al. (2001MNRAS.328...45M), for cases d (U), d (P)
+     3 = Sandage & Fouts (1986AJ.....91.1140S), for case e
+     4 = Eggen (1950ApJ...111...65E), for case d (H)
+     5 = Bubar & King (2010AJ....140..293B), for case d (W)
+     6 = Madsen et al. (2002A&A...381..446M), for case d (H)
+     7 = Jao et al. (2009AJ....137.3800J), for case e
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table8.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units  Label   Explanations
+--------------------------------------------------------------------------------
+   1- 10  A10   ---    Name    HD, BD, or HIP stellar number
+  13- 21  F9.6  ---    slope0  Slope of the regressions before CCE (1)
+  24- 31  F8.6  ---  e_slope0  Error in the slopes
+  34- 38  F5.2  ---    r0      [-1/1] Correlation coefficient
+  41- 44  F4.2  ---    std0    [0.01/0.15] Standard deviation of regressions
+  47- 55  F9.6  ---    slope1  Slope of the regression after CCE, age-based (1)
+  58- 65  F8.6  ---  e_slope1  Error in the slopes
+  68- 72  F5.2  ---    r1      [-1/1] Correlation coefficient
+  75- 78  F4.2  ---    std1    [0.02/0.15] Standard deviation of regressions
+  81- 89  F9.6  ---    slope2  Slope of the regression after CCE,
+                                [Fe/H]-based (1)
+  92- 99  F8.6  ---  e_slope2  Error in the slopes
+ 102-106  F5.2  ---    r2      [-1/1] Correlation coefficient
+ 109-112  F4.2  ---    std2    [0.01/0.13] Standard deviation of regressions
+--------------------------------------------------------------------------------
+Note (1): CCE = correction for the Galactic chemical evolution effects;
+     the chemical correction is based on age or on metallicity ([Fe/H]).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  8  F8.2  0.1nm   lambda0   [4518/6753] Spectral line central wavelength
+  11- 14  A4    ---     Line      Atomic line identification
+  17- 20  F4.2  eV      chi       [0/5.7] Lower-level excitation potential {chi}
+  23- 28  F6.3  ---     loggf     ? Logarithmic statistical weight of the lower
+                                  level multiplied by the oscillator strength
+  31- 35  F5.1  0.1pm   EW        [5/122] Solar equivalent width (m{AA})
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  A4    ---     Line      Atomic line identification
+   7- 13  F7.2  0.1nm   lambda0   [4571/6286] Spectral line central wavelength
+  16- 23  F8.3  0.1nm   lambda    [4571/6286] Hyperfine component wavelength
+  26- 31  F6.3  ---     loggf     Logarithmic statistical weight of the lower
+                                  level multiplied by the oscillator strength
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table5.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 10  F10.4 0.1nm   lambda0   [4200/6315] Spectral line central wavelength
+  13- 17  F5.1  ---     Line      Atomic and molecular line identification
+  20- 25  F6.3  eV      chi       [0/40] Excitation potential {chi}
+  28- 36  E9.3  [-]     loggf     Logarithmic statistical weight of the lower
+                                  level multiplied by the oscillator strength
+  39- 43  F5.3  eV      D0        ? Dissociation energy for molecular features
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table6.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1- 10  F10.4 0.1nm   lambda0   S[4200/6163] pectral line central wavelength
+  13- 16  F4.1  ---     Line      Atomic and molecular line identification
+  19- 23  F5.3  eV      chi       [0/4.5] Excitation potential {chi}
+  26- 34  E9.3  [-]     loggf     Logarithmic statistical weight of the lower
+                                   level multiplied by the oscillator strength
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+    Ronaldo da Silva, ron.oliveirasilva(at)gmail.com
+
+================================================================================
+(End)                                        Patricia Vannier [CDS]  28-May-2015

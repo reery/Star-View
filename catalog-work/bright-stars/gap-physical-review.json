@@ -1,0 +1,724 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-18",
+  "policy": "Fill unavailable exact-object fields only; preserve all existing adopted values. Published model/seismic values retain methods and uncertainties. No individual values inferred from blended system light.",
+  "inputSha256": {
+    "catalog-work/bright-stars/literature/npoi-selected-tables.json": "334a19776550ebcd6863e55a65439283bdfa96a07d9148755b8b5ad655d6d9ca",
+    "catalog-work/bright-stars/literature/tess-bright-selected-tables.json": "ed174e07068f8c09ea96da39570cb43b4573bfea5e50f097970967e7993a32c3",
+    "catalog-work/bright-stars/literature/castor-selected-tables.json": "39576bba5c6364b0b0c19d831b46d1ef93e53ebcd762f9bd291b684affe6e60c",
+    "catalog-work/bright-stars/literature/polaris-selected-tables.json": "c50506b4acc884ffc878d252ec0a37335f170f46510e453e42963ce7fd25df1a",
+    "catalog-work/bright-stars/literature/zhao-selected-tables.json": "ec25429ec2b3d82a5feddc3380591d28167c335a4a1dfd0305eb5b2b1a926304",
+    "catalog-work/bright-stars/literature/canopus-selected-tables.json": "74595c5f6a9d101a7b7dbd18725566c22f4884642627de1deefccdca1133495b",
+    "catalog-work/bright-stars/literature/rasalhague-selected-tables.json": "ef1db9967b2707b826935eab7787d8183c14366ae71d4f400b8bbbcc7df43187",
+    "catalog-work/bright-stars/literature/stock-2018-ReadMe": "4db003dc4e59f8c1cc011b26fabccd44822035e0f91fccc2bccfe196b29b8b41",
+    "catalog-work/bright-stars/literature/stock-2018-selected.dat": "28621160a64c4cbd6c7cd00942146c89e7e5f9ba9a8b7994045c3b1dff8b4eb9",
+    "catalog-work/bright-stars/literature/algol-selected-tables.json": "cffb1740e2dee974b0ac32466c69d61e8491c52241c5012cc9b5e1b7eb8ef604",
+    "catalog-work/bright-stars/literature/deneb-selected-tables.json": "7a062cc68c7a7ec883c9099677a0d7b1d518af489c430b01aa82625d6b58544b",
+    "catalog-work/bright-stars/literature/bale-2025-eta-boo.dat": "54130357a4901bd02728519af2246e3f0e491dbe59e7c46b3c24db7c06381bc6",
+    "catalog-work/bright-stars/literature/bale-2025-ReadMe": "aaa43f6b638590766d286c7d16e68e3f59e11c2e720393b2c744d5429dd898a9",
+    "catalog-work/bright-stars/literature/scheat-selected-tables.json": "18cc97ce73d13b740492b137fcaeb9b3696bde658ebb382a86d9d4a9b01fa915"
+  },
+  "catalogObjects": {
+    "* alf Tau": {
+      "label": "Aldebaran",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "bright-aldebaran",
+        "hip-21421"
+      ],
+      "scope": "Exact * alf Tau; individual stellar parameters, never a companion or system total.",
+      "reference": "2026MNRAS.547.stag413R",
+      "url": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+      "note": "Rudrasingam et al. (2026): approximate seismic mass from nu_max and independent radius. Formal source errors omit scaling systematics. Published mass is approximate and inherits seismic-scaling systematics; existing adopted quantities retain their independent sources.",
+      "fields": {
+        "mass_solar": {
+          "value": 1.03,
+          "uncertainty": 0.07,
+          "status": "asteroseismic",
+          "reference": "2026MNRAS.547.stag413R",
+          "sourceUrl": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+          "section": "Table 1; section 4",
+          "method": "Published nu_max scaling using independently measured radius and effective temperature; not a dynamical mass",
+          "inputs": {
+            "source_temperature_k": 3900,
+            "source_temperature_uncertainty_k": 50,
+            "source_radius_solar": 44.2,
+            "source_radius_uncertainty_solar": 0.9
+          }
+        },
+        "radius_solar": {
+          "value": 44.2,
+          "uncertainty": 0.9,
+          "status": "interferometric",
+          "reference": "2026MNRAS.547.stag413R",
+          "sourceUrl": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+          "section": "Table 1",
+          "inputs": {
+            "source_temperature_k": 3900,
+            "source_temperature_uncertainty_k": 50
+          }
+        },
+        "luminosity_solar": {
+          "value": 407.19053752585825,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2026MNRAS.547.stag413R",
+          "sourceUrl": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+          "section": "Derived here from the coherent Table 1 radius and temperature",
+          "inputs": {
+            "radius_solar": 44.2,
+            "radius_uncertainty_solar": 0.9,
+            "temperature_k": 3900,
+            "temperature_uncertainty_k": 50,
+            "solar_temperature_k": 5772
+          },
+          "method": "Stefan-Boltzmann; source inputs, not independently adopted mixed-source temperature"
+        }
+      }
+    },
+    "* gam Dra": {
+      "label": "Eltanin",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "bright-eltanin",
+        "hip-87833"
+      ],
+      "scope": "Exact * gam Dra; individual stellar parameters, never a companion or system total.",
+      "reference": "2026MNRAS.547.stag413R",
+      "url": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+      "note": "Rudrasingam et al. (2026): approximate seismic mass from nu_max and independent radius. Formal source errors omit scaling systematics. Published mass is approximate and inherits seismic-scaling systematics; existing adopted quantities retain their independent sources.",
+      "fields": {
+        "mass_solar": {
+          "value": 2.1,
+          "uncertainty": 0.11,
+          "status": "asteroseismic",
+          "reference": "2026MNRAS.547.stag413R",
+          "sourceUrl": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+          "section": "Table 1; section 4",
+          "method": "Published nu_max scaling using independently measured radius and effective temperature; not a dynamical mass",
+          "inputs": {
+            "source_temperature_k": 3964,
+            "source_temperature_uncertainty_k": 29,
+            "source_radius_solar": 51.8,
+            "source_radius_uncertainty_solar": 0.26
+          }
+        }
+      }
+    },
+    "* bet UMi": {
+      "label": "Kochab",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "bright-kochab",
+        "hip-72607"
+      ],
+      "scope": "Exact * bet UMi; individual stellar parameters, never a companion or system total.",
+      "reference": "2026MNRAS.547.stag413R",
+      "url": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+      "note": "Rudrasingam et al. (2026): approximate seismic mass from nu_max and independent radius. Formal source errors omit scaling systematics. Published mass is approximate and inherits seismic-scaling systematics; existing adopted quantities retain their independent sources.",
+      "fields": {
+        "mass_solar": {
+          "value": 1.66,
+          "uncertainty": 0.09,
+          "status": "asteroseismic",
+          "reference": "2026MNRAS.547.stag413R",
+          "sourceUrl": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+          "section": "Table 1; section 4",
+          "method": "Published nu_max scaling using independently measured radius and effective temperature; not a dynamical mass",
+          "inputs": {
+            "source_temperature_k": 4008,
+            "source_temperature_uncertainty_k": 37,
+            "source_radius_solar": 44.13,
+            "source_radius_uncertainty_solar": 0.22
+          }
+        }
+      }
+    },
+    "* alf Cas": {
+      "label": "Schedar",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "bright-schedar",
+        "hip-3179"
+      ],
+      "scope": "Exact * alf Cas; individual stellar parameters, never a companion or system total.",
+      "reference": "2026MNRAS.547.stag413R",
+      "url": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+      "note": "Rudrasingam et al. (2026): approximate seismic mass from nu_max and independent radius. Formal source errors omit scaling systematics. Published mass is approximate and inherits seismic-scaling systematics; existing adopted quantities retain their independent sources.",
+      "fields": {
+        "mass_solar": {
+          "value": 4.98,
+          "uncertainty": 0.45,
+          "status": "asteroseismic",
+          "reference": "2026MNRAS.547.stag413R",
+          "sourceUrl": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+          "section": "Table 1; section 4",
+          "method": "Published nu_max scaling using independently measured radius and effective temperature; not a dynamical mass",
+          "inputs": {
+            "source_temperature_k": 4625,
+            "source_temperature_uncertainty_k": 37,
+            "source_radius_solar": 42.15,
+            "source_radius_uncertainty_solar": 1.55
+          }
+        }
+      }
+    },
+    "* alf Phe": {
+      "label": "Ankaa",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "bright-ankaa",
+        "hip-2081"
+      ],
+      "scope": "Exact * alf Phe; individual stellar parameters, never a companion or system total.",
+      "reference": "2026MNRAS.547.stag413R",
+      "url": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+      "note": "Rudrasingam et al. (2026): approximate seismic mass from nu_max and independent radius. Formal source errors omit scaling systematics. Published mass is approximate and inherits seismic-scaling systematics; existing adopted quantities retain their independent sources.",
+      "fields": {
+        "mass_solar": {
+          "value": 0.96,
+          "uncertainty": 0.07,
+          "status": "asteroseismic",
+          "reference": "2026MNRAS.547.stag413R",
+          "sourceUrl": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+          "section": "Table 1; section 4",
+          "method": "Published nu_max scaling using independently measured radius and effective temperature; not a dynamical mass",
+          "inputs": {
+            "source_temperature_k": 4770,
+            "source_temperature_uncertainty_k": 250,
+            "source_radius_solar": 13.39,
+            "source_radius_uncertainty_solar": 0.29
+          }
+        },
+        "radius_solar": {
+          "value": 13.39,
+          "uncertainty": 0.29,
+          "status": "radiometric",
+          "reference": "2026MNRAS.547.stag413R",
+          "sourceUrl": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+          "section": "Table 1",
+          "inputs": {
+            "source_temperature_k": 4770,
+            "source_temperature_uncertainty_k": 250
+          }
+        },
+        "luminosity_solar": {
+          "value": 83.62370021939002,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2026MNRAS.547.stag413R",
+          "sourceUrl": "https://academic.oup.com/mnras/article/547/4/stag413/8502134",
+          "section": "Derived here from the coherent Table 1 radius and temperature",
+          "inputs": {
+            "radius_solar": 13.39,
+            "radius_uncertainty_solar": 0.29,
+            "temperature_k": 4770,
+            "temperature_uncertainty_k": 250,
+            "solar_temperature_k": 5772
+          },
+          "method": "Stefan-Boltzmann; source inputs, not independently adopted mixed-source temperature"
+        }
+      }
+    },
+    "* eta Boo": {
+      "label": "Muphrid",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "cns5-3442",
+        "hip-67927"
+      ],
+      "scope": "Exact * eta Boo; individual stellar parameters, never a companion or system total.",
+      "reference": "2025AJ....169..293B",
+      "url": "https://arxiv.org/html/2506.02912",
+      "note": "Baines et al. (2025) NPOI limb-darkened radius. Luminosity is calculated using that source radius and source effective temperature, with their input uncertainties retained; not a new bolometric-flux measurement. No rescaling to an unrelated parallax.",
+      "fields": {
+        "radius_solar": {
+          "value": 2.79,
+          "uncertainty": 0.04,
+          "status": "interferometric",
+          "reference": "2025AJ....169..293B",
+          "sourceUrl": "https://arxiv.org/html/2506.02912",
+          "section": "Table 7"
+        },
+        "luminosity_solar": {
+          "value": 8.503653888125186,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2025AJ....169..293B",
+          "sourceUrl": "https://arxiv.org/html/2506.02912",
+          "section": "Derived here from Table 7 radius and Teff",
+          "inputs": {
+            "radius_solar": 2.79,
+            "radius_uncertainty_solar": 0.04,
+            "temperature_k": 5901.0,
+            "temperature_uncertainty_k": 24.0,
+            "solar_temperature_k": 5772
+          },
+          "method": "Stefan-Boltzmann from the same publication; Table 7 compiled catalog luminosity is not adopted"
+        },
+        "mass_solar": {
+          "value": 1.4,
+          "uncertainty": 0.41,
+          "status": "model-derived",
+          "reference": "2025A&A...703A.128B",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/703/A128",
+          "section": "Table A.1; TYC 1470-1157-1, both resolving powers",
+          "method": "Published evolutionary mass of the spectroscopically dominant subgiant; not the unseen companion or binary total",
+          "caveat": "Primary-dominated spectroscopy and model assumptions; both source spectra independently list 1.40 +/-0.41 solar masses."
+        }
+      },
+      "retainedPreviousSharedReview": {
+        "label": "Muphrid",
+        "starIds": [
+          "cns5-3442",
+          "hip-67927"
+        ],
+        "scope": "Reviewed catalog object/component cns5-3442; aliases only, distinct companions remain separate.",
+        "values": {
+          "vx_kms": "",
+          "pm_dec_error_masyr": "0.7300000190734863",
+          "vz_kms": "",
+          "pm_ra_error_masyr": "1.1399999856948853",
+          "astrometry_epoch": "1991.25",
+          "radial_velocity_ref": "",
+          "vy_kms": "",
+          "x_pc": "3.311944829",
+          "z_pc": "10.899821633",
+          "ra_deg": "208.67131828784778",
+          "dec_deg": "18.39858670408873",
+          "temperature_k": "6220",
+          "y_pc": "0.306570476",
+          "astrometry_ref": "2007A&A...474..653V",
+          "radial_velocity_kms": "",
+          "epoch": "2000.0",
+          "constellation": "Bootes",
+          "parallax_mas": "87.75",
+          "parallax_error_mas": "1.24",
+          "pm_ra_cosdec_masyr": "-60.95",
+          "pm_dec_masyr": "-356.29",
+          "radial_velocity_error_kms": "",
+          "mass_solar": "",
+          "luminosity_solar": "",
+          "radius_solar": "",
+          "metallicity_dex": "0.34",
+          "metallicity_kind": "[Fe/H]",
+          "age_gyr": ""
+        },
+        "notes": "Corrected CNS5 3442; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Shared exact-identity physical supplements (temperature_k: 2025A&A...703A.128B; metallicity_dex: 2025A&A...703A.128B). Prefer the frozen 2025 spectroscopic temperature over the 1999 model temperature; retain primary-dominated spectral scope and withhold individual mass, radius, luminosity and age as in the existing reviewed catalogs.",
+        "sourceSelections": {
+          "astrometryAndMotion": {
+            "source": "nearest-1000:cns5-3442",
+            "fields": [
+              "x_pc",
+              "y_pc",
+              "z_pc",
+              "vx_kms",
+              "vy_kms",
+              "vz_kms",
+              "epoch",
+              "constellation",
+              "ra_deg",
+              "dec_deg",
+              "astrometry_epoch",
+              "parallax_mas",
+              "parallax_error_mas",
+              "pm_ra_cosdec_masyr",
+              "pm_ra_error_masyr",
+              "pm_dec_masyr",
+              "pm_dec_error_masyr",
+              "radial_velocity_kms",
+              "radial_velocity_error_kms",
+              "astrometry_ref",
+              "radial_velocity_ref"
+            ],
+            "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physical": {
+            "source": "nearest-1000:cns5-3442",
+            "fields": [
+              "temperature_k",
+              "mass_solar",
+              "luminosity_solar",
+              "radius_solar",
+              "metallicity_dex",
+              "metallicity_kind",
+              "age_gyr"
+            ],
+            "decision": "Prefer the frozen 2025 spectroscopic temperature over the 1999 model temperature; retain primary-dominated spectral scope and withhold individual mass, radius, luminosity and age as in the existing reviewed catalogs."
+          }
+        }
+      },
+      "retainedRvSource": {
+        "query_id": "HIP 67927",
+        "main_id": "* eta Boo",
+        "ra": "208.67116216800866",
+        "dec": "18.397720717229475",
+        "otype": "SB*",
+        "sp_type": "G0IV",
+        "plx_value": "87.75",
+        "plx_err": "1.24",
+        "pmra": "-60.95",
+        "pmdec": "-356.29",
+        "rvz_radvel": "5.77111",
+        "v": "2.68",
+        "ids": "GES J13544102+1823474|TIC 367758676|RAVE J135441.1+182352|AP J13544106+1823514|GALAH 140709001901194|Gaia DR3 1244946371540479616|GJ 534|GJ 534 A|GJ 534 B|HIP 67927|PLX 3175|SBC9 794|LSPM J1354+1823|ASCC  869594|USNO-B1.0 1083-00239773|* eta Boo|*   8 Boo|2E  3150|AG+18 1285|BD+19  2725|CSI+19  2725  1|FK5  513|GC 18805|GCRV  8204|GEN# +1.00121370|HD 121370|CNS5 3442|HIC  67927|HR  5235|IRAS 13522+1838|IRC +20267|JP11  2455|LTT 14060|N30 3162|NLTT 35643|NSV 19993|PMC 90-93   365|PPM 130166|RAFGL 4923S|ROT  2011|SAO 100766|SBC7   503|SKY# 25509|SRS  30513|TD1 17144|UBV   12376|UBV M  19832|USNO 849|YZ  18  5045|Zkh 205|[HFE83]  987|uvby98 100121370|2MASS J13544106+1823514|PLX 3175.00|1E 1352.3+1838|2E 1352.3+1838|EXO 1352.3+1838|RX J1354.7+1824|[TSA98] J135440.09+182358.11|[ZEH2003] RX J1354.6+1824  1|RX J1354.6+1824|1RXS J135441.2+182410|TYC 1470-1157-1|1AXG J135440+1823|[TSA98] J135439.99+182321.10|NAME Muphrid|WEB 11935|Gaia DR2 1244946371540223872|TIC 1000275770"
+      },
+      "adoptedMotion": {
+        "valueKms": 5.77111,
+        "uncertaintyKms": null,
+        "status": "compiled-system-proxy",
+        "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=eta+Boo",
+        "scope": "Spectroscopic binary primary/system proxy, not a fitted systemic or instantaneous component prediction. Unknown orbital contribution is not represented by a formal uncertainty.",
+        "motionInputs": {
+          "ra_deg": 208.67131828784778,
+          "dec_deg": 18.39858670408873,
+          "parallax_mas": 87.75,
+          "pm_ra_cosdec_masyr": -60.95,
+          "pm_dec_masyr": -356.29
+        }
+      }
+    },
+    "* alf Boo": {
+      "label": "Arcturus",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "cns5-3517",
+        "hip-69673"
+      ],
+      "scope": "Exact * alf Boo; individual stellar parameters, never a companion or system total.",
+      "reference": "2018A&A...616A..33S",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+      "note": "Stock et al. (2018): dominant-stage Bayesian present-day mass (mode), with published 1-sigma bounds. Not a dynamical measurement; source model and stage ambiguity retained.",
+      "fields": {
+        "mass_solar": {
+          "value": 0.87,
+          "uncertainty": {
+            "lower": 0.02,
+            "upper": 0.06
+          },
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+          "section": "giants.dat HIP 69673",
+          "method": "Mode of present-day mass posterior, corrected for RGB mass loss",
+          "inputs": {
+            "stage": "RGB",
+            "stageProbability": 1.0,
+            "oneSigmaBoundsSolar": [
+              0.85,
+              0.93
+            ]
+          },
+          "caveat": "Evolutionary-model conditional posterior; alternate stage and flags retained in frozen row"
+        }
+      }
+    },
+    "* alf Hya": {
+      "label": "Alphard",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "bright-alphard",
+        "hip-46390"
+      ],
+      "scope": "Exact * alf Hya; individual stellar parameters, never a companion or system total.",
+      "reference": "2018A&A...616A..33S",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+      "note": "Stock et al. (2018): dominant-stage Bayesian present-day mass (mode), with published 1-sigma bounds. Not a dynamical measurement; source model and stage ambiguity retained.",
+      "fields": {
+        "mass_solar": {
+          "value": 2.4,
+          "uncertainty": {
+            "lower": 0.11,
+            "upper": 0.23
+          },
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+          "section": "giants.dat HIP 46390",
+          "method": "Mode of present-day mass posterior, corrected for RGB mass loss",
+          "inputs": {
+            "stage": "HB",
+            "stageProbability": 1.0,
+            "oneSigmaBoundsSolar": [
+              2.29,
+              2.63
+            ]
+          },
+          "caveat": "Evolutionary-model conditional posterior; alternate stage and flags retained in frozen row"
+        }
+      }
+    },
+    "* eps Peg": {
+      "label": "Enif",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "bright-enif",
+        "hip-107315"
+      ],
+      "scope": "Exact * eps Peg; individual stellar parameters, never a companion or system total.",
+      "reference": "2018A&A...616A..33S",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+      "note": "Stock et al. (2018): dominant-stage Bayesian present-day mass (mode), with published 1-sigma bounds. Not a dynamical measurement; source model and stage ambiguity retained.",
+      "fields": {
+        "mass_solar": {
+          "value": 7.2,
+          "uncertainty": {
+            "lower": 0.2,
+            "upper": 0.52
+          },
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+          "section": "giants.dat HIP 107315",
+          "method": "Mode of present-day mass posterior, corrected for RGB mass loss",
+          "inputs": {
+            "stage": "HB",
+            "stageProbability": 0.95,
+            "oneSigmaBoundsSolar": [
+              7.0,
+              7.72
+            ]
+          },
+          "caveat": "Evolutionary-model conditional posterior; alternate stage and flags retained in frozen row"
+        }
+      }
+    },
+    "* iot Aur": {
+      "label": "Hassaleh",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "bright-hassaleh",
+        "hip-23015"
+      ],
+      "scope": "Exact * iot Aur; individual stellar parameters, never a companion or system total.",
+      "reference": "2018A&A...616A..33S",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+      "note": "Stock et al. (2018): dominant-stage Bayesian present-day mass (mode), with published 1-sigma bounds. Not a dynamical measurement; source model and stage ambiguity retained.",
+      "fields": {
+        "mass_solar": {
+          "value": 5.23,
+          "uncertainty": {
+            "lower": 1.1,
+            "upper": 0.21
+          },
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/616/A33/",
+          "section": "giants.dat HIP 23015",
+          "method": "Mode of present-day mass posterior, corrected for RGB mass loss",
+          "inputs": {
+            "stage": "HB",
+            "stageProbability": 0.95,
+            "oneSigmaBoundsSolar": [
+              4.13,
+              5.44
+            ]
+          },
+          "caveat": "Evolutionary-model conditional posterior; alternate stage and flags retained in frozen row"
+        }
+      }
+    },
+    "* alf Car": {
+      "label": "Canopus",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "bright-canopus",
+        "hip-30438"
+      ],
+      "scope": "Exact * alf Car; individual stellar parameters, never a companion or system total.",
+      "reference": "2021A&A...654A..19D",
+      "url": "https://arxiv.org/html/2109.07153",
+      "note": "Canopus present-day spectroscopic mass from the two-temperature SED/Rosseland solution; distinct from initial/evolutionary track masses.",
+      "fields": {
+        "mass_solar": {
+          "value": 9.81,
+          "uncertainty": 1.83,
+          "status": "spectroscopic",
+          "reference": "2021A&A...654A..19D",
+          "sourceUrl": "https://arxiv.org/html/2109.07153",
+          "section": "Table 4, SED fit related parameters"
+        }
+      }
+    },
+    "* alf Cyg": {
+      "label": "Deneb",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "bright-deneb",
+        "hip-102098"
+      ],
+      "scope": "Exact * alf Cyg; individual stellar parameters, never a companion or system total.",
+      "reference": "2008A&A...479..849S",
+      "url": "https://arxiv.org/abs/0712.0040",
+      "note": "Schiller and Przybilla spectroscopic present-day mass at their adopted spectroscopic distance. Existing radius/luminosity retain independent catalog sources; not initial mass.",
+      "fields": {
+        "mass_solar": {
+          "value": 19,
+          "uncertainty": 4,
+          "status": "spectroscopic",
+          "reference": "2008A&A...479..849S",
+          "sourceUrl": "https://arxiv.org/abs/0712.0040",
+          "section": "Table 2, spectroscopic mass; full article version gives +/-4 (abstract gives +/-3)"
+        }
+      }
+    },
+    "* bet Cru": {
+      "label": "Mimosa",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "bright-mimosa",
+        "hip-62434"
+      ],
+      "scope": "Exact * bet Cru; individual stellar parameters, never a companion or system total.",
+      "reference": "2022NatAs...6..154C",
+      "url": "https://arxiv.org/abs/2205.11679",
+      "note": "Cotton et al. (2022): primary-specific asteroseismic mass; no mass or integrated flux assigned to another component.",
+      "fields": {
+        "mass_solar": {
+          "value": 14.5,
+          "uncertainty": 0.5,
+          "status": "asteroseismic",
+          "reference": "2022NatAs...6..154C",
+          "sourceUrl": "https://arxiv.org/abs/2205.11679",
+          "section": "Abstract; asteroseismic modelling"
+        }
+      }
+    },
+    "* alf Cep": {
+      "label": "Alderamin",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "bright-alderamin",
+        "hip-105199"
+      ],
+      "scope": "Exact * alf Cep; individual stellar parameters, never a companion or system total.",
+      "reference": "2009ApJ...701..209Z",
+      "url": "https://arxiv.org/html/0906.2241",
+      "note": "Zhao et al. (2009) adopted beta-free rotating-star model. Radius is a Stefan-Boltzmann equivalent; the actual polar/equatorial radii differ. The newer NPOI spherical-disk fit is not adopted for this rapid rotator.",
+      "fields": {
+        "mass_solar": {
+          "value": 1.92,
+          "uncertainty": 0.04,
+          "status": "model-derived",
+          "reference": "2009ApJ...701..209Z",
+          "sourceUrl": "https://arxiv.org/html/0906.2241",
+          "section": "Table 3 beta-free model"
+        },
+        "luminosity_solar": {
+          "value": 18.1,
+          "uncertainty": 1.8,
+          "status": "model-derived",
+          "reference": "2009ApJ...701..209Z",
+          "sourceUrl": "https://arxiv.org/html/0906.2241",
+          "section": "Table 3 true luminosity"
+        },
+        "radius_solar": {
+          "value": 2.5131132404563217,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2009ApJ...701..209Z",
+          "sourceUrl": "https://arxiv.org/html/0906.2241",
+          "section": "Derived from Table 3 true luminosity and true Teff",
+          "inputs": {
+            "luminosity_solar": 18.1,
+            "luminosity_uncertainty_solar": 1.8,
+            "temperature_k": 7510,
+            "temperature_uncertainty_k": 160,
+            "polar_radius_solar": 2.162,
+            "equatorial_radius_solar": 2.74
+          },
+          "method": "Stefan-Boltzmann equivalent radius of the gravity-darkened oblate star, not polar or equatorial radius"
+        }
+      }
+    },
+    "* bet CMa": {
+      "label": "Mirzam",
+      "component": "individual star",
+      "starViewIds": [
+        "bright-mirzam",
+        "hip-30324"
+      ],
+      "scope": "Exact * bet CMa / Mirzam individual star; no companion or subsystem mass.",
+      "reference": "Shull et al. 2025; arXiv:2508.03800",
+      "url": "https://arxiv.org/html/2508.03800",
+      "note": "Published gravitational/evolutionary mass at 151 +/-5 pc. Existing temperature, luminosity, radius and distance retain their independent catalog sources.",
+      "fields": {
+        "mass_solar": {
+          "value": 13,
+          "uncertainty": 1,
+          "reference": "Shull et al. 2025; arXiv:2508.03800",
+          "sourceUrl": "https://arxiv.org/html/2508.03800",
+          "section": "Section II.1; Abstract",
+          "status": "model-derived"
+        }
+      }
+    },
+    "* bet Cas": {
+      "label": "Caph",
+      "component": "individual star",
+      "starViewIds": [
+        "bright-caph",
+        "hip-746"
+      ],
+      "scope": "Exact * bet Cas / Caph individual star; no companion or subsystem mass.",
+      "reference": "Che et al. 2011, as adopted by Zwintz et al. 2020; arXiv:2009.04784",
+      "url": "https://arxiv.org/html/2009.04784",
+      "note": "Rotating-star evolutionary mass from Che et al. (2011), retained in Zwintz et al. (2020); formal uncertainty omits model systematics.",
+      "fields": {
+        "mass_solar": {
+          "value": 1.91,
+          "uncertainty": 0.02,
+          "reference": "Che et al. 2011, as adopted by Zwintz et al. 2020; arXiv:2009.04784",
+          "sourceUrl": "https://arxiv.org/html/2009.04784",
+          "section": "Introduction, interferometric rotating-star model",
+          "status": "model-derived"
+        }
+      }
+    },
+    "* bet Peg": {
+      "label": "Scheat (Beta Pegasi)",
+      "component": "individual red giant",
+      "starViewIds": [
+        "bright-scheat",
+        "hip-113881"
+      ],
+      "scope": "Exact beta Peg / HIP 113881 photosphere; molecular shell extent is separate.",
+      "reference": "Arroyo-Torres et al. 2014; arXiv:1404.7384",
+      "url": "https://arxiv.org/html/1404.7384",
+      "note": "VLTI/AMBER Rosseland radius from the near-continuum 2012 observations; bolometric luminosity from extinction-corrected flux and distance 60.09 +/-0.54 pc. Source Teff=3909 +/-187 K is retained in inputs; the existing catalog temperature remains independent. Mass is model-dependent (different initial-track ranges), so no point mass is adopted.",
+      "fields": {
+        "radius_solar": {
+          "value": 109,
+          "uncertainty": 7,
+          "status": "interferometric",
+          "reference": "Arroyo-Torres et al. 2014; arXiv:1404.7384",
+          "sourceUrl": "https://arxiv.org/html/1404.7384",
+          "section": "Table 5",
+          "inputs": {
+            "angular_diameter_mas": 16.87,
+            "angular_diameter_uncertainty_mas": 1,
+            "source_distance_pc": 60.09,
+            "source_distance_uncertainty_pc": 0.54
+          }
+        },
+        "luminosity_solar": {
+          "value": 2511.88643150958,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "Arroyo-Torres et al. 2014; arXiv:1404.7384",
+          "sourceUrl": "https://arxiv.org/html/1404.7384",
+          "section": "Table 5",
+          "method": "Convert published log10(L/Lsun); not a mixed-source radius/temperature derivation",
+          "inputs": {
+            "log_luminosity_solar": 3.4,
+            "uncertainty_dex": 0.15,
+            "source_temperature_k": 3909,
+            "source_temperature_uncertainty_k": 187,
+            "source_bolometric_flux_w_m2": 2.21e-08,
+            "source_bolometric_flux_uncertainty_w_m2": 3.32e-09
+          }
+        }
+      }
+    }
+  }
+}

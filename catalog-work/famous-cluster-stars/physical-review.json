@@ -1,0 +1,1150 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "policy": "Enrich exact objects and identified components only. Existing component-safe physical values win. The unresolved Phyllon Kissinou AB fit is retained with system scope, not relabelled as six individual A measurements. No cluster-wide age/composition copied to individual stars. Derived values record coherent inputs; nulls are explicit research limits.",
+  "inputSha256": {
+    "catalog-work/famous-cluster-stars/literature/david-2015-table5.adql": "e3ec9fb6539baeb3fdddcd1c5056674d00b3293286528072de7b84ee12c6b8de",
+    "catalog-work/famous-cluster-stars/literature/stock-2018.json": "b3462f2c76e7d48a9c4f577b1bd52fc562e88b0a59caee91892896315c88e9c2",
+    "catalog-work/famous-cluster-stars/literature/phyllon-c-gaia-dr3.json": "8e56e7cf1f0a6456530b7bc0ad41c67079336769d6c7f7e06277cd08b7f58446",
+    "catalog-work/famous-cluster-stars/literature/cluster-simbad-basic.json": "a3979c6153c8f1d3725d8be7671b16a4bfb341f7e316476b85a2876057080267",
+    "catalog-work/famous-cluster-stars/literature/cluster-simbad-feh.adql": "af11de0b07255b3c9499c05888449a4b7f4eaf235f38290bebe08ad609723f50",
+    "catalog-work/famous-cluster-stars/literature/zorec-2012.json": "cdbddbbfbaab2651ba56ff7ca8cc2db877d522496e1e5048304d8c1c4f691fd3",
+    "catalog-work/famous-cluster-stars/literature/zorec-2012-ReadMe": "d4f7c86b99fcb9c13d2265a7d6ad7da8da7ae12cc135a58c53361d1244167f27",
+    "catalog-work/famous-cluster-stars/literature/cluster-gaia-dr3.adql": "89ad689b1faa070bd9ef5cb59792e7d4e10f8d740c489af864400c6e6d908bec",
+    "catalog-work/famous-cluster-stars/literature/zorec-2012.adql": "076f841a665729f838ac7f50911437cbafe9a1ce318c002c2daca77d2184e8a3",
+    "catalog-work/famous-cluster-stars/literature/cluster-simbad-feh.json": "fe7809035cad94c8ca1485b9ba452155a52fc91768febebef41b94b4b1634300",
+    "catalog-work/famous-cluster-stars/literature/cluster-simbad-basic.adql": "65a4f3387a02278062ea7ab532d3da1569b76cf1ca8519e990cf74edad0fb070",
+    "catalog-work/famous-cluster-stars/literature/david-2015-ReadMe": "c0bd36e062c31e99bbdc9667f68f46c3b8accf0c89584601a890f7d5393ef3b8",
+    "catalog-work/famous-cluster-stars/literature/phyllon-c-gaia-dr3.adql": "240154c5f64d8e489c26c5280bb2fb830659e4b454f83434f4d53795f3a6ee05",
+    "catalog-work/famous-cluster-stars/literature/stock-2018.adql": "6eece236ac18192d5b21e9ab1ee10e78a43f70b7b976d91c203d6292b3dff310",
+    "catalog-work/famous-cluster-stars/literature/david-2015-table5.json": "5ec5e756cf350042c57fa8d9f36efadaf2b661a830acf7114ae947940ec64948",
+    "catalog-work/famous-cluster-stars/literature/reviewed-selected-tables.json": "db4c9ecfc59a78adc4ca0405e4aa4fd613fa5634fe1c1bb0588c493d5adfa929",
+    "catalog-work/famous-cluster-stars/literature/cluster-gaia-dr3.json": "ebeb11e8040966b4b63d6a30d01f92e765e7b6aab69dcd3f5c622ada9e1a0cd0"
+  },
+  "catalogObjects": {
+    "*  17 Tau": {
+      "label": "Electra",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "hip-17499"
+      ],
+      "scope": "Exact *  17 Tau / HIP 17499; no companion or subsystem-total transfer.",
+      "reference": "2017MNRAS.471.2882W",
+      "url": "https://doi.org/10.1093/mnras/stx1050",
+      "fields": {
+        "mass_solar": {
+          "value": 4.7,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2017MNRAS.471.2882W",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stx1050",
+          "section": "Table 1; original mass references b, g, h"
+        }
+      },
+      "note": "Exact HD/named bright Pleiad. Published primary-star evolutionary/photometric mass compilation; no formal uncertainty invented where the table gives none. Be-star rotation and disk systematics remain relevant."
+    },
+    "*  20 Tau": {
+      "label": "Maia",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "hip-17573"
+      ],
+      "scope": "Exact *  20 Tau / HIP 17573; no companion or subsystem-total transfer.",
+      "reference": "2017MNRAS.471.2882W",
+      "url": "https://doi.org/10.1093/mnras/stx1050",
+      "fields": {
+        "mass_solar": {
+          "value": 4.22,
+          "uncertainty": 0.18,
+          "status": "model-derived",
+          "reference": "2017MNRAS.471.2882W",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stx1050",
+          "section": "Table 1; original mass references b, g, h"
+        }
+      },
+      "note": "Exact HD/named bright Pleiad. Published primary-star evolutionary/photometric mass compilation; no formal uncertainty invented where the table gives none. Be-star rotation and disk systematics remain relevant."
+    },
+    "*  23 Tau": {
+      "label": "Merope",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "hip-17608"
+      ],
+      "scope": "Exact *  23 Tau / HIP 17608; no companion or subsystem-total transfer.",
+      "reference": "2017MNRAS.471.2882W",
+      "url": "https://doi.org/10.1093/mnras/stx1050",
+      "fields": {
+        "mass_solar": {
+          "value": 4.25,
+          "uncertainty": 0.08,
+          "status": "model-derived",
+          "reference": "2017MNRAS.471.2882W",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stx1050",
+          "section": "Table 1; original mass references b, g, h"
+        }
+      },
+      "note": "Exact HD/named bright Pleiad. Published primary-star evolutionary/photometric mass compilation; no formal uncertainty invented where the table gives none. Be-star rotation and disk systematics remain relevant."
+    },
+    "* eta Tau": {
+      "label": "Alcyone",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "hip-17702"
+      ],
+      "scope": "Exact * eta Tau / HIP 17702; no companion or subsystem-total transfer.",
+      "reference": "2017MNRAS.471.2882W",
+      "url": "https://doi.org/10.1093/mnras/stx1050",
+      "fields": {
+        "mass_solar": {
+          "value": 5.9,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2017MNRAS.471.2882W",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stx1050",
+          "section": "Table 1; original mass references b, g, h"
+        }
+      },
+      "note": "Exact HD/named bright Pleiad. Published primary-star evolutionary/photometric mass compilation; no formal uncertainty invented where the table gives none. Be-star rotation and disk systematics remain relevant."
+    },
+    "*  21 Tau": {
+      "label": "Asterope",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "hip-17579"
+      ],
+      "scope": "Exact *  21 Tau / HIP 17579; no companion or subsystem-total transfer.",
+      "reference": "2012A&A...537A.120Z",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/537/A120",
+      "fields": {
+        "mass_solar": {
+          "value": 2.93,
+          "uncertainty": 0.07,
+          "status": "model-derived",
+          "reference": "2012A&A...537A.120Z",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/537/A120",
+          "section": "Table 1, HD 23432"
+        }
+      },
+      "note": "Exact HD 23432. Published evolutionary mass. Table Age is fractional main-sequence lifetime and is not adopted as an age in Gyr."
+    },
+    "* kap01 Tau": {
+      "label": "Kappa1 Tau",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "hip-20635"
+      ],
+      "scope": "Exact * kap01 Tau / HIP 20635; no companion or subsystem-total transfer.",
+      "reference": "2015ApJ...804..146D",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/804/146",
+      "fields": {
+        "age_gyr": {
+          "value": 0.481,
+          "uncertainty": {
+            "lower": 0.335,
+            "upper": 0.793,
+            "kind": "68-percent-credible-interval"
+          },
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/804/146",
+          "section": "Table 5, exact HIP; median and 68% interval"
+        }
+      },
+      "note": "Individual photometric evolutionary age posterior, not the adopted age of the Hyades. Rotation, model choice and broad posterior limit its interpretation."
+    },
+    "* ups Tau": {
+      "label": "Upsilon Tau",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "hip-20711"
+      ],
+      "scope": "Exact * ups Tau / HIP 20711; no companion or subsystem-total transfer.",
+      "reference": "2015ApJ...804..146D",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/804/146",
+      "fields": {
+        "age_gyr": {
+          "value": 1.021,
+          "uncertainty": {
+            "lower": 0.725,
+            "upper": 1.569,
+            "kind": "68-percent-credible-interval"
+          },
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/804/146",
+          "section": "Table 5, exact HIP; median and 68% interval"
+        }
+      },
+      "note": "Individual photometric evolutionary age posterior, not the adopted age of the Hyades. Rotation, model choice and broad posterior limit its interpretation."
+    },
+    "* c Tau": {
+      "label": "c Tau",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "hip-21589"
+      ],
+      "scope": "Exact * c Tau / HIP 21589; no companion or subsystem-total transfer.",
+      "reference": "2015ApJ...804..146D",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/804/146",
+      "fields": {
+        "age_gyr": {
+          "value": 0.299,
+          "uncertainty": {
+            "lower": 0.177,
+            "upper": 0.682,
+            "kind": "68-percent-credible-interval"
+          },
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/804/146",
+          "section": "Table 5, exact HIP; median and 68% interval"
+        }
+      },
+      "note": "Individual photometric evolutionary age posterior, not the adopted age of the Hyades. Rotation, model choice and broad posterior limit its interpretation."
+    },
+    "* eps Tau": {
+      "label": "Ain",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "hip-20889"
+      ],
+      "scope": "Exact * eps Tau / HIP 20889; no companion or subsystem-total transfer.",
+      "reference": "2018A&A...616A..33S",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33",
+      "fields": {
+        "age_gyr": {
+          "value": 0.7943282347242822,
+          "uncertainty": {
+            "lower": 0.5623413251903491,
+            "upper": 0.9120108393559115,
+            "kind": "1-sigma-credible-interval"
+          },
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33",
+          "section": "giants table; exact HIP; preferred HB solution"
+        },
+        "mass_solar": {
+          "value": 2.458,
+          "uncertainty": 0.073,
+          "status": "asteroseismic",
+          "reference": "2019A&A...622A.190A",
+          "sourceUrl": "https://doi.org/10.1051/0004-6361/201834690",
+          "section": "Section 4, seismic mass constrained by interferometric radius"
+        }
+      },
+      "note": "Individual Bayesian evolutionary posterior with HB probability 0.99. Mode and 1-sigma interval; mass-loss corrected present-day mass where adopted. This is not a blanket cluster age. Exact epsilon Tauri / Ain. Asteroseismic scaling mass; internal uncertainty excludes the full scaling/evolutionary-state systematic uncertainty."
+    },
+    "* del Tau": {
+      "label": "Secunda Hyadum",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "hip-20455"
+      ],
+      "scope": "Exact * del Tau / HIP 20455; no companion or subsystem-total transfer.",
+      "reference": "2018A&A...616A..33S",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33",
+      "fields": {
+        "age_gyr": {
+          "value": 0.7585775750291851,
+          "uncertainty": {
+            "lower": 0.616595001861481,
+            "upper": 0.9332543007969925,
+            "kind": "1-sigma-credible-interval"
+          },
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33",
+          "section": "giants table; exact HIP; preferred HB solution"
+        },
+        "mass_solar": {
+          "value": 2.57,
+          "uncertainty": {
+            "lower": 2.4,
+            "upper": 2.62,
+            "kind": "1-sigma-credible-interval"
+          },
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33",
+          "section": "giants table; exact HIP; preferred HB solution"
+        }
+      },
+      "note": "Individual Bayesian evolutionary posterior with HB probability 1. Mode and 1-sigma interval; mass-loss corrected present-day mass where adopted. This is not a blanket cluster age."
+    },
+    "*   7 Com": {
+      "label": "7 Com",
+      "component": "catalogued individual star",
+      "starViewIds": [
+        "hip-59847"
+      ],
+      "scope": "Exact *   7 Com / HIP 59847; no companion or subsystem-total transfer.",
+      "reference": "2018A&A...616A..33S",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33",
+      "fields": {
+        "age_gyr": {
+          "value": 2.344228815319918,
+          "uncertainty": {
+            "lower": 1.8620871366628655,
+            "upper": 2.95120922666639,
+            "kind": "1-sigma-credible-interval"
+          },
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33",
+          "section": "giants table; exact HIP; preferred HB solution"
+        }
+      },
+      "note": "Individual Bayesian evolutionary posterior with HB probability 0.99. Mode and 1-sigma interval; mass-loss corrected present-day mass where adopted. This is not a blanket cluster age."
+    }
+  },
+  "objects": {
+    "hip-20885": {
+      "expectedName": "Theta1 Tau Ba",
+      "systemId": "msc-04287+1552",
+      "component": "Ba",
+      "fields": {
+        "age_gyr": {
+          "value": 0.7585775750291851,
+          "uncertainty": {
+            "lower": 0.6456542290346563,
+            "upper": 0.9332543007969925,
+            "kind": "1-sigma-credible-interval"
+          },
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33",
+          "section": "giants table; exact HIP; preferred HB solution"
+        },
+        "mass_solar": {
+          "value": 2.5,
+          "uncertainty": {
+            "lower": 2.32,
+            "upper": 2.53,
+            "kind": "1-sigma-credible-interval"
+          },
+          "status": "model-derived",
+          "reference": "2018A&A...616A..33S",
+          "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33",
+          "section": "giants table; exact HIP; preferred HB solution"
+        },
+        "temperature_k": {
+          "value": 4811,
+          "uncertainty": 50,
+          "status": "interferometric",
+          "reference": "2009ApJ...691.1243B",
+          "sourceUrl": "https://chara.gsu.edu/files/papers/2009_Boyajian_ApJ_691_1243.pdf",
+          "section": "Table 4; Sections 2-3",
+          "inputs": {
+            "temperature_k": 4811,
+            "radius_solar": 11.7,
+            "secondaryFluxCorrectionFraction": 0.03
+          }
+        },
+        "radius_solar": {
+          "value": 11.7,
+          "uncertainty": 0.2,
+          "status": "interferometric",
+          "reference": "2009ApJ...691.1243B",
+          "sourceUrl": "https://chara.gsu.edu/files/papers/2009_Boyajian_ApJ_691_1243.pdf",
+          "section": "Table 4; Sections 2-3",
+          "inputs": {
+            "temperature_k": 4811,
+            "radius_solar": 11.7,
+            "secondaryFluxCorrectionFraction": 0.03
+          }
+        },
+        "luminosity_solar": {
+          "value": 66.07054077118231,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2009ApJ...691.1243B",
+          "sourceUrl": "https://chara.gsu.edu/files/papers/2009_Boyajian_ApJ_691_1243.pdf",
+          "section": "Table 4; Sections 2-3",
+          "inputs": {
+            "temperature_k": 4811,
+            "radius_solar": 11.7,
+            "secondaryFluxCorrectionFraction": 0.03
+          }
+        }
+      },
+      "note": "Individual Bayesian evolutionary posterior with HB probability 1. Mode and 1-sigma interval; mass-loss corrected present-day mass where adopted. This is not a blanket cluster age. Exact theta1 Tau primary Ba. Interferometric radius and temperature; the source applies a 3-percent bolometric-flux subtraction for the secondary. Luminosity is derived here from this coherent primary radius/temperature pair, not the binary total."
+    },
+    "hip-17847": {
+      "expectedName": "Atlas Aa1",
+      "systemId": "msc-03492+2403",
+      "component": "Aa1",
+      "fields": {
+        "mass_solar": {
+          "value": 5.04,
+          "uncertainty": 0.17,
+          "status": "dynamical",
+          "reference": "Torres et al. 2025; arXiv:2507.15933",
+          "sourceUrl": "https://arxiv.org/abs/2507.15933",
+          "section": "Tables 4 (constrained solution), 6; Section 8.2",
+          "quantity": "[M/H]",
+          "derivationInputs": {
+            "temperature_k": 12525,
+            "radius_solar": 7.56,
+            "solar_temperature_k": 5772
+          }
+        },
+        "temperature_k": {
+          "value": 12525,
+          "uncertainty": 200,
+          "status": "model-derived",
+          "reference": "Torres et al. 2025; arXiv:2507.15933",
+          "sourceUrl": "https://arxiv.org/abs/2507.15933",
+          "section": "Tables 4 (constrained solution), 6; Section 8.2",
+          "quantity": "[M/H]",
+          "derivationInputs": {
+            "temperature_k": 12525,
+            "radius_solar": 7.56,
+            "solar_temperature_k": 5772
+          }
+        },
+        "radius_solar": {
+          "value": 7.56,
+          "uncertainty": 0.63,
+          "status": "model-derived",
+          "reference": "Torres et al. 2025; arXiv:2507.15933",
+          "sourceUrl": "https://arxiv.org/abs/2507.15933",
+          "section": "Tables 4 (constrained solution), 6; Section 8.2",
+          "quantity": "[M/H]",
+          "derivationInputs": {
+            "temperature_k": 12525,
+            "radius_solar": 7.56,
+            "solar_temperature_k": 5772
+          }
+        },
+        "luminosity_solar": {
+          "value": 1267.2118909029425,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "Torres et al. 2025; arXiv:2507.15933",
+          "sourceUrl": "https://arxiv.org/abs/2507.15933",
+          "section": "Tables 4 (constrained solution), 6; Section 8.2",
+          "quantity": "[M/H]",
+          "derivationInputs": {
+            "temperature_k": 12525,
+            "radius_solar": 7.56,
+            "solar_temperature_k": 5772
+          },
+          "method": "Stefan-Boltzmann from coherent component-specific source inputs; apparent/disk-averaged convention of the rotating-star analysis."
+        },
+        "metallicity_dex": {
+          "value": -0.03,
+          "uncertainty": 0.06,
+          "status": "model-derived",
+          "reference": "Torres et al. 2025; arXiv:2507.15933",
+          "sourceUrl": "https://arxiv.org/abs/2507.15933",
+          "section": "Tables 4 (constrained solution), 6; Section 8.2",
+          "quantity": "[M/H]",
+          "derivationInputs": {
+            "temperature_k": 12525,
+            "radius_solar": 7.56,
+            "solar_temperature_k": 5772
+          }
+        },
+        "age_gyr": {
+          "value": 0.104,
+          "uncertainty": {
+            "lower": 0.102,
+            "upper": 0.106,
+            "kind": "model-range"
+          },
+          "status": "model-derived",
+          "reference": "Torres et al. 2025; arXiv:2507.15933",
+          "sourceUrl": "https://arxiv.org/abs/2507.15933",
+          "section": "Tables 4 (constrained solution), 6; Section 8.2",
+          "quantity": "[M/H]",
+          "derivationInputs": {
+            "temperature_k": 12525,
+            "radius_solar": 7.56,
+            "solar_temperature_k": 5772
+          }
+        }
+      },
+      "note": "Exact disentangled Atlas primary/secondary, matched to MSC Aa1/Aa2. Dynamical masses; atmospheric errors are statistical. Radius is the published spectroscopic mean (not polar/equatorial). Luminosity is Stefan-Boltzmann from this same radius and temperature. Primary age is the 102-106 Myr rotating-model range. Secondary fixed [M/H]=0 and log Fe/Ntot are not adopted as a measured [Fe/H]."
+    },
+    "msc-03492+2403-aa2": {
+      "expectedName": "Atlas Aa2",
+      "systemId": "msc-03492+2403",
+      "component": "Aa2",
+      "fields": {
+        "mass_solar": {
+          "value": 3.64,
+          "uncertainty": 0.12,
+          "status": "dynamical",
+          "reference": "Torres et al. 2025; arXiv:2507.15933",
+          "sourceUrl": "https://arxiv.org/abs/2507.15933",
+          "section": "Tables 4 (constrained solution), 6; Section 8.2",
+          "quantity": "[M/H]",
+          "derivationInputs": {
+            "temperature_k": 12835,
+            "radius_solar": 3.25,
+            "solar_temperature_k": 5772
+          }
+        },
+        "temperature_k": {
+          "value": 12835,
+          "uncertainty": 450,
+          "status": "model-derived",
+          "reference": "Torres et al. 2025; arXiv:2507.15933",
+          "sourceUrl": "https://arxiv.org/abs/2507.15933",
+          "section": "Tables 4 (constrained solution), 6; Section 8.2",
+          "quantity": "[M/H]",
+          "derivationInputs": {
+            "temperature_k": 12835,
+            "radius_solar": 3.25,
+            "solar_temperature_k": 5772
+          }
+        },
+        "radius_solar": {
+          "value": 3.25,
+          "uncertainty": 0.29,
+          "status": "model-derived",
+          "reference": "Torres et al. 2025; arXiv:2507.15933",
+          "sourceUrl": "https://arxiv.org/abs/2507.15933",
+          "section": "Tables 4 (constrained solution), 6; Section 8.2",
+          "quantity": "[M/H]",
+          "derivationInputs": {
+            "temperature_k": 12835,
+            "radius_solar": 3.25,
+            "solar_temperature_k": 5772
+          }
+        },
+        "luminosity_solar": {
+          "value": 258.2527318680327,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "Torres et al. 2025; arXiv:2507.15933",
+          "sourceUrl": "https://arxiv.org/abs/2507.15933",
+          "section": "Tables 4 (constrained solution), 6; Section 8.2",
+          "quantity": "[M/H]",
+          "derivationInputs": {
+            "temperature_k": 12835,
+            "radius_solar": 3.25,
+            "solar_temperature_k": 5772
+          },
+          "method": "Stefan-Boltzmann from coherent component-specific source inputs; apparent/disk-averaged convention of the rotating-star analysis."
+        },
+        "spectral_type": {
+          "value": "B8V",
+          "uncertainty": null,
+          "status": "compiled",
+          "reference": "2017MNRAS.471.2882W",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stx1050",
+          "section": "Table 1, Atlas Aa2"
+        }
+      },
+      "note": "Exact disentangled Atlas primary/secondary, matched to MSC Aa1/Aa2. Dynamical masses; atmospheric errors are statistical. Radius is the published spectroscopic mean (not polar/equatorial). Luminosity is Stefan-Boltzmann from this same radius and temperature. Primary age is the 102-106 Myr rotating-model range. Secondary fixed [M/H]=0 and log Fe/Ntot are not adopted as a measured [Fe/H]. Exact explicitly labelled Atlas Aa2 classification; retain the newer 2025 atmospheric parameters."
+    },
+    "hip-17851": {
+      "expectedName": "Pleione Aa",
+      "systemId": "msc-03492+2408",
+      "component": "Aa",
+      "fields": {
+        "mass_solar": {
+          "value": 4.1,
+          "uncertainty": 0.2,
+          "status": "model-derived",
+          "reference": "2022ApJ...928..145M",
+          "sourceUrl": "https://arxiv.org/abs/2202.05900",
+          "section": "Table 4; Section 3",
+          "method": "BeAtlas rotating-star fit; effective radius derived here from coherent L and Teff",
+          "inputs": {
+            "luminosity_solar": 380,
+            "temperature_k": 14000,
+            "solar_temperature_k": 5772
+          }
+        },
+        "temperature_k": {
+          "value": 14000,
+          "uncertainty": 100,
+          "status": "model-derived",
+          "reference": "2022ApJ...928..145M",
+          "sourceUrl": "https://arxiv.org/abs/2202.05900",
+          "section": "Table 4; Section 3",
+          "method": "BeAtlas rotating-star fit; effective radius derived here from coherent L and Teff",
+          "inputs": {
+            "luminosity_solar": 380,
+            "temperature_k": 14000,
+            "solar_temperature_k": 5772
+          }
+        },
+        "luminosity_solar": {
+          "value": 380,
+          "uncertainty": {
+            "lower": 310,
+            "upper": 460,
+            "kind": "source-interval"
+          },
+          "status": "model-derived",
+          "reference": "2022ApJ...928..145M",
+          "sourceUrl": "https://arxiv.org/abs/2202.05900",
+          "section": "Table 4; Section 3",
+          "method": "BeAtlas rotating-star fit; effective radius derived here from coherent L and Teff",
+          "inputs": {
+            "luminosity_solar": 380,
+            "temperature_k": 14000,
+            "solar_temperature_k": 5772
+          }
+        },
+        "radius_solar": {
+          "value": 3.3135106575810807,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2022ApJ...928..145M",
+          "sourceUrl": "https://arxiv.org/abs/2202.05900",
+          "section": "Table 4; Section 3",
+          "method": "BeAtlas rotating-star fit; effective radius derived here from coherent L and Teff",
+          "inputs": {
+            "luminosity_solar": 380,
+            "temperature_k": 14000,
+            "solar_temperature_k": 5772
+          }
+        }
+      },
+      "note": "Pleione Be primary Aa: diskless UV/optical rotating-star model. Scalar radius is the Stefan-Boltzmann equivalent from coherent L=380 and Teff=14000, not the polar 3.3 or equatorial 4.4 solar radii. Published t/tMS=0.7 is fractional and is not an absolute age. No companion properties transferred."
+    },
+    "trapezium-theta1-orionis-a": {
+      "expectedName": "Theta1 Orionis Aa1",
+      "systemId": "msc-05353-0524",
+      "component": "Aa1",
+      "fields": {
+        "mass_solar": {
+          "value": 14,
+          "uncertainty": 0.8,
+          "status": "model-derived",
+          "reference": "2014A&A...566A...7N",
+          "sourceUrl": "https://arxiv.org/abs/1412.1418",
+          "section": "Table 1, HD 37020; object note #21"
+        },
+        "radius_solar": {
+          "value": 4.5,
+          "uncertainty": 0.5,
+          "status": "model-derived",
+          "reference": "2014A&A...566A...7N",
+          "sourceUrl": "https://arxiv.org/abs/1412.1418",
+          "section": "Table 1, HD 37020; object note #21"
+        },
+        "luminosity_solar": {
+          "value": 16218.100973589299,
+          "uncertainty": {
+            "lower": 13182.567385564074,
+            "upper": 19952.62314968879,
+            "kind": "source-logL-1-sigma"
+          },
+          "status": "model-derived",
+          "reference": "2014A&A...566A...7N",
+          "sourceUrl": "https://arxiv.org/abs/1412.1418",
+          "section": "Table 1, HD 37020; object note #21"
+        }
+      },
+      "note": "Exact HD 37020 hot primary, MSC Aa1, called A1 in the paper. Low-luminosity eclipsing companion supplies no significant second light to the analyzed spectrum. Evolutionary mass, not the 15.3-solar spectroscopic alternative. Log age <6.4 is an upper bound, not a point age."
+    },
+    "msc-05353-0524-ab": {
+      "expectedName": "Theta1 Orionis Ab",
+      "systemId": "msc-05353-0524",
+      "component": "Ab",
+      "fields": {
+        "mass_solar": {
+          "value": 4,
+          "uncertainty": null,
+          "status": "photometric-model",
+          "reference": "2018A&A...620A.116G",
+          "sourceUrl": "https://arxiv.org/abs/1809.10376",
+          "section": "Section 4.1.1, literature summary of Schertl et al. 2003"
+        }
+      },
+      "note": "Resolved outer Theta1 Ori A2 is MSC Ab, not the eclipsing Aa2. Published approximate photometric/evolutionary mass; no formal uncertainty stated."
+    },
+    "trapezium-theta1-orionis-c": {
+      "expectedName": "Theta1 Orionis Ca",
+      "systemId": "orb6-05353-0523-ca-cb",
+      "component": "Ca",
+      "fields": {
+        "mass_solar": {
+          "value": 33.4,
+          "uncertainty": 3.3,
+          "status": "dynamical",
+          "reference": "2021MNRAS.504.3787R",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stab1119",
+          "section": "Table 4; 3D orbit and component atmosphere models",
+          "inputs": {
+            "source_log_luminosity_solar": 5.25,
+            "source_radius_solar": 9.4
+          }
+        },
+        "radius_solar": {
+          "value": 9.4,
+          "uncertainty": 0.9,
+          "status": "model-derived",
+          "reference": "2021MNRAS.504.3787R",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stab1119",
+          "section": "Table 4; 3D orbit and component atmosphere models",
+          "inputs": {
+            "source_log_luminosity_solar": 5.25,
+            "source_radius_solar": 9.4
+          }
+        },
+        "luminosity_solar": {
+          "value": 177827.94100389228,
+          "uncertainty": {
+            "lower": 134896.28825916533,
+            "upper": 234422.88153199226,
+            "kind": "source-log-luminosity-1-sigma",
+            "sourceLogLuminosity": 5.25,
+            "sourceLogLuminositySigma": 0.12
+          },
+          "status": "model-derived",
+          "reference": "2021MNRAS.504.3787R",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stab1119",
+          "section": "Table 4; 3D orbit and component atmosphere models",
+          "inputs": {
+            "source_log_luminosity_solar": 5.25,
+            "source_radius_solar": 9.4
+          }
+        },
+        "spectral_type": {
+          "value": "O6V",
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2021MNRAS.504.3787R",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stab1119",
+          "section": "Table 4; 3D orbit and component atmosphere models",
+          "inputs": {
+            "source_log_luminosity_solar": 5.25,
+            "source_radius_solar": 9.4
+          }
+        },
+        "temperature_k": {
+          "value": 39000,
+          "uncertainty": 1800,
+          "status": "model-derived",
+          "reference": "2021MNRAS.504.3787R",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stab1119",
+          "section": "Table 4; 3D orbit and component atmosphere models",
+          "inputs": {
+            "source_log_luminosity_solar": 5.25,
+            "source_radius_solar": 9.4
+          }
+        }
+      },
+      "note": "Explicit Theta1 Ori C1/C2 correspond to represented Ca/Cb. Individual dynamical/atmosphere solution, never the total mass. For C2 the HTML temperature cell is malformed; its adopted temperature is instead derived transparently from the same table luminosity and radius, not transcribed from the malformed cell."
+    },
+    "orb6-05353-0523-ca-cb-cb": {
+      "expectedName": "Theta1 Orionis Cb",
+      "systemId": "orb6-05353-0523-ca-cb",
+      "component": "Cb",
+      "fields": {
+        "mass_solar": {
+          "value": 11.4,
+          "uncertainty": 1.1,
+          "status": "dynamical",
+          "reference": "2021MNRAS.504.3787R",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stab1119",
+          "section": "Table 4; 3D orbit and component atmosphere models",
+          "inputs": {
+            "source_log_luminosity_solar": 4.5,
+            "source_radius_solar": 6.2
+          }
+        },
+        "radius_solar": {
+          "value": 6.2,
+          "uncertainty": 1.1,
+          "status": "model-derived",
+          "reference": "2021MNRAS.504.3787R",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stab1119",
+          "section": "Table 4; 3D orbit and component atmosphere models",
+          "inputs": {
+            "source_log_luminosity_solar": 4.5,
+            "source_radius_solar": 6.2
+          }
+        },
+        "luminosity_solar": {
+          "value": 31622.776601683792,
+          "uncertainty": {
+            "lower": 21379.620895022323,
+            "upper": 46773.51412871981,
+            "kind": "source-log-luminosity-1-sigma",
+            "sourceLogLuminosity": 4.5,
+            "sourceLogLuminositySigma": 0.17
+          },
+          "status": "model-derived",
+          "reference": "2021MNRAS.504.3787R",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stab1119",
+          "section": "Table 4; 3D orbit and component atmosphere models",
+          "inputs": {
+            "source_log_luminosity_solar": 4.5,
+            "source_radius_solar": 6.2
+          }
+        },
+        "spectral_type": {
+          "value": "B0V",
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2021MNRAS.504.3787R",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stab1119",
+          "section": "Table 4; 3D orbit and component atmosphere models",
+          "inputs": {
+            "source_log_luminosity_solar": 4.5,
+            "source_radius_solar": 6.2
+          }
+        },
+        "temperature_k": {
+          "value": 30912.240078185696,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2021MNRAS.504.3787R",
+          "sourceUrl": "https://doi.org/10.1093/mnras/stab1119",
+          "section": "Table 4; 3D orbit and component atmosphere models",
+          "inputs": {
+            "source_log_luminosity_solar": 4.5,
+            "source_radius_solar": 6.2
+          },
+          "method": "Stefan-Boltzmann temperature from coherent published component radius and luminosity; not an independent temperature measurement."
+        }
+      },
+      "note": "Explicit Theta1 Ori C1/C2 correspond to represented Ca/Cb. Individual dynamical/atmosphere solution, never the total mass. For C2 the HTML temperature cell is malformed; its adopted temperature is instead derived transparently from the same table luminosity and radius, not transcribed from the malformed cell."
+    },
+    "trapezium-theta1-orionis-d": {
+      "expectedName": "Theta1 Orionis Da1",
+      "systemId": "msc-05353-052D",
+      "component": "Da1",
+      "fields": {
+        "mass_solar": {
+          "value": 16,
+          "uncertainty": 1,
+          "status": "orbit-and-flux-model",
+          "reference": "2018A&A...620A.116G",
+          "sourceUrl": "https://arxiv.org/abs/1809.10376",
+          "section": "Section 4.1.4; Table 3 orbit"
+        }
+      },
+      "note": "D1/D3 map to MSC Da1/Da2 by the same 53-day, 1.86-mas orbit. Component masses combine the total dynamical mass with a flux/model mass split; not independent purely dynamical component masses."
+    },
+    "msc-05353-052D-da2": {
+      "expectedName": "Theta1 Orionis Da2",
+      "systemId": "msc-05353-052D",
+      "component": "Da2",
+      "fields": {
+        "mass_solar": {
+          "value": 6,
+          "uncertainty": 1,
+          "status": "orbit-and-flux-model",
+          "reference": "2018A&A...620A.116G",
+          "sourceUrl": "https://arxiv.org/abs/1809.10376",
+          "section": "Section 4.1.4; Table 3 orbit"
+        },
+        "temperature_k": {
+          "value": 20000,
+          "uncertainty": null,
+          "status": "approximate-spectroscopic",
+          "reference": "2018A&A...620A.116G",
+          "sourceUrl": "https://arxiv.org/abs/1809.10376",
+          "section": "Section 4.1.4, Allen et al. 2017 comparison"
+        }
+      },
+      "note": "D1/D3 map to MSC Da1/Da2 by the same 53-day, 1.86-mas orbit. Component masses combine the total dynamical mass with a flux/model mass split; not independent purely dynamical component masses. Approximate temperature inferred for the spectroscopic D3 companion, MSC Da2. No formal uncertainty published in the cited discussion."
+    },
+    "hip-52419": {
+      "expectedName": "Theta Car Aa1",
+      "systemId": "msc-10429-6423",
+      "component": "Aa1",
+      "fields": {
+        "temperature_k": {
+          "value": 31000,
+          "uncertainty": 1000,
+          "status": "model-derived",
+          "reference": "2008A&A...488..287H",
+          "sourceUrl": "https://arxiv.org/abs/0807.2067",
+          "section": "Table 3; Section 5.1; Figure 9",
+          "inputs": {
+            "temperature_k": 31000,
+            "radius_solar": 5.1,
+            "solar_temperature_k": 5772
+          }
+        },
+        "mass_solar": {
+          "value": 15.25,
+          "uncertainty": {
+            "lower": 13.9,
+            "upper": 18.2,
+            "kind": "model-range"
+          },
+          "status": "model-derived",
+          "reference": "2008A&A...488..287H",
+          "sourceUrl": "https://arxiv.org/abs/0807.2067",
+          "section": "Table 3; Section 5.1; Figure 9",
+          "inputs": {
+            "temperature_k": 31000,
+            "radius_solar": 5.1,
+            "solar_temperature_k": 5772
+          }
+        },
+        "radius_solar": {
+          "value": 5.1,
+          "uncertainty": {
+            "lower": 4.7,
+            "upper": 7.1,
+            "kind": "model-range"
+          },
+          "status": "model-derived",
+          "reference": "2008A&A...488..287H",
+          "sourceUrl": "https://arxiv.org/abs/0807.2067",
+          "section": "Table 3; Section 5.1; Figure 9",
+          "inputs": {
+            "temperature_k": 31000,
+            "radius_solar": 5.1,
+            "solar_temperature_k": 5772
+          }
+        },
+        "luminosity_solar": {
+          "value": 21641.224875851265,
+          "uncertainty": null,
+          "status": "derived",
+          "reference": "2008A&A...488..287H",
+          "sourceUrl": "https://arxiv.org/abs/0807.2067",
+          "section": "Table 3; Section 5.1; Figure 9",
+          "inputs": {
+            "temperature_k": 31000,
+            "radius_solar": 5.1,
+            "solar_temperature_k": 5772
+          }
+        }
+      },
+      "note": "Theta Car hot primary Aa1; secondary light is not detected in this SB1 analysis. Published spectroscopic/evolutionary mass and radius range; luminosity derived here from coherent source radius and temperature. Its apparent single-star evolutionary age of 1 Myr is not adopted as chronological age because this blue straggler underwent mass transfer."
+    },
+    "hip-60351": {
+      "expectedName": "12 Com Aa",
+      "systemId": "msc-12225+2551",
+      "component": "Aa",
+      "fields": {
+        "mass_solar": {
+          "value": 2.64,
+          "uncertainty": 0.07,
+          "status": "dynamical",
+          "reference": "2023AJ....166...29L",
+          "sourceUrl": "https://arxiv.org/abs/2304.07397",
+          "section": "Table 6; Sections 4.1-4.3"
+        },
+        "radius_solar": {
+          "value": 9.12,
+          "uncertainty": {
+            "statistical": 0.12,
+            "systematic": 0.01
+          },
+          "status": "interferometric",
+          "reference": "2023AJ....166...29L",
+          "sourceUrl": "https://arxiv.org/abs/2304.07397",
+          "section": "Table 6; Sections 4.1-4.3"
+        },
+        "age_gyr": {
+          "value": 0.533,
+          "uncertainty": {
+            "statistical": 0.041,
+            "systematic": 0.042
+          },
+          "status": "model-derived",
+          "reference": "2023AJ....166...29L",
+          "sourceUrl": "https://arxiv.org/abs/2304.07397",
+          "section": "Table 6; Sections 4.1-4.3"
+        }
+      },
+      "note": "12 Com paper A/B correspond exactly to MSC Aa/Ab. Dynamical mass, resolved giant radius and model age. Mass-radius age depends on core overshooting and the primary evolutionary phase; Brogaard et al. 2023 question its RGB-versus-clump interpretation, so this is a model-dependent age."
+    },
+    "msc-12225+2551-ab": {
+      "expectedName": "12 Com Ab",
+      "systemId": "msc-12225+2551",
+      "component": "Ab",
+      "fields": {
+        "mass_solar": {
+          "value": 2.1,
+          "uncertainty": 0.03,
+          "status": "dynamical",
+          "reference": "2023AJ....166...29L",
+          "sourceUrl": "https://arxiv.org/abs/2304.07397",
+          "section": "Table 6; Sections 4.1-4.3"
+        },
+        "age_gyr": {
+          "value": 0.533,
+          "uncertainty": {
+            "statistical": 0.041,
+            "systematic": 0.042
+          },
+          "status": "model-derived",
+          "reference": "2023AJ....166...29L",
+          "sourceUrl": "https://arxiv.org/abs/2304.07397",
+          "section": "Table 6; Sections 4.1-4.3"
+        }
+      },
+      "note": "Exact 12 Com secondary, paper B = MSC Ab. Dynamical mass; age shared from the same binary primary mass-radius model, not independently measured. Core-overshooting/evolutionary-state systematics apply."
+    },
+    "hip-42556": {
+      "expectedName": "Meleph Aa",
+      "systemId": "orb6-08405+1933-aa-ab",
+      "component": "Aa",
+      "fields": {
+        "mass_solar": {
+          "value": 2.42,
+          "uncertainty": 0.008,
+          "status": "dynamical",
+          "reference": "2022AJ....164..126S",
+          "sourceUrl": "https://arxiv.org/abs/2205.10690",
+          "section": "Table 3; Section 4; conclusions"
+        },
+        "age_gyr": {
+          "value": 0.637,
+          "uncertainty": 0.019,
+          "status": "model-derived",
+          "reference": "2022AJ....164..126S",
+          "sourceUrl": "https://arxiv.org/abs/2205.10690",
+          "section": "Table 3; Section 4; conclusions"
+        }
+      },
+      "note": "Epsilon Cnc / Meleph primary-secondary pair maps to Aa/Ab. Dynamical mass; shared MIST binary-model age. SED parameters of comparison stars HD 73819 and HD 73711 are proxies, not adopted as direct component temperature/luminosity measurements."
+    },
+    "orb6-08405+1933-aa-ab-ab": {
+      "expectedName": "Meleph Ab",
+      "systemId": "orb6-08405+1933-aa-ab",
+      "component": "Ab",
+      "fields": {
+        "mass_solar": {
+          "value": 2.226,
+          "uncertainty": 0.004,
+          "status": "dynamical",
+          "reference": "2022AJ....164..126S",
+          "sourceUrl": "https://arxiv.org/abs/2205.10690",
+          "section": "Table 3; Section 4; conclusions"
+        },
+        "age_gyr": {
+          "value": 0.637,
+          "uncertainty": 0.019,
+          "status": "model-derived",
+          "reference": "2022AJ....164..126S",
+          "sourceUrl": "https://arxiv.org/abs/2205.10690",
+          "section": "Table 3; Section 4; conclusions"
+        }
+      },
+      "note": "Epsilon Cnc / Meleph primary-secondary pair maps to Aa/Ab. Dynamical mass; shared MIST binary-model age. SED parameters of comparison stars HD 73819 and HD 73711 are proxies, not adopted as direct component temperature/luminosity measurements."
+    },
+    "msc-12349+2238-c": {
+      "expectedName": "Phyllon Kissinou C",
+      "systemId": "msc-12349+2238",
+      "component": "C",
+      "fields": {
+        "temperature_k": {
+          "value": 4505.958,
+          "uncertainty": {
+            "lower": 4504.2563,
+            "upper": 4508.185,
+            "kind": "Gaia-reported-percentile-interval"
+          },
+          "status": "model-derived",
+          "reference": "Gaia DR3 astrophysical_parameters; 2023A&A...674A..26F",
+          "sourceUrl": "https://gea.esac.esa.int/archive/",
+          "section": "Exact Gaia DR3 3958707782341673216; official 2MASS best-neighbour crossmatch",
+          "quantity": "[M/H]",
+          "gaiaDr3Id": "3958707782341673216",
+          "quality": {
+            "ruwe": 1.5230689,
+            "flags_flame": "20"
+          }
+        },
+        "metallicity_dex": {
+          "value": 0.3045,
+          "uncertainty": {
+            "lower": 0.2944,
+            "upper": 0.3146,
+            "kind": "Gaia-reported-percentile-interval"
+          },
+          "status": "model-derived",
+          "reference": "Gaia DR3 astrophysical_parameters; 2023A&A...674A..26F",
+          "sourceUrl": "https://gea.esac.esa.int/archive/",
+          "section": "Exact Gaia DR3 3958707782341673216; official 2MASS best-neighbour crossmatch",
+          "quantity": "[M/H]",
+          "gaiaDr3Id": "3958707782341673216",
+          "quality": {
+            "ruwe": 1.5230689,
+            "flags_flame": "20"
+          }
+        },
+        "radius_solar": {
+          "value": 0.64462787,
+          "uncertainty": {
+            "lower": 0.6279973,
+            "upper": 0.6612603,
+            "kind": "Gaia-reported-percentile-interval"
+          },
+          "status": "model-derived",
+          "reference": "Gaia DR3 astrophysical_parameters; 2023A&A...674A..26F",
+          "sourceUrl": "https://gea.esac.esa.int/archive/",
+          "section": "Exact Gaia DR3 3958707782341673216; official 2MASS best-neighbour crossmatch",
+          "quantity": "[M/H]",
+          "gaiaDr3Id": "3958707782341673216",
+          "quality": {
+            "ruwe": 1.5230689,
+            "flags_flame": "20"
+          }
+        },
+        "luminosity_solar": {
+          "value": 0.15436009,
+          "uncertainty": {
+            "lower": 0.14932904,
+            "upper": 0.15939252,
+            "kind": "Gaia-reported-percentile-interval"
+          },
+          "status": "model-derived",
+          "reference": "Gaia DR3 astrophysical_parameters; 2023A&A...674A..26F",
+          "sourceUrl": "https://gea.esac.esa.int/archive/",
+          "section": "Exact Gaia DR3 3958707782341673216; official 2MASS best-neighbour crossmatch",
+          "quantity": "[M/H]",
+          "gaiaDr3Id": "3958707782341673216",
+          "quality": {
+            "ruwe": 1.5230689,
+            "flags_flame": "20"
+          }
+        }
+      },
+      "note": "Individual wide C star, official 2MASS 12350326+2237254 match. GSP-Phot/FLAME model parameters; narrow internal intervals omit systematics and RUWE=1.523 is elevated. FLAME flags=20 permits radius/luminosity but supplies no eligible mass or age. No mass-luminosity estimate or spectral type invented.",
+      "gaiaDr3Id": "3958707782341673216"
+    },
+    "hip-61394": {
+      "expectedName": "Phyllon Kissinou A",
+      "systemId": "msc-12349+2238",
+      "component": "A",
+      "fields": {},
+      "retainPreviousRecord": true,
+      "withheldFields": {
+        "temperature_k": {
+          "expectedPrevious": 8204,
+          "reason": "Original HIP 61394 / WDS J12349+2238AB SED/Gaia fit does not separate A and B. Retained as unresolved AB source, not adopted as an individual A measurement."
+        },
+        "mass_solar": {
+          "expectedPrevious": 3.001303,
+          "reason": "Original HIP 61394 / WDS J12349+2238AB SED/Gaia fit does not separate A and B. Retained as unresolved AB source, not adopted as an individual A measurement."
+        },
+        "luminosity_solar": {
+          "expectedPrevious": 102.65803611486659,
+          "reason": "Original HIP 61394 / WDS J12349+2238AB SED/Gaia fit does not separate A and B. Retained as unresolved AB source, not adopted as an individual A measurement."
+        },
+        "radius_solar": {
+          "expectedPrevious": 4.3829007,
+          "reason": "Original HIP 61394 / WDS J12349+2238AB SED/Gaia fit does not separate A and B. Retained as unresolved AB source, not adopted as an individual A measurement."
+        },
+        "metallicity_dex": {
+          "expectedPrevious": -0.7596,
+          "reason": "Original HIP 61394 / WDS J12349+2238AB SED/Gaia fit does not separate A and B. Retained as unresolved AB source, not adopted as an individual A measurement."
+        },
+        "age_gyr": {
+          "expectedPrevious": 0.3437056,
+          "reason": "Original HIP 61394 / WDS J12349+2238AB SED/Gaia fit does not separate A and B. Retained as unresolved AB source, not adopted as an individual A measurement."
+        }
+      },
+      "note": "Original six physical fields describe an unresolved AB source. All original values, errors, notes and provenance remain retained; no component mass/age or bolometric flux partition is invented."
+    }
+  },
+  "retainedCatalogId": "cluster-literature-before-20261019"
+}

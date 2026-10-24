@@ -1,5 +1,6 @@
 import index from './data/generated/startup-index.json'
 import { MISSING_VALUE } from './format'
+import type { ExtrasolarPlanet } from './exoplanet-properties'
 
 export interface KnownPlanet {
   readonly id: string
@@ -20,16 +21,26 @@ export interface PlanetarySystem {
 // Reviewed host identities only. An absent entry means coverage is unavailable,
 // rather than that the star has no planets.
 const systems = new Map<string, PlanetarySystem>()
-let nearbyLoad: Promise<void> | undefined
+const planets = new Map<string, ExtrasolarPlanet>()
+const pending = new Map<string, Promise<void>>()
 
-/** The large exoplanet dataset stays out of the startup bundle. */
-export function loadPlanetarySystems(): Promise<void> {
-  return nearbyLoad ??= Promise.all([import('./data/planetary-systems.json'), import('./data/nearby-planets.json')]).then(([{ default: definitions }, { default: nearby }]) => {
-    for (const system of [...definitions.systems, ...nearby.systems]) systems.set(system.hostStarId, system)
-  }).catch((error: unknown) => {
-    nearbyLoad = undefined
-    throw error
-  })
+/** Fetch only this exact host, including its planet measurements for detail cards. */
+export function loadPlanetarySystem(starId: string): Promise<void> {
+  if (planetCountForStar(starId) === undefined) return Promise.resolve()
+  let result = pending.get(starId)
+  if (!result) {
+    result = import('./planetary-system-data').then(({ loadPlanetarySystemData }) => loadPlanetarySystemData(starId))
+      .then((payload) => {
+        systems.set(starId, payload.system)
+        for (const planet of payload.planets) planets.set(planet.id, planet)
+      }).catch((error: unknown) => { pending.delete(starId); throw error })
+    pending.set(starId, result)
+  }
+  return result
+}
+
+export function extrasolarPlanetForId(id: string): ExtrasolarPlanet | undefined {
+  return planets.get(id)
 }
 
 export function planetCountForStar(starId: string): number | undefined {

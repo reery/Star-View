@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "sourceUrl": "https://arxiv.org/html/2603.17011",
+  "inputSha256": {
+    "catalog-work/star-systems/literature-components/constellation-20261019-selected.json": "afc8cdc55981eabcf43557bb77aa94355c79c9ecd10ce84201bcd39b75344e2d"
+  },
+  "orbits": [
+    {
+      "systemId": "msc-18553-2618",
+      "primary": "Aa",
+      "secondary": "Ab",
+      "primaryIds": [
+        "bright-nunki"
+      ],
+      "secondaryIds": [
+        "msc-18553-2618-ab"
+      ],
+      "periodYears": 0.36900479123887747,
+      "semiMajorAxisAu": 1.26,
+      "eccentricity": 0.492,
+      "inclinationDeg": 19.7,
+      "nodeDeg": 45.9,
+      "argumentDeg": 76.4,
+      "periastronEpoch": 48588.1,
+      "epochKind": "MJD",
+      "grade": null,
+      "catalog": "Reviewed literature",
+      "reference": "Waisberg & Katz 2026 Table 2",
+      "sourceUrl": "https://arxiv.org/html/2603.17011",
+      "nodeAmbiguous": true,
+      "argumentComponent": "Ab",
+      "scope": "Relative Ab-to-Aa interferometric orbit. All published intervals are 2.3-97.7 percentiles, approximately two sigma; an alternative node/argument plus 180 degrees is allowed. Physical axis uses the publication distance, not the legacy component parallax.",
+      "uncertainties": {
+        "periodDays": 0.025,
+        "semiMajorAxisAu": 0.05,
+        "eccentricity": 0.003,
+        "inclinationDeg": 1.9,
+        "nodeDeg": 8.0,
+        "argumentDeg": 7.1,
+        "periastronEpochDays": 2.2
+      },
+      "uncertaintyConvention": "2.3-97.7 percentile bounds, not one sigma",
+      "axisSource": {
+        "adoptedDistancePc": 68.9,
+        "adoptedDistanceErrorPc": 3.0,
+        "scope": "Published adopted distance and error are at two sigma."
+      },
+      "totalDynamicalMass": {
+        "valueSolar": 14.6,
+        "errorSolar": 1.8,
+        "scope": "Total Aa+Ab mass, with two-sigma bounds; never an individual component mass."
+      }
+    },
+    {
+      "systemId": "msc-13252-1110",
+      "primary": "Aa",
+      "secondary": "Ab",
+      "primaryIds": [
+        "bright-spica"
+      ],
+      "secondaryIds": [
+        "msc-13252-1110-ab"
+      ],
+      "periodYears": 0.01099110198494182,
+      "semiMajorAxisAu": 0.13114317675913284,
+      "eccentricity": 0.133,
+      "inclinationDeg": 63.1,
+      "nodeDeg": null,
+      "argumentDeg": null,
+      "periastronEpoch": 2454189.4,
+      "epochKind": "HJD",
+      "grade": null,
+      "catalog": "Reviewed literature",
+      "reference": "Tkachenko et al. 2016 Table 2",
+      "sourceUrl": "https://arxiv.org/html/1601.08069",
+      "nodeAmbiguous": true,
+      "argumentComponent": null,
+      "scope": "Confirmed close spectroscopic binary with explicitly normalized Aa/Ab labels. The source publishes an argument of periastron of 255.6 +/- 12.2 degrees, but no astrometric node. Leave the rendered sky orientation unavailable; do not invent a node or ambiguous argument convention.",
+      "uncertainties": {
+        "periodDays": 0.0001,
+        "eccentricity": 0.017,
+        "inclinationDeg": 2.5,
+        "semiMajorAxisAu": 0.0042784298800851855,
+        "periastronEpochDays": 0.02
+      },
+      "publishedArgumentDeg": 255.6,
+      "publishedArgumentErrorDeg": 12.2
+    },
+    {
+      "systemId": "msc-07346+3153",
+      "primary": "Ca",
+      "secondary": "Cb",
+      "primaryIds": [
+        "msc-07346+3153-c"
+      ],
+      "secondaryIds": [
+        "msc-07346+3153-cb"
+      ],
+      "periodYears": 0.0022293831950718685,
+      "semiMajorAxisAu": null,
+      "eccentricity": 0.0,
+      "inclinationDeg": 86.29,
+      "nodeDeg": null,
+      "argumentDeg": null,
+      "periastronEpoch": null,
+      "epochKind": "HJD",
+      "grade": null,
+      "catalog": "Reviewed literature",
+      "reference": "Kochukhov & Shulyak 2019 Table 2",
+      "sourceUrl": "https://arxiv.org/html/1902.04157",
+      "nodeAmbiguous": true,
+      "argumentComponent": null,
+      "scope": "Circular eclipsing-binary orbit; period and inclination adopted from Torres & Ribas 2002. The fitted HJD0=2449345.116643 +/- 0.000068 is an eclipse reference, not a periastron epoch. Node, argument and periastron remain unavailable rather than fabricating sky geometry.",
+      "uncertainties": {
+        "inclinationDeg": 0.1
+      },
+      "eclipseEpochHjd": 2449345.116643,
+      "eclipseEpochErrorDays": 6.8e-05
+    },
+    {
+      "systemId": "orb6-05595+4457-aa-ab",
+      "primary": "Aa",
+      "secondary": "Ab",
+      "primaryIds": [
+        "bright-menkalinan"
+      ],
+      "secondaryIds": [
+        "orb6-05595+4457-aa-ab-ab"
+      ],
+      "periodYears": 0.010842016791238878,
+      "semiMajorAxisAu": 0.08176916584949762,
+      "eccentricity": 0.00162,
+      "inclinationDeg": 76.7875,
+      "nodeDeg": 295.1466,
+      "argumentDeg": 90.83,
+      "periastronEpoch": 2453827.2048,
+      "epochKind": "HJD",
+      "grade": null,
+      "catalog": "Reviewed literature",
+      "reference": "Jonak et al. 2026 Table 6",
+      "sourceUrl": "https://arxiv.org/html/2609.03886v1",
+      "nodeAmbiguous": true,
+      "argumentComponent": "Ab",
+      "scope": "Global relative binary solution. Listed orbital uncertainties are formal MCMC errors from Table 6, distinct from the profile-likelihood physical-parameter errors adopted for the stellar masses/radii. Preserve the publication distance assumption; no individual constant orbital velocities are assigned.",
+      "uncertaintyConvention": "Formal Table 6 MCMC uncertainties; source separates these from profile-likelihood errors.",
+      "axisSource": {
+        "adoptedDistancePc": 24.299,
+        "adoptedDistanceErrorPc": 0.015,
+        "scope": "Formal joint-solution MCMC distance; abstract/profile-likelihood distance is 24.30 +/- 0.05 pc."
+      },
+      "epochSource": {
+        "reducedHjd": 53827.2048,
+        "offset": 2400000,
+        "sourceConvention": "Equation 5; combined fit dates are HJD minus 2400000, not MJD."
+      },
+      "orientationValidation": "Relative secondary offsets reproduce the signed Table 3 positions at MJD 60232.4493, 60234.5388 and 60259.3951 when observation times are converted to HJD. No 180-degree primary-argument conversion is applied to the published combined sky solution."
+    }
+  ]
+}

@@ -2,7 +2,10 @@ import type { Star } from './catalog-model'
 import { completeCompanionRecords } from './companion-records'
 
 // Each chart carries only its reviewed component records, including companions.
-const payloads = import.meta.glob<Star[]>('./data/generated/constellation-companions/*.json', { import: 'default' })
+const payloads = import.meta.glob<Star[]>([
+  './data/generated/constellation-companions/*.json',
+  '!./data/generated/constellation-companions/* [0-9]*.json',
+], { import: 'default' })
 const pending = new Map<string, Promise<void>>()
 const records = new Map<string, Star>()
 

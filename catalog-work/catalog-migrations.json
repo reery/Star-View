@@ -1,0 +1,17 @@
+{
+  "migrations": [
+    {
+      "sourcePath": "src/data/catalogs/famous-cluster-stars/stars.csv",
+      "archivePath": "catalog-work/famous-cluster-stars/retired-catalog/stars.csv",
+      "targetPath": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "reason": "All 42 cluster landmarks and their reviewed runtime components are now included in the constellation catalog. The original source package remains archived verbatim for provenance and preservation checks."
+    },
+    {
+      "sourcePath": "src/data/catalogs/bright-stars/stars.csv",
+      "archivePath": "catalog-work/bright-stars/retired-catalog/stars.csv",
+      "targetPath": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "idMapPath": "src/data/legacy-star-ids.json",
+      "reason": "All bright landmarks are now represented in the constellation catalog: 112 under the surviving ID of the same object (explicit one-to-one map from the runtime identity merge), the rest under their unchanged IDs, and Lesath as an added row. The original source package remains archived verbatim for provenance and preservation checks."
+    }
+  ]
+}

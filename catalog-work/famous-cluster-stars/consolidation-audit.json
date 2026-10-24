@@ -1,0 +1,128 @@
+{
+  "reviewedOn": "2026-10-20",
+  "clusterNonSolarRecords": 62,
+  "previouslyMissingClusterIds": [
+    "hip-17489",
+    "hip-17499",
+    "hip-17531",
+    "hip-17573",
+    "hip-17579",
+    "hip-17608",
+    "hip-17702",
+    "hip-17851",
+    "hip-20635",
+    "hip-20711",
+    "hip-20885",
+    "hip-21589",
+    "hip-42133",
+    "hip-42459",
+    "hip-42497",
+    "hip-42504",
+    "hip-42516",
+    "hip-42535",
+    "hip-42549",
+    "hip-42556",
+    "hip-42715",
+    "hip-42726",
+    "hip-52370",
+    "hip-52502",
+    "hip-52701",
+    "hip-52736",
+    "hip-59847",
+    "hip-60351",
+    "hip-60697",
+    "hip-61394",
+    "hip-62763",
+    "msc-03492+2408-ab",
+    "msc-04287+1552-bb",
+    "msc-05353-0524-aa2",
+    "msc-05353-0524-ab",
+    "msc-05353-052D-da2",
+    "msc-08400-5303-ab",
+    "msc-08400-5303-b",
+    "msc-08424-5307-ab",
+    "msc-08424-5307-c",
+    "msc-10465-6416-ab",
+    "msc-10465-6416-b",
+    "msc-10465-6416-c",
+    "msc-12225+2551-ab",
+    "msc-12349+2238-b",
+    "msc-12349+2238-c",
+    "orb6-05353-0523-ca-cb-cb",
+    "orb6-08405+1933-aa-ab-ab",
+    "trapezium-theta1-orionis-a",
+    "trapezium-theta1-orionis-b",
+    "trapezium-theta1-orionis-c",
+    "trapezium-theta1-orionis-d"
+  ],
+  "constellationNonSolarRecordsBefore": 1016,
+  "constellationNonSolarRecordsAfter": 1068,
+  "recordOrMeasurementLoss": 0,
+  "comparisons": [
+    {
+      "source": "src/data/catalogs/bright-stars/stars.csv",
+      "target": "src/data/catalogs/bright-stars/stars.csv",
+      "recordsCompared": 126
+    },
+    {
+      "source": "src/data/catalogs/famous-cluster-stars/stars.csv",
+      "target": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "recordsCompared": 43
+    },
+    {
+      "source": "src/data/catalogs/nearest-100/stars.csv",
+      "target": "src/data/catalogs/nearest-100/stars.csv",
+      "recordsCompared": 101
+    },
+    {
+      "source": "src/data/catalogs/nearest-1000/stars.csv",
+      "target": "src/data/catalogs/nearest-1000/stars.csv",
+      "recordsCompared": 1037
+    },
+    {
+      "source": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "target": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "recordsCompared": 714
+    },
+    {
+      "source": "src/data/stars.csv",
+      "target": "src/data/stars.csv",
+      "recordsCompared": 22
+    },
+    {
+      "source": "src/data/generated/catalogs/bright-stars.json",
+      "target": "src/data/generated/catalogs/bright-stars.json",
+      "recordsCompared": 202
+    },
+    {
+      "source": "src/data/generated/catalogs/famous-cluster-stars.json",
+      "target": "src/data/generated/catalogs/western-constellation-stars.json",
+      "recordsCompared": 63
+    },
+    {
+      "source": "src/data/generated/catalogs/nearest-100.json",
+      "target": "src/data/generated/catalogs/nearest-100.json",
+      "recordsCompared": 103
+    },
+    {
+      "source": "src/data/generated/catalogs/nearest-1000.json",
+      "target": "src/data/generated/catalogs/nearest-1000.json",
+      "recordsCompared": 1060
+    },
+    {
+      "source": "src/data/generated/catalogs/nearest-neighbors.json",
+      "target": "src/data/generated/catalogs/nearest-neighbors.json",
+      "recordsCompared": 22
+    },
+    {
+      "source": "src/data/generated/catalogs/western-constellation-stars.json",
+      "target": "src/data/generated/catalogs/western-constellation-stars.json",
+      "recordsCompared": 1017
+    },
+    {
+      "source": "src/data/stellar-companions.json",
+      "target": "src/data/stellar-companions.json",
+      "recordsCompared": 846
+    }
+  ]
+}

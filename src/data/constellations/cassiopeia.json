@@ -3,8 +3,8 @@
   "abbreviation": "Cas",
   "name": "Cassiopeia",
   "center": {
-    "ra_deg": 14.847401527860256,
-    "dec_deg": 60.36257783046575
+    "ra_deg": 14.847401528,
+    "dec_deg": 60.36257783
   },
   "stars": [
     {
@@ -22,7 +22,7 @@
         "vy_kms": -15.165288,
         "vz_kms": -21.130571,
         "temperature_k": 6625.0,
-        "mass_solar": null,
+        "mass_solar": 1.91,
         "luminosity_solar": 27.95,
         "radius_solar": 4.013,
         "metallicity_dex": -0.15,
@@ -71,7 +71,7 @@
         "vy_kms": -12.981346,
         "vz_kms": -10.776003,
         "temperature_k": 4782.0,
-        "mass_solar": null,
+        "mass_solar": 4.98,
         "luminosity_solar": 771.45,
         "radius_solar": 40.4657,
         "metallicity_dex": 0.15,
@@ -119,10 +119,10 @@
         "vx_kms": -12.970917,
         "vy_kms": -16.888645,
         "vz_kms": -2.459497,
-        "temperature_k": 7664.0,
+        "temperature_k": 27990.0,
         "mass_solar": null,
-        "luminosity_solar": 2951.7,
-        "radius_solar": 30.8161,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -3.741068,
@@ -133,7 +133,7 @@
         "constellation": "Cassiopeia",
         "spectral_type": "B0.5IVpe",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 4427; Stellarium Cas). SIMBAD identity * gam Cas; SIMBAD compiled Johnson V=2.39; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 4427; Stellarium Cas). SIMBAD identity * gam Cas; SIMBAD compiled Johnson V=2.39; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2001A&A...378..861C, HD 5394, J/A+A/378/861/table6, 27990 K. Rapidly rotating Be star: apparent adopted photospheric temperature, not polar or equatorial temperature. The table gives no individual temperature error. Does not describe the cool circumstellar disk. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 4427"
         ],
@@ -1434,7 +1434,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "0a8b7c1dc3f7e3412c5cffb09a18cdf5b5b7424cc89ea8a0a1ffb4da57d3ad6a"
+      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

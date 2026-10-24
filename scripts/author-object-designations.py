@@ -15,6 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "src/data/object-designations.json"
 WORK = ROOT / "catalog-work/object-designations"
+BRIGHT_ARCHIVE = ROOT / "catalog-work/bright-stars/retired-catalog"
 GREEK = dict(zip(
     "alf bet gam del eps zet eta tet iot kap lam mu. nu. ksi omi pi. rho sig tau ups phi chi psi ome".split(),
     "Alpha Beta Gamma Delta Epsilon Zeta Eta Theta Iota Kappa Lambda Mu Nu Xi Omicron Pi Rho Sigma Tau Upsilon Phi Chi Psi Omega".split(),
@@ -61,8 +62,36 @@ def unique(values):
 
 
 def generic(name):
-    return bool(re.match(r"^(?:CNS5 |HIP |HD |GJ |Gl |Gaia |2MASS |WISE|SDSS |PSR |IC |NGC |vdB |Sh |\*)", name)) or bool(re.match(
+    return bool(re.match(r"^(?:CNS5 |HIP |HD |GJ |Gl |Gaia |2MASS|WISE|SDSS |PSR |IC |NGC |vdB |Sh |BD[+-]|CD[+-]|CPD[+-]|G |L |LP |LHS |LTT |\*)", name)) or bool(re.match(
         r"^(?:" + "|".join(re.escape(value) for value in [*GREEK.values(), *GREEK]) + r")\d* ", name))
+
+
+def preferred_stellar_designation(name, aliases):
+    """Readable Bayer names, then an unambiguous, component-scoped GJ alias.
+
+    Familiar authored names remain preferred. Never turn Ba/Bb into B, or
+    select between different GJ numbers from an unresolved source record.
+    """
+    readable = expanded(name)
+    if readable:
+        return readable
+    if not re.match(r"^(?:CNS5 |HIP |HD |BD[+-]|CD[+-]|CPD[+-]|G |L |LP |LHS |LTT )", name):
+        return name
+    component = re.search(r"(?:\s|\d)([A-Z]+[a-z]?\d?)$", name)
+    label = component[1] if component else None
+    candidates = {}
+    for alias in aliases:
+        match = re.fullmatch(r"GJ (\d+(?:\.\d+)?)(?: ([A-Z]+[a-z]?\d?))?", alias)
+        if not match or label and match[2] != label:
+            continue
+        number = match[1].removesuffix(".0")
+        candidates[(number, match[2])] = f"GJ {number}" + (f" {match[2]}" if match[2] else "")
+    if not label:
+        # An unqualified alias can label the catalogued object, but choosing
+        # between multiple component aliases would invent an identity.
+        unqualified = {key: value for key, value in candidates.items() if key[1] is None}
+        candidates = unqualified or candidates
+    return next(iter(candidates.values())) if len(candidates) == 1 else name
 
 
 def build():
@@ -124,18 +153,25 @@ def build():
     for path in sorted((ROOT / "src/data/overlays").glob("*/objects.json")):
         for row in read_json(path)["objects"]:
             inventory[row["id"]].append((row, str(path.relative_to(ROOT))))
+    # Retired bright rows contribute aliases to the surviving record of the same object.
+    # Reviewed component IDs remain identities of their systems and keep their own entries.
+    components = {identifier for system in read_json(ROOT / "src/data/stellar-companions.json")["systems"] for component in system["components"]
+                  for identifier in [component["starId"], *component.get("alternateStarIds", [])]}
+    legacy_ids = {old: new for old, new in read_json(ROOT / "src/data/legacy-star-ids.json")["ids"].items() if old not in components}
+    for row in read_csv(BRIGHT_ARCHIVE / "stars.csv"):
+        inventory[legacy_ids.get(row["id"], row["id"])].append((row, str((BRIGHT_ARCHIVE / "stars.csv").relative_to(ROOT))))
 
     nearby = {row["id"]: row for row in read_json(ROOT / "src/data/catalogs/nearest-100/provenance.json")["objects"]}
     distant = read_json(ROOT / "src/data/catalogs/nearest-1000/provenance.json")
     cns5 = {row["id"]: row["cns5Id"] for row in distant["objects"] if row.get("cns5Id")}
     # Never assign one unresolved system's identifiers to its separate components.
     cns5.update({row["starViewIds"][0]: row["cns5Id"] for row in distant["audit"] if len(row.get("starViewIds", [])) == 1})
-    bright = read_json(ROOT / "src/data/catalogs/bright-stars/provenance.json")["objects"]
-    landmarks = {}
-    for catalog in ("western-constellation-stars", "famous-cluster-stars"):
-        landmarks.update(read_json(ROOT / f"src/data/catalogs/{catalog}/provenance.json")["objects"])
+    # A surviving record keeps its own SIMBAD identity; retired query IDs apply only to unchanged IDs.
+    bright = {identifier: row for identifier, row in read_json(BRIGHT_ARCHIVE / "provenance.json")["objects"].items() if identifier not in legacy_ids}
+    landmarks = read_json(ROOT / "src/data/catalogs/western-constellation-stars/provenance.json")["objects"]
     default_names = {row["id"]: row["name"] for row in inventory_rows(inventory, "src/data/stars.csv")}
-    bright_names = {row["id"]: row["name"] for row in inventory_rows(inventory, "src/data/catalogs/bright-stars/stars.csv")}
+    # Surviving records keep their own preferred names.
+    bright_names = {row["id"]: row["name"] for row in inventory_rows(inventory, str((BRIGHT_ARCHIVE / "stars.csv").relative_to(ROOT))) if row["id"] not in legacy_ids}
     reviewed = read_json(WORK / "preferred-names.json")
     pulsars = {}
     atnf_path = ROOT / "catalog-work/compact-remnants/atnf-long.csv"
@@ -233,9 +269,18 @@ def build():
             # Keep that familiar name searchable without renaming Aa back to AB.
             aliases.append(name)
             name = component_name
+        source_name = name
+        if row["type"] in ("star", "white_dwarf", "brown_dwarf"):
+            aliases.append(name)
+            name = preferred_stellar_designation(name, aliases)
+        aliases = unique(aliases)
         aliases = [value for value in aliases if key(value) != key(name)]
         aliases.sort(key=lambda value: (0 if value in named else 1 if re.match(r"^(?:PSR |HD |HIP |GJ |Alpha|Beta|Gamma|Delta|Epsilon)", value) else 2, key(value)))
         objects[identifier] = {"name": name, "designations": aliases, "sources": sorted(set(sources))}
+        if name != source_name:
+            # Scientific authoring retains its reviewed labels and name guards;
+            # the preferred display name is applied after component completion.
+            objects[identifier]["sourceName"] = source_name
         if main:
             objects[identifier]["simbadId"] = records[main]["mainId"]
     return {"schemaVersion": 1, "policy": "Exact source identifiers only; preserve familiar authored names, prefer published common names to catalog numbers; keep individual components distinct. No positional alias matching. Associated nebula names are withheld from pulsars.",

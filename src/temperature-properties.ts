@@ -1,5 +1,5 @@
 import type { Star } from './catalog-model'
-import { mkPoint } from './mk-diagram'
+import { mkPoint } from './mk-properties'
 
 export const TEMPERATURE_MIN_K = 2400
 export const TEMPERATURE_MAX_K = 30000

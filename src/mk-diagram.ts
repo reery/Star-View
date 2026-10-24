@@ -1,32 +1,8 @@
 import type { Star } from './catalog-model'
 import { placeSpectralMarkerLabels, spectralMarker, starIcon, svgNode } from './spectral-chart'
 
-const spectralClasses = ['O', 'B', 'A', 'F', 'G', 'K', 'M'] as const
-const luminosityRows = [
-  ['Ia+', 'Hypergiants'], ['Ia', 'Luminous supergiants'], ['Ib', 'Supergiants'],
-  ['II', 'Bright giants'], ['III', 'Giants'], ['IV', 'Subgiants'],
-  ['V', 'Main sequence'], ['VI', 'Subdwarfs'],
-] as const
-const classPositions: Record<string, number> = { 'IA+': 0, IA: 1, IAB: 1.5, IB: 2, I: 1.5, II: 3, III: 4, IV: 5, V: 6, VI: 7 }
-export interface MkPoint { spectralClass: string; subtype: number; luminosityClass: string; x: number; y: number }
-
-// White-dwarf D families describe spectra, not M-K luminosity classes.
-// McCook–Sion catalog: https://heasarc.gsfc.nasa.gov/W3Browse/all/mcksion.html
-const whiteDwarfFamilies = [
-  ['DA', 'Hydrogen lines'], ['DB', 'Neutral helium lines'], ['DC', 'Featureless spectrum'],
-  ['DO', 'Ionized helium lines'], ['DQ', 'Carbon features'], ['DZ', 'Metal lines'],
-  ['DX', 'Peculiar or unclassifiable spectrum'],
-] as const
-
-export function whiteDwarfClassification(star: Pick<Star, 'type' | 'spectral_type'>): { family: string; spectralType: string; description: string } | null {
-  if (star.type !== 'white_dwarf') return null
-  const spectralType = star.spectral_type?.trim()
-  const classification = spectralType?.match(/^D([ABCOQZX])[ABCOQZXHPEV]*(?:\d+(?:\.\d+)?)?(?:[?:]|pec)?$/i)
-  if (!classification || !spectralType) return null
-  const family = `D${classification[1]!.toUpperCase()}`
-  const description = whiteDwarfFamilies.find(([type]) => type === family)![1]
-  return { family, spectralType, description }
-}
+import { spectralClasses, luminosityRows, mkPoint, whiteDwarfClassification, whiteDwarfFamilies, type MkPoint } from './mk-properties'
+export { mkPoint, whiteDwarfClassification, type MkPoint } from './mk-properties'
 
 function renderWhiteDwarfClassification(card: HTMLElement, star: Star, reference: Star): void {
   const selectedClass = whiteDwarfClassification(star), referenceClass = whiteDwarfClassification(reference)
@@ -81,34 +57,6 @@ function renderWhiteDwarfClassification(card: HTMLElement, star: Star, reference
     rows.push(row)
   }
   card.querySelector('#white-dwarf-stars')!.replaceChildren(...rows)
-}
-
-// MK is a classification from spectra, not a conversion from H–R coordinates.
-// Morgan, Abt & Tapscott (1978), terminology and autonomous standard grid:
-// https://ned.ipac.caltech.edu/level5/March02/Morgan/Morgan1.html
-export function mkPoint(star: Pick<Star, 'type' | 'spectral_type'>): MkPoint | null {
-  if (star.type !== 'star') return null
-  if (/[+/-]\s*[OBAFGKM]\d/i.test(star.spectral_type ?? '')) return null
-  const luminosity = '(Iab|Ia\\+?|Ib|III|II|IV|VI|V|I)'
-  // Am notation (e.g. A0mA1Va): place the star by its metallic-line type, as for Sirius A's usual A1V.
-  const spectralType = star.spectral_type?.trim()
-    .replace(/^k[OBAFGKM]\d(?:\.\d+)?h([OBAFGKM]\d(?:\.\d+)?)(?:m[OBAFGKM]\d(?:\.\d+)?)?/i, '$1')
-    .replace(/^[OBAFGKM]\d(?:\.\d+)?m([OBAFGKM]\d(?:\.\d+)?)/i, '$1')
-  const spectral = spectralType?.replace(/^([OBAFGKM]\d(?:\.\d+)?)m(?=[IV])/i, '$1').match(new RegExp(`^([OBAFGKM])(\\d(?:\\.\\d+)?)[?:\\s-]*\\(?\\s*${luminosity}(?:[-/]${luminosity})?(?=$|[^IV])`, 'i'))
-  if (!spectral) return null
-  const spectralClass = spectral[1]!.toUpperCase()
-  const subtype = Number(spectral[2])
-  if (!Number.isFinite(subtype) || subtype < 0 || subtype >= 10) return null
-  const canonicalClass = (value: string) => value.toUpperCase().replace('IAB', 'Iab').replace('IA', 'Ia').replace('IB', 'Ib')
-  const firstClass = canonicalClass(spectral[3]!)
-  const secondClass = spectral[4] ? canonicalClass(spectral[4]) : null
-  const row = classPositions[firstClass.toUpperCase()]!
-  const lastRow = secondClass ? classPositions[secondClass.toUpperCase()]! : row
-  return {
-    spectralClass, subtype, luminosityClass: secondClass ? `${firstClass}–${secondClass}` : firstClass,
-    x: (spectralClasses.indexOf(spectralClass as typeof spectralClasses[number]) + subtype / 10) / spectralClasses.length,
-    y: ((row + lastRow) / 2 + 0.5) / luminosityRows.length,
-  }
 }
 
 export function renderMkDiagram(card: HTMLElement, star: Star, reference: Star): void {

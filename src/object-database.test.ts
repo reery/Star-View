@@ -6,7 +6,7 @@ import { filterAndSortObjectDatabaseItems, objectDatabaseValue, objectSpectralCl
 const sun = parseStarCatalog(readFileSync(new URL('./data/stars.csv', import.meta.url), 'utf8')).find((star) => star.id === 'sun')!
 const state = (overrides: Partial<ObjectDatabaseState> = {}): ObjectDatabaseState => ({
   sort: 'distance', direction: 'ascending', distance: 'sun',
-  filters: { type: null, subtype: null, spectral: null }, ...overrides,
+  filters: { type: null, subtype: null, spectral: null, motion: null }, ...overrides,
 })
 const item = (name: string, fields: Partial<ObjectDatabaseItem['star']> = {}, distances = [1, 1]): ObjectDatabaseItem => ({
   star: { ...sun, name, id: name, ...fields }, sunDistancePc: distances[0]!, distancePc: distances[1]!, color: '#ffffff',
@@ -34,10 +34,24 @@ describe('Objects database', () => {
       item('White dwarf', { type: 'white_dwarf', spectral_type: 'DA2', subtypes: ['Variable star'] }),
     ]
     const filtered = filterAndSortObjectDatabaseItems(items, state({ filters: {
-      type: new Set(['star', 'white_dwarf']), subtype: new Set(['Main-sequence', 'Variable star']), spectral: new Set(['G', 'M']),
+      type: new Set(['star', 'white_dwarf']), subtype: new Set(['Main-sequence', 'Variable star']), spectral: new Set(['G', 'M']), motion: null,
     } }))
     expect(filtered.map(({ star }) => star.name)).toEqual(['Cool dwarf', 'Sun-like'])
-    expect(filterAndSortObjectDatabaseItems(items, state({ filters: { type: new Set(), subtype: null, spectral: null } }))).toEqual([])
+    expect(filterAndSortObjectDatabaseItems(items, state({ filters: { type: new Set(), subtype: null, spectral: null, motion: null } }))).toEqual([])
+  })
+
+  it('combines selected motion statuses and applies other column filters', () => {
+    const items = [
+      item('Full star', { type: 'star' }),
+      item('Full dwarf', { type: 'white_dwarf' }),
+      item('Unavailable', { type: 'star', vx_kms: null, vy_kms: null, vz_kms: null, raw_astrometry: null }),
+    ]
+    const filters = { type: new Set(['star']), subtype: null, spectral: null, motion: new Set(['Full space motion']) }
+    expect(filterAndSortObjectDatabaseItems(items, state({ filters })).map(({ star }) => star.name)).toEqual(['Full star'])
+    filters.motion.add('unavailable')
+    expect(filterAndSortObjectDatabaseItems(items, state({ filters })).map(({ star }) => star.name)).toEqual(['Full star', 'Unavailable'])
+    filters.motion.clear()
+    expect(filterAndSortObjectDatabaseItems(items, state({ filters }))).toEqual([])
   })
 
   it('filters the leading spectral class without treating white or brown dwarfs as main classes', () => {
@@ -60,5 +74,32 @@ describe('Objects database', () => {
     expect(objectDatabaseValue(measured, 'apparent', 'origin')).toBe(-26.74)
     expect(objectDatabaseValue(measured, 'absolute', 'origin')).toBe(4.83)
     expect(objectDatabaseValue(measured, 'age', 'origin')).toBeNull()
+  })
+
+  it('keeps scoped radial velocities separate from full component space motion', () => {
+    const raw = {
+      ra_deg: 0, dec_deg: 0, epoch: 2016, parallax_mas: 100, parallax_error_mas: null,
+      pm_ra_cosdec_masyr: 10, pm_ra_error_masyr: null, pm_dec_masyr: 20, pm_dec_error_masyr: null,
+      radial_velocity_kms: null, radial_velocity_error_kms: null, astrometry_ref: 'Component astrometry', radial_velocity_ref: null,
+    }
+    const transverse = item('Component', { vx_kms: null, vy_kms: null, vz_kms: null, raw_astrometry: raw })
+    expect(objectDatabaseValue(transverse, 'motion', 'sun')).toBe('Transverse only; radial velocity unavailable')
+    const systemRecord = { ...transverse.star, raw_astrometry: { ...raw, radial_velocity_kms: 12 } }
+    transverse.star.catalog_sources = [{ catalog_id: 'system', scope: 'Unresolved system', record: systemRecord }]
+    expect(objectDatabaseValue(transverse, 'motion', 'sun')).toBe('Transverse component motion')
+    transverse.star.radial_velocity_observation = {
+      value_kms: 14, error_kms: 1, uncertainty_kind: '1 sigma', observed_from: '2020', observed_to: '2020',
+      reference: 'Component observation', source_url: '', scope: 'Includes orbital motion at a different epoch',
+    }
+    expect(objectDatabaseValue(transverse, 'motion', 'sun')).toBe('Transverse only')
+    expect(objectDatabaseValue(item('Full', { raw_astrometry: systemRecord.raw_astrometry }), 'motion', 'sun')).toBe('Full space motion')
+    expect(objectDatabaseValue(item('System', { raw_astrometry: {
+      ...systemRecord.raw_astrometry, radial_velocity_ref: 'Review; shared systemic velocity approximation',
+    } }), 'motion', 'sun')).toBe('System bulk motion')
+    const unavailable = item('Unavailable', { vx_kms: null, vy_kms: null, vz_kms: null, raw_astrometry: null })
+    expect(objectDatabaseValue(unavailable, 'motion', 'sun')).toBeNull()
+    for (const direction of ['ascending', 'descending'] as const) {
+      expect(filterAndSortObjectDatabaseItems([unavailable, transverse], state({ sort: 'motion', direction })).at(-1)).toBe(unavailable)
+    }
   })
 })

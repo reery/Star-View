@@ -2,6 +2,14 @@ import { expect, type Page } from '@playwright/test'
 import type { PNG } from 'pngjs'
 import type { MotionArrowSnapshot } from '../src/viewer'
 import { MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX } from '../src/viewer-primitives'
+import { readFileSync } from 'node:fs'
+import legacyStarIds from '../src/data/legacy-star-ids.json' with { type: 'json' }
+
+const defaultCatalogIds = new Set(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8').split('\n').slice(1).map((line) => line.split(',')[1]))
+/** Runtime ID of a retired bright-stars record with the default catalog and the constellation overlay loaded. */
+export function landmarkStarId(id: string): string {
+  return defaultCatalogIds.has(id) ? id : ({ ...legacyStarIds.ids, ...legacyStarIds.sharedIds } as Record<string, string>)[id] ?? id
+}
 
 export type { MotionArrowSnapshot }
 
@@ -207,11 +215,21 @@ const CATALOG_STOPS = ['nearest-neighbors', 'nearest-100', 'nearest-1000'] as co
 export type CatalogStop = typeof CATALOG_STOPS[number]
 
 // The catalog slider switches on `change`; Playwright's range fill dispatches input and change.
+/** Selects an object through the Objects search, closing the list unless asked to keep it open. */
+export async function selectObject(page: Page, name: string, { keepListOpen = false, showSpecs = false } = {}) {
+  const objects = page.getByRole('button', { name: 'Objects', exact: true })
+  if (await objects.getAttribute('aria-expanded') !== 'true') await objects.click()
+  await page.getByLabel('Search objects').fill(name)
+  await page.getByRole('button', { name: `Select ${name}`, exact: true }).click()
+  if (!keepListOpen) await objects.click()
+  if (showSpecs) await openSpecs(page)
+}
+
 export async function selectCatalog(page: Page, id: CatalogStop | string) {
   const index = CATALOG_STOPS.indexOf(id as CatalogStop)
   if (index < 0) throw new Error(`Not a catalog slider stop: ${id}`)
   await openFilter(page)
-  await page.getByLabel('Catalog', { exact: true }).fill(String(index))
+  await page.getByLabel('Nearest objects', { exact: true }).fill(String(index))
 }
 
 export async function hideMilkyWay(page: Page) {

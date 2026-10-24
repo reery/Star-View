@@ -1,6 +1,8 @@
 import { Sun, Thermometer, createElement } from 'lucide'
 import { starDisplayColor, type StarColorMode } from './astronomy'
 import type { Star } from './catalog-model'
+import { renderComparisonName } from './comparison-tiles'
+import { MISSING_VALUE } from './format'
 import { svgNode } from './spectral-chart'
 import {
   relativeSpectralEmission, SOLAR_TEMPERATURE_K, spectrumRegion, temperatureAppearance,
@@ -19,7 +21,7 @@ const classes = [
   { letter: 'O', low: 30000, high: 30000, color: '#82a8ff' },
 ]
 
-function renderScale(root: HTMLElement, selected: Star, origin: Star, sun: Star, mode: StarColorMode): void {
+function renderScale(root: HTMLElement, selected: Star, origin: Star, sun: Star, mode: StarColorMode, comparing: boolean): void {
   const scale = root.querySelector<HTMLElement>('#temperature-scale')!
   const track = scale.querySelector<HTMLElement>('.temperature-track')!
   const labels = scale.querySelector<HTMLElement>('.temperature-classes')!
@@ -42,8 +44,8 @@ function renderScale(root: HTMLElement, selected: Star, origin: Star, sun: Star,
     point[role] = true
   }
   add(selected, 'selected')
-  add(sun, 'sun')
-  if (selected.id !== sun.id) add(origin, 'origin')
+  if (!comparing) add(sun, 'sun')
+  if (comparing || selected.id !== sun.id) add(origin, 'origin')
   const occupied: { left: number; right: number; lane: number }[] = []
   const width = track.getBoundingClientRect().width
   let lanes = 1
@@ -58,9 +60,9 @@ function renderScale(root: HTMLElement, selected: Star, origin: Star, sun: Star,
     marker.style.left = `${position}%`
     marker.style.setProperty('--temperature-marker-color', starDisplayColor(point.star, mode).getStyle())
     const label = document.createElement('span')
-    const name = `${point.star.name}${point.origin && point.star.id !== sun.id ? ' · origin' : ''}`
+    const name = `${point.star.name}${!comparing && point.origin && point.star.id !== sun.id ? ' · origin' : ''}`
     const overflow = kelvin < TEMPERATURE_MIN_K ? '↓ ' : kelvin > TEMPERATURE_MAX_K ? '↑ ' : ''
-    label.textContent = point.selected ? `${name}${overflow ? ` · ${overflow.trim()}` : ''}` : `${name} · ${overflow}${format(kelvin)} K`
+    label.textContent = point.selected && !comparing ? `${name}${overflow ? ` · ${overflow.trim()}` : ''}` : `${name} · ${overflow}${format(kelvin)} K`
     marker.title = `${name} · ${format(kelvin)} K`
     marker.append(label)
     track.append(marker)
@@ -76,21 +78,21 @@ function renderScale(root: HTMLElement, selected: Star, origin: Star, sun: Star,
     lanes = Math.max(lanes, lane + 1)
   }
   scale.style.setProperty('--temperature-label-lanes', String(lanes))
-  scale.setAttribute('aria-label', `Temperature scale, logarithmic, 2,400 to 30,000 kelvin. ${points.map((point) => `${point.star.name}${point.selected ? ', selected' : ''}${point.origin ? ', origin' : ''}: ${format(point.star.temperature_k!)} K${point.star.temperature_k! < TEMPERATURE_MIN_K || point.star.temperature_k! > TEMPERATURE_MAX_K ? ', outside displayed range' : ''}`).join('; ')}`)
+  scale.setAttribute('aria-label', `Temperature scale, logarithmic, 2,400 to 30,000 kelvin. ${points.map((point) => `${point.star.name}${point.selected ? ', selected' : ''}${point.origin ? comparing ? ', comparison' : ', origin' : ''}: ${format(point.star.temperature_k!)} K${point.star.temperature_k! < TEMPERATURE_MIN_K || point.star.temperature_k! > TEMPERATURE_MAX_K ? ', outside displayed range' : ''}`).join('; ')}`)
   const outside = points.filter((point) => point.star.temperature_k! < TEMPERATURE_MIN_K || point.star.temperature_k! > TEMPERATURE_MAX_K)
   const note = root.querySelector<HTMLElement>('#temperature-scale-note')!
   note.hidden = outside.length === 0
   note.textContent = outside.map((point) => `${point.star.name} is ${point.star.temperature_k! < TEMPERATURE_MIN_K ? 'below' : 'above'} this scale.`).join(' ')
   const missing = root.querySelector<HTMLElement>('#temperature-origin-note')!
-  missing.hidden = selected.id === sun.id || temperatureCardAvailable(origin)
-  missing.textContent = `${origin.name} origin: individual temperature unavailable.`
+  missing.hidden = !comparing && selected.id === sun.id || temperatureCardAvailable(origin)
+  missing.textContent = `${origin.name}${comparing ? '' : ' origin'}: individual temperature unavailable.`
 }
 
-function renderSpectrum(root: HTMLElement, star: Star, origin: Star, sun: Star, mode: StarColorMode): void {
+function renderSpectrum(root: HTMLElement, star: Star, origin: Star, sun: Star, mode: StarColorMode, comparing: boolean): void {
   const host = root.querySelector<HTMLElement>('#temperature-spectrum')!
   const temperature = star.temperature_k!
   const reference = temperatureCardAvailable(origin) && origin.id !== star.id ? origin
-    : temperatureCardAvailable(sun) && sun.id !== star.id ? sun : null
+    : !comparing && temperatureCardAvailable(sun) && sun.id !== star.id ? sun : null
   const legend = root.querySelector<HTMLElement>('#temperature-spectrum-legend')!
   legend.replaceChildren()
   legend.hidden = false
@@ -101,7 +103,7 @@ function renderSpectrum(root: HTMLElement, star: Star, origin: Star, sun: Star, 
     const line = document.createElement('i')
     line.setAttribute('aria-hidden', 'true')
     const name = document.createElement('span')
-    name.textContent = `${object.name}${object === reference && object.id === origin.id && origin.id !== sun.id ? ' · origin' : ''}, peak ${compact(WIEN_NM_K / object.temperature_k!)} nm`
+    name.textContent = `${object.name}${!comparing && object === reference && object.id === origin.id && origin.id !== sun.id ? ' · origin' : ''}, peak ${compact(WIEN_NM_K / object.temperature_k!)} nm`
     key.append(line, name)
     legend.append(key)
   }
@@ -149,26 +151,88 @@ function renderSpectrum(root: HTMLElement, star: Star, origin: Star, sun: Star, 
   host.replaceChildren(svg)
 }
 
-export function renderTemperatureCard(root: HTMLElement, star: Star, origin: Star, sun: Star, mode: StarColorMode): void {
-  if (!temperatureCardAvailable(star)) return
+const TILE_LABELS = { temperature: 'Effective temperature', appearance: 'Perceived color', ratio: 'Kelvin comparison' } as const
+
+function renderComparisonTiles(root: HTMLElement, main: Star, other: Star | undefined, mode: StarColorMode): void {
+  root.querySelector<HTMLElement>('.temperature-overview')!.hidden = Boolean(other)
+  root.querySelector<HTMLElement>('.temperature-facts')!.hidden = Boolean(other)
+  const values = root.querySelector<HTMLElement>('#temperature-comparison-values')!
+  const facts = root.querySelector<HTMLElement>('#temperature-comparison-facts')!
+  for (const grid of [values, facts]) {
+    grid.hidden = !other
+    grid.replaceChildren()
+  }
+  if (!other) return
+
+  for (const metric of ['temperature', 'appearance', 'ratio'] as const) {
+    for (const [star, reference] of [[main, other], [other, main]] as const) {
+      const available = temperatureCardAvailable(star)
+      const tile = document.createElement('div')
+      tile.className = 'planet-fact-tile temperature-comparison-tile'
+      tile.dataset.objectId = star.id
+      tile.dataset.metric = metric
+      const heading = document.createElement('dt')
+      renderComparisonName(heading, star, mode)
+      const label = document.createElement('span')
+      label.className = 'sr-only'
+      label.textContent = ` · ${TILE_LABELS[metric]}`
+      heading.append(label)
+      const value = document.createElement('dd')
+      const metricIcon = document.createElement('span')
+      metricIcon.className = 'temperature-tile-metric-icon'
+      metricIcon.setAttribute('aria-hidden', 'true')
+      if (metric === 'appearance') {
+        metricIcon.classList.add('temperature-appearance-star')
+        metricIcon.style.setProperty('--temperature-swatch-color', starDisplayColor(star, 'real').getStyle())
+      } else metricIcon.append(createElement(metric === 'temperature' ? Thermometer : Sun, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
+      const copy = document.createElement('div')
+      copy.className = 'temperature-tile-value'
+      const strong = document.createElement('strong')
+      strong.className = 'planet-fact-value'
+      strong.textContent = !available ? MISSING_VALUE : metric === 'temperature' ? `${format(star.temperature_k!)} K`
+        : metric === 'appearance' ? temperatureAppearance(star.temperature_k!)
+          : temperatureCardAvailable(reference) ? `${compact(star.temperature_k! / reference.temperature_k!)}× ${reference.name}’s temperature` : MISSING_VALUE
+      copy.append(strong)
+      value.append(metricIcon, copy)
+      if ((metric === 'temperature' && !available) || (metric === 'appearance' && available && star.temperature_k! < 2400)) {
+        const note = document.createElement('small')
+        note.className = 'planet-fact-note'
+        note.textContent = !available ? 'Individual temperature unavailable.' : 'Faint glow; most emission is infrared.'
+        copy.append(note)
+      }
+      tile.append(heading, value)
+      const grid = metric === 'temperature' ? values : facts
+      grid.append(tile)
+    }
+  }
+}
+
+function renderOverview(root: HTMLElement, star: Star): void {
   const temperature = star.temperature_k!
   const set = (id: string, value: string) => { root.querySelector<HTMLElement>(`#${id}`)!.textContent = value }
-  root.style.setProperty('--temperature-color', starDisplayColor(star, mode).getStyle())
   set('temperature-value', `${format(temperature)} K`)
   set('temperature-celsius', `${format(temperature - 273.15)} °C`)
   set('temperature-fahrenheit', `${format((temperature - 273.15) * 9 / 5 + 32)} °F`)
   set('temperature-appearance', temperatureAppearance(temperature))
-  const ratio = temperature / SOLAR_TEMPERATURE_K
-  set('temperature-solar-ratio', `${compact(ratio)}× Sun’s temperature`)
+  set('temperature-solar-ratio', `${compact(temperature / SOLAR_TEMPERATURE_K)}× Sun’s temperature`)
   set('temperature-appearance-note', 'Faint glow; most emission is infrared.')
   root.querySelector<HTMLElement>('#temperature-appearance-note')!.hidden = temperature >= 2400
-  const swatch = root.querySelector<HTMLElement>('#temperature-color-star')!
   // Use the app’s real-color mode for perceived color, independently of the
   // exaggerated scene setting used by the selected marker and spectrum curve.
-  swatch.style.setProperty('--temperature-swatch-color', starDisplayColor(star, 'real').getStyle())
+  root.querySelector<HTMLElement>('#temperature-color-star')!.style.setProperty('--temperature-swatch-color', starDisplayColor(star, 'real').getStyle())
   for (const [id, shape] of [['temperature-value-icon', Thermometer], ['temperature-ratio-icon', Sun]] as const) {
     root.querySelector(`#${id}`)!.replaceChildren(createElement(shape, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
   }
-  renderScale(root, star, origin, sun, mode)
-  renderSpectrum(root, star, origin, sun, mode)
+}
+
+export function renderTemperatureCard(root: HTMLElement, star: Star, origin: Star, sun: Star, mode: StarColorMode, other?: Star): void {
+  if (!temperatureCardAvailable(star)) return
+  const comparing = other !== undefined
+  const reference = other ?? origin
+  root.style.setProperty('--temperature-color', starDisplayColor(star, mode).getStyle())
+  // A comparison replaces the single-star overview with paired tiles.
+  if (!other) renderOverview(root, star)
+  renderComparisonTiles(root, star, other, mode)
+  renderScale(root, star, reference, sun, mode, comparing)
+  renderSpectrum(root, star, reference, sun, mode, comparing)
 }

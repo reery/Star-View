@@ -1,0 +1,32 @@
+import { expect, test } from '@playwright/test'
+import { openFilter, openSpecs } from './support'
+
+test('Izar retains resolved hot B and provisional D across component selection @mobile', async ({ page }, testInfo) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  await page.goto('/')
+  await expect(page.locator('#scene-status')).toBeHidden()
+  await openFilter(page)
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
+  await expect(page.locator('#scene-status')).toBeHidden()
+  await page.getByLabel('Object visibility distance', { exact: true }).fill('22')
+  await page.getByRole('button', { name: 'Filter', exact: true }).click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('Izar')
+  await page.locator('button[data-star="msc-14450+2704-b"]').click()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await openSpecs(page)
+  await expect(page.locator('#temperature')).toHaveText('9,009 K')
+  await expect(page.locator('#metallicity')).toHaveText('—')
+  await expect(page.locator('#star-distance')).toContainText('202')
+  await page.locator('#star-components [data-component-id="msc-14450+2704-d"]').click()
+  await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'msc-14450+2704-d')
+  await expect(page.locator('#apparent-mag')).toHaveText('—')
+  await expect(page.locator('#temperature')).toHaveText('—')
+  await page.locator('#object-info-toggle').click()
+  await expect(page.locator('#object-info')).toContainText('candidate brown dwarf')
+  await expect(page.locator('#object-info')).toContainText('186,000 AU')
+  await expect(page.locator('#object-info a[href*="2109.10912"]')).toHaveCount(2)
+  await page.screenshot({ path: testInfo.outputPath('izar-reviewed.png') })
+  expect(errors).toEqual([])
+})

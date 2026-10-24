@@ -1,0 +1,275 @@
+{
+  "metadata": [
+    {
+      "name": "recno",
+      "description": "Record number assigned by the VizieR team. Should Not be used for identification.",
+      "datatype": "INT",
+      "ucd": "meta.record"
+    },
+    {
+      "name": "HD",
+      "description": "Star HD number",
+      "datatype": "INT",
+      "ucd": "meta.id;meta.main"
+    },
+    {
+      "name": "SpType",
+      "description": "MK spectral type",
+      "datatype": "CHAR",
+      "arraysize": "*",
+      "ucd": "src.spType"
+    },
+    {
+      "name": "logT",
+      "description": "Logarithmic effective temperature",
+      "datatype": "DOUBLE",
+      "unit": "log(K)",
+      "ucd": "phys.temperature.effective"
+    },
+    {
+      "name": "e_logT",
+      "description": "Error on logT",
+      "datatype": "DOUBLE",
+      "unit": "log(K)",
+      "ucd": "stat.error"
+    },
+    {
+      "name": "logL",
+      "description": "Logarithmic luminosity",
+      "datatype": "DOUBLE",
+      "unit": "log(solLum)",
+      "ucd": "phys.luminosity"
+    },
+    {
+      "name": "e_logL",
+      "description": "Error on logL",
+      "datatype": "DOUBLE",
+      "unit": "log(solLum)",
+      "ucd": "stat.error"
+    },
+    {
+      "name": "Mass",
+      "description": "Stellar mass",
+      "datatype": "DOUBLE",
+      "unit": "solMass",
+      "ucd": "phys.mass"
+    },
+    {
+      "name": "e_Mass",
+      "description": "Error on the stellar mass",
+      "datatype": "DOUBLE",
+      "unit": "solMass",
+      "ucd": "stat.error;phys.mass"
+    },
+    {
+      "name": "Age",
+      "description": "Fractional age on the main sequence",
+      "datatype": "DOUBLE",
+      "ucd": "time.age;meta.main"
+    },
+    {
+      "name": "e_Age",
+      "description": "Error on the fractional age",
+      "datatype": "DOUBLE",
+      "ucd": "stat.error;time.age"
+    },
+    {
+      "name": "vsini",
+      "description": "Projected rotational velocity",
+      "datatype": "SHORT",
+      "unit": "km/s",
+      "ucd": "phys.veloc.rotat"
+    },
+    {
+      "name": "r_vsini",
+      "description": "Source of vsini (1)",
+      "datatype": "SHORT",
+      "ucd": "meta.ref"
+    },
+    {
+      "name": "Class",
+      "description": "Classification of the star: blank=normal, CB=Close binary, CP=chemically peculiar",
+      "datatype": "CHAR",
+      "arraysize": "*",
+      "ucd": "meta.code.class"
+    },
+    {
+      "name": "_RA",
+      "description": "Right Ascension (J2000) from SIMBAD (not part of the original data)",
+      "datatype": "DOUBLE",
+      "unit": "deg",
+      "ucd": "pos.eq.ra;meta.main"
+    },
+    {
+      "name": "_DE",
+      "description": "Declination (J2000) from SIMBAD (not part of the original data)",
+      "datatype": "DOUBLE",
+      "unit": "deg",
+      "ucd": "pos.eq.dec;meta.main"
+    }
+  ],
+  "data": [
+    [
+      284,
+      23480,
+      "B6IV",
+      4.088,
+      0.005,
+      2.778,
+      0.042,
+      4.25,
+      0.08,
+      0.953,
+      0.022,
+      224,
+      8,
+      " ",
+      56.58156,
+      23.94836
+    ],
+    [
+      276,
+      23288,
+      "B7IV",
+      4.088,
+      0.003,
+      2.249,
+      0.04,
+      3.39,
+      0.06,
+      0.58,
+      0.051,
+      212,
+      8,
+      " ",
+      56.2009,
+      24.28947
+    ],
+    [
+      279,
+      23338,
+      "B6V",
+      4.117,
+      0.003,
+      2.802,
+      0.04,
+      4.41,
+      0.09,
+      0.892,
+      0.024,
+      118,
+      8,
+      " ",
+      56.30207,
+      24.46728
+    ],
+    [
+      283,
+      23432,
+      "B8V",
+      4.043,
+      0.003,
+      2,
+      0.059,
+      2.93,
+      0.07,
+      0.571,
+      0.075,
+      183,
+      8,
+      " ",
+      56.47699,
+      24.55451
+    ],
+    [
+      343,
+      27934,
+      "A7IV-V",
+      3.914,
+      0.003,
+      1.6359,
+      0.0131,
+      2.31,
+      0.02,
+      0.851,
+      0.012,
+      94,
+      4,
+      " ",
+      66.34235,
+      22.29387
+    ],
+    [
+      346,
+      28024,
+      "A8Vn",
+      3.862,
+      0.003,
+      1.5713,
+      0.0121,
+      2.2,
+      0.02,
+      0.973,
+      0.01,
+      243,
+      4,
+      " ",
+      66.57693,
+      22.81358
+    ],
+    [
+      371,
+      29388,
+      "A6V",
+      3.915,
+      0.003,
+      1.6134,
+      0.0258,
+      2.28,
+      0.03,
+      0.834,
+      0.017,
+      89,
+      6,
+      "CP",
+      69.53943,
+      12.51084
+    ],
+    [
+      1104,
+      109485,
+      "A0IV",
+      3.979,
+      0.005,
+      2.0848,
+      0.0477,
+      2.92,
+      0.07,
+      0.906,
+      0.027,
+      60,
+      4,
+      "CP CB",
+      188.71284,
+      22.62926
+    ],
+    [
+      994,
+      93549,
+      "B7IV",
+      4.15,
+      0.003,
+      2.667,
+      0.044,
+      4.28,
+      0.08,
+      0.665,
+      0.049,
+      67,
+      16,
+      "CB",
+      161.62329,
+      -64.26324
+    ]
+  ]
+}

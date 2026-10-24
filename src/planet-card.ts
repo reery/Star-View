@@ -1,4 +1,6 @@
-import { isExtrasolarPlanet, isSmallBody, planetApparentMagnitudeRange, planetAtmosphereSpecs, planetPhysicalSpecs, type PlanetDescription, type PlanetSpec } from './planet-properties'
+import { createLoadError } from './load-recovery'
+import { registerTouchTooltip, usingTouchTooltips } from './touch-tooltips'
+import { isExtrasolarPlanet, isSmallBody, planetApparentMagnitudeRange, planetAtmosphereSpecs, planetPhysicalSpecs, specDefinitions, type PlanetDescription, type PlanetSpec } from './planet-properties'
 import { smallBodyMedia } from './small-body-media'
 import { magnitudeNumber, NAKED_EYE_MAGNITUDE } from './magnitude-card'
 import { extrasolarOrbitalSpecs } from './exoplanet-properties'
@@ -26,17 +28,10 @@ export async function renderPlanetSection(card: HTMLElement, section: 'specs' | 
       renderPlanetInfo(container, state.planet.id)
     }
     state[section] = true
-  } catch (error) {
-    if (sections.get(card) !== state || container.hidden) return
-    const message = document.createElement('p')
-    message.textContent = `Could not load ${section === 'moons' ? 'Moons' : 'Info'}.`
-    const retry = document.createElement('button')
-    retry.type = 'button'
-    retry.className = 'object-type-toggle'
-    retry.textContent = 'Retry'
-    retry.addEventListener('click', () => { void renderPlanetSection(card, section) }, { once: true })
-    container.replaceChildren(message, retry)
-    console.error(`Could not load planet ${section}.`, error)
+  } catch {
+    if (sections.get(card) !== state || card.hidden || container.hidden) return
+    container.replaceChildren(createLoadError(section === 'info' ? 'planet Info' : 'moons',
+      () => { void renderPlanetSection(card, section) }))
   }
 }
 const specIcons: Readonly<Record<string, IconNode>> = {
@@ -129,12 +124,14 @@ function attachTooltip(button: HTMLButtonElement, tooltip: HTMLElement): void {
     hovered = true
     show()
   })
-  button.addEventListener('pointerleave', () => {
+  button.addEventListener('pointerleave', (event) => {
+    if (event.pointerType === 'touch') return
     hovered = false
     if (document.activeElement !== button) hide()
   })
-  button.addEventListener('focus', show)
-  button.addEventListener('blur', () => { if (!hovered) hide() })
+  button.addEventListener('focus', () => { if (!usingTouchTooltips()) show() })
+  button.addEventListener('blur', () => { if (!hovered && !usingTouchTooltips()) hide() })
+  registerTouchTooltip(button, { show, hide })
 }
 
 function specTooltipLines(spec: PlanetSpec): string[] | undefined {
@@ -210,9 +207,11 @@ function specRow(spec: PlanetSpec, showDetailTooltip = true, showComparison = tr
     tooltip.id = `planet-${spec.id}-detail-tooltip`
     tooltip.className = 'tooltip mass-metric-tooltip planet-metric-tooltip'
     tooltip.setAttribute('role', 'tooltip')
-    tooltip.textContent = spec.detail
+    tooltip.textContent = spec.definition ?? specDefinitions[spec.id] ?? spec.detail
     attachTooltip(help, tooltip)
     label.replaceChildren(help, tooltip)
+    // Provenance and caveats stay available on the value.
+    if (!lines) value.title = spec.detail
   }
   row.append(label, value)
   return row
@@ -334,6 +333,18 @@ function factTile(spec: PlanetSpec, showDetailTooltip = true): HTMLDivElement {
     value.append(note)
   }
   return row
+}
+
+/** Free the card's WebGL globes on close; renderPlanetCard recreates them when it next opens. */
+export function releasePlanetCardGlobes(card: HTMLElement): void {
+  for (const canvas of card.querySelectorAll('canvas')) disposePlanetGlobe(canvas)
+  const globe = card.querySelector<HTMLCanvasElement>('#planet-globe')
+  if (!globe) return
+  // A canvas cannot obtain a new WebGL context after its context was forcibly lost.
+  const fresh = globe.cloneNode(false) as HTMLCanvasElement
+  for (const key of Object.keys(fresh.dataset)) delete fresh.dataset[key]
+  fresh.classList.remove('is-dragging')
+  globe.replaceWith(fresh)
 }
 
 export function renderPlanetCard(card: HTMLElement, planet: PlanetDescription): void {

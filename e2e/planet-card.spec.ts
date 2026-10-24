@@ -14,6 +14,81 @@ async function openPlanet(page: Page, id = 'mars') {
   await expect(page.locator('#planet-globe')).toHaveAttribute('data-texture-ready', 'true')
 }
 
+test('planet and moon tooltips respond to touch and dismiss on movement @mobile', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'Real touch input')
+  await openPlanet(page, 'jupiter')
+  const diameter = page.locator('[data-planet-spec="mean-diameter"] dt button')
+  const tooltip = page.locator('#planet-mean-diameter-detail-tooltip')
+  // Safari does not focus buttons on tap: explicitly remove focus in this check.
+  await diameter.tap()
+  await diameter.blur()
+  await expect(tooltip).toBeVisible()
+  await page.locator('.planet-heading h2').tap()
+  await expect(tooltip).toBeHidden()
+  await diameter.tap()
+  await expect(tooltip).toBeVisible()
+  const bounds = (await diameter.boundingBox())!
+  const session = await page.context().newCDPSession(page)
+  await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: bounds.x + 5, y: bounds.y + 5 }] })
+  await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: bounds.x + 5, y: bounds.y + 30 }] })
+  await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] })
+  await expect(tooltip).toBeHidden()
+  await diameter.tap()
+  await expect(tooltip).toBeVisible()
+  await page.locator('#planet-card > .card-scroll-content').evaluate((element) => { element.scrollTop += 50 })
+  await expect(tooltip).toBeHidden()
+  await page.locator('#planet-moons-toggle').tap()
+  const moonHelp = page.locator('.moon-properties dt button').first()
+  await moonHelp.tap()
+  const moonTooltip = page.locator(`#${await moonHelp.getAttribute('aria-describedby')}`)
+  await expect(moonTooltip).toBeVisible()
+  await page.locator('.planet-heading h2').tap()
+  await expect(moonTooltip).toBeHidden()
+})
+
+test('planet tooltip desktop hover and keyboard behavior stays unchanged', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'Desktop behavior')
+  await openPlanet(page)
+  const diameter = page.locator('[data-planet-spec="mean-diameter"] dt button')
+  const tooltip = page.locator('#planet-mean-diameter-detail-tooltip')
+  await diameter.hover()
+  await expect(tooltip).toBeVisible()
+  await page.mouse.move(5, 5)
+  await expect(tooltip).toBeHidden()
+  await diameter.focus()
+  await expect(tooltip).toBeVisible()
+  await diameter.blur()
+  await expect(tooltip).toBeHidden()
+})
+
+test('map fills the viewport while controls respect portrait and landscape safe areas @mobile', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'Mobile safe areas')
+  await openPlanet(page)
+  for (const layout of [
+    { width: 390, height: 844, top: 59, right: 0, bottom: 34, left: 0 },
+    { width: 844, height: 390, top: 0, right: 59, bottom: 21, left: 59 },
+  ]) {
+    await page.setViewportSize(layout)
+    // Browser emulation reports zero env() insets; inject realistic device values.
+    await page.evaluate((insets) => {
+      for (const side of ['top', 'right', 'bottom', 'left'] as const) {
+        document.documentElement.style.setProperty(`--safe-${side}`, `${insets[side]}px`)
+      }
+    }, layout)
+    await expect.poll(async () => Math.round((await page.locator('#inspector').boundingBox())!.width))
+      .toBe(layout.width - layout.left - layout.right)
+    const scene = (await page.locator('#scene').boundingBox())!
+    expect(scene).toEqual({ x: 0, y: 0, width: layout.width, height: layout.height })
+    for (const selector of ['#selected-object-card', '.scene-toolbar', '.control-dock', '#planet-card']) {
+      const bounds = (await page.locator(selector).boundingBox())!
+      expect(bounds.x).toBeGreaterThanOrEqual(layout.left)
+      expect(bounds.y).toBeGreaterThanOrEqual(layout.top)
+      expect(bounds.x + bounds.width).toBeLessThanOrEqual(layout.width - layout.right + 1)
+      expect(bounds.y + bounds.height).toBeLessThanOrEqual(layout.height - layout.bottom + 1)
+    }
+  }
+})
+
 test('Mars has sourced Info sections and its existing moons', async ({ page }, testInfo) => {
   await openPlanet(page)
   await page.locator('#planet-info-toggle').click()
@@ -22,7 +97,7 @@ test('Mars has sourced Info sections and its existing moons', async ({ page }, t
   await expect(page.locator('#planet-info')).toContainText('Valles Marineris')
   await expect(page.locator('#planet-info')).toContainText('Perseverance')
   await expect(page.locator('#planet-info .planet-info-hero a').first()).toHaveAttribute('href', 'https://science.nasa.gov/resource/global-color-views-of-mars/')
-  await expect(page.locator('#planet-info img')).toHaveJSProperty('naturalWidth', 1920)
+  await expect(page.locator('#planet-info img')).toHaveJSProperty('naturalWidth', 1080)
   await page.locator('#planet-card').screenshot({ path: testInfo.outputPath('mars-info.png') })
   await page.locator('#planet-moons-toggle').click()
   await expect(page.locator('#planet-moons')).toContainText('Phobos')
@@ -53,8 +128,8 @@ test('Jupiter has a photographic globe, gas-giant specs and eight selected moons
   await page.locator('#planet-info-toggle').click()
   await expect(page.locator('#planet-info > section')).toHaveCount(6)
   await expect(page.locator('#planet-info')).toContainText('Juno')
-  await expect(page.locator('#planet-info img')).toHaveJSProperty('naturalWidth', 1920)
-  await expect(page.locator('#planet-info img')).toHaveJSProperty('naturalHeight', 2400)
+  await expect(page.locator('#planet-info img')).toHaveJSProperty('naturalWidth', 1080)
+  await expect(page.locator('#planet-info img')).toHaveJSProperty('naturalHeight', 1350)
   await card.screenshot({ path: testInfo.outputPath('jupiter-info.png') })
   await page.locator('#planet-moons-toggle').click()
   await expect(page.locator('#planet-moons .moon-row')).toHaveCount(8)
@@ -96,8 +171,8 @@ test('Saturn has rotating rings, gas-giant specs and eight selected moons', { ta
   await page.locator('#planet-info-toggle').click()
   await expect(page.locator('#planet-info > section')).toHaveCount(6)
   await expect(page.locator('#planet-info')).toContainText('Huygens')
-  await expect(page.locator('#planet-info img')).toHaveJSProperty('naturalWidth', 3545)
-  await expect(page.locator('#planet-info img')).toHaveJSProperty('naturalHeight', 1834)
+  await expect(page.locator('#planet-info img')).toHaveJSProperty('naturalWidth', 1080)
+  await expect(page.locator('#planet-info img')).toHaveJSProperty('naturalHeight', 559)
   await card.screenshot({ path: testInfo.outputPath('saturn-info.png') })
   await page.locator('#planet-moons-toggle').click()
   await expect(page.locator('#planet-moons .moon-row')).toHaveCount(8)
@@ -139,7 +214,7 @@ test('Saturn has rotating rings, gas-giant specs and eight selected moons', { ta
   await expect(moonImage).toHaveCSS('object-fit', 'contain')
   await expect(moons.locator('[data-planet-spec="moon-hyperion-mean-radius"]')).toContainText('135.1 km')
   await expect(moons.locator('[data-planet-spec="moon-hyperion-semi-major-axis"]')).toContainText('1,500,930 km')
-  await expect(moons.locator('#planet-moon-hyperion-surface-gravity-detail-tooltip')).toContainText('local surface gravity varies with position')
+  await expect(moons.locator('[data-planet-spec="moon-hyperion-surface-gravity"] dd')).toHaveAttribute('title', /local surface gravity varies with position/)
   await expect(moons.locator('.moon-globe-unavailable')).toBeHidden()
   await card.screenshot({ path: testInfo.outputPath('hyperion-photo.png') })
 
@@ -210,7 +285,7 @@ test('Neptune inner moons select photographs and preserve unavailable measuremen
       await expect(moons.locator(`[data-planet-spec="moon-${id}-surface-gravity"] dd`)).toHaveText('—')
     } else if (id === 'naiad' || id === 'thalassa') {
       await expect(moons.locator(`[data-planet-spec="moon-${id}-mass"] dd`)).toContainText('≈')
-      await expect(moons.locator(`#planet-moon-${id}-mass-detail-tooltip`)).toContainText('quoted GM uncertainty')
+      await expect(moons.locator(`[data-planet-spec="moon-${id}-mass"] dd`)).toHaveAttribute('title', /quoted GM uncertainty/)
     }
     if (id === 'thalassa') await expect(image).toHaveAttribute('alt', /1989 N5/)
     if (id === 'hippocamp') {
@@ -265,7 +340,7 @@ test('moon tab keeps orbit selection, globe and specs together', { tag: '@mobile
     if (id === 'adrastea') {
       await expect(moons.locator('[data-planet-spec="moon-adrastea-mass"] dd')).toHaveText('—')
       await expect(moons.locator('[data-planet-spec="moon-adrastea-surface-gravity"] dd')).toHaveText('—')
-      await expect(moons.locator('#planet-moon-adrastea-mass-detail-tooltip')).toContainText('uncertainty larger than the value')
+      await expect(moons.locator('[data-planet-spec="moon-adrastea-mass"] dd')).toHaveAttribute('title', /uncertainty larger than the value/)
     }
     await card.screenshot({ path: testInfo.outputPath(`${id}-moon-browser.png`) })
   }

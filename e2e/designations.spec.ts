@@ -1,5 +1,27 @@
 import { expect, test } from '@playwright/test'
-import { openFilter, openSpecs, openViewer } from './support'
+import { openFilter, openSpecs, openViewer, selectCatalog } from './support'
+
+test('keeps preferred nearby star names across Objects, Specs and Mass @mobile', async ({ page }) => {
+  await openViewer(page)
+  for (const catalog of ['nearest-100', 'nearest-1000']) {
+    await selectCatalog(page, catalog)
+    const objects = page.getByRole('button', { name: 'Objects', exact: true })
+    if (await objects.getAttribute('aria-expanded') !== 'true') await objects.click()
+    for (const query of ['GJ 412 A', 'BD+44 2051A']) {
+      await page.getByLabel('Search objects').fill(query)
+      await page.getByRole('button', { name: 'Select GJ 412 A', exact: true }).click()
+      await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', '10pc-0100')
+    }
+    await objects.click()
+    await openSpecs(page)
+    await expect(page.locator('#star-name')).toHaveText('GJ 412')
+    await expect(page.locator('#mass-toggle')).toHaveAttribute('aria-label', 'Explore mass of GJ 412 A')
+    await page.locator('#mass-toggle').click()
+    await expect(page.locator('#mass-facts > [role="group"]').first()).toHaveAttribute('aria-label', /^GJ 412 A: Mass/)
+    await expect(page.locator('#mass-spectrum')).toHaveAttribute('aria-label', /GJ 412 A/)
+    await page.locator('#mass-close').click()
+  }
+})
 
 test('searches stellar aliases and displays a bounded designation list after magnitudes @mobile', async ({ page }, testInfo) => {
   await page.goto('/')

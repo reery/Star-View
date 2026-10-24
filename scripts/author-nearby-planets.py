@@ -77,7 +77,10 @@ def reference(value):
     url = html.unescape(next(group for group in match.groups() if group is not None)) if match else None
     if url and url.startswith("/"):
         url = "https://exoplanetarchive.ipac.caltech.edu" + url
-    if url and not url.startswith(("https://", "http://")):
+    # Archive references occasionally carry legacy http:// links; publishers serve the same paths over HTTPS.
+    if url and url.startswith("http://"):
+        url = "https://" + url.removeprefix("http://")
+    if url and not url.startswith("https://"):
         url = None
     return {"label": label, "url": url}
 

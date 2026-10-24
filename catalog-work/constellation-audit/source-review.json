@@ -1,0 +1,103 @@
+{
+  "reviewedOn": "2026-10-19",
+  "scope": "Coverage census plus live primary-source component review. Castor, Spica, Nunki and Menkalinan literature updates are adopted; this is not a claim of exhaustive publication coverage for every catalog star.",
+  "sources": [
+    {
+      "id": "gaia-dr4-release",
+      "url": "https://tu-dresden.de/bu/umwelt/geo/ipg/astro/observatorium/news/gaia-data-release-4?set_language=en",
+      "finding": "The Lohrmann Observatory announcement gives 2 December 2026 as the planned DR4 release. DR3 remains the appropriate full public Gaia release at this review date. A retrieval date in October 2026 does not make the underlying DR3 measurements a 2026 release.",
+      "releaseStatus": "DR4 upcoming; do not import pre-release expectations as measurements. ESA's direct DR4 overview failed to load in the research tool; the project-partner observatory announcement was accessible."
+    },
+    {
+      "id": "castor-torres-2022",
+      "url": "https://arxiv.org/html/2210.16322",
+      "finding": "Sections I and IV.2 identify Castor C as YY Gem, itself a double-lined eclipsing binary: Castor has six stars. Existing Aa/Ab/Ba/Bb masses and Aa/Ba radii already use this paper. Section IV.1 gives a preferred 290 Myr model age from Aa, with a Ba-radius discrepancy; this is a shared, model-dependent age, not six independent age measurements. The paper points to dedicated YY Gem studies for individual C-component properties."
+    },
+    {
+      "id": "spica-tkachenko-2016",
+      "url": "https://arxiv.org/html/1601.08069",
+      "finding": "Table 7 resolves the close binary: primary/secondary masses 11.43 +/- 1.15 and 7.21 +/- 0.75 solar masses; radii 7.47 +/- 0.54 and 3.74 +/- 0.53 solar radii; temperatures 25300 +/- 500 and 20900 +/- 800 K; log10 luminosities 4.312 +/- 0.095 and 3.353 +/- 0.181. The abstract gives a model system age of 12.5 +/- 1 Myr. Later papers must be compared before choosing adopted values. None of these individual values belongs on an unresolved Aab row."
+    },
+    {
+      "id": "nunki-waisberg-2026",
+      "url": "https://arxiv.org/html/2603.17011",
+      "finding": "March 2026 study of Sigma Sagittarii/Nunki Aa/Ab. Table 2 gives a 134.779 +/- 0.025 day orbit and TOTAL dynamical mass 14.6 +/- 1.8 solar masses, with 2.3-97.7 percentile bounds (not one sigma). Section 4.1 prefers approximate individual isochrone masses 6.5 and 6.3 solar masses, referring to the 2025 study; section 3.4 estimates 18.5 kK from combined spectra. Review these against the current dwarf-sequence primary estimate and missing component masses; do not copy the total mass to either star or assume two independent temperature measurements."
+    },
+    {
+      "id": "menkalinan-jonak-2026",
+      "url": "https://arxiv.org/html/2609.03886v1",
+      "finding": "September 2026 joint interferometry/RV/photometry solution. Adopt Table 8 masses/radii with profile-likelihood uncertainties, retain the inherited primary temperature calibration, and derive the secondary temperature conditionally from the new ratio. Earlier 2007 values and their evidence survive."
+    },
+    {
+      "id": "yy-gem-kochukhov-2019",
+      "url": "https://arxiv.org/html/1902.04157",
+      "finding": "True individual masses in Table 2 and volume-equivalent radii in section V.1 adopted for YY Gem A/B, explicitly mapped to Castor Ca/Cb. The common 3800 K atmosphere parameter retains its adopted-model scope."
+    },
+    {
+      "id": "spica-frost-2025",
+      "url": "https://arxiv.org/html/2505.02300",
+      "finding": "Updated B-star interferometry study checked for Spica multiplicity. It does not provide a replacement resolved binary dynamical solution; approximate flux-derived mass ratios are not substituted for the individual 2016 masses."
+    }
+  ],
+  "systems": [
+    {
+      "systemId": "msc-07346+3153",
+      "expectedMembers": {
+        "bright-castor": "Castor Aa",
+        "msc-07346+3153-ab": "Castor Ab",
+        "msc-07346+3153-ba": "Castor Ba",
+        "msc-07346+3153-bb": "Castor Bb",
+        "msc-07346+3153-c": "Castor Ca",
+        "msc-07346+3153-cb": "Castor Cb"
+      },
+      "finding": "Castor now has six represented records; Ca/Cb use the individual 2019 YY Gem solution. Former combined C measurements remain retained source observations.",
+      "sourceIds": [
+        "castor-torres-2022",
+        "yy-gem-kochukhov-2019"
+      ],
+      "action": "Implemented in reviewed-constellation-hierarchies.json, reviewed-constellation-literature.json and reviewed-constellation-orbits.json. Original source records and evidence retained; see docs/constellation-enrichment.md for remaining limits.",
+      "adoptionStatus": "adopted-2026-10-19"
+    },
+    {
+      "systemId": "msc-13252-1110",
+      "expectedMembers": {
+        "bright-spica": "Spica Aa",
+        "msc-13252-1110-ab": "Spica Ab",
+        "msc-13252-1110-ac": "Spica Ac"
+      },
+      "finding": "The confirmed close SB2 is now represented as Spica Aa/Ab, explicitly mapped from the MSC Aa1/Aa2 branch and the 2016 primary/secondary convention. Ac remains separate; old combined photometry is not copied into the new components.",
+      "sourceIds": [
+        "spica-tkachenko-2016",
+        "spica-frost-2025"
+      ],
+      "action": "Implemented in reviewed-constellation-hierarchies.json, reviewed-constellation-literature.json and reviewed-constellation-orbits.json. Original source records and evidence retained; see docs/constellation-enrichment.md for remaining limits.",
+      "adoptionStatus": "adopted-2026-10-19"
+    },
+    {
+      "systemId": "msc-18553-2618",
+      "expectedMembers": {
+        "bright-nunki": "Nunki Aa",
+        "msc-18553-2618-ab": "Nunki Ab"
+      },
+      "finding": "Both Nunki components now carry approximate published isochrone masses and radii. Combined-spectrum temperature and the total dynamical mass remain separately scoped evidence; no two independent component temperatures or luminosities are invented.",
+      "sourceIds": [
+        "nunki-waisberg-2026"
+      ],
+      "action": "Implemented in reviewed-constellation-hierarchies.json, reviewed-constellation-literature.json and reviewed-constellation-orbits.json. Original source records and evidence retained; see docs/constellation-enrichment.md for remaining limits.",
+      "adoptionStatus": "adopted-2026-10-19"
+    },
+    {
+      "systemId": "orb6-05595+4457-aa-ab",
+      "expectedMembers": {
+        "bright-menkalinan": "Menkalinan Aa",
+        "orb6-05595+4457-aa-ab-ab": "Menkalinan Ab"
+      },
+      "finding": "Updated both components from the newer global solution; old physical measurements and orbital solution retained in provenance.",
+      "sourceIds": [
+        "menkalinan-jonak-2026"
+      ],
+      "adoptionStatus": "adopted-2026-10-19",
+      "action": "Implemented; absolute temperature and astrometric distance retain their stated source limitations."
+    }
+  ]
+}

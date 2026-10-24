@@ -1,11 +1,17 @@
-import { describe, expect, it, beforeAll } from 'vitest'
+import { describe, expect, it, beforeAll, afterAll, vi } from 'vitest'
+import { generatedJsonFetch } from './test-support/generated-json'
 import nearby from './data/nearby-planets.json'
 import stats from './data/object-stats.json'
-import { extrasolarPhysicalSpecs, extrasolarOrbitalSpecs, extrasolarPlanets } from './exoplanet-properties'
+import { extrasolarPhysicalSpecs, extrasolarOrbitalSpecs, type ExtrasolarPlanet } from './exoplanet-properties'
 import { planetDescriptionForId } from './planet-properties'
-import { loadPlanetarySystems, planetarySystemForStar, formatOrbitalDistance } from './planetary-systems'
+import { loadPlanetarySystem, planetarySystemForStar, formatOrbitalDistance } from './planetary-systems'
 
-beforeAll(loadPlanetarySystems)
+const extrasolarPlanets = nearby.planets as readonly ExtrasolarPlanet[]
+beforeAll(async () => {
+  vi.stubGlobal('fetch', generatedJsonFetch)
+  await Promise.all(nearby.systems.map((system) => loadPlanetarySystem(system.hostStarId)))
+})
+afterAll(() => vi.unstubAllGlobals())
 
 describe('nearby exoplanet coverage and scientific qualifications', () => {
   it('covers every frozen host count and connects all rows to a detail card', () => {

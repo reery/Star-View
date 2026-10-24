@@ -1,0 +1,1526 @@
+{
+  "source": "https://www.astro.umontreal.ca/~bergeron/CoolingModels/",
+  "citation": "https://www.astro.umontreal.ca/~bergeron/CoolingModels/Bedard2020.pdf",
+  "version": "2020-08-18",
+  "archive_sha256": "24aac73615f4ca1431b013af9ed6b64242c91c940a0a4bdeea2a60360d61bb0a",
+  "references": {
+    "mixed:4358": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            138072,
+            20988500
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1956.71,
+            10970.4
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            35620,
+            26184900
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            0.00000424462,
+            0.000645317
+          ]
+        }
+      }
+    },
+    "mixed:4576": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            136267,
+            20987300
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1950.28,
+            10970.3
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            34923.7,
+            26182600
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            0.00000516066,
+            0.000794872
+          ]
+        }
+      }
+    },
+    "mixed:4858": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            132008,
+            20985600
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1934.86,
+            10970.1
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            33299.3,
+            26179400
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            0.00000655633,
+            0.0010423
+          ]
+        }
+      }
+    },
+    "mixed:4980": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            129561,
+            20984700
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1925.83,
+            10969.9
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            32377.6,
+            26177800
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            0.00000724056,
+            0.00117272
+          ]
+        }
+      }
+    },
+    "mixed:5300": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            122886,
+            20982600
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1900.54,
+            10969.7
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            29908,
+            26173900
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            0.00000928952,
+            0.00158613
+          ]
+        }
+      }
+    },
+    "mixed:6310": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            108583,
+            20967200
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1842.64,
+            10967.7
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            24841.4,
+            26145000
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            0.0000186786,
+            0.00360674
+          ]
+        }
+      }
+    },
+    "mixed:7096": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            102427,
+            20949600
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1815.95,
+            10965.4
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            22759.2,
+            26112100
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            0.0000298965,
+            0.00611494
+          ]
+        }
+      }
+    },
+    "mixed:7122": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            102227,
+            20949100
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1815.06,
+            10965.3
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            22692.4,
+            26111300
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            0.0000303386,
+            0.00621744
+          ]
+        }
+      }
+    },
+    "mixed:7155": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            101972,
+            20948600
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1813.93,
+            10965.2
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            22607.6,
+            26110200
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            0.0000309054,
+            0.00634903
+          ]
+        }
+      }
+    },
+    "mixed:none": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            51477.4,
+            20993800
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1528.99,
+            10971.1
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            8108.85,
+            26194800
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            5.68101e-8,
+            174.815
+          ]
+        }
+      }
+    },
+    "thick:12182": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 976496,
+          "range": [
+            70015.1,
+            19736200
+          ]
+        },
+        "escapeKms": {
+          "value": 4199.51,
+          "range": [
+            1651.19,
+            10803
+          ]
+        },
+        "density": {
+          "value": 386794,
+          "range": [
+            12862.4,
+            23876600
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.00557141,
+          "range": [
+            0.000275651,
+            0.0776914
+          ]
+        }
+      }
+    },
+    "thick:12540": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 973041,
+          "range": [
+            68956.2,
+            19725800
+          ]
+        },
+        "escapeKms": {
+          "value": 4195.79,
+          "range": [
+            1644.92,
+            10801.6
+          ]
+        },
+        "density": {
+          "value": 384743,
+          "range": [
+            12571.7,
+            23857800
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.00627769,
+          "range": [
+            0.000309669,
+            0.0885689
+          ]
+        }
+      }
+    },
+    "thick:15866": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 942592,
+          "range": [
+            61148.1,
+            19624500
+          ]
+        },
+        "escapeKms": {
+          "value": 4162.57,
+          "range": [
+            1596.23,
+            10787.7
+          ]
+        },
+        "density": {
+          "value": 366826,
+          "range": [
+            10498.1,
+            23674200
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.0166063,
+          "range": [
+            0.000797519,
+            0.255054
+          ]
+        }
+      }
+    },
+    "thick:17099": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 931743,
+          "range": [
+            58734.3,
+            19581300
+          ]
+        },
+        "escapeKms": {
+          "value": 4150.54,
+          "range": [
+            1580.24,
+            10781.8
+          ]
+        },
+        "density": {
+          "value": 360511,
+          "range": [
+            9882.62,
+            23596200
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.0226639,
+          "range": [
+            0.00107832,
+            0.35097
+          ]
+        }
+      }
+    },
+    "thick:24073": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 868301,
+          "range": [
+            84088.4,
+            19353200
+          ]
+        },
+        "escapeKms": {
+          "value": 4078.01,
+          "range": [
+            1827.73,
+            10750.2
+          ]
+        },
+        "density": {
+          "value": 324324,
+          "range": [
+            15142,
+            23185000
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.0955335,
+          "range": [
+            0.0042865,
+            0.956733
+          ]
+        }
+      }
+    },
+    "thick:25369": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 856812,
+          "range": [
+            81475,
+            19312100
+          ]
+        },
+        "escapeKms": {
+          "value": 4064.45,
+          "range": [
+            1813.36,
+            10744.5
+          ]
+        },
+        "density": {
+          "value": 317909,
+          "range": [
+            14441.6,
+            23111100
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.119406,
+          "range": [
+            0.00529847,
+            1.21858
+          ]
+        }
+      }
+    },
+    "thick:4793": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1083330,
+          "range": [
+            133140,
+            19968500
+          ]
+        },
+        "escapeKms": {
+          "value": 4309.94,
+          "range": [
+            1939,
+            10834.7
+          ]
+        },
+        "density": {
+          "value": 451976,
+          "range": [
+            33728.7,
+            24299400
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000120342,
+          "range": [
+            0.00000652869,
+            0.000979194
+          ]
+        }
+      }
+    },
+    "thick:4823": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1082780,
+          "range": [
+            132625,
+            19968000
+          ]
+        },
+        "escapeKms": {
+          "value": 4309.39,
+          "range": [
+            1937.12,
+            10834.6
+          ]
+        },
+        "density": {
+          "value": 451631,
+          "range": [
+            33533.1,
+            24298600
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000123448,
+          "range": [
+            0.00000669408,
+            0.00100785
+          ]
+        }
+      }
+    },
+    "thick:4942": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1080120,
+          "range": [
+            130360,
+            19966200
+          ]
+        },
+        "escapeKms": {
+          "value": 4306.74,
+          "range": [
+            1928.8,
+            10834.3
+          ]
+        },
+        "density": {
+          "value": 449968,
+          "range": [
+            32677.9,
+            24295200
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000136425,
+          "range": [
+            0.00000738018,
+            0.00113035
+          ]
+        }
+      }
+    },
+    "thick:5105": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1074980,
+          "range": [
+            126939,
+            19963300
+          ]
+        },
+        "escapeKms": {
+          "value": 4301.61,
+          "range": [
+            1916.02,
+            10834
+          ]
+        },
+        "density": {
+          "value": 446761,
+          "range": [
+            31399.8,
+            24290000
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000156077,
+          "range": [
+            0.00000840402,
+            0.00132169
+          ]
+        }
+      }
+    },
+    "thick:5118": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1074510,
+          "range": [
+            126675,
+            19963100
+          ]
+        },
+        "escapeKms": {
+          "value": 4301.14,
+          "range": [
+            1915.02,
+            10833.9
+          ]
+        },
+        "density": {
+          "value": 446468,
+          "range": [
+            31301.8,
+            24289600
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000157743,
+          "range": [
+            0.00000849041,
+            0.00133801
+          ]
+        }
+      }
+    },
+    "thick:5594": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1057210,
+          "range": [
+            117186,
+            19950400
+          ]
+        },
+        "escapeKms": {
+          "value": 4283.72,
+          "range": [
+            1878.1,
+            10832.2
+          ]
+        },
+        "density": {
+          "value": 435728,
+          "range": [
+            27851.6,
+            24266400
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000228823,
+          "range": [
+            0.0000121251,
+            0.00206416
+          ]
+        }
+      }
+    },
+    "thick:5630": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1056180,
+          "range": [
+            116538,
+            19948900
+          ]
+        },
+        "escapeKms": {
+          "value": 4282.67,
+          "range": [
+            1875.5,
+            10832
+          ]
+        },
+        "density": {
+          "value": 435090,
+          "range": [
+            27620.9,
+            24263600
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000234986,
+          "range": [
+            0.0000124416,
+            0.00212969
+          ]
+        }
+      }
+    },
+    "thick:5729": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1053450,
+          "range": [
+            114933,
+            19943900
+          ]
+        },
+        "escapeKms": {
+          "value": 4279.9,
+          "range": [
+            1869.01,
+            10831.3
+          ]
+        },
+        "density": {
+          "value": 433405,
+          "range": [
+            27052.3,
+            24254600
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000252618,
+          "range": [
+            0.0000133435,
+            0.00231523
+          ]
+        }
+      }
+    },
+    "thick:6128": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1044710,
+          "range": [
+            110139,
+            19919100
+          ]
+        },
+        "escapeKms": {
+          "value": 4271,
+          "range": [
+            1849.21,
+            10828
+          ]
+        },
+        "density": {
+          "value": 428023,
+          "range": [
+            25377.5,
+            24209400
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000333439,
+          "range": [
+            0.0000174885,
+            0.00316296
+          ]
+        }
+      }
+    },
+    "thick:6239": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1042680,
+          "range": [
+            109172,
+            19912300
+          ]
+        },
+        "escapeKms": {
+          "value": 4268.93,
+          "range": [
+            1845.13,
+            10827
+          ]
+        },
+        "density": {
+          "value": 426778,
+          "range": [
+            25043.7,
+            24196900
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000358965,
+          "range": [
+            0.000018797,
+            0.00342862
+          ]
+        }
+      }
+    },
+    "thick:6350": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1040830,
+          "range": [
+            108257,
+            19905900
+          ]
+        },
+        "escapeKms": {
+          "value": 4267.03,
+          "range": [
+            1841.26,
+            10826.2
+          ]
+        },
+        "density": {
+          "value": 425643,
+          "range": [
+            24729.7,
+            24185300
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000385882,
+          "range": [
+            0.0000201765,
+            0.0037103
+          ]
+        }
+      }
+    },
+    "thick:6483": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1038740,
+          "range": [
+            107199,
+            19899100
+          ]
+        },
+        "escapeKms": {
+          "value": 4264.89,
+          "range": [
+            1836.74,
+            10825.2
+          ]
+        },
+        "density": {
+          "value": 424360,
+          "range": [
+            24367.9,
+            24172800
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000420098,
+          "range": [
+            0.0000219297,
+            0.00407071
+          ]
+        }
+      }
+    },
+    "thick:7790": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1023070,
+          "range": [
+            97098.3,
+            19857100
+          ]
+        },
+        "escapeKms": {
+          "value": 4248.71,
+          "range": [
+            1791.86,
+            10819.5
+          ]
+        },
+        "density": {
+          "value": 414795,
+          "range": [
+            21006.4,
+            24096300
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000889205,
+          "range": [
+            0.0000458107,
+            0.00936904
+          ]
+        }
+      }
+    },
+    "thick:8428": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1016090,
+          "range": [
+            92052.8,
+            19841200
+          ]
+        },
+        "escapeKms": {
+          "value": 4241.44,
+          "range": [
+            1768.11,
+            10817.3
+          ]
+        },
+        "density": {
+          "value": 410555,
+          "range": [
+            19390.6,
+            24067400
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.00122664,
+          "range": [
+            0.0000628156,
+            0.0135398
+          ]
+        }
+      }
+    },
+    "thick:8540": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1014880,
+          "range": [
+            91137.2,
+            19838300
+          ]
+        },
+        "escapeKms": {
+          "value": 4240.18,
+          "range": [
+            1763.7,
+            10817
+          ]
+        },
+        "density": {
+          "value": 409821,
+          "range": [
+            19102,
+            24062300
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.00129475,
+          "range": [
+            0.0000662261,
+            0.014418
+          ]
+        }
+      }
+    },
+    "thick:none": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            51477.4,
+            19982700
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1528.99,
+            10836.6
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            8108.85,
+            24325300
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            8.61216e-8,
+            143.424
+          ]
+        }
+      }
+    },
+    "thin:10805": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1071440,
+          "range": [
+            92591.3,
+            20903100
+          ]
+        },
+        "escapeKms": {
+          "value": 4298.07,
+          "range": [
+            1770.69,
+            10959.3
+          ]
+        },
+        "density": {
+          "value": 444558,
+          "range": [
+            19561,
+            26025200
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.00314262,
+          "range": [
+            0.000161079,
+            0.0363651
+          ]
+        }
+      }
+    },
+    "thin:4263": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1127570,
+          "range": [
+            143287,
+            20989000
+          ]
+        },
+        "escapeKms": {
+          "value": 4353.28,
+          "range": [
+            1974.93,
+            10970.5
+          ]
+        },
+        "density": {
+          "value": 479945,
+          "range": [
+            37656.9,
+            26185700
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.0000723509,
+          "range": [
+            0.00000388572,
+            0.000569333
+          ]
+        }
+      }
+    },
+    "thin:4821": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1125490,
+          "range": [
+            140851,
+            20985800
+          ]
+        },
+        "escapeKms": {
+          "value": 4351.27,
+          "range": [
+            1966.48,
+            10970.1
+          ]
+        },
+        "density": {
+          "value": 478612,
+          "range": [
+            36700.6,
+            26179900
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000118563,
+          "range": [
+            0.00000635853,
+            0.000947351
+          ]
+        }
+      }
+    },
+    "thin:5137": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1123340,
+          "range": [
+            138772,
+            20983500
+          ]
+        },
+        "escapeKms": {
+          "value": 4349.19,
+          "range": [
+            1959.19,
+            10969.8
+          ]
+        },
+        "density": {
+          "value": 477246,
+          "range": [
+            35891.3,
+            26175600
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000153137,
+          "range": [
+            0.00000819797,
+            0.00123959
+          ]
+        }
+      }
+    },
+    "thin:5368": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1120840,
+          "range": [
+            136861,
+            20982200
+          ]
+        },
+        "escapeKms": {
+          "value": 4346.77,
+          "range": [
+            1952.41,
+            10969.6
+          ]
+        },
+        "density": {
+          "value": 475655,
+          "range": [
+            35152.5,
+            26173100
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000183005,
+          "range": [
+            0.00000977533,
+            0.00149873
+          ]
+        }
+      }
+    },
+    "thin:6053": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1111100,
+          "range": [
+            130124,
+            20973100
+          ]
+        },
+        "escapeKms": {
+          "value": 4337.3,
+          "range": [
+            1927.92,
+            10968.4
+          ]
+        },
+        "density": {
+          "value": 469468,
+          "range": [
+            32588.9,
+            26156000
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000298461,
+          "range": [
+            0.0000158112,
+            0.00254853
+          ]
+        }
+      }
+    },
+    "thin:6215": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1108800,
+          "range": [
+            128854,
+            20969400
+          ]
+        },
+        "escapeKms": {
+          "value": 4335.05,
+          "range": [
+            1923.2,
+            10967.9
+          ]
+        },
+        "density": {
+          "value": 468009,
+          "range": [
+            32113.2,
+            26149200
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000332395,
+          "range": [
+            0.0000175764,
+            0.00286039
+          ]
+        }
+      }
+    },
+    "thin:6601": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1104680,
+          "range": [
+            126187,
+            20959800
+          ]
+        },
+        "escapeKms": {
+          "value": 4331.01,
+          "range": [
+            1913.17,
+            10966.7
+          ]
+        },
+        "density": {
+          "value": 465401,
+          "range": [
+            31121.3,
+            26131200
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000424521,
+          "range": [
+            0.0000223775,
+            0.00371691
+          ]
+        }
+      }
+    },
+    "thin:7650": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1096720,
+          "range": [
+            118646,
+            20941300
+          ]
+        },
+        "escapeKms": {
+          "value": 4323.19,
+          "range": [
+            1883.92,
+            10964.3
+          ]
+        },
+        "density": {
+          "value": 460379,
+          "range": [
+            28373.5,
+            26096500
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000771468,
+          "range": [
+            0.0000404019,
+            0.00713113
+          ]
+        }
+      }
+    },
+    "thin:7740": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1096050,
+          "range": [
+            117970,
+            20940000
+          ]
+        },
+        "escapeKms": {
+          "value": 4322.53,
+          "range": [
+            1881.24,
+            10964.1
+          ]
+        },
+        "density": {
+          "value": 459958,
+          "range": [
+            28131.5,
+            26094200
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.00080889,
+          "range": [
+            0.0000423407,
+            0.00751529
+          ]
+        }
+      }
+    },
+    "thin:7837": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1095320,
+          "range": [
+            117234,
+            20938800
+          ]
+        },
+        "escapeKms": {
+          "value": 4321.82,
+          "range": [
+            1878.3,
+            10963.9
+          ]
+        },
+        "density": {
+          "value": 459502,
+          "range": [
+            27868.7,
+            26091800
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.000850785,
+          "range": [
+            0.0000445032,
+            0.00794887
+          ]
+        }
+      }
+    },
+    "thin:8180": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1092680,
+          "range": [
+            114538,
+            20934500
+          ]
+        },
+        "escapeKms": {
+          "value": 4319.21,
+          "range": [
+            1867.4,
+            10963.4
+          ]
+        },
+        "density": {
+          "value": 457840,
+          "range": [
+            26912.8,
+            26083900
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.00101223,
+          "range": [
+            0.0000528279,
+            0.00965655
+          ]
+        }
+      }
+    },
+    "thin:8495": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1090190,
+          "range": [
+            111935,
+            20930800
+          ]
+        },
+        "escapeKms": {
+          "value": 4316.75,
+          "range": [
+            1856.7,
+            10962.9
+          ]
+        },
+        "density": {
+          "value": 456277,
+          "range": [
+            26000.7,
+            26076900
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.0011801,
+          "range": [
+            0.0000614605,
+            0.0114933
+          ]
+        }
+      }
+    },
+    "thin:none": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            69868.6,
+            20993800
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1650.33,
+            10971.1
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            12822.1,
+            26194800
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            5.68101e-8,
+            174.815
+          ]
+        }
+      }
+    }
+  }
+}

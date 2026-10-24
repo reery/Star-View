@@ -1,17 +1,9 @@
-import { expect, test, type Page } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 import { readFileSync, readdirSync } from 'node:fs'
 import type { ConstellationChart } from '../src/constellations'
-import { openFilter, openSpecs, openViewer } from './support'
+import { openFilter, openSpecs, openViewer, selectObject } from './support'
 
-async function selectObject(page: Page, name: string, showSpecs = true): Promise<void> {
-  await page.getByRole('button', { name: 'Objects', exact: true }).click()
-  await page.getByLabel('Search objects').fill(name)
-  await page.getByRole('button', { name: `Select ${name}`, exact: true }).click()
-  await page.getByRole('button', { name: 'Objects', exact: true }).click()
-  if (showSpecs) await openSpecs(page)
-}
-
-test('magnifies the selected star and restores the constellation overview', { tag: '@mobile' }, async ({ page }, testInfo) => {
+test('magnifies the selected star and restores the constellation overview', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   await openViewer(page)
@@ -38,8 +30,10 @@ test('magnifies the selected star and restores the constellation overview', { ta
   const lockBox = (await card.locator('#constellation-lock').boundingBox())!
   const headingBox = (await card.locator('h2').boundingBox())!
   expect(magnifierBox.width).toBe(44)
-  expect(magnifierBox.x + magnifierBox.width).toBeCloseTo(lockBox.x)
-  expect(headingBox.x + headingBox.width).toBeLessThanOrEqual(magnifierBox.x)
+  // Narrow cards move the Info and chart controls to a second header row below the name.
+  if (isMobile) expect(magnifierBox.y).toBeGreaterThanOrEqual(lockBox.y + lockBox.height - 1)
+  else expect(magnifierBox.x + magnifierBox.width).toBeCloseTo(lockBox.x)
+  expect(headingBox.x + headingBox.width <= magnifierBox.x || headingBox.y + headingBox.height <= magnifierBox.y).toBe(true)
   const overview = await snapshot()
   await magnifier.click()
   await expect(magnifier).toHaveAttribute('aria-pressed', 'true')
@@ -76,8 +70,8 @@ test('keeps Furud components and scoped cards identical from a clean chart and t
     await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'hip-30122')
     await expect(page.locator('#star-components button')).toHaveText(['Aa', 'Ab'])
     await expect(page.getByRole('button', { name: 'Show Furud Aa', exact: true })).toHaveAttribute('aria-pressed', 'true')
-    await expect(page.locator('#luminosity')).toHaveText('1,609.359 L☉')
-    await expect(page.locator('#radius')).toHaveText('5.764 R☉')
+    await expect(page.locator('#luminosity')).toHaveText('1,609.4 L☉')
+    await expect(page.locator('#radius')).toHaveText('5.8 R☉')
     for (const metric of ['luminosity', 'radius']) {
       await expect(page.locator(`#${metric}-toggle`)).toBeDisabled()
       await page.locator(`#${metric}-row`).focus()
@@ -105,16 +99,14 @@ test('keeps Furud components and scoped cards identical from a clean chart and t
   // A catalog refresh must retain the explicitly added companion too.
   await openFilter(page)
   await page.getByLabel('Object visibility distance', { exact: true }).fill('24')
-  await page.getByRole('switch', { name: 'Always show bright stars', exact: true }).check()
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   await checkFurud()
 
   await page.reload()
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await openFilter(page)
-  for (const name of ['Always show bright stars', 'Western constellation stars', 'Famous cluster stars']) {
-    await page.getByRole('switch', { name, exact: true }).check()
-  }
+  await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   for (const category of await page.locator('#object-categories input:enabled').all()) await category.check()
   await page.locator('details.filter-dropdown > summary').click()
   for (const subtype of await page.locator('input[data-filter-key]:enabled').all()) await subtype.check()
@@ -122,7 +114,7 @@ test('keeps Furud components and scoped cards identical from a clean chart and t
   await page.getByLabel('Object visibility distance', { exact: true }).fill('24')
   await expect(page.locator('#object-distance-limit-value')).toHaveText('10000 ly')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
-  await selectObject(page, 'Furud Aa')
+  await selectObject(page, 'Furud Aa', { showSpecs: true })
   await checkFurud()
   expect(errors).toEqual([])
 })
@@ -184,7 +176,7 @@ test('loads Centaurus on demand and follows exact components across locked chart
   })
   await openViewer(page)
   expect(chartRequests).toHaveLength(0)
-  await selectObject(page, 'Alpha Centauri A')
+  await selectObject(page, 'Alpha Centauri A', { showSpecs: true })
   await page.locator('#constellation-toggle').click()
   const card = page.locator('#constellation-card')
   await expect(card.locator('#constellation-heading')).toHaveText('Centaurus')
@@ -219,12 +211,12 @@ test('loads Centaurus on demand and follows exact components across locked chart
   const betaName = (await beta.getAttribute('aria-label'))!.replace(/^Select /, '')
   await beta.click()
   await expect(card.locator('.is-selected .constellation-star-name')).toHaveText(betaName)
-  await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'bright-hadar')
+  await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'hip-68702')
   await expect(card.locator('#constellation-visibility')).toBeVisible()
-  await selectObject(page, 'Sirius A', false)
+  await selectObject(page, 'Sirius A')
   await expect(card.locator('#constellation-heading')).toHaveText('Canis Major')
   await expect(card.locator('.is-selected .constellation-star-name')).toHaveText('Sirius A')
-  await selectObject(page, 'Alpha Centauri A', false)
+  await selectObject(page, 'Alpha Centauri A')
   await expect(card.locator('#constellation-heading')).toHaveText('Centaurus')
   await expect(card.locator('.is-selected .constellation-star-name')).toHaveText('Alpha Centauri A')
   expect(chartRequests.filter((url) => url.includes('/centaurus-'))).toHaveLength(1)
@@ -353,7 +345,7 @@ test('keeps Sirius B separate from the figure star and follows newly available c
   await card.screenshot({ path: testInfo.outputPath('canis-major-sirius-b.png') })
   await card.getByText('Sources', { exact: true }).click()
   await expect(page.locator('#constellation-source-links a')).toHaveCount(4)
-  await selectObject(page, 'Ross 154')
+  await selectObject(page, 'Ross 154', { showSpecs: true })
   await expect(card).toBeVisible()
   await expect(card.locator('#constellation-heading')).toHaveText('Sagittarius')
   await expect(card.locator('.is-selected .constellation-star-name')).toHaveText('Ross 154')
@@ -401,7 +393,7 @@ test('plots a non-star at its own sky coordinates in Canis Major', async ({ page
   await page.locator('details.filter-dropdown > summary').click()
   await page.getByLabel('Pulsars', { exact: true }).check()
   await page.locator('#object-distance-limit').fill('24')
-  await selectObject(page, 'PSR J0630-2834')
+  await selectObject(page, 'PSR J0630-2834', { showSpecs: true })
   await page.locator('#constellation-toggle').click()
   const card = page.locator('#constellation-card')
   await expect(card.locator('.is-selected')).toHaveAttribute('data-object-type', 'pulsar')
@@ -409,4 +401,33 @@ test('plots a non-star at its own sky coordinates in Canis Major', async ({ page
   await expect(card.locator('.constellation-selected-ring')).toHaveCount(1)
   await expect(card.locator('.constellation-star-name')).toHaveCount(1)
   await card.screenshot({ path: testInfo.outputPath('canis-major-pulsar.png') })
+})
+
+test('reads the constellation Info and selects its linked stars', { tag: '@mobile' }, async ({ page }) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  await openViewer(page)
+  await openSpecs(page)
+  await page.locator('#constellation-toggle').click()
+  const card = page.locator('#constellation-card')
+  const info = card.getByRole('button', { name: 'Info', exact: true })
+  await expect(card.locator('#constellation-chart > svg')).toBeVisible()
+  await info.click()
+  await expect(info).toHaveAttribute('aria-pressed', 'true')
+  await expect(card.locator('#constellation-chart')).toBeHidden()
+  await expect(page.locator('#constellation-grid')).toBeDisabled()
+  await expect(card.locator('#constellation-info strong').first()).toHaveText('Canis Major')
+  await card.locator('#constellation-info').getByRole('button', { name: 'Adhara', exact: true }).click()
+  await expect(page.locator('#star-name')).toHaveText('Adhara')
+  await expect(card.locator('#constellation-info')).toBeVisible()
+  await info.click()
+  await expect(card.locator('#constellation-chart > svg')).toBeVisible()
+  await expect(page.locator('#constellation-grid')).toBeEnabled()
+  // Info is not remembered once the card closes.
+  await info.click()
+  await card.locator('#constellation-close').click()
+  await page.locator('#constellation-toggle').click()
+  await expect(card.locator('#constellation-chart > svg')).toBeVisible()
+  await expect(info).toHaveAttribute('aria-pressed', 'false')
+  expect(errors).toEqual([])
 })

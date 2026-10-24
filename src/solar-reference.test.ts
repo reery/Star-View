@@ -2,16 +2,15 @@ import { describe, expect, it } from 'vitest'
 import defaultCsv from './data/stars.csv?raw'
 import nearest100Csv from './data/catalogs/nearest-100/stars.csv?raw'
 import nearest1000Csv from './data/catalogs/nearest-1000/stars.csv?raw'
-import brightCsv from './data/catalogs/bright-stars/stars.csv?raw'
+import brightCsv from '../catalog-work/bright-stars/retired-catalog/stars.csv?raw'
 import westernCsv from './data/catalogs/western-constellation-stars/stars.csv?raw'
-import clusterCsv from './data/catalogs/famous-cluster-stars/stars.csv?raw'
 import { parseStarCatalog } from './catalog'
 import { radiusComparison, radiusStats, radiusSummary } from './radius-comparison'
 
 describe('bundled solar reference', () => {
   it.each([
     ['nearest-neighbors', defaultCsv], ['nearest-100', nearest100Csv], ['nearest-1000', nearest1000Csv],
-    ['bright-stars', brightCsv], ['western-constellation-stars', westernCsv], ['famous-cluster-stars', clusterCsv],
+    ['bright-stars', brightCsv], ['western-constellation-stars', westernCsv],
   ])('provides the same supported Sun properties in %s', (_catalog, csv) => {
     expect(parseStarCatalog(csv).find((star) => star.id === 'sun')).toMatchObject({
       radius_solar: 1, mass_solar: 1, luminosity_solar: 1, temperature_k: 5772,

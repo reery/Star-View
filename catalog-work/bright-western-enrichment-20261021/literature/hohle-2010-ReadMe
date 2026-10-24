@@ -1,0 +1,126 @@
+J/AN/331/349  O, B-type & red supergiant masses and luminosities  (Hohle+, 2010)
+================================================================================
+Masses and luminosities of O- and B-type stars and red supergiants.
+    Hohle M.M., Neuhauser R., Schutz B.F.
+   <Astron. Nachrichten, 331, 349-360 (2010)>
+   =2010AN....331..349H
+================================================================================
+ADC_Keywords: Stars, O ; Stars, B-type ; Stars, supergiant ;
+              Photometry, infrared ; Stars, masses ; Effective temperatures
+Keywords: binaries: general - stars: early-type -
+          stars: fundamental parameters - stars: statistics
+
+Abstract:
+    Massive stars are of interest as progenitors of supernovae, i.e.
+    neutron stars and black holes, which can be sources of gravitational
+    waves. Recent population synthesis models can predict neutron star and
+    gravitational wave observations but deal with a fixed supernova rate
+    or an assumed initial mass function for the population of massive
+    stars. Here we investigate those massive stars, which are supernova
+    progenitors, i.e. with O- and early B-type stars, and also all
+    supergiants within 3kpc. We restrict our sample to those massive
+    stars detected both in 2MASS and observed by Hipparcos, i.e. only
+    those stars with parallax and precise photometry. To determine the
+    luminosities we calculated the extinctions from published multi-colour
+    photometry, spectral types, luminosity class, all corrected for
+    multiplicity and recently revised Hipparcos distances. We use
+    luminosities and temperatures to estimate the masses and ages of these
+    stars using different models from different authors.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80       .   This file
+table1.dat    108    2196   Input data for single stars
+table1fp.dat  108     262   Pourbaix input data of primary for multiple stars
+table1sp.dat  108     262   Pourbaix input data of secondary for multiple stars
+table2.dat     60     101   All values obtained from the catalogues cited in
+                             the paper
+table3.dat     76    2196   Derived mass and luminosity, single stars
+table3p.dat    76     101  *own mass calculation of primary for multiple stars
+table3s.dat    76     101  *own mass calculation of secondary for multiple stars
+table3fp.dat   76     262  *Pourbaix derived mass and luminosity of primary
+                             for multiple stars
+table3sp.dat   76     262  *Pourbaix derived mass and luminosity of secondary
+                             for multiple stars
+--------------------------------------------------------------------------------
+Note on table3s.dat, table3p.dat : based on the temperature/luminosity as
+     listed in table2.
+Note on table3fp.dat, table3sp.dat : Data based on the catalogue from
+     Pourbaix Catalogue of Spectroscopic Binary Orbits (B/sb9)
+--------------------------------------------------------------------------------
+
+See also:
+ B/sb9 : SB9: 9th Catalogue of Spectroscopic Binary Orbits (Pourbaix+ 2004-2009)
+ I/239 : The Hipparcos and Tycho Catalogues (ESA 1997)
+ I/311 : Hipparcos, the New Reduction (van Leeuwen, 2007)
+
+Byte-by-byte Description of file: table1*.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---     HIP       Hipparcos identification number (Cat. I/311)
+   8- 13  F6.3  mag     Bmag      ?=99.99 B magnitude
+  15- 20  F6.3  mag     Vmag      ?=99.99 V magnitude
+  22- 29  F8.5  mag     Jmag      ?=99.99 2MASS J magnitude
+  31- 35  F5.3  mag   e_Jmag      ? rms uncertainty on Jmag
+  37- 44  F8.5  mag     Hmag      ?=99.99 2MASS H magnitude
+  46- 50  F5.3  mag   e_Hmag      ? rms uncertainty on Hmag
+  52- 58  F7.4  mag     Kmag      ?=99.99 2MASS K magnitude
+  60- 64  F5.3  mag   e_Kmag      ? rms uncertainty on Kmag
+  66- 70  F5.2  mas     plx       New reduced Hipparcos parallax
+  72- 76  F5.2  mas   e_plx       rms uncertainty on plx
+  78- 83  F6.3  mas     pcor      Parallax correction (1)
+  85- 90  F6.3  mas   e_pcor      rms uncertainty on pcor
+  92- 99  A8    ---     SpType    MK spectral type
+ 101-108  F8.2  K       Teff      ? Input effective temperature
+--------------------------------------------------------------------------------
+Note (1): corrected using Eq. (21) in Smith & Eichhorn (1996MNRAS.281..211S).
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---     HIP       Hipparcos identification number (1)
+   8- 12  F5.2  solMass M1        Mass of the primary
+  14- 20  F7.4  solMass M2        Mass of the secondary
+  24- 33  F10.2 solLum  Lbol1     Bolometric luminosity of the primary
+  37- 46  F10.3 solLum  Lbol2     Bolometric luminosity of the secondary
+  50- 54  I5    K       Teff1     Effective temperature of the primary
+  56- 60  I5    K       Teff2     Effective temperature of the secondary
+--------------------------------------------------------------------------------
+Note (1): Multiple entries mean multiple appearance in the different catalogues.
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: table3*
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label   Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---       HIP     Hipparcos identification number
+   8- 12  F5.2  solMass   minM1   ? Bertelli mass interval, lower value (1)
+  14- 18  F5.2  solMass   maxM1   ? Bertelli mass interval, upper value (1)
+  20- 24  F5.2  solMass   minM2   ? Claret mass interval, lower value (1)
+  26- 31  F6.2  solMass   maxM2   ? Claret mass interval, upper value (1)
+  33- 37  F5.2  solMass   minM3   ? Schaller mass interval, lower value (1)
+  38- 43  F6.2  solMass   maxM3   ? Schaller mass interval, upper value (1)
+  45- 50  F6.2  solMass   Mmed    ? Median mass
+  52- 56  F5.2  solMass e_Mmed    ? Standard deviation for Median mass
+  58- 67  F10.2 solLum    Lbol    ? Calculated bolometric luminosity (2)
+  69- 76  F8.2  K         Teffc   ? Calculated Effective temperature
+--------------------------------------------------------------------------------
+Note (2): We derived the luminosities from the corrected (Smith & Eichhorn,
+          1996MNRAS.281..211S) parallaxes.
+          Bertelli et al., 1994, Cat. J/A+AS/106/275
+          Claret, 2004, Cat. J/A+A/424/919
+          Schaller et al., 1992, Cat. J/A+AS/96/269
+Note (1): From luminosities and effective temperatures we calculated the
+     masses (using the models below and taking the errors of the
+     luminosities into account) with medians and standard deviation.
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+     Markus Hohle, Markus.Hohle(at)uni-jena.de
+================================================================================
+(End)                                      Patricia Vannier [CDS]    03-May-2010

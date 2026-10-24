@@ -157,9 +157,36 @@ def select_spectroscopy(observations, column):
 def reviewed_physical():
     existing = json.loads((ROOT / "catalog-work/shared-enrichment/reviewed-physical.json").read_text())["objects"]
     ultracool = json.loads((ROOT / "catalog-work/shared-enrichment/reviewed-ultracool.json").read_text())["objects"]
-    if existing.keys() & ultracool.keys():
+    bright_review = json.loads((ROOT / "catalog-work/bright-stars/gap-physical-review.json").read_text())
+    for path, digest in bright_review["inputSha256"].items():
+        verify_sha256(ROOT / path, digest)
+    bright = bright_review["catalogObjects"]
+    cluster_review = json.loads((ROOT / "catalog-work/famous-cluster-stars/physical-review.json").read_text())
+    for path, digest in cluster_review["inputSha256"].items():
+        verify_sha256(ROOT / path, digest)
+    cluster = {normalized_id(key): value for key, value in cluster_review["catalogObjects"].items()}
+    if len(cluster) != len(cluster_review["catalogObjects"]):
+        raise ValueError("Duplicate normalized cluster review identity")
+    white_dwarf_review = json.loads((ROOT / "catalog-work/shared-enrichment/reviewed-white-dwarfs.json").read_text())
+    for path, digest in white_dwarf_review["inputSha256"].items():
+        verify_sha256(ROOT / path, digest)
+    white_dwarfs = white_dwarf_review["objects"]
+    target_review = json.loads((ROOT / "catalog-work/bright-western-enrichment-20261021/physical-review.json").read_text())
+    for path, digest in target_review["inputSha256"].items():
+        verify_sha256(ROOT / path, digest)
+    targets = {normalized_id(key): value for key, value in target_review["catalogObjects"].items()}
+    if len(targets) != len(target_review["catalogObjects"]):
+        raise ValueError("Duplicate normalized 151-target review identity")
+    if any(review["objectType"] != "white_dwarf" for review in white_dwarfs.values()):
+        raise ValueError("White dwarf reviews must declare their object type")
+    if (existing.keys() & ultracool.keys() or (existing.keys() | ultracool.keys()) & bright.keys()
+            or (existing.keys() | ultracool.keys() | bright.keys()) & cluster.keys()
+            or (existing.keys() | ultracool.keys() | bright.keys() | cluster.keys()) & white_dwarfs.keys()):
         raise ValueError("Reviewed physical identities must be unique")
-    return existing | ultracool
+    combined = existing | ultracool | bright | cluster | white_dwarfs
+    if combined.keys() & targets.keys():
+        raise ValueError("151-target reviews must not replace an earlier object review")
+    return combined | targets
 
 
 def derive_physical(row):
@@ -198,8 +225,11 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
         adopted[field] = {"field": field, "value": float(row[field]), "status": status,
                           "reference": reference, "uncertainty": uncertainty, "identity": key, **detail}
 
-    if row["type"] in {"star", "brown_dwarf", "sub_brown_dwarf"} and key:
+    if row["type"] in {"star", "brown_dwarf", "sub_brown_dwarf", "white_dwarf"} and key:
         review = reviewed_physical().get(key)
+        # Stellar reviews never describe white dwarfs; only explicitly typed white dwarf reviews apply to them.
+        if review and row["type"] == "white_dwarf" and review.get("objectType") != "white_dwarf":
+            review = None
         if review:
             if review.get("objectType", row["type"]) != row["type"] or row["id"] not in review.get("starViewIds", [row["id"]]):
                 raise ValueError(f"Reviewed ultracool identity/type drifted: {key}")
