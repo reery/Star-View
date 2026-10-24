@@ -1,26 +1,8 @@
 import type { Star } from './catalog-model'
 import { placeSpectralMarkerLabels, spectralMarker, starIcon, svgNode } from './spectral-chart'
 
-import { spectralClasses, luminosityRows, mkPoint, type MkPoint } from './mk-properties'
-export { mkPoint, type MkPoint } from './mk-properties'
-
-// White-dwarf D families describe spectra, not M-K luminosity classes.
-// McCook–Sion catalog: https://heasarc.gsfc.nasa.gov/W3Browse/all/mcksion.html
-const whiteDwarfFamilies = [
-  ['DA', 'Hydrogen lines'], ['DB', 'Neutral helium lines'], ['DC', 'Featureless spectrum'],
-  ['DO', 'Ionized helium lines'], ['DQ', 'Carbon features'], ['DZ', 'Metal lines'],
-  ['DX', 'Peculiar or unclassifiable spectrum'],
-] as const
-
-export function whiteDwarfClassification(star: Pick<Star, 'type' | 'spectral_type'>): { family: string; spectralType: string; description: string } | null {
-  if (star.type !== 'white_dwarf') return null
-  const spectralType = star.spectral_type?.trim()
-  const classification = spectralType?.match(/^D([ABCOQZX])[ABCOQZXHPEV]*(?:\d+(?:\.\d+)?)?(?:[?:]|pec)?$/i)
-  if (!classification || !spectralType) return null
-  const family = `D${classification[1]!.toUpperCase()}`
-  const description = whiteDwarfFamilies.find(([type]) => type === family)![1]
-  return { family, spectralType, description }
-}
+import { spectralClasses, luminosityRows, mkPoint, whiteDwarfClassification, whiteDwarfFamilies, type MkPoint } from './mk-properties'
+export { mkPoint, whiteDwarfClassification, type MkPoint } from './mk-properties'
 
 function renderWhiteDwarfClassification(card: HTMLElement, star: Star, reference: Star): void {
   const selectedClass = whiteDwarfClassification(star), referenceClass = whiteDwarfClassification(reference)

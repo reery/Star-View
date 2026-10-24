@@ -171,6 +171,16 @@ def author(abbreviation):
     figure = next(c for c in culture["constellations"] if c.get("iau") == abbreviation)
     # Stellarium can put a style token (e.g. 'thin') before a star polyline.
     polylines = [[hip for hip in line if isinstance(hip, int)] for line in figure["lines"]]
+    # Argo Navis remnants (e.g. Carina's spurs to Pipit and Naos) end at a neighbour's star.
+    # Shared vertices that close a figure (Sirrah, Elnath) stay; foreign spur tips are dropped.
+    name = figure["common_name"]["native"]
+    degree = defaultdict(int)
+    for line in polylines:
+        for a, b in zip(line, line[1:]):
+            degree[a] += 1
+            degree[b] += 1
+    spur_tips = {hip for hip, count in degree.items() if count == 1 and catalog[f"hip-{hip}"]["constellation"] != name}
+    polylines = [line for line in ([hip for hip in line if hip not in spur_tips] for line in polylines) if len(line) > 1]
     identifiers = sorted({hip for line in polylines for hip in line})
     stars = []
     for hip in identifiers:
@@ -190,7 +200,6 @@ def author(abbreviation):
                 math.cos(math.radians(s["dec_deg"])) * math.sin(math.radians(s["ra_deg"])),
                 math.sin(math.radians(s["dec_deg"]))) for s in stars]
     x, y, z = (sum(v[i] for v in vectors) for i in range(3))
-    name = figure["common_name"]["native"]
     slug = name.lower().replace(" ", "-")
     center = {"ra_deg": math.degrees(math.atan2(y, x)) % 360,
               "dec_deg": math.degrees(math.atan2(z, math.hypot(x, y)))}

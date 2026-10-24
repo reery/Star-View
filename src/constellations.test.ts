@@ -51,9 +51,17 @@ describe('all 88 constellation charts', () => {
       expect(chart.abbreviation).toBe(figure.iau)
       const ids = new Set(chart.stars.map((star) => star.hip))
       const sourceLines = (figure.lines as (number | string)[][]).map((line) => line.filter((hip): hip is number => typeof hip === 'number'))
-      expect(chart.lines).toEqual(sourceLines.flatMap((line) => line.slice(1).map((hip, i) => [line[i], hip])))
-      expect([...ids].sort((a, b) => a - b)).toEqual([...new Set(sourceLines.flat())].sort((a, b) => a - b))
+      const sourceSegments = sourceLines.flatMap((line) => line.slice(1).map((hip, i) => [line[i]!, hip]))
+      // Only spur tips belonging to a neighbouring constellation are omitted; shared vertices remain.
+      expect(chart.lines).toEqual(sourceSegments.filter((segment) => segment.every((hip) => ids.has(hip))))
+      for (const hip of new Set(sourceLines.flat())) {
+        if (!ids.has(hip)) expect(sourceSegments.filter((segment) => segment.includes(hip)), `${name} ${hip}`).toHaveLength(1)
+      }
+      for (const star of chart.stars) if (star.object.constellation !== name) {
+        expect(chart.lines.filter((line) => line.includes(star.hip)).length, `${name} ${star.name}`).toBeGreaterThan(1)
+      }
       expect(chart.lines.every((line) => line.every((hip) => ids.has(hip)))).toBe(true)
+      if (name === 'Carina') expect(chart.stars.some((star) => ['Pipit', 'Naos'].includes(star.name))).toBe(false)
       const starts = chart.boundaries.map((boundary) => JSON.stringify(boundary.points[0])).sort()
       const ends = chart.boundaries.map((boundary) => JSON.stringify(boundary.points.at(-1))).sort()
       expect(ends, `${name} region closure`).toEqual(starts)

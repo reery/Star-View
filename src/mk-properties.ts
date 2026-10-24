@@ -37,3 +37,20 @@ export function mkPoint(star: Pick<Star, 'type' | 'spectral_type'>): MkPoint | n
   }
 }
 
+// White-dwarf D families describe spectra, not M-K luminosity classes.
+// McCook–Sion catalog: https://heasarc.gsfc.nasa.gov/W3Browse/all/mcksion.html
+export const whiteDwarfFamilies = [
+  ['DA', 'Hydrogen lines'], ['DB', 'Neutral helium lines'], ['DC', 'Featureless spectrum'],
+  ['DO', 'Ionized helium lines'], ['DQ', 'Carbon features'], ['DZ', 'Metal lines'],
+  ['DX', 'Peculiar or unclassifiable spectrum'],
+] as const
+
+export function whiteDwarfClassification(star: Pick<Star, 'type' | 'spectral_type'>): { family: string; spectralType: string; description: string } | null {
+  if (star.type !== 'white_dwarf') return null
+  const spectralType = star.spectral_type?.trim()
+  const classification = spectralType?.match(/^D([ABCOQZX])[ABCOQZXHPEV]*(?:\d+(?:\.\d+)?)?(?:[?:]|pec)?$/i)
+  if (!classification || !spectralType) return null
+  const family = `D${classification[1]!.toUpperCase()}`
+  const description = whiteDwarfFamilies.find(([type]) => type === family)![1]
+  return { family, spectralType, description }
+}

@@ -49,6 +49,8 @@ export interface StarViewer {
   setViewState(state: ViewerViewState): void
   setObjectDistanceLimit(distanceLy: number): void
   setObjectFilter(keys: readonly FilterKey[]): void
+  /** An extra visibility test, such as a Graphs selection; distances are from the reference. */
+  setObjectPredicate(predicate: ((star: Star, distancePc: number) => boolean) | null): void
   setLabelLimit(limit: number): void
   setMotionArrowsVisible(visible: boolean): void
   setEarthOrbitDate(date: Date | null): void
@@ -504,6 +506,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let magnitudeLimit = 7
   let objectDistanceLimitLy = 100
   let visibleKeys = new Set<FilterKey>(FILTER_KEYS)
+  let objectPredicate: ((star: Star, distancePc: number) => boolean) | null = null
   let labelLimit = 40
   let motionArrowsVisible = true
   let motionFrame: MotionFrame = 'galactic'
@@ -1021,7 +1024,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         visibilityBase.id,
         referenceDistancesLy[index]!,
         objectDistanceLimitLy,
-      )
+      ) && (!objectPredicate || objectPredicate(star, referenceDistancesLy[index]! / LIGHT_YEARS_PER_PARSEC))
       tiers[index] = tier
       mapVisible[index] = visible ? 1 : 0
       // Painted magnitudes size every object, independent of distance.
@@ -2102,6 +2105,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       const nextKeys = new Set(keys.filter(isFilterKey))
       if (nextKeys.size === visibleKeys.size && [...nextKeys].every((key) => visibleKeys.has(key))) return
       visibleKeys = nextKeys
+      updatePresentation()
+      requestRender()
+    },
+    setObjectPredicate(predicate) {
+      if (predicate === objectPredicate) return
+      objectPredicate = predicate
       updatePresentation()
       requestRender()
     },

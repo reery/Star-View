@@ -3,8 +3,8 @@
   "abbreviation": "Car",
   "name": "Carina",
   "center": {
-    "ra_deg": 137.782937136,
-    "dec_deg": -60.478869749
+    "ra_deg": 144.346624401,
+    "dec_deg": -62.486515436
   },
   "stars": [
     {
@@ -49,104 +49,6 @@
           "pm_dec_masyr": 23.24,
           "pm_dec_error_masyr": null,
           "radial_velocity_kms": 20.3,
-          "radial_velocity_error_kms": null,
-          "epoch": 2000.0,
-          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
-          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
-        }
-      }
-    },
-    {
-      "hip": 31685,
-      "name": "Pipit",
-      "ra_deg": 99.44030260969878,
-      "dec_deg": -43.195935686955835,
-      "magnitude_v": 3.17,
-      "bayer": null,
-      "object": {
-        "x_pc": -33.09679366,
-        "y_pc": -101.471530686,
-        "z_pc": -39.984605834,
-        "vx_kms": -7.077824,
-        "vy_kms": -27.783054,
-        "vz_kms": -11.715283,
-        "temperature_k": 10799.0,
-        "mass_solar": null,
-        "luminosity_solar": 768.5558456970398,
-        "radius_solar": 7.919965,
-        "metallicity_dex": null,
-        "age_gyr": null,
-        "absolute_mag": -2.114076,
-        "epoch": 2000.0,
-        "type": "star",
-        "id": "hip-31685",
-        "name": "Pipit",
-        "constellation": "Puppis",
-        "spectral_type": "B8III",
-        "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 31685; Stellarium Car, Pup). SIMBAD identity * nu. Pup; SIMBAD compiled Johnson V=3.17; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
-        "designations": [
-          "HIP 31685"
-        ],
-        "raw_astrometry": {
-          "ra_deg": 99.44030260969878,
-          "dec_deg": -43.195935686955835,
-          "parallax_mas": 8.8194,
-          "parallax_error_mas": 0.2883,
-          "pm_ra_cosdec_masyr": -0.537,
-          "pm_ra_error_masyr": null,
-          "pm_dec_masyr": -3.859,
-          "pm_dec_error_masyr": null,
-          "radial_velocity_kms": 30.9,
-          "radial_velocity_error_kms": null,
-          "epoch": 2000.0,
-          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
-          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
-        }
-      }
-    },
-    {
-      "hip": 39429,
-      "name": "Naos",
-      "ra_deg": 120.89603140977576,
-      "dec_deg": -40.003147798268934,
-      "magnitude_v": 2.21,
-      "bayer": null,
-      "object": {
-        "x_pc": -80.237062942,
-        "y_pc": -321.237045216,
-        "z_pc": -27.254948203,
-        "vx_kms": -39.333182,
-        "vy_kms": 36.561898,
-        "vz_kms": -23.806971,
-        "temperature_k": 24684.0,
-        "mass_solar": null,
-        "luminosity_solar": 94309.5,
-        "radius_solar": 16.7919,
-        "metallicity_dex": 0.492,
-        "age_gyr": null,
-        "absolute_mag": -5.357168,
-        "epoch": 2000.0,
-        "type": "star",
-        "id": "hip-39429",
-        "name": "Naos",
-        "constellation": "Puppis",
-        "spectral_type": "O4I(n)fp",
-        "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 39429; Stellarium Car, Pup). SIMBAD identity * zet Pup; SIMBAD compiled Johnson V=2.25; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar, metallicity_dex.",
-        "designations": [
-          "HIP 39429"
-        ],
-        "raw_astrometry": {
-          "ra_deg": 120.89603140977576,
-          "dec_deg": -40.003147798268934,
-          "parallax_mas": 3.01,
-          "parallax_error_mas": 0.1,
-          "pm_ra_cosdec_masyr": -29.71,
-          "pm_ra_error_masyr": null,
-          "pm_dec_masyr": 16.68,
-          "pm_dec_error_masyr": null,
-          "radial_velocity_kms": -23.9,
           "radial_velocity_error_kms": null,
           "epoch": 2000.0,
           "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
@@ -791,14 +693,6 @@
     [
       45080,
       42568
-    ],
-    [
-      30438,
-      31685
-    ],
-    [
-      41037,
-      39429
     ]
   ],
   "boundaries": [

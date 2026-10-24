@@ -1,6 +1,6 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChevronUp, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, Telescope, Trophy, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChartColumn, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, Pause, Play, Plus, RotateCcw, RotateCw, Save, Search, Settings2, Sun, Telescope, Trophy, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
@@ -28,7 +28,7 @@ import { hrCardAvailable, spectralReference } from './spectral-properties'
 import { positionCardHeaderTooltips } from './card-header-tooltips'
 import { massCardAvailable } from './mass-properties'
 import { luminosityCardAvailable } from './luminosity-properties'
-import { magnitudeCardAvailable } from './magnitude-properties'
+import { MAGNITUDE_VISIBILITY_GUIDES, magnitudeCardAvailable } from './magnitude-properties'
 import { temperatureCardAvailable } from './temperature-properties'
 import { constellationCardAvailable, loadConstellationChart, type ConstellationChart } from './constellations'
 import type { RadiusReference } from './radius-comparison'
@@ -118,6 +118,14 @@ icon('constellations-icon', ConstellationIcon)
 icon('top-lists-icon', Trophy)
 icon('top-lists-lock-icon', Lock)
 icon('top-lists-close-icon', X)
+icon('graphs-icon', ChartColumn)
+icon('graphs-width-icon', ChevronsRightLeft)
+icon('graphs-clear-icon', FunnelX)
+icon('graph-filter-active-icon', ChartColumn)
+icon('paint-active-icon', Paintbrush)
+icon('motion-active-icon', Clock)
+icon('graphs-lock-icon', Lock)
+icon('graphs-close-icon', X)
 icon('paint-icon', Paintbrush)
 icon('paint-reset-icon', RotateCcw)
 icon('paint-lock-icon', Lock)
@@ -166,6 +174,7 @@ icon('objects-shrink-icon', ChevronsDownUp)
 icon('objects-maximize-icon', ChevronsUpDown)
 icon('motion-icon', Clock)
 icon('motion-lock-icon', Lock)
+icon('motion-close-icon', X)
 const detailCardClosers = {
   'object-type': closeObjectTypeCard,
   metallicity: closeMetallicityCard,
@@ -215,6 +224,8 @@ initializeTouchTooltips(events.signal)
 initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, events.signal)
 let constellationBrowser: ReturnType<typeof import('./constellation-browser').initializeConstellationBrowser> | undefined
 let topLists: ReturnType<typeof import('./top-lists').initializeTopLists> | undefined
+let graphs: ReturnType<typeof import('./graphs').initializeGraphs> | undefined
+let graphFilter: ObjectListFilter | null = null
 let glossaryInitialized = false
 const paintSettings = new Map<PaintSettingId, number>()
 let viewer: StarViewer | undefined
@@ -316,10 +327,10 @@ const timeSlider = element<HTMLInputElement>('time-slider')
 const timeMarkers = document.querySelectorAll<HTMLElement>('.time-markers i')
 timeMarkers.forEach((marker, index) => marker.style.setProperty('--marker-position', `${index / (timeMarkers.length - 1) * 100}%`))
 const selectionHistory = new SelectionHistory(selectedId)
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'paint', 'preferences', 'info'] as const
-const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'paint', 'preferences'] as const
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'preferences', 'info'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'preferences'] as const
 // Discover panels open from the flyout, so focus returns to its toggle.
-const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'paint' ? 'discover-toggle' : `${name}-toggle`
+const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'motion' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 
 function selectedStarAvailable(id: string): boolean {
@@ -436,6 +447,10 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
     if (topLists) topLists.open()
     else void loadTopListsPanel()
   }
+  if (name === 'graphs' && open) {
+    if (graphs) graphs.open()
+    else void loadGraphsPanel()
+  }
 }
 
 async function loadGlossaryPanel(): Promise<void> {
@@ -474,6 +489,22 @@ async function loadTopListsPanel(): Promise<void> {
   if (!result || topLists) return
   topLists = result.value.initializeTopLists(events.signal, () => ({ distanceUnit, onSelect: (object) => { void selectTopListObject(object) } }))
   topLists.open()
+}
+
+async function loadGraphsPanel(): Promise<void> {
+  const result = await loadWithRecovery(element('graphs-panel').querySelector<HTMLElement>('.glossary-body')!,
+    () => import('./graphs'), {
+      label: 'Graphs', retry: () => { void loadGraphsPanel() },
+      isCurrent: () => !events.signal.aborted && panelIsOpen('graphs'),
+      focusTarget: element('graphs-close'), onChange: syncPanelLayout,
+    })
+  if (!result) return
+  initializeGraphs(result.value).open()
+}
+
+function initializeGraphs(module: typeof import('./graphs')): NonNullable<typeof graphs> {
+  return graphs ??= module.initializeGraphs(events.signal,
+    () => ({ items: objectList.mapItems(baseObjectListFilter()), onFilter: setGraphFilter, sun: starById('sun'), referenceName: starById(referenceId)?.name ?? 'Sun', systems: starSystems, distanceUnit, colorMode: starColorMode }))
 }
 
 /** Prefer the loaded record of a merged identity; otherwise add the listed catalog record. */
@@ -1374,8 +1405,19 @@ function syncSelectedObjectLayout(): void {
   selectedCard.style.maxHeight = `${Math.max(68, availableHeight)}px`
 }
 
+function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active', active: boolean): void {
+  const indicator = element(id)
+  if (indicator.hidden !== active) return
+  indicator.hidden = !active
+  syncVisibilityObserverLayout()
+}
+
 function syncVisibilityObserverLayout(): void {
   const caption = document.querySelector<HTMLElement>('.visibility-observer')!
+  // Active-state buttons beside Info push the caption further left.
+  const indicators = document.querySelector<HTMLElement>('.dock-indicators')!
+  const indicatorWidth = getComputedStyle(indicators).position === 'absolute' ? indicators.getBoundingClientRect().width : 0
+  caption.style.marginRight = indicatorWidth ? `${indicatorWidth + 4}px` : ''
   caption.classList.remove('is-avoiding-motion')
   const motionPanel = element('motion-panel')
   if (motionPanel.hidden) return
@@ -1467,6 +1509,7 @@ function renderSimulationTime(): void {
   timeSlider.style.setProperty('--time-fill-end', `${Math.max(50, position)}%`)
   timeSlider.setAttribute('aria-valuetext', formatted.accessible)
   text('time-value', formatted.short)
+  setActiveIndicator('motion-active', simulationYears !== 0 || simulationPlaying)
 }
 
 function renderPlaybackState(): void {
@@ -1474,6 +1517,7 @@ function renderPlaybackState(): void {
   play.setAttribute('aria-pressed', String(simulationPlaying))
   play.setAttribute('aria-label', simulationPlaying ? 'Pause stellar motion' : 'Play stellar motion')
   icon('time-play-icon', simulationPlaying ? Pause : Play)
+  setActiveIndicator('motion-active', simulationYears !== 0 || simulationPlaying)
 }
 
 function renderPlaybackSpeed(): void {
@@ -2026,12 +2070,26 @@ function renderSelection(): void {
   void renderActiveObjectSection()
 }
 
-function objectListFilter(): ObjectListFilter {
+function baseObjectListFilter(): ObjectListFilter {
   return (star, distancePc) => isObjectMapVisible(star, visibleKeys, selectedId, observerId, distancePc * LIGHT_YEARS_PER_PARSEC, objectDistanceLimitLy)
+}
+
+/** The map filter narrowed by any Graphs selection, as the 3D view applies it. */
+function objectListFilter(): ObjectListFilter {
+  const base = baseObjectListFilter(), graph = graphFilter
+  return graph ? (star, distancePc) => base(star, distancePc) && graph(star, distancePc) : base
+}
+
+function setGraphFilter(filter: ObjectListFilter | null): void {
+  graphFilter = filter
+  viewer?.setObjectPredicate(filter)
+  setActiveIndicator('graph-filter-active', !!filter)
+  updateObjectListFilter()
 }
 
 function updateObjectListFilter(): void {
   objectList.setFilter(objectListFilter())
+  graphs?.refresh()
 }
 
 function selectStar(id: string | null, recordHistory = true): void {
@@ -2068,6 +2126,7 @@ function setOrigin(id: string): void {
   referenceId = id
   selectedDistancePc = null
   objectList.setReference(referenceId, objectListFilter())
+  graphs?.refresh()
   viewer?.setReference(referenceId)
   renderSelection()
 }
@@ -2104,6 +2163,7 @@ function renderDistances(): void {
   element<HTMLInputElement>(`unit-${distanceUnit}`).checked = true
   renderGridScale(currentGridScale)
   objectList.setDistanceUnit(distanceUnit)
+  graphs?.refresh()
   if (viewerDistancePc !== null) renderViewerDistance(viewerDistancePc)
   renderSelection()
 }
@@ -2161,6 +2221,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   element('catalog-range').title = `${definition.manifest.description} ${definition.manifest.snapshot}`
   element<HTMLInputElement>('object-search').value = ''
   objectList.setStars(stars, distanceUnit, selectedId, referenceId, objectListFilter())
+  graphs?.refresh()
   renderDistances()
   try {
     viewer = createStarViewer(element('scene'), stars, {
@@ -2189,6 +2250,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setVisibility(observerId, magnitudeLimit)
   viewer.setObjectDistanceLimit(objectDistanceLimitLy)
   viewer.setObjectFilter([...visibleKeys])
+  viewer.setObjectPredicate(graphFilter)
   viewer.setLabelLimit(labelLimit)
   viewer.setMotionArrowsVisible(motionArrowsVisible)
   viewer.setMotionFrame(motionFrame)
@@ -2447,6 +2509,8 @@ function currentSavedViewSettings(): SavedViewSettings | null {
     observerViewAnchorId,
     objectSearch: element<HTMLInputElement>('object-search').value,
     viewState: viewer.getViewState(),
+    graphFilter: graphs?.save() ?? [],
+    paint: [...paintSettings],
   }
 }
 
@@ -2621,6 +2685,12 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   }
   selectionHistory.record(selectedId)
   objectList.setReference(referenceId, objectListFilter())
+  applyPaint(settings.paint ?? [])
+  const graphFilter = settings.graphFilter ?? []
+  // The graphs module loads only when the view holds a graph filter; failing that, the view opens without it.
+  if (graphFilter.length && !graphs) await import('./graphs').then(initializeGraphs, () => undefined)
+  graphs?.restore(graphFilter)
+  graphs?.refresh()
   renderDistances()
   renderSelection()
   syncSavedSettingsInputs()
@@ -2745,6 +2815,26 @@ element('objects-maximize').addEventListener('click', () => {
   element('objects-panel').style.setProperty('--objects-height', '100dvh')
   syncPanelLayout()
 }, { signal: events.signal })
+// Choosing a Discover card retracts the flyout until the pointer returns to Discover or keyboard navigation resumes.
+const discoverControls = element('discover-toggle').parentElement!
+element('discover-options').addEventListener('click', (event) => {
+  if (event.target instanceof Element && event.target.closest('button')) discoverControls.setAttribute('data-dismissed', '')
+}, { signal: events.signal })
+element('discover-toggle').addEventListener('pointerenter', () => discoverControls.removeAttribute('data-dismissed'), { signal: events.signal })
+document.addEventListener('keydown', (event) => { if (event.key === 'Tab') discoverControls.removeAttribute('data-dismissed') }, { signal: events.signal })
+element('graph-filter-active').addEventListener('click', () => togglePanel('graphs'), { signal: events.signal })
+element('paint-active').addEventListener('click', () => togglePanel('paint'), { signal: events.signal })
+element('motion-active').addEventListener('click', () => togglePanel('motion'), { signal: events.signal })
+element('graphs-width').addEventListener('click', () => {
+  const compact = element('control-dock').toggleAttribute('data-graphs-compact')
+  const button = element('graphs-width')
+  const label = `${compact ? 'Widen' : 'Shrink'} graphs card width`
+  button.setAttribute('aria-expanded', String(!compact))
+  button.setAttribute('aria-label', label)
+  button.title = label
+  icon('graphs-width-icon', compact ? ChevronsLeftRight : ChevronsRightLeft)
+  syncPanelLayout()
+}, { signal: events.signal })
 function setConstellationsMaximized(maximized: boolean): void {
   element('constellations-panel').classList.toggle('is-maximized', maximized)
   const button = element('constellations-maximize')
@@ -2820,6 +2910,7 @@ element('paint-settings').addEventListener('click', (event) => {
   if (paintSettings.has(parts.id)) paintSettings.delete(parts.id)
   else paintSettings.set(parts.id, parts.level.valueAsNumber)
   button.setAttribute('aria-pressed', String(paintSettings.has(parts.id)))
+  setActiveIndicator('paint-active', paintSettings.size > 0)
   viewer?.setStarPaint(starPainter(paintSettings))
 }, { signal: events.signal })
 element('paint-settings').addEventListener('input', (event) => {
@@ -2831,16 +2922,21 @@ element('paint-settings').addEventListener('input', (event) => {
   paintSettings.set(parts.id, parts.level.valueAsNumber)
   viewer?.setStarPaint(starPainter(paintSettings))
 }, { signal: events.signal })
-element('paint-reset').addEventListener('click', () => {
+/** Paints by the given settings; settings left out are off at their default level. */
+function applyPaint(entries: readonly (readonly [PaintSettingId, number])[]): void {
   paintSettings.clear()
+  entries.forEach(([id, level]) => paintSettings.set(id, level))
   element('paint-settings').querySelectorAll<HTMLElement>('[data-paint-setting]').forEach((setting) => {
     const parts = paintSettingParts(setting)!
-    parts.toggle.setAttribute('aria-pressed', 'false')
-    parts.level.value = String(DEFAULT_PAINT_LEVEL)
-    parts.level.parentElement!.style.setProperty('--paint-legend', parts.gradient(DEFAULT_PAINT_LEVEL))
+    const level = paintSettings.get(parts.id) ?? DEFAULT_PAINT_LEVEL
+    parts.toggle.setAttribute('aria-pressed', String(paintSettings.has(parts.id)))
+    parts.level.value = String(level)
+    parts.level.parentElement!.style.setProperty('--paint-legend', parts.gradient(level))
   })
-  viewer?.setStarPaint(null)
-}, { signal: events.signal })
+  setActiveIndicator('paint-active', paintSettings.size > 0)
+  viewer?.setStarPaint(paintSettings.size ? starPainter(paintSettings) : null)
+}
+element('paint-reset').addEventListener('click', () => applyPaint([]), { signal: events.signal })
 element('filter-save').addEventListener('click', saveCurrentFilter, { signal: events.signal })
 catalogRange.addEventListener('change', () => {
   const catalog = sliderCatalogs[catalogRange.valueAsNumber]
@@ -2863,7 +2959,17 @@ element('star-colors').addEventListener('change', () => {
   renderSelection()
   updateSelectionHistoryControls()
   viewer?.setStarColorMode(starColorMode)
+  graphs?.refresh()
 }, { signal: events.signal })
+const magnitudeLimitInput = element<HTMLInputElement>('magnitude-limit')
+const magnitudeLimitGuides = MAGNITUDE_VISIBILITY_GUIDES.filter((guide) => guide.limit <= Number(magnitudeLimitInput.max))
+element('magnitude-limit-markers').replaceChildren(...magnitudeLimitGuides.map((guide) => {
+  const marker = document.createElement('span')
+  marker.style.left = `${guide.limit / Number(magnitudeLimitInput.max) * 100}%`
+  marker.append(createElement(guide.icon, { width: 12, height: 12, 'stroke-width': 1.7 }))
+  return marker
+}))
+text('magnitude-limit-guides', `Approximate visibility limits: ${magnitudeLimitGuides.map((guide) => `${guide.name.toLowerCase()} +${guide.limit}`).join(', ')}.`)
 element('magnitude-limit').addEventListener('input', () => {
   const input = element<HTMLInputElement>('magnitude-limit')
   if (!input.validity.valid || !Number.isFinite(input.valueAsNumber)) return
@@ -2998,7 +3104,7 @@ for (const name of panelNames) {
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
 }
-for (const name of ['objects', 'glossary', 'constellations', 'top-lists', 'paint'] as const) {
+for (const name of ['motion', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()

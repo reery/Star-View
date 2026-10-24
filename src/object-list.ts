@@ -133,6 +133,11 @@ export class ObjectList {
     this.refresh()
   }
 
+  /** Objects passing a map filter with their reference distances, ignoring the list's search query. */
+  mapItems(filter = this.filter): readonly Pick<ObjectListItem, 'star' | 'distancePc'>[] {
+    return this.items.filter((item) => filter(item.star, item.distancePc))
+  }
+
   setExpanded(expanded: boolean): void {
     this.expanded = expanded && this.database !== null
     this.container.hidden = this.expanded
