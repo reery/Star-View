@@ -6,5 +6,18 @@
     // The app uses one document, with no client-side path routes.
     // Missing chunks must return 404 instead of index.html under an asset URL.
     "not_found_handling": "none"
-  }
+  },
+    "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true
+    },
+    "traces": {
+      "enabled": false,
+      "head_sampling_rate": 1,
+      "persist": true
+    }
+  },
 }
