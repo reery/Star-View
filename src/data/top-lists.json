@@ -1435,6 +1435,494 @@
      ]
     }
    ]
+  },
+  {
+   "id": "solar-twins",
+   "title": "Solar twins",
+   "columns": [
+    "Spectral class",
+    "Temperature (K)",
+    "Metallicity (dex)",
+    "Age (Gyr)"
+   ],
+   "source": {
+    "label": "Wikipedia · Solar analog (solar twins)",
+    "url": "https://en.wikipedia.org/w/index.php?oldid=1380419382"
+   },
+   "entries": [
+    {
+     "name": "18 Scorpii",
+     "distance_pc": 13.8,
+     "constellation": "Scorpius",
+     "object": null,
+     "fields": [
+      "G2Va",
+      "5,433",
+      "−0.03",
+      "2.9"
+     ]
+    },
+    {
+     "name": "HD 150248",
+     "distance_pc": 27.8,
+     "constellation": "Scorpius",
+     "object": null,
+     "fields": [
+      "G3V + ?",
+      "5,750",
+      "−0.04",
+      "8.10"
+     ]
+    },
+    {
+     "name": "HD 195034",
+     "distance_pc": 28.2,
+     "constellation": "Vulpecula",
+     "object": null,
+     "fields": [
+      "G5",
+      "5,760",
+      "−0.04",
+      "2.9"
+     ]
+    },
+    {
+     "name": "HD 117939",
+     "distance_pc": 30.0,
+     "constellation": "Centaurus",
+     "object": null,
+     "fields": [
+      "G3",
+      "5,730",
+      "−0.10",
+      "6.1"
+     ]
+    },
+    {
+     "name": "HD 138573",
+     "distance_pc": 30.4,
+     "constellation": "Serpens",
+     "object": null,
+     "fields": [
+      "G5IV–V",
+      "5,757",
+      "+0.00",
+      "7.1"
+     ]
+    },
+    {
+     "name": "HD 98649",
+     "distance_pc": 41.4,
+     "constellation": "Crater",
+     "object": null,
+     "fields": [
+      "G4V",
+      "5,759",
+      "−0.02",
+      "2.3"
+     ]
+    },
+    {
+     "name": "HD 143436",
+     "distance_pc": 43.2,
+     "constellation": "Serpens",
+     "object": null,
+     "fields": [
+      "G0",
+      "5,768",
+      "+0.00",
+      "3.8 ± 2.9"
+     ]
+    },
+    {
+     "name": "HD 129357",
+     "distance_pc": 47.2,
+     "constellation": "Bootes",
+     "object": null,
+     "fields": [
+      "G2V",
+      "5,749",
+      "−0.02",
+      "8.2"
+     ]
+    },
+    {
+     "name": "HD 133600",
+     "distance_pc": 52.4,
+     "constellation": "Virgo",
+     "object": null,
+     "fields": [
+      "G0",
+      "5,808",
+      "+0.02",
+      "6.3"
+     ]
+    },
+    {
+     "name": "HD 186302",
+     "distance_pc": 56.4,
+     "constellation": "Pavo",
+     "object": null,
+     "fields": [
+      "G3",
+      "5,675",
+      "+0.00",
+      "4.5"
+     ]
+    },
+    {
+     "name": "HIP 11915",
+     "distance_pc": 58.3,
+     "constellation": "Cetus",
+     "object": null,
+     "fields": [
+      "G5V",
+      "5,760",
+      "−0.059",
+      "4.1"
+     ]
+    },
+    {
+     "name": "HIP 56948",
+     "distance_pc": 63.8,
+     "constellation": "Draco",
+     "object": null,
+     "fields": [
+      "G5V",
+      "5,795",
+      "+0.02",
+      "7.1"
+     ]
+    },
+    {
+     "name": "HIP 102152",
+     "distance_pc": 76.7,
+     "constellation": "Capricornus",
+     "object": null,
+     "fields": [
+      "G3V",
+      "5,723",
+      "−0.013",
+      "8.2"
+     ]
+    },
+    {
+     "name": "Kepler-452",
+     "distance_pc": 429,
+     "constellation": "Cygnus",
+     "object": null,
+     "fields": [
+      "G2V",
+      "5,757",
+      "+0.21",
+      "6.0"
+     ]
+    },
+    {
+     "name": "YBP 1194",
+     "distance_pc": 900,
+     "constellation": "Cancer",
+     "object": null,
+     "fields": [
+      "G5V",
+      "5,780",
+      "+0.023",
+      "~4.2 ± 1.6"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sun-like",
+   "title": "Sun-like stars",
+   "columns": [
+    "Spectral class",
+    "Temperature (K)",
+    "Metallicity (dex)",
+    "Age (Gyr)"
+   ],
+   "source": {
+    "label": "Wikipedia · Solar analog (solar analogs)",
+    "url": "https://en.wikipedia.org/w/index.php?oldid=1380419382"
+   },
+   "entries": [
+    {
+     "name": "Sigma Draconis",
+     "distance_pc": 5.8,
+     "constellation": "Draco",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-4846",
+      "designation": "HIP 96100"
+     },
+     "fields": [
+      "G9–K0 V",
+      "5,297",
+      "−0.20",
+      "4.7"
+     ]
+    },
+    {
+     "name": "Beta Canum Venaticorum",
+     "distance_pc": 8.4,
+     "constellation": "Canes Venatici",
+     "object": {
+      "catalog": "western-constellation-stars",
+      "id": "hip-61317",
+      "designation": "HIP 61317"
+     },
+     "fields": [
+      "G0V",
+      "5,930",
+      "−0.30",
+      "6.0"
+     ]
+    },
+    {
+     "name": "61 Virginis",
+     "distance_pc": 8.5,
+     "constellation": "Virgo",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-3273",
+      "designation": "HIP 64924"
+     },
+     "fields": [
+      "G5V",
+      "5,558",
+      "−0.02",
+      "6.3"
+     ]
+    },
+    {
+     "name": "Zeta Tucanae",
+     "distance_pc": 8.6,
+     "constellation": "Tucana",
+     "object": {
+      "catalog": "western-constellation-stars",
+      "id": "hip-1599",
+      "designation": "HIP 1599"
+     },
+     "fields": [
+      "F9.5V",
+      "5,956",
+      "−0.14",
+      "2.5"
+     ]
+    },
+    {
+     "name": "Beta Comae Berenices",
+     "distance_pc": 9.1,
+     "constellation": "Coma Berenices",
+     "object": {
+      "catalog": "western-constellation-stars",
+      "id": "hip-64394",
+      "designation": "HIP 64394"
+     },
+     "fields": [
+      "G0V",
+      "5,970",
+      "−0.06",
+      "2.0"
+     ]
+    },
+    {
+     "name": "61 Ursae Majoris",
+     "distance_pc": 9.5,
+     "constellation": "Ursa Major",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-2859",
+      "designation": "HIP 56997"
+     },
+     "fields": [
+      "G8V",
+      "5,483",
+      "−0.12",
+      "1.0"
+     ]
+    },
+    {
+     "name": "HR 511",
+     "distance_pc": 10.1,
+     "constellation": "Cassiopeia",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-0458",
+      "designation": "HIP 8362"
+     },
+     "fields": [
+      "K0V",
+      "5,333",
+      "+0.05",
+      "3.0"
+     ]
+    },
+    {
+     "name": "Alpha Mensae",
+     "distance_pc": 10.1,
+     "constellation": "Mensa",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-1526",
+      "designation": "HIP 29271"
+     },
+     "fields": [
+      "G5V",
+      "5,594",
+      "+0.10",
+      "5.4"
+     ]
+    },
+    {
+     "name": "HD 69830",
+     "distance_pc": 12.4,
+     "constellation": "Puppis",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-2059",
+      "designation": "HIP 40693"
+     },
+     "fields": [
+      "K0V",
+      "5,410",
+      "−0.03",
+      "10.6"
+     ]
+    },
+    {
+     "name": "HD 10307",
+     "distance_pc": 12.6,
+     "constellation": "Andromeda",
+     "object": null,
+     "fields": [
+      "G1.5V",
+      "5,848",
+      "−0.05",
+      "7.0"
+     ]
+    },
+    {
+     "name": "HD 147513",
+     "distance_pc": 12.9,
+     "constellation": "Scorpius",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-4013",
+      "designation": "HIP 80337"
+     },
+     "fields": [
+      "G1V",
+      "5,858",
+      "+0.03",
+      "0.4"
+     ]
+    },
+    {
+     "name": "58 Eridani",
+     "distance_pc": 13.3,
+     "constellation": "Eridanus",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-1198",
+      "designation": "HIP 22263"
+     },
+     "fields": [
+      "G3V",
+      "5,868",
+      "+0.02",
+      "0.6"
+     ]
+    },
+    {
+     "name": "47 Ursae Majoris",
+     "distance_pc": 14.1,
+     "constellation": "Ursa Major",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-2685",
+      "designation": "HIP 53721"
+     },
+     "fields": [
+      "G1V",
+      "5,954",
+      "+0.06",
+      "6.0"
+     ]
+    },
+    {
+     "name": "Psi Serpentis",
+     "distance_pc": 14.7,
+     "constellation": "Serpens",
+     "object": null,
+     "fields": [
+      "G5V",
+      "5,683",
+      "+0.04",
+      "3.2"
+     ]
+    },
+    {
+     "name": "HD 84117",
+     "distance_pc": 14.9,
+     "constellation": "Hydra",
+     "object": null,
+     "fields": [
+      "F8V",
+      "6,167",
+      "−0.03",
+      "3.1"
+     ]
+    },
+    {
+     "name": "HD 4391",
+     "distance_pc": 14.9,
+     "constellation": "Phoenix",
+     "object": null,
+     "fields": [
+      "G3V",
+      "5,878",
+      "−0.03",
+      "1.2"
+     ]
+    },
+    {
+     "name": "20 Leonis Minoris",
+     "distance_pc": 15.1,
+     "constellation": "Leo Minor",
+     "object": null,
+     "fields": [
+      "G3V",
+      "5,741",
+      "+0.20",
+      "6.5"
+     ]
+    },
+    {
+     "name": "Nu Phoenicis",
+     "distance_pc": 15.1,
+     "constellation": "Phoenix",
+     "object": null,
+     "fields": [
+      "F8V",
+      "6,140",
+      "+0.18",
+      "5.7"
+     ]
+    },
+    {
+     "name": "51 Pegasi (Helvetios)",
+     "distance_pc": 15.6,
+     "constellation": "Pegasus",
+     "object": null,
+     "fields": [
+      "G2.5IVa",
+      "5,804",
+      "+0.20",
+      "7.0"
+     ]
+    }
+   ]
   }
  ]
 }

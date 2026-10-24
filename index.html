@@ -607,10 +607,10 @@
                   <button id="discover-toggle" class="icon-button" type="button" aria-label="Discover" aria-controls="discover-options"><span id="discover-icon"></span><span class="tooltip">Discover</span></button>
                   <div id="discover-options" class="discover-options" data-toolbar-options>
                     <button id="top-lists-toggle" class="icon-button panel-button" type="button" aria-label="Top lists" aria-controls="top-lists-panel" aria-expanded="false"><span id="top-lists-icon"></span><span class="tooltip">Top lists</span></button>
-                    <button id="graphs-toggle" class="icon-button panel-button" type="button" aria-label="Graphs" aria-controls="graphs-panel" aria-expanded="false"><span id="graphs-icon"></span><span class="tooltip">Graphs</span></button>
                     <button id="constellations-toggle" class="icon-button panel-button" type="button" aria-label="Constellations" aria-controls="constellations-panel" aria-expanded="false"><span id="constellations-icon"></span><span class="tooltip">Constellations</span></button>
-                    <button id="paint-toggle" class="icon-button panel-button" type="button" aria-label="Paint" aria-controls="paint-panel" aria-expanded="false"><span id="paint-icon"></span><span class="tooltip">Paint</span></button>
                     <button id="motion-toggle" class="icon-button panel-button" type="button" aria-label="Stellar motion" aria-controls="motion-panel" aria-expanded="false"><span id="motion-icon"></span><span class="tooltip">Stellar motion</span></button>
+                    <button id="paint-toggle" class="icon-button panel-button" type="button" aria-label="Paint" aria-controls="paint-panel" aria-expanded="false"><span id="paint-icon"></span><span class="tooltip">Paint</span></button>
+                    <button id="graphs-toggle" class="icon-button panel-button" type="button" aria-label="Graphs" aria-controls="graphs-panel" aria-expanded="false"><span id="graphs-icon"></span><span class="tooltip">Graphs</span></button>
                   </div>
                 </div>
                 <button id="filter-toggle" class="icon-button panel-button" type="button" aria-label="Filter" aria-controls="filter-panel" aria-expanded="false"><span id="filter-icon"></span><span class="tooltip">Filter</span></button>
@@ -804,6 +804,7 @@
               <section id="paint-panel" class="dock-card" aria-labelledby="paint-heading" data-scene-obstacle hidden>
                 <div class="panel-heading paint-heading">
                   <h2 id="paint-heading">Paint</h2>
+                  <button id="paint-shrink" class="panel-lock" type="button" aria-label="Shrink painted stars when zooming out" title="Shrink painted stars when zooming out" aria-pressed="false"><span id="paint-shrink-icon"></span></button>
                   <button id="paint-reset" class="panel-lock" type="button" aria-label="Reset paint" title="Reset paint"><span id="paint-reset-icon"></span></button>
                   <button id="paint-lock" class="panel-lock" type="button" aria-label="Keep Paint open" aria-pressed="false"><span id="paint-lock-icon"></span></button>
                   <button id="paint-close" class="panel-lock" type="button" aria-label="Close paint card"><span id="paint-close-icon"></span></button>
@@ -862,9 +863,10 @@
                   <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                   <div><dt>License</dt><dd>MIT</dd></div>
                   <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
-                  <div><dt>Catalog updated</dt><dd><time datetime="2026-10-16">16 October 2026</time></dd></div>
+                  <div><dt>Catalog updated</dt><dd><time datetime="2026-10-24">24 October 2026</time></dd></div>
+                  <div><dt>Build date</dt><dd><time datetime="2026-10-24">24 October 2026</time></dd></div>
                   <div><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="catalog-epoch-tooltip">Position reference epoch</button><span id="catalog-epoch-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog positions use the year 2000 as their reference time.</span></dt><dd id="catalog-epoch">J2000.0</dd></div>
-                  <div><dt>Version</dt><dd>v0.6</dd></div>
+                  <div><dt>Version</dt><dd>v0.7</dd></div>
                 </dl>
               </section>
             </div>

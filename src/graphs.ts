@@ -18,9 +18,9 @@ interface GraphOptions {
   distanceUnit: DistanceUnit
   colorMode: StarColorMode
 }
-interface GraphContext extends GraphOptions { objects: readonly Star[]; stellar: readonly Star[] }
-/** A collapsible graph inside a topic; topics can hold several. */
-interface GraphSection { id: string; title: string | ((context: GraphContext) => string); icon: IconNode; render(context: GraphContext): Node[] }
+interface GraphContext extends GraphOptions { objects: readonly Star[]; stellar: readonly Star[]; logScale: boolean }
+/** A collapsible graph inside a topic; topics can hold several. `scalable` graphs switch between log and linear axes. */
+interface GraphSection { id: string; title: string | ((context: GraphContext) => string); icon: IconNode; scalable?: boolean; render(context: GraphContext): Node[] }
 interface GraphTopic { id: string; title: string; sections: GraphSection[] }
 /** A clickable bar or column that narrows the view to the objects it counts. */
 interface Selection { key: string; label: string; test: ObjectTest; range?: readonly [number, number] }
@@ -39,6 +39,8 @@ interface Histogram {
   markers?: { value: number; icon: IconNode; label: string }[]
   /** Tests one bin, from `low` (inclusive) to `high` (exclusive); open ends are infinite. */
   select?(low: number, high: number): ObjectTest
+  /** Values are log10 of a quantity whose selections save linear ends, so they survive a scale switch. */
+  linearRanges?: boolean
 }
 
 const typeLabels = new Map<FilterKey, string>(FILTER_CATEGORIES.flatMap((category) => category.subtypes.map(({ key, label }) => [key, label] as const)))
@@ -168,11 +170,11 @@ function countBars(groups: readonly { label: string; count: number; color?: stri
   return bars(groups.map(({ label, count, color, select }) => ({ label, value: count, scale: max, text: count.toLocaleString('en-US'), share: percent(count, total), color, select })))
 }
 
-function histogram({ values, label, ticks, tick, floor = -Infinity, color, markers = [], select }: Histogram): HTMLElement {
+function histogram({ values, label, ticks, tick, floor = -Infinity, color, markers = [], select, linearRanges }: Histogram): HTMLElement {
   const clamped = values.map((value) => Math.max(value, floor))
   const low = Math.min(...clamped), high = Math.max(...clamped)
-  // Aim for about 16 equal bins; a single value still gets one.
-  const step = niceStep(high - low, 16)
+  // Aim for about 40 equal bins; a single value still gets one.
+  const step = niceStep(high - low, 40)
   const min = Math.floor(low / step) * step
   const bins = Math.max(1, Math.ceil((high - min) / step - 1e-9))
   const max = min + bins * step
@@ -186,16 +188,17 @@ function histogram({ values, label, ticks, tick, floor = -Infinity, color, marke
   chart.className = 'graph-histogram'
   const columns = document.createElement('div')
   columns.className = 'graph-columns'
-  if (select) rangeTests.set(columns, select)
+  if (select) rangeTests.set(columns, linearRanges ? (low, high) => select(...[low, high].map((end) => end > 0 ? Math.log10(end) : -Infinity) as [number, number]) : select)
   columns.append(...counts.map((count, index) => {
     const binLow = min + index * step
     const range = label(index === 0 && belowFloor ? -Infinity : binLow, binLow + step)
     // Empty bins have nothing to show, and the outer bins also hold values on their open side.
     const binRange = [index === 0 ? -Infinity : binLow, index === bins - 1 ? Infinity : binLow + step] as const
-    const bin = selectable('span', select && count ? { key: binLow.toPrecision(12), label: range, test: select(...binRange), range: binRange } : undefined)
+    const bin = selectable('span', select && count ? { key: binLow.toPrecision(12), label: range, test: select(...binRange), range: linearRanges ? binRange.map((end) => 10 ** end) as [number, number] : binRange } : undefined)
     bin.classList.add('graph-bin')
-    bin.title = `${range} · ${countText(count)}`
-    bin.setAttribute('aria-label', bin.title)
+    bin.dataset.range = range
+    bin.dataset.count = countText(count)
+    bin.setAttribute('aria-label', `${range} · ${bin.dataset.count}`)
     const fill = document.createElement('i')
     fill.style.height = `${count / peak * 100}%`
     if (color) fill.style.background = color(binLow + step / 2)
@@ -220,7 +223,32 @@ function histogram({ values, label, ticks, tick, floor = -Infinity, color, marke
     label.style.transform = `translateX(${value <= min ? 0 : value >= max ? -100 : -50}%)`
     return label
   }))
-  chart.append(columns, axis)
+  // One shared tooltip follows the hovered or focused column.
+  const tooltip = document.createElement('span')
+  tooltip.className = 'tooltip mass-metric-tooltip constellation-tooltip'
+  tooltip.setAttribute('aria-hidden', 'true')
+  const tooltipRange = document.createElement('strong'), tooltipCount = document.createElement('span')
+  tooltip.append(tooltipRange, tooltipCount)
+  const showTooltip = (event: Event) => {
+    const bin = event.target instanceof Element ? event.target.closest<HTMLElement>('.graph-bin') : null
+    if (!bin) return
+    tooltipRange.textContent = bin.dataset.range!
+    tooltipCount.textContent = bin.dataset.count!
+    tooltip.classList.add('is-visible')
+    const chartBounds = chart.getBoundingClientRect(), fillBounds = bin.firstElementChild!.getBoundingClientRect()
+    const center = fillBounds.left + fillBounds.width / 2 - chartBounds.left
+    const left = Math.max(0, Math.min(chartBounds.width - tooltip.offsetWidth, center - tooltip.offsetWidth / 2))
+    tooltip.style.left = `${left}px`
+    tooltip.style.top = `${fillBounds.top - chartBounds.top - 8}px`
+    tooltip.style.setProperty('--constellation-tooltip-arrow', `${Math.max(10, Math.min(tooltip.offsetWidth - 18, center - left - 4))}px`)
+  }
+  const hideTooltip = () => tooltip.classList.remove('is-visible')
+  columns.addEventListener('pointerover', showTooltip)
+  columns.addEventListener('pointerleave', hideTooltip)
+  columns.addEventListener('focusin', showTooltip)
+  columns.addEventListener('focusout', hideTooltip)
+  columns.addEventListener('click', hideTooltip)
+  chart.append(columns, axis, tooltip)
   return chart
 }
 
@@ -248,8 +276,18 @@ function spectralClassBars({ stellar, colorMode }: GraphContext): Node[] {
   ]
 }
 
-function distanceHistogram({ items, distanceUnit, referenceName }: GraphContext): Node[] {
+function distanceHistogram({ items, distanceUnit, referenceName, logScale }: GraphContext): Node[] {
   const scale = distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1
+  if (logScale) {
+    // The reference object and anything within 1 unit join the first bin.
+    const value = (distancePc: number) => distancePc > 0 ? Math.log10(distancePc * scale) : -Infinity
+    return [histogram({
+      values: items.map(({ distancePc }) => value(distancePc)), floor: 0, linearRanges: true,
+      label: (low, high) => `${low === -Infinity ? 'Within' : `${number(10 ** low)} to`} ${number(10 ** high)} ${distanceUnit} ${low === -Infinity ? 'of' : 'from'} ${referenceName}`,
+      ticks: logTicks, tick: (tick) => number(10 ** tick),
+      select: (low, high) => (_, distancePc) => value(distancePc) >= low && value(distancePc) < high,
+    })]
+  }
   return [histogram({
     values: items.map(({ distancePc }) => distancePc * scale),
     label: (low, high) => `${number(low)} to ${number(high)} ${distanceUnit} from ${referenceName}`,
@@ -321,6 +359,13 @@ function temperatureHistogram({ stellar, sun, colorMode }: GraphContext): Node[]
   })
 }
 
+// Metallicity is relative to the Sun, which marks 0 dex.
+function metallicityHistogram({ stellar }: GraphContext): Node[] {
+  return propertyHistogram(stellar, (star) => star.metallicity_dex, 'a metallicity', {
+    label: (low, high) => `${number(low)} to ${number(high)} dex`, ticks: linearTicks, tick: number, markers: sunMarker(0),
+  })
+}
+
 function apparentMagnitudeHistogram({ stellar }: GraphContext): Node[] {
   return propertyHistogram(stellar, (star) => star.apparent_mag, 'an apparent magnitude', {
     label: magnitudeRange, ticks: linearTicks, tick: number, floor: -2,
@@ -368,13 +413,14 @@ const topics: GraphTopic[] = [
   { id: 'star-distribution', title: 'Star distribution', sections: [
     { id: 'object-types', title: 'Object types', icon: ChartBar, render: objectTypeBars },
     { id: 'spectral-classes', title: 'Spectral classes', icon: ChartBar, render: spectralClassBars },
-    { id: 'distance', title: ({ distanceUnit, referenceName }) => `Distance from ${referenceName} (${distanceUnit})`, icon: ChartColumn, render: distanceHistogram },
+    { id: 'distance', title: ({ distanceUnit, referenceName }) => `Distance from ${referenceName} (${distanceUnit})`, icon: ChartColumn, scalable: true, render: distanceHistogram },
     { id: 'multiplicity', title: 'Multiplicity', icon: ChartBar, render: multiplicityBars },
     { id: 'planet-hosts', title: 'Known planet hosts', icon: ChartBar, render: planetHostBars },
   ] },
   { id: 'physical-properties', title: 'Physical properties', sections: [
     { id: 'mass', title: 'Mass (M☉)', icon: ChartColumn, render: massHistogram },
     { id: 'temperature', title: 'Temperature (K)', icon: ChartColumn, render: temperatureHistogram },
+    { id: 'metallicity', title: 'Metallicity (dex)', icon: ChartColumn, render: metallicityHistogram },
     { id: 'apparent-magnitude', title: 'Apparent magnitude', icon: ChartColumn, render: apparentMagnitudeHistogram },
     { id: 'absolute-magnitude', title: 'Absolute magnitude', icon: ChartColumn, render: absoluteMagnitudeHistogram },
   ] },
@@ -406,6 +452,7 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
   const filterList = document.getElementById('graphs-filter-list')!
   const clear = document.getElementById('graphs-clear')!
   const collapsed = readCollapsed()
+  const linearSections = new Set<string>()
   // Selected bars per graph: the same graph combines with "or", different graphs with "and".
   const filters = new Map<string, Map<string, Selection>>()
   let selected = topics[0]!
@@ -466,7 +513,7 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
       // Each graph applies every other graph's selection but not its own, so its alternatives stay visible.
       const items = graphOptions.items.filter((item) => matches(item, section.id))
       const objects = items.map(({ star }) => star)
-      const context: GraphContext = { ...graphOptions, items, objects, stellar: objects.filter(isStellar) }
+      const context: GraphContext = { ...graphOptions, items, objects, stellar: objects.filter(isStellar), logScale: !linearSections.has(section.id) }
       const chosen = filters.get(section.id)
       const details = document.createElement('details')
       details.className = 'planet-atmosphere graph-section'
@@ -485,6 +532,22 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
         filter.textContent = [...chosen.values()].map(({ label }) => label).join(', ')
         filter.title = filter.textContent
         summary.append(filter)
+      }
+      if (section.scalable) {
+        const scale = document.createElement('span')
+        scale.className = 'unit-options graph-scale'
+        scale.setAttribute('role', 'group')
+        scale.setAttribute('aria-label', 'Axis scale')
+        scale.append(...(['Log', 'Linear'] as const).map((name) => {
+          const button = document.createElement('button')
+          button.type = 'button'
+          button.textContent = name
+          button.dataset.scale = name
+          button.title = `${name === 'Log' ? 'Logarithmic' : 'Linear'} axis`
+          button.setAttribute('aria-pressed', String((name === 'Log') === context.logScale))
+          return button
+        }))
+        summary.append(scale)
       }
       summary.append(chevron)
       const body = document.createElement('div')
@@ -511,6 +574,15 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
   filterList.addEventListener('click', selectTopic, { signal })
   // Selecting a bar narrows the 3D view; the resulting refresh re-renders every graph.
   sections.addEventListener('click', (event) => {
+    const scale = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-scale]') : null
+    if (scale) {
+      const id = scale.closest<HTMLElement>('[data-section]')!.dataset.section!
+      if (scale.dataset.scale === 'Log') linearSections.delete(id)
+      else linearSections.add(id)
+      render()
+      sections.querySelector<HTMLElement>(`[data-section="${id}"] [data-scale="${scale.dataset.scale}"]`)?.focus()
+      return
+    }
     const button = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-select]') : null
     const select = button && selections.get(button)
     const section = button?.closest<HTMLElement>('[data-section]')?.dataset.section
@@ -533,7 +605,7 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
     filters.clear()
     const graphOptions = options()
     const objects = graphOptions.items.map(({ star }) => star)
-    const context: GraphContext = { ...graphOptions, objects, stellar: objects.filter(isStellar) }
+    const context: GraphContext = { ...graphOptions, objects, stellar: objects.filter(isStellar), logScale: true }
     const rendered = new Map<string, HTMLElement>()
     for (const { section: id, key, label, range } of saved) {
       const section = topics.flatMap((topic) => topic.sections).find((candidate) => candidate.id === id)

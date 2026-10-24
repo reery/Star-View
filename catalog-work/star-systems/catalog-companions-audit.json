@@ -64902,14 +64902,14 @@
         "systemId": "msc-23069-4331",
         "primaryStarId": "hip-114131",
         "radialVelocity": {
-          "valueKms": 9.6,
-          "uncertaintyKms": null,
-          "uncertaintyKind": "unreported",
-          "reference": "SIMBAD TAP snapshot 2026-10-01",
-          "sourceUrl": "https://simbad.cds.unistra.fr/simbad/",
-          "section": "Existing frozen primary/source RV adoption",
+          "valueKms": 16.386969,
+          "uncertaintyKms": 0.492643,
+          "uncertaintyKind": "1-sigma",
+          "reference": "Gaia DR3 6541802406664428672",
+          "sourceUrl": "https://gea.esac.esa.int/archive/",
+          "section": "gaiadr3.gaia_source radial_velocity, radial_velocity_error; rv_nb_transits=9",
           "status": "compiled-primary-proxy",
-          "scope": "Compiled primary/source radial velocity used as a system bulk-motion proxy. It may contain orbital, pulsation, wind, gravitational or instrumental shifts; a measurement error does not bound those systematics."
+          "scope": "Measured Theta Gru A radial velocity used as a system bulk-motion proxy; replaces the GCRV-era SIMBAD 9.6 km/s compiled value. Independent checks: Gaia DR3 6541802578463122688 C 15.39 +/- 0.14 km/s; Tokovinin et al. 2015 (2015AJ....149....8T, Table 2) AB 14.2: km/s and C 15.9 km/s. A is a broad-lined pulsating Am star and may carry orbital or pulsation shifts; the formal error does not bound those systematics."
         },
         "motionInputs": {
           "ra_deg": 346.71971026132354,
@@ -64927,9 +64927,9 @@
           "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
         },
         "adoptedVectorKms": [
-          12.668848,
-          -0.429764,
-          -4.463144
+          15.654694,
+          -1.051264,
+          -10.526263
         ],
         "retainedOriginal": {
           "raw_astrometry": {
@@ -65003,14 +65003,14 @@
         "systemId": "msc-23069-4331",
         "primaryStarId": "hip-114131",
         "radialVelocity": {
-          "valueKms": 9.6,
-          "uncertaintyKms": null,
-          "uncertaintyKind": "unreported",
-          "reference": "SIMBAD TAP snapshot 2026-10-01",
-          "sourceUrl": "https://simbad.cds.unistra.fr/simbad/",
-          "section": "Existing frozen primary/source RV adoption",
+          "valueKms": 16.386969,
+          "uncertaintyKms": 0.492643,
+          "uncertaintyKind": "1-sigma",
+          "reference": "Gaia DR3 6541802406664428672",
+          "sourceUrl": "https://gea.esac.esa.int/archive/",
+          "section": "gaiadr3.gaia_source radial_velocity, radial_velocity_error; rv_nb_transits=9",
           "status": "compiled-primary-proxy",
-          "scope": "Compiled primary/source radial velocity used as a system bulk-motion proxy. It may contain orbital, pulsation, wind, gravitational or instrumental shifts; a measurement error does not bound those systematics."
+          "scope": "Measured Theta Gru A radial velocity used as a system bulk-motion proxy; replaces the GCRV-era SIMBAD 9.6 km/s compiled value. Independent checks: Gaia DR3 6541802578463122688 C 15.39 +/- 0.14 km/s; Tokovinin et al. 2015 (2015AJ....149....8T, Table 2) AB 14.2: km/s and C 15.9 km/s. A is a broad-lined pulsating Am star and may carry orbital or pulsation shifts; the formal error does not bound those systematics."
         },
         "motionInputs": {
           "ra_deg": 346.71971026132354,
@@ -65028,9 +65028,9 @@
           "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
         },
         "adoptedVectorKms": [
-          12.668848,
-          -0.429764,
-          -4.463144
+          15.654694,
+          -1.051264,
+          -10.526263
         ],
         "retainedOriginal": {
           "raw_astrometry": {
@@ -65209,14 +65209,14 @@
         "systemId": "msc-23069-4331",
         "primaryStarId": "hip-114131",
         "radialVelocity": {
-          "valueKms": 9.6,
-          "uncertaintyKms": null,
-          "uncertaintyKind": "unreported",
-          "reference": "SIMBAD TAP snapshot 2026-10-01",
-          "sourceUrl": "https://simbad.cds.unistra.fr/simbad/",
-          "section": "Existing frozen primary/source RV adoption",
+          "valueKms": 16.386969,
+          "uncertaintyKms": 0.492643,
+          "uncertaintyKind": "1-sigma",
+          "reference": "Gaia DR3 6541802406664428672",
+          "sourceUrl": "https://gea.esac.esa.int/archive/",
+          "section": "gaiadr3.gaia_source radial_velocity, radial_velocity_error; rv_nb_transits=9",
           "status": "compiled-primary-proxy",
-          "scope": "Compiled primary/source radial velocity used as a system bulk-motion proxy. It may contain orbital, pulsation, wind, gravitational or instrumental shifts; a measurement error does not bound those systematics."
+          "scope": "Measured Theta Gru A radial velocity used as a system bulk-motion proxy; replaces the GCRV-era SIMBAD 9.6 km/s compiled value. Independent checks: Gaia DR3 6541802578463122688 C 15.39 +/- 0.14 km/s; Tokovinin et al. 2015 (2015AJ....149....8T, Table 2) AB 14.2: km/s and C 15.9 km/s. A is a broad-lined pulsating Am star and may carry orbital or pulsation shifts; the formal error does not bound those systematics."
         },
         "motionInputs": {
           "ra_deg": 346.71971026132354,
@@ -65234,9 +65234,9 @@
           "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
         },
         "adoptedVectorKms": [
-          12.668848,
-          -0.429764,
-          -4.463144
+          15.654694,
+          -1.051264,
+          -10.526263
         ],
         "retainedOriginal": {
           "raw_astrometry": {
@@ -108969,7 +108969,7 @@
     "catalog-work/famous-cluster-stars/literature/david-2015-table5.json": "5ec5e756cf350042c57fa8d9f36efadaf2b661a830acf7114ae947940ec64948",
     "catalog-work/famous-cluster-stars/literature/reviewed-selected-tables.json": "db4c9ecfc59a78adc4ca0405e4aa4fd613fa5634fe1c1bb0588c493d5adfa929",
     "catalog-work/bright-stars/gap-motion-review.json": "30b852b317927f0a2ed13cb82d28f3de17ea67569d44f26637bb2f9b128b1685",
-    "catalog-work/star-systems/reviewed-constellation-motion.json": "d377b1cec74ecf96a29194d1117c276dc2e59f3eefdd00ccc0eef58fb331de14",
+    "catalog-work/star-systems/reviewed-constellation-motion.json": "4d882b9df30c6faec39609601e890f89b943e01ce4b001f3e25f5e4e50638496",
     "catalog-work/star-systems/literature-components/constellation-20261019-intermediate-adoptions.json": "c5adccca31712f1e7fcbf19a3093109bbf814383529eb2f4dccae4b5b871bbbb",
     "catalog-work/famous-cluster-stars/motion-review.json": "64548a4c015a186b47c8e269352fe8efa7a375537726e23f0f2527095edd0334",
     "catalog-work/star-systems/izar-review.json": "025ca21ae85254801d9bdf4c61f6039f57053826af98240c2fe26b3b934f4459",

@@ -28,6 +28,7 @@ LY_PER_PC = 3.261563777
 LARGEST = "https://en.wikipedia.org/w/index.php?oldid=1381460615"
 HOTTEST = "https://en.wikipedia.org/w/index.php?oldid=1372500185"
 SUPERNOVA = "https://en.wikipedia.org/w/index.php?oldid=1380408343"
+SOLAR_ANALOG = "https://en.wikipedia.org/w/index.php?oldid=1380419382"
 GAIA = "Gaia EDR3 geometric distance (Bailer-Jones et al. 2021)"
 RSGC1 = "RSGC1 cluster distance (Davies et al. 2008)"
 STEPHENSON2 = "Stephenson 2 cluster distance (Davies et al. 2007)"
@@ -177,6 +178,50 @@ SUPERNOVA_CANDIDATES = [
     ("SMC AB8", "SMC AB 8", 200000, "WO4/O4", "Wolf–Rayet star", "Ib/Ic"),
     ("DR1", "[AM85] IC 1613 6", 2350000, "WO3", "Wolf–Rayet star", "Ib/Ic with GRB?"),
 ]
+# name, SIMBAD identifier, distance (ly), spectral class, temperature (K), metallicity (dex), age (Gyr).
+# Rows follow the source's solar twin table in its distance order; the Sun's comparison row is omitted.
+# Minus signs are normalized and uncertainties written as ±.
+SOLAR_TWINS = [
+    ("18 Scorpii", "18 Sco", 45.1, "G2Va", "5,433", "−0.03", "2.9"),
+    ("HD 150248", "HD 150248", 90.7, "G3V + ?", "5,750", "−0.04", "8.10"),
+    ("HD 195034", "HD 195034", 92, "G5", "5,760", "−0.04", "2.9"),
+    ("HD 117939", "HD 117939", 98, "G3", "5,730", "−0.10", "6.1"),
+    ("HD 138573", "HD 138573", 99, "G5IV–V", "5,757", "+0.00", "7.1"),
+    ("HD 98649", "HD 98649", 135, "G4V", "5,759", "−0.02", "2.3"),
+    ("HD 143436", "HD 143436", 141, "G0", "5,768", "+0.00", "3.8 ± 2.9"),
+    ("HD 129357", "HD 129357", 154, "G2V", "5,749", "−0.02", "8.2"),
+    ("HD 133600", "HD 133600", 171, "G0", "5,808", "+0.02", "6.3"),
+    ("HD 186302", "HD 186302", 184, "G3", "5,675", "+0.00", "4.5"),
+    ("HIP 11915", "HIP 11915", 190, "G5V", "5,760", "−0.059", "4.1"),
+    ("HIP 56948", "HIP 56948", 208, "G5V", "5,795", "+0.02", "7.1"),
+    ("HIP 102152", "HIP 102152", 250, "G3V", "5,723", "−0.013", "8.2"),
+    ("Kepler-452", "Kepler-452", 1400, "G2V", "5,757", "+0.21", "6.0"),
+    ("YBP 1194", "Cl* NGC 2682 YBP 1194", 2934, "G5V", "5,780", "+0.023", "~4.2 ± 1.6"),
+]
+# The source's solar analog table, which excludes the stricter solar twins, in the same layout.
+SOLAR_ANALOGS = [
+    ("Sigma Draconis", "sig Dra", 18.8, "G9–K0 V", "5,297", "−0.20", "4.7"),
+    ("Beta Canum Venaticorum", "bet CVn", 27.4, "G0V", "5,930", "−0.30", "6.0"),
+    ("61 Virginis", "61 Vir", 27.8, "G5V", "5,558", "−0.02", "6.3"),
+    ("Zeta Tucanae", "zet Tuc", 28.0, "F9.5V", "5,956", "−0.14", "2.5"),
+    ("Beta Comae Berenices", "bet Com", 29.8, "G0V", "5,970", "−0.06", "2.0"),
+    ("61 Ursae Majoris", "61 UMa", 31.1, "G8V", "5,483", "−0.12", "1.0"),
+    ("HR 511", "HR 511", 32.8, "K0V", "5,333", "+0.05", "3.0"),
+    ("Alpha Mensae", "alf Men", 33.1, "G5V", "5,594", "+0.10", "5.4"),
+    ("HD 69830", "HD 69830", 40.6, "K0V", "5,410", "−0.03", "10.6"),
+    ("HD 10307", "HD 10307", 41.2, "G1.5V", "5,848", "−0.05", "7.0"),
+    ("HD 147513", "HD 147513", 42.0, "G1V", "5,858", "+0.03", "0.4"),
+    ("58 Eridani", "58 Eri", 43.3, "G3V", "5,868", "+0.02", "0.6"),
+    ("47 Ursae Majoris", "47 UMa", 45.9, "G1V", "5,954", "+0.06", "6.0"),
+    ("Psi Serpentis", "psi Ser", 47.8, "G5V", "5,683", "+0.04", "3.2"),
+    ("HD 84117", "HD 84117", 48.5, "F8V", "6,167", "−0.03", "3.1"),
+    ("HD 4391", "HD 4391", 48.6, "G3V", "5,878", "−0.03", "1.2"),
+    ("20 Leonis Minoris", "20 LMi", 49.1, "G3V", "5,741", "+0.20", "6.5"),
+    ("Nu Phoenicis", "nu. Phe", 49.3, "F8V", "6,140", "+0.18", "5.7"),
+    ("51 Pegasi (Helvetios)", "51 Peg", 50.9, "G2.5IVa", "5,804", "+0.20", "7.0"),
+]
+SOLAR_COLUMNS = ["Spectral class", "Temperature (K)", "Metallicity (dex)", "Age (Gyr)"]
+
 # The source lists Betelgeuse at 408–548 ly; the upper estimate carries its uncertainty.
 SUPERNOVA_DISTANCE_SOURCES = {"Betelgeuse": "Source range 408–548 ly"}
 # Components that SIMBAD resolves only as their system; the source's γ² Vel B is the O-type companion.
@@ -248,6 +293,10 @@ def candidate(index, records, frozen, name, identifier, ly, spectral_class, stag
     return row
 
 
+def solar(index, frozen, name, identifier, ly, *fields):
+    return {**entry(index, frozen, name, identifier, None, ly / LY_PER_PC), "fields": list(fields)}
+
+
 def build():
     frozen = json.loads(FROZEN.read_text())["objects"]
     index, records = catalog_index()
@@ -264,6 +313,12 @@ def build():
          # Ordered by distance, nearest first.
          "entries": sorted((candidate(index, records, frozen, *row) for row in SUPERNOVA_CANDIDATES),
                            key=lambda row: row["distance_pc"])},
+        {"id": "solar-twins", "title": "Solar twins", "columns": SOLAR_COLUMNS,
+         "source": {"label": "Wikipedia · Solar analog (solar twins)", "url": SOLAR_ANALOG},
+         "entries": [solar(index, frozen, *row) for row in SOLAR_TWINS]},
+        {"id": "sun-like", "title": "Sun-like stars", "columns": SOLAR_COLUMNS,
+         "source": {"label": "Wikipedia · Solar analog (solar analogs)", "url": SOLAR_ANALOG},
+         "entries": [solar(index, frozen, *row) for row in SOLAR_ANALOGS]},
     ]}
 
 
@@ -273,7 +328,7 @@ def main():
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     if args.refresh:
-        refresh(list(dict.fromkeys(row[1] for row in [*LARGEST_STARS, *HOTTEST_STARS, *SUPERNOVA_CANDIDATES])))
+        refresh(list(dict.fromkeys(row[1] for row in [*LARGEST_STARS, *HOTTEST_STARS, *SUPERNOVA_CANDIDATES, *SOLAR_TWINS, *SOLAR_ANALOGS])))
     text = json.dumps(build(), indent=1, ensure_ascii=False) + "\n"
     if args.check:
         if not OUTPUT.exists() or OUTPUT.read_text() != text:

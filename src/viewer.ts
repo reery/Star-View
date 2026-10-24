@@ -63,6 +63,8 @@ export interface StarViewer {
   setPowerSavingMode(enabled: boolean): void
   setStarColorMode(mode: StarColorMode): void
   setStarPaint(painter: StarPainter | null): void
+  /** Lets painted stars shrink and fade when zooming out, like unpainted ones. */
+  setStarPaintZoomShrink(enabled: boolean): void
   setVisibility(observerId: string, limit: number): void
   setDistanceUnit(unit: DistanceUnit): void
   dispose(): void
@@ -266,6 +268,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
   let starColorMode = options.colorMode
   let starPaints: StarPaint[] | null = null
+  let starPaintZoomShrink = false
   const starColors = stars.map((star) => starDisplayColor(star, starColorMode))
   const starColorStyles = starColors.map((color) => color.getStyle())
   const starBounds = new Box3().setFromPoints(pickable.map((star) => star.position))
@@ -1968,7 +1971,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (earthOrbitEnabled) updateEarthOrbitVisibility()
     // Looking at a distant object from the origin is still a close sky view.
     // Fade the overview only after retreating from both origin and orbit target.
-    starViewDistance.value = observerViewEnabled ? 0 : Math.min(
+    // Painted sizes and halos are the comparison, so zooming out keeps them unless asked to shrink.
+    starViewDistance.value = observerViewEnabled || (starPaints && !starPaintZoomShrink) ? 0 : Math.min(
       camera.position.distanceTo(controls.target),
       camera.position.distanceTo(pickable[referenceIndex]!.position),
     )
@@ -2211,6 +2215,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       starPaints = painter ? stars.map(painter) : null
       updateStarColors()
       updatePresentation()
+      requestRender()
+    },
+    setStarPaintZoomShrink(enabled) {
+      starPaintZoomShrink = enabled
       requestRender()
     },
     setVisibility(observerId, limit) {

@@ -65,6 +65,7 @@ export function initializeTopLists(signal: AbortSignal, options: () => TopListOp
     heading.textContent = selected.title
     const { columns } = selected
     cols.parentElement!.classList.toggle('top-list-fields', !!columns)
+    cols.parentElement!.dataset.list = selected.id
     const valueCols = columns ? columns.map((_, i) => `top-list-field-${i}`) : ['top-list-number']
     cols.replaceChildren(...['top-list-rank', '', 'top-list-number', ...valueCols, 'top-list-constellation'].map((className) => {
       const col = document.createElement('col')
