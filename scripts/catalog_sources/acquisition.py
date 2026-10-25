@@ -3,6 +3,7 @@
 import csv
 import gzip
 import io
+import json
 import shutil
 import ssl
 import tempfile
@@ -122,6 +123,107 @@ def acquire_nearest1000(
                 "cns5": {"release": "corrected 2023-12-13", "url": CNS5_README_URL},
                 "simbad": {"url": SIMBAD_TAP_URL, "queryFile": "simbad.adql"},
                 "gaia": {"release": "DR3", "url": GAIA_TAP_URL, "queryFile": "gaia.adql"},
+            },
+            "checksumsSha256": {name: sha256(staging / name) for name in managed[:-1]},
+        }
+        write_canonical_json(staging / "source-manifest.json", manifest)
+        write_managed_files(output, {name: (staging / name).read_bytes() for name in managed}, True)
+    return manifest
+
+
+def _chunked_tap(url: str, queries: list[str], output: Path, timeout: float) -> int:
+    """Run chunked queries into one CSV; every chunk must return the same columns."""
+    header = None
+    rows = []
+    for index, query in enumerate(queries):
+        chunk = output.with_name(f"{output.stem}-{index}.csv")
+        _tap_query(url, query, chunk, timeout)
+        reader = csv.reader(io.StringIO(chunk.read_text()))
+        chunk_header = next(reader)
+        if header is not None and chunk_header != header:
+            raise RuntimeError(f"{output.name} TAP chunks returned different columns")
+        header = chunk_header
+        rows.extend(reader)
+        chunk.unlink()
+    stream = io.StringIO(newline="")
+    writer = csv.writer(stream, lineterminator="\n")
+    writer.writerow(header)
+    writer.writerows(rows)
+    atomic_write_text(output, stream.getvalue())
+    return len(rows)
+
+
+def acquire_nearest5000(
+    output: Path,
+    retrieved: str,
+    root: Path,
+    force: bool = False,
+    timeout: float = DEFAULT_NETWORK_TIMEOUT_SECONDS,
+) -> dict:
+    """Freeze exact-identity sources for every CNS5 record outside the nearest-1000 buffer."""
+    from .mdwarf import _unique_alias
+
+    if not timeout > 0:
+        raise ValueError("Network timeout must be positive")
+    output = safe_output_directory(output)
+    managed = ("simbad.adql", "simbad.csv", "gaia.adql", "gaia.csv", "crossmatch.csv", "twomass.adql", "twomass.csv",
+               "spectroscopy.adql", "spectroscopy.csv", "fundamental.adql", "fundamental.csv", "sed.adql", "sed.csv", "source-manifest.json")
+    if any(managed_path(output, name).exists() for name in managed) and not force:
+        raise FileExistsError("Source snapshot exists; use --force only for an intentional refresh")
+    frozen = root / "catalog-work/nearest-1000"
+    buffer_size = json.loads((frozen / "source-manifest.json").read_text())["bufferSize"]
+    records = [record for record in read_cns5(frozen / "cns5.dat") if record.astrometry is not None]
+    records.sort(key=lambda record: (-record.astrometry.parallax_mas, record.identity.source_record_id))
+    extension = records[buffer_size:]
+    chunk = lambda values, size: [values[start:start + size] for start in range(0, len(values), size)]
+    with tempfile.TemporaryDirectory(prefix=".catalog-acquire-", dir=output) as staging_name:
+        staging = Path(staging_name)
+        counts = {}
+
+        def run(name: str, url: str, queries: list[str]) -> None:
+            atomic_write_text(staging / f"{name}.adql", "\n".join(queries) + "\n")
+            counts[name] = _chunked_tap(url, queries, staging / f"{name}.csv", timeout)
+
+        run("simbad", SIMBAD_TAP_URL, [simbad_query(ids) for ids in chunk([record.identity.source_record_id for record in extension], 500)])
+        run("gaia", GAIA_TAP_URL, [gaia_query(ids) for ids in chunk([record.identity.gaia_dr3_id for record in extension if record.identity.gaia_dr3_id], 1000)])
+        simbad = list(csv.DictReader(io.StringIO((staging / "simbad.csv").read_text())))
+        crossmatch = []
+        for row in simbad:
+            aliases = tuple(alias.strip() for alias in (row["ids"] or "").split("|"))
+            cns5_id = row["query_id"].removeprefix("CNS5 ")
+            crossmatch.append({"star_view_id": f"cns5-{int(cns5_id):04d}", "cns5_id": cns5_id, "simbad_id": row["main_id"],
+                               "twomass": _unique_alias(aliases, "2MASS J"), "karmn": _unique_alias(aliases, "Karmn "),
+                               "gaia_dr2": _unique_alias(aliases, "Gaia DR2 "), "identity_method": "exact SIMBAD CNS5 identity"})
+        crossmatch.sort(key=lambda item: item["star_view_id"])
+        stream = io.StringIO(newline="")
+        writer = csv.DictWriter(stream, fieldnames=list(crossmatch[0]), lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(crossmatch)
+        atomic_write_text(staging / "crossmatch.csv", stream.getvalue())
+        designations = sorted({row["twomass"] for row in crossmatch if row["twomass"]})
+        run("twomass", VIZIER_TAP_URL, [twomass_query(values) for values in chunk(designations, TWOMASS_CHUNK)])
+        main_ids = sorted({row["main_id"] for row in simbad})
+        run("spectroscopy", SIMBAD_TAP_URL, ["SELECT b.main_id,m.teff,m.log_g,m.fe_h,m.bibcode,m.mespos FROM basic AS b JOIN mesFe_h AS m "
+                                             f"ON b.oid=m.oidref WHERE b.main_id IN ({_quoted(values)})" for values in chunk(main_ids, 500)])
+        hips = sorted({int(alias.removeprefix("HIP ")) for row in simbad for alias in [_unique_alias(tuple((row["ids"] or "").split("|")), "HIP ")] if alias.isdigit()})
+        hip_lists = [",".join(map(str, values)) for values in chunk(hips, 1000)]
+        run("fundamental", VIZIER_TAP_URL, [f'SELECT HIP,Mass,e_Mass,logRad,e_logRad,logTeff,e_logTeff FROM "J/A+A/352/555/table1" WHERE HIP IN ({values})' for values in hip_lists])
+        run("sed", VIZIER_TAP_URL, [f'SELECT HIP,Dist,eDist,Teff,Lum FROM "J/MNRAS/427/343/table2" WHERE HIP IN ({values})' for values in hip_lists])
+        manifest = {
+            "schemaVersion": 1,
+            "retrieved": retrieved,
+            "rankedFrom": buffer_size + 1,
+            "cns5Records": len(extension),
+            "identityPolicy": "Exact CNS5 SIMBAD identifiers; exact Gaia DR3, unique 2MASS, Karmn, Gaia DR2 and HIP aliases; no positional matching",
+            "rowCounts": counts,
+            "sources": {
+                "cns5": {"file": "catalog-work/nearest-1000/cns5.dat", "sha256": sha256(frozen / "cns5.dat")},
+                "simbad": {"url": SIMBAD_TAP_URL, "queryFile": "simbad.adql"},
+                "gaia": {"release": "DR3", "url": GAIA_TAP_URL, "queryFile": "gaia.adql"},
+                "twomass": {"release": "2MASS All-Sky Point Source Catalog, VizieR II/246/out", "url": VIZIER_TAP_URL, "queryFile": "twomass.adql", "reference": "2006AJ....131.1163S"},
+                "spectroscopy": {"url": SIMBAD_TAP_URL, "queryFile": "spectroscopy.adql"},
+                "fundamental": {"url": VIZIER_TAP_URL, "queryFile": "fundamental.adql"},
+                "sed": {"url": VIZIER_TAP_URL, "queryFile": "sed.adql"},
             },
             "checksumsSha256": {name: sha256(staging / name) for name in managed[:-1]},
         }

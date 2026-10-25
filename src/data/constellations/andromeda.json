@@ -120,10 +120,10 @@
         "vy_kms": -33.08581,
         "vz_kms": -5.495797,
         "temperature_k": 15412.0,
-        "mass_solar": 4.686886,
+        "mass_solar": null,
         "luminosity_solar": 1097.8345286156343,
-        "radius_solar": 5.3740926,
-        "metallicity_dex": 0.7347,
+        "radius_solar": 4.647325,
+        "metallicity_dex": 0.14,
         "age_gyr": null,
         "absolute_mag": -1.6634,
         "epoch": 2000.0,
@@ -132,8 +132,8 @@
         "name": "Nu And",
         "constellation": "Andromeda",
         "spectral_type": "B5V",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 3881; Stellarium And). SIMBAD identity * nu. And; SIMBAD compiled Johnson V=4.53; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 3881; Stellarium And). SIMBAD identity * nu. And; SIMBAD compiled Johnson V=4.53; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P).",
         "designations": [
           "HIP 3881"
         ],
@@ -172,7 +172,7 @@
         "mass_solar": 2.07,
         "luminosity_solar": 31.898855,
         "radius_solar": 3.0902954325135905,
-        "metallicity_dex": -1.5878,
+        "metallicity_dex": -0.1,
         "age_gyr": 0.76895666,
         "absolute_mag": 0.988815,
         "epoch": 2000.0,
@@ -181,8 +181,8 @@
         "name": "Mu And",
         "constellation": "Andromeda",
         "spectral_type": "A6V",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 4436; Stellarium And). SIMBAD identity * mu. And; SIMBAD compiled Johnson V=3.87; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 4436; Stellarium And). SIMBAD identity * mu. And; SIMBAD compiled Johnson V=3.87; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar, age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
         "designations": [
           "HIP 4436"
         ],
@@ -1519,7 +1519,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

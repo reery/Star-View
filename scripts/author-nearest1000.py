@@ -18,7 +18,7 @@ from astropy.time import Time
 from astropy.utils import iers
 
 from catalog_sources.adapters import eligible_gaia_physical, read_cns5, read_gaia_tap, read_simbad_tap
-from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
+from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, flame_withheld, manifest_sha256, normalized_id, select_spectroscopy, spectroscopy_index
 from catalog_sources.ultracool_motion import enrich_reviewed_motion
 from catalog_sources.shared_objects import adopt_shared_object
 from catalog_sources.metallicity import metallicity_kind
@@ -235,7 +235,7 @@ def radial_velocity_provenance(observation, status):
     return result
 
 
-def normalize(record, simbad, gaia, supplements):
+def normalize(record, simbad, gaia, supplements, extended=False):
     astrometry = record.astrometry
     raw = simbad.raw or {}
     object_type = source_type(raw.get("otype"))
@@ -315,6 +315,20 @@ def normalize(record, simbad, gaia, supplements):
         if "age_gyr" in by_field:
             row["age_gyr"] = str(by_field["age_gyr"].value)
         physical = [item.to_dict() for item in by_field.values()]
+    # GSP-Phot temperatures and [M/H] are photometric model estimates with known
+    # systematic offsets; a published spectroscopic consensus outranks them.
+    # The Gaia value stays in physicalObservations as a non-adopted source.
+    superseded = {}
+    spectra = spectroscopy_index(extended).get(normalized_id(simbad.identity.simbad_id), [])
+    measured = {field: float(selected[column]) for field, column in (("temperature_k", "teff"), ("metallicity_dex", "fe_h"))
+                if (selected := select_spectroscopy(spectra, column))}
+    gaia_temperature = by_field["temperature_k"].value if "temperature_k" in by_field else None
+    for field in ("temperature_k", "metallicity_dex", *sorted(flame_withheld(gaia_temperature, measured.get("temperature_k"), measured.get("metallicity_dex")))):
+        if field in by_field and (field in measured or field not in ("temperature_k", "metallicity_dex")):
+            superseded[field] = by_field.pop(field).to_dict()
+            row[field] = ""
+            if field == "metallicity_dex":
+                row["metallicity_kind"] = ""
     supplement_obs, supplement_audit = supplement_observations(row_context(row), supplements)
     supplemented = resolve_supplemented_fields(row, supplement_obs, {field: by_field[field] for field in SUPPLEMENT_FIELDS if field in by_field})
     physical += [item.to_dict() for item in supplement_obs]
@@ -344,7 +358,9 @@ def normalize(record, simbad, gaia, supplements):
     }
     if supplement_audit is not None:
         provenance["physicalSupplements"] = supplement_audit
-    shared_enrichment = enrich_from_frozen(row, simbad.identity.simbad_id, simbad.identity.aliases)
+    if superseded:
+        provenance["supersededGaiaPhysical"] = {"reason": "Published spectroscopic consensus outranks Gaia DR3 GSP-Phot; FLAME radius, mass and age derived from a GSP-Phot temperature more than 2% off, or with solar-metallicity tracks for |[Fe/H]| > 0.3, are withheld.", "observations": superseded}
+    shared_enrichment = enrich_from_frozen(row, simbad.identity.simbad_id, simbad.identity.aliases, extended=extended)
     if shared_enrichment:
         provenance["sharedPhysicalEnrichment"] = shared_enrichment
         provenance["fieldStatus"].update({field: observation["status"] for field, observation in shared_enrichment.items()})

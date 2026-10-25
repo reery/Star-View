@@ -1,4 +1,4 @@
-import { ChartBar, ChartColumn, ChevronUp, ChevronsDownUp, ChevronsUpDown, Sun, createElement, type IconNode } from 'lucide'
+import { ChartBar, ChartColumn, ChartPie, ChevronUp, ChevronsDownUp, ChevronsUpDown, Gauge, Layers, Sun, createElement, type IconNode } from 'lucide'
 import { LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type StarColorMode } from './astronomy'
 import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
 import { MAGNITUDE_VISIBILITY_GUIDES } from './magnitude-properties'
@@ -21,7 +21,7 @@ interface GraphOptions {
 interface GraphContext extends GraphOptions { objects: readonly Star[]; stellar: readonly Star[]; logScale: boolean }
 /** A collapsible graph inside a topic; topics can hold several. `scalable` graphs switch between log and linear axes. */
 interface GraphSection { id: string; title: string | ((context: GraphContext) => string); icon: IconNode; scalable?: boolean; render(context: GraphContext): Node[] }
-interface GraphTopic { id: string; title: string; sections: GraphSection[] }
+interface GraphTopic { id: string; title: string; icon: IconNode; sections: GraphSection[] }
 /** A clickable bar or column that narrows the view to the objects it counts. */
 interface Selection { key: string; label: string; test: ObjectTest; range?: readonly [number, number] }
 /** A selection without its test, as kept in saved views; open histogram ends are null. */
@@ -410,21 +410,21 @@ function luminosityClassBars({ stellar, colorMode }: GraphContext): Node[] {
 }
 
 const topics: GraphTopic[] = [
-  { id: 'star-distribution', title: 'Star distribution', sections: [
+  { id: 'star-distribution', title: 'Star distribution', icon: ChartPie, sections: [
     { id: 'object-types', title: 'Object types', icon: ChartBar, render: objectTypeBars },
     { id: 'spectral-classes', title: 'Spectral classes', icon: ChartBar, render: spectralClassBars },
     { id: 'distance', title: ({ distanceUnit, referenceName }) => `Distance from ${referenceName} (${distanceUnit})`, icon: ChartColumn, scalable: true, render: distanceHistogram },
     { id: 'multiplicity', title: 'Multiplicity', icon: ChartBar, render: multiplicityBars },
     { id: 'planet-hosts', title: 'Known planet hosts', icon: ChartBar, render: planetHostBars },
   ] },
-  { id: 'physical-properties', title: 'Physical properties', sections: [
+  { id: 'physical-properties', title: 'Physical properties', icon: Gauge, sections: [
     { id: 'mass', title: 'Mass (M☉)', icon: ChartColumn, render: massHistogram },
     { id: 'temperature', title: 'Temperature (K)', icon: ChartColumn, render: temperatureHistogram },
     { id: 'metallicity', title: 'Metallicity (dex)', icon: ChartColumn, render: metallicityHistogram },
     { id: 'apparent-magnitude', title: 'Apparent magnitude', icon: ChartColumn, render: apparentMagnitudeHistogram },
     { id: 'absolute-magnitude', title: 'Absolute magnitude', icon: ChartColumn, render: absoluteMagnitudeHistogram },
   ] },
-  { id: 'subtypes', title: 'Subtypes', sections: [
+  { id: 'subtypes', title: 'Subtypes', icon: Layers, sections: [
     { id: 'white-dwarf-classes', title: 'White dwarf classes', icon: ChartBar, render: whiteDwarfClassBars },
     { id: 'luminosity-classes', title: 'Luminosity classes', icon: ChartBar, render: luminosityClassBars },
   ] },
@@ -497,7 +497,11 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
     const button = document.createElement('button')
     button.type = 'button'
     button.className = 'glossary-term'
-    button.textContent = topic.title
+    button.append(
+      Object.assign(document.createElement('span'), { className: 'glossary-term-icon', title: topic.title }),
+      Object.assign(document.createElement('span'), { className: 'glossary-term-label', textContent: topic.title }),
+    )
+    button.firstElementChild!.append(svg(topic.icon, 16))
     button.dataset.topic = topic.id
     button.setAttribute('aria-controls', 'graphs-detail')
     return button

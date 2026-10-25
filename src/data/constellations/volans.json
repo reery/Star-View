@@ -73,8 +73,8 @@
         "temperature_k": 5699.0,
         "mass_solar": null,
         "luminosity_solar": 1008.2719278605919,
-        "radius_solar": 34.903336,
-        "metallicity_dex": -0.364,
+        "radius_solar": 32.571981,
+        "metallicity_dex": 0.11,
         "age_gyr": null,
         "absolute_mag": -2.638,
         "epoch": 2000.0,
@@ -83,8 +83,8 @@
         "name": "Delta Vol",
         "constellation": "Volans",
         "spectral_type": "F8Ib/II",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 35228; Stellarium Vol). SIMBAD identity * del Vol; SIMBAD compiled Johnson V=3.99; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 35228; Stellarium Vol). SIMBAD identity * del Vol; SIMBAD compiled Johnson V=3.99; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
         "designations": [
           "HIP 35228"
         ],
@@ -123,7 +123,7 @@
         "mass_solar": 1.84,
         "luminosity_solar": 56.663880748360846,
         "radius_solar": 10.232929922807541,
-        "metallicity_dex": -0.7716,
+        "metallicity_dex": -0.14,
         "age_gyr": null,
         "absolute_mag": 0.699848,
         "epoch": 2000.0,
@@ -132,8 +132,8 @@
         "name": "Zeta Vol",
         "constellation": "Volans",
         "spectral_type": "G9IIIb",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 37504; Stellarium Vol). SIMBAD identity * zet Vol; SIMBAD compiled Johnson V=3.944; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 37504; Stellarium Vol). SIMBAD identity * zet Vol; SIMBAD compiled Johnson V=3.944; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
         "designations": [
           "HIP 37504"
         ],
@@ -803,7 +803,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

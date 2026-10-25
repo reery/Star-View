@@ -25,8 +25,8 @@
         "mass_solar": 1.31,
         "luminosity_solar": 4.928652676062021,
         "radius_solar": 1.3489628825916535,
-        "metallicity_dex": -0.5055,
-        "age_gyr": 1.0341513,
+        "metallicity_dex": -0.21,
+        "age_gyr": null,
         "absolute_mag": 3.13413,
         "epoch": 2000.0,
         "type": "star",
@@ -34,8 +34,8 @@
         "name": "Alchiba",
         "constellation": "Corvus",
         "spectral_type": "F1V",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 59199; Stellarium Crv). SIMBAD identity * alf Crv; SIMBAD compiled Johnson V=4.01; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 59199; Stellarium Crv). SIMBAD identity * alf Crv; SIMBAD compiled Johnson V=4.01; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P).",
         "designations": [
           "HIP 59199"
         ],
@@ -172,8 +172,8 @@
         "mass_solar": 2.44,
         "luminosity_solar": 38.55351,
         "radius_solar": 2.3988329190194904,
-        "metallicity_dex": -1.2939,
-        "age_gyr": 0.5827021,
+        "metallicity_dex": 0.0,
+        "age_gyr": null,
         "absolute_mag": 0.846733,
         "epoch": 2000.0,
         "type": "star",
@@ -181,8 +181,8 @@
         "name": "Algorab",
         "constellation": "Corvus",
         "spectral_type": "A0IV(n)kB9",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 60965; Stellarium Crv). SIMBAD identity * del Crv; SIMBAD compiled Johnson V=2.94; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 60965; Stellarium Crv). SIMBAD identity * del Crv; SIMBAD compiled Johnson V=2.94; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P).",
         "designations": [
           "HIP 60965"
         ],
@@ -637,7 +637,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

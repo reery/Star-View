@@ -119,12 +119,12 @@
         "vx_kms": null,
         "vy_kms": null,
         "vz_kms": null,
-        "temperature_k": 6740.0,
-        "mass_solar": 1.3841025,
+        "temperature_k": 7014.0,
+        "mass_solar": 1.61,
         "luminosity_solar": 4.5517826,
-        "radius_solar": 1.5645943,
-        "metallicity_dex": -0.4252,
-        "age_gyr": 1.703898,
+        "radius_solar": 1.9498446,
+        "metallicity_dex": -0.08,
+        "age_gyr": null,
         "absolute_mag": 2.340446,
         "epoch": 2000.0,
         "type": "star",
@@ -132,7 +132,7 @@
         "name": "Porrima",
         "constellation": "Virgo",
         "spectral_type": "F1-F2V",
-        "metallicity_kind": "[M/H]",
+        "metallicity_kind": "[Fe/H]",
         "notes": "Corrected CNS5 3135; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld.",
         "designations": [
           "HIP 61941"
@@ -319,7 +319,7 @@
         "mass_solar": 2.06,
         "luminosity_solar": 18.339869,
         "radius_solar": 1.9054607179632472,
-        "metallicity_dex": -1.03,
+        "metallicity_dex": -0.0,
         "age_gyr": 0.8044305,
         "absolute_mag": 1.585906,
         "epoch": 2000.0,
@@ -328,8 +328,8 @@
         "name": "Heze",
         "constellation": "Virgo",
         "spectral_type": "A2Van",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 66249; Stellarium Vir). SIMBAD identity * zet Vir; SIMBAD compiled Johnson V=3.38; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 66249; Stellarium Vir). SIMBAD identity * zet Vir; SIMBAD compiled Johnson V=3.38; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar, age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
         "designations": [
           "HIP 66249"
         ],
@@ -414,10 +414,10 @@
         "vy_kms": 43.092861,
         "vz_kms": 29.848507,
         "temperature_k": 4266.0,
-        "mass_solar": 1.44,
+        "mass_solar": null,
         "luminosity_solar": 119.18271545067606,
-        "radius_solar": 23.442288153199225,
-        "metallicity_dex": -0.0134,
+        "radius_solar": 19.985618,
+        "metallicity_dex": -0.45,
         "age_gyr": null,
         "absolute_mag": -0.467499,
         "epoch": 2000.0,
@@ -426,8 +426,8 @@
         "name": "Kang",
         "constellation": "Virgo",
         "spectral_type": "K2.5IIIFe-0.5",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 69427; Stellarium Vir). SIMBAD identity * kap Vir; SIMBAD compiled Johnson V=4.21; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 69427; Stellarium Vir). SIMBAD identity * kap Vir; SIMBAD compiled Johnson V=4.21; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
         "designations": [
           "HIP 69427"
         ],
@@ -512,9 +512,9 @@
         "vy_kms": -14.749526,
         "vz_kms": -18.183018,
         "temperature_k": 6918.0,
-        "mass_solar": 1.55,
+        "mass_solar": null,
         "luminosity_solar": 10.983588115304206,
-        "radius_solar": 1.9054607179632472,
+        "radius_solar": 2.307085,
         "metallicity_dex": -0.5229,
         "age_gyr": null,
         "absolute_mag": 2.471616,
@@ -525,7 +525,7 @@
         "constellation": "Virgo",
         "spectral_type": "F2V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 71957; Stellarium Vir). SIMBAD identity * mu. Vir; SIMBAD compiled Johnson V=3.88; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...11B).",
+        "notes": "Western constellation line-figure star (HIP 71957; Stellarium Vir). SIMBAD identity * mu. Vir; SIMBAD compiled Johnson V=3.88; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...11B).",
         "designations": [
           "HIP 71957"
         ],
@@ -564,8 +564,8 @@
         "mass_solar": 2.43,
         "luminosity_solar": 44.56567782785417,
         "radius_solar": 2.3988329190194904,
-        "metallicity_dex": -0.9958,
-        "age_gyr": 0.50608945,
+        "metallicity_dex": -0.2,
+        "age_gyr": null,
         "absolute_mag": 0.657888,
         "epoch": 2000.0,
         "type": "star",
@@ -573,8 +573,8 @@
         "name": "109 Vir",
         "constellation": "Virgo",
         "spectral_type": "A0IIInn",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 72220; Stellarium Vir). SIMBAD identity * 109 Vir; SIMBAD compiled Johnson V=3.73; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 72220; Stellarium Vir). SIMBAD identity * 109 Vir; SIMBAD compiled Johnson V=3.73; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
         "designations": [
           "HIP 72220"
         ],
@@ -1589,7 +1589,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

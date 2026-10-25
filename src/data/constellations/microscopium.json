@@ -25,7 +25,7 @@
         "mass_solar": null,
         "luminosity_solar": 208.6706353410443,
         "radius_solar": 18.27153,
-        "metallicity_dex": -0.116,
+        "metallicity_dex": 0.08,
         "age_gyr": null,
         "absolute_mag": -0.517856,
         "epoch": 2000.0,
@@ -34,8 +34,8 @@
         "name": "Alpha Mic",
         "constellation": "Microscopium",
         "spectral_type": "G8III",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 102831; Stellarium Mic). SIMBAD identity * alf Mic; SIMBAD compiled Johnson V=4.89; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 102831; Stellarium Mic). SIMBAD identity * alf Mic; SIMBAD compiled Johnson V=4.89; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P).",
         "designations": [
           "HIP 102831"
         ],
@@ -74,7 +74,7 @@
         "mass_solar": 2.23,
         "luminosity_solar": 84.67243598989536,
         "radius_solar": 10.232929922807541,
-        "metallicity_dex": -0.059,
+        "metallicity_dex": -0.08,
         "age_gyr": null,
         "absolute_mag": 0.196943,
         "epoch": 2000.0,
@@ -83,8 +83,8 @@
         "name": "Gamma Mic",
         "constellation": "Microscopium",
         "spectral_type": "G8III",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 103738; Stellarium Mic). SIMBAD identity * gam Mic; SIMBAD compiled Johnson V=4.654; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 103738; Stellarium Mic). SIMBAD identity * gam Mic; SIMBAD compiled Johnson V=4.654; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
         "designations": [
           "HIP 103738"
         ],
@@ -492,7 +492,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

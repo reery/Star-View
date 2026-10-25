@@ -602,9 +602,9 @@ test('presents the selected object beside an expandable control dock', async ({ 
   const catalogSlider = page.getByLabel('Nearest objects', { exact: true })
   await expect(catalogSlider).toHaveAttribute('type', 'range')
   await expect(catalogSlider).toHaveAttribute('min', '0')
-  await expect(catalogSlider).toHaveAttribute('max', '2')
+  await expect(catalogSlider).toHaveAttribute('max', '3')
   await expect(catalogSlider).toHaveAttribute('aria-valuetext', 'Nearest neighbors')
-  await expect(page.locator('#catalog-range-markers span')).toHaveText(['22', '101', '1037'])
+  await expect(page.locator('#catalog-range-markers span')).toHaveText(['22', '101', '1037', '5037'])
   const categoryNames = ['Compact objects', 'Interstellar medium', 'Stellar remnants', 'Large-scale structures']
   await expect(page.locator('#object-categories .toggle-text > span:first-child')).toHaveText(categoryNames)
   for (const [name, checked, available] of [

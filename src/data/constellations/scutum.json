@@ -26,7 +26,7 @@
         "luminosity_solar": 91.63876824783719,
         "radius_solar": 4.073802778041127,
         "metallicity_dex": 0.0183,
-        "age_gyr": 0.34644097,
+        "age_gyr": null,
         "absolute_mag": -0.247339,
         "epoch": 2000.0,
         "type": "star",
@@ -35,7 +35,7 @@
         "constellation": "Scutum",
         "spectral_type": "A1IV/V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 90595; Stellarium Sct). SIMBAD identity * gam Sct; SIMBAD compiled Johnson V=4.675; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 90595; Stellarium Sct). SIMBAD identity * gam Sct; SIMBAD compiled Johnson V=4.675; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
         "designations": [
           "HIP 90595"
         ],
@@ -171,8 +171,8 @@
         "temperature_k": 4300.0,
         "mass_solar": null,
         "luminosity_solar": 2178.470695559085,
-        "radius_solar": 69.20777,
-        "metallicity_dex": -0.7448,
+        "radius_solar": 84.099148,
+        "metallicity_dex": -0.27,
         "age_gyr": null,
         "absolute_mag": -2.762606,
         "epoch": 2000.0,
@@ -181,8 +181,8 @@
         "name": "R Sct",
         "constellation": "Scutum",
         "spectral_type": "K4/5pec",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 92202; Stellarium Sct). SIMBAD identity V* R Sct; SIMBAD compiled Johnson V=5.2; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 92202; Stellarium Sct). SIMBAD identity V* R Sct; SIMBAD compiled Johnson V=5.2; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...692A.228C).",
         "designations": [
           "HIP 92202"
         ],
@@ -528,7 +528,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

@@ -1,0 +1,63 @@
+{
+  "checksumsSha256": {
+    "crossmatch.csv": "aecbda3504b9a14e21788554b5fade69fcbe36fc4e8d9479ed3b63481e98c882",
+    "fundamental.adql": "d3b3061f727587560c41aa883f946b1570dbbd0693cabc75263479f40fcb75cb",
+    "fundamental.csv": "608a1c4d87673c7ab923d693904f842f0daa73d2c0970250ce4660863b460a15",
+    "gaia.adql": "b315da56199c25f2cba035706362621a0f852abfa624978eee397f930249fe02",
+    "gaia.csv": "cce37753723808c2155fba1807ac178e22ca12126cabccd418b12165404a3bf5",
+    "sed.adql": "bf1d26819781947f5492b8fa57b9cb9b80258aa4bd33993bd911514217b03b36",
+    "sed.csv": "eadae01539380f17ff47f3c81f36805fc23697a41a26ad92841a75e60396ba96",
+    "simbad.adql": "464075bbf2089ca9ea1381d49c3e2a449d01400802f1d49ec248f9f920b0f0a6",
+    "simbad.csv": "d9810d3115ecb453f3566eb0c97afbace55f19b9b1efd942e4d51ef2766b4935",
+    "spectroscopy.adql": "acff85f5fdd1371a1f668639e40ddc0a874e7c0cf2ecaae3fc71cc4cc85efc96",
+    "spectroscopy.csv": "b17853360e0a1b703065139a2a991536a987c44148f69fced4339a1abf552f90",
+    "twomass.adql": "a5df47973c6e17cf2c6ec52625f6c8dcaca392a9e9daa35e161636d31243802c",
+    "twomass.csv": "dd6ce65410c8d93b4376bcbc1111e7e59554696dce17069b415cd49cf71fd7af"
+  },
+  "cns5Records": 4808,
+  "identityPolicy": "Exact CNS5 SIMBAD identifiers; exact Gaia DR3, unique 2MASS, Karmn, Gaia DR2 and HIP aliases; no positional matching",
+  "rankedFrom": 1101,
+  "retrieved": "2026-10-25",
+  "rowCounts": {
+    "fundamental": 303,
+    "gaia": 4327,
+    "sed": 168,
+    "simbad": 4808,
+    "spectroscopy": 19498,
+    "twomass": 4289
+  },
+  "schemaVersion": 1,
+  "sources": {
+    "cns5": {
+      "file": "catalog-work/nearest-1000/cns5.dat",
+      "sha256": "7e8c1a2ce4a2afcd70cdf40340c9685b1ec90e8e5085a81812dfa98c5c8adbbf"
+    },
+    "fundamental": {
+      "queryFile": "fundamental.adql",
+      "url": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap/sync"
+    },
+    "gaia": {
+      "queryFile": "gaia.adql",
+      "release": "DR3",
+      "url": "https://gea.esac.esa.int/tap-server/tap/sync"
+    },
+    "sed": {
+      "queryFile": "sed.adql",
+      "url": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap/sync"
+    },
+    "simbad": {
+      "queryFile": "simbad.adql",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"
+    },
+    "spectroscopy": {
+      "queryFile": "spectroscopy.adql",
+      "url": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"
+    },
+    "twomass": {
+      "queryFile": "twomass.adql",
+      "reference": "2006AJ....131.1163S",
+      "release": "2MASS All-Sky Point Source Catalog, VizieR II/246/out",
+      "url": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap/sync"
+    }
+  }
+}

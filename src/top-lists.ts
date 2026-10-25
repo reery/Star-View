@@ -1,3 +1,4 @@
+import { Equal, EqualApproximately, Flame, Maximize, Sparkles, Sun, Trophy, createElement, type IconNode } from 'lucide'
 import { LIGHT_YEARS_PER_PARSEC, type DistanceUnit } from './astronomy'
 import { formatNumber } from './format'
 import { AU_METERS, SOLAR_RADIUS_METERS } from './luminosity-properties'
@@ -16,6 +17,8 @@ interface TopListOptions {
 }
 
 const lists = data.lists as TopList[]
+// Collapsed sidebar icons; lists added later fall back to the Top lists trophy.
+const listIcons: Record<string, IconNode> = { largest: Maximize, hottest: Flame, supernova: Sparkles, 'solar-type': Sun, 'solar-analogs': EqualApproximately, 'solar-twins': Equal }
 const solarRadiiPerAu = AU_METERS / SOLAR_RADIUS_METERS
 const solarOrbits = planetarySystems.systems.find(({ hostStarId }) => hostStarId === 'sun')!.planets
   .map((planet) => ({ name: planet.name, radius: planet.semiMajorAxisAu * solarRadiiPerAu }))
@@ -50,7 +53,11 @@ export function initializeTopLists(signal: AbortSignal, options: () => TopListOp
     const button = document.createElement('button')
     button.type = 'button'
     button.className = 'glossary-term'
-    button.textContent = list.title
+    button.append(
+      Object.assign(document.createElement('span'), { className: 'glossary-term-icon', title: list.title }),
+      Object.assign(document.createElement('span'), { className: 'glossary-term-label', textContent: list.title }),
+    )
+    button.firstElementChild!.append(createElement(listIcons[list.id] ?? Trophy, { 'stroke-width': 1.7, 'aria-hidden': 'true' }))
     button.dataset.list = list.id
     button.setAttribute('aria-controls', 'top-lists-detail')
     return button

@@ -22,11 +22,11 @@
         "vy_kms": -23.638497,
         "vz_kms": -2.08636,
         "temperature_k": 7244.0,
-        "mass_solar": 2.02,
+        "mass_solar": null,
         "luminosity_solar": 33.314339161732484,
-        "radius_solar": 3.548133892335755,
-        "metallicity_dex": -0.8792,
-        "age_gyr": 0.8251587,
+        "radius_solar": 3.664472,
+        "metallicity_dex": 1.0,
+        "age_gyr": null,
         "absolute_mag": 0.922763,
         "epoch": 2000.0,
         "type": "star",
@@ -34,8 +34,8 @@
         "name": "Nusakan",
         "constellation": "Corona Borealis",
         "spectral_type": "F2VpSrCrEuSi",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 75695; Stellarium CrB). SIMBAD identity * bet CrB; SIMBAD compiled Johnson V=3.68; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 75695; Stellarium CrB). SIMBAD identity * bet CrB; SIMBAD compiled Johnson V=3.68; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P).",
         "designations": [
           "HIP 75695"
         ],
@@ -221,7 +221,7 @@
         "mass_solar": 2.18,
         "luminosity_solar": 36.488945,
         "radius_solar": 6.309573444801933,
-        "metallicity_dex": -0.5275,
+        "metallicity_dex": -0.12,
         "age_gyr": null,
         "absolute_mag": 1.083613,
         "epoch": 2000.0,
@@ -230,8 +230,8 @@
         "name": "Delta CrB",
         "constellation": "Corona Borealis",
         "spectral_type": "G5III-IVFe-1",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 77512; Stellarium CrB). SIMBAD identity * del CrB; SIMBAD compiled Johnson V=4.63; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 77512; Stellarium CrB). SIMBAD identity * del CrB; SIMBAD compiled Johnson V=4.63; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2025A&A...698A..93J).",
         "designations": [
           "HIP 77512"
         ],
@@ -316,11 +316,11 @@
         "vy_kms": -26.926625,
         "vz_kms": -4.454149,
         "temperature_k": 9800.0,
-        "mass_solar": 3.1553874,
+        "mass_solar": null,
         "luminosity_solar": 127.25245340329579,
-        "radius_solar": 3.7996461,
-        "metallicity_dex": -0.5947,
-        "age_gyr": 0.27314398,
+        "radius_solar": 3.913214,
+        "metallicity_dex": 0.0,
+        "age_gyr": null,
         "absolute_mag": -0.303375,
         "epoch": 2000.0,
         "type": "star",
@@ -328,8 +328,8 @@
         "name": "Iota CrB",
         "constellation": "Corona Borealis",
         "spectral_type": "A0IIIspHgMnEu",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 78493; Stellarium CrB). SIMBAD identity * iot CrB; SIMBAD compiled Johnson V=4.971; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 78493; Stellarium CrB). SIMBAD identity * iot CrB; SIMBAD compiled Johnson V=4.971; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2021MNRAS.505.4496G).",
         "designations": [
           "HIP 78493"
         ],
@@ -746,7 +746,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

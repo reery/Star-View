@@ -120,9 +120,9 @@
         "vy_kms": -6.893651,
         "vz_kms": -7.206475,
         "temperature_k": 9333.0,
-        "mass_solar": 2.32,
+        "mass_solar": null,
         "luminosity_solar": 25.899451911990063,
-        "radius_solar": 2.041737944669529,
+        "radius_solar": 1.946504,
         "metallicity_dex": -1.2,
         "age_gyr": null,
         "absolute_mag": 1.2392,
@@ -133,7 +133,7 @@
         "constellation": "Triangulum",
         "spectral_type": "A1Vnn",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 10670; Stellarium Tri). SIMBAD identity * gam Tri; SIMBAD compiled Johnson V=4.0; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
+        "notes": "Western constellation line-figure star (HIP 10670; Stellarium Tri). SIMBAD identity * gam Tri; SIMBAD compiled Johnson V=4.0; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
         "designations": [
           "HIP 10670"
         ],
@@ -614,7 +614,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

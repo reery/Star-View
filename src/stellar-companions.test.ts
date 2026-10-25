@@ -162,10 +162,15 @@ describe('component coverage shared by every catalog', () => {
   it('preserves every known source measurement and uncertainty across all bundled catalogs', () => {
     const identities = parseObjectIdentities(JSON.parse(readFileSync(new URL('./data/object-designations.json', import.meta.url), 'utf8')))
     const stats = parseObjectStats(JSON.parse(readFileSync(new URL('./data/object-stats.json', import.meta.url), 'utf8')))
-    const paths = [new URL('./data/stars.csv', import.meta.url),
-      ...readdirSync(new URL('./data/catalogs/', import.meta.url)).map((id) => new URL(`./data/catalogs/${id}/stars.csv`, import.meta.url))]
-    for (const path of paths) {
-      const original = supplementObjectStats(supplementObjectIdentities(parseStarCatalog(readFileSync(path, 'utf8')), identities), stats)
+    const csv = (id: string) => readFileSync(new URL(`./data/catalogs/${id}/stars.csv`, import.meta.url), 'utf8')
+    // An extending catalog's CSV holds only additions to its base catalog.
+    const catalogs = [parseStarCatalog(readFileSync(new URL('./data/stars.csv', import.meta.url), 'utf8')),
+      ...readdirSync(new URL('./data/catalogs/', import.meta.url)).map((id) => {
+        const base = JSON.parse(readFileSync(new URL(`./data/catalogs/${id}/catalog.json`, import.meta.url), 'utf8')).extends as string | undefined
+        return parseStarCatalog(csv(id), base ? parseStarCatalog(csv(base)) : undefined)
+      })]
+    for (const catalog of catalogs) {
+      const original = supplementObjectStats(supplementObjectIdentities(catalog, identities), stats)
       const expanded = new Map(completeCatalogCompanions(original).map((star) => [star.id, star]))
       for (const source of original) {
         expect(expanded.has(source.id), source.id).toBe(true)

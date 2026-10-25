@@ -1,6 +1,6 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChartColumn, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, Pause, Play, Plus, RotateCcw, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Trophy, Weight, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChartColumn, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, RotateCcw, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Trophy, Weight, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
@@ -2844,6 +2844,18 @@ element('graphs-width').addEventListener('click', () => {
   icon('graphs-width-icon', compact ? ChevronsLeftRight : ChevronsRightLeft)
   syncPanelLayout()
 }, { signal: events.signal })
+for (const id of ['constellations-sidebar', 'top-lists-sidebar', 'graphs-sidebar']) {
+  icon(`${id}-icon`, PanelLeftClose)
+  element(id).addEventListener('click', () => {
+    const button = element(id)
+    const collapsed = button.closest('.glossary-body')!.toggleAttribute('data-sidebar-collapsed')
+    const label = `${collapsed ? 'Expand' : 'Collapse'} sidebar`
+    button.setAttribute('aria-expanded', String(!collapsed))
+    button.setAttribute('aria-label', label)
+    button.title = label
+    icon(`${id}-icon`, collapsed ? PanelLeftOpen : PanelLeftClose)
+  }, { signal: events.signal })
+}
 function setConstellationsMaximized(maximized: boolean): void {
   element('constellations-panel').classList.toggle('is-maximized', maximized)
   const button = element('constellations-maximize')

@@ -19,7 +19,7 @@ from statistics import median
 from urllib.parse import urlencode
 
 from catalog_sources.adapters import eligible_gaia_physical, read_gaia_tap
-from catalog_sources.enrichment import estimate_temperature, derive_physical
+from catalog_sources.enrichment import GAIA_REPUBLICATIONS, estimate_temperature, derive_physical, flame_withheld
 from catalog_sources.ordinary_binaries import orbit_pairs, matching_members
 from catalog_sources.companion_properties import apply_literature, property_coverage
 from catalog_sources.classification import spectral_labels
@@ -202,7 +202,8 @@ def build():
             evidence["simbad"] = {"queryId": source["query_id"], "mainId": source["main_id"], "oid": source["oid"], "spectralBibcode": source["sp_bibcode"]}
             observations = atmospheres[source["oid"]]
             for field, source_field in [("temperature_k", "teff"), ("metallicity_dex", "fe_h")]:
-                valid = [r for r in observations if number(r[source_field]) is not None and (field != "temperature_k" or number(r[source_field]) > 0)]
+                valid = [r for r in observations if number(r[source_field]) is not None and (field != "temperature_k" or number(r[source_field]) > 0)
+                         and r["bibcode"] not in GAIA_REPUBLICATIONS]
                 if star[field] is None and field not in withheld and valid:
                     star[field] = median(number(r[source_field]) for r in valid)
                     if field == "temperature_k":
@@ -213,8 +214,12 @@ def build():
             for name in source["ids"].split("|"):
                 if not name.startswith("Gaia DR3 ") or len(gaia_oids[name.split()[-1]]) != 1:
                     continue
-                for field, observation in eligible_gaia_physical(gaia.get(name.split()[-1])).items():
-                    if star[field] is None and field not in withheld and star["type"] == "star":
+                physical = eligible_gaia_physical(gaia.get(name.split()[-1]))
+                gaia_temperature = physical["temperature_k"].value if "temperature_k" in physical else None
+                invalid = flame_withheld(gaia_temperature, star["temperature_k"],
+                                         star["metallicity_dex"] if star["metallicity_kind"] == "[Fe/H]" else None)
+                for field, observation in physical.items():
+                    if star[field] is None and field not in withheld | invalid and star["type"] == "star":
                         star[field] = observation.value
                         if field == "metallicity_dex":
                             star["metallicity_kind"] = "[M/H]"
@@ -684,6 +689,18 @@ def build():
         if match:
             for source in match[1].get("retainedCatalogSources", []):
                 retain_frozen_source(star.setdefault("catalog_sources", []), source)
+    # Adoptions superseded when spectroscopy began to outrank Gaia GSP-Phot.
+    retained_path = WORK / "retained-gsp-phot-adoptions.json"
+    retained = read_json(retained_path)
+    inputs.append(retained_path)
+    for identifier, record in retained["records"].items():
+        if identifier in pool:
+            retain_frozen_source(pool[identifier].setdefault("catalog_sources", []),
+                                 {"catalog_id": retained["retainedCatalogId"], "scope": retained["scope"], "record": record})
+    # Earlier catalog source records keep their catalog ID as an alternative scope.
+    for identifier, sources in retained["catalogSources"].items():
+        for source in sources if identifier in pool else []:
+            retain_frozen_source(pool[identifier]["catalog_sources"], {**source, "scope": retained["sourceScope"]})
     for identifier, star in pool.items():
         if star.get("catalog_sources"):
             star["catalog_sources"].sort(key=lambda source: (source["record"]["id"] != identifier, source["catalog_id"]))

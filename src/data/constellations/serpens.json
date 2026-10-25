@@ -270,7 +270,7 @@
         "mass_solar": 1.81,
         "luminosity_solar": 13.039137,
         "radius_solar": 1.6595869074375607,
-        "metallicity_dex": -1.449,
+        "metallicity_dex": 0.27,
         "age_gyr": 0.61410636,
         "absolute_mag": 1.977495,
         "epoch": 2000.0,
@@ -279,8 +279,8 @@
         "name": "Epsilon Ser",
         "constellation": "Serpens",
         "spectral_type": "kA2hA5mA7V",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 77622; Stellarium Ser). SIMBAD identity * eps Ser; SIMBAD compiled Johnson V=3.693; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 77622; Stellarium Ser). SIMBAD identity * eps Ser; SIMBAD compiled Johnson V=3.693; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E; age_gyr: Gaia DR3 astrophysical_parameters).",
         "designations": [
           "HIP 77622"
         ],
@@ -315,11 +315,11 @@
         "vx_kms": 57.275172,
         "vy_kms": -33.703142,
         "vz_kms": -24.25151,
-        "temperature_k": 6183.0,
+        "temperature_k": 6236.0,
         "mass_solar": 1.2285318,
         "luminosity_solar": 3.054756,
         "radius_solar": 1.5233457,
-        "metallicity_dex": -0.3494,
+        "metallicity_dex": -0.1618,
         "age_gyr": 3.7692122,
         "absolute_mag": 3.583554,
         "epoch": 2000.0,
@@ -328,7 +328,7 @@
         "name": "Gamma Ser",
         "constellation": "Serpens",
         "spectral_type": "F6V",
-        "metallicity_kind": "[M/H]",
+        "metallicity_kind": "[Fe/H]",
         "notes": "Corrected CNS5 3922; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion.",
         "designations": [
           "HIP 78072"
@@ -463,9 +463,9 @@
         "vy_kms": -26.626549,
         "vz_kms": 2.612849,
         "temperature_k": 8511.0,
-        "mass_solar": 2.18,
+        "mass_solar": null,
         "luminosity_solar": 35.85775964683802,
-        "radius_solar": 3.0902954325135905,
+        "radius_solar": 2.754121,
         "metallicity_dex": -0.35,
         "age_gyr": null,
         "absolute_mag": 0.78893,
@@ -476,7 +476,7 @@
         "constellation": "Serpens",
         "spectral_type": "A2Va",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 86565; Stellarium Ser). SIMBAD identity * omi Ser; SIMBAD compiled Johnson V=4.228; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
+        "notes": "Western constellation line-figure star (HIP 86565; Stellarium Ser). SIMBAD identity * omi Ser; SIMBAD compiled Johnson V=4.228; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
         "designations": [
           "HIP 86565"
         ],
@@ -1931,7 +1931,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

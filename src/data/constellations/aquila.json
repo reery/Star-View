@@ -124,7 +124,7 @@
         "luminosity_solar": 58.11151035390524,
         "radius_solar": 2.2387211385683394,
         "metallicity_dex": 0.7472,
-        "age_gyr": 0.3362059,
+        "age_gyr": null,
         "absolute_mag": 0.477488,
         "epoch": 2000.0,
         "type": "star",
@@ -133,7 +133,7 @@
         "constellation": "Aquila",
         "spectral_type": "B8.5V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 93805; Stellarium Aql). SIMBAD identity * lam Aql; SIMBAD compiled Johnson V=3.43; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 93805; Stellarium Aql). SIMBAD identity * lam Aql; SIMBAD compiled Johnson V=3.43; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
         "designations": [
           "HIP 93805"
         ],
@@ -318,8 +318,8 @@
         "temperature_k": 5452.0,
         "mass_solar": null,
         "luminosity_solar": 2182.3285344783967,
-        "radius_solar": 53.006054,
-        "metallicity_dex": -0.1891,
+        "radius_solar": 52.360166,
+        "metallicity_dex": 0.09,
         "age_gyr": null,
         "absolute_mag": -3.374206,
         "epoch": 2000.0,
@@ -328,8 +328,8 @@
         "name": "Eta Aql",
         "constellation": "Aquila",
         "spectral_type": "F6Iab+B9.8V",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 97804; Stellarium Aql). SIMBAD identity * eta Aql; SIMBAD compiled Johnson V=3.8; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 97804; Stellarium Aql). SIMBAD identity * eta Aql; SIMBAD compiled Johnson V=3.8; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...678A.195D).",
         "designations": [
           "HIP 97804"
         ],
@@ -414,10 +414,10 @@
         "vy_kms": -14.45061,
         "vz_kms": -0.542044,
         "temperature_k": 10000.0,
-        "mass_solar": 4.212757,
+        "mass_solar": null,
         "luminosity_solar": 216.2992236012751,
-        "radius_solar": 5.1598577,
-        "metallicity_dex": 0.1163,
+        "radius_solar": 4.89982,
+        "metallicity_dex": 0.2,
         "age_gyr": null,
         "absolute_mag": -1.017712,
         "epoch": 2000.0,
@@ -426,8 +426,8 @@
         "name": "Antinous",
         "constellation": "Aquila",
         "spectral_type": "B9.5III",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 99473; Stellarium Aql). SIMBAD identity * tet Aql; SIMBAD compiled Johnson V=3.22; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 99473; Stellarium Aql). SIMBAD identity * tet Aql; SIMBAD compiled Johnson V=3.22; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 1980PASP...92..346A).",
         "designations": [
           "HIP 99473"
         ],
@@ -1284,7 +1284,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

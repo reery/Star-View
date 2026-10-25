@@ -401,6 +401,21 @@ describe('catalog packages and display settings', () => {
     expect(() => parseCatalogPayload({ schemaVersion: 2, catalogId: metadata.id, sourceObjectCount: metadata.objectCount, stars: nearest1000.map((star) => star.id === source.id ? { ...star, metallicity_kind: null } : star) }, metadata)).toThrow('metallicity quantity')
   })
 
+  it('composes an extending catalog from additions only, sharing its base rows', async () => {
+    const metadata = { ...parseCatalogManifest(nearest1000Manifest), id: 'extended', extends: 'nearest-1000', objectCount: nearest1000.length + 1 }
+    const addition = { ...nearest1000.find((star) => star.id === 'cns5-0239')!, id: 'cns5-9999', name: 'Addition' }
+    const payload = { schemaVersion: 2, catalogId: 'extended', extends: 'nearest-1000', sourceObjectCount: metadata.objectCount, stars: [addition] }
+    const composed = parseCatalogPayload(payload, metadata, nearest1000)
+    expect(composed).toHaveLength(nearest1000.length + 1)
+    expect(composed[0]).toBe(nearest1000[0])
+    expect(composed.at(-1)).toMatchObject({ id: 'cns5-9999' })
+    expect(() => parseCatalogPayload(payload, metadata)).toThrow('Invalid catalog payload')
+    const fetcher = vi.fn(async () => new Response(JSON.stringify(payload)))
+    const loadBase = vi.fn(async () => nearest1000)
+    await expect(catalogLoader(metadata, 'extended.json', fetcher, loadBase)()).resolves.toHaveLength(nearest1000.length + 1)
+    expect(() => loadCatalog({ manifest: metadata, csv: nearest1000Csv })).toThrow('extended base')
+  })
+
   it('keeps the Mu Cas primary bright when its shared-position companion remains the visibility reference', () => {
     const primary = nearest1000.find((star) => star.id === 'cns5-0317')!
     const secondary = nearest1000.find((star) => star.id === 'mu-cassiopeiae-b')!
@@ -553,7 +568,7 @@ describe('catalog packages and display settings', () => {
     expect(cluster).toHaveLength(43)
     expect(catalogCoverage(cluster)).toMatchObject({
       objects: 42, constellations: 42, magnitudes: 42, rawAstrometry: 42,
-      temperatures: 42, masses: 33, luminosities: 42, radii: 42, metallicities: 34, ages: 13,
+      temperatures: 42, masses: 22, luminosities: 42, radii: 42, metallicities: 34, ages: 10,
     })
     expect(provenance.groups.map((group: { name: string }) => group.name)).toEqual([
       'Pleiades', 'Trapezium Cluster', 'Hyades', 'Coma Star Cluster', 'Southern Pleiades', 'Omicron Velorum Cluster', 'Beehive Cluster',

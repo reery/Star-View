@@ -21,12 +21,12 @@
         "vx_kms": -25.645926,
         "vy_kms": -14.814296,
         "vz_kms": 4.397823,
-        "temperature_k": 6154.0,
-        "mass_solar": 1.208073,
+        "temperature_k": 6518.0,
+        "mass_solar": 1.24,
         "luminosity_solar": 2.854192,
-        "radius_solar": 1.4859011,
-        "metallicity_dex": -0.8722,
-        "age_gyr": 4.001862,
+        "radius_solar": 1.318256739,
+        "metallicity_dex": 0.09,
+        "age_gyr": null,
         "absolute_mag": 3.656164,
         "epoch": 2000.0,
         "type": "star",
@@ -34,7 +34,7 @@
         "name": "Tabit",
         "constellation": "Orion",
         "spectral_type": "F6V",
-        "metallicity_kind": "[M/H]",
+        "metallicity_kind": "[Fe/H]",
         "notes": "Corrected CNS5 1208; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion using a reviewed literature radial velocity override. Table 4 cross-correlation radial velocity for HIP 22449 (Tabit)",
         "designations": [
           "HIP 22449"
@@ -71,11 +71,11 @@
         "vy_kms": -11.457598,
         "vz_kms": -13.563807,
         "temperature_k": 9333.0,
-        "mass_solar": 2.51,
+        "mass_solar": null,
         "luminosity_solar": 66.05439326852145,
-        "radius_solar": 2.9512092266663856,
-        "metallicity_dex": -0.7617,
-        "age_gyr": 0.47538254,
+        "radius_solar": 3.108572,
+        "metallicity_dex": -1.2,
+        "age_gyr": null,
         "absolute_mag": 0.220066,
         "epoch": 2000.0,
         "type": "star",
@@ -83,8 +83,8 @@
         "name": "Pi2 Ori",
         "constellation": "Orion",
         "spectral_type": "A1Vn",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 22509; Stellarium Ori). SIMBAD identity * pi.02 Ori; SIMBAD compiled Johnson V=4.35; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 22509; Stellarium Ori). SIMBAD identity * pi.02 Ori; SIMBAD compiled Johnson V=4.35; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
         "designations": [
           "HIP 22509"
         ],
@@ -1863,7 +1863,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

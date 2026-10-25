@@ -74,7 +74,7 @@
         "mass_solar": 1.21,
         "luminosity_solar": 10.659195,
         "radius_solar": 5.011872336272722,
-        "metallicity_dex": -0.0124,
+        "metallicity_dex": 0.24,
         "age_gyr": null,
         "absolute_mag": 2.629421,
         "epoch": 2000.0,
@@ -83,8 +83,8 @@
         "name": "Gamma Men",
         "constellation": "Mensa",
         "spectral_type": "K2III",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 25918; Stellarium Men). SIMBAD identity * gam Men; SIMBAD compiled Johnson V=5.2; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 25918; Stellarium Men). SIMBAD identity * gam Men; SIMBAD compiled Johnson V=5.2; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P).",
         "designations": [
           "HIP 25918"
         ],
@@ -861,7 +861,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

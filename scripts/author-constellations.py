@@ -249,6 +249,11 @@ def main():
     for path, content in outputs:
         name = json.loads(content)["name"]
         index += f"  ['{name}', () => import('./{path.name}').then((module) => module.default as ConstellationChart)],\n"
+    index += "])\n\n// IAU abbreviations label the collapsed Discover sidebar without loading each chart.\n"
+    index += "export const constellationAbbreviations = new Map<string, string>([\n"
+    for path, content in outputs:
+        chart = json.loads(content)
+        index += f"  ['{chart['name']}', '{chart['abbreviation']}'],\n"
     index += "])\n"
     outputs.append((OUTPUT / "index.ts", index))
     for path, content in outputs:

@@ -169,9 +169,9 @@
         "vy_kms": -24.356213,
         "vz_kms": -3.505946,
         "temperature_k": 15416.0,
-        "mass_solar": 6.638021,
+        "mass_solar": null,
         "luminosity_solar": 1613.1722527490342,
-        "radius_solar": 5.4321556,
+        "radius_solar": 5.630534,
         "metallicity_dex": 0.7895,
         "age_gyr": null,
         "absolute_mag": -2.077526,
@@ -182,7 +182,7 @@
         "constellation": "Carina",
         "spectral_type": "B2IV-V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 45080; Stellarium Car). SIMBAD identity * a Car; SIMBAD compiled Johnson V=3.4; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 45080; Stellarium Car). SIMBAD identity * a Car; SIMBAD compiled Johnson V=3.4; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
         "designations": [
           "HIP 45080"
         ],
@@ -316,9 +316,9 @@
         "vy_kms": -14.681374,
         "vz_kms": -10.548427,
         "temperature_k": 9199.0,
-        "mass_solar": 6.4045553,
+        "mass_solar": null,
         "luminosity_solar": 601.8921382566774,
-        "radius_solar": 7.9289923,
+        "radius_solar": 9.658968,
         "metallicity_dex": -1.1492,
         "age_gyr": null,
         "absolute_mag": -2.07382,
@@ -329,7 +329,7 @@
         "constellation": "Carina",
         "spectral_type": "B7III",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 50099; Stellarium Car). SIMBAD identity * ome Car; SIMBAD compiled Johnson V=3.33; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 50099; Stellarium Car). SIMBAD identity * ome Car; SIMBAD compiled Johnson V=3.33; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
         "designations": [
           "HIP 50099"
         ],
@@ -1766,7 +1766,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

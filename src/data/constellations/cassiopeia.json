@@ -218,9 +218,9 @@
         "vy_kms": -20.622908,
         "vz_kms": -7.493855,
         "temperature_k": 13516.0,
-        "mass_solar": 6.5511613,
+        "mass_solar": null,
         "luminosity_solar": 1625.8393645529188,
-        "radius_solar": 7.2170033,
+        "radius_solar": 7.353517,
         "metallicity_dex": -0.2792,
         "age_gyr": null,
         "absolute_mag": -2.408814,
@@ -231,7 +231,7 @@
         "constellation": "Cassiopeia",
         "spectral_type": "B3Vp_sh",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 8886; Stellarium Cas). SIMBAD identity * eps Cas; SIMBAD compiled Johnson V=3.37; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 8886; Stellarium Cas). SIMBAD identity * eps Cas; SIMBAD compiled Johnson V=3.37; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
         "designations": [
           "HIP 8886"
         ],
@@ -1434,7 +1434,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

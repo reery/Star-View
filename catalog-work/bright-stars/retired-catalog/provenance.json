@@ -6,11 +6,11 @@
   "selectionReview": "The V=2.42-2.69 expansion was queried through SIMBAD TAP on 2026-09-30. The SIMBAD stellar hierarchy filter excludes NGC 1980, whose integrated V=2.50 is not a stellar entry.",
   "coverage": {
     "temperature_k": 121,
-    "mass_solar": 76,
+    "mass_solar": 74,
     "luminosity_solar": 111,
     "radius_solar": 112,
     "metallicity_dex": 76,
-    "age_gyr": 17
+    "age_gyr": 15
   },
   "objects": {
     "sun": {
@@ -9771,13 +9771,13 @@
           "cns5Id": "5660",
           "fieldStatus": {
             "absolute_mag": "derived-from-compiled-Johnson-V",
-            "age_gyr": "model-derived",
+            "age_gyr": "unknown",
             "luminosity_solar": "model-derived",
-            "mass_solar": "model-derived",
-            "metallicity_dex": "model-derived",
+            "mass_solar": "unknown",
+            "metallicity_dex": "measured",
             "radial_velocity_kms": "compiled-cns5",
-            "radius_solar": "model-derived",
-            "temperature_k": "model-derived"
+            "radius_solar": "derived",
+            "temperature_k": "measured"
           },
           "gaiaDr3Id": "6604147121141267712",
           "id": "cns5-5660",
@@ -9874,8 +9874,105 @@
             },
             "status": "compiled-cns5"
           },
+          "sharedPhysicalEnrichment": {
+            "metallicity_dex": {
+              "field": "metallicity_dex",
+              "identity": "V* TW PsA",
+              "quantity": "photospheric [Fe/H]",
+              "reference": "2024A&A...683A.125P",
+              "scope": "catalogued stellar object",
+              "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+              "sourceRecordId": "V* TW PsA:mesFe_h:1",
+              "status": "measured",
+              "uncertainty": null,
+              "value": -0.18
+            },
+            "radius_solar": {
+              "field": "radius_solar",
+              "inputs": {
+                "luminosity_solar": 0.19891936,
+                "temperature_k": 4750.0
+              },
+              "reference": "Stefan-Boltzmann scaling",
+              "status": "derived",
+              "value": 0.6585730464
+            },
+            "temperature_k": {
+              "field": "temperature_k",
+              "identity": "V* TW PsA",
+              "quantity": "spectroscopic effective temperature",
+              "reference": "2024A&A...683A.125P",
+              "scope": "catalogued stellar object",
+              "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+              "sourceRecordId": "V* TW PsA:mesFe_h:1",
+              "status": "measured",
+              "uncertainty": null,
+              "value": 4750.0
+            }
+          },
           "simbadId": "V* TW PsA",
-          "sourceType": "BY*"
+          "sourceType": "BY*",
+          "supersededGaiaPhysical": {
+            "observations": {
+              "age_gyr": {
+                "field": "age_gyr",
+                "quality_flags": [
+                  "00"
+                ],
+                "reference": "Gaia DR3 astrophysical_parameters",
+                "source_id": "gaia-dr3",
+                "source_record_id": "6604147121141267712",
+                "status": "model-derived",
+                "uncertainty": 2.619266999999999,
+                "value": 9.807368
+              },
+              "mass_solar": {
+                "field": "mass_solar",
+                "quality_flags": [
+                  "00"
+                ],
+                "reference": "Gaia DR3 astrophysical_parameters",
+                "source_id": "gaia-dr3",
+                "source_record_id": "6604147121141267712",
+                "status": "model-derived",
+                "uncertainty": 0.040000050000000065,
+                "value": 0.72544885
+              },
+              "metallicity_dex": {
+                "field": "metallicity_dex",
+                "quality_flags": [],
+                "reference": "Gaia DR3 astrophysical_parameters",
+                "source_id": "gaia-dr3",
+                "source_record_id": "6604147121141267712",
+                "status": "model-derived",
+                "uncertainty": 0.04519999999999999,
+                "value": -0.1788
+              },
+              "radius_solar": {
+                "field": "radius_solar",
+                "quality_flags": [
+                  "00"
+                ],
+                "reference": "Gaia DR3 astrophysical_parameters",
+                "source_id": "gaia-dr3",
+                "source_record_id": "6604147121141267712",
+                "status": "model-derived",
+                "uncertainty": 0.017639700000000036,
+                "value": 0.74598
+              },
+              "temperature_k": {
+                "field": "temperature_k",
+                "quality_flags": [],
+                "reference": "Gaia DR3 astrophysical_parameters",
+                "source_id": "gaia-dr3",
+                "source_record_id": "6604147121141267712",
+                "status": "model-derived",
+                "uncertainty": 5.5856000000003405,
+                "value": 4463.109
+              }
+            },
+            "reason": "Published spectroscopic consensus outranks Gaia DR3 GSP-Phot; FLAME radius, mass and age derived from a GSP-Phot temperature more than 2% off, or with solar-metallicity tracks for |[Fe/H]| > 0.3, are withheld."
+          }
         }
       }
     },
@@ -10268,13 +10365,13 @@
           "cns5Id": "1323",
           "fieldStatus": {
             "absolute_mag": "unknown",
-            "age_gyr": "model-derived",
+            "age_gyr": "unknown",
             "luminosity_solar": "model-derived",
-            "mass_solar": "model-derived",
+            "mass_solar": "unknown",
             "metallicity_dex": "model-derived",
             "radial_velocity_kms": "compiled-cns5",
-            "radius_solar": "model-derived",
-            "temperature_k": "model-derived"
+            "radius_solar": "derived",
+            "temperature_k": "measured"
           },
           "gaiaDr3Id": "211810233512673792",
           "id": "cns5-1323",
@@ -10387,8 +10484,83 @@
             },
             "status": "compiled-cns5"
           },
+          "sharedPhysicalEnrichment": {
+            "radius_solar": {
+              "field": "radius_solar",
+              "inputs": {
+                "luminosity_solar": 0.048280984,
+                "temperature_k": 3800.0
+              },
+              "reference": "Stefan-Boltzmann scaling",
+              "status": "derived",
+              "value": 0.5069597827
+            },
+            "temperature_k": {
+              "field": "temperature_k",
+              "identity": "G 96-29A",
+              "quantity": "spectroscopic effective temperature",
+              "reference": "2022ApJ...927..122H",
+              "scope": "catalogued stellar object",
+              "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+              "sourceRecordId": "G 96-29A:mesFe_h:2",
+              "status": "measured",
+              "uncertainty": null,
+              "value": 3800.0
+            }
+          },
           "simbadId": "G  96-29A",
-          "sourceType": "PM*"
+          "sourceType": "PM*",
+          "supersededGaiaPhysical": {
+            "observations": {
+              "age_gyr": {
+                "field": "age_gyr",
+                "quality_flags": [
+                  "00"
+                ],
+                "reference": "Gaia DR3 astrophysical_parameters",
+                "source_id": "gaia-dr3",
+                "source_record_id": "211810233512673792",
+                "status": "model-derived",
+                "uncertainty": 7.4399391999999995,
+                "value": 10.741266
+              },
+              "mass_solar": {
+                "field": "mass_solar",
+                "quality_flags": [
+                  "00"
+                ],
+                "reference": "Gaia DR3 astrophysical_parameters",
+                "source_id": "gaia-dr3",
+                "source_record_id": "211810233512673792",
+                "status": "model-derived",
+                "uncertainty": 0.04016534999999999,
+                "value": 0.53719205
+              },
+              "radius_solar": {
+                "field": "radius_solar",
+                "quality_flags": [
+                  "00"
+                ],
+                "reference": "Gaia DR3 astrophysical_parameters",
+                "source_id": "gaia-dr3",
+                "source_record_id": "211810233512673792",
+                "status": "model-derived",
+                "uncertainty": 0.031128739999999988,
+                "value": 0.55555
+              },
+              "temperature_k": {
+                "field": "temperature_k",
+                "quality_flags": [],
+                "reference": "Gaia DR3 astrophysical_parameters",
+                "source_id": "gaia-dr3",
+                "source_record_id": "211810233512673792",
+                "status": "model-derived",
+                "uncertainty": 10.79300000000012,
+                "value": 3630.5886
+              }
+            },
+            "reason": "Published spectroscopic consensus outranks Gaia DR3 GSP-Phot; FLAME radius, mass and age derived from a GSP-Phot temperature more than 2% off, or with solar-metallicity tracks for |[Fe/H]| > 0.3, are withheld."
+          }
         }
       }
     },
@@ -10810,9 +10982,9 @@
     ],
     "inputSha256": {
       "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
-      "src/data/star-systems.json": "0e7e0b8097766381629c4d28e57f62948ecde0c10ac18992c09cef17cb6dfe05",
-      "src/data/catalogs/nearest-1000/stars.csv": "4f851fa5f27325e045f1cef19d18e8ef4b8334761c207eea0f50f5cc3dbeea31",
-      "src/data/catalogs/nearest-1000/provenance.json": "ecb019336062d33814016c9976cb8a431939decf96abc389625a3e0b87eb7eb3",
+      "src/data/star-systems.json": "124a22a39a6203498204d3cd96b3cb582fbeed07f0de26f6ca219ae5a5c79fd9",
+      "src/data/catalogs/nearest-1000/stars.csv": "c7e440459ff87ac600ea973028ceab51d4c530e558fb4ef9d6ee34ae4660fe1d",
+      "src/data/catalogs/nearest-1000/provenance.json": "ee0d446f23623f9e60432b8fc3b7c8b5c8cff6fc443f0156cf6437f08b1b1db6",
       "catalog-work/star-systems/overlay-individual-components.json": "b4fbcf92e682c639a11c5e488a378d43a0b43aaa10e0e8b16b2db70dc9a10741",
       "catalog-work/star-systems/msc-20260619-rigel.json": "0bc6740e8537705363c915a78b203822b46a9a31330f325f6b4a783091e40e97",
       "catalog-work/star-systems/msc-20260619.Readme": "d0906632b078a3b97b4e7247ad76830e2cc13bae6300ae145d69ce30a8e859b8"

@@ -25,7 +25,7 @@
         "mass_solar": 1.36,
         "luminosity_solar": 60.86157743655409,
         "radius_solar": 11.220184543019636,
-        "metallicity_dex": -0.3624,
+        "metallicity_dex": 0.0,
         "age_gyr": null,
         "absolute_mag": 0.638258,
         "epoch": 2000.0,
@@ -34,8 +34,8 @@
         "name": "Epsilon Phe",
         "constellation": "Phoenix",
         "spectral_type": "K0III",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 765; Stellarium Phe). SIMBAD identity * eps Phe; SIMBAD compiled Johnson V=3.87; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 765; Stellarium Phe). SIMBAD identity * eps Phe; SIMBAD compiled Johnson V=3.87; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
         "designations": [
           "HIP 765"
         ],
@@ -1099,7 +1099,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

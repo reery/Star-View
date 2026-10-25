@@ -122,8 +122,8 @@
         "temperature_k": 4200.0,
         "mass_solar": null,
         "luminosity_solar": 2757.7113977499043,
-        "radius_solar": 78.556206,
-        "metallicity_dex": -0.6328,
+        "radius_solar": 99.180997,
+        "metallicity_dex": -0.5,
         "age_gyr": null,
         "absolute_mag": -2.850845,
         "epoch": 2000.0,
@@ -132,8 +132,8 @@
         "name": "Xi Pav",
         "constellation": "Pavo",
         "spectral_type": "K4III",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 90098; Stellarium Pav). SIMBAD identity * ksi Pav; SIMBAD compiled Johnson V=4.367; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 90098; Stellarium Pav). SIMBAD identity * ksi Pav; SIMBAD compiled Johnson V=4.367; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2020A&A...633A..34C).",
         "designations": [
           "HIP 90098"
         ],
@@ -169,9 +169,9 @@
         "vy_kms": -27.712663,
         "vz_kms": -2.184134,
         "temperature_k": 4571.0,
-        "mass_solar": 1.79,
+        "mass_solar": null,
         "luminosity_solar": 124.376862,
-        "radius_solar": 17.78279410038923,
+        "radius_solar": 17.7827941,
         "metallicity_dex": -0.44,
         "age_gyr": null,
         "absolute_mag": -0.093554,
@@ -182,7 +182,7 @@
         "constellation": "Pavo",
         "spectral_type": "K0III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 91792; Stellarium Pav). SIMBAD identity * zet Pav; SIMBAD compiled Johnson V=4.003; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C).",
+        "notes": "Western constellation line-figure star (HIP 91792; Stellarium Pav). SIMBAD identity * zet Pav; SIMBAD compiled Johnson V=4.003; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C; radius_solar: 1999A&A...352..555A). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
         "designations": [
           "HIP 91792"
         ],
@@ -269,8 +269,8 @@
         "temperature_k": 5774.0,
         "mass_solar": null,
         "luminosity_solar": 556.5589127154866,
-        "radius_solar": 24.428257,
-        "metallicity_dex": -0.0128,
+        "radius_solar": 23.57516,
+        "metallicity_dex": 0.1,
         "age_gyr": null,
         "absolute_mag": -1.996369,
         "epoch": 2000.0,
@@ -279,8 +279,8 @@
         "name": "Kappa Pav",
         "constellation": "Pavo",
         "spectral_type": "G5Iab/b",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 93015; Stellarium Pav). SIMBAD identity * kap Pav; SIMBAD compiled Johnson V=4.4; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 93015; Stellarium Pav). SIMBAD identity * kap Pav; SIMBAD compiled Johnson V=4.4; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2018MNRAS.477.2276K).",
         "designations": [
           "HIP 93015"
         ],
@@ -463,9 +463,9 @@
         "vy_kms": -1.072826,
         "vz_kms": 3.10166,
         "temperature_k": 7943.0,
-        "mass_solar": 2.29,
+        "mass_solar": null,
         "luminosity_solar": 58.720908301723995,
-        "radius_solar": 3.9810717055349722,
+        "radius_solar": 4.046503,
         "metallicity_dex": -0.36,
         "age_gyr": null,
         "absolute_mag": 0.291748,
@@ -476,7 +476,7 @@
         "constellation": "Pavo",
         "spectral_type": "A7III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 102395; Stellarium Pav). SIMBAD identity * bet Pav; SIMBAD compiled Johnson V=3.408; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
+        "notes": "Western constellation line-figure star (HIP 102395; Stellarium Pav). SIMBAD identity * bet Pav; SIMBAD compiled Johnson V=3.408; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
         "designations": [
           "HIP 102395"
         ],
@@ -511,12 +511,12 @@
         "vx_kms": -13.019923,
         "vy_kms": 43.989884,
         "vz_kms": 5.720363,
-        "temperature_k": 6093.0,
-        "mass_solar": 1.1236573,
+        "temperature_k": 6139.0,
+        "mass_solar": null,
         "luminosity_solar": 1.5076029,
         "radius_solar": 1.1020286,
-        "metallicity_dex": -0.8116,
-        "age_gyr": 1.859697,
+        "metallicity_dex": -0.685,
+        "age_gyr": null,
         "absolute_mag": 4.387209,
         "epoch": 2000.0,
         "type": "star",
@@ -524,7 +524,7 @@
         "name": "Gamma Pav",
         "constellation": "Pavo",
         "spectral_type": "F9VFe-1.4CH-0.7",
-        "metallicity_kind": "[M/H]",
+        "metallicity_kind": "[Fe/H]",
         "notes": "Corrected CNS5 5277; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion.",
         "designations": [
           "HIP 105858"
@@ -1316,7 +1316,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

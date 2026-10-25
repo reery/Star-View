@@ -172,7 +172,7 @@
         "mass_solar": null,
         "luminosity_solar": null,
         "radius_solar": null,
-        "metallicity_dex": -0.9277,
+        "metallicity_dex": 0.28,
         "age_gyr": null,
         "absolute_mag": -6.884856,
         "epoch": 2000.0,
@@ -181,7 +181,7 @@
         "name": "Alpha Cam",
         "constellation": "Camelopardalis",
         "spectral_type": "O9Ia",
-        "metallicity_kind": "[M/H]",
+        "metallicity_kind": "[Fe/H]",
         "notes": "Western constellation line-figure star (HIP 22783; Stellarium Cam). SIMBAD identity * alf Cam; SIMBAD compiled Johnson V=4.29; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2024A&A...687A.228D, HD 30614, J/A+A/687/A228/tabled1, 29000 K. Formal asymmetric temperature uncertainties from the published fit. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 22783"
@@ -221,8 +221,8 @@
         "mass_solar": 1.36,
         "luminosity_solar": 3.2884624,
         "radius_solar": 1.4125375446227544,
-        "metallicity_dex": -0.2521,
-        "age_gyr": 3.3389146,
+        "metallicity_dex": 0.253,
+        "age_gyr": null,
         "absolute_mag": 3.492015,
         "epoch": 2000.0,
         "type": "star",
@@ -230,8 +230,8 @@
         "name": "HD 33564",
         "constellation": "Camelopardalis",
         "spectral_type": "F7V",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 25110; Stellarium Cam). SIMBAD identity HD  33564; Hipparcos Johnson V=5.08 (SIMBAD V unavailable); Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 25110; Stellarium Cam). SIMBAD identity HD  33564; Hipparcos Johnson V=5.08 (SIMBAD V unavailable); Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...691A..53S).",
         "designations": [
           "HIP 25110"
         ],
@@ -2364,7 +2364,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

@@ -182,11 +182,21 @@ class Supplements:
         return candidates
 
 
-def load_supplements(folder: Path, cns5_path: Path) -> Supplements:
+def load_supplements(folder: Path, cns5_path: Path, extension: Path | None = None) -> Supplements:
+    """`extension` adds exact identities and 2MASS rows for objects absent from `folder`."""
     manifest = json.loads((folder / "source-manifest.json").read_text())
     for name, digest in manifest["checksumsSha256"].items():
         verify_sha256(folder / name, digest)
     crossmatch = {row["star_view_id"]: row for row in csv.DictReader(io.StringIO((folder / "crossmatch.csv").read_text()))}
+    twomass = read_twomass_psc(folder / "twomass.csv")
+    if extension is not None:
+        extension_manifest = json.loads((extension / "source-manifest.json").read_text())
+        for name in ("crossmatch.csv", "twomass.csv"):
+            verify_sha256(extension / name, extension_manifest["checksumsSha256"][name])
+        for row in csv.DictReader(io.StringIO((extension / "crossmatch.csv").read_text())):
+            crossmatch.setdefault(row["star_view_id"], row)
+        for designation, photometry in read_twomass_psc(extension / "twomass.csv").items():
+            twomass.setdefault(designation, photometry)
     cifuentes = read_cifuentes(folder / "cifuentes2020-tablea3.dat")
     by_karmn = {record.identity.source_record_id: record for record in cifuentes}
     if len(by_karmn) != len(cifuentes):
@@ -197,7 +207,7 @@ def load_supplements(folder: Path, cns5_path: Path) -> Supplements:
         if dr2:
             by_dr2[dr2] = None if dr2 in by_dr2 else record
     supplements = Supplements(
-        crossmatch, by_karmn, by_dr2, read_twomass_psc(folder / "twomass.csv"),
+        crossmatch, by_karmn, by_dr2, twomass,
         blended_cns5_ids(cns5_path, {row["cns5_id"] for row in crossmatch.values() if row["cns5_id"]}),
         sha256(folder / "source-manifest.json"), {}, {},
     )

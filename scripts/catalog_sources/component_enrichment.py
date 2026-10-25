@@ -58,14 +58,22 @@ def enrich_component(row, provenance):
         previous = row.get(field)
         replacement = observation.get("replaces")
         if replacement:
-            if not previous or not math.isclose(float(previous), replacement["value"], rel_tol=0, abs_tol=1e-9):
+            # The reviewed input may since have been superseded by spectroscopy;
+            # the component review still outranks both.
+            gaia = provenance.get("supersededGaiaPhysical", {}).get("observations", {}).get(field)
+            reviewed_input = gaia is not None and math.isclose(gaia["value"], replacement["value"], rel_tol=0, abs_tol=1e-9)
+            if not reviewed_input and (not previous or not math.isclose(float(previous), replacement["value"], rel_tol=0, abs_tol=1e-9)):
                 raise ValueError(f"Reviewed replacement input drifted: {row['id']}:{field}")
-            if replacement.get("kind") and row.get("metallicity_kind") != replacement["kind"]:
+            if not reviewed_input and replacement.get("kind") and row.get("metallicity_kind") != replacement["kind"]:
                 raise ValueError(f"Reviewed replacement quantity drifted: {row['id']}:{field}")
-            replaced[field] = {"value": float(previous), "kind": row.get("metallicity_kind") if field == "metallicity_dex" else None}
+            replaced[field] = {"value": float(previous), "kind": row.get("metallicity_kind") if field == "metallicity_dex" else None} if previous else {}
             shared = provenance.get("sharedPhysicalEnrichment", {})
             if field in shared:
                 replaced[field]["observation"] = shared.pop(field)
+            if reviewed_input:
+                # Record the reviewed Gaia input; the interim spectroscopic value is superseded too.
+                replaced[field] = {"value": gaia["value"], "kind": "[M/H]" if field == "metallicity_dex" else None,
+                                   "observation": gaia, **({"supersededSpectroscopy": replaced[field]} if replaced[field] else {})}
         elif previous:
             continue
         value = observation["value"]

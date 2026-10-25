@@ -221,7 +221,7 @@
         "mass_solar": null,
         "luminosity_solar": 602.1424974119739,
         "radius_solar": 35.59174,
-        "metallicity_dex": -0.2483,
+        "metallicity_dex": 0.07,
         "age_gyr": null,
         "absolute_mag": -1.696516,
         "epoch": 2000.0,
@@ -230,8 +230,8 @@
         "name": "Eta Col",
         "constellation": "Columba",
         "spectral_type": "G8/K1II",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 28328; Stellarium Col). SIMBAD identity * eta Col; SIMBAD compiled Johnson V=3.96; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 28328; Stellarium Col). SIMBAD identity * eta Col; SIMBAD compiled Johnson V=3.96; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P).",
         "designations": [
           "HIP 28328"
         ],
@@ -270,7 +270,7 @@
         "mass_solar": 1.24,
         "luminosity_solar": 58.258277947155136,
         "radius_solar": 10.715193052376065,
-        "metallicity_dex": -0.0082,
+        "metallicity_dex": 0.2,
         "age_gyr": null,
         "absolute_mag": 0.57049,
         "epoch": 2000.0,
@@ -279,8 +279,8 @@
         "name": "Kappa Col",
         "constellation": "Columba",
         "spectral_type": "G9IIIbCN0.5",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 29807; Stellarium Col). SIMBAD identity * kap Col; SIMBAD compiled Johnson V=4.37; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 29807; Stellarium Col). SIMBAD identity * kap Col; SIMBAD compiled Johnson V=4.37; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P).",
         "designations": [
           "HIP 29807"
         ],
@@ -318,8 +318,8 @@
         "temperature_k": 5129.0,
         "mass_solar": null,
         "luminosity_solar": 127.2771373141553,
-        "radius_solar": 15.066504,
-        "metallicity_dex": -0.7282,
+        "radius_solar": 14.287704,
+        "metallicity_dex": -0.11,
         "age_gyr": null,
         "absolute_mag": -0.254153,
         "epoch": 2000.0,
@@ -328,8 +328,8 @@
         "name": "Delta Col",
         "constellation": "Columba",
         "spectral_type": "G7II",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 30277; Stellarium Col). SIMBAD identity * del Col; SIMBAD compiled Johnson V=3.85; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 30277; Stellarium Col). SIMBAD identity * del Col; SIMBAD compiled Johnson V=3.85; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P).",
         "designations": [
           "HIP 30277"
         ],
@@ -780,7 +780,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

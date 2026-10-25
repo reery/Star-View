@@ -26,7 +26,7 @@
         "luminosity_solar": 12.607663,
         "radius_solar": 1.9498445997580451,
         "metallicity_dex": -0.0278,
-        "age_gyr": 1.1414027,
+        "age_gyr": null,
         "absolute_mag": 1.937209,
         "epoch": 2000.0,
         "type": "star",
@@ -35,7 +35,7 @@
         "constellation": "Equuleus",
         "spectral_type": "A9VpSrCrEu",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 104521; Stellarium Equ). SIMBAD identity * gam Equ; SIMBAD compiled Johnson V=4.68; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 104521; Stellarium Equ). SIMBAD identity * gam Equ; SIMBAD compiled Johnson V=4.68; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar.",
         "designations": [
           "HIP 104521"
         ],
@@ -169,11 +169,11 @@
         "vy_kms": -6.540526,
         "vz_kms": -9.068291,
         "temperature_k": 8141.0,
-        "mass_solar": 2.7427154,
+        "mass_solar": null,
         "luminosity_solar": 60.74644819151635,
-        "radius_solar": 3.674869,
+        "radius_solar": 3.917938,
         "metallicity_dex": -0.225,
-        "age_gyr": 0.40775958,
+        "age_gyr": null,
         "absolute_mag": 0.193366,
         "epoch": 2000.0,
         "type": "star",
@@ -182,7 +182,7 @@
         "constellation": "Equuleus",
         "spectral_type": "A3V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 105570; Stellarium Equ). SIMBAD identity * bet Equ; SIMBAD compiled Johnson V=5.148; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 105570; Stellarium Equ). SIMBAD identity * bet Equ; SIMBAD compiled Johnson V=5.148; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
         "designations": [
           "HIP 105570"
         ],
@@ -481,7 +481,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

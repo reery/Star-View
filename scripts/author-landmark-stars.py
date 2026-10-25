@@ -8,7 +8,7 @@ import math
 import re
 from functools import cache
 from pathlib import Path
-from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256, reviewed_physical
+from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, flame_withheld, manifest_sha256, normalized_id, reviewed_physical, select_spectroscopy, spectroscopy_index
 from catalog_sources.shared_objects import adopt_shared_objects
 from catalog_sources.overlay_companions import expand_overlay
 from catalog_sources.solar import adopt_solar_reference, solar_provenance
@@ -331,7 +331,9 @@ def published_hip_physical(source):
             temperature = 10 ** log_temperature
             temperature_error = temperature * math.log(10) * log_temperature_error if log_temperature_error is not None else None
             adopt("temperature_k", temperature, temperature_error, "Allende Prieto & Lambert 1999", "1999A&A...352..555A")
-        if source["otype"] not in SYSTEM_TYPES:
+        # As in the shared enrichment, these model masses need near-solar metallicity.
+        metallicity = select_spectroscopy(spectroscopy_index().get(normalized_id(source["main_id"]), []), "fe_h")
+        if source["otype"] not in SYSTEM_TYPES and (metallicity is None or abs(float(metallicity["fe_h"])) <= 0.3):
             adopt(
                 "mass_solar", optional_number(fundamental.get("Mass")), optional_number(fundamental.get("e_Mass")),
                 "Allende Prieto & Lambert 1999", "1999A&A...352..555A",
@@ -395,6 +397,17 @@ def enrich_physical(row, source):
             adopted[field] = f"published:{source_id}:HIP-{hip_id(source)}"
             observations.extend(observation for observation in published_observations if observation["field"] == field)
     gaia_values, gaia_observations = eligible_gaia_physical(source)
+    # A published spectroscopic consensus outranks GSP-Phot temperature and [M/H].
+    # FLAME radius, mass and age then inherit an invalid temperature or solar-metallicity assumption.
+    spectra = spectroscopy_index().get(normalized_id(source["main_id"]), [])
+    measured = {field: float(selected[column]) for field, column in (("temperature_k", "teff"), ("metallicity_dex", "fe_h"))
+                if (selected := select_spectroscopy(spectra, column))}
+    gaia_temperature = optional_number(gaia_values.get("temperature_k"))
+    replaced = {field for field in measured if field in gaia_values and not row[field]}
+    for field in sorted(replaced | flame_withheld(gaia_temperature, measured.get("temperature_k"), measured.get("metallicity_dex"))):
+        if field in gaia_values and not row[field]:
+            del gaia_values[field]
+            observations.extend({**observation, "status": "superseded-by-spectroscopy"} for observation in gaia_observations if observation["field"] == field)
     for field, value in gaia_values.items():
         if not row[field]:
             row[field] = value

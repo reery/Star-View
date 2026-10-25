@@ -25,7 +25,7 @@
         "mass_solar": 2.96,
         "luminosity_solar": 136.53029,
         "radius_solar": 14.12537544622754,
-        "metallicity_dex": -0.9402,
+        "metallicity_dex": -0.09,
         "age_gyr": null,
         "absolute_mag": -0.308646,
         "epoch": 2000.0,
@@ -34,8 +34,8 @@
         "name": "Muscida",
         "constellation": "Ursa Major",
         "spectral_type": "G5III:",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 41704; Stellarium UMa). SIMBAD identity * omi UMa; SIMBAD compiled Johnson V=3.42; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 41704; Stellarium UMa). SIMBAD identity * omi UMa; SIMBAD compiled Johnson V=3.42; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...692A.189R).",
         "designations": [
           "HIP 41704"
         ],
@@ -610,9 +610,9 @@
         "vy_kms": -11.020657,
         "vz_kms": -20.918384,
         "temperature_k": 4467.0,
-        "mass_solar": 1.54,
+        "mass_solar": null,
         "luminosity_solar": 165.18587446657702,
-        "radius_solar": 21.379620895022324,
+        "radius_solar": 21.458887,
         "metallicity_dex": -0.45,
         "age_gyr": null,
         "absolute_mag": -0.202658,
@@ -623,7 +623,7 @@
         "constellation": "Ursa Major",
         "spectral_type": "K0.5IIIb:",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 57399; Stellarium UMa). SIMBAD identity * chi UMa; SIMBAD compiled Johnson V=3.72; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "notes": "Western constellation line-figure star (HIP 57399; Stellarium UMa). SIMBAD identity * chi UMa; SIMBAD compiled Johnson V=3.72; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
         "designations": [
           "HIP 57399"
         ],
@@ -708,11 +708,11 @@
         "vy_kms": 1.94452,
         "vz_kms": -9.433507,
         "temperature_k": 8710.0,
-        "mass_solar": 2.1,
+        "mass_solar": null,
         "luminosity_solar": 23.094496,
-        "radius_solar": 2.0892961308540396,
-        "metallicity_dex": -0.4433,
-        "age_gyr": 0.7246109,
+        "radius_solar": 2.110428,
+        "metallicity_dex": -0.6,
+        "age_gyr": null,
         "absolute_mag": 1.348863,
         "epoch": 2000.0,
         "type": "star",
@@ -720,8 +720,8 @@
         "name": "Megrez",
         "constellation": "Ursa Major",
         "spectral_type": "A2Vn",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 59774; Stellarium UMa). SIMBAD identity * del UMa; SIMBAD compiled Johnson V=3.32; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 59774; Stellarium UMa). SIMBAD identity * del UMa; SIMBAD compiled Johnson V=3.32; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k; Gaia DR3 model values for luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
         "designations": [
           "HIP 59774"
         ],
@@ -2501,7 +2501,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

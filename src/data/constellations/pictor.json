@@ -25,7 +25,7 @@
         "mass_solar": 1.54,
         "luminosity_solar": 8.769732603870303,
         "radius_solar": 1.4791083881682074,
-        "metallicity_dex": -0.3739,
+        "metallicity_dex": -0.0174,
         "age_gyr": 0.44897932,
         "absolute_mag": 2.395299,
         "epoch": 2000.0,
@@ -34,8 +34,8 @@
         "name": "Beta Pic",
         "constellation": "Pictor",
         "spectral_type": "A6V",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 27321; Stellarium Pic). SIMBAD identity * bet Pic; SIMBAD compiled Johnson V=3.86; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 27321; Stellarium Pic). SIMBAD identity * bet Pic; SIMBAD compiled Johnson V=3.86; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...11B).",
         "designations": [
           "HIP 27321"
         ],
@@ -870,7 +870,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

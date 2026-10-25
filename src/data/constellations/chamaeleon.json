@@ -26,7 +26,7 @@
         "luminosity_solar": 7.575912873267877,
         "radius_solar": 1.8197008586099834,
         "metallicity_dex": -0.1698,
-        "age_gyr": 2.0767844,
+        "age_gyr": null,
         "absolute_mag": 2.599302,
         "epoch": 2000.0,
         "type": "star",
@@ -35,7 +35,7 @@
         "constellation": "Chamaeleon",
         "spectral_type": "F5VFe-0.8",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 40702; Stellarium Cha). SIMBAD identity * alf Cha; SIMBAD compiled Johnson V=4.047; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 40702; Stellarium Cha). SIMBAD identity * alf Cha; SIMBAD compiled Johnson V=4.047; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
         "designations": [
           "HIP 40702"
         ],
@@ -73,8 +73,8 @@
         "temperature_k": 4035.0,
         "mass_solar": null,
         "luminosity_solar": 982.9849189764196,
-        "radius_solar": 67.79023,
-        "metallicity_dex": -0.0513,
+        "radius_solar": 64.156253,
+        "metallicity_dex": -1.281,
         "age_gyr": null,
         "absolute_mag": -1.556623,
         "epoch": 2000.0,
@@ -83,8 +83,8 @@
         "name": "Gamma Cha",
         "constellation": "Chamaeleon",
         "spectral_type": "K4III",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 51839; Stellarium Cha). SIMBAD identity * gam Cha; SIMBAD compiled Johnson V=4.12; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 51839; Stellarium Cha). SIMBAD identity * gam Cha; SIMBAD compiled Johnson V=4.12; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...11B).",
         "designations": [
           "HIP 51839"
         ],
@@ -1030,7 +1030,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

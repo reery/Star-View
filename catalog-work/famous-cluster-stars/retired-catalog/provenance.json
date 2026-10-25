@@ -194,11 +194,11 @@
   ],
   "physicalCoverage": {
     "temperature_k": 42,
-    "mass_solar": 33,
+    "mass_solar": 22,
     "luminosity_solar": 42,
     "radius_solar": 42,
     "metallicity_dex": 34,
-    "age_gyr": 13
+    "age_gyr": 10
   },
   "sharedEnrichmentManifestSha256": "51fb538d443021382615013ef6bdaf942de51935ec914db19a77934a596fd1e0",
   "objects": {
@@ -294,9 +294,7 @@
         "temperature_k": "published:2012MNRAS.427..343M:HIP-17489",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17489",
         "metallicity_dex": "gaia-dr3:65287458566524928",
-        "mass_solar": "gaia-dr3:65287458566524928",
-        "radius_solar": "gaia-dr3:65287458566524928",
-        "age_gyr": "gaia-dr3:65287458566524928"
+        "radius_solar": "derived:stefan-boltzmann"
       },
       "physicalObservations": [
         {
@@ -318,6 +316,33 @@
           "bibcode": "2012MNRAS.427..343M"
         },
         {
+          "field": "age_gyr",
+          "value": 0.20730804,
+          "uncertainty": 0.026551500000000006,
+          "status": "superseded-by-spectroscopy",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "65287458566524928",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "mass_solar",
+          "value": 3.356137,
+          "uncertainty": 0.04322580000000009,
+          "status": "superseded-by-spectroscopy",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "65287458566524928",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.429287,
+          "uncertainty": 0.0779078000000002,
+          "status": "superseded-by-spectroscopy",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "65287458566524928",
+          "qualityFlags": "00"
+        },
+        {
           "field": "metallicity_dex",
           "value": 0.7671,
           "uncertainty": 0.03310000000000002,
@@ -327,31 +352,10 @@
           "qualityFlags": "00"
         },
         {
-          "field": "mass_solar",
-          "value": 3.356137,
-          "uncertainty": 0.04322580000000009,
-          "status": "model-derived",
-          "source": "Gaia DR3 astrophysical_parameters",
-          "sourceId": "65287458566524928",
-          "qualityFlags": "00"
-        },
-        {
           "field": "radius_solar",
-          "value": 3.429287,
-          "uncertainty": 0.0779078000000002,
-          "status": "model-derived",
-          "source": "Gaia DR3 astrophysical_parameters",
-          "sourceId": "65287458566524928",
-          "qualityFlags": "00"
-        },
-        {
-          "field": "age_gyr",
-          "value": 0.20730804,
-          "uncertainty": 0.026551500000000006,
-          "status": "model-derived",
-          "source": "Gaia DR3 astrophysical_parameters",
-          "sourceId": "65287458566524928",
-          "qualityFlags": "00"
+          "value": 3.8263928959458746,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
         }
       ]
     },
@@ -448,8 +452,7 @@
         "temperature_k": "published:2012MNRAS.427..343M:HIP-17531",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17531",
         "metallicity_dex": "gaia-dr3:65296907494549120",
-        "mass_solar": "gaia-dr3:65296907494549120",
-        "radius_solar": "gaia-dr3:65296907494549120"
+        "radius_solar": "derived:stefan-boltzmann"
       },
       "physicalObservations": [
         {
@@ -471,6 +474,24 @@
           "bibcode": "2012MNRAS.427..343M"
         },
         {
+          "field": "mass_solar",
+          "value": 3.825357,
+          "uncertainty": 0.08125680000000024,
+          "status": "superseded-by-spectroscopy",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "65296907494549120",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 4.160362,
+          "uncertainty": 0.19624729999999957,
+          "status": "superseded-by-spectroscopy",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "65296907494549120",
+          "qualityFlags": "00"
+        },
+        {
           "field": "metallicity_dex",
           "value": -0.3703,
           "uncertainty": 0.0006999999999999784,
@@ -480,22 +501,10 @@
           "qualityFlags": "00"
         },
         {
-          "field": "mass_solar",
-          "value": 3.825357,
-          "uncertainty": 0.08125680000000024,
-          "status": "model-derived",
-          "source": "Gaia DR3 astrophysical_parameters",
-          "sourceId": "65296907494549120",
-          "qualityFlags": "00"
-        },
-        {
           "field": "radius_solar",
-          "value": 4.160362,
-          "uncertainty": 0.19624729999999957,
-          "status": "model-derived",
-          "source": "Gaia DR3 astrophysical_parameters",
-          "sourceId": "65296907494549120",
-          "qualityFlags": "00"
+          "value": 4.405451559506375,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
         }
       ]
     },
@@ -820,9 +829,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-17847",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17847",
-        "metallicity_dex": "gaia-dr3:66526127137440128",
-        "mass_solar": "gaia-dr3:66526127137440128",
-        "radius_solar": "gaia-dr3:66526127137440128"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2016A&A...589A..83G"
       },
       "physicalObservations": [
         {
@@ -844,19 +852,19 @@
           "bibcode": "2012MNRAS.427..343M"
         },
         {
-          "field": "metallicity_dex",
-          "value": 0.5428,
-          "uncertainty": 0.19929999999999992,
-          "status": "model-derived",
+          "field": "mass_solar",
+          "value": 4.5091114,
+          "uncertainty": 0.11421159999999997,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "66526127137440128",
           "qualityFlags": "00"
         },
         {
-          "field": "mass_solar",
-          "value": 4.5091114,
-          "uncertainty": 0.11421159999999997,
-          "status": "model-derived",
+          "field": "metallicity_dex",
+          "value": 0.5428,
+          "uncertainty": 0.19929999999999992,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "66526127137440128",
           "qualityFlags": "00"
@@ -865,10 +873,28 @@
           "field": "radius_solar",
           "value": 7.318154,
           "uncertainty": 0.43559000000000037,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "66526127137440128",
           "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 8.10256545502213,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -1.2,
+          "status": "measured",
+          "reference": "2016A&A...589A..83G",
+          "uncertainty": null,
+          "identity": "* 27 Tau",
+          "sourceRecordId": "* 27 Tau:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
       ]
     },
@@ -1305,10 +1331,10 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-20889",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20889",
-        "metallicity_dex": "gaia-dr3:48026706558487040",
-        "radius_solar": "gaia-dr3:48026706558487040",
+        "radius_solar": "derived:stefan-boltzmann",
         "age_gyr": "shared:2018A&A...616A..33S",
-        "mass_solar": "shared:2019A&A...622A.190A"
+        "mass_solar": "shared:2019A&A...622A.190A",
+        "metallicity_dex": "shared:2024A&A...692A.189R"
       },
       "physicalObservations": [
         {
@@ -1333,7 +1359,7 @@
           "field": "metallicity_dex",
           "value": -0.8923,
           "uncertainty": 0.0032999999999999696,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "48026706558487040",
           "qualityFlags": "10"
@@ -1342,10 +1368,16 @@
           "field": "radius_solar",
           "value": 13.684357,
           "uncertainty": 0.29097050000000024,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "48026706558487040",
           "qualityFlags": "10"
+        },
+        {
+          "field": "radius_solar",
+          "value": 13.315698441604122,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
         },
         {
           "field": "age_gyr",
@@ -1378,6 +1410,18 @@
           "caveat": null,
           "quantity": null,
           "sourceUrl": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/616/A33"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.2,
+          "status": "measured",
+          "reference": "2024A&A...692A.189R",
+          "uncertainty": null,
+          "identity": "* eps Tau",
+          "sourceRecordId": "* eps Tau:mesFe_h:4",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
       ]
     },
@@ -1405,8 +1449,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-20205",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20205",
-        "metallicity_dex": "gaia-dr3:3312052249215275904",
-        "radius_solar": "gaia-dr3:3312052249215275904"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2024A&A...692A.189R"
       },
       "physicalObservations": [
         {
@@ -1431,7 +1475,7 @@
           "field": "metallicity_dex",
           "value": -0.5327,
           "uncertainty": 0.0028999999999999027,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "3312052249215275904",
           "qualityFlags": "10"
@@ -1440,10 +1484,28 @@
           "field": "radius_solar",
           "value": 12.551621,
           "uncertainty": 0.27222299999999855,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "3312052249215275904",
           "qualityFlags": "10"
+        },
+        {
+          "field": "radius_solar",
+          "value": 12.329714845614673,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.11,
+          "status": "measured",
+          "reference": "2024A&A...692A.189R",
+          "uncertainty": null,
+          "identity": "* gam Tau",
+          "sourceRecordId": "* gam Tau:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
       ]
     },
@@ -1836,9 +1898,8 @@
       "gaiaDr3Id": "145727729255780736",
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-20711",
-        "mass_solar": "published:1999A&A...352..555A:HIP-20711",
-        "radius_solar": "published:1999A&A...352..555A:HIP-20711",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20711",
+        "radius_solar": "derived:stefan-boltzmann",
         "age_gyr": "shared:2015ApJ...804..146D",
         "metallicity_dex": "shared:2016A&A...589A..83G"
       },
@@ -1853,24 +1914,6 @@
           "bibcode": "1999A&A...352..555A"
         },
         {
-          "field": "mass_solar",
-          "value": 2.11,
-          "uncertainty": 0.08,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 20711",
-          "bibcode": "1999A&A...352..555A"
-        },
-        {
-          "field": "radius_solar",
-          "value": 3.311311214825911,
-          "uncertainty": 0.22873727524566442,
-          "status": "model-derived",
-          "source": "Allende Prieto & Lambert 1999",
-          "sourceId": "HIP 20711",
-          "bibcode": "1999A&A...352..555A"
-        },
-        {
           "field": "luminosity_solar",
           "value": 30.782233236284576,
           "uncertainty": null,
@@ -1878,6 +1921,12 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 20711",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.363680262438774,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
         },
         {
           "field": "age_gyr",
@@ -2021,10 +2070,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-60351",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-60351",
-        "metallicity_dex": "gaia-dr3:4008342726516877312",
-        "mass_solar": "gaia-dr3:4008342726516877312",
-        "radius_solar": "gaia-dr3:4008342726516877312",
-        "age_gyr": "gaia-dr3:4008342726516877312"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2016A&A...587A...2B"
       },
       "physicalObservations": [
         {
@@ -2046,10 +2093,10 @@
           "bibcode": "2012MNRAS.427..343M"
         },
         {
-          "field": "metallicity_dex",
-          "value": -0.6194,
-          "uncertainty": 0.0038000000000000256,
-          "status": "model-derived",
+          "field": "age_gyr",
+          "value": 0.3772032,
+          "uncertainty": 0.05335780000000001,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "4008342726516877312",
           "qualityFlags": "00"
@@ -2058,7 +2105,16 @@
           "field": "mass_solar",
           "value": 2.959935,
           "uncertainty": 0.11052300000000015,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "4008342726516877312",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.6194,
+          "uncertainty": 0.0038000000000000256,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "4008342726516877312",
           "qualityFlags": "00"
@@ -2067,19 +2123,28 @@
           "field": "radius_solar",
           "value": 8.071031,
           "uncertainty": 0.221032000000001,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "4008342726516877312",
           "qualityFlags": "00"
         },
         {
-          "field": "age_gyr",
-          "value": 0.3772032,
-          "uncertainty": 0.05335780000000001,
-          "status": "model-derived",
-          "source": "Gaia DR3 astrophysical_parameters",
-          "sourceId": "4008342726516877312",
-          "qualityFlags": "00"
+          "field": "radius_solar",
+          "value": 7.4598254958265455,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.49,
+          "status": "measured",
+          "reference": "2016A&A...587A...2B",
+          "uncertainty": null,
+          "identity": "* 12 Com",
+          "sourceRecordId": "* 12 Com:mesFe_h:9",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
       ]
     },
@@ -2204,8 +2269,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-62763",
         "radius_solar": "published:1999A&A...352..555A:HIP-62763",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-62763",
-        "metallicity_dex": "gaia-dr3:3961912034103154944",
-        "age_gyr": "gaia-dr3:3961912034103154944"
+        "age_gyr": "gaia-dr3:3961912034103154944",
+        "metallicity_dex": "shared:2022A&A...663A...4S"
       },
       "physicalObservations": [
         {
@@ -2248,7 +2313,7 @@
           "field": "metallicity_dex",
           "value": -0.4303,
           "uncertainty": 0.0010999999999999899,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "3961912034103154944",
           "qualityFlags": "00"
@@ -2261,6 +2326,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "3961912034103154944",
           "qualityFlags": "00"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.0,
+          "status": "measured",
+          "reference": "2022A&A...663A...4S",
+          "uncertainty": null,
+          "identity": "* 31 Com",
+          "sourceRecordId": "* 31 Com:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -2497,8 +2574,7 @@
         "temperature_k": "published:2012MNRAS.427..343M:HIP-52370",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-52370",
         "metallicity_dex": "gaia-dr3:5239823134370969088",
-        "mass_solar": "gaia-dr3:5239823134370969088",
-        "radius_solar": "gaia-dr3:5239823134370969088"
+        "radius_solar": "derived:stefan-boltzmann"
       },
       "physicalObservations": [
         {
@@ -2520,6 +2596,24 @@
           "bibcode": "2012MNRAS.427..343M"
         },
         {
+          "field": "mass_solar",
+          "value": 4.550562,
+          "uncertainty": 0.046311999999999465,
+          "status": "superseded-by-spectroscopy",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5239823134370969088",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 4.1323,
+          "uncertainty": 0.09668900000000047,
+          "status": "superseded-by-spectroscopy",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "5239823134370969088",
+          "qualityFlags": "00"
+        },
+        {
           "field": "metallicity_dex",
           "value": -0.6699,
           "uncertainty": 0.000300000000000078,
@@ -2529,22 +2623,10 @@
           "qualityFlags": "00"
         },
         {
-          "field": "mass_solar",
-          "value": 4.550562,
-          "uncertainty": 0.046311999999999465,
-          "status": "model-derived",
-          "source": "Gaia DR3 astrophysical_parameters",
-          "sourceId": "5239823134370969088",
-          "qualityFlags": "00"
-        },
-        {
           "field": "radius_solar",
-          "value": 4.1323,
-          "uncertainty": 0.09668900000000047,
-          "status": "model-derived",
-          "source": "Gaia DR3 astrophysical_parameters",
-          "sourceId": "5239823134370969088",
-          "qualityFlags": "00"
+          "value": 4.70831558310771,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
         }
       ]
     },
@@ -2714,9 +2796,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-42536",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42536",
-        "metallicity_dex": "gaia-dr3:5318547273548061824",
-        "mass_solar": "gaia-dr3:5318547273548061824",
-        "radius_solar": "gaia-dr3:5318547273548061824"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2023ApJS..266...11B"
       },
       "physicalObservations": [
         {
@@ -2738,19 +2819,19 @@
           "bibcode": "2012MNRAS.427..343M"
         },
         {
-          "field": "metallicity_dex",
-          "value": 0.7441,
-          "uncertainty": 0.4346,
-          "status": "model-derived",
+          "field": "mass_solar",
+          "value": 5.730755,
+          "uncertainty": 0.1528640000000001,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318547273548061824",
           "qualityFlags": "00"
         },
         {
-          "field": "mass_solar",
-          "value": 5.730755,
-          "uncertainty": 0.1528640000000001,
-          "status": "model-derived",
+          "field": "metallicity_dex",
+          "value": 0.7441,
+          "uncertainty": 0.4346,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318547273548061824",
           "qualityFlags": "00"
@@ -2759,10 +2840,28 @@
           "field": "radius_solar",
           "value": 6.592267,
           "uncertainty": 0.31827200000000033,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318547273548061824",
           "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 5.479528531110129,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.08,
+          "status": "measured",
+          "reference": "2023ApJS..266...11B",
+          "uncertainty": null,
+          "identity": "* omi Vel",
+          "sourceRecordId": "* omi Vel:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -2790,9 +2889,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-42726",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42726",
-        "metallicity_dex": "gaia-dr3:5318486456810851072",
-        "mass_solar": "gaia-dr3:5318486456810851072",
-        "radius_solar": "gaia-dr3:5318486456810851072"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2023ApJS..266...11B"
       },
       "physicalObservations": [
         {
@@ -2814,19 +2912,19 @@
           "bibcode": "2012MNRAS.427..343M"
         },
         {
-          "field": "metallicity_dex",
-          "value": 0.7933,
-          "uncertainty": 0.011700000000000044,
-          "status": "model-derived",
+          "field": "mass_solar",
+          "value": 4.403055,
+          "uncertainty": 0.051766999999999896,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318486456810851072",
           "qualityFlags": "00"
         },
         {
-          "field": "mass_solar",
-          "value": 4.403055,
-          "uncertainty": 0.051766999999999896,
-          "status": "model-derived",
+          "field": "metallicity_dex",
+          "value": 0.7933,
+          "uncertainty": 0.011700000000000044,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318486456810851072",
           "qualityFlags": "00"
@@ -2835,10 +2933,28 @@
           "field": "radius_solar",
           "value": 3.846748,
           "uncertainty": 0.09604229999999969,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318486456810851072",
           "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.51561928214755,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.0192,
+          "status": "measured",
+          "reference": "2023ApJS..266...11B",
+          "uncertainty": null,
+          "identity": "HD 74560",
+          "sourceRecordId": "HD 74560:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
       ]
     },
@@ -2866,9 +2982,9 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-42504",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42504",
-        "metallicity_dex": "gaia-dr3:5318541982145960064",
-        "mass_solar": "gaia-dr3:5318541982145960064",
-        "radius_solar": "gaia-dr3:5318541982145960064"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2023ApJS..266...11B",
+        "mass_solar": "shared:Gaia DR3 astrophysical_parameters"
       },
       "physicalObservations": [
         {
@@ -2890,19 +3006,19 @@
           "bibcode": "2012MNRAS.427..343M"
         },
         {
-          "field": "metallicity_dex",
-          "value": -0.8304,
-          "uncertainty": 0.07250000000000001,
-          "status": "model-derived",
+          "field": "mass_solar",
+          "value": 4.366032,
+          "uncertainty": 0.04879870000000075,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318541982145960064",
           "qualityFlags": "00"
         },
         {
-          "field": "mass_solar",
-          "value": 4.366032,
-          "uncertainty": 0.04879870000000075,
-          "status": "model-derived",
+          "field": "metallicity_dex",
+          "value": -0.8304,
+          "uncertainty": 0.07250000000000001,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318541982145960064",
           "qualityFlags": "00"
@@ -2911,10 +3027,41 @@
           "field": "radius_solar",
           "value": 3.486503,
           "uncertainty": 0.08761229999999998,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318541982145960064",
           "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.243269530677744,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.0223,
+          "status": "measured",
+          "reference": "2023ApJS..266...11B",
+          "uncertainty": null,
+          "identity": "HD 74146",
+          "sourceRecordId": "HD 74146:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        },
+        {
+          "field": "mass_solar",
+          "value": 4.366032,
+          "status": "model-derived",
+          "reference": "Gaia DR3 astrophysical_parameters",
+          "uncertainty": 0.04879870000000075,
+          "identity": "HD 74146",
+          "sourceRecordId": "5318541982145960064",
+          "qualityFlags": [
+            "00"
+          ],
+          "quantity": null
         }
       ]
     },
@@ -2942,9 +3089,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-42459",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42459",
-        "metallicity_dex": "gaia-dr3:5318113550566048256",
-        "mass_solar": "gaia-dr3:5318113550566048256",
-        "radius_solar": "gaia-dr3:5318113550566048256"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2023ApJS..266...11B"
       },
       "physicalObservations": [
         {
@@ -2966,19 +3112,19 @@
           "bibcode": "2012MNRAS.427..343M"
         },
         {
-          "field": "metallicity_dex",
-          "value": -1.4552,
-          "uncertainty": 0.03370000000000006,
-          "status": "model-derived",
+          "field": "mass_solar",
+          "value": 4.4141474,
+          "uncertainty": 0.04521759999999997,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318113550566048256",
           "qualityFlags": "00"
         },
         {
-          "field": "mass_solar",
-          "value": 4.4141474,
-          "uncertainty": 0.04521759999999997,
-          "status": "model-derived",
+          "field": "metallicity_dex",
+          "value": -1.4552,
+          "uncertainty": 0.03370000000000006,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318113550566048256",
           "qualityFlags": "00"
@@ -2987,10 +3133,28 @@
           "field": "radius_solar",
           "value": 3.1505623,
           "uncertainty": 0.07614070000000028,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318113550566048256",
           "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 3.0679407931206666,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.4818,
+          "status": "measured",
+          "reference": "2023ApJS..266...11B",
+          "uncertainty": null,
+          "identity": "V* HW Vel",
+          "sourceRecordId": "V* HW Vel:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
       ]
     },
@@ -3018,9 +3182,9 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-42715",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42715",
-        "metallicity_dex": "gaia-dr3:5318485048061677952",
         "mass_solar": "gaia-dr3:5318485048061677952",
-        "radius_solar": "gaia-dr3:5318485048061677952"
+        "radius_solar": "gaia-dr3:5318485048061677952",
+        "metallicity_dex": "shared:2023ApJS..266...11B"
       },
       "physicalObservations": [
         {
@@ -3045,7 +3209,7 @@
           "field": "metallicity_dex",
           "value": 0.7969,
           "uncertainty": 0.0049000000000000155,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318485048061677952",
           "qualityFlags": "00"
@@ -3067,6 +3231,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318485048061677952",
           "qualityFlags": "00"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.1851,
+          "status": "measured",
+          "reference": "2023ApJS..266...11B",
+          "uncertainty": null,
+          "identity": "V* KT Vel",
+          "sourceRecordId": "V* KT Vel:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -3094,9 +3270,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-42535",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42535",
-        "metallicity_dex": "gaia-dr3:5318543425255007872",
-        "mass_solar": "gaia-dr3:5318543425255007872",
-        "radius_solar": "gaia-dr3:5318543425255007872"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2023ApJS..266...11B"
       },
       "physicalObservations": [
         {
@@ -3118,19 +3293,19 @@
           "bibcode": "2012MNRAS.427..343M"
         },
         {
-          "field": "metallicity_dex",
-          "value": -1.1204,
-          "uncertainty": 0.0011999999999998678,
-          "status": "model-derived",
+          "field": "mass_solar",
+          "value": 3.822324,
+          "uncertainty": 0.041980999999999824,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318543425255007872",
           "qualityFlags": "00"
         },
         {
-          "field": "mass_solar",
-          "value": 3.822324,
-          "uncertainty": 0.041980999999999824,
-          "status": "model-derived",
+          "field": "metallicity_dex",
+          "value": -1.1204,
+          "uncertainty": 0.0011999999999998678,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318543425255007872",
           "qualityFlags": "00"
@@ -3139,10 +3314,28 @@
           "field": "radius_solar",
           "value": 3.1953177,
           "uncertainty": 0.06908590000000014,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5318543425255007872",
           "qualityFlags": "00"
+        },
+        {
+          "field": "radius_solar",
+          "value": 2.8809219263107146,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.0245,
+          "status": "measured",
+          "reference": "2023ApJS..266...11B",
+          "uncertainty": null,
+          "identity": "HD 74196",
+          "sourceRecordId": "HD 74196:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -3170,10 +3363,10 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-42556",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42556",
-        "metallicity_dex": "gaia-dr3:661291136701346304",
-        "mass_solar": "gaia-dr3:661291136701346304",
-        "radius_solar": "gaia-dr3:661291136701346304",
-        "age_gyr": "gaia-dr3:661291136701346304"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2018AJ....155..149B",
+        "mass_solar": "shared:Gaia DR3 astrophysical_parameters",
+        "age_gyr": "shared:Gaia DR3 astrophysical_parameters"
       },
       "physicalObservations": [
         {
@@ -3195,10 +3388,10 @@
           "bibcode": "2012MNRAS.427..343M"
         },
         {
-          "field": "metallicity_dex",
-          "value": -1.6264,
-          "uncertainty": 0.0032000000000000917,
-          "status": "model-derived",
+          "field": "age_gyr",
+          "value": 0.501458,
+          "uncertainty": 0.06855326000000006,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "661291136701346304",
           "qualityFlags": "00"
@@ -3207,7 +3400,16 @@
           "field": "mass_solar",
           "value": 2.6248384,
           "uncertainty": 0.04583629999999994,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "661291136701346304",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -1.6264,
+          "uncertainty": 0.0032000000000000917,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "661291136701346304",
           "qualityFlags": "00"
@@ -3216,19 +3418,54 @@
           "field": "radius_solar",
           "value": 4.873694,
           "uncertainty": 0.10486130000000049,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "661291136701346304",
           "qualityFlags": "00"
         },
         {
+          "field": "radius_solar",
+          "value": 4.7699690910175905,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.02,
+          "status": "measured",
+          "reference": "2018AJ....155..149B",
+          "uncertainty": null,
+          "identity": "* eps Cnc",
+          "sourceRecordId": "* eps Cnc:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        },
+        {
+          "field": "mass_solar",
+          "value": 2.6248384,
+          "status": "model-derived",
+          "reference": "Gaia DR3 astrophysical_parameters",
+          "uncertainty": 0.04583629999999994,
+          "identity": "* eps Cnc",
+          "sourceRecordId": "661291136701346304",
+          "qualityFlags": [
+            "00"
+          ],
+          "quantity": null
+        },
+        {
           "field": "age_gyr",
           "value": 0.501458,
-          "uncertainty": 0.06855326000000006,
           "status": "model-derived",
-          "source": "Gaia DR3 astrophysical_parameters",
-          "sourceId": "661291136701346304",
-          "qualityFlags": "00"
+          "reference": "Gaia DR3 astrophysical_parameters",
+          "uncertainty": 0.06855326000000006,
+          "identity": "* eps Cnc",
+          "sourceRecordId": "661291136701346304",
+          "qualityFlags": [
+            "00"
+          ],
+          "quantity": null
         }
       ]
     },
@@ -3256,8 +3493,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-42549",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42549",
-        "metallicity_dex": "gaia-dr3:661297080936069632",
-        "radius_solar": "gaia-dr3:661297080936069632"
+        "radius_solar": "gaia-dr3:661297080936069632",
+        "metallicity_dex": "shared:2024A&A...687A.239C"
       },
       "physicalObservations": [
         {
@@ -3282,7 +3519,7 @@
           "field": "metallicity_dex",
           "value": 0.0201,
           "uncertainty": 0.0051,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "661297080936069632",
           "qualityFlags": "10"
@@ -3295,6 +3532,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "661297080936069632",
           "qualityFlags": "10"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.2183,
+          "status": "measured",
+          "reference": "2024A&A...687A.239C",
+          "uncertainty": null,
+          "identity": "HD 73710",
+          "sourceRecordId": "HD 73710:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -3322,8 +3571,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-42516",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42516",
-        "metallicity_dex": "gaia-dr3:661324431287688448",
-        "radius_solar": "gaia-dr3:661324431287688448"
+        "radius_solar": "gaia-dr3:661324431287688448",
+        "metallicity_dex": "shared:2024A&A...687A.239C"
       },
       "physicalObservations": [
         {
@@ -3348,7 +3597,7 @@
           "field": "metallicity_dex",
           "value": 0.0032,
           "uncertainty": 0.0034000000000000002,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "661324431287688448",
           "qualityFlags": "10"
@@ -3361,6 +3610,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "661324431287688448",
           "qualityFlags": "10"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.2713,
+          "status": "measured",
+          "reference": "2024A&A...687A.239C",
+          "uncertainty": null,
+          "identity": "* 39 Cnc",
+          "sourceRecordId": "* 39 Cnc:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -3388,10 +3649,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-42133",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42133",
-        "metallicity_dex": "gaia-dr3:662794169095142912",
-        "mass_solar": "gaia-dr3:662794169095142912",
-        "radius_solar": "gaia-dr3:662794169095142912",
-        "age_gyr": "gaia-dr3:662794169095142912"
+        "radius_solar": "derived:stefan-boltzmann",
+        "metallicity_dex": "shared:2018AJ....155..149B"
       },
       "physicalObservations": [
         {
@@ -3413,10 +3672,10 @@
           "bibcode": "2012MNRAS.427..343M"
         },
         {
-          "field": "metallicity_dex",
-          "value": -0.1764,
-          "uncertainty": 0.0010000000000000009,
-          "status": "model-derived",
+          "field": "age_gyr",
+          "value": 0.45547572,
+          "uncertainty": 0.046987299999999954,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "662794169095142912",
           "qualityFlags": "00"
@@ -3425,7 +3684,16 @@
           "field": "mass_solar",
           "value": 2.771235,
           "uncertainty": 0.040075000000000305,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
+          "source": "Gaia DR3 astrophysical_parameters",
+          "sourceId": "662794169095142912",
+          "qualityFlags": "00"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.1764,
+          "uncertainty": 0.0010000000000000009,
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "662794169095142912",
           "qualityFlags": "00"
@@ -3434,19 +3702,28 @@
           "field": "radius_solar",
           "value": 8.357158,
           "uncertainty": 0.20306000000000068,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "662794169095142912",
           "qualityFlags": "00"
         },
         {
-          "field": "age_gyr",
-          "value": 0.45547572,
-          "uncertainty": 0.046987299999999954,
-          "status": "model-derived",
-          "source": "Gaia DR3 astrophysical_parameters",
-          "sourceId": "662794169095142912",
-          "qualityFlags": "00"
+          "field": "radius_solar",
+          "value": 9.314145749048025,
+          "status": "derived",
+          "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.29,
+          "status": "measured",
+          "reference": "2018AJ....155..149B",
+          "uncertainty": null,
+          "identity": "* 35 Cnc",
+          "sourceRecordId": "* 35 Cnc:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       ]
     },
@@ -3474,8 +3751,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:2012MNRAS.427..343M:HIP-42497",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42497",
-        "metallicity_dex": "gaia-dr3:661271173693364864",
-        "radius_solar": "gaia-dr3:661271173693364864"
+        "radius_solar": "gaia-dr3:661271173693364864",
+        "metallicity_dex": "shared:2025A&A...704A.220B"
       },
       "physicalObservations": [
         {
@@ -3500,7 +3777,7 @@
           "field": "metallicity_dex",
           "value": -0.5106,
           "uncertainty": 0.0019000000000000128,
-          "status": "model-derived",
+          "status": "superseded-by-spectroscopy",
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "661271173693364864",
           "qualityFlags": "10"
@@ -3513,6 +3790,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "661271173693364864",
           "qualityFlags": "10"
+        },
+        {
+          "field": "metallicity_dex",
+          "value": 0.184,
+          "status": "measured",
+          "reference": "2025A&A...704A.220B",
+          "uncertainty": null,
+          "identity": "HD 73598",
+          "sourceRecordId": "HD 73598:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
       ]
     }

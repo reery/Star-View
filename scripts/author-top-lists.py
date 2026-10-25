@@ -22,7 +22,7 @@ OUTPUT = ROOT / "src/data/top-lists.json"
 FROZEN = ROOT / "catalog-work/top-lists/simbad.json"
 CATALOGS = ROOT / "src/data/generated/catalogs"
 # Earlier catalogs win, so links prefer the landmark records.
-CATALOG_ORDER = ["western-constellation-stars", "nearest-1000", "nearest-100"]
+CATALOG_ORDER = ["western-constellation-stars", "nearest-1000", "nearest-5000", "nearest-100"]
 LY_PER_PC = 3.261563777
 
 LARGEST = "https://en.wikipedia.org/w/index.php?oldid=1381460615"
@@ -179,8 +179,25 @@ SUPERNOVA_CANDIDATES = [
     ("DR1", "[AM85] IC 1613 6", 2350000, "WO3", "Wolf–Rayet star", "Ib/Ic with GRB?"),
 ]
 # name, SIMBAD identifier, distance (ly), spectral class, temperature (K), metallicity (dex), age (Gyr).
-# Rows follow the source's solar twin table in its distance order; the Sun's comparison row is omitted.
-# Minus signs are normalized and uncertainties written as ±.
+# Rows follow the source's solar-type sample table in its distance order; the Sun's comparison row is omitted.
+# Minus signs and ranges are normalized and uncertainties written as ±.
+SOLAR_TYPE = [
+    ("Alpha Centauri A (Rigil Kentaurus)", "alf Cen A", 4.37, "G2V", "5,790", "+0.20", "4.4"),
+    # The source gives no metallicity for Alpha Centauri B.
+    ("Alpha Centauri B (Toliman)", "alf Cen B", 4.37, "K1V", "5,242", "", "5.3"),
+    ("Epsilon Eridani", "eps Eri", 10.4, "K2V", "5,084", "−0.13", "0.4–0.8"),
+    ("Tau Ceti", "tau Cet", 11.9, "G8V", "5,344", "−0.52", "5.8"),
+    ("HD 20794", "HD 20794", 19.8, "G8V", "5,338", "−0.54", "6.1"),
+    ("Delta Pavonis", "del Pav", 19.9, "G8IV", "5,604", "+0.33", "~7"),
+    ("V538 Aurigae", "V538 Aur", 39.9, "K1V", "5,257", "−0.20", "3.7"),
+    ("HD 14412", "HD 14412", 41.3, "G5V", "5,432", "−0.46", "9.6"),
+    ("HR 4587", "HR 4587", 42.1, "G8IV", "5,538", "+0.18", "8.5"),
+    ("HD 172051", "HD 172051", 42.7, "G5V", "5,610", "−0.32", "4.3"),
+    ("72 Herculis", "72 Her", 46.9, "G0V", "5,662", "−0.37", "5"),
+    ("HD 196761", "HD 196761", 46.9, "G8V", "5,415", "−0.31", "6.6"),
+    ("Nu² Lupi", "nu.02 Lup", 47.5, "G4V", "5,664", "−0.34", "10.3"),
+]
+# The source's solar twin table, in the same layout: the known stars closest to the twin criteria.
 SOLAR_TWINS = [
     ("18 Scorpii", "18 Sco", 45.1, "G2Va", "5,433", "−0.03", "2.9"),
     ("HD 150248", "HD 150248", 90.7, "G3V + ?", "5,750", "−0.04", "8.10"),
@@ -313,12 +330,17 @@ def build():
          # Ordered by distance, nearest first.
          "entries": sorted((candidate(index, records, frozen, *row) for row in SUPERNOVA_CANDIDATES),
                            key=lambda row: row["distance_pc"])},
-        {"id": "solar-twins", "title": "Solar twins", "columns": SOLAR_COLUMNS,
-         "source": {"label": "Wikipedia · Solar analog (solar twins)", "url": SOLAR_ANALOG},
-         "entries": [solar(index, frozen, *row) for row in SOLAR_TWINS]},
-        {"id": "sun-like", "title": "Sun-like stars", "columns": SOLAR_COLUMNS,
+        # Ordered from the broadest to the strictest similarity to the Sun.
+        {"id": "solar-type", "title": "Solar-type stars", "columns": SOLAR_COLUMNS,
+         "source": {"label": "Wikipedia · Solar analog (solar-type stars)", "url": SOLAR_ANALOG},
+         "entries": [solar(index, frozen, *row) for row in SOLAR_TYPE]},
+        {"id": "solar-analogs", "title": "Solar analogs", "columns": SOLAR_COLUMNS,
          "source": {"label": "Wikipedia · Solar analog (solar analogs)", "url": SOLAR_ANALOG},
          "entries": [solar(index, frozen, *row) for row in SOLAR_ANALOGS]},
+        # No exact solar twin is known; the source lists the closest candidates.
+        {"id": "solar-twins", "title": "Solar twin candidates", "columns": SOLAR_COLUMNS,
+         "source": {"label": "Wikipedia · Solar analog (solar twins)", "url": SOLAR_ANALOG},
+         "entries": [solar(index, frozen, *row) for row in SOLAR_TWINS]},
     ]}
 
 
@@ -328,7 +350,7 @@ def main():
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     if args.refresh:
-        refresh(list(dict.fromkeys(row[1] for row in [*LARGEST_STARS, *HOTTEST_STARS, *SUPERNOVA_CANDIDATES, *SOLAR_TWINS, *SOLAR_ANALOGS])))
+        refresh(list(dict.fromkeys(row[1] for row in [*LARGEST_STARS, *HOTTEST_STARS, *SUPERNOVA_CANDIDATES, *SOLAR_TYPE, *SOLAR_ANALOGS, *SOLAR_TWINS])))
     text = json.dumps(build(), indent=1, ensure_ascii=False) + "\n"
     if args.check:
         if not OUTPUT.exists() or OUTPUT.read_text() != text:

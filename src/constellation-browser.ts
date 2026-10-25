@@ -3,7 +3,7 @@ import type { Star } from './catalog-model'
 import { appendConstellationContent } from './constellation-card-content'
 import { disposeConstellationCard, renderConstellationCard, resetConstellationInfo } from './constellation-card'
 import { loadConstellationByName, type ConstellationChart } from './constellations'
-import { constellationCharts } from './data/constellations'
+import { constellationAbbreviations, constellationCharts } from './data/constellations'
 import { clearLoadRecovery, loadWithRecovery } from './load-recovery'
 
 interface BrowserOptions {
@@ -60,7 +60,9 @@ export function initializeConstellationBrowser(signal: AbortSignal, options: () 
       const button = document.createElement('button')
       button.type = 'button'
       button.className = 'glossary-term'
-      button.textContent = name
+      const abbreviation = Object.assign(document.createElement('span'), { className: 'glossary-term-icon', title: name, textContent: constellationAbbreviations.get(name)! })
+      abbreviation.setAttribute('aria-hidden', 'true')
+      button.append(abbreviation, Object.assign(document.createElement('span'), { className: 'glossary-term-label', textContent: name }))
       button.dataset.constellation = name
       button.setAttribute('aria-controls', detail.id)
       return button

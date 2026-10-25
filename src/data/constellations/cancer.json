@@ -74,7 +74,7 @@
         "mass_solar": 1.25,
         "luminosity_solar": 2.511733,
         "radius_solar": 1.202264434617413,
-        "metallicity_dex": -0.5936,
+        "metallicity_dex": -0.28,
         "age_gyr": 3.7354858,
         "absolute_mag": 3.82856,
         "epoch": 2000.0,
@@ -83,8 +83,8 @@
         "name": "Chi Cnc",
         "constellation": "Cancer",
         "spectral_type": "F6V",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 40843; Stellarium Cnc). SIMBAD identity * chi Cnc; Hipparcos Johnson V=5.13 (SIMBAD V unavailable); Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 40843; Stellarium Cnc). SIMBAD identity * chi Cnc; Hipparcos Johnson V=5.13 (SIMBAD V unavailable); Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar, age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...682A.145S).",
         "designations": [
           "HIP 40843"
         ],
@@ -861,7 +861,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

@@ -144,6 +144,1478 @@
       "expectedPrevious": "3060",
       "expectedCurrent": "",
       "reason": "The previous 3060 K is an unresolved M5V system class estimate, not an individual temperature. Retained in catalog-work/shared-enrichment/ez-aquarii-review.json previousCatalogRecords and previousEffectiveComponents, and effective catalog_sources. Individual spectral types are retained separately; no component temperature inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-2182",
+      "field": "mass_solar",
+      "expectedPrevious": "0.92",
+      "expectedCurrent": "",
+      "reason": "The 0.92 Msun Allende Prieto & Lambert 1999 model mass (HIP 43587) assumes near-solar composition and is adopted only for |[Fe/H]| <= 0.3. It was admitted by a biased Gaia DR3 GSP-Phot [M/H]; the published spectroscopic consensus now adopted for Copernicus is above +0.3 dex. The source row remains in catalog-work/shared-enrichment/literature/fundamental.csv; no replacement mass is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4846",
+      "field": "mass_solar",
+      "expectedPrevious": "0.8286758",
+      "expectedCurrent": "",
+      "reason": "The previous 0.8286758 (Msun) value of Alsafi was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5153 K differs by 2.6% from the adopted 5289 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4846",
+      "field": "age_gyr",
+      "expectedPrevious": "9.933178",
+      "expectedCurrent": "",
+      "reason": "The previous 9.933178 (Gyr) value of Alsafi was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5153 K differs by 2.6% from the adopted 5289 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0239",
+      "field": "age_gyr",
+      "expectedPrevious": "10.061203",
+      "expectedCurrent": "",
+      "reason": "The previous 10.061203 (Gyr) value of Achird was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5726 K differs by 3.2% from the adopted 5914 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4233",
+      "field": "mass_solar",
+      "expectedPrevious": "0.81458086",
+      "expectedCurrent": "",
+      "reason": "The previous 0.81458086 (Msun) value of 36 Oph B was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.33 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4233",
+      "field": "age_gyr",
+      "expectedPrevious": "6.304093",
+      "expectedCurrent": "",
+      "reason": "The previous 6.304093 (Gyr) value of 36 Oph B was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.33 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4238",
+      "field": "mass_solar",
+      "expectedPrevious": "0.68191016",
+      "expectedCurrent": "",
+      "reason": "The previous 0.68191016 (Msun) value of V2215 Oph was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4381 K differs by 8.1% from the adopted 4765 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0843",
+      "field": "mass_solar",
+      "expectedPrevious": "0.88599557",
+      "expectedCurrent": "",
+      "reason": "The previous 0.88599557 (Msun) value of e Eri was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.42 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0843",
+      "field": "age_gyr",
+      "expectedPrevious": "9.191145",
+      "expectedCurrent": "",
+      "reason": "The previous 9.191145 (Gyr) value of e Eri was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.42 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-5017",
+      "field": "mass_solar",
+      "expectedPrevious": "0.5671036",
+      "expectedCurrent": "",
+      "reason": "The previous 0.5671036 (Msun) value of HD 191849 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 3589 K differs by 6.7% from the adopted 3364 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-5017",
+      "field": "age_gyr",
+      "expectedPrevious": "13.083188",
+      "expectedCurrent": "",
+      "reason": "The previous 13.083188 (Gyr) value of HD 191849 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 3589 K differs by 6.7% from the adopted 3364 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-3674",
+      "field": "mass_solar",
+      "expectedPrevious": "0.9037054",
+      "expectedCurrent": "",
+      "reason": "The previous 0.9037054 (Msun) value of Xi Boo A was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5386 K differs by 4.2% from the adopted 5620 K and FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.33 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-3674",
+      "field": "age_gyr",
+      "expectedPrevious": "4.755022",
+      "expectedCurrent": "",
+      "reason": "The previous 4.755022 (Gyr) value of Xi Boo A was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5386 K differs by 4.2% from the adopted 5620 K and FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.33 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0233",
+      "field": "mass_solar",
+      "expectedPrevious": "0.7615059",
+      "expectedCurrent": "",
+      "reason": "The previous 0.7615059 (Msun) value of HD 4628 was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.37 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-5660",
+      "field": "mass_solar",
+      "expectedPrevious": "0.72544885",
+      "expectedCurrent": "",
+      "reason": "The previous 0.72544885 (Msun) value of Fomalhaut B was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4463 K differs by 6.0% from the adopted 4750 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-5660",
+      "field": "age_gyr",
+      "expectedPrevious": "9.807368",
+      "expectedCurrent": "",
+      "reason": "The previous 9.807368 (Gyr) value of Fomalhaut B was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4463 K differs by 6.0% from the adopted 4750 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1208",
+      "field": "age_gyr",
+      "expectedPrevious": "4.001862",
+      "expectedCurrent": "",
+      "reason": "The previous 4.001862 (Gyr) value of Tabit was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 6154 K differs by 5.6% from the adopted 6518 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0428",
+      "field": "mass_solar",
+      "expectedPrevious": "0.7728912",
+      "expectedCurrent": "",
+      "reason": "The previous 0.7728912 (Msun) value of p Eri B was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.40 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0428",
+      "field": "age_gyr",
+      "expectedPrevious": "12.368283",
+      "expectedCurrent": "",
+      "reason": "The previous 12.368283 (Gyr) value of p Eri B was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.40 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-5672",
+      "field": "age_gyr",
+      "expectedPrevious": "12.032092",
+      "expectedCurrent": "",
+      "reason": "The previous 12.032092 (Gyr) value of HD 217357 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 3828 K differs by 6.2% from the adopted 4081 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0102",
+      "field": "age_gyr",
+      "expectedPrevious": "6.3416305",
+      "expectedCurrent": "",
+      "reason": "The previous 6.3416305 (Gyr) value of Zeta Tuc was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5858 K differs by 2.7% from the adopted 6019 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1703",
+      "field": "mass_solar",
+      "expectedPrevious": "0.73907465",
+      "expectedCurrent": "",
+      "reason": "The previous 0.73907465 (Msun) value of HD 50281 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4573 K differs by 4.1% from the adopted 4767 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1703",
+      "field": "age_gyr",
+      "expectedPrevious": "10.144342",
+      "expectedCurrent": "",
+      "reason": "The previous 10.144342 (Gyr) value of HD 50281 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4573 K differs by 4.1% from the adopted 4767 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4255",
+      "field": "mass_solar",
+      "expectedPrevious": "0.82872355",
+      "expectedCurrent": "",
+      "reason": "The previous 0.82872355 (Msun) value of 41 Ara was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5183 K differs by 8.9% from the adopted 4759 K and FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.39 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4255",
+      "field": "age_gyr",
+      "expectedPrevious": "11.021927",
+      "expectedCurrent": "",
+      "reason": "The previous 11.021927 (Gyr) value of 41 Ara was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5183 K differs by 8.9% from the adopted 4759 K and FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.39 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1425",
+      "field": "mass_solar",
+      "expectedPrevious": "0.80014473",
+      "expectedCurrent": "",
+      "reason": "The previous 0.80014473 (Msun) value of AK Lep was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4795 K differs by 4.6% from the adopted 5027 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1425",
+      "field": "age_gyr",
+      "expectedPrevious": "5.8563476",
+      "expectedCurrent": "",
+      "reason": "The previous 5.8563476 (Gyr) value of AK Lep was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4795 K differs by 4.6% from the adopted 5027 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1427",
+      "field": "age_gyr",
+      "expectedPrevious": "4.001788",
+      "expectedCurrent": "",
+      "reason": "The previous 4.001788 (Gyr) value of Gamma Lep was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 6149 K differs by 3.7% from the adopted 6386 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-5277",
+      "field": "mass_solar",
+      "expectedPrevious": "1.1236573",
+      "expectedCurrent": "",
+      "reason": "The previous 1.1236573 (Msun) value of Gamma Pav was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.69 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-5277",
+      "field": "age_gyr",
+      "expectedPrevious": "1.859697",
+      "expectedCurrent": "",
+      "reason": "The previous 1.859697 (Gyr) value of Gamma Pav was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.69 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-2835",
+      "field": "mass_solar",
+      "expectedPrevious": "0.86744416",
+      "expectedCurrent": "",
+      "reason": "The previous 0.86744416 (Msun) value of 20 Crt was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.46 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4078",
+      "field": "mass_solar",
+      "expectedPrevious": "0.8221717",
+      "expectedCurrent": "",
+      "reason": "The previous 0.8221717 (Msun) value of 12 Oph was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5107 K differs by 2.7% from the adopted 5248 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4078",
+      "field": "age_gyr",
+      "expectedPrevious": "12.081424",
+      "expectedCurrent": "",
+      "reason": "The previous 12.081424 (Gyr) value of 12 Oph was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5107 K differs by 2.7% from the adopted 5248 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1151",
+      "field": "age_gyr",
+      "expectedPrevious": "10.321465",
+      "expectedCurrent": "",
+      "reason": "The previous 10.321465 (Gyr) value of HD 232979 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0722",
+      "field": "mass_solar",
+      "expectedPrevious": "0.79806995",
+      "expectedCurrent": "",
+      "reason": "The previous 0.79806995 (Msun) value of HD 17925 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5002 K differs by 2.9% from the adopted 5149 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4183",
+      "field": "mass_solar",
+      "expectedPrevious": "0.67106116",
+      "expectedCurrent": "",
+      "reason": "The previous 0.67106116 (Msun) value of HD 154363 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4311 K differs by 2.0% from the adopted 4400 K and FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.59 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4183",
+      "field": "age_gyr",
+      "expectedPrevious": "13.373318",
+      "expectedCurrent": "",
+      "reason": "The previous 13.373318 (Gyr) value of HD 154363 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4311 K differs by 2.0% from the adopted 4400 K and FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.59 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-5444",
+      "field": "age_gyr",
+      "expectedPrevious": "12.038479",
+      "expectedCurrent": "",
+      "reason": "The previous 12.038479 (Gyr) value of HD 209290 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0543",
+      "field": "mass_solar",
+      "expectedPrevious": "0.8639877",
+      "expectedCurrent": "",
+      "reason": "The previous 0.8639877 (Msun) value of HD 13445 was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.31 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0543",
+      "field": "age_gyr",
+      "expectedPrevious": "2.6841602",
+      "expectedCurrent": "",
+      "reason": "The previous 2.6841602 (Gyr) value of HD 13445 was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.31 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-5888",
+      "field": "mass_solar",
+      "expectedPrevious": "0.79425615",
+      "expectedCurrent": "",
+      "reason": "The previous 0.79425615 (Msun) value of HD 223778 was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.43 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-2903",
+      "field": "age_gyr",
+      "expectedPrevious": "5.5639296",
+      "expectedCurrent": "",
+      "reason": "The previous 5.5639296 (Gyr) value of Zavijava was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 6001 K differs by 4.3% from the adopted 6270 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-3360",
+      "field": "age_gyr",
+      "expectedPrevious": "13.204911",
+      "expectedCurrent": "",
+      "reason": "The previous 13.204911 (Gyr) value of BD+36 2393 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4720",
+      "field": "age_gyr",
+      "expectedPrevious": "9.750143",
+      "expectedCurrent": "",
+      "reason": "The previous 9.750143 (Gyr) value of HD 176029 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-2159",
+      "field": "mass_solar",
+      "expectedPrevious": "0.7809653",
+      "expectedCurrent": "",
+      "reason": "The previous 0.7809653 (Msun) value of HD 74576 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4851 K differs by 2.8% from the adopted 4990 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-2159",
+      "field": "age_gyr",
+      "expectedPrevious": "11.380833",
+      "expectedCurrent": "",
+      "reason": "The previous 11.380833 (Gyr) value of HD 74576 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4851 K differs by 2.8% from the adopted 4990 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0652",
+      "field": "age_gyr",
+      "expectedPrevious": "9.821608",
+      "expectedCurrent": "",
+      "reason": "The previous 9.821608 (Gyr) value of CC Eri was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 3612 K differs by 8.0% from the adopted 3925 K and FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is +0.50 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-2724",
+      "field": "age_gyr",
+      "expectedPrevious": "13.480679",
+      "expectedCurrent": "",
+      "reason": "The previous 13.480679 (Gyr) value of HD 97101 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0606",
+      "field": "age_gyr",
+      "expectedPrevious": "13.3175",
+      "expectedCurrent": "",
+      "reason": "The previous 13.3175 (Gyr) value of BD+47 612 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-3135",
+      "field": "age_gyr",
+      "expectedPrevious": "1.703898",
+      "expectedCurrent": "",
+      "reason": "The previous 1.703898 (Gyr) value of Porrima was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 6740 K differs by 3.9% from the adopted 7014 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0829",
+      "field": "mass_solar",
+      "expectedPrevious": "0.96955705",
+      "expectedCurrent": "",
+      "reason": "The previous 0.96955705 (Msun) value of Zeta1 Ret was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5631 K differs by 2.4% from the adopted 5771 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0829",
+      "field": "age_gyr",
+      "expectedPrevious": "3.915964",
+      "expectedCurrent": "",
+      "reason": "The previous 3.915964 (Gyr) value of Zeta1 Ret was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5631 K differs by 2.4% from the adopted 5771 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-2182",
+      "field": "mass_solar",
+      "expectedPrevious": "0.92",
+      "expectedCurrent": "",
+      "reason": "The previous 0.92 (Msun) value of Copernicus was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is +0.46 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4013",
+      "field": "mass_solar",
+      "expectedPrevious": "0.9714177",
+      "expectedCurrent": "",
+      "reason": "The previous 0.9714177 (Msun) value of HD 147513 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5724 K differs by 2.5% from the adopted 5868 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4013",
+      "field": "age_gyr",
+      "expectedPrevious": "6.835294",
+      "expectedCurrent": "",
+      "reason": "The previous 6.835294 (Gyr) value of HD 147513 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5724 K differs by 2.5% from the adopted 5868 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-2572",
+      "field": "age_gyr",
+      "expectedPrevious": "4.043464",
+      "expectedCurrent": "",
+      "reason": "The previous 4.043464 (Gyr) value of 36 UMa was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 6066 K differs by 3.1% from the adopted 6259 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-3613",
+      "field": "mass_solar",
+      "expectedPrevious": "0.74485373",
+      "expectedCurrent": "",
+      "reason": "The previous 0.74485373 (Msun) value of HD 128165 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4667 K differs by 2.6% from the adopted 4793 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1198",
+      "field": "mass_solar",
+      "expectedPrevious": "0.9656809",
+      "expectedCurrent": "",
+      "reason": "The previous 0.9656809 (Msun) value of 58 Eri was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5699 K differs by 3.5% from the adopted 5904 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1198",
+      "field": "age_gyr",
+      "expectedPrevious": "6.759125",
+      "expectedCurrent": "",
+      "reason": "The previous 6.759125 (Gyr) value of 58 Eri was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5699 K differs by 3.5% from the adopted 5904 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1323",
+      "field": "mass_solar",
+      "expectedPrevious": "0.53719205",
+      "expectedCurrent": "",
+      "reason": "The previous 0.53719205 (Msun) value of Capella H was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 3631 K differs by 4.4% from the adopted 3800 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1323",
+      "field": "age_gyr",
+      "expectedPrevious": "10.741266",
+      "expectedCurrent": "",
+      "reason": "The previous 10.741266 (Gyr) value of Capella H was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 3631 K differs by 4.4% from the adopted 3800 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0402",
+      "field": "age_gyr",
+      "expectedPrevious": "3.9052172",
+      "expectedCurrent": "",
+      "reason": "The previous 3.9052172 (Gyr) value of Titawin was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 6096 K differs by 2.2% from the adopted 6233 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-2362",
+      "field": "age_gyr",
+      "expectedPrevious": "11.16512",
+      "expectedCurrent": "",
+      "reason": "The previous 11.16512 (Gyr) value of BD+36 1970 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0942",
+      "field": "mass_solar",
+      "expectedPrevious": "0.7652207",
+      "expectedCurrent": "",
+      "reason": "The previous 0.7652207 (Msun) value of HD 23356 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4823 K differs by 2.3% from the adopted 4935 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0942",
+      "field": "age_gyr",
+      "expectedPrevious": "13.375557",
+      "expectedCurrent": "",
+      "reason": "The previous 13.375557 (Gyr) value of HD 23356 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4823 K differs by 2.3% from the adopted 4935 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0261",
+      "field": "mass_solar",
+      "expectedPrevious": "0.75816894",
+      "expectedCurrent": "",
+      "reason": "The previous 0.75816894 (Msun) value of HD 5133 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4815 K differs by 2.4% from the adopted 4932 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0261",
+      "field": "age_gyr",
+      "expectedPrevious": "13.245395",
+      "expectedCurrent": "",
+      "reason": "The previous 13.245395 (Gyr) value of HD 5133 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4815 K differs by 2.4% from the adopted 4932 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-15510",
+      "field": "mass_solar",
+      "expectedPrevious": "0.88599557",
+      "expectedCurrent": "",
+      "reason": "The previous 0.88599557 (Msun) value of e Eri was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.42 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-15510",
+      "field": "age_gyr",
+      "expectedPrevious": "9.191145",
+      "expectedCurrent": "",
+      "reason": "The previous 9.191145 (Gyr) value of e Eri was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.42 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "cns5-5660",
+      "field": "mass_solar",
+      "expectedPrevious": "0.72544885",
+      "expectedCurrent": "",
+      "reason": "The previous 0.72544885 (Msun) value of Fomalhaut B was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4463 K differs by 6.0% from the adopted 4750 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "cns5-5660",
+      "field": "age_gyr",
+      "expectedPrevious": "9.807368",
+      "expectedCurrent": "",
+      "reason": "The previous 9.807368 (Gyr) value of Fomalhaut B was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4463 K differs by 6.0% from the adopted 4750 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-22449",
+      "field": "age_gyr",
+      "expectedPrevious": "4.001862",
+      "expectedCurrent": "",
+      "reason": "The previous 4.001862 (Gyr) value of Tabit was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 6154 K differs by 5.6% from the adopted 6518 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-61317",
+      "field": "mass_solar",
+      "expectedPrevious": "0.97734916",
+      "expectedCurrent": "",
+      "reason": "The previous 0.97734916 (Msun) value of Chara was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-61317",
+      "field": "age_gyr",
+      "expectedPrevious": "8.645154",
+      "expectedCurrent": "",
+      "reason": "The previous 8.645154 (Gyr) value of Chara was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-1599",
+      "field": "age_gyr",
+      "expectedPrevious": "6.3416305",
+      "expectedCurrent": "",
+      "reason": "The previous 6.3416305 (Gyr) value of Zeta Tuc was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 5858 K differs by 2.7% from the adopted 6019 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "cns5-1425",
+      "field": "mass_solar",
+      "expectedPrevious": "0.80014473",
+      "expectedCurrent": "",
+      "reason": "The previous 0.80014473 (Msun) value of AK Lep was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4795 K differs by 4.6% from the adopted 5027 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "cns5-1425",
+      "field": "age_gyr",
+      "expectedPrevious": "5.8563476",
+      "expectedCurrent": "",
+      "reason": "The previous 5.8563476 (Gyr) value of AK Lep was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 4795 K differs by 4.6% from the adopted 5027 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-27072",
+      "field": "age_gyr",
+      "expectedPrevious": "4.001788",
+      "expectedCurrent": "",
+      "reason": "The previous 4.001788 (Gyr) value of Gamma Lep was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 6149 K differs by 3.7% from the adopted 6386 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-105858",
+      "field": "age_gyr",
+      "expectedPrevious": "1.859697",
+      "expectedCurrent": "",
+      "reason": "The previous 1.859697 (Gyr) value of Gamma Pav was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.69 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-61941",
+      "field": "age_gyr",
+      "expectedPrevious": "1.703898",
+      "expectedCurrent": "",
+      "reason": "The previous 1.703898 (Gyr) value of Porrima was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 6740 K differs by 3.9% from the adopted 7014 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "cns5-1323",
+      "field": "mass_solar",
+      "expectedPrevious": "0.53719205",
+      "expectedCurrent": "",
+      "reason": "The previous 0.53719205 (Msun) value of Capella H was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 3631 K differs by 4.4% from the adopted 3800 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "cns5-1323",
+      "field": "age_gyr",
+      "expectedPrevious": "10.741266",
+      "expectedCurrent": "",
+      "reason": "The previous 10.741266 (Gyr) value of Capella H was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature 3631 K differs by 4.4% from the adopted 3800 K (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-59199",
+      "field": "age_gyr",
+      "expectedPrevious": "1.0341513",
+      "expectedCurrent": "",
+      "reason": "The previous 1.0341513 (Gyr) value of Alchiba was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-77760",
+      "field": "age_gyr",
+      "expectedPrevious": "7.0801244",
+      "expectedCurrent": "",
+      "reason": "The previous 7.0801244 (Gyr) value of Chi Her was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.47 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-46509",
+      "field": "mass_solar",
+      "expectedPrevious": "1.3158851",
+      "expectedCurrent": "",
+      "reason": "The previous 1.3158851 (Msun) value of Tau1 Hya was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-46509",
+      "field": "age_gyr",
+      "expectedPrevious": "2.9210308",
+      "expectedCurrent": "",
+      "reason": "The previous 2.9210308 (Gyr) value of Tau1 Hya was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-40702",
+      "field": "age_gyr",
+      "expectedPrevious": "2.0767844",
+      "expectedCurrent": "",
+      "reason": "The previous 2.0767844 (Gyr) value of Alpha Cha was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-25110",
+      "field": "age_gyr",
+      "expectedPrevious": "3.3389146",
+      "expectedCurrent": "",
+      "reason": "The previous 3.3389146 (Gyr) value of HD 33564 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-84143",
+      "field": "age_gyr",
+      "expectedPrevious": "1.3445904",
+      "expectedCurrent": "",
+      "reason": "The previous 1.3445904 (Gyr) value of Eta Sco was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-59774",
+      "field": "age_gyr",
+      "expectedPrevious": "0.7246109",
+      "expectedCurrent": "",
+      "reason": "The previous 0.7246109 (Gyr) value of Megrez was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.60 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-60965",
+      "field": "age_gyr",
+      "expectedPrevious": "0.5827021",
+      "expectedCurrent": "",
+      "reason": "The previous 0.5827021 (Gyr) value of Algorab was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-71075",
+      "field": "age_gyr",
+      "expectedPrevious": "0.9201166",
+      "expectedCurrent": "",
+      "reason": "The previous 0.9201166 (Gyr) value of Seginus was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-118268",
+      "field": "mass_solar",
+      "expectedPrevious": "1.9004097",
+      "expectedCurrent": "",
+      "reason": "The previous 1.9004097 (Msun) value of Omega Psc was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-118268",
+      "field": "age_gyr",
+      "expectedPrevious": "1.3224376",
+      "expectedCurrent": "",
+      "reason": "The previous 1.3224376 (Gyr) value of Omega Psc was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-104521",
+      "field": "age_gyr",
+      "expectedPrevious": "1.1414027",
+      "expectedCurrent": "",
+      "reason": "The previous 1.1414027 (Gyr) value of Gamma Equ was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-75695",
+      "field": "age_gyr",
+      "expectedPrevious": "0.8251587",
+      "expectedCurrent": "",
+      "reason": "The previous 0.8251587 (Gyr) value of Nusakan was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is +1.00 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-93805",
+      "field": "age_gyr",
+      "expectedPrevious": "0.3362059",
+      "expectedCurrent": "",
+      "reason": "The previous 0.3362059 (Gyr) value of Lambda Aql was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-72220",
+      "field": "age_gyr",
+      "expectedPrevious": "0.50608945",
+      "expectedCurrent": "",
+      "reason": "The previous 0.50608945 (Gyr) value of 109 Vir was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-14240",
+      "field": "age_gyr",
+      "expectedPrevious": "1.4291853",
+      "expectedCurrent": "",
+      "reason": "The previous 1.4291853 (Gyr) value of Mu Hor was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.42 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-113136",
+      "field": "age_gyr",
+      "expectedPrevious": "0.54425335",
+      "expectedCurrent": "",
+      "reason": "The previous 0.54425335 (Gyr) value of Skat was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-2484",
+      "field": "mass_solar",
+      "expectedPrevious": "2.4772525",
+      "expectedCurrent": "",
+      "reason": "The previous 2.4772525 (Msun) value of Beta1 Tuc was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-104139",
+      "field": "age_gyr",
+      "expectedPrevious": "0.4794336",
+      "expectedCurrent": "",
+      "reason": "The previous 0.4794336 (Gyr) value of Theta Cap was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-91971",
+      "field": "mass_solar",
+      "expectedPrevious": "2.1395319",
+      "expectedCurrent": "",
+      "reason": "The previous 2.1395319 (Msun) value of Zeta1 Lyr was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-91971",
+      "field": "age_gyr",
+      "expectedPrevious": "0.81145525",
+      "expectedCurrent": "",
+      "reason": "The previous 0.81145525 (Gyr) value of Zeta1 Lyr was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-30060",
+      "field": "mass_solar",
+      "expectedPrevious": "2.2586925",
+      "expectedCurrent": "",
+      "reason": "The previous 2.2586925 (Msun) value of 2 Lyn was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.60 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-30060",
+      "field": "age_gyr",
+      "expectedPrevious": "0.5026203",
+      "expectedCurrent": "",
+      "reason": "The previous 0.5026203 (Gyr) value of 2 Lyn was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.60 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-83207",
+      "field": "mass_solar",
+      "expectedPrevious": "2.5549467",
+      "expectedCurrent": "",
+      "reason": "The previous 2.5549467 (Msun) value of Epsilon Her was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.80 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-83207",
+      "field": "age_gyr",
+      "expectedPrevious": "0.437302",
+      "expectedCurrent": "",
+      "reason": "The previous 0.437302 (Gyr) value of Epsilon Her was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.80 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-20042",
+      "field": "mass_solar",
+      "expectedPrevious": "3.1239188",
+      "expectedCurrent": "",
+      "reason": "The previous 3.1239188 (Msun) value of Upsilon4 Eri was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-20042",
+      "field": "age_gyr",
+      "expectedPrevious": "0.2299525",
+      "expectedCurrent": "",
+      "reason": "The previous 0.2299525 (Gyr) value of Upsilon4 Eri was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-85822",
+      "field": "age_gyr",
+      "expectedPrevious": "0.5382995",
+      "expectedCurrent": "",
+      "reason": "The previous 0.5382995 (Gyr) value of Yildun was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-22509",
+      "field": "age_gyr",
+      "expectedPrevious": "0.47538254",
+      "expectedCurrent": "",
+      "reason": "The previous 0.47538254 (Gyr) value of Pi2 Ori was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -1.20 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-99473",
+      "field": "mass_solar",
+      "expectedPrevious": "4.212757",
+      "expectedCurrent": "",
+      "reason": "The previous 4.212757 (Msun) value of Antinous was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-24244",
+      "field": "mass_solar",
+      "expectedPrevious": "3.3262155",
+      "expectedCurrent": "",
+      "reason": "The previous 3.3262155 (Msun) value of Iota Lep was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-60351",
+      "field": "mass_solar",
+      "expectedPrevious": "2.959935",
+      "expectedCurrent": "",
+      "reason": "The previous 2.959935 (Msun) value of 12 Com was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.49 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-60351",
+      "field": "age_gyr",
+      "expectedPrevious": "0.3772032",
+      "expectedCurrent": "",
+      "reason": "The previous 0.3772032 (Gyr) value of 12 Com was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.49 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-43234",
+      "field": "mass_solar",
+      "expectedPrevious": "3.168215",
+      "expectedCurrent": "",
+      "reason": "The previous 3.168215 (Msun) value of Rho Hya was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-43234",
+      "field": "age_gyr",
+      "expectedPrevious": "0.29787588",
+      "expectedCurrent": "",
+      "reason": "The previous 0.29787588 (Gyr) value of Rho Hya was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-90595",
+      "field": "age_gyr",
+      "expectedPrevious": "0.34644097",
+      "expectedCurrent": "",
+      "reason": "The previous 0.34644097 (Gyr) value of Gamma Sct was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-105570",
+      "field": "mass_solar",
+      "expectedPrevious": "2.7427154",
+      "expectedCurrent": "",
+      "reason": "The previous 2.7427154 (Msun) value of Beta Equ was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-105570",
+      "field": "age_gyr",
+      "expectedPrevious": "0.40775958",
+      "expectedCurrent": "",
+      "reason": "The previous 0.40775958 (Gyr) value of Beta Equ was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-17531",
+      "field": "mass_solar",
+      "expectedPrevious": "3.825357",
+      "expectedCurrent": "",
+      "reason": "The previous 3.825357 (Msun) value of Taygeta was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-101421",
+      "field": "mass_solar",
+      "expectedPrevious": "4.2790775",
+      "expectedCurrent": "",
+      "reason": "The previous 4.2790775 (Msun) value of Aldulfin was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-78493",
+      "field": "mass_solar",
+      "expectedPrevious": "3.1553874",
+      "expectedCurrent": "",
+      "reason": "The previous 3.1553874 (Msun) value of Iota CrB was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-78493",
+      "field": "age_gyr",
+      "expectedPrevious": "0.27314398",
+      "expectedCurrent": "",
+      "reason": "The previous 0.27314398 (Gyr) value of Iota CrB was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-61199",
+      "field": "mass_solar",
+      "expectedPrevious": "5.172935",
+      "expectedCurrent": "",
+      "reason": "The previous 5.172935 (Msun) value of Gamma Mus was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-50099",
+      "field": "mass_solar",
+      "expectedPrevious": "6.4045553",
+      "expectedCurrent": "",
+      "reason": "The previous 6.4045553 (Msun) value of Omega Car was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-56480",
+      "field": "mass_solar",
+      "expectedPrevious": "3.4329998",
+      "expectedCurrent": "",
+      "reason": "The previous 3.4329998 (Msun) value of A Cen was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-56480",
+      "field": "age_gyr",
+      "expectedPrevious": "0.24341063",
+      "expectedCurrent": "",
+      "reason": "The previous 0.24341063 (Gyr) value of A Cen was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-18724",
+      "field": "mass_solar",
+      "expectedPrevious": "6.1180606",
+      "expectedCurrent": "",
+      "reason": "The previous 6.1180606 (Msun) value of Lambda Tau was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-67464",
+      "field": "mass_solar",
+      "expectedPrevious": "7.384021",
+      "expectedCurrent": "",
+      "reason": "The previous 7.384021 (Msun) value of Heng was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-45080",
+      "field": "mass_solar",
+      "expectedPrevious": "6.638021",
+      "expectedCurrent": "",
+      "reason": "The previous 6.638021 (Msun) value of a Car was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-17847",
+      "field": "mass_solar",
+      "expectedPrevious": "4.5091114",
+      "expectedCurrent": "",
+      "reason": "The previous 4.5091114 (Msun) value of Atlas was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -1.20 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-60823",
+      "field": "mass_solar",
+      "expectedPrevious": "5.5865",
+      "expectedCurrent": "",
+      "reason": "The previous 5.5865 (Msun) value of Sigma Cen was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-96757",
+      "field": "mass_solar",
+      "expectedPrevious": "4.079642",
+      "expectedCurrent": "",
+      "reason": "The previous 4.079642 (Msun) value of Sham was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-34045",
+      "field": "mass_solar",
+      "expectedPrevious": "4.1495156",
+      "expectedCurrent": "",
+      "reason": "The previous 4.1495156 (Msun) value of Muliphein was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-17489",
+      "field": "mass_solar",
+      "expectedPrevious": "3.356137",
+      "expectedCurrent": "",
+      "reason": "The previous 3.356137 (Msun) value of Celaeno was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-17489",
+      "field": "age_gyr",
+      "expectedPrevious": "0.20730804",
+      "expectedCurrent": "",
+      "reason": "The previous 0.20730804 (Gyr) value of Celaeno was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-42536",
+      "field": "mass_solar",
+      "expectedPrevious": "5.730755",
+      "expectedCurrent": "",
+      "reason": "The previous 5.730755 (Msun) value of Omicron Vel was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-8886",
+      "field": "mass_solar",
+      "expectedPrevious": "6.5511613",
+      "expectedCurrent": "",
+      "reason": "The previous 6.5511613 (Msun) value of Segin was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-92989",
+      "field": "mass_solar",
+      "expectedPrevious": "4.060672",
+      "expectedCurrent": "",
+      "reason": "The previous 4.060672 (Msun) value of V686 CrA was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is +1.13 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-52370",
+      "field": "mass_solar",
+      "expectedPrevious": "4.550562",
+      "expectedCurrent": "",
+      "reason": "The previous 4.550562 (Msun) value of HD 92938 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-42726",
+      "field": "mass_solar",
+      "expectedPrevious": "4.403055",
+      "expectedCurrent": "",
+      "reason": "The previous 4.403055 (Msun) value of HD 74560 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-42535",
+      "field": "mass_solar",
+      "expectedPrevious": "3.822324",
+      "expectedCurrent": "",
+      "reason": "The previous 3.822324 (Msun) value of HD 74196 was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-86414",
+      "field": "mass_solar",
+      "expectedPrevious": "5.397339",
+      "expectedCurrent": "",
+      "reason": "The previous 5.397339 (Msun) value of Iota Her was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-42459",
+      "field": "mass_solar",
+      "expectedPrevious": "4.4141474",
+      "expectedCurrent": "",
+      "reason": "The previous 4.4141474 (Msun) value of HW Vel was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is -0.48 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-11407",
+      "field": "mass_solar",
+      "expectedPrevious": "4.9695315",
+      "expectedCurrent": "",
+      "reason": "The previous 4.9695315 (Msun) value of Kappa Eri was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-3881",
+      "field": "mass_solar",
+      "expectedPrevious": "4.686886",
+      "expectedCurrent": "",
+      "reason": "The previous 4.686886 (Msun) value of Nu And was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-42133",
+      "field": "mass_solar",
+      "expectedPrevious": "2.771235",
+      "expectedCurrent": "",
+      "reason": "The previous 2.771235 (Msun) value of 35 Cnc was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-42133",
+      "field": "age_gyr",
+      "expectedPrevious": "0.45547572",
+      "expectedCurrent": "",
+      "reason": "The previous 0.45547572 (Gyr) value of 35 Cnc was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-12387",
+      "field": "mass_solar",
+      "expectedPrevious": "6.9709473",
+      "expectedCurrent": "",
+      "reason": "The previous 6.9709473 (Msun) value of Delta Cet was a Gaia DR3 FLAME estimate; withheld because its Gaia GSP-Phot input temperature differs by more than 2% from the adopted spectroscopic temperature (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-4577",
+      "field": "mass_solar",
+      "expectedPrevious": "5.656317",
+      "expectedCurrent": "",
+      "reason": "The previous 5.656317 (Msun) value of Alpha Scl was a Gaia DR3 FLAME estimate; withheld because FLAME assumes solar-metallicity tracks while the adopted spectroscopic [Fe/H] is +0.41 (Gaia DR3 documentation 11.3.6). The Gaia value is retained in this catalog's provenance as a superseded observation; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-105858",
+      "field": "mass_solar",
+      "expectedPrevious": "1.1236573",
+      "expectedCurrent": "",
+      "reason": "The previous 1.1236573 Msun value of Gamma Pav was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.69. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-77760",
+      "field": "mass_solar",
+      "expectedPrevious": "1.27",
+      "expectedCurrent": "",
+      "reason": "The previous 1.27 Msun value of Chi Her was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.47. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-19921",
+      "field": "mass_solar",
+      "expectedPrevious": "0.98",
+      "expectedCurrent": "",
+      "reason": "The previous 0.98 Msun value of Epsilon Ret was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is +0.31. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-71957",
+      "field": "mass_solar",
+      "expectedPrevious": "1.55",
+      "expectedCurrent": "",
+      "reason": "The previous 1.55 Msun value of Mu Vir was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.52. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-59774",
+      "field": "mass_solar",
+      "expectedPrevious": "2.1",
+      "expectedCurrent": "",
+      "reason": "The previous 2.1 Msun value of Megrez was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.60. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-109427",
+      "field": "mass_solar",
+      "expectedPrevious": "2.1",
+      "expectedCurrent": "",
+      "reason": "The previous 2.1 Msun value of Biham was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.38. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-23875",
+      "field": "mass_solar",
+      "expectedPrevious": "2.19",
+      "expectedCurrent": "",
+      "reason": "The previous 2.19 Msun value of Cursa was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.60. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-63125",
+      "field": "mass_solar",
+      "expectedPrevious": "3.36",
+      "expectedCurrent": "",
+      "reason": "The previous 3.36 Msun value of Cor Caroli was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is +0.68. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-27654",
+      "field": "mass_solar",
+      "expectedPrevious": "1.8",
+      "expectedCurrent": "",
+      "reason": "The previous 1.8 Msun value of Delta Lep was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.81. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-75695",
+      "field": "mass_solar",
+      "expectedPrevious": "2.02",
+      "expectedCurrent": "",
+      "reason": "The previous 2.02 Msun value of Nusakan was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is +1.00. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-10670",
+      "field": "mass_solar",
+      "expectedPrevious": "2.32",
+      "expectedCurrent": "",
+      "reason": "The previous 2.32 Msun value of Apdu was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -1.20. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-74666",
+      "field": "mass_solar",
+      "expectedPrevious": "1.21",
+      "expectedCurrent": "",
+      "reason": "The previous 1.21 Msun value of Delta Boo was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.35. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-95853",
+      "field": "mass_solar",
+      "expectedPrevious": "2.03",
+      "expectedCurrent": "",
+      "reason": "The previous 2.03 Msun value of Iota Cyg was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.50. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-114971",
+      "field": "mass_solar",
+      "expectedPrevious": "1.82",
+      "expectedCurrent": "",
+      "reason": "The previous 1.82 Msun value of Gamma Psc was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.47. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-102395",
+      "field": "mass_solar",
+      "expectedPrevious": "2.29",
+      "expectedCurrent": "",
+      "reason": "The previous 2.29 Msun value of Beta Pav was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.36. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-95294",
+      "field": "mass_solar",
+      "expectedPrevious": "1.93",
+      "expectedCurrent": "",
+      "reason": "The previous 1.93 Msun value of Arkab Posterior was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.39. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-14240",
+      "field": "mass_solar",
+      "expectedPrevious": "1.59",
+      "expectedCurrent": "",
+      "reason": "The previous 1.59 Msun value of Mu Hor was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.42. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-12486",
+      "field": "mass_solar",
+      "expectedPrevious": "1.45",
+      "expectedCurrent": "",
+      "reason": "The previous 1.45 Msun value of Iota Eri was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.32. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-20711",
+      "field": "mass_solar",
+      "expectedPrevious": "2.11",
+      "expectedCurrent": "",
+      "reason": "The previous 2.11 Msun value of Upsilon Tau was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.40. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-97433",
+      "field": "mass_solar",
+      "expectedPrevious": "2.19",
+      "expectedCurrent": "",
+      "reason": "The previous 2.19 Msun value of Tyl was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.32. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-25606",
+      "field": "mass_solar",
+      "expectedPrevious": "3.18",
+      "expectedCurrent": "",
+      "reason": "The previous 3.18 Msun value of Nihal was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.31. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-86565",
+      "field": "mass_solar",
+      "expectedPrevious": "2.18",
+      "expectedCurrent": "",
+      "reason": "The previous 2.18 Msun value of Omicron Ser was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.35. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-113638",
+      "field": "mass_solar",
+      "expectedPrevious": "1.53",
+      "expectedCurrent": "",
+      "reason": "The previous 1.53 Msun value of Zeta Gru was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.31. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-115438",
+      "field": "mass_solar",
+      "expectedPrevious": "1.34",
+      "expectedCurrent": "",
+      "reason": "The previous 1.34 Msun value of b01 Aqr was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.34. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-13147",
+      "field": "mass_solar",
+      "expectedPrevious": "1.1",
+      "expectedCurrent": "",
+      "reason": "The previous 1.1 Msun value of Beta For was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.34. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-55282",
+      "field": "mass_solar",
+      "expectedPrevious": "2.2",
+      "expectedCurrent": "",
+      "reason": "The previous 2.2 Msun value of Delta Crt was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.46. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-57399",
+      "field": "mass_solar",
+      "expectedPrevious": "1.54",
+      "expectedCurrent": "",
+      "reason": "The previous 1.54 Msun value of Taiyangshou was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.45. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-91792",
+      "field": "mass_solar",
+      "expectedPrevious": "1.79",
+      "expectedCurrent": "",
+      "reason": "The previous 1.79 Msun value of Zeta Pav was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.44. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-22509",
+      "field": "mass_solar",
+      "expectedPrevious": "2.51",
+      "expectedCurrent": "",
+      "reason": "The previous 2.51 Msun value of Pi2 Ori was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -1.20. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-102281",
+      "field": "mass_solar",
+      "expectedPrevious": "2.21",
+      "expectedCurrent": "",
+      "reason": "The previous 2.21 Msun value of Delta Del was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.44. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-69427",
+      "field": "mass_solar",
+      "expectedPrevious": "1.44",
+      "expectedCurrent": "",
+      "reason": "The previous 1.44 Msun value of Kang was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.45. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-92953",
+      "field": "mass_solar",
+      "expectedPrevious": "1.57",
+      "expectedCurrent": "",
+      "reason": "The previous 1.57 Msun value of HD 175219 was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.41. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
     }
   ],
   "recordRetirements": [

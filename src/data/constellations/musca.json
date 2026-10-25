@@ -71,10 +71,10 @@
         "vy_kms": -20.633513,
         "vz_kms": -6.456707,
         "temperature_k": 14791.0,
-        "mass_solar": 5.172935,
+        "mass_solar": null,
         "luminosity_solar": 705.2156117980768,
-        "radius_solar": 4.7340493,
-        "metallicity_dex": -0.1531,
+        "radius_solar": 4.044069,
+        "metallicity_dex": 0.1201,
         "age_gyr": null,
         "absolute_mag": -1.45702,
         "epoch": 2000.0,
@@ -83,8 +83,8 @@
         "name": "Gamma Mus",
         "constellation": "Musca",
         "spectral_type": "B5V+A:",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 61199; Stellarium Mus). SIMBAD identity * gam Mus; SIMBAD compiled Johnson V=3.88; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 61199; Stellarium Mus). SIMBAD identity * gam Mus; SIMBAD compiled Johnson V=3.88; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...11B).",
         "designations": [
           "HIP 61199"
         ],
@@ -709,7 +709,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

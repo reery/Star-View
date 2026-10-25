@@ -169,9 +169,9 @@
         "vy_kms": -21.979569,
         "vz_kms": -18.92551,
         "temperature_k": 4677.0,
-        "mass_solar": 0.98,
-        "luminosity_solar": 6.524755,
-        "radius_solar": 3.890451449942806,
+        "mass_solar": null,
+        "luminosity_solar": 6.524754716,
+        "radius_solar": 3.89045145,
         "metallicity_dex": 0.31,
         "age_gyr": null,
         "absolute_mag": 3.110348,
@@ -182,7 +182,7 @@
         "constellation": "Reticulum",
         "spectral_type": "K2III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 19921; Stellarium Ret). SIMBAD identity * eps Ret; SIMBAD compiled Johnson V=4.44; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...691A..53S).",
+        "notes": "Western constellation line-figure star (HIP 19921; Stellarium Ret). SIMBAD identity * eps Ret; SIMBAD compiled Johnson V=4.44; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...691A..53S; radius_solar: 1999A&A...352..555A). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
         "designations": [
           "HIP 19921"
         ],
@@ -641,7 +641,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

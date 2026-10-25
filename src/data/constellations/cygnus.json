@@ -71,9 +71,9 @@
         "vy_kms": -17.803512,
         "vz_kms": 0.615395,
         "temperature_k": 7943.0,
-        "mass_solar": 2.03,
-        "luminosity_solar": 34.247822,
-        "radius_solar": 3.0902954325135905,
+        "mass_solar": null,
+        "luminosity_solar": 34.24782224,
+        "radius_solar": 3.090295433,
         "metallicity_dex": -0.5,
         "age_gyr": null,
         "absolute_mag": 0.887063,
@@ -84,7 +84,7 @@
         "constellation": "Cygnus",
         "spectral_type": "A5V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 95853; Stellarium Cyg). SIMBAD identity * iot Cyg; SIMBAD compiled Johnson V=3.755; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
+        "notes": "Western constellation line-figure star (HIP 95853; Stellarium Cyg). SIMBAD identity * iot Cyg; SIMBAD compiled Johnson V=3.755; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G; radius_solar: 1999A&A...352..555A). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
         "designations": [
           "HIP 95853"
         ],
@@ -221,7 +221,7 @@
         "mass_solar": 1.82,
         "luminosity_solar": 61.84010280380772,
         "radius_solar": 10.715193052376065,
-        "metallicity_dex": -0.5531,
+        "metallicity_dex": 0.04,
         "age_gyr": null,
         "absolute_mag": 0.742209,
         "epoch": 2000.0,
@@ -230,8 +230,8 @@
         "name": "Eta Cyg",
         "constellation": "Cygnus",
         "spectral_type": "K0III",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 98110; Stellarium Cyg). SIMBAD identity * eta Cyg; SIMBAD compiled Johnson V=3.88; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 98110; Stellarium Cyg). SIMBAD identity * eta Cyg; SIMBAD compiled Johnson V=3.88; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...666A.125F).",
         "designations": [
           "HIP 98110"
         ],
@@ -1575,7 +1575,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

@@ -213,6 +213,13 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .glossary-term[aria-current="true"] { color: var(--accent-strong); background: var(--panel-selected); }
 .glossary-term[aria-current="true"]::before { position: absolute; inset: 0 auto 0 0; width: 2px; background: var(--accent); content: ''; }
 .glossary-term:focus-visible { outline-offset: -2px; }
+/* Like a browser sidebar, the list collapses to icons that name their entry in a tooltip. */
+.constellations-detail-heading > .sidebar-toggle { right: auto; left: -1px; border-color: transparent var(--line) var(--line) transparent; }
+.glossary-card .glossary-body[data-sidebar-collapsed] { grid-template-columns: 44px minmax(0, 1fr); }
+.glossary-term-icon { display: none; }
+[data-sidebar-collapsed] .glossary-term { padding: 0; }
+[data-sidebar-collapsed] .glossary-term-icon { display: grid; place-items: center; min-height: 34px; font-size: 11px; }
+.glossary-term-icon svg { width: 16px; height: 16px; }
 .glossary-detail { min-width: 0; padding: 16px 22px 20px; }
 .glossary-detail h3 { margin-bottom: 17px; color: var(--ink); font-size: 24px; line-height: 1.2; font-weight: 500; }
 .glossary-figure { margin: 0 0 18px; }
@@ -1277,7 +1284,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .coordinate-properties > div { font-size: 14px; padding: 6px 0; }
 .star-notes { font-size: 14px; line-height: 1.6; color: var(--muted); padding-bottom: 8px; white-space: pre-line; }
 .catalog-error { padding-top: 14px; font-size: 13px; line-height: 1.6; color: #ff9d9d; }
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.sr-only, [data-sidebar-collapsed] .glossary-term-label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 @media (max-width: 860px) {
   .panel-heading.time-heading { flex-wrap: wrap; gap: 0; padding: 0; }
@@ -1344,7 +1351,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .object-type-card > .panel-heading > [role="group"] > button:first-child { border-left: 0; }
   /* Like the planet sections, the constellation Info and chart controls take a second row. */
   .panel-heading.constellation-heading { min-height: 89px; padding: 0 98px 44px 14px; }
-  #constellations-detail > .constellations-detail-heading { min-height: 89px; padding: 12px 16px 56px; }
+  #constellations-detail > .constellations-detail-heading { min-height: 89px; padding: 12px 16px 56px 60px; }
   :is(.panel-heading.constellation-heading, #constellations-detail > .constellations-detail-heading)::after { content: ""; position: absolute; top: 43px; right: 0; left: 0; border-top: 1px solid var(--line); }
   :is(.panel-heading.constellation-heading, #constellations-detail > .constellations-detail-heading) > [data-constellation-part]:is(button) { top: 44px; right: auto; border-bottom-color: transparent; }
   .panel-heading :is(#constellation-info-toggle, #discover-constellation-info-toggle) { left: -1px; border-left-color: transparent; }
@@ -1448,7 +1455,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .control-dock[data-motion-open][data-open="constellations"] .constellations-card.is-maximized { height: calc(var(--ui-height) - var(--motion-panel-clearance, 150px) - 40px); }
 .constellations-detail { display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
 .constellations-detail > .card-scroll-content { overflow-x: hidden; }
-.constellations-detail-heading { flex-shrink: 0; padding: 12px 142px 12px 16px; }
+.constellations-detail-heading { flex-shrink: 0; padding: 12px 142px 12px 60px; }
 .constellations-detail-heading #discover-constellation-grid { right: 43px; }
 .constellations-detail-heading #discover-constellation-info-toggle { right: 87px; }
 .constellations-detail-heading h3 { font: inherit; }
@@ -1470,9 +1477,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .top-list .top-list-field-0 { width: 104px; }
 .top-list .top-list-field-1 { width: 144px; }
 .top-list .top-list-field-2 { width: 112px; }
-.top-list:is([data-list="solar-twins"], [data-list="sun-like"]) { min-width: 820px; }
-.top-list:is([data-list="solar-twins"], [data-list="sun-like"]) .top-list-field-1 { width: 104px; }
-.top-list:is([data-list="solar-twins"], [data-list="sun-like"]) .top-list-field-3 { width: 88px; }
+.top-list:is([data-list="solar-type"], [data-list="solar-analogs"], [data-list="solar-twins"]) { min-width: 820px; }
+.top-list:is([data-list="solar-type"], [data-list="solar-analogs"], [data-list="solar-twins"]) .top-list-field-1 { width: 104px; }
+.top-list:is([data-list="solar-type"], [data-list="solar-analogs"], [data-list="solar-twins"]) .top-list-field-3 { width: 88px; }
 .top-list tbody td:first-child { color: var(--muted); }
 .top-list tbody tr:not(.top-list-marker):hover td { background: var(--panel-selected); }
 .top-list tbody tr:not(.top-list-marker):hover td:first-child { border-radius: 5px 0 0 5px; }

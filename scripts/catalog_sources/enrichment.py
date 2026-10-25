@@ -22,6 +22,19 @@ FIELDS = ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "me
 SYSTEM_TYPES = {"**", "EB*", "SB*", "bC*", "s*b"}
 MANIFEST = ROOT / "catalog-work/shared-enrichment/source-manifest.json"
 LITERATURE = "catalog-work/shared-enrichment/literature"
+# Exact-identity snapshot for CNS5 objects beyond the nearest-1000 buffer. It is
+# opt-in so that existing catalogs keep their frozen enrichment byte for byte.
+EXTENSION = "catalog-work/nearest-5000"
+# SIMBAD mesFe_h rows that reproduce Gaia DR3 GSP-Phot values (76 of 77 identical
+# Teff and [M/H]); they are photometric model values, not spectroscopy.
+GAIA_REPUBLICATIONS = {"2024A&A...681A.107R"}
+
+
+@cache
+def extension_rows(name):
+    manifest = json.loads((ROOT / EXTENSION / "source-manifest.json").read_text())
+    verify_sha256(ROOT / EXTENSION / name, manifest["checksumsSha256"][name])
+    return csv_rows(f"{EXTENSION}/{name}")
 
 
 def normalized_id(value):
@@ -34,7 +47,7 @@ def csv_rows(relative):
 
 
 @cache
-def source_index():
+def source_index(extended=False):
     manifest = json.loads(MANIFEST.read_text())
     for filename, digest in manifest["checksumsSha256"].items():
         verify_sha256(ROOT / filename, digest)
@@ -71,6 +84,16 @@ def source_index():
             gaia.setdefault(record.identity.gaia_dr3_id, record)
     bright_hips = {normalized_id(row["main_id"]): row["hip"] for filename in ("fundamental", "sed")
                    for row in csv_rows(f"catalog-work/bright-stars/{filename}.csv")}
+    if extended:
+        # Fill only identities absent from the earlier snapshots.
+        for row in extension_rows("simbad.csv"):
+            sources.setdefault(normalized_id(row["main_id"]), {k: v for k, v in row.items() if v})
+        for row in extension_rows("fundamental.csv"):
+            fundamental.setdefault(row["HIP"], row)
+        for row in extension_rows("sed.csv"):
+            sed.setdefault(row["HIP"], row)
+        for record in read_gaia_tap(ROOT / EXTENSION / "gaia.csv"):
+            gaia.setdefault(record.identity.gaia_dr3_id, record)
     return sources, identities, fundamental, sed, measured, diameters, gaia, bright_hips
 
 
@@ -119,10 +142,16 @@ def number(value):
 
 
 @cache
-def spectroscopy_index():
+def spectroscopy_index(extended=False):
     index = {}
     for observation in csv_rows(f"{LITERATURE}/spectroscopy.csv"):
         index.setdefault(normalized_id(observation["main_id"]), []).append(observation)
+    if extended:
+        additions = {}
+        for observation in extension_rows("spectroscopy.csv"):
+            if normalized_id(observation["main_id"]) not in index:
+                additions.setdefault(normalized_id(observation["main_id"]), []).append(observation)
+        index.update(additions)
     return index
 
 
@@ -136,7 +165,7 @@ def select_spectroscopy(observations, column):
     for observation in observations:
         value = number(observation.get(column))
         reference = observation.get("bibcode", "")
-        if value is None or not re.match(r"(?:19|20)\d{2}", reference):
+        if value is None or not re.match(r"(?:19|20)\d{2}", reference) or reference in GAIA_REPUBLICATIONS:
             continue
         if column == "teff" and not 1000 <= value <= 100000:
             continue
@@ -151,6 +180,21 @@ def select_spectroscopy(observations, column):
     if not consistent or len(consistent) <= len(candidates) / 2 and len(candidates) > 1:
         return None
     return max(consistent, key=lambda item: (item["bibcode"][:4], item["bibcode"], int(item.get("mespos") or 0)))
+
+
+def flame_withheld(gaia_temperature, temperature=None, metallicity=None):
+    """Gaia DR3 FLAME fields that an adopted spectroscopic value invalidates.
+
+    FLAME radius follows from its luminosity and the GSP-Phot temperature; mass
+    and age also assume solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6).
+    A temperature offset beyond 2% exceeds GSP-Phot's typical accuracy.
+    """
+    withheld = set()
+    if gaia_temperature is not None and temperature is not None and abs(gaia_temperature - temperature) > 0.02 * temperature:
+        withheld |= {"radius_solar", "mass_solar", "age_gyr"}
+    if metallicity is not None and abs(metallicity) > 0.3:
+        withheld |= {"mass_solar", "age_gyr"}
+    return withheld
 
 
 @cache
@@ -209,8 +253,8 @@ def derive_physical(row):
     return {field: {"field": field, "value": float(row[field]), "status": "derived", "reference": "Stefan-Boltzmann scaling", "inputs": inputs}}
 
 
-def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only=False):
-    sources, identities, fundamental, sed, measured, diameters, gaia, bright_hips = source_index()
+def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only=False, extended=False):
+    sources, identities, fundamental, sed, measured, diameters, gaia, bright_hips = source_index(extended)
     key = normalized_id(main_id or identities.get(row["id"]))
     source = sources.get(key, {})
     adopted = {}
@@ -274,7 +318,7 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
         for column, field in (("teff", "temperature_k"), ("fe_h", "metallicity_dex")):
             if row.get(field):
                 continue
-            observation = select_spectroscopy(spectroscopy_index().get(key, []), column)
+            observation = select_spectroscopy(spectroscopy_index(extended).get(key, []), column)
             if observation:
                 adopt(field, observation[column], observation["bibcode"], "measured",
                       sourceRecordId=f"{key}:mesFe_h:{observation['mespos']}",
@@ -307,8 +351,12 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
                 adopt("luminosity_solar", luminosity * (distance / source_distance) ** 2, "2012MNRAS.427..343M", sourceRecordId=f"HIP {hip}", sourceDistancePc=source_distance, adoptedDistancePc=distance)
         gaia_ids = {alias.removeprefix("Gaia DR3 ") for alias in identifiers if re.fullmatch(r"Gaia DR3 \d+", alias)}
         if len(gaia_ids) == 1:
-            record = gaia.get(next(iter(gaia_ids)))
-            for field, observation in eligible_gaia_physical(record).items():
+            physical = eligible_gaia_physical(gaia.get(next(iter(gaia_ids))))
+            invalid = flame_withheld(physical["temperature_k"].value if "temperature_k" in physical else None, number(row.get("temperature_k")),
+                                     number(row.get("metallicity_dex")) if row.get("metallicity_kind") == "[Fe/H]" else None)
+            for field, observation in physical.items():
+                if field in invalid:
+                    continue
                 adopt(field, observation.value, observation.reference, observation.status, observation.uncertainty,
                       sourceRecordId=observation.source_record_id, qualityFlags=list(observation.quality_flags),
                       quantity="[M/H]" if field == "metallicity_dex" else None)

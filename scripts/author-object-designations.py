@@ -114,7 +114,7 @@ def build():
     # Collapse repeated exact SIMBAD records, keeping the published aliases.
     records = {}
     for path in [ROOT / f"catalog-work/{catalog}/simbad.csv" for catalog in
-                 ("nearest-1000", "western-constellation-stars", "famous-cluster-stars", "bright-stars")] + [WORK / "simbad.csv", WORK / "components.csv", WORK / "extended.csv"]:
+                 ("nearest-1000", "nearest-5000", "western-constellation-stars", "famous-cluster-stars", "bright-stars")] + [WORK / "simbad.csv", WORK / "components.csv", WORK / "extended.csv"]:
         for row in read_csv(path):
             main = key(row["main_id"])
             record = records.setdefault(main, {"mainId": row["main_id"], "aliases": [], "sources": [], "queries": []})
@@ -166,6 +166,9 @@ def build():
     cns5 = {row["id"]: row["cns5Id"] for row in distant["objects"] if row.get("cns5Id")}
     # Never assign one unresolved system's identifiers to its separate components.
     cns5.update({row["starViewIds"][0]: row["cns5Id"] for row in distant["audit"] if len(row.get("starViewIds", [])) == 1})
+    # Only new nearest-5000 records: shared rows keep their curated identities.
+    extended = read_json(ROOT / "src/data/catalogs/nearest-5000/provenance.json")
+    cns5.update({row["id"]: row["cns5Id"] for row in extended["objects"] if row["id"].startswith("cns5-") and row["id"] not in cns5})
     # A surviving record keeps its own SIMBAD identity; retired query IDs apply only to unchanged IDs.
     bright = {identifier: row for identifier, row in read_json(BRIGHT_ARCHIVE / "provenance.json")["objects"].items() if identifier not in legacy_ids}
     landmarks = read_json(ROOT / "src/data/catalogs/western-constellation-stars/provenance.json")["objects"]

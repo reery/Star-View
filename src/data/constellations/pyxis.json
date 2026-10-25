@@ -74,7 +74,7 @@
         "mass_solar": null,
         "luminosity_solar": 6889.79041847833,
         "radius_solar": 8.324783,
-        "metallicity_dex": 0.0494,
+        "metallicity_dex": 0.01,
         "age_gyr": null,
         "absolute_mag": -3.264961,
         "epoch": 2000.0,
@@ -83,8 +83,8 @@
         "name": "Alpha Pyx",
         "constellation": "Pyxis",
         "spectral_type": "B1.5III",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 42828; Stellarium Pyx). SIMBAD identity * alf Pyx; SIMBAD compiled Johnson V=3.68; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 42828; Stellarium Pyx). SIMBAD identity * alf Pyx; SIMBAD compiled Johnson V=3.68; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2012A&A...539A.143N).",
         "designations": [
           "HIP 42828"
         ],
@@ -123,7 +123,7 @@
         "mass_solar": 1.71,
         "luminosity_solar": 154.09187,
         "radius_solar": 20.892961308540396,
-        "metallicity_dex": -0.6086,
+        "metallicity_dex": -0.06,
         "age_gyr": null,
         "absolute_mag": -0.037011,
         "epoch": 2000.0,
@@ -132,8 +132,8 @@
         "name": "Gamma Pyx",
         "constellation": "Pyxis",
         "spectral_type": "K2.5III",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 43409; Stellarium Pyx). SIMBAD identity * gam Pyx; SIMBAD compiled Johnson V=4.01; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 43409; Stellarium Pyx). SIMBAD identity * gam Pyx; SIMBAD compiled Johnson V=4.01; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
         "designations": [
           "HIP 43409"
         ],
@@ -546,7 +546,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

@@ -417,8 +417,8 @@
         "mass_solar": 1.77,
         "luminosity_solar": 19.314122902682616,
         "radius_solar": 3.1622776601683795,
-        "metallicity_dex": -1.0844,
-        "age_gyr": 1.3445904,
+        "metallicity_dex": -0.29,
+        "age_gyr": null,
         "absolute_mag": 1.57715,
         "epoch": 2000.0,
         "type": "star",
@@ -426,8 +426,8 @@
         "name": "Eta Sco",
         "constellation": "Scorpius",
         "spectral_type": "F5IV",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 84143; Stellarium Sco). SIMBAD identity * eta Sco; SIMBAD compiled Johnson V=3.33; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 84143; Stellarium Sco). SIMBAD identity * eta Sco; SIMBAD compiled Johnson V=3.33; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
         "designations": [
           "HIP 84143"
         ],
@@ -1516,7 +1516,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

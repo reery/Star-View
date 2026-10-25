@@ -73,8 +73,8 @@
         "temperature_k": 4753.0,
         "mass_solar": null,
         "luminosity_solar": 265.75436184003775,
-        "radius_solar": 26.228062,
-        "metallicity_dex": 0.1108,
+        "radius_solar": 24.04126,
+        "metallicity_dex": 0.05,
         "age_gyr": null,
         "absolute_mag": -0.858263,
         "epoch": 2000.0,
@@ -83,8 +83,8 @@
         "name": "Minchir",
         "constellation": "Hydra",
         "spectral_type": "K1III",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 42402; Stellarium Hya). SIMBAD identity * sig Hya; SIMBAD compiled Johnson V=4.43; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 42402; Stellarium Hya). SIMBAD identity * sig Hya; SIMBAD compiled Johnson V=4.43; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
         "designations": [
           "HIP 42402"
         ],
@@ -122,7 +122,7 @@
         "temperature_k": 15680.0,
         "mass_solar": 5.354421,
         "luminosity_solar": 1165.1975933857211,
-        "radius_solar": 4.663168,
+        "radius_solar": 4.625517,
         "metallicity_dex": 0.7954,
         "age_gyr": null,
         "absolute_mag": -1.677546,
@@ -133,7 +133,7 @@
         "constellation": "Hydra",
         "spectral_type": "B3V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 42799; Stellarium Hya). SIMBAD identity * eta Hya; SIMBAD compiled Johnson V=4.3; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 42799; Stellarium Hya). SIMBAD identity * eta Hya; SIMBAD compiled Johnson V=4.3; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (mass_solar: Gaia DR3 astrophysical_parameters).",
         "designations": [
           "HIP 42799"
         ],
@@ -218,11 +218,11 @@
         "vy_kms": -28.18038,
         "vz_kms": 2.676503,
         "temperature_k": 10142.0,
-        "mass_solar": 3.168215,
+        "mass_solar": null,
         "luminosity_solar": 167.20192962018746,
-        "radius_solar": 4.514411,
-        "metallicity_dex": 0.2875,
-        "age_gyr": 0.29787588,
+        "radius_solar": 4.188187,
+        "metallicity_dex": 0.1,
+        "age_gyr": null,
         "absolute_mag": -0.564271,
         "epoch": 2000.0,
         "type": "star",
@@ -230,8 +230,8 @@
         "name": "Rho Hya",
         "constellation": "Hydra",
         "spectral_type": "A0Vn",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 43234; Stellarium Hya). SIMBAD identity * rho Hya; SIMBAD compiled Johnson V=4.337; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 43234; Stellarium Hya). SIMBAD identity * rho Hya; SIMBAD compiled Johnson V=4.337; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
         "designations": [
           "HIP 43234"
         ],
@@ -414,11 +414,11 @@
         "vy_kms": -8.751451,
         "vz_kms": 11.299094,
         "temperature_k": 6761.0,
-        "mass_solar": 1.3158851,
+        "mass_solar": null,
         "luminosity_solar": 4.0491657,
-        "radius_solar": 1.6606376,
-        "metallicity_dex": -0.5275,
-        "age_gyr": 2.9210308,
+        "radius_solar": 1.466606,
+        "metallicity_dex": 0.18,
+        "age_gyr": null,
         "absolute_mag": 3.295385,
         "epoch": 2000.0,
         "type": "star",
@@ -426,8 +426,8 @@
         "name": "Tau1 Hya",
         "constellation": "Hydra",
         "spectral_type": "F5V",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 46509; Stellarium Hya). SIMBAD identity * tau01 Hya; SIMBAD compiled Johnson V=4.6; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k; Gaia DR3 model values for metallicity_dex, mass_solar, luminosity_solar, radius_solar, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 46509; Stellarium Hya). SIMBAD identity * tau01 Hya; SIMBAD compiled Johnson V=4.6; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k; Gaia DR3 model values for luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2017AJ....153...21L).",
         "designations": [
           "HIP 46509"
         ],
@@ -2587,7 +2587,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

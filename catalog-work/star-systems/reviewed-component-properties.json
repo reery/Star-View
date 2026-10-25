@@ -59,6 +59,18 @@
     {
       "name": "Gaia DR2, exact Eta Cas B radius/luminosity record",
       "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR-S?Gaia+DR2+425040000959067008"
+    },
+    {
+      "name": "Bazot et al. 2018, 18 Sco asteroseismic Bayesian mass and bimodal age",
+      "url": "https://arxiv.org/abs/1810.01387"
+    },
+    {
+      "name": "Bazot et al. 2011, 18 Sco interferometric radius (CHARA/PAVO)",
+      "url": "https://arxiv.org/abs/1209.0217"
+    },
+    {
+      "name": "Boyajian et al. 2013, bolometric luminosity of 18 Sco",
+      "url": "https://arxiv.org/abs/1306.2974"
     }
   ],
   "objects": {
@@ -1347,6 +1359,59 @@
         }
       },
       "note": "Resolved Eta Cas B properties from Aleo et al. 2017, Giovinazzi et al. 2025 and the exact Gaia DR2 component. [Fe/H] is an independent, uncertain measurement consistent with A, not copied from A. The old 5921 K source temperature is superseded. DR2 radius/luminosity retain their original model assumptions; no independent B age is adopted."
+    },
+    "cns5-3990": {
+      "expectedName": "18 Sco",
+      "gaiaDr3Id": "4345775217221821312",
+      "fields": {
+        "mass_solar": {
+          "value": 1.03,
+          "uncertainty": 0.03,
+          "status": "model-derived",
+          "sourceRecordId": "18 Sco",
+          "replaces": {
+            "value": 1.05
+          },
+          "reference": "2018A&A...619A.172B",
+          "sourceUrl": "https://arxiv.org/abs/1810.01387",
+          "method": "Bayesian stellar-model fit to asteroseismic, interferometric and spectrophotometric constraints; Table 4, uniform mass prior (MAP)"
+        },
+        "radius_solar": {
+          "value": 1.01,
+          "uncertainty": 0.009,
+          "status": "measured",
+          "sourceRecordId": "18 Sco",
+          "replaces": {
+            "value": 0.977237221
+          },
+          "reference": "2011A&A...526L...4B",
+          "sourceUrl": "https://arxiv.org/abs/1209.0217",
+          "method": "CHARA/PAVO interferometric angular diameter 0.6759 +/- 0.0062 mas with the parallax"
+        },
+        "luminosity_solar": {
+          "value": 1.0438,
+          "uncertainty": 0.012,
+          "status": "measured",
+          "sourceRecordId": "18 Sco",
+          "replaces": {
+            "value": 1.1064116
+          },
+          "reference": "2013ApJ...771...40B",
+          "sourceUrl": "https://arxiv.org/abs/1306.2974",
+          "method": "Bolometric flux and parallax (Boyajian et al. 2013), as adopted by Bazot et al. 2018, section 2.2.1"
+        },
+        "age_gyr": {
+          "value": 4.67,
+          "uncertainty": 1.29,
+          "status": "model-derived",
+          "sourceRecordId": "18 Sco",
+          "reference": "2018A&A...619A.172B",
+          "sourceUrl": "https://arxiv.org/abs/1810.01387",
+          "method": "More probable mode of the bimodal Bayesian age posterior, section 3.1; uncertainty is the larger asymmetric bound",
+          "caveat": "Bimodal posterior: modes 4.67 (-1.29/+0.87) Gyr and 6.95 (-0.89/+1.81) Gyr, the first slightly more likely (section 3.1). Earlier estimates: 3.66 (+0.44/-0.50) Gyr (Li et al. 2012), 4.2 (+0.3/-0.5) Gyr (differential isochrones, 2018)."
+        }
+      },
+      "note": "Solar twin 18 Sco: replaces Hipparcos-model mass/radius and Gaia FLAME luminosity with interferometric radius, bolometric-flux luminosity and the asteroseismic Bayesian mass and age of Bazot et al. 2018. Spectroscopic Teff and [Fe/H] remain the newest consensus measurements (5817 +/- 4 K and +0.052 in Bazot et al. 2018, Table 1)."
     }
   }
 }

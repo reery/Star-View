@@ -465,8 +465,8 @@
         "temperature_k": 4641.0,
         "mass_solar": null,
         "luminosity_solar": 327.5880520184759,
-        "radius_solar": 30.136698,
-        "metallicity_dex": 0.201,
+        "radius_solar": 27.995842,
+        "metallicity_dex": 0.089,
         "age_gyr": null,
         "absolute_mag": -0.98523,
         "epoch": 2000.0,
@@ -475,8 +475,8 @@
         "name": "Tau Gem",
         "constellation": "Gemini",
         "spectral_type": "K2III",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 34693; Stellarium Gem). SIMBAD identity * tau Gem; SIMBAD compiled Johnson V=4.42; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 34693; Stellarium Gem). SIMBAD identity * tau Gem; SIMBAD compiled Johnson V=4.42; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...691A..53S).",
         "designations": [
           "HIP 34693"
         ],
@@ -760,7 +760,7 @@
         "mass_solar": 2.21,
         "luminosity_solar": 75.75769793145972,
         "radius_solar": 11.481536214968829,
-        "metallicity_dex": -0.827,
+        "metallicity_dex": -0.02,
         "age_gyr": null,
         "absolute_mag": 0.29223,
         "epoch": 2000.0,
@@ -769,8 +769,8 @@
         "name": "Kappa Gem",
         "constellation": "Gemini",
         "spectral_type": "G8III-IIIb",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 37740; Stellarium Gem). SIMBAD identity * kap Gem; SIMBAD compiled Johnson V=3.57; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 37740; Stellarium Gem). SIMBAD identity * kap Gem; SIMBAD compiled Johnson V=3.57; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
         "designations": [
           "HIP 37740"
         ],
@@ -1652,7 +1652,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

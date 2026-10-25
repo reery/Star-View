@@ -25,7 +25,7 @@
         "mass_solar": 1.5,
         "luminosity_solar": 6.619307,
         "radius_solar": 1.5848931924611136,
-        "metallicity_dex": -0.4142,
+        "metallicity_dex": -0.153,
         "age_gyr": 1.1699991,
         "absolute_mag": 2.650608,
         "epoch": 2000.0,
@@ -34,8 +34,8 @@
         "name": "Gamma Dor",
         "constellation": "Dorado",
         "spectral_type": "F1V",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 19893; Stellarium Dor). SIMBAD identity * gam Dor; SIMBAD compiled Johnson V=4.2; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 19893; Stellarium Dor). SIMBAD identity * gam Dor; SIMBAD compiled Johnson V=4.2; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...11B; age_gyr: Gaia DR3 astrophysical_parameters).",
         "designations": [
           "HIP 19893"
         ],
@@ -123,7 +123,7 @@
         "mass_solar": null,
         "luminosity_solar": 3230.202363532522,
         "radius_solar": 56.854568,
-        "metallicity_dex": -0.3443,
+        "metallicity_dex": -0.08,
         "age_gyr": null,
         "absolute_mag": -3.915453,
         "epoch": 2000.0,
@@ -132,8 +132,8 @@
         "name": "Beta Dor",
         "constellation": "Dorado",
         "spectral_type": "F8/G0Ib",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 26069; Stellarium Dor). SIMBAD identity * bet Dor; SIMBAD compiled Johnson V=3.76; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 26069; Stellarium Dor). SIMBAD identity * bet Dor; SIMBAD compiled Johnson V=3.76; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...678A.195D).",
         "designations": [
           "HIP 26069"
         ],
@@ -1036,7 +1036,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

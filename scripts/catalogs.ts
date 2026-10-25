@@ -3,7 +3,7 @@ import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
 import { isDeepStrictEqual } from 'node:util'
-import { buildCatalog, catalogCoverage, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from '../src/catalogs.ts'
+import { buildCatalog, catalogCoverage, composeCatalog, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from '../src/catalogs.ts'
 import { parseCompactOverlayManifest, parseCompactOverlayPayload } from '../src/compact-overlay-model.ts'
 import { parseNebulaOverlayManifest, parseNebulaOverlayPayload } from '../src/nebula-overlay-model.ts'
 import { parseMolecularCloudOverlayManifest, parseMolecularCloudOverlayPayload } from '../src/molecular-cloud-overlay-model.ts'
@@ -77,21 +77,45 @@ function loadBubbleOverlay() {
   return { manifest, objects }
 }
 
-function validate(directory?: string): void {
-  const packages = directory ? [resolve(directory)] : [
+function packageDefinitions(extra?: string) {
+  const paths = [
     join(root, 'src/data'),
     ...readdirSync(join(root, 'src/data/catalogs'), { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => join(root, 'src/data/catalogs', entry.name)),
   ]
+  if (extra && !paths.includes(extra)) paths.push(extra)
   const ids = new Set<string>()
-  const catalogs: { id: string; stars: ReturnType<typeof loadCatalog> }[] = []
-  for (const path of packages) {
+  return paths.map((path) => {
     const manifest = path === join(root, 'src/data') ? DEFAULT_CATALOG_MANIFEST : parseCatalogManifest(readFileSync(join(path, 'catalog.json'), 'utf8'))
     if (ids.has(manifest.id) || (path !== join(root, 'src/data') && manifest.id === DEFAULT_CATALOG_MANIFEST.id)) throw new Error(`Duplicate or reserved catalog id: ${manifest.id}`)
     ids.add(manifest.id)
-    const stars = loadCatalog({ manifest, csv: readFileSync(join(path, 'stars.csv'), 'utf8') })
+    return { path, manifest, csv: readFileSync(join(path, 'stars.csv'), 'utf8') }
+  })
+}
+
+/** Load source rows, composing each extending catalog onto its base. */
+function loadPackageStars(definitions: ReturnType<typeof packageDefinitions>) {
+  const loaded = new Map<string, Star[]>()
+  const load = (definition: (typeof definitions)[number], pending = new Set<string>()): Star[] => {
+    const cached = loaded.get(definition.manifest.id)
+    if (cached) return cached
+    const baseId = definition.manifest.extends
+    const base = baseId ? definitions.find((candidate) => candidate.manifest.id === baseId) : undefined
+    if (baseId && (!base || pending.has(baseId))) throw new Error(`${definition.manifest.id}: missing or cyclic extended catalog ${baseId}`)
+    const stars = loadCatalog(definition, base && load(base, new Set([...pending, definition.manifest.id])))
+    loaded.set(definition.manifest.id, stars)
+    return stars
+  }
+  return definitions.map((definition) => ({ ...definition, stars: load(definition) }))
+}
+
+function validate(directory?: string): void {
+  const target = directory && resolve(directory)
+  const catalogs: { id: string; stars: ReturnType<typeof loadCatalog> }[] = []
+  for (const { path, manifest, stars } of loadPackageStars(packageDefinitions(target))) {
+    if (target && path !== target) continue
     catalogs.push({ id: manifest.id, stars: supplement(stars) })
     const coverage = catalogCoverage(stars)
-    if (['nearest-neighbors', 'bright-stars', 'nearest-100', 'western-constellation-stars', 'famous-cluster-stars'].includes(manifest.id) && coverage.constellations !== coverage.objects) throw new Error(`${path}: incomplete bundled constellation coverage`)
+    if (['nearest-neighbors', 'bright-stars', 'nearest-100', 'nearest-1000', 'nearest-5000', 'western-constellation-stars', 'famous-cluster-stars'].includes(manifest.id) && coverage.constellations !== coverage.objects) throw new Error(`${path}: incomplete bundled constellation coverage`)
     console.log(`${manifest.id}: ${stars.length} rows; non-Sun coverage ${JSON.stringify(coverage)}`)
   }
   if (!directory) {
@@ -159,19 +183,10 @@ function writeWhiteDwarfReferences(): void {
 }
 
 function loadCatalogPackages() {
-  const packages = [
-    { manifest: DEFAULT_CATALOG_MANIFEST, csv: readFileSync(join(root, 'src/data/stars.csv'), 'utf8') },
-    ...readdirSync(join(root, 'src/data/catalogs'), { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => {
-      const directory = join(root, 'src/data/catalogs', entry.name)
-      return {
-        manifest: parseCatalogManifest(readFileSync(join(directory, 'catalog.json'), 'utf8')),
-        csv: readFileSync(join(directory, 'stars.csv'), 'utf8'),
-      }
-    }),
-  ]
-  return packages.map((definition) => ({
-    id: definition.manifest.id,
-    stars: supplement(loadCatalog(definition)),
+  return loadPackageStars(packageDefinitions()).map(({ manifest, stars }) => ({
+    id: manifest.id,
+    extends: manifest.extends,
+    stars: supplement(stars),
   }))
 }
 
@@ -190,8 +205,21 @@ function generate(): void {
     detailFiles[file] = content + '\n'
     return mapStar
   })
-  const files = Object.fromEntries(catalogs.map(({ id, stars }) =>
-    [`${id}.json`, JSON.stringify({ schemaVersion: 3, catalogId: id, sourceObjectCount: stars.length, stars: mapRecords(supplementObjectIdentities(completeCatalogCompanions(stars), identities, { preserveAuthoredNames: true })) }) + '\n']))
+  const effective = new Map(catalogs.map(({ id, stars }) =>
+    [id, mapRecords(supplementObjectIdentities(completeCatalogCompanions(stars), identities, { preserveAuthoredNames: true }))]))
+  // An extending payload ships only records that its base payload lacks or differs in.
+  const extensionRecords = (id: string, base: ReturnType<typeof mapRecords>, records: ReturnType<typeof mapRecords>) => {
+    const baseById = new Map(base.map((record) => [record.id, record]))
+    const delta = records.filter((record) => !isDeepStrictEqual(baseById.get(record.id), record))
+    const composed = new Map(composeCatalog(base, delta).map((record) => [record.id, record]))
+    if (composed.size !== records.length || records.some((record) => !isDeepStrictEqual(composed.get(record.id), record))) {
+      throw new Error(`Extending catalog payload does not reproduce its records: ${id}`)
+    }
+    return delta
+  }
+  const files = Object.fromEntries(catalogs.map(({ id, extends: baseId, stars }) =>
+    [`${id}.json`, JSON.stringify({ schemaVersion: 3, catalogId: id, ...(baseId ? { extends: baseId } : {}), sourceObjectCount: stars.length,
+      stars: baseId ? extensionRecords(id, effective.get(baseId)!, effective.get(id)!) : effective.get(id)! }) + '\n']))
   writeGeneratedData('catalog-details', detailFiles)
   const references = buildCatalogClassReferences(catalogs.map((catalog) => ({ ...catalog, stars: completeCatalogCompanions(catalog.stars) })), (id) => components.get(id))
   requireWhiteDwarfReferences(catalogs)
