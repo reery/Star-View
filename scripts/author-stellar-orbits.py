@@ -37,8 +37,14 @@ def main():
     stars.update({s['id']: s for s in read('src/data/stellar-companions.json')['stars']})
     wds_index, hip_index = collections.defaultdict(set), collections.defaultdict(set)
     identities = {}
+    # CNS5 app labels need not follow WDS (an app B may be WDS C), so those
+    # systems resolve catalog pairs by each component's own WDS designation.
+    app_labels, cns5_designations = {}, {}
     for sid, system in systems.items():
         labels = {}
+        cns5 = system.get('authoredBy') == 'nearest-5000'
+        if cns5:
+            app_labels[sid] = {comp['starId']: comp['label'] for comp in system['components']}
         for comp in system['components']:
             values = []
             for identifier in [comp['starId'], *comp.get('alternateStarIds', [])]:
@@ -52,7 +58,14 @@ def main():
                     wds_index[wds].add(sid)
                 for hip in re.findall(r'\bHIP (\d+)\b', value):
                     hip_index[int(hip)].add(sid)
-            labels[comp['label']] = comp['starId']
+                if cns5:
+                    cns5_designations.setdefault(sid, set()).update(re.sub(r'\s', '', part) for part in value.split(';'))
+                    for label in re.findall(r'WDS J\d{5}[+-]\d{4}([A-Z][a-z]?\d?)(?=;|$)', value):
+                        # A WDS letter claimed by two components identifies neither.
+                        labels[label] = comp['starId'] if labels.get(label, comp['starId']) == comp['starId'] else None
+            if not cns5:
+                labels[comp['label']] = comp['starId']
+        labels = {label: identifier for label, identifier in labels.items() if identifier}
         if sid.startswith('msc-'):
             wds_index[sid[4:]].add(sid)
         if system.get('wdsId'):
@@ -128,13 +141,20 @@ def main():
         if not primary or not secondary or set(primary) & set(secondary):
             rejected.append({'systemId': sid, 'pair': f'{first},{second}', 'reason': 'Unresolved or overlapping component scope', 'reference': data['reference']})
             return
+        if sid in app_labels:
+            app_first, app_second = (''.join(app_labels[sid][identifier] for identifier in ids) for ids in (primary, secondary))
+            data['argumentComponent'] = {first: app_first, second: app_second}.get(data['argumentComponent'])
+            first, second = app_first, app_second
         data.update(primaryIds=primary, secondaryIds=secondary, primary=first, secondary=second)
         plx, plx_id = parallax(sid, primary)
         angular = data.pop('angularAxisArcsec', None)
         data['semiMajorAxisAu'] = round(angular * 1000 / plx, 8) if angular and plx else data.get('semiMajorAxisAu')
         data['axisDerivation'] = {'angularAxisArcsec': angular, 'parallaxMas': plx, 'parallaxStarId': plx_id} if angular else None
-        if data['axisDerivation'] and systems[sid].get('adoptedDistance') and not stars.get(plx_id, {}).get('raw_astrometry'):
-            data['axisDerivation']['distanceScope'] = systems[sid]['adoptedDistance']['scope']
+        adopted = systems[sid].get('adoptedDistance')
+        raw = stars.get(plx_id, {}).get('raw_astrometry')
+        # Shared parent astrometry copied into a component record stays scoped.
+        if data['axisDerivation'] and adopted and (not raw or 'approximation' in (raw.get('astrometry_ref') or '')):
+            data['axisDerivation']['distanceScope'] = adopted['scope']
         key = '|'.join(sorted([','.join(sorted(primary)), ','.join(sorted(secondary))]))
         current = results[sid].get(key)
         if current is None or priority < current[0]:
@@ -193,7 +213,11 @@ def main():
                 second = first[:-1] + second
         elif re.fullmatch('[A-Z]{2}', pair):
             first, second = pair
-        elif not pair and set(identities[sid]) == {'A', 'B'}:
+        # An unlabelled CNS5 entry may name a star's inner orbit (BY Dra,
+        # LHS3738); require its discoverer or ADS pair on both components.
+        elif not pair and set(identities[sid]) == {'A', 'B'} and (sid not in cns5_designations or any(
+                {code + 'A', code + 'B'} <= cns5_designations[sid]
+                for code in [re.sub(r'\s', '', designation), 'ADS' + line[44:51].strip()] if code != 'ADS.')):
             first, second = 'A', 'B'
         else:
             rejected.append({'systemId': sid, 'pair': pair, 'reason': 'Ambiguous ORB6 pair label'})

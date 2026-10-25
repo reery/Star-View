@@ -25,31 +25,24 @@
       "retrievedOn": "2026-10-19"
     }
   ],
-  "refreshedSystems": [
-    "msc-03492+2403",
-    "msc-08400-5303",
-    "msc-08424-5307",
-    "msc-12349+2238"
-  ],
-  "scope": "Only these systems refreshed; every other existing orbital solution retained verbatim.",
   "policy": "Exact reviewed WDS/HIP identities only; explicit pair scopes; no positional matches, estimated wide periods or photocenter axes. Angular relative axes converted to AU with the identified catalog parallax. Reviewed published physical axes retain their source distance; component conventions are checked against measured offsets. Unknown MSC zeros stay null.",
   "identityInputs": [
     {
       "frozenInput": "src/data/star-systems.json",
-      "sha256": "0e7e0b8097766381629c4d28e57f62948ecde0c10ac18992c09cef17cb6dfe05"
+      "sha256": "ccb8b300d861fec42a9b95bfeafa8e30f3b4c53298c8c03e3f1743bf4c28fddf"
     },
     {
       "frozenInput": "src/data/stellar-companions.json",
-      "sha256": "ce83b5a1f3bc541404db2ad1fb06453cf721d24451dd7697a827163ecb751eb8"
+      "sha256": "c92bb981aaccc24bfa2d07f944b989bca4d787248f42af54a759301c768646b6"
     },
     {
       "frozenInput": "src/data/object-designations.json",
-      "sha256": "23582139f394f90ce36cd31ebbe675697992d3d356307a2a795bd6067d3f6c00"
+      "sha256": "432ecf1d1acfc95d28815c8d06bf01b0e2fb308692c06e5bf611ef84a87a5fe6"
     }
   ],
-  "systemsReviewed": 341,
-  "systemsWithSolutions": 240,
-  "orbitCount": 302,
+  "systemsReviewed": 823,
+  "systemsWithSolutions": 350,
+  "orbitCount": 413,
   "reconciled": [
     {
       "systemId": "msc-00084+2905",
@@ -359,14 +352,66 @@
       "reference": "Gon2000"
     },
     {
+      "systemId": "cns5-gj-9061",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "cns5-gj-113",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
       "systemId": "msc-03121-2859",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
     },
     {
+      "systemId": "orb6-03128-0112-a-b",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Sef2010a"
+    },
+    {
+      "systemId": "cns5-gj-153",
+      "pair": "B,C",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Baz1986a"
+    },
+    {
+      "systemId": "cns5-gj-161.1",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Hei1986b"
+    },
+    {
       "systemId": "stein-2051",
       "pair": "A",
       "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "orb6-05287-6527-aa-ab",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Jnn2018"
+    },
+    {
+      "systemId": "cns5-gj-3376",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "USN2021c"
+    },
+    {
+      "systemId": "orb6-06003-3102-a-c",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2014a"
+    },
+    {
+      "systemId": "orb6-06003-3102-a-c",
+      "pair": "C,E",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2020k"
     },
     {
       "systemId": "msc-06035+1941",
@@ -379,6 +424,36 @@
       "reason": "Ambiguous ORB6 pair label"
     },
     {
+      "systemId": "cns5-gj-3389",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Jnn2022"
+    },
+    {
+      "systemId": "cns5-gj-231.1",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2018e"
+    },
+    {
+      "systemId": "cns5-gj-256",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2019c"
+    },
+    {
+      "systemId": "cns5-gj-264.1",
+      "pair": "Ca,Cb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2019c"
+    },
+    {
+      "systemId": "cns5-gj-2060",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Jnn2022"
+    },
+    {
       "systemId": "msc-07292-4318",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
@@ -387,6 +462,36 @@
       "systemId": "msc-07346+3153",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "cns5-gj-282",
+      "pair": "Ia,Ib",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VSP2022d"
+    },
+    {
+      "systemId": "cns5-gj-288",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2018e"
+    },
+    {
+      "systemId": "cns5-gj-2069",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2021c"
+    },
+    {
+      "systemId": "cns5-gj-337",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Msn2021a"
+    },
+    {
+      "systemId": "cns5-gj-11386",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2020e"
     },
     {
       "systemId": "spectroscopic-hip-50583",
@@ -410,14 +515,61 @@
       "reason": "Ambiguous ORB6 pair label"
     },
     {
+      "systemId": "cns5-gj-417",
+      "pair": "Ea,Eb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Dup2017"
+    },
+    {
+      "systemId": "cns5-gj-426.1",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "JAA2023"
+    },
+    {
+      "systemId": "cns5-gj-455.1",
+      "pair": "A",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
       "systemId": "msc-12490+6607",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
     },
     {
+      "systemId": "spectroscopic-cns5-3195",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2019e"
+    },
+    {
       "systemId": "msc-13239+5456",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "cns5-gj-564",
+      "pair": "B,C",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Dup2017"
+    },
+    {
+      "systemId": "cns5-gj-584",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Mut2010b"
+    },
+    {
+      "systemId": "cns5-gj-586",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "JAA2022"
+    },
+    {
+      "systemId": "orb6-15440+0231-a-b",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Msn2023"
     },
     {
       "systemId": "msc-16073-3645",
@@ -426,10 +578,50 @@
       "reference": "Gln2007"
     },
     {
+      "systemId": "cns5-gj-615.2",
+      "pair": "Ea,Eb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Hei1990d"
+    },
+    {
+      "systemId": "cns5-gj-615.2",
+      "pair": "Ea,Eb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2019e"
+    },
+    {
+      "systemId": "cns5-gj-615.2",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Rag2009"
+    },
+    {
       "systemId": "gj-666",
       "pair": "Ba,Bb",
       "reason": "Unresolved or overlapping component scope",
       "reference": "Tok2025a"
+    },
+    {
+      "systemId": "cns5-gj-684",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Sod1999"
+    },
+    {
+      "systemId": "cns5-gj-692.1",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Duq1996"
+    },
+    {
+      "systemId": "cns5-gj-719",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "orb6-18570+3254-a-b",
+      "pair": "B",
+      "reason": "Ambiguous ORB6 pair label"
     },
     {
       "systemId": "msc-19307+2758",
@@ -438,6 +630,18 @@
       "reference": "Rbr2018"
     },
     {
+      "systemId": "cns5-gj-765.1",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Mrc1999"
+    },
+    {
+      "systemId": "cns5-gj-770",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "GaA2023"
+    },
+    {
       "systemId": "msc-20375+1436",
       "pair": "Ba,Bb",
       "reason": "Unresolved or overlapping component scope",
@@ -448,6 +652,12 @@
       "pair": "Ba,Bb",
       "reason": "Unresolved or overlapping component scope",
       "reference": "Mut2010e"
+    },
+    {
+      "systemId": "orb6-20396+0458-a-b",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2017a"
     },
     {
       "systemId": "msc-20396+1555",
@@ -468,8 +678,25 @@
       "reference": "TSN2022a"
     },
     {
+      "systemId": "cns5-gj-816.1",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Hrt2001b"
+    },
+    {
       "systemId": "msc-21069+3845",
       "pair": "A",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "cns5-gj-818.1",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2023b"
+    },
+    {
+      "systemId": "orb6-21148+3803-a-b",
+      "pair": "B",
       "reason": "Ambiguous ORB6 pair label"
     },
     {
@@ -479,10 +706,21 @@
       "reference": "Sod1999"
     },
     {
+      "systemId": "cns5-gj-4242",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
       "systemId": "wolf-1561",
       "pair": "Ba,Bb",
       "reason": "Unresolved or overlapping component scope",
       "reference": "Tok2022g"
+    },
+    {
+      "systemId": "cns5-gj-13234",
+      "pair": "Ba,Bb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Tok2019c"
     },
     {
       "systemId": "kruger-60",
@@ -599,6 +837,12 @@
       "pair": "Aa1,Aa2",
       "reason": "Unresolved or overlapping component scope",
       "reference": "SB9_766 1972MNRAS.156..165S"
+    },
+    {
+      "systemId": "orb6-14190-0636-a-b",
+      "pair": "Ca,Cb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "VB6_Gon2010 iot_Vir Gr.9"
     },
     {
       "systemId": "msc-16073-3645",
@@ -761,7 +1005,8 @@
         "axisDerivation": {
           "angularAxisArcsec": 0.0033,
           "parallaxMas": 40.21,
-          "parallaxStarId": "bright-menkalinan"
+          "parallaxStarId": "bright-menkalinan",
+          "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
         }
       }
     }
@@ -776,6 +1021,15 @@
         "msc-05353-0524",
         "msc-05353-052D",
         "orb6-05353-0523-ca-cb"
+      ]
+    },
+    {
+      "catalog": "ORB6",
+      "wdsId": "19464+3344",
+      "designation": "WNO  56AF",
+      "systemIds": [
+        "cns5-gj-765.4",
+        "cns5-gj-767.1"
       ]
     }
   ],
@@ -1021,6 +1275,1482 @@
       "name": "VB 24"
     },
     {
+      "systemId": "cns5-gj-32",
+      "name": "HD 4378"
+    },
+    {
+      "systemId": "cns5-gj-39",
+      "name": "HD 4913"
+    },
+    {
+      "systemId": "cns5-gj-40",
+      "name": "HD 4967"
+    },
+    {
+      "systemId": "cns5-gj-113",
+      "name": "HD 17382"
+    },
+    {
+      "systemId": "cns5-gj-119",
+      "name": "Ross 364"
+    },
+    {
+      "systemId": "cns5-gj-140",
+      "name": "LP 356-14"
+    },
+    {
+      "systemId": "cns5-gj-153",
+      "name": "HD 23189"
+    },
+    {
+      "systemId": "cns5-gj-165",
+      "name": "Ross 29"
+    },
+    {
+      "systemId": "cns5-gj-199",
+      "name": "HD 34751"
+    },
+    {
+      "systemId": "cns5-gj-202",
+      "name": "111 Tau"
+    },
+    {
+      "systemId": "cns5-gj-237",
+      "name": "CD-43 2523"
+    },
+    {
+      "systemId": "cns5-gj-240",
+      "name": "CD-49 2340"
+    },
+    {
+      "systemId": "cns5-gj-256",
+      "name": "HD 51849"
+    },
+    {
+      "systemId": "cns5-gj-260",
+      "name": "HD 53143"
+    },
+    {
+      "systemId": "cns5-gj-274",
+      "name": "Rho Gem"
+    },
+    {
+      "systemId": "cns5-gj-282",
+      "name": "HD 61606"
+    },
+    {
+      "systemId": "cns5-gj-288",
+      "name": "171 Pup"
+    },
+    {
+      "systemId": "cns5-gj-292",
+      "name": "212 Pup"
+    },
+    {
+      "systemId": "cns5-gj-294",
+      "name": "HD 65907"
+    },
+    {
+      "systemId": "cns5-gj-296",
+      "name": "HD 66020"
+    },
+    {
+      "systemId": "cns5-gj-326",
+      "name": "L 820-19"
+    },
+    {
+      "systemId": "cns5-gj-334",
+      "name": "BD-08 2582"
+    },
+    {
+      "systemId": "cns5-gj-337",
+      "name": "Pi1 Cnc"
+    },
+    {
+      "systemId": "cns5-gj-347",
+      "name": "Ross 439"
+    },
+    {
+      "systemId": "cns5-gj-376",
+      "name": "20 LMi"
+    },
+    {
+      "systemId": "cns5-gj-383",
+      "name": "BD-17 3088"
+    },
+    {
+      "systemId": "cns5-gj-387",
+      "name": "39 Leo"
+    },
+    {
+      "systemId": "cns5-gj-389",
+      "name": "L 190-266"
+    },
+    {
+      "systemId": "cns5-gj-397",
+      "name": "BD+46 1635"
+    },
+    {
+      "systemId": "cns5-gj-401",
+      "name": "BD-18 3019"
+    },
+    {
+      "systemId": "cns5-gj-417",
+      "name": "HD 97334"
+    },
+    {
+      "systemId": "cns5-gj-421",
+      "name": "BD-17 3337"
+    },
+    {
+      "systemId": "cns5-gj-458",
+      "name": "HD 238090"
+    },
+    {
+      "systemId": "cns5-gj-461",
+      "name": "BD+01 2684"
+    },
+    {
+      "systemId": "cns5-gj-467",
+      "name": "L 68-28"
+    },
+    {
+      "systemId": "cns5-gj-481",
+      "name": "HD 110315"
+    },
+    {
+      "systemId": "cns5-gj-503",
+      "name": "HD 114837"
+    },
+    {
+      "systemId": "cns5-gj-515",
+      "name": "BD-07 3632"
+    },
+    {
+      "systemId": "cns5-gj-531",
+      "name": "HD 120780"
+    },
+    {
+      "systemId": "cns5-gj-53.1",
+      "name": "HD 6660"
+    },
+    {
+      "systemId": "cns5-gj-544",
+      "name": "HD 125455"
+    },
+    {
+      "systemId": "cns5-gj-547",
+      "name": "HD 126053"
+    },
+    {
+      "systemId": "cns5-gj-548",
+      "name": "BD+24 2733"
+    },
+    {
+      "systemId": "cns5-gj-549",
+      "name": "Theta Boo"
+    },
+    {
+      "systemId": "cns5-gj-560",
+      "name": "Xami"
+    },
+    {
+      "systemId": "cns5-gj-576",
+      "name": "BD+06 2986"
+    },
+    {
+      "systemId": "cns5-gj-584",
+      "name": "Eta CrB"
+    },
+    {
+      "systemId": "cns5-gj-586",
+      "name": "HD 137763"
+    },
+    {
+      "systemId": "cns5-gj-589",
+      "name": "Ross 513"
+    },
+    {
+      "systemId": "cns5-gj-599",
+      "name": "HD 140901"
+    },
+    {
+      "systemId": "cns5-gj-611",
+      "name": "HD 144579"
+    },
+    {
+      "systemId": "cns5-gj-646",
+      "name": "HD 153026"
+    },
+    {
+      "systemId": "cns5-gj-657",
+      "name": "L 413-148"
+    },
+    {
+      "systemId": "cns5-gj-676",
+      "name": "CD-51 10924"
+    },
+    {
+      "systemId": "cns5-gj-684",
+      "name": "26 Dra"
+    },
+    {
+      "systemId": "cns5-gj-698",
+      "name": "BD+18 3497"
+    },
+    {
+      "systemId": "cns5-gj-718",
+      "name": "HD 171314"
+    },
+    {
+      "systemId": "cns5-gj-719",
+      "name": "BY Dra"
+    },
+    {
+      "systemId": "cns5-gj-720",
+      "name": "BD+45 2743"
+    },
+    {
+      "systemId": "cns5-gj-734",
+      "name": "HD 230017"
+    },
+    {
+      "systemId": "cns5-gj-765",
+      "name": "Theta Cyg"
+    },
+    {
+      "systemId": "cns5-gj-770",
+      "name": "HD 188088"
+    },
+    {
+      "systemId": "cns5-gj-773",
+      "name": "HD 188807"
+    },
+    {
+      "systemId": "cns5-gj-777",
+      "name": "HD 190360"
+    },
+    {
+      "systemId": "cns5-gj-781",
+      "name": "PM I20050+5426"
+    },
+    {
+      "systemId": "cns5-gj-78.1",
+      "name": "Mothallah"
+    },
+    {
+      "systemId": "cns5-gj-828",
+      "name": "HD 203985"
+    },
+    {
+      "systemId": "cns5-gj-833",
+      "name": "HD 205390"
+    },
+    {
+      "systemId": "cns5-gj-834",
+      "name": "L 1578-44"
+    },
+    {
+      "systemId": "cns5-gj-841",
+      "name": "CD-51 13128"
+    },
+    {
+      "systemId": "cns5-gj-857",
+      "name": "HD 212330"
+    },
+    {
+      "systemId": "cns5-gj-871",
+      "name": "HD 214953"
+    },
+    {
+      "systemId": "cns5-gj-889",
+      "name": "HD 218294"
+    },
+    {
+      "systemId": "cns5-gj-1006",
+      "name": "G 32-6"
+    },
+    {
+      "systemId": "cns5-gj-1010",
+      "name": "G 242-51"
+    },
+    {
+      "systemId": "cns5-gj-1015",
+      "name": "G 218-7"
+    },
+    {
+      "systemId": "cns5-gj-1021",
+      "name": "HD 4391"
+    },
+    {
+      "systemId": "cns5-gj-1041",
+      "name": "BD+02 305"
+    },
+    {
+      "systemId": "cns5-gj-1047",
+      "name": "G 74-19"
+    },
+    {
+      "systemId": "cns5-gj-1048",
+      "name": "HD 16270"
+    },
+    {
+      "systemId": "cns5-gj-1054",
+      "name": "CD-28 1030"
+    },
+    {
+      "systemId": "cns5-gj-1060",
+      "name": "LAWD 14"
+    },
+    {
+      "systemId": "cns5-gj-1080",
+      "name": "G 99-10"
+    },
+    {
+      "systemId": "cns5-gj-1102",
+      "name": "EGGR 427"
+    },
+    {
+      "systemId": "cns5-gj-1126",
+      "name": "HD 82342"
+    },
+    {
+      "systemId": "cns5-gj-1136",
+      "name": "CD-35 6662"
+    },
+    {
+      "systemId": "cns5-gj-1143",
+      "name": "HD 97782"
+    },
+    {
+      "systemId": "cns5-gj-1155",
+      "name": "G 13-26"
+    },
+    {
+      "systemId": "cns5-gj-1164",
+      "name": "HD 111261"
+    },
+    {
+      "systemId": "cns5-gj-1177",
+      "name": "HD 120036"
+    },
+    {
+      "systemId": "cns5-gj-1181",
+      "name": "HD 121271"
+    },
+    {
+      "systemId": "cns5-gj-118.2",
+      "name": "HD 18143"
+    },
+    {
+      "systemId": "cns5-gj-1183",
+      "name": "G 124-43"
+    },
+    {
+      "systemId": "cns5-gj-1226",
+      "name": "G 21-10"
+    },
+    {
+      "systemId": "cns5-gj-1240",
+      "name": "HD 183870"
+    },
+    {
+      "systemId": "cns5-gj-1280",
+      "name": "HD 218572"
+    },
+    {
+      "systemId": "cns5-gj-140.1",
+      "name": "HD 21209"
+    },
+    {
+      "systemId": "cns5-gj-150.1",
+      "name": "BD+16 502"
+    },
+    {
+      "systemId": "cns5-gj-161.1",
+      "name": "50 Per"
+    },
+    {
+      "systemId": "cns5-gj-167.3",
+      "name": "Epsilon Ret"
+    },
+    {
+      "systemId": "cns5-gj-171.1",
+      "name": "Aldebaran"
+    },
+    {
+      "systemId": "cns5-gj-171.2",
+      "name": "HD 283750"
+    },
+    {
+      "systemId": "cns5-gj-186.1",
+      "name": "HD 32778"
+    },
+    {
+      "systemId": "cns5-gj-2033",
+      "name": "LP 714-58"
+    },
+    {
+      "systemId": "cns5-gj-2043",
+      "name": "LP 417-213"
+    },
+    {
+      "systemId": "cns5-gj-2060",
+      "name": "CD-29 4446"
+    },
+    {
+      "systemId": "cns5-gj-2075",
+      "name": "L 189-2"
+    },
+    {
+      "systemId": "cns5-gj-2130",
+      "name": "HD 318327"
+    },
+    {
+      "systemId": "cns5-gj-2139",
+      "name": "EGGR 200"
+    },
+    {
+      "systemId": "cns5-gj-2154",
+      "name": "BD-20 6558"
+    },
+    {
+      "systemId": "cns5-gj-231.1",
+      "name": "HD 43587"
+    },
+    {
+      "systemId": "cns5-gj-240.1",
+      "name": "23 H. Cam"
+    },
+    {
+      "systemId": "cns5-gj-293.1",
+      "name": "HD 65277"
+    },
+    {
+      "systemId": "cns5-gj-293.2",
+      "name": "HD 65486"
+    },
+    {
+      "systemId": "cns5-gj-297.2",
+      "name": "18 Pup"
+    },
+    {
+      "systemId": "cns5-gj-3014",
+      "name": "G 242-48"
+    },
+    {
+      "systemId": "cns5-gj-3018",
+      "name": "L 86-66"
+    },
+    {
+      "systemId": "cns5-gj-3021",
+      "name": "HD 1237"
+    },
+    {
+      "systemId": "cns5-gj-3077",
+      "name": "G 70-43"
+    },
+    {
+      "systemId": "cns5-gj-3109",
+      "name": "q01 Eri"
+    },
+    {
+      "systemId": "cns5-gj-3117",
+      "name": "G 244-37"
+    },
+    {
+      "systemId": "cns5-gj-3131",
+      "name": "BD-21 368"
+    },
+    {
+      "systemId": "cns5-gj-3169",
+      "name": "G 74-34"
+    },
+    {
+      "systemId": "cns5-gj-3190",
+      "name": "Ross 331"
+    },
+    {
+      "systemId": "cns5-gj-319.1",
+      "name": "HD 74385"
+    },
+    {
+      "systemId": "cns5-gj-3194",
+      "name": "HD 18757"
+    },
+    {
+      "systemId": "cns5-gj-3197",
+      "name": "LP 711-44"
+    },
+    {
+      "systemId": "cns5-gj-3212",
+      "name": "StKM 1-350"
+    },
+    {
+      "systemId": "cns5-gj-3228",
+      "name": "LP 772-72"
+    },
+    {
+      "systemId": "cns5-gj-3243",
+      "name": "L 91-140"
+    },
+    {
+      "systemId": "cns5-gj-3255",
+      "name": "HD 24496"
+    },
+    {
+      "systemId": "cns5-gj-3256",
+      "name": "StKM 1-430"
+    },
+    {
+      "systemId": "cns5-gj-3263",
+      "name": "LP 833-42"
+    },
+    {
+      "systemId": "cns5-gj-3322",
+      "name": "LP 476-207"
+    },
+    {
+      "systemId": "cns5-gj-333.2",
+      "name": "Ross 686"
+    },
+    {
+      "systemId": "cns5-gj-3336",
+      "name": "G 96-21"
+    },
+    {
+      "systemId": "cns5-gj-3344",
+      "name": "L 57-44"
+    },
+    {
+      "systemId": "cns5-gj-3346",
+      "name": "HD 34865"
+    },
+    {
+      "systemId": "cns5-gj-3353",
+      "name": "Ross 45"
+    },
+    {
+      "systemId": "cns5-gj-3373",
+      "name": "G 249-28"
+    },
+    {
+      "systemId": "cns5-gj-3376",
+      "name": "HD 40397"
+    },
+    {
+      "systemId": "cns5-gj-3389",
+      "name": "HD 43162"
+    },
+    {
+      "systemId": "cns5-gj-3404",
+      "name": "G 108-21"
+    },
+    {
+      "systemId": "cns5-gj-3406",
+      "name": "G 192-39"
+    },
+    {
+      "systemId": "cns5-gj-3476",
+      "name": "HD 67199"
+    },
+    {
+      "systemId": "cns5-gj-3481",
+      "name": "BD+21 1764"
+    },
+    {
+      "systemId": "cns5-gj-3483",
+      "name": "L 97-3"
+    },
+    {
+      "systemId": "cns5-gj-3530",
+      "name": "G 114-33"
+    },
+    {
+      "systemId": "cns5-gj-354.1",
+      "name": "HD 82443"
+    },
+    {
+      "systemId": "cns5-gj-3551",
+      "name": "HD 80545"
+    },
+    {
+      "systemId": "cns5-gj-3559",
+      "name": "h UMa"
+    },
+    {
+      "systemId": "cns5-gj-3566",
+      "name": "G 161-74"
+    },
+    {
+      "systemId": "cns5-gj-3600",
+      "name": "G 196-22"
+    },
+    {
+      "systemId": "cns5-gj-3604",
+      "name": "G 118-61"
+    },
+    {
+      "systemId": "cns5-gj-3657",
+      "name": "LP 374-39"
+    },
+    {
+      "systemId": "cns5-gj-3660",
+      "name": "G 253-49"
+    },
+    {
+      "systemId": "cns5-gj-3685",
+      "name": "G 10-49"
+    },
+    {
+      "systemId": "cns5-gj-3727",
+      "name": "Ross 948"
+    },
+    {
+      "systemId": "cns5-gj-3731",
+      "name": "G 13-44"
+    },
+    {
+      "systemId": "cns5-gj-3781",
+      "name": "HD 116442"
+    },
+    {
+      "systemId": "cns5-gj-378.2",
+      "name": "BD+03 2316"
+    },
+    {
+      "systemId": "cns5-gj-3810",
+      "name": "L 691-20"
+    },
+    {
+      "systemId": "cns5-gj-3878",
+      "name": "LP 441-33"
+    },
+    {
+      "systemId": "cns5-gj-3917",
+      "name": "HD 141272"
+    },
+    {
+      "systemId": "cns5-gj-392.1",
+      "name": "HD 90089"
+    },
+    {
+      "systemId": "cns5-gj-3925",
+      "name": "Ross 806"
+    },
+    {
+      "systemId": "cns5-gj-4032",
+      "name": "G 183-10"
+    },
+    {
+      "systemId": "cns5-gj-4038",
+      "name": "G 183-13"
+    },
+    {
+      "systemId": "cns5-gj-4040",
+      "name": "G 204-39"
+    },
+    {
+      "systemId": "cns5-gj-4055",
+      "name": "Ross 708"
+    },
+    {
+      "systemId": "cns5-gj-4130",
+      "name": "HD 189733"
+    },
+    {
+      "systemId": "cns5-gj-414.1",
+      "name": "G 122-2"
+    },
+    {
+      "systemId": "cns5-gj-4157",
+      "name": "HD 197214"
+    },
+    {
+      "systemId": "cns5-gj-4185",
+      "name": "Ross 776"
+    },
+    {
+      "systemId": "cns5-gj-4201",
+      "name": "LSPM J2132+2433SW"
+    },
+    {
+      "systemId": "cns5-gj-4203",
+      "name": "G 26-14"
+    },
+    {
+      "systemId": "cns5-gj-4206",
+      "name": "BPM 14175"
+    },
+    {
+      "systemId": "cns5-gj-4214",
+      "name": "G 126-31"
+    },
+    {
+      "systemId": "cns5-gj-4224",
+      "name": "CD-42 15640"
+    },
+    {
+      "systemId": "cns5-gj-4242",
+      "name": "LP 930-70"
+    },
+    {
+      "systemId": "cns5-gj-4258",
+      "name": "G 264-18"
+    },
+    {
+      "systemId": "cns5-gj-426.1",
+      "name": "Iota Leo"
+    },
+    {
+      "systemId": "cns5-gj-4268",
+      "name": "HD 211472"
+    },
+    {
+      "systemId": "cns5-gj-4277",
+      "name": "Wolf 1201"
+    },
+    {
+      "systemId": "cns5-gj-4308",
+      "name": "CD-24 17443"
+    },
+    {
+      "systemId": "cns5-gj-4317",
+      "name": "L 10-21"
+    },
+    {
+      "systemId": "cns5-gj-4329",
+      "name": "G 29-19"
+    },
+    {
+      "systemId": "cns5-gj-4368",
+      "name": "G 29-73"
+    },
+    {
+      "systemId": "cns5-gj-455.1",
+      "name": "HD 105065"
+    },
+    {
+      "systemId": "cns5-gj-455.3",
+      "name": "Alchiba"
+    },
+    {
+      "systemId": "cns5-gj-456.1",
+      "name": "HD 105671"
+    },
+    {
+      "systemId": "cns5-gj-540.3",
+      "name": "HD 124580"
+    },
+    {
+      "systemId": "cns5-gj-541.2",
+      "name": "BD+46 1951"
+    },
+    {
+      "systemId": "cns5-gj-563.2",
+      "name": "CD-25 10553"
+    },
+    {
+      "systemId": "cns5-gj-630.1",
+      "name": "CM Dra"
+    },
+    {
+      "systemId": "cns5-gj-639.1",
+      "name": "Larawag"
+    },
+    {
+      "systemId": "cns5-gj-654.3",
+      "name": "HD 154590"
+    },
+    {
+      "systemId": "cns5-gj-660.1",
+      "name": "G 19-16"
+    },
+    {
+      "systemId": "cns5-gj-686.1",
+      "name": "BD+23 3151"
+    },
+    {
+      "systemId": "cns5-gj-692.1",
+      "name": "HD 161198"
+    },
+    {
+      "systemId": "cns5-gj-702.1",
+      "name": "HD 165185"
+    },
+    {
+      "systemId": "cns5-gj-702.2",
+      "name": "HD 165401"
+    },
+    {
+      "systemId": "cns5-gj-762.2",
+      "name": "HD 184385"
+    },
+    {
+      "systemId": "cns5-gj-765.1",
+      "name": "16 Cyg "
+    },
+    {
+      "systemId": "cns5-gj-768.1",
+      "name": "Omicron Aql"
+    },
+    {
+      "systemId": "cns5-gj-781.1",
+      "name": "CD-32 15723"
+    },
+    {
+      "systemId": "cns5-gj-783.2",
+      "name": "HD 191785"
+    },
+    {
+      "systemId": "cns5-gj-784.2",
+      "name": "G 24-10"
+    },
+    {
+      "systemId": "cns5-gj-816.1",
+      "name": "HD 200560"
+    },
+    {
+      "systemId": "cns5-gj-818.1",
+      "name": "HD 200525"
+    },
+    {
+      "systemId": "cns5-gj-828.5",
+      "name": "G 263-3"
+    },
+    {
+      "systemId": "cns5-gj-836.7",
+      "name": "HN Peg"
+    },
+    {
+      "systemId": "cns5-gj-838.1",
+      "name": "HD 207491"
+    },
+    {
+      "systemId": "cns5-gj-851.5",
+      "name": "G 188-49"
+    },
+    {
+      "systemId": "cns5-gj-863.2",
+      "name": "Upsilon Aqr"
+    },
+    {
+      "systemId": "cns5-gj-871.1",
+      "name": "WW PsA"
+    },
+    {
+      "systemId": "cns5-gj-9061",
+      "name": "Chi Cet"
+    },
+    {
+      "systemId": "cns5-gj-9118",
+      "name": "Kappa Ret"
+    },
+    {
+      "systemId": "cns5-gj-9332",
+      "name": "Y Vel"
+    },
+    {
+      "systemId": "cns5-gj-9476",
+      "name": "HD 125276"
+    },
+    {
+      "systemId": "cns5-gj-9482",
+      "name": "CD-45 9206"
+    },
+    {
+      "systemId": "cns5-gj-9652",
+      "name": "Ross 733"
+    },
+    {
+      "systemId": "cns5-gj-9681",
+      "name": "HD 190067"
+    },
+    {
+      "systemId": "cns5-gj-9714",
+      "name": "HD 199981"
+    },
+    {
+      "systemId": "cns5-gj-10013",
+      "name": "G 217-32"
+    },
+    {
+      "systemId": "cns5-gj-10116",
+      "name": "LEHPM 927"
+    },
+    {
+      "systemId": "cns5-gj-10161",
+      "name": "PM J01033-1347"
+    },
+    {
+      "systemId": "cns5-gj-10221",
+      "name": "EX Cet"
+    },
+    {
+      "systemId": "cns5-gj-10224",
+      "name": "L 88-2"
+    },
+    {
+      "systemId": "cns5-gj-10230",
+      "name": "CD-45 543"
+    },
+    {
+      "systemId": "cns5-gj-10273",
+      "name": "LSPM J0154+5741"
+    },
+    {
+      "systemId": "cns5-gj-10288",
+      "name": "PM J02034+0648"
+    },
+    {
+      "systemId": "cns5-gj-10302",
+      "name": "HD 13513"
+    },
+    {
+      "systemId": "cns5-gj-10309",
+      "name": "LP 649-66"
+    },
+    {
+      "systemId": "cns5-gj-10358",
+      "name": "PM J02317-5432E"
+    },
+    {
+      "systemId": "cns5-gj-10414",
+      "name": "NSN 237"
+    },
+    {
+      "systemId": "cns5-gj-10441",
+      "name": "LP 772-15"
+    },
+    {
+      "systemId": "cns5-gj-10480",
+      "name": "G 246-36"
+    },
+    {
+      "systemId": "cns5-gj-10482",
+      "name": "LSPM J0326+3929"
+    },
+    {
+      "systemId": "cns5-gj-10519",
+      "name": "LSPM J0343+4554"
+    },
+    {
+      "systemId": "cns5-gj-10558",
+      "name": "G 221-27"
+    },
+    {
+      "systemId": "cns5-gj-10559",
+      "name": "CPD-64 303"
+    },
+    {
+      "systemId": "cns5-gj-10568",
+      "name": "LP 889-37"
+    },
+    {
+      "systemId": "cns5-gj-10584",
+      "name": "HD 26923"
+    },
+    {
+      "systemId": "cns5-gj-10585",
+      "name": "UPM J0415-4602"
+    },
+    {
+      "systemId": "cns5-gj-10618",
+      "name": "G 83-12"
+    },
+    {
+      "systemId": "cns5-gj-10631",
+      "name": "G 247-22"
+    },
+    {
+      "systemId": "cns5-gj-10645",
+      "name": "L 591-42"
+    },
+    {
+      "systemId": "cns5-gj-10665",
+      "name": "HD 270712"
+    },
+    {
+      "systemId": "cns5-gj-10673",
+      "name": "FBS 0444-113"
+    },
+    {
+      "systemId": "cns5-gj-10675",
+      "name": "CD-28 1745"
+    },
+    {
+      "systemId": "cns5-gj-10765",
+      "name": "LP 717-36"
+    },
+    {
+      "systemId": "cns5-gj-10768",
+      "name": "CD-42 1943"
+    },
+    {
+      "systemId": "cns5-gj-10824",
+      "name": "PM J05528-1849"
+    },
+    {
+      "systemId": "cns5-gj-10835",
+      "name": "HD 39855"
+    },
+    {
+      "systemId": "cns5-gj-10847",
+      "name": "G 100-49"
+    },
+    {
+      "systemId": "cns5-gj-10856",
+      "name": "L 133-11"
+    },
+    {
+      "systemId": "cns5-gj-10890",
+      "name": "SCR J0613-3437"
+    },
+    {
+      "systemId": "cns5-gj-10908",
+      "name": "G 104-35"
+    },
+    {
+      "systemId": "cns5-gj-10936",
+      "name": "Ross 603"
+    },
+    {
+      "systemId": "cns5-gj-10943",
+      "name": "G 106-51"
+    },
+    {
+      "systemId": "cns5-gj-10955",
+      "name": "PM J06353-5737"
+    },
+    {
+      "systemId": "cns5-gj-10963",
+      "name": "LP 780-32"
+    },
+    {
+      "systemId": "cns5-gj-11011",
+      "name": "L 382-56"
+    },
+    {
+      "systemId": "cns5-gj-11018",
+      "name": "BRG 23B"
+    },
+    {
+      "systemId": "cns5-gj-11037",
+      "name": "L 455-111"
+    },
+    {
+      "systemId": "cns5-gj-11049",
+      "name": "RX J0711.2-2117"
+    },
+    {
+      "systemId": "cns5-gj-11126",
+      "name": "PM J07498-0317"
+    },
+    {
+      "systemId": "cns5-gj-11137",
+      "name": "CD-24 6144"
+    },
+    {
+      "systemId": "cns5-gj-11179",
+      "name": "PM J08082-7301"
+    },
+    {
+      "systemId": "cns5-gj-11196",
+      "name": "JNN 61"
+    },
+    {
+      "systemId": "cns5-gj-11248",
+      "name": "SIPS J0835-6926"
+    },
+    {
+      "systemId": "cns5-gj-11355",
+      "name": "G 115-68"
+    },
+    {
+      "systemId": "cns5-gj-11380",
+      "name": "2MASS J09332625-4353366"
+    },
+    {
+      "systemId": "cns5-gj-11386",
+      "name": "RX J0936.9-2610"
+    },
+    {
+      "systemId": "cns5-gj-11392",
+      "name": "G 117-34"
+    },
+    {
+      "systemId": "cns5-gj-11404",
+      "name": "WT 1681"
+    },
+    {
+      "systemId": "cns5-gj-11416",
+      "name": "G 48-43"
+    },
+    {
+      "systemId": "cns5-gj-11438",
+      "name": "G 196-3"
+    },
+    {
+      "systemId": "cns5-gj-11440",
+      "name": "HD 87424"
+    },
+    {
+      "systemId": "cns5-gj-11442",
+      "name": "LP 903-20"
+    },
+    {
+      "systemId": "cns5-gj-11449",
+      "name": "L 16-59"
+    },
+    {
+      "systemId": "cns5-gj-11456",
+      "name": "PM J10096-1750"
+    },
+    {
+      "systemId": "cns5-gj-11472",
+      "name": "G 162-44"
+    },
+    {
+      "systemId": "cns5-gj-11486",
+      "name": "LSPM J1024+3902E"
+    },
+    {
+      "systemId": "cns5-gj-11626",
+      "name": "RX J1124.1+3808"
+    },
+    {
+      "systemId": "cns5-gj-11639",
+      "name": "Ross 110"
+    },
+    {
+      "systemId": "cns5-gj-11664",
+      "name": "PM J11422-0121"
+    },
+    {
+      "systemId": "cns5-gj-11670",
+      "name": "LP 793-33"
+    },
+    {
+      "systemId": "cns5-gj-11676",
+      "name": "RX J1147.6+0501"
+    },
+    {
+      "systemId": "cns5-gj-11713",
+      "name": "L 325-274"
+    },
+    {
+      "systemId": "cns5-gj-11734",
+      "name": "RX J1206.9+7007"
+    },
+    {
+      "systemId": "cns5-gj-11742",
+      "name": "LP 170-65"
+    },
+    {
+      "systemId": "cns5-gj-11842",
+      "name": "HD 110810"
+    },
+    {
+      "systemId": "cns5-gj-11920",
+      "name": "G 14-47"
+    },
+    {
+      "systemId": "cns5-gj-11957",
+      "name": "UCAC4 289-069562"
+    },
+    {
+      "systemId": "cns5-gj-11972",
+      "name": "StM 187"
+    },
+    {
+      "systemId": "cns5-gj-11977",
+      "name": "TOI-4336"
+    },
+    {
+      "systemId": "cns5-gj-11985",
+      "name": "LP 738-14"
+    },
+    {
+      "systemId": "cns5-gj-12062",
+      "name": "PM J14197+3137E"
+    },
+    {
+      "systemId": "cns5-gj-12086",
+      "name": "G 65-54"
+    },
+    {
+      "systemId": "cns5-gj-12101",
+      "name": "G 224-13"
+    },
+    {
+      "systemId": "cns5-gj-12106",
+      "name": "LSPM J1437+7536"
+    },
+    {
+      "systemId": "cns5-gj-12118",
+      "name": "Wolf 1501"
+    },
+    {
+      "systemId": "cns5-gj-12144",
+      "name": "UCAC4 341-072230"
+    },
+    {
+      "systemId": "cns5-gj-12185",
+      "name": "CD-39 9632"
+    },
+    {
+      "systemId": "cns5-gj-12195",
+      "name": "G 152-1"
+    },
+    {
+      "systemId": "cns5-gj-12207",
+      "name": "BUG 12"
+    },
+    {
+      "systemId": "cns5-gj-12230",
+      "name": "Pi1 UMi "
+    },
+    {
+      "systemId": "cns5-gj-12249",
+      "name": "HD 139477"
+    },
+    {
+      "systemId": "cns5-gj-12293",
+      "name": "UCAC4 291-086722"
+    },
+    {
+      "systemId": "cns5-gj-12305",
+      "name": "CD-33 10873"
+    },
+    {
+      "systemId": "cns5-gj-12362",
+      "name": "SCR J1630-3633"
+    },
+    {
+      "systemId": "cns5-gj-12374",
+      "name": "2MASS J16334908-6808480"
+    },
+    {
+      "systemId": "cns5-gj-12380",
+      "name": "HD 149192"
+    },
+    {
+      "systemId": "cns5-gj-12420",
+      "name": "HD 152705"
+    },
+    {
+      "systemId": "cns5-gj-12426",
+      "name": "UPM J1658-5311"
+    },
+    {
+      "systemId": "cns5-gj-12429",
+      "name": "PM J16591+2058"
+    },
+    {
+      "systemId": "cns5-gj-12435",
+      "name": "HD 157347"
+    },
+    {
+      "systemId": "cns5-gj-12438",
+      "name": "LP 331-57"
+    },
+    {
+      "systemId": "cns5-gj-12450",
+      "name": "StM 336"
+    },
+    {
+      "systemId": "cns5-gj-12453",
+      "name": "UPM J1710-5300"
+    },
+    {
+      "systemId": "cns5-gj-12459",
+      "name": "G 203-50"
+    },
+    {
+      "systemId": "cns5-gj-12477",
+      "name": "LP 138-36"
+    },
+    {
+      "systemId": "cns5-gj-12512",
+      "name": "LP 688-37"
+    },
+    {
+      "systemId": "cns5-gj-12515",
+      "name": "LP 920-61"
+    },
+    {
+      "systemId": "cns5-gj-12518",
+      "name": "RX J1733.6-4255B"
+    },
+    {
+      "systemId": "cns5-gj-12556",
+      "name": "G 259-20"
+    },
+    {
+      "systemId": "cns5-gj-12569",
+      "name": "UPM J1748-7427"
+    },
+    {
+      "systemId": "cns5-gj-12623",
+      "name": "UCAC4 272-150832"
+    },
+    {
+      "systemId": "cns5-gj-12652",
+      "name": "HD 167425"
+    },
+    {
+      "systemId": "cns5-gj-12671",
+      "name": "PM J18292-3059N"
+    },
+    {
+      "systemId": "cns5-gj-12684",
+      "name": "HD 170573"
+    },
+    {
+      "systemId": "cns5-gj-12689",
+      "name": "LP 923-18"
+    },
+    {
+      "systemId": "cns5-gj-12716",
+      "name": "CD-33 13497"
+    },
+    {
+      "systemId": "cns5-gj-12721",
+      "name": "UCAC3 152-281176"
+    },
+    {
+      "systemId": "cns5-gj-12729",
+      "name": "PM J18453-3253"
+    },
+    {
+      "systemId": "cns5-gj-12737",
+      "name": "L 345-91"
+    },
+    {
+      "systemId": "cns5-gj-12749",
+      "name": "RX J1852.6+3659"
+    },
+    {
+      "systemId": "cns5-gj-12763",
+      "name": "SCR J1857-4011"
+    },
+    {
+      "systemId": "cns5-gj-12789",
+      "name": "LSPM J1907+5905"
+    },
+    {
+      "systemId": "cns5-gj-12802",
+      "name": "L 274-89"
+    },
+    {
+      "systemId": "cns5-gj-12844",
+      "name": "LSPM J1931+1906"
+    },
+    {
+      "systemId": "cns5-gj-12850",
+      "name": "HD 185414"
+    },
+    {
+      "systemId": "cns5-gj-12930",
+      "name": "LP 574-21"
+    },
+    {
+      "systemId": "cns5-gj-12958",
+      "name": "LP 73-196"
+    },
+    {
+      "systemId": "cns5-gj-12976",
+      "name": "G 210-26"
+    },
+    {
+      "systemId": "cns5-gj-12982",
+      "name": "UPM J0231-5432"
+    },
+    {
+      "systemId": "cns5-gj-13004",
+      "name": "SIPS J2045-6332"
+    },
+    {
+      "systemId": "cns5-gj-13013",
+      "name": "V2431 Cyg"
+    },
+    {
+      "systemId": "cns5-gj-13039",
+      "name": "L 424-30"
+    },
+    {
+      "systemId": "cns5-gj-13053",
+      "name": "PM J21055+0609N"
+    },
+    {
+      "systemId": "cns5-gj-13056",
+      "name": "L 280-56"
+    },
+    {
+      "systemId": "cns5-gj-13073",
+      "name": "RX J2117.5-4444"
+    },
+    {
+      "systemId": "cns5-gj-13099",
+      "name": "SIPS J2128-3254"
+    },
+    {
+      "systemId": "cns5-gj-13152",
+      "name": "LP 758-48"
+    },
+    {
+      "systemId": "cns5-gj-13162",
+      "name": "LP 758-74"
+    },
+    {
+      "systemId": "cns5-gj-13172",
+      "name": "LP 758-62"
+    },
+    {
+      "systemId": "cns5-gj-13219",
+      "name": "LP 399-193"
+    },
+    {
+      "systemId": "cns5-gj-13234",
+      "name": "HD 212168"
+    },
+    {
+      "systemId": "cns5-gj-13246",
+      "name": "WD 2226-754"
+    },
+    {
+      "systemId": "cns5-gj-13268",
+      "name": "G 156-37"
+    },
+    {
+      "systemId": "cns5-gj-13277",
+      "name": "PM J22441+4030"
+    },
+    {
+      "systemId": "cns5-gj-13305",
+      "name": "G 189-53"
+    },
+    {
+      "systemId": "cns5-gj-13323",
+      "name": "PM J23073-0415"
+    },
+    {
+      "systemId": "cns5-gj-13325",
+      "name": "G 233-42"
+    },
+    {
+      "systemId": "cns5-gj-13330",
+      "name": "HD 218868"
+    },
+    {
+      "systemId": "cns5-gj-13348",
+      "name": "HD 220140"
+    },
+    {
+      "systemId": "cns5-gj-13442",
+      "name": "APMPM J2354-3316C"
+    },
+    {
       "systemId": "adhara",
       "name": "Adhara"
     },
@@ -1151,6 +2881,18 @@
     {
       "systemId": "spectroscopic-bright-avior",
       "name": "Avior"
+    },
+    {
+      "systemId": "spectroscopic-cns5-3195",
+      "name": "BD+36 2322"
+    },
+    {
+      "systemId": "spectroscopic-cns5-0035",
+      "name": "PM J00081+4757"
+    },
+    {
+      "systemId": "spectroscopic-cns5-0206",
+      "name": "FF And"
     },
     {
       "systemId": "spectroscopic-hip-45336",

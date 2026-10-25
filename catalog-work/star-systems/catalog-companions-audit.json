@@ -48143,6 +48143,272 @@
         },
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
       },
+      "retiredDuplicate": {
+        "id": "cns5-3670",
+        "reason": "Alpha1 Lib (HD 130819, HIP 72603, CNS5 3670) is unresolved Zubenelgenubi B. MSC lists HIP 72603 for WDS 14509-1603 B, the Ba,Bb subsystem (BEU 19, SB9 2554); the ORB6 pass authored a duplicate Ba from it.",
+        "evidence": {
+          "membership": {
+            "wds": "14509-1603",
+            "designation": "BEU  19Ba,Bb",
+            "grade": "4",
+            "labels": [
+              "Ba",
+              "Bb"
+            ],
+            "implicitPair": false,
+            "catalogIds": [
+              "cns5-3670",
+              "hip-72622"
+            ],
+            "reference": "Tok2024c",
+            "decision": "detected-visual-pair",
+            "relevantCatalogIds": [
+              "cns5-3670"
+            ]
+          },
+          "withheldIntegratedFields": {
+            "temperature_k": 6990.0,
+            "luminosity_solar": 3.681908267,
+            "radius_solar": 1.308382647,
+            "metallicity_dex": 0.01,
+            "absolute_mag": 3.328824,
+            "vx_kms": -20.824274,
+            "vy_kms": -7.27323,
+            "vz_kms": -13.043039
+          },
+          "unresolvedPhotometry": {
+            "magnitude_v": 5.16,
+            "error_mag": null,
+            "scope": "Alpha1 Lib catalog source; unresolved component contributions",
+            "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
+            "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A+alf01+Lib",
+            "sourceStarId": "cns5-3670",
+            "sourceAbsoluteMagnitude": 3.328824,
+            "sourceDistancePc": 23.239953566,
+            "sourceNotes": "Corrected CNS5 3670; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2024A&A...683A.125P; metallicity_dex: 2024A&A...683A.125P; luminosity_solar: 2012MNRAS.427..343M). radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
+            "policy": "Observed catalog-source photometry only; no individual component flux inferred."
+          },
+          "simbad": {
+            "queryId": "WDS J14509-1603B",
+            "mainId": "* alf01 Lib",
+            "oid": "2309077",
+            "spectralBibcode": "1988MSS...C04....0H"
+          },
+          "temperature_k": {
+            "method": "median of published individual-object measurements in SIMBAD",
+            "measurements": [
+              {
+                "oidref": "2309077",
+                "teff": "6707",
+                "log_g": "4.27",
+                "fe_h": "-0.03",
+                "fe_h_prec": "2",
+                "bibcode": "2018AJ....155..111L"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6632",
+                "log_g": "4.1",
+                "fe_h": "-0.16",
+                "fe_h_prec": "2",
+                "bibcode": "1986A&A...160..264F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6632",
+                "log_g": "4.1",
+                "fe_h": "-0.13",
+                "fe_h_prec": "2",
+                "bibcode": "1986A&A...165..183F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6632",
+                "log_g": "4.1",
+                "fe_h": "-0.16",
+                "fe_h_prec": "2",
+                "bibcode": "1986A&A...160..264F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6632",
+                "log_g": "4.1",
+                "fe_h": "-0.13",
+                "fe_h_prec": "2",
+                "bibcode": "1986A&A...165..183F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6598",
+                "log_g": "4.18",
+                "fe_h": "-0.1",
+                "fe_h_prec": "2",
+                "bibcode": "2000Priv.C........F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6598",
+                "log_g": "4.18",
+                "fe_h": "-0.1",
+                "fe_h_prec": "2",
+                "bibcode": "2000Priv.C........F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6632",
+                "log_g": "4.1",
+                "fe_h": "-0.13",
+                "fe_h_prec": "2",
+                "bibcode": "1986A&A...165..183F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6632",
+                "log_g": "4.1",
+                "fe_h": "-0.16",
+                "fe_h_prec": "2",
+                "bibcode": "1986A&A...160..264F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6990",
+                "log_g": "4.409",
+                "fe_h": "0.01",
+                "fe_h_prec": "4",
+                "bibcode": "2024A&A...683A.125P"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6597",
+                "log_g": "",
+                "fe_h": "",
+                "fe_h_prec": "",
+                "bibcode": "2005ApJ...626..446R"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6716",
+                "log_g": "",
+                "fe_h": "",
+                "fe_h_prec": "",
+                "bibcode": "2011A&A...530A.138C"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6745",
+                "log_g": "4.25",
+                "fe_h": "",
+                "fe_h_prec": "",
+                "bibcode": "2003AJ....125.1598L"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6900",
+                "log_g": "",
+                "fe_h": "",
+                "fe_h_prec": "",
+                "bibcode": "2009A&A...497..497G"
+              }
+            ]
+          },
+          "metallicity_dex": {
+            "method": "median of published individual-object measurements in SIMBAD",
+            "measurements": [
+              {
+                "oidref": "2309077",
+                "teff": "6707",
+                "log_g": "4.27",
+                "fe_h": "-0.03",
+                "fe_h_prec": "2",
+                "bibcode": "2018AJ....155..111L"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6632",
+                "log_g": "4.1",
+                "fe_h": "-0.16",
+                "fe_h_prec": "2",
+                "bibcode": "1986A&A...160..264F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6632",
+                "log_g": "4.1",
+                "fe_h": "-0.13",
+                "fe_h_prec": "2",
+                "bibcode": "1986A&A...165..183F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6632",
+                "log_g": "4.1",
+                "fe_h": "-0.16",
+                "fe_h_prec": "2",
+                "bibcode": "1986A&A...160..264F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6632",
+                "log_g": "4.1",
+                "fe_h": "-0.13",
+                "fe_h_prec": "2",
+                "bibcode": "1986A&A...165..183F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6598",
+                "log_g": "4.18",
+                "fe_h": "-0.1",
+                "fe_h_prec": "2",
+                "bibcode": "2000Priv.C........F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6598",
+                "log_g": "4.18",
+                "fe_h": "-0.1",
+                "fe_h_prec": "2",
+                "bibcode": "2000Priv.C........F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6632",
+                "log_g": "4.1",
+                "fe_h": "-0.13",
+                "fe_h_prec": "2",
+                "bibcode": "1986A&A...165..183F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6632",
+                "log_g": "4.1",
+                "fe_h": "-0.16",
+                "fe_h_prec": "2",
+                "bibcode": "1986A&A...160..264F"
+              },
+              {
+                "oidref": "2309077",
+                "teff": "6990",
+                "log_g": "4.409",
+                "fe_h": "0.01",
+                "fe_h_prec": "4",
+                "bibcode": "2024A&A...683A.125P"
+              }
+            ]
+          },
+          "absolute_mag": {
+            "method": "individual SIMBAD Johnson V and adopted component distance; no extinction correction",
+            "V": 5.16
+          },
+          "spectralSubtypes": {
+            "spectralType": "F3V",
+            "labels": [
+              "Main-sequence"
+            ],
+            "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+          }
+        }
+      },
       "spectralSubtypes": {
         "spectralType": "F5IV",
         "labels": [
@@ -48234,6 +48500,32 @@
           "vz_kms": null
         },
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
+      },
+      "retiredDuplicate": {
+        "id": "orb6-14509-1603-ba-bb-bb",
+        "reason": "Placeholder Bb of the same duplicate ORB6 system; Zubenelgenubi Bb (msc-14509-1603-bb) is the reviewed record.",
+        "evidence": {
+          "membership": {
+            "wds": "14509-1603",
+            "designation": "BEU  19Ba,Bb",
+            "grade": "4",
+            "labels": [
+              "Ba",
+              "Bb"
+            ],
+            "implicitPair": false,
+            "catalogIds": [
+              "cns5-3670",
+              "hip-72622"
+            ],
+            "reference": "Tok2024c",
+            "decision": "detected-visual-pair",
+            "relevantCatalogIds": [
+              "cns5-3670"
+            ]
+          },
+          "withheldIntegratedFields": {}
+        }
       }
     },
     "bright-beta-lupi": {
@@ -83220,290 +83512,6 @@
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
       }
     },
-    "cns5-3670": {
-      "membership": {
-        "wds": "14509-1603",
-        "designation": "BEU  19Ba,Bb",
-        "grade": "4",
-        "labels": [
-          "Ba",
-          "Bb"
-        ],
-        "implicitPair": false,
-        "catalogIds": [
-          "cns5-3670",
-          "hip-72622"
-        ],
-        "reference": "Tok2024c",
-        "decision": "detected-visual-pair",
-        "relevantCatalogIds": [
-          "cns5-3670"
-        ]
-      },
-      "withheldIntegratedFields": {
-        "temperature_k": 6990.0,
-        "luminosity_solar": 3.681908267,
-        "radius_solar": 1.308382647,
-        "metallicity_dex": 0.01,
-        "absolute_mag": 3.328824,
-        "vx_kms": -20.824274,
-        "vy_kms": -7.27323,
-        "vz_kms": -13.043039
-      },
-      "unresolvedPhotometry": {
-        "magnitude_v": 5.16,
-        "error_mag": null,
-        "scope": "Alpha1 Lib catalog source; unresolved component contributions",
-        "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
-        "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A+alf01+Lib",
-        "sourceStarId": "cns5-3670",
-        "sourceAbsoluteMagnitude": 3.328824,
-        "sourceDistancePc": 23.239953566,
-        "sourceNotes": "Corrected CNS5 3670; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2024A&A...683A.125P; metallicity_dex: 2024A&A...683A.125P; luminosity_solar: 2012MNRAS.427..343M). radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
-        "policy": "Observed catalog-source photometry only; no individual component flux inferred."
-      },
-      "simbad": {
-        "queryId": "WDS J14509-1603B",
-        "mainId": "* alf01 Lib",
-        "oid": "2309077",
-        "spectralBibcode": "1988MSS...C04....0H"
-      },
-      "temperature_k": {
-        "method": "median of published individual-object measurements in SIMBAD",
-        "measurements": [
-          {
-            "oidref": "2309077",
-            "teff": "6707",
-            "log_g": "4.27",
-            "fe_h": "-0.03",
-            "fe_h_prec": "2",
-            "bibcode": "2018AJ....155..111L"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6632",
-            "log_g": "4.1",
-            "fe_h": "-0.16",
-            "fe_h_prec": "2",
-            "bibcode": "1986A&A...160..264F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6632",
-            "log_g": "4.1",
-            "fe_h": "-0.13",
-            "fe_h_prec": "2",
-            "bibcode": "1986A&A...165..183F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6632",
-            "log_g": "4.1",
-            "fe_h": "-0.16",
-            "fe_h_prec": "2",
-            "bibcode": "1986A&A...160..264F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6632",
-            "log_g": "4.1",
-            "fe_h": "-0.13",
-            "fe_h_prec": "2",
-            "bibcode": "1986A&A...165..183F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6598",
-            "log_g": "4.18",
-            "fe_h": "-0.1",
-            "fe_h_prec": "2",
-            "bibcode": "2000Priv.C........F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6598",
-            "log_g": "4.18",
-            "fe_h": "-0.1",
-            "fe_h_prec": "2",
-            "bibcode": "2000Priv.C........F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6632",
-            "log_g": "4.1",
-            "fe_h": "-0.13",
-            "fe_h_prec": "2",
-            "bibcode": "1986A&A...165..183F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6632",
-            "log_g": "4.1",
-            "fe_h": "-0.16",
-            "fe_h_prec": "2",
-            "bibcode": "1986A&A...160..264F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6990",
-            "log_g": "4.409",
-            "fe_h": "0.01",
-            "fe_h_prec": "4",
-            "bibcode": "2024A&A...683A.125P"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6597",
-            "log_g": "",
-            "fe_h": "",
-            "fe_h_prec": "",
-            "bibcode": "2005ApJ...626..446R"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6716",
-            "log_g": "",
-            "fe_h": "",
-            "fe_h_prec": "",
-            "bibcode": "2011A&A...530A.138C"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6745",
-            "log_g": "4.25",
-            "fe_h": "",
-            "fe_h_prec": "",
-            "bibcode": "2003AJ....125.1598L"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6900",
-            "log_g": "",
-            "fe_h": "",
-            "fe_h_prec": "",
-            "bibcode": "2009A&A...497..497G"
-          }
-        ]
-      },
-      "metallicity_dex": {
-        "method": "median of published individual-object measurements in SIMBAD",
-        "measurements": [
-          {
-            "oidref": "2309077",
-            "teff": "6707",
-            "log_g": "4.27",
-            "fe_h": "-0.03",
-            "fe_h_prec": "2",
-            "bibcode": "2018AJ....155..111L"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6632",
-            "log_g": "4.1",
-            "fe_h": "-0.16",
-            "fe_h_prec": "2",
-            "bibcode": "1986A&A...160..264F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6632",
-            "log_g": "4.1",
-            "fe_h": "-0.13",
-            "fe_h_prec": "2",
-            "bibcode": "1986A&A...165..183F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6632",
-            "log_g": "4.1",
-            "fe_h": "-0.16",
-            "fe_h_prec": "2",
-            "bibcode": "1986A&A...160..264F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6632",
-            "log_g": "4.1",
-            "fe_h": "-0.13",
-            "fe_h_prec": "2",
-            "bibcode": "1986A&A...165..183F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6598",
-            "log_g": "4.18",
-            "fe_h": "-0.1",
-            "fe_h_prec": "2",
-            "bibcode": "2000Priv.C........F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6598",
-            "log_g": "4.18",
-            "fe_h": "-0.1",
-            "fe_h_prec": "2",
-            "bibcode": "2000Priv.C........F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6632",
-            "log_g": "4.1",
-            "fe_h": "-0.13",
-            "fe_h_prec": "2",
-            "bibcode": "1986A&A...165..183F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6632",
-            "log_g": "4.1",
-            "fe_h": "-0.16",
-            "fe_h_prec": "2",
-            "bibcode": "1986A&A...160..264F"
-          },
-          {
-            "oidref": "2309077",
-            "teff": "6990",
-            "log_g": "4.409",
-            "fe_h": "0.01",
-            "fe_h_prec": "4",
-            "bibcode": "2024A&A...683A.125P"
-          }
-        ]
-      },
-      "absolute_mag": {
-        "method": "individual SIMBAD Johnson V and adopted component distance; no extinction correction",
-        "V": 5.16
-      },
-      "spectralSubtypes": {
-        "spectralType": "F3V",
-        "labels": [
-          "Main-sequence"
-        ],
-        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
-      }
-    },
-    "orb6-14509-1603-ba-bb-bb": {
-      "membership": {
-        "wds": "14509-1603",
-        "designation": "BEU  19Ba,Bb",
-        "grade": "4",
-        "labels": [
-          "Ba",
-          "Bb"
-        ],
-        "implicitPair": false,
-        "catalogIds": [
-          "cns5-3670",
-          "hip-72622"
-        ],
-        "reference": "Tok2024c",
-        "decision": "detected-visual-pair",
-        "relevantCatalogIds": [
-          "cns5-3670"
-        ]
-      },
-      "withheldIntegratedFields": {}
-    },
     "cns5-3704": {
       "membership": {
         "wds": "14581-4852",
@@ -97742,6 +97750,8 @@
     "cns5-4858": {},
     "cns5-5000": {},
     "cns5-5001": {},
+    "cns5-5045": {},
+    "cns5-5044": {},
     "cns5-5074": {},
     "cns5-5075": {},
     "cns5-5084": {},
@@ -103797,11 +103807,10 @@
         "hip-72622"
       ],
       "reference": "Tok2024c",
-      "decision": "authored-detected-pair",
+      "decision": "covered-reviewed-system",
       "relevantCatalogIds": [
         "cns5-3670"
-      ],
-      "systemId": "orb6-14509-1603-ba-bb"
+      ]
     },
     {
       "wds": "14514+1906",
@@ -108783,16 +108792,6 @@
       "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
     },
     {
-      "id": "cns5-0804",
-      "name": "Alpha For B",
-      "simbadType": "PM*",
-      "spectralType": "G7V",
-      "wdsIds": [
-        "WDS J03121-2859B"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
       "id": "cns5-3715",
       "name": "CD-43 9546",
       "simbadType": "SB*",
@@ -110562,16 +110561,6 @@
       "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
     },
     {
-      "id": "cns5-5045",
-      "name": "LP 73-196 A",
-      "simbadType": null,
-      "spectralType": null,
-      "wdsIds": [
-        "WDS J20233+6710A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
       "id": "cns5-4462",
       "name": "HD 164922",
       "simbadType": null,
@@ -110608,16 +110597,6 @@
       "spectralType": "F7III",
       "wdsIds": [
         "WDS J14190-0636C"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
-      "id": "cns5-5044",
-      "name": "LP 73-196 B",
-      "simbadType": null,
-      "spectralType": null,
-      "wdsIds": [
-        "WDS J20233+6710B"
       ],
       "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
     },
@@ -113454,9 +113433,9 @@
   "systems": 823,
   "components": 1842,
   "selectedFieldCoverage": {
-    "individualApparentMagnitude": 956,
+    "individualApparentMagnitude": 955,
     "unresolvedSourcePhotometry": 106,
-    "subtypes": 969,
+    "subtypes": 968,
     "missingSubtypes": [
       "gj-105-c",
       "cns5-1723",
@@ -113909,6 +113888,8 @@
       "cns5-4842",
       "cns5-4859",
       "cns5-4858",
+      "cns5-5045",
+      "cns5-5044",
       "cns5-5075",
       "cns5-5084",
       "cns5-5083",
@@ -114252,7 +114233,6 @@
       "hip-70576",
       "orb6-14262-4523-a-b-b",
       "orb6-14411+1344-a-b-b",
-      "orb6-14509-1603-ba-bb-bb",
       "cns5-3704",
       "orb6-14581-4852-a-b-b",
       "hip-74666",
@@ -114853,6 +114833,8 @@
       "cns5-4859",
       "cns5-4858",
       "cns5-5001",
+      "cns5-5045",
+      "cns5-5044",
       "cns5-5074",
       "cns5-5075",
       "cns5-5083",
@@ -115066,7 +115048,6 @@
       "orb6-14048-3200-a-b-b",
       "orb6-14190-0636-a-b-b",
       "orb6-14262-4523-a-b-b",
-      "orb6-14509-1603-ba-bb-bb",
       "orb6-14581-4852-a-b-b",
       "cns5-3838",
       "orb6-15348-2952-a-b-b",
@@ -115127,14 +115108,14 @@
       "absolute_mag"
     ],
     "available": {
-      "spectral_type": 1227,
-      "temperature_k": 1126,
+      "spectral_type": 1226,
+      "temperature_k": 1125,
       "mass_solar": 633,
       "luminosity_solar": 817,
       "radius_solar": 841,
-      "metallicity_dex": 790,
+      "metallicity_dex": 789,
       "age_gyr": 141,
-      "absolute_mag": 956
+      "absolute_mag": 955
     },
     "withoutProperties": [
       "cns5-1615",
@@ -115289,6 +115270,8 @@
       "cns5-4784",
       "cns5-4843",
       "cns5-4842",
+      "cns5-5045",
+      "cns5-5044",
       "cns5-5075",
       "cns5-5125",
       "cns5-5212",
@@ -115443,7 +115426,6 @@
       "orb6-14190-0636-a-b-b",
       "hip-70576",
       "orb6-14262-4523-a-b-b",
-      "orb6-14509-1603-ba-bb-bb",
       "cns5-3704",
       "orb6-14581-4852-a-b-b",
       "hip-74666",
@@ -121619,6 +121601,26 @@
         "age_gyr",
         "absolute_mag"
       ],
+      "cns5-5045": [
+        "spectral_type",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "absolute_mag"
+      ],
+      "cns5-5044": [
+        "spectral_type",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "absolute_mag"
+      ],
       "cns5-5074": [
         "age_gyr",
         "absolute_mag"
@@ -126383,22 +126385,6 @@
         "metallicity_dex",
         "age_gyr"
       ],
-      "cns5-3670": [
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
-        "age_gyr"
-      ],
-      "orb6-14509-1603-ba-bb-bb": [
-        "spectral_type",
-        "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
-        "metallicity_dex",
-        "age_gyr",
-        "absolute_mag"
-      ],
       "cns5-3704": [
         "spectral_type",
         "temperature_k",
@@ -127245,33 +127231,33 @@
     }
   },
   "sourcePreservation": {
-    "componentRecordsWithSources": 739,
-    "sourceRecords": 1293,
+    "componentRecordsWithSources": 738,
+    "sourceRecords": 1296,
     "missingIndividualFieldsWithSourceValues": {
-      "temperature_k": 116,
+      "temperature_k": 118,
       "mass_solar": 86,
       "luminosity_solar": 118,
       "radius_solar": 118,
-      "metallicity_dex": 103,
+      "metallicity_dex": 104,
       "age_gyr": 41,
-      "absolute_mag": 107,
-      "apparent_mag": 107,
+      "absolute_mag": 109,
+      "apparent_mag": 109,
       "spectral_type": 91,
-      "vx_kms": 45,
-      "vy_kms": 45,
-      "vz_kms": 45
+      "vx_kms": 44,
+      "vy_kms": 44,
+      "vz_kms": 44
     }
   },
   "coverage": {
-    "temperature_k": 1126,
+    "temperature_k": 1125,
     "mass_solar": 633,
     "luminosity_solar": 817,
     "radius_solar": 841,
-    "metallicity_dex": 790,
+    "metallicity_dex": 789,
     "age_gyr": 141
   },
   "inputSha256": {
-    "src/data/star-systems.json": "124a22a39a6203498204d3cd96b3cb582fbeed07f0de26f6ca219ae5a5c79fd9",
+    "src/data/star-systems.json": "ccb8b300d861fec42a9b95bfeafa8e30f3b4c53298c8c03e3f1743bf4c28fddf",
     "src/data/object-designations.json": "432ecf1d1acfc95d28815c8d06bf01b0e2fb308692c06e5bf611ef84a87a5fe6",
     "src/data/object-stats.json": "c50098b4f82dd152274f58bb6079490e9a9a80c5c4ab437b08db8566265ac1c8",
     "catalog-work/bright-stars/retired-catalog/stars.csv": "dd4531e8c43bb760e3cfcbb46ced8f0bdc06053d262580168f2c92da96c78bc2",
@@ -127355,6 +127341,7 @@
     "catalog-work/famous-cluster-stars/motion-review.json": "64548a4c015a186b47c8e269352fe8efa7a375537726e23f0f2527095edd0334",
     "catalog-work/star-systems/izar-review.json": "025ca21ae85254801d9bdf4c61f6039f57053826af98240c2fe26b3b934f4459",
     "catalog-work/star-systems/literature-components/izar-20261020-sources.json": "5d86e1ebe01a430f9b31fc84e085f3914e61bc8b84fbb6f2d1380f51fd1c60f6",
+    "catalog-work/star-systems/duplicate-component-merges.json": "1ad8f6693c6520087bd5a6206061f5ba6bdf835b31f5679f705a1c7fd32794f0",
     "catalog-work/nearest-100/physical-overrides.json": "9bbfe6982d5fad43b205a5cbf36fc9bb3ac967d285959292cc544abd3f1bd297",
     "catalog-work/shared-enrichment/source-manifest.json": "51fb538d443021382615013ef6bdaf942de51935ec914db19a77934a596fd1e0",
     "catalog-work/star-systems/reviewed-unresolved-photometry.json": "291165120291df05fe0c334b4623e6aaa6f75fc0a729786ae0f7f0a7d2100209",

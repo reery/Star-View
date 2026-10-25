@@ -74,7 +74,13 @@ def pool_losses(previous, proposed, retirements):
         identifier = star["id"]
         adopted = current.get(identifier)
         if adopted is None:
-            errors.append(f"{identifier}: missing component record")
+            # A merged duplicate may retire only while its complete record and
+            # native sources survive, scoped, on one remaining record.
+            record = {key: value for key, value in star.items() if key != "catalog_sources"}
+            if not any(any(source["record"] == record and source.get("scope") for source in other.get("catalog_sources", []))
+                       and all(source in other["catalog_sources"] for source in star.get("catalog_sources", []))
+                       for other in proposed["stars"]):
+                errors.append(f"{identifier}: missing component record")
             continue
         sources = [source["record"] for source in adopted.get("catalog_sources", [])]
         missing = lost_fields(star, adopted, sources)

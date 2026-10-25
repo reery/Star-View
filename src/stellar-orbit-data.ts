@@ -8,6 +8,7 @@ const payloads = import.meta.glob<string>([
 
 export function loadStellarOrbitData(systemId: string): Promise<StellarOrbit[]> {
   const url = payloads[`./data/generated/stellar-orbits/stellar-orbit-${systemId}.json`]
-  if (!url) return Promise.reject(new Error(`Missing stellar orbit data: ${systemId}`))
+  // Payloads exist only for systems with reviewed orbit entries; absence means no orbit solutions.
+  if (!url) return Promise.resolve([])
   return loadJsonData<StellarOrbit[]>(url)
 }

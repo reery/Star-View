@@ -344,6 +344,10 @@ def build():
             same_source = matches.get(label, [])
             ids = primary_ids if label == primary_label else same_source
             identifier = ids[0] if ids else f"msc-{wds}-{label.lower()}"
+            # An unresolved subsystem record (Zubenelgenubi B) is the same catalog
+            # object as its first leaf (Ba); alias it rather than leave a duplicate.
+            branch = next((key for key in matches if key not in (label, original_label) and label.startswith(key)), None)
+            alternates = matches[branch] if not ids and branch and label == next(leaf for leaf, _ in members if leaf.startswith(branch)) else []
             existing = stars.get(identifier)
             source_label = next((key for key in sorted(records, key=len, reverse=True) if label.startswith(key)), original_label)
             record = records[source_label]
@@ -390,8 +394,8 @@ def build():
                 if label == "Aa":
                     evidence["retainedUnresolvedMscPhotometry"] = hierarchy_review["retainedUnresolvedMscPhotometry"]
             component = {"starId": identifier, "label": label}
-            if len(ids) > 1:
-                component["alternateStarIds"] = ids[1:]
+            if len(ids) > 1 or alternates:
+                component["alternateStarIds"] = [*ids[1:], *alternates]
             system["components"].append(component)
         definitions.append(system)
         reviewed_ids.update(identifier for c in system["components"] for identifier in [c["starId"], *c.get("alternateStarIds", [])])
@@ -586,6 +590,18 @@ def build():
         "catalog-work/famous-cluster-stars/motion-review.json", "clusterMotion")
     apply_related_astrometry(read_json(ROOT / "catalog-work/famous-cluster-stars/astrometry-review.json"), definitions, pool, audit)
     inputs += apply_izar_review(ROOT, definitions, pool, audit)
+    # Reviewed duplicates retire into the same object's record with full provenance.
+    merges_path = WORK / "duplicate-component-merges.json"
+    inputs.append(merges_path)
+    for merge in read_json(merges_path)["merges"]:
+        if merge["retiredId"] in pool:
+            raise ValueError(f"Reviewed duplicate is still authored: {merge['retiredId']}")
+        # Native catalog rows of an aliased record are retained by the alias pass below.
+        previous = merge["retainedPreviousEffective"]
+        pool[merge["survivorId"]].setdefault("catalog_sources", []).append({"catalog_id": "duplicate-merge-before-20261025", "scope": merge["scope"],
+                         "record": {key: copy.deepcopy(value) for key, value in previous.items() if key != "catalog_sources"}})
+        audit["componentRecords"].setdefault(merge["survivorId"], {})["retiredDuplicate"] = {
+            "id": merge["retiredId"], "reason": merge["reason"], "evidence": merge["retainedEvidence"]}
 
     # Resolved observations retain their own epoch and uncertainty semantics.
     # A spectroscopic component RV must not complete a different-epoch bulk

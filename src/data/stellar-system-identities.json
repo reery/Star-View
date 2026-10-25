@@ -7532,6 +7532,20 @@
       ]
     },
     {
+      "id": "cns5-gj-12958",
+      "name": "LP 73-196",
+      "components": [
+        {
+          "starId": "cns5-5045",
+          "label": "A"
+        },
+        {
+          "starId": "cns5-5044",
+          "label": "B"
+        }
+      ]
+    },
+    {
       "id": "cns5-gj-12976",
       "name": "G 210-26",
       "components": [
@@ -8235,7 +8249,10 @@
         },
         {
           "starId": "msc-03121-2859-ba",
-          "label": "Ba"
+          "label": "Ba",
+          "alternateStarIds": [
+            "cns5-0804"
+          ]
         },
         {
           "starId": "msc-03121-2859-bb",
@@ -9555,7 +9572,10 @@
         },
         {
           "starId": "msc-14509-1603-ba",
-          "label": "Ba"
+          "label": "Ba",
+          "alternateStarIds": [
+            "cns5-3670"
+          ]
         },
         {
           "starId": "msc-14509-1603-bb",
@@ -11813,20 +11833,6 @@
         {
           "starId": "orb6-14411+1344-a-b-b",
           "label": "B"
-        }
-      ]
-    },
-    {
-      "id": "orb6-14509-1603-ba-bb",
-      "name": "Alpha1 Lib",
-      "components": [
-        {
-          "starId": "cns5-3670",
-          "label": "Ba"
-        },
-        {
-          "starId": "orb6-14509-1603-ba-bb-bb",
-          "label": "Bb"
         }
       ]
     },

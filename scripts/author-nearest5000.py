@@ -40,6 +40,9 @@ DESIGNATIONS = ROOT / "src/data/object-designations.json"
 OTHER_CATALOGS = ("western-constellation-stars",)
 DEFAULT_OUTPUT = ROOT / "src/data/catalogs/nearest-5000"
 ADDITIONS = 4000
+# CNS5 gives LP 73-196 B (5044, GJ 12957) its own number as GJp; its flagged
+# primary is the adjacent two-component record LP 73-196 A (5045, GJ 12958).
+SYSTEM_PRIMARY_CORRECTIONS = {"5044": "12958"}
 MOTION_FIELDS = ("vx_kms", "vy_kms", "vz_kms")
 SOURCES = [
     {"name": "CNS5, Golovin et al., corrected 2023-12-13; membership, adopted astrometry and multiple-system components", "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe"},
@@ -81,7 +84,7 @@ def cns5_systems():
         value = lambda start, end: line[start - 1:end].strip()
         if value(18, 18) in {"", "-"} or not value(13, 16):
             continue
-        key = value(22, 26).rstrip(".") or value(6, 11)
+        key = SYSTEM_PRIMARY_CORRECTIONS.get(value(1, 4)) or value(22, 26).rstrip(".") or value(6, 11)
         systems[value(1, 4)] = {"key": key, "label": value(13, 16), "primary": value(20, 20) == "1"}
     return systems
 
