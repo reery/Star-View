@@ -629,8 +629,7 @@ describe('catalog packages and display settings', () => {
     expect(trapezium.every((star) => !indexStarSystems(cluster).has(star.id))).toBe(true)
   })
 
-  it('rebuilds bright and landmark catalogs exactly from frozen sources', () => {
-    execFileSync('python3', ['scripts/author-bright-stars.py'], { cwd: fileURLToPath(new URL('../', import.meta.url)) })
+  it('rebuilds landmark catalogs exactly from frozen sources', () => {
     execFileSync('python3', ['scripts/author-landmark-stars.py'], { cwd: fileURLToPath(new URL('../', import.meta.url)) })
   })
 

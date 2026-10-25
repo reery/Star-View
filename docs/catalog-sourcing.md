@@ -296,7 +296,6 @@ With dependencies already installed, these commands are offline and make no chan
 /tmp/star-view-catalog-venv/bin/python scripts/author-nearest100.py build --check
 /tmp/star-view-catalog-venv/bin/python -m unittest scripts.tests.test_catalog_sources
 /tmp/star-view-catalog-venv/bin/python scripts/author-nearest1000.py build --check
-python3 scripts/author-bright-stars.py
 ```
 
 To generate the same three package files into a fresh authoring directory:
