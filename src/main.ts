@@ -64,6 +64,8 @@ function loadCardFeature<T>(id: string, label: string, load: () => Promise<T>, i
   const target = card.querySelector<HTMLElement>(':scope > .card-scroll-content') ?? card
   return loadWithRecovery(target, load, {
     label,
+    // A card that is just opening waits invisibly behind its opening animation instead of showing a loading message.
+    silent: card.getAnimations().some((animation) => animation.pending),
     isCurrent: () => !events.signal.aborted && (isCurrent?.() ?? true),
     retry: () => {
       element(`${id}-close`).click()
@@ -1635,6 +1637,9 @@ async function renderActiveObjectSection(): Promise<void> {
       container.setAttribute('aria-busy', 'true')
       starInfoModule ??= await import('./star-info')
       await starInfoModule.loadStarInfo(star.id)
+      // The hero image streams in with the article instead of appearing afterwards.
+      const image = starInfoModule.starInfoForId(star.id)?.image
+      if (image) await Object.assign(new Image(), { src: image.src }).decode().catch(() => undefined)
     } else {
       container.setAttribute('aria-busy', 'true')
       systemLoad ??= import('./system-card')

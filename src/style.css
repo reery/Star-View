@@ -666,7 +666,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .load-recovery { display: grid; grid-column: 1 / -1; gap: 8px; margin: 0; padding: 12px; color: var(--muted); font-size: var(--property-text-size); line-height: 1.5; }
 .load-recovery-actions { display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink); }
 /* Opening cards trace their frame, then stream their body in. While content loads (aria-busy) the card waits invisibly,
-   so the frame traces the loaded size; a slow load shows the loading message and streams the content in once rendered. */
+   so the frame traces the loaded size; after a load error the card builds and streams the content in once a retry renders it. */
 @media (prefers-reduced-motion: no-preference) {
   .dock-card.object-type-card { background-size: 100% 100%; background-repeat: no-repeat; animation: card-surface 300ms ease-out; }
   .object-type-card::before { content: ''; position: absolute; inset: 0; z-index: 2; border: 1px solid var(--border-active); border-radius: calc(var(--card-radius) - 1px); opacity: 0; pointer-events: none; animation: card-outline 420ms ease-out; }
@@ -675,9 +675,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .object-type-card:is([aria-busy="true"]:not(.load-state), :has(> [aria-busy="true"]:not(.load-state))),
   .object-type-card:is([aria-busy="true"]:not(.load-state), :has(> [aria-busy="true"]:not(.load-state)))::before,
   .object-type-card:is([aria-busy="true"]:not(.load-state), :has(> [aria-busy="true"]:not(.load-state))) > *,
-  #object-info[aria-busy="true"], #object-system[aria-busy="true"] { animation-play-state: paused; }
+  #object-system[aria-busy="true"] { animation-play-state: paused; }
   .object-type-card.load-state > *, .object-type-card > .load-state { animation: none; }
 }
+/* Info collapses while its article loads, then streams in once shown. */
+#object-info[aria-busy="true"] { display: none; }
 @keyframes card-outline {
   from { opacity: 1; clip-path: inset(0 50% 100% 50%); }
   30% { opacity: 1; clip-path: inset(0 0 100% 0); }
