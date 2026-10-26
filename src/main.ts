@@ -64,7 +64,7 @@ function loadCardFeature<T>(id: string, label: string, load: () => Promise<T>, i
   const card = element(`${id}-card`)
   const target = card.querySelector<HTMLElement>(':scope > .card-scroll-content') ?? card
   // A card that is just opening shows its frame at once and streams its content in once loaded, without a loading message.
-  const opening = card.getAnimations().some((animation) => animation.pending)
+  const opening = target.getAnimations().some((animation) => animation.pending)
   const loading = loadWithRecovery(target, load, {
     label,
     silent: opening,

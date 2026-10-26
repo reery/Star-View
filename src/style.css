@@ -665,10 +665,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .load-state > :not(.load-recovery) { display: none !important; }
 .load-recovery { display: grid; grid-column: 1 / -1; gap: 8px; margin: 0; padding: 12px; color: var(--muted); font-size: var(--property-text-size); line-height: 1.5; }
 .load-recovery-actions { display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink); }
-/* Opening cards paint their frame at once and trace its outline; content still loading streams in via content-stream.ts. */
+/* Opening cards paint at once; their content fades in, or streams in via content-stream.ts once loaded. */
 @media (prefers-reduced-motion: no-preference) {
-  .dock-card.object-type-card { background-size: 100% 100%; background-repeat: no-repeat; animation: card-surface 120ms ease-out; }
-  .object-type-card::before { content: ''; position: absolute; inset: 0; z-index: 2; border: 1px solid color-mix(in srgb, var(--border-active) 50%, transparent); border-radius: calc(var(--card-radius) - 1px); opacity: 0; pointer-events: none; animation: card-outline 280ms ease-out; }
   .object-type-card > :not(.panel-heading) { animation: card-fade 120ms ease-out; }
 }
 /* While a card or Info loads, reserve space for content rendered afterwards so its frame opens near the loaded size. */
@@ -680,15 +678,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-type-card > [aria-busy="true"] :is(#magnitude-absolute-value, #magnitude-apparent-value):empty { min-height: 31px; }
 .object-type-card > [aria-busy="true"] #magnitude-visibility-controls:empty { min-height: 32px; }
 #object-info[aria-busy="true"]:empty { min-height: 400px; }
-@keyframes card-outline {
-  from { opacity: 1; clip-path: inset(0 50% 100% 50%); }
-  20% { opacity: 1; clip-path: inset(0 0 100% 0); }
-  45% { opacity: 1; clip-path: inset(0); }
-  to { opacity: 0; clip-path: inset(0); }
-}
-@keyframes card-surface {
-  from { background-size: 100% 0; box-shadow: 0 2px 6px #0000, 0 18px 48px #0000, inset 0 1px #fff0; }
-}
 @keyframes card-fade { from { opacity: 0; } }
 .catalog > .star-list { min-height: 0; }
 .object-type-hero { position: relative; height: 210px; overflow: hidden; background: #090b10; }
