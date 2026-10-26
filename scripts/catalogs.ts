@@ -26,7 +26,7 @@ import planetDetails from '../src/data/planet-details.json' with { type: 'json' 
 import smallBodies from '../src/data/solar-small-bodies.json' with { type: 'json' }
 import starInfo from '../src/data/star-info.json' with { type: 'json' }
 import nearest100Info from '../src/data/nearest-100-info.json' with { type: 'json' }
-import brightStarInfo from '../src/data/bright-star-info.json' with { type: 'json' }
+import constellationStarInfo from '../src/data/constellation-star-info.json' with { type: 'json' }
 import legacyStarIds from '../src/data/legacy-star-ids.json' with { type: 'json' }
 import { starComponentIdentity } from '../src/star-systems.ts'
 import type { ConstellationChart } from '../src/constellations.ts'
@@ -247,7 +247,7 @@ function generate(): void {
   const legacyIds: Record<string, string> = legacyStarIds.ids
   const articleId = (id: string) => starComponentIdentity(id) ? id : legacyIds[id] ?? id
   // Exact catalog IDs of the same single star in another catalog; resolved only through the startup index.
-  const articleEntries = [starInfo, nearest100Info, brightStarInfo].flatMap((dataset) =>
+  const articleEntries = [starInfo, nearest100Info, constellationStarInfo].flatMap((dataset) =>
     Object.entries(dataset.articles).map(([id, definition]) => {
       const { aliases = [], ...article } = definition as typeof definition & { aliases?: string[] }
       return { id: articleId(id), reviewedAt: dataset.reviewedAt, article, aliases }

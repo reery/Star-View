@@ -2,6 +2,7 @@
 
 import copy
 
+from .classification import prune_subtypes
 from .precision import calculated_float
 
 
@@ -38,8 +39,10 @@ def lost_fields(previous, current, retained=(), prefix=""):
             missing.extend(lost_fields(value, adopted if isinstance(adopted, dict) else {},
                 [entry for entry in alternatives if isinstance(entry, dict)], f"{prefix}{field}."))
         elif isinstance(value, list):
-            kept = [adopted, *alternatives]
-            if not all(any(isinstance(entry, list) and item in entry for entry in kept) for item in value):
+            kept = [entry for entry in [adopted, *alternatives] if isinstance(entry, list)]
+            # A subtype implied by a more specific retained label is redundant, not lost.
+            if not all(any(item in entry or field == "subtypes" and item not in prune_subtypes([*entry, item])
+                           for entry in kept) for item in value):
                 missing.append(f"{prefix}{field}")
         elif not known(adopted) and not any(known(entry) for entry in alternatives):
             missing.append(f"{prefix}{field}")

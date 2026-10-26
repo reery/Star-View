@@ -22,8 +22,13 @@ were retrieved on **2026-10-08** for 1,961 distinct reviewed identities. Seconda
 types are included, so a star whose primary type is a binary can still show
 Wolf–Rayet or a variability class. Generic stars, wavelength detections, proper
 motion and association membership are omitted. Candidate classes retain the
-word “candidate”. These are recorded catalog classifications, rather than a new
-assessment of conflicting literature.
+word “candidate”, including SIMBAD candidate codes such as `s?r` or `Y*?` that do
+not follow the `X?` → `X*` pattern. A candidate is dropped once the same class is
+confirmed, and a broad class is dropped beside a more specific one that is at
+least as certain, following the SIMBAD hierarchy and VSX variability classes
+(for example, Red giant replaces Giant and Classical Cepheid replaces Variable
+star). `sourceTypes` keeps every original SIMBAD code. These are recorded catalog
+classifications, rather than a new assessment of conflicting literature.
 
 Unambiguous luminosity classes in the adopted spectral string also provide
 Main-sequence, Subgiant, Giant or Supergiant labels. Brown-dwarf spectra can
@@ -31,8 +36,8 @@ provide L-, T- or Y-type labels. Composite spectra can describe more than one
 component of an unresolved marker. Missing classifications stay unavailable.
 
 The display descriptions in `src/object-subtype-info.ts` explain the class rather
-than reassess the selected object. Candidate labels retain their name and an
-explicit unconfirmed qualifier. Unrecognized custom-CSV labels remain visible
+than reassess the selected object. Candidate labels share the base class
+description; the label itself marks them as unconfirmed. Unrecognized custom-CSV labels remain visible
 with a description-unavailable message. Descriptions use the
 [AAVSO variable-type guide](https://vsx.aavso.org/index.php?view=about.vartypes),
 [IVOA object-type vocabulary](https://www.ivoa.net/rdf/object-type),
@@ -42,7 +47,7 @@ with a description-unavailable message. Descriptions use the
 The glossary reuses these descriptions for all 61 supported subtype terms.
 Its Object sub-types group adds 59 articles; Pulsar and Neutron star keep their
 existing Object types articles. Candidate labels are searchable under the base
-term, with the unconfirmed qualifier explained in the subtype articles. Eight
+term. Eight
 original SVG schematics illustrate physical mechanisms where a drawing helps;
 captions identify them as schematics, and text alternatives describe each image.
 

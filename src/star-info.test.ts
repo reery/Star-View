@@ -5,7 +5,7 @@ import nearest100Csv from './data/catalogs/nearest-100/stars.csv?raw'
 import brightStarsCsv from '../catalog-work/bright-stars/retired-catalog/stars.csv?raw'
 import definitions from './data/star-info.json'
 import nearest100Definitions from './data/nearest-100-info.json'
-import brightStarDefinitions from './data/bright-star-info.json'
+import constellationDefinitions from './data/constellation-star-info.json'
 import legacyStarIds from './data/legacy-star-ids.json'
 import westernCsv from './data/catalogs/western-constellation-stars/stars.csv?raw'
 import { parseStarCatalog } from './catalog'
@@ -19,7 +19,7 @@ const surviving = (id: string) => (legacyStarIds.ids as Record<string, string>)[
 beforeAll(async () => {
   vi.stubGlobal('fetch', generatedJsonFetch)
   await Promise.all([...Object.keys(definitions.articles), ...Object.keys(nearest100Definitions.articles),
-    ...Object.keys(brightStarDefinitions.articles).map(surviving)].map(loadStarInfo))
+    ...Object.keys(constellationDefinitions.articles).map(surviving)].map(loadStarInfo))
 })
 afterAll(() => vi.unstubAllGlobals())
 
@@ -80,8 +80,8 @@ describe('bright-star articles', () => {
 
   it('adds sourced articles without duplicating or replacing existing content', () => {
     const existingKeys = new Set([...Object.keys(definitions.articles), ...Object.keys(nearest100Definitions.articles)])
-    expect(Object.keys(brightStarDefinitions.articles)).toHaveLength(109)
-    for (const [id, definition] of Object.entries(brightStarDefinitions.articles)) {
+    expect(Object.keys(constellationDefinitions.articles)).toHaveLength(423)
+    for (const [id, definition] of Object.entries(constellationDefinitions.articles)) {
       expect(existingKeys.has(id), id).toBe(false)
       const article = starInfoForId(surviving(id))!
       expect(article.introduction.label, id).toBe(definition.name)
@@ -140,7 +140,7 @@ describe('nearest-100 articles', () => {
 
 describe('single-star catalog aliases', () => {
   const westernIds = new Set(parseStarCatalog(westernCsv).map(({ id }) => id))
-  const aliased = [definitions, nearest100Definitions, brightStarDefinitions].flatMap((dataset) =>
+  const aliased = [definitions, nearest100Definitions, constellationDefinitions].flatMap((dataset) =>
     Object.entries(dataset.articles as Record<string, { aliases?: string[] }>)
       .flatMap(([id, article]) => (article.aliases ?? []).map((alias) => [id, alias] as const)))
 
@@ -153,6 +153,15 @@ describe('single-star catalog aliases', () => {
       expect(westernIds.has(alias), alias).toBe(true)
       expect(starComponentIdentity(alias), alias).toBeUndefined()
       expect(starInfoForId(alias), alias).toBe(starInfoForId(id))
+    }
+  })
+
+  it('gives every constellation system one article shared by all of its components', () => {
+    for (const system of reviewedStarSystems) {
+      const ids = system.components.flatMap((component) => [component.starId, ...component.alternateStarIds ?? []])
+      if (!ids.some((id) => westernIds.has(id) && starInfoAvailable(id))) continue
+      const article = starInfoForId(ids.find((id) => westernIds.has(id))!)
+      for (const id of ids) expect(starInfoForId(id), `${system.id}/${id}`).toBe(article)
     }
   })
 })

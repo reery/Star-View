@@ -22,7 +22,7 @@ from catalog_sources.adapters import eligible_gaia_physical, read_gaia_tap
 from catalog_sources.enrichment import GAIA_REPUBLICATIONS, estimate_temperature, derive_physical, flame_withheld
 from catalog_sources.ordinary_binaries import orbit_pairs, matching_members
 from catalog_sources.companion_properties import apply_literature, property_coverage
-from catalog_sources.classification import spectral_labels
+from catalog_sources.classification import prune_subtypes, spectral_labels
 from catalog_sources.preservation import pool_losses, retain_frozen_source
 from catalog_sources.shared_objects import REVIEW as SHARED_OBJECT_REVIEW, reviewed_objects
 from catalog_sources.bright_system_motion import apply_bright_system_motion
@@ -655,7 +655,7 @@ def build():
             star.pop("unresolved_photometry", None)
         labels = spectral_labels(star)
         added_labels = [label for label in labels if label not in star["subtypes"]]
-        star["subtypes"] = unique([*star["subtypes"], *labels])
+        star["subtypes"] = prune_subtypes(unique([*star["subtypes"], *labels]))
         if added_labels:
             audit["componentRecords"].setdefault(identifier, {})["spectralSubtypes"] = {
                 "spectralType": star["spectral_type"], "labels": added_labels,
