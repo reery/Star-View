@@ -1,5 +1,6 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
+import { streamWhenLoaded } from './content-stream'
 import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChartColumn, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, RotateCcw, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Trophy, Weight, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
@@ -62,10 +63,11 @@ function element<ElementType extends HTMLElement = HTMLElement>(id: string): Ele
 function loadCardFeature<T>(id: string, label: string, load: () => Promise<T>, isCurrent?: () => boolean) {
   const card = element(`${id}-card`)
   const target = card.querySelector<HTMLElement>(':scope > .card-scroll-content') ?? card
-  return loadWithRecovery(target, load, {
+  // A card that is just opening shows its frame at once and streams its content in once loaded, without a loading message.
+  const opening = card.getAnimations().some((animation) => animation.pending)
+  const loading = loadWithRecovery(target, load, {
     label,
-    // A card that is just opening waits invisibly behind its opening animation instead of showing a loading message.
-    silent: card.getAnimations().some((animation) => animation.pending),
+    silent: opening,
     isCurrent: () => !events.signal.aborted && (isCurrent?.() ?? true),
     retry: () => {
       element(`${id}-close`).click()
@@ -74,6 +76,7 @@ function loadCardFeature<T>(id: string, label: string, load: () => Promise<T>, i
     focusTarget: element(`${id}-close`),
     onChange: syncObjectTypeLayout,
   })
+  return opening ? streamWhenLoaded(target, loading) : loading
 }
 
 function text(id: string, value: string): void {
@@ -1628,25 +1631,29 @@ async function renderActiveObjectSection(): Promise<void> {
       }
       container.setAttribute('aria-busy', 'true')
       text('star-notes', 'Loading source notes…')
-      await loadStarDetails(star)
+      await streamWhenLoaded(container, loadStarDetails(star))
     } else if (section === 'info') {
       if (infoContentStarId === star.id) {
         container.removeAttribute('aria-busy')
         return
       }
       container.setAttribute('aria-busy', 'true')
-      starInfoModule ??= await import('./star-info')
-      await starInfoModule.loadStarInfo(star.id)
-      // The hero image streams in with the article instead of appearing afterwards.
-      const image = starInfoModule.starInfoForId(star.id)?.image
-      if (image) await Object.assign(new Image(), { src: image.src }).decode().catch(() => undefined)
+      container.replaceChildren()
+      infoContentStarId = null
+      await streamWhenLoaded(container, (async () => {
+        starInfoModule ??= await import('./star-info')
+        await starInfoModule.loadStarInfo(star.id)
+        // The hero image streams in with the article instead of appearing afterwards.
+        const image = starInfoModule.starInfoForId(star.id)?.image
+        if (image) await Object.assign(new Image(), { src: image.src }).decode().catch(() => undefined)
+      })())
     } else {
       container.setAttribute('aria-busy', 'true')
       systemLoad ??= import('./system-card')
         .then((module) => { systemCardModule = module })
         .catch((error: unknown) => { systemLoad = undefined; throw error })
       const system = starSystems.get(star.id)
-      await Promise.all([systemLoad, loadPlanetarySystem(star.id), system ? loadStellarOrbits(system.id) : Promise.resolve()])
+      await streamWhenLoaded(container, Promise.all([systemLoad, loadPlanetarySystem(star.id), system ? loadStellarOrbits(system.id) : Promise.resolve()]))
     }
     if (request !== objectSectionRequest || selectedId !== star.id || container.hidden || !element<HTMLDetailsElement>('object-card-details').open) return
     container.removeAttribute('aria-busy')

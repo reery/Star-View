@@ -665,35 +665,31 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .load-state > :not(.load-recovery) { display: none !important; }
 .load-recovery { display: grid; grid-column: 1 / -1; gap: 8px; margin: 0; padding: 12px; color: var(--muted); font-size: var(--property-text-size); line-height: 1.5; }
 .load-recovery-actions { display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink); }
-/* Opening cards trace their frame, then stream their body in. While content loads (aria-busy) the card waits invisibly,
-   so the frame traces the loaded size; after a load error the card builds and streams the content in once a retry renders it. */
+/* Opening cards paint their frame at once and trace its outline; content still loading streams in via content-stream.ts. */
 @media (prefers-reduced-motion: no-preference) {
-  .dock-card.object-type-card { background-size: 100% 100%; background-repeat: no-repeat; animation: card-surface 300ms ease-out; }
-  .object-type-card::before { content: ''; position: absolute; inset: 0; z-index: 2; border: 1px solid var(--border-active); border-radius: calc(var(--card-radius) - 1px); opacity: 0; pointer-events: none; animation: card-outline 420ms ease-out; }
-  .object-type-card > .panel-heading { animation: card-fade 160ms 40ms ease-out backwards; }
-  .object-type-card > :not(.panel-heading), #object-info, #object-system { animation: card-stream 300ms ease-in-out; }
-  .object-type-card:is([aria-busy="true"]:not(.load-state), :has(> [aria-busy="true"]:not(.load-state))),
-  .object-type-card:is([aria-busy="true"]:not(.load-state), :has(> [aria-busy="true"]:not(.load-state)))::before,
-  .object-type-card:is([aria-busy="true"]:not(.load-state), :has(> [aria-busy="true"]:not(.load-state))) > *,
-  #object-system[aria-busy="true"] { animation-play-state: paused; }
-  .object-type-card.load-state > *, .object-type-card > .load-state { animation: none; }
+  .dock-card.object-type-card { background-size: 100% 100%; background-repeat: no-repeat; animation: card-surface 160ms ease-out; }
+  .object-type-card::before { content: ''; position: absolute; inset: 0; z-index: 2; border: 1px solid var(--border-active); border-radius: calc(var(--card-radius) - 1px); opacity: 0; pointer-events: none; animation: card-outline 360ms ease-out; }
+  .object-type-card > :not(.panel-heading) { animation: card-fade 160ms ease-out; }
 }
-/* Info collapses while its article loads, then streams in once shown. */
-#object-info[aria-busy="true"] { display: none; }
+/* While a card or Info loads, reserve space for content rendered afterwards so its frame opens near the loaded size. */
+.object-type-card > [aria-busy="true"] #hr-diagram:empty { aspect-ratio: 400 / 430; }
+.object-type-card > [aria-busy="true"] .constellation-chart:empty { height: 340px; }
+.object-type-card > [aria-busy="true"] #temperature-spectrum:empty { height: 212px; }
+.object-type-card > [aria-busy="true"] #mass-facts:empty { min-height: 257px; }
+.object-type-card > [aria-busy="true"] #object-type-description:empty { min-height: 139px; }
+.object-type-card > [aria-busy="true"] :is(#magnitude-absolute-value, #magnitude-apparent-value):empty { min-height: 31px; }
+.object-type-card > [aria-busy="true"] #magnitude-visibility-controls:empty { min-height: 32px; }
+#object-info[aria-busy="true"]:empty { min-height: 400px; }
 @keyframes card-outline {
   from { opacity: 1; clip-path: inset(0 50% 100% 50%); }
-  30% { opacity: 1; clip-path: inset(0 0 100% 0); }
-  60% { opacity: 1; clip-path: inset(0); }
+  20% { opacity: 1; clip-path: inset(0 0 100% 0); }
+  45% { opacity: 1; clip-path: inset(0); }
   to { opacity: 0; clip-path: inset(0); }
 }
 @keyframes card-surface {
-  from { background-size: 100% 0; border-color: transparent; box-shadow: 0 2px 6px #0000, 0 18px 48px #0000, inset 0 1px #fff0; }
+  from { background-size: 100% 0; box-shadow: 0 2px 6px #0000, 0 18px 48px #0000, inset 0 1px #fff0; }
 }
 @keyframes card-fade { from { opacity: 0; } }
-@keyframes card-stream {
-  from { mask-image: linear-gradient(#000 40%, transparent 60%); mask-size: 100% 250%; mask-repeat: no-repeat; mask-position: 0 100%; }
-  to { mask-image: linear-gradient(#000 40%, transparent 60%); mask-size: 100% 250%; mask-repeat: no-repeat; mask-position: 0 0; }
-}
 .catalog > .star-list { min-height: 0; }
 .object-type-hero { position: relative; height: 210px; overflow: hidden; background: #090b10; }
 .object-type-image { display: block; width: 100%; height: 100%; object-fit: cover; }
