@@ -168,7 +168,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .dock-rail { grid-column: 1; grid-row: 1; align-self: end; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; width: 44px; }
 .control-dock[data-open] .dock-rail { grid-column: 2; }
 .control-dock[data-open="motion"] .dock-rail { grid-column: 1; }
-.dock-card { grid-column: 1; grid-row: 1; align-self: end; width: 276px; max-height: calc(var(--ui-height) - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
+.dock-card { grid-column: 1; grid-row: 1; align-self: end; width: 276px; max-height: calc(var(--ui-height) - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; box-shadow: 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; }
 .control-dock[data-motion-open] .time-controls { width: min(760px, calc(var(--ui-width) - 100px)); }
 .panel-heading { position: sticky; top: 0; z-index: 3; background: var(--card-header-gradient); display: flex; align-items: center; min-height: 44px; padding: 0 54px 0 14px; border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.25; font-weight: 600; }
 .panel-heading h2 { font: inherit; min-width: 0; }
@@ -569,7 +569,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .properties dt { color: var(--muted); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
 .properties .unresolved-measurement, .selected-object .missing-value { color: var(--muted); }
-.properties > :is(.object-type-row, .metallicity-row, .radius-row, .spectral-row, .temperature-row, .distance-row, .mass-row, .luminosity-row, .magnitude-row, .constellation-row, #known-planets-row) { position: relative; isolation: isolate; }
+.properties > :is(.object-type-row, .metallicity-row, .radius-row, .spectral-row, .temperature-row, .distance-row, .mass-row, .luminosity-row, .magnitude-row, .constellation-row, #known-planets-row, #rotation-row) { position: relative; isolation: isolate; }
 .magnitude-row dt, .magnitude-row .object-type-toggle { display: grid; gap: 6px; }
 .properties > div:has(.object-type-toggle:not(:disabled)) { cursor: pointer; }
 .object-type-toggle { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: right; }
@@ -657,7 +657,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .comparison-member:disabled { color: var(--muted); opacity: 0.5; cursor: default; }
 .comparison-member:not(:disabled):is(:hover, :focus-visible) { background: var(--panel-hover); }
 .comparison-member:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-.dock-card.object-type-card { position: absolute; top: var(--object-detail-top, 20px); left: var(--object-detail-left, 324px); width: min(380px, calc(var(--ui-width) - 402px)); max-width: var(--object-detail-max-width, none); max-height: calc(var(--ui-height) - var(--object-detail-top, 20px) - 20px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); box-shadow: 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; }
+.dock-card.object-type-card { position: absolute; top: var(--object-detail-top, 20px); left: var(--object-detail-left, 324px); width: min(380px, calc(var(--ui-width) - 402px)); max-width: var(--object-detail-max-width, none); max-height: calc(var(--ui-height) - var(--object-detail-top, 20px) - 20px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); }
 .dock-card:has(> .card-scroll-content), .dock-card.catalog { display: flex; flex-direction: column; overflow: hidden; }
 .dock-card:has(> .card-scroll-content) > .panel-heading, .catalog > .panel-heading, .catalog > .object-search { flex-shrink: 0; }
 .object-type-card > .panel-heading { padding-right: 98px; }
