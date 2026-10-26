@@ -1628,10 +1628,15 @@ async function renderActiveObjectSection(): Promise<void> {
       text('star-notes', 'Loading source notes…')
       await loadStarDetails(star)
     } else if (section === 'info') {
-      if (infoContentStarId === star.id) return
+      if (infoContentStarId === star.id) {
+        container.removeAttribute('aria-busy')
+        return
+      }
+      container.setAttribute('aria-busy', 'true')
       starInfoModule ??= await import('./star-info')
       await starInfoModule.loadStarInfo(star.id)
     } else {
+      container.setAttribute('aria-busy', 'true')
       systemLoad ??= import('./system-card')
         .then((module) => { systemCardModule = module })
         .catch((error: unknown) => { systemLoad = undefined; throw error })

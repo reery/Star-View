@@ -665,6 +665,33 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .load-state > :not(.load-recovery) { display: none !important; }
 .load-recovery { display: grid; grid-column: 1 / -1; gap: 8px; margin: 0; padding: 12px; color: var(--muted); font-size: var(--property-text-size); line-height: 1.5; }
 .load-recovery-actions { display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink); }
+/* Opening cards trace their frame, then stream their body in. While content loads (aria-busy) the card waits invisibly,
+   so the frame traces the loaded size; a slow load shows the loading message and streams the content in once rendered. */
+@media (prefers-reduced-motion: no-preference) {
+  .dock-card.object-type-card { background-size: 100% 100%; background-repeat: no-repeat; animation: card-surface 300ms ease-out; }
+  .object-type-card::before { content: ''; position: absolute; inset: 0; z-index: 2; border: 1px solid var(--border-active); border-radius: calc(var(--card-radius) - 1px); opacity: 0; pointer-events: none; animation: card-outline 420ms ease-out; }
+  .object-type-card > .panel-heading { animation: card-fade 160ms 40ms ease-out backwards; }
+  .object-type-card > :not(.panel-heading), #object-info, #object-system { animation: card-stream 300ms ease-in-out; }
+  .object-type-card:is([aria-busy="true"]:not(.load-state), :has(> [aria-busy="true"]:not(.load-state))),
+  .object-type-card:is([aria-busy="true"]:not(.load-state), :has(> [aria-busy="true"]:not(.load-state)))::before,
+  .object-type-card:is([aria-busy="true"]:not(.load-state), :has(> [aria-busy="true"]:not(.load-state))) > *,
+  #object-info[aria-busy="true"], #object-system[aria-busy="true"] { animation-play-state: paused; }
+  .object-type-card.load-state > *, .object-type-card > .load-state { animation: none; }
+}
+@keyframes card-outline {
+  from { opacity: 1; clip-path: inset(0 50% 100% 50%); }
+  30% { opacity: 1; clip-path: inset(0 0 100% 0); }
+  60% { opacity: 1; clip-path: inset(0); }
+  to { opacity: 0; clip-path: inset(0); }
+}
+@keyframes card-surface {
+  from { background-size: 100% 0; border-color: transparent; box-shadow: 0 2px 6px #0000, 0 18px 48px #0000, inset 0 1px #fff0; }
+}
+@keyframes card-fade { from { opacity: 0; } }
+@keyframes card-stream {
+  from { mask-image: linear-gradient(#000 40%, transparent 60%); mask-size: 100% 250%; mask-repeat: no-repeat; mask-position: 0 100%; }
+  to { mask-image: linear-gradient(#000 40%, transparent 60%); mask-size: 100% 250%; mask-repeat: no-repeat; mask-position: 0 0; }
+}
 .catalog > .star-list { min-height: 0; }
 .object-type-hero { position: relative; height: 210px; overflow: hidden; background: #090b10; }
 .object-type-image { display: block; width: 100%; height: 100%; object-fit: cover; }
