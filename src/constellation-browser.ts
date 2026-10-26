@@ -5,6 +5,7 @@ import { disposeConstellationCard, renderConstellationCard, resetConstellationIn
 import { loadConstellationByName, type ConstellationChart } from './constellations'
 import { constellationAbbreviations, constellationCharts } from './data/constellations'
 import { clearLoadRecovery, loadWithRecovery } from './load-recovery'
+import { streamWhenLoaded } from './content-stream'
 
 interface BrowserOptions {
   objects: readonly Star[]
@@ -43,11 +44,14 @@ export function initializeConstellationBrowser(signal: AbortSignal, options: () 
     const current = ++request
     if (chart?.name === name) { clearLoadRecovery(detail); refresh(); return }
     detail.querySelector<HTMLElement>('[data-constellation-part="constellation-heading"]')!.textContent = name
-    const result = await loadWithRecovery(detail, () => loadConstellationByName(name), {
-      label: name, retry: () => { void show(name) },
+    // The first chart streams in with the panel; later ones keep the loading message.
+    const first = !chart
+    const loading = loadWithRecovery(detail, () => loadConstellationByName(name), {
+      label: name, silent: first, retry: () => { void show(name) },
       isCurrent: () => !signal.aborted && !panel.hidden && current === request,
       focusTarget: document.getElementById('constellations-close')!,
     })
+    const result = await (first ? streamWhenLoaded(detail, loading) : loading)
     if (!result?.value) return
     chart = result.value
     refresh()

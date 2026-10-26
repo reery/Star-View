@@ -6,6 +6,7 @@ import { renderConstellationVisibility } from './constellation-visibility-card'
 import { constellationGrid } from './constellation-grid'
 import { constellationInfoAvailable, constellationInfoLinks, loadConstellationInfo } from './constellation-info'
 import { createLoadError } from './load-recovery'
+import { streamWhenLoaded } from './content-stream'
 import { renderObjectInfoContent } from './object-info-content'
 import { MISSING_VALUE, quantity } from './format'
 import { starComponentIdentity } from './star-systems'
@@ -353,9 +354,13 @@ async function renderInfo(root: HTMLElement, state: CardState): Promise<void> {
   const current = () => cards.get(root) === state && state.infoFor === request
   container.setAttribute('aria-busy', 'true')
   try {
-    const info = await loadConstellationInfo(chart.name)
-    if (!current()) return
-    renderObjectInfoContent(container, info, constellationInfoLinks(chart, options.objects, options.onSelect))
+    await streamWhenLoaded(container, (async () => {
+      const info = await loadConstellationInfo(chart.name)
+      if (!current()) return
+      renderObjectInfoContent(container, info, constellationInfoLinks(chart, options.objects, options.onSelect))
+      // The hero image streams in with the article instead of appearing afterwards.
+      await container.querySelector('img')?.decode().catch(() => undefined)
+    })())
   } catch (error) {
     if (!current()) return
     state.infoFor = undefined

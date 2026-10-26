@@ -6,6 +6,7 @@ import brightStarsCsv from '../catalog-work/bright-stars/retired-catalog/stars.c
 import definitions from './data/star-info.json'
 import nearest100Definitions from './data/nearest-100-info.json'
 import constellationDefinitions from './data/constellation-star-info.json'
+import compactDefinitions from './data/compact-object-info.json'
 import legacyStarIds from './data/legacy-star-ids.json'
 import westernCsv from './data/catalogs/western-constellation-stars/stars.csv?raw'
 import { parseStarCatalog } from './catalog'
@@ -19,7 +20,7 @@ const surviving = (id: string) => (legacyStarIds.ids as Record<string, string>)[
 beforeAll(async () => {
   vi.stubGlobal('fetch', generatedJsonFetch)
   await Promise.all([...Object.keys(definitions.articles), ...Object.keys(nearest100Definitions.articles),
-    ...Object.keys(constellationDefinitions.articles).map(surviving)].map(loadStarInfo))
+    ...Object.keys(constellationDefinitions.articles).map(surviving), ...Object.keys(compactDefinitions.articles)].map(loadStarInfo))
 })
 afterAll(() => vi.unstubAllGlobals())
 
@@ -51,6 +52,21 @@ describe('nearest-neighbor articles', () => {
     // A familiar name alone is not a reviewed catalog identity.
     expect(starInfoForId('tau-ceti')).toBeUndefined()
     expect(starInfoForId('unknown')).toBeUndefined()
+  })
+})
+
+describe('pulsar articles', () => {
+  it('serve every article, sourced, with the pulsar and its measured companion sharing one', () => {
+    for (const id of Object.keys(compactDefinitions.articles)) {
+      const info = starInfoForId(id)
+      expect(info?.introduction.text, id).toMatch(/^[a-z]/)
+      expect(info!.introduction.source?.url).toMatch(/^https:\/\//)
+      expect(info!.sections.every((section) => section.source?.url.startsWith('https://'))).toBe(true)
+    }
+    for (const pulsar of ['psr-j0437m4715', 'psr-j0453p1559', 'psr-j1614m2230', 'psr-j2222m0137', 'gaia-bh1', 'gaia-bh3', 'gaia-ns1']) {
+      expect(starInfoForId(pulsar)).toBeDefined()
+      expect(starInfoForId(`${pulsar}-b`)).toBe(starInfoForId(pulsar))
+    }
   })
 })
 

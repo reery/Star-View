@@ -1,0 +1,53 @@
+{
+  "reviewed": "2026-10-26",
+  "policy": "Individually measured stellar companions of pulsars in the compact-remnant overlay. Each value comes from the cited paper; nothing is copied from the pulsar except its system position and astrometry, which the companion shares. Upper limits are kept in notes, not stored as measurements.",
+  "companions": [
+    {
+      "host": "psr-j0437m4715",
+      "type": "white_dwarf",
+      "spectral_type": null,
+      "mass_solar": 0.221,
+      "mass_error_solar": 0.004,
+      "mass_source": {"label": "Reardon et al. 2024", "url": "https://arxiv.org/abs/2407.07132"},
+      "temperature_k": 3950,
+      "temperature_error_k": 150,
+      "radius_solar": 0.0273,
+      "radius_note": "(1.9 ± 0.2) × 10^9 cm",
+      "atmosphere_source": {"label": "Durant et al. 2012", "url": "https://arxiv.org/abs/1111.2346"},
+      "note": "Helium white dwarf seen in optical and infrared spectra; its hydrogen-atmosphere fit gives log g = 6.98 ± 0.15."
+    },
+    {
+      "host": "psr-j1012p5307",
+      "type": "white_dwarf",
+      "spectral_type": "DA",
+      "mass_solar": 0.165,
+      "mass_error_solar": 0.015,
+      "mass_source": {"label": "Mata Sánchez et al. 2020", "url": "https://arxiv.org/abs/2004.02901"},
+      "temperature_k": 8550,
+      "temperature_error_k": 25,
+      "temperature_source": {"label": "van Kerkwijk et al. 1996", "url": "https://arxiv.org/abs/astro-ph/9606045"},
+      "radius_solar": 0.047,
+      "radius_note": "0.047 ± 0.003 R_sun from photometry",
+      "atmosphere_source": {"label": "Mata Sánchez et al. 2020", "url": "https://arxiv.org/abs/2004.02901"},
+      "note": "Low-mass helium-core white dwarf with Balmer absorption lines (DA; van Kerkwijk et al. 1996)."
+    },
+    {
+      "host": "psr-j1614m2230",
+      "type": "white_dwarf",
+      "spectral_type": null,
+      "mass_solar": 0.5,
+      "mass_error_solar": 0.006,
+      "mass_source": {"label": "Demorest et al. 2010", "url": "https://arxiv.org/abs/1010.5788"},
+      "note": "Mass from the Shapiro delay; ATNF classifies the companion as a carbon–oxygen white dwarf."
+    },
+    {
+      "host": "psr-j2222m0137",
+      "type": "white_dwarf",
+      "spectral_type": null,
+      "mass_solar": 1.319,
+      "mass_error_solar": 0.004,
+      "mass_source": {"label": "Guo et al. 2021", "url": "https://arxiv.org/abs/2107.09474"},
+      "note": "Optical non-detection limits its effective temperature to below 3000 K (Kaplan et al. 2014, https://arxiv.org/abs/1406.0488), making it one of the coolest white dwarfs known."
+    }
+  ]
+}

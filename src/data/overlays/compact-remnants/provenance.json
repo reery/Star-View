@@ -4,14 +4,22 @@
   "sourceManifest": {
     "schemaVersion": 1,
     "atnf": {
-      "catalogVersion": "2.8.1",
+      "catalogVersion": "2.9.0",
       "softwareVersion": "1.54",
       "downloadUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/downloads/psrcat_pkg.tar.gz",
-      "downloaded": "2026-09-30",
-      "archiveSha256": "2ea143fc2c9a01184f5a94715422351c49ecf97cae26004ea4897e56421d4cbd",
-      "subsetSha256": "055ed1271e5bd46e0b517c1a068ec617ff432a27c05e3898f35b21368e4cd073",
-      "selection": "DIST > 0 && DIST <= 0.9198041814; psrcat -nocand -nointerim",
-      "rows": 266
+      "downloaded": "2026-10-26",
+      "archiveSha256": "55daa29f71f344c8de4064969b5812d6cb3a9b851efae0bef004ac9d5f6740c0",
+      "subsetSha256": "b7d890737e6e975b19e015279cb7167d52c3c49a94c9f39640b901b2fd2cc9c8",
+      "glitchSubsetSha256": "5b45ffbd87d3ba834a128fe8daa23cba45345e9b6cff21add925bc81aa6a636d",
+      "selection": "Derived DIST > 0 && DIST <= 0.9198041814 kpc; no CAND or INTERIM type; verbatim psrcat.db records and their glitch.db rows",
+      "rows": 272,
+      "previous": {
+        "catalogVersion": "2.8.1",
+        "downloaded": "2026-09-30",
+        "archiveSha256": "2ea143fc2c9a01184f5a94715422351c49ecf97cae26004ea4897e56421d4cbd",
+        "rows": 266,
+        "change": "All 266 pulsars remain selected. v2.9.0 adds J0657-4657, J0927-7641, J1207-45, J1752-2849_P, J1810-0623 and J2029-4239, and revises the distances of J0317+1328, J1231-1411 and J1455-3330."
+      }
     },
     "blackcat": {
       "catalogVersion": "2025",
@@ -37,9 +45,24 @@
       "confidence": "confirmed",
       "detection_method": "Astrometric and spectroscopic binary orbit",
       "distance_method": "Joint astrometric and spectroscopic orbit",
-      "source_label": "El-Badry et al. 2024",
+      "source_label": "Nagarajan et al. 2024",
       "source_url": "https://arxiv.org/abs/2312.05313",
-      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the dark companion."
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the dark companion.",
+      "eccentricity": 0.4323,
+      "eccentricity_error": 2e-05,
+      "astrometry": {
+        "epoch": 2016.0,
+        "parallax_mas": 2.09,
+        "parallax_error_mas": 0.02,
+        "pm_ra_cosdec_masyr": -7.7,
+        "pm_ra_error_masyr": 0.02,
+        "pm_dec_masyr": -25.85,
+        "pm_dec_error_masyr": 0.027,
+        "radial_velocity_kms": 48.379,
+        "radial_velocity_error_kms": 0.1,
+        "astrometry_ref": "El-Badry et al. 2023, Table 1 (Gaia DR3 orbital solution), https://arxiv.org/abs/2209.06833",
+        "radial_velocity_ref": "Nagarajan et al. 2024 systemic velocity; ~0.1 km/s ESPRESSO zero-point uncertainty, https://arxiv.org/abs/2312.05313"
+      }
     },
     {
       "type": "black_hole",
@@ -59,7 +82,22 @@
       "distance_method": "Orbital parallax (1.6933 +/- 0.0164 mas)",
       "source_label": "Gaia Collaboration et al. 2024",
       "source_url": "https://arxiv.org/abs/2404.10486",
-      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the dark companion."
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the dark companion.",
+      "eccentricity": 0.7291,
+      "eccentricity_error": 0.0048,
+      "astrometry": {
+        "epoch": 2016.0,
+        "parallax_mas": 1.6933,
+        "parallax_error_mas": 0.0164,
+        "pm_ra_cosdec_masyr": -28.317,
+        "pm_ra_error_masyr": 0.067,
+        "pm_dec_masyr": -155.221,
+        "pm_dec_error_masyr": 0.111,
+        "radial_velocity_kms": -357.31,
+        "radial_velocity_error_kms": 0.44,
+        "astrometry_ref": "Gaia Collaboration 2024, Table 2 combined astrometric and spectroscopic solution, https://arxiv.org/abs/2404.10486",
+        "radial_velocity_ref": "Gaia Collaboration 2024, Table 2 systemic velocity, https://arxiv.org/abs/2404.10486"
+      }
     },
     {
       "type": "neutron_star",
@@ -79,12 +117,104 @@
       "distance_method": "Joint-fit parallax (1.36 +/- 0.03 mas)",
       "source_label": "El-Badry et al. 2024",
       "source_url": "https://arxiv.org/abs/2402.06722",
-      "notes": "The unseen companion is most likely a neutron star, but a close double-white-dwarf alternative is not fully excluded. The plotted position represents the unresolved system."
+      "notes": "The unseen companion is most likely a neutron star, but a close double-white-dwarf alternative is not fully excluded. The plotted position represents the unresolved system.",
+      "eccentricity": 0.122,
+      "eccentricity_error": 0.002,
+      "astrometry": {
+        "epoch": 2016.0,
+        "parallax_mas": 1.36,
+        "parallax_error_mas": 0.01,
+        "pm_ra_cosdec_masyr": -0.01,
+        "pm_ra_error_masyr": 0.02,
+        "pm_dec_masyr": -92.36,
+        "pm_dec_error_masyr": 0.03,
+        "radial_velocity_kms": 133.46,
+        "radial_velocity_error_kms": 0.03,
+        "astrometry_ref": "El-Badry et al. 2024, Table 3 Gaia + RV joint fit, https://arxiv.org/abs/2402.06722",
+        "radial_velocity_ref": "El-Badry et al. 2024, Table 3 systemic velocity, https://arxiv.org/abs/2402.06722"
+      }
     }
   ],
+  "reviewedBinaries": {
+    "reviewed": "2026-10-26",
+    "policy": "Only individually measured pulsar and neutron-star companion masses from relativistic timing or optical spectroscopy, keyed by exact ATNF PSRJ name. Total-mass-only systems and model-dependent X-ray mass fits are not split into component masses.",
+    "pulsarMasses": {
+      "J0437-4715": {
+        "mass_solar": 1.418,
+        "mass_error_solar": 0.044,
+        "source_label": "Reardon et al. 2024",
+        "source_url": "https://arxiv.org/abs/2407.07132"
+      },
+      "J0453+1559": {
+        "mass_solar": 1.559,
+        "mass_error_solar": 0.005,
+        "source_label": "Martinez et al. 2015",
+        "source_url": "https://arxiv.org/abs/1509.08805"
+      },
+      "J1012+5307": {
+        "mass_solar": 1.72,
+        "mass_error_solar": 0.16,
+        "source_label": "Mata Sánchez et al. 2020",
+        "source_url": "https://arxiv.org/abs/2004.02901"
+      },
+      "J1614-2230": {
+        "mass_solar": 1.937,
+        "mass_error_solar": 0.013,
+        "source_label": "Mauviard et al. 2026",
+        "source_url": "https://arxiv.org/abs/2609.00172",
+        "note": "The published interval is +0.012/-0.013 M_sun; the larger side is stored. The mass is set by radio timing."
+      },
+      "J1756-2251": {
+        "mass_solar": 1.341,
+        "mass_error_solar": 0.007,
+        "source_label": "Ferdman et al. 2014",
+        "source_url": "https://arxiv.org/abs/1406.5507"
+      },
+      "J1829+2456": {
+        "mass_solar": 1.306,
+        "mass_error_solar": 0.007,
+        "source_label": "Haniewicz et al. 2021",
+        "source_url": "https://arxiv.org/abs/2007.07565",
+        "note": "The uncertainty is the published 95% confidence interval."
+      },
+      "J2222-0137": {
+        "mass_solar": 1.831,
+        "mass_error_solar": 0.01,
+        "source_label": "Guo et al. 2021",
+        "source_url": "https://arxiv.org/abs/2107.09474"
+      }
+    },
+    "neutronStarCompanions": [
+      {
+        "pulsar": "J0453+1559",
+        "mass_solar": 1.174,
+        "mass_error_solar": 0.004,
+        "source_label": "Martinez et al. 2015",
+        "source_url": "https://arxiv.org/abs/1509.08805"
+      },
+      {
+        "pulsar": "J1756-2251",
+        "mass_solar": 1.23,
+        "mass_error_solar": 0.007,
+        "source_label": "Ferdman et al. 2014",
+        "source_url": "https://arxiv.org/abs/1406.5507"
+      },
+      {
+        "pulsar": "J1829+2456",
+        "mass_solar": 1.299,
+        "mass_error_solar": 0.007,
+        "source_label": "Haniewicz et al. 2021",
+        "source_url": "https://arxiv.org/abs/2007.07565",
+        "note": "The uncertainty is the published 95% confidence interval."
+      }
+    ]
+  },
   "notes": [
-    "ATNF DIST is the catalogue-adopted distance and can derive from independent estimates, significant parallax, or a dispersion-measure model.",
-    "ATNF companion mass limits are not stored as pulsar masses.",
+    "ATNF DIST is the catalogue-adopted distance: DIST_A, else a parallax above 3 sigma, else the YMW16 dispersion-measure distance bounded by DIST_AMN/DIST_AMX.",
+    "Derived spin quantities follow psrcat v1.54 with a 10^45 g cm^2 moment of inertia; companion minimum and median masses assume a 1.35 M_sun pulsar at 90 and 60 degrees inclination.",
+    "ATNF companion mass limits are not stored as pulsar masses; measured pulsar masses come only from the reviewed binary list.",
+    "An ATNF uncertainty of 0 means no uncertainty was reported and is stored as null.",
+    "Millisecond marks spin periods below 30 ms; Radio marks pulsars without the ATNF NRAD or XINS radio-quiet codes; other classes come from ATNF TYPE codes.",
     "Gaia NS1 remains explicitly marked as a candidate because a close double-white-dwarf alternative is disfavored but not fully excluded.",
     "BlackCAT was checked for accreting black-hole transients; its nearest listed system is beyond the 3000-light-year boundary."
   ]

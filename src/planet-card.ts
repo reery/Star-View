@@ -1,4 +1,5 @@
 import { createLoadError } from './load-recovery'
+import { streamWhenLoaded } from './content-stream'
 import { registerTouchTooltip, usingTouchTooltips } from './touch-tooltips'
 import { isExtrasolarPlanet, isSmallBody, planetApparentMagnitudeRange, planetAtmosphereSpecs, planetPhysicalSpecs, specDefinitions, type PlanetDescription, type PlanetSpec } from './planet-properties'
 import { smallBodyMedia } from './small-body-media'
@@ -17,21 +18,30 @@ export async function renderPlanetSection(card: HTMLElement, section: 'specs' | 
   const state = sections.get(card)
   if (!state || section === 'specs' || state[section]) return
   const container = card.querySelector<HTMLElement>(`#planet-${section}`)!
+  const current = () => sections.get(card) === state && !card.hidden && !container.hidden && !state[section]
+  container.setAttribute('aria-busy', 'true')
   try {
-    if (section === 'moons') {
-      const { renderPlanetMoons } = await import('./moon-card')
-      if (sections.get(card) !== state || card.hidden || container.hidden || state[section]) return
-      renderPlanetMoons(container, state.planet, (spec) => factTile(spec, true))
-    } else {
-      const { renderPlanetInfo } = await import('./planet-info')
-      if (sections.get(card) !== state || card.hidden || container.hidden || state[section]) return
-      renderPlanetInfo(container, state.planet.id)
-    }
-    state[section] = true
+    await streamWhenLoaded(container, (async () => {
+      if (section === 'moons') {
+        const { renderPlanetMoons } = await import('./moon-card')
+        if (!current()) return
+        renderPlanetMoons(container, state.planet, (spec) => factTile(spec, true))
+        state.moons = true
+      } else {
+        const { renderPlanetInfo } = await import('./planet-info')
+        if (!current()) return
+        renderPlanetInfo(container, state.planet.id)
+        state.info = true
+        // The hero image streams in with the article instead of appearing afterwards.
+        await container.querySelector('img')?.decode().catch(() => undefined)
+      }
+    })())
   } catch {
     if (sections.get(card) !== state || card.hidden || container.hidden) return
     container.replaceChildren(createLoadError(section === 'info' ? 'planet Info' : 'moons',
       () => { void renderPlanetSection(card, section) }))
+  } finally {
+    container.removeAttribute('aria-busy')
   }
 }
 const specIcons: Readonly<Record<string, IconNode>> = {

@@ -14,7 +14,7 @@ import { createEarthOrbitLayer } from './earth-orbit-layer'
 import { createMotionArrowMesh } from './motion-arrow-layer'
 import { createMapGrid, gridOpacityForDisplay, makeGridGeometry } from './map-grid'
 import { createSkyGridLayer, type SkyGridMode } from './sky-grid'
-import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, isMapVisibilityBase, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
+import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC } from './earth-orbit'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
@@ -29,7 +29,7 @@ import {
   MOTION_ARROW_TAIL_OFFSET_PX,
   STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices,
   compareMapLabelCandidates, focusProgress,
-  guideDashScale, isObjectMapVisible, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
+  guideDashScale, isObjectMapVisible, mapVisibilityTier, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPointInto,
   shouldRunOrdinaryLabelLayout, starApparentDiameter, starBlocksLabels, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
   type MotionArrowGeometry, type ProjectedPickable,
@@ -65,7 +65,8 @@ export interface StarViewer {
   setStarPaint(painter: StarPainter | null): void
   /** Lets painted stars shrink and fade when zooming out, like unpainted ones. */
   setStarPaintZoomShrink(enabled: boolean): void
-  setVisibility(observerId: string, limit: number): void
+  /** hideFainter removes objects beyond the magnitude limit instead of dimming them. */
+  setVisibility(observerId: string, limit: number, hideFainter: boolean): void
   setDistanceUnit(unit: DistanceUnit): void
   dispose(): void
 }
@@ -507,6 +508,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let selectedId: string | null = null
   let visibilityBase = sun
   let magnitudeLimit = 7
+  let hideFainterObjects = false
   let objectDistanceLimitLy = 100
   let visibleKeys = new Set<FilterKey>(FILTER_KEYS)
   let objectPredicate: ((star: Star, distancePc: number) => boolean) | null = null
@@ -1018,8 +1020,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const observerIndex = observerViewEnabled ? observerViewAnchorIndex ?? -1 : -1
     stars.forEach((star, index) => {
       const magnitude = apparentMagnitudes[index]!
-      // Extended nebulae have no point magnitude; their names stay eligible.
-      const tier = isMapVisibilityBase(star, visibilityBase) ? 'base' : star.id === selectedId || isNebula[index] || isMolecularCloud[index] || isBubble[index] || magnitude <= magnitudeLimit ? 'eligible' : 'background'
+      const tier = mapVisibilityTier(star, visibilityBase, selectedId, magnitude, magnitudeLimit)
       const visible = isObjectMapVisible(
         star,
         visibleKeys,
@@ -1029,7 +1030,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         objectDistanceLimitLy,
       ) && (!objectPredicate || objectPredicate(star, referenceDistancesLy[index]! / LIGHT_YEARS_PER_PARSEC))
       tiers[index] = tier
-      mapVisible[index] = visible ? 1 : 0
+      mapVisible[index] = visible && !(hideFainterObjects && tier === 'background') ? 1 : 0
       // Painted magnitudes size every object, independent of distance.
       const paintedMagnitude = starPaints?.[index]!.magnitude
       const haloMagnitude = paintedMagnitude !== undefined ? paintedMagnitude : tier === 'base' ? star.absolute_mag : magnitude
@@ -2221,12 +2222,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       starPaintZoomShrink = enabled
       requestRender()
     },
-    setVisibility(observerId, limit) {
+    setVisibility(observerId, limit, hideFainter) {
       const base = starsById.get(observerId)?.star
       if (!base || !Number.isFinite(limit) || limit < 0 || limit > 25) return
-      if (base === visibilityBase && limit === magnitudeLimit) return
+      if (base === visibilityBase && limit === magnitudeLimit && hideFainter === hideFainterObjects) return
       visibilityBase = base
       magnitudeLimit = limit
+      hideFainterObjects = hideFainter
       updatePresentation()
       requestRender()
     },

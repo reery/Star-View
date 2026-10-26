@@ -14,11 +14,15 @@ export interface SavedViewSettings {
   /** Legacy saved views use this flag to enable the constellation catalog that now holds the bright stars. */
   showAlwaysBright: boolean
   showWesternConstellationStars: boolean
+  /** Absent in entries saved before the catalog existed. */
+  showNotableDistantStars?: boolean
   /** Legacy saved views use this flag to enable the combined constellation catalog. */
   showFamousClusterStars: boolean
   filterCategories: FilterCategoryId[]
   filterSubtypes: FilterKey[]
   magnitudeLimit: number
+  /** Absent in views saved before the option existed. */
+  hideFainterObjects?: boolean
   objectDistanceLimitLy: number
   earthOrbitMode: EarthOrbitMode
   milkyWayVisible: boolean
@@ -82,10 +86,12 @@ function isSavedView(value: unknown): value is SavedView {
   return typeof settings.catalogId === 'string'
     && typeof settings.showAlwaysBright === 'boolean'
     && typeof settings.showWesternConstellationStars === 'boolean'
+    && (settings.showNotableDistantStars === undefined || typeof settings.showNotableDistantStars === 'boolean')
     && typeof settings.showFamousClusterStars === 'boolean'
     && Array.isArray(settings.filterCategories) && settings.filterCategories.every(isFilterCategoryId)
     && Array.isArray(settings.filterSubtypes) && settings.filterSubtypes.every(isFilterKey)
     && typeof settings.magnitudeLimit === 'number' && settings.magnitudeLimit >= 0 && settings.magnitudeLimit <= 25
+    && (settings.hideFainterObjects === undefined || typeof settings.hideFainterObjects === 'boolean')
     && typeof settings.objectDistanceLimitLy === 'number' && OBJECT_DISTANCE_STEPS_LY.includes(settings.objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])
     && typeof settings.earthOrbitMode === 'string' && isEarthOrbitMode(settings.earthOrbitMode)
     && typeof settings.milkyWayVisible === 'boolean'

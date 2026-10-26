@@ -239,6 +239,28 @@ SOLAR_ANALOGS = [
 ]
 SOLAR_COLUMNS = ["Spectral class", "Temperature (K)", "Metallicity (dex)", "Age (Gyr)"]
 
+PIONEER = "https://johnstonsarchive.net/astro/pulsarmap.html"
+ATNF = "ATNF Pulsar Catalogue v2.9.0 adopted distance"
+# name, overlay ID or None, J2000 name, period encoded on the plaque (s), distance (pc), constellation.
+# Periods are the plaque's hydrogen-unit values as identified in Johnston's table.
+PIONEER_PULSARS = [
+    ("PSR B1727-47", "psr-j1731m4744", "J1731-4744", "0.8296830003", 700, "Ara"),
+    ("PSR B1451-68", "psr-j1456m6843", "J1456-6843", "0.2633767643", 430, "Circinus"),
+    ("PSR B1240-64", None, "J1243-6423", "0.3880000002", 2000, "Crux"),
+    ("Vela Pulsar", "psr-j0835m4510", "J0835-4510", "0.0892187481", 280, "Vela"),
+    ("PSR B0950+08", "psr-j0953p0755", "J0953+0755", "0.2530650432", 261, "Leo"),
+    ("PSR B0823+26", "psr-j0826p2637", "J0826+2637", "0.5306595992", 500, "Cancer"),
+    ("Crab Pulsar", None, "J0534+2200", "0.0331296448", 2000, "Taurus"),
+    ("PSR B0525+21", None, "J0528+2200", "3.7454907997", 1215, "Taurus"),
+    ("PSR B0329+54", None, "J0332+5434", "0.7145186427", 1680, "Camelopardalis"),
+    ("PSR B2217+47", None, "J2219+4754", "0.5384673780", 2383, "Lacerta"),
+    ("PSR B2016+28", None, "J2018+2839", "0.5579533903", 980, "Vulpecula"),
+    ("PSR B1933+16", None, "J1935+1616", "0.3587354200", 3700, "Aquila"),
+    ("PSR B1929+10", "psr-j1932p1059", "J1932+1059", "0.2265170382", 310, "Aquila"),
+    ("PSR B1642-03", None, "J1645-0317", "0.3876887792", 4000, "Ophiuchus"),
+]
+PIONEER_NOTES = {"PSR B1240-64": "Its period was known to only three significant digits when the plaque was designed."}
+
 # The source lists Betelgeuse at 408–548 ly; the upper estimate carries its uncertainty.
 SUPERNOVA_DISTANCE_SOURCES = {"Betelgeuse": "Source range 408–548 ly"}
 # Components that SIMBAD resolves only as their system; the source's γ² Vel B is the O-type companion.
@@ -314,6 +336,13 @@ def solar(index, frozen, name, identifier, ly, *fields):
     return {**entry(index, frozen, name, identifier, None, ly / LY_PER_PC), "fields": list(fields)}
 
 
+def pioneer(name, identifier, j_name, period, distance_pc, constellation):
+    return {"name": name, "distance_pc": distance_pc, "distance_source": ATNF,
+            **({"note": PIONEER_NOTES[name]} if name in PIONEER_NOTES else {}), "constellation": constellation,
+            "object": {"catalog": "compact-remnants", "id": identifier, "designation": None} if identifier else None,
+            "fields": [period, j_name]}
+
+
 def build():
     frozen = json.loads(FROZEN.read_text())["objects"]
     index, records = catalog_index()
@@ -341,6 +370,10 @@ def build():
         {"id": "solar-twins", "title": "Solar twin candidates", "columns": SOLAR_COLUMNS,
          "source": {"label": "Wikipedia · Solar analog (solar twins)", "url": SOLAR_ANALOG},
          "entries": [solar(index, frozen, *row) for row in SOLAR_TWINS]},
+        # The 14 pulsars that locate the Sun on the Pioneer plaques and Voyager Golden Records.
+        {"id": "pioneer-plaque", "title": "Pioneer plaque pulsars", "columns": ["Period on plaque (s)", "J2000 name"],
+         "source": {"label": "Johnston · Pioneer plaque pulsar map identifications", "url": PIONEER},
+         "entries": sorted((pioneer(*row) for row in PIONEER_PULSARS), key=lambda row: row["distance_pc"])},
     ]}
 
 

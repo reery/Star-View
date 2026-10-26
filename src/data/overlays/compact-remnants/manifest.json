@@ -2,19 +2,47 @@
   "schemaVersion": 1,
   "id": "compact-remnants",
   "label": "Compact remnants",
-  "description": "A separately loaded, source-defined overlay of catalogued pulsars and curated dormant compact-object systems within 3000 light-years.",
+  "description": "A separately loaded, source-defined overlay of catalogued pulsars, their measured neutron-star companions and curated dormant compact-object systems within 3000 light-years.",
   "epoch": 2000,
-  "objectCount": 269,
+  "objectCount": 278,
   "radiusLy": 3000,
   "counts": {
-    "pulsar": 266,
-    "neutron_star": 1,
+    "pulsar": 272,
+    "neutron_star": 4,
     "black_hole": 2
   },
   "sources": [
     {
-      "name": "ATNF Pulsar Catalogue v2.8.1",
+      "name": "ATNF Pulsar Catalogue v2.9.0",
       "url": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html"
+    },
+    {
+      "name": "Ferdman et al. 2014",
+      "url": "https://arxiv.org/abs/1406.5507"
+    },
+    {
+      "name": "Guo et al. 2021",
+      "url": "https://arxiv.org/abs/2107.09474"
+    },
+    {
+      "name": "Haniewicz et al. 2021",
+      "url": "https://arxiv.org/abs/2007.07565"
+    },
+    {
+      "name": "Martinez et al. 2015",
+      "url": "https://arxiv.org/abs/1509.08805"
+    },
+    {
+      "name": "Mata S\u00e1nchez et al. 2020",
+      "url": "https://arxiv.org/abs/2004.02901"
+    },
+    {
+      "name": "Mauviard et al. 2026",
+      "url": "https://arxiv.org/abs/2609.00172"
+    },
+    {
+      "name": "Reardon et al. 2024",
+      "url": "https://arxiv.org/abs/2407.07132"
     },
     {
       "name": "BlackCAT Galactic black-hole transients",
@@ -33,6 +61,6 @@
       "url": "https://arxiv.org/abs/2402.06722"
     }
   ],
-  "cutoffPolicy": "ATNF v2.8.1 non-candidate, non-interim pulsars with positive adopted DIST <= 0.9198041814 kpc, plus reviewed dormant black-hole and non-pulsar neutron-star systems no farther than 3000 light-years. Candidate status is explicit.",
-  "snapshot": "J2000 map positions; ATNF package downloaded 2026-09-30; curated literature reviewed 2026-09-30."
+  "cutoffPolicy": "ATNF v2.9.0 non-candidate, non-interim pulsars with positive adopted DIST <= 0.9198041814 kpc, their reviewed neutron-star companions with measured masses, plus reviewed dormant black-hole and non-pulsar neutron-star systems no farther than 3000 light-years. Candidate status is explicit.",
+  "snapshot": "J2000 map positions; ATNF package downloaded 2026-10-26; binary masses reviewed 2026-10-26; curated literature reviewed 2026-09-30."
 }

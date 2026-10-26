@@ -46,8 +46,18 @@ def inventory():
             if identifier != "sun" and stats[identifier]["known_planets"]}
 
 
-def refresh(retrieved):
-    hosts = sorted({host for _, stats in inventory().values() for host in stats["planetHosts"]})
+def pulsar_inventory():
+    """Planet-hosting pulsars from the compact overlay, under their display names."""
+    names = json.loads((ROOT / "src/data/object-designations.json").read_text())["objects"]
+    stats = json.loads((ROOT / "src/data/object-stats.json").read_text())["objects"]
+    objects = json.loads((ROOT / "src/data/overlays/compact-remnants/objects.json").read_text())["objects"]
+    return {item["id"]: ({"name": names.get(item["id"], item)["name"]}, stats[item["id"]]) for item in objects
+            if item["type"] == "pulsar" and stats.get(item["id"], {}).get("known_planets")}
+
+
+def refresh(retrieved, pulsars=False):
+    """Query the archive; --pulsars refreshes only the separately frozen pulsar-host snapshot."""
+    hosts = sorted({host for _, stats in (pulsar_inventory() if pulsars else inventory()).values() for host in stats["planetHosts"]})
     columns = ["hostname", "pl_name", "pl_bmassprov", "cb_flag", "pl_controv_flag",
                "discoverymethod", "disc_year", "disc_facility", "disc_refname"]
     for field in FIELDS:
@@ -55,9 +65,12 @@ def refresh(retrieved):
     quoted = ",".join("'" + host.replace("'", "''") + "'" for host in hosts)
     adql = f"SELECT {','.join(columns)} FROM pscomppars WHERE hostname IN ({quoted}) ORDER BY pl_name"
     content = query(NASA, adql)
-    files = {"planets.csv": content, "planets.adql": adql + "\n"}
-    manifest = {"retrieved": retrieved, "source": NASA,
-                "checksumsSha256": {name: hashlib.sha256(value.encode()).hexdigest() for name, value in files.items()}}
+    prefix = "pulsar-planets" if pulsars else "planets"
+    files = {f"{prefix}.csv": content, f"{prefix}.adql": adql + "\n"}
+    manifest = json.loads((WORK / "source-manifest.json").read_text())
+    manifest["pulsarsRetrieved" if pulsars else "retrieved"] = retrieved
+    manifest["source"] = NASA
+    manifest["checksumsSha256"].update({name: hashlib.sha256(value.encode()).hexdigest() for name, value in files.items()})
     files["source-manifest.json"] = json.dumps(manifest, indent=2) + "\n"
     write_managed_files(WORK, files, force=True)
 
@@ -92,9 +105,14 @@ def build():
             raise ValueError(f"Checksum mismatch: {name}")
     with (WORK / "planets.csv").open() as handle:
         rows = list(csv.DictReader(handle))
+    hosts = list(inventory().items())
+    if (WORK / "pulsar-planets.csv").exists():
+        with (WORK / "pulsar-planets.csv").open() as handle:
+            rows += list(csv.DictReader(handle))
+        hosts += list(pulsar_inventory().items())
     systems, planets = [], []
     ids = set()
-    for host_id, (star, stats) in inventory().items():
+    for host_id, (star, stats) in hosts:
         members = [row for row in rows if row["hostname"] in stats["planetHosts"] and row["cb_flag"] == "0"]
         if len(members) != stats["known_planets"]:
             raise ValueError(f"Planet count changed for {host_id}; review host snapshot")
@@ -129,7 +147,7 @@ def build():
         system_planets.sort(key=lambda planet: planet["semiMajorAxisAu"] if planet["semiMajorAxisAu"] is not None else math.inf)
         systems.append({"hostStarId": host_id, "name": star["name"], "source": {
             "label": "NASA Exoplanet Archive", "url": "https://exoplanetarchive.ipac.caltech.edu/docs/pscp_about.html",
-            "epoch": manifest["retrieved"], "note": "Composite published parameters; values may come from different studies. Distances are approximate orbital sizes or projected separations for imaging discoveries, not current positions."},
+            "epoch": manifest["pulsarsRetrieved"] if host_id.startswith("psr-") else manifest["retrieved"], "note": "Composite published parameters; values may come from different studies. Distances are approximate orbital sizes or projected separations for imaging discoveries, not current positions."},
             "planets": system_planets})
     return {"schemaVersion": 1, "retrieved": manifest["retrieved"], "sourceChecksumsSha256": manifest["checksumsSha256"],
             "systems": systems, "planets": planets}
@@ -138,13 +156,14 @@ def build():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--refresh", action="store_true")
+    parser.add_argument("--pulsars", action="store_true", help="With --refresh, query only planet-hosting pulsars")
     parser.add_argument("--retrieved")
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     if args.refresh:
         if not args.retrieved:
             parser.error("--refresh requires --retrieved")
-        refresh(args.retrieved)
+        refresh(args.retrieved, args.pulsars)
     payload = build()
     content = json.dumps(payload, indent=2, ensure_ascii=False) + "\n"
     if args.check:

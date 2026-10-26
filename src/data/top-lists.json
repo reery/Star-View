@@ -2179,6 +2179,199 @@
      ]
     }
    ]
+  },
+  {
+   "id": "pioneer-plaque",
+   "title": "Pioneer plaque pulsars",
+   "columns": [
+    "Period on plaque (s)",
+    "J2000 name"
+   ],
+   "source": {
+    "label": "Johnston · Pioneer plaque pulsar map identifications",
+    "url": "https://johnstonsarchive.net/astro/pulsarmap.html"
+   },
+   "entries": [
+    {
+     "name": "PSR B0950+08",
+     "distance_pc": 261,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "constellation": "Leo",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j0953p0755",
+      "designation": null
+     },
+     "fields": [
+      "0.2530650432",
+      "J0953+0755"
+     ]
+    },
+    {
+     "name": "Vela Pulsar",
+     "distance_pc": 280,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "constellation": "Vela",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j0835m4510",
+      "designation": null
+     },
+     "fields": [
+      "0.0892187481",
+      "J0835-4510"
+     ]
+    },
+    {
+     "name": "PSR B1929+10",
+     "distance_pc": 310,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "constellation": "Aquila",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1932p1059",
+      "designation": null
+     },
+     "fields": [
+      "0.2265170382",
+      "J1932+1059"
+     ]
+    },
+    {
+     "name": "PSR B1451-68",
+     "distance_pc": 430,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "constellation": "Circinus",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1456m6843",
+      "designation": null
+     },
+     "fields": [
+      "0.2633767643",
+      "J1456-6843"
+     ]
+    },
+    {
+     "name": "PSR B0823+26",
+     "distance_pc": 500,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "constellation": "Cancer",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j0826p2637",
+      "designation": null
+     },
+     "fields": [
+      "0.5306595992",
+      "J0826+2637"
+     ]
+    },
+    {
+     "name": "PSR B1727-47",
+     "distance_pc": 700,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "constellation": "Ara",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1731m4744",
+      "designation": null
+     },
+     "fields": [
+      "0.8296830003",
+      "J1731-4744"
+     ]
+    },
+    {
+     "name": "PSR B2016+28",
+     "distance_pc": 980,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "constellation": "Vulpecula",
+     "object": null,
+     "fields": [
+      "0.5579533903",
+      "J2018+2839"
+     ]
+    },
+    {
+     "name": "PSR B0525+21",
+     "distance_pc": 1215,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "constellation": "Taurus",
+     "object": null,
+     "fields": [
+      "3.7454907997",
+      "J0528+2200"
+     ]
+    },
+    {
+     "name": "PSR B0329+54",
+     "distance_pc": 1680,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "constellation": "Camelopardalis",
+     "object": null,
+     "fields": [
+      "0.7145186427",
+      "J0332+5434"
+     ]
+    },
+    {
+     "name": "PSR B1240-64",
+     "distance_pc": 2000,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "note": "Its period was known to only three significant digits when the plaque was designed.",
+     "constellation": "Crux",
+     "object": null,
+     "fields": [
+      "0.3880000002",
+      "J1243-6423"
+     ]
+    },
+    {
+     "name": "Crab Pulsar",
+     "distance_pc": 2000,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "constellation": "Taurus",
+     "object": null,
+     "fields": [
+      "0.0331296448",
+      "J0534+2200"
+     ]
+    },
+    {
+     "name": "PSR B2217+47",
+     "distance_pc": 2383,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "constellation": "Lacerta",
+     "object": null,
+     "fields": [
+      "0.5384673780",
+      "J2219+4754"
+     ]
+    },
+    {
+     "name": "PSR B1933+16",
+     "distance_pc": 3700,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "constellation": "Aquila",
+     "object": null,
+     "fields": [
+      "0.3587354200",
+      "J1935+1616"
+     ]
+    },
+    {
+     "name": "PSR B1642-03",
+     "distance_pc": 4000,
+     "distance_source": "ATNF Pulsar Catalogue v2.9.0 adopted distance",
+     "constellation": "Ophiuchus",
+     "object": null,
+     "fields": [
+      "0.3876887792",
+      "J1645-0317"
+     ]
+    }
+   ]
   }
  ]
 }

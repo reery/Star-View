@@ -1,4 +1,4 @@
-import { Equal, EqualApproximately, Flame, Maximize, Sparkles, Sun, Trophy, createElement, type IconNode } from 'lucide'
+import { Equal, EqualApproximately, Flame, Maximize, Radio, Sparkles, Sun, Trophy, createElement, type IconNode } from 'lucide'
 import { LIGHT_YEARS_PER_PARSEC, type DistanceUnit } from './astronomy'
 import { formatNumber } from './format'
 import { AU_METERS, SOLAR_RADIUS_METERS } from './luminosity-properties'
@@ -18,7 +18,7 @@ interface TopListOptions {
 
 const lists = data.lists as TopList[]
 // Collapsed sidebar icons; lists added later fall back to the Top lists trophy.
-const listIcons: Record<string, IconNode> = { largest: Maximize, hottest: Flame, supernova: Sparkles, 'solar-type': Sun, 'solar-analogs': EqualApproximately, 'solar-twins': Equal }
+const listIcons: Record<string, IconNode> = { largest: Maximize, hottest: Flame, supernova: Sparkles, 'solar-type': Sun, 'solar-analogs': EqualApproximately, 'solar-twins': Equal, 'pioneer-plaque': Radio }
 const solarRadiiPerAu = AU_METERS / SOLAR_RADIUS_METERS
 const solarOrbits = planetarySystems.systems.find(({ hostStarId }) => hostStarId === 'sun')!.planets
   .map((planet) => ({ name: planet.name, radius: planet.semiMajorAxisAu * solarRadiiPerAu }))

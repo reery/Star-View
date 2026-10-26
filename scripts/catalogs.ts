@@ -27,12 +27,14 @@ import smallBodies from '../src/data/solar-small-bodies.json' with { type: 'json
 import starInfo from '../src/data/star-info.json' with { type: 'json' }
 import nearest100Info from '../src/data/nearest-100-info.json' with { type: 'json' }
 import constellationStarInfo from '../src/data/constellation-star-info.json' with { type: 'json' }
+import compactObjectInfo from '../src/data/compact-object-info.json' with { type: 'json' }
 import legacyStarIds from '../src/data/legacy-star-ids.json' with { type: 'json' }
 import { starComponentIdentity } from '../src/star-systems.ts'
 import type { ConstellationChart } from '../src/constellations.ts'
 import type { Star } from '../src/catalog-model.ts'
 import { splitCatalogDetails } from '../src/catalog-detail-model.ts'
 import stellarOrbits from '../src/data/stellar-orbits.json' with { type: 'json' }
+import compactOrbits from '../src/data/compact-system-orbits.json' with { type: 'json' }
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 const identities = parseObjectIdentities(JSON.parse(readFileSync(join(root, 'src/data/object-designations.json'), 'utf8')))
@@ -247,7 +249,7 @@ function generate(): void {
   const legacyIds: Record<string, string> = legacyStarIds.ids
   const articleId = (id: string) => starComponentIdentity(id) ? id : legacyIds[id] ?? id
   // Exact catalog IDs of the same single star in another catalog; resolved only through the startup index.
-  const articleEntries = [starInfo, nearest100Info, constellationStarInfo].flatMap((dataset) =>
+  const articleEntries = [starInfo, nearest100Info, constellationStarInfo, compactObjectInfo].flatMap((dataset) =>
     Object.entries(dataset.articles).map(([id, definition]) => {
       const { aliases = [], ...article } = definition as typeof definition & { aliases?: string[] }
       return { id: articleId(id), reviewedAt: dataset.reviewedAt, article, aliases }
@@ -256,7 +258,7 @@ function generate(): void {
     [`star-article-${id}.json`, JSON.stringify({ reviewedAt, article }) + '\n']))
   const starInfoAliases = Object.fromEntries(articleEntries.flatMap(({ id, aliases }) => aliases.map((alias) => [alias, id])))
   writeGeneratedData('star-articles', articleFiles)
-  const orbitFiles = Object.fromEntries(stellarOrbits.systems.map((system) =>
+  const orbitFiles = Object.fromEntries([...stellarOrbits.systems, ...compactOrbits.systems].map((system) =>
     [`stellar-orbit-${system.systemId}.json`, JSON.stringify(system.orbits) + '\n']))
   writeGeneratedData('stellar-orbits', orbitFiles)
   const systemFiles = Object.fromEntries([...planetarySystems.systems, ...nearbyPlanets.systems].map((system) =>

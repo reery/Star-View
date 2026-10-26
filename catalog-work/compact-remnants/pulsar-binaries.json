@@ -1,0 +1,74 @@
+{
+  "reviewed": "2026-10-26",
+  "policy": "Only individually measured pulsar and neutron-star companion masses from relativistic timing or optical spectroscopy, keyed by exact ATNF PSRJ name. Total-mass-only systems and model-dependent X-ray mass fits are not split into component masses.",
+  "pulsarMasses": {
+    "J0437-4715": {
+      "mass_solar": 1.418,
+      "mass_error_solar": 0.044,
+      "source_label": "Reardon et al. 2024",
+      "source_url": "https://arxiv.org/abs/2407.07132"
+    },
+    "J0453+1559": {
+      "mass_solar": 1.559,
+      "mass_error_solar": 0.005,
+      "source_label": "Martinez et al. 2015",
+      "source_url": "https://arxiv.org/abs/1509.08805"
+    },
+    "J1012+5307": {
+      "mass_solar": 1.72,
+      "mass_error_solar": 0.16,
+      "source_label": "Mata Sánchez et al. 2020",
+      "source_url": "https://arxiv.org/abs/2004.02901"
+    },
+    "J1614-2230": {
+      "mass_solar": 1.937,
+      "mass_error_solar": 0.013,
+      "source_label": "Mauviard et al. 2026",
+      "source_url": "https://arxiv.org/abs/2609.00172",
+      "note": "The published interval is +0.012/-0.013 M_sun; the larger side is stored. The mass is set by radio timing."
+    },
+    "J1756-2251": {
+      "mass_solar": 1.341,
+      "mass_error_solar": 0.007,
+      "source_label": "Ferdman et al. 2014",
+      "source_url": "https://arxiv.org/abs/1406.5507"
+    },
+    "J1829+2456": {
+      "mass_solar": 1.306,
+      "mass_error_solar": 0.007,
+      "source_label": "Haniewicz et al. 2021",
+      "source_url": "https://arxiv.org/abs/2007.07565",
+      "note": "The uncertainty is the published 95% confidence interval."
+    },
+    "J2222-0137": {
+      "mass_solar": 1.831,
+      "mass_error_solar": 0.01,
+      "source_label": "Guo et al. 2021",
+      "source_url": "https://arxiv.org/abs/2107.09474"
+    }
+  },
+  "neutronStarCompanions": [
+    {
+      "pulsar": "J0453+1559",
+      "mass_solar": 1.174,
+      "mass_error_solar": 0.004,
+      "source_label": "Martinez et al. 2015",
+      "source_url": "https://arxiv.org/abs/1509.08805"
+    },
+    {
+      "pulsar": "J1756-2251",
+      "mass_solar": 1.23,
+      "mass_error_solar": 0.007,
+      "source_label": "Ferdman et al. 2014",
+      "source_url": "https://arxiv.org/abs/1406.5507"
+    },
+    {
+      "pulsar": "J1829+2456",
+      "mass_solar": 1.299,
+      "mass_error_solar": 0.007,
+      "source_label": "Haniewicz et al. 2021",
+      "source_url": "https://arxiv.org/abs/2007.07565",
+      "note": "The uncertainty is the published 95% confidence interval."
+    }
+  ]
+}

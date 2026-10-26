@@ -179,7 +179,7 @@ export function renderSystemCard(container: HTMLElement, planets: PlanetarySyste
         disclosure.dataset.bodyGroup = group
         const summary = document.createElement('summary')
         summary.textContent = label
-        const bodies = planetList(smallBodies.filter((body) => body.group === group), planets.name, onPlanetSelect)
+        const bodies = planetList(smallBodies.filter((body) => body.group === group).sort((a, b) => a.semiMajorAxisAu - b.semiMajorAxisAu), planets.name, onPlanetSelect)
         bodies.title = 'JPL osculating heliocentric orbital semi-major axes; epochs and provenance in each object’s Specs. Not current distances.'
         disclosure.append(summary, bodies)
         section.append(disclosure)

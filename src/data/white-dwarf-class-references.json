@@ -4,6 +4,39 @@
   "version": "2020-08-18",
   "archive_sha256": "24aac73615f4ca1431b013af9ed6b64242c91c940a0a4bdeea2a60360d61bb0a",
   "references": {
+    "mixed:3950": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            140127,
+            20990200
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1963.95,
+            10970.7
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            36418.2,
+            26188100
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            0.00000286452,
+            0.000429151
+          ]
+        }
+      }
+    },
     "mixed:4358": {
       "benchmark": false,
       "metrics": {
@@ -1023,6 +1056,39 @@
           "range": [
             0.0000662261,
             0.014418
+          ]
+        }
+      }
+    },
+    "thick:8550": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1014770,
+          "range": [
+            91054.1,
+            19838100
+          ]
+        },
+        "escapeKms": {
+          "value": 4240.06,
+          "range": [
+            1763.3,
+            10816.9
+          ]
+        },
+        "density": {
+          "value": 409756,
+          "range": [
+            19075.9,
+            24061800
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.00130096,
+          "range": [
+            0.0000665383,
+            0.0144986
           ]
         }
       }

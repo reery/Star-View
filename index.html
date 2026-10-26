@@ -75,13 +75,21 @@
                             <div id="magnitude-row" class="stellar-property magnitude-row"><dt><span>Absolute mag. (V)</span><span id="apparent-mag-label">Apparent mag. (V)</span></dt><dd><button id="magnitude-toggle" class="object-type-toggle" type="button" aria-controls="magnitude-card" aria-expanded="false" aria-describedby="absolute-mag apparent-mag"><span id="absolute-mag"></span><span id="apparent-mag" title="Earth-view catalog V magnitude; a snapshot, not current variable-star photometry."></span></button></dd></div>
                             <div id="infrared-magnitude-row" class="stellar-property" hidden><dt id="infrared-magnitude-label"></dt><dd id="infrared-magnitude"></dd></div>
                             <div class="compact-property" hidden><dt>Status</dt><dd id="compact-status"></dd></div>
-                            <div class="compact-property rotation-property" hidden><dt>Rotation</dt><dd id="rotation-period"></dd></div>
-                            <div class="compact-property pulsar-property" hidden><dt>Radio luminosity (1400 MHz)</dt><dd id="radio-luminosity"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt>Pulsar type</dt><dd id="pulsar-classes"></dd></div>
+                            <div id="rotation-row" class="compact-property rotation-property" hidden><dt>Rotation</dt><dd><button id="pulsar-toggle" class="object-type-toggle" type="button" aria-controls="pulsar-card" aria-expanded="false" aria-describedby="rotation-period"><span id="rotation-period"></span></button></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt>Spin-down rate</dt><dd id="period-derivative"></dd></div>
                             <div class="compact-property pulsar-property" hidden><dt>Characteristic age</dt><dd id="characteristic-age"></dd></div>
                             <div class="compact-property pulsar-property" hidden><dt>Surface magnetic field</dt><dd id="surface-field"></dd></div>
                             <div class="compact-property pulsar-property" hidden><dt>Spin-down power</dt><dd id="spin-down-power"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt>Radio luminosity (1400 MHz)</dt><dd id="radio-luminosity"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt>Dispersion measure</dt><dd id="dispersion-measure"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt>Transverse speed</dt><dd id="transverse-speed"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt>Glitches</dt><dd id="glitch-count"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt>Associations</dt><dd id="pulsar-associations"></dd></div>
                             <div class="compact-property orbit-property" hidden><dt>Orbital period</dt><dd id="orbital-period"></dd></div>
+                            <div class="compact-property orbit-property pulsar-property" hidden><dt>Eccentricity</dt><dd id="orbital-eccentricity"></dd></div>
                             <div class="compact-property orbit-property" hidden><dt>Companion</dt><dd id="compact-companion"></dd></div>
+                            <div class="compact-property orbit-property pulsar-property" hidden><dt>Companion mass</dt><dd id="companion-mass-limit"></dd></div>
                             <div class="compact-property" hidden><dt>Detection</dt><dd id="detection-method"></dd></div>
                             <div class="compact-property" hidden><dt>Source</dt><dd><a id="compact-source" target="_blank" rel="noreferrer"></a></dd></div>
                             <div class="nebula-property" hidden><dt>Apparent size</dt><dd id="nebula-angular-size"></dd></div>
@@ -371,6 +379,36 @@
                   <a href="https://promenade.imcce.fr/en/pages1/101.html" target="_blank" rel="noreferrer">IMCCE: magnitude scales ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html" target="_blank" rel="noreferrer">NASA: Sun ↗</a> · <a href="https://www.jpl.nasa.gov/videos/whats-up-for-december-2013/" target="_blank" rel="noreferrer">NASA/JPL: Venus ↗</a> · <a href="https://www.eso.org/~hboffin/Teaching/CMD_notebook.pdf" target="_blank" rel="noreferrer">ESO: Sirius ↗</a>
                   <br /><a href="https://skyandtelescope.org/astronomy-resources/light-pollution-and-astronomy-the-bortle-dark-sky-scale/" target="_blank" rel="noreferrer">Bortle: city sky limits ↗</a> · <a href="https://www.celestron.com/blogs/knowledgebase/what-is-stellar-magnitude-how-can-understanding-magnitude-help-me-as-an-amateur-astronomer" target="_blank" rel="noreferrer">Celestron: visual instrument limits ↗</a> · <a href="https://www.eso.org/sci/libraries/historicaldocuments/VLT_White_Book/VLT_Whitebook.pdf" target="_blank" rel="noreferrer">ESO: FORS imaging limits ↗</a>
                 </details>
+              </div>
+            </section>
+            <section id="pulsar-card" class="dock-card object-type-card spectral-card" aria-labelledby="pulsar-heading" data-scene-obstacle hidden>
+              <div class="panel-heading spectral-heading">
+                <h2 id="pulsar-heading">Spin and slowdown</h2>
+                <button id="pulsar-lock" class="panel-lock" type="button" aria-label="Keep Spin and slowdown open" aria-pressed="false"><span id="pulsar-lock-icon"></span></button>
+                <button id="pulsar-close" class="panel-lock" type="button" aria-label="Close spin and slowdown card"><span id="pulsar-close-icon"></span></button>
+              </div>
+              <div class="spectral-body card-scroll-content">
+                <figure class="spectral-figure"><div id="pulsar-diagram"></div></figure>
+                <div class="spectral-readout">
+                  <p id="pulsar-missing" class="radius-note" hidden></p>
+                  <table class="radius-stats spectral-stats" aria-label="P–Ṗ diagram coordinates">
+                    <thead><tr><th scope="col"></th><th id="pulsar-selected-name" scope="col"></th><th id="pulsar-reference-name" scope="col"></th></tr></thead>
+                    <tbody>
+                      <tr><th scope="row">Period</th><td id="pulsar-selected-period"></td><td id="pulsar-reference-period"></td></tr>
+                      <tr><th scope="row">Spin-down rate</th><td id="pulsar-selected-derivative"></td><td id="pulsar-reference-derivative"></td></tr>
+                      <tr><th scope="row">Characteristic age</th><td id="pulsar-selected-age"></td><td id="pulsar-reference-age"></td></tr>
+                      <tr><th scope="row">Surface field</th><td id="pulsar-selected-field"></td><td id="pulsar-reference-field"></td></tr>
+                    </tbody>
+                  </table>
+                  <details class="radius-method spectral-method">
+                    <summary>About this diagram</summary>
+                    <p>The P–Ṗ diagram is the pulsar counterpart of the H–R diagram. Each dot is a catalog pulsar within 3000 light-years, placed by its spin period and how fast that period grows. Both axes are logarithmic.</p>
+                    <p>Young pulsars spin down fast and sit high on the diagram, then drift down and to the right over millions of years. Millisecond pulsars, spun up by matter from a companion, sit at the lower left. Below the death line, most pulsars no longer emit radio pulses.</p>
+                    <p>Dashed lines mark constant characteristic age, P/2Ṗ; dotted lines constant surface magnetic field, 3.2 × 10¹⁹ √(PṖ) G. Both assume the standard magnetic-braking model, as the catalog’s derived values do.</p>
+                    <a href="https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html" target="_blank" rel="noreferrer">Pulsar data: ATNF Pulsar Catalogue ↗</a><br>
+                    <a href="https://ui.adsabs.harvard.edu/abs/1993ApJ...402..264C" target="_blank" rel="noreferrer">Death line: Chen &amp; Ruderman 1993 ↗</a>
+                  </details>
+                </div>
               </div>
             </section>
             <section id="spectral-card" class="dock-card object-type-card spectral-card" aria-labelledby="spectral-heading" data-scene-obstacle hidden>
@@ -673,6 +711,10 @@
                     <span>Western constellation stars</span>
                     <span class="switch-control"><input id="show-western-constellation-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
                   </label>
+                  <label class="filter-toggle" for="show-notable-distant-stars" title="Distant stars in notable systems, such as the companions of pulsars. They also appear whenever pulsars are shown.">
+                    <span>Notable distant stars</span>
+                    <span class="switch-control"><input id="show-notable-distant-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+                  </label>
                   <div id="object-categories" class="category-toggles" role="group" aria-label="Object categories"></div>
                   <div class="range-filter">
                     <div class="range-heading"><label for="object-distance-limit">Object visibility distance</label><output id="object-distance-limit-value" for="object-distance-limit">100 ly</output></div>
@@ -687,6 +729,10 @@
                     <span id="magnitude-limit-guides" class="sr-only"></span>
                     <div class="range-bounds" aria-hidden="true"><span>0</span><span>25</span></div>
                   </div>
+                  <label class="filter-toggle" for="hide-fainter-objects">
+                    <span>Hide fainter objects</span>
+                    <span class="switch-control"><input id="hide-fainter-objects" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+                  </label>
                   <details class="filter-dropdown">
                     <summary><span>Object type</span><span id="object-type-filter-summary">All</span></summary>
                     <fieldset id="object-type-filter" class="type-filter">
@@ -826,10 +872,6 @@
                     <span>Power saving mode</span>
                     <span class="switch-control"><input id="power-saving-mode" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
                   </label>
-                  <div class="browser-data-control">
-                    <button id="delete-browser-data" class="browser-data-delete" type="button" aria-haspopup="dialog" aria-controls="browser-data-dialog" aria-describedby="browser-data-size">Delete all Star View browser data</button>
-                    <output id="browser-data-size" title="Estimated size of saved views and preferences, including storage keys">0.00 KB</output>
-                  </div>
                   <section class="preferences-group" aria-labelledby="scene-preferences-heading">
                     <h3 id="scene-preferences-heading" class="card-subgroup-heading">Scene</h3>
                     <div class="range-filter">
@@ -852,6 +894,10 @@
                     </label>
                     <div class="catalog-choice"><label for="motion-years">Arrow length</label><select id="motion-years"><option value="1000" selected>1k years</option><option value="5000">5k years</option><option value="10000">10k years</option><option value="25000">25k years</option><option value="50000">50k years</option></select></div>
                     <div id="motion-frame" class="segmented-choice" role="group" aria-labelledby="motion-frame-label"><span id="motion-frame-label">Motion frame</span><div class="unit-options"><label><input id="motion-frame-galactic" type="radio" name="motion-frame" value="galactic" checked><span>Galactic</span></label><label><input id="motion-frame-solar" type="radio" name="motion-frame" value="solar"><span>Solar</span></label></div></div>
+                  </section>
+                  <section class="preferences-group" aria-labelledby="data-preferences-heading">
+                    <h3 id="data-preferences-heading" class="card-subgroup-heading">Data</h3>
+                    <button id="delete-browser-data" class="browser-data-delete" type="button" aria-haspopup="dialog" aria-controls="browser-data-dialog" title="Size estimate includes saved views, preferences and storage keys">Delete all Star View browser data</button>
                   </section>
                 </div>
               </section>

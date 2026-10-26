@@ -1,5 +1,6 @@
-import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model.ts'
+import { isCompactObject, STELLAR_OBJECT_TYPES, type Star } from './catalog-model.ts'
 import definitions from './data/stellar-system-identities.json' with { type: 'json' }
+import compactDefinitions from './data/compact-system-identities.json' with { type: 'json' }
 
 interface ComponentDefinition { starId: string; label: string; alternateStarIds?: string[] }
 interface SystemDefinition { id: string; name: string; components: ComponentDefinition[] }
@@ -7,9 +8,12 @@ interface SystemDefinition { id: string; name: string; components: ComponentDefi
 // The shared pool includes the existing literature reviews and the wider,
 // explicitly sourced component coverage. Its definitions supersede older copies.
 export const reviewedStarSystems: readonly SystemDefinition[] = definitions.systems
+// Pulsars join their measured companions only through these reviewed IDs; they
+// are not stellar-pool records, so catalog companion completion ignores them.
+export const reviewedCompactSystems: readonly SystemDefinition[] = compactDefinitions.systems
 
 // Stable catalog IDs keep associations independent of common/display names.
-const reviewedComponents = new Map(reviewedStarSystems.flatMap((system) =>
+const reviewedComponents = new Map([...reviewedStarSystems, ...reviewedCompactSystems].flatMap((system) =>
   system.components.flatMap((component) => {
     const aliases = component.alternateStarIds ?? []
     return [component.starId, ...aliases].map((id) => [id, {
@@ -63,7 +67,9 @@ export function mapComponentVisibility(stars: readonly Star[], selectedId: strin
           remaining.delete(candidate)
         }
       }
-      group.sort((a, b) => (a.star.absolute_mag ?? Infinity) - (b.star.absolute_mag ?? Infinity)
+      // A pulsar stays visible beside its fainter-looking companion; compact markers have no magnitude.
+      group.sort((a, b) => Number(isCompactObject(b.star)) - Number(isCompactObject(a.star))
+        || (a.star.absolute_mag ?? Infinity) - (b.star.absolute_mag ?? Infinity)
         || (b.star.luminosity_solar ?? 0) - (a.star.luminosity_solar ?? 0)
         || a.label.localeCompare(b.label, 'en'))
       for (const { star } of group.slice(1)) visible[indices.get(star.id)!] = star.id === selectedId ? 1 : 0
@@ -77,9 +83,9 @@ export function indexStarSystems(stars: readonly Star[]): ReadonlyMap<string, St
   const groups = new Map<string, Map<string, Star>>()
   const names = new Map<string, string>()
   for (const star of stars) {
-    if (!STELLAR_OBJECT_TYPES.includes(star.type as never)) continue
-    const component = star.name.match(/^(.+) ([A-Z][a-z]?)$/)
     const reviewed = reviewedComponents.get(star.id)
+    if (!STELLAR_OBJECT_TYPES.includes(star.type as never) && !reviewed) continue
+    const component = star.name.match(/^(.+) ([A-Z][a-z]?)$/)
     // Proxima is Alpha Centauri C, despite its separate common name.
     // https://www.eso.org/public/announcements/ann16089/
     const name = reviewed?.name ?? (star.id === 'proxima-centauri' ? 'Alpha Centauri' : component?.[1])

@@ -67,7 +67,7 @@ Object.assign(window, {
       onInteraction() {}, onSelect() {}, onStatus() {},
     })
     viewer.setObjectDistanceLimit(2000)
-    viewer.setVisibility('sun', 7)
+    viewer.setVisibility('sun', 7, false)
     if (options.hideSun) viewer.setObjectFilter(FILTER_KEYS.filter((key) => key !== 'sun'))
     viewer.setGridVisible(false)
     viewer.setMotionArrowsVisible(false)

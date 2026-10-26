@@ -10,7 +10,7 @@ const waits = new WeakMap<HTMLElement, { stream: Animation; start: CSSNumberish 
 export function streamWhenLoaded<T>(target: HTMLElement, loading: Promise<T>): Promise<T> {
   if (reducedMotion.matches) return loading
   const previous = waits.get(target)
-  const wait = previous ? { ...previous } : { stream: target.animate(STREAM_KEYFRAMES, { duration: 220, easing: 'ease-in-out' }), start: document.timeline.currentTime }
+  const wait = previous ? { ...previous } : { stream: target.animate(STREAM_KEYFRAMES, { duration: 400, easing: 'ease-in-out' }), start: document.timeline.currentTime }
   wait.stream.pause()
   waits.set(target, wait)
   return loading.finally(() => {

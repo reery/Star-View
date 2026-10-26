@@ -15,8 +15,9 @@ afterAll(() => vi.unstubAllGlobals())
 
 describe('nearby exoplanet coverage and scientific qualifications', () => {
   it('covers every frozen host count and connects all rows to a detail card', () => {
-    expect(nearby.systems).toHaveLength(109)
-    expect(extrasolarPlanets).toHaveLength(204)
+    // 109 nearby stellar hosts plus the pulsars Lich and PSR J1719-1438.
+    expect(nearby.systems).toHaveLength(111)
+    expect(extrasolarPlanets).toHaveLength(208)
     for (const system of nearby.systems) {
       const hostStats = stats.objects[system.hostStarId as keyof typeof stats.objects]
       expect(system.planets).toHaveLength(hostStats.known_planets!)

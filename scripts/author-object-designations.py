@@ -177,11 +177,19 @@ def build():
     bright_names = {row["id"]: row["name"] for row in inventory_rows(inventory, str((BRIGHT_ARCHIVE / "stars.csv").relative_to(ROOT))) if row["id"] not in legacy_ids}
     reviewed = read_json(WORK / "preferred-names.json")
     pulsars = {}
-    atnf_path = ROOT / "catalog-work/compact-remnants/atnf-long.csv"
+    # Pre-1993 pulsars keep their B1950 names in the literature (PSR B1919+21).
+    b_names = {}
+    atnf_path = ROOT / "catalog-work/compact-remnants/atnf-subset.db"
     inputs[str(atnf_path.relative_to(ROOT))] = hashlib.sha256(atnf_path.read_bytes()).hexdigest()
-    with atnf_path.open(newline="") as handle:
-        for row in list(csv.reader(handle, delimiter=";"))[2:]:
-            pulsars[f"psr-{row[1].lower().replace('+', 'p').replace('-', 'm')}"] = [f"PSR {value.strip()}" for value in (row[1], row[3]) if value.strip() != "*"]
+    for block in atnf_path.read_text(encoding="latin-1").split("\n@"):
+        fields = {parts[0]: parts[1] for parts in (line.split() for line in block.splitlines() if not line.startswith("#")) if len(parts) > 1}
+        if "PSRJ" not in fields:
+            continue
+        identifier = f"psr-{fields['PSRJ'].lower().replace('+', 'p').replace('-', 'm')}"
+        pulsars[identifier] = [f"PSR {fields['PSRJ']}"]
+        if "PSRB" in fields:
+            pulsars[identifier].append(f"PSR {fields['PSRB']}")
+            b_names[identifier] = f"PSR {fields['PSRB']}"
 
     objects = {}
     for identifier, rows in sorted(inventory.items()):
@@ -261,6 +269,9 @@ def build():
             # Cahlon indices identify segmented features, not entire complexes.
             if r["type"] == "molecular_cloud":
                 aliases.append(f"Cahlon Cloud {r['molecular_cloud']['catalog_id']}")
+        if row["type"] == "pulsar" and identifier in b_names and name.startswith("PSR J"):
+            aliases.append(name)
+            name = b_names[identifier]
         if identifier in reviewed:
             decision = reviewed[identifier]
             name = decision["name"]

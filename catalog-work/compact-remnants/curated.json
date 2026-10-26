@@ -15,9 +15,24 @@
     "confidence": "confirmed",
     "detection_method": "Astrometric and spectroscopic binary orbit",
     "distance_method": "Joint astrometric and spectroscopic orbit",
-    "source_label": "El-Badry et al. 2024",
+    "source_label": "Nagarajan et al. 2024",
     "source_url": "https://arxiv.org/abs/2312.05313",
-    "notes": "The plotted position represents the unresolved binary-system location; mass refers to the dark companion."
+    "notes": "The plotted position represents the unresolved binary-system location; mass refers to the dark companion.",
+    "eccentricity": 0.4323,
+    "eccentricity_error": 2e-05,
+    "astrometry": {
+      "epoch": 2016.0,
+      "parallax_mas": 2.09,
+      "parallax_error_mas": 0.02,
+      "pm_ra_cosdec_masyr": -7.7,
+      "pm_ra_error_masyr": 0.02,
+      "pm_dec_masyr": -25.85,
+      "pm_dec_error_masyr": 0.027,
+      "radial_velocity_kms": 48.379,
+      "radial_velocity_error_kms": 0.1,
+      "astrometry_ref": "El-Badry et al. 2023, Table 1 (Gaia DR3 orbital solution), https://arxiv.org/abs/2209.06833",
+      "radial_velocity_ref": "Nagarajan et al. 2024 systemic velocity; ~0.1 km/s ESPRESSO zero-point uncertainty, https://arxiv.org/abs/2312.05313"
+    }
   },
   {
     "type": "black_hole",
@@ -37,7 +52,22 @@
     "distance_method": "Orbital parallax (1.6933 +/- 0.0164 mas)",
     "source_label": "Gaia Collaboration et al. 2024",
     "source_url": "https://arxiv.org/abs/2404.10486",
-    "notes": "The plotted position represents the unresolved binary-system location; mass refers to the dark companion."
+    "notes": "The plotted position represents the unresolved binary-system location; mass refers to the dark companion.",
+    "eccentricity": 0.7291,
+    "eccentricity_error": 0.0048,
+    "astrometry": {
+      "epoch": 2016.0,
+      "parallax_mas": 1.6933,
+      "parallax_error_mas": 0.0164,
+      "pm_ra_cosdec_masyr": -28.317,
+      "pm_ra_error_masyr": 0.067,
+      "pm_dec_masyr": -155.221,
+      "pm_dec_error_masyr": 0.111,
+      "radial_velocity_kms": -357.31,
+      "radial_velocity_error_kms": 0.44,
+      "astrometry_ref": "Gaia Collaboration 2024, Table 2 combined astrometric and spectroscopic solution, https://arxiv.org/abs/2404.10486",
+      "radial_velocity_ref": "Gaia Collaboration 2024, Table 2 systemic velocity, https://arxiv.org/abs/2404.10486"
+    }
   },
   {
     "type": "neutron_star",
@@ -57,6 +87,21 @@
     "distance_method": "Joint-fit parallax (1.36 +/- 0.03 mas)",
     "source_label": "El-Badry et al. 2024",
     "source_url": "https://arxiv.org/abs/2402.06722",
-    "notes": "The unseen companion is most likely a neutron star, but a close double-white-dwarf alternative is not fully excluded. The plotted position represents the unresolved system."
+    "notes": "The unseen companion is most likely a neutron star, but a close double-white-dwarf alternative is not fully excluded. The plotted position represents the unresolved system.",
+    "eccentricity": 0.122,
+    "eccentricity_error": 0.002,
+    "astrometry": {
+      "epoch": 2016.0,
+      "parallax_mas": 1.36,
+      "parallax_error_mas": 0.01,
+      "pm_ra_cosdec_masyr": -0.01,
+      "pm_ra_error_masyr": 0.02,
+      "pm_dec_masyr": -92.36,
+      "pm_dec_error_masyr": 0.03,
+      "radial_velocity_kms": 133.46,
+      "radial_velocity_error_kms": 0.03,
+      "astrometry_ref": "El-Badry et al. 2024, Table 3 Gaia + RV joint fit, https://arxiv.org/abs/2402.06722",
+      "radial_velocity_ref": "El-Badry et al. 2024, Table 3 systemic velocity, https://arxiv.org/abs/2402.06722"
+    }
   }
 ]

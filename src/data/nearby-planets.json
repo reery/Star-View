@@ -3,7 +3,9 @@
   "retrieved": "2026-10-08",
   "sourceChecksumsSha256": {
     "planets.csv": "1ba2479f75c2d09e4bf9b13a7ddb902ac32a40048deeeb62a75f5a5901b1501d",
-    "planets.adql": "7b5d13888bf3e2af77f5515a1a7d5ac5d94628728727013cf3dac48bcda6353a"
+    "planets.adql": "7b5d13888bf3e2af77f5515a1a7d5ac5d94628728727013cf3dac48bcda6353a",
+    "pulsar-planets.csv": "043796fc7a496fc4d397bcbd6eff2ab294e60d2ab292db9077ef2a1acd1cb527",
+    "pulsar-planets.adql": "9f754501ca199fa19b6858e31b07a6085cc5da60b28ae9dd6bf1d99202067b95"
   },
   "systems": [
     {
@@ -2941,6 +2943,62 @@
           "name": "47 UMa d",
           "color": "#aaa19b",
           "semiMajorAxisAu": 11.6,
+          "distanceKind": "semi-major-axis",
+          "distanceLimit": 0
+        }
+      ]
+    },
+    {
+      "hostStarId": "psr-j1300p1240",
+      "name": "Lich",
+      "source": {
+        "label": "NASA Exoplanet Archive",
+        "url": "https://exoplanetarchive.ipac.caltech.edu/docs/pscp_about.html",
+        "epoch": "2026-10-26",
+        "note": "Composite published parameters; values may come from different studies. Distances are approximate orbital sizes or projected separations for imaging discoveries, not current positions."
+      },
+      "planets": [
+        {
+          "id": "exo-psr-b1257-12-b",
+          "name": "PSR B1257+12 b",
+          "color": "#aaa19b",
+          "semiMajorAxisAu": 0.19,
+          "distanceKind": "semi-major-axis",
+          "distanceLimit": 0
+        },
+        {
+          "id": "exo-psr-b1257-12-c",
+          "name": "PSR B1257+12 c",
+          "color": "#aaa19b",
+          "semiMajorAxisAu": 0.36,
+          "distanceKind": "semi-major-axis",
+          "distanceLimit": 0
+        },
+        {
+          "id": "exo-psr-b1257-12-d",
+          "name": "PSR B1257+12 d",
+          "color": "#aaa19b",
+          "semiMajorAxisAu": 0.46,
+          "distanceKind": "semi-major-axis",
+          "distanceLimit": 0
+        }
+      ]
+    },
+    {
+      "hostStarId": "psr-j1719m1438",
+      "name": "PSR J1719-1438",
+      "source": {
+        "label": "NASA Exoplanet Archive",
+        "url": "https://exoplanetarchive.ipac.caltech.edu/docs/pscp_about.html",
+        "epoch": "2026-10-26",
+        "note": "Composite published parameters; values may come from different studies. Distances are approximate orbital sizes or projected separations for imaging discoveries, not current positions."
+      },
+      "planets": [
+        {
+          "id": "exo-psr-j1719-1438-b",
+          "name": "PSR J1719-1438 b",
+          "color": "#aaa19b",
+          "semiMajorAxisAu": 0.0044,
           "distanceKind": "semi-major-axis",
           "distanceLimit": 0
         }
@@ -28698,6 +28756,368 @@
           "source": {
             "label": "Gregory & Fischer 2010",
             "url": "https://ui.adsabs.harvard.edu/abs/2010MNRAS.403..731G/abstract"
+          },
+          "estimated": false
+        }
+      }
+    },
+    {
+      "kind": "extrasolar",
+      "id": "exo-psr-b1257-12-b",
+      "name": "PSR B1257+12 b",
+      "hostStarId": "psr-j1300p1240",
+      "hostName": "Lich",
+      "color": "#aaa19b",
+      "massProvenance": "Mass",
+      "controversial": false,
+      "discoveryMethod": "Pulsar Timing",
+      "discoveryYear": 1994,
+      "discoveryFacility": "Arecibo Observatory",
+      "discoverySource": {
+        "label": "Wolszczan 1994",
+        "url": "https://ui.adsabs.harvard.edu/abs/1994Sci...264..538W/abstract"
+      },
+      "metrics": {
+        "pl_rade": {
+          "value": 0.338,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": 0,
+          "source": {
+            "label": "Calculated Value",
+            "url": "https://exoplanetarchive.ipac.caltech.edu/docs/pscp_calc.html"
+          },
+          "estimated": true
+        },
+        "pl_bmasse": {
+          "value": 0.02,
+          "errorPlus": 0.002,
+          "errorMinus": -0.002,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        },
+        "pl_dens": {
+          "value": 2.85,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": 0,
+          "source": {
+            "label": "Calculated Value",
+            "url": "https://exoplanetarchive.ipac.caltech.edu/docs/pscp_calc.html"
+          },
+          "estimated": true
+        },
+        "pl_orbsmax": {
+          "value": 0.19,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        },
+        "pl_orbper": {
+          "value": 25.262,
+          "errorPlus": 0.003,
+          "errorMinus": -0.003,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        },
+        "pl_orbeccen": {
+          "value": 0.0,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        },
+        "pl_orbincl": {
+          "value": 50.0,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        }
+      }
+    },
+    {
+      "kind": "extrasolar",
+      "id": "exo-psr-b1257-12-c",
+      "name": "PSR B1257+12 c",
+      "hostStarId": "psr-j1300p1240",
+      "hostName": "Lich",
+      "color": "#aaa19b",
+      "massProvenance": "Mass",
+      "controversial": false,
+      "discoveryMethod": "Pulsar Timing",
+      "discoveryYear": 1992,
+      "discoveryFacility": "Arecibo Observatory",
+      "discoverySource": {
+        "label": "Wolszczan et al. 1992",
+        "url": "https://ui.adsabs.harvard.edu/abs/1992Natur.355..145W/abstract"
+      },
+      "metrics": {
+        "pl_rade": {
+          "value": 1.91,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": 0,
+          "source": {
+            "label": "Calculated Value",
+            "url": "https://exoplanetarchive.ipac.caltech.edu/docs/pscp_calc.html"
+          },
+          "estimated": true
+        },
+        "pl_bmasse": {
+          "value": 4.3,
+          "errorPlus": 0.2,
+          "errorMinus": -0.2,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        },
+        "pl_dens": {
+          "value": 3.39,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": 0,
+          "source": {
+            "label": "Calculated Value",
+            "url": "https://exoplanetarchive.ipac.caltech.edu/docs/pscp_calc.html"
+          },
+          "estimated": true
+        },
+        "pl_orbsmax": {
+          "value": 0.36,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        },
+        "pl_orbper": {
+          "value": 66.5419,
+          "errorPlus": 0.0001,
+          "errorMinus": -0.0001,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        },
+        "pl_orbeccen": {
+          "value": 0.0186,
+          "errorPlus": 0.0002,
+          "errorMinus": -0.0002,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        },
+        "pl_orbincl": {
+          "value": 53.0,
+          "errorPlus": 4.0,
+          "errorMinus": -4.0,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        }
+      }
+    },
+    {
+      "kind": "extrasolar",
+      "id": "exo-psr-b1257-12-d",
+      "name": "PSR B1257+12 d",
+      "hostStarId": "psr-j1300p1240",
+      "hostName": "Lich",
+      "color": "#aaa19b",
+      "massProvenance": "Mass",
+      "controversial": false,
+      "discoveryMethod": "Pulsar Timing",
+      "discoveryYear": 1992,
+      "discoveryFacility": "Arecibo Observatory",
+      "discoverySource": {
+        "label": "Wolszczan et al. 1992",
+        "url": "https://ui.adsabs.harvard.edu/abs/1992Natur.355..145W/abstract"
+      },
+      "metrics": {
+        "pl_rade": {
+          "value": 1.8,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": 0,
+          "source": {
+            "label": "Calculated Value",
+            "url": "https://exoplanetarchive.ipac.caltech.edu/docs/pscp_calc.html"
+          },
+          "estimated": true
+        },
+        "pl_bmasse": {
+          "value": 3.9,
+          "errorPlus": 0.2,
+          "errorMinus": -0.2,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        },
+        "pl_dens": {
+          "value": 3.67,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": 0,
+          "source": {
+            "label": "Calculated Value",
+            "url": "https://exoplanetarchive.ipac.caltech.edu/docs/pscp_calc.html"
+          },
+          "estimated": true
+        },
+        "pl_orbsmax": {
+          "value": 0.46,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        },
+        "pl_orbper": {
+          "value": 98.2114,
+          "errorPlus": 0.0002,
+          "errorMinus": -0.0002,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        },
+        "pl_orbeccen": {
+          "value": 0.0264,
+          "errorPlus": 0.0009,
+          "errorMinus": -0.0009,
+          "limit": 0,
+          "source": {
+            "label": "Wolszczan 1994",
+            "url": "https://ui.adsabs.harvard.edu/abs/1994Sci...264..538W/abstract"
+          },
+          "estimated": false
+        },
+        "pl_orbincl": {
+          "value": 47.0,
+          "errorPlus": 3.0,
+          "errorMinus": -3.0,
+          "limit": 0,
+          "source": {
+            "label": "Konacki and Wolszczan 2003",
+            "url": "https://ui.adsabs.harvard.edu/abs/2003ApJ...591L.147K/abstract"
+          },
+          "estimated": false
+        }
+      }
+    },
+    {
+      "kind": "extrasolar",
+      "id": "exo-psr-j1719-1438-b",
+      "name": "PSR J1719-1438 b",
+      "hostStarId": "psr-j1719m1438",
+      "hostName": "PSR J1719-1438",
+      "color": "#aaa19b",
+      "massProvenance": "Mass",
+      "controversial": false,
+      "discoveryMethod": "Pulsar Timing",
+      "discoveryYear": 2011,
+      "discoveryFacility": "Parkes Observatory",
+      "discoverySource": {
+        "label": "Bailes et al. 2011",
+        "url": "https://ui.adsabs.harvard.edu/abs/2011Sci...333.1717B/abstract"
+      },
+      "metrics": {
+        "pl_bmasse": {
+          "value": 382.8,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": -1,
+          "source": {
+            "label": "Bailes et al. 2011",
+            "url": "https://ui.adsabs.harvard.edu/abs/2011Sci...333.1717B/abstract"
+          },
+          "estimated": false
+        },
+        "pl_dens": {
+          "value": 23.0,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": -1,
+          "source": {
+            "label": "Bailes et al. 2011",
+            "url": "https://ui.adsabs.harvard.edu/abs/2011Sci...333.1717B/abstract"
+          },
+          "estimated": false
+        },
+        "pl_orbsmax": {
+          "value": 0.0044,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": 0,
+          "source": {
+            "label": "Bailes et al. 2011",
+            "url": "https://ui.adsabs.harvard.edu/abs/2011Sci...333.1717B/abstract"
+          },
+          "estimated": false
+        },
+        "pl_orbper": {
+          "value": 0.090706293,
+          "errorPlus": 2e-09,
+          "errorMinus": -2e-09,
+          "limit": 0,
+          "source": {
+            "label": "Bailes et al. 2011",
+            "url": "https://ui.adsabs.harvard.edu/abs/2011Sci...333.1717B/abstract"
+          },
+          "estimated": false
+        },
+        "pl_orbeccen": {
+          "value": 0.06,
+          "errorPlus": null,
+          "errorMinus": null,
+          "limit": 1,
+          "source": {
+            "label": "Bailes et al. 2011",
+            "url": "https://ui.adsabs.harvard.edu/abs/2011Sci...333.1717B/abstract"
           },
           "estimated": false
         }

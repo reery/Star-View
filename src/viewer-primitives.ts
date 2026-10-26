@@ -1,6 +1,6 @@
 import { Camera, Matrix4, Vector3, Vector4 } from 'three'
 import type { Star } from './catalog-model'
-import { LIGHT_YEARS_PER_PARSEC, visibilityTier } from './astronomy'
+import { isMapVisibilityBase, LIGHT_YEARS_PER_PARSEC, visibilityTier } from './astronomy'
 import type { LabelRect, LayoutViewport } from './label-layout'
 import { filterKeyForObject, type FilterKey } from './object-filter'
 
@@ -67,6 +67,12 @@ export function budgetVisibleLabelIndices(
     }
   }
   return selected
+}
+
+/** Extended nebulae, clouds and bubbles have no point magnitude, so the magnitude limit keeps them eligible. */
+export function mapVisibilityTier(star: Star, observer: Star, selectedId: string | null, magnitude: number, limit: number): ReturnType<typeof visibilityTier> {
+  if (isMapVisibilityBase(star, observer)) return 'base'
+  return star.id === selectedId || star.nebula || star.molecular_cloud || star.bubble || magnitude <= limit ? 'eligible' : 'background'
 }
 
 export function starBlocksLabels(tier: ReturnType<typeof visibilityTier>): boolean {

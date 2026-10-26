@@ -63,7 +63,11 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .inspector { position: absolute; inset: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left); pointer-events: none; }
 .selected-object, .dock-card, .observer-direction-card { color: var(--ink); background: linear-gradient(145deg, #26282af7, var(--panel-glass)); border: 1px solid #5a5148; border-radius: var(--card-radius); box-shadow: 0 14px 38px #00000080, inset 0 1px #ffffff0a; }
 .selected-object, .dock-card { isolation: isolate; }
-.selected-object { position: absolute; top: 20px; left: 20px; width: 292px; max-height: calc(var(--ui-height) - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; }
+.selected-object { position: absolute; top: 20px; left: 20px; width: 292px; max-height: calc(var(--ui-height) - 40px); display: flex; flex-direction: column; overflow: hidden; pointer-events: auto; }
+/* Like .card-scroll-content: the summary with the section buttons stays put and only the body scrolls. */
+:is(.selected-object-content, #star-details, #object-card-details) { display: flex; flex-direction: column; min-height: 0; }
+#object-card-details::details-content { display: flex; flex-direction: column; min-height: 0; }
+.object-card-body { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
 .designation-details { font-size: var(--property-text-size); line-height: 1.2; }
 .designation-details summary { padding: 3px 0; color: var(--muted); font-weight: 400; cursor: pointer; }
 .designation-details[open] summary { margin-bottom: 6px; }
@@ -327,11 +331,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 
 .display-settings, .filter-controls { font-size: 14px; line-height: 1.35; color: var(--ink); }
 .display-settings { display: grid; gap: 12px; padding: 12px 14px 14px; }
-.browser-data-control { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.browser-data-delete { color: var(--danger); }
-.browser-data-control button { min-height: 34px; padding: 6px 8px; background: color-mix(in srgb, var(--danger) 10%, transparent); border: 1px solid color-mix(in srgb, var(--danger) 45%, transparent); border-radius: 6px; font-size: 12px; text-align: center; }
-.browser-data-control output { flex-shrink: 0; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.browser-data-control button:disabled { opacity: 0.45; cursor: default; }
+.browser-data-delete { justify-self: start; min-height: 34px; padding: 6px 8px; color: var(--danger); background: color-mix(in srgb, var(--danger) 10%, transparent); border: 1px solid color-mix(in srgb, var(--danger) 45%, transparent); border-radius: 6px; font-size: 12px; font-variant-numeric: tabular-nums; text-align: center; }
+.browser-data-delete:disabled { opacity: 0.45; cursor: default; }
 .preferences[data-delete-confirmation] > * { filter: blur(3px); }
 .browser-data-dialog { position: fixed; width: min(320px, calc(var(--ui-width) - 32px)); max-height: calc(var(--ui-height) - 32px); margin: 0; padding: 14px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 5px; box-shadow: 0 6px 18px #00000070; font-size: var(--property-text-size); line-height: 1.4; }
 .browser-data-dialog::backdrop { background: transparent; }
@@ -341,7 +342,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .browser-data-actions button { min-width: 56px; min-height: 40px; padding: 7px 10px; background: transparent; border: 1px solid var(--line); border-radius: 6px; }
 #browser-data-no { color: var(--accent); }
 @media (hover: hover) {
-  .browser-data-control button:hover:not(:disabled) { background: color-mix(in srgb, var(--danger) 18%, transparent); }
+  .browser-data-delete:hover:not(:disabled) { background: color-mix(in srgb, var(--danger) 18%, transparent); }
   .browser-data-actions button:hover { background: var(--panel-hover); }
 }
 .preferences-group { display: grid; gap: 12px; }
@@ -496,7 +497,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .star-swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 1px solid #ffffff40; flex-shrink: 0; }
 .catalog-name { font-size: 12px; font-weight: 500; min-width: 0; }
 .catalog-distance { color: var(--muted); font-size: 10px; white-space: nowrap; font-variant-numeric: tabular-nums; }
-#object-card-details > .selection-summary { position: sticky; top: 0; z-index: 3; background: var(--card-header-gradient); display: block; padding: 0; cursor: pointer; list-style: none; }
+#object-card-details > .selection-summary { flex-shrink: 0; position: relative; z-index: 3; background: var(--card-header-gradient); display: block; padding: 0; cursor: pointer; list-style: none; }
 #object-card-details > .selection-summary::-webkit-details-marker { display: none; }
 .identity { display: flex; align-items: center; gap: 8px; min-width: 0; width: 100%; min-height: 68px; padding: 8px 12px; }
 #selected-swatch { display: block; width: 56px; height: 56px; flex: 0 0 56px; pointer-events: none; }
@@ -667,7 +668,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .load-recovery-actions { display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink); }
 /* Opening cards paint at once; their content fades in, or streams in via content-stream.ts once loaded. */
 @media (prefers-reduced-motion: no-preference) {
-  .object-type-card > :not(.panel-heading) { animation: card-fade 120ms ease-out; }
+  .object-type-card > :not(.panel-heading) { animation: card-fade 200ms ease-out; }
 }
 /* While a card or Info loads, reserve space for content rendered afterwards so its frame opens near the loaded size. */
 .object-type-card > [aria-busy="true"] #hr-diagram:empty { aspect-ratio: 400 / 430; }
@@ -677,7 +678,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-type-card > [aria-busy="true"] #object-type-description:empty { min-height: 139px; }
 .object-type-card > [aria-busy="true"] :is(#magnitude-absolute-value, #magnitude-apparent-value):empty { min-height: 31px; }
 .object-type-card > [aria-busy="true"] #magnitude-visibility-controls:empty { min-height: 32px; }
-#object-info[aria-busy="true"]:empty { min-height: 400px; }
+:is(#object-info, .constellation-info)[aria-busy="true"]:empty { min-height: 400px; }
+.object-type-card > [aria-busy="true"] #planet-physical-specs:empty { min-height: 380px; }
+#planet-info[aria-busy="true"]:empty { min-height: 700px; }
+#planet-moons[aria-busy="true"]:empty { min-height: 468px; }
 @keyframes card-fade { from { opacity: 0; } }
 .catalog > .star-list { min-height: 0; }
 .object-type-hero { position: relative; height: 210px; overflow: hidden; background: #090b10; }
@@ -970,8 +974,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .magnitude-axis > span { display: grid; gap: 1px; }
 .magnitude-visibility-controls { position: relative; display: flex; gap: 4px; margin-top: 6px; }
 .magnitude-visibility-button { position: static; width: 36px; height: 32px; box-shadow: none; }
-.magnitude-visibility-button .mass-metric-tooltip { max-width: min(280px, 100%); }
-.magnitude-visibility-button .mass-metric-tooltip::before { left: var(--magnitude-tooltip-arrow); }
+.magnitude-visibility-button .mass-metric-tooltip { top: calc(100% + 8px); bottom: auto; max-width: min(280px, 100%); }
+.magnitude-visibility-button .mass-metric-tooltip::before { top: -5px; bottom: auto; left: var(--magnitude-tooltip-arrow); border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .magnitude-visibility-button:focus .tooltip { display: block; }
 .magnitude-body .mass-method { margin-top: 12px; padding-top: 10px; font-size: 12px; }
 .temperature-body { container-type: inline-size; }
@@ -1109,7 +1113,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 }
 .planet-globe-frame { position: relative; margin: 0 -16px; background: #000; }
 #planet-globe, #planet-moon-globe { display: block; width: 100%; height: 172px; touch-action: none; cursor: grab; }
-#planet-image { display: block; width: 100%; height: 172px; object-fit: contain; }
+#planet-globe, #planet-image { height: 208px; }
+#planet-image { display: block; width: 100%; object-fit: contain; }
 #planet-globe.is-dragging, #planet-moon-globe.is-dragging { cursor: grabbing; }
 #planet-globe:focus-visible, #planet-moon-globe:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
 #planet-moons { margin-top: 0; }
@@ -1221,6 +1226,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .hr-region-line { fill: none; stroke-width: 1; stroke-linejoin: round; stroke-linecap: round; }
 .hr-region-line.hr-main-sequence { stroke: #ffe7c775; }
 .hr-region-line.hr-cool-dwarfs, .hr-cooling { stroke: #ee776780; stroke-dasharray: 4 4; }
+.pulsar-dot { fill: #42d9ff8c; }
+.pulsar-age-line { stroke: #ffffff4d; stroke-dasharray: 5 4; }
+.pulsar-field-line { stroke: #ffffff4d; stroke-dasharray: 1 3; }
+.pulsar-death-line { stroke: #ee776780; stroke-dasharray: 4 4; }
+.pulsar-guide-text { fill: var(--muted); font-size: 11px; text-anchor: middle; paint-order: stroke; stroke: #0b0e14; stroke-width: 3px; }
 .hr-region-text, .mk-region-text { fill: #e6d6c2; font-size: 14px; paint-order: stroke; stroke: #15171bd9; stroke-width: 3px; stroke-linejoin: round; }
 .mk-region-text { font-size: 13px; }
 .hr-marker-text { fill: var(--ink); font-size: 14px; font-weight: 600; paint-order: stroke; stroke: #101217; stroke-width: 3px; stroke-linejoin: round; }

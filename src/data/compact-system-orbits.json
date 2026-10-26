@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 1,
+  "systems": [
+    {
+      "systemId": "gaia-bh1-system",
+      "name": "Gaia BH1",
+      "orbits": [
+        {
+          "id": "gaia-bh1-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "gaia-bh1"
+          ],
+          "secondaryIds": [
+            "gaia-bh1-b"
+          ],
+          "periodYears": 0.5075619438740588,
+          "semiMajorAxisAu": 1.38,
+          "eccentricity": 0.4323,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Nagarajan et al. 2024",
+          "sourceUrl": "https://arxiv.org/abs/2312.05313",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "gaia-bh3-system",
+      "name": "Gaia BH3",
+      "orbits": [
+        {
+          "id": "gaia-bh3-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "gaia-bh3"
+          ],
+          "secondaryIds": [
+            "gaia-bh3-b"
+          ],
+          "periodYears": 11.64435318275154,
+          "semiMajorAxisAu": 16.55,
+          "eccentricity": 0.7291,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Gaia Collaboration et al. 2024",
+          "sourceUrl": "https://arxiv.org/abs/2404.10486",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "gaia-ns1-system",
+      "name": "Gaia NS1",
+      "orbits": [
+        {
+          "id": "gaia-ns1-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "gaia-ns1"
+          ],
+          "secondaryIds": [
+            "gaia-ns1-b"
+          ],
+          "periodYears": 2.001368925393566,
+          "semiMajorAxisAu": 2.209,
+          "eccentricity": 0.122,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "El-Badry et al. 2024",
+          "sourceUrl": "https://arxiv.org/abs/2402.06722",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j0437m4715-system",
+      "name": "PSR J0437-4715",
+      "orbits": [
+        {
+          "id": "psr-j0437m4715-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j0437m4715"
+          ],
+          "secondaryIds": [
+            "psr-j0437m4715-b"
+          ],
+          "periodYears": 0.015718127036276522,
+          "semiMajorAxisAu": 0.07398,
+          "eccentricity": 1.918e-05,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j0453p1559-system",
+      "name": "PSR J0453+1559",
+      "orbits": [
+        {
+          "id": "psr-j0453p1559-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j0453p1559"
+          ],
+          "secondaryIds": [
+            "psr-j0453p1559-b"
+          ],
+          "periodYears": 0.011149811496235456,
+          "semiMajorAxisAu": 0.06978,
+          "eccentricity": 0.1125,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1012p5307-system",
+      "name": "PSR J1012+5307",
+      "orbits": [
+        {
+          "id": "psr-j1012p5307-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1012p5307"
+          ],
+          "secondaryIds": [
+            "psr-j1012p5307-b"
+          ],
+          "periodYears": 0.0016555036655879535,
+          "semiMajorAxisAu": 0.01729,
+          "eccentricity": 1.183e-06,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1614m2230-system",
+      "name": "PSR J1614-2230",
+      "orbits": [
+        {
+          "id": "psr-j1614m2230-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1614m2230"
+          ],
+          "secondaryIds": [
+            "psr-j1614m2230-b"
+          ],
+          "periodYears": 0.023782667823572894,
+          "semiMajorAxisAu": 0.1113,
+          "eccentricity": 1.338e-06,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1756m2251-system",
+      "name": "PSR J1756-2251",
+      "orbits": [
+        {
+          "id": "psr-j1756m2251-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1756m2251"
+          ],
+          "secondaryIds": [
+            "psr-j1756m2251-b"
+          ],
+          "periodYears": 0.0008751099286242299,
+          "semiMajorAxisAu": 0.01253,
+          "eccentricity": 0.1806,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1829p2456-system",
+      "name": "PSR J1829+2456",
+      "orbits": [
+        {
+          "id": "psr-j1829p2456-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1829p2456"
+          ],
+          "secondaryIds": [
+            "psr-j1829p2456-b"
+          ],
+          "periodYears": 0.0032197890239561945,
+          "semiMajorAxisAu": 0.03,
+          "eccentricity": 0.1391,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j2222m0137-system",
+      "name": "PSR J2222-0137",
+      "orbits": [
+        {
+          "id": "psr-j2222m0137-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j2222m0137"
+          ],
+          "secondaryIds": [
+            "psr-j2222m0137-b"
+          ],
+          "periodYears": 0.0066961259287364825,
+          "semiMajorAxisAu": 0.05208,
+          "eccentricity": 0.0003809,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    }
+  ]
+}

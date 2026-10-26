@@ -167,6 +167,20 @@ export interface CompactObjectDetails {
   source_url: string
   ra_deg: number
   dec_deg: number
+  period_derivative: number | null
+  period_derivative_error: number | null
+  dispersion_measure_pc_cm3: number | null
+  transverse_velocity_kms: number | null
+  /** Readable ATNF type classes, plus Millisecond pulsar below 30 ms. */
+  pulsar_classes: string[]
+  /** Readable ATNF associations, such as a supernova remnant or gamma-ray source. */
+  associations: string[]
+  glitch_count: number | null
+  eccentricity: number | null
+  projected_semi_major_axis_lt_s: number | null
+  /** Companion masses for a 1.35 M☉ pulsar at 90° and 60° inclination. */
+  companion_min_mass_solar: number | null
+  companion_median_mass_solar: number | null
 }
 
 export interface RawAstrometry {
