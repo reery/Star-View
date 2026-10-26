@@ -80,7 +80,7 @@ test('Info and constellation data wait for activation after a catalog change and
   await page.locator('#constellation-close').click()
 
   await page.locator('#object-info-toggle').click()
-  await expect(page.locator('#object-info > section')).toHaveCount(3)
+  await expect(page.locator('#object-info > section')).toHaveCount(5)
   await expect(page.locator('#object-info img')).toHaveJSProperty('naturalWidth', 1080)
   expect(requests.filter((url) => /\/star-info-/.test(url))).toHaveLength(1)
   expect(requests.filter((url) => /\/star-article-/.test(url))).toHaveLength(1)
@@ -92,7 +92,7 @@ test('Info and constellation data wait for activation after a catalog change and
   await expect(page.locator('#constellation-chart > svg')).toBeVisible()
   await page.locator('#constellation-close').click()
   await page.locator('#object-info-toggle').click()
-  await expect(page.locator('#object-info > section')).toHaveCount(3)
+  await expect(page.locator('#object-info > section')).toHaveCount(5)
   await page.waitForLoadState('networkidle')
   expect(chartRequests()).toHaveLength(3)
   expect(requests.filter((url) => /\/star-info-/.test(url))).toHaveLength(1)

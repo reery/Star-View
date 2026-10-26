@@ -43,6 +43,14 @@ const HTTPS_ONLY_HEADERS: Record<string, string> = {
 }
 const IMMUTABLE_CACHE_CONTROL = 'public, max-age=31536000, immutable'
 
+// RFC 9116; renew Expires before it lapses.
+const SECURITY_TXT = [
+  'Contact: mailto:security@starview-app.com',
+  'Expires: 2027-10-25T23:00:00.000Z',
+  'Preferred-Languages: en, de',
+  'Canonical: https://starview-app.com/.well-known/security.txt',
+].join('\n') + '\n'
+
 function headerRule(pattern: string, headers: Record<string, string>): string {
   return [pattern, ...Object.entries(headers).map(([name, value]) => `  ${name}: ${value}`)].join('\n')
 }
@@ -57,6 +65,20 @@ function contentSecurityPolicy(): Plugin {
       attrs: { 'http-equiv': 'Content-Security-Policy', content: CONTENT_SECURITY_POLICY },
       injectTo: 'head-prepend',
     }],
+  }
+}
+
+// Stamps the Info card with the UTC date of the build (or dev server start).
+function buildDate(): Plugin {
+  const now = new Date()
+  const iso = now.toISOString().slice(0, 10)
+  const label = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(now)
+  return {
+    name: 'star-view-build-date',
+    transformIndexHtml: {
+      order: 'pre',
+      handler: (html) => html.replaceAll('%BUILD_DATE_ISO%', iso).replaceAll('%BUILD_DATE%', label),
+    },
   }
 }
 
@@ -148,6 +170,7 @@ function cloudflareAssetConfig(): Plugin {
       })
       // Cloudflare compresses at the edge; the Brotli sidecars are for `vite preview` only.
       this.emitFile({ type: 'asset', fileName: '.assetsignore', source: '*.br\n' })
+      this.emitFile({ type: 'asset', fileName: '.well-known/security.txt', source: SECURITY_TXT })
     },
   }
 }
@@ -233,7 +256,7 @@ function brotliAssets(): Plugin {
 }
 
 export default defineConfig(({ mode }) => ({
-  plugins: [contentSecurityPolicy(), preloadMainChunks(), catalogDetailFiles(), cloudflareAssetConfig(), brotliAssets()],
+  plugins: [contentSecurityPolicy(), buildDate(), preloadMainChunks(), catalogDetailFiles(), cloudflareAssetConfig(), brotliAssets()],
   // Keep a manual-refresh option for long inspection sessions in Safari.
   server: {
     ...(mode === 'manual' ? { hmr: false } : {}),

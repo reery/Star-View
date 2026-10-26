@@ -1,24 +1,20 @@
 {
-  "reviewedAt": "2026-10-11",
+  "reviewedAt": "2026-10-26",
   "articles": {
     "sun": {
       "name": "The Sun",
       "wikipedia": "https://en.wikipedia.org/wiki/Sun",
-      "introduction": "is our home star: a middle-aged yellow dwarf whose light powers Earth’s climate and most life. It formed about 4.6 billion years ago and holds almost all the mass in the Solar System.",
+      "introduction": "is our home star: a 4.6-billion-year-old yellow dwarf that holds about 99.86% of the Solar System’s mass. Its light reaches Earth in about eight minutes and powers our climate and almost all life.",
       "sections": [
         {
           "id": "1",
-          "title": "Our stellar yardstick",
-          "text": "The Sun is the only star close enough for spacecraft to study its wind directly and for telescopes to resolve fine details across its surface. Astronomers use its mass, radius and luminosity as reference units for other stars.",
-          "source": {
-            "title": "NASA: Sun facts",
-            "url": "https://science.nasa.gov/sun/facts/"
-          }
+          "title": "Brighter than most of its neighbors",
+          "text": "The Sun is often called an ordinary star, yet it outshines about 85% of the stars in the Milky Way, most of which are dim red dwarfs. Its neighborhood follows the same pattern: within 11 light-years, only Sirius A and Alpha Centauri A give off more light. Because it is the star we know best, astronomers measure other stars’ masses, radii and luminosities in solar units."
         },
         {
           "id": "2",
-          "title": "A restless magnetic atmosphere",
-          "text": "Hydrogen fusion supplies energy in the core. Above the visible surface, the corona reaches temperatures far higher than the surface itself. Twisting magnetic fields produce sunspots, flares and eruptions; solar activity rises and falls over an approximately 11-year cycle.",
+          "title": "A furnace with a hotter crown",
+          "text": "In the core, at about 15 million °C, hydrogen fuses into helium. The visible surface is a comparatively mild 5,500 °C, yet the thin outer atmosphere, the corona, reaches up to about 2 million °C. Why the corona is so much hotter than the surface below it is one of the long-standing puzzles of solar physics.",
           "source": {
             "title": "NASA: Sun facts",
             "url": "https://science.nasa.gov/sun/facts/"
@@ -26,29 +22,43 @@
         },
         {
           "id": "3",
-          "title": "Orbits and planets",
-          "text": "Eight planets, dwarf planets and countless smaller bodies orbit the Sun. The Sun also travels around the Milky Way’s center, taking roughly 230 million years to complete a circuit. It will eventually become a red giant and leave a white dwarf, rather than explode as a supernova.",
+          "title": "An 11-year heartbeat",
+          "text": "Roughly every 11 years the Sun’s magnetic poles swap places, and its activity swings from calm to stormy and back. Near maximum, twisted magnetic fields produce sunspots, flares and eruptions that can disturb satellites and power grids and paint auroras across Earth’s skies. The current cycle, Solar Cycle 25, began in December 2019.",
           "source": {
             "title": "NASA: Sun facts",
             "url": "https://science.nasa.gov/sun/facts/"
           }
+        },
+        {
+          "id": "4",
+          "title": "Touching the Sun",
+          "text": "On December 24, 2024, NASA’s Parker Solar Probe passed about 6.2 million km above the solar surface, deep inside the corona. Moving at about 690,000 km/h, it briefly became the fastest object ever built. Its repeated dives sample the region where the solar wind is accelerated.",
+          "source": {
+            "title": "Wikipedia: Parker Solar Probe",
+            "url": "https://en.wikipedia.org/wiki/Parker_Solar_Probe"
+          }
+        },
+        {
+          "id": "5",
+          "title": "A bubble, a galactic orbit and a quiet ending",
+          "text": "The solar wind inflates a vast bubble, the heliosphere; Voyager 1 crossed its edge in 2012, about 122 AU from the Sun. The Sun itself circles the Milky Way’s center roughly once every 230 million years. In about five billion years it will swell into a red giant, possibly engulfing Earth, then shed its outer layers and fade as a white dwarf. It is not massive enough to explode as a supernova."
         }
       ]
     },
     "alpha-centauri": {
       "name": "Alpha Centauri",
       "wikipedia": "https://en.wikipedia.org/wiki/Alpha_Centauri",
-      "introduction": "is the nearest stellar system to the Sun. Its three members are the Sun-like Alpha Centauri A, the cooler orange dwarf B and the faint red dwarf Proxima Centauri, also called C. Proxima lies about 4.24 light-years away.",
+      "introduction": "is the nearest star system to the Sun and the third-brightest point of light in the night sky. Its three members are the Sun-like Alpha Centauri A, the cooler orange dwarf B and the faint red dwarf Proxima Centauri, which at 4.24 light-years is the closest known star to the Sun.",
       "sections": [
         {
           "id": "1",
-          "title": "Three very different neighbors",
-          "text": "A and B blend into one brilliant point to the unaided eye; Proxima needs a telescope. A is a close solar analogue, while Proxima is a magnetically active flare star. Their shared proximity makes this family a prime target for studying stars and searching for nearby worlds."
+          "title": "Two suns in one point of light",
+          "text": "To the unaided eye, A and B merge into a single star of magnitude −0.27, outshone only by Sirius and Canopus. The pair orbit each other every 80 years, their separation swinging between about 11 and 36 AU, roughly the distances of Saturn and Pluto from the Sun. A is slightly more massive and brighter than the Sun; B is a little smaller and cooler. Since 2016 and 2018, the IAU names Rigil Kentaurus and Toliman have referred to A and B."
         },
         {
           "id": "2",
-          "title": "A wide stellar family",
-          "text": "A and B orbit each other in about 80 years, with their separation varying from roughly 11 to 36 AU. Proxima is much farther out: it is gravitationally bound to the pair on an orbit estimated to take about 550,000 years.",
+          "title": "Proxima, the distant third",
+          "text": "Proxima lies much farther from A and B than they are from each other, yet it is gravitationally bound to the pair, on an orbit estimated to take about 550,000 years. It is a true member of the family rather than a chance neighbor passing by.",
           "source": {
             "title": "ESO: Proxima is bound to Alpha Centauri",
             "url": "https://www.eso.org/public/announcements/ann16089/"
@@ -56,38 +66,62 @@
         },
         {
           "id": "3",
-          "title": "Planets and candidates",
-          "text": "Proxima b completes an orbit in about 11.2 days and receives an amount of starlight compatible with a temperate climate, depending on its atmosphere. Proxima d follows a much tighter orbit; Proxima c remains disputed. Webb observations reported in 2025 found a possible giant planet around A, but confirmation is still needed. A habitable-zone orbit alone does not establish habitability.",
+          "title": "A flare star with the nearest planets",
+          "text": "Robert Innes discovered Proxima in 1915. At magnitude 11 it needs a telescope, yet it is a fierce flare star: in 2016 one superflare raised its visible brightness about 68-fold, almost to the limit of naked-eye visibility. Proxima b, announced in 2016, orbits every 11.2 days in the zone where liquid water could exist, given a suitable atmosphere. Proxima d, confirmed in 2025, has about a quarter of Earth’s mass and a 5.1-day year; a third signal, Proxima c, is disputed.",
+          "source": {
+            "title": "Wikipedia: Proxima Centauri",
+            "url": "https://en.wikipedia.org/wiki/Proxima_Centauri"
+          }
+        },
+        {
+          "id": "4",
+          "title": "A giant around A?",
+          "text": "Webb images taken in August 2024 revealed a faint source about twice Earth’s distance from A, possibly a gas giant with roughly Saturn’s mass. It was not seen again in February and April 2025, so it is still a candidate. If confirmed, it would be the closest planet to Earth in the habitable zone of a Sun-like star, and the closest to its star of any directly imaged planet.",
           "source": {
             "title": "ESA: Webb finds new hints for a planet around Alpha Centauri A",
             "url": "https://www.esa.int/Science_Exploration/Space_Science/Webb/Webb_finds_new_hints_for_planet_around_closest_solar_twin"
           }
+        },
+        {
+          "id": "5",
+          "title": "The first interstellar destination",
+          "text": "As our nearest neighbor, Alpha Centauri is the natural first goal for interstellar travel. Breakthrough Starshot, announced in 2016, proposed launching gram-scale probes on laser-driven light sails at 15–20% of the speed of light to fly past Proxima b within 20–30 years. The project was paused in 2025.",
+          "source": {
+            "title": "Wikipedia: Breakthrough Starshot",
+            "url": "https://en.wikipedia.org/wiki/Breakthrough_Starshot"
+          }
+        },
+        {
+          "id": "6",
+          "title": "Our Sun, seen from next door",
+          "text": "From Alpha Centauri, the Sun would appear as a magnitude +0.5 star in eastern Cassiopeia, outshining every other star in that constellation. The system is drifting closer and should pass about 2.9 light-years from the Sun around 27,000 CE. South of about 29° S it never sets, and together with Beta Centauri it points the way to the Southern Cross."
         }
       ]
     },
     "barnards-star": {
       "name": "Barnard’s Star",
       "wikipedia": "https://en.wikipedia.org/wiki/Barnard%27s_Star",
-      "introduction": "is a faint red dwarf about six light-years away in Ophiuchus. It is the closest single star to the Sun, yet it cannot be seen without binoculars or a telescope.",
+      "introduction": "is a faint red dwarf about six light-years away in Ophiuchus, the closest single star to the Sun. No star moves faster across our sky, and it is heading toward us: around 11,800 CE it will be about 3.75 light-years away, closer than Proxima Centauri is today.",
       "sections": [
         {
           "id": "1",
           "title": "The sky’s fastest-moving star",
-          "text": "Its apparent motion across the sky is larger than that of any other star: about 10.3 arcseconds each year. Over a human lifetime it visibly changes position against the distant background. Edward Emerson Barnard recognized this extraordinary motion in 1916."
+          "text": "Its apparent motion of about 10.3 arcseconds per year is larger than that of any other star. Over a human lifetime it shifts by a quarter of a degree, roughly half the width of the full Moon. Edward Emerson Barnard measured this motion in 1916. Spectra show it approaching at about 110 km/s."
         },
         {
           "id": "2",
-          "title": "An old neighbor with a complicated history",
-          "text": "Barnard’s Star is an old, slowly rotating star, although it can still flare. Claims of giant planets in the twentieth century did not survive later scrutiny. A proposed 233-day planet announced in 2018 was also challenged by subsequent work on stellar activity.",
-          "source": {
-            "title": "ESO: Barnard’s Star discovery and updated status of the 2018 claim",
-            "url": "https://www.eso.org/public/news/eso1837/"
-          }
+          "title": "Older than the Sun",
+          "text": "At an estimated 7–12 billion years, Barnard’s Star is much older than the Sun. It turns slowly, once in about four months, and is generally calm, although astronomers caught it flaring in 1998. Old, quiet red dwarfs like this are benchmarks for how small stars age."
         },
         {
           "id": "3",
-          "title": "Four tiny planets",
-          "text": "A 2025 study combined MAROON-X and ESPRESSO measurements to establish four planets with minimum masses below Earth’s. Their years last only about 2.3, 3.2, 4.1 and 6.7 days. All orbit closer to the star than its habitable zone; the measurements detect the star’s wobble rather than photographs of the planets.",
+          "title": "Planets that were not there",
+          "text": "From the early 1960s, Peter van de Kamp argued that giant planets tugged on Barnard’s Star; his claims were refuted in the 1970s. The British Interplanetary Society’s Project Daedalus study still chose it as the target for an uncrewed fusion-powered probe, partly because of those planets. A 233-day super-Earth announced in 2018 was later attributed to stellar activity."
+        },
+        {
+          "id": "4",
+          "title": "Four tiny worlds",
+          "text": "ESPRESSO measurements published in 2024 revealed a small planet with a 3.15-day orbit. In 2025, an independent MAROON-X study confirmed it along with three siblings, whose minimum masses are only a fifth to a third of Earth’s. Their years last about 2.3, 3.2, 4.1 and 6.7 days, and they orbit far closer than the habitable zone. The same data rule out planets above about 0.57 Earth masses in the habitable zone itself.",
           "source": {
             "title": "Basant et al. 2025: Four sub-Earth planets orbiting Barnard’s Star",
             "url": "https://arxiv.org/abs/2503.08095"
@@ -98,74 +132,89 @@
     "luhman-16": {
       "name": "Luhman 16",
       "wikipedia": "https://en.wikipedia.org/wiki/Luhman_16",
-      "introduction": "is a pair of brown dwarfs about 6.5 light-years away in Vela. These are the nearest known brown dwarfs: objects too light to sustain the hydrogen fusion that powers ordinary stars.",
+      "introduction": "is a pair of brown dwarfs about 6.5 light-years away in Vela, the third-closest system to the Sun after Alpha Centauri and Barnard’s Star. Too light to sustain the hydrogen fusion that powers ordinary stars, these are the nearest known brown dwarfs.",
       "sections": [
         {
           "id": "1",
-          "title": "Weather beyond the Solar System",
-          "text": "The pair straddles the transition between L and T spectral classes, where clouds and methane strongly change a brown dwarf’s appearance. Varying brightness revealed patchy clouds, and in 2014 astronomers made a map of bright and dark features on component B using its rotating spectrum.",
+          "title": "Hidden in a crowded sky",
+          "text": "Kevin Luhman spotted the pair in WISE infrared data in 2013, making it the closest system found since Barnard’s Star’s motion was measured in 1916. It escaped earlier searches because it lies close to the plane of the Milky Way, where countless background stars make faint objects hard to pick out."
+        },
+        {
+          "id": "2",
+          "title": "The first brown-dwarf weather map",
+          "text": "The pair straddles the transition between L and T spectral classes, where clouds break up and methane appears. In 2014, astronomers followed how B’s spectrum changed as it rotated and assembled the first map of a brown dwarf’s surface: a large dark region at middle latitudes and a bright area near one pole, likely patchy clouds.",
           "source": {
             "title": "ESO: First weather map of a brown dwarf",
             "url": "https://www.eso.org/public/news/eso1404/"
           }
         },
         {
-          "id": "2",
-          "title": "Hidden in plain sight",
-          "text": "Kevin Luhman identified the system in WISE data in 2013. It had escaped recognition despite appearing in older survey photographs. Both members glow mainly in infrared light and cool with age, giving astronomers two related atmospheres to compare at a shared distance."
+          "id": "3",
+          "title": "Winds in stripes",
+          "text": "TESS observations analyzed in 2021 suggested that high-speed winds form bands parallel to the equators, much like Jupiter’s. In 2024, Webb monitored both brown dwarfs and detected water vapor, carbon monoxide and methane, tracking how their atmospheres change as they spin."
         },
         {
-          "id": "3",
-          "title": "Orbits and companions",
-          "text": "A and B orbit one another in roughly 27 years, at a separation of a few astronomical units. Tracking their motion measures their individual masses without relying only on atmosphere models. No confirmed planets are reported in the sources reviewed for this article."
+          "id": "4",
+          "title": "Weighing failed stars",
+          "text": "A and B orbit each other in about 27 years. Following that orbit gives masses of about 35 and 29 times Jupiter’s, measured directly rather than inferred from atmosphere models. A 2013 hint of a third body would have been the first planet found by astrometry, but Hubble follow-up made it highly unlikely."
         }
       ]
     },
     "wise-0855-0714": {
       "name": "WISE 0855-0714",
       "wikipedia": "https://en.wikipedia.org/wiki/WISE_0855%E2%88%920714",
-      "introduction": "is an exceptionally cold, free-floating substellar object about 7.4 light-years away in Hydra. Its temperature is around 250–270 K, comparable to a chilly environment on Earth rather than a stellar surface.",
+      "introduction": "is the coldest brown dwarf known: a free-floating world about 7.4 light-years away in Hydra and the fourth-closest system to the Sun. Its temperature, around 280 K, is close to the freezing point of water, more like a cold day on Earth than a stellar surface.",
       "sections": [
         {
           "id": "1",
-          "title": "A world between stars and planets",
-          "text": "With an estimated mass of a few Jupiter masses, it resembles a giant planet but has no known host star. Its mass and age remain uncertain, so the terms brown dwarf and planetary-mass object overlap here. Almost all of its detectable light is infrared."
+          "title": "Star, planet or something between?",
+          "text": "With an estimated 3 to 10 times Jupiter’s mass, it resembles a giant planet but has no host star. Webb’s detection of deuterated methane shows that it is below the mass needed to burn even deuterium, so it never shone by fusion at all. It is practically invisible in visible light; almost all of its glow is infrared."
         },
         {
           "id": "2",
-          "title": "Water clouds and atmospheric chemistry",
-          "text": "Infrared spectra make it a rare laboratory for cold atmospheres beyond the Solar System. A September 2026 Webb study reported evidence for patchy water clouds, alongside changes in carbon monoxide and phosphine absorption. The cloud interpretation comes from comparisons with atmospheric models.",
+          "title": "Found by its motion",
+          "text": "Kevin Luhman noticed its unusually large motion in 2013 while searching WISE images for distant companions of the Sun, and announced it the following year. Webb later tracked it against background objects between 2022 and 2023."
+        },
+        {
+          "id": "3",
+          "title": "A chemistry lab near 0 °C",
+          "text": "Webb spectra reveal water vapor, methane, ammonia and carbon monoxide, and a 2024 study reported about one part per billion of phosphine. Its nitrogen isotopes resemble today’s interstellar gas more than the Sun’s, a possible hint that it formed relatively recently."
+        },
+        {
+          "id": "4",
+          "title": "Patchy water clouds",
+          "text": "A September 2026 Webb study reported evidence for patchy water clouds, together with changes in carbon monoxide and phosphine absorption as the object rotates. The cloud interpretation comes from comparisons with atmospheric models.",
           "source": {
             "title": "Miles et al. 2026: Water cloud and chemical modulations",
             "url": "https://arxiv.org/abs/2609.20664"
           }
-        },
-        {
-          "id": "3",
-          "title": "Discovery and motion",
-          "text": "Kevin Luhman announced its discovery in 2014 after identifying its motion in infrared observations. Webb observations tracked its motion against background objects between 2022 and 2023. No bound stellar companion or orbiting planet is established in the sources reviewed here."
         }
       ]
     },
     "wolf-359": {
       "name": "Wolf 359",
       "wikipedia": "https://en.wikipedia.org/wiki/Wolf_359",
-      "introduction": "is a very faint red dwarf about 7.9 light-years away in Leo. Although it is one of our closest neighbors, its small size and cool surface make it invisible to the unaided eye.",
+      "introduction": "is a very faint red dwarf about 7.9 light-years away in Leo. Only Alpha Centauri, Barnard’s Star and two brown-dwarf systems are closer. It was the faintest and least massive star known until 1944.",
       "sections": [
         {
           "id": "1",
-          "title": "A small star with powerful flares",
-          "text": "Also known as CN Leonis, Wolf 359 is a flare star with a strong magnetic field. Brief eruptions can brighten it dramatically and produce ultraviolet and X-ray radiation. Its cool atmosphere contains molecules that would not survive in the Sun’s hotter visible surface."
+          "title": "Just massive enough to shine",
+          "text": "At about 11% of the Sun’s mass, Wolf 359 is just above the limit for sustained hydrogen fusion. Placed where the Sun is, it would look only about ten times as bright as the full Moon. Max Wolf measured its large motion on photographs in 1917; the name is its number in his 1919 catalog."
         },
         {
           "id": "2",
-          "title": "From proper motion to science fiction",
-          "text": "Max Wolf identified its rapid motion photographically, and its name preserves its catalog number. It later became familiar through the fictional Battle of Wolf 359 in Star Trek. In real astronomy, its proximity makes it useful for studying very low-mass stars and their magnetic activity."
+          "title": "Storms on a tiny star",
+          "text": "Its surface magnetic field is hundreds of times stronger than the Sun’s and powers frequent flares; Hubble once recorded 32 flares in two hours. Wolf 359 was the first star other than the Sun whose coronal spectrum was observed. It is young, probably less than a billion years old."
         },
         {
           "id": "3",
-          "title": "The planet search",
-          "text": "Two planet candidates were proposed in 2019. Subsequent measurements linked the short-period signal to stellar rotation. A 2023 study could neither confirm nor rule out the longer-period candidate, Wolf 359 b, while placing limits on massive companions. Neither should be treated as an established planet.",
+          "title": "A famous name in science fiction",
+          "text": "Wolf 359 is the site of the Battle of Wolf 359 in Star Trek, the title of an episode of the original The Outer Limits, and the setting of the Wolf 359 podcast, whose story takes place on a space station orbiting the star."
+        },
+        {
+          "id": "4",
+          "title": "One candidate left",
+          "text": "Two planet candidates were proposed in 2019. The inner signal, Wolf 359 c, turned out to come from the star’s rotation. A 2023 study could neither confirm nor rule out the outer candidate, Wolf 359 b, while excluding massive companions on a range of orbits.",
           "source": {
             "title": "Carter et al. 2023: Hunting for substellar companions around Wolf 359",
             "url": "https://arxiv.org/abs/2309.03402"
@@ -176,44 +225,54 @@
     "lalande-21185": {
       "name": "Lalande 21185",
       "wikipedia": "https://en.wikipedia.org/wiki/Lalande_21185",
-      "introduction": "is a nearby red dwarf in Ursa Major, about 8.3 light-years away. Also called Gliese 411, it is among the brightest red dwarfs seen from Earth, although still too faint for unaided viewing.",
+      "introduction": "is the brightest red dwarf in the northern sky, about 8.3 light-years away in Ursa Major. Also called Gliese 411, it shines at magnitude 7.5: too faint for the unaided eye, but easy to find with binoculars.",
       "sections": [
         {
           "id": "1",
-          "title": "A bright target among faint stars",
-          "text": "Its relative brightness makes it particularly useful for precise spectroscopic searches. The name comes from its entry in Jérôme Lalande’s star catalog, published in 1801. Its large proper motion also helped reveal that it belongs to the solar neighborhood."
+          "title": "A long paper trail",
+          "text": "Jérôme Lalande published its position in his star catalog in 1801. In 1857, Friedrich Argelander noticed its large proper motion, a sign of a near neighbor. It is still approaching and should pass about 4.65 light-years from the Sun in about 19,900 years."
         },
         {
           "id": "2",
-          "title": "A long search for companions",
-          "text": "Early claims based on photographic measurements did not hold up. Modern planet searches instead measure tiny, repeatable Doppler shifts in its spectrum, while checking that spots and stellar activity cannot account for the signals."
+          "title": "Planets claimed and lost",
+          "text": "In 1951, Peter van de Kamp claimed an astrometric detection of planets on photographic plates. In 1996, George Gatewood announced multiple planets, also from astrometry, and the news drew wide attention. Neither claim was confirmed, and Gatewood’s is now in doubt."
         },
         {
           "id": "3",
-          "title": "Planets with very different years",
-          "text": "The confirmed inner planet, Gliese 411 b, circles the star in about 12.9 days, too close for a temperate Earth-like climate. A second planet, c, has a much wider, multi-year orbit. An additional signal near 215 days has been proposed as planet d and remains a candidate. Doppler measurements generally give minimum masses, not directly measured planet sizes."
+          "title": "Planets found at last",
+          "text": "Precise Doppler measurements eventually found real planets, far less massive than the giants once claimed. Gliese 411 b, confirmed in 2020, circles the star in about 12.9 days. Gliese 411 c, confirmed in 2021, has at least 14 Earth masses and an eight-year orbit. A third signal near 215 days, Gliese 411 d, is still unconfirmed."
         }
       ]
     },
     "sirius": {
       "name": "Sirius",
       "wikipedia": "https://en.wikipedia.org/wiki/Sirius",
-      "introduction": "is the brightest star in Earth’s night sky, about 8.6 light-years away in Canis Major. The brilliant white Sirius A has a much fainter companion, Sirius B, a compact white dwarf.",
+      "introduction": "is the brightest star in Earth’s night sky, almost twice as bright as the runner-up, Canopus. It lies about 8.6 light-years away in Canis Major. The dazzling white Sirius A has a faint companion, Sirius B, the brightest and nearest white dwarf known.",
       "sections": [
         {
           "id": "1",
-          "title": "A brilliant star and a stellar remnant",
-          "text": "Sirius B packs roughly a solar mass into a body about Earth’s size. It was once the more massive star, but exhausted its fuel and shed its outer layers. Its faintness beside dazzling Sirius A makes the contrast between the two unusually striking."
+          "title": "Bright because it is near",
+          "text": "Sirius A has about twice the Sun’s mass and gives off about 25 times as much light, but much of its brilliance comes from being one of our closest neighbors. It is slowly approaching and will brighten slightly over the next 60,000 years, to a peak magnitude of −1.68."
         },
         {
           "id": "2",
-          "title": "The companion predicted before it was seen",
-          "text": "Friedrich Bessel inferred an unseen companion from Sirius’s motion in 1844. Alvan Graham Clark observed it in 1862. Its enormous density later became key evidence for the physics of white dwarfs. Sirius’s colorful twinkling near the horizon is caused by Earth’s atmosphere."
+          "title": "The Dog Star",
+          "text": "Its prominence in Canis Major earned Sirius the nickname Dog Star. The ancient Greeks linked the hot “dog days” of summer to its rising. In ancient Egypt, its first appearance in the dawn sky after months of absence marked the coming flood of the Nile, and it was worshipped as the goddess Sopdet."
         },
         {
           "id": "3",
-          "title": "A half-century orbit",
-          "text": "A and B revolve around their common center of mass in about 50 years. Their eccentric orbit carries them from roughly 8 to 32 AU apart. Hubble observations help constrain their masses and the white dwarf’s properties. No confirmed planets are reported in the sources reviewed for this article.",
+          "title": "A red Sirius?",
+          "text": "Ptolemy described Sirius as reddish, a puzzle given its pure white color today. Chinese sources consistently describe it as white, and atmospheric reddening near the horizon is one proposed explanation. The same atmosphere makes Sirius flash with color as it twinkles low in the sky."
+        },
+        {
+          "id": "4",
+          "title": "The companion predicted before it was seen",
+          "text": "In 1844, Friedrich Bessel inferred an unseen companion from a wobble in Sirius’s motion. Alvan Graham Clark first saw it in 1862 while testing an 18.5-inch refractor for the Dearborn Observatory. In 1915, Walter Adams found that Sirius B is hot and white despite being faint, so it had to be tiny and extraordinarily dense: one of the discoveries that revealed white dwarfs."
+        },
+        {
+          "id": "5",
+          "title": "A Sun’s mass in an Earth-sized star",
+          "text": "The pair orbit every 50.1 years, between about 8 and 32 AU apart. Hubble measurements give masses of 2.06 Suns for A and 1.02 for B, which is packed into a body about Earth’s size. The system is only about 230 million years old. B was once the more massive star, ran through its life faster and shed its outer layers; A will eventually follow the same path.",
           "source": {
             "title": "Bond et al. 2017: The Sirius system and its dynamical masses",
             "url": "https://arxiv.org/abs/1703.10625"
@@ -224,17 +283,17 @@
     "luyten-726-8": {
       "name": "Luyten 726-8",
       "wikipedia": "https://en.wikipedia.org/wiki/Gliese_65",
-      "introduction": "is a pair of small red dwarfs about 8.8 light-years away in Cetus. Also known as Gliese 65, its components are the variable stars BL Ceti (A) and UV Ceti (B).",
+      "introduction": "is a pair of small red dwarfs about 8.8 light-years away in Cetus. Its fainter member, UV Ceti, gave its name to the whole class of flaring red dwarfs. In about 31,500 years, the pair will pass within about 0.93 light-years of Epsilon Eridani.",
       "sections": [
         {
           "id": "1",
-          "title": "The namesake of flare stars",
-          "text": "UV Ceti’s dramatic eruptions made it a prototype for the class of red-dwarf flare stars. Both members are magnetically active. Their similar masses but different magnetic behavior make them valuable for understanding how small stars generate magnetic fields."
+          "title": "The original flare star",
+          "text": "Willem Luyten discovered the pair in 1948 from its large motion across the sky. In 1952, UV Ceti brightened 75-fold in only 20 seconds, and flare stars became known as UV Ceti variables. Its partner, BL Ceti, flares too. Both stars spin in under six hours, fast rotation that feeds their strong magnetic activity."
         },
         {
           "id": "2",
-          "title": "A nearby binary laboratory",
-          "text": "The two stars orbit each other in about 26.4 years along an elongated path. Their changing separation can be resolved and measured with interferometers, allowing astronomers to determine their masses dynamically.",
+          "title": "Near-twins with different tempers",
+          "text": "The two stars orbit each other every 26.4 years along an elongated path that interferometers can follow precisely. They have almost identical masses, about 12% of the Sun’s, yet differ in their magnetic behavior, which makes them a natural experiment in how small stars generate magnetic fields.",
           "source": {
             "title": "GRAVITY Collaboration 2024: Astrometry of GJ 65",
             "url": "https://arxiv.org/abs/2404.08746"
@@ -242,8 +301,8 @@
         },
         {
           "id": "3",
-          "title": "A possible planet",
-          "text": "GRAVITY observations reported a candidate with a roughly 156-day orbit and a mass of several tens of Earth masses. The signal is unconfirmed, and the measurements do not yet establish whether the possible planet belongs to A or B. It should be described as a candidate for the system, not assigned securely to either star.",
+          "title": "A Neptune-class candidate",
+          "text": "The same GRAVITY measurements revealed a possible planet with a 156-day orbit and a mass of a few tens of Earth masses. It is unconfirmed, and it is not yet known whether it circles A or B.",
           "source": {
             "title": "GRAVITY Collaboration 2024: Neptune-mass candidate in GJ 65",
             "url": "https://arxiv.org/abs/2404.08746"
@@ -254,44 +313,39 @@
     "ross-154": {
       "name": "Ross 154",
       "wikipedia": "https://en.wikipedia.org/wiki/Ross_154",
-      "introduction": "is a red dwarf about 9.7 light-years away in Sagittarius. Its variable-star name is V1216 Sagittarii. It is close to us but too faint to see without a telescope.",
+      "introduction": "is a red dwarf about 9.7 light-years away and the nearest star in Sagittarius. Also known as V1216 Sagittarii, it is a young, restless flare star, probably less than a billion years old.",
       "sections": [
         {
           "id": "1",
-          "title": "An energetic flare star",
-          "text": "Ross 154 can brighten by several magnitudes during flares. Its strong magnetic activity also makes it an X-ray source: the outer atmosphere can be extremely hot even though the visible surface is much cooler than the Sun’s."
+          "title": "Fast spin, fierce flares",
+          "text": "Ross 154 rotates in about 2.8 days, far faster than the Sun, and its strong magnetic activity makes it a prolific flare star. During a flare it typically brightens by 3–4 magnitudes, and the Chandra X-ray Observatory has recorded powerful X-ray flares from its hot outer atmosphere."
         },
         {
           "id": "2",
-          "title": "Found on photographic plates",
-          "text": "Frank Elmore Ross catalogued it in the 1920s while identifying variable and moving stars. Comparing photographs from different years revealed its motion against the background, one of the classic ways astronomers discovered faint nearby stars."
-        },
-        {
-          "id": "3",
-          "title": "Rotation and companions",
-          "text": "Brightness variations indicate a rotation period of roughly 2.8 days. Searches have not established a stellar companion or a planetary system in the sources reviewed here. Its rapid rotation and activity are useful clues to its evolution, but they do not supply a precisely measured age."
+          "title": "Found among the variables",
+          "text": "Frank Elmore Ross catalogued it in 1925 in a list of new variable stars. It is approaching very slowly and should pass about 6.4 light-years from the Sun in about 157,000 years."
         }
       ]
     },
     "ross-248": {
       "name": "Ross 248",
       "wikipedia": "https://en.wikipedia.org/wiki/Ross_248",
-      "introduction": "is a faint red dwarf about 10.3 light-years away in Andromeda. It is also known as Gliese 905 and HH Andromedae, and requires a telescope despite its proximity.",
+      "introduction": "is a faint red dwarf about 10.3 light-years away in Andromeda, and a future nearest star: in about 36,500 years it will pass about 3 light-years from the Sun. It is also known as Gliese 905 and HH Andromedae.",
       "sections": [
         {
           "id": "1",
-          "title": "A future nearest neighbor",
-          "text": "Its motion is carrying it toward the Solar System. Trajectory calculations predict a closest approach of roughly three light-years in about 36,000 years, with a period during which it could be the nearest star to the Sun. These are projections, not a fixed future timetable."
+          "title": "Our next nearest neighbor",
+          "text": "Around its closest approach, Ross 248 should overtake Alpha Centauri as the Sun’s nearest stellar neighbor and hold that title for roughly 9,000 years. Frank Elmore Ross catalogued it in 1926 in his second list of stars with measurable proper motion."
         },
         {
           "id": "2",
-          "title": "A spotted, variable star",
-          "text": "Ross 248 helped establish that rotating starspots can cause small brightness changes in red dwarfs. It also shows longer-term variability and magnetic activity. Frank Elmore Ross included it in his 1926 list of stars with measurable proper motion."
+          "title": "The first starspots beyond the Sun",
+          "text": "In 1950, Ross 248 became the first star whose small brightness changes were attributed to spots on its surface, rotating in and out of view. It also shows a longer brightness cycle of about 4.2 years."
         },
         {
           "id": "3",
-          "title": "A distant Voyager encounter",
-          "text": "NASA projects that Voyager 2 will pass about 1.7 light-years from Ross 248 in roughly 40,000 years. The spacecraft is not targeting it, and this is a very distant passage. No confirmed planetary system is reported in the sources reviewed for this article.",
+          "title": "Voyager 2’s distant flyby",
+          "text": "In about 40,000 years, Voyager 2 will drift within about 1.7 light-years of Ross 248. The spacecraft is not aimed at the star, and its instruments will have fallen silent long before.",
           "source": {
             "title": "NASA: Voyager’s interstellar mission",
             "url": "https://science.nasa.gov/mission/voyager/interstellar-mission/"
@@ -302,58 +356,62 @@
     "epsilon-eridani": {
       "name": "Epsilon Eridani",
       "wikipedia": "https://en.wikipedia.org/wiki/Epsilon_Eridani",
-      "introduction": "is an orange dwarf about 10.5 light-years away in Eridanus. Its proper name is Ran. Unlike most stars in this catalog, it is bright enough to see with the unaided eye.",
+      "introduction": "is a young orange dwarf about 10.5 light-years away in Eridanus, the third-closest star visible to the unaided eye. With a giant planet and belts of dusty debris, it looks like a younger version of our own Solar System.",
       "sections": [
         {
           "id": "1",
-          "title": "A nearby planetary laboratory",
-          "text": "A giant planet and dusty debris make this one of the closest systems in which astronomers can investigate the architecture of a planetary system. Its active magnetic surface complicates the task: stellar activity can imitate some of the Doppler shifts used to find planets."
+          "title": "A younger Sun",
+          "text": "Most age estimates fall between 200 and 800 million years, a fraction of the Sun’s 4.6 billion. Like the young Sun, it is magnetically active, with overlapping activity cycles of about 3 and 13 years. Its stellar wind blows a bubble, or astrosphere, that would look wider than the full Moon from Earth."
         },
         {
           "id": "2",
-          "title": "Dust left by smaller bodies",
-          "text": "Infrared observations reveal debris produced by collisions among smaller bodies. Webb imaging published in 2025 investigated the warm dust near the planet’s orbit, helping constrain the distribution and composition of this material.",
+          "title": "Listening for neighbors",
+          "text": "In 1960, Frank Drake’s Project Ozma pointed a radio telescope at Epsilon Eridani and Tau Ceti to listen for artificial signals. It was the first modern search for extraterrestrial intelligence; no signals were found."
+        },
+        {
+          "id": "3",
+          "title": "A Kuiper belt in the making",
+          "text": "Excess infrared light, first detected in 1983, revealed dust from collisions among comets and asteroids. The main belt lies about 70 AU from the star, comparable to our Kuiper belt early in its history. Webb imaging published in 2025 examined the warm dust closer in, near the giant planet’s orbit.",
           "source": {
             "title": "Wolff et al. 2025: Webb/MIRI imaging of the debris disk",
             "url": "https://arxiv.org/abs/2509.24976"
           }
         },
         {
-          "id": "3",
+          "id": "4",
           "title": "The giant planet Ægir",
-          "text": "Epsilon Eridani b, also called Ægir, has a roughly seven-year orbit a few AU from the star. Its orbit and mass are constrained by Doppler measurements and astrometry. Webb imaging searches published in 2025 provided upper limits rather than a significant direct detection. The image above is an artist’s concept, not a photograph of the planet.",
+          "text": "Epsilon Eridani b, announced in 2000, takes about 7.4 years to orbit at a few AU from the star and has roughly two-thirds of Jupiter’s mass. Webb searches in 2025 set upper limits on its brightness rather than producing a direct image; the picture above is an artist’s concept.",
           "source": {
             "title": "Llop-Sayson et al. 2025: Searching for planets with Webb/NIRCam",
             "url": "https://arxiv.org/abs/2508.08463"
           }
+        },
+        {
+          "id": "5",
+          "title": "Names from the sea",
+          "text": "In 2015 the IAU adopted Ran for the star and Ægir for its planet, the Norse sea goddess and her husband, as suggested by schoolchildren in Colbert, Washington. Science fiction had long favored the system: the Babylon 5 station and the planet Reach in the Halo games both orbit Epsilon Eridani."
         }
+      ],
+      "aliases": [
+        "hip-16537"
       ]
     },
     "lacaille-9352": {
       "name": "Lacaille 9352",
       "wikipedia": "https://en.wikipedia.org/wiki/Gliese_887",
-      "introduction": "is a relatively bright red dwarf about 10.7 light-years away in Piscis Austrinus. It is also known as Gliese 887, a nearby target for precision searches for low-mass planets.",
+      "introduction": "is one of the brightest red dwarfs in the sky, about 10.7 light-years away in Piscis Austrinus. Also known as Gliese 887, it has the fourth-highest proper motion of any known star and hosts a compact family of planets.",
       "sections": [
         {
           "id": "1",
-          "title": "An unusually accessible red dwarf",
-          "text": "Its brightness gives astronomers a strong spectrum to measure, even though it remains below the usual unaided-eye limit. Its name traces back to Nicolas Louis de Lacaille’s survey of the southern sky. It also moves rapidly against the background stars."
+          "title": "Measured with precision",
+          "text": "Nicolas Louis de Lacaille recorded it during his survey of the southern sky in the 1750s, and Benjamin Gould noticed its rapid motion, about 6.9 arcseconds per year, in 1881. In 2001 it became the first red dwarf to have its angular diameter measured, revealing a star about 47% of the Sun’s width. A mismatch between Hipparcos and Gaia measurements of its motion hints at an unseen giant planet farther out."
         },
         {
           "id": "2",
-          "title": "Activity matters",
-          "text": "Small brightness changes and magnetic activity must be separated from planet-induced wobbles. A 2026 analysis combined new HARPS and ESPRESSO measurements with activity indicators, finding a stellar rotation period of roughly 39 days.",
+          "title": "Four planets in a tight family",
+          "text": "Planets were first reported in 2020. A 2026 study combined new HARPS and ESPRESSO measurements, separated the star’s 39-day rotation signal, and reported four planets with years of about 4.4, 9.3, 21.8 and 50.8 days. The outermost, a super-Earth, lies in the modeled habitable zone. A fifth signal at 2.2 days remains a candidate. None of the planets transits, so their sizes are unknown.",
           "source": {
             "title": "Hartogh et al. 2026: RedDots study of GJ 887",
-            "url": "https://arxiv.org/abs/2602.08929"
-          }
-        },
-        {
-          "id": "3",
-          "title": "Four planets and another candidate",
-          "text": "The 2026 study reports four planets with years of about 4.4, 9.3, 21.8 and 50.8 days. The outer super-Earth lies in the modeled habitable zone, but its atmosphere and surface conditions remain unknown. A further 2.2-day signal remains a candidate. None of these worlds transits the star in the reported observations, so their sizes are not directly measured.",
-          "source": {
-            "title": "Hartogh et al. 2026: Four-planet model and remaining candidate",
             "url": "https://arxiv.org/abs/2602.08929"
           }
         }
@@ -362,12 +420,12 @@
     "ross-128": {
       "name": "Ross 128",
       "wikipedia": "https://en.wikipedia.org/wiki/Ross_128",
-      "introduction": "is a red dwarf about 11 light-years away in Virgo. Also called Gliese 447, it hosts a small planet and is comparatively quiet among nearby red dwarfs.",
+      "introduction": "is a red dwarf about 11 light-years away in Virgo, sometimes nicknamed Proxima Virginis. It hosts Ross 128 b, one of the nearest Earth-mass planets, and is unusually calm for a star of its type.",
       "sections": [
         {
           "id": "1",
-          "title": "A quieter host for a close-in world",
-          "text": "Its relatively low activity makes Ross 128 an appealing comparison with strongly flaring neighbors such as Proxima Centauri. “Quiet” is relative: the star can still flare, but its environment differs from that of more active red dwarfs.",
+          "title": "A quiet host on its way here",
+          "text": "Many red dwarfs, Proxima Centauri among them, bombard their surroundings with flares. Ross 128 flares far less, which makes it the quietest nearby star known to host a temperate planet. It is moving toward us and is expected to become our nearest stellar neighbor in about 79,000 years.",
           "source": {
             "title": "ESO: A temperate world around a quiet star",
             "url": "https://www.eso.org/public/news/eso1736/"
@@ -375,29 +433,29 @@
         },
         {
           "id": "2",
-          "title": "Moving toward us",
-          "text": "Frank Elmore Ross catalogued the star in the 1920s. Its motion will bring it closer to the Sun; calculations predict that it will eventually overtake Proxima as our nearest stellar neighbor. This changing neighborhood unfolds over tens of thousands of years."
-        },
-        {
-          "id": "3",
           "title": "Ross 128 b",
-          "text": "Discovered with HARPS, the planet orbits in about 9.9 days and has a minimum mass around 1.4 Earth masses. Its irradiation makes it an interesting temperate-world candidate, but neither liquid water nor an atmosphere has been detected. A 2024 reanalysis explored a more eccentric orbit, with consequences for its possible climate; the orbital eccentricity remains uncertain.",
+          "text": "Found with HARPS in 2017, the planet orbits every 9.9 days and has at least 1.4 times Earth’s mass. The starlight it receives could allow a temperate climate, but neither water nor an atmosphere has been detected. A 2024 reanalysis suggested a Mercury-like eccentric orbit, which would make its climate swing with every circuit.",
           "source": {
             "title": "Liebing et al. 2024: RedDots limits and Ross 128’s orbit",
             "url": "https://arxiv.org/abs/2409.01173"
           }
+        },
+        {
+          "id": "3",
+          "title": "The “weird signal” of 2017",
+          "text": "In spring 2017 the Arecibo radio telescope recorded unusual signals while observing Ross 128, briefly sparking speculation. Follow-up observations pointed to human-made interference: from Earth, the star appears in the same part of the sky as geostationary satellites."
         }
       ]
     },
     "ez-aquarii": {
       "name": "EZ Aquarii",
       "wikipedia": "https://en.wikipedia.org/wiki/EZ_Aquarii",
-      "introduction": "is a compact family of three red dwarfs about 11.1 light-years away in Aquarius. It is also called Gliese 866 or Luyten 789-6. All three members are small, faint stars.",
+      "introduction": "is a compact family of three red dwarfs about 11.1 light-years away in Aquarius, also called Gliese 866 or Luyten 789-6. Each of the three has only about a tenth of the Sun’s mass, close to the lower limit for a hydrogen-burning star.",
       "sections": [
         {
           "id": "1",
           "title": "Three stars, two nested orbits",
-          "text": "A and C form a close pair with a nearly circular 3.8-day orbit, separated by only about 0.03 AU. B orbits that pair in roughly 823 days. This hierarchy allows three stars to share a compact system without all following the same orbit.",
+          "text": "A and C form a close pair with a nearly circular 3.8-day orbit, only about 0.03 AU apart: less than a tenth of Mercury’s distance from the Sun. B circles that pair every 823 days. Following both orbits gives precise masses, making the system a benchmark for weighing the smallest stars.",
           "source": {
             "title": "Ségransan et al. 2000: Accurate masses of low-mass stars",
             "url": "https://arxiv.org/abs/astro-ph/0010585"
@@ -405,13 +463,8 @@
         },
         {
           "id": "2",
-          "title": "Weighing the smallest stars",
-          "text": "Combining spectroscopy with resolved orbital measurements makes this system useful for measuring masses near the low-mass end of hydrogen-burning stars. EZ Aquarii also shows flares and brightness variations, so it is a laboratory for both orbital dynamics and magnetic activity."
-        },
-        {
-          "id": "3",
-          "title": "Could planets fit here?",
-          "text": "A planet around the tight A–C pair would follow a circumbinary orbit, feeling the gravity of both stars, while also being perturbed by B. Such an orbit is a theoretical possibility; no confirmed planet is reported in the sources reviewed for this article."
+          "title": "Flares and spots",
+          "text": "William Kunkel identified it as a flare star in 1972 after observing seven flares. Rotating starspots cause smaller brightness changes as well. Its nearest stellar neighbor is Lacaille 9352."
         }
       ]
     }

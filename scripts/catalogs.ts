@@ -246,8 +246,15 @@ function generate(): void {
   // Retired IDs serve their article from the surviving record; component IDs already resolve by identity.
   const legacyIds: Record<string, string> = legacyStarIds.ids
   const articleId = (id: string) => starComponentIdentity(id) ? id : legacyIds[id] ?? id
-  const articleFiles = Object.fromEntries([starInfo, nearest100Info, brightStarInfo].flatMap((dataset) =>
-    Object.entries(dataset.articles).map(([id, article]) => [`star-article-${articleId(id)}.json`, JSON.stringify({ reviewedAt: dataset.reviewedAt, article }) + '\n'])))
+  // Exact catalog IDs of the same single star in another catalog; resolved only through the startup index.
+  const articleEntries = [starInfo, nearest100Info, brightStarInfo].flatMap((dataset) =>
+    Object.entries(dataset.articles).map(([id, definition]) => {
+      const { aliases = [], ...article } = definition as typeof definition & { aliases?: string[] }
+      return { id: articleId(id), reviewedAt: dataset.reviewedAt, article, aliases }
+    }))
+  const articleFiles = Object.fromEntries(articleEntries.map(({ id, reviewedAt, article }) =>
+    [`star-article-${id}.json`, JSON.stringify({ reviewedAt, article }) + '\n']))
+  const starInfoAliases = Object.fromEntries(articleEntries.flatMap(({ id, aliases }) => aliases.map((alias) => [alias, id])))
   writeGeneratedData('star-articles', articleFiles)
   const orbitFiles = Object.fromEntries(stellarOrbits.systems.map((system) =>
     [`stellar-orbit-${system.systemId}.json`, JSON.stringify(system.orbits) + '\n']))
@@ -257,7 +264,7 @@ function generate(): void {
   writeGeneratedData('planetary-systems', systemFiles)
   const planetCounts = Object.fromEntries([...planetarySystems.systems, ...nearbyPlanets.systems].map((system) => [system.hostStarId, system.planets.length]))
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated')), {
-    'startup-index.json': JSON.stringify({ planetCounts, starInfoIds: [...new Set([starInfo, nearest100Info, brightStarInfo].flatMap((dataset) => Object.keys(dataset.articles).map(articleId)))], planetInfoIds: [...planetDetails.planets, ...smallBodies.objects].map((planet) => planet.id) }) + '\n',
+    'startup-index.json': JSON.stringify({ planetCounts, starInfoIds: [...new Set(articleEntries.map(({ id }) => id))], starInfoAliases, planetInfoIds: [...planetDetails.planets, ...smallBodies.objects].map((planet) => planet.id) }) + '\n',
     'planet-details.json': JSON.stringify({ earth: planetDetails.earth, planets: planetDetails.planets }) + '\n',
     'planet-moons.json': JSON.stringify({ ...planetDetails.moons, ...smallBodies.moons }) + '\n',
     'small-body-details.json': JSON.stringify({ objects: smallBodies.objects }) + '\n',

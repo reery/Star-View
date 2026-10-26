@@ -6,6 +6,8 @@
 
 - Catalog changes must enrich without silently discarding existing data. Compare all affected catalogs and the effective component records before and after regeneration, including physical fields, photometry, astrometry, uncertainties and provenance. Preserve original source measurements with explicit scope when they cannot be adopted for an individual component. Run `npm run catalog:preservation` to detect missing records and known-to-missing fields; investigate every failure before completing a data change.
 
+- Read `docs/info-writing-guide.md` before writing or editing any Info article text.
+
 - Reuse existing UI styles and font sizes wherever possible. Keep new cards consistent with established cards and controls.
 - Lay out multiple collapsible sections in a card side by side, wrapping them below each other when the card is too narrow.
 - Use the separator below the first mass bar consistently for metric divider lines: `1px dashed var(--line)`. Reuse the shared `--mass-metric-divider` style; do not introduce dotted or other separator variants.
