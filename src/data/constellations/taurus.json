@@ -119,10 +119,10 @@
         "vx_kms": -11.775605,
         "vy_kms": -2.672329,
         "vz_kms": -15.51125,
-        "temperature_k": 10673.0,
+        "temperature_k": 16970.0,
         "mass_solar": null,
-        "luminosity_solar": 724.8262251270626,
-        "radius_solar": 7.874021,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": -0.8,
         "age_gyr": null,
         "absolute_mag": -2.055682,
@@ -133,7 +133,7 @@
         "constellation": "Taurus",
         "spectral_type": "B4IV",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 18724; Stellarium Tau). SIMBAD identity * lam Tau; SIMBAD compiled Johnson V=3.41; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 18724; Stellarium Tau). SIMBAD identity * lam Tau; SIMBAD compiled Johnson V=3.41; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: Gaia DR3 model values for metallicity_dex. Reviewed hot-star temperature: 2009A&A...501..297Z, * lam Tau mesFe_h record 2, 16970 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 18724"
         ],
@@ -1577,7 +1577,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

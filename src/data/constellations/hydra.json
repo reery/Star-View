@@ -119,10 +119,10 @@
         "vx_kms": -18.980679,
         "vy_kms": -9.228881,
         "vz_kms": -4.419402,
-        "temperature_k": 15680.0,
+        "temperature_k": 20000.0,
         "mass_solar": 5.354421,
-        "luminosity_solar": 1165.1975933857211,
-        "radius_solar": 4.625517,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.7954,
         "age_gyr": null,
         "absolute_mag": -1.677546,
@@ -133,7 +133,7 @@
         "constellation": "Hydra",
         "spectral_type": "B3V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 42799; Stellarium Hya). SIMBAD identity * eta Hya; SIMBAD compiled Johnson V=4.3; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (mass_solar: Gaia DR3 astrophysical_parameters).",
+        "notes": "Western constellation line-figure star (HIP 42799; Stellarium Hya). SIMBAD identity * eta Hya; SIMBAD compiled Johnson V=4.3; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: Gaia DR3 model values for metallicity_dex. Shared exact-identity physical supplements (mass_solar: Gaia DR3 astrophysical_parameters). Reviewed hot-star temperature: 2023MNRAS.519.5472M, * eta Hya mesFe_h record 1, 20000 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 42799"
         ],
@@ -658,10 +658,10 @@
         "vx_kms": -5.014027,
         "vy_kms": 27.968506,
         "vz_kms": 33.424187,
-        "temperature_k": 17296.0,
+        "temperature_k": 4202.0,
         "mass_solar": null,
-        "luminosity_solar": 189.59670761085957,
-        "radius_solar": 1.533475,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": -0.41,
         "age_gyr": null,
         "absolute_mag": -0.006538,
@@ -672,7 +672,7 @@
         "constellation": "Hydra",
         "spectral_type": "K1.5IIIHdel-0.5",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 52943; Stellarium Hya). SIMBAD identity * nu. Hya; SIMBAD compiled Johnson V=3.11; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C).",
+        "notes": "Western constellation line-figure star (HIP 52943; Stellarium Hya). SIMBAD identity * nu. Hya; SIMBAD compiled Johnson V=3.11; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...690A..97C). Reviewed temperature: 2024A&A...690A..97C, * nu. Hya mesFe_h record 1, 4202 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 52943"
         ],
@@ -2587,7 +2587,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

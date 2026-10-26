@@ -21,10 +21,10 @@
         "vx_kms": -17.544275,
         "vy_kms": -26.465424,
         "vz_kms": -6.797664,
-        "temperature_k": 15227.0,
+        "temperature_k": 20950.0,
         "mass_solar": null,
-        "luminosity_solar": 1609.3587080237753,
-        "radius_solar": 5.76435,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -2.133963,
@@ -35,7 +35,7 @@
         "constellation": "Canis Major",
         "spectral_type": "B2.5V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 30122; Stellarium CMa). SIMBAD identity * zet CMa; SIMBAD compiled Johnson V=2.99; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 30122; Stellarium CMa). SIMBAD identity * zet CMa; SIMBAD compiled Johnson V=2.99; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 1995A&AS..110..553S, * zet CMa mesFe_h record 1, 20950 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 30122"
         ],
@@ -511,10 +511,10 @@
         "vx_kms": -49.856303,
         "vy_kms": -24.071586,
         "vz_kms": -3.660505,
-        "temperature_k": 11200.0,
+        "temperature_k": 17000.0,
         "mass_solar": null,
-        "luminosity_solar": 154077.34997579237,
-        "radius_solar": 104.252385,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -7.785804,
@@ -525,7 +525,7 @@
         "constellation": "Canis Major",
         "spectral_type": "B3Ia",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 33977; Stellarium CMa). SIMBAD identity * omi02 CMa; SIMBAD compiled Johnson V=3.02; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 33977; Stellarium CMa). SIMBAD identity * omi02 CMa; SIMBAD compiled Johnson V=3.02; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2024ApJ...971..166M, * omi02 CMa mesFe_h record 2, 17000 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 33977"
         ],
@@ -1214,7 +1214,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

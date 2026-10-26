@@ -315,10 +315,10 @@
         "vx_kms": -17.368505,
         "vy_kms": -22.534399,
         "vz_kms": -1.054707,
-        "temperature_k": 10806.0,
+        "temperature_k": 14890.0,
         "mass_solar": null,
-        "luminosity_solar": 1771.7620223265396,
-        "radius_solar": 12.009513,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": 0.0501,
         "absolute_mag": -3.004376,
@@ -329,7 +329,7 @@
         "constellation": "Perseus",
         "spectral_type": "B5III",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 17358; Stellarium Per). SIMBAD identity * del Per; SIMBAD compiled Johnson V=3.01; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Delta Per. Exact * del Per / HD 22928, HIP 17358. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T).",
+        "notes": "Western constellation line-figure star (HIP 17358; Stellarium Per). SIMBAD identity * del Per; SIMBAD compiled Johnson V=3.01; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical values describe Delta Per. Exact * del Per / HD 22928, HIP 17358. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T). Reviewed hot-star temperature: 2009A&A...501..297Z, * del Per mesFe_h record 1, 14890 K. Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 17358"
         ],
@@ -462,10 +462,10 @@
         "vx_kms": -7.824087,
         "vy_kms": -24.034661,
         "vz_kms": -5.720198,
-        "temperature_k": 21001.0,
+        "temperature_k": 27160.0,
         "mass_solar": null,
-        "luminosity_solar": 11688.336922761464,
-        "radius_solar": 8.166746,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": -0.503,
         "age_gyr": null,
         "absolute_mag": -3.488239,
@@ -476,7 +476,7 @@
         "constellation": "Perseus",
         "spectral_type": "B0.5III",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 18532; Stellarium Per). SIMBAD identity * eps Per; SIMBAD compiled Johnson V=2.89; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 18532; Stellarium Per). SIMBAD identity * eps Per; SIMBAD compiled Johnson V=2.89; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: Gaia DR3 model values for metallicity_dex. Reviewed hot-star temperature: 2009A&A...501..297Z, * eps Per mesFe_h record 1, 27160 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 18532"
         ],
@@ -1570,7 +1570,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

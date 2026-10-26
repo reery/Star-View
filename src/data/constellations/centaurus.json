@@ -168,10 +168,10 @@
         "vx_kms": -11.214604,
         "vy_kms": -17.550574,
         "vz_kms": -7.629669,
-        "temperature_k": 15744.0,
+        "temperature_k": 22350.0,
         "mass_solar": null,
-        "luminosity_solar": 1088.7549693354176,
-        "radius_solar": 4.434938,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.7937,
         "age_gyr": null,
         "absolute_mag": -1.583821,
@@ -182,7 +182,7 @@
         "constellation": "Centaurus",
         "spectral_type": "B2V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 60823; Stellarium Cen). SIMBAD identity * sig Cen; SIMBAD compiled Johnson V=3.91; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 60823; Stellarium Cen). SIMBAD identity * sig Cen; SIMBAD compiled Johnson V=3.91; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: Gaia DR3 model values for metallicity_dex. Reviewed hot-star temperature: 1995A&AS..110..553S, * sig Cen mesFe_h record 1, 22350 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 60823"
         ],
@@ -462,10 +462,10 @@
         "vx_kms": -4.914859,
         "vy_kms": -20.728882,
         "vz_kms": -4.862605,
-        "temperature_k": 14498.0,
+        "temperature_k": 23950.0,
         "mass_solar": null,
-        "luminosity_solar": 1770.430940674797,
-        "radius_solar": 6.669234,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.79,
         "age_gyr": null,
         "absolute_mag": -2.330193,
@@ -476,7 +476,7 @@
         "constellation": "Centaurus",
         "spectral_type": "B2Vnpe",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 67472; Stellarium Cen). SIMBAD identity * mu. Cen; SIMBAD compiled Johnson V=3.43; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 67472; Stellarium Cen). SIMBAD identity * mu. Cen; SIMBAD compiled Johnson V=3.43; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: Gaia DR3 model values for metallicity_dex. Reviewed hot-star temperature: 2018MNRAS.474.5287A, * mu. Cen mesFe_h record 1, 23950 K. Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 67472"
         ],
@@ -805,10 +805,10 @@
         "vx_kms": -0.225573,
         "vy_kms": -17.379113,
         "vz_kms": -3.934818,
-        "temperature_k": 12463.0,
+        "temperature_k": 19890.0,
         "mass_solar": null,
-        "luminosity_solar": 1181.8461265876826,
-        "radius_solar": 7.373742,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -2.240352,
@@ -819,7 +819,7 @@
         "constellation": "Centaurus",
         "spectral_type": "B2IV",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 73334; Stellarium Cen). SIMBAD identity * kap Cen; SIMBAD compiled Johnson V=3.11; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 73334; Stellarium Cen). SIMBAD identity * kap Cen; SIMBAD compiled Johnson V=3.11; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 1995A&AS..110..553S, * kap Cen mesFe_h record 1, 19890 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 73334"
         ],
@@ -2000,7 +2000,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

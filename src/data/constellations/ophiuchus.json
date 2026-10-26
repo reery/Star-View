@@ -217,10 +217,10 @@
         "vx_kms": -9.982232,
         "vy_kms": -12.955853,
         "vz_kms": -9.710275,
-        "temperature_k": 7308.0,
+        "temperature_k": 10500.0,
         "mass_solar": 3.27,
-        "luminosity_solar": 192.16710420802033,
-        "radius_solar": 8.64759,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -0.679099,
@@ -231,7 +231,7 @@
         "constellation": "Ophiuchus",
         "spectral_type": "A0V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 85755; Stellarium Oph). SIMBAD identity * c Oph; SIMBAD compiled Johnson V=4.81; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe c Oph. Exact * c Oph / HD 158643, HIP 85755. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2012A&A...537A.120Z. Existing non-null values retain their independent sources. Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr. Shared exact-identity physical supplements (mass_solar: 2012A&A...537A.120Z).",
+        "notes": "Western constellation line-figure star (HIP 85755; Stellarium Oph). SIMBAD identity * c Oph; SIMBAD compiled Johnson V=4.81; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical values describe c Oph. Exact * c Oph / HD 158643, HIP 85755. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2012A&A...537A.120Z. Existing non-null values retain their independent sources. Published HR-diagram model mass. Its age column is fractional main-sequence age and is deliberately not put into age_gyr. Shared exact-identity physical supplements (mass_solar: 2012A&A...537A.120Z). Reviewed hot-star temperature: 2023MNRAS.519.3958I, * c Oph mesFe_h record 1, 10500 K. Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 85755"
         ],
@@ -1648,7 +1648,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

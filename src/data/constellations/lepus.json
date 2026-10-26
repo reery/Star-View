@@ -217,10 +217,10 @@
         "vx_kms": -10.751905,
         "vy_kms": -17.176083,
         "vz_kms": -7.882484,
-        "temperature_k": 22237.0,
+        "temperature_k": 30000.0,
         "mass_solar": null,
-        "luminosity_solar": 9648.527003276371,
-        "radius_solar": 6.618061,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": -0.15,
         "age_gyr": null,
         "absolute_mag": -3.085692,
@@ -231,7 +231,7 @@
         "constellation": "Lepus",
         "spectral_type": "B0.5V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 24845; Stellarium Lep). SIMBAD identity * lam Lep; SIMBAD compiled Johnson V=4.29; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P).",
+        "notes": "Western constellation line-figure star (HIP 24845; Stellarium Lep). SIMBAD identity * lam Lep; SIMBAD compiled Johnson V=4.29; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P). Reviewed hot-star temperature: 2022ApJ...937..110L, * lam Lep mesFe_h record 3, 30000 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 24845"
         ],
@@ -1110,7 +1110,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

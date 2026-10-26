@@ -168,10 +168,10 @@
         "vx_kms": -24.850895,
         "vy_kms": -11.483372,
         "vz_kms": -10.033244,
-        "temperature_k": 12904.0,
+        "temperature_k": 16870.0,
         "mass_solar": null,
-        "luminosity_solar": 3074.5008085119043,
-        "radius_solar": 11.094079,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.1478,
         "age_gyr": null,
         "absolute_mag": -3.199187,
@@ -182,7 +182,7 @@
         "constellation": "Columba",
         "spectral_type": "B2.5IV",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 28199; Stellarium Col). SIMBAD identity * gam Col; SIMBAD compiled Johnson V=4.36; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 28199; Stellarium Col). SIMBAD identity * gam Col; SIMBAD compiled Johnson V=4.36; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: Gaia DR3 model values for metallicity_dex. Reviewed hot-star temperature: 1995A&AS..110..553S, * gam Col mesFe_h record 1, 16870 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 28199"
         ],
@@ -780,7 +780,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

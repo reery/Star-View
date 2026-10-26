@@ -119,10 +119,10 @@
         "vx_kms": -19.3954,
         "vy_kms": -13.760944,
         "vz_kms": -7.364212,
-        "temperature_k": 14843.0,
+        "temperature_k": 27600.0,
         "mass_solar": null,
-        "luminosity_solar": 12311.98790741634,
-        "radius_solar": 16.779281,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": 0.0157,
         "absolute_mag": -4.416593,
@@ -133,7 +133,7 @@
         "constellation": "Carina",
         "spectral_type": "B2III",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 42568; Stellarium Car). SIMBAD identity * d Car; SIMBAD compiled Johnson V=4.313; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe d Car. Exact * d Car / HD 74375, HIP 42568. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T).",
+        "notes": "Western constellation line-figure star (HIP 42568; Stellarium Car). SIMBAD identity * d Car; SIMBAD compiled Johnson V=4.313; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical values describe d Car. Exact * d Car / HD 74375, HIP 42568. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T). Reviewed hot-star temperature: 1995A&AS..110..553S, * d Car mesFe_h record 1, 27600 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 42568"
         ],
@@ -168,10 +168,10 @@
         "vx_kms": -8.193814,
         "vy_kms": -24.356213,
         "vz_kms": -3.505946,
-        "temperature_k": 15416.0,
+        "temperature_k": 20880.0,
         "mass_solar": null,
-        "luminosity_solar": 1613.1722527490342,
-        "radius_solar": 5.630534,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.7895,
         "age_gyr": null,
         "absolute_mag": -2.077526,
@@ -182,7 +182,7 @@
         "constellation": "Carina",
         "spectral_type": "B2IV-V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 45080; Stellarium Car). SIMBAD identity * a Car; SIMBAD compiled Johnson V=3.4; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 45080; Stellarium Car). SIMBAD identity * a Car; SIMBAD compiled Johnson V=3.4; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: Gaia DR3 model values for metallicity_dex. Reviewed hot-star temperature: 1995A&AS..110..553S, * a Car mesFe_h record 1, 20880 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 45080"
         ],
@@ -315,10 +315,10 @@
         "vx_kms": -15.274333,
         "vy_kms": -14.681374,
         "vz_kms": -10.548427,
-        "temperature_k": 9199.0,
+        "temperature_k": 11600.0,
         "mass_solar": null,
-        "luminosity_solar": 601.8921382566774,
-        "radius_solar": 9.658968,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": -1.1492,
         "age_gyr": null,
         "absolute_mag": -2.07382,
@@ -329,7 +329,7 @@
         "constellation": "Carina",
         "spectral_type": "B7III",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 50099; Stellarium Car). SIMBAD identity * ome Car; SIMBAD compiled Johnson V=3.33; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 50099; Stellarium Car). SIMBAD identity * ome Car; SIMBAD compiled Johnson V=3.33; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: Gaia DR3 model values for metallicity_dex. Reviewed hot-star temperature: 2018MNRAS.474.5287A, * ome Car mesFe_h record 1, 11600 K. Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 50099"
         ],
@@ -462,10 +462,10 @@
         "vx_kms": -6.812084,
         "vy_kms": -23.879625,
         "vz_kms": -0.497474,
-        "temperature_k": 21001.0,
+        "temperature_k": 31103.0,
         "mass_solar": null,
-        "luminosity_solar": 7595.657228551216,
-        "radius_solar": 6.583478,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": -0.12,
         "age_gyr": null,
         "absolute_mag": -2.957471,
@@ -476,7 +476,7 @@
         "constellation": "Carina",
         "spectral_type": "B0Vp",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 52419; Stellarium Car). SIMBAD identity * tet Car; SIMBAD compiled Johnson V=2.76; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Motion RV: 20.18 +/- 0.04 km/s from Hubrig et al. 2008; reviewed literature override. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...676A.129H). Southern Pleiades landmark star; Five brightest SIMBAD IC 2602 members with cluster-consistent parallaxes. SIMBAD identity * tet Car; SIMBAD compiled Johnson V=2.76; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Motion RV: 20.18 +/- 0.04 km/s from Hubrig et al. 2008; reviewed literature override. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...676A.129H).",
+        "notes": "Western constellation line-figure star (HIP 52419; Stellarium Car). SIMBAD identity * tet Car; SIMBAD compiled Johnson V=2.76; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Motion RV: 20.18 +/- 0.04 km/s from Hubrig et al. 2008; reviewed literature override. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...676A.129H). Southern Pleiades landmark star; Five brightest SIMBAD IC 2602 members with cluster-consistent parallaxes. SIMBAD identity * tet Car; SIMBAD compiled Johnson V=2.76; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Motion RV: 20.18 +/- 0.04 km/s from Hubrig et al. 2008; reviewed literature override. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...676A.129H). Reviewed hot-star temperature: 2023A&A...676A.129H, * tet Car mesFe_h record 1, 31103 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review. Western constellation line-figure star (HIP 52419; Stellarium Car). SIMBAD identity * tet Car; SIMBAD compiled Johnson V=2.76; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Motion RV: 20.18 +/- 0.04 km/s from Hubrig et al. 2008; reviewed literature override. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...676A.129H). Southern Pleiades landmark star; Five brightest SIMBAD IC 2602 members with cluster-consistent parallaxes. SIMBAD identity * tet Car; SIMBAD compiled Johnson V=2.76; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Motion RV: 20.18 +/- 0.04 km/s from Hubrig et al. 2008; reviewed literature override. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...676A.129H). Reviewed hot-star temperature: 2023A&A...676A.129H, * tet Car mesFe_h record 1, 31103 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 52419"
         ],
@@ -1766,7 +1766,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

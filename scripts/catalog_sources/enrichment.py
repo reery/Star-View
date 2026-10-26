@@ -111,6 +111,19 @@ def temperature_sequence():
     return json.loads((ROOT / "catalog-work/nearest-100/source-input.json").read_text())["temperatureSequenceKelvin"]
 
 
+def sequence_temperature(family, subtype):
+    sequence = sorted((float(key[1:-1]), value) for key, value in temperature_sequence().items() if key.startswith(family))
+    exact = next((value for number, value in sequence if number == subtype), None)
+    if exact is None:
+        lower = [(number, value) for number, value in sequence if number < subtype]
+        upper = [(number, value) for number, value in sequence if number > subtype]
+        if not lower or not upper:
+            return None
+        low, high = lower[-1], upper[0]
+        exact = round(low[1] + (high[1] - low[1]) * (subtype - low[0]) / (high[0] - low[0]))
+    return exact
+
+
 def estimate_temperature(row):
     if row.get("temperature_k") or row["id"] == "sun":
         return {}
@@ -119,16 +132,9 @@ def estimate_temperature(row):
     match = re.fullmatch(pattern, spectrum) if pattern else None
     if not match:
         return {}
-    family, subtype = match.group(1), float(match.group(2))
-    sequence = sorted((float(key[1:-1]), value) for key, value in temperature_sequence().items() if key.startswith(family))
-    exact = next((value for number, value in sequence if number == subtype), None)
+    exact = sequence_temperature(match.group(1), float(match.group(2)))
     if exact is None:
-        lower = [(number, value) for number, value in sequence if number < subtype]
-        upper = [(number, value) for number, value in sequence if number > subtype]
-        if not lower or not upper:
-            return {}
-        low, high = lower[-1], upper[0]
-        exact = round(low[1] + (high[1] - low[1]) * (subtype - low[0]) / (high[0] - low[0]))
+        return {}
     row["temperature_k"] = str(exact)
     row["notes"] += f" Estimated temperature from Pecaut-Mamajek 2022.04.16 {spectrum} mean dwarf sequence (interpolation where needed); not an object-specific measurement."
     return {"temperature_k": {"field": "temperature_k", "value": exact, "status": "estimated", "reference": "Pecaut-Mamajek 2022.04.16", "spectralType": spectrum}}
@@ -155,12 +161,35 @@ def spectroscopy_index(extended=False):
     return index
 
 
-def select_spectroscopy(observations, column):
+def contradicts_spectral_type(observation, spectral_type):
+    """Teff over 20% from the Pecaut-Mamajek sequence of an F-M dwarf (class V or none).
+
+    Giants, O-A peculiar/rotating stars and ultracool dwarfs are not checked.
+    """
+    teff = number(observation.get("teff"))
+    spectrum = re.sub(r"\s+", "", spectral_type or "")
+    match = re.match(r"([FGKM])(\d(?:\.\d+)?)", spectrum)
+    if teff is None or not match or "I" in spectrum:
+        return False
+    expected = sequence_temperature(match.group(1), float(match.group(2)))
+    return expected is not None and abs(teff - expected) > .2 * expected
+
+
+def select_spectroscopy(observations, column, spectral_type=None):
     """Use a recent, consensus-compatible measurement; withhold conflicts.
 
     This is not a new averaged measurement. Values and bibliography remain those
     of the selected paper, and the complete raw measurement pool remains frozen.
+
+    Survey grids (RAVE, LAMOST, APOGEE Net) can return their edge for cool dwarfs.
+    Such solutions contradict the spectral type, and their [Fe/H] is equally
+    unusable. Three agreeing papers instead indicate a wrong spectral type.
     """
+    conflicting = [item for item in observations if contradicts_spectral_type(item, spectral_type)]
+    if conflicting:
+        center = median(float(item["teff"]) for item in conflicting)
+        if len({item["bibcode"] for item in conflicting if abs(float(item["teff"]) - center) <= .1 * center}) < 3:
+            observations = [item for item in observations if item not in conflicting]
     candidates = []
     for observation in observations:
         value = number(observation.get(column))
@@ -318,7 +347,7 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
         for column, field in (("teff", "temperature_k"), ("fe_h", "metallicity_dex")):
             if row.get(field):
                 continue
-            observation = select_spectroscopy(spectroscopy_index(extended).get(key, []), column)
+            observation = select_spectroscopy(spectroscopy_index(extended).get(key, []), column, row.get("spectral_type"))
             if observation:
                 adopt(field, observation[column], observation["bibcode"], "measured",
                       sourceRecordId=f"{key}:mesFe_h:{observation['mespos']}",

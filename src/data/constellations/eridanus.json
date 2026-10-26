@@ -1099,10 +1099,10 @@
         "vx_kms": -9.75931,
         "vy_kms": -8.140206,
         "vz_kms": -9.100619,
-        "temperature_k": 15538.0,
+        "temperature_k": 22000.0,
         "mass_solar": null,
-        "luminosity_solar": 2926.177395777465,
-        "radius_solar": 7.464706,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.02,
         "age_gyr": null,
         "absolute_mag": -2.683588,
@@ -1113,7 +1113,7 @@
         "constellation": "Eridanus",
         "spectral_type": "B2III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 21444; Stellarium Eri). SIMBAD identity * nu. Eri; SIMBAD compiled Johnson V=3.928; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2012A&A...539A.143N).",
+        "notes": "Western constellation line-figure star (HIP 21444; Stellarium Eri). SIMBAD identity * nu. Eri; SIMBAD compiled Johnson V=3.928; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (metallicity_dex: 2012A&A...539A.143N). Reviewed hot-star temperature: 2012A&A...539A.143N, * nu. Eri mesFe_h record 4, 22000 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 21444"
         ],
@@ -1344,10 +1344,10 @@
         "vx_kms": -0.06502,
         "vy_kms": -4.215934,
         "vz_kms": -0.256041,
-        "temperature_k": 12000.0,
+        "temperature_k": 22803.0,
         "mass_solar": null,
-        "luminosity_solar": 2030.9558705808413,
-        "radius_solar": 10.426544,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": 0.021,
         "absolute_mag": -2.924912,
@@ -1358,7 +1358,7 @@
         "constellation": "Eridanus",
         "spectral_type": "B2III(e)p",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 23972; Stellarium Eri). SIMBAD identity * lam Eri; SIMBAD compiled Johnson V=4.27; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Lambda Eri. Exact * lam Eri / HD 33328, HIP 23972. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T).",
+        "notes": "Western constellation line-figure star (HIP 23972; Stellarium Eri). SIMBAD identity * lam Eri; SIMBAD compiled Johnson V=4.27; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical values describe Lambda Eri. Exact * lam Eri / HD 33328, HIP 23972. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T). Reviewed hot-star temperature: 2001A&A...378..861C, * lam Eri mesFe_h record 3, 22803 K. Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 23972"
         ],
@@ -3067,7 +3067,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

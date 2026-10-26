@@ -37,7 +37,7 @@ class SharedObjectTests(unittest.TestCase):
 
     def test_hot_star_corrections_replace_bad_models_and_preserve_other_fields(self):
         review = json.loads((Path(__file__).resolve().parents[2] / "catalog-work/shared-enrichment/hot-star-temperature-review.json").read_text())
-        self.assertEqual(len(review["objects"]), 13)
+        self.assertEqual(len(review["objects"]), 57)
         for key, record in review["objects"].items():
             for identifier in record["starIds"]:
                 with self.subTest(identity=key, identifier=identifier):
@@ -60,6 +60,12 @@ class SharedObjectTests(unittest.TestCase):
                     before = dict(row)
                     adopt_shared_object(row, provenance)
                     self.assertEqual(row, before)
+
+    def test_contradicted_spectral_type_is_withheld_without_a_replacement(self):
+        row = {"id": "cns5-2243", "name": "UPM J0901-6526", "spectral_type": "K5", "temperature_k": "3043", "notes": "source"}
+        adopt_shared_object(row)
+        self.assertEqual(row["spectral_type"], "")
+        self.assertEqual(row["temperature_k"], "3043")
 
     def test_altair_adopts_full_class_and_object_parameters_preserving_identity(self):
         row = {"id": "10pc-0117", "name": "Altair", "spectral_type": "A7", "temperature_k": "7760", "notes": "source"}

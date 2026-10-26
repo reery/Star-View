@@ -5182,18 +5182,18 @@
       "selected": false
     }
   ],
-  "baseStarsSha256": "c7e440459ff87ac600ea973028ceab51d4c530e558fb4ef9d6ee34ae4660fe1d",
+  "baseStarsSha256": "d2c98331b6371fde05fc4cb70f6b2836943933ab5024fad00bdb8289723796c1",
   "catalogId": "nearest-5000",
   "coverage": {
     "absolute_mag": 1875,
     "age_gyr": 186,
     "constellation": 4000,
-    "luminosity_solar": 2354,
+    "luminosity_solar": 2353,
     "mass_solar": 2038,
-    "metallicity_dex": 2221,
+    "metallicity_dex": 2216,
     "radial_velocity_kms": 2804,
-    "radius_solar": 2517,
-    "spectral_type": 3226,
+    "radius_solar": 2516,
+    "spectral_type": 3225,
     "temperature_k": 2971,
     "vx_kms": 2955
   },
@@ -6552,7 +6552,7 @@
         "age_gyr": "unknown",
         "luminosity_solar": "derived",
         "mass_solar": "empirical-relation",
-        "metallicity_dex": "measured",
+        "metallicity_dex": "unknown",
         "radial_velocity_kms": "gaia-dr3-fallback",
         "radius_solar": "empirical-relation",
         "temperature_k": "measured"
@@ -6638,18 +6638,6 @@
           "reference": "Stefan-Boltzmann scaling",
           "status": "derived",
           "value": 0.004469078467
-        },
-        "metallicity_dex": {
-          "field": "metallicity_dex",
-          "identity": "PM J14551+3006",
-          "quantity": "photospheric [Fe/H]",
-          "reference": "2022AJ....163..152S",
-          "scope": "catalogued stellar object",
-          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "PM J14551+3006:mesFe_h:1",
-          "status": "measured",
-          "uncertainty": null,
-          "value": -0.074
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -9599,13 +9587,13 @@
           "field": "metallicity_dex",
           "identity": "Ross 863",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2022AJ....163..152S",
+          "reference": "2021A&A...656A.162M",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "Ross 863:mesFe_h:1",
+          "sourceRecordId": "Ross 863:mesFe_h:6",
           "status": "measured",
           "uncertainty": null,
-          "value": -0.168
+          "value": -0.22
         }
       },
       "simbadId": "Ross  863",
@@ -10338,13 +10326,13 @@
           "field": "metallicity_dex",
           "identity": "RX J0747.2+5020",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2022AJ....163..152S",
+          "reference": "2021A&A...656A.162M",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "RX J0747.2+5020:mesFe_h:1",
+          "sourceRecordId": "RX J0747.2+5020:mesFe_h:7",
           "status": "measured",
           "uncertainty": null,
-          "value": -0.078
+          "value": -0.14
         }
       },
       "simbadId": "RX J0747.2+5020",
@@ -11898,13 +11886,13 @@
           "field": "metallicity_dex",
           "identity": "HD 188088",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2022A&A...663A...4S",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "HD 188088:mesFe_h:1",
+          "sourceRecordId": "HD 188088:mesFe_h:2",
           "status": "measured",
           "uncertainty": null,
-          "value": 0.22
+          "value": 0.12
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -16431,7 +16419,7 @@
         "metallicity_dex": "unknown",
         "radial_velocity_kms": "gaia-dr3-fallback",
         "radius_solar": "empirical-relation",
-        "temperature_k": "measured"
+        "temperature_k": "estimated"
       },
       "gaiaDr3Id": "5199087706000356096",
       "id": "cns5-2645",
@@ -16509,23 +16497,18 @@
           "field": "luminosity_solar",
           "inputs": {
             "radius_solar": 0.271,
-            "temperature_k": 4500.0
+            "temperature_k": 3430.0
           },
           "reference": "Stefan-Boltzmann scaling",
           "status": "derived",
-          "value": 0.02713209613
+          "value": 0.009158192591
         },
         "temperature_k": {
           "field": "temperature_k",
-          "identity": "L 37-56",
-          "quantity": "spectroscopic effective temperature",
-          "reference": "2013AJ....146..134K",
-          "scope": "catalogued stellar object",
-          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "L 37-56:mesFe_h:1",
-          "status": "measured",
-          "uncertainty": null,
-          "value": 4500.0
+          "reference": "Pecaut-Mamajek 2022.04.16",
+          "spectralType": "M3V",
+          "status": "estimated",
+          "value": 3430
         }
       },
       "simbadId": "L   37-56",
@@ -37250,13 +37233,13 @@
           "field": "metallicity_dex",
           "identity": "HD 84117",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...690A..97C",
+          "reference": "2024A&A...683A.125P",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "HD 84117:mesFe_h:1",
+          "sourceRecordId": "HD 84117:mesFe_h:2",
           "status": "measured",
           "uncertainty": null,
-          "value": 0.0
+          "value": -0.03
         },
         "radius_solar": {
           "field": "radius_solar",
@@ -43865,13 +43848,13 @@
           "field": "metallicity_dex",
           "identity": "G 108-21",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2021A&A...656A.162M",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "G 108-21:mesFe_h:1",
+          "sourceRecordId": "G 108-21:mesFe_h:7",
           "status": "measured",
           "uncertainty": null,
-          "value": 0.23
+          "value": -0.13
         }
       },
       "simbadId": "G 108-21",
@@ -50329,7 +50312,7 @@
         "metallicity_dex": "unknown",
         "radial_velocity_kms": "unknown",
         "radius_solar": "empirical-relation",
-        "temperature_k": "measured"
+        "temperature_k": "estimated"
       },
       "gaiaDr3Id": "5605469299570245504",
       "id": "cns5-1848",
@@ -50399,23 +50382,18 @@
           "field": "luminosity_solar",
           "inputs": {
             "radius_solar": 0.295,
-            "temperature_k": 4265.0
+            "temperature_k": 3060.0
           },
           "reference": "Stefan-Boltzmann scaling",
           "status": "derived",
-          "value": 0.02594268272
+          "value": 0.006874236164
         },
         "temperature_k": {
           "field": "temperature_k",
-          "identity": "CD-29 4446C",
-          "quantity": "spectroscopic effective temperature",
-          "reference": "2020AJ....160...83S",
-          "scope": "catalogued stellar object",
-          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "CD-29 4446C:mesFe_h:1",
-          "status": "measured",
-          "uncertainty": null,
-          "value": 4265.0
+          "reference": "Pecaut-Mamajek 2022.04.16",
+          "spectralType": "M5V",
+          "status": "estimated",
+          "value": 3060
         }
       },
       "simbadId": "CD-29  4446C",
@@ -60413,13 +60391,13 @@
           "field": "metallicity_dex",
           "identity": "G 112-27",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2019ApJ...878..134K",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "G 112-27:mesFe_h:2",
+          "sourceRecordId": "G 112-27:mesFe_h:4",
           "status": "measured",
           "uncertainty": null,
-          "value": 0.12
+          "value": 0.0
         }
       },
       "simbadId": "G 112-27",
@@ -66505,13 +66483,13 @@
           "field": "metallicity_dex",
           "identity": "V* V371 Ori",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2021A&A...656A.162M",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "V* V371 Ori:mesFe_h:1",
+          "sourceRecordId": "V* V371 Ori:mesFe_h:5",
           "status": "measured",
           "uncertainty": null,
-          "value": -0.36
+          "value": -0.1
         },
         "radius_solar": {
           "field": "radius_solar",
@@ -89147,13 +89125,13 @@
           "field": "metallicity_dex",
           "identity": "G 170-12",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2018MNRAS.475.1960F",
+          "reference": "2014MNRAS.443.2561G",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "G 170-12:mesFe_h:1",
+          "sourceRecordId": "G 170-12:mesFe_h:2",
           "status": "measured",
           "uncertainty": null,
-          "value": -0.053
+          "value": -0.12
         },
         "radius_solar": {
           "field": "radius_solar",
@@ -107300,13 +107278,13 @@
           "field": "metallicity_dex",
           "identity": "Wolf 587",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2019ApJ...878..134K",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "Wolf 587:mesFe_h:1",
+          "sourceRecordId": "Wolf 587:mesFe_h:3",
           "status": "measured",
           "uncertainty": null,
-          "value": -0.02
+          "value": -0.15
         }
       },
       "simbadId": "Wolf  587",
@@ -116839,13 +116817,13 @@
           "field": "metallicity_dex",
           "identity": "G 5-32",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2018A&A...615A...6P",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "G 5-32:mesFe_h:1",
+          "sourceRecordId": "G 5-32:mesFe_h:2",
           "status": "measured",
           "uncertainty": null,
-          "value": 0.11
+          "value": -0.11
         }
       },
       "simbadId": "G   5-32",
@@ -121868,13 +121846,13 @@
           "field": "metallicity_dex",
           "identity": "G 77-46",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2022ApJS..259...35A",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "G 77-46:mesFe_h:1",
+          "sourceRecordId": "G 77-46:mesFe_h:3",
           "status": "measured",
           "uncertainty": null,
-          "value": -0.27
+          "value": -0.1016
         }
       },
       "simbadId": "G  77-46",
@@ -134631,23 +134609,23 @@
           "field": "luminosity_solar",
           "inputs": {
             "radius_solar": 0.1785,
-            "temperature_k": 4500.0
+            "temperature_k": 3000.0
           },
           "reference": "Stefan-Boltzmann scaling",
           "status": "derived",
-          "value": 0.01177121267
+          "value": 0.002325177812
         },
         "temperature_k": {
           "field": "temperature_k",
           "identity": "LP 613-62",
           "quantity": "spectroscopic effective temperature",
-          "reference": "2020AJ....160...83S",
+          "reference": "2013A&A...556A..15R",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "LP 613-62:mesFe_h:1",
+          "sourceRecordId": "LP 613-62:mesFe_h:2",
           "status": "measured",
           "uncertainty": null,
-          "value": 4500.0
+          "value": 3000.0
         }
       },
       "simbadId": "LP  613-62",
@@ -152801,6 +152779,7 @@
         "metallicity_dex": "model-derived",
         "radial_velocity_kms": "unknown",
         "radius_solar": "model-derived",
+        "spectral_type": "unknown",
         "temperature_k": "model-derived"
       },
       "gaiaDr3Id": "5296347755815266816",
@@ -152896,6 +152875,32 @@
       },
       "radialVelocity": {
         "status": "unknown"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "spectral_type"
+        ],
+        "recordId": "UPM J0901-6526",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact CNS5 2243 / UPM J0901-6526 / Gaia DR3 5296347755815266816 / 2MASS J09013172-6526402.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "spectralTypeReview": {
+            "decision": "Withhold the single low-quality classification that contradicts every photometric and model constraint; do not infer a replacement.",
+            "evidence": "Gaia DR3 G=13.345, BP-RP=3.168 and parallax 55.808 mas give absolute G 12.08; 2MASS Ks=9.282 gives absolute Ks 8.02 and the Mann et al. 2019 mass 0.1785 Msun; Gaia DR3 GSP-Phot gives 3043 K. All indicate a mid-M dwarf near M4.5; a K5 dwarf at 17.9 pc would be about five magnitudes brighter in G.",
+            "fields": [
+              "spectral_type"
+            ],
+            "recordId": "UPM J0901-6526",
+            "source": "SIMBAD basic/mesSpT, queried 2026-10-26; J/ApJS/271/55 (Kirkpatrick et al. 2024)",
+            "withheldValue": {
+              "censusCopy": "K5 V(e), r_SpTOpt Riaz2006 in J/ApJS/271/55",
+              "reference": "2006AJ....132..866R",
+              "simbadQuality": "D",
+              "value": "K5"
+            }
+          }
+        }
       },
       "simbadId": "UPM J0901-6526",
       "sourceType": "PM*"
@@ -168902,7 +168907,7 @@
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
-        "metallicity_dex": "measured",
+        "metallicity_dex": "unknown",
         "radial_velocity_kms": "compiled-cns5",
         "radius_solar": "derived",
         "temperature_k": "model-derived"
@@ -169029,20 +169034,6 @@
           "valueKms": 6.268404483795166
         },
         "status": "compiled-cns5"
-      },
-      "sharedPhysicalEnrichment": {
-        "metallicity_dex": {
-          "field": "metallicity_dex",
-          "identity": "BD+13 3578",
-          "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...690A..97C",
-          "scope": "catalogued stellar object",
-          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "BD+13 3578:mesFe_h:1",
-          "status": "measured",
-          "uncertainty": null,
-          "value": -0.05
-        }
       },
       "simbadId": "BD+13  3578",
       "sourceType": "PM*"
@@ -194400,13 +194391,13 @@
           "field": "metallicity_dex",
           "identity": "StKM 1-539",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2019ApJ...878..134K",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "StKM 1-539:mesFe_h:1",
+          "sourceRecordId": "StKM 1-539:mesFe_h:3",
           "status": "measured",
           "uncertainty": null,
-          "value": -0.13
+          "value": -0.23
         }
       },
       "simbadId": "StKM 1-539",
@@ -227894,13 +227885,13 @@
           "field": "metallicity_dex",
           "identity": "L 123-30",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2019ApJ...878..134K",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "L 123-30:mesFe_h:1",
+          "sourceRecordId": "L 123-30:mesFe_h:4",
           "status": "measured",
           "uncertainty": null,
-          "value": 0.11
+          "value": -0.24
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -227909,10 +227900,10 @@
           "reference": "2020AJ....160...83S",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "L 123-30:mesFe_h:2",
+          "sourceRecordId": "L 123-30:mesFe_h:3",
           "status": "measured",
           "uncertainty": null,
-          "value": 3800.0
+          "value": 3257.0
         }
       },
       "simbadId": "L  123-30",
@@ -253385,10 +253376,10 @@
         "age_gyr": "unknown",
         "luminosity_solar": "unknown",
         "mass_solar": "empirical-relation",
-        "metallicity_dex": "measured",
+        "metallicity_dex": "unknown",
         "radial_velocity_kms": "unknown",
         "radius_solar": "unknown",
-        "temperature_k": "measured"
+        "temperature_k": "estimated"
       },
       "gaiaDr3Id": "735453264711448064",
       "id": "cns5-2601",
@@ -253441,29 +253432,12 @@
         "status": "unknown"
       },
       "sharedPhysicalEnrichment": {
-        "metallicity_dex": {
-          "field": "metallicity_dex",
-          "identity": "LP 316-400",
-          "quantity": "photospheric [Fe/H]",
-          "reference": "2019ApJ...879...69T",
-          "scope": "catalogued stellar object",
-          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "LP 316-400:mesFe_h:1",
-          "status": "measured",
-          "uncertainty": null,
-          "value": -1.237
-        },
         "temperature_k": {
           "field": "temperature_k",
-          "identity": "LP 316-400",
-          "quantity": "spectroscopic effective temperature",
-          "reference": "2019ApJ...879...69T",
-          "scope": "catalogued stellar object",
-          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "LP 316-400:mesFe_h:1",
-          "status": "measured",
-          "uncertainty": null,
-          "value": 5523.0
+          "reference": "Pecaut-Mamajek 2022.04.16",
+          "spectralType": "M8V",
+          "status": "estimated",
+          "value": 2570
         }
       },
       "simbadId": "LP  316-400",
@@ -257281,13 +257255,13 @@
           "field": "metallicity_dex",
           "identity": "CD-51 89",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2021MNRAS.508.5148C",
+          "reference": "2019ApJ...878..134K",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "CD-51 89:mesFe_h:1",
+          "sourceRecordId": "CD-51 89:mesFe_h:2",
           "status": "measured",
           "uncertainty": null,
-          "value": 0.35
+          "value": 0.13
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -257926,13 +257900,13 @@
           "field": "metallicity_dex",
           "identity": "G 65-40",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2019ApJ...878..134K",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "G 65-40:mesFe_h:1",
+          "sourceRecordId": "G 65-40:mesFe_h:3",
           "status": "measured",
           "uncertainty": null,
-          "value": 0.04
+          "value": 0.16
         }
       },
       "simbadId": "G  65-40",
@@ -263710,13 +263684,13 @@
           "field": "metallicity_dex",
           "identity": "L 484-31",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2019ApJ...878..134K",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "L 484-31:mesFe_h:1",
+          "sourceRecordId": "L 484-31:mesFe_h:2",
           "status": "measured",
           "uncertainty": null,
-          "value": -0.31
+          "value": -0.17
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -278032,13 +278006,13 @@
           "field": "metallicity_dex",
           "identity": "HD 6660B",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2022ApJS..259...35A",
+          "reference": "2019ApJ...878..134K",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "HD 6660B:mesFe_h:1",
+          "sourceRecordId": "HD 6660B:mesFe_h:2",
           "status": "measured",
           "uncertainty": null,
-          "value": 0.1915
+          "value": 0.5
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -284389,13 +284363,13 @@
           "field": "metallicity_dex",
           "identity": "G 66-37",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2021A&A...656A.162M",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "G 66-37:mesFe_h:1",
+          "sourceRecordId": "G 66-37:mesFe_h:5",
           "status": "measured",
           "uncertainty": null,
-          "value": -0.09
+          "value": 0.04
         }
       },
       "simbadId": "G  66-37",
@@ -297147,7 +297121,7 @@
         "metallicity_dex": "measured",
         "radial_velocity_kms": "gaia-dr3-fallback",
         "radius_solar": "empirical-relation",
-        "temperature_k": "estimated"
+        "temperature_k": "measured"
       },
       "gaiaDr3Id": "5330091595871802368",
       "id": "cns5-2226",
@@ -297225,30 +297199,35 @@
           "field": "luminosity_solar",
           "inputs": {
             "radius_solar": 0.3961,
-            "temperature_k": 3620.0
+            "temperature_k": 3550.0
           },
           "reference": "Stefan-Boltzmann scaling",
           "status": "derived",
-          "value": 0.02427385075
+          "value": 0.02245007558
         },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "identity": "L 316-62",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2019ApJ...878..134K",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "L 316-62:mesFe_h:1",
+          "sourceRecordId": "L 316-62:mesFe_h:3",
           "status": "measured",
           "uncertainty": null,
-          "value": -0.12
+          "value": -0.33
         },
         "temperature_k": {
           "field": "temperature_k",
-          "reference": "Pecaut-Mamajek 2022.04.16",
-          "spectralType": "M1.5V",
-          "status": "estimated",
-          "value": 3620
+          "identity": "L 316-62",
+          "quantity": "spectroscopic effective temperature",
+          "reference": "2019ApJ...878..134K",
+          "scope": "catalogued stellar object",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "sourceRecordId": "L 316-62:mesFe_h:3",
+          "status": "measured",
+          "uncertainty": null,
+          "value": 3550.0
         }
       },
       "simbadId": "L  316-62",
@@ -332174,7 +332153,7 @@
         "metallicity_dex": "measured",
         "radial_velocity_kms": "gaia-dr3-fallback",
         "radius_solar": "unknown",
-        "temperature_k": "estimated"
+        "temperature_k": "measured"
       },
       "gaiaDr3Id": "5136466567425127168",
       "id": "cns5-0521",
@@ -332223,20 +332202,25 @@
           "field": "metallicity_dex",
           "identity": "BD-21 368",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2019ApJ...878..134K",
+          "reference": "2014MNRAS.443.2561G",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "BD-21 368:mesFe_h:1",
+          "sourceRecordId": "BD-21 368:mesFe_h:2",
           "status": "measured",
           "uncertainty": null,
-          "value": 0.12
+          "value": 0.18
         },
         "temperature_k": {
           "field": "temperature_k",
-          "reference": "Pecaut-Mamajek 2022.04.16",
-          "spectralType": "M2.5V",
-          "status": "estimated",
-          "value": 3470
+          "identity": "BD-21 368",
+          "quantity": "spectroscopic effective temperature",
+          "reference": "2014MNRAS.443.2561G",
+          "scope": "catalogued stellar object",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "sourceRecordId": "BD-21 368:mesFe_h:2",
+          "status": "measured",
+          "uncertainty": null,
+          "value": 3650.0
         }
       },
       "simbadId": "BD-21   368",
@@ -377432,7 +377416,7 @@
         "metallicity_dex": "model-derived",
         "radial_velocity_kms": "gaia-dr3-fallback",
         "radius_solar": "empirical-relation",
-        "temperature_k": "model-derived"
+        "temperature_k": "measured"
       },
       "gaiaDr3Id": "6710598435331928192",
       "id": "cns5-4710",
@@ -377549,8 +377533,49 @@
         },
         "status": "gaia-dr3-fallback"
       },
+      "sharedPhysicalEnrichment": {
+        "temperature_k": {
+          "field": "temperature_k",
+          "identity": "PM J18565-4630",
+          "quantity": "spectroscopic effective temperature",
+          "reference": "2013AJ....146..134K",
+          "scope": "catalogued stellar object",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "sourceRecordId": "PM J18565-4630:mesFe_h:2",
+          "status": "measured",
+          "uncertainty": null,
+          "value": 3200.0
+        }
+      },
       "simbadId": "PM J18565-4630",
-      "sourceType": "PM*"
+      "sourceType": "PM*",
+      "supersededGaiaPhysical": {
+        "observations": {
+          "radius_solar": {
+            "field": "radius_solar",
+            "quality_flags": [
+              "20"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "6710598435331928192",
+            "status": "model-derived",
+            "uncertainty": 0.0003537900000000205,
+            "value": 0.32269093
+          },
+          "temperature_k": {
+            "field": "temperature_k",
+            "quality_flags": [],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "6710598435331928192",
+            "status": "model-derived",
+            "uncertainty": 84.67139999999972,
+            "value": 3027.3733
+          }
+        },
+        "reason": "Published spectroscopic consensus outranks Gaia DR3 GSP-Phot; FLAME radius, mass and age derived from a GSP-Phot temperature more than 2% off, or with solar-metallicity tracks for |[Fe/H]| > 0.3, are withheld."
+      }
     },
     {
       "astrometry": {
@@ -411338,13 +411363,13 @@
           "field": "metallicity_dex",
           "identity": "G 97-18",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2019ApJ...878..134K",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "G 97-18:mesFe_h:2",
+          "sourceRecordId": "G 97-18:mesFe_h:4",
           "status": "measured",
           "uncertainty": null,
-          "value": -0.17
+          "value": -0.13
         }
       },
       "simbadId": "G  97-18",
@@ -423416,7 +423441,7 @@
         "age_gyr": "unknown",
         "luminosity_solar": "unknown",
         "mass_solar": "unknown",
-        "metallicity_dex": "measured",
+        "metallicity_dex": "unknown",
         "radial_velocity_kms": "gaia-dr3-fallback",
         "radius_solar": "unknown",
         "temperature_k": "measured"
@@ -423465,18 +423490,6 @@
         "status": "gaia-dr3-fallback"
       },
       "sharedPhysicalEnrichment": {
-        "metallicity_dex": {
-          "field": "metallicity_dex",
-          "identity": "Wolf 1322",
-          "quantity": "photospheric [Fe/H]",
-          "reference": "2019ApJ...879...69T",
-          "scope": "catalogued stellar object",
-          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "Wolf 1322:mesFe_h:3",
-          "status": "measured",
-          "uncertainty": null,
-          "value": -0.433
-        },
         "temperature_k": {
           "field": "temperature_k",
           "identity": "Wolf 1322",
@@ -436593,13 +436606,13 @@
           "field": "metallicity_dex",
           "identity": "MCC 124",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2019ApJ...878..134K",
+          "reference": "2018MNRAS.475.1960F",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "MCC 124:mesFe_h:3",
+          "sourceRecordId": "MCC 124:mesFe_h:4",
           "status": "measured",
           "uncertainty": null,
-          "value": 0.4
+          "value": 0.504
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -454722,10 +454735,10 @@
         "age_gyr": "unknown",
         "luminosity_solar": "unknown",
         "mass_solar": "unknown",
-        "metallicity_dex": "measured",
+        "metallicity_dex": "unknown",
         "radial_velocity_kms": "gaia-dr3-fallback",
         "radius_solar": "unknown",
-        "temperature_k": "measured"
+        "temperature_k": "estimated"
       },
       "gaiaDr3Id": "3701290326205270784",
       "id": "cns5-3017",
@@ -454770,29 +454783,12 @@
         "status": "gaia-dr3-fallback"
       },
       "sharedPhysicalEnrichment": {
-        "metallicity_dex": {
-          "field": "metallicity_dex",
-          "identity": "G 13-26A",
-          "quantity": "photospheric [Fe/H]",
-          "reference": "2018MNRAS.475.1960F",
-          "scope": "catalogued stellar object",
-          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "G 13-26A:mesFe_h:1",
-          "status": "measured",
-          "uncertainty": null,
-          "value": 0.416
-        },
         "temperature_k": {
           "field": "temperature_k",
-          "identity": "G 13-26A",
-          "quantity": "spectroscopic effective temperature",
-          "reference": "2018MNRAS.475.1960F",
-          "scope": "catalogued stellar object",
-          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "G 13-26A:mesFe_h:1",
-          "status": "measured",
-          "uncertainty": null,
-          "value": 4711.0
+          "reference": "Pecaut-Mamajek 2022.04.16",
+          "spectralType": "M4V",
+          "status": "estimated",
+          "value": 3210
         }
       },
       "simbadId": "G  13-26A",
@@ -458994,13 +458990,13 @@
           "field": "metallicity_dex",
           "identity": "StKM 1-502",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2019ApJ...878..134K",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "StKM 1-502:mesFe_h:1",
+          "sourceRecordId": "StKM 1-502:mesFe_h:3",
           "status": "measured",
           "uncertainty": null,
-          "value": -0.39
+          "value": 0.1
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -464558,13 +464554,13 @@
           "field": "metallicity_dex",
           "identity": "* chi Cet",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...683A.125P",
+          "reference": "2023ApJS..266...11B",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "* chi Cet:mesFe_h:1",
+          "sourceRecordId": "* chi Cet:mesFe_h:2",
           "status": "measured",
           "uncertainty": null,
-          "value": 0.0
+          "value": -0.082
         },
         "radius_solar": {
           "field": "radius_solar",
@@ -492975,13 +492971,13 @@
           "field": "metallicity_dex",
           "identity": "BD+29 2279",
           "quantity": "photospheric [Fe/H]",
-          "reference": "2024A&A...691A..53S",
+          "reference": "2015ApJ...804...64M",
           "scope": "catalogued stellar object",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "BD+29 2279:mesFe_h:1",
+          "sourceRecordId": "BD+29 2279:mesFe_h:5",
           "status": "measured",
           "uncertainty": null,
-          "value": -0.13
+          "value": 0.46
         }
       },
       "simbadId": "BD+29  2279",
@@ -513495,7 +513491,7 @@
         "metallicity_dex": "unknown",
         "radial_velocity_kms": "gaia-dr3-fallback",
         "radius_solar": "empirical-relation",
-        "temperature_k": "measured"
+        "temperature_k": "estimated"
       },
       "gaiaDr3Id": "989380492985184768",
       "id": "cns5-1868",
@@ -513573,23 +513569,18 @@
           "field": "luminosity_solar",
           "inputs": {
             "radius_solar": 0.1359,
-            "temperature_k": 3519.0
+            "temperature_k": 2810.0
           },
           "reference": "Stefan-Boltzmann scaling",
           "status": "derived",
-          "value": 0.002551588823
+          "value": 0.001037430241
         },
         "temperature_k": {
           "field": "temperature_k",
-          "identity": "LP 88-196",
-          "quantity": "spectroscopic effective temperature",
-          "reference": "2009ApJ...704..975J",
-          "scope": "catalogued stellar object",
-          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
-          "sourceRecordId": "LP 88-196:mesFe_h:1",
-          "status": "measured",
-          "uncertainty": null,
-          "value": 3519.0
+          "reference": "Pecaut-Mamajek 2022.04.16",
+          "spectralType": "M6V",
+          "status": "estimated",
+          "value": 2810
         }
       },
       "simbadId": "LP   88-196",

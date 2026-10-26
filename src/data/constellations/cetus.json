@@ -756,10 +756,10 @@
         "vx_kms": 7.562158,
         "vy_kms": -7.543774,
         "vz_kms": -11.916685,
-        "temperature_k": 11141.0,
+        "temperature_k": 14000.0,
         "mass_solar": null,
-        "luminosity_solar": 346.8807682418805,
-        "radius_solar": 4.99913,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.0,
         "age_gyr": null,
         "absolute_mag": -1.143424,
@@ -770,7 +770,7 @@
         "constellation": "Cetus",
         "spectral_type": "B8IV",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 12770; Stellarium Cet). SIMBAD identity * pi. Cet; SIMBAD compiled Johnson V=4.236; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2021MNRAS.505.4496G).",
+        "notes": "Western constellation line-figure star (HIP 12770; Stellarium Cet). SIMBAD identity * pi. Cet; SIMBAD compiled Johnson V=4.236; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (metallicity_dex: 2021MNRAS.505.4496G). Reviewed hot-star temperature: 2023MNRAS.519.5472M, * pi. Cet mesFe_h record 1, 14000 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 12770"
         ],
@@ -854,10 +854,10 @@
         "vx_kms": -6.531343,
         "vy_kms": -9.726807,
         "vz_kms": -10.300592,
-        "temperature_k": 10799.0,
+        "temperature_k": 13940.0,
         "mass_solar": 5.01,
-        "luminosity_solar": 268.34729951410714,
-        "radius_solar": 4.679874,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -0.956394,
@@ -868,7 +868,7 @@
         "constellation": "Cetus",
         "spectral_type": "B6III",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 13954; Stellarium Cet). SIMBAD identity * lam Cet; SIMBAD compiled Johnson V=4.7; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Lambda Cet. Exact * lam Cet / HD 18604, HIP 13954. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2010AN....331..349H. Existing non-null values retain their independent sources. Shared exact-identity physical supplements (mass_solar: 2010AN....331..349H).",
+        "notes": "Western constellation line-figure star (HIP 13954; Stellarium Cet). SIMBAD identity * lam Cet; SIMBAD compiled Johnson V=4.7; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed physical values describe Lambda Cet. Exact * lam Cet / HD 18604, HIP 13954. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2010AN....331..349H. Existing non-null values retain their independent sources. Shared exact-identity physical supplements (mass_solar: 2010AN....331..349H). Reviewed hot-star temperature: 2009A&A...501..297Z, * lam Cet mesFe_h record 1, 13940 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 13954"
         ],
@@ -1890,7 +1890,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

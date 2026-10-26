@@ -21,10 +21,10 @@
         "vx_kms": 4.093354,
         "vy_kms": 6.318064,
         "vz_kms": -10.933365,
-        "temperature_k": 5888.0,
+        "temperature_k": 10800.0,
         "mass_solar": null,
-        "luminosity_solar": 18254.73327069425,
-        "radius_solar": 129.838888,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -5.66644,
@@ -35,7 +35,7 @@
         "constellation": "Camelopardalis",
         "spectral_type": "B9Ia",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 16228; Stellarium Cam). SIMBAD identity HD  21291; SIMBAD compiled Johnson V=4.22; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 16228; Stellarium Cam). SIMBAD identity HD  21291; SIMBAD compiled Johnson V=4.22; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 2012A&A...543A..80F, HD 21291 mesFe_h record 2, 10800 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 16228"
         ],
@@ -2364,7 +2364,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

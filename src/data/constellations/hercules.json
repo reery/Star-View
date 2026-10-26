@@ -708,10 +708,10 @@
         "vx_kms": -12.683363,
         "vy_kms": -33.342224,
         "vz_kms": -15.324761,
-        "temperature_k": 13692.0,
+        "temperature_k": 18000.0,
         "mass_solar": null,
-        "luminosity_solar": 1297.624534455811,
-        "radius_solar": 6.401672,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.0,
         "age_gyr": null,
         "absolute_mag": -2.139168,
@@ -722,7 +722,7 @@
         "constellation": "Hercules",
         "spectral_type": "B3IV",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 86414; Stellarium Her). SIMBAD identity * iot Her; SIMBAD compiled Johnson V=3.8; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P).",
+        "notes": "Western constellation line-figure star (HIP 86414; Stellarium Her). SIMBAD identity * iot Her; SIMBAD compiled Johnson V=3.8; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P). Reviewed hot-star temperature: 2023MNRAS.519.5472M, * iot Her mesFe_h record 1, 18000 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 86414"
         ],
@@ -2234,7 +2234,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

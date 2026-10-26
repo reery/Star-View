@@ -1616,6 +1616,1062 @@
       "expectedPrevious": "1.57",
       "expectedCurrent": "",
       "reason": "The previous 1.57 Msun value of HD 175219 was a Gaia DR3 FLAME or Allende Prieto & Lambert 1999 model estimate; withheld because the model assumes near-solar metallicity while the adopted spectroscopic [Fe/H] is -0.41. The source value is retained in this catalog's provenance and frozen inputs; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4000",
+      "field": "metallicity_dex",
+      "expectedPrevious": "-0.25",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous -0.25 dex [Fe/H] of CD-37 10765B was from the 2021MNRAS.508.5148C SIMBAD mesFe_h solution. That solution's 3547 K Teff contradicts the M5.5V spectral type (Pecaut-Mamajek dwarf sequence 2930 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4000",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the -0.25 dex metallicity of CD-37 10765B was from the 2021MNRAS.508.5148C SIMBAD mesFe_h solution. That solution's 3547 K Teff contradicts the M5.5V spectral type (Pecaut-Mamajek dwarf sequence 2930 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-2772",
+      "field": "temperature_k",
+      "expectedPrevious": "5503",
+      "expectedCurrent": "",
+      "reason": "temperature_k: the previous 5503 K of LP 169-22 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5503 K Teff contradicts the M5.5 spectral type (Pecaut-Mamajek dwarf sequence 2930 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-2772",
+      "field": "metallicity_dex",
+      "expectedPrevious": "0.032",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous 0.032 dex [Fe/H] of LP 169-22 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5503 K Teff contradicts the M5.5 spectral type (Pecaut-Mamajek dwarf sequence 2930 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-2772",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the 0.032 dex metallicity of LP 169-22 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5503 K Teff contradicts the M5.5 spectral type (Pecaut-Mamajek dwarf sequence 2930 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-5510",
+      "field": "metallicity_dex",
+      "expectedPrevious": "-0.137",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous -0.137 dex [Fe/H] of Wolf 1561 A was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5508 K Teff contradicts the M4V spectral type (Pecaut-Mamajek dwarf sequence 3210 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-5510",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the -0.137 dex metallicity of Wolf 1561 A was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5508 K Teff contradicts the M4V spectral type (Pecaut-Mamajek dwarf sequence 3210 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1455",
+      "field": "temperature_k",
+      "expectedPrevious": "5623",
+      "expectedCurrent": "",
+      "reason": "temperature_k: the previous 5623 K of WOH G 618 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5623 K Teff contradicts the M6.0 spectral type (Pecaut-Mamajek dwarf sequence 2810 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1455",
+      "field": "luminosity_solar",
+      "expectedPrevious": "0.01783015995",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 0.01783015995 Lsun of WOH G 618 was derived by Stefan-Boltzmann scaling from the 5623 K temperature of the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5623 K Teff contradicts the M6.0 spectral type (Pecaut-Mamajek dwarf sequence 2810 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1455",
+      "field": "metallicity_dex",
+      "expectedPrevious": "-0.267",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous -0.267 dex [Fe/H] of WOH G 618 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5623 K Teff contradicts the M6.0 spectral type (Pecaut-Mamajek dwarf sequence 2810 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1455",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the -0.267 dex metallicity of WOH G 618 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5623 K Teff contradicts the M6.0 spectral type (Pecaut-Mamajek dwarf sequence 2810 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4948",
+      "field": "metallicity_dex",
+      "expectedPrevious": "-0.524",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous -0.524 dex [Fe/H] of LSR J2000+3057 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5611 K Teff contradicts the M6Ve spectral type (Pecaut-Mamajek dwarf sequence 2810 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4948",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the -0.524 dex metallicity of LSR J2000+3057 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5611 K Teff contradicts the M6Ve spectral type (Pecaut-Mamajek dwarf sequence 2810 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-3252",
+      "field": "metallicity_dex",
+      "expectedPrevious": "0.03",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous 0.03 dex [Fe/H] of ER 2 was from the 2021MNRAS.508.5148C SIMBAD mesFe_h solution. That solution's 3795 K Teff contradicts the M5 spectral type (Pecaut-Mamajek dwarf sequence 3060 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-3252",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the 0.03 dex metallicity of ER 2 was from the 2021MNRAS.508.5148C SIMBAD mesFe_h solution. That solution's 3795 K Teff contradicts the M5 spectral type (Pecaut-Mamajek dwarf sequence 3060 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4110",
+      "field": "metallicity_dex",
+      "expectedPrevious": "0.102",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous 0.102 dex [Fe/H] of LP 276-22 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5488 K Teff contradicts the M6.0V spectral type (Pecaut-Mamajek dwarf sequence 2810 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4110",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the 0.102 dex metallicity of LP 276-22 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5488 K Teff contradicts the M6.0V spectral type (Pecaut-Mamajek dwarf sequence 2810 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-3857",
+      "field": "metallicity_dex",
+      "expectedPrevious": "-0.289",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous -0.289 dex [Fe/H] of VB 24 A was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5528 K Teff contradicts the M3V spectral type (Pecaut-Mamajek dwarf sequence 3430 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-3857",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the -0.289 dex metallicity of VB 24 A was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5528 K Teff contradicts the M3V spectral type (Pecaut-Mamajek dwarf sequence 3430 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1661",
+      "field": "temperature_k",
+      "expectedPrevious": "5593",
+      "expectedCurrent": "",
+      "reason": "temperature_k: the previous 5593 K of SCR J0642-6707 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5593 K Teff contradicts the M5.0 spectral type (Pecaut-Mamajek dwarf sequence 3060 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1661",
+      "field": "luminosity_solar",
+      "expectedPrevious": "0.01649856539",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 0.01649856539 Lsun of SCR J0642-6707 was derived by Stefan-Boltzmann scaling from the 5593 K temperature of the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5593 K Teff contradicts the M5.0 spectral type (Pecaut-Mamajek dwarf sequence 3060 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1661",
+      "field": "metallicity_dex",
+      "expectedPrevious": "-0.591",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous -0.591 dex [Fe/H] of SCR J0642-6707 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5593 K Teff contradicts the M5.0 spectral type (Pecaut-Mamajek dwarf sequence 3060 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-1661",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the -0.591 dex metallicity of SCR J0642-6707 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5593 K Teff contradicts the M5.0 spectral type (Pecaut-Mamajek dwarf sequence 3060 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-3691",
+      "field": "metallicity_dex",
+      "expectedPrevious": "-0.074",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous -0.074 dex [Fe/H] of PM J14551+3006 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5487 K Teff contradicts the M3.8 spectral type (Pecaut-Mamajek dwarf sequence 3234 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-3691",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the -0.074 dex metallicity of PM J14551+3006 was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5487 K Teff contradicts the M3.8 spectral type (Pecaut-Mamajek dwarf sequence 3234 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4519",
+      "field": "metallicity_dex",
+      "expectedPrevious": "-0.05",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous -0.05 dex [Fe/H] of BD+13 3578 was from the 2024A&A...690A..97C SIMBAD mesFe_h solution. That solution's 5413 K Teff contradicts the K7V spectral type (Pecaut-Mamajek dwarf sequence 4100 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4519",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the -0.05 dex metallicity of BD+13 3578 was from the 2024A&A...690A..97C SIMBAD mesFe_h solution. That solution's 5413 K Teff contradicts the K7V spectral type (Pecaut-Mamajek dwarf sequence 4100 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-2601",
+      "field": "metallicity_dex",
+      "expectedPrevious": "-1.237",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous -1.237 dex [Fe/H] of LP 316-400 was from the 2019ApJ...879...69T SIMBAD mesFe_h solution. That solution's 5523 K Teff contradicts the M8V spectral type (Pecaut-Mamajek dwarf sequence 2570 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-2601",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the -1.237 dex metallicity of LP 316-400 was from the 2019ApJ...879...69T SIMBAD mesFe_h solution. That solution's 5523 K Teff contradicts the M8V spectral type (Pecaut-Mamajek dwarf sequence 2570 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-0995",
+      "field": "metallicity_dex",
+      "expectedPrevious": "-0.433",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous -0.433 dex [Fe/H] of Wolf 1322 was from the 2019ApJ...879...69T SIMBAD mesFe_h solution. That solution's 5234 K Teff contradicts the M4V spectral type (Pecaut-Mamajek dwarf sequence 3210 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-0995",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the -0.433 dex metallicity of Wolf 1322 was from the 2019ApJ...879...69T SIMBAD mesFe_h solution. That solution's 5234 K Teff contradicts the M4V spectral type (Pecaut-Mamajek dwarf sequence 3210 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-3017",
+      "field": "metallicity_dex",
+      "expectedPrevious": "0.416",
+      "expectedCurrent": "",
+      "reason": "metallicity_dex: the previous 0.416 dex [Fe/H] of G 13-26A was from the 2018MNRAS.475.1960F SIMBAD mesFe_h solution. That solution's 4711 K Teff contradicts the M4V spectral type (Pecaut-Mamajek dwarf sequence 3210 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-3017",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": "",
+      "reason": "metallicity_kind: the previous [Fe/H] label of the 0.416 dex metallicity of G 13-26A was from the 2018MNRAS.475.1960F SIMBAD mesFe_h solution. That solution's 4711 K Teff contradicts the M4V spectral type (Pecaut-Mamajek dwarf sequence 3210 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-4000",
+      "field": "metallicity_dex",
+      "expectedPrevious": -0.25,
+      "expectedCurrent": null,
+      "reason": "metallicity_dex: the previous -0.25 dex [Fe/H] of CD-37 10765B was from the 2021MNRAS.508.5148C SIMBAD mesFe_h solution. That solution's 3547 K Teff contradicts the M5.5V spectral type (Pecaut-Mamajek dwarf sequence 2930 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-4000",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": null,
+      "reason": "metallicity_kind: the previous [Fe/H] label of the -0.25 dex metallicity of CD-37 10765B was from the 2021MNRAS.508.5148C SIMBAD mesFe_h solution. That solution's 3547 K Teff contradicts the M5.5V spectral type (Pecaut-Mamajek dwarf sequence 2930 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-5510",
+      "field": "metallicity_dex",
+      "expectedPrevious": -0.137,
+      "expectedCurrent": null,
+      "reason": "metallicity_dex: the previous -0.137 dex [Fe/H] of Wolf 1561 A was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5508 K Teff contradicts the M4V spectral type (Pecaut-Mamajek dwarf sequence 3210 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-5510",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": null,
+      "reason": "metallicity_kind: the previous [Fe/H] label of the -0.137 dex metallicity of Wolf 1561 A was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5508 K Teff contradicts the M4V spectral type (Pecaut-Mamajek dwarf sequence 3210 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-3857",
+      "field": "metallicity_dex",
+      "expectedPrevious": -0.289,
+      "expectedCurrent": null,
+      "reason": "metallicity_dex: the previous -0.289 dex [Fe/H] of VB 24 A was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5528 K Teff contradicts the M3V spectral type (Pecaut-Mamajek dwarf sequence 3430 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-3857",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": null,
+      "reason": "metallicity_kind: the previous [Fe/H] label of the -0.289 dex metallicity of VB 24 A was from the 2022AJ....163..152S SIMBAD mesFe_h solution. That solution's 5528 K Teff contradicts the M3V spectral type (Pecaut-Mamajek dwarf sequence 3430 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-3017",
+      "field": "metallicity_dex",
+      "expectedPrevious": 0.416,
+      "expectedCurrent": null,
+      "reason": "metallicity_dex: the previous 0.416 dex [Fe/H] of G 13-26A was from the 2018MNRAS.475.1960F SIMBAD mesFe_h solution. That solution's 4711 K Teff contradicts the M4V spectral type (Pecaut-Mamajek dwarf sequence 3210 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-3017",
+      "field": "metallicity_kind",
+      "expectedPrevious": "[Fe/H]",
+      "expectedCurrent": null,
+      "reason": "metallicity_kind: the previous [Fe/H] label of the 0.416 dex metallicity of G 13-26A was from the 2018MNRAS.475.1960F SIMBAD mesFe_h solution. That solution's 4711 K Teff contradicts the M4V spectral type (Pecaut-Mamajek dwarf sequence 3210 K) by more than 20% and is not corroborated by three agreeing papers, which indicates a failed fit such as a survey model-grid edge; its [Fe/H] is withheld with it. The measurement remains in the frozen literature spectroscopy snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-2243",
+      "field": "spectral_type",
+      "expectedPrevious": "K5",
+      "expectedCurrent": "",
+      "reason": "spectral_type: the previous K5 label of UPM J0901-6526 is SIMBAD's only classification (Riaz et al. 2006, 2006AJ....132..866R, quality D, repeated by the 2024 20-pc census). Gaia DR3 BP-RP 3.17 and absolute G 12.1, absolute Ks 8.0, the 0.18 Msun Mann et al. 2019 mass and the 3043 K GSP-Phot temperature all indicate a mid-M dwarf near M4.5. The label is withheld by reviewed shared object UPM J0901-6526; no replacement is inferred. The original label remains in that review and the frozen SIMBAD snapshot."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "hip-35550",
+      "field": "luminosity_solar",
+      "expectedPrevious": "23.032749773820683",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 23.032749773820683 of Wasat came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 35550). The hot-star temperature review (record * del Gem) rejects that fit's 11994 K in favour of 6966 K (2012A&A...537A.120Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "hip-35550",
+      "field": "radius_solar",
+      "expectedPrevious": "1.111469",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 1.111469 of Wasat was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 35550). The hot-star temperature review (record * del Gem) rejects that fit's 11994 K in favour of 6966 K (2012A&A...537A.120Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-35550",
+      "field": "luminosity_solar",
+      "expectedPrevious": "23.032749773820683",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 23.032749773820683 of Wasat came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 35550). The hot-star temperature review (record * del Gem) rejects that fit's 11994 K in favour of 6966 K (2012A&A...537A.120Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-35550",
+      "field": "radius_solar",
+      "expectedPrevious": "1.111469",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 1.111469 of Wasat was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 35550). The hot-star temperature review (record * del Gem) rejects that fit's 11994 K in favour of 6966 K (2012A&A...537A.120Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-52943",
+      "field": "luminosity_solar",
+      "expectedPrevious": "189.59670761085957",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 189.59670761085957 of Nu Hya came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 52943). The hot-star temperature review (record * nu. Hya) rejects that fit's 17296 K in favour of 4202 K (2024A&A...690A..97C) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-52943",
+      "field": "radius_solar",
+      "expectedPrevious": "1.533475",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 1.533475 of Nu Hya was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 52943). The hot-star temperature review (record * nu. Hya) rejects that fit's 17296 K in favour of 4202 K (2024A&A...690A..97C) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-30122",
+      "field": "luminosity_solar",
+      "expectedPrevious": "1609.3587080237753",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 1609.3587080237753 of Furud came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 30122). The hot-star temperature review (record * zet CMa) rejects that fit's 15227 K in favour of 20950 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-30122",
+      "field": "radius_solar",
+      "expectedPrevious": "5.764350",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 5.764350 of Furud was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 30122). The hot-star temperature review (record * zet CMa) rejects that fit's 15227 K in favour of 20950 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-73334",
+      "field": "luminosity_solar",
+      "expectedPrevious": "1181.8461265876826",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 1181.8461265876826 of Kappa Cen came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 73334). The hot-star temperature review (record * kap Cen) rejects that fit's 12463 K in favour of 19890 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-73334",
+      "field": "radius_solar",
+      "expectedPrevious": "7.373742",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 7.373742 of Kappa Cen was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 73334). The hot-star temperature review (record * kap Cen) rejects that fit's 12463 K in favour of 19890 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-12770",
+      "field": "luminosity_solar",
+      "expectedPrevious": "346.8807682418805",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 346.8807682418805 of Pi Cet came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 12770). The hot-star temperature review (record * pi. Cet) rejects that fit's 11141 K in favour of 14000 K (2023MNRAS.519.5472M) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-12770",
+      "field": "radius_solar",
+      "expectedPrevious": "4.999130",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 4.999130 of Pi Cet was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 12770). The hot-star temperature review (record * pi. Cet) rejects that fit's 11141 K in favour of 14000 K (2023MNRAS.519.5472M) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-50099",
+      "field": "luminosity_solar",
+      "expectedPrevious": "601.8921382566774",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 601.8921382566774 of Omega Car came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 50099). The hot-star temperature review (record * ome Car) rejects that fit's 9199 K in favour of 11600 K (2018MNRAS.474.5287A) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-50099",
+      "field": "radius_solar",
+      "expectedPrevious": "9.658968",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 9.658968 of Omega Car was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 50099). The hot-star temperature review (record * ome Car) rejects that fit's 9199 K in favour of 11600 K (2018MNRAS.474.5287A) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-17702",
+      "field": "luminosity_solar",
+      "expectedPrevious": "1161.86861365969",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 1161.86861365969 of Alcyone came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 17702). The hot-star temperature review (record * eta Tau) rejects that fit's 10168 K in favour of 13490 K (2001A&A...378..861C) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-17702",
+      "field": "radius_solar",
+      "expectedPrevious": "10.983989",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 10.983989 of Alcyone was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 17702). The hot-star temperature review (record * eta Tau) rejects that fit's 10168 K in favour of 13490 K (2001A&A...378..861C) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-18724",
+      "field": "luminosity_solar",
+      "expectedPrevious": "724.8262251270626",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 724.8262251270626 of Lambda Tau came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 18724). The hot-star temperature review (record * lam Tau) rejects that fit's 10673 K in favour of 16970 K (2009A&A...501..297Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-18724",
+      "field": "radius_solar",
+      "expectedPrevious": "7.874021",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 7.874021 of Lambda Tau was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 18724). The hot-star temperature review (record * lam Tau) rejects that fit's 10673 K in favour of 16970 K (2009A&A...501..297Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-45080",
+      "field": "luminosity_solar",
+      "expectedPrevious": "1613.1722527490342",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 1613.1722527490342 of a Car came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 45080). The hot-star temperature review (record * a Car) rejects that fit's 15416 K in favour of 20880 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-45080",
+      "field": "radius_solar",
+      "expectedPrevious": "5.630534",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 5.630534 of a Car was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 45080). The hot-star temperature review (record * a Car) rejects that fit's 15416 K in favour of 20880 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-85755",
+      "field": "luminosity_solar",
+      "expectedPrevious": "192.16710420802033",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 192.16710420802033 of c Oph came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 85755). The hot-star temperature review (record * c Oph) rejects that fit's 7308 K in favour of 10500 K (2023MNRAS.519.3958I) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-85755",
+      "field": "radius_solar",
+      "expectedPrevious": "8.647590",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 8.647590 of c Oph was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 85755). The hot-star temperature review (record * c Oph) rejects that fit's 7308 K in favour of 10500 K (2023MNRAS.519.3958I) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-60823",
+      "field": "luminosity_solar",
+      "expectedPrevious": "1088.7549693354176",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 1088.7549693354176 of Sigma Cen came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 60823). The hot-star temperature review (record * sig Cen) rejects that fit's 15744 K in favour of 22350 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-60823",
+      "field": "radius_solar",
+      "expectedPrevious": "4.434938",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 4.434938 of Sigma Cen was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 60823). The hot-star temperature review (record * sig Cen) rejects that fit's 15744 K in favour of 22350 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-76297",
+      "field": "luminosity_solar",
+      "expectedPrevious": "2988.7346047958677",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 2988.7346047958677 of Gamma Lup came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 76297). The hot-star temperature review (record * gam Lup) rejects that fit's 15288 K in favour of 22210 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-76297",
+      "field": "radius_solar",
+      "expectedPrevious": "7.792826",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 7.792826 of Gamma Lup was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 76297). The hot-star temperature review (record * gam Lup) rejects that fit's 15288 K in favour of 22210 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-17573",
+      "field": "luminosity_solar",
+      "expectedPrevious": "432.67509113076716",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 432.67509113076716 of Maia came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 17573). The hot-star temperature review (record * 20 Tau) rejects that fit's 9530 K in favour of 12250 K (2021ApJ...921..117T) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-17573",
+      "field": "radius_solar",
+      "expectedPrevious": "7.630409",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 7.630409 of Maia was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 17573). The hot-star temperature review (record * 20 Tau) rejects that fit's 9530 K in favour of 12250 K (2021ApJ...921..117T) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-78384",
+      "field": "luminosity_solar",
+      "expectedPrevious": "1631.9521790005952",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 1631.9521790005952 of Eta Lup came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 78384). The hot-star temperature review (record * eta Lup) rejects that fit's 14668 K in favour of 21490 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-78384",
+      "field": "radius_solar",
+      "expectedPrevious": "6.255536",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 6.255536 of Eta Lup was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 78384). The hot-star temperature review (record * eta Lup) rejects that fit's 14668 K in favour of 21490 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-17489",
+      "field": "luminosity_solar",
+      "expectedPrevious": "111.98962750731181",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 111.98962750731181 of Celaeno came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 17489). The hot-star temperature review (record * 16 Tau) rejects that fit's 9599 K in favour of 12246 K (2012A&A...537A.120Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-17489",
+      "field": "radius_solar",
+      "expectedPrevious": "3.826393",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 3.826393 of Celaeno was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 17489). The hot-star temperature review (record * 16 Tau) rejects that fit's 9599 K in favour of 12246 K (2012A&A...537A.120Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-13954",
+      "field": "luminosity_solar",
+      "expectedPrevious": "268.34729951410714",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 268.34729951410714 of Lambda Cet came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 13954). The hot-star temperature review (record * lam Cet) rejects that fit's 10799 K in favour of 13940 K (2009A&A...501..297Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-13954",
+      "field": "radius_solar",
+      "expectedPrevious": "4.679874",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 4.679874 of Lambda Cet was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 13954). The hot-star temperature review (record * lam Cet) rejects that fit's 10799 K in favour of 13940 K (2009A&A...501..297Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-52419",
+      "field": "luminosity_solar",
+      "expectedPrevious": "7595.657228551216",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 7595.657228551216 of Theta Car came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 52419). The hot-star temperature review (record * tet Car) rejects that fit's 21001 K in favour of 31103 K (2023A&A...676A.129H) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-52419",
+      "field": "radius_solar",
+      "expectedPrevious": "6.583478",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 6.583478 of Theta Car was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 52419). The hot-star temperature review (record * tet Car) rejects that fit's 21001 K in favour of 31103 K (2023A&A...676A.129H) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-67472",
+      "field": "luminosity_solar",
+      "expectedPrevious": "1770.430940674797",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 1770.430940674797 of Mu Cen came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 67472). The hot-star temperature review (record * mu. Cen) rejects that fit's 14498 K in favour of 23950 K (2018MNRAS.474.5287A) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-67472",
+      "field": "radius_solar",
+      "expectedPrevious": "6.669234",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 6.669234 of Mu Cen was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 67472). The hot-star temperature review (record * mu. Cen) rejects that fit's 14498 K in favour of 23950 K (2018MNRAS.474.5287A) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-59747",
+      "field": "luminosity_solar",
+      "expectedPrevious": "3112.7252822689647",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 3112.7252822689647 of Imai came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 59747). The hot-star temperature review (record * del Cru) rejects that fit's 14078 K in favour of 22570 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-59747",
+      "field": "radius_solar",
+      "expectedPrevious": "9.378667",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 9.378667 of Imai was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 59747). The hot-star temperature review (record * del Cru) rejects that fit's 14078 K in favour of 22570 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-61281",
+      "field": "luminosity_solar",
+      "expectedPrevious": "594.2290742610444",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 594.2290742610444 of Kappa Dra came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 61281). The hot-star temperature review (record * kap Dra) rejects that fit's 9744 K in favour of 16906 K (2023ApJS..266...41P) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-61281",
+      "field": "radius_solar",
+      "expectedPrevious": "8.553720",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 8.553720 of Kappa Dra was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 61281). The hot-star temperature review (record * kap Dra) rejects that fit's 9744 K in favour of 16906 K (2023ApJS..266...41P) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-81266",
+      "field": "luminosity_solar",
+      "expectedPrevious": "7568.238907693111",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 7568.238907693111 of Paikauhale came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 81266). The hot-star temperature review (record * tau Sco) rejects that fit's 21001 K in favour of 31660 K (2023ApJS..266...11B) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-81266",
+      "field": "radius_solar",
+      "expectedPrevious": "6.571585",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 6.571585 of Paikauhale was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 81266). The hot-star temperature review (record * tau Sco) rejects that fit's 21001 K in favour of 31660 K (2023ApJS..266...11B) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-92989",
+      "field": "luminosity_solar",
+      "expectedPrevious": "279.210416968845",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 279.210416968845 of V686 CrA came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 92989). The hot-star temperature review (record V* V686 CrA) rejects that fit's 13500 K in favour of 17600 K (2019MNRAS.485.1508S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-92989",
+      "field": "radius_solar",
+      "expectedPrevious": "3.054576",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 3.054576 of V686 CrA was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 92989). The hot-star temperature review (record V* V686 CrA) rejects that fit's 13500 K in favour of 17600 K (2019MNRAS.485.1508S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-52370",
+      "field": "luminosity_solar",
+      "expectedPrevious": "356.41551412134163",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 356.41551412134163 of HD 92938 came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 52370). The hot-star temperature review (record HD 92938) rejects that fit's 11558 K in favour of 19000 K (2018MNRAS.474.5287A) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-52370",
+      "field": "radius_solar",
+      "expectedPrevious": "4.708316",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 4.708316 of HD 92938 was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 52370). The hot-star temperature review (record HD 92938) rejects that fit's 11558 K in favour of 19000 K (2018MNRAS.474.5287A) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-52701",
+      "field": "luminosity_solar",
+      "expectedPrevious": "196.39272654470284",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 196.39272654470284 of HD 93549 came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 52701). The hot-star temperature review (record HD 93549) rejects that fit's 10471 K in favour of 13300 K (2021MNRAS.502.3670G) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-52701",
+      "field": "radius_solar",
+      "expectedPrevious": "4.258327",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 4.258327 of HD 93549 was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 52701). The hot-star temperature review (record HD 93549) rejects that fit's 10471 K in favour of 13300 K (2021MNRAS.502.3670G) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-86414",
+      "field": "luminosity_solar",
+      "expectedPrevious": "1297.624534455811",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 1297.624534455811 of Iota Her came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 86414). The hot-star temperature review (record * iot Her) rejects that fit's 13692 K in favour of 18000 K (2023MNRAS.519.5472M) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-86414",
+      "field": "radius_solar",
+      "expectedPrevious": "6.401672",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 6.401672 of Iota Her was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 86414). The hot-star temperature review (record * iot Her) rejects that fit's 13692 K in favour of 18000 K (2023MNRAS.519.5472M) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-42799",
+      "field": "luminosity_solar",
+      "expectedPrevious": "1165.1975933857211",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 1165.1975933857211 of Eta Hya came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 42799). The hot-star temperature review (record * eta Hya) rejects that fit's 15680 K in favour of 20000 K (2023MNRAS.519.5472M) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-42799",
+      "field": "radius_solar",
+      "expectedPrevious": "4.625517",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 4.625517 of Eta Hya was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 42799). The hot-star temperature review (record * eta Hya) rejects that fit's 15680 K in favour of 20000 K (2023MNRAS.519.5472M) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-17358",
+      "field": "luminosity_solar",
+      "expectedPrevious": "1771.7620223265396",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 1771.7620223265396 of Delta Per came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 17358). The hot-star temperature review (record * del Per) rejects that fit's 10806 K in favour of 14890 K (2009A&A...501..297Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-17358",
+      "field": "radius_solar",
+      "expectedPrevious": "12.009513",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 12.009513 of Delta Per was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 17358). The hot-star temperature review (record * del Per) rejects that fit's 10806 K in favour of 14890 K (2009A&A...501..297Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-29038",
+      "field": "luminosity_solar",
+      "expectedPrevious": "1083.140861140548",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 1083.140861140548 of Nu Ori came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 29038). The hot-star temperature review (record * nu. Ori) rejects that fit's 13773 K in favour of 18800 K (2009A&A...501..297Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-29038",
+      "field": "radius_solar",
+      "expectedPrevious": "5.780136",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 5.780136 of Nu Ori was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 29038). The hot-star temperature review (record * nu. Ori) rejects that fit's 13773 K in favour of 18800 K (2009A&A...501..297Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-18532",
+      "field": "luminosity_solar",
+      "expectedPrevious": "11688.336922761464",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 11688.336922761464 of Epsilon Per came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 18532). The hot-star temperature review (record * eps Per) rejects that fit's 21001 K in favour of 27160 K (2009A&A...501..297Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-18532",
+      "field": "radius_solar",
+      "expectedPrevious": "8.166746",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 8.166746 of Epsilon Per was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 18532). The hot-star temperature review (record * eps Per) rejects that fit's 21001 K in favour of 27160 K (2009A&A...501..297Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-21444",
+      "field": "luminosity_solar",
+      "expectedPrevious": "2926.177395777465",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 2926.177395777465 of Nu Eri came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 21444). The hot-star temperature review (record * nu. Eri) rejects that fit's 15538 K in favour of 22000 K (2012A&A...539A.143N) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-21444",
+      "field": "radius_solar",
+      "expectedPrevious": "7.464706",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 7.464706 of Nu Eri was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 21444). The hot-star temperature review (record * nu. Eri) rejects that fit's 15538 K in favour of 22000 K (2012A&A...539A.143N) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-106032",
+      "field": "luminosity_solar",
+      "expectedPrevious": "4207.631571501246",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 4207.631571501246 of Alfirk came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 106032). The hot-star temperature review (record * bet Cep) rejects that fit's 13871 K in favour of 27800 K (2021MNRAS.505.4496G) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-106032",
+      "field": "radius_solar",
+      "expectedPrevious": "11.231970",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 11.231970 of Alfirk was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 106032). The hot-star temperature review (record * bet Cep) rejects that fit's 13871 K in favour of 27800 K (2021MNRAS.505.4496G) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-42828",
+      "field": "luminosity_solar",
+      "expectedPrevious": "6889.79041847833",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 6889.79041847833 of Alpha Pyx came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 42828). The hot-star temperature review (record * alf Pyx) rejects that fit's 18226 K in favour of 23400 K (2024A&A...687A.228D) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-42828",
+      "field": "radius_solar",
+      "expectedPrevious": "8.324783",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 8.324783 of Alpha Pyx was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 42828). The hot-star temperature review (record * alf Pyx) rejects that fit's 18226 K in favour of 23400 K (2024A&A...687A.228D) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-22549",
+      "field": "luminosity_solar",
+      "expectedPrevious": "3554.875594261747",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 3554.875594261747 of Pi4 Ori came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 22549). The hot-star temperature review (record * pi.04 Ori) rejects that fit's 12705 K in favour of 21200 K (2024A&A...687A.228D) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-22549",
+      "field": "radius_solar",
+      "expectedPrevious": "12.305960",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 12.305960 of Pi4 Ori was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 22549). The hot-star temperature review (record * pi.04 Ori) rejects that fit's 12705 K in favour of 21200 K (2024A&A...687A.228D) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-23972",
+      "field": "luminosity_solar",
+      "expectedPrevious": "2030.9558705808413",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 2030.9558705808413 of Lambda Eri came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 23972). The hot-star temperature review (record * lam Eri) rejects that fit's 12000 K in favour of 22803 K (2001A&A...378..861C) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-23972",
+      "field": "radius_solar",
+      "expectedPrevious": "10.426544",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 10.426544 of Lambda Eri was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 23972). The hot-star temperature review (record * lam Eri) rejects that fit's 12000 K in favour of 22803 K (2001A&A...378..861C) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-92420",
+      "field": "luminosity_solar",
+      "expectedPrevious": "2320.7281045785057",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 2320.7281045785057 of Sheliak came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 92420). The hot-star temperature review (record * bet Lyr) rejects that fit's 8200 K in favour of 13263 K (1986MNRAS.219..479B) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-92420",
+      "field": "radius_solar",
+      "expectedPrevious": "23.869156",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 23.869156 of Sheliak was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 92420). The hot-star temperature review (record * bet Lyr) rejects that fit's 8200 K in favour of 13263 K (1986MNRAS.219..479B) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-24845",
+      "field": "luminosity_solar",
+      "expectedPrevious": "9648.527003276371",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 9648.527003276371 of Lambda Lep came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 24845). The hot-star temperature review (record * lam Lep) rejects that fit's 22237 K in favour of 30000 K (2022ApJ...937..110L) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-24845",
+      "field": "radius_solar",
+      "expectedPrevious": "6.618061",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 6.618061 of Lambda Lep was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 24845). The hot-star temperature review (record * lam Lep) rejects that fit's 22237 K in favour of 30000 K (2022ApJ...937..110L) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-28199",
+      "field": "luminosity_solar",
+      "expectedPrevious": "3074.5008085119043",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 3074.5008085119043 of Gamma Col came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 28199). The hot-star temperature review (record * gam Col) rejects that fit's 12904 K in favour of 16870 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-28199",
+      "field": "radius_solar",
+      "expectedPrevious": "11.094079",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 11.094079 of Gamma Col was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 28199). The hot-star temperature review (record * gam Col) rejects that fit's 12904 K in favour of 16870 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-85267",
+      "field": "luminosity_solar",
+      "expectedPrevious": "6838.756901821828",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 6838.756901821828 of Gamma Ara came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 85267). The hot-star temperature review (record * gam Ara) rejects that fit's 11503 K in favour of 23700 K (2024A&A...687A.228D) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-85267",
+      "field": "radius_solar",
+      "expectedPrevious": "20.821834",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 20.821834 of Gamma Ara was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 85267). The hot-star temperature review (record * gam Ara) rejects that fit's 11503 K in favour of 23700 K (2024A&A...687A.228D) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-92609",
+      "field": "luminosity_solar",
+      "expectedPrevious": "2921.9502430002362",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 2921.9502430002362 of Lambda Pav came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 92609). The hot-star temperature review (record * lam Pav) rejects that fit's 11282 K in favour of 22000 K (2006MNRAS.371..252L) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-92609",
+      "field": "radius_solar",
+      "expectedPrevious": "14.148711",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 14.148711 of Lambda Pav was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 92609). The hot-star temperature review (record * lam Pav) rejects that fit's 11282 K in favour of 22000 K (2006MNRAS.371..252L) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-88714",
+      "field": "luminosity_solar",
+      "expectedPrevious": "4620.306131790666",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 4620.306131790666 of Theta Ara came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 88714). The hot-star temperature review (record * tet Ara) rejects that fit's 11056 K in favour of 22500 K (2024A&A...687A.228D) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-88714",
+      "field": "radius_solar",
+      "expectedPrevious": "18.526439",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 18.526439 of Theta Ara was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 88714). The hot-star temperature review (record * tet Ara) rejects that fit's 11056 K in favour of 22500 K (2024A&A...687A.228D) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-111104",
+      "field": "luminosity_solar",
+      "expectedPrevious": "2818.097680501993",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 2818.097680501993 of 6 Lac came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 111104). The hot-star temperature review (record * 6 Lac) rejects that fit's 12500 K in favour of 19750 K (2009A&A...501..297Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-111104",
+      "field": "radius_solar",
+      "expectedPrevious": "11.319067",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 11.319067 of 6 Lac was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 111104). The hot-star temperature review (record * 6 Lac) rejects that fit's 12500 K in favour of 19750 K (2009A&A...501..297Z) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-42568",
+      "field": "luminosity_solar",
+      "expectedPrevious": "12311.98790741634",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 12311.98790741634 of d Car came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 42568). The hot-star temperature review (record * d Car) rejects that fit's 14843 K in favour of 27600 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-42568",
+      "field": "radius_solar",
+      "expectedPrevious": "16.779281",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 16.779281 of d Car was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 42568). The hot-star temperature review (record * d Car) rejects that fit's 14843 K in favour of 27600 K (1995A&AS..110..553S) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-16228",
+      "field": "luminosity_solar",
+      "expectedPrevious": "18254.73327069425",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 18254.73327069425 of HD 21291 came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 16228). The hot-star temperature review (record HD 21291) rejects that fit's 5888 K in favour of 10800 K (2012A&A...543A..80F) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-16228",
+      "field": "radius_solar",
+      "expectedPrevious": "129.838888",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 129.838888 of HD 21291 was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 16228). The hot-star temperature review (record HD 21291) rejects that fit's 5888 K in favour of 10800 K (2012A&A...543A..80F) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-33977",
+      "field": "luminosity_solar",
+      "expectedPrevious": "154077.34997579237",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 154077.34997579237 of Omicron2 CMa came from the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 33977). The hot-star temperature review (record * omi02 CMa) rejects that fit's 11200 K in favour of 17000 K (2024ApJ...971..166M) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/western-constellation-stars/stars.csv",
+      "id": "hip-33977",
+      "field": "radius_solar",
+      "expectedPrevious": "104.252385",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 104.252385 of Omicron2 CMa was derived by Stefan-Boltzmann scaling from the temperature and luminosity of the McDonald et al. 2012 broadband SED fit (2012MNRAS.427..343M, HIP 33977). The hot-star temperature review (record * omi02 CMa) rejects that fit's 11200 K in favour of 17000 K (2024ApJ...971..166M) and withholds its dependent fields instead of mixing them with the new temperature. The original value remains in the review ledger, catalog provenance and frozen McDonald snapshot; no replacement is inferred."
     }
   ],
   "recordRetirements": [

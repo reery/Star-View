@@ -332,7 +332,7 @@ def published_hip_physical(source):
             temperature_error = temperature * math.log(10) * log_temperature_error if log_temperature_error is not None else None
             adopt("temperature_k", temperature, temperature_error, "Allende Prieto & Lambert 1999", "1999A&A...352..555A")
         # As in the shared enrichment, these model masses need near-solar metallicity.
-        metallicity = select_spectroscopy(spectroscopy_index().get(normalized_id(source["main_id"]), []), "fe_h")
+        metallicity = select_spectroscopy(spectroscopy_index().get(normalized_id(source["main_id"]), []), "fe_h", source["sp_type"])
         if source["otype"] not in SYSTEM_TYPES and (metallicity is None or abs(float(metallicity["fe_h"])) <= 0.3):
             adopt(
                 "mass_solar", optional_number(fundamental.get("Mass")), optional_number(fundamental.get("e_Mass")),
@@ -401,7 +401,7 @@ def enrich_physical(row, source):
     # FLAME radius, mass and age then inherit an invalid temperature or solar-metallicity assumption.
     spectra = spectroscopy_index().get(normalized_id(source["main_id"]), [])
     measured = {field: float(selected[column]) for field, column in (("temperature_k", "teff"), ("metallicity_dex", "fe_h"))
-                if (selected := select_spectroscopy(spectra, column))}
+                if (selected := select_spectroscopy(spectra, column, source["sp_type"]))}
     gaia_temperature = optional_number(gaia_values.get("temperature_k"))
     replaced = {field for field in measured if field in gaia_values and not row[field]}
     for field in sorted(replaced | flame_withheld(gaia_temperature, measured.get("temperature_k"), measured.get("metallicity_dex"))):

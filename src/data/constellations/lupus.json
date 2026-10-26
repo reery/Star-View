@@ -364,10 +364,10 @@
         "vx_kms": -4.380441,
         "vy_kms": -16.767373,
         "vz_kms": -6.180291,
-        "temperature_k": 15288.0,
+        "temperature_k": 22210.0,
         "mass_solar": null,
-        "luminosity_solar": 2988.7346047958677,
-        "radius_solar": 7.792826,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -2.788491,
@@ -378,7 +378,7 @@
         "constellation": "Lupus",
         "spectral_type": "B2IV",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 76297; Stellarium Lup). SIMBAD identity * gam Lup; SIMBAD compiled Johnson V=2.765; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 76297; Stellarium Lup). SIMBAD identity * gam Lup; SIMBAD compiled Johnson V=2.765; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Reviewed hot-star temperature: 1995A&AS..110..553S, * gam Lup mesFe_h record 1, 22210 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 76297"
         ],
@@ -511,10 +511,10 @@
         "vx_kms": -5.18705,
         "vy_kms": -18.916529,
         "vz_kms": -5.11355,
-        "temperature_k": 14668.0,
+        "temperature_k": 21490.0,
         "mass_solar": null,
-        "luminosity_solar": 1631.9521790005952,
-        "radius_solar": 6.255536,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.2943,
         "age_gyr": null,
         "absolute_mag": -2.187103,
@@ -525,7 +525,7 @@
         "constellation": "Lupus",
         "spectral_type": "B2.5IV",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 78384; Stellarium Lup). SIMBAD identity * eta Lup; SIMBAD compiled Johnson V=3.41; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 78384; Stellarium Lup). SIMBAD identity * eta Lup; SIMBAD compiled Johnson V=3.41; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: Gaia DR3 model values for metallicity_dex. Reviewed hot-star temperature: 1995A&AS..110..553S, * eta Lup mesFe_h record 1, 21490 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 78384"
         ],
@@ -1243,7 +1243,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

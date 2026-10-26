@@ -25,7 +25,7 @@
         "mass_solar": 1.24,
         "luminosity_solar": 2.854192,
         "radius_solar": 1.318256739,
-        "metallicity_dex": 0.09,
+        "metallicity_dex": 0.03,
         "age_gyr": null,
         "absolute_mag": 3.656164,
         "epoch": 2000.0,
@@ -119,10 +119,10 @@
         "vx_kms": -20.887526,
         "vy_kms": -2.521184,
         "vz_kms": -10.310726,
-        "temperature_k": 12705.0,
+        "temperature_k": 21200.0,
         "mass_solar": null,
-        "luminosity_solar": 3554.875594261747,
-        "radius_solar": 12.30596,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": -0.31,
         "age_gyr": null,
         "absolute_mag": -3.421629,
@@ -133,7 +133,7 @@
         "constellation": "Orion",
         "spectral_type": "B2III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 22549; Stellarium Ori). SIMBAD identity * pi.04 Ori; SIMBAD compiled Johnson V=3.68; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 1992ApJ...387..673G).",
+        "notes": "Western constellation line-figure star (HIP 22549; Stellarium Ori). SIMBAD identity * pi.04 Ori; SIMBAD compiled Johnson V=3.68; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (metallicity_dex: 1992ApJ...387..673G). Reviewed hot-star temperature: 2024A&A...687A.228D, * pi.04 Ori mesFe_h record 1, 21200 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 22549"
         ],
@@ -855,10 +855,10 @@
         "vx_kms": -18.176819,
         "vy_kms": -24.908009,
         "vz_kms": -3.968071,
-        "temperature_k": 13773.0,
+        "temperature_k": 18800.0,
         "mass_solar": null,
-        "luminosity_solar": 1083.140861140548,
-        "radius_solar": 5.780136,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": -0.05,
         "age_gyr": null,
         "absolute_mag": -1.940084,
@@ -869,7 +869,7 @@
         "constellation": "Orion",
         "spectral_type": "B3IV",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 29038; Stellarium Ori). SIMBAD identity * nu. Ori; SIMBAD compiled Johnson V=4.397; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 1992ApJ...387..673G).",
+        "notes": "Western constellation line-figure star (HIP 29038; Stellarium Ori). SIMBAD identity * nu. Ori; SIMBAD compiled Johnson V=4.397; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (metallicity_dex: 1992ApJ...387..673G). Reviewed hot-star temperature: 2009A&A...501..297Z, * nu. Ori mesFe_h record 1, 18800 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 29038"
         ],
@@ -1863,7 +1863,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

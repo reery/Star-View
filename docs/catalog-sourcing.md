@@ -61,7 +61,18 @@ its measurements to be available in a base catalog.
 Existing curated values and previously reviewed spectroscopy choices retain
 priority. The automatic spectroscopy fallback excludes missing/nonfinite values,
 temperature outside 1,000–100,000 K and iron abundance outside −5 to +1.5 dex,
-including common sentinel values. Among multiple observations, a strict majority
+including common sentinel values. For an F–M dwarf (luminosity class V or none),
+a solution whose temperature lies more than 20 percent from the Pecaut-Mamajek
+dwarf sequence for its spectral type is excluded together with its [Fe/H]. Survey
+pipelines such as RAVE, LAMOST and APOGEE Net otherwise return grid-edge or G-star
+solutions for M dwarfs, or describe a blended brighter neighbour. If three distinct
+papers agree on the contradicting temperature, they are kept, since the spectral
+type is then the likelier error. Giants, O–A stars and ultracool dwarfs are not
+checked. A contradicted spectral type is withheld only by an explicit shared
+review: UPM J0901-6526's sole K5 label (Riaz et al. 2006, SIMBAD quality D)
+conflicts with its Gaia colour, absolute magnitudes, mass and temperature, all of
+which indicate a mid-M dwarf. No replacement type is inferred. Among multiple
+observations, a strict majority
 must lie within 10 percent of the median temperature or 0.3 dex of the median
 metallicity; select the newest publication in that group. This is a conservative
 selection heuristic, not a guarantee that the newest paper is the best. No new

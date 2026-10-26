@@ -168,10 +168,10 @@
         "vx_kms": -14.397487,
         "vy_kms": -17.453739,
         "vz_kms": -12.188974,
-        "temperature_k": 11503.0,
+        "temperature_k": 23700.0,
         "mass_solar": null,
-        "luminosity_solar": 6838.756901821828,
-        "radius_solar": 20.821834,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": 0.0157,
         "absolute_mag": -4.325662,
@@ -182,7 +182,7 @@
         "constellation": "Ara",
         "spectral_type": "B1Ib",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 85267; Stellarium Ara). SIMBAD identity * gam Ara; SIMBAD compiled Johnson V=3.34; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed physical values describe Gamma Ara. Exact * gam Ara / HD 157246, HIP 85267. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T).",
+        "notes": "Western constellation line-figure star (HIP 85267; Stellarium Ara). SIMBAD identity * gam Ara; SIMBAD compiled Johnson V=3.34; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Reviewed physical values describe Gamma Ara. Exact * gam Ara / HD 157246, HIP 85267. Source values describe this primary/individual; no companion, subsystem sum, or system-metallicity inference. Reviewed 151-target enrichment (2026-10-21). 2011MNRAS.410..190T. Existing non-null values retain their independent sources. Published photometry/spectral-type evolutionary-model age; errors are cross-model deviations, not all systematics. The sample is age-selected and solar metallicity is assumed, not measured. Shared exact-identity physical supplements (age_gyr: 2011MNRAS.410..190T). Reviewed hot-star temperature: 2024A&A...687A.228D, * gam Ara mesFe_h record 1, 23700 K. Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 85267"
         ],
@@ -315,10 +315,10 @@
         "vx_kms": -1.329672,
         "vy_kms": -20.813146,
         "vz_kms": 4.858985,
-        "temperature_k": 11056.0,
+        "temperature_k": 22500.0,
         "mass_solar": null,
-        "luminosity_solar": 4620.306131790666,
-        "radius_solar": 18.526439,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.1069,
         "age_gyr": null,
         "absolute_mag": -4.014427,
@@ -329,7 +329,7 @@
         "constellation": "Ara",
         "spectral_type": "B0.5Iab",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 88714; Stellarium Ara). SIMBAD identity * tet Ara; SIMBAD compiled Johnson V=3.66; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 88714; Stellarium Ara). SIMBAD identity * tet Ara; SIMBAD compiled Johnson V=3.66; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: Gaia DR3 model values for metallicity_dex. Reviewed hot-star temperature: 2024A&A...687A.228D, * tet Ara mesFe_h record 1, 22500 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 88714"
         ],
@@ -940,7 +940,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "e5a91f48b275b77e716a1c9fe50fb3104f233f5f7d0eb81fde3d11fde22c4326"
+      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

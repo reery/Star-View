@@ -8,7 +8,7 @@
   "gaiaSourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
   "physicalOverridesSha256": "9bbfe6982d5fad43b205a5cbf36fc9bb3ac967d285959292cc544abd3f1bd297",
   "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
-  "sharedEnrichmentManifestSha256": "51fb538d443021382615013ef6bdaf942de51935ec914db19a77934a596fd1e0",
+  "sharedEnrichmentManifestSha256": "78a0b004bfa1577e6cb18661df7e0413815bbe99f12e383237290539bbfc342d",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -643,7 +643,7 @@
     "mass_solar": 85,
     "luminosity_solar": 87,
     "radius_solar": 84,
-    "metallicity_dex": 65,
+    "metallicity_dex": 66,
     "age_gyr": 17,
     "absolute_mag": 64,
     "fullVelocity": 82,
@@ -6537,7 +6537,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf Cen A",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component alpha-centauri-a; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -9104,7 +9104,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf CMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component sirius-a; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -10021,7 +10021,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:luyten-726-8-a",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact Luyten 726-8 A component. Shared gj65 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -10468,7 +10468,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:luyten-726-8-b",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact Luyten 726-8 B component. Shared gj65 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -11549,7 +11549,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* eps Eri",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component epsilon-eridani; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -12752,7 +12752,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 866 A",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "EZ Aquarii A retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
         "fields": [
           "vx_kms",
@@ -13200,7 +13200,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 866 B",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "EZ Aquarii B retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
         "fields": [
           "vx_kms",
@@ -13656,7 +13656,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 866 C",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "EZ Aquarii C retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
         "fields": [
           "vx_kms",
@@ -15218,7 +15218,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf CMi",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component 10pc-0031; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -17137,8 +17137,11 @@
           "detail": "cifuentes-2020; uncertainty 0.0046; fills a blank field only."
         },
         "metallicity_dex": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "measured",
+          "sourceRefs": [
+            "2021A&A...656A.162M"
+          ],
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 51-15\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2021A&A...656A.162M\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 51-15:mesFe_h:6\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.01}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -17184,6 +17187,20 @@
           ],
           "reasons": [],
           "status": "adopted"
+        }
+      },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": 0.01,
+          "status": "measured",
+          "reference": "2021A&A...656A.162M",
+          "uncertainty": null,
+          "identity": "G 51-15",
+          "sourceRecordId": "G 51-15:mesFe_h:6",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
         }
       }
     },
@@ -17905,7 +17922,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* tau Cet",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component 10pc-0044; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -20678,7 +20695,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 825 / AX Mic / HIP 105090 / Lacaille 8760",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact individual GJ 825 / AX Mic / HIP 105090 / Lacaille 8760, Gaia DR3 6583272171336048640; no companion or integrated-system quantities.",
         "fields": [
           "mass_solar",
@@ -22600,7 +22617,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0066",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact V577 Mon A component. Shared ross614 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -23007,7 +23024,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0067",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact V577 Mon B component. Shared ross614 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -24413,7 +24430,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0074",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact FL Vir A component. Shared wolf424 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -25476,7 +25493,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0075",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact FL Vir B component. Shared wolf424 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -25973,7 +25990,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 687 / HIP 86162",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact individual GJ 687 / HIP 86162, Gaia DR3 1637645127018395776; no companion or integrated-system quantities.",
         "fields": [
           "absolute_mag",
@@ -27632,7 +27649,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0089",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact GJ 1245 B component. Shared gj1245 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -28688,7 +28705,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0087",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact GJ 1245 A component. Shared gj1245 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -29146,7 +29163,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0088",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact GJ 1245 C component. Shared gj1245 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -30904,7 +30921,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 412 A / BD+44 2051 A",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact individual GJ 412 A / BD+44 2051 A, Gaia DR3 778947814402602752; no companion or integrated-system quantities.",
         "fields": [
           "absolute_mag"
@@ -31190,9 +31207,9 @@
         "metallicity_dex": {
           "status": "measured",
           "sourceRefs": [
-            "2022AJ....163..152S"
+            "2021A&A...656A.162M"
           ],
-          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"BD+44 2051B\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2022AJ....163..152S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"BD+44 2051B:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.186}"
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"BD+44 2051B\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2021A&A...656A.162M\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"BD+44 2051B:mesFe_h:5\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.52}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -31243,12 +31260,12 @@
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
           "field": "metallicity_dex",
-          "value": -0.186,
+          "value": -0.52,
           "status": "measured",
-          "reference": "2022AJ....163..152S",
+          "reference": "2021A&A...656A.162M",
           "uncertainty": null,
           "identity": "BD+44 2051B",
-          "sourceRecordId": "BD+44 2051B:mesFe_h:1",
+          "sourceRecordId": "BD+44 2051B:mesFe_h:5",
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
@@ -31256,7 +31273,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 412 B / WX UMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact individual GJ 412 B / WX UMa, Gaia DR3 778947608243864320; no companion or integrated-system quantities.",
         "fields": [
           "absolute_mag"
@@ -34924,7 +34941,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf Aql",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component 10pc-0117; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_error_kms",
@@ -38653,9 +38670,9 @@
         "metallicity_dex": {
           "status": "measured",
           "sourceRefs": [
-            "2022AJ....163..152S"
+            "2020ApJ...892...31B"
           ],
-          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 175-34\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2022AJ....163..152S\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 175-34:mesFe_h:1\", \"status\": \"measured\", \"uncertainty\": null, \"value\": -0.227}"
+          "detail": "{\"field\": \"metallicity_dex\", \"identity\": \"G 175-34\", \"quantity\": \"photospheric [Fe/H]\", \"reference\": \"2020ApJ...892...31B\", \"scope\": \"catalogued stellar object\", \"selection\": \"Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations\", \"sourceRecordId\": \"G 175-34:mesFe_h:8\", \"status\": \"measured\", \"uncertainty\": null, \"value\": 0.18}"
         },
         "age_gyr": {
           "status": "unknown",
@@ -38697,12 +38714,12 @@
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
           "field": "metallicity_dex",
-          "value": -0.227,
+          "value": 0.18,
           "status": "measured",
-          "reference": "2022AJ....163..152S",
+          "reference": "2020ApJ...892...31B",
           "uncertainty": null,
           "identity": "G 175-34",
-          "sourceRecordId": "G 175-34:mesFe_h:1",
+          "sourceRecordId": "G 175-34:mesFe_h:8",
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"

@@ -161,8 +161,8 @@
     "inputSha256": {
       "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
       "src/data/star-systems.json": "ccb8b300d861fec42a9b95bfeafa8e30f3b4c53298c8c03e3f1743bf4c28fddf",
-      "src/data/catalogs/nearest-1000/stars.csv": "c7e440459ff87ac600ea973028ceab51d4c530e558fb4ef9d6ee34ae4660fe1d",
-      "src/data/catalogs/nearest-1000/provenance.json": "ee0d446f23623f9e60432b8fc3b7c8b5c8cff6fc443f0156cf6437f08b1b1db6",
+      "src/data/catalogs/nearest-1000/stars.csv": "d2c98331b6371fde05fc4cb70f6b2836943933ab5024fad00bdb8289723796c1",
+      "src/data/catalogs/nearest-1000/provenance.json": "0d3888b942c9aa779eb871284e7dc3bf80f2adef64158f667bb3d5a22244e2aa",
       "catalog-work/star-systems/overlay-individual-components.json": "b4fbcf92e682c639a11c5e488a378d43a0b43aaa10e0e8b16b2db70dc9a10741",
       "catalog-work/star-systems/msc-20260619-rigel.json": "0bc6740e8537705363c915a78b203822b46a9a31330f325f6b4a783091e40e97",
       "catalog-work/star-systems/msc-20260619.Readme": "d0906632b078a3b97b4e7247ad76830e2cc13bae6300ae145d69ce30a8e859b8"
@@ -666,12 +666,12 @@
   "physicalCoverage": {
     "temperature_k": 731,
     "mass_solar": 375,
-    "luminosity_solar": 685,
-    "radius_solar": 686,
+    "luminosity_solar": 641,
+    "radius_solar": 642,
     "metallicity_dex": 559,
     "age_gyr": 95
   },
-  "sharedEnrichmentManifestSha256": "51fb538d443021382615013ef6bdaf942de51935ec914db19a77934a596fd1e0",
+  "sharedEnrichmentManifestSha256": "78a0b004bfa1577e6cb18661df7e0413815bbe99f12e383237290539bbfc342d",
   "objects": {
     "sun": {
       "id": "sun",
@@ -879,7 +879,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf And",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-677; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -1084,7 +1084,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Cas",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-746; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -1551,7 +1551,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Tuc",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-0102; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -1755,7 +1755,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Hyi",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-0125; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -1972,7 +1972,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Phe",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-2081; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -2391,7 +2391,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Cas",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-3179; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -2633,7 +2633,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Cet",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-3419; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -3022,7 +3022,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Cas",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-4427; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -3863,7 +3863,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet And",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-5447; aliases only, distinct companions remain separate.",
         "fields": [
           "dec_deg",
@@ -4333,7 +4333,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Cas",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-6686; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -4912,7 +4912,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Eri",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-7588; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -5200,7 +5200,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* tau Cet",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component 10pc-0044; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -5884,7 +5884,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Ari",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-8903; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6285,7 +6285,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam01 And",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-9640; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6490,7 +6490,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Ari",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-9884; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -7316,7 +7316,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf UMi",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-11767; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -8213,7 +8213,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* pi. Cet",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * pi. Cet / HIP 12770 / HD 17081; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* pi. Cet",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 14000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2023MNRAS.519.5472M",
+                "url": "https://ui.adsabs.harvard.edu/abs/2023MNRAS.519.5472M",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* pi. Cet:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-12828": {
       "hip": 12828,
@@ -8811,7 +8857,53 @@
             "source_luminosity_solar": 992.35
           }
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* lam Cet",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * lam Cet / HIP 13954 / HD 18604; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* lam Cet",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 13940,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2009A&A...501..297Z",
+                "url": "https://ui.adsabs.harvard.edu/abs/2009A%26A...501..297Z",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* lam Cet:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-14135": {
       "hip": 14135,
@@ -8882,7 +8974,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Cet",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-14135; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -9409,7 +9501,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Per",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-14576; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -9838,7 +9930,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* e Eri",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-0843; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -9964,7 +10056,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Per",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-15863; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -10228,7 +10320,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "HD 21291",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object HD 21291 / HIP 16228 / HD 21291; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "HD 21291",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 10800,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2012A&A...543A..80F",
+                "url": "https://ui.adsabs.harvard.edu/abs/2012A%26A...543A..80F",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "HD 21291:mesFe_h:2",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-16537": {
       "hip": 16537,
@@ -10352,7 +10490,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Eri",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component epsilon-eridani; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -10589,7 +10727,53 @@
             "solar_metallicity_assumed": true
           }
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* del Per",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * del Per / HIP 17358 / HD 22928; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* del Per",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 14890,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2009A&A...501..297Z",
+                "url": "https://ui.adsabs.harvard.edu/abs/2009A%26A...501..297Z",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* del Per:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-17378": {
       "hip": 17378,
@@ -10661,7 +10845,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Eri",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-0938; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -10835,7 +11019,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* omi Per",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact named catalog object * omi Per / HIP 17448 / HD 23180; distinct companions are excluded.",
         "fields": [
           "temperature_k",
@@ -11506,7 +11690,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Per",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact named catalog object * zet Per / HIP 18246 / HD 24398; distinct companions are excluded.",
         "fields": [
           "temperature_k",
@@ -11694,7 +11878,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* eps Per",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * eps Per / HIP 18532 / HD 24760; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* eps Per",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 27160,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2009A&A...501..297Z",
+                "url": "https://ui.adsabs.harvard.edu/abs/2009A%26A...501..297Z",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* eps Per:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-18597": {
       "hip": 18597,
@@ -11819,7 +12049,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* ksi Per",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact named catalog object * ksi Per / HIP 18614 / HD 24912; distinct companions are excluded.",
         "fields": [
           "temperature_k",
@@ -11946,7 +12176,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* lam Tau",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * lam Tau / HIP 18724 / HD 25204; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* lam Tau",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 16970,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2009A&A...501..297Z",
+                "url": "https://ui.adsabs.harvard.edu/abs/2009A%26A...501..297Z",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* lam Tau:mesFe_h:2",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-19747": {
       "hip": 19747,
@@ -13623,7 +13899,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Tau",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-21421; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -13884,7 +14160,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* nu. Eri",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * nu. Eri / HIP 21444 / HD 29248; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* nu. Eri",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 22000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2012A&A...539A.143N",
+                "url": "https://ui.adsabs.harvard.edu/abs/2012A%26A...539A.143N",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* nu. Eri:mesFe_h:4",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-21594": {
       "hip": 21594,
@@ -14454,7 +14776,7 @@
         },
         {
           "field": "metallicity_dex",
-          "value": 0.09,
+          "value": 0.03,
           "status": "inherited",
           "source": "nearest-1000",
           "sourceId": "cns5-1208"
@@ -14471,7 +14793,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* pi.03 Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-1208; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -14708,7 +15030,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* pi.04 Ori",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * pi.04 Ori / HIP 22549 / HD 30836; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* pi.04 Ori",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 21200,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2024A&A...687A.228D",
+                "url": "https://ui.adsabs.harvard.edu/abs/2024A%26A...687A.228D",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* pi.04 Ori:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-22701": {
       "hip": 22701,
@@ -14901,7 +15269,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Cam",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact named catalog object * alf Cam / HIP 22783 / HD 30614; distinct companions are excluded.",
         "fields": [
           "temperature_k",
@@ -15088,7 +15456,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* iot Aur",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-23015; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -15615,7 +15983,53 @@
             "solar_metallicity_assumed": true
           }
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* lam Eri",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * lam Eri / HIP 23972 / HD 33328; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* lam Eri",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 22803,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2001A&A...378..861C",
+                "url": "https://ui.adsabs.harvard.edu/abs/2001A%26A...378..861C",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* lam Eri:mesFe_h:3",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-24244": {
       "hip": 24244,
@@ -15918,7 +16332,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* bet Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component bright-rigel; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -16728,7 +17142,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* lam Lep",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * lam Lep / HIP 24845 / HD 34816; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* lam Lep",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 30000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2022ApJ...937..110L",
+                "url": "https://ui.adsabs.harvard.edu/abs/2022ApJ...937..110L",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* lam Lep:mesFe_h:3",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-24873": {
       "hip": 24873,
@@ -16975,7 +17435,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-25336; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -17181,7 +17641,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Tau",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-25428; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -17599,7 +18059,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-25930; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -17783,7 +18243,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Lep",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-25985; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -18126,7 +18586,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-26311; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -18356,7 +18816,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Tau",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact named catalog object * zet Tau / HIP 26451 / HD 37202; distinct companions are excluded.",
         "fields": [
           "temperature_k",
@@ -18463,7 +18923,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Col",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-26634; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -18655,7 +19115,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-26727; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -18867,7 +19327,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* gam Lep",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-1427; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -19272,7 +19732,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* kap Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-27366; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -20266,7 +20726,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-27989; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -20613,7 +21073,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* gam Col",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * gam Col / HIP 28199 / HD 40494; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* gam Col",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 16870,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "1995A&AS..110..553S",
+                "url": "https://ui.adsabs.harvard.edu/abs/1995A%26AS..110..553S",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* gam Col:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-28328": {
       "hip": 28328,
@@ -20757,7 +21263,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Aur",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-28360; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -20941,7 +21447,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* tet Aur",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-28380; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -21428,7 +21934,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* nu. Ori",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * nu. Ori / HIP 29038 / HD 41753; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* nu. Ori",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 18800,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2009A&A...501..297Z",
+                "url": "https://ui.adsabs.harvard.edu/abs/2009A%26A...501..297Z",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* nu. Ori:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-29151": {
       "hip": 29151,
@@ -21972,7 +22524,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* zet CMa",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * zet CMa / HIP 30122 / HD 44402; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* zet CMa",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 20950,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "1995A&AS..110..553S",
+                "url": "https://ui.adsabs.harvard.edu/abs/1995A%26AS..110..553S",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* zet CMa:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-30277": {
       "hip": 30277,
@@ -22130,7 +22728,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet CMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-30324; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -22499,7 +23097,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Car",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-30438; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -22941,7 +23539,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Gem",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-31681; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -23277,7 +23875,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf CMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component sirius-a; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -23939,7 +24537,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* iot CMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact named catalog object * iot CMa / HIP 33347 / HD 51309; distinct companions are excluded.",
         "fields": [
           "temperature_k",
@@ -24108,7 +24706,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps CMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-33579; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -24354,7 +24952,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* omi02 CMa",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * omi02 CMa / HIP 33977 / HD 53138; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* omi02 CMa",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 17000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2024ApJ...971..166M",
+                "url": "https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* omi02 CMa:mesFe_h:2",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-34045": {
       "hip": 34045,
@@ -24590,7 +25234,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del CMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-34444; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -25066,7 +25710,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* ome CMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact named catalog object * ome CMa / HIP 35037 / HD 56139; distinct companions are excluded.",
         "fields": [
           "temperature_k",
@@ -25391,7 +26035,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* del Gem",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * del Gem / HIP 35550 / HD 56986; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* del Gem",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the failed, far too hot broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 6966,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2012A&A...537A.120Z",
+                "url": "https://ui.adsabs.harvard.edu/abs/2012A%26A...537A.120Z",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* del Gem:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-35904": {
       "hip": 35904,
@@ -25454,7 +26144,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eta CMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-35904; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -25894,7 +26584,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Gem",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-36850; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -26384,7 +27074,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf CMi",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component 10pc-0031; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -26920,7 +27610,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Gem",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-1912; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -27234,7 +27924,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Pup",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-39429; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -27640,7 +28330,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam02 Vel",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-39953; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -28074,7 +28764,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Car",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-41037; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -28945,7 +29635,53 @@
             "solar_metallicity_assumed": true
           }
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* d Car",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * d Car / HIP 42568 / HD 74375; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* d Car",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 27600,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "1995A&AS..110..553S",
+                "url": "https://ui.adsabs.harvard.edu/abs/1995A%26AS..110..553S",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* d Car:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-42799": {
       "hip": 42799,
@@ -29043,7 +29779,53 @@
           ],
           "quantity": null
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* eta Hya",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * eta Hya / HIP 42799 / HD 74280; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* eta Hya",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 20000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2023MNRAS.519.5472M",
+                "url": "https://ui.adsabs.harvard.edu/abs/2023MNRAS.519.5472M",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* eta Hya:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-42806": {
       "hip": 42806,
@@ -29190,7 +29972,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* alf Pyx",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * alf Pyx / HIP 42828 / HD 74575; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* alf Pyx",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 23400,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2024A&A...687A.228D",
+                "url": "https://ui.adsabs.harvard.edu/abs/2024A%26A...687A.228D",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* alf Pyx:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-42911": {
       "hip": 42911,
@@ -30156,7 +30984,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* lam Vel",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-44816; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -30374,7 +31202,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* a Car",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * a Car / HIP 45080 / HD 79351; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* a Car",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 20880,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "1995A&AS..110..553S",
+                "url": "https://ui.adsabs.harvard.edu/abs/1995A%26AS..110..553S",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* a Car:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-45238": {
       "hip": 45238,
@@ -30437,7 +31311,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Car",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-45238; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -30673,7 +31547,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* iot Car",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-45556; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -31029,7 +31903,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* kap Vel",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-45941; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -31221,7 +32095,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Hya",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-46390; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -31734,7 +32608,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* tet UMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-2366; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -32706,7 +33580,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Leo",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-49669; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -32979,7 +33853,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* ome Car",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * ome Car / HIP 50099 / HD 89080; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* ome Car",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 11600,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2018MNRAS.474.5287A",
+                "url": "https://ui.adsabs.harvard.edu/abs/2018MNRAS.474.5287A",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* ome Car:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-50191": {
       "hip": 50191,
@@ -34012,6 +34932,52 @@
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
       ],
+      "sharedObjectAdoption": {
+        "recordId": "* tet Car",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * tet Car / HIP 52419 / HD 93030; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* tet Car",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 31103,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2023A&A...676A.129H",
+                "url": "https://ui.adsabs.harvard.edu/abs/2023A%26A...676A.129H",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* tet Car:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      },
       "clusterLandmark": {
         "group": "Southern Pleiades",
         "queryId": "HIP 52419",
@@ -34079,7 +35045,53 @@
             "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
             "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
           }
-        ]
+        ],
+        "sharedObjectAdoption": {
+          "recordId": "* tet Car",
+          "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+          "scope": "Exact named catalog object * tet Car / HIP 52419 / HD 93030; distinct companions are excluded.",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "sourceSelections": {
+            "physicalTemperatureReview": {
+              "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+              "recordId": "* tet Car",
+              "fields": [
+                "temperature_k",
+                "luminosity_solar",
+                "radius_solar"
+              ],
+              "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+              "adoptedFields": {
+                "temperature_k": {
+                  "value": 31103,
+                  "status": "measured",
+                  "uncertainty": null,
+                  "reference": "2023A&A...676A.129H",
+                  "url": "https://ui.adsabs.harvard.edu/abs/2023A%26A...676A.129H",
+                  "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                  "sourceRecordId": "* tet Car:mesFe_h:1",
+                  "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                  "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+                },
+                "luminosity_solar": {
+                  "value": null,
+                  "status": "withheld",
+                  "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+                },
+                "radius_solar": {
+                  "value": null,
+                  "status": "withheld",
+                  "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+                }
+              }
+            }
+          },
+          "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+        }
       }
     },
     "hip-52468": {
@@ -34208,7 +35220,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* mu. Vel",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-52727; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -34427,7 +35439,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* nu. Hya",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * nu. Hya / HIP 52943 / HD 93813; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* nu. Hya",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the failed, far too hot broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 4202,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2024A&A...690A..97C",
+                "url": "https://ui.adsabs.harvard.edu/abs/2024A%26A...690A..97C",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* nu. Hya:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-53229": {
       "hip": 53229,
@@ -34743,7 +35801,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet UMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-53910; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -34943,7 +36001,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf UMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-54061; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -35335,7 +36393,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Leo",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-54872; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -36548,7 +37606,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Leo",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-2899; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -36848,7 +37906,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam UMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-58001; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -37192,7 +38250,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-59196; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -37918,7 +38976,53 @@
             "solar_metallicity_assumed": true
           }
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* del Cru",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * del Cru / HIP 59747 / HD 106490; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* del Cru",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 22570,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "1995A&AS..110..553S",
+                "url": "https://ui.adsabs.harvard.edu/abs/1995A%26AS..110..553S",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* del Cru:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-59774": {
       "hip": 59774,
@@ -38086,7 +39190,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Crv",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-59803; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -38410,7 +39514,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Cru",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-60718; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -38710,7 +39814,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* sig Cen",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * sig Cen / HIP 60823 / HD 108483; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* sig Cen",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 22350,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "1995A&AS..110..553S",
+                "url": "https://ui.adsabs.harvard.edu/abs/1995A%26AS..110..553S",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* sig Cen:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-60965": {
       "hip": 60965,
@@ -38873,7 +40023,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Cru",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-61084; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -39267,7 +40417,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* kap Dra",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * kap Dra / HIP 61281 / HD 109387; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* kap Dra",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 16906,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2023ApJS..266...41P",
+                "url": "https://ui.adsabs.harvard.edu/abs/2023ApJS..266...41P",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* kap Dra:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-61317": {
       "hip": 61317,
@@ -39444,7 +40640,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Crv",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-61359; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -39649,7 +40845,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Mus",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-61585; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -39809,7 +41005,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-61932; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -40011,7 +41207,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Vir",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-3135; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -40200,7 +41396,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Cru",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-62434; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -40419,7 +41615,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps UMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-62956; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -41028,7 +42224,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Com",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-3247; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -41365,7 +42561,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Vir",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-65474; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -41718,7 +42914,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-66657; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -41902,7 +43098,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eta UMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-67301; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -42242,7 +43438,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* mu. Cen",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * mu. Cen / HIP 67472 / HD 120324; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* mu. Cen",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 23950,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2018MNRAS.474.5287A",
+                "url": "https://ui.adsabs.harvard.edu/abs/2018MNRAS.474.5287A",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* mu. Cen:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-67927": {
       "hip": 67927,
@@ -42313,7 +43555,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eta Boo",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-3442; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -42701,7 +43943,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-68002; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -43060,7 +44302,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-68702; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -43308,7 +44550,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* tet Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-68933; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -43619,7 +44861,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Boo",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-3517; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -44252,7 +45494,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eta Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-71352; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -44541,7 +45783,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf Cen A",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component alpha-centauri-a; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -44802,7 +46044,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Lup",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-71860; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -45157,7 +46399,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Boo",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-72105; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -45565,7 +46807,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet UMi",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-72607; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -45843,7 +47085,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Lup",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-73273; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -46019,7 +47261,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* kap Cen",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * kap Cen / HIP 73334 / HD 132200; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* kap Cen",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 19890,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "1995A&AS..110..553S",
+                "url": "https://ui.adsabs.harvard.edu/abs/1995A%26AS..110..553S",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* kap Cen:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-73555": {
       "hip": 73555,
@@ -46384,7 +47672,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Lib",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-74785; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -47316,7 +48604,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf CrB",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-76267; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -47576,7 +48864,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* gam Lup",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * gam Lup / HIP 76297 / HD 138690; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* gam Lup",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 22210,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "1995A&AS..110..553S",
+                "url": "https://ui.adsabs.harvard.edu/abs/1995A%26AS..110..553S",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* gam Lup:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-76333": {
       "hip": 76333,
@@ -47888,7 +49222,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Ser",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-77070; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -48825,7 +50159,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet TrA",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-3915; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -48968,7 +50302,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Ser",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-3922; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -49222,7 +50556,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* eta Lup",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * eta Lup / HIP 78384 / HD 143118; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* eta Lup",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 21490,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "1995A&AS..110..553S",
+                "url": "https://ui.adsabs.harvard.edu/abs/1995A%26AS..110..553S",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* eta Lup:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-78401": {
       "hip": 78401,
@@ -49286,7 +50666,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-78401; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -49864,7 +51244,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet01 Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-78820; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -50893,7 +52273,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-80763; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -51325,7 +52705,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* tau Sco",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * tau Sco / HIP 81266 / HD 149438; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* tau Sco",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 31660,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2023ApJS..266...11B",
+                "url": "https://ui.adsabs.harvard.edu/abs/2023ApJS..266...11B",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* tau Sco:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-81377": {
       "hip": 81377,
@@ -51398,7 +52824,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Oph",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-81377; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -52302,7 +53728,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf TrA",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-82273; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -52581,7 +54007,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-82396; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -53233,7 +54659,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eta Oph",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-84012; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -54002,7 +55428,53 @@
             "solar_metallicity_assumed": true
           }
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* gam Ara",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * gam Ara / HIP 85267 / HD 157246; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* gam Ara",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 23700,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2024A&A...687A.228D",
+                "url": "https://ui.adsabs.harvard.edu/abs/2024A%26A...687A.228D",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* gam Ara:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-85670": {
       "hip": 85670,
@@ -54312,7 +55784,53 @@
             "fractional_MS_age_not_gyr": 1.012
           }
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* c Oph",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * c Oph / HIP 85755 / HD 158643; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* c Oph",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 10500,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2023MNRAS.519.3958I",
+                "url": "https://ui.adsabs.harvard.edu/abs/2023MNRAS.519.3958I",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* c Oph:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-85792": {
       "hip": 85792,
@@ -54620,7 +56138,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* lam Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-85927; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -54788,7 +56306,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Oph",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-86032; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -54993,7 +56511,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* tet Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-86228; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -55279,7 +56797,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* iot Her",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * iot Her / HIP 86414 / HD 160762; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* iot Her",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 18000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2023MNRAS.519.5472M",
+                "url": "https://ui.adsabs.harvard.edu/abs/2023MNRAS.519.5472M",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* iot Her:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-86565": {
       "hip": 86565,
@@ -55411,7 +56975,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* kap Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-86670; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -56333,7 +57897,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Dra",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-87833; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -56718,7 +58282,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* tet Ara",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * tet Ara / HIP 88714 / HD 165024; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* tet Ara",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 22500,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2024A&A...687A.228D",
+                "url": "https://ui.adsabs.harvard.edu/abs/2024A%26A...687A.228D",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* tet Ara:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-88794": {
       "hip": 88794,
@@ -57105,7 +58715,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Sgr",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-89931; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -57738,7 +59348,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Sgr",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-90185; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -58428,7 +60038,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Lyr",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-4607; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -59197,7 +60807,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* bet Lyr",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * bet Lyr / HIP 92420 / HD 174638; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* bet Lyr",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 13263,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "1986MNRAS.219..479B",
+                "url": "https://ui.adsabs.harvard.edu/abs/1986MNRAS.219..479B",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* bet Lyr:mesFe_h:3",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-92609": {
       "hip": 92609,
@@ -59291,7 +60947,53 @@
             "solar_metallicity_assumed": true
           }
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* lam Pav",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * lam Pav / HIP 92609 / HD 173948; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* lam Pav",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 22000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2006MNRAS.371..252L",
+                "url": "https://ui.adsabs.harvard.edu/abs/2006MNRAS.371..252L",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* lam Pav:mesFe_h:2",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-92791": {
       "hip": 92791,
@@ -59451,7 +61153,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "HD 175156",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Exact named catalog object HD 175156 / HIP 92814 / HD 175156; distinct companions are excluded.",
         "fields": [
           "temperature_k",
@@ -59549,7 +61251,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* sig Sgr",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-92855; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -59929,7 +61631,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "V* V686 CrA",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object V* V686 CrA / HIP 92989 / HD 175362; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "V* V686 CrA",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 17600,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2019MNRAS.485.1508S",
+                "url": "https://ui.adsabs.harvard.edu/abs/2019MNRAS.485.1508S",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "V* V686 CrA:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-93015": {
       "hip": 93015,
@@ -60367,7 +62115,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* zet Sgr",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-93506; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -62608,7 +64356,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Aql",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component 10pc-0117; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_error_kms",
@@ -63034,7 +64782,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* bet Aql",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-4929; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -63691,7 +65439,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Pav",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-4994; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -64173,7 +65921,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Cyg",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-100453; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -64362,7 +66110,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Pav",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-100751; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -64844,7 +66592,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Cyg",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-102098; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -65256,7 +67004,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Cyg",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-102488; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -66378,7 +68126,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Cep",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-105199; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -66918,7 +68666,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* gam Pav",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-5277; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -67147,7 +68895,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* bet Cep",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * bet Cep / HIP 106032 / HD 205021; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* bet Cep",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 27800,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2021MNRAS.505.4496G",
+                "url": "https://ui.adsabs.harvard.edu/abs/2021MNRAS.505.4496G",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* bet Cep:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-106278": {
       "hip": 106278,
@@ -67547,7 +69341,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* eps Peg",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-107315; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -67823,7 +69617,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* del Cap",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-5370; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -68787,7 +70581,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Gru",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-109268; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -69970,7 +71764,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* 6 Lac",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * 6 Lac / HIP 111104 / HD 213420; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* 6 Lac",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 19750,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2009A&A...501..297Z",
+                "url": "https://ui.adsabs.harvard.edu/abs/2009A%26A...501..297Z",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* 6 Lac:mesFe_h:2",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-111123": {
       "hip": 111123,
@@ -70508,7 +72348,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Gru",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-112122; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -71511,7 +73351,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf PsA",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-5665; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -71841,7 +73681,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* bet Peg",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-113881; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -72077,7 +73917,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* alf Peg",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component hip-113963; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -73452,7 +75292,7 @@
       ],
       "sharedObjectAdoption": {
         "recordId": "* iot Psc",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
         "scope": "Reviewed catalog object/component cns5-5836; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -77081,7 +78921,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* 16 Tau",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * 16 Tau / HIP 17489 / HD 23288; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* 16 Tau",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 12246,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2012A&A...537A.120Z",
+                "url": "https://ui.adsabs.harvard.edu/abs/2012A%26A...537A.120Z",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* 16 Tau:mesFe_h:3",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-17499": {
       "group": "Pleiades",
@@ -77392,7 +79278,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* 20 Tau",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * 20 Tau / HIP 17573 / HD 23408; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* 20 Tau",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 12250,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2021ApJ...921..117T",
+                "url": "https://ui.adsabs.harvard.edu/abs/2021ApJ...921..117T",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* 20 Tau:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-17608": {
       "group": "Pleiades",
@@ -77527,7 +79459,53 @@
           "quantity": null,
           "sourceUrl": "https://doi.org/10.1093/mnras/stx1050"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "* eta Tau",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object * eta Tau / HIP 17702 / HD 23630; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* eta Tau",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 13490,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2001A&A...378..861C",
+                "url": "https://ui.adsabs.harvard.edu/abs/2001A%26A...378..861C",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* eta Tau:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-17851": {
       "group": "Pleiades",
@@ -78805,7 +80783,53 @@
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "HD 92938",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object HD 92938 / HIP 52370 / HD 92938; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "HD 92938",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 19000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2018MNRAS.474.5287A",
+                "url": "https://ui.adsabs.harvard.edu/abs/2018MNRAS.474.5287A",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "HD 92938:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-52736": {
       "group": "Southern Pleiades",
@@ -78947,7 +80971,53 @@
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         }
-      ]
+      ],
+      "sharedObjectAdoption": {
+        "recordId": "HD 93549",
+        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "scope": "Exact named catalog object HD 93549 / HIP 52701 / HD 93549; distinct companions are excluded.",
+        "fields": [
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
+        ],
+        "sourceSelections": {
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "HD 93549",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 13300,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2021MNRAS.502.3670G",
+                "url": "https://ui.adsabs.harvard.edu/abs/2021MNRAS.502.3670G",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "HD 93549:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
+          }
+        },
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
+      }
     },
     "hip-42726": {
       "group": "Omicron Velorum Cluster",
