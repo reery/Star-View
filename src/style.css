@@ -667,9 +667,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .load-recovery-actions { display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink); }
 /* Opening cards paint their frame at once and trace its outline; content still loading streams in via content-stream.ts. */
 @media (prefers-reduced-motion: no-preference) {
-  .dock-card.object-type-card { background-size: 100% 100%; background-repeat: no-repeat; animation: card-surface 160ms ease-out; }
-  .object-type-card::before { content: ''; position: absolute; inset: 0; z-index: 2; border: 1px solid var(--border-active); border-radius: calc(var(--card-radius) - 1px); opacity: 0; pointer-events: none; animation: card-outline 360ms ease-out; }
-  .object-type-card > :not(.panel-heading) { animation: card-fade 160ms ease-out; }
+  .dock-card.object-type-card { background-size: 100% 100%; background-repeat: no-repeat; animation: card-surface 120ms ease-out; }
+  .object-type-card::before { content: ''; position: absolute; inset: 0; z-index: 2; border: 1px solid color-mix(in srgb, var(--border-active) 50%, transparent); border-radius: calc(var(--card-radius) - 1px); opacity: 0; pointer-events: none; animation: card-outline 280ms ease-out; }
+  .object-type-card > :not(.panel-heading) { animation: card-fade 120ms ease-out; }
 }
 /* While a card or Info loads, reserve space for content rendered afterwards so its frame opens near the loaded size. */
 .object-type-card > [aria-busy="true"] #hr-diagram:empty { aspect-ratio: 400 / 430; }
