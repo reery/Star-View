@@ -229,7 +229,8 @@ function drawChart(root: HTMLElement, object: Star | null, chart: ConstellationC
       tooltip.style.top = `${Math.max(tooltip.offsetHeight + 12, p.y - 20)}px`
     }
     const hideTooltip = () => tooltip.classList.remove('is-visible')
-    marker.addEventListener('pointerenter', showTooltip)
+    // Revealing content on touch makes mobile Safari swallow the selecting click.
+    marker.addEventListener('pointerenter', (event) => { if (event.pointerType !== 'touch') showTooltip() })
     marker.addEventListener('pointerleave', () => { if (document.activeElement !== marker) hideTooltip() })
     marker.addEventListener('focus', showTooltip)
     marker.addEventListener('blur', hideTooltip)

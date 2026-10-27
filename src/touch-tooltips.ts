@@ -39,7 +39,8 @@ export function initializeTouchTooltips(signal: AbortSignal): void {
     if (!button || button.matches(':disabled, [aria-disabled="true"]')) return
     const tooltip = button.getAttribute('aria-describedby')?.split(/\s+/)
       .map((id) => document.getElementById(id))
-      .find((element) => element?.matches('.mass-metric-tooltip[role="tooltip"]:not([hidden])'))
+      // Constellation stars select on the first tap instead of revealing their tooltip.
+      .find((element) => element?.matches('.mass-metric-tooltip[role="tooltip"]:not([hidden], .constellation-tooltip)'))
     if (!tooltip) return
     active = { button, tooltip }
     tooltip.setAttribute('data-touch-tooltip-open', '')

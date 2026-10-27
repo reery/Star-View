@@ -3,6 +3,7 @@ import { placeSpectralMarkerLabels, spectralMarker, starIcon, svgNode } from './
 
 import { spectralClasses, luminosityRows, mkPoint, whiteDwarfClassification, whiteDwarfFamilies, type MkPoint } from './mk-properties'
 export { mkPoint, whiteDwarfClassification, type MkPoint } from './mk-properties'
+export { renderSpectralFeatures } from './spectral-type'
 
 function renderWhiteDwarfClassification(card: HTMLElement, star: Star, reference: Star): void {
   const selectedClass = whiteDwarfClassification(star), referenceClass = whiteDwarfClassification(reference)

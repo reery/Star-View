@@ -394,6 +394,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .paint-setting-heading > .paint-setting-chevron { flex-shrink: 0; margin: 0 12px 0 8px; cursor: pointer; }
 .paint-setting-heading:has(.paint-setting-expand[aria-expanded="false"]) > .paint-setting-chevron { transform: rotate(180deg); }
 .paint-setting-body { display: grid; gap: 5px; padding: 10px 12px 12px; }
+.paint-setting-body > .paint-control { margin-top: 7px; }
 .paint-legend { display: grid; height: 10px; border: 1px solid var(--line); border-radius: 5px; background: var(--paint-legend); }
 .paint-legend input { width: 100%; height: 100%; margin: 0; background: transparent; appearance: none; -webkit-appearance: none; cursor: pointer; }
 .paint-legend input::-webkit-slider-runnable-track { height: 100%; background: transparent; }
@@ -1224,17 +1225,26 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .spectral-body { padding: 0 0 18px; font-size: var(--property-text-size); line-height: 1.55; }
 .spectral-magnitude-buttons { grid-template-columns: repeat(2, minmax(0, 1fr)); border-left: 0; border-bottom: 1px solid var(--line); }
 .spectral-figure { margin: 0; padding: 8px 8px 0; }
+/* Inside the plot's top-right corner (viewBox 400 wide; plot right edge 384, top 50). */
+#spectral-hr-content .spectral-figure { position: relative; container-type: inline-size; }
+.spectral-catalog-option { position: absolute; top: calc(8px + 12.5cqw + 4px); right: calc(8px + 4cqw + 4px); }
+.panel-lock.spectral-catalog-toggle { width: 34px; height: 34px; flex-basis: 34px; background: #0b0e14d9; border-color: var(--line); }
+.panel-lock.spectral-catalog-toggle[aria-pressed="true"] { border-color: #ff8a2a70; }
+.spectral-catalog-option .mass-metric-tooltip { left: auto; right: 0; }
+.spectral-catalog-option .mass-metric-tooltip::before { left: auto; right: 13px; }
 #hr-diagram svg, #mk-diagram svg { display: block; width: 100%; height: auto; font-family: inherit; font-variant-numeric: tabular-nums; }
 .hr-axis-text { fill: var(--muted); font-size: 13px; }
 .hr-grid { stroke: #ffffff12; stroke-width: 1; }
 .hr-frame { fill: none; stroke: var(--line); stroke-width: 1; }
 .hr-spectral-tick { fill: none; stroke: var(--muted); stroke-width: 1; }
 .hr-spectral-text { fill: var(--ink); font-size: 13px; font-weight: 500; }
-.hr-region { fill: #e5c6a21c; stroke: #e5c6a259; stroke-width: 1; }
-.hr-white-dwarfs { fill: #bfd9ff18; stroke: #bfd9ff60; }
-.hr-region-band { fill: none; stroke-width: 16; stroke-linejoin: round; stroke-linecap: round; }
+.hr-region-band { fill: none; stroke: #e5c6a224; stroke-width: 16; stroke-linejoin: round; stroke-linecap: round; }
 .hr-region-band.hr-main-sequence { stroke: #ffe7c726; }
-.hr-region-band.hr-cool-dwarfs { stroke: #ee776722; }
+.hr-region-band.hr-supergiants { stroke-width: 34; }
+.hr-region-band.hr-giants { stroke-width: 26; }
+.hr-region-band.hr-subgiants { stroke-width: 14; }
+.hr-region-band.hr-white-dwarfs { stroke: #bfd9ff22; stroke-width: 18; }
+.hr-dot { fill: none; stroke: #f3e6d266; stroke-width: 3; stroke-linecap: round; }
 .hr-region-line { fill: none; stroke-width: 1; stroke-linejoin: round; stroke-linecap: round; }
 .hr-region-line.hr-main-sequence { stroke: #ffe7c775; }
 .hr-region-line.hr-cool-dwarfs, .hr-cooling { stroke: #ee776780; stroke-dasharray: 4 4; }
@@ -1260,6 +1270,20 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .spectral-stats.is-reference th:last-child, .spectral-stats.is-reference td:last-child { display: none; }
 .spectral-stats tbody tr + tr, .spectral-stats tbody tr + tr th:first-child::before, .spectral-stats tbody tr + tr td:last-child::after { border-top: var(--mass-metric-divider); }
 .spectral-method { border-top: var(--mass-metric-divider); }
+.spectral-stats.spectral-decoder { margin-top: 0; }
+.spectral-decoder th:first-child { width: 26%; font-weight: 600; }
+.spectral-decoder td, .spectral-decoder thead th:last-child { text-align: left; }
+#spectral-lines { margin-top: 8px; }
+.spectral-line-labels { position: relative; height: 20px; font-size: 12px; color: var(--muted); }
+.spectral-line-label { position: absolute; bottom: 0; transform: translateX(-50%); line-height: 1.4; white-space: nowrap; }
+.spectral-line-label .mass-metric-tooltip { left: 50%; transform: translateX(-50%); width: 230px; max-width: none; }
+.spectral-line-label .mass-metric-tooltip::before { left: calc(50% - 4px); }
+.spectral-line-label.is-start .mass-metric-tooltip { left: -8px; transform: none; }
+.spectral-line-label.is-start .mass-metric-tooltip::before { left: 16px; }
+.spectral-line-label.is-end .mass-metric-tooltip { left: auto; right: -8px; transform: none; }
+.spectral-line-label.is-end .mass-metric-tooltip::before { left: auto; right: 16px; }
+#spectral-lines svg { display: block; width: 100%; overflow: visible; font-family: inherit; }
+.spectral-lines-name.is-selected { fill: var(--accent-strong); }
 .spectral-readout > .radius-note { margin: 8px 0 12px; }
 .degenerate-classification { margin-top: 16px; padding-top: 12px; border-top: var(--mass-metric-divider); }
 .degenerate-classification h3 { margin: 0; font-size: inherit; font-weight: 500; }

@@ -429,6 +429,7 @@
                   </div>
                   <figure class="spectral-figure">
                     <div id="hr-diagram"></div>
+                    <span class="mass-reference-option spectral-catalog-option" data-tooltip-always><button id="spectral-catalog" class="panel-lock spectral-catalog-toggle" type="button" aria-label="Catalog stars" aria-pressed="false" aria-describedby="spectral-catalog-tooltip"><span id="spectral-catalog-icon"></span></button><span id="spectral-catalog-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog stars: show the loaded stars as dots, so the selection appears among its neighbors.</span></span>
                   </figure>
                   <div class="spectral-readout">
                     <p id="spectral-missing" class="radius-note" hidden></p>
@@ -440,15 +441,6 @@
                         <tr><th id="spectral-magnitude-label" scope="row">Abs. mag. (V)</th><td id="spectral-selected-magnitude"></td><td id="spectral-reference-magnitude"></td></tr>
                       </tbody>
                     </table>
-                    <details class="radius-method spectral-method">
-                      <summary>About this diagram</summary>
-                      <p>Temperature decreases to the right on a logarithmic scale. Lower magnitudes are brighter. The spectral letters are approximate temperature guides for dwarfs; giants and white dwarfs have different spectral calibrations.</p>
-                      <p>Visual uses the catalog’s Johnson V magnitude. Bolometric uses total luminosity: Mbol = 4.74 − 2.5 log₁₀(L/L☉). Missing values are not inferred. Regions are schematic guides, not classification boundaries; L, T and Y extend into cool substellar objects.</p>
-                      <p>The blue-to-red background is a temperature guide; the coolest objects emit mainly infrared light. Positions use adopted catalog values, which may be measured, model-derived or estimated.</p>
-                      <a href="https://www.esa.int/ESA_Multimedia/Images/2004/10/A_Hertzsprung-Russell_diagram" target="_blank" rel="noreferrer">H–R diagrams: ESA ↗</a><br>
-                      <a href="https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt" target="_blank" rel="noreferrer">Dwarf sequence: Pecaut &amp; Mamajek ↗</a><br>
-                      <a href="https://arxiv.org/abs/1510.06262" target="_blank" rel="noreferrer">Bolometric scale: IAU 2015 B2 ↗</a>
-                    </details>
                   </div>
                 </div>
                 <div id="spectral-mk-content" hidden>
@@ -468,15 +460,47 @@
                       <div id="white-dwarf-families" class="white-dwarf-families" role="list" aria-label="White dwarf spectral families"></div>
                       <div id="white-dwarf-stars" class="white-dwarf-stars"></div>
                     </section>
-                    <details class="radius-method spectral-method">
-                      <summary>About this diagram</summary>
+                  </div>
+                </div>
+                <div class="spectral-readout">
+                  <section class="mass-section" aria-labelledby="spectral-decoder-heading">
+                    <h3 id="spectral-decoder-heading" class="card-subgroup-heading">Reading the type</h3>
+                    <p id="spectral-decoder-missing" class="radius-note" hidden></p>
+                    <table id="spectral-decoder" class="radius-stats spectral-stats spectral-decoder" aria-label="Parts of the spectral type">
+                      <thead><tr><th id="spectral-decoder-type" scope="col"></th><th id="spectral-decoder-name" scope="col"></th></tr></thead>
+                      <tbody id="spectral-decoder-rows"></tbody>
+                    </table>
+                  </section>
+                  <section class="mass-section" aria-labelledby="spectral-lines-heading">
+                    <h3 id="spectral-lines-heading" class="card-subgroup-heading">Absorption lines</h3>
+                    <p class="mass-benchmark">Typical line strengths for each spectral class · schematic</p>
+                    <p id="spectral-lines-missing" class="radius-note" hidden></p>
+                    <div id="spectral-lines"></div>
+                  </section>
+                  <details class="radius-method spectral-method">
+                    <summary>About this card</summary>
+                    <div id="spectral-hr-method">
+                      <p>Temperature decreases to the right on a logarithmic scale. Lower magnitudes are brighter. The spectral letters are approximate temperature guides for dwarfs; giants and white dwarfs have different spectral calibrations.</p>
+                      <p>Visual uses the catalog’s Johnson V magnitude. Bolometric uses total luminosity: Mbol = 4.74 − 2.5 log₁₀(L/L☉). Missing values are not inferred. Regions are schematic guides, not classification boundaries; the white-dwarf band follows a typical 0.6 M☉ white dwarf as it cools. L, T and Y extend into cool substellar objects.</p>
+                      <p>The blue-to-red background is a temperature guide; the coolest objects emit mainly infrared light. Positions use adopted catalog values, which may be measured, model-derived or estimated.</p>
+                      <p>The catalog-stars toggle at the top right of the diagram adds every loaded star with a catalog temperature and magnitude: the selected catalog plus the constellation and notable distant stars, regardless of filters.</p>
+                      <a href="https://www.esa.int/ESA_Multimedia/Images/2004/10/A_Hertzsprung-Russell_diagram" target="_blank" rel="noreferrer">H–R diagrams: ESA ↗</a><br>
+                      <a href="https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt" target="_blank" rel="noreferrer">Dwarf sequence: Pecaut &amp; Mamajek ↗</a><br>
+                      <a href="https://arxiv.org/abs/1510.06262" target="_blank" rel="noreferrer">Bolometric scale: IAU 2015 B2 ↗</a>
+                    </div>
+                    <div id="spectral-mk-method" hidden>
                       <p>M-K (Morgan–Keenan) places the catalog’s spectral subtype against its luminosity class. The classes describe spectral features associated with stellar surface gravity; they are not equal steps in absolute magnitude.</p>
                       <p>Only explicit O–M subtypes and luminosity classes are plotted. Intermediate classes are shown between rows. Missing classes are not inferred from temperature or brightness. White dwarfs and L, T and Y dwarfs use separate classification schemes.</p>
                       <p>The white-dwarf D classification uses spectral features rather than an M-K luminosity class. Additional letters are retained in the catalog label; a number, as in DA2, is a temperature index.</p>
                       <a href="https://ned.ipac.caltech.edu/level5/March02/Morgan/Morgan1.html" target="_blank" rel="noreferrer">M-K classification: Morgan, Abt &amp; Tapscott ↗</a>
                       <a href="https://heasarc.gsfc.nasa.gov/W3Browse/all/mcksion.html" target="_blank" rel="noreferrer">White-dwarf classification: McCook–Sion ↗</a>
-                    </details>
-                  </div>
+                    </div>
+                    <p>Reading the type splits the catalog label into its Morgan–Keenan parts and common suffixes. Notation not covered here is shown as written.</p>
+                    <p>The absorption strips show typical line strengths for the spectral class, not the star’s observed spectrum. Line widths and depths are schematic; luminosity class, rotation and composition are ignored. White dwarfs show the main features of their D family. L, T and Y dwarfs emit mostly infrared light and are not drawn.</p>
+                    <a href="https://ned.ipac.caltech.edu/level5/Gray/Gray_contents.html" target="_blank" rel="noreferrer">Spectral features: Gray, digital classification atlas ↗</a><br>
+                    <a href="https://arxiv.org/abs/astro-ph/0308182" target="_blank" rel="noreferrer">Calcium emission (k): Gray et al. 2003 ↗</a><br>
+                    <a href="https://arxiv.org/abs/0812.0364" target="_blank" rel="noreferrer">Young L dwarfs (β, γ): Cruz et al. 2009 ↗</a>
+                  </details>
                 </div>
               </div>
             </section>

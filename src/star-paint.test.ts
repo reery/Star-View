@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Star } from './catalog-model'
-import { starPainter } from './star-paint'
+import { DEFAULT_PAINT_CONTROLS, starPainter } from './star-paint'
 
 const sun: Star = {
   id: 'sun', name: 'Sun', type: 'star', spectral_type: 'G2V', mass_solar: 1, radius_solar: 1, luminosity_solar: 1, temperature_k: 5772,
@@ -106,5 +106,37 @@ describe('star paint', () => {
     const linear = fitted(0.5, true)
     expect(linear.bounds.get('radial-velocity')).toEqual(['−100 km/s', '+100 km/s'])
     expect(linear.painter(moving(50)).magnitude).toBeCloseTo(4)
+    // Full dimness takes up to 5 magnitudes off weaker objects, leaving the fastest unchanged.
+    const dimmed = starPainter(new Map([['radial-velocity', 0.5]]), stars, new Set(['radial-velocity']), new Map([['radial-velocity', { ...DEFAULT_PAINT_CONTROLS, dimness: 1 }]]))!
+    expect(dimmed.painter(moving(100)).color!.getHexString()).toBe(linear.painter(moving(100)).color!.getHexString())
+    expect(dimmed.painter(moving(50)).magnitude).toBeCloseTo(4 + 2.5)
+    expect(dimmed.painter(moving(50)).color!.r).toBeCloseTo(linear.painter(moving(50)).color!.r * 10 ** -1, 1)
+    expect(dimmed.painter(moving(0)).color!.getHexString()).toBe('010101')
+  })
+
+  it('paints metallicity and radius like the other ranked settings', () => {
+    const poor = { ...sun, id: 'poor', metallicity_dex: -1.5, radius_solar: 0.1 }
+    const rich = { ...sun, id: 'rich', metallicity_dex: 0.3, radius_solar: 100 }
+    for (const id of ['metallicity', 'radius'] as const) {
+      const fitted = starPainter(new Map([[id, 0.5]]), [poor, sun, rich])!
+      expect([poor, rich, { ...sun, metallicity_dex: null, radius_solar: null }].map((star) => fitted.painter(star).color!.getHexString())).toEqual(['333333', 'ffffff', '333333'])
+    }
+    expect(starPainter(new Map([['metallicity', 0.5]]), [poor, rich])!.bounds.get('metallicity')).toEqual(['−1.5 dex', '+0.3 dex'])
+    expect(starPainter(new Map([['radius', 0.5]]), [poor], new Set(['radius']))!.bounds.get('radius')).toEqual(['0.01 R☉', '1,000 R☉'])
+  })
+
+  it('brightens a temperature band in spectrum colors and spreads it with the width', () => {
+    const hot = (temperature_k: number | null): Star => ({ ...sun, id: String(temperature_k), temperature_k })
+    // Level 0.5 centers the band on the logarithmic midpoint of 250–40,000 K, 3,162 K.
+    const band = (width: number, dimness = 0) => starPainter(new Map([['temperature', 0.5]]), [], new Set(), new Map([['temperature', { width, dimness }]]))!.painter
+    const narrow = band(0.5)
+    expect(narrow(hot(3162)).magnitude).toBeCloseTo(-2)
+    expect(narrow(hot(5772)).magnitude).toBe(10)
+    expect(band(1)(hot(5772)).magnitude).toBeCloseTo(-2)
+    const red = narrow(hot(3162)).color!
+    expect(red.r).toBeGreaterThan(red.b)
+    expect(narrow(hot(null)).color!.getHexString()).toBe('333333')
+    expect(band(0.5, 1)(hot(30000)).color!.getHexString()).toBe('000001')
+    expect(starPainter(new Map([['temperature', 0.5]]), [])!.bounds.get('temperature')).toEqual(['250 K', '40,000 K'])
   })
 })

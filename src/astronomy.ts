@@ -227,6 +227,11 @@ export function temperatureToColor(kelvin: number | null, mode: StarColorMode = 
   return interpolateColor(mode === 'exaggerated' ? EXAGGERATED_TEMPERATURE_COLORS : REAL_TEMPERATURE_COLORS, kelvin)
 }
 
+/** A vivid spectrum from brown through red, orange, yellow and white to blue, blending the brown dwarf colors into the exaggerated stellar ones. */
+export function temperatureSpectrumColor(kelvin: number): Color {
+  return interpolateColor(BROWN_DWARF_COLORS, kelvin).lerp(temperatureToColor(kelvin, 'exaggerated'), Math.max(0, Math.min(1, (kelvin - 1300) / 500)))
+}
+
 export function starDisplayColor(
   star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'> & Partial<Pick<Star, 'nebula' | 'molecular_cloud' | 'bubble'>>,
   mode: StarColorMode = 'real',

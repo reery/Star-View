@@ -2,6 +2,7 @@ import type { Star } from './catalog-model'
 import { hrCardAvailable } from './spectral-properties'
 export { hrCardAvailable } from './spectral-properties'
 import { placeSpectralMarkerLabels, spectralMarker, svgNode } from './spectral-chart'
+export { renderSpectralFeatures } from './spectral-type'
 
 export type HrMagnitudeMode = 'visual' | 'bolometric'
 type HrStar = Pick<Star, 'type' | 'temperature_k' | 'absolute_mag' | 'luminosity_solar'>
@@ -59,6 +60,15 @@ const coolDwarfs = [
   [1420, null, 16.12], [1255, null, 16.39], [1160, null, 17.12],
   [950, null, 17.54], [825, null, 18.17], [750, null, 18.59],
 ] as const
+// Teff, M_V, M_bol centerlines of broad schematic regions: typical class I and
+// III magnitudes, the subgiant branch, and a 0.6 M☉ (≈0.0125 R☉) white-dwarf
+// cooling sequence. Guides only, never used to classify the selected object.
+const regions = [
+  ['hr-supergiants', [[35000, -6.5, -8.8], [12000, -7, -7.8], [6000, -6.5, -6.6], [3600, -5.7, -6.9]]],
+  ['hr-giants', [[5700, 1.4, 1.3], [4800, 0.6, 0.25], [4100, -0.3, -1.1], [3500, -0.9, -2.6], [3100, -1, -3.8]]],
+  ['hr-subgiants', [[6900, 2.3, 2.3], [6000, 2.9, 2.85], [5100, 3.5, 3.25]]],
+  ['hr-white-dwarfs', [[40000, 9.7, 5.85], [20000, 10.9, 8.86], [10000, 12.1, 11.87], [6000, 14.3, 14.09], [4500, 15.6, 15.34]]],
+] as const
 const spectralGuides = [
   ['O', 40000], ['B', 18000], ['A', 8500], ['F', 6600], ['G', 5550],
   ['K', 4500], ['M', 3100], ['L', 1750], ['T', 950], ['Y', 350],
@@ -71,7 +81,8 @@ const colors = [
 
 const number = (value: number) => value.toLocaleString('en-US', { maximumFractionDigits: 2 })
 
-export function renderHrDiagram(card: HTMLElement, star: Star, reference: Star, mode: HrMagnitudeMode): void {
+/** `population`, when given, adds every plottable catalog star as a faint dot. */
+export function renderHrDiagram(card: HTMLElement, star: Star, reference: Star, mode: HrMagnitudeMode, population: readonly Star[] | null = null): void {
   const get = (id: string) => card.querySelector<HTMLElement>(`#${id}`)!
   const point = hrPoint(star, mode)
   const referencePoint = hrPoint(reference, mode)
@@ -101,7 +112,7 @@ export function renderHrDiagram(card: HTMLElement, star: Star, reference: Star, 
   note.hidden = !note.textContent
 
   const svg = svgNode('svg', { viewBox: '0 0 400 430', role: 'img', 'aria-labelledby': 'hr-title', 'aria-describedby': 'hr-description' })
-  svg.append(svgNode('title', { id: 'hr-title' }, `Hertzsprung–Russell diagram: ${star.name}${star.id === reference.id ? '' : ` and ${reference.name}`}`))
+  svg.append(svgNode('title', { id: 'hr-title' }, `Hertzsprung–Russell diagram: ${star.name}${star.id === reference.id ? '' : ` and ${reference.name}`}${population ? ' among loaded catalog stars' : ''}`))
   const describePoint = (object: Star, position: HrPoint | null) => position ? `${object.name}: ${number(position.temperature)} K, magnitude ${number(position.magnitude)}.` : missing(object)
   svg.append(svgNode('desc', { id: 'hr-description' }, `Temperature decreases from ${number(axes.hot)} to ${number(axes.cool)} kelvin, left to right. ${magnitudeLabel} increases from ${axes.bright} to ${axes.faint}, top to bottom. Regions are schematic. ${[...new Set([describePoint(star, point), describePoint(reference, referencePoint)])].join(' ')}`))
   const left = 54, top = 50, size = 330, bottom = top + size
@@ -139,34 +150,47 @@ export function renderHrDiagram(card: HTMLElement, star: Star, reference: Star, 
   const vertical = label(svg, magnitudeLabel, 14, top + size / 2)
   vertical.setAttribute('transform', `rotate(-90 14 ${top + size / 2})`)
 
-  const locus = (rows: ReadonlyArray<readonly [number, number | null, number]>, className: string) => {
-    const points = rows.flatMap(([temperature, visual, bolometric]) => {
-      const value = mode === 'visual' ? visual : bolometric
-      return value === null ? [] : [`${x(temperature)},${y(value)}`]
-    }).join(' ')
-    plot.append(svgNode('polyline', { points, class: `hr-region-band ${className}` }), svgNode('polyline', { points, class: `hr-region-line ${className}` }))
+  type Point = readonly [number, number]
+  const points = (rows: ReadonlyArray<readonly [number, number | null, number]>) => rows.flatMap(([temperature, visual, bolometric]): Point[] => {
+    const value = mode === 'visual' ? visual : bolometric
+    return value === null ? [] : [[x(temperature), y(value)]]
+  })
+  // Catmull–Rom spline through the points, as cubic Bézier segments.
+  const curve = (p: readonly Point[]) => p.slice(1).map(([ex, ey], index) => {
+    const [ax, ay] = p[Math.max(0, index - 1)]!, [sx, sy] = p[index]!, [bx, by] = p[Math.min(p.length - 1, index + 2)]!
+    return `C ${sx + (ex - ax) / 6},${sy + (ey - ay) / 6} ${ex - (bx - sx) / 6},${ey - (by - sy) / 6} ${ex},${ey}`
+  })
+  const path = (className: string, [sx, sy]: Point, segments: string[]) => plot.append(svgNode('path', { d: `M ${sx},${sy} ${segments.join(' ')}`, class: className }))
+  for (const [className, rows] of regions) {
+    const region = points(rows)
+    path(`hr-region-band ${className}`, region[0]!, curve(region))
   }
-  locus(mainSequence, 'hr-main-sequence')
-  locus(coolDwarfs, 'hr-cool-dwarfs')
-  // Broad schematic regions in physical coordinates. They are deliberately
-  // not used to classify the selected object or overwrite its spectral type.
-  const region = (coordinates: [number, number][], className: string) => {
-    plot.append(svgNode('polygon', { points: coordinates.map(([temperature, value]) => `${x(temperature)},${y(value)}`).join(' '), class: `hr-region ${className}` }))
-  }
-  region(mode === 'visual' ? [[30000, -7], [10000, -6], [6500, -5], [3000, -4], [2800, -9], [30000, -9]]
-    : [[30000, -10], [10000, -7], [6500, -6], [3000, -6], [2800, -10], [30000, -12]], 'hr-supergiants')
-  region(mode === 'visual' ? [[7000, 0], [5500, 2], [3500, 0], [2800, -2], [3500, -4], [5500, -2]]
-    : [[7000, 0], [5500, 2], [3500, -1], [2800, -4], [3500, -5], [5500, -2]], 'hr-giants')
-  region([[7000, 2], [6000, 3.5], [4500, 4], [4500, 1.5], [5500, 1]], 'hr-subgiants')
-  region(mode === 'visual' ? [[40000, 8], [25000, 10], [12000, 13], [6000, 16], [4500, 17], [6000, 14], [12000, 10], [25000, 7]]
-    : [[40000, 5], [25000, 8], [12000, 12], [6000, 16], [4500, 17], [6000, 14], [12000, 10], [25000, 5]], 'hr-white-dwarfs')
-  label(plot, 'Supergiants', x(8000), y(-6.8), 'hr-region-text')
-  label(plot, 'Giants', x(3800), y(-0.8), 'hr-region-text')
-  label(plot, 'Subgiants', x(4500) + 16, y(1.7), 'hr-region-text', 'start')
-  const mainLabelX = x(5000) - 12, mainLabelY = y(mode === 'visual' ? 7.4 : 6.5)
+  // One band for the whole dwarf sequence; only its centerline changes style
+  // where the ultracool and substellar continuation begins.
+  const dwarfs = points([...mainSequence, ...coolDwarfs.slice(1)]), dwarfCurve = curve(dwarfs), split = mainSequence.length - 1
+  path('hr-region-band hr-main-sequence', dwarfs[0]!, dwarfCurve)
+  path('hr-region-line hr-main-sequence', dwarfs[0]!, dwarfCurve.slice(0, split))
+  path('hr-region-line hr-cool-dwarfs', dwarfs[split]!, dwarfCurve.slice(split))
+  // One path for all dots keeps thousands of catalog stars cheap to draw.
+  const dots = (population ?? []).flatMap((object) => {
+    const position = object.id === star.id || object.id === reference.id ? null : hrPoint(object, mode)
+    return position ? [`M ${x(position.temperature)},${y(position.magnitude)} h 0`] : []
+  })
+  if (dots.length) plot.append(svgNode('path', { d: dots.join(' '), class: 'hr-dot' }))
+  const visual = mode === 'visual'
+  label(plot, 'Supergiants', x(9000), y(visual ? -7 : -7.6) + 5, 'hr-region-text')
+  label(plot, 'Giants', x(3100) + 16, y(visual ? -1 : -3.8) + 5, 'hr-region-text', 'start')
+  label(plot, 'Subgiants', x(5100) + 14, y(visual ? 3.3 : 3.1) + 5, 'hr-region-text', 'start')
+  const mainLabelX = x(5000) - 12, mainLabelY = y(visual ? 7.4 : 6.5)
   const mainLabel = label(plot, 'Main sequence', mainLabelX, mainLabelY, 'hr-region-text', 'start')
-  mainLabel.setAttribute('transform', `rotate(${mode === 'visual' ? 68 : 55} ${mainLabelX} ${mainLabelY})`)
-  label(plot, 'White dwarfs', x(17000), y(13.7), 'hr-region-text')
+  mainLabel.setAttribute('transform', `rotate(${visual ? 68 : 55} ${mainLabelX} ${mainLabelY})`)
+  // Follow the white-dwarf band around 10,000 K, just below it.
+  const whiteDwarfs = points(regions[3][1])
+  const [ax, ay] = whiteDwarfs[1]!, [cx, cy] = whiteDwarfs[2]!, [bx, by] = whiteDwarfs[3]!
+  const angle = Math.atan2(by - ay, bx - ax)
+  const whiteDwarfX = cx - Math.sin(angle) * 21, whiteDwarfY = cy + Math.cos(angle) * 21 + 5
+  label(plot, 'White dwarfs', whiteDwarfX, whiteDwarfY, 'hr-region-text')
+    .setAttribute('transform', `rotate(${angle * 180 / Math.PI} ${whiteDwarfX} ${whiteDwarfY})`)
   if (mode === 'bolometric') {
     label(plot, 'Brown dwarfs', x(1000), y(20.6), 'hr-region-text')
     // Broad cooling continuation, not a hard stellar/substellar boundary.

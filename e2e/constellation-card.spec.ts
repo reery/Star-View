@@ -359,7 +359,7 @@ test('selects figure stars with tooltips while the constellation overlay is off'
   const card = page.locator('#constellation-card')
   const mirzam = card.getByRole('button', { name: 'Select Mirzam', exact: true })
   await mirzam.focus()
-  const tooltip = page.locator('#constellation-tooltip-30324')
+  const tooltip = page.locator('#constellation-chart-tooltip-30324')
   await expect(tooltip).toBeVisible()
   await expect(tooltip.locator('.constellation-tooltip-object')).toHaveText('Mirzam')
   await expect(tooltip.locator('.star-swatch')).toBeVisible()
@@ -384,6 +384,11 @@ test('selects figure stars with tooltips while the constellation overlay is off'
   await expect(page.locator('#star-name')).toHaveText('Adhara')
   await expect(card.locator('.is-selected .constellation-star-name')).toHaveText('Adhara A')
   await expect(page.locator('#show-western-constellation-stars')).not.toBeChecked()
+  if (testInfo.project.name !== 'mobile') return
+  // A tap selects at once; revealing the tooltip first would make mobile Safari drop the click.
+  await card.getByRole('button', { name: 'Select Mirzam', exact: true }).tap()
+  await expect(page.locator('#star-name')).toHaveText('Mirzam')
+  await expect(card.locator('.constellation-tooltip:visible')).toHaveCount(0)
 })
 
 test('plots a non-star at its own sky coordinates in Canis Major', async ({ page }, testInfo) => {

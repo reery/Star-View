@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, BookOpen, ChartColumn, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, RotateCcw, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Trophy, Weight, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, RotateCcw, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
@@ -53,7 +53,7 @@ import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type
 import type { SkyGridMode } from './sky-grid'
 import { browserDataSize, deleteBrowserData } from './browser-data'
 import { readSavedFilter, SAVED_FILTER_STORAGE_KEY, type SavedFilter } from './saved-filter'
-import { DEFAULT_PAINT_LEVEL, isPaintSettingId, PAINT_LEVEL_RANGE, PAINT_SETTINGS, starPainter, type PaintSettingId } from './star-paint'
+import { DEFAULT_PAINT_CONTROLS, DEFAULT_PAINT_LEVEL, isPaintSettingId, PAINT_LEVEL_RANGE, PAINT_SETTINGS, starPainter, type PaintControls, type PaintSettingId } from './star-paint'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -125,6 +125,7 @@ icon('top-lists-icon', Trophy)
 icon('top-lists-lock-icon', Lock)
 icon('top-lists-close-icon', X)
 icon('graphs-icon', ChartColumn)
+icon('spectral-catalog-icon', ChartScatter)
 icon('graphs-width-icon', ChevronsRightLeft)
 icon('graphs-clear-icon', FunnelX)
 icon('graph-filter-active-icon', ChartColumn)
@@ -243,6 +244,8 @@ const paintSettings = new Map<PaintSettingId, number>()
 let paintStars: Star[] | null = null
 /** Paint settings on their fixed linear scale instead of ranking the visible objects. */
 const linearPaintSettings = new Set<PaintSettingId>()
+/** Slider controls of the paint settings, at their defaults when absent. */
+const paintControls = new Map<PaintSettingId, PaintControls>()
 let paintZoomShrink = false
 let viewer: StarViewer | undefined
 let stars: Star[] = []
@@ -730,6 +733,7 @@ function closeSpectralCard(restoreFocus = false): void {
 }
 
 let spectralMagnitudeMode: HrMagnitudeMode | null = null
+let spectralCatalogStars = false
 let spectralDiagram: 'hr' | 'mk' = 'hr'
 
 let spectralRenderRequest = 0
@@ -755,12 +759,15 @@ async function renderSpectralCard(star: Star): Promise<void> {
   for (const diagram of ['hr', 'mk'] as const) {
     element(`spectral-${diagram}`).setAttribute('aria-pressed', String(spectralDiagram === diagram))
     element(`spectral-${diagram}-content`).hidden = spectralDiagram !== diagram
+    element(`spectral-${diagram}-method`).hidden = spectralDiagram !== diagram
   }
   if ('renderHrDiagram' in module) {
     const { hrMagnitude, renderHrDiagram } = module
     const mode = spectralMagnitudeMode ?? (hrMagnitude(star, 'visual') === null && hrMagnitude(star, 'bolometric') !== null ? 'bolometric' : 'visual')
-    renderHrDiagram(element('spectral-card'), star, reference, mode)
+    element('spectral-catalog').setAttribute('aria-pressed', String(spectralCatalogStars))
+    renderHrDiagram(element('spectral-card'), star, reference, mode, spectralCatalogStars ? stars : null)
   } else module.renderMkDiagram(element('spectral-card'), star, reference)
+  module.renderSpectralFeatures(element('spectral-card'), star, reference)
   syncObjectTypeLayout()
   positionCardHeaderTooltips(element('spectral-card'))
 }
@@ -3098,8 +3105,11 @@ element('constellations-maximize').addEventListener('click', () => {
 catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.valueAsNumber), { signal: events.signal })
 element('filter-reset').addEventListener('click', resetAllFilters, { signal: events.signal })
 const paintIcon = (shape: IconNode) => createElement(shape, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' })
-const paintSettingIcons: Record<PaintSettingId, IconNode> = { 'absolute-magnitude': Sun, mass: Weight, 'bolometric-luminosity': Sparkle, 'radial-velocity': ArrowLeftRight }
-element('paint-settings').append(...PAINT_SETTINGS.map(({ id, label, legend, gradient }) => {
+const paintSettingIcons: Record<PaintSettingId, IconNode> = {
+  'absolute-magnitude': Sun, mass: Weight, 'bolometric-luminosity': Sparkle, 'radial-velocity': ArrowLeftRight, metallicity: Atom, radius: Radius, temperature: Thermometer,
+}
+element('paint-settings').append(...PAINT_SETTINGS.map((paintSetting) => {
+  const { id, label, legend, gradient } = paintSetting
   const setting = document.createElement('section')
   setting.className = 'planet-atmosphere paint-setting'
   setting.dataset.paintSetting = id
@@ -3117,31 +3127,46 @@ element('paint-settings').append(...PAINT_SETTINGS.map(({ id, label, legend, gra
   expand.setAttribute('aria-expanded', 'false')
   expand.setAttribute('aria-controls', body.id)
   expand.append(Object.assign(document.createElement('span'), { textContent: label }))
-  const scale = document.createElement('span')
-  scale.className = 'unit-options graph-scale'
-  scale.setAttribute('role', 'group')
-  scale.setAttribute('aria-label', `${label} scale`)
-  scale.append(...(['Rank', 'Linear'] as const).map((name) => {
-    const button = Object.assign(document.createElement('button'), { type: 'button', textContent: name, title: name === 'Rank' ? 'Rank the visible objects' : 'Fixed linear scale' })
-    button.dataset.paintScale = name
-    button.setAttribute('aria-pressed', String(name === 'Rank'))
-    return button
-  }))
   const chevron = paintIcon(ChevronUp)
   chevron.classList.add('paint-setting-chevron')
-  heading.append(toggle, expand, scale, chevron)
+  heading.append(toggle, expand)
+  if (!('fixed' in paintSetting)) {
+    const scale = document.createElement('span')
+    scale.className = 'unit-options graph-scale'
+    scale.setAttribute('role', 'group')
+    scale.setAttribute('aria-label', `${label} scale`)
+    scale.append(...(['Rank', 'Linear'] as const).map((name) => {
+      const button = Object.assign(document.createElement('button'), { type: 'button', textContent: name, title: name === 'Rank' ? 'Rank the visible objects' : 'Fixed linear scale' })
+      button.dataset.paintScale = name
+      button.setAttribute('aria-pressed', String(name === 'Rank'))
+      return button
+    }))
+    heading.append(scale)
+  }
+  heading.append(chevron)
   const bar = document.createElement('div')
   bar.className = 'paint-legend'
   const level = document.createElement('input')
   Object.assign(level, { type: 'range', min: String(PAINT_LEVEL_RANGE[0]), max: String(PAINT_LEVEL_RANGE[1]), step: '0.01', value: String(DEFAULT_PAINT_LEVEL) })
   level.setAttribute('aria-label', `${label} midpoint`)
-  bar.style.setProperty('--paint-legend', gradient(DEFAULT_PAINT_LEVEL))
+  bar.style.setProperty('--paint-legend', gradient(DEFAULT_PAINT_LEVEL, DEFAULT_PAINT_CONTROLS))
   bar.append(level)
   const bounds = document.createElement('div')
   bounds.className = 'range-bounds'
   bounds.setAttribute('aria-hidden', 'true')
   bounds.append(...legend.bounds.map((bound) => Object.assign(document.createElement('span'), { textContent: bound })))
-  body.append(bar, bounds)
+  body.append(bar, bounds, ...('controls' in paintSetting ? paintSetting.controls : []).map(({ name, label: controlLabel, text }) => {
+    const control = document.createElement('div')
+    control.className = 'range-filter paint-control'
+    const input = Object.assign(document.createElement('input'), { id: `paint-${id}-${name}`, type: 'range', min: '0', max: '1', step: '0.01', value: String(DEFAULT_PAINT_CONTROLS[name]) })
+    input.dataset.paintControl = name
+    const controlHeading = document.createElement('div')
+    controlHeading.className = 'range-heading'
+    controlHeading.append(Object.assign(document.createElement('label'), { htmlFor: input.id, textContent: controlLabel }),
+      Object.assign(document.createElement('output'), { htmlFor: input.id, textContent: text(DEFAULT_PAINT_CONTROLS[name], DEFAULT_PAINT_LEVEL) }))
+    control.append(controlHeading, input)
+    return control
+  }))
   if (legend.note) body.append(Object.assign(document.createElement('p'), { className: 'filter-hint', textContent: legend.note }))
   setting.append(heading, body)
   return setting
@@ -3149,11 +3174,12 @@ element('paint-settings').append(...PAINT_SETTINGS.map(({ id, label, legend, gra
 function paintSettingParts(setting: HTMLElement) {
   const id = setting.dataset.paintSetting
   if (!isPaintSettingId(id)) return null
-  const { gradient, legend } = PAINT_SETTINGS.find((candidate) => candidate.id === id)!
+  const definition = PAINT_SETTINGS.find((candidate) => candidate.id === id)!
   return {
-    id, gradient, legend,
+    id, gradient: definition.gradient, legend: definition.legend,
     toggle: setting.querySelector<HTMLButtonElement>('.paint-setting-toggle')!,
-    level: setting.querySelector<HTMLInputElement>('input[type="range"]')!,
+    level: setting.querySelector<HTMLInputElement>('.paint-legend input')!,
+    controls: ('controls' in definition ? definition.controls : []).map((control) => ({ control, input: setting.querySelector<HTMLInputElement>(`[data-paint-control="${control.name}"]`)! })),
     bounds: setting.querySelectorAll<HTMLSpanElement>('.range-bounds span'),
     scales: setting.querySelectorAll<HTMLButtonElement>('[data-paint-scale]'),
   }
@@ -3189,15 +3215,24 @@ element('paint-settings').addEventListener('input', (event) => {
   const input = event.target
   const parts = input instanceof HTMLInputElement ? paintSettingParts(input.closest<HTMLElement>('[data-paint-setting]')!) : null
   if (!parts || !Number.isFinite(parts.level.valueAsNumber)) return
-  parts.level.parentElement!.style.setProperty('--paint-legend', parts.gradient(parts.level.valueAsNumber))
+  const changed = parts.controls.find((control) => control.input === input)
+  if (changed) paintControls.set(parts.id, { ...paintControls.get(parts.id) ?? DEFAULT_PAINT_CONTROLS, [changed.control.name]: changed.input.valueAsNumber })
+  showPaintLevel(parts, parts.level.valueAsNumber)
   if (!paintSettings.has(parts.id)) return
   paintSettings.set(parts.id, parts.level.valueAsNumber)
   paintVisible()
 }, { signal: events.signal })
+/** Shows a setting's legend and slider readouts at its level and controls. */
+function showPaintLevel(parts: NonNullable<ReturnType<typeof paintSettingParts>>, level: number): void {
+  const controls = paintControls.get(parts.id) ?? DEFAULT_PAINT_CONTROLS
+  parts.level.parentElement!.style.setProperty('--paint-legend', parts.gradient(level, controls))
+  parts.controls.forEach(({ control, input }) => { input.parentElement!.querySelector('output')!.textContent = control.text(controls[control.name], level) })
+}
 /** Paints by the given settings; settings left out are off at their default level. */
 function applyPaint(entries: readonly (readonly [PaintSettingId, number])[]): void {
   paintSettings.clear()
   linearPaintSettings.clear()
+  paintControls.clear()
   setPaintZoomShrink(false)
   entries.forEach(([id, level]) => paintSettings.set(id, level))
   element('paint-settings').querySelectorAll<HTMLElement>('[data-paint-setting]').forEach((setting) => {
@@ -3206,7 +3241,8 @@ function applyPaint(entries: readonly (readonly [PaintSettingId, number])[]): vo
     parts.toggle.setAttribute('aria-pressed', String(paintSettings.has(parts.id)))
     parts.scales.forEach((scale) => scale.setAttribute('aria-pressed', String(scale.dataset.paintScale === 'Rank')))
     parts.level.value = String(level)
-    parts.level.parentElement!.style.setProperty('--paint-legend', parts.gradient(level))
+    parts.controls.forEach(({ control, input }) => { input.value = String(DEFAULT_PAINT_CONTROLS[control.name]) })
+    showPaintLevel(parts, level)
   })
   setActiveIndicator('paint-active', paintSettings.size > 0)
   paintVisible(true)
@@ -3219,7 +3255,7 @@ function paintableStars(): Star[] {
 function paintVisible(refit = false): void {
   if (!paintSettings.size) paintStars = null
   else if (refit || !paintStars) paintStars = paintableStars()
-  const fitted = paintStars && starPainter(paintSettings, paintStars, linearPaintSettings)
+  const fitted = paintStars && starPainter(paintSettings, paintStars, linearPaintSettings, paintControls)
   element('paint-settings').querySelectorAll<HTMLElement>('[data-paint-setting]').forEach((setting) => {
     const parts = paintSettingParts(setting)!
     const bounds = fitted?.bounds.get(parts.id) ?? parts.legend.bounds
@@ -3614,6 +3650,11 @@ for (const mode of ['visual', 'bolometric'] as const) {
     if (star && !element('spectral-card').hidden) renderSpectralCard(star)
   }, { signal: events.signal })
 }
+element('spectral-catalog').addEventListener('click', () => {
+  spectralCatalogStars = !spectralCatalogStars
+  const star = stars.find((candidate) => candidate.id === selectedId)
+  if (star && !element('spectral-card').hidden) renderSpectralCard(star)
+}, { signal: events.signal })
 for (const mode of ['origin', 'jupiter', 'earth'] as const) {
   element(`radius-reference-${mode}`).addEventListener('click', () => {
     radiusReference = mode
