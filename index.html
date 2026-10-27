@@ -535,9 +535,25 @@
                 <button id="distance-lock" class="panel-lock" type="button" aria-label="Keep Distance open" aria-pressed="false"><span id="distance-lock-icon"></span></button>
                 <button id="distance-close" class="panel-lock" type="button" aria-label="Close distance card"><span id="distance-close-icon"></span></button>
               </div>
-              <figure class="distance-figure card-scroll-content">
-                <canvas id="distance-comparison" role="img" aria-label="Distance and direction comparison"></canvas>
-              </figure>
+              <div class="distance-body card-scroll-content">
+                <figure class="distance-figure">
+                  <canvas id="distance-comparison" role="img" aria-label="Distance and direction comparison"></canvas>
+                </figure>
+                <div class="distance-time">
+                  <div class="time-range">
+                    <div class="time-directions" aria-hidden="true"><span>Past</span><span id="distance-time-value" class="distance-time-value"></span><span>Future</span></div>
+                    <div class="time-slider-track">
+                      <input id="distance-time-slider" type="range" min="-500000" max="500000" step="any" value="0" aria-label="Distance card time" aria-valuetext="Now">
+                      <div class="time-markers" aria-hidden="true"><i class="major marker-start" data-label="500k"></i><i class="major" data-label="250k"></i><i class="time-now-marker"></i><i class="major" data-label="250k"></i><i class="major marker-end" data-label="500k"></i></div>
+                    </div>
+                  </div>
+                  <button id="distance-time-reset" class="panel-lock" type="button" aria-label="Return timeline to now" title="Return to now"><span id="distance-time-reset-icon"></span></button>
+                </div>
+                <div class="mass-body distance-facts-body">
+                  <div id="distance-facts" class="planet-facts-grid mass-facts"></div>
+                  <details class="mass-method"><summary>Calculations &amp; sources</summary><p>The slider moves only these two views; the map keeps its own Stellar motion time. Both views move each object in a straight line at its catalog space velocity; Galactic gravity and orbits within multiple systems are not modeled. Without a radial velocity, only the motion across the sky is applied.</p><p>Distance uncertainty comes from the 1σ parallax error: σ<sub>d</sub> ≈ d × σ<sub>ϖ</sub> / ϖ. It is shown when the adopted distance lies within that range; otherwise the parallax-only distance is listed. Pulsar distances usually come from a model of the Galaxy’s free electrons and are much less certain than parallaxes.</p><p>A light-year is the distance light travels in one Julian year, so light we see today left an object that many years ago. The departure year is rounded to the distance uncertainty, or to three significant digits.</p><p>Radial velocity is the speed along the line of sight, relative to the Sun. The distance change per 1,000 years uses today’s radial velocity.</p><p>Closest approach extends today’s position and space velocity in a straight line, as the map does. It is listed only within ±500,000 years, and only when the 1σ errors of the parallax, both proper motions and the radial velocity together shift its time and distance by less than 10%.</p><a href="https://www.cosmos.esa.int/web/gaia/dr3" target="_blank" rel="noreferrer">ESA: Gaia DR3 ↗</a> · <a href="https://arxiv.org/abs/1805.07581" target="_blank" rel="noreferrer">Stellar encounters with the Sun ↗</a> · <a href="https://arxiv.org/abs/1610.09448" target="_blank" rel="noreferrer">YMW16 pulsar distances ↗</a></details>
+                </div>
+              </div>
             </section>
             <section id="planet-card" class="dock-card object-type-card planet-card" aria-labelledby="planet-name" data-scene-obstacle hidden>
               <div class="panel-heading planet-heading">

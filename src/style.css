@@ -899,12 +899,12 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .mass-facts .luminosity-factor-name { display: flex; gap: 5px; align-items: center; margin-bottom: 2px; color: var(--ink); font-size: 12px; }
 .mass-facts .luminosity-long-value { font-size: 18px; }
 /* Paired cells stack their notes under the value to fit two columns. */
-:is(.mass-card, .luminosity-card).has-comparison .mass-fact-cell { grid-template-columns: minmax(0, 1fr); align-items: start; }
-:is(.mass-card, .luminosity-card).has-comparison .mass-fact-notes { margin-top: 2px; text-align: left; }
-:is(.mass-card, .luminosity-card).has-comparison .mass-facts > .mass-fact { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 6px 12px; }
-:is(.mass-card, .luminosity-card).has-comparison .mass-fact-header { display: flex; grid-column: 1 / -1; align-items: center; justify-content: center; gap: 6px; }
-:is(.mass-card, .luminosity-card).has-comparison .mass-fact-icon svg { width: 20px; height: 20px; }
-:is(.mass-card, .luminosity-card).has-comparison .mass-fact-title { font-size: var(--property-text-size); color: var(--ink); }
+:is(.mass-card, .luminosity-card, .distance-card).has-comparison .mass-fact-cell { grid-template-columns: minmax(0, 1fr); align-items: start; }
+:is(.mass-card, .luminosity-card, .distance-card).has-comparison .mass-fact-notes { margin-top: 2px; text-align: left; }
+:is(.mass-card, .luminosity-card, .distance-card).has-comparison .mass-facts > .mass-fact { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 6px 12px; }
+:is(.mass-card, .luminosity-card, .distance-card).has-comparison .mass-fact-header { display: flex; grid-column: 1 / -1; align-items: center; justify-content: center; gap: 6px; }
+:is(.mass-card, .luminosity-card, .distance-card).has-comparison .mass-fact-icon svg { width: 20px; height: 20px; }
+:is(.mass-card, .luminosity-card, .distance-card).has-comparison .mass-fact-title { font-size: var(--property-text-size); color: var(--ink); }
 .mass-spectrum { margin-bottom: 6px; padding-top: 0; }
 .mass-zone-labels { position: relative; height: 22px; font-size: 12px; line-height: 1.4; color: var(--muted); }
 .mass-zone-labels > span { position: absolute; top: 0; white-space: nowrap; }
@@ -1172,6 +1172,16 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .object-section-button.distance-reference-button:hover:not(:disabled) { color: var(--accent-vibrant); background: #ff8a2a0d; }
 }
 .distance-figure { margin: 0; }
+.distance-time { display: flex; align-items: center; gap: 4px; padding: 10px 4px 2px 12px; border-bottom: 1px solid var(--line); }
+.distance-time .time-range { flex: 1; }
+.distance-time-value { color: var(--accent-strong); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+/* Wide single-object cards pair the tiles, stacking their notes as paired cells do; an odd last tile spans the row. */
+@container (min-width: 440px) {
+  .distance-card:not(.has-comparison) .mass-facts.planet-facts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .distance-card:not(.has-comparison) .mass-facts > .mass-fact:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .distance-card:not(.has-comparison) .mass-fact:not(:last-child:nth-child(odd)) .mass-fact-cell { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .distance-card:not(.has-comparison) .mass-fact:not(:last-child:nth-child(odd)) .mass-fact-notes { margin-top: 2px; text-align: left; }
+}
 #distance-comparison { display: block; width: 100%; aspect-ratio: 560 / 232; background: #090b10; }
 .radius-body { padding: 0 16px 18px; font-size: var(--property-text-size); line-height: 1.55; }
 .radius-figure { margin: 0 -16px; }

@@ -82,4 +82,29 @@ describe('star paint', () => {
     // The Sun sits 5 of the 11 decades above the faint end.
     expect(linear.painter(sun).magnitude).toBeCloseTo(10 - 12 * 5 / 11)
   })
+
+  it('paints approaching objects blue and receding ones red, brightening the side the midpoint moves toward', () => {
+    const moving = (radial: number): Star => ({ ...sun, id: `rv${radial}`, x_pc: 10, vx_kms: radial })
+    const stars = [moving(-40), moving(-10), moving(10), moving(30), moving(60)]
+    const fitted = (level: number, linear = false) => starPainter(new Map([['radial-velocity', level]]), stars, new Set(linear ? ['radial-velocity'] as const : []))!
+    const centered = fitted(0.5)
+    expect(centered.bounds.get('radial-velocity')).toEqual(['−40 km/s', '+60 km/s'])
+    const approaching = centered.painter(stars[0]!).color!, receding = centered.painter(stars[4]!).color!
+    expect(approaching.b).toBeGreaterThan(approaching.r)
+    expect(receding.r).toBeGreaterThan(receding.b)
+    expect(centered.painter(moving(0)).color!.getHexString()).toBe('333333')
+    expect(centered.painter(sun).color!.getHexString()).toBe('333333')
+    // Toward the red end, the fastest receding objects stand out further from slower ones and approaching objects fade.
+    const contrast = (level: number) => fitted(level).painter(stars[4]!).magnitude! - fitted(level).painter(stars[3]!).magnitude!
+    expect(contrast(1)).toBeLessThan(contrast(0.5))
+    // Closely ranked fast objects still separate clearly near the end.
+    const fast = [...stars, moving(-70), moving(-130)]
+    const strength = (star: Star) => 10 - starPainter(new Map([['radial-velocity', 0.1]]), fast)!.painter(star).magnitude!
+    expect(strength(fast.at(-1)!) - strength(fast.at(-2)!)).toBeGreaterThan(4)
+    expect(fitted(1).painter(stars[0]!).magnitude).toBe(10)
+    expect(fitted(1).painter(stars[4]!).color!.getHexString()).toBe(centered.painter(stars[4]!).color!.getHexString())
+    const linear = fitted(0.5, true)
+    expect(linear.bounds.get('radial-velocity')).toEqual(['−150 km/s', '+150 km/s'])
+    expect(linear.painter(moving(75)).magnitude).toBeCloseTo(4)
+  })
 })

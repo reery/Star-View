@@ -219,6 +219,7 @@ icon('planet-atmosphere-icon', Cloud)
 icon('planet-atmosphere-chevron', ChevronUp)
 icon('time-play-icon', Play)
 icon('time-now-icon', RotateCcw)
+icon('distance-time-reset-icon', RotateCcw)
 icon('time-follow-icon', Crosshair)
 icon('time-slower-icon', Minus)
 icon('time-faster-icon', Plus)
@@ -347,9 +348,13 @@ const cameraViewButtonIds = ['reset-view', ...cameraViews.map((view) => `${view}
 const viewButtons = [...cameraViewButtonIds, 'toggle-grid', 'toggle-equatorial-grid', 'toggle-galactic-grid', 'views-toggle'].map((id) => element<HTMLButtonElement>(id))
 const timelineButtons = ['time-play', 'time-now', 'time-follow'].map((id) => element<HTMLButtonElement>(id))
 const timeSlider = element<HTMLInputElement>('time-slider')
+// The distance card has its own timeline, which moves only its two views.
+const distanceTimeSlider = element<HTMLInputElement>('distance-time-slider')
 // Evenly spaced timeline ticks; set via CSSOM because the CSP forbids inline style attributes.
-const timeMarkers = document.querySelectorAll<HTMLElement>('.time-markers i')
-timeMarkers.forEach((marker, index) => marker.style.setProperty('--marker-position', `${index / (timeMarkers.length - 1) * 100}%`))
+document.querySelectorAll('.time-markers').forEach((markers) => {
+  const ticks = markers.querySelectorAll<HTMLElement>('i')
+  ticks.forEach((marker, index) => marker.style.setProperty('--marker-position', `${index / (ticks.length - 1) * 100}%`))
+})
 const selectionHistory = new SelectionHistory(selectedId)
 const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'preferences', 'info'] as const
 const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'preferences'] as const
@@ -1119,13 +1124,17 @@ async function toggleMassCard(): Promise<void> {
 }
 
 let distanceReference: 'origin' | 'sun' = 'origin'
-let lastDistanceCardRender = -Infinity
+let distanceYears = 0
+// The Sun-relative facts don't change with the timeline, so they render only when their inputs do.
+let distanceFactsKey = ''
 let distanceCardModule: typeof import('./distance-comparison') | undefined
 
 function closeDistanceCard(restoreFocus = false): void {
   const card = element('distance-card')
   if (card.hidden) return
   card.hidden = true
+  // A reopened card starts at the present; a locked card keeps its time across selections.
+  setDistanceYears(0)
   element('distance-toggle').setAttribute('aria-expanded', 'false')
   if (restoreFocus) element('distance-toggle').focus()
 }
@@ -1143,8 +1152,12 @@ function renderDistanceCard(star: Star): void {
     element(`distance-reference-${mode}`).setAttribute('aria-pressed', String(referenceMode === mode))
   }
   const reference = referenceMode === 'sun' ? sun : origin
-  distanceCardModule.renderDistanceComparison(element<HTMLCanvasElement>('distance-comparison'), star, reference, starColorMode, distanceUnit, simulationYears, motionFrame, other)
-  lastDistanceCardRender = performance.now()
+  distanceCardModule.renderDistanceComparison(element<HTMLCanvasElement>('distance-comparison'), star, reference, starColorMode, distanceUnit, distanceYears, motionFrame, other)
+  const factsKey = [star.id, other?.id, distanceUnit, starColorMode].join('|')
+  if (factsKey !== distanceFactsKey) {
+    distanceFactsKey = factsKey
+    distanceCardModule.renderDistanceFacts(element('distance-card'), star, sun, starColorMode, distanceUnit, other)
+  }
   syncObjectTypeLayout()
 }
 
@@ -1601,14 +1614,27 @@ function formattedSimulationTime(years: number): { short: string; accessible: st
   return { short: `${years < 0 ? '\u2212' : '+'}${value} yr`, accessible: `${value} years in the ${direction}` }
 }
 
+function renderTimeSlider(slider: HTMLInputElement, years: number): string {
+  const formatted = formattedSimulationTime(years)
+  const position = (years + SIMULATION_YEAR_LIMIT) / (2 * SIMULATION_YEAR_LIMIT) * 100
+  slider.value = String(years)
+  slider.style.setProperty('--time-fill-start', `${Math.min(50, position)}%`)
+  slider.style.setProperty('--time-fill-end', `${Math.max(50, position)}%`)
+  slider.setAttribute('aria-valuetext', formatted.accessible)
+  return formatted.short
+}
+
+function setDistanceYears(years: number): void {
+  const clamped = Math.max(-SIMULATION_YEAR_LIMIT, Math.min(SIMULATION_YEAR_LIMIT, years))
+  distanceYears = Math.abs(clamped) < 1e-9 ? 0 : clamped
+  const formatted = renderTimeSlider(distanceTimeSlider, distanceYears)
+  // The card's Now tick already labels the present.
+  text('distance-time-value', distanceYears === 0 ? '' : formatted)
+  refreshDistanceCard()
+}
+
 function renderSimulationTime(): void {
-  const formatted = formattedSimulationTime(simulationYears)
-  timeSlider.value = String(simulationYears)
-  const position = (simulationYears + SIMULATION_YEAR_LIMIT) / (2 * SIMULATION_YEAR_LIMIT) * 100
-  timeSlider.style.setProperty('--time-fill-start', `${Math.min(50, position)}%`)
-  timeSlider.style.setProperty('--time-fill-end', `${Math.max(50, position)}%`)
-  timeSlider.setAttribute('aria-valuetext', formatted.accessible)
-  text('time-value', formatted.short)
+  text('time-value', renderTimeSlider(timeSlider, simulationYears))
   setActiveIndicator('motion-active', simulationYears !== 0 || simulationPlaying)
 }
 
@@ -1637,7 +1663,6 @@ function setSimulationYears(years: number): void {
   simulationYears = Math.abs(clamped) < 1e-9 ? 0 : clamped
   renderSimulationTime()
   viewer?.setSimulationYears(simulationYears)
-  if (!simulationPlaying || performance.now() - lastDistanceCardRender >= 100) refreshDistanceCard()
 }
 
 function playbackFrame(time: number): void {
@@ -1667,7 +1692,6 @@ function setSimulationPlaying(playing: boolean): void {
   if (playbackFrameRequest !== null) cancelAnimationFrame(playbackFrameRequest)
   playbackFrameRequest = playing ? requestAnimationFrame(playbackFrame) : null
   renderPlaybackState()
-  if (!playing) refreshDistanceCard()
 }
 
 renderSimulationTime()
@@ -3074,7 +3098,7 @@ element('constellations-maximize').addEventListener('click', () => {
 catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.valueAsNumber), { signal: events.signal })
 element('filter-reset').addEventListener('click', resetAllFilters, { signal: events.signal })
 const paintIcon = (shape: IconNode) => createElement(shape, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' })
-const paintSettingIcons: Record<PaintSettingId, IconNode> = { 'absolute-magnitude': Sun, mass: Weight, 'bolometric-luminosity': Sparkle }
+const paintSettingIcons: Record<PaintSettingId, IconNode> = { 'absolute-magnitude': Sun, mass: Weight, 'bolometric-luminosity': Sparkle, 'radial-velocity': ArrowLeftRight }
 element('paint-settings').append(...PAINT_SETTINGS.map(({ id, label, legend, gradient }) => {
   const setting = document.createElement('section')
   setting.className = 'planet-atmosphere paint-setting'
@@ -3087,10 +3111,10 @@ element('paint-settings').append(...PAINT_SETTINGS.map(({ id, label, legend, gra
   toggle.setAttribute('aria-pressed', 'false')
   toggle.append(paintIcon(paintSettingIcons[id]))
   const body = document.createElement('div')
-  Object.assign(body, { id: `paint-${id}-body`, className: 'paint-setting-body' })
+  Object.assign(body, { id: `paint-${id}-body`, className: 'paint-setting-body', hidden: true })
   const expand = document.createElement('button')
   Object.assign(expand, { type: 'button', className: 'paint-setting-expand' })
-  expand.setAttribute('aria-expanded', 'true')
+  expand.setAttribute('aria-expanded', 'false')
   expand.setAttribute('aria-controls', body.id)
   expand.append(Object.assign(document.createElement('span'), { textContent: label }))
   const scale = document.createElement('span')
@@ -3338,6 +3362,7 @@ element('time-now').addEventListener('click', () => {
   simulationDirection = 1
   setSimulationYears(0)
 }, { signal: events.signal })
+element('distance-time-reset').addEventListener('click', () => setDistanceYears(0), { signal: events.signal })
 element('time-follow').addEventListener('click', () => {
   followSelection = !followSelection
   viewer?.setFollowSelection(followSelection)
@@ -3347,6 +3372,9 @@ timeSlider.addEventListener('input', () => {
   if (!timeSlider.validity.valid || !Number.isFinite(timeSlider.valueAsNumber)) return
   setSimulationPlaying(false)
   setSimulationYears(timeSlider.valueAsNumber)
+}, { signal: events.signal })
+distanceTimeSlider.addEventListener('input', () => {
+  if (distanceTimeSlider.validity.valid && Number.isFinite(distanceTimeSlider.valueAsNumber)) setDistanceYears(distanceTimeSlider.valueAsNumber)
 }, { signal: events.signal })
 element('time-slower').addEventListener('click', () => {
   playbackSecondsPerThousandYears = playbackSecondsPerThousandYears < 1

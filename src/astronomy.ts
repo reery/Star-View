@@ -153,11 +153,13 @@ export function displayMotionForStar(
   if (!raw) return null
   const velocity = rawAstrometryVelocityToWorld(raw)
   if (!velocity) return null
-  if (raw.radial_velocity_kms === null || frame === 'solar') return { velocity, mode: raw.radial_velocity_kms === null ? 'transverse' : 'full' }
+  const mode = raw.radial_velocity_kms === null ? 'transverse' : 'full'
+  if (frame === 'solar') return { velocity, mode }
+  // Transverse-only stars share the Sun's orbit too, so their Sun-relative motion is the same in both frames.
   const solar = galacticVelocityToWorld(SOLAR_GALACTIC_VELOCITY_KMS)
   if (!solar) return null
   velocity.add(solar)
-  return velocity.lengthSq() === 0 ? null : { velocity, mode: 'full' }
+  return velocity.lengthSq() === 0 ? null : { velocity, mode }
 }
 
 export function sunRelativeMetrics(star: Position, sun: Position) {

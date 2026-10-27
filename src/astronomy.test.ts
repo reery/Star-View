@@ -126,6 +126,9 @@ describe('Galactic rest-frame motion', () => {
     const expectedSpeed = 4.74047 / raw.parallax_mas * Math.hypot(raw.pm_ra_cosdec_masyr, raw.pm_dec_masyr)
     expect(velocity.length()).toBeCloseTo(expectedSpeed, 8)
     expect(displayMotionForStar({ id: 'denis', vx_kms: null, vy_kms: null, vz_kms: null, raw_astrometry: raw })).toMatchObject({ mode: 'transverse' })
+    // The Galactic frame adds the Sun's orbit, leaving only the measured motion relative to the Sun.
+    const galactic = displayMotionForStar({ id: 'denis', vx_kms: null, vy_kms: null, vz_kms: null, raw_astrometry: raw }, 'galactic')!
+    expect(galactic.velocity.clone().sub(galacticVelocityToWorld(SOLAR_GALACTIC_VELOCITY_KMS)!).distanceTo(velocity)).toBeCloseTo(0, 9)
   })
 
   it('prefers stored full velocity and derives full motion from raw radial velocity as a fallback', () => {
