@@ -40,7 +40,7 @@ const GRAY_FLOOR = 0.2
 const MASS_POWERS = [-2, 2] as const
 const LUMINOSITY_POWERS = [-5, 6] as const
 /** Fixed linear radial-velocity scale in km/s, from approaching to receding. */
-const RADIAL_VELOCITY_RANGE = [-150, 150] as const
+const RADIAL_VELOCITY_RANGE = [-100, 100] as const
 const WHITE = [1, 1, 1] as const
 const APPROACHING = [0.25, 0.45, 1] as const
 const RECEDING = [1, 0.25, 0.2] as const
