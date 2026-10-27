@@ -1,8 +1,20 @@
 const MIN_REFRESH_SAMPLES = 8
 
+// Dense displays render at 1.5x without MSAA: sharper than 1x with 4x MSAA at a similar GPU cost.
+const DENSE_DISPLAY_PIXEL_RATIO = 1.5
+
+function validPixelRatio(devicePixelRatio: number): number {
+  return Number.isFinite(devicePixelRatio) && devicePixelRatio > 0 ? devicePixelRatio : 1
+}
+
 export function renderPixelRatio(devicePixelRatio: number, powerSavingMode: boolean): number {
-  const ratio = Number.isFinite(devicePixelRatio) && devicePixelRatio > 0 ? devicePixelRatio : 1
-  return Math.min(ratio, powerSavingMode ? 0.5 : 1)
+  const ratio = validPixelRatio(devicePixelRatio)
+  if (!powerSavingMode && ratio >= DENSE_DISPLAY_PIXEL_RATIO) return DENSE_DISPLAY_PIXEL_RATIO
+  return Math.min(ratio, 1)
+}
+
+export function renderMultisampling(devicePixelRatio: number, powerSavingMode: boolean): boolean {
+  return !powerSavingMode && validPixelRatio(devicePixelRatio) < DENSE_DISPLAY_PIXEL_RATIO
 }
 
 export function estimateRefreshRate(frameDeltasMs: readonly number[]): number | null {

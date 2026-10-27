@@ -6,6 +6,7 @@ import type { Star } from './catalog-model'
 import { catalogSourceFor } from './catalog-source'
 import { renderComparisonName } from './comparison-tiles'
 import { MISSING_VALUE } from './format'
+import { attachPopoverTooltip } from './popover-tooltips'
 
 type MagnitudeKind = 'absolute' | 'apparent'
 const CITY_VISIBILITY_STORAGE_KEY = 'star-view-magnitude-city'
@@ -18,7 +19,7 @@ export function initializeMagnitudeVisibility(card: HTMLElement, onChange: () =>
   card.dataset.defaultVisibilityGuide = city ? 'city' : 'eye'
   card.dataset.visibilityGuide = card.dataset.defaultVisibilityGuide
   const controls = card.querySelector<HTMLElement>('#magnitude-visibility-controls')!
-  controls.replaceChildren(...MAGNITUDE_VISIBILITY_GUIDES.map((guide, index) => {
+  controls.replaceChildren(...MAGNITUDE_VISIBILITY_GUIDES.map((guide) => {
     const button = document.createElement('button')
     button.type = 'button'
     button.className = 'icon-button magnitude-visibility-button'
@@ -32,8 +33,7 @@ export function initializeMagnitudeVisibility(card: HTMLElement, onChange: () =>
     tooltip.className = 'tooltip mass-metric-tooltip'
     tooltip.setAttribute('role', 'tooltip')
     tooltip.textContent = `${label}. ${guide.detail}`
-    tooltip.style.setProperty('--magnitude-tooltip-arrow', `${18 + index * 40}px`)
-    button.setAttribute('aria-describedby', tooltip.id)
+    attachPopoverTooltip(button, tooltip, true)
     button.append(createElement(guide.icon, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' }), tooltip)
     button.addEventListener('click', () => {
       card.dataset.visibilityGuide = guide.id

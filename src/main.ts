@@ -46,6 +46,7 @@ import { SelectionHistory } from './selection-history'
 import { appendConstellationContent } from './constellation-card-content'
 import { initializeToolbarTouch } from './toolbar-touch'
 import { initializeTouchTooltips } from './touch-tooltips'
+import { attachPopoverTooltip } from './popover-tooltips'
 import { objectSubtypeDescription } from './object-subtype-info'
 import { MISSING_VALUE, preciseMeasurement, quantity, scientificQuantity } from './format'
 import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
@@ -225,10 +226,12 @@ icon('object-specs-icon', List)
 icon('object-info-icon', BookOpen)
 icon('object-system-icon', Orbit)
 icon('object-compare-icon', ArrowLeftRight)
+icon('visibility-lock-icon', Lock)
 
 const events = new AbortController()
 initializeTouchTooltips(events.signal)
 initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, events.signal)
+for (const help of document.querySelectorAll<HTMLButtonElement>('.compact-property .mass-metric-help')) attachPopoverTooltip(help, help.nextElementSibling as HTMLElement)
 let constellationBrowser: ReturnType<typeof import('./constellation-browser').initializeConstellationBrowser> | undefined
 let topLists: ReturnType<typeof import('./top-lists').initializeTopLists> | undefined
 let graphs: ReturnType<typeof import('./graphs').initializeGraphs> | undefined
@@ -252,6 +255,9 @@ let starSystems: ReadonlyMap<string, StarSystem> = new Map()
 let activeCatalogId = ''
 let selectedId: string | null = 'sirius-a'
 let observerId = 'sirius-a'
+// A locked visibility base ignores selection changes; unlocking returns to the last selected object.
+let visibilityLockId: string | null = null
+let lastSelectedId = observerId
 let referenceId = 'sun'
 let magnitudeLimit = 7
 let hideFainterObjects = false
@@ -1923,6 +1929,10 @@ function renderSelection(): void {
   }
   text('reference-base', reference.name)
   text('visibility-base', stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun')
+  const visibilityLock = element('visibility-lock')
+  visibilityLock.setAttribute('aria-pressed', String(visibilityLockId !== null))
+  visibilityLock.title = visibilityLockId === null ? 'Lock visibility to this object' : 'Unlock visibility'
+  visibilityLock.setAttribute('aria-label', visibilityLock.title)
   element('selected-object-card').hidden = !star
   element('star-details').hidden = !star
   syncSelectedObjectLayout()
@@ -2232,7 +2242,8 @@ function selectStar(id: string | null, recordHistory = true): void {
   if (recordHistory) selectionHistory.record(id)
   selectedDistancePc = null
   selectedId = id
-  if (id !== null && !observerView) observerId = id
+  if (id !== null) lastSelectedId = id
+  if (id !== null && !observerView && visibilityLockId === null) observerId = id
   updateObjectListFilter()
   renderSelection()
   viewer?.select(id)
@@ -2280,13 +2291,26 @@ function setObserverViewAnchor(anchorId: string | null): void {
   } else {
     observerView = viewer.setObserverView(false)
     observerViewAnchorId = null
-    if (selectedId !== null) observerId = selectedId
+    const restoredId = visibilityLockId ?? selectedId
+    if (restoredId !== null) observerId = restoredId
     viewer.setVisibility(observerId, magnitudeLimit, hideFainterObjects)
   }
   updateObjectListFilter()
   renderSelection()
   renderFollowState()
   updateObserverControl()
+}
+
+function toggleVisibilityLock(): void {
+  if (visibilityLockId === null) visibilityLockId = observerId
+  else {
+    visibilityLockId = null
+    if (!observerView && starIndex.has(lastSelectedId)) observerId = lastSelectedId
+    viewer?.setVisibility(observerId, magnitudeLimit, hideFainterObjects)
+    updateObjectListFilter()
+  }
+  viewer?.setVisibilityLocked(visibilityLockId !== null)
+  renderSelection()
 }
 
 function rollObserverView(direction: 'counterclockwise' | 'center' | 'clockwise'): void {
@@ -2348,6 +2372,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   selectedDistancePc = null
   selectedId = retained.selectedId
   observerId = retained.observerId
+  if (visibilityLockId !== null && !starIndex.has(visibilityLockId)) visibilityLockId = null
   if (observerViewAnchorId && !starIndex.has(observerViewAnchorId)) {
     observerView = false
     observerViewAnchorId = null
@@ -2383,6 +2408,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   }
   viewer.setDistanceUnit(distanceUnit)
   viewer.setReference(referenceId)
+  viewer.setVisibilityLocked(visibilityLockId !== null)
   viewer.select(selectedId, false)
   viewer.setVisibility(observerId, magnitudeLimit, hideFainterObjects)
   viewer.setObjectDistanceLimit(objectDistanceLimitLy)
@@ -2789,6 +2815,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   if (observerView) viewer?.setObserverView(false)
   observerView = false
   observerViewAnchorId = null
+  visibilityLockId = null
   showWesternConstellationStars = settings.showWesternConstellationStars || settings.showFamousClusterStars || settings.showAlwaysBright
   showNotableDistantStars = settings.showNotableDistantStars ?? false
   filterCategories.clear()
@@ -2834,6 +2861,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
     if (!observerView) observerViewAnchorId = null
   }
   selectionHistory.record(selectedId)
+  lastSelectedId = selectedId ?? observerId
   objectList.setReference(referenceId, objectListFilter())
   applyPaint(settings.paint ?? [])
   const graphFilter = settings.graphFilter ?? []
@@ -3599,6 +3627,7 @@ element('go-to-origin').addEventListener('click', () => {
   selectStar(referenceId)
 }, { signal: events.signal })
 element('observer-view').addEventListener('click', toggleObserverView, { signal: events.signal })
+element('visibility-lock').addEventListener('click', toggleVisibilityLock, { signal: events.signal })
 element('observer-view-origin').addEventListener('click', () => setObserverViewAnchor(referenceId), { signal: events.signal })
 element('observer-object').addEventListener('click', () => {
   if (observerViewAnchorId !== null) selectStar(observerViewAnchorId)

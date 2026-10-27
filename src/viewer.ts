@@ -16,7 +16,7 @@ import { createMapGrid, gridOpacityForDisplay, makeGridGeometry } from './map-gr
 import { createSkyGridLayer, type SkyGridMode } from './sky-grid'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC } from './earth-orbit'
-import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
+import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderMultisampling, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import { createNebulaLayer } from './nebula-layer'
 import { createMolecularCloudLayer } from './molecular-cloud-layer'
@@ -67,6 +67,8 @@ export interface StarViewer {
   setStarPaintZoomShrink(enabled: boolean): void
   /** hideFainter removes objects beyond the magnitude limit instead of dimming them. */
   setVisibility(observerId: string, limit: number, hideFainter: boolean): void
+  /** Keeps the visibility base when the selection changes. */
+  setVisibilityLocked(locked: boolean): void
   setDistanceUnit(unit: DistanceUnit): void
   dispose(): void
 }
@@ -209,7 +211,10 @@ let sharedRenderer: WebGLRenderer | null = null
 export function createStarViewer(container: HTMLElement, stars: readonly Star[], options: ViewerOptions): StarViewer {
   const sun = stars.find((star) => star.id === 'sun')
   if (!sun) throw new Error('A Sun reference is required.')
-  const renderer = sharedRenderer ??= new WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' })
+  // Canvas MSAA is fixed with the context; offscreen cloud targets follow the current display and power mode.
+  const renderer = sharedRenderer ??= new WebGLRenderer({
+    antialias: renderMultisampling(window.devicePixelRatio || 1, false), alpha: true, powerPreference: 'low-power',
+  })
   renderer.outputColorSpace = SRGBColorSpace
   renderer.setClearColor(0x000000, 0)
   renderer.setPixelRatio(renderPixelRatio(window.devicePixelRatio || 1, false))
@@ -507,6 +512,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let lastSelectionDistanceUpdate = -Infinity
   let selectedId: string | null = null
   let visibilityBase = sun
+  let visibilityLocked = false
   let magnitudeLimit = 7
   let hideFainterObjects = false
   let objectDistanceLimitLy = 100
@@ -1542,7 +1548,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     molecularCloudLayer?.setSelected(id)
     bubbleLayer?.setSelected(id)
     obstacleBoundsDirty = true
-    if (star && !observerViewEnabled) visibilityBase = star
+    if (star && !observerViewEnabled && !visibilityLocked) visibilityBase = star
     updatePresentation()
     disposeGeometry(guides)
     guides.clear()
@@ -1766,6 +1772,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (!width || !height) return
     const nextDisplayPixelRatio = window.devicePixelRatio || 1
     const pixelRatio = renderPixelRatio(nextDisplayPixelRatio, powerSavingMode)
+    molecularCloudLayer?.setMultisampling(renderMultisampling(nextDisplayPixelRatio, powerSavingMode))
     const sizeChanged = width !== renderWidth || height !== renderHeight
     const displayPixelRatioChanged = displayPixelRatio !== nextDisplayPixelRatio
     if (!sizeChanged && renderer.getPixelRatio() === pixelRatio && !displayPixelRatioChanged) return
@@ -2196,6 +2203,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       nebulaLayer?.setLevelOfDetail(enabled ? 0.5 : 1)
       if (nebulaLayer) labelLayer.dataset.nebulaPuffCount = String(nebulaLayer.instanceCount())
       molecularCloudLayer?.setLevelOfDetail(enabled ? 0.4 : 1)
+      molecularCloudLayer?.setSourceDepthCapture(!enabled)
       if (molecularCloudLayer) labelLayer.dataset.molecularCloudPuffCount = String(molecularCloudLayer.instanceCount())
       resetCadenceSamples()
       resize()
@@ -2231,6 +2239,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       hideFainterObjects = hideFainter
       updatePresentation()
       requestRender()
+    },
+    setVisibilityLocked(locked) {
+      visibilityLocked = locked
     },
     setDistanceUnit(unit) {
       if (unit === distanceUnit) return

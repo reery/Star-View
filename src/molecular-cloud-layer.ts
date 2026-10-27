@@ -141,6 +141,8 @@ export interface MolecularCloudLayer {
   root: Group
   setVisible(visible: readonly boolean[]): void
   setLevelOfDetail(fraction: number): void
+  setSourceDepthCapture(enabled: boolean): void
+  setMultisampling(enabled: boolean): void
   setColorMode(mode: StarColorMode): void
   setViewportHeight(pixels: number): void
   setSelected(id: string | null): void
@@ -434,6 +436,8 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
   const cloudIndexById = new Map(clouds.map((cloud, index) => [cloud.id, index]))
   let visibility: boolean[] = clouds.map(() => false)
   let fraction = 1
+  let sourceDepthCapture = true
+  let samples = 4
   let packedKey = ''
 
   function repack(): void {
@@ -467,6 +471,16 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       fraction = next
       repack()
     },
+    setSourceDepthCapture(enabled) {
+      sourceDepthCapture = enabled
+    },
+    setMultisampling(enabled) {
+      const next = enabled ? 4 : 0
+      if (next === samples) return
+      samples = next
+      // Sample count is fixed per target; the next render recreates them.
+      releaseTargets()
+    },
     setColorMode(next) {
       uniforms.colorMix.value = next === 'exaggerated' ? 1 : 0
       uniforms.rimGain.value = next === 'exaggerated' ? 0.18 : 0.1
@@ -487,9 +501,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       if (previousTarget) viewportSize.set(previousTarget.width, previousTarget.height)
       else renderer.getDrawingBufferSize(viewportSize)
       if (!sceneTarget) {
-        sceneTarget = new WebGLRenderTarget(viewportSize.x, viewportSize.y, {
-          samples: renderer.getContext().getContextAttributes()?.antialias ? 4 : 0,
-        })
+        sceneTarget = new WebGLRenderTarget(viewportSize.x, viewportSize.y, { samples })
         sceneTarget.depthTexture = new DepthTexture(viewportSize.x, viewportSize.y)
         // Only optical depth (red) is read back, so a single half-float channel suffices.
         absorptionTarget = new WebGLRenderTarget(viewportSize.x, viewportSize.y, { type: HalfFloatType, format: RedFormat, depthBuffer: false })
@@ -513,7 +525,8 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
         renderer.setClearColor(clearColor.clone().convertLinearToSRGB(), clearAlpha)
         renderer.setRenderTarget(sceneTarget)
         renderer.render(scene, camera)
-        captureSourceDepth(renderer, scene, camera)
+        // Without it only opaque cores shield their light; translucent sources in front of clouds dim too.
+        if (sourceDepthCapture) captureSourceDepth(renderer, scene, camera)
         scene.background = background
         displayCapture.value = false
         renderer.setRenderTarget(absorptionTarget!)

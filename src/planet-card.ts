@@ -1,6 +1,6 @@
 import { createLoadError } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { registerTouchTooltip, usingTouchTooltips } from './touch-tooltips'
+import { attachPopoverTooltip } from './popover-tooltips'
 import { isExtrasolarPlanet, isSmallBody, planetApparentMagnitudeRange, planetAtmosphereSpecs, planetPhysicalSpecs, specDefinitions, type PlanetDescription, type PlanetSpec } from './planet-properties'
 import { smallBodyMedia } from './small-body-media'
 import { magnitudeNumber, NAKED_EYE_MAGNITUDE } from './magnitude-card'
@@ -53,97 +53,6 @@ const specIcons: Readonly<Record<string, IconNode>> = {
   'semi-major-axis': Orbit, 'sidereal-orbit': Orbit, 'phase-cycle': Sun,
 }
 
-let hideActiveTooltip: (() => void) | undefined
-
-function attachTooltip(button: HTMLButtonElement, tooltip: HTMLElement): void {
-  tooltip.setAttribute('popover', 'manual')
-  button.setAttribute('aria-describedby', tooltip.id)
-  let hovered = false
-  let listeners: AbortController | undefined
-  let observer: MutationObserver | undefined
-  let resizeObserver: ResizeObserver | undefined
-  const hide = () => {
-    if (tooltip.matches(':popover-open')) tooltip.hidePopover()
-    listeners?.abort()
-    observer?.disconnect()
-    resizeObserver?.disconnect()
-    if (hideActiveTooltip === hide) hideActiveTooltip = undefined
-  }
-  const position = () => {
-    if (!button.isConnected || !button.checkVisibility()) {
-      hide()
-      return
-    }
-    const card = button.closest<HTMLElement>('.planet-card')!
-    const scroller = button.closest<HTMLElement>('.card-scroll-content')!
-    const anchor = button.getBoundingClientRect()
-    const scrollBounds = scroller.getBoundingClientRect()
-    if (anchor.bottom <= scrollBounds.top || anchor.top >= scrollBounds.bottom) {
-      hide()
-      return
-    }
-    const bounds = card.getBoundingClientRect()
-    const margin = 8, gap = 8
-    const leftEdge = Math.max(margin, bounds.left + margin)
-    const rightEdge = Math.min(window.innerWidth - margin, bounds.right - margin)
-    const topEdge = Math.max(margin, bounds.top + margin)
-    const bottomEdge = Math.min(window.innerHeight - margin, bounds.bottom - margin)
-    const maxWidth = rightEdge - leftEdge
-    let width = Math.min(button.closest('.moon-properties') ? 300 : 280, maxWidth)
-    tooltip.style.maxWidth = `${width}px`
-    // A wider tooltip needs fewer lines when its label is near the card's top edge.
-    while (tooltip.offsetHeight > anchor.top - gap - topEdge && width < maxWidth) {
-      width = Math.min(width + 24, maxWidth)
-      tooltip.style.maxWidth = `${width}px`
-    }
-    const size = tooltip.getBoundingClientRect()
-    const alignRight = (anchor.left + anchor.right) / 2 > (bounds.left + bounds.right) / 2
-    const left = Math.max(leftEdge, Math.min(alignRight ? anchor.right - size.width : anchor.left, rightEdge - size.width))
-    const above = anchor.top - gap - size.height
-    const below = above < topEdge && anchor.bottom + gap + size.height <= bottomEdge
-    const top = Math.max(topEdge, Math.min(below ? anchor.bottom + gap : above, bottomEdge - size.height))
-    tooltip.style.left = `${left}px`
-    tooltip.style.top = `${top}px`
-    tooltip.dataset.placement = below ? 'below' : 'above'
-    tooltip.style.setProperty('--planet-tooltip-arrow', `${Math.max(10, Math.min((anchor.left + anchor.right) / 2 - left - 4, size.width - 18))}px`)
-  }
-  const show = () => {
-    if (tooltip.matches(':popover-open')) return
-    hideActiveTooltip?.()
-    hideActiveTooltip = hide
-    // The top layer escapes both the scroll area's clipping and the sticky headers.
-    tooltip.showPopover()
-    position()
-    if (!tooltip.matches(':popover-open')) return
-    listeners = new AbortController()
-    const { signal } = listeners
-    window.addEventListener('resize', position, { signal })
-    document.addEventListener('scroll', position, { capture: true, passive: true, signal })
-    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') hide() }, { signal })
-    document.addEventListener('pointerdown', (event) => { if (!button.contains(event.target as Node)) hide() }, { signal })
-    const card = button.closest<HTMLElement>('.planet-card')!
-    observer = new MutationObserver(() => {
-      if (!button.isConnected || !button.checkVisibility()) hide()
-    })
-    observer.observe(card, { childList: true, subtree: true, attributes: true, attributeFilter: ['hidden'] })
-    resizeObserver = new ResizeObserver(position)
-    resizeObserver.observe(card)
-  }
-  button.addEventListener('pointerenter', (event) => {
-    if (event.pointerType === 'touch' || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
-    hovered = true
-    show()
-  })
-  button.addEventListener('pointerleave', (event) => {
-    if (event.pointerType === 'touch') return
-    hovered = false
-    if (document.activeElement !== button) hide()
-  })
-  button.addEventListener('focus', () => { if (!usingTouchTooltips()) show() })
-  button.addEventListener('blur', () => { if (!hovered && !usingTouchTooltips()) hide() })
-  registerTouchTooltip(button, { show, hide })
-}
-
 function specTooltipLines(spec: PlanetSpec): string[] | undefined {
   if (spec.temperatureK) {
     const digits = spec.temperatureK.length > 1 ? 0 : 1
@@ -185,7 +94,7 @@ function specRow(spec: PlanetSpec, showDetailTooltip = true, showComparison = tr
       span.textContent = line
       tooltip.append(span)
     }
-    attachTooltip(button, tooltip)
+    attachPopoverTooltip(button, tooltip)
     value.append(button, tooltip)
     label.title = spec.detail
   } else {
@@ -218,7 +127,7 @@ function specRow(spec: PlanetSpec, showDetailTooltip = true, showComparison = tr
     tooltip.className = 'tooltip mass-metric-tooltip planet-metric-tooltip'
     tooltip.setAttribute('role', 'tooltip')
     tooltip.textContent = spec.definition ?? specDefinitions[spec.id] ?? spec.detail
-    attachTooltip(help, tooltip)
+    attachPopoverTooltip(help, tooltip)
     label.replaceChildren(help, tooltip)
     // Provenance and caveats stay available on the value.
     if (!lines) value.title = spec.detail

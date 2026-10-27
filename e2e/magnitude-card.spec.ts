@@ -145,6 +145,9 @@ test('opens one magnitude card from either row and shows readable visual scales'
     const cardBox = (await card.boundingBox())!
     expect(tooltipBox.x).toBeGreaterThanOrEqual(cardBox.x)
     expect(tooltipBox.x + tooltipBox.width).toBeLessThanOrEqual(cardBox.x + cardBox.width)
+    // The top layer keeps the tooltip whole below the button, even past the card's bottom edge.
+    expect(tooltipBox.y).toBeGreaterThan((await button.boundingBox())!.y)
+    expect(await page.locator(`#magnitude-${id}-tooltip`).evaluate((element) => element.matches(':popover-open'))).toBe(true)
     await expect(page.locator('#magnitude-absolute-scale')).toHaveAttribute('aria-label', absoluteScaleBefore!)
     await expect(page.locator('#magnitude-apparent-value')).toHaveText('−1.47')
     await checkLabels(page)
