@@ -423,12 +423,12 @@
                 <button id="spectral-lock" class="panel-lock" type="button" aria-label="Keep Spectral type open" aria-pressed="false"><span id="spectral-lock-icon"></span></button>
                 <button id="spectral-close" class="panel-lock" type="button" aria-label="Close spectral type card"><span id="spectral-close-icon"></span></button>
               </div>
+              <div class="spectral-magnitude-buttons radius-reference-buttons" role="group" aria-label="Absolute magnitude scale">
+                <button id="spectral-visual" class="object-section-button radius-reference-button" type="button" aria-pressed="true" title="Johnson V magnitude: visible light">Visual · Mᵥ</button>
+                <button id="spectral-bolometric" class="object-section-button radius-reference-button" type="button" aria-pressed="false" title="Bolometric magnitude: total light, including infrared">Bolometric · Mbol</button>
+              </div>
               <div class="spectral-body card-scroll-content">
                 <div id="spectral-hr-content">
-                  <div class="spectral-magnitude-buttons radius-reference-buttons" role="group" aria-label="Absolute magnitude scale">
-                    <button id="spectral-visual" class="object-section-button radius-reference-button" type="button" aria-pressed="true" title="Johnson V magnitude: visible light">Visual · Mᵥ</button>
-                    <button id="spectral-bolometric" class="object-section-button radius-reference-button" type="button" aria-pressed="false" title="Bolometric magnitude: total light, including infrared">Bolometric · Mbol</button>
-                  </div>
                   <figure class="spectral-figure">
                     <div id="hr-diagram"></div>
                     <span class="mass-reference-option spectral-catalog-option" data-tooltip-always><button id="spectral-catalog" class="panel-lock spectral-catalog-toggle" type="button" aria-label="Catalog stars" aria-pressed="false" aria-describedby="spectral-catalog-tooltip"><span id="spectral-catalog-icon"></span></button><span id="spectral-catalog-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog stars: show the loaded stars as dots, so the selection appears among its neighbors.</span></span>
@@ -884,7 +884,7 @@
                 <div class="glossary-body">
                   <nav id="graphs-terms" class="glossary-terms" aria-label="Graphs"></nav>
                   <article id="graphs-detail" class="constellations-detail" aria-labelledby="graphs-title">
-                    <div id="graphs-filter" class="graphs-filter" role="status" hidden><p id="graphs-filter-list"></p><button id="graphs-clear" class="panel-lock" type="button" aria-label="Clear graph filter" title="Clear graph filter"><span id="graphs-clear-icon"></span></button></div>
+                    <div id="graphs-filter" class="graphs-filter" role="status" hidden><button id="graphs-filter-expand" type="button" aria-expanded="false" aria-controls="graphs-filter-list" aria-label="Show all graph filters" title="Show all graph filters"></button><p id="graphs-filter-list"></p><button id="graphs-clear" class="panel-lock" type="button" aria-label="Clear graph filter" title="Clear graph filter"><span id="graphs-clear-icon"></span></button></div>
                     <div class="panel-heading constellations-detail-heading graphs-detail-heading"><button id="graphs-sidebar" class="panel-lock sidebar-toggle" type="button" aria-label="Collapse sidebar" aria-expanded="true" aria-controls="graphs-terms" title="Collapse sidebar"><span id="graphs-sidebar-icon"></span></button><h3 id="graphs-title"></h3><button id="graphs-collapse-all" class="panel-lock" type="button" aria-controls="graphs-sections"></button></div>
                     <div id="graphs-sections" class="card-scroll-content graph-sections"></div>
                   </article>

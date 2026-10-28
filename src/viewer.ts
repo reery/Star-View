@@ -886,8 +886,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function setLabelsMoving(moving: boolean): void {
     if (moving === labelsMoving) return
     labelsMoving = moving
-    labelLayer.classList.toggle('is-moving', moving)
-    axisLayer.classList.toggle('is-moving', moving)
+    for (const layer of [labelLayer, axisLayer, skyGrid.layer]) layer.classList.toggle('is-moving', moving)
   }
 
   function invalidateViewport(): void {

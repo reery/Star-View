@@ -129,6 +129,7 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
 
   return {
     lines,
+    layer,
     setMode(next: SkyGridMode) {
       if (next === mode) return
       mode = next

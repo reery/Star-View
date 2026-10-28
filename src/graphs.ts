@@ -1,9 +1,10 @@
-import { ChartBar, ChartColumn, ChartPie, ChevronUp, ChevronsDownUp, ChevronsUpDown, Gauge, Layers, RotateCcw, Sun, createElement, type IconNode } from 'lucide'
+import { ChartBar, ChartColumn, ChartPie, ChartScatter, ChevronUp, CircleX, ChevronsDownUp, ChevronsUpDown, Gauge, Layers, RotateCcw, Sun, createElement, type IconNode } from 'lucide'
 import { LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type StarColorMode } from './astronomy'
 import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
 import { MAGNITUDE_VISIBILITY_GUIDES } from './magnitude-properties'
 import { luminosityRows, mkPoint, whiteDwarfClassification, whiteDwarfFamilies } from './mk-properties'
 import { FILTER_CATEGORIES, filterKeyForObject, type FilterKey } from './object-filter'
+import { svgNode } from './spectral-chart'
 import type { StarSystem } from './star-systems'
 
 /** Distances are from the current reference, as in the object list. */
@@ -13,23 +14,34 @@ interface GraphOptions {
   items: readonly GraphItem[]
   onFilter(test: ObjectTest | null): void
   sun: Star | undefined
+  reference: Star | undefined
   referenceName: string
   systems: ReadonlyMap<string, StarSystem>
   distanceUnit: DistanceUnit
   colorMode: StarColorMode
 }
-/** `bins` shifts the histogram bin width by that many steps; positive values give more, narrower bins. */
-interface GraphContext extends GraphOptions { objects: readonly Star[]; stellar: readonly Star[]; logScale: boolean; bins: number }
-/** A collapsible graph inside a topic; topics can hold several. `scalable` graphs switch between log and linear axes, `binned` graphs change their bin count. */
-interface GraphSection { id: string; title: string | ((context: GraphContext) => string); icon: IconNode; scalable?: boolean; binned?: boolean; render(context: GraphContext): Node[] }
+interface GraphView { items: readonly GraphItem[]; objects: readonly Star[]; stellar: readonly Star[] }
+/**
+ * `full` is the view before any graph selection, present when other graphs narrow this one; it shows behind the narrowed counts.
+ * `chosen` is this graph's own selection. `bins` shifts the histogram bin width by that many steps; positive values give more, narrower bins.
+ */
+interface GraphContext extends GraphOptions, GraphView { full: GraphView | null; chosen: readonly Selection[]; logScale: boolean; bins: number }
+/**
+ * A collapsible graph inside a topic; topics can hold several. `scalable` graphs switch between log and linear axes, `binned` graphs change their bin count.
+ * `boxed` graphs select drawn boxes, which their heading clears. `short` names the graph in the filter bar when its title changes or carries units.
+ */
+interface GraphSection { id: string; title: string | ((context: GraphContext) => string); short?: string; icon: IconNode; scalable?: boolean; binned?: boolean; boxed?: boolean; render(context: GraphContext): Node[] }
 interface GraphTopic { id: string; title: string; icon: IconNode; sections: GraphSection[] }
-/** A clickable bar or column that narrows the view to the objects it counts. */
-interface Selection { key: string; label: string; test: ObjectTest; range?: readonly [number, number] }
+/** A clickable bar, column or box that narrows the view to the objects it counts; ranges hold low and high ends, per axis. */
+interface Selection { key: string; label: string; test: ObjectTest; range?: readonly number[] }
 /** A selection without its test, as kept in saved views; open histogram ends are null. */
-export interface SavedGraphSelection { section: string; key: string; label: string; range?: readonly [number | null, number | null] }
-interface BarRow { label: string; value: number; scale: number; text: string; share?: string; color?: string; select?: Selection }
+export interface SavedGraphSelection { section: string; key: string; label: string; range?: readonly (number | null)[] }
+/** `full` is the full view's share of the track, with `title` describing it. */
+interface BarRow { label: string; value: number; scale: number; text: string; share?: string; color?: string; select?: Selection; full?: number; title?: string }
 interface Histogram {
   values: number[]
+  /** The full view's values, when other graphs narrow this one; they also set the bins. */
+  full?: number[]
   /** Range text for one bin, from its lower and upper edge. */
   label(low: number, high: number): string
   ticks(min: number, max: number): number[]
@@ -52,8 +64,10 @@ const svg = (icon: IconNode, size = 20) => createElement(icon, { width: size, he
 const number = (value: number) => value.toLocaleString('en-US', { maximumSignificantDigits: 3 }).replace('-', '−')
 const isStellar = (star: Star) => STELLAR_OBJECT_TYPES.includes(star.type as never)
 const selections = new WeakMap<Element, Selection>()
-// Histogram columns rebuild a saved range, whose bins may differ once restored.
-const rangeTests = new WeakMap<Element, (low: number, high: number) => ObjectTest>()
+// Histogram columns and scatter plots rebuild a saved range, whose bins may differ once restored.
+const rangeTests = new WeakMap<Element, (...ends: number[]) => ObjectTest>()
+// Scatter plots turn a dragged box, in fractions of the plot from its top left, into a selection.
+const brushes = new WeakMap<Element, (x0: number, y0: number, x1: number, y1: number) => Selection>()
 
 function groupBy<K>(objects: readonly Star[], key: (star: Star) => K | null): Map<K, Star[]> {
   const groups = new Map<K, Star[]>()
@@ -71,6 +85,22 @@ function groupBy<K>(objects: readonly Star[], key: (star: Star) => K | null): Ma
 function typicalMember(members: readonly Star[]): Star {
   const ranked = members.filter((member) => member.temperature_k !== null).sort((a, b) => a.temperature_k! - b.temperature_k!)
   return ranked[ranked.length >> 1] ?? members[0]!
+}
+const typicalColor = (members: readonly Star[], colorMode: StarColorMode) => starDisplayColor(typicalMember(members), colorMode).getStyle()
+// Below about 2,000 K the scene switches to brown-dwarf colors.
+const temperatureColor = (temperature_k: number, colorMode: StarColorMode) =>
+  starDisplayColor({ type: temperature_k < 2000 ? 'brown_dwarf' : 'star', temperature_k, spectral_type: null }, colorMode).getStyle()
+
+/** Groups the view, and the full view when other graphs narrow it; rows and colors follow the full view, so they stay put. */
+function groupBoth<K>(context: GraphContext, list: (view: GraphView) => readonly Star[], key: (star: Star) => K | null) {
+  const size = (groups: Map<K, Star[]>) => [...groups.values()].reduce((sum, members) => sum + members.length, 0)
+  const groups = groupBy(list(context), key)
+  const full = context.full ? groupBy(list(context.full), key) : groups
+  const total = size(groups)
+  return {
+    groups, full, total, fullTotal: context.full ? size(full) : undefined, missing: list(context).length - total,
+    tally: (group: K) => ({ count: groups.get(group)?.length ?? 0, full: full.get(group)!.length, color: typicalColor(full.get(group)!, context.colorMode) }),
+  }
 }
 
 /** The Sun counts as a star. */
@@ -129,6 +159,15 @@ const logTicks = (min: number, max: number) => {
   return ticks.filter((tick) => tick >= min - 1e-9 && tick <= max + 1e-9)
 }
 
+const superscript = (value: number) => String(value).replace(/[-\d]/g, (char) => '⁻⁰¹²³⁴⁵⁶⁷⁸⁹'['-0123456789'.indexOf(char)]!)
+/** Labels log ticks; an axis reaching beyond 0.01 to 10⁴ switches to powers of ten throughout, so its labels stay narrow. */
+const logTickLabels = (ticks: readonly number[]) => ticks.some((tick) => tick < -2 || tick >= 5)
+  ? ticks.map((tick) => {
+    const decade = Math.floor(tick + 1e-9), factor = Math.round(10 ** (tick - decade))
+    return `${factor > 1 ? `${factor}×` : ''}10${superscript(decade)}`
+  })
+  : ticks.map((tick) => number(10 ** tick))
+
 function missingNote(count: number, text: string): Node[] {
   if (!count) return []
   const note = document.createElement('p')
@@ -149,9 +188,10 @@ function selectable<K extends keyof HTMLElementTagNameMap>(tag: K, select: Selec
 }
 
 function bars(rows: readonly BarRow[]): Node[] {
-  return rows.map(({ label, value, scale, text, share, color, select }) => {
+  return rows.map(({ label, value, scale, text, share, color, select, full, title }) => {
     const row = selectable('div', select)
     row.classList.add('graph-bar-row')
+    if (title) row.title = title
     const name = document.createElement('span')
     name.textContent = label
     name.title = label
@@ -162,6 +202,12 @@ function bars(rows: readonly BarRow[]): Node[] {
     fill.className = 'planet-ratio-fill'
     fill.style.width = `${scale ? value / scale * 100 : 0}%`
     if (color) fill.style.background = color
+    if (full !== undefined) {
+      const fullFill = document.createElement('span')
+      fullFill.className = 'graph-bar-full'
+      fullFill.style.width = `${full * 100}%`
+      track.append(fullFill)
+    }
     track.append(fill)
     const valueText = document.createElement('span')
     valueText.className = 'graph-bar-value'
@@ -172,26 +218,40 @@ function bars(rows: readonly BarRow[]): Node[] {
   })
 }
 
-const percent = (count: number, total: number) => `${(count / total * 100).toLocaleString('en-US', { maximumSignificantDigits: 2 })}%`
+const percent = (count: number, total: number) => `${(total ? count / total * 100 : 0).toLocaleString('en-US', { maximumSignificantDigits: 2 })}%`
+const share = (count: number, total: number) => total ? count / total : 0
+const fullTitle = (text: string, count: number, total: number) => `Full view: ${text} · ${percent(count, total)}`
 
-/** Counted groups as bars scaled to the largest one. */
-function countBars(groups: readonly { label: string; count: number; color?: string; select?: Selection }[], total: number): Node[] {
-  const max = Math.max(...groups.map(({ count }) => count))
-  return bars(groups.map(({ label, count, color, select }) => ({ label, value: count, scale: max, text: count.toLocaleString('en-US'), share: percent(count, total), color, select })))
+/**
+ * Counted groups as bars scaled to the largest share. A `fullTotal` marks a view narrowed by other graphs,
+ * whose full-view shares show behind, so a group's rise or fall reads at any selection size.
+ */
+function countBars(groups: readonly { label: string; count: number; full?: number; color?: string; select?: Selection }[], total: number, fullTotal?: number): Node[] {
+  const scale = Math.max(...groups.map(({ count, full = 0 }) => Math.max(share(count, total), fullTotal ? share(full, fullTotal) : 0)))
+  return bars(groups.map(({ label, count, full = 0, color, select }) => ({
+    label, value: share(count, total), scale, text: count.toLocaleString('en-US'), share: percent(count, total), color, select: count ? select : undefined,
+    ...(fullTotal !== undefined && { full: scale ? share(full, fullTotal) / scale : 0, title: fullTitle(full.toLocaleString('en-US'), full, fullTotal) }),
+  })))
 }
 
-function histogram({ values, label, ticks, tick, floor = -Infinity, color, markers = [], select, linearRanges, bins: binShift }: Histogram): HTMLElement {
-  const clamped = values.map((value) => Math.max(value, floor))
+function histogram({ values, full, label, ticks, tick, floor = -Infinity, color, markers = [], select, linearRanges, bins: binShift }: Histogram): HTMLElement {
+  // Bins span the full view, so they stay put while other graphs narrow this one.
+  const clamped = (full ?? values).map((value) => Math.max(value, floor))
   const low = Math.min(...clamped), high = Math.max(...clamped)
   // Aim for about 40 equal bins by default; a single value still gets one.
   const step = shiftStep(niceStep(high - low, 40), binShift)
   const min = Math.floor(low / step) * step
   const bins = Math.max(1, Math.ceil((high - min) / step - 1e-9))
   const max = min + bins * step
-  const counts = new Array<number>(bins).fill(0)
-  for (const value of clamped) counts[Math.min(bins - 1, Math.floor((value - min) / step + 1e-9))]!++
-  const peak = Math.max(...counts)
-  const belowFloor = values.some((value) => value < floor)
+  const binCounts = (list: readonly number[]) => {
+    const counts = new Array<number>(bins).fill(0)
+    for (const value of list) counts[Math.min(bins - 1, Math.floor((Math.max(value, floor) - min) / step + 1e-9))]!++
+    return counts
+  }
+  const counts = binCounts(values), fullCounts = full && binCounts(full)
+  // Heights are shares of each population, so a narrowed view compares with the full one at any size.
+  const peak = Math.max(...counts.map((count) => share(count, values.length)), ...(fullCounts ?? []).map((count) => share(count, full!.length)))
+  const belowFloor = (full ?? values).some((value) => value < floor)
   const position = (value: number) => `${(value - min) / (max - min) * 100}%`
 
   const chart = document.createElement('div')
@@ -207,10 +267,15 @@ function histogram({ values, label, ticks, tick, floor = -Infinity, color, marke
     const bin = selectable('span', select && count ? { key: binLow.toPrecision(12), label: range, test: select(...binRange), range: linearRanges ? binRange.map((end) => 10 ** end) as [number, number] : binRange } : undefined)
     bin.classList.add('graph-bin')
     bin.dataset.range = range
-    bin.dataset.count = countText(count)
+    bin.dataset.count = fullCounts ? `${count.toLocaleString('en-US')} of ${countText(fullCounts[index]!)}` : countText(count)
     bin.setAttribute('aria-label', `${range} · ${bin.dataset.count}`)
+    if (fullCounts) {
+      const fullFill = document.createElement('b')
+      fullFill.style.height = `${share(fullCounts[index]!, full!.length) / peak * 100}%`
+      bin.append(fullFill)
+    }
     const fill = document.createElement('i')
-    fill.style.height = `${count / peak * 100}%`
+    fill.style.height = `${share(count, values.length) / peak * 100}%`
     if (color) fill.style.background = color(binLow + step / 2)
     bin.append(fill)
     return bin
@@ -245,11 +310,12 @@ function histogram({ values, label, ticks, tick, floor = -Infinity, color, marke
     tooltipRange.textContent = bin.dataset.range!
     tooltipCount.textContent = bin.dataset.count!
     tooltip.classList.add('is-visible')
-    const chartBounds = chart.getBoundingClientRect(), fillBounds = bin.firstElementChild!.getBoundingClientRect()
-    const center = fillBounds.left + fillBounds.width / 2 - chartBounds.left
+    // The tooltip sits above the taller of the column and its full-view shadow.
+    const chartBounds = chart.getBoundingClientRect(), fillBounds = [...bin.children].map((fill) => fill.getBoundingClientRect())
+    const center = fillBounds[0]!.left + fillBounds[0]!.width / 2 - chartBounds.left
     const left = Math.max(0, Math.min(chartBounds.width - tooltip.offsetWidth, center - tooltip.offsetWidth / 2))
     tooltip.style.left = `${left}px`
-    tooltip.style.top = `${fillBounds.top - chartBounds.top - 8}px`
+    tooltip.style.top = `${Math.min(...fillBounds.map(({ top }) => top)) - chartBounds.top - 8}px`
     tooltip.style.setProperty('--constellation-tooltip-arrow', `${Math.max(10, Math.min(tooltip.offsetWidth - 18, center - left - 4))}px`)
   }
   const hideTooltip = () => tooltip.classList.remove('is-visible')
@@ -265,107 +331,255 @@ function histogram({ values, label, ticks, tick, floor = -Infinity, color, marke
 const countText = (count: number) => `${count.toLocaleString('en-US')} ${count === 1 ? 'object' : 'objects'}`
 const sunMarker = (value: number | null | undefined) => typeof value === 'number' && Number.isFinite(value) ? [{ value, icon: Sun, label: 'Sun' }] : []
 const inRange = (value: number | null | undefined, low: number, high: number) => typeof value === 'number' && Number.isFinite(value) && value >= low && value < high
+const finite = (values: readonly (number | null | undefined)[]) => values.filter((value): value is number => typeof value === 'number' && Number.isFinite(value))
+const hint = (text: string) => Object.assign(document.createElement('p'), { className: 'filter-hint', textContent: text })
 
-function objectTypeBars({ objects, colorMode }: GraphContext): Node[] {
-  return countBars(objectTypeCensus(objects).map(({ type, label, count, typical }) => ({
-    label, count, color: starDisplayColor(typical, colorMode).getStyle(),
+function objectTypeBars({ objects, full, colorMode }: GraphContext): Node[] {
+  const counts = full && groupBy(objects, objectType)
+  return countBars(objectTypeCensus(full?.objects ?? objects).map(({ type, label, count, typical }) => ({
+    label, count: counts ? counts.get(type)?.length ?? 0 : count, full: count, color: starDisplayColor(typical, colorMode).getStyle(),
     select: { key: type, label, test: (star) => objectType(star) === type },
-  })), objects.length)
+  })), objects.length, full?.objects.length)
 }
 
-function spectralClassBars({ stellar, colorMode }: GraphContext): Node[] {
-  const groups = groupBy(stellar, spectralGroup)
-  const classified = [...groups.values()].reduce((sum, members) => sum + members.length, 0)
+function spectralClassBars(context: GraphContext): Node[] {
+  const { full, total, fullTotal, missing, tally } = groupBoth(context, ({ stellar }) => stellar, spectralGroup)
   return [
-    ...countBars(spectralGroups.filter((group) => groups.has(group)).map((group) => ({
-      label: spectralLabel(group), count: groups.get(group)!.length,
-      color: starDisplayColor(typicalMember(groups.get(group)!), colorMode).getStyle(),
+    ...countBars(spectralGroups.filter((group) => full.has(group)).map((group) => ({
+      label: spectralLabel(group), ...tally(group),
       select: { key: group, label: group, test: (star) => spectralGroup(star) === group },
-    })), classified),
-    ...missingNote(stellar.length - classified, 'a spectral class'),
+    })), total, fullTotal),
+    ...missingNote(missing, 'a spectral class'),
   ]
 }
 
-function distanceHistogram({ items, distanceUnit, referenceName, logScale, bins }: GraphContext): Node[] {
+function distanceHistogram({ items, full, distanceUnit, referenceName, logScale, bins }: GraphContext): Node[] {
   const scale = distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1
   if (logScale) {
     // The reference object and anything within 1 unit join the first bin.
     const value = (distancePc: number) => distancePc > 0 ? Math.log10(distancePc * scale) : -Infinity
     return [histogram({
-      values: items.map(({ distancePc }) => value(distancePc)), floor: 0, linearRanges: true, bins,
+      values: items.map(({ distancePc }) => value(distancePc)), full: full?.items.map(({ distancePc }) => value(distancePc)), floor: 0, linearRanges: true, bins,
       label: (low, high) => `${low === -Infinity ? 'Within' : `${number(10 ** low)} to`} ${number(10 ** high)} ${distanceUnit} ${low === -Infinity ? 'of' : 'from'} ${referenceName}`,
       ticks: logTicks, tick: (tick) => number(10 ** tick),
       select: (low, high) => (_, distancePc) => value(distancePc) >= low && value(distancePc) < high,
     })]
   }
   return [histogram({
-    values: items.map(({ distancePc }) => distancePc * scale), bins,
+    values: items.map(({ distancePc }) => distancePc * scale), full: full?.items.map(({ distancePc }) => distancePc * scale), bins,
     label: (low, high) => `${number(low)} to ${number(high)} ${distanceUnit} from ${referenceName}`,
     ticks: linearTicks, tick: number,
     select: (low, high) => (_, distancePc) => inRange(distancePc * scale, low, high),
   })]
 }
 
-function multiplicityBars({ stellar, systems }: GraphContext): Node[] {
-  // A system counts once when any member is shown.
-  const counted = new Set<string>()
-  const counts = multiplicityLabels.map(() => 0)
-  for (const star of stellar) {
-    const system = systems.get(star.id)
-    if (system && counted.has(system.id)) continue
-    if (system) counted.add(system.id)
-    counts[multiplicity(star, systems)]!++
-  }
-  const total = counts.reduce((sum, count) => sum + count, 0)
-  return countBars(multiplicityLabels.map((label, index) => ({
-    label, count: counts[index]!,
-    select: { key: label, label, test: (star: Star) => isStellar(star) && multiplicity(star, systems) === index },
-  })).filter(({ count }) => count), total)
+/** Line-of-sight velocity in km/s away from the reference, negative while approaching; both need a full space motion. */
+export function radialVelocity(star: Star, reference: Star): number | null {
+  const dx = star.x_pc - reference.x_pc, dy = star.y_pc - reference.y_pc, dz = star.z_pc - reference.z_pc
+  const distance = Math.hypot(dx, dy, dz)
+  if (!distance || [star.vx_kms, star.vy_kms, star.vz_kms, reference.vx_kms, reference.vy_kms, reference.vz_kms].includes(null)) return null
+  return (dx * (star.vx_kms! - reference.vx_kms!) + dy * (star.vy_kms! - reference.vy_kms!) + dz * (star.vz_kms! - reference.vz_kms!)) / distance
 }
 
-function planetHostBars({ stellar, colorMode }: GraphContext): Node[] {
+const motionLabels = ['Approaching', 'Receding'] as const
+// A selection keeps the reference it was made from, so moving the origin does not change what it holds.
+function motionBars(context: GraphContext): Node[] {
+  const { stellar, reference } = context
+  if (!reference) return []
+  const moving = (star: Star) => star.vx_kms !== null && star.vy_kms !== null && star.vz_kms !== null
+  if (!moving(reference)) return [hint(`${reference.name} has no full space motion.`)]
+  const motion = (star: Star) => {
+    const velocity = radialVelocity(star, reference)
+    return velocity === null ? null : motionLabels[velocity < 0 ? 0 : 1]
+  }
+  const { full, total, fullTotal, tally } = groupBoth(context, ({ stellar }) => stellar, motion)
+  return [
+    ...countBars(motionLabels.filter((label) => full.has(label)).map((label) => {
+      const { count, full } = tally(label)
+      return { label, count, full, select: { key: `${label} ${reference.id}`, label: `${label} ${reference.name}`, test: (star: Star) => isStellar(star) && motion(star) === label } }
+    }), total, fullTotal),
+    ...missingNote(stellar.filter((star) => !moving(star)).length, 'a full space motion'),
+  ]
+}
+
+function multiplicityBars({ stellar, full, systems }: GraphContext): Node[] {
+  // A system counts once when any member is shown.
+  const tally = (list: readonly Star[]) => {
+    const counted = new Set<string>()
+    const counts = multiplicityLabels.map(() => 0)
+    for (const star of list) {
+      const system = systems.get(star.id)
+      if (system && counted.has(system.id)) continue
+      if (system) counted.add(system.id)
+      counts[multiplicity(star, systems)]!++
+    }
+    return counts
+  }
+  const sum = (counts: readonly number[]) => counts.reduce((total, count) => total + count, 0)
+  const counts = tally(stellar), fullCounts = full ? tally(full.stellar) : counts
+  return countBars(multiplicityLabels.map((label, index) => ({
+    label, count: counts[index]!, full: fullCounts[index]!,
+    select: { key: label, label, test: (star: Star) => isStellar(star) && multiplicity(star, systems) === index },
+  })).filter(({ full }) => full), sum(counts), full ? sum(fullCounts) : undefined)
+}
+
+function planetHostBars(context: GraphContext): Node[] {
+  const { stellar, full, colorMode } = context
   const isHost = (star: Star) => (star.known_planets ?? 0) > 0
-  const groups = groupBy(stellar, spectralGroup)
-  const row = (key: string, label: string, members: readonly Star[], test: ObjectTest, color?: string): BarRow => {
+  const { groups, full: fullGroups } = groupBoth(context, ({ stellar }) => stellar, spectralGroup)
+  const hosts = (count: number, members: number) => `${count.toLocaleString('en-US')} / ${members.toLocaleString('en-US')}`
+  const row = (key: string, label: string, members: readonly Star[] = [], fullMembers: readonly Star[], test: ObjectTest, color?: string): BarRow => {
     const count = members.filter(isHost).length
+    const fullCount = full ? fullMembers.filter(isHost).length : 0
     return {
       label, value: count, scale: members.length, color, select: count ? { key, label: `${label} hosts`, test } : undefined,
-      text: `${count.toLocaleString('en-US')} / ${members.length.toLocaleString('en-US')}`, share: percent(count, members.length),
+      text: hosts(count, members.length), share: percent(count, members.length),
+      ...(full && { full: share(fullCount, fullMembers.length), title: fullTitle(hosts(fullCount, fullMembers.length), fullCount, fullMembers.length) }),
     }
   }
   return bars([
-    row('all', 'All', stellar, (star) => isStellar(star) && isHost(star)),
-    ...spectralGroups.filter((group) => groups.has(group)).map((group) => row(group, spectralLabel(group), groups.get(group)!,
-      (star) => isHost(star) && spectralGroup(star) === group, starDisplayColor(typicalMember(groups.get(group)!), colorMode).getStyle())),
+    row('all', 'All', stellar, full?.stellar ?? stellar, (star) => isStellar(star) && isHost(star)),
+    ...spectralGroups.filter((group) => fullGroups.has(group)).map((group) => row(group, spectralLabel(group), groups.get(group), fullGroups.get(group)!,
+      (star) => isHost(star) && spectralGroup(star) === group, typicalColor(fullGroups.get(group)!, colorMode))),
   ])
 }
 
-function propertyHistogram({ stellar, bins }: GraphContext, value: (star: Star) => number | null | undefined, missing: string, options: Omit<Histogram, 'values' | 'select' | 'bins'>): Node[] {
-  const values = stellar.map(value).filter((entry): entry is number => typeof entry === 'number' && Number.isFinite(entry))
-  if (!values.length) return missingNote(stellar.length, missing)
+const hrPoint = (star: Star) => {
+  const temperature = logValue(star.temperature_k), luminosity = logValue(star.luminosity_solar)
+  return temperature === null || luminosity === null ? null : [temperature, luminosity] as const
+}
+const hrTest = (t0: number, t1: number, l0: number, l1: number): ObjectTest => (star) =>
+  isStellar(star) && inRange(star.temperature_k, t0, t1) && inRange(star.luminosity_solar, l0, l1)
+const hrSelection = (t0: number, t1: number, l0: number, l1: number): Selection => ({
+  key: [t0, t1, l0, l1].map((end) => end.toPrecision(4)).join(' '), label: `${number(t0)} to ${number(t1)} K, ${number(l0)} to ${number(l1)} L☉`,
+  test: hrTest(t0, t1, l0, l1), range: [t0, t1, l0, l1],
+})
+
+/** Temperature against luminosity, hot stars left and bright ones on top; dragging a box selects the stars inside it. */
+function hrScatter({ items, stellar, full, chosen, sun, colorMode }: GraphContext): Node[] {
+  const plotted = (list: readonly GraphItem[]) => list.flatMap((item) => {
+    const point = isStellar(item.star) ? hrPoint(item.star) : null
+    return point ? [{ ...item, point }] : []
+  })
+  const shown = plotted(items), all = full ? plotted(full.items) : shown
+  if (!all.length) return missingNote(stellar.length, 'a temperature and luminosity')
+  // The axes span the full view, so they stay put while other graphs narrow this one.
+  const extent = (axis: 0 | 1) => {
+    const values = all.map(({ point }) => point[axis])
+    const low = Math.min(...values), high = Math.max(...values), pad = Math.max(high - low, 0.5) * 0.04
+    return [low - pad, high + pad] as const
+  }
+  const [cool, hot] = extent(0), [faint, bright] = extent(1)
+  const x = (temperature: number) => (hot - temperature) / (hot - cool), y = (luminosity: number) => (bright - luminosity) / (bright - faint)
+  const position = (fraction: number) => `${Math.max(0, Math.min(1, fraction)) * 100}%`
+
+  // One path per temperature color keeps thousands of dots cheap to draw; 1,000 units span the plot.
+  const layer = (className: string, list: typeof all, colored: boolean) => {
+    const paths = new Map<number, string>()
+    for (const { point: [temperature, luminosity] } of list) {
+      const key = colored ? Math.round(temperature * 50) : 0
+      paths.set(key, `${paths.get(key) ?? ''}M${(x(temperature) * 1000).toFixed(1)} ${(y(luminosity) * 1000).toFixed(1)}h0`)
+    }
+    const group = svgNode('g', { class: className })
+    group.append(...[...paths].map(([key, d]) => svgNode('path', colored ? { d, stroke: temperatureColor(10 ** (key / 50), colorMode) } : { d })))
+    return group
+  }
+  // Dots outside this graph's own boxes recede, like unselected bars.
+  const inside: typeof all = [], outside: typeof all = []
+  for (const entry of shown) (!chosen.length || chosen.some(({ test }) => test(entry.star, entry.distancePc)) ? inside : outside).push(entry)
+  const chart = svgNode('svg', { viewBox: '0 0 1000 1000', preserveAspectRatio: 'none', role: 'img', 'aria-label': `${countText(shown.length)} by temperature and luminosity` })
+  if (full) chart.append(layer('graph-dots-full', all, false))
+  chart.append(layer('graph-dots-muted', outside, true), layer('graph-dots', inside, true))
+
+  const plot = document.createElement('div')
+  plot.className = 'graph-plot'
+  plot.title = 'Drag to select a region'
+  rangeTests.set(plot, hrTest)
+  const temperatureAt = (fraction: number) => 10 ** (hot - fraction * (hot - cool)), luminosityAt = (fraction: number) => 10 ** (bright - fraction * (bright - faint))
+  brushes.set(plot, (x0, y0, x1, y1) => hrSelection(temperatureAt(Math.max(x0, x1)), temperatureAt(Math.min(x0, x1)), luminosityAt(Math.max(y0, y1)), luminosityAt(Math.min(y0, y1))))
+  plot.append(chart)
+  const sunPoint = sun && hrPoint(sun)
+  if (sunPoint) {
+    const marker = document.createElement('span')
+    marker.className = 'graph-plot-marker'
+    marker.title = 'Sun'
+    Object.assign(marker.style, { left: position(x(sunPoint[0])), top: position(y(sunPoint[1])) })
+    marker.append(svg(Sun, 12))
+    plot.append(marker)
+  }
+  // Each box removes from its upper left corner and resizes from its lower right one.
+  plot.append(...chosen.flatMap((selection) => {
+    if (selection.range?.length !== 4) return []
+    const [t0, t1, l0, l1] = selection.range.map(Math.log10) as [number, number, number, number]
+    const box = Object.assign(document.createElement('span'), { className: 'graph-brush', title: selection.label })
+    box.dataset.key = selection.key
+    Object.assign(box.style, { left: position(x(t1)), right: position(1 - x(t0)), top: position(y(l1)), bottom: position(1 - y(l0)) })
+    const remove = Object.assign(document.createElement('button'), { type: 'button', className: 'graph-brush-remove', title: `Remove ${selection.label}` })
+    remove.setAttribute('aria-label', `Remove ${selection.label}`)
+    remove.append(svg(CircleX, 16))
+    box.append(remove, Object.assign(document.createElement('span'), { className: 'graph-brush-resize', title: 'Drag to resize' }))
+    return [box]
+  }))
+
+  // Luminosity can span ten decades or more; about six labels stay legible.
+  const axis = (className: string, ticks: number[], place: (label: HTMLElement, tick: number) => void) => {
+    const element = document.createElement('div')
+    element.className = className
+    element.setAttribute('aria-hidden', 'true')
+    const shown = ticks.filter((_, index) => index % Math.ceil(ticks.length / 6) === 0), labels = logTickLabels(shown)
+    element.append(...shown.map((tick, index) => {
+      const label = Object.assign(document.createElement('span'), { textContent: labels[index]! })
+      place(label, tick)
+      return label
+    }))
+    // The labels sit outside the flow; a hidden copy of the longest sets the axis width.
+    element.append(Object.assign(document.createElement('span'), { className: 'graph-axis-sizer', textContent: labels.reduce((longest, label) => label.length > longest.length ? label : longest, '') }))
+    return element
+  }
+  const title = (text: string) => Object.assign(document.createElement('span'), { className: 'graph-axis-title', textContent: text })
+  const scatter = document.createElement('div')
+  scatter.className = 'graph-scatter'
+  scatter.append(
+    title('Luminosity (L☉)'),
+    axis('graph-axis graph-axis-y', logTicks(faint, bright), (label, tick) => { label.style.top = position(y(tick)) }),
+    plot,
+    // Keep the outermost labels inside the card.
+    axis('graph-axis', logTicks(cool, hot), (label, tick) => {
+      label.style.left = position(x(tick))
+      label.style.transform = `translateX(${x(tick) < 0.05 ? 0 : x(tick) > 0.95 ? -100 : -50}%)`
+    }),
+    title('Temperature (K)'),
+  )
+  const missing = missingNote(stellar.length - shown.length, 'a temperature and luminosity')
+  if (!sunPoint) return [scatter, ...missing]
+  // The Sun's key leads the line with the missing count.
+  const key = Object.assign(document.createElement('p'), { className: 'filter-hint graph-legend' })
+  key.append(svg(Sun, 12), ['Sun', ...missing.map(({ textContent }) => textContent)].join(' · '))
+  return [scatter, key]
+}
+
+function propertyHistogram({ stellar, full, bins }: GraphContext, value: (star: Star) => number | null | undefined, missing: string, options: Omit<Histogram, 'values' | 'full' | 'select' | 'bins'>): Node[] {
+  const values = finite(stellar.map(value)), fullValues = full ? finite(full.stellar.map(value)) : undefined
+  if (!(fullValues ?? values).length) return missingNote(stellar.length, missing)
   const select = (low: number, high: number): ObjectTest => (star) => isStellar(star) && inRange(value(star), low, high)
-  return [histogram({ ...options, values, select, bins }), ...missingNote(stellar.length - values.length, missing)]
+  return [histogram({ ...options, values, full: fullValues, select, bins }), ...missingNote(stellar.length - values.length, missing)]
 }
 
 const logRange = (unit: string) => (low: number, high: number) => `${number(10 ** low)} to ${number(10 ** high)} ${unit}`
 const magnitudeRange = (low: number, high: number) => `${low === -Infinity ? 'Brighter than' : `${number(low)} to`} ${number(high)} mag`
 const logValue = (value: number | null | undefined) => value && value > 0 ? Math.log10(value) : null
 
-function massHistogram(context: GraphContext): Node[] {
-  return propertyHistogram(context, (star) => logValue(star.mass_solar), 'a mass', {
-    label: logRange('M☉'), ticks: logTicks, tick: (value) => number(10 ** value), markers: sunMarker(logValue(context.sun?.mass_solar)),
+/** A solar-unit property on a log axis, with the Sun marked. */
+const solarHistogram = (field: 'mass_solar' | 'radius_solar' | 'luminosity_solar', unit: string, missing: string) => (context: GraphContext): Node[] =>
+  propertyHistogram(context, (star) => logValue(star[field]), missing, {
+    label: logRange(unit), ticks: logTicks, tick: (value) => number(10 ** value), markers: sunMarker(logValue(context.sun?.[field])),
   })
-}
 
 function temperatureHistogram(context: GraphContext): Node[] {
   const { sun, colorMode } = context
   return propertyHistogram(context, (star) => logValue(star.temperature_k), 'a temperature', {
     label: logRange('K'), ticks: logTicks, tick: (value) => number(10 ** value),
-    // Below about 2,000 K the scene switches to brown-dwarf colors.
-    color: (center) => {
-      const temperature_k = 10 ** center
-      return starDisplayColor({ type: temperature_k < 2000 ? 'brown_dwarf' : 'star', temperature_k, spectral_type: null }, colorMode).getStyle()
-    },
+    color: (center) => temperatureColor(10 ** center, colorMode),
     markers: sunMarker(logValue(sun?.temperature_k)),
   })
 }
@@ -390,33 +604,27 @@ function absoluteMagnitudeHistogram(context: GraphContext): Node[] {
   })
 }
 
-function whiteDwarfClassBars({ stellar, colorMode }: GraphContext): Node[] {
-  const whiteDwarfs = stellar.filter((star) => star.type === 'white_dwarf')
-  if (!whiteDwarfs.length) return []
+function whiteDwarfClassBars(context: GraphContext): Node[] {
+  const whiteDwarfs = ({ stellar }: GraphView) => stellar.filter((star) => star.type === 'white_dwarf')
   const family = (star: Star) => whiteDwarfClassification(star)?.family ?? null
-  const groups = groupBy(whiteDwarfs, family)
-  const classified = [...groups.values()].reduce((sum, members) => sum + members.length, 0)
+  const { full, total, fullTotal, missing, tally } = groupBoth(context, whiteDwarfs, family)
   return [
-    ...countBars(whiteDwarfFamilies.filter(([type]) => groups.has(type)).map(([type, description]) => ({
-      label: `${type} · ${description.toLowerCase()}`, count: groups.get(type)!.length,
-      color: starDisplayColor(typicalMember(groups.get(type)!), colorMode).getStyle(),
+    ...countBars(whiteDwarfFamilies.filter(([type]) => full.has(type)).map(([type, description]) => ({
+      label: `${type} · ${description.toLowerCase()}`, ...tally(type),
       select: { key: type, label: type, test: (star: Star) => family(star) === type },
-    })), classified),
-    ...missingNote(whiteDwarfs.length - classified, 'a white dwarf class'),
+    })), total, fullTotal),
+    ...missingNote(missing, 'a white dwarf class'),
   ]
 }
 
-function luminosityClassBars({ stellar, colorMode }: GraphContext): Node[] {
-  const stars = stellar.filter((star) => star.type === 'star')
-  const groups = groupBy(stars, luminosityGroup)
-  const classified = [...groups.values()].reduce((sum, members) => sum + members.length, 0)
+function luminosityClassBars(context: GraphContext): Node[] {
+  const { full, total, fullTotal, missing, tally } = groupBoth(context, ({ stellar }) => stellar.filter((star) => star.type === 'star'), luminosityGroup)
   return [
-    ...countBars(luminosityRows.filter(([luminosityClass]) => groups.has(luminosityClass)).map(([luminosityClass, name]) => ({
-      label: `${luminosityClass} · ${name.toLowerCase()}`, count: groups.get(luminosityClass)!.length,
-      color: starDisplayColor(typicalMember(groups.get(luminosityClass)!), colorMode).getStyle(),
+    ...countBars(luminosityRows.filter(([luminosityClass]) => full.has(luminosityClass)).map(([luminosityClass, name]) => ({
+      label: `${luminosityClass} · ${name.toLowerCase()}`, ...tally(luminosityClass),
       select: { key: luminosityClass, label: luminosityClass, test: (star: Star) => luminosityGroup(star) === luminosityClass },
-    })), classified),
-    ...missingNote(stars.length - classified, 'a luminosity class'),
+    })), total, fullTotal),
+    ...missingNote(missing, 'a luminosity class'),
   ]
 }
 
@@ -424,12 +632,16 @@ const topics: GraphTopic[] = [
   { id: 'star-distribution', title: 'Star distribution', icon: ChartPie, sections: [
     { id: 'object-types', title: 'Object types', icon: ChartBar, render: objectTypeBars },
     { id: 'spectral-classes', title: 'Spectral classes', icon: ChartBar, render: spectralClassBars },
-    { id: 'distance', title: ({ distanceUnit, referenceName }) => `Distance from ${referenceName} (${distanceUnit})`, icon: ChartColumn, scalable: true, binned: true, render: distanceHistogram },
+    { id: 'distance', title: ({ distanceUnit, referenceName }) => `Distance from ${referenceName} (${distanceUnit})`, short: 'Distance', icon: ChartColumn, scalable: true, binned: true, render: distanceHistogram },
+    { id: 'motion', title: ({ referenceName }) => `Motion relative to ${referenceName}`, short: 'Motion', icon: ChartBar, render: motionBars },
     { id: 'multiplicity', title: 'Multiplicity', icon: ChartBar, render: multiplicityBars },
     { id: 'planet-hosts', title: 'Known planet hosts', icon: ChartBar, render: planetHostBars },
   ] },
   { id: 'physical-properties', title: 'Physical properties', icon: Gauge, sections: [
-    { id: 'mass', title: 'Mass (M☉)', icon: ChartColumn, binned: true, render: massHistogram },
+    { id: 'hr-diagram', title: 'HR diagram', icon: ChartScatter, boxed: true, render: hrScatter },
+    { id: 'mass', title: 'Mass (M☉)', icon: ChartColumn, binned: true, render: solarHistogram('mass_solar', 'M☉', 'a mass') },
+    { id: 'radius', title: 'Radius (R☉)', icon: ChartColumn, binned: true, render: solarHistogram('radius_solar', 'R☉', 'a radius') },
+    { id: 'luminosity', title: 'Luminosity (L☉)', icon: ChartColumn, binned: true, render: solarHistogram('luminosity_solar', 'L☉', 'a luminosity') },
     { id: 'temperature', title: 'Temperature (K)', icon: ChartColumn, binned: true, render: temperatureHistogram },
     { id: 'metallicity', title: 'Metallicity (dex)', icon: ChartColumn, binned: true, render: metallicityHistogram },
     { id: 'apparent-magnitude', title: 'Apparent magnitude', icon: ChartColumn, binned: true, render: apparentMagnitudeHistogram },
@@ -462,6 +674,7 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
   const filterBar = document.getElementById('graphs-filter')!
   const filterList = document.getElementById('graphs-filter-list')!
   const clear = document.getElementById('graphs-clear')!
+  const expand = document.getElementById('graphs-filter-expand')!
   const collapsed = readCollapsed()
   const linearSections = new Set<string>()
   // Bin shifts per histogram, from fewest to most bins; absent means the default.
@@ -483,27 +696,43 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
   }
   const matches = ({ star, distancePc }: GraphItem, except?: string) => [...filters].every(([id, chosen]) =>
     id === except || [...chosen.values()].some(({ test }) => test(star, distancePc)))
-  // Lists each topic's selections, so filters set elsewhere stay visible; a click opens that topic.
+  const setExpanded = (expanded: boolean) => {
+    filterBar.toggleAttribute('data-expanded', expanded)
+    expand.setAttribute('aria-expanded', String(expanded))
+  }
+  // Lists each topic's selections, so filters set elsewhere stay visible; a click opens that topic. The list folds up again once cleared.
   const renderFilterBar = () => {
     filterBar.hidden = !filters.size
+    if (!filters.size) setExpanded(false)
     filterList.replaceChildren(...topics.flatMap((topic) => {
       const active = topic.sections.filter(({ id }) => filters.has(id))
       if (!active.length) return []
       const button = document.createElement('button')
       button.type = 'button'
       button.dataset.topic = topic.id
-      button.title = `Show ${topic.title}`
       const name = document.createElement('span')
       name.textContent = `${topic.title}: `
-      button.append(name, ...active.map(({ id, title }, index) => Object.assign(document.createElement('b'), {
-        textContent: `${index ? ' · ' : ''}${typeof title === 'string' ? title.replace(/ \(.*\)$/, '') : 'Distance'} ${[...filters.get(id)!.values()].map(({ label }) => label).join(', ')}`,
+      button.append(name, ...active.map(({ id, title, short }, index) => Object.assign(document.createElement('b'), {
+        textContent: `${index ? ' · ' : ''}${short ?? (typeof title === 'string' ? title.replace(/ \(.*\)$/, '') : '')} ${[...filters.get(id)!.values()].map(({ label }) => label).join(', ')}`,
       })))
+      // Long selections end in an ellipsis; the title holds them in full.
+      button.title = `Show ${button.textContent}`
       return [button]
     }))
   }
   const applyFilters = () => {
     renderFilterBar()
     options().onFilter(filters.size ? (star, distancePc) => matches({ star, distancePc }) : null)
+  }
+  // A moved or resized box replaces the selection it `replaces`.
+  const toggleSelection = (section: string, select: Selection, replaces?: string) => {
+    const chosen = filters.get(section) ?? new Map<string, Selection>()
+    if (replaces !== undefined) chosen.delete(replaces)
+    if (replaces === undefined && chosen.has(select.key)) chosen.delete(select.key)
+    else chosen.set(select.key, select)
+    if (chosen.size) filters.set(section, chosen)
+    else filters.delete(section)
+    applyFilters()
   }
 
   terms.replaceChildren(...topics.map((topic) => {
@@ -520,11 +749,18 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
     return button
   }))
 
-  // Each graph applies every other graph's selection but not its own, so its alternatives stay visible.
-  const contextFor = (section: GraphSection, graphOptions: GraphOptions): GraphContext => {
-    const items = graphOptions.items.filter((item) => matches(item, section.id))
+  const view = (items: readonly GraphItem[]): GraphView => {
     const objects = items.map(({ star }) => star)
-    return { ...graphOptions, items, objects, stellar: objects.filter(isStellar), logScale: !linearSections.has(section.id), bins: binShifts.get(section.id) ?? 0 }
+    return { items, objects, stellar: objects.filter(isStellar) }
+  }
+  // Each graph applies every other graph's selection but not its own, so its alternatives stay visible; the full view shows behind when they narrow it.
+  const contextFor = (section: GraphSection, graphOptions: GraphOptions, full: GraphView): GraphContext => {
+    const items = graphOptions.items.filter((item) => matches(item, section.id))
+    const narrowed = items.length < full.items.length
+    return {
+      ...graphOptions, ...(narrowed ? view(items) : full), full: narrowed ? full : null, chosen: [...filters.get(section.id)?.values() ?? []],
+      logScale: !linearSections.has(section.id), bins: binShifts.get(section.id) ?? 0,
+    }
   }
   const renderBody = (body: HTMLElement, section: GraphSection, context: GraphContext) => {
     const chosen = filters.get(section.id)
@@ -536,12 +772,15 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
   }
   const render = () => {
     const graphOptions = options()
+    const full = view(graphOptions.items)
     for (const button of terms.querySelectorAll<HTMLButtonElement>('button')) {
       button.setAttribute('aria-current', String(button.dataset.topic === selected.id))
     }
     heading.textContent = selected.title
+    // Redrawing after a selection keeps the graph in view.
+    const scroll = sections.scrollTop
     sections.replaceChildren(...selected.sections.map((section) => {
-      const context = contextFor(section, graphOptions)
+      const context = contextFor(section, graphOptions, full)
       const chosen = filters.get(section.id)
       const details = document.createElement('details')
       details.className = 'planet-atmosphere graph-section'
@@ -594,6 +833,14 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
         bins.append(slider, reset)
         summary.append(bins)
       }
+      if (section.boxed) {
+        const clearBoxes = Object.assign(document.createElement('span'), { className: 'graph-reset' })
+        const reset = Object.assign(document.createElement('button'), { type: 'button', className: 'panel-lock', title: 'Clear boxes', disabled: !chosen })
+        reset.setAttribute('aria-label', 'Clear drawn boxes')
+        reset.append(svg(RotateCcw, 16))
+        clearBoxes.append(reset)
+        summary.append(clearBoxes)
+      }
       summary.append(chevron)
       const body = document.createElement('div')
       body.className = 'graph-body'
@@ -601,6 +848,7 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
       renderBody(body, section, context)
       return details
     }))
+    sections.scrollTop = scroll
     syncToggleAll()
   }
   // The bar slider holds off the full redraw, which would replace it mid-drag.
@@ -623,9 +871,10 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
       holdRedraw = false
     }
     const graphOptions = options()
+    const full = view(graphOptions.items)
     for (const section of selected.sections) {
       if (!cleared && section.id !== id) continue
-      renderBody(sections.querySelector<HTMLElement>(`[data-section="${section.id}"] > .graph-body`)!, section, contextFor(section, graphOptions))
+      renderBody(sections.querySelector<HTMLElement>(`[data-section="${section.id}"] > .graph-body`)!, section, contextFor(section, graphOptions, full))
     }
   }
 
@@ -666,32 +915,84 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
       }
       return
     }
+    const clearBoxes = event.target instanceof Element ? event.target.closest('.graph-reset') : null
+    if (clearBoxes) {
+      event.preventDefault()
+      if (event.target instanceof Element && event.target.closest('button') && filters.delete(clearBoxes.closest<HTMLElement>('[data-section]')!.dataset.section!)) applyFilters()
+      return
+    }
+    const remove = event.target instanceof Element ? event.target.closest<HTMLElement>('.graph-brush-remove') : null
+    if (remove) {
+      const section = remove.closest<HTMLElement>('[data-section]')!.dataset.section!
+      toggleSelection(section, filters.get(section)!.get(remove.parentElement!.dataset.key!)!)
+      return
+    }
     const button = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-select]') : null
     const select = button && selections.get(button)
     const section = button?.closest<HTMLElement>('[data-section]')?.dataset.section
-    if (!select || !section) return
-    const chosen = filters.get(section) ?? new Map<string, Selection>()
-    if (chosen.has(select.key)) chosen.delete(select.key)
-    else chosen.set(select.key, select)
-    if (chosen.size) filters.set(section, chosen)
-    else filters.delete(section)
-    applyFilters()
+    if (select && section) toggleSelection(section, select)
+  }, { signal })
+  // Dragging across a scatter plot adds the box to its selection. Dragging a box moves it and dragging its corner handle resizes it
+  // from the opposite corner, both within the plot. Capture starts only once the pointer moves, so a plain click still reaches a box's remove button.
+  sections.addEventListener('pointerdown', (event) => {
+    const target = event.target instanceof Element ? event.target : null
+    const plot = target?.closest<HTMLElement>('.graph-plot')
+    const brush = plot && brushes.get(plot)
+    if (!brush || !event.isPrimary || event.button || target!.closest('.graph-brush-remove')) return
+    const bounds = plot.getBoundingClientRect()
+    const clamp = (value: number) => Math.max(0, Math.min(1, value))
+    const at = ({ clientX, clientY }: { clientX: number; clientY: number }) => [clamp((clientX - bounds.left) / bounds.width), clamp((clientY - bounds.top) / bounds.height)] as const
+    const existing = target!.closest<HTMLElement>('.graph-brush'), resizing = !!target!.closest('.graph-brush-resize')
+    const frame = existing?.getBoundingClientRect()
+    const [startX, startY] = at(event)
+    const [left, top] = frame ? at({ clientX: frame.left, clientY: frame.top }) : [startX, startY]
+    const [right, bottom] = frame ? at({ clientX: frame.right, clientY: frame.bottom }) : [startX, startY]
+    let ends: readonly [number, number, number, number] | null = null
+    const box = existing ?? Object.assign(document.createElement('span'), { className: 'graph-brush' })
+    const move = (moveEvent: PointerEvent) => {
+      const [x, y] = at(moveEvent)
+      const dx = Math.max(-left, Math.min(1 - right, x - startX)), dy = Math.max(-top, Math.min(1 - bottom, y - startY))
+      const next = existing && !resizing ? [left + dx, top + dy, right + dx, bottom + dy] as const : [left, top, x, y] as const
+      // A box needs some height and width, and a move some distance; smaller moves stay a click.
+      if (!ends && (existing && !resizing ? Math.hypot(dx * bounds.width, dy * bounds.height) < 3
+        : Math.abs(next[2] - next[0]) * bounds.width < 6 || Math.abs(next[3] - next[1]) * bounds.height < 6)) return
+      if (!ends) {
+        plot.setPointerCapture(event.pointerId)
+        if (!existing) plot.append(box)
+      }
+      ends = next
+      const [x0, y0, x1, y1] = next
+      Object.assign(box.style, { left: `${Math.min(x0, x1) * 100}%`, top: `${Math.min(y0, y1) * 100}%`, right: `${(1 - Math.max(x0, x1)) * 100}%`, bottom: `${(1 - Math.max(y0, y1)) * 100}%` })
+    }
+    const finish = (finishEvent: PointerEvent) => {
+      plot.removeEventListener('pointermove', move)
+      plot.removeEventListener('pointerup', finish)
+      plot.removeEventListener('pointercancel', finish)
+      if (!existing) box.remove()
+      if (ends && finishEvent.type === 'pointerup') toggleSelection(plot.closest<HTMLElement>('[data-section]')!.dataset.section!, brush(...ends), existing?.dataset.key)
+      // A cancelled move or resize puts the box back.
+      else if (ends && existing) render()
+    }
+    plot.addEventListener('pointermove', move)
+    plot.addEventListener('pointerup', finish)
+    plot.addEventListener('pointercancel', finish)
   }, { signal })
   sections.addEventListener('input', (event) => {
     if (event.target instanceof HTMLInputElement && event.target.closest('.graph-bins')) setBins(event.target, Number(event.target.value))
   }, { signal })
+  expand.addEventListener('click', () => setExpanded(!filterBar.hasAttribute('data-expanded')), { signal })
   clear.addEventListener('click', () => {
     filters.clear()
     applyFilters()
   }, { signal })
   const save = (): SavedGraphSelection[] => [...filters].flatMap(([section, chosen]) => [...chosen.values()].map(({ key, label, range }) =>
-    ({ section, key, label, ...(range && { range: range.map((end) => Number.isFinite(end) ? end : null) as [number | null, number | null] }) })))
+    ({ section, key, label, ...(range && { range: range.map((end) => Number.isFinite(end) ? end : null) }) })))
   // Rebuilds saved selections from each graph rendered over every shown object; selections without a matching entry are dropped.
   const restore = (saved: readonly SavedGraphSelection[]) => {
     filters.clear()
     const graphOptions = options()
-    const objects = graphOptions.items.map(({ star }) => star)
-    const context: GraphContext = { ...graphOptions, objects, stellar: objects.filter(isStellar), logScale: true, bins: 0 }
+    const context: GraphContext = { ...graphOptions, ...view(graphOptions.items), full: null, chosen: [], logScale: true, bins: 0 }
+    const { objects } = context
     const rendered = new Map<string, HTMLElement>()
     for (const { section: id, key, label, range } of saved) {
       const section = topics.flatMap((topic) => topic.sections).find((candidate) => candidate.id === id)
@@ -702,9 +1003,9 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
         body.append(...section.render(context))
         rendered.set(id, body)
       }
-      const columns = range && body.querySelector('.graph-columns')
+      const columns = range && body.querySelector('.graph-columns, .graph-plot')
       const build = columns ? rangeTests.get(columns) : undefined
-      const ends = range?.map((end, index) => end ?? (index ? Infinity : -Infinity)) as [number, number] | undefined
+      const ends = range?.map((end, index) => end ?? (index % 2 ? Infinity : -Infinity))
       const select = build && ends ? { key, label, test: build(...ends), range: ends }
         : [...body.querySelectorAll('[data-select]')].map((element) => selections.get(element)).find((candidate) => candidate?.key === key)
       if (!select) continue

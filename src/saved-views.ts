@@ -66,7 +66,7 @@ const isRangeEnd = (value: unknown) => value === null || (typeof value === 'numb
 
 function isGraphSelection(value: unknown): value is SavedGraphSelection {
   return isRecord(value) && typeof value.section === 'string' && typeof value.key === 'string' && typeof value.label === 'string'
-    && (value.range === undefined || (Array.isArray(value.range) && value.range.length === 2 && value.range.every(isRangeEnd)))
+    && (value.range === undefined || (Array.isArray(value.range) && (value.range.length === 2 || value.range.length === 4) && value.range.every(isRangeEnd)))
 }
 
 function isPaintChannels(value: unknown): value is PaintChannel[] {

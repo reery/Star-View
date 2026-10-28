@@ -544,7 +544,7 @@ async function loadGraphsPanel(): Promise<void> {
 
 function initializeGraphs(module: typeof import('./graphs')): NonNullable<typeof graphs> {
   return graphs ??= module.initializeGraphs(events.signal,
-    () => ({ items: objectList.mapItems(baseObjectListFilter()), onFilter: setGraphFilter, sun: starById('sun'), referenceName: starById(referenceId)?.name ?? 'Sun', systems: starSystems, distanceUnit, colorMode: starColorMode }))
+    () => ({ items: objectList.mapItems(baseObjectListFilter()), onFilter: setGraphFilter, sun: starById('sun'), reference: starById(referenceId), referenceName: starById(referenceId)?.name ?? 'Sun', systems: starSystems, distanceUnit, colorMode: starColorMode }))
 }
 
 /** Prefer the loaded record of a merged identity; otherwise add the listed catalog record. */
@@ -572,10 +572,14 @@ function syncPanelLayout(): void {
   syncViewCenterInset()
 }
 
+// The view centers between the locked card and the selected object card, counting half of the latter:
+// it covers only the top of the view, so a full share pushes the center visibly right.
 function syncViewCenterInset(): void {
   const name = viewCenteringPanels.find((candidate) => lockedPanels.has(candidate) && panelIsOpen(candidate))
+  const scene = element('scene').getBoundingClientRect(), selectedCard = element('selected-object-card')
+  const left = selectedCard.hidden ? 0 : Math.max(0, selectedCard.getBoundingClientRect().right - scene.left) / 2
   const inset = name && wideLayout.matches && !touchFirstInput.matches
-    ? element('scene').getBoundingClientRect().right - element(`${name}-panel`).getBoundingClientRect().left : 0
+    ? scene.right - element(`${name}-panel`).getBoundingClientRect().left - left : 0
   viewer?.setViewCenterInset(Math.max(0, inset))
 }
 
@@ -1994,6 +1998,7 @@ function renderSelection(): void {
   element('star-details').hidden = !star
   syncSelectedObjectLayout()
   syncVisibilityObserverLayout()
+  syncViewCenterInset()
   objectList.setSelected(selectedId)
   updateReferenceControl()
   updateObserverControl()

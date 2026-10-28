@@ -2,12 +2,12 @@
   font-family: 'Helvetica Neue', Helvetica, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
   font-size: 16px;
   font-synthesis: none;
-  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0;
   color-scheme: dark;
   color: var(--ink);
   background: #000000;
+  scrollbar-color: #776a5c transparent;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -30,12 +30,18 @@
   --accent-strong: #ffd09a;
   --accent-vibrant: #ff8a2a;
   --danger: #f08080;
+  --surface-vibrant-pressed: #ff8a2a14;
+  --surface-vibrant-hover: #ff8a2a0d;
+  --border-vibrant-pressed: #ff8a2a70;
+  --popover-shadow: 0 6px 18px #00000070;
+  --dock-gutter: 100px;
   --card-radius: 11px;
   --property-text-size: 14px;
   --mass-metric-divider: 1px dashed var(--line);
   --stat-bar-height: 6px;
   --stat-bar-radius: 4px;
   --stat-bar-fill: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  --graph-full-fill: #ffffff2e;
   --stat-bar-reference: #a7bdcc;
   --planet-earth-reference: var(--stat-bar-reference);
 }
@@ -57,24 +63,22 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .scene { position: absolute; inset: 0; }
 .scene canvas { position: relative; z-index: 1; display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
 .scene canvas:active { cursor: grabbing; }
-.scene-legend, .visibility-observer { z-index: 2; }
-.inspector { z-index: 4; }
 /* The right-hand button rails stack above cards so their flyouts and tooltips are never covered. */
 .scene-toolbar, .dock-rail { z-index: 2; }
 
-.inspector { position: absolute; inset: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left); pointer-events: none; }
+.inspector { position: absolute; z-index: 4; inset: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left); pointer-events: none; }
 .selected-object, .dock-card, .observer-direction-card { color: var(--ink); background: linear-gradient(145deg, #26282af7, var(--panel-glass)); border: 1px solid #5a5148; border-radius: var(--card-radius); box-shadow: 0 14px 38px #00000080, inset 0 1px #ffffff0a; }
 .selected-object, .dock-card { isolation: isolate; }
 .selected-object { position: absolute; top: 20px; left: 20px; width: 292px; max-height: calc(var(--ui-height) - 40px); display: flex; flex-direction: column; overflow: hidden; pointer-events: auto; }
 /* Like .card-scroll-content: the summary with the section buttons stays put and only the body scrolls. */
 :is(.selected-object-content, #star-details, #object-card-details) { display: flex; flex-direction: column; min-height: 0; }
 #object-card-details::details-content { display: flex; flex-direction: column; min-height: 0; }
-.object-card-body { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
+.object-card-body { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; }
 .designation-details { font-size: var(--property-text-size); line-height: 1.2; }
 .designation-details summary { padding: 3px 0; color: var(--muted); font-weight: 400; cursor: pointer; }
 .designation-details[open] summary { margin-bottom: 6px; }
 .designation-list, .subtype-list { margin: 0; padding: 8px 10px; list-style: none; background: var(--surface-control); border: 1px solid var(--line); border-radius: 6px; }
-.designation-list { max-height: 156px; overflow: auto; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
+.designation-list { max-height: 156px; overflow: auto; scrollbar-width: thin; }
 .designation-list li { padding: 3px 0; overflow-wrap: anywhere; }
 .subtype-count { float: right; color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
 .subtype-list { margin-bottom: 8px; }
@@ -89,7 +93,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .save-view-name-field { flex: 1; min-width: 0; }
 .save-view-name-field input[data-status]::placeholder { color: var(--accent-strong); opacity: 1; }
 .saved-views-empty { padding: 14px; color: var(--muted); font-size: var(--property-text-size); line-height: 1.55; }
-.saved-views-table-wrap { max-height: min(360px, calc(var(--ui-height) - 176px)); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
+.saved-views-table-wrap { max-height: min(360px, calc(var(--ui-height) - 176px)); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; }
 .saved-views-table { min-width: 310px; }
 .saved-view-name-column { width: auto; }
 .saved-view-origin-column { width: 28%; }
@@ -101,14 +105,13 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .saved-views-table td { vertical-align: middle; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .saved-views-table tbody td { padding-block: 4px; }
 .saved-view-context-backdrop { position: fixed; z-index: 9; inset: 0; touch-action: none; }
-.saved-view-context-menu { position: fixed; z-index: 10; max-width: min(320px, calc(var(--ui-width) - 16px)); padding: 4px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 5px; box-shadow: 0 6px 18px #00000070; font-size: var(--property-text-size); line-height: 1.4; }
+.saved-view-context-menu { position: fixed; z-index: 10; max-width: min(320px, calc(var(--ui-width) - 16px)); padding: 4px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 5px; box-shadow: var(--popover-shadow); font-size: var(--property-text-size); line-height: 1.4; }
 .saved-view-context-delete { display: block; width: 100%; padding: 7px 10px; color: var(--danger); background: transparent; border: 0; border-radius: 3px; text-align: left; }
 .saved-view-context-delete:focus-visible { background: var(--panel-hover); }
-.observer-direction-card { position: absolute; right: 74px; bottom: 48px; display: grid; gap: 5px; padding: 7px 8px 8px; pointer-events: auto; transition: right 120ms ease, bottom 120ms ease; }
-.observer-direction-card[hidden] { display: none; }
+/* States shift the card with translate, which animates without relayout. */
+.observer-direction-card { --observer-bottom: 48px; position: absolute; right: 74px; bottom: var(--observer-bottom); display: grid; gap: 5px; padding: 7px 8px 8px; pointer-events: auto; translate: var(--observer-shift-x, 0px) var(--observer-shift-y, 0px); transition: translate 120ms ease; }
 .observer-direction-title { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 0 2px; color: var(--muted); font-size: 10px; line-height: 1.2; font-weight: 600; letter-spacing: 0.04em; white-space: nowrap; }
 .observer-direction-object { display: inline-flex; align-items: center; gap: 4px; min-width: 0; padding: 0; color: var(--ink); background: transparent; border: 0; font: inherit; font-weight: 500; letter-spacing: 0; cursor: pointer; }
-.observer-direction-object[hidden] { display: none; }
 .observer-direction-object:focus-visible { outline-color: var(--accent-strong); outline-offset: 3px; }
 #observer-object-name { max-width: 112px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 #observer-object-swatch { box-shadow: 0 0 6px color-mix(in srgb, var(--observer-star-color, var(--accent)) 55%, transparent); }
@@ -123,7 +126,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
   .observer-direction-button:hover:not(:disabled) { color: var(--accent-strong); background: var(--panel-selected); border-color: var(--border-active); }
 }
 @media (min-width: 721px) {
-  .inspector:has(.control-dock[data-open]:not([data-open="motion"]):not([data-open="objects"])) .observer-direction-card { right: 360px; }
+  /* Clear the open 276px card and its 10px gap. */
+  .inspector:has(.control-dock[data-open]:not([data-open="motion"]):not([data-open="objects"])) .observer-direction-card { --observer-shift-x: -286px; }
 }
 .time-controls { position: fixed; left: calc(20px + var(--safe-left)); bottom: calc(20px + var(--safe-bottom)); padding: 0; overflow: hidden; }
 .panel-heading.time-heading { align-items: stretch; gap: 0; padding-right: 0; }
@@ -165,18 +169,17 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .dock-indicators .tooltip { right: 0; bottom: calc(100% + 8px); }
 .control-dock[data-open]:not([data-open="motion"]) .dock-indicators { display: none; }
 .control-dock[data-motion-open] #motion-active { display: none; }
-.control-dock[data-open] { grid-template-columns: 276px 44px; }
-.control-dock[data-open="motion"] { grid-template-columns: 44px; }
+/* An open card's own width sizes the first column. */
+.control-dock[data-open]:not([data-open="motion"]) { grid-template-columns: auto 44px; }
 .dock-rail { grid-column: 1; grid-row: 1; align-self: end; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; width: 44px; }
-.control-dock[data-open] .dock-rail { grid-column: 2; }
-.control-dock[data-open="motion"] .dock-rail { grid-column: 1; }
-.dock-card { grid-column: 1; grid-row: 1; align-self: end; width: 276px; max-height: calc(var(--ui-height) - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; box-shadow: 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; }
-.control-dock[data-motion-open] .time-controls { width: min(760px, calc(var(--ui-width) - 100px)); }
+.control-dock[data-open]:not([data-open="motion"]) .dock-rail { grid-column: 2; }
+.dock-card { grid-column: 1; grid-row: 1; align-self: end; width: min(276px, calc(var(--ui-width) - var(--dock-gutter))); max-height: calc(var(--ui-height) - 40px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; box-shadow: 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; }
+.control-dock[data-motion-open] .time-controls { width: min(760px, calc(var(--ui-width) - var(--dock-gutter))); }
 .panel-heading { position: sticky; top: 0; z-index: 3; background: var(--card-header-gradient); display: flex; align-items: center; min-height: 44px; padding: 0 54px 0 14px; border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.25; font-weight: 600; }
 .panel-heading h2 { font: inherit; min-width: 0; }
 .panel-lock, .save-view-button { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 44px; padding: 0; color: var(--ink); background: transparent; border: 1px solid transparent; border-radius: 6px; transition: color 120ms ease, background 120ms ease, border-color 120ms ease; }
 .panel-heading .panel-lock, .panel-heading .save-view-button { position: absolute; z-index: 1; top: -1px; right: -1px; height: 45px; border-color: transparent transparent var(--line) var(--line); border-radius: 0 var(--card-radius) 0 0; background: var(--surface-raised); }
-.panel-lock[aria-pressed="true"] { color: var(--accent-vibrant); background: #ff8a2a14; border-color: #ff8a2a70; }
+.panel-lock[aria-pressed="true"] { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); border-color: var(--border-vibrant-pressed); }
 .panel-lock:focus-visible, .save-view-button:focus-visible { outline-color: var(--accent-vibrant); }
 .panel-heading.filter-heading { padding-right: 142px; }
 .panel-heading #filter-save { right: 87px; border-radius: 0; }
@@ -184,19 +187,15 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading.paint-heading { padding-right: 186px; }
 .panel-heading #paint-shrink { right: 131px; border-radius: 0; }
 .panel-heading #paint-reset { right: 87px; border-radius: 0; }
-.control-dock:is([data-open="glossary"], [data-open="constellations"], [data-open="top-lists"]) { grid-template-columns: min(640px, calc(var(--ui-width) - 100px)) 44px; }
+.dock-card.glossary-card { display: flex; flex-direction: column; width: min(640px, calc(var(--ui-width) - var(--dock-gutter))); height: min(520px, calc(var(--ui-height) - 100px)); overflow: hidden; }
 /* Wide enough for the supernova candidates table without horizontal scrolling. */
-.control-dock[data-open="top-lists"] { grid-template-columns: min(900px, calc(var(--ui-width) - 100px)) 44px; }
-.dock-card.glossary-card { display: flex; flex-direction: column; width: min(640px, calc(var(--ui-width) - 100px)); height: min(520px, calc(var(--ui-height) - 100px)); overflow: hidden; }
-.dock-card.top-lists-card { width: min(900px, calc(var(--ui-width) - 100px)); }
+.dock-card.top-lists-card { width: min(900px, calc(var(--ui-width) - var(--dock-gutter))); }
 /* Wide enough for the paint setting titles beside their scale buttons. */
-.control-dock[data-open="paint"] { grid-template-columns: min(400px, calc(var(--ui-width) - 100px)) 44px; }
-#paint-panel { width: min(400px, calc(var(--ui-width) - 100px)); }
+#paint-panel { width: min(400px, calc(var(--ui-width) - var(--dock-gutter))); }
 /* The Graphs width toggle switches between the default and compact widths. */
-.control-dock { --graphs-width: 630px; --graphs-gutter: 100px; }
+.control-dock { --graphs-width: 630px; }
 .control-dock[data-graphs-compact] { --graphs-width: 440px; }
-.control-dock[data-open="graphs"] { grid-template-columns: min(var(--graphs-width), calc(var(--ui-width) - var(--graphs-gutter))) 44px; }
-.dock-card.graphs-card { width: min(var(--graphs-width), calc(var(--ui-width) - var(--graphs-gutter))); }
+.dock-card.graphs-card { width: min(var(--graphs-width), calc(var(--ui-width) - var(--dock-gutter))); }
 .panel-heading.glossary-heading { flex: 0 0 45px; gap: 18px; padding-right: 98px; }
 /* These headings are 45px tall, 1px more than the others, so their buttons start at the top edge to share the bottom border. */
 :is(.glossary-heading, .constellations-detail-heading) > .panel-lock { top: 0; }
@@ -211,7 +210,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .glossary-search input::placeholder, .save-view-name-field input::placeholder, .object-search input::placeholder { color: var(--muted); opacity: 0.85; }
 .glossary-search input:focus-visible, .save-view-name-field input:focus-visible, .object-search input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .glossary-body { display: grid; grid-template-columns: 184px minmax(0, 1fr); flex: 1; min-height: 0; }
-.glossary-terms, .glossary-detail { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
+.glossary-terms, .glossary-detail { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
 .glossary-terms { padding: 8px 0 12px; border-right: 1px solid var(--line); background: #17181955; }
 .glossary-group + .glossary-group { margin-top: 14px; }
 .glossary-group-heading { padding: 9px 14px 6px; color: var(--muted); background: var(--surface-heading); font-size: 10px; line-height: 1.4; font-weight: 500; letter-spacing: 0.04em; }
@@ -232,8 +231,9 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .glossary-figure img { display: block; width: 100%; height: 178px; object-fit: cover; border: 1px solid var(--line); border-radius: 6px; background: #101112; }
 .glossary-figure figcaption { margin-top: 7px; color: var(--muted); font-size: 10px; line-height: 1.5; }
 .glossary-description { color: var(--muted); font-size: 14px; line-height: 1.7; }
-.glossary-detail a { color: var(--accent-strong); text-underline-offset: 3px; }
-.glossary-detail a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* Links in cards; plain selectors keep each container's specificity for the credit lines that inherit their color. */
+.glossary-detail a, .info-meta a, .object-type-body a, .properties a, :is(#planet-info, #object-info, .constellation-info) a, #planet-moons a, .constellation-source-links a, .constellation-visibility-sources a, .mass-method a, .radius-method a, .constellation-info-link { color: var(--accent-strong); text-underline-offset: 3px; }
+:is(.glossary-detail, .info-meta, .object-type-body, .properties, #planet-info, #object-info, .constellation-info, #planet-moons, .constellation-source-links, .constellation-visibility-sources, .mass-method, .radius-method) a:focus-visible, .constellation-info-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 .glossary-source { display: inline-block; margin-top: 18px; font-size: 12px; }
 .glossary-attribution, .glossary-image-credit { color: var(--muted); font-size: 10px; line-height: 1.6; }
 .glossary-attribution { margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--line); }
@@ -244,10 +244,10 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 @media (hover: hover) and (pointer: fine) {
   .glossary-term:hover { color: var(--accent-strong); background: var(--panel-hover); }
   .glossary-term[aria-current="true"]:hover { background: var(--panel-selected); }
-  .glossary-detail a:hover { color: #fff0dc; }
+  :is(.glossary-detail, .info-meta, .object-type-body, .properties, #planet-info, #object-info, .constellation-info, #planet-moons, .constellation-source-links, .constellation-visibility-sources, .mass-method, .radius-method) a:hover, .constellation-info-link:hover { color: #fff0dc; }
 }
 @media (hover: hover) and (pointer: fine) {
-  .visibility-lock:hover, .panel-lock:hover:not(:disabled), .save-view-button:hover:not(:disabled), .paint-setting-heading > .paint-setting-toggle:hover { color: var(--accent-vibrant); background: #ff8a2a0d; }
+  .visibility-lock:hover, .panel-lock:hover:not(:disabled), .save-view-button:hover:not(:disabled), .paint-setting-heading > .paint-setting-toggle:hover { color: var(--accent-vibrant); background: var(--surface-vibrant-hover); }
 }
 
 .icon-button { position: relative; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; background: #1d1e20f2; border: 1px solid var(--line); border-radius: 7px; color: var(--ink); box-shadow: 0 5px 16px #00000050; }
@@ -260,8 +260,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-button { transition: background 120ms ease, border-color 120ms ease; }
 .panel-button[aria-expanded="true"] .tooltip { display: none !important; }
 .icon-button:focus-visible { outline-color: var(--accent-strong); }
-.camera-view-controls, .origin-controls, .observer-view-controls, .grid-controls, .selection-controls, .discover-controls { position: relative; width: 44px; height: 44px; }
-.camera-view-options, .origin-options, .observer-view-options, .grid-options, .selection-options, .discover-options { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
+[data-toolbar-flyout] { position: relative; width: 44px; height: 44px; }
+[data-toolbar-options] { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
 .camera-view-button { width: 60px; flex: 0 0 60px; font: inherit; font-size: 12px; font-weight: 500; }
 .origin-controls:focus-visible, .observer-view-controls:focus-visible, .selection-controls:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; border-radius: 7px; }
 [data-toolbar-flyout]:has([data-toolbar-options] button:not(:disabled)) > button:disabled { pointer-events: none; }
@@ -282,16 +282,15 @@ button, p, h2, dd { overflow-wrap: anywhere; }
   .observer-view-controls:hover:has(.observer-view-button:not(:disabled)) .observer-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .camera-view-options, .origin-options, .observer-view-options, .grid-options, .selection-options, .discover-options { transition: none; transform: none; }
+  [data-toolbar-options] { transition: none; transform: none; }
 }
 .toolbar-divider { width: 20px; height: 1px; background: var(--line); margin: 4px 12px; }
 /* Touch visibility is explicit so emulated hover/focus cannot leave a tooltip stuck open. */
 :root[data-tooltip-input="touch"] .mass-metric-tooltip:not([data-touch-tooltip-open]) { visibility: hidden !important; }
 .mass-metric-tooltip[data-touch-tooltip-open]:not([hidden]) { display: block; }
-.tooltip { display: none; position: absolute; right: calc(100% + 10px); white-space: nowrap; font-size: 12px; font-weight: 400; background: var(--panel); border: 1px solid var(--line); color: var(--ink); padding: 7px 10px; border-radius: 5px; pointer-events: none; z-index: 5; box-shadow: 0 6px 18px #00000070; }
+.tooltip { display: none; position: absolute; right: calc(100% + 10px); white-space: nowrap; font-size: 12px; font-weight: 400; background: var(--panel); border: 1px solid var(--line); color: var(--ink); padding: 7px 10px; border-radius: 5px; pointer-events: none; z-index: 5; box-shadow: var(--popover-shadow); }
 .icon-button:focus-visible .tooltip { display: block; }
 .selection-tooltip-object { display: flex; align-items: center; gap: 6px; margin-top: 5px; }
-.selection-tooltip-object[hidden] { display: none; }
 .origin-tooltip-object { display: inline-flex; align-items: center; gap: 6px; vertical-align: middle; }
 @media (hover: hover) and (pointer: fine) {
   .icon-button:hover:not(:disabled) { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
@@ -301,15 +300,15 @@ button, p, h2, dd { overflow-wrap: anywhere; }
   [data-toolbar-flyout]:hover:not(:has([data-toolbar-options]:hover)) > .icon-button:disabled .tooltip { display: block; }
 }
 
-.scene-legend, .visibility-observer { position: absolute; bottom: calc(22px + var(--safe-bottom)); color: var(--muted); font-size: 11px; display: flex; align-items: center; gap: 9px; pointer-events: none; }
+.scene-legend, .visibility-observer { position: absolute; z-index: 2; bottom: calc(22px + var(--safe-bottom)); color: var(--muted); font-size: 11px; display: flex; align-items: center; gap: 9px; pointer-events: none; }
 .scene-wrap:has(.control-dock[data-motion-open]) .scene-legend,
 .visibility-observer.is-avoiding-motion { bottom: var(--motion-panel-clearance, 150px); }
 .scene-legend { left: calc(28px + var(--safe-left)); font-variant-numeric: tabular-nums; }
 .grid-legend { display: inline-flex; align-items: center; gap: 9px; }
 .grid-symbol { width: 12px; height: 12px; background: repeating-linear-gradient(0deg, transparent 0 5px, #9c8976 5px 6px), repeating-linear-gradient(90deg, transparent 0 5px, #9c8976 5px 6px); border: 1px solid #9c8976; }
 .visibility-observer { right: calc(74px + var(--safe-right)); max-width: calc(50% - 74px); justify-content: flex-end; text-align: right; line-height: 1.4; }
-.scene-wrap:has(.visibility-observer.is-avoiding-motion) .observer-direction-card { bottom: calc(var(--motion-panel-clearance, 150px) + 26px); }
-.inspector:has(.control-dock[data-open="objects"]) .observer-direction-card { bottom: var(--objects-panel-clearance, 48px); transition: none; }
+.scene-wrap:has(.visibility-observer.is-avoiding-motion) .observer-direction-card { --observer-shift-y: calc(var(--observer-bottom) - var(--motion-panel-clearance, 150px) - 26px); }
+.inspector:has(.control-dock[data-open="objects"]) .observer-direction-card { --observer-shift-y: calc(var(--observer-bottom) - var(--objects-panel-clearance, 48px)); transition: none; }
 .visibility-observer strong { color: var(--ink); font-weight: 500; }
 .visibility-lock { display: inline-grid; place-items: center; width: 20px; height: 20px; margin-left: 2px; padding: 0; vertical-align: -1px; color: var(--muted); background: transparent; border: 0; border-radius: 4px; pointer-events: auto; transition: color 120ms ease; }
 .visibility-lock svg { width: 14px; height: 14px; }
@@ -338,14 +337,14 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .dimension-label { background: #000000; padding: 3px 5px; color: var(--accent-strong); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .axis-label, .sky-grid-label { color: var(--muted); font-size: 10px; text-shadow: 0 0 3px #000000; }
 .sky-grid-label { transform: translate(7px, 5px); font-variant-numeric: tabular-nums; }
-.is-moving .star-label, .is-moving .axis-label { text-shadow: none; }
+.is-moving .map-label { text-shadow: none; }
 
 .display-settings, .filter-controls { font-size: 14px; line-height: 1.35; color: var(--ink); }
 .display-settings { display: grid; gap: 12px; padding: 12px 14px 14px; }
 .browser-data-delete { justify-self: start; min-height: 34px; padding: 6px 8px; color: var(--danger); background: color-mix(in srgb, var(--danger) 10%, transparent); border: 1px solid color-mix(in srgb, var(--danger) 45%, transparent); border-radius: 6px; font-size: 12px; font-variant-numeric: tabular-nums; text-align: center; }
 .browser-data-delete:disabled { opacity: 0.45; cursor: default; }
 .preferences[data-delete-confirmation] > * { filter: blur(3px); }
-.browser-data-dialog { position: fixed; width: min(320px, calc(var(--ui-width) - 32px)); max-height: calc(var(--ui-height) - 32px); margin: 0; padding: 14px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 5px; box-shadow: 0 6px 18px #00000070; font-size: var(--property-text-size); line-height: 1.4; }
+.browser-data-dialog { position: fixed; width: min(320px, calc(var(--ui-width) - 32px)); max-height: calc(var(--ui-height) - 32px); margin: 0; padding: 14px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 5px; box-shadow: var(--popover-shadow); font-size: var(--property-text-size); line-height: 1.4; }
 .browser-data-dialog::backdrop { background: transparent; }
 .browser-data-dialog p { margin: 0; }
 #browser-data-error { margin-top: 10px; color: var(--danger); }
@@ -395,7 +394,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .paint-setting-heading > .paint-setting-toggle { align-self: stretch; justify-content: center; width: 44px; flex: 0 0 44px; margin: -1px 0 -1px -1px; color: var(--ink); background: var(--surface-raised); border: 1px solid transparent; border-right-color: var(--line); border-radius: 8px 0 0 8px; transition: color 120ms ease, background 120ms ease, border-color 120ms ease; }
 .paint-setting-heading:has([aria-expanded="true"]) > .paint-setting-toggle { border-bottom-color: var(--line); border-bottom-left-radius: 0; }
 /* Matches the pressed card-corner buttons, like a locked card. */
-.paint-setting-heading > .paint-setting-toggle[aria-pressed="true"] { color: var(--accent-vibrant); background: #ff8a2a14; border-color: #ff8a2a70; }
+.paint-setting-heading > .paint-setting-toggle[aria-pressed="true"] { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); border-color: var(--border-vibrant-pressed); }
 .paint-setting-toggle:focus-visible { outline-color: var(--accent-vibrant); }
 /* Setting names wrap between words only; the scale buttons move below a name whose longest word leaves them no room. */
 .paint-setting-title { display: flex; flex: 1; flex-wrap: wrap; align-items: center; min-width: 0; }
@@ -452,12 +451,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .panel-heading #objects-maximize { right: 131px; border-radius: 0; }
 .panel-heading #objects-shrink { right: 175px; border-radius: 0; }
 .catalog.is-expanded .objects-heading { padding-right: 230px; }
-.control-dock[data-open="objects"][data-objects-expanded] { grid-template-columns: min(1760px, calc(var(--ui-width) - 100px)) 44px; }
-.dock-card.catalog.is-expanded { width: min(1760px, calc(var(--ui-width) - 100px)); height: var(--objects-height); max-height: calc(var(--ui-height) - 52px); }
+.dock-card.catalog.is-expanded { width: min(1760px, calc(var(--ui-width) - var(--dock-gutter))); height: var(--objects-height); max-height: calc(var(--ui-height) - 52px); }
 .inspector:has(> .observer-direction-card:not([hidden])) .control-dock[data-open="objects"] .catalog { max-height: calc(var(--ui-height) - 40px - var(--observer-direction-height, 68px) - 10px); }
 .object-search { padding: 10px 14px 7px; }
 .objects-heading .object-search { flex: 1; min-width: 0; max-width: 360px; padding: 0; }
-.object-database { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
+.object-database { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; }
 .object-database-table { width: 100%; min-width: 1941px; table-layout: fixed; border-collapse: separate; border-spacing: 0; font-size: 12px; line-height: 1.25; font-variant-numeric: tabular-nums; }
 .object-database-table th { position: sticky; top: 0; z-index: 2; height: 50px; padding: 3px 6px; background: var(--surface-heading); border-top: 1px solid var(--line); text-align: left; font-weight: 600; }
 .object-database-table th:nth-child(even) { background: color-mix(in srgb, var(--panel-selected) 65%, var(--surface-heading)); }
@@ -467,7 +465,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-column-label { min-width: 0; max-height: 30px; overflow: hidden; line-height: 1.2; }
 .object-database-table th[aria-sort="ascending"] .object-column-sort svg, .object-database-table th[aria-sort="descending"] .object-column-sort svg { color: var(--accent-vibrant); opacity: 1; }
 .object-column-filter-button { display: grid; place-items: center; flex: 0 0 20px; width: 20px; height: 26px; padding: 0; background: transparent; border: 1px solid transparent; border-radius: 4px; color: var(--muted); }
-.object-column-filter-button[aria-pressed="true"], .object-column-filter-button[aria-expanded="true"] { color: var(--accent-vibrant); background: #ff8a2a14; border-color: #ff8a2a70; }
+.object-column-filter-button[aria-pressed="true"], .object-column-filter-button[aria-expanded="true"] { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); border-color: var(--border-vibrant-pressed); }
 .object-column-unit { display: block; color: var(--muted); font-size: 10px; line-height: 1.2; font-weight: 400; }
 .object-database-table tbody tr[data-star] { height: 36px; cursor: pointer; }
 .object-database-table td { height: 36px; padding: 5px 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: var(--panel); border-bottom: var(--mass-metric-divider); }
@@ -485,7 +483,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-database-select:focus-visible { outline-offset: 2px; }
 .object-database-table .object-database-spacer td { height: auto; padding: 0; border: 0; background: transparent; }
 .object-database-empty td { height: 72px; color: var(--muted); text-align: left; padding-left: 14px; }
-.object-column-filter { position: fixed; inset: auto; width: 250px; max-width: calc(var(--ui-width) - 16px); margin: 0; padding: 10px 12px 12px; overflow: auto; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 6px 18px #00000070; font-size: 12px; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
+.object-column-filter { position: fixed; inset: auto; width: 250px; max-width: calc(var(--ui-width) - 16px); margin: 0; padding: 10px 12px 12px; overflow: auto; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; box-shadow: var(--popover-shadow); font-size: 12px; scrollbar-width: thin; }
 .object-column-filter fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
 .object-column-filter legend { padding: 0; font-weight: 600; }
 .object-filter-actions { display: flex; gap: 5px; margin: 8px 0; }
@@ -518,9 +516,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .info-meta dt { color: var(--muted); }
 .info-meta dd { text-align: right; font-weight: 500; }
 .attribution-note { color: var(--muted); font-size: 10px; font-weight: 400; }
-.info-meta a { color: var(--accent-strong); text-underline-offset: 3px; }
-.info-meta a:hover { color: #fff0dc; }
-.info-meta a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 .star-swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 1px solid #ffffff40; flex-shrink: 0; }
 .catalog-name { font-size: 12px; font-weight: 500; min-width: 0; }
 .catalog-distance { color: var(--muted); font-size: 10px; white-space: nowrap; font-variant-numeric: tabular-nums; }
@@ -534,14 +529,13 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .identity .star-name { font-size: 24px; font-weight: 500; line-height: 1.15; }
 .star-distance { display: block; flex-shrink: 0; font-size: 11px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .star-components { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
-.star-components[hidden] { display: none; }
 .star-component { display: grid; place-items: center; min-width: 36px; min-height: 28px; padding: 3px 9px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 6px; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; transition: color 120ms ease, background 120ms ease, border-color 120ms ease; }
 #star-components .star-component { display: flex; align-items: center; justify-content: center; gap: 4px; }
 .star-component-icon { display: block; width: 20px; height: 20px; flex: 0 0 20px; pointer-events: none; }
-.star-component[aria-pressed="true"] { color: var(--accent-vibrant); background: #ff8a2a14; border-color: #ff8a2a70; }
+.star-component[aria-pressed="true"] { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); border-color: var(--border-vibrant-pressed); }
 .star-component:focus-visible { outline: 2px solid var(--accent-vibrant); outline-offset: 2px; }
 @media (hover: hover) and (pointer: fine) {
-  .star-component:hover { color: var(--accent-vibrant); background: #ff8a2a0d; }
+  .star-component:hover { color: var(--accent-vibrant); background: var(--surface-vibrant-hover); }
 }
 .properties-section { padding: 2px 16px 8px; }
 .object-card-footer { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); }
@@ -586,11 +580,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .stellar-orbit-properties > div:last-child:has(a) { margin-top: 6px; padding-top: 8px; border-top: var(--mass-metric-divider); }
 .stellar-orbit-tooltip { width: 220px; max-width: min(220px, calc(var(--ui-width) - 64px)); }
 .system-empty { padding-top: 12px; font-size: var(--property-text-size); line-height: 1.4; color: var(--muted); }
-.object-section-button[aria-expanded="true"] { color: var(--accent-vibrant); background: #ff8a2a14; box-shadow: inset 0 -2px #ff8a2a70; }
+.object-section-button[aria-expanded="true"] { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); box-shadow: inset 0 -2px var(--border-vibrant-pressed); }
 #object-compare-toggle[aria-pressed="true"] { color: var(--danger); background: #f0808014; box-shadow: inset 0 -2px #f0808070; }
 .object-section-button:focus-visible { outline-color: var(--accent-vibrant); outline-offset: -3px; }
 @media (hover: hover) and (pointer: fine) {
-  .object-section-button:hover:not(:disabled) { color: var(--accent-vibrant); background: #ff8a2a0d; }
+  .object-section-button:hover:not(:disabled) { color: var(--accent-vibrant); background: var(--surface-vibrant-hover); }
 }
 .properties > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 3px 0; font-size: var(--property-text-size); line-height: 1.2; }
 .properties dt { color: var(--muted); }
@@ -684,12 +678,12 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .comparison-member:disabled { color: var(--muted); opacity: 0.5; cursor: default; }
 .comparison-member:not(:disabled):is(:hover, :focus-visible) { background: var(--panel-hover); }
 .comparison-member:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-.dock-card.object-type-card { position: absolute; top: var(--object-detail-top, 20px); left: var(--object-detail-left, 324px); width: min(380px, calc(var(--ui-width) - 402px)); max-width: var(--object-detail-max-width, none); max-height: calc(var(--ui-height) - var(--object-detail-top, 20px) - 20px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); }
+.dock-card.object-type-card { position: absolute; top: var(--object-detail-top, 20px); left: var(--object-detail-left, 324px); width: min(380px, calc(var(--ui-width) - 402px)); max-width: var(--object-detail-max-width, none); max-height: calc(var(--ui-height) - var(--object-detail-top, 20px) - 20px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); }
 .dock-card:has(> .card-scroll-content), .dock-card.catalog { display: flex; flex-direction: column; overflow: hidden; }
 .dock-card:has(> .card-scroll-content) > .panel-heading, .catalog > .panel-heading, .catalog > .object-search { flex-shrink: 0; }
 .object-type-card > .panel-heading { padding-right: 98px; }
 .object-type-card > .panel-heading > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
-.card-scroll-content { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
+.card-scroll-content { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; }
 .load-state > :not(.load-recovery) { display: none !important; }
 .load-recovery { display: grid; grid-column: 1 / -1; gap: 8px; margin: 0; padding: 12px; color: var(--muted); font-size: var(--property-text-size); line-height: 1.5; }
 .load-recovery-actions { display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink); }
@@ -718,9 +712,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-type-body { padding: 0 20px 18px; }
 #object-type-description { font-size: 14px; line-height: 1.65; color: var(--muted); }
 .object-type-source { display: inline-block; margin-top: 14px; font-size: 12px; }
-.object-type-body a { color: var(--accent-strong); text-underline-offset: 3px; }
-.object-type-body a:hover { color: #fff0dc; }
-.object-type-body a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .object-type-credit { margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 10px; line-height: 1.5; color: var(--muted); }
 .object-type-credit a { color: inherit; }
 .metallicity-body { padding: 0 20px 20px; }
@@ -759,7 +750,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .constellation-sources summary { cursor: pointer; }
 .constellation-sources p { margin-top: 8px; }
 .constellation-source-links { display: grid; gap: 5px; margin-top: 8px; }
-.constellation-source-links a { color: var(--accent-strong); text-underline-offset: 3px; }
 .constellation-missing { padding: 10px 16px; color: var(--muted); font-size: var(--property-text-size); }
 .constellation-visibility { padding: 14px 16px 12px; border-top: 1px solid var(--line); }
 .constellation-visibility-charts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 12px; }
@@ -785,7 +775,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .constellation-visibility-stats > div + div { border-top: var(--mass-metric-divider); }
 .constellation-visibility-stats dd { font-variant-numeric: tabular-nums; }
 .constellation-visibility-sources { display: grid; gap: 5px; margin-top: 8px; }
-.constellation-visibility-sources a { color: var(--accent-strong); text-underline-offset: 3px; }
 .mass-body { padding: 14px 16px 18px; font-size: var(--property-text-size); line-height: 1.55; }
 .panel-heading.spectral-heading { gap: 10px; }
 .spectral-heading h2 { flex-shrink: 0; }
@@ -795,13 +784,12 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .mass-reference-option > .distance-reference-button { width: 100%; }
 .mass-reference-option + .mass-reference-option > .distance-reference-button { border-left: 0; }
 .mass-reference-option .mass-metric-tooltip { top: calc(100% + 8px); bottom: auto; left: var(--mass-tooltip-offset, 0px); width: max-content; max-width: var(--mass-tooltip-width, 240px); }
-.mass-reference-option .mass-metric-tooltip::before { top: -5px; bottom: auto; left: var(--mass-tooltip-arrow, 14px); border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.mass-reference-option .mass-metric-tooltip::before { left: var(--mass-tooltip-arrow, 14px); }
 .mass-reference-option:is([data-clipped="true"], [data-tooltip-always]):focus-within .tooltip { display: block; }
 @media (hover: hover) and (pointer: fine) {
   .mass-reference-option:is([data-clipped="true"], [data-tooltip-always]):hover .tooltip { display: block; }
 }
 .mass-benchmark { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; line-height: 1.4; }
-#mass-card-uncertainty { color: var(--muted); }
 .mass-scale-tick { position: absolute; top: -2px; width: 1px; height: calc(var(--stat-bar-height) + 4px); border-radius: 1px; background: var(--muted); }
 .mass-scale-tick > span { position: absolute; top: calc(14px + var(--mass-tick-row, 0) * 28px); left: 50%; transform: translateX(var(--mass-tick-offset, -50%)); white-space: nowrap; font-size: 12px; color: var(--muted); }
 .mass-note { margin-top: 8px; color: var(--muted); }
@@ -818,16 +806,16 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .mass-metric-tooltip { bottom: calc(100% + 8px); right: auto; left: 0; width: max-content; max-width: 100%; white-space: normal; line-height: 1.4; text-align: left; font-variant-numeric: normal; }
 .mass-metric-tooltip::before { content: ""; position: absolute; bottom: -5px; left: 14px; width: 8px; height: 8px; background: var(--panel); border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); transform: rotate(45deg); }
 .mass-metric-tooltip[data-model-range] { top: calc(100% + 8px); bottom: auto; }
-.mass-metric-tooltip[data-model-range]::before { top: -5px; bottom: auto; border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+/* Tooltips placed below their trigger point the arrow up. */
+.mass-metric-tooltip[data-model-range]::before, .mass-metric-tooltip[popover][data-placement="below"]::before, .mass-reference-option .mass-metric-tooltip::before, .mass-scale-help .mass-metric-tooltip::before { top: -5px; bottom: auto; border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .mass-metric-tooltip[popover] { position: fixed; inset: auto; margin: 0; max-width: none; overflow: visible; font-size: 12px; font-weight: 400; }
 .mass-metric-tooltip[popover]:not(:popover-open) { display: none !important; }
 .mass-metric-tooltip:popover-open { display: block; }
 .mass-metric-tooltip[popover]::before { left: var(--popover-tooltip-arrow); right: auto; }
-.mass-metric-tooltip[popover][data-placement="below"]::before { top: -5px; bottom: auto; border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .properties > :is(.temperature-row, .radius-row):has(.mass-metric-tooltip[data-model-range]):is(:hover, :focus-within) { z-index: 6; }
 .mass-scale-help:focus-within, .mass-scale-help:hover { z-index: 6; }
 .mass-scale-help .mass-metric-tooltip { top: calc(100% + 8px); bottom: auto; left: var(--mass-tooltip-offset, 0px); width: var(--mass-tooltip-width, 220px); max-width: none; }
-.mass-scale-help .mass-metric-tooltip::before { top: -5px; bottom: auto; left: var(--mass-tooltip-arrow, 14px); border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.mass-scale-help .mass-metric-tooltip::before { left: var(--mass-tooltip-arrow, 14px); }
 .mass-metric-copy:focus-within .mass-metric-tooltip { display: block; }
 :is(.luminosity-row, .radius-row, .temperature-row)[tabindex="0"] { cursor: help; }
 :is(.luminosity-row, .radius-row, .temperature-row):focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-radius: 5px; }
@@ -872,7 +860,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .mass-method, .radius-method { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); }
 .mass-method summary, .radius-method summary { cursor: pointer; }
 .mass-method p, .radius-method p { margin-top: 8px; }
-.mass-method a, .radius-method a { display: inline-block; margin-top: 8px; color: var(--accent-strong); text-underline-offset: 3px; }
+.mass-method a, .radius-method a { display: inline-block; margin-top: 8px; }
 .luminosity-body { container-type: inline-size; }
 .luminosity-equation.planet-facts-grid { grid-template-columns: minmax(0, 1fr) 12px minmax(0, 1fr) 12px minmax(0, 1.3fr); align-items: stretch; gap: 6px; font-variant-numeric: tabular-nums; }
 .luminosity-equation.planet-facts-grid > .planet-fact-tile { grid-template-rows: 30px 36px auto; align-content: start; align-items: center; gap: 4px; min-height: 0; padding: 8px 10px; text-align: center; }
@@ -1017,7 +1005,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .temperature-pair-grid .planet-fact-tile dd { display: grid; grid-template-columns: 20px minmax(0, 1fr); align-items: center; gap: 8px; padding: 8px; }
 .temperature-tile-metric-icon { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; color: var(--accent-strong); }
 .temperature-tile-value { min-width: 0; }
-.temperature-appearance-star { border-radius: 50%; background: radial-gradient(circle, #fff 0%, var(--temperature-swatch-color) 65%, transparent 100%); box-shadow: 0 0 10px var(--temperature-swatch-color); }
+.temperature-appearance-star, #temperature-color-star { border-radius: 50%; background: radial-gradient(circle, #fff 0%, var(--temperature-swatch-color) 65%, transparent 100%); box-shadow: 0 0 10px var(--temperature-swatch-color); }
 .temperature-comparison-tile .planet-fact-value { font-size: var(--property-text-size); line-height: 1.4; }
 .temperature-comparison-tile[data-metric="temperature"] .planet-fact-value { display: block; font-size: clamp(20px, 8cqi, 28px); font-weight: 700; line-height: 1.3; }
 @container (max-width: 340px) {
@@ -1062,7 +1050,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .temperature-facts .planet-fact-icon { position: static; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; grid-column: 1; grid-row: 1; }
 .temperature-facts .planet-fact-value { font-size: var(--property-text-size); }
 .temperature-facts .planet-fact-tile dd { grid-column: 2; grid-row: 1; margin: 0; }
-#temperature-color-star { border-radius: 50%; background: radial-gradient(circle, #fff 0%, var(--temperature-swatch-color) 65%, transparent 100%); box-shadow: 0 0 10px var(--temperature-swatch-color); }
 .temperature-body .mass-method { font-size: 12px; }
 .dock-card.object-type-card.distance-card { width: min(560px, calc(var(--ui-width) - 402px)); }
 .dock-card.object-type-card.planet-card { width: min(420px, calc(var(--ui-width) - 402px)); }
@@ -1073,7 +1060,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .planet-section-buttons { display: flex; align-self: stretch; flex-shrink: 0; margin: -1px 0; }
 .planet-heading .planet-section-button { position: static; height: 45px; border-radius: 0; border-color: transparent transparent var(--line) var(--line); }
 .planet-heading .planet-section-button:nth-last-child(1 of :not([hidden])) { border-right-color: var(--line); }
-.planet-heading .planet-section-button[aria-expanded="true"] { color: var(--accent-vibrant); background: #ff8a2a14; border-bottom-color: #ff8a2a70; }
+.planet-heading .planet-section-button[aria-expanded="true"] { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); border-bottom-color: var(--border-vibrant-pressed); }
 .planet-card-body { padding: 0 16px 12px; container-type: inline-size; }
 .planet-card-body .card-subgroup-heading { margin-bottom: 7px; }
 .planet-card-body section + section { margin-top: 12px; }
@@ -1146,7 +1133,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 #planet-moons { margin-top: 0; }
 .moon-system-figure { margin-bottom: 0; border-bottom: 1px solid var(--line); }
 .moon-browser { --moon-media-height: 172px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: var(--moon-media-height) auto; margin: 0 -16px -12px; }
-.moon-list { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; padding: 10px 12px 12px; }
+.moon-list { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; padding: 10px 12px 12px; }
 .moon-list .moon-row { display: flex; flex-wrap: wrap; gap: 3px 8px; padding: 7px 0; }
 .moon-row dt { flex: 0 0 auto; min-width: 0; white-space: nowrap; }
 .moon-row .star-swatch { flex-shrink: 0; }
@@ -1172,10 +1159,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 :is(#planet-info, #object-info, .constellation-info) p { margin: 0 0 10px; }
 :is(#planet-info, #object-info, .constellation-info) > section { margin-top: 12px; }
 :is(#planet-info, #object-info, .constellation-info) > section > :last-child { margin-bottom: 0; }
-.planet-properties a, :is(#planet-info, #object-info, .constellation-info) a, #planet-moons a, .constellation-info-link { color: var(--accent-strong); text-underline-offset: 3px; }
 .constellation-info-link { padding: 0; text-decoration: underline; background: none; border: 0; }
-.planet-properties a:hover, :is(#planet-info, #object-info, .constellation-info) a:hover, #planet-moons a:hover, .constellation-info-link:hover { color: #fff0dc; }
-.planet-properties a:focus-visible, :is(#planet-info, #object-info, .constellation-info) a:focus-visible, #planet-moons a:focus-visible, .constellation-info-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .planet-info-figure { margin: 10px 0 0; }
 .planet-info-figure > a { display: block; background: #000; }
 .planet-info-figure img { display: block; width: 100%; height: auto; object-fit: contain; }
@@ -1190,10 +1174,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-section-button.distance-reference-button { display: block; min-width: 0; min-height: 44px; margin: -1px 0; padding: 0 10px; color: var(--ink); background: var(--surface-raised); border: 1px solid var(--line); border-top-color: transparent; border-radius: 0; font-size: 13px; font-weight: 400; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 120ms ease, background 120ms ease, border-color 120ms ease; }
 .distance-reference-button:not([hidden]) + .distance-reference-button { border-left: 0; }
 #distance-reference-sun { flex-shrink: 0; }
-.distance-reference-button[aria-pressed="true"] { color: var(--accent-vibrant); background: #ff8a2a14; }
+.distance-reference-button[aria-pressed="true"] { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); }
 .distance-reference-button:focus-visible { outline-color: var(--accent-vibrant); outline-offset: -3px; }
 @media (hover: hover) and (pointer: fine) {
-  .object-section-button.distance-reference-button:hover:not(:disabled) { color: var(--accent-vibrant); background: #ff8a2a0d; }
+  .object-section-button.distance-reference-button:hover:not(:disabled) { color: var(--accent-vibrant); background: var(--surface-vibrant-hover); }
 }
 .distance-figure { margin: 0; }
 .distance-time { display: flex; align-items: center; gap: 4px; padding: 10px 4px 2px 12px; border-bottom: 1px solid var(--line); }
@@ -1215,7 +1199,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .radius-selected-label strong { font-size: var(--property-text-size); line-height: 1.25; font-weight: 600; overflow-wrap: anywhere; }
 .radius-reference-buttons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-left: 1px solid var(--line); }
 .object-section-button.radius-reference-button { min-width: 0; min-height: 46px; padding: 8px 2px; border-radius: 0; font-size: 13px; }
-.radius-reference-button[aria-pressed="true"] { color: var(--accent-vibrant); background: #ff8a2a14; box-shadow: inset 0 -2px #ff8a2a70; }
+.radius-reference-button[aria-pressed="true"] { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); box-shadow: inset 0 -2px var(--border-vibrant-pressed); }
 .radius-image-credit a { margin-top: 0; }
 .radius-summary { margin: 14px 0; color: var(--muted); }
 .radius-stats, .saved-views-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: var(--property-text-size); line-height: 1.25; font-variant-numeric: tabular-nums; }
@@ -1246,13 +1230,14 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .radius-metric .mass-metric-ratio { grid-row: 1; }
 .radius-ratio-bar { grid-column: 1 / -1; }
 .spectral-body { padding: 0 0 18px; font-size: var(--property-text-size); line-height: 1.55; }
-.spectral-magnitude-buttons { grid-template-columns: repeat(2, minmax(0, 1fr)); border-left: 0; border-bottom: 1px solid var(--line); }
+.spectral-magnitude-buttons { flex-shrink: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); border-left: 0; border-bottom: 1px solid var(--line); }
+.spectral-card:has(#spectral-hr-content[hidden]) > .spectral-magnitude-buttons { display: none; }
 .spectral-figure { margin: 0; padding: 8px 8px 0; }
 /* Inside the plot's top-right corner (viewBox 400 wide; plot right edge 384, top 50). */
 #spectral-hr-content .spectral-figure { position: relative; container-type: inline-size; }
 .spectral-catalog-option { position: absolute; top: calc(8px + 12.5cqw + 4px); right: calc(8px + 4cqw + 4px); }
 .panel-lock.spectral-catalog-toggle { width: 34px; height: 34px; flex-basis: 34px; background: #0b0e14d9; border-color: var(--line); }
-.panel-lock.spectral-catalog-toggle[aria-pressed="true"] { border-color: #ff8a2a70; }
+.panel-lock.spectral-catalog-toggle[aria-pressed="true"] { border-color: var(--border-vibrant-pressed); }
 .spectral-catalog-option .mass-metric-tooltip { left: auto; right: 0; }
 .spectral-catalog-option .mass-metric-tooltip::before { left: auto; right: 13px; }
 #hr-diagram svg, #mk-diagram svg { display: block; width: 100%; height: auto; font-family: inherit; font-variant-numeric: tabular-nums; }
@@ -1358,9 +1343,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .metallicity-sun-name { position: absolute; top: 23px; left: 50%; transform: translateX(-50%); color: var(--ink); }
 #metallicity-description { margin-top: 16px; font-size: 14px; line-height: 1.65; color: var(--muted); }
 .compact-property dd, .nebula-property dd, .molecular-cloud-property dd { max-width: 170px; overflow-wrap: anywhere; }
-.properties a { color: var(--accent-strong); text-underline-offset: 3px; }
-.properties a:hover { color: #fff0dc; }
-.properties a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
 .source-details { margin: 0 16px 6px; border-top: 1px solid var(--line); }
 .source-details summary { min-height: 44px; padding: 12px 0; font-size: 14px; font-weight: 500; color: var(--ink); cursor: pointer; }
 .coordinate-properties { margin-bottom: 12px; }
@@ -1389,6 +1371,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 }
 
 @media (max-width: 720px) {
+  :root { --dock-gutter: 80px; }
   .selected-object { top: 12px; left: 12px; width: min(292px, calc(var(--ui-width) - 78px)); max-height: calc(var(--ui-height) - 24px); }
   .selected-object.is-comparing { --comparison-columns: minmax(0, 1.3fr) repeat(2, minmax(0, 1fr)); --comparison-inset: calc((100% - 16px) / 3.3 + 8px); }
   .scene-toolbar { top: 12px; right: 12px; }
@@ -1398,15 +1381,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .time-markers i.major:nth-child(even)::after { content: none; }
   .time-readout { min-width: 0; }
   .control-dock { right: 12px; bottom: 12px; }
-  .observer-direction-card { right: 66px; bottom: 44px; }
-  .control-dock[data-open] { grid-template-columns: min(276px, calc(var(--ui-width) - 80px)) 44px; }
-  .control-dock[data-open="motion"] { grid-template-columns: 44px; }
-  .dock-card { width: min(276px, calc(var(--ui-width) - 80px)); max-height: calc(var(--ui-height) - 24px); }
-  .control-dock:is([data-open="glossary"], [data-open="constellations"], [data-open="top-lists"]) { grid-template-columns: min(640px, calc(var(--ui-width) - 80px)) 44px; }
-  .control-dock { --graphs-gutter: 80px; }
-  .control-dock[data-open="graphs"] { grid-template-columns: min(var(--graphs-width), calc(var(--ui-width) - var(--graphs-gutter))) 44px; }
-  .control-dock[data-open="objects"][data-objects-expanded] { grid-template-columns: calc(var(--ui-width) - 80px) 44px; }
-  .dock-card.catalog.is-expanded { width: calc(var(--ui-width) - 80px); max-height: calc(var(--ui-height) - 36px); }
+  .observer-direction-card { --observer-bottom: 44px; right: 66px; }
+  .dock-card { max-height: calc(var(--ui-height) - 24px); }
+  .dock-card.catalog.is-expanded { max-height: calc(var(--ui-height) - 36px); }
   .catalog.is-expanded .objects-heading { flex-wrap: wrap; gap: 0; padding: 0; }
   .catalog.is-expanded .objects-heading h2 { flex: 0 0 100%; min-height: 44px; padding: 12px 98px 12px 14px; }
   .catalog.is-expanded .objects-heading .object-search { flex: 1 1 0; max-width: none; margin-right: 132px; padding: 7px 10px; }
@@ -1414,18 +1391,15 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .catalog.is-expanded .objects-heading .objects-expand { right: -1px; }
   .catalog.is-expanded .objects-heading #objects-maximize { right: 43px; }
   .catalog.is-expanded .objects-heading #objects-shrink { right: 87px; }
-  .dock-card.glossary-card { width: min(640px, calc(var(--ui-width) - 80px)); height: min(520px, calc(var(--ui-height) - 100px)); }
   .glossary-body { grid-template-columns: minmax(100px, 30%) minmax(0, 1fr); }
   .glossary-detail { padding: 12px 16px 16px; }
   .glossary-detail h3 { font-size: 21px; }
   .glossary-figure img { height: 150px; }
-  .control-dock[data-motion-open] .time-controls { width: calc(var(--ui-width) - 80px); }
   .scene-legend { left: calc(18px + var(--safe-left)); bottom: calc(16px + var(--safe-bottom)); font-size: 10px; }
   .visibility-observer { right: calc(66px + var(--safe-right)); bottom: calc(16px + var(--safe-bottom)); max-width: 42%; font-size: 10px; }
   .identity .star-name { font-size: 22px; }
-  .dock-card.object-type-card { z-index: 1; top: var(--object-detail-top, 90px); left: var(--object-detail-left, 12px); width: min(380px, calc(var(--ui-width) - 78px)); max-height: calc(var(--ui-height) - var(--object-detail-top, 90px) - 24px); }
   /* Stacked over the object card, so the shadow also rises above the top edge. */
-  .dock-card.object-type-card { box-shadow: 0 -6px 18px #0000008c, 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; }
+  .dock-card.object-type-card { z-index: 1; top: var(--object-detail-top, 90px); left: var(--object-detail-left, 12px); width: min(380px, calc(var(--ui-width) - 78px)); max-height: calc(var(--ui-height) - var(--object-detail-top, 90px) - 24px); box-shadow: 0 -6px 18px #0000008c, 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; }
   .dock-card.object-type-card.distance-card { width: min(560px, calc(var(--ui-width) - 78px)); }
   .dock-card.object-type-card.constellation-card { width: min(420px, calc(var(--ui-width) - 90px)); }
   .dock-card.object-type-card.planet-card { width: min(420px, calc(var(--ui-width) - 78px)); }
@@ -1479,9 +1453,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 
 @media (max-height: 500px) and (orientation: landscape) and (pointer: coarse) {
   /* Both button stacks share the toolbar's single scroll viewport. */
-  .scene-toolbar { top: 12px; right: 12px; }
   .control-dock { right: 12px; bottom: 12px; }
   .scene-toolbar {
+    top: 12px;
+    right: 12px;
     max-height: calc(var(--ui-height) - 24px);
     overflow-y: auto;
     overscroll-behavior-y: contain;
@@ -1501,7 +1476,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
     transition: none;
   }
   .selected-object { top: 12px; left: 12px; width: min(244px, calc(var(--ui-width) - 78px)); }
-  .dock-card { max-height: calc(var(--ui-height) - 24px); }
   .dock-card.object-type-card {
     top: var(--object-detail-top, 12px);
     left: var(--object-detail-left, 268px);
@@ -1530,8 +1504,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 }
 
 /* Discover uses the glossary shell and the shared constellation card content. */
-.control-dock[data-open="constellations"] { grid-template-columns: min(560px, calc(var(--ui-width) - 100px)) 44px; }
-.dock-card.constellations-card { width: min(560px, calc(var(--ui-width) - 100px)); }
+.dock-card.constellations-card { width: min(560px, calc(var(--ui-width) - var(--dock-gutter))); }
 .constellations-card .glossary-body { grid-template-columns: min(148px, 30%) minmax(0, 1fr); }
 .constellations-card .glossary-heading { padding-right: 142px; }
 .constellations-card .glossary-heading #constellations-maximize { right: 87px; border-radius: 0; }
@@ -1581,9 +1554,15 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .constellations-detail-heading.graphs-detail-heading { padding-right: 60px; }
 .graphs-card .glossary-heading #graphs-width { right: 87px; border-radius: 0; }
 /* Active graph selections from every topic, listed above the topic heading with the clear button. */
-.graphs-filter:not([hidden]) { display: flex; flex-shrink: 0; align-items: center; border-bottom: 1px solid var(--line); }
-.graphs-filter > p { display: flex; flex: 1; flex-wrap: wrap; gap: 2px 12px; min-width: 0; margin: 0; padding: 6px 0 6px 16px; font-size: 12px; }
-.graphs-filter button:not(.panel-lock) { padding: 0; color: var(--accent-vibrant); font-family: inherit; font-size: inherit; font-weight: 600; text-align: left; background: none; border: 0; cursor: pointer; }
+.graphs-filter:not([hidden]) { display: flex; flex-shrink: 0; align-items: flex-start; border-bottom: 1px solid var(--line); }
+/* One line by default, each selection cut with an ellipsis; the triangle unfolds every selection in full, one topic per line. */
+.graphs-filter > p { display: flex; flex: 1; gap: 2px 12px; min-width: 0; margin: 0; padding: 14px 0; font-size: 12px; line-height: 16px; }
+.graphs-filter[data-expanded] > p { flex-direction: column; }
+.graphs-filter[data-expanded] button:not(.panel-lock), .graphs-filter[data-expanded] button > b { white-space: normal; }
+#graphs-filter-expand { display: flex; flex-shrink: 0; align-items: center; justify-content: center; width: 30px; height: 44px; margin-left: 4px; color: var(--accent); font-size: 10px; text-decoration: none; }
+#graphs-filter-expand::before { content: '▶'; display: inline-block; }
+#graphs-filter-expand[aria-expanded="true"]::before { transform: rotate(90deg); }
+.graphs-filter button:not(.panel-lock) { max-width: 100%; overflow: hidden; padding: 0; color: var(--accent-vibrant); font-family: inherit; font-size: inherit; font-weight: 600; text-align: left; text-overflow: ellipsis; white-space: nowrap; background: none; border: 0; cursor: pointer; }
 .graphs-filter button:not(.panel-lock):hover { text-decoration: underline; }
 .graphs-filter button:not(.panel-lock):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .graphs-filter button > span { color: var(--muted); font-weight: 400; }
@@ -1609,11 +1588,11 @@ button.graph-bar-row:hover, .graph-bar-row[aria-pressed="true"] { background: va
 .graph-section-title { flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .graph-section-chevron { flex-shrink: 0; }
 /* Histograms add a bar count slider and its reset. */
-.graph-bins { display: flex; flex-shrink: 0; align-items: center; gap: 4px; }
+.graph-bins, .graph-reset { display: flex; flex-shrink: 0; align-items: center; gap: 4px; }
 /* The slider keeps a usable width; the title gives way first. */
 .graph-bins > input { width: max(80px, 25cqi); min-width: max(80px, 25cqi); height: 20px; margin: 0; cursor: pointer; }
-.graph-bins > .panel-lock { width: 24px; height: 24px; flex-basis: 24px; color: var(--muted); }
-.graph-bins > .panel-lock:disabled { pointer-events: none; }
+:is(.graph-bins, .graph-reset) > .panel-lock { width: 24px; height: 24px; flex-basis: 24px; color: var(--muted); }
+:is(.graph-bins, .graph-reset) > .panel-lock:disabled { pointer-events: none; }
 /* Narrow sections move a scale switch and the slider to their own line below the title, where the slider widens; a slider alone stays beside the title until the section gets very narrow. */
 @container (max-width: 399px) {
   .graph-section > summary:has(.graph-scale) { flex-wrap: wrap; row-gap: 0; }
@@ -1645,17 +1624,40 @@ button.graph-bar-row:hover, .graph-bar-row[aria-pressed="true"] { background: va
 .graph-histogram .constellation-tooltip { display: none; flex-direction: column; gap: 3px; width: max-content; max-width: 100%; }
 .graph-histogram .constellation-tooltip.is-visible { display: flex; }
 .graph-columns { position: relative; display: flex; gap: 2px; height: 112px; padding-top: 16px; border-bottom: 1px solid var(--line); }
-.graph-bin { display: flex; flex: 1 1 0; align-items: flex-end; min-width: 0; padding: 0; }
-.graph-bin > i { width: 100%; max-width: 24px; margin: 0 auto; border-radius: 4px 4px 0 0; background: var(--stat-bar-fill); }
+.graph-bin { position: relative; display: flex; flex: 1 1 0; align-items: flex-end; min-width: 0; padding: 0; }
+.graph-bin > i { position: relative; width: 100%; max-width: 24px; margin: 0 auto; border-radius: 4px 4px 0 0; background: var(--stat-bar-fill); }
+/* The full view sits behind a graph that other graphs' selections narrow. */
+.graph-bin > b { position: absolute; inset: auto 0 0; max-width: 24px; margin: 0 auto; border-radius: 4px 4px 0 0; background: var(--graph-full-fill); }
+.graph-bar-full { position: absolute; inset: 0 auto 0 0; background: var(--graph-full-fill); border-radius: inherit; }
 .graph-bin:hover > i { filter: brightness(1.25); }
 .graph-marker { position: absolute; top: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; color: var(--muted); transform: translateX(-50%); }
 .graph-marker > i { flex: 1; border-left: var(--mass-metric-divider); }
 .graph-axis { position: relative; height: 14px; color: var(--muted); font-size: 11px; line-height: 14px; font-variant-numeric: tabular-nums; }
 .graph-axis > span { position: absolute; white-space: nowrap; }
+/* The HR diagram spans the card; its plot keeps drags for drawing selection boxes instead of scrolling. */
+.graph-section:has(.graph-scatter) { grid-column: 1 / -1; }
+.graph-scatter { display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: 4px 6px; }
+.graph-scatter > :is(.graph-axis:not(.graph-axis-y), .graph-axis-title:last-child) { grid-column: 3; }
+.graph-axis-title { color: var(--muted); font-size: 11px; line-height: 14px; text-align: center; }
+.graph-axis-title:first-child { writing-mode: vertical-rl; transform: rotate(180deg); }
+.graph-axis-y { height: auto; }
+.graph-axis > .graph-axis-sizer { position: static; display: block; height: 0; overflow: hidden; visibility: hidden; }
+.graph-axis-y > span { right: 0; transform: translateY(-50%); }
+.graph-plot { position: relative; height: 220px; border-bottom: 1px solid var(--line); border-left: 1px solid var(--line); cursor: crosshair; touch-action: none; user-select: none; }
+.graph-plot > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.graph-plot > svg path { fill: none; stroke-width: 5px; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.graph-dots-full path { stroke: var(--graph-full-fill); }
+.graph-dots-muted { opacity: 0.35; }
+.graph-plot-marker { position: absolute; display: flex; color: var(--ink); transform: translate(-50%, -50%); pointer-events: none; }
+.graph-brush { position: absolute; border: 1px solid var(--accent-vibrant); border-radius: 3px; background: var(--surface-vibrant-pressed); cursor: move; }
+.graph-legend { display: flex; align-items: center; gap: 6px; }
+.graph-legend > svg { color: var(--ink); }
+/* A box removes from its upper left corner and resizes from its lower right one. */
+.graph-brush-remove { position: absolute; top: -8px; left: -8px; display: flex; padding: 0; color: var(--accent-vibrant); background: var(--panel); border: 0; border-radius: 50%; cursor: pointer; }
+.graph-brush-remove:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.graph-brush-resize { position: absolute; right: -5px; bottom: -5px; width: 9px; height: 9px; border: 1px solid var(--accent-vibrant); border-radius: 2px; background: var(--panel); cursor: nwse-resize; }
 .constellations-detail-heading > .panel-lock { border-radius: 0; }
 @media (max-width: 720px) {
-  .control-dock[data-open="constellations"] { grid-template-columns: min(560px, calc(var(--ui-width) - 80px)) 44px; }
-  .dock-card.constellations-card { width: min(560px, calc(var(--ui-width) - 80px)); }
   .dock-card.constellations-card.is-maximized { height: calc(var(--ui-height) - 36px); }
 }
 @media (max-width: 480px) {
