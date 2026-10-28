@@ -222,7 +222,7 @@
         "luminosity_solar": 7.7251925,
         "radius_solar": 1.9054607179632472,
         "metallicity_dex": 0.05,
-        "age_gyr": 1.742627,
+        "age_gyr": null,
         "absolute_mag": 2.571869,
         "epoch": 2000.0,
         "type": "star",
@@ -231,7 +231,7 @@
         "constellation": "Ursa Minor",
         "spectral_type": "F5V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 79822; Stellarium UMi). SIMBAD identity * eta UMi; Hipparcos Johnson V=4.95 (SIMBAD V unavailable); Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar, age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2017AJ....153...21L).",
+        "notes": "Western constellation line-figure star (HIP 79822; Stellarium UMi). SIMBAD identity * eta UMi; Hipparcos Johnson V=4.95 (SIMBAD V unavailable); Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2017AJ....153...21L).",
         "designations": [
           "HIP 79822"
         ],
@@ -2418,7 +2418,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

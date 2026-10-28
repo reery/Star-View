@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "catalogId": "bright-stars",
-  "sharedEnrichmentManifestSha256": "51fb538d443021382615013ef6bdaf942de51935ec914db19a77934a596fd1e0",
+  "sharedEnrichmentManifestSha256": "c0769f98edd40132a0d9958d183a5d70de14b73d1a0e9455d85cc71bad7d539f",
   "policy": "All frozen SIMBAD stellar entries within 3000 ly with compiled Johnson V < 2.70, deduplicating the Alpha Centauri system in favor of A/B components; Acrux uses the Bright Star Catalogue combined V=0.76. Includes Sun as the map origin.",
   "selectionReview": "The V=2.42-2.69 expansion was queried through SIMBAD TAP on 2026-09-30. The SIMBAD stellar hierarchy filter excludes NGC 1980, whose integrated V=2.50 is not a stellar entry.",
   "coverage": {
     "temperature_k": 121,
     "mass_solar": 74,
-    "luminosity_solar": 111,
-    "radius_solar": 112,
+    "luminosity_solar": 102,
+    "radius_solar": 103,
     "metallicity_dex": 76,
     "age_gyr": 15
   },
@@ -115,7 +115,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf Cen A",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component alpha-centauri-a; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -195,7 +195,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf CMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component sirius-a; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -286,7 +286,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf CMi",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component 10pc-0031; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -387,7 +387,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Aql",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component 10pc-0117; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_error_kms",
@@ -493,7 +493,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Lyr",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-4607; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -609,7 +609,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf PsA",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-5665; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -702,7 +702,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Gem",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-1912; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -801,7 +801,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Leo",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-2899; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -914,7 +914,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Boo",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-3517; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -1064,7 +1064,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eta Boo",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-3442; aliases only, distinct companions remain separate.",
         "fields": [
           "vx_kms",
@@ -1481,7 +1481,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Oph",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-86032; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -1599,7 +1599,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Cep",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-105199; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -1665,7 +1665,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Gem",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-36850; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -1758,7 +1758,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Cas",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-746; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -1824,7 +1824,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* del Leo",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-54872; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -1903,7 +1903,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Ari",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-8903; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -1982,7 +1982,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* tet Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-68933; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -2061,7 +2061,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eps Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-82396; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -2140,7 +2140,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Ari",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-9884; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -2268,7 +2268,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Tau",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-21421; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -2291,7 +2291,9 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "metallicity_dex",
+          "metallicity_kind"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -2320,6 +2322,28 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalLiteratureReview": {
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+            "recordId": "* alf Tau",
+            "fields": [
+              "metallicity_dex",
+              "metallicity_kind"
+            ],
+            "decision": "Replace the isolated outlier with the catalogued spectroscopic consensus.",
+            "adoptedFields": {
+              "metallicity_dex": {
+                "value": -0.2,
+                "uncertainty": null,
+                "status": "measured",
+                "quantity": "[Fe/H]",
+                "reference": "2025A&A...698A..93J",
+                "url": "https://ui.adsabs.harvard.edu/abs/2025A%26A...698A..93J",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* alf Tau:mesFe_h:4",
+                "method": "Newest frozen SIMBAD mesFe_h value within 0.3 dex of the pool median, held by a strict majority (Gaia DR3 republications excluded)"
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -2347,7 +2371,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Ser",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-77070; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -2434,7 +2458,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eps Cyg",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-102488; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -2513,7 +2537,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf CrB",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-76267; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -2587,7 +2611,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Leo",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-49669; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -2686,7 +2710,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Aur",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-28360; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -2752,7 +2776,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eps UMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-62956; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -2915,7 +2939,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* gam UMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-58001; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -2981,7 +3005,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet UMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-53910; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -3129,7 +3153,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Phe",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-2081; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -3203,7 +3227,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* zet Sgr",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-93506; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -3269,7 +3293,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eta Oph",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-84012; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -3354,7 +3378,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* gam Cru",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-61084; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -3420,7 +3444,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Per",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-14576; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -3499,7 +3523,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Cet",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-3419; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -3578,7 +3602,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf And",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-677; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -3601,7 +3625,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "radius_solar",
+          "luminosity_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -3630,6 +3657,39 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* alf And",
+            "fields": [
+              "temperature_k",
+              "radius_solar",
+              "luminosity_solar"
+            ],
+            "decision": "Supersede the unsuitable evolutionary-model temperature with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 14000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2023MNRAS.519.5472M",
+                "url": "https://ui.adsabs.harvard.edu/abs/2023MNRAS.519.5472M",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* alf And:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius came from the rejected evolutionary-model solution; no independently verified component-safe replacement adopted."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Luminosity was derived by Stefan-Boltzmann scaling from the rejected temperature and radius; no independently verified replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -3657,7 +3717,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* del Cas",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-6686; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -3731,7 +3791,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Gru",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-109268; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -3754,7 +3814,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "radius_solar",
+          "luminosity_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -3783,6 +3846,39 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* alf Gru",
+            "fields": [
+              "temperature_k",
+              "radius_solar",
+              "luminosity_solar"
+            ],
+            "decision": "Supersede the unsuitable evolutionary-model temperature with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 12882,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2012A&A...537A.120Z",
+                "url": "https://ui.adsabs.harvard.edu/abs/2012A%26A...537A.120Z",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* alf Gru:mesFe_h:4",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius came from the rejected evolutionary-model solution; no independently verified component-safe replacement adopted."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Luminosity was derived by Stefan-Boltzmann scaling from the rejected temperature and radius; no independently verified replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -3797,7 +3893,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eta UMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-67301; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -3820,7 +3916,8 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -3849,6 +3946,27 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* eta UMa",
+            "fields": [
+              "temperature_k"
+            ],
+            "decision": "Supersede the unsuitable evolutionary-model temperature with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 17870,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2009A&A...501..297Z",
+                "url": "https://ui.adsabs.harvard.edu/abs/2009A%26A...501..297Z",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* eta UMa:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -3863,7 +3981,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* gam Gem",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-31681; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -3942,7 +4060,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* mu. Vel",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-52727; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -4016,7 +4134,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Car",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-45238; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -4082,7 +4200,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf UMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-54061; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -4148,7 +4266,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* gam Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-61932; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -4248,7 +4366,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet UMi",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-72607; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -4327,7 +4445,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Peg",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-113963; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -4406,7 +4524,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Tau",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-25428; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -4472,7 +4590,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Eri",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-7588; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -4538,7 +4656,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eps Sgr",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-90185; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -4617,7 +4735,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Crv",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-61359; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -4691,7 +4809,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* gam Crv",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-59803; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -4791,7 +4909,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* gam Dra",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-87833; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -4857,7 +4975,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* tet Aur",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-28380; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -4936,7 +5054,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Gru",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-112122; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -5002,7 +5120,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Pav",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-100751; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -5107,7 +5225,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Hya",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-46390; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -5173,7 +5291,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Lib",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-74785; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -5283,7 +5401,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Peg",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-113881; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -5415,7 +5533,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet And",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-5447; aliases only, distinct companions remain separate.",
         "fields": [
           "dec_deg",
@@ -5481,7 +5599,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* sig Sgr",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-92855; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -5581,7 +5699,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Cas",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-3179; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -5668,7 +5786,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eps Boo",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-72105; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -5742,7 +5860,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Cet",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-14135; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -5808,7 +5926,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Vir",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-65474; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -5887,7 +6005,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* gam Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-25336; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -5980,7 +6098,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Cru",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-62434; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6046,7 +6164,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Col",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-26634; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -6120,7 +6238,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* tet Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-86228; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6186,7 +6304,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eta Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-71352; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6209,7 +6327,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "radius_solar",
+          "luminosity_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -6238,6 +6359,39 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* eta Cen",
+            "fields": [
+              "temperature_k",
+              "radius_solar",
+              "luminosity_solar"
+            ],
+            "decision": "Supersede the unsuitable evolutionary-model temperature with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 21000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2018MNRAS.474.5287A",
+                "url": "https://ui.adsabs.harvard.edu/abs/2018MNRAS.474.5287A",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* eta Cen:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius came from the rejected evolutionary-model solution; no independently verified component-safe replacement adopted."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Zero-reddening broadband-fit luminosity whose own fit temperature (13511 K) is also far below the spectroscopic consensus; no independently verified replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -6267,7 +6421,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Car",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-30438; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6333,7 +6487,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Mus",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-61585; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6399,7 +6553,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Cru",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-60718; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -6473,7 +6627,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* zet Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-68002; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6539,7 +6693,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Lup",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-73273; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6605,7 +6759,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf TrA",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-82273; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6671,7 +6825,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-68702; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6750,7 +6904,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* gam01 And",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-9640; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6816,7 +6970,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet01 Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-78820; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6918,7 +7072,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eps CMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-33579; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -6997,7 +7151,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* del Sgr",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-89931; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -7071,7 +7225,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eps Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-66657; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -7150,7 +7304,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf UMi",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-11767; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -7253,7 +7407,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* zet Oph",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-81377; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -7405,7 +7559,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* iot Aur",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-23015; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -7498,7 +7652,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Lup",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-71860; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -7521,7 +7675,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -7550,6 +7707,39 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* alf Lup",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 23200,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2024A&A...687A.228D",
+                "url": "https://ui.adsabs.harvard.edu/abs/2024A%26A...687A.228D",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* alf Lup:mesFe_h:1",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -7583,7 +7773,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* kap Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-86670; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -7649,7 +7839,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* del Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-78401; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -7778,7 +7968,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* bet CMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-30324; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -7903,7 +8093,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-27989; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -7969,7 +8159,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Per",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-15863; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -8048,7 +8238,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* lam Vel",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-44816; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -8114,7 +8304,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* gam Cas",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-4427; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -8216,7 +8406,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-80763; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -8282,7 +8472,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* del Cen",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-59196; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -8392,7 +8582,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* lam Sco",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-85927; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -8458,7 +8648,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* kap Vel",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-45941; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -8569,7 +8759,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eps Car",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-41037; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -8635,7 +8825,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* kap Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-27366; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -8658,7 +8848,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -8687,6 +8880,39 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* kap Ori",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 26000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2024ApJ...971..166M",
+                "url": "https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* kap Ori:mesFe_h:2",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -8740,7 +8966,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eps Peg",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-107315; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -8806,7 +9032,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* del Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-25930; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -8829,7 +9055,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -8858,6 +9087,39 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* del Ori",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 30000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2024ApJ...971..166M",
+                "url": "https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* del Ori:mesFe_h:2",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -8872,7 +9134,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* zet Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-26727; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -8951,7 +9213,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* iot Car",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-45556; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -9027,7 +9289,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* bet Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component bright-rigel; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -9106,7 +9368,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* zet Pup",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-39429; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -9129,7 +9391,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -9158,6 +9423,39 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* zet Pup",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 36630,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2023ApJS..266...11B",
+                "url": "https://ui.adsabs.harvard.edu/abs/2023ApJS..266...11B",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* zet Pup:mesFe_h:2",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -9172,7 +9470,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* gam02 Vel",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-39953; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -9265,7 +9563,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Cyg",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-102098; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -9344,7 +9642,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* del CMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-34444; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -9423,7 +9721,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* gam Cyg",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-100453; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -9489,7 +9787,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eps Ori",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-26311; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -9512,7 +9810,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -9541,6 +9842,39 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* eps Ori",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 28000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2024ApJ...971..166M",
+                "url": "https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* eps Ori:mesFe_h:2",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -9555,7 +9889,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* eta CMa",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-35904; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -9578,7 +9912,10 @@
           "pm_dec_masyr",
           "pm_dec_error_masyr",
           "radial_velocity_kms",
-          "radial_velocity_error_kms"
+          "radial_velocity_error_kms",
+          "temperature_k",
+          "luminosity_solar",
+          "radius_solar"
         ],
         "sourceSelections": {
           "astrometryAndMotion": {
@@ -9607,6 +9944,39 @@
               "radial_velocity_ref"
             ],
             "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+          },
+          "physicalTemperatureReview": {
+            "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+            "recordId": "* eta CMa",
+            "fields": [
+              "temperature_k",
+              "luminosity_solar",
+              "radius_solar"
+            ],
+            "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+            "adoptedFields": {
+              "temperature_k": {
+                "value": 16000,
+                "status": "measured",
+                "uncertainty": null,
+                "reference": "2024ApJ...971..166M",
+                "url": "https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "sourceRecordId": "* eta CMa:mesFe_h:2",
+                "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+                "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+              },
+              "luminosity_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+              },
+              "radius_solar": {
+                "value": null,
+                "status": "withheld",
+                "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+              }
+            }
           }
         },
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields."
@@ -9634,7 +10004,7 @@
       "luminosityMethod": "McDonald et al. 2012 SED luminosity where available; otherwise Stefan-Boltzmann scaling R^2 (T/5772 K)^4 when both inputs are adopted",
       "sharedObjectAdoption": {
         "recordId": "* alf Lep",
-        "reviewSha256": "399957baaf14f57ea1622846cdf879e5767a340df1efce527b4998a235047e8a",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component hip-25985; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_ref",
@@ -10982,9 +11352,9 @@
     ],
     "inputSha256": {
       "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
-      "src/data/star-systems.json": "124a22a39a6203498204d3cd96b3cb582fbeed07f0de26f6ca219ae5a5c79fd9",
-      "src/data/catalogs/nearest-1000/stars.csv": "c7e440459ff87ac600ea973028ceab51d4c530e558fb4ef9d6ee34ae4660fe1d",
-      "src/data/catalogs/nearest-1000/provenance.json": "ee0d446f23623f9e60432b8fc3b7c8b5c8cff6fc443f0156cf6437f08b1b1db6",
+      "src/data/star-systems.json": "ccb8b300d861fec42a9b95bfeafa8e30f3b4c53298c8c03e3f1743bf4c28fddf",
+      "src/data/catalogs/nearest-1000/stars.csv": "ecc5cadd6ff035ba5e5a96017fe1b12a67ae4e01493ff6db1351331c02202147",
+      "src/data/catalogs/nearest-1000/provenance.json": "0a4685f2c60ca4161b23dfac9d29dd5ec097397ba4d43e6c94e1382e36d586ef",
       "catalog-work/star-systems/overlay-individual-components.json": "b4fbcf92e682c639a11c5e488a378d43a0b43aaa10e0e8b16b2db70dc9a10741",
       "catalog-work/star-systems/msc-20260619-rigel.json": "0bc6740e8537705363c915a78b203822b46a9a31330f325f6b4a783091e40e97",
       "catalog-work/star-systems/msc-20260619.Readme": "d0906632b078a3b97b4e7247ad76830e2cc13bae6300ae145d69ce30a8e859b8"

@@ -167,8 +167,8 @@
         "pm_dec_masyr": "20.87584009",
         "radial_velocity_ref": "2018A&A...616A...7S",
         "z_pc": "-2.394721",
-        "temperature_k": "5002",
-        "mass_solar": "0.8111994",
+        "temperature_k": "5039",
+        "mass_solar": "0.82",
         "vz_kms": "-20.649",
         "astrometry_epoch": "2016.0",
         "ra_deg": "53.228293415",
@@ -180,13 +180,13 @@
         "parallax_mas": "310.5773",
         "parallax_error_mas": "0.1355",
         "radial_velocity_kms": "16.376",
-        "luminosity_solar": "0.33970678",
-        "radius_solar": "0.77611643",
-        "metallicity_dex": "0.1258",
-        "metallicity_kind": "[M/H]",
-        "age_gyr": "7.3040414"
+        "luminosity_solar": "0.32",
+        "radius_solar": "0.74",
+        "metallicity_dex": "-0.13",
+        "metallicity_kind": "[Fe/H]",
+        "age_gyr": "0.6"
       },
-      "notes": "Western constellation line-figure star (HIP 16537; Stellarium Eri). SIMBAD identity * eps Eri; SIMBAD compiled Johnson V=3.73; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: Gaia DR3 model values for temperature_k, metallicity_dex, mass_solar, luminosity_solar, radius_solar, age_gyr. Adopted coordinate/motion bundle: nearest-100:epsilon-eridani. Adopt the exact-ID Gaia DR3 model temperature and mass already used by the constellation catalog instead of legacy class estimates; retain the existing Gaia model radius, luminosity, abundance and age.",
+      "notes": "Western constellation line-figure star (HIP 16537; Stellarium Eri). SIMBAD identity * eps Eri; SIMBAD compiled Johnson V=3.73; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Adopted coordinate/motion bundle: nearest-100:epsilon-eridani. Epsilon Eridani reviewed physical parameters. Baines & Armstrong (2012) combine the Navy Precision Optical Interferometer angular diameter with bolometric flux and the Hipparcos parallax for the temperature, radius and luminosity, and fit Yonsei-Yale isochrones for the mass. Santos et al. (2004) measure [Fe/H] spectroscopically. Mamajek & Hillenbrand (2008) estimate 0.4 Gyr from chromospheric activity and 0.8 Gyr from activity-inferred rotation; the adopted 0.6 +/- 0.2 Gyr spans both. The Gaia DR3 model values (5002 K, [M/H]=+0.13, 7.3 Gyr) remain in source provenance but are not adopted: the isochrone age contradicts the star's activity and rotation, and the positive abundance contradicts the measured sub-solar [Fe/H]. Adopt the reviewed component-scoped literature parameters instead of the Gaia DR3 model values, whose isochrone age and positive [M/H] contradict the star's youth and measured sub-solar abundance.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "nearest-100:epsilon-eridani",
@@ -216,7 +216,7 @@
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
         },
         "physical": {
-          "source": "western-constellation-stars:hip-16537",
+          "source": "nearest-100:epsilon-eridani",
           "fields": [
             "temperature_k",
             "mass_solar",
@@ -226,7 +226,7 @@
             "metallicity_kind",
             "age_gyr"
           ],
-          "decision": "Adopt the exact-ID Gaia DR3 model temperature and mass already used by the constellation catalog instead of legacy class estimates; retain the existing Gaia model radius, luminosity, abundance and age."
+          "decision": "Adopt the reviewed component-scoped literature parameters instead of the Gaia DR3 model values, whose isochrone age and positive [M/H] contradict the star's youth and measured sub-solar abundance."
         },
         "photometry": {
           "source": "nearest-100:epsilon-eridani",
@@ -1554,9 +1554,11 @@
         "pm_dec_masyr": "-188.94",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "54.398",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "metallicity_dex": "-0.2",
+        "metallicity_kind": "[Fe/H]"
       },
-      "notes": "Western constellation line-figure star (HIP 21421; Stellarium Tau). SIMBAD identity * alf Tau; SIMBAD compiled Johnson V=0.86; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, metallicity_dex.",
+      "notes": "Western constellation line-figure star (HIP 21421; Stellarium Tau). SIMBAD identity * alf Tau; SIMBAD compiled Johnson V=0.86; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, metallicity_dex. Reviewed literature metallicity: [Fe/H] -0.2 (2025A&A...698A..93J) replaces the isolated -0.93 outlier; the pool median is -0.17.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-21421",
@@ -1584,6 +1586,28 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "* alf Tau",
+          "fields": [
+            "metallicity_dex",
+            "metallicity_kind"
+          ],
+          "decision": "Replace the isolated outlier with the catalogued spectroscopic consensus.",
+          "adoptedFields": {
+            "metallicity_dex": {
+              "value": -0.2,
+              "uncertainty": null,
+              "status": "measured",
+              "quantity": "[Fe/H]",
+              "reference": "2025A&A...698A..93J",
+              "url": "https://ui.adsabs.harvard.edu/abs/2025A%26A...698A..93J",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* alf Tau:mesFe_h:4",
+              "method": "Newest frozen SIMBAD mesFe_h value within 0.3 dex of the pool median, held by a strict majority (Gaia DR3 republications excluded)"
+            }
+          }
         }
       }
     },
@@ -2501,9 +2525,12 @@
         "pm_dec_masyr": "-163.44",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "-10.1",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "14000",
+        "radius_solar": "",
+        "luminosity_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 677; Stellarium And, Peg). SIMBAD identity * alf And; SIMBAD compiled Johnson V=2.06; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex.",
+      "notes": "Western constellation line-figure star (HIP 677; Stellarium And, Peg). SIMBAD identity * alf And; SIMBAD compiled Johnson V=2.06; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex. Reviewed hot-star temperature: 2023MNRAS.519.5472M, * alf And mesFe_h record 1, 14000 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old evolutionary-model radius and the luminosity derived from it are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-677",
@@ -2531,8 +2558,381 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* alf And",
+          "fields": [
+            "temperature_k",
+            "radius_solar",
+            "luminosity_solar"
+          ],
+          "decision": "Supersede the unsuitable evolutionary-model temperature with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 14000,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2023MNRAS.519.5472M",
+              "url": "https://ui.adsabs.harvard.edu/abs/2023MNRAS.519.5472M",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* alf And:mesFe_h:1",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius came from the rejected evolutionary-model solution; no independently verified component-safe replacement adopted."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Luminosity was derived by Stefan-Boltzmann scaling from the rejected temperature and radius; no independently verified replacement adopted."
+            }
+          }
         }
-      }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "bright-stars",
+          "record": {
+            "temperature_k": 9550.0,
+            "mass_solar": 2.9,
+            "luminosity_solar": 118.77,
+            "radius_solar": 3.9811,
+            "metallicity_dex": 0.42,
+            "age_gyr": null,
+            "absolute_mag": -0.307011,
+            "epoch": 2000.0,
+            "x_pc": -9.252945911,
+            "y_pc": 23.213619409,
+            "z_pc": -16.131592991,
+            "vx_kms": -4.965761,
+            "vy_kms": -26.541587,
+            "vz_kms": -16.722586,
+            "type": "star",
+            "id": "bright-alpheratz",
+            "name": "Alpheratz",
+            "spectral_type": "B8IV-VHgMn",
+            "constellation": "Andromeda",
+            "metallicity_kind": "[Fe/H]",
+            "designations": [
+              "Sirrah",
+              "Alpha Andromedae",
+              "Delta Pegasi",
+              "HD 358",
+              "HIP 677",
+              "21 And",
+              "2MASS J00082326+2905253",
+              "[HFE83] 4",
+              "ADS 94 A",
+              "AG+28 11",
+              "AKARI-IRC-V1 J0008233+290524",
+              "alf And",
+              "ALS 16723",
+              "ASCC 647497",
+              "BD+28 4",
+              "CCDM J00083+2905A",
+              "CSI+28 4 1",
+              "del Peg",
+              "EUVE J0008+29.0",
+              "FK5 1",
+              "GC 127",
+              "GCRV 62",
+              "GEN# +1.00000358",
+              "GSC 01735-03180",
+              "H 532A",
+              "HGAM 2",
+              "HIC 677",
+              "HR 15",
+              "IDS 00032+2832 A",
+              "IRAS 00057+2848",
+              "IRC +30004",
+              "JNN 1A",
+              "JP11 345",
+              "LSPM J0008+2905",
+              "LTT 10039",
+              "MKT 11",
+              "N30 16",
+              "NLTT 346",
+              "PLX 12",
+              "PMC 90-93 1",
+              "PPM 89441",
+              "Renson 50",
+              "ROT 58",
+              "SAO 73765",
+              "SBC7 4",
+              "SBC9 4",
+              "SKY# 244",
+              "SRS 30001",
+              "TD1 31",
+              "TIC 427733653",
+              "TIC 471011200",
+              "TYC 1735-3180-1",
+              "UBV 52",
+              "UBV M 7157",
+              "UCAC3 239-808",
+              "USNO-B1.0 1190-00002295",
+              "uvby98 100000358",
+              "WDS J00084+2905A",
+              "WDS J00084+2905Aa,Ab",
+              "WEB 113",
+              "YPAC 1",
+              "Alpheratz"
+            ],
+            "notes": "Western constellation line-figure star (HIP 677; Stellarium And, Peg). SIMBAD identity * alf And; SIMBAD compiled Johnson V=2.06; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex.",
+            "raw_astrometry": {
+              "ra_deg": 2.0969161856756404,
+              "dec_deg": 29.090431118059698,
+              "parallax_mas": 33.62,
+              "parallax_error_mas": 0.35,
+              "pm_ra_cosdec_masyr": 137.46,
+              "pm_ra_error_masyr": null,
+              "pm_dec_masyr": -163.44,
+              "pm_dec_error_masyr": null,
+              "radial_velocity_kms": -10.1,
+              "radial_velocity_error_kms": null,
+              "epoch": 2000.0,
+              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+              "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+            },
+            "subtypes": [
+              "Spectroscopic binary",
+              "Alpha\u00b2 CVn variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 2.060000454
+          },
+          "scope": "Original Alpheratz catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements. Retained from before the 2026-10-28 temperature review: its temperature and radius came from the rejected Allende Prieto & Lambert 1999 evolutionary-model solution and its luminosity was derived from them; none is adopted."
+        },
+        {
+          "catalog_id": "constellation-motion-before-20261019",
+          "scope": "Original component observations and adopted velocity before shared system propagation. Individual/source RVs include their original scope and may contain orbital motion; not the adopted common bulk velocity. Retained from before the 2026-10-28 temperature review: its temperature and radius came from the rejected Allende Prieto & Lambert 1999 evolutionary-model solution and its luminosity was derived from them; none is adopted.",
+          "record": {
+            "temperature_k": 9550.0,
+            "mass_solar": 2.9,
+            "luminosity_solar": 118.77,
+            "radius_solar": 3.9811,
+            "metallicity_dex": 0.42,
+            "age_gyr": null,
+            "absolute_mag": -0.147011454,
+            "epoch": 2000.0,
+            "x_pc": -9.252945911,
+            "y_pc": 23.213619409,
+            "z_pc": -16.131592991,
+            "vx_kms": -4.965761,
+            "vy_kms": -26.541587,
+            "vz_kms": -16.722586,
+            "type": "star",
+            "id": "bright-alpheratz",
+            "name": "Alpheratz A",
+            "spectral_type": "B8IV-",
+            "constellation": "Andromeda",
+            "metallicity_kind": "[Fe/H]",
+            "designations": [
+              "Sirrah",
+              "Alpha Andromedae",
+              "Delta Pegasi",
+              "HD 358",
+              "HIP 677",
+              "21 And",
+              "2MASS J00082326+2905253",
+              "[HFE83] 4",
+              "ADS 94 A",
+              "AG+28 11",
+              "AKARI-IRC-V1 J0008233+290524",
+              "alf And",
+              "ALS 16723",
+              "ASCC 647497",
+              "BD+28 4",
+              "CCDM J00083+2905A",
+              "CSI+28 4 1",
+              "del Peg",
+              "EUVE J0008+29.0",
+              "FK5 1",
+              "GC 127",
+              "GCRV 62",
+              "GEN# +1.00000358",
+              "GSC 01735-03180",
+              "H 532A",
+              "HGAM 2",
+              "HIC 677",
+              "HR 15",
+              "IDS 00032+2832 A",
+              "IRAS 00057+2848",
+              "IRC +30004",
+              "JNN 1A",
+              "JP11 345",
+              "LSPM J0008+2905",
+              "LTT 10039",
+              "MKT 11",
+              "N30 16",
+              "NLTT 346",
+              "PLX 12",
+              "PMC 90-93 1",
+              "PPM 89441",
+              "Renson 50",
+              "ROT 58",
+              "SAO 73765",
+              "SBC7 4",
+              "SBC9 4",
+              "SKY# 244",
+              "SRS 30001",
+              "TD1 31",
+              "TIC 427733653",
+              "TIC 471011200",
+              "TYC 1735-3180-1",
+              "UBV 52",
+              "UBV M 7157",
+              "UCAC3 239-808",
+              "USNO-B1.0 1190-00002295",
+              "uvby98 100000358",
+              "WDS J00084+2905A",
+              "WDS J00084+2905Aa,Ab",
+              "WEB 113",
+              "YPAC 1",
+              "Alpheratz",
+              "bright-alpheratz",
+              "hip-677"
+            ],
+            "notes": "Western constellation line-figure star (HIP 677; Stellarium And, Peg). SIMBAD identity * alf And; SIMBAD compiled Johnson V=2.06; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex. MSC physical hierarchy 00084+2905, component A. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
+            "raw_astrometry": {
+              "ra_deg": 2.0969161856756404,
+              "dec_deg": 29.090431118059698,
+              "parallax_mas": 33.62,
+              "parallax_error_mas": 0.35,
+              "pm_ra_cosdec_masyr": 137.46,
+              "pm_ra_error_masyr": null,
+              "pm_dec_masyr": -163.44,
+              "pm_dec_error_masyr": null,
+              "radial_velocity_kms": -10.1,
+              "radial_velocity_error_kms": null,
+              "epoch": 2000.0,
+              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+              "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+            },
+            "subtypes": [
+              "Spectroscopic binary",
+              "Alpha\u00b2 CVn variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 2.22
+          }
+        },
+        {
+          "catalog_id": "western-constellation-stars",
+          "record": {
+            "temperature_k": 9550.0,
+            "mass_solar": 2.9,
+            "luminosity_solar": 118.77,
+            "radius_solar": 3.9811,
+            "metallicity_dex": 0.42,
+            "age_gyr": null,
+            "absolute_mag": -0.307011,
+            "epoch": 2000.0,
+            "x_pc": -9.252945911,
+            "y_pc": 23.213619409,
+            "z_pc": -16.131592991,
+            "vx_kms": -4.965761,
+            "vy_kms": -26.541587,
+            "vz_kms": -16.722586,
+            "type": "star",
+            "id": "hip-677",
+            "name": "Sirrah",
+            "spectral_type": "B8IV-VHgMn",
+            "constellation": "Andromeda",
+            "metallicity_kind": "[Fe/H]",
+            "designations": [
+              "Alpheratz",
+              "Alpha Andromedae",
+              "Delta Pegasi",
+              "HD 358",
+              "HIP 677",
+              "21 And",
+              "2MASS J00082326+2905253",
+              "[HFE83] 4",
+              "ADS 94 A",
+              "AG+28 11",
+              "AKARI-IRC-V1 J0008233+290524",
+              "alf And",
+              "ALS 16723",
+              "ASCC 647497",
+              "BD+28 4",
+              "CCDM J00083+2905A",
+              "CSI+28 4 1",
+              "del Peg",
+              "EUVE J0008+29.0",
+              "FK5 1",
+              "GC 127",
+              "GCRV 62",
+              "GEN# +1.00000358",
+              "GSC 01735-03180",
+              "H 532A",
+              "HGAM 2",
+              "HIC 677",
+              "HR 15",
+              "IDS 00032+2832 A",
+              "IRAS 00057+2848",
+              "IRC +30004",
+              "JNN 1A",
+              "JP11 345",
+              "LSPM J0008+2905",
+              "LTT 10039",
+              "MKT 11",
+              "N30 16",
+              "NLTT 346",
+              "PLX 12",
+              "PMC 90-93 1",
+              "PPM 89441",
+              "Renson 50",
+              "ROT 58",
+              "SAO 73765",
+              "SBC7 4",
+              "SBC9 4",
+              "SKY# 244",
+              "SRS 30001",
+              "TD1 31",
+              "TIC 427733653",
+              "TIC 471011200",
+              "TYC 1735-3180-1",
+              "UBV 52",
+              "UBV M 7157",
+              "UCAC3 239-808",
+              "USNO-B1.0 1190-00002295",
+              "uvby98 100000358",
+              "WDS J00084+2905A",
+              "WDS J00084+2905Aa,Ab",
+              "WEB 113",
+              "YPAC 1",
+              "Sirrah"
+            ],
+            "notes": "Western constellation line-figure star (HIP 677; Stellarium And, Peg). SIMBAD identity * alf And; SIMBAD compiled Johnson V=2.06; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex.",
+            "raw_astrometry": {
+              "ra_deg": 2.0969161856756404,
+              "dec_deg": 29.090431118059698,
+              "parallax_mas": 33.62,
+              "parallax_error_mas": 0.35,
+              "pm_ra_cosdec_masyr": 137.46,
+              "pm_ra_error_masyr": null,
+              "pm_dec_masyr": -163.44,
+              "pm_dec_error_masyr": null,
+              "radial_velocity_kms": -10.1,
+              "radial_velocity_error_kms": null,
+              "epoch": 2000.0,
+              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+              "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+            },
+            "subtypes": [
+              "Spectroscopic binary",
+              "Alpha\u00b2 CVn variable"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 2.060000454
+          },
+          "scope": "Original Sirrah catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements. Retained from before the 2026-10-28 temperature review: its temperature and radius came from the rejected Allende Prieto & Lambert 1999 evolutionary-model solution and its luminosity was derived from them; none is adopted."
+        }
+      ]
     },
     "* del Cas": {
       "label": "Ruchbah",
@@ -2631,9 +3031,12 @@
         "pm_dec_masyr": "-147.47",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "10.9",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "12882",
+        "radius_solar": "",
+        "luminosity_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 109268; Stellarium Gru). SIMBAD identity * alf Gru; SIMBAD compiled Johnson V=1.71; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+      "notes": "Western constellation line-figure star (HIP 109268; Stellarium Gru). SIMBAD identity * alf Gru; SIMBAD compiled Johnson V=1.71; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2012A&A...537A.120Z, * alf Gru mesFe_h record 4, 12882 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old evolutionary-model radius and the luminosity derived from it are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-109268",
@@ -2661,6 +3064,39 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* alf Gru",
+          "fields": [
+            "temperature_k",
+            "radius_solar",
+            "luminosity_solar"
+          ],
+          "decision": "Supersede the unsuitable evolutionary-model temperature with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 12882,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2012A&A...537A.120Z",
+              "url": "https://ui.adsabs.harvard.edu/abs/2012A%26A...537A.120Z",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* alf Gru:mesFe_h:4",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius came from the rejected evolutionary-model solution; no independently verified component-safe replacement adopted."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Luminosity was derived by Stefan-Boltzmann scaling from the rejected temperature and radius; no independently verified replacement adopted."
+            }
+          }
         }
       }
     },
@@ -2692,9 +3128,10 @@
         "pm_dec_masyr": "-14.91",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "-13.4",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "17870"
       },
-      "notes": "Western constellation line-figure star (HIP 67301; Stellarium UMa). SIMBAD identity * eta UMa; SIMBAD compiled Johnson V=1.86; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+      "notes": "Western constellation line-figure star (HIP 67301; Stellarium UMa). SIMBAD identity * eta UMa; SIMBAD compiled Johnson V=1.86; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2009A&A...501..297Z, * eta UMa mesFe_h record 1, 17870 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The independent broadband SED luminosity and the interferometric radius are retained.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-67301",
@@ -2722,6 +3159,27 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* eta UMa",
+          "fields": [
+            "temperature_k"
+          ],
+          "decision": "Supersede the unsuitable evolutionary-model temperature with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 17870,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2009A&A...501..297Z",
+              "url": "https://ui.adsabs.harvard.edu/abs/2009A%26A...501..297Z",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* eta UMa:mesFe_h:1",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            }
+          }
         }
       }
     },
@@ -4562,9 +5020,12 @@
         "pm_dec_masyr": "-32.72",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "0.0",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "21000",
+        "radius_solar": "",
+        "luminosity_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 71352; Stellarium Cen). SIMBAD identity * eta Cen; SIMBAD compiled Johnson V=2.31; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+      "notes": "Western constellation line-figure star (HIP 71352; Stellarium Cen). SIMBAD identity * eta Cen; SIMBAD compiled Johnson V=2.31; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2018MNRAS.474.5287A, * eta Cen mesFe_h record 1, 21000 K. Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old evolutionary-model radius and the broadband SED luminosity, whose own fit is also far too cool, are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-71352",
@@ -4592,6 +5053,39 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* eta Cen",
+          "fields": [
+            "temperature_k",
+            "radius_solar",
+            "luminosity_solar"
+          ],
+          "decision": "Supersede the unsuitable evolutionary-model temperature with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 21000,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2018MNRAS.474.5287A",
+              "url": "https://ui.adsabs.harvard.edu/abs/2018MNRAS.474.5287A",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* eta Cen:mesFe_h:1",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius came from the rejected evolutionary-model solution; no independently verified component-safe replacement adopted."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Zero-reddening broadband-fit luminosity whose own fit temperature (13511 K) is also far below the spectroscopic consensus; no independently verified replacement adopted."
+            }
+          }
         }
       }
     },
@@ -5645,9 +6139,12 @@
         "pm_dec_masyr": "-23.67",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "5.4",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "23200",
+        "luminosity_solar": "",
+        "radius_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 71860; Stellarium Lup). SIMBAD identity * alf Lup; SIMBAD compiled Johnson V=2.286; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+      "notes": "Western constellation line-figure star (HIP 71860; Stellarium Lup). SIMBAD identity * alf Lup; SIMBAD compiled Johnson V=2.286; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2024A&A...687A.228D, * alf Lup mesFe_h record 1, 23200 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-71860",
@@ -5675,6 +6172,39 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* alf Lup",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 23200,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2024A&A...687A.228D",
+              "url": "https://ui.adsabs.harvard.edu/abs/2024A%26A...687A.228D",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* alf Lup:mesFe_h:1",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
         }
       }
     },
@@ -6554,9 +7084,12 @@
         "pm_dec_masyr": "-1.28",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "20.5",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "26000",
+        "luminosity_solar": "",
+        "radius_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 27366; Stellarium Ori). SIMBAD identity * kap Ori; SIMBAD compiled Johnson V=2.06; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+      "notes": "Western constellation line-figure star (HIP 27366; Stellarium Ori). SIMBAD identity * kap Ori; SIMBAD compiled Johnson V=2.06; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2024ApJ...971..166M, * kap Ori mesFe_h record 2, 26000 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-27366",
@@ -6584,6 +7117,39 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* kap Ori",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 26000,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2024ApJ...971..166M",
+              "url": "https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* kap Ori:mesFe_h:2",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
         }
       }
     },
@@ -6676,9 +7242,12 @@
         "pm_dec_masyr": "-0.69",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "18.5",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "30000",
+        "luminosity_solar": "",
+        "radius_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 25930; Stellarium Ori). SIMBAD identity * del Ori; SIMBAD compiled Johnson V=2.41; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+      "notes": "Western constellation line-figure star (HIP 25930; Stellarium Ori). SIMBAD identity * del Ori; SIMBAD compiled Johnson V=2.41; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2024ApJ...971..166M, * del Ori mesFe_h record 2, 30000 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-25930",
@@ -6706,8 +7275,255 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* del Ori",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 30000,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2024ApJ...971..166M",
+              "url": "https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* del Ori:mesFe_h:2",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
         }
-      }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "bright-stars",
+          "record": {
+            "temperature_k": 18063.0,
+            "mass_solar": null,
+            "luminosity_solar": 18556.7,
+            "radius_solar": 13.9099,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": -4.224895,
+            "epoch": 2000.0,
+            "x_pc": -184.942288436,
+            "y_pc": -81.784962123,
+            "z_pc": -64.690803643,
+            "vx_kms": -15.809243,
+            "vy_kms": -7.994511,
+            "vz_kms": -5.413208,
+            "type": "star",
+            "id": "bright-mintaka",
+            "name": "Mintaka",
+            "spectral_type": "O9.5IINwk",
+            "constellation": "Orion",
+            "metallicity_kind": null,
+            "designations": [
+              "Delta Orionis",
+              "Delta1 Orionis",
+              "HD 36486",
+              "HIP 25930",
+              "1E 052926+0020.0",
+              "1ES 0529-00.3",
+              "1RXS J053200.8-001755",
+              "2E 0529.4-0019",
+              "2E 1293",
+              "2MASS J05320040-0017566",
+              "34 Ori",
+              "ADS 4134 A",
+              "AG-00 648",
+              "ALS 14779",
+              "BD-00 983",
+              "CEL 764",
+              "CGO 92",
+              "CSI-00 983 1",
+              "CSI-00 983 3",
+              "del Ori",
+              "del01 Ori",
+              "EUVE J0532-00.2",
+              "FK5 206",
+              "Gaia DR3 3220756843825383936",
+              "GC 6847",
+              "GCRV 3361",
+              "GEN# +1.00036486A",
+              "GSC 04766-02445",
+              "HEI 42",
+              "HGAM 419",
+              "HIC 25930",
+              "HR 1852",
+              "IDS 05269-0022 A",
+              "IRAS 05294-0020",
+              "JP11 1136",
+              "MCW 324",
+              "N30 1185",
+              "PMC 90-93 149",
+              "PMSC 05269-0022A",
+              "PPM 175888",
+              "ROT 839",
+              "SAO 132220",
+              "SBC7 233",
+              "SBC9 331",
+              "SKY# 8880",
+              "STF 4014A",
+              "TIC 50743469",
+              "UBV 21590",
+              "UBV 21591",
+              "UBV M 11108",
+              "WDS J05320-0018A",
+              "WDS J05320-0018Aa,Ab",
+              "WEB 5041",
+              "WH 141",
+              "Mintaka"
+            ],
+            "notes": "Western constellation line-figure star (HIP 25930; Stellarium Ori). SIMBAD identity * del Ori; SIMBAD compiled Johnson V=2.41; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+            "raw_astrometry": {
+              "ra_deg": 83.00166705557675,
+              "dec_deg": -0.29909510708333326,
+              "parallax_mas": 4.71,
+              "parallax_error_mas": 0.58,
+              "pm_ra_cosdec_masyr": 0.64,
+              "pm_ra_error_masyr": null,
+              "pm_dec_masyr": -0.69,
+              "pm_dec_error_masyr": null,
+              "radial_velocity_kms": 18.5,
+              "radial_velocity_error_kms": null,
+              "epoch": 2000.0,
+              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+              "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+            },
+            "subtypes": [
+              "Eclipsing binary",
+              "Spectroscopic binary",
+              "Bright giant"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 2.410000464
+          },
+          "scope": "Original Mintaka catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements. Retained from before the 2026-10-28 temperature review: its temperature, luminosity and radius came from the rejected McDonald et al. 2012 broadband SED fit and are not adopted."
+        },
+        {
+          "catalog_id": "western-constellation-stars",
+          "record": {
+            "temperature_k": 18063.0,
+            "mass_solar": null,
+            "luminosity_solar": 18556.7,
+            "radius_solar": 13.9099,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "absolute_mag": -4.224895,
+            "epoch": 2000.0,
+            "x_pc": -184.942288436,
+            "y_pc": -81.784962123,
+            "z_pc": -64.690803643,
+            "vx_kms": -15.809243,
+            "vy_kms": -7.994511,
+            "vz_kms": -5.413208,
+            "type": "star",
+            "id": "hip-25930",
+            "name": "Mintaka",
+            "spectral_type": "O9.5IINwk",
+            "constellation": "Orion",
+            "metallicity_kind": null,
+            "designations": [
+              "Delta Orionis",
+              "Delta1 Orionis",
+              "HD 36486",
+              "HIP 25930",
+              "1E 052926+0020.0",
+              "1ES 0529-00.3",
+              "1RXS J053200.8-001755",
+              "2E 0529.4-0019",
+              "2E 1293",
+              "2MASS J05320040-0017566",
+              "34 Ori",
+              "ADS 4134 A",
+              "AG-00 648",
+              "ALS 14779",
+              "BD-00 983",
+              "CEL 764",
+              "CGO 92",
+              "CSI-00 983 1",
+              "CSI-00 983 3",
+              "del Ori",
+              "del01 Ori",
+              "EUVE J0532-00.2",
+              "FK5 206",
+              "Gaia DR3 3220756843825383936",
+              "GC 6847",
+              "GCRV 3361",
+              "GEN# +1.00036486A",
+              "GSC 04766-02445",
+              "HEI 42",
+              "HGAM 419",
+              "HIC 25930",
+              "HR 1852",
+              "IDS 05269-0022 A",
+              "IRAS 05294-0020",
+              "JP11 1136",
+              "MCW 324",
+              "N30 1185",
+              "PMC 90-93 149",
+              "PMSC 05269-0022A",
+              "PPM 175888",
+              "ROT 839",
+              "SAO 132220",
+              "SBC7 233",
+              "SBC9 331",
+              "SKY# 8880",
+              "STF 4014A",
+              "TIC 50743469",
+              "UBV 21590",
+              "UBV 21591",
+              "UBV M 11108",
+              "WDS J05320-0018A",
+              "WDS J05320-0018Aa,Ab",
+              "WEB 5041",
+              "WH 141",
+              "Mintaka"
+            ],
+            "notes": "Western constellation line-figure star (HIP 25930; Stellarium Ori). SIMBAD identity * del Ori; SIMBAD compiled Johnson V=2.41; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+            "raw_astrometry": {
+              "ra_deg": 83.00166705557675,
+              "dec_deg": -0.29909510708333326,
+              "parallax_mas": 4.71,
+              "parallax_error_mas": 0.58,
+              "pm_ra_cosdec_masyr": 0.64,
+              "pm_ra_error_masyr": null,
+              "pm_dec_masyr": -0.69,
+              "pm_dec_error_masyr": null,
+              "radial_velocity_kms": 18.5,
+              "radial_velocity_error_kms": null,
+              "epoch": 2000.0,
+              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+              "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+            },
+            "subtypes": [
+              "Eclipsing binary",
+              "Spectroscopic binary",
+              "Bright giant"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 2.410000464
+          },
+          "scope": "Original Mintaka catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements. Retained from before the 2026-10-28 temperature review: its temperature, luminosity and radius came from the rejected McDonald et al. 2012 broadband SED fit and are not adopted."
+        }
+      ]
     },
     "* zet Ori": {
       "label": "Alnitak",
@@ -6920,9 +7736,12 @@
         "pm_dec_masyr": "16.68",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "-23.9",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "36630",
+        "luminosity_solar": "",
+        "radius_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 39429; Stellarium Car, Pup). SIMBAD identity * zet Pup; SIMBAD compiled Johnson V=2.25; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar, metallicity_dex.",
+      "notes": "Western constellation line-figure star (HIP 39429; Stellarium Car, Pup). SIMBAD identity * zet Pup; SIMBAD compiled Johnson V=2.25; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar, metallicity_dex. Reviewed hot-star temperature: 2023ApJS..266...11B, * zet Pup mesFe_h record 2, 36630 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-39429",
@@ -6950,6 +7769,39 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* zet Pup",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 36630,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2023ApJS..266...11B",
+              "url": "https://ui.adsabs.harvard.edu/abs/2023ApJS..266...11B",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* zet Pup:mesFe_h:2",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
         }
       }
     },
@@ -7225,9 +8077,12 @@
         "pm_dec_masyr": "-0.78",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "27.3",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "28000",
+        "luminosity_solar": "",
+        "radius_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 26311; Stellarium Ori). SIMBAD identity * eps Ori; SIMBAD compiled Johnson V=1.69; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+      "notes": "Western constellation line-figure star (HIP 26311; Stellarium Ori). SIMBAD identity * eps Ori; SIMBAD compiled Johnson V=1.69; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2024ApJ...971..166M, * eps Ori mesFe_h record 2, 28000 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-26311",
@@ -7255,6 +8110,39 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* eps Ori",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 28000,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2024ApJ...971..166M",
+              "url": "https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* eps Ori:mesFe_h:2",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
         }
       }
     },
@@ -7286,9 +8174,12 @@
         "pm_dec_masyr": "5.81",
         "pm_dec_error_masyr": "",
         "radial_velocity_kms": "41.1",
-        "radial_velocity_error_kms": ""
+        "radial_velocity_error_kms": "",
+        "temperature_k": "16000",
+        "luminosity_solar": "",
+        "radius_solar": ""
       },
-      "notes": "Western constellation line-figure star (HIP 35904; Stellarium CMa). SIMBAD identity * eta CMa; SIMBAD compiled Johnson V=2.45; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+      "notes": "Western constellation line-figure star (HIP 35904; Stellarium CMa). SIMBAD identity * eta CMa; SIMBAD compiled Johnson V=2.45; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2024ApJ...971..166M, * eta CMa mesFe_h record 2, 16000 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "western-constellation-stars:hip-35904",
@@ -7316,6 +8207,39 @@
             "radial_velocity_ref"
           ],
           "decision": "Retain the curated nearest-catalog coordinate/motion bundle where available; otherwise use the later Western snapshot. For the eleven reviewed stellar objects with missing CNS5 RV but an existing adopted SIMBAD RV, use the complete Western position/motion bundle to retain full-space motion. Spectroscopic binaries and composite Porrima retain the nearest-catalog RV withholding. Keep positions, velocities, reference epoch, raw measurements, uncertainties and bibliographies together. Withheld individual/system velocities remain withheld."
+        },
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* eta CMa",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 16000,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2024ApJ...971..166M",
+              "url": "https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* eta CMa:mesFe_h:2",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
         }
       }
     },
@@ -8069,9 +8993,10 @@
         "radial_velocity_error_kms": "0.18892623484134674",
         "astrometry_ref": "2020yCat.1350....0G; 2007A&A...474..653V",
         "epoch": "2000.0",
-        "constellation": "Coma Berenices"
+        "constellation": "Coma Berenices",
+        "age_gyr": "2.0"
       },
-      "notes": "Corrected CNS5 3247; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion.",
+      "notes": "Corrected CNS5 3247; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Reviewed literature age: 2.0 +/- 0.5 Gyr, spanning the activity (2.5 Gyr) and rotation (1.5 Gyr) ages of Mamajek & Hillenbrand (2008), replaces the Gaia DR3 FLAME age of 6.3 Gyr.",
       "sourceSelections": {
         "astrometryAndMotion": {
           "source": "nearest-1000:cns5-3247",
@@ -8106,6 +9031,26 @@
             "absolute_mag"
           ],
           "decision": "Use the component-resolved curated Johnson V/distance where available, otherwise the common selected astrometric snapshot; preserve the specifically reviewed Bright Star Catalogue V=0.76 for Acrux. No integrated system flux is assigned to a faint companion."
+        },
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "* bet Com",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Adopt the published activity and rotation ages instead of the Gaia DR3 FLAME age.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": 2.0,
+              "uncertainty": 0.5,
+              "status": "model-derived",
+              "reference": "2008ApJ...687.1264M",
+              "url": "https://arxiv.org/abs/0807.1686",
+              "section": "Table 13, HD 114710",
+              "method": "Chromospheric-activity age 2.5 Gyr and activity-rotation age 1.5 Gyr; the adopted value spans both.",
+              "caveat": "Range midpoint; the half-range is not a statistical error."
+            }
+          }
         }
       }
     },
@@ -16626,6 +17571,675 @@
             "censusCopy": "K5 V(e), r_SpTOpt Riaz2006 in J/ApJS/271/55"
           },
           "evidence": "Gaia DR3 G=13.345, BP-RP=3.168 and parallax 55.808 mas give absolute G 12.08; 2MASS Ks=9.282 gives absolute Ks 8.02 and the Mann et al. 2019 mass 0.1785 Msun; Gaia DR3 GSP-Phot gives 3043 K. All indicate a mid-M dwarf near M4.5; a K5 dwarf at 17.9 pc would be about five magnitudes brighter in G."
+        }
+      }
+    },
+    "* kap Lep": {
+      "label": "Kappa Lep",
+      "starIds": [
+        "hip-24327"
+      ],
+      "scope": "Exact named catalog object * kap Lep / HIP 24327 / HD 33949; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "11588",
+        "luminosity_solar": "",
+        "radius_solar": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 24327; Stellarium Lep). SIMBAD identity * kap Lep; SIMBAD compiled Johnson V=4.44; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed hot-star temperature: 2012A&A...537A.120Z, * kap Lep mesFe_h record 3, 11588 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
+      "sourceSelections": {
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* kap Lep",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the unsuitable cool broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 11588,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2012A&A...537A.120Z",
+              "url": "https://ui.adsabs.harvard.edu/abs/2012A%26A...537A.120Z",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* kap Lep:mesFe_h:3",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
+        }
+      }
+    },
+    "* gam Peg": {
+      "label": "Algenib",
+      "starIds": [
+        "hip-1067"
+      ],
+      "scope": "Exact named catalog object * gam Peg / HIP 1067 / HD 886; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "21631",
+        "luminosity_solar": "",
+        "radius_solar": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 1067; Stellarium Peg). SIMBAD identity * gam Peg; SIMBAD compiled Johnson V=2.84; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...676A.129H). Reviewed hot-star temperature: 2023A&A...676A.129H, * gam Peg mesFe_h record 8, 21631 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
+      "sourceSelections": {
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* gam Peg",
+          "fields": [
+            "temperature_k",
+            "luminosity_solar",
+            "radius_solar"
+          ],
+          "decision": "Supersede the failed, far too hot broadband fit with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 21631,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2023A&A...676A.129H",
+              "url": "https://ui.adsabs.harvard.edu/abs/2023A%26A...676A.129H",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* gam Peg:mesFe_h:8",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+            }
+          }
+        }
+      }
+    },
+    "* alf Ara": {
+      "label": "Alpha Ara",
+      "starIds": [
+        "hip-85792"
+      ],
+      "scope": "Exact named catalog object * alf Ara / HIP 85792 / HD 158427; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "22150",
+        "radius_solar": "",
+        "luminosity_solar": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 85792; Stellarium Ara). SIMBAD identity * alf Ara; SIMBAD compiled Johnson V=2.95; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Reviewed hot-star temperature: 2006MNRAS.371..252L, * alf Ara mesFe_h record 2, 22150 K. Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old evolutionary-model radius and the broadband SED luminosity, whose own fit is also far too cool, are withheld; no component-safe replacement is adopted in this review.",
+      "sourceSelections": {
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* alf Ara",
+          "fields": [
+            "temperature_k",
+            "radius_solar",
+            "luminosity_solar"
+          ],
+          "decision": "Supersede the unsuitable evolutionary-model temperature with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 22150,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2006MNRAS.371..252L",
+              "url": "https://ui.adsabs.harvard.edu/abs/2006MNRAS.371..252L",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* alf Ara:mesFe_h:2",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius came from the rejected evolutionary-model solution; no independently verified component-safe replacement adopted."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Zero-reddening broadband-fit luminosity whose own fit temperature (7905 K) is also far below the spectroscopic consensus; no independently verified replacement adopted."
+            }
+          }
+        }
+      }
+    },
+    "* tet CrB": {
+      "label": "Theta CrB",
+      "starIds": [
+        "hip-76127"
+      ],
+      "scope": "Exact named catalog object * tet CrB / HIP 76127 / HD 138749; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "17000",
+        "radius_solar": "",
+        "luminosity_solar": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 76127; Stellarium CrB). SIMBAD identity * tet CrB; SIMBAD compiled Johnson V=4.13; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P). Reviewed hot-star temperature: 2023MNRAS.519.5472M, * tet CrB mesFe_h record 1, 17000 K. Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old evolutionary-model radius and the broadband SED luminosity, whose own fit is also far too cool, are withheld; no component-safe replacement is adopted in this review.",
+      "sourceSelections": {
+        "physicalTemperatureReview": {
+          "source": "catalog-work/shared-enrichment/hot-star-temperature-review.json",
+          "recordId": "* tet CrB",
+          "fields": [
+            "temperature_k",
+            "radius_solar",
+            "luminosity_solar"
+          ],
+          "decision": "Supersede the unsuitable evolutionary-model temperature with the catalogued spectroscopic consensus; withhold its dependent fields unless separately supported.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 17000,
+              "status": "measured",
+              "uncertainty": null,
+              "reference": "2023MNRAS.519.5472M",
+              "url": "https://ui.adsabs.harvard.edu/abs/2023MNRAS.519.5472M",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* tet CrB:mesFe_h:1",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+              "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+            },
+            "radius_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Radius came from the rejected evolutionary-model solution; no independently verified component-safe replacement adopted."
+            },
+            "luminosity_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Zero-reddening broadband-fit luminosity whose own fit temperature (10799 K) is also far below the spectroscopic consensus; no independently verified replacement adopted."
+            }
+          }
+        }
+      },
+      "retainedCatalogSources": [
+        {
+          "catalog_id": "western-constellation-stars",
+          "record": {
+            "temperature_k": 12589.0,
+            "mass_solar": 3.86,
+            "luminosity_solar": 331.0100760128617,
+            "radius_solar": 3.630780547701014,
+            "metallicity_dex": 0.13,
+            "age_gyr": null,
+            "absolute_mag": -1.174901,
+            "epoch": 2000.0,
+            "x_pc": 43.00767712,
+            "y_pc": 50.685976078,
+            "z_pc": 93.933384985,
+            "vx_kms": -10.799592,
+            "vy_kms": -21.703278,
+            "vz_kms": -14.828648,
+            "type": "star",
+            "id": "hip-76127",
+            "name": "Theta CrB",
+            "spectral_type": "B6Vnne",
+            "constellation": "Corona Borealis",
+            "metallicity_kind": "[Fe/H]",
+            "designations": [
+              "HD 138749",
+              "HIP 76127",
+              "2MASS J15325578+3121331",
+              "4 CrB",
+              "[JE82] 773",
+              "AAVSO 1544+28C",
+              "AG+31 1352",
+              "AKARI-IRC-V1 J1532557+312132",
+              "BD+31 2750",
+              "CCDM J15329+3122AB",
+              "COU 610",
+              "EM* MWC 237",
+              "FK5 576",
+              "Gaia DR2 1274286186493145728",
+              "GC 20908",
+              "GCRV 8973",
+              "GEN# +1.00138749",
+              "GSC 02564-01629",
+              "HGAM 635",
+              "HIC 76127",
+              "HR 5778",
+              "IDS 15289+3142 AB",
+              "IRAS 15309+3131",
+              "JP11 2615",
+              "N30 3497",
+              "NSV 7134",
+              "PLX 3512",
+              "PLX 3512.00",
+              "PMC 90-93 408",
+              "PPM 78669",
+              "ROT 2198",
+              "SAO 64769",
+              "SKY# 28124",
+              "SRS 30576",
+              "TD1 18357",
+              "tet CrB",
+              "Theta Coronae Borealis",
+              "TIC 16887256",
+              "UBV 13317",
+              "UBV M 20830",
+              "uvby98 100138749",
+              "WDS J15329+3122AB",
+              "WEB 12933",
+              "Theta CrB"
+            ],
+            "notes": "Western constellation line-figure star (HIP 76127; Stellarium CrB). SIMBAD identity * tet CrB; SIMBAD compiled Johnson V=4.13; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P).",
+            "raw_astrometry": {
+              "ra_deg": 233.23242559618694,
+              "dec_deg": 31.359132267070578,
+              "parallax_mas": 8.69,
+              "parallax_error_mas": 0.46,
+              "pm_ra_cosdec_masyr": -20.15,
+              "pm_ra_error_masyr": null,
+              "pm_dec_masyr": -9.39,
+              "pm_dec_error_masyr": null,
+              "radial_velocity_kms": -25.7,
+              "radial_velocity_error_kms": null,
+              "epoch": 2000.0,
+              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+              "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+            },
+            "subtypes": [
+              "Be star",
+              "Eruptive variable",
+              "Main-sequence"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 4.130000118
+          },
+          "scope": "Original Theta CrB catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements. Retained from before the 2026-10-28 temperature review: its temperature and radius came from the rejected Allende Prieto & Lambert 1999 evolutionary-model solution and its luminosity from a McDonald et al. 2012 broadband SED fit that is also far too cool; none is adopted."
+        }
+      ]
+    },
+    "* bet Pic": {
+      "label": "Beta Pic",
+      "starIds": [
+        "hip-27321"
+      ],
+      "scope": "Exact named catalog object * bet Pic / HIP 27321 / HD 39060; distinct companions are excluded.",
+      "values": {
+        "age_gyr": "0.023"
+      },
+      "notes": "Western constellation line-figure star (HIP 27321; Stellarium Pic). SIMBAD identity * bet Pic; SIMBAD compiled Johnson V=3.86; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...11B). Reviewed literature age: 23 +/- 3 Myr, the Beta Pictoris moving-group age of Mamajek & Bell (2014), replaces the Gaia DR3 FLAME age of 449 Myr.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "* bet Pic",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Adopt the published moving-group age instead of the Gaia DR3 FLAME age, whose solar-metallicity assumption conflicts with Gaia's own [M/H].",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": 0.023,
+              "uncertainty": 0.003,
+              "status": "model-derived",
+              "reference": "2014MNRAS.445.2169M",
+              "url": "https://arxiv.org/abs/1409.2737",
+              "section": "Abstract",
+              "method": "Median Beta Pictoris moving-group age; the star is the group's namesake member.",
+              "caveat": "Moving-group age with its published 1-sigma uncertainty."
+            }
+          }
+        }
+      }
+    },
+    "* zet Dor": {
+      "label": "Zeta Dor",
+      "starIds": [
+        "cns5-1279"
+      ],
+      "scope": "Exact named catalog object * zet Dor / HIP 23693 / HD 33262; distinct companions are excluded.",
+      "values": {
+        "mass_solar": "",
+        "age_gyr": "0.575"
+      },
+      "notes": "Corrected CNS5 1279; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2022A&A...663A...4S; metallicity_dex: 2022A&A...663A...4S). Reviewed literature age: about 575 Myr (log age 8.76) from chromospheric activity, Maldonado et al. (2012), replaces the Gaia DR3 FLAME age of 3.7 Gyr; the FLAME mass is withheld.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "* zet Dor",
+          "fields": [
+            "mass_solar",
+            "age_gyr"
+          ],
+          "decision": "Adopt the published activity age and withhold the FLAME mass, both of whose solar-metallicity assumption conflicts with Gaia's own [M/H].",
+          "adoptedFields": {
+            "mass_solar": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Gaia DR3 FLAME mass assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6), but Gaia's own GSP-Phot [M/H] for this star is -0.59, beyond the 0.3 dex limit at which the catalog already withholds FLAME mass and age."
+            },
+            "age_gyr": {
+              "value": 0.575,
+              "uncertainty": null,
+              "status": "model-derived",
+              "reference": "2012A&A...541A..40M",
+              "url": "https://arxiv.org/abs/1202.5884",
+              "section": "Table 1, log(age/yr) = 8.76",
+              "method": "Chromospheric-activity age from log R'HK through the Mamajek & Hillenbrand (2008) calibration.",
+              "caveat": "The paper quotes 15-20 percent accuracy below 0.5 Gyr, rising to as much as 60 percent for older stars; no symmetric uncertainty is invented."
+            }
+          }
+        }
+      }
+    },
+    "* e Her": {
+      "label": "e Her",
+      "starIds": [
+        "hip-84606"
+      ],
+      "scope": "Exact named catalog object * e Her / HIP 84606 / HD 156729; distinct companions are excluded.",
+      "values": {
+        "age_gyr": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 84606; Stellarium Her). SIMBAD identity * e Her; SIMBAD compiled Johnson V=4.65; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E). Reviewed literature conflict: the Gaia DR3 model age is withheld; Gaia's own GSP-Phot [M/H] of -0.73 breaks the solar-metallicity assumption of the FLAME age, and no verified replacement is adopted.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "* e Her",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Withhold the contradicted Gaia DR3 model values; adopt no unverified replacement.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6), but Gaia's own GSP-Phot [M/H] for this star is -0.73, beyond the 0.3 dex limit at which the catalog already withholds FLAME mass and age. A frequently quoted age of 155 Myr is attributed to 2012A&ARv..20...51V, but that review gives no age for this star, so it is not adopted."
+            }
+          }
+        }
+      }
+    },
+    "* zet CrA": {
+      "label": "Zeta CrA",
+      "starIds": [
+        "hip-93542"
+      ],
+      "scope": "Exact named catalog object * zet CrA / HIP 93542 / HD 176638; distinct companions are excluded.",
+      "values": {
+        "age_gyr": "",
+        "metallicity_dex": "",
+        "metallicity_kind": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 93542; Stellarium CrA). SIMBAD identity * zet CrA; SIMBAD compiled Johnson V=4.725; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex. Shared exact-identity physical supplements (age_gyr: Gaia DR3 astrophysical_parameters). Reviewed literature conflict: the Gaia DR3 model age and metallicity are withheld; Gaia's own GSP-Phot [M/H] of -1.17 breaks the solar-metallicity assumption of the FLAME age, and no verified replacement is adopted.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "* zet CrA",
+          "fields": [
+            "age_gyr",
+            "metallicity_dex",
+            "metallicity_kind"
+          ],
+          "decision": "Withhold the contradicted Gaia DR3 model values; adopt no unverified replacement.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6), but Gaia's own GSP-Phot [M/H] for this star is -1.17, beyond the 0.3 dex limit at which the catalog already withholds FLAME mass and age. It conflicts with the published Stromgren-photometry age of about 76 Myr (2015ApJ...804..146D); that value is not adopted here because its primary table could not be verified (VizieR unreachable on 2026-10-28)."
+            },
+            "metallicity_dex": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Uncalibrated Gaia DR3 GSP-Phot metallicity: Andrae et al. 2023 (2023A&A...674A..27A) describe these values as useful only at a qualitative level, and the frozen literature pool has no spectroscopic abundance for this hot star."
+            }
+          }
+        }
+      }
+    },
+    "* tet Crt": {
+      "label": "Theta Crt",
+      "starIds": [
+        "hip-56633"
+      ],
+      "scope": "Exact named catalog object * tet Crt / HIP 56633 / HD 100889; distinct companions are excluded.",
+      "values": {
+        "age_gyr": "",
+        "metallicity_dex": "",
+        "metallicity_kind": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 56633; Stellarium Crt). SIMBAD identity * tet Crt; SIMBAD compiled Johnson V=4.673; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr. Reviewed literature conflict: the Gaia DR3 model age and metallicity are withheld; Gaia's own GSP-Phot [M/H] of -0.69 breaks the solar-metallicity assumption of the FLAME age, and no verified replacement is adopted.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "* tet Crt",
+          "fields": [
+            "age_gyr",
+            "metallicity_dex",
+            "metallicity_kind"
+          ],
+          "decision": "Withhold the contradicted Gaia DR3 model values; adopt no unverified replacement.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6), but Gaia's own GSP-Phot [M/H] for this star is -0.69, beyond the 0.3 dex limit at which the catalog already withholds FLAME mass and age. It conflicts with the published Stromgren-photometry age of about 117 Myr (2015ApJ...804..146D); that value is not adopted here because its primary table could not be verified (VizieR unreachable on 2026-10-28)."
+            },
+            "metallicity_dex": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Uncalibrated Gaia DR3 GSP-Phot metallicity: Andrae et al. 2023 (2023A&A...674A..27A) describe these values as useful only at a qualitative level, and the frozen literature pool has no spectroscopic abundance for this hot star."
+            }
+          }
+        }
+      }
+    },
+    "* eps Hyi": {
+      "label": "Epsilon Hyi",
+      "starIds": [
+        "hip-12394"
+      ],
+      "scope": "Exact named catalog object * eps Hyi / HIP 12394 / HD 16978; distinct companions are excluded.",
+      "values": {
+        "age_gyr": "",
+        "metallicity_dex": "",
+        "metallicity_kind": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 12394; Stellarium Hyi). SIMBAD identity * eps Hyi; SIMBAD compiled Johnson V=4.096; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr. Reviewed literature conflict: the Gaia DR3 model age and metallicity are withheld; Gaia's own GSP-Phot [M/H] of -0.54 breaks the solar-metallicity assumption of the FLAME age, and no verified replacement is adopted.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "* eps Hyi",
+          "fields": [
+            "age_gyr",
+            "metallicity_dex",
+            "metallicity_kind"
+          ],
+          "decision": "Withhold the contradicted Gaia DR3 model values; adopt no unverified replacement.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6), but Gaia's own GSP-Phot [M/H] for this star is -0.54, beyond the 0.3 dex limit at which the catalog already withholds FLAME mass and age. It conflicts with the published Stromgren-photometry age of about 133 Myr (2015ApJ...804..146D); that value is not adopted here because its primary table could not be verified (VizieR unreachable on 2026-10-28)."
+            },
+            "metallicity_dex": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Uncalibrated Gaia DR3 GSP-Phot metallicity: Andrae et al. 2023 (2023A&A...674A..27A) describe these values as useful only at a qualitative level, and the frozen literature pool has no spectroscopic abundance for this hot star."
+            }
+          }
+        }
+      }
+    },
+    "* tau PsA": {
+      "label": "Tau PsA",
+      "starIds": [
+        "hip-109422"
+      ],
+      "scope": "Exact named catalog object * tau PsA / HIP 109422 / HD 210302; distinct companions are excluded.",
+      "values": {
+        "age_gyr": ""
+      },
+      "notes": "Western constellation line-figure star (HIP 109422; Stellarium PsA). SIMBAD identity * tau PsA; SIMBAD compiled Johnson V=4.92; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar, age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P). Reviewed literature conflict: the Gaia DR3 model age is withheld; Gaia's own GSP-Phot [M/H] of -0.42 breaks the solar-metallicity assumption of the FLAME age, and no verified replacement is adopted.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "* tau PsA",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Withhold the contradicted Gaia DR3 model values; adopt no unverified replacement.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6), but Gaia's own GSP-Phot [M/H] for this star is -0.42, beyond the 0.3 dex limit at which the catalog already withholds FLAME mass and age. It conflicts with the published Geneva-Copenhagen isochrone age of about 1.3 Gyr (2009A&A...501..941H); that value is not adopted here because its primary table could not be verified (VizieR unreachable on 2026-10-28)."
+            }
+          }
+        }
+      }
+    },
+    "HD 97101": {
+      "label": "HD 97101",
+      "starIds": [
+        "cns5-2724"
+      ],
+      "scope": "Exact named catalog object HD 97101 / HIP 54646 / HD 97101; distinct companions are excluded.",
+      "values": {
+        "metallicity_dex": "",
+        "metallicity_kind": ""
+      },
+      "notes": "Corrected CNS5 2724; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Supplementary temperature, luminosity, radius from Cifuentes et al. 2020 CARMENES SED analysis (2020A&A...642A.115C); mass from Mann et al. 2019 absolute-Ks mass relation with 2MASS Ks (2019ApJ...871...63M). Reviewed literature conflict: the Gaia DR3 GSP-Phot [M/H] of -0.74 is withheld; it lies below every catalogued spectroscopic value and those values do not agree.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "HD 97101",
+          "fields": [
+            "metallicity_dex",
+            "metallicity_kind"
+          ],
+          "decision": "Withhold the contradicted Gaia DR3 metallicity; the spectroscopic pool has no consensus to adopt.",
+          "adoptedFields": {
+            "metallicity_dex": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Uncalibrated Gaia DR3 GSP-Phot metallicity (2023A&A...674A..27A: qualitative only) of -0.74 lies below every catalogued spectroscopic value (-0.20 to +0.65); those values do not agree well enough to adopt one."
+            }
+          }
+        }
+      }
+    },
+    "* chi Her": {
+      "label": "Chi Her",
+      "starIds": [
+        "hip-77760"
+      ],
+      "scope": "Exact named catalog object * chi Her / HIP 77760 / HD 142373; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "5820"
+      },
+      "notes": "Western constellation line-figure star (HIP 77760; Stellarium Her). SIMBAD identity * chi Her; SIMBAD compiled Johnson V=4.62; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k; Gaia DR3 model values for luminosity_solar, radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S). Reviewed literature temperature: 5820 K (2022A&A...663A...4S) replaces the 6310 K Allende Prieto & Lambert (1999) model value.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "* chi Her",
+          "fields": [
+            "temperature_k"
+          ],
+          "decision": "Replace the evolutionary-model temperature with the catalogued spectroscopic consensus; the Gaia DR3 luminosity and radius are independent and retained.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 5820,
+              "uncertainty": null,
+              "status": "measured",
+              "reference": "2022A&A...663A...4S",
+              "url": "https://ui.adsabs.harvard.edu/abs/2022A%26A...663A...4S",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* chi Her:mesFe_h:2",
+              "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)"
+            }
+          }
+        }
+      }
+    },
+    "* 41 Ara": {
+      "label": "41 Ara",
+      "starIds": [
+        "cns5-4255"
+      ],
+      "scope": "Exact named catalog object * 41 Ara / HIP 84720 / HD 156274; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "5242",
+        "radius_solar": "0.822126212"
+      },
+      "notes": "Corrected CNS5 4255; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2024A&A...690A..97C; metallicity_dex: 2024A&A...683A.125P). radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Reviewed literature temperature: 5242 K (2024A&A...683A.125P) replaces the 4759 K edge value from 2024A&A...690A..97C; the radius is rescaled from the retained luminosity.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "* 41 Ara",
+          "fields": [
+            "temperature_k",
+            "radius_solar"
+          ],
+          "decision": "Replace the edge-of-tolerance survey value with the newest value at the spectroscopic consensus.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 5242,
+              "uncertainty": null,
+              "status": "measured",
+              "reference": "2024A&A...683A.125P",
+              "url": "https://ui.adsabs.harvard.edu/abs/2024A%26A...683A.125P",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "* 41 Ara:mesFe_h:2",
+              "method": "Newest frozen SIMBAD mesFe_h value within 2 percent of the pool median (Gaia DR3 republications excluded). The automatic 10 percent rule had selected an edge value from a single recent survey."
+            },
+            "radius_solar": {
+              "value": 0.822126212,
+              "status": "derived",
+              "method": "Stefan-Boltzmann scaling R = sqrt(L) (5772 K / Teff)^2 from the retained luminosity and the reviewed temperature",
+              "inputs": {
+                "luminosity_solar": 0.45979026,
+                "temperature_k": 5242
+              }
+            }
+          }
+        }
+      }
+    },
+    "HD 36003": {
+      "label": "HD 36003",
+      "starIds": [
+        "cns5-1361"
+      ],
+      "scope": "Exact named catalog object HD 36003 / HIP 25623 / HD 36003; distinct companions are excluded.",
+      "values": {
+        "temperature_k": "4565"
+      },
+      "notes": "Corrected CNS5 1361; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Supplementary mass from Mann et al. 2019 absolute-Ks mass relation with 2MASS Ks (2019ApJ...871...63M). Shared exact-identity physical supplements (temperature_k: 2024A&A...683A.125P; metallicity_dex: 2024A&A...683A.125P). Reviewed literature temperature: 4565 K (2022A&A...663A...4S) replaces the 4971 K edge value from 2024A&A...683A.125P.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "HD 36003",
+          "fields": [
+            "temperature_k"
+          ],
+          "decision": "Replace the edge-of-tolerance survey value with the newest value at the spectroscopic consensus.",
+          "adoptedFields": {
+            "temperature_k": {
+              "value": 4565,
+              "uncertainty": null,
+              "status": "measured",
+              "reference": "2022A&A...663A...4S",
+              "url": "https://ui.adsabs.harvard.edu/abs/2022A%26A...663A...4S",
+              "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+              "sourceRecordId": "HD 36003:mesFe_h:3",
+              "method": "Newest frozen SIMBAD mesFe_h value within 2 percent of the pool median (Gaia DR3 republications excluded). The automatic 10 percent rule had selected an edge value from a single recent survey."
+            }
+          }
         }
       }
     }

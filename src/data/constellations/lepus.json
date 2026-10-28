@@ -168,10 +168,10 @@
         "vx_kms": -13.666867,
         "vy_kms": -6.058162,
         "vz_kms": -16.74724,
-        "temperature_k": 10138.0,
+        "temperature_k": 11588.0,
         "mass_solar": null,
-        "luminosity_solar": 367.9897816487248,
-        "radius_solar": 6.218218,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -1.331478,
@@ -182,7 +182,7 @@
         "constellation": "Lepus",
         "spectral_type": "B7V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 24327; Stellarium Lep). SIMBAD identity * kap Lep; SIMBAD compiled Johnson V=4.44; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 24327; Stellarium Lep). SIMBAD identity * kap Lep; SIMBAD compiled Johnson V=4.44; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Reviewed hot-star temperature: 2012A&A...537A.120Z, * kap Lep mesFe_h record 3, 11588 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 24327"
         ],
@@ -467,7 +467,7 @@
         "luminosity_solar": 14.738845060333537,
         "radius_solar": 1.6595869074375607,
         "metallicity_dex": -0.7842,
-        "age_gyr": 0.62519914,
+        "age_gyr": null,
         "absolute_mag": 1.778691,
         "epoch": 2000.0,
         "type": "star",
@@ -476,7 +476,7 @@
         "constellation": "Lepus",
         "spectral_type": "A2IV-V(n)",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 27288; Stellarium Lep). SIMBAD identity * zet Lep; SIMBAD compiled Johnson V=3.525; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 27288; Stellarium Lep). SIMBAD identity * zet Lep; SIMBAD compiled Johnson V=3.525; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
         "designations": [
           "HIP 27288"
         ],
@@ -1110,7 +1110,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

@@ -124,7 +124,7 @@
         "luminosity_solar": 3.0170095,
         "radius_solar": 1.4125375446227544,
         "metallicity_dex": 0.13,
-        "age_gyr": 3.3200555,
+        "age_gyr": null,
         "absolute_mag": 3.590176,
         "epoch": 2000.0,
         "type": "star",
@@ -133,7 +133,7 @@
         "constellation": "Piscis Austrinus",
         "spectral_type": "F6V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 109422; Stellarium PsA). SIMBAD identity * tau PsA; SIMBAD compiled Johnson V=4.92; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar, age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P).",
+        "notes": "Western constellation line-figure star (HIP 109422; Stellarium PsA). SIMBAD identity * tau PsA; SIMBAD compiled Johnson V=4.92; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar, age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P). Reviewed literature conflict: the Gaia DR3 model age is withheld; Gaia's own GSP-Phot [M/H] of -0.42 breaks the solar-metallicity assumption of the FLAME age, and no verified replacement is adopted.",
         "designations": [
           "HIP 109422"
         ],
@@ -173,7 +173,7 @@
         "luminosity_solar": 36.134982095288755,
         "radius_solar": 2.137962089502232,
         "metallicity_dex": 0.01,
-        "age_gyr": 0.44603023,
+        "age_gyr": null,
         "absolute_mag": 1.014621,
         "epoch": 2000.0,
         "type": "star",
@@ -182,7 +182,7 @@
         "constellation": "Piscis Austrinus",
         "spectral_type": "A1Va",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 111188; Stellarium PsA). SIMBAD identity * bet PsA; SIMBAD compiled Johnson V=4.29; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for age_gyr. Shared exact-identity physical supplements (metallicity_dex: 1989A&A...225..125L).",
+        "notes": "Western constellation line-figure star (HIP 111188; Stellarium PsA). SIMBAD identity * bet PsA; SIMBAD compiled Johnson V=4.29; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 1989A&A...225..125L).",
         "designations": [
           "HIP 111188"
         ],
@@ -218,7 +218,7 @@
         "vy_kms": -5.362163,
         "vz_kms": -9.459167,
         "temperature_k": 11300.0,
-        "mass_solar": 4.515881,
+        "mass_solar": null,
         "luminosity_solar": 756.3996702187295,
         "radius_solar": 7.3426356,
         "metallicity_dex": -0.6379,
@@ -231,7 +231,7 @@
         "constellation": "Piscis Austrinus",
         "spectral_type": "B7III",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 111954; Stellarium PsA). SIMBAD identity * eps PsA; SIMBAD compiled Johnson V=4.177; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 111954; Stellarium PsA). SIMBAD identity * eps PsA; SIMBAD compiled Johnson V=4.177; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
         "designations": [
           "HIP 111954"
         ],
@@ -746,7 +746,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

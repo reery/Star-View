@@ -22,7 +22,7 @@
         "vy_kms": -11.940046,
         "vz_kms": -8.389363,
         "temperature_k": 18000.0,
-        "mass_solar": 6.7767787,
+        "mass_solar": null,
         "luminosity_solar": 1424.8622833240497,
         "radius_solar": 3.9446597,
         "metallicity_dex": -0.4996,
@@ -35,7 +35,7 @@
         "constellation": "Caelum",
         "spectral_type": "B2IV/V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 21060; Stellarium Cae). SIMBAD identity * del Cae; SIMBAD compiled Johnson V=5.059; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 21060; Stellarium Cae). SIMBAD identity * del Cae; SIMBAD compiled Johnson V=5.059; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
         "designations": [
           "HIP 21060"
         ],
@@ -75,7 +75,7 @@
         "luminosity_solar": 5.780496372917788,
         "radius_solar": 1.4791083881682074,
         "metallicity_dex": -0.5668,
-        "age_gyr": 1.3364022,
+        "age_gyr": null,
         "absolute_mag": 2.903599,
         "epoch": 2000.0,
         "type": "star",
@@ -84,7 +84,7 @@
         "constellation": "Caelum",
         "spectral_type": "F2V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 21770; Stellarium Cae). SIMBAD identity * alf Cae; SIMBAD compiled Johnson V=4.45; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 21770; Stellarium Cae). SIMBAD identity * alf Cae; SIMBAD compiled Johnson V=4.45; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
         "designations": [
           "HIP 21770"
         ],
@@ -124,7 +124,7 @@
         "luminosity_solar": 6.6152864,
         "radius_solar": 1.62181009735893,
         "metallicity_dex": -0.4828,
-        "age_gyr": 1.9405756,
+        "age_gyr": null,
         "absolute_mag": 2.746633,
         "epoch": 2000.0,
         "type": "star",
@@ -133,7 +133,7 @@
         "constellation": "Caelum",
         "spectral_type": "F3IV",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 21861; Stellarium Cae). SIMBAD identity * bet Cae; SIMBAD compiled Johnson V=5.05; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 21861; Stellarium Cae). SIMBAD identity * bet Cae; SIMBAD compiled Johnson V=5.05; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for metallicity_dex, luminosity_solar.",
         "designations": [
           "HIP 21861"
         ],
@@ -594,7 +594,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

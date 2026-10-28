@@ -707,10 +707,10 @@
         "vx_kms": -10.512076,
         "vy_kms": -17.149122,
         "vz_kms": -6.693593,
-        "temperature_k": 14454.0,
+        "temperature_k": 21000.0,
         "mass_solar": 5.47,
-        "luminosity_solar": 1820.2,
-        "radius_solar": 7.2444,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -2.549178,
@@ -721,7 +721,7 @@
         "constellation": "Centaurus",
         "spectral_type": "B2Ve",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 71352; Stellarium Cen). SIMBAD identity * eta Cen; SIMBAD compiled Johnson V=2.31; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 71352; Stellarium Cen). SIMBAD identity * eta Cen; SIMBAD compiled Johnson V=2.31; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2018MNRAS.474.5287A, * eta Cen mesFe_h record 1, 21000 K. Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old evolutionary-model radius and the broadband SED luminosity, whose own fit is also far too cool, are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 71352"
         ],
@@ -2000,7 +2000,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

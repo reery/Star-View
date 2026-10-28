@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "reviewed": "2026-10-11",
-  "scope": "Original 2026-10-11 set: the 13 remaining distinct, non-composite O/early-B (B0-B5) entries with catalog Teff below 10000 K flagged after the Zeta1 Sco correction. Extended 2026-10-26: 42 further O/B/A entries whose McDonald et al. 2012 broadband SED temperature lies more than 20 percent below the frozen SIMBAD mesFe_h consensus, plus Nu Hya and Wasat, whose SED fits are far hotter than every catalogued value. This is a reviewed candidate set, not a blanket temperature cut or full stellar-catalog audit.",
+  "scope": "Original 2026-10-11 set: the 13 remaining distinct, non-composite O/early-B (B0-B5) entries with catalog Teff below 10000 K flagged after the Zeta1 Sco correction. Extended 2026-10-26: 42 further O/B/A entries whose McDonald et al. 2012 broadband SED temperature lies more than 20 percent below the frozen SIMBAD mesFe_h consensus, plus Nu Hya and Wasat, whose SED fits are far hotter than every catalogued value. This is a reviewed candidate set, not a blanket temperature cut or full stellar-catalog audit. Extended 2026-10-28: 14 further O/B entries inherited through the retired bright catalog or selected from the Allende Prieto & Lambert 1999 models, whose temperature lies more than 20 percent from the frozen SIMBAD mesFe_h consensus, including the far too hot Algenib fit.",
   "policy": "Exact SIMBAD/HIP/HD and stable IDs only. Keep heterogeneous temperatures and component scope explicit. Reject dependent luminosity/radius when the original SED fit is unsuitable; do not infer a temperature from spectral type. Preserve membership, spectra, coordinates, motion and unrelated physical fields.",
   "objects": {
     "* bet01 Sco": {
@@ -3497,7 +3497,877 @@
           "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
         }
       }
+    },
+    "* zet Pup": {
+      "label": "Naos",
+      "starIds": [
+        "hip-39429"
+      ],
+      "identity": {
+        "simbadId": "* zet Pup",
+        "hip": 39429,
+        "hd": 66811
+      },
+      "spectralType": "O4I(n)fp",
+      "previousValues": {
+        "hip-39429": {
+          "temperature_k": "24684",
+          "luminosity_solar": "94309.500",
+          "radius_solar": "16.7919"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "36630",
+          "log_g": "2.567",
+          "fe_h": "0.492",
+          "bibcode": "2023ApJS..266...11B",
+          "mespos": "2"
+        },
+        "poolTemperaturesK": {
+          "count": 5,
+          "minimum": 36630.0,
+          "median": 39000.0,
+          "maximum": 45000.0
+        },
+        "rejectedModel": {
+          "reference": "2012MNRAS.427..343M",
+          "sourceRecordId": "HIP 39429",
+          "temperatureK": 24684.0,
+          "method": "Zero-reddening broadband SED fit"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 36630,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2023ApJS..266...11B",
+          "url": "https://ui.adsabs.harvard.edu/abs/2023ApJS..266...11B",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* zet Pup:mesFe_h:2",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      }
+    },
+    "* del Ori": {
+      "label": "Mintaka",
+      "starIds": [
+        "hip-25930"
+      ],
+      "identity": {
+        "simbadId": "* del Ori",
+        "hip": 25930,
+        "hd": 36486
+      },
+      "spectralType": "O9.5IINwk",
+      "previousValues": {
+        "hip-25930": {
+          "temperature_k": "18063",
+          "luminosity_solar": "18556.700",
+          "radius_solar": "13.9099"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "30000",
+          "log_g": "3.5",
+          "fe_h": "",
+          "bibcode": "2024ApJ...971..166M",
+          "mespos": "2"
+        },
+        "poolTemperaturesK": {
+          "count": 4,
+          "minimum": 30000.0,
+          "median": 30100.0,
+          "maximum": 30300.0
+        },
+        "rejectedModel": {
+          "reference": "2012MNRAS.427..343M",
+          "sourceRecordId": "HIP 25930",
+          "temperatureK": 18063.0,
+          "method": "Zero-reddening broadband SED fit"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 30000,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2024ApJ...971..166M",
+          "url": "https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* del Ori:mesFe_h:2",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      }
+    },
+    "* eps Ori": {
+      "label": "Alnilam",
+      "starIds": [
+        "hip-26311"
+      ],
+      "identity": {
+        "simbadId": "* eps Ori",
+        "hip": 26311,
+        "hd": 37128
+      },
+      "spectralType": "B0Ia",
+      "previousValues": {
+        "hip-26311": {
+          "temperature_k": "18341",
+          "luminosity_solar": "257885.000",
+          "radius_solar": "50.2944"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "28000",
+          "log_g": "3.0",
+          "fe_h": "",
+          "bibcode": "2024ApJ...971..166M",
+          "mespos": "2"
+        },
+        "poolTemperaturesK": {
+          "count": 4,
+          "minimum": 24670.0,
+          "median": 27050.0,
+          "maximum": 28000.0
+        },
+        "rejectedModel": {
+          "reference": "2012MNRAS.427..343M",
+          "sourceRecordId": "HIP 26311",
+          "temperatureK": 18341.0,
+          "method": "Zero-reddening broadband SED fit"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 28000,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2024ApJ...971..166M",
+          "url": "https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* eps Ori:mesFe_h:2",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      }
+    },
+    "* kap Ori": {
+      "label": "Saiph",
+      "starIds": [
+        "hip-27366"
+      ],
+      "identity": {
+        "simbadId": "* kap Ori",
+        "hip": 27366,
+        "hd": 38771
+      },
+      "spectralType": "B0.5Ia",
+      "previousValues": {
+        "hip-27366": {
+          "temperature_k": "18292",
+          "luminosity_solar": "19455.100",
+          "radius_solar": "13.8882"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "26000",
+          "log_g": "3.5",
+          "fe_h": "",
+          "bibcode": "2024ApJ...971..166M",
+          "mespos": "2"
+        },
+        "poolTemperaturesK": {
+          "count": 5,
+          "minimum": 23170.0,
+          "median": 26500.0,
+          "maximum": 27500.0
+        },
+        "rejectedModel": {
+          "reference": "2012MNRAS.427..343M",
+          "sourceRecordId": "HIP 27366",
+          "temperatureK": 18292.0,
+          "method": "Zero-reddening broadband SED fit"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 26000,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2024ApJ...971..166M",
+          "url": "https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* kap Ori:mesFe_h:2",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      }
+    },
+    "* alf Lup": {
+      "label": "Uridim",
+      "starIds": [
+        "hip-71860"
+      ],
+      "identity": {
+        "simbadId": "* alf Lup",
+        "hip": 71860,
+        "hd": 129056
+      },
+      "spectralType": "B1.5III",
+      "previousValues": {
+        "hip-71860": {
+          "temperature_k": "11594",
+          "luminosity_solar": "3129.880",
+          "radius_solar": "13.8660"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "23200",
+          "log_g": "3.5",
+          "fe_h": "",
+          "bibcode": "2024A&A...687A.228D",
+          "mespos": "1"
+        },
+        "poolTemperaturesK": {
+          "count": 3,
+          "minimum": 21820.0,
+          "median": 23100.0,
+          "maximum": 23200.0
+        },
+        "rejectedModel": {
+          "reference": "2012MNRAS.427..343M",
+          "sourceRecordId": "HIP 71860",
+          "temperatureK": 11594.0,
+          "method": "Zero-reddening broadband SED fit"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 23200,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2024A&A...687A.228D",
+          "url": "https://ui.adsabs.harvard.edu/abs/2024A%26A...687A.228D",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* alf Lup:mesFe_h:1",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      }
+    },
+    "* eta CMa": {
+      "label": "Aludra",
+      "starIds": [
+        "hip-35904"
+      ],
+      "identity": {
+        "simbadId": "* eta CMa",
+        "hip": 35904,
+        "hd": 58350
+      },
+      "spectralType": "B5Ia",
+      "previousValues": {
+        "hip-35904": {
+          "temperature_k": "10000",
+          "luminosity_solar": "40235.600",
+          "radius_solar": "66.8279"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "16000",
+          "log_g": "2.5",
+          "fe_h": "",
+          "bibcode": "2024ApJ...971..166M",
+          "mespos": "2"
+        },
+        "poolTemperaturesK": {
+          "count": 3,
+          "minimum": 12670.0,
+          "median": 14700.0,
+          "maximum": 16000.0
+        },
+        "rejectedModel": {
+          "reference": "2012MNRAS.427..343M",
+          "sourceRecordId": "HIP 35904",
+          "temperatureK": 10000.0,
+          "method": "Zero-reddening broadband SED fit"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 16000,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2024ApJ...971..166M",
+          "url": "https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* eta CMa:mesFe_h:2",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      }
+    },
+    "* kap Lep": {
+      "label": "Kappa Lep",
+      "starIds": [
+        "hip-24327"
+      ],
+      "identity": {
+        "simbadId": "* kap Lep",
+        "hip": 24327,
+        "hd": 33949
+      },
+      "spectralType": "B7V",
+      "previousValues": {
+        "hip-24327": {
+          "temperature_k": "10138",
+          "luminosity_solar": "367.9897816487248",
+          "radius_solar": "6.218218"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "11588",
+          "log_g": "",
+          "fe_h": "",
+          "bibcode": "2012A&A...537A.120Z",
+          "mespos": "3"
+        },
+        "poolTemperaturesK": {
+          "count": 3,
+          "minimum": 11588.0,
+          "median": 12750.0,
+          "maximum": 12980.0
+        },
+        "rejectedModel": {
+          "reference": "2012MNRAS.427..343M",
+          "sourceRecordId": "HIP 24327",
+          "temperatureK": 10138.0,
+          "method": "Zero-reddening broadband SED fit"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 11588,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2012A&A...537A.120Z",
+          "url": "https://ui.adsabs.harvard.edu/abs/2012A%26A...537A.120Z",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* kap Lep:mesFe_h:3",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      }
+    },
+    "* gam Peg": {
+      "label": "Algenib",
+      "starIds": [
+        "hip-1067"
+      ],
+      "identity": {
+        "simbadId": "* gam Peg",
+        "hip": 1067,
+        "hd": 886
+      },
+      "spectralType": "B2IV",
+      "previousValues": {
+        "hip-1067": {
+          "temperature_k": "27008",
+          "luminosity_solar": "13726.64835957635",
+          "radius_solar": "5.351186"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "21631",
+          "log_g": "3.91",
+          "fe_h": "-0.07",
+          "bibcode": "2023A&A...676A.129H",
+          "mespos": "8"
+        },
+        "poolTemperaturesK": {
+          "count": 23,
+          "minimum": 5855.0,
+          "median": 21204.0,
+          "maximum": 37079.0
+        },
+        "rejectedModel": {
+          "reference": "2012MNRAS.427..343M",
+          "sourceRecordId": "HIP 1067",
+          "temperatureK": 27008.0,
+          "method": "Zero-reddening broadband SED fit"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 21631,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2023A&A...676A.129H",
+          "url": "https://ui.adsabs.harvard.edu/abs/2023A%26A...676A.129H",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* gam Peg:mesFe_h:8",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Rejected zero-reddening broadband-fit luminosity; no independently verified component-safe replacement adopted in this temperature review."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius inherited the rejected luminosity/temperature fit; no independently verified component-safe replacement adopted."
+        }
+      }
+    },
+    "* eta Cen": {
+      "label": "Eta Cen",
+      "starIds": [
+        "hip-71352"
+      ],
+      "identity": {
+        "simbadId": "* eta Cen",
+        "hip": 71352,
+        "hd": 127972
+      },
+      "spectralType": "B2Ve",
+      "previousValues": {
+        "hip-71352": {
+          "temperature_k": "14454",
+          "radius_solar": "7.2444",
+          "luminosity_solar": "1820.200"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "21000",
+          "log_g": "3.95",
+          "fe_h": "",
+          "bibcode": "2018MNRAS.474.5287A",
+          "mespos": "1"
+        },
+        "poolTemperaturesK": {
+          "count": 3,
+          "minimum": 20500.0,
+          "median": 21000.0,
+          "maximum": 22336.0
+        },
+        "rejectedModel": {
+          "reference": "1999A&A...352..555A",
+          "sourceRecordId": "HIP 71352",
+          "temperatureK": 14454.0,
+          "method": "Evolutionary-track interpolation from Hipparcos absolute magnitude and colour"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 21000,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2018MNRAS.474.5287A",
+          "url": "https://ui.adsabs.harvard.edu/abs/2018MNRAS.474.5287A",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* eta Cen:mesFe_h:1",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius came from the rejected evolutionary-model solution; no independently verified component-safe replacement adopted."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Zero-reddening broadband-fit luminosity whose own fit temperature (13511 K) is also far below the spectroscopic consensus; no independently verified replacement adopted."
+        }
+      }
+    },
+    "* alf Ara": {
+      "label": "Alpha Ara",
+      "starIds": [
+        "hip-85792"
+      ],
+      "identity": {
+        "simbadId": "* alf Ara",
+        "hip": 85792,
+        "hd": 158427
+      },
+      "spectralType": "B2Vne",
+      "previousValues": {
+        "hip-85792": {
+          "temperature_k": "13183",
+          "radius_solar": "5.248074602497725",
+          "luminosity_solar": "399.5528299456807"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "22150",
+          "log_g": "3.55",
+          "fe_h": "",
+          "bibcode": "2006MNRAS.371..252L",
+          "mespos": "2"
+        },
+        "poolTemperaturesK": {
+          "count": 3,
+          "minimum": 18110.0,
+          "median": 21478.0,
+          "maximum": 22150.0
+        },
+        "rejectedModel": {
+          "reference": "1999A&A...352..555A",
+          "sourceRecordId": "HIP 85792",
+          "temperatureK": 13183.0,
+          "method": "Evolutionary-track interpolation from Hipparcos absolute magnitude and colour"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 22150,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2006MNRAS.371..252L",
+          "url": "https://ui.adsabs.harvard.edu/abs/2006MNRAS.371..252L",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* alf Ara:mesFe_h:2",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius came from the rejected evolutionary-model solution; no independently verified component-safe replacement adopted."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Zero-reddening broadband-fit luminosity whose own fit temperature (7905 K) is also far below the spectroscopic consensus; no independently verified replacement adopted."
+        }
+      }
+    },
+    "* tet CrB": {
+      "label": "Theta CrB",
+      "starIds": [
+        "hip-76127"
+      ],
+      "identity": {
+        "simbadId": "* tet CrB",
+        "hip": 76127,
+        "hd": 138749
+      },
+      "spectralType": "B6Vnne",
+      "previousValues": {
+        "hip-76127": {
+          "temperature_k": "12589",
+          "radius_solar": "3.630780547701014",
+          "luminosity_solar": "331.0100760128617"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "17000",
+          "log_g": "3.5",
+          "fe_h": "",
+          "bibcode": "2023MNRAS.519.5472M",
+          "mespos": "1"
+        },
+        "poolTemperaturesK": {
+          "count": 5,
+          "minimum": 13932.0,
+          "median": 16150.0,
+          "maximum": 17000.0
+        },
+        "rejectedModel": {
+          "reference": "1999A&A...352..555A",
+          "sourceRecordId": "HIP 76127",
+          "temperatureK": 12589.0,
+          "method": "Evolutionary-track interpolation from Hipparcos absolute magnitude and colour"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 17000,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2023MNRAS.519.5472M",
+          "url": "https://ui.adsabs.harvard.edu/abs/2023MNRAS.519.5472M",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* tet CrB:mesFe_h:1",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius came from the rejected evolutionary-model solution; no independently verified component-safe replacement adopted."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Zero-reddening broadband-fit luminosity whose own fit temperature (10799 K) is also far below the spectroscopic consensus; no independently verified replacement adopted."
+        }
+      }
+    },
+    "* alf And": {
+      "label": "Sirrah",
+      "starIds": [
+        "hip-677"
+      ],
+      "identity": {
+        "simbadId": "* alf And",
+        "hip": 677,
+        "hd": 358
+      },
+      "spectralType": "B8IV-VHgMn",
+      "previousValues": {
+        "hip-677": {
+          "temperature_k": "9550",
+          "radius_solar": "3.9811",
+          "luminosity_solar": "118.770"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "14000",
+          "log_g": "4.5",
+          "fe_h": "",
+          "bibcode": "2023MNRAS.519.5472M",
+          "mespos": "1"
+        },
+        "poolTemperaturesK": {
+          "count": 12,
+          "minimum": 12750.0,
+          "median": 13622.0,
+          "maximum": 14400.0
+        },
+        "rejectedModel": {
+          "reference": "1999A&A...352..555A",
+          "sourceRecordId": "HIP 677",
+          "temperatureK": 9550.0,
+          "method": "Evolutionary-track interpolation from Hipparcos absolute magnitude and colour"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 14000,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2023MNRAS.519.5472M",
+          "url": "https://ui.adsabs.harvard.edu/abs/2023MNRAS.519.5472M",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* alf And:mesFe_h:1",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius came from the rejected evolutionary-model solution; no independently verified component-safe replacement adopted."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Luminosity was derived by Stefan-Boltzmann scaling from the rejected temperature and radius; no independently verified replacement adopted."
+        }
+      }
+    },
+    "* alf Gru": {
+      "label": "Alnair",
+      "starIds": [
+        "hip-109268"
+      ],
+      "identity": {
+        "simbadId": "* alf Gru",
+        "hip": 109268,
+        "hd": 209952
+      },
+      "spectralType": "B6V",
+      "previousValues": {
+        "hip-109268": {
+          "temperature_k": "10233",
+          "radius_solar": "4.4668",
+          "luminosity_solar": "197.109"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "12882",
+          "log_g": "",
+          "fe_h": "",
+          "bibcode": "2012A&A...537A.120Z",
+          "mespos": "4"
+        },
+        "poolTemperaturesK": {
+          "count": 4,
+          "minimum": 12882.0,
+          "median": 13560.5,
+          "maximum": 14860.0
+        },
+        "rejectedModel": {
+          "reference": "1999A&A...352..555A",
+          "sourceRecordId": "HIP 109268",
+          "temperatureK": 10233.0,
+          "method": "Evolutionary-track interpolation from Hipparcos absolute magnitude and colour"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 12882,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2012A&A...537A.120Z",
+          "url": "https://ui.adsabs.harvard.edu/abs/2012A%26A...537A.120Z",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* alf Gru:mesFe_h:4",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        },
+        "radius_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Radius came from the rejected evolutionary-model solution; no independently verified component-safe replacement adopted."
+        },
+        "luminosity_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Luminosity was derived by Stefan-Boltzmann scaling from the rejected temperature and radius; no independently verified replacement adopted."
+        }
+      }
+    },
+    "* eta UMa": {
+      "label": "Alkaid",
+      "starIds": [
+        "hip-67301"
+      ],
+      "identity": {
+        "simbadId": "* eta UMa",
+        "hip": 67301,
+        "hd": 120315
+      },
+      "spectralType": "B3V",
+      "previousValues": {
+        "hip-67301": {
+          "temperature_k": "11220"
+        }
+      },
+      "evidence": {
+        "selected": {
+          "teff": "17870",
+          "log_g": "",
+          "fe_h": "",
+          "bibcode": "2009A&A...501..297Z",
+          "mespos": "1"
+        },
+        "poolTemperaturesK": {
+          "count": 3,
+          "minimum": 16494.0,
+          "median": 17200.0,
+          "maximum": 17870.0
+        },
+        "rejectedModel": {
+          "reference": "1999A&A...352..555A",
+          "sourceRecordId": "HIP 67301",
+          "temperatureK": 11220.0,
+          "method": "Evolutionary-track interpolation from Hipparcos absolute magnitude and colour"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 17870,
+          "status": "measured",
+          "uncertainty": null,
+          "reference": "2009A&A...501..297Z",
+          "url": "https://ui.adsabs.harvard.edu/abs/2009A%26A...501..297Z",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* eta UMa:mesFe_h:1",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)",
+          "caveat": "SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label."
+        }
+      }
     }
   },
-  "extended": "2026-10-26"
+  "extended": "2026-10-28"
 }

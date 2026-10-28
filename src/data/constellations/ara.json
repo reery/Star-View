@@ -266,10 +266,10 @@
         "vx_kms": -9.982921,
         "vy_kms": -27.225445,
         "vz_kms": -2.906862,
-        "temperature_k": 13183.0,
+        "temperature_k": 22150.0,
         "mass_solar": 4.37,
-        "luminosity_solar": 399.5528299456807,
-        "radius_solar": 5.248074602497725,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -1.618201,
@@ -280,7 +280,7 @@
         "constellation": "Ara",
         "spectral_type": "B2Vne",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 85792; Stellarium Ara). SIMBAD identity * alf Ara; SIMBAD compiled Johnson V=2.95; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar.",
+        "notes": "Western constellation line-figure star (HIP 85792; Stellarium Ara). SIMBAD identity * alf Ara; SIMBAD compiled Johnson V=2.95; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Reviewed hot-star temperature: 2006MNRAS.371..252L, * alf Ara mesFe_h record 2, 22150 K. Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old evolutionary-model radius and the broadband SED luminosity, whose own fit is also far too cool, are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 85792"
         ],
@@ -940,7 +940,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

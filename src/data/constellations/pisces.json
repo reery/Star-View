@@ -120,11 +120,11 @@
         "vy_kms": -5.195366,
         "vz_kms": -19.695441,
         "temperature_k": 10261.0,
-        "mass_solar": 2.9317505,
+        "mass_solar": null,
         "luminosity_solar": 91.04634070485486,
         "radius_solar": 3.0400357,
         "metallicity_dex": -0.8114,
-        "age_gyr": 0.27927366,
+        "age_gyr": null,
         "absolute_mag": 0.151519,
         "epoch": 2000.0,
         "type": "star",
@@ -133,7 +133,7 @@
         "constellation": "Pisces",
         "spectral_type": "B9.5V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 4889; Stellarium Psc). SIMBAD identity * sig Psc; SIMBAD compiled Johnson V=5.5; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 4889; Stellarium Psc). SIMBAD identity * sig Psc; SIMBAD compiled Johnson V=5.5; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
         "designations": [
           "HIP 4889"
         ],
@@ -757,11 +757,11 @@
         "vy_kms": -25.869969,
         "vz_kms": -26.732042,
         "temperature_k": 6169.0,
-        "mass_solar": 1.2706136,
+        "mass_solar": 1.38,
         "luminosity_solar": 3.55348,
         "radius_solar": 1.6613889,
         "metallicity_dex": -0.14,
-        "age_gyr": 3.6627371,
+        "age_gyr": null,
         "absolute_mag": 3.434249,
         "epoch": 2000.0,
         "type": "star",
@@ -2001,7 +2001,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

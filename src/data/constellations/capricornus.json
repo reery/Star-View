@@ -369,7 +369,7 @@
         "luminosity_solar": 69.250885,
         "radius_solar": 4.265795188015927,
         "metallicity_dex": 0.29,
-        "age_gyr": 0.55859053,
+        "age_gyr": null,
         "absolute_mag": 0.069574,
         "epoch": 2000.0,
         "type": "star",
@@ -378,7 +378,7 @@
         "constellation": "Capricornus",
         "spectral_type": "kF0hF1VmF2",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 106985; Stellarium Cap). SIMBAD identity * gam Cap; SIMBAD compiled Johnson V=3.67; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar, age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
+        "notes": "Western constellation line-figure star (HIP 106985; Stellarium Cap). SIMBAD identity * gam Cap; SIMBAD compiled Johnson V=3.67; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
         "designations": [
           "HIP 106985"
         ],
@@ -1052,7 +1052,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

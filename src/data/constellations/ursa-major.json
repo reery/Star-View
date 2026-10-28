@@ -854,7 +854,7 @@
         "vx_kms": -11.29877,
         "vy_kms": -18.355842,
         "vz_kms": -7.422783,
-        "temperature_k": 11220.0,
+        "temperature_k": 17870.0,
         "mass_solar": 3.32,
         "luminosity_solar": 462.55,
         "radius_solar": 3.3995,
@@ -868,7 +868,7 @@
         "constellation": "Ursa Major",
         "spectral_type": "B3V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 67301; Stellarium UMa). SIMBAD identity * eta UMa; SIMBAD compiled Johnson V=1.86; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 67301; Stellarium UMa). SIMBAD identity * eta UMa; SIMBAD compiled Johnson V=1.86; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2009A&A...501..297Z, * eta UMa mesFe_h record 1, 17870 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The independent broadband SED luminosity and the interferometric radius are retained.",
         "designations": [
           "HIP 67301"
         ],
@@ -2501,7 +2501,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

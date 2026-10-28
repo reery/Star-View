@@ -413,10 +413,10 @@
         "vx_kms": -15.809243,
         "vy_kms": -7.994511,
         "vz_kms": -5.413208,
-        "temperature_k": 18063.0,
+        "temperature_k": 30000.0,
         "mass_solar": null,
-        "luminosity_solar": 18556.7,
-        "radius_solar": 13.9099,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -4.224895,
@@ -427,7 +427,7 @@
         "constellation": "Orion",
         "spectral_type": "O9.5IINwk",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 25930; Stellarium Ori). SIMBAD identity * del Ori; SIMBAD compiled Johnson V=2.41; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 25930; Stellarium Ori). SIMBAD identity * del Ori; SIMBAD compiled Johnson V=2.41; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2024ApJ...971..166M, * del Ori mesFe_h record 2, 30000 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 25930"
         ],
@@ -511,10 +511,10 @@
         "vx_kms": -22.612857,
         "vy_kms": -14.985451,
         "vz_kms": -5.614509,
-        "temperature_k": 18341.0,
+        "temperature_k": 28000.0,
         "mass_solar": 23.61,
-        "luminosity_solar": 257885.0,
-        "radius_solar": 50.2944,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -7.22258,
@@ -525,7 +525,7 @@
         "constellation": "Orion",
         "spectral_type": "B0Ia",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 26311; Stellarium Ori). SIMBAD identity * eps Ori; SIMBAD compiled Johnson V=1.69; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 26311; Stellarium Ori). SIMBAD identity * eps Ori; SIMBAD compiled Johnson V=1.69; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2024ApJ...971..166M, * eps Ori mesFe_h record 2, 28000 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 26311"
         ],
@@ -609,10 +609,10 @@
         "vx_kms": -15.256714,
         "vy_kms": -12.527756,
         "vz_kms": -5.820071,
-        "temperature_k": 18292.0,
+        "temperature_k": 26000.0,
         "mass_solar": 15.5,
-        "luminosity_solar": 19455.1,
-        "radius_solar": 13.8882,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": -4.427847,
@@ -623,7 +623,7 @@
         "constellation": "Orion",
         "spectral_type": "B0.5Ia",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 27366; Stellarium Ori). SIMBAD identity * kap Ori; SIMBAD compiled Johnson V=2.06; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 27366; Stellarium Ori). SIMBAD identity * kap Ori; SIMBAD compiled Johnson V=2.06; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2024ApJ...971..166M, * kap Ori mesFe_h record 2, 26000 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 27366"
         ],
@@ -807,7 +807,7 @@
         "vy_kms": -28.62225,
         "vz_kms": -3.554348,
         "temperature_k": 11655.0,
-        "mass_solar": 4.802811,
+        "mass_solar": null,
         "luminosity_solar": 824.360123626448,
         "radius_solar": 6.991567,
         "metallicity_dex": -0.9391,
@@ -820,7 +820,7 @@
         "constellation": "Orion",
         "spectral_type": "B8V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 28691; Stellarium Ori). SIMBAD identity *  64 Ori; SIMBAD compiled Johnson V=5.13; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 28691; Stellarium Ori). SIMBAD identity *  64 Ori; SIMBAD compiled Johnson V=5.13; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
         "designations": [
           "HIP 28691"
         ],
@@ -905,7 +905,7 @@
         "vy_kms": -22.937911,
         "vz_kms": -9.611621,
         "temperature_k": 15476.0,
-        "mass_solar": 5.589159,
+        "mass_solar": null,
         "luminosity_solar": 1885.0148395316255,
         "radius_solar": 6.5976057,
         "metallicity_dex": 0.7887,
@@ -918,7 +918,7 @@
         "constellation": "Orion",
         "spectral_type": "B3IV",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 29426; Stellarium Ori). SIMBAD identity * ksi Ori; SIMBAD compiled Johnson V=4.48; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 29426; Stellarium Ori). SIMBAD identity * ksi Ori; SIMBAD compiled Johnson V=4.48; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
         "designations": [
           "HIP 29426"
         ],
@@ -1863,7 +1863,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

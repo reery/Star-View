@@ -266,10 +266,10 @@
         "vx_kms": -39.333182,
         "vy_kms": 36.561898,
         "vz_kms": -23.806971,
-        "temperature_k": 24684.0,
+        "temperature_k": 36630.0,
         "mass_solar": null,
-        "luminosity_solar": 94309.5,
-        "radius_solar": 16.7919,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.492,
         "age_gyr": null,
         "absolute_mag": -5.357168,
@@ -280,7 +280,7 @@
         "constellation": "Puppis",
         "spectral_type": "O4I(n)fp",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 39429; Stellarium Car, Pup). SIMBAD identity * zet Pup; SIMBAD compiled Johnson V=2.25; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar, metallicity_dex.",
+        "notes": "Western constellation line-figure star (HIP 39429; Stellarium Car, Pup). SIMBAD identity * zet Pup; SIMBAD compiled Johnson V=2.25; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar, metallicity_dex. Reviewed hot-star temperature: 2023ApJS..266...11B, * zet Pup mesFe_h record 2, 36630 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 39429"
         ],
@@ -1140,7 +1140,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

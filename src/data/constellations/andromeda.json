@@ -21,10 +21,10 @@
         "vx_kms": -4.965761,
         "vy_kms": -26.541587,
         "vz_kms": -16.722586,
-        "temperature_k": 9550.0,
+        "temperature_k": 14000.0,
         "mass_solar": 2.9,
-        "luminosity_solar": 118.77,
-        "radius_solar": 3.9811,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.42,
         "age_gyr": null,
         "absolute_mag": -0.307011,
@@ -35,7 +35,7 @@
         "constellation": "Andromeda",
         "spectral_type": "B8IV-VHgMn",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 677; Stellarium And, Peg). SIMBAD identity * alf And; SIMBAD compiled Johnson V=2.06; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex.",
+        "notes": "Western constellation line-figure star (HIP 677; Stellarium And, Peg). SIMBAD identity * alf And; SIMBAD compiled Johnson V=2.06; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, mass_solar, luminosity_solar, radius_solar, metallicity_dex. Reviewed hot-star temperature: 2023MNRAS.519.5472M, * alf And mesFe_h record 1, 14000 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old evolutionary-model radius and the luminosity derived from it are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 677"
         ],
@@ -173,7 +173,7 @@
         "luminosity_solar": 31.898855,
         "radius_solar": 3.0902954325135905,
         "metallicity_dex": -0.1,
-        "age_gyr": 0.76895666,
+        "age_gyr": null,
         "absolute_mag": 0.988815,
         "epoch": 2000.0,
         "type": "star",
@@ -182,7 +182,7 @@
         "constellation": "Andromeda",
         "spectral_type": "A6V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 4436; Stellarium And). SIMBAD identity * mu. And; SIMBAD compiled Johnson V=3.87; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar, age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
+        "notes": "Western constellation line-figure star (HIP 4436; Stellarium And). SIMBAD identity * mu. And; SIMBAD compiled Johnson V=3.87; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
         "designations": [
           "HIP 4436"
         ],
@@ -1519,7 +1519,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

@@ -89,7 +89,8 @@ def apply_literature(root, path, systems, pool, audit):
         adopted, retained, replaced = {}, {}, {}
         withheld = {}
         for field, observation in review.get("withheldFields", {}).items():
-            if field not in PROPERTY_FIELDS or star.get(field) != observation.get("expectedPrevious") or not observation.get("reason"):
+            # A field already withheld upstream needs no further withholding.
+            if field not in PROPERTY_FIELDS or star.get(field) not in (observation.get("expectedPrevious"), None) or not observation.get("reason"):
                 raise ValueError(f"Reviewed component withholding drifted: {identifier}:{field}")
             withheld[field] = {**observation, "sourceEvidence": copy.deepcopy(evidence.get(field))}
             star[field] = None
@@ -120,10 +121,12 @@ def apply_literature(root, path, systems, pool, audit):
                 # Compare those guards at the same precision as new outputs.
                 if field == "absolute_mag" and previous is not None:
                     previous, expected = calculated_float(previous), calculated_float(expected)
-                if previous != expected:
+                # An input withheld upstream leaves nothing to replace; the reviewed value fills the blank.
+                if previous is not None and previous != expected:
                     raise ValueError(f"Reviewed literature replacement input drifted: {identifier}:{field}")
-                replaced[field] = {"value": star[field], "sourceEvidence": copy.deepcopy(
-                    (previous_review or {}).get("adopted", {}).get(field) or evidence.get(field))}
+                if previous is not None:
+                    replaced[field] = {"value": star[field], "sourceEvidence": copy.deepcopy(
+                        (previous_review or {}).get("adopted", {}).get(field) or evidence.get(field))}
             elif star.get(field) is not None:
                 retained[field] = {"value": star[field], "unusedLiterature": observation}
                 continue

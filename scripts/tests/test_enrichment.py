@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from catalog_sources.enrichment import FIELDS, derive_physical, enrich_from_frozen, estimate_temperature, select_spectroscopy
+from catalog_sources.enrichment import FIELDS, derive_physical, enrich_from_frozen, estimate_temperature, flame_withheld, select_spectroscopy
 
 
 def empty_row(**values):
@@ -16,6 +16,12 @@ def empty_row(**values):
 
 
 class EnrichmentTests(unittest.TestCase):
+    def test_flame_mass_and_age_need_near_solar_gaia_metallicity(self):
+        self.assertEqual(flame_withheld(None, gaia_metallicity=-0.3), set())
+        self.assertEqual(flame_withheld(None, gaia_metallicity=-0.31), {"mass_solar", "age_gyr"})
+        self.assertEqual(flame_withheld(None, metallicity=0.1, gaia_metallicity=0.45), {"mass_solar", "age_gyr"})
+        self.assertEqual(flame_withheld(5000, 5200, gaia_metallicity=-0.6), {"radius_solar", "mass_solar", "age_gyr"})
+
     def test_zeta_sco_review_precedes_reddened_sed_and_derived_radius(self):
         spec = importlib.util.spec_from_file_location("landmark_author", Path(__file__).resolve().parents[1] / "author-landmark-stars.py")
         author = importlib.util.module_from_spec(spec)

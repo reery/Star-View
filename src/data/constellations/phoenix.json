@@ -218,7 +218,7 @@
         "vy_kms": -1.908943,
         "vz_kms": -19.265751,
         "temperature_k": 12589.0,
-        "mass_solar": 3.7868075,
+        "mass_solar": null,
         "luminosity_solar": 325.4494082137407,
         "radius_solar": 3.7620835,
         "metallicity_dex": 0.7945,
@@ -231,7 +231,7 @@
         "constellation": "Phoenix",
         "spectral_type": "B6V+B9V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 5348; Stellarium Phe). SIMBAD identity * zet Phe; SIMBAD compiled Johnson V=4.014; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 5348; Stellarium Phe). SIMBAD identity * zet Phe; SIMBAD compiled Johnson V=4.014; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
         "designations": [
           "HIP 5348"
         ],
@@ -1099,7 +1099,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

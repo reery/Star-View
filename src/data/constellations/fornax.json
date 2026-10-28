@@ -75,7 +75,7 @@
         "luminosity_solar": 4.415325,
         "radius_solar": 1.9498445997580451,
         "metallicity_dex": -0.17,
-        "age_gyr": 3.4655962,
+        "age_gyr": null,
         "absolute_mag": 3.25004,
         "epoch": 2000.0,
         "type": "star",
@@ -84,7 +84,7 @@
         "constellation": "Fornax",
         "spectral_type": "F6V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 14879; Stellarium For). SIMBAD identity * alf For; SIMBAD compiled Johnson V=3.98; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P; age_gyr: Gaia DR3 astrophysical_parameters).",
+        "notes": "Western constellation line-figure star (HIP 14879; Stellarium For). SIMBAD identity * alf For; SIMBAD compiled Johnson V=3.98; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P).",
         "designations": [
           "HIP 14879"
         ],
@@ -627,7 +627,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

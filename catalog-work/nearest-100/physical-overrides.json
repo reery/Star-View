@@ -494,6 +494,77 @@
       ]
     },
     {
+      "starViewId": "epsilon-eridani",
+      "gaiaDr3Id": "5164707970261890560",
+      "note": "Epsilon Eridani reviewed physical parameters. Baines & Armstrong (2012) combine the Navy Precision Optical Interferometer angular diameter with bolometric flux and the Hipparcos parallax for the temperature, radius and luminosity, and fit Yonsei-Yale isochrones for the mass. Santos et al. (2004) measure [Fe/H] spectroscopically. Mamajek & Hillenbrand (2008) estimate 0.4 Gyr from chromospheric activity and 0.8 Gyr from activity-inferred rotation; the adopted 0.6 +/- 0.2 Gyr spans both. The Gaia DR3 model values (5002 K, [M/H]=+0.13, 7.3 Gyr) remain in source provenance but are not adopted: the isochrone age contradicts the star's activity and rotation, and the positive abundance contradicts the measured sub-solar [Fe/H].",
+      "physical": [
+        {
+          "field": "temperature_k",
+          "value": 5039,
+          "uncertainty": 126,
+          "status": "derived",
+          "reference": "2012ApJ...744..138B",
+          "qualityFlags": [
+            "interferometric angular diameter plus bolometric flux"
+          ]
+        },
+        {
+          "field": "mass_solar",
+          "value": 0.82,
+          "uncertainty": 0.05,
+          "status": "model-derived",
+          "reference": "2012ApJ...744..138B",
+          "qualityFlags": [
+            "Yonsei-Yale isochrones"
+          ]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 0.32,
+          "uncertainty": 0.03,
+          "status": "derived",
+          "reference": "2012ApJ...744..138B",
+          "qualityFlags": [
+            "bolometric flux plus Hipparcos parallax"
+          ]
+        },
+        {
+          "field": "radius_solar",
+          "value": 0.74,
+          "uncertainty": 0.01,
+          "status": "derived",
+          "reference": "2012ApJ...744..138B",
+          "qualityFlags": [
+            "NPOI limb-darkened diameter plus Hipparcos parallax"
+          ]
+        },
+        {
+          "field": "metallicity_dex",
+          "value": -0.13,
+          "uncertainty": 0.04,
+          "status": "measured",
+          "reference": "2004A&A...415.1153S",
+          "qualityFlags": [
+            "spectroscopic [Fe/H]",
+            "adopted by 2012ApJ...744..138B"
+          ],
+          "quantity": "[Fe/H]"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.6,
+          "uncertainty": 0.2,
+          "status": "model-derived",
+          "reference": "2008ApJ...687.1264M",
+          "qualityFlags": [
+            "chromospheric activity age 0.4 Gyr",
+            "activity-rotation age 0.8 Gyr",
+            "range midpoint"
+          ]
+        }
+      ]
+    },
+    {
       "starViewId": "10pc-0031",
       "gaiaDr3Id": null,
       "note": "Procyon A component parameters: dynamical mass and preferred 2.70 Gyr high-core-overshoot age from Bond et al. (2015); age is model-dependent (alternative tracks 1.673 and 1.817 Gyr). Chiavassa et al. (2012) provide 6591 +/- 43 K and the 2.019 solar interferometric radius; the alternative bolometric flux gives 6556 +/- 84 K. Photospheric [Fe/H] is the differential 3D LTE result of Allende Prieto et al. (2002).",

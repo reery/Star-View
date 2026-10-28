@@ -320,7 +320,7 @@
         "luminosity_solar": 2.860878,
         "radius_solar": 1.2302687708123816,
         "metallicity_dex": 0.07,
-        "age_gyr": 3.4607518,
+        "age_gyr": null,
         "absolute_mag": 3.688283,
         "epoch": 2000.0,
         "type": "star",
@@ -329,7 +329,7 @@
         "constellation": "Eridanus",
         "spectral_type": "F7V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 12843; Stellarium Eri). SIMBAD identity * tau01 Eri; SIMBAD compiled Johnson V=4.46; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar, age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "notes": "Western constellation line-figure star (HIP 12843; Stellarium Eri). SIMBAD identity * tau01 Eri; SIMBAD compiled Johnson V=4.46; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
         "designations": [
           "HIP 12843"
         ],
@@ -658,12 +658,12 @@
         "vx_kms": -3.597,
         "vy_kms": 7.093,
         "vz_kms": -20.649,
-        "temperature_k": 5002.0,
-        "mass_solar": 0.8111994,
-        "luminosity_solar": 0.33970678,
-        "radius_solar": 0.77611643,
-        "metallicity_dex": 0.1258,
-        "age_gyr": 7.3040414,
+        "temperature_k": 5039.0,
+        "mass_solar": 0.82,
+        "luminosity_solar": 0.32,
+        "radius_solar": 0.74,
+        "metallicity_dex": -0.13,
+        "age_gyr": 0.6,
         "absolute_mag": 6.19,
         "epoch": 2000.0,
         "type": "star",
@@ -671,8 +671,8 @@
         "name": "Ran",
         "constellation": "Eridanus",
         "spectral_type": "K2V",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 16537; Stellarium Eri). SIMBAD identity * eps Eri; SIMBAD compiled Johnson V=3.73; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: Gaia DR3 model values for temperature_k, metallicity_dex, mass_solar, luminosity_solar, radius_solar, age_gyr. Adopted coordinate/motion bundle: nearest-100:epsilon-eridani. Adopt the exact-ID Gaia DR3 model temperature and mass already used by the constellation catalog instead of legacy class estimates; retain the existing Gaia model radius, luminosity, abundance and age.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 16537; Stellarium Eri). SIMBAD identity * eps Eri; SIMBAD compiled Johnson V=3.73; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Adopted coordinate/motion bundle: nearest-100:epsilon-eridani. Epsilon Eridani reviewed physical parameters. Baines & Armstrong (2012) combine the Navy Precision Optical Interferometer angular diameter with bolometric flux and the Hipparcos parallax for the temperature, radius and luminosity, and fit Yonsei-Yale isochrones for the mass. Santos et al. (2004) measure [Fe/H] spectroscopically. Mamajek & Hillenbrand (2008) estimate 0.4 Gyr from chromospheric activity and 0.8 Gyr from activity-inferred rotation; the adopted 0.6 +/- 0.2 Gyr spans both. The Gaia DR3 model values (5002 K, [M/H]=+0.13, 7.3 Gyr) remain in source provenance but are not adopted: the isochrone age contradicts the star's activity and rotation, and the positive abundance contradicts the measured sub-solar [Fe/H]. Adopt the reviewed component-scoped literature parameters instead of the Gaia DR3 model values, whose isochrone age and positive [M/H] contradict the star's youth and measured sub-solar abundance.",
         "designations": [
           "HIP 16537"
         ],
@@ -708,7 +708,7 @@
         "vy_kms": -26.974627,
         "vz_kms": -1.397294,
         "temperature_k": 11749.0,
-        "mass_solar": 3.5519633,
+        "mass_solar": null,
         "luminosity_solar": 221.80335121553773,
         "radius_solar": 3.8944376,
         "metallicity_dex": 0.7959,
@@ -721,7 +721,7 @@
         "constellation": "Eridanus",
         "spectral_type": "B9V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 16611; Stellarium Eri). SIMBAD identity * tau05 Eri; SIMBAD compiled Johnson V=4.25; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 16611; Stellarium Eri). SIMBAD identity * tau05 Eri; SIMBAD compiled Johnson V=4.25; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
         "designations": [
           "HIP 16611"
         ],
@@ -810,7 +810,7 @@
         "luminosity_solar": 5.3643155,
         "radius_solar": 1.5848931924611136,
         "metallicity_dex": 0.061,
-        "age_gyr": 2.387178,
+        "age_gyr": null,
         "absolute_mag": 2.950641,
         "epoch": 2000.0,
         "type": "star",
@@ -819,7 +819,7 @@
         "constellation": "Eridanus",
         "spectral_type": "F5IV-V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 17651; Stellarium Eri). SIMBAD identity * tau06 Eri; SIMBAD compiled Johnson V=4.2; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar, age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2020AJ....160...83S).",
+        "notes": "Western constellation line-figure star (HIP 17651; Stellarium Eri). SIMBAD identity * tau06 Eri; SIMBAD compiled Johnson V=4.2; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2020AJ....160...83S).",
         "designations": [
           "HIP 17651"
         ],
@@ -3067,7 +3067,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

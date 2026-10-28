@@ -211,17 +211,19 @@ def select_spectroscopy(observations, column, spectral_type=None):
     return max(consistent, key=lambda item: (item["bibcode"][:4], item["bibcode"], int(item.get("mespos") or 0)))
 
 
-def flame_withheld(gaia_temperature, temperature=None, metallicity=None):
+def flame_withheld(gaia_temperature, temperature=None, metallicity=None, gaia_metallicity=None):
     """Gaia DR3 FLAME fields that an adopted spectroscopic value invalidates.
 
     FLAME radius follows from its luminosity and the GSP-Phot temperature; mass
     and age also assume solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6).
-    A temperature offset beyond 2% exceeds GSP-Phot's typical accuracy.
+    A temperature offset beyond 2% exceeds GSP-Phot's typical accuracy. Gaia's own
+    GSP-Phot [M/H] beyond 0.3 dex either breaks that assumption or marks an
+    unreliable GSP-Phot solution (Andrae et al. 2023, 2023A&A...674A..27A).
     """
     withheld = set()
     if gaia_temperature is not None and temperature is not None and abs(gaia_temperature - temperature) > 0.02 * temperature:
         withheld |= {"radius_solar", "mass_solar", "age_gyr"}
-    if metallicity is not None and abs(metallicity) > 0.3:
+    if any(value is not None and abs(value) > 0.3 for value in (metallicity, gaia_metallicity)):
         withheld |= {"mass_solar", "age_gyr"}
     return withheld
 
@@ -382,7 +384,8 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
         if len(gaia_ids) == 1:
             physical = eligible_gaia_physical(gaia.get(next(iter(gaia_ids))))
             invalid = flame_withheld(physical["temperature_k"].value if "temperature_k" in physical else None, number(row.get("temperature_k")),
-                                     number(row.get("metallicity_dex")) if row.get("metallicity_kind") == "[Fe/H]" else None)
+                                     number(row.get("metallicity_dex")) if row.get("metallicity_kind") == "[Fe/H]" else None,
+                                     physical["metallicity_dex"].value if "metallicity_dex" in physical else None)
             for field, observation in physical.items():
                 if field in invalid:
                     continue

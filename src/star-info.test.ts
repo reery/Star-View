@@ -9,6 +9,7 @@ import constellationDefinitions from './data/constellation-star-info.json'
 import compactDefinitions from './data/compact-object-info.json'
 import legacyStarIds from './data/legacy-star-ids.json'
 import westernCsv from './data/catalogs/western-constellation-stars/stars.csv?raw'
+import nearest1000Csv from './data/catalogs/nearest-1000/stars.csv?raw'
 import { parseStarCatalog } from './catalog'
 import { loadStarInfo, starInfoForId } from './star-info'
 import { starInfoAvailable } from './star-info-availability'
@@ -96,12 +97,12 @@ describe('bright-star articles', () => {
 
   it('adds sourced articles without duplicating or replacing existing content', () => {
     const existingKeys = new Set([...Object.keys(definitions.articles), ...Object.keys(nearest100Definitions.articles)])
-    expect(Object.keys(constellationDefinitions.articles)).toHaveLength(423)
+    expect(Object.keys(constellationDefinitions.articles)).toHaveLength(785)
     for (const [id, definition] of Object.entries(constellationDefinitions.articles)) {
       expect(existingKeys.has(id), id).toBe(false)
       const article = starInfoForId(surviving(id))!
       expect(article.introduction.label, id).toBe(definition.name)
-      expect(article.introduction.source?.title, id).toMatch(/reviewed 2026-10-26$/)
+      expect(article.introduction.source?.title, id).toMatch(/reviewed 2026-10-28$/)
       expect(article.introduction.source?.url, id).toMatch(/^https:\/\//)
       expect(article.sections.length, id).toBeGreaterThan(0)
       expect(new Set(article.sections.map(({ id }) => id)).size, id).toBe(article.sections.length)
@@ -121,7 +122,7 @@ describe('nearest-100 articles', () => {
     expect(new Set(articles).size).toBe(76)
     for (const article of new Set(articles)) {
       expect(article!.introduction.source?.url).toMatch(/^https:\/\//)
-      expect(article!.introduction.source?.title).toMatch(/reviewed 2026-10-26$/)
+      expect(article!.introduction.source?.title).toMatch(/reviewed 2026-10-2[68]$/)
       expect(article!.sections.length).toBeGreaterThan(0)
       expect(article!.sections.every((section) => section.source?.url.startsWith('https://'))).toBe(true)
     }
@@ -156,17 +157,22 @@ describe('nearest-100 articles', () => {
 
 describe('single-star catalog aliases', () => {
   const westernIds = new Set(parseStarCatalog(westernCsv).map(({ id }) => id))
+  const catalogIds = new Set([westernCsv, nearest1000Csv].flatMap((source) => parseStarCatalog(source).map(({ id }) => id)))
   const aliased = [definitions, nearest100Definitions, constellationDefinitions].flatMap((dataset) =>
     Object.entries(dataset.articles as Record<string, { aliases?: string[] }>)
       .flatMap(([id, article]) => (article.aliases ?? []).map((alias) => [id, alias] as const)))
 
-  it('shares articles with the constellation catalog records of the same stars', () => {
+  it('shares articles with other catalog records of the same stars', () => {
     expect(Object.fromEntries(aliased.map(([, alias]) => [alias, starInfoForId(alias)?.introduction.label]))).toEqual({
       'hip-16537': 'Epsilon Eridani', 'hip-8102': 'Tau Ceti', 'hip-97649': 'Altair',
       'hip-91262': 'Vega', 'hip-37826': 'Pollux', 'hip-69673': 'Arcturus', 'hip-67927': 'Muphrid',
+      'cns5-2899': 'Denebola', 'cns5-0125': 'Beta Hydri', 'cns5-5370': 'Deneb Algedi', 'cns5-3915': 'Beta Trianguli Australis',
+      'cns5-2366': 'Theta Ursae Majoris', 'cns5-1208': 'Tabit', 'cns5-0938': 'Rana', 'cns5-4994': 'Delta Pavonis',
+      'cns5-3922': 'Gamma Serpentis', 'cns5-5836': 'Iota Piscium', 'cns5-5277': 'Gamma Pavonis', 'cns5-0102': 'Zeta Tucanae',
+      'cns5-3247': 'Beta Comae Berenices', 'cns5-0843': 'e Eridani',
     })
     for (const [id, alias] of aliased) {
-      expect(westernIds.has(alias), alias).toBe(true)
+      expect(catalogIds.has(alias), alias).toBe(true)
       expect(starComponentIdentity(alias), alias).toBeUndefined()
       expect(starInfoForId(alias), alias).toBe(starInfoForId(id))
     }

@@ -120,11 +120,11 @@
         "vy_kms": -7.967732,
         "vz_kms": -3.665382,
         "temperature_k": 8128.0,
-        "mass_solar": 1.7742587,
+        "mass_solar": null,
         "luminosity_solar": 12.886789970791432,
         "radius_solar": 1.7514915,
         "metallicity_dex": 0.08,
-        "age_gyr": 0.6167535,
+        "age_gyr": null,
         "absolute_mag": 2.082533,
         "epoch": 2000.0,
         "type": "star",
@@ -133,7 +133,7 @@
         "constellation": "Indus",
         "spectral_type": "A5IV-V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 105319; Stellarium Ind). SIMBAD identity * tet Ind; SIMBAD compiled Johnson V=4.483; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for mass_solar, radius_solar, age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
+        "notes": "Western constellation line-figure star (HIP 105319; Stellarium Ind). SIMBAD identity * tet Ind; SIMBAD compiled Johnson V=4.483; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
         "designations": [
           "HIP 105319"
         ],
@@ -906,7 +906,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

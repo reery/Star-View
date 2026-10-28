@@ -712,7 +712,7 @@
         "luminosity_solar": 32.00219308639512,
         "radius_solar": 3.0902954325135905,
         "metallicity_dex": -0.5796,
-        "age_gyr": 0.8578875,
+        "age_gyr": null,
         "absolute_mag": 0.924953,
         "epoch": 2000.0,
         "type": "star",
@@ -721,7 +721,7 @@
         "constellation": "Sagittarius",
         "spectral_type": "A9IV",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 95168; Stellarium Sgr). SIMBAD identity * rho01 Sgr; SIMBAD compiled Johnson V=3.93; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 95168; Stellarium Sgr). SIMBAD identity * rho01 Sgr; SIMBAD compiled Johnson V=3.93; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
         "designations": [
           "HIP 95168"
         ],
@@ -810,7 +810,7 @@
         "luminosity_solar": 92.08215928787241,
         "radius_solar": 2.290867652767773,
         "metallicity_dex": 0.4463,
-        "age_gyr": 0.20991403,
+        "age_gyr": null,
         "absolute_mag": 0.232234,
         "epoch": 2000.0,
         "type": "star",
@@ -819,7 +819,7 @@
         "constellation": "Sagittarius",
         "spectral_type": "B8V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 95347; Stellarium Sgr). SIMBAD identity * alf Sgr; SIMBAD compiled Johnson V=3.943; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 95347; Stellarium Sgr). SIMBAD identity * alf Sgr; SIMBAD compiled Johnson V=3.943; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
         "designations": [
           "HIP 95347"
         ],
@@ -859,7 +859,7 @@
         "luminosity_solar": 27.06291615937453,
         "radius_solar": 3.1622776601683795,
         "metallicity_dex": -0.3981,
-        "age_gyr": 0.77233887,
+        "age_gyr": null,
         "absolute_mag": 1.100902,
         "epoch": 2000.0,
         "type": "star",
@@ -868,7 +868,7 @@
         "constellation": "Sagittarius",
         "spectral_type": "A1mA2-F0",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 96406; Stellarium Sgr). SIMBAD identity * h01 Sgr; SIMBAD compiled Johnson V=5.64; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 96406; Stellarium Sgr). SIMBAD identity * h01 Sgr; SIMBAD compiled Johnson V=5.64; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
         "designations": [
           "HIP 96406"
         ],
@@ -1886,7 +1886,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

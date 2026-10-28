@@ -70,10 +70,10 @@
         "vx_kms": -10.799592,
         "vy_kms": -21.703278,
         "vz_kms": -14.828648,
-        "temperature_k": 12589.0,
+        "temperature_k": 17000.0,
         "mass_solar": 3.86,
-        "luminosity_solar": 331.0100760128617,
-        "radius_solar": 3.630780547701014,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": 0.13,
         "age_gyr": null,
         "absolute_mag": -1.174901,
@@ -84,7 +84,7 @@
         "constellation": "Corona Borealis",
         "spectral_type": "B6Vnne",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 76127; Stellarium CrB). SIMBAD identity * tet CrB; SIMBAD compiled Johnson V=4.13; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P).",
+        "notes": "Western constellation line-figure star (HIP 76127; Stellarium CrB). SIMBAD identity * tet CrB; SIMBAD compiled Johnson V=4.13; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P). Reviewed hot-star temperature: 2023MNRAS.519.5472M, * tet CrB mesFe_h record 1, 17000 K. Rapidly rotating Be star: the temperature describes the star, not its much cooler disk or separately resolved polar/equatorial surfaces. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old evolutionary-model radius and the broadband SED luminosity, whose own fit is also far too cool, are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 76127"
         ],
@@ -746,7 +746,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

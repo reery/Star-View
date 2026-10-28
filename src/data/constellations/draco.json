@@ -414,11 +414,11 @@
         "vy_kms": -1.221345,
         "vz_kms": -25.752336,
         "temperature_k": 7413.0,
-        "mass_solar": 1.589873,
+        "mass_solar": null,
         "luminosity_solar": 8.210854,
         "radius_solar": 1.8290707,
         "metallicity_dex": -0.5683,
-        "age_gyr": 1.2132428,
+        "age_gyr": null,
         "absolute_mag": 2.483251,
         "epoch": 2000.0,
         "type": "star",
@@ -427,7 +427,7 @@
         "constellation": "Draco",
         "spectral_type": "kA4hF2VmF3",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 85829; Stellarium Dra). SIMBAD identity * nu.02 Dra; Hipparcos Johnson V=4.86 (SIMBAD V unavailable); Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k; Gaia DR3 model values for metallicity_dex, mass_solar, luminosity_solar, radius_solar, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 85829; Stellarium Dra). SIMBAD identity * nu.02 Dra; Hipparcos Johnson V=4.86 (SIMBAD V unavailable); Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k; Gaia DR3 model values for metallicity_dex, luminosity_solar, radius_solar.",
         "designations": [
           "HIP 85829"
         ],
@@ -3287,7 +3287,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

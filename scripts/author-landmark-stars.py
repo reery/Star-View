@@ -404,10 +404,12 @@ def enrich_physical(row, source):
                 if (selected := select_spectroscopy(spectra, column, source["sp_type"]))}
     gaia_temperature = optional_number(gaia_values.get("temperature_k"))
     replaced = {field for field in measured if field in gaia_values and not row[field]}
-    for field in sorted(replaced | flame_withheld(gaia_temperature, measured.get("temperature_k"), measured.get("metallicity_dex"))):
+    superseded = replaced | flame_withheld(gaia_temperature, measured.get("temperature_k"), measured.get("metallicity_dex"))
+    for field in sorted(superseded | flame_withheld(None, gaia_metallicity=optional_number(gaia_values.get("metallicity_dex")))):
         if field in gaia_values and not row[field]:
             del gaia_values[field]
-            observations.extend({**observation, "status": "superseded-by-spectroscopy"} for observation in gaia_observations if observation["field"] == field)
+            status = "superseded-by-spectroscopy" if field in superseded else "withheld-gaia-metallicity"
+            observations.extend({**observation, "status": status} for observation in gaia_observations if observation["field"] == field)
     for field, value in gaia_values.items():
         if not row[field]:
             row[field] = value

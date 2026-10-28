@@ -10946,11 +10946,11 @@
   "catalogId": "nearest-1000",
   "coverage": {
     "absolute_mag": 566,
-    "age_gyr": 55,
+    "age_gyr": 36,
     "constellation": 1036,
     "luminosity_solar": 715,
-    "mass_solar": 681,
-    "metallicity_dex": 607,
+    "mass_solar": 669,
+    "metallicity_dex": 606,
     "radial_velocity_kms": 712,
     "radius_solar": 735,
     "spectral_type": 977,
@@ -11073,7 +11073,7 @@
           "constellation"
         ],
         "recordId": "* alf Cen A",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component alpha-centauri-a; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -11168,7 +11168,7 @@
           "radial_velocity_kms"
         ],
         "recordId": "* alf CMa",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component sirius-a; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -11232,7 +11232,7 @@
           "radial_velocity_ref"
         ],
         "recordId": "compact-system:luyten-726-8-a",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Exact Luyten 726-8 A component. Shared gj65 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -11283,7 +11283,7 @@
           "radial_velocity_ref"
         ],
         "recordId": "compact-system:luyten-726-8-b",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Exact Luyten 726-8 B component. Shared gj65 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -11365,7 +11365,7 @@
           "age_gyr"
         ],
         "recordId": "* eps Eri",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component epsilon-eridani; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -11404,7 +11404,7 @@
             "source": "nearest-100:epsilon-eridani"
           },
           "physical": {
-            "decision": "Adopt the exact-ID Gaia DR3 model temperature and mass already used by the constellation catalog instead of legacy class estimates; retain the existing Gaia model radius, luminosity, abundance and age.",
+            "decision": "Adopt the reviewed component-scoped literature parameters instead of the Gaia DR3 model values, whose isochrone age and positive [M/H] contradict the star's youth and measured sub-solar abundance.",
             "fields": [
               "temperature_k",
               "mass_solar",
@@ -11414,7 +11414,7 @@
               "metallicity_kind",
               "age_gyr"
             ],
-            "source": "western-constellation-stars:hip-16537"
+            "source": "nearest-100:epsilon-eridani"
           }
         }
       },
@@ -11446,7 +11446,7 @@
           "luminosity_solar"
         ],
         "recordId": "GJ 866 A",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "EZ Aquarii A retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -11572,7 +11572,7 @@
           "luminosity_solar"
         ],
         "recordId": "GJ 866 B",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "EZ Aquarii B retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -11706,7 +11706,7 @@
           "luminosity_solar"
         ],
         "recordId": "GJ 866 C",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "EZ Aquarii C retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -11862,7 +11862,7 @@
           "age_gyr"
         ],
         "recordId": "* alf CMi",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component 10pc-0031; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -11976,7 +11976,7 @@
           "radial_velocity_kms"
         ],
         "recordId": "* tau Cet",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component 10pc-0044; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -12062,7 +12062,7 @@
           "luminosity_solar"
         ],
         "recordId": "GJ 825 / AX Mic / HIP 105090 / Lacaille 8760",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Exact individual GJ 825 / AX Mic / HIP 105090 / Lacaille 8760, Gaia DR3 6583272171336048640; no companion or integrated-system quantities.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -12154,7 +12154,7 @@
           "mass_solar"
         ],
         "recordId": "compact-system:10pc-0066",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Exact V577 Mon A component. Shared ross614 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -12250,7 +12250,7 @@
           "mass_solar"
         ],
         "recordId": "compact-system:10pc-0067",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Exact V577 Mon B component. Shared ross614 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -12358,7 +12358,7 @@
           "mass_solar"
         ],
         "recordId": "compact-system:10pc-0074",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Exact FL Vir A component. Shared wolf424 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -12471,7 +12471,7 @@
           "mass_solar"
         ],
         "recordId": "compact-system:10pc-0075",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Exact FL Vir B component. Shared wolf424 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -12570,7 +12570,7 @@
           "mass_solar"
         ],
         "recordId": "GJ 687 / HIP 86162",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Exact individual GJ 687 / HIP 86162, Gaia DR3 1637645127018395776; no companion or integrated-system quantities.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -12644,7 +12644,7 @@
           "absolute_mag"
         ],
         "recordId": "compact-system:10pc-0089",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Exact GJ 1245 B component. Shared gj1245 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -12756,7 +12756,7 @@
           "luminosity_solar"
         ],
         "recordId": "compact-system:10pc-0087",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Exact GJ 1245 A component. Shared gj1245 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -12885,7 +12885,7 @@
           "luminosity_solar"
         ],
         "recordId": "compact-system:10pc-0088",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Exact GJ 1245 C component. Shared gj1245 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -13020,7 +13020,7 @@
           "absolute_mag"
         ],
         "recordId": "GJ 412 A / BD+44 2051 A",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Exact individual GJ 412 A / BD+44 2051 A, Gaia DR3 778947814402602752; no companion or integrated-system quantities.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -13058,7 +13058,7 @@
           "absolute_mag"
         ],
         "recordId": "GJ 412 B / WX UMa",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Exact individual GJ 412 B / WX UMa, Gaia DR3 778947608243864320; no companion or integrated-system quantities.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -13164,7 +13164,7 @@
           "age_gyr"
         ],
         "recordId": "* alf Aql",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component 10pc-0117; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -16592,9 +16592,9 @@
       "cns5Id": "4232",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
-        "mass_solar": "model-derived",
+        "mass_solar": "unknown",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "gaia-dr3-fallback",
         "radius_solar": "model-derived",
@@ -16724,6 +16724,30 @@
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "4109030160308320128",
+            "status": "model-derived",
+            "uncertainty": 1.9677582000000005,
+            "value": 7.2138996
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "4109030160308320128",
+            "status": "model-derived",
+            "uncertainty": 0.04010590000000003,
+            "value": 0.8094933
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -17970,7 +17994,7 @@
           "constellation"
         ],
         "recordId": "* e Eri",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-0843; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -18469,7 +18493,7 @@
           "metallicity_kind"
         ],
         "recordId": "* del Pav",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-4994; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -28192,7 +28216,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* bet Hyi",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-0125; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -29523,7 +29547,7 @@
         "absolute_mag": "derived-from-compiled-Johnson-V",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
-        "mass_solar": "model-derived",
+        "mass_solar": "unknown",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
         "radius_solar": "model-derived",
@@ -29642,6 +29666,18 @@
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
         "observations": {
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "96331172942614528",
+            "status": "model-derived",
+            "uncertainty": 0.040000000000000036,
+            "value": 0.8127994
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -30863,7 +30899,7 @@
           "age_gyr"
         ],
         "recordId": "* alf Lyr",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-4607; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -31059,7 +31095,7 @@
           "age_gyr"
         ],
         "recordId": "* alf PsA",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-5665; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -34182,7 +34218,7 @@
           "radial_velocity_ref"
         ],
         "recordId": "* pi.03 Ori",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-1208; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -39966,7 +40002,7 @@
           "constellation"
         ],
         "recordId": "* zet Tuc",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-0102; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -40716,6 +40752,30 @@
       "sourceType": "SB*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "3399063235755057792",
+            "status": "model-derived",
+            "uncertainty": 1.0344633000000005,
+            "value": 5.869017
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "3399063235755057792",
+            "status": "model-derived",
+            "uncertainty": 0.04009790000000013,
+            "value": 1.0000995
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -42388,8 +42448,8 @@
         "mass_solar": "unknown",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
-        "radius_solar": "derived",
-        "temperature_k": "measured"
+        "radius_solar": "adopted",
+        "temperature_k": "adopted"
       },
       "gaiaDr3Id": "5951165616611763456",
       "id": "cns5-4255",
@@ -42485,6 +42545,48 @@
           "valueKms": 26.03561019897461
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "temperature_k",
+          "radius_solar"
+        ],
+        "recordId": "* 41 Ara",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "scope": "Exact named catalog object * 41 Ara / HIP 84720 / HD 156274; distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "radius_solar": {
+                "inputs": {
+                  "luminosity_solar": 0.45979026,
+                  "temperature_k": 5242
+                },
+                "method": "Stefan-Boltzmann scaling R = sqrt(L) (5772 K / Teff)^2 from the retained luminosity and the reviewed temperature",
+                "status": "derived",
+                "value": 0.822126212
+              },
+              "temperature_k": {
+                "method": "Newest frozen SIMBAD mesFe_h value within 2 percent of the pool median (Gaia DR3 republications excluded). The automatic 10 percent rule had selected an edge value from a single recent survey.",
+                "reference": "2024A&A...683A.125P",
+                "sourceRecordId": "* 41 Ara:mesFe_h:2",
+                "status": "measured",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "uncertainty": null,
+                "url": "https://ui.adsabs.harvard.edu/abs/2024A%26A...683A.125P",
+                "value": 5242
+              }
+            },
+            "decision": "Replace the edge-of-tolerance survey value with the newest value at the spectroscopic consensus.",
+            "fields": [
+              "temperature_k",
+              "radius_solar"
+            ],
+            "recordId": "* 41 Ara",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -45859,7 +45961,7 @@
           "constellation"
         ],
         "recordId": "* gam Lep",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-1427; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -46353,7 +46455,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* del Eri",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-0938; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -47537,7 +47639,7 @@
       "cns5Id": "3247",
       "fieldStatus": {
         "absolute_mag": "adopted",
-        "age_gyr": "model-derived",
+        "age_gyr": "adopted",
         "astrometry_epoch": "adopted",
         "astrometry_ref": "adopted",
         "constellation": "adopted",
@@ -47683,10 +47785,11 @@
           "radial_velocity_error_kms",
           "astrometry_ref",
           "epoch",
-          "constellation"
+          "constellation",
+          "age_gyr"
         ],
         "recordId": "* bet Com",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-3247; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -47723,6 +47826,26 @@
               "absolute_mag"
             ],
             "source": "nearest-1000:cns5-3247"
+          },
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "age_gyr": {
+                "caveat": "Range midpoint; the half-range is not a statistical error.",
+                "method": "Chromospheric-activity age 2.5 Gyr and activity-rotation age 1.5 Gyr; the adopted value spans both.",
+                "reference": "2008ApJ...687.1264M",
+                "section": "Table 13, HD 114710",
+                "status": "model-derived",
+                "uncertainty": 0.5,
+                "url": "https://arxiv.org/abs/0807.1686",
+                "value": 2.0
+              }
+            },
+            "decision": "Adopt the published activity and rotation ages instead of the Gaia DR3 FLAME age.",
+            "fields": [
+              "age_gyr"
+            ],
+            "recordId": "* bet Com",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
           }
         }
       },
@@ -49277,7 +49400,7 @@
           "constellation"
         ],
         "recordId": "* gam Pav",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-5277; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -50351,9 +50474,9 @@
       "cns5Id": "2879",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
-        "mass_solar": "model-derived",
+        "mass_solar": "unknown",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
         "radius_solar": "model-derived",
@@ -50484,6 +50607,30 @@
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "5381537023379295232",
+            "status": "model-derived",
+            "uncertainty": 1.4209340000000008,
+            "value": 12.461332
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "5381537023379295232",
+            "status": "model-derived",
+            "uncertainty": 0.04000540000000008,
+            "value": 0.889921
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -54162,9 +54309,9 @@
       "cns5Id": "2859",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
-        "mass_solar": "model-derived",
+        "mass_solar": "unknown",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
         "radius_solar": "model-derived",
@@ -54295,6 +54442,30 @@
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "4025850731201819392",
+            "status": "model-derived",
+            "uncertainty": 1.5152889999999992,
+            "value": 10.401634
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "4025850731201819392",
+            "status": "model-derived",
+            "uncertainty": 0.040015739999999966,
+            "value": 0.87211156
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -65789,7 +65960,7 @@
           "age_gyr"
         ],
         "recordId": "* bet Gem",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-1912; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -69751,7 +69922,7 @@
       "cns5Id": "2446",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
         "metallicity_dex": "measured",
@@ -69969,6 +70140,30 @@
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "1051547052218220160",
+            "status": "model-derived",
+            "uncertainty": 4.693859699999999,
+            "value": 9.087701
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "1051547052218220160",
+            "status": "model-derived",
+            "uncertainty": 0.040028749999999946,
+            "value": 0.5991109
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -80829,9 +81024,9 @@
       "cns5Id": "3269",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
-        "mass_solar": "model-derived",
+        "mass_solar": "unknown",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
         "radius_solar": "model-derived",
@@ -80962,6 +81157,30 @@
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "3936909723803146368",
+            "status": "model-derived",
+            "uncertainty": 2.4251059999999995,
+            "value": 13.048174
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "3936909723803146368",
+            "status": "model-derived",
+            "uncertainty": 0.04023829999999995,
+            "value": 0.7660175
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -81570,7 +81789,7 @@
           "age_gyr"
         ],
         "recordId": "* bet Leo",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-2899; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -84648,7 +84867,7 @@
       "cns5Id": "687",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -84752,6 +84971,15 @@
         "status": "compiled-cns5"
       },
       "sharedPhysicalEnrichment": {
+        "mass_solar": {
+          "field": "mass_solar",
+          "identity": "* tet Per",
+          "reference": "1999A&A...352..555A",
+          "sourceRecordId": "HIP 12777",
+          "status": "model-derived",
+          "uncertainty": 0.1,
+          "value": 1.15
+        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "identity": "* tet Per",
@@ -84781,6 +85009,30 @@
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "438829629114680704",
+            "status": "model-derived",
+            "uncertainty": 0.5978255999999997,
+            "value": 2.774404
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "438829629114680704",
+            "status": "model-derived",
+            "uncertainty": 0.04000809999999988,
+            "value": 1.1880293
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -87774,7 +88026,7 @@
       "cns5Id": "3922",
       "fieldStatus": {
         "absolute_mag": "adopted",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "astrometry_epoch": "adopted",
         "astrometry_ref": "adopted",
         "constellation": "adopted",
@@ -87923,7 +88175,7 @@
           "constellation"
         ],
         "recordId": "* gam Ser",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-3922; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -87964,6 +88216,15 @@
         }
       },
       "sharedPhysicalEnrichment": {
+        "mass_solar": {
+          "field": "mass_solar",
+          "identity": "* gam Ser",
+          "reference": "1999A&A...352..555A",
+          "sourceRecordId": "HIP 78072",
+          "status": "model-derived",
+          "uncertainty": 0.01,
+          "value": 1.28
+        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "identity": "* gam Ser",
@@ -87993,6 +88254,30 @@
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "1193030490492925824",
+            "status": "model-derived",
+            "uncertainty": 0.5394458000000002,
+            "value": 3.7692122
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "1193030490492925824",
+            "status": "model-derived",
+            "uncertainty": 0.04001849999999996,
+            "value": 1.2285318
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -88274,7 +88559,7 @@
           "age_gyr"
         ],
         "recordId": "* alf Boo",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-3517; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -90481,7 +90766,7 @@
           "age_gyr"
         ],
         "recordId": "* eta Boo",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-3442; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -95197,9 +95482,9 @@
       "cns5Id": "2197",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
-        "mass_solar": "model-derived",
+        "mass_solar": "unknown",
         "metallicity_dex": "model-derived",
         "radial_velocity_kms": "unknown",
         "radius_solar": "model-derived",
@@ -95301,7 +95586,36 @@
         "status": "unknown"
       },
       "simbadId": "HD  75632A",
-      "sourceType": "SB*"
+      "sourceType": "SB*",
+      "supersededGaiaPhysical": {
+        "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "1118916397395366656",
+            "status": "model-derived",
+            "uncertainty": 4.502853600000001,
+            "value": 9.932451
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "1118916397395366656",
+            "status": "model-derived",
+            "uncertainty": 0.04033416999999995,
+            "value": 0.60668117
+          }
+        },
+        "reason": "Published spectroscopic consensus outranks Gaia DR3 GSP-Phot; FLAME radius, mass and age derived from a GSP-Phot temperature more than 2% off, or with solar-metallicity tracks for |[Fe/H]| > 0.3, are withheld."
+      }
     },
     {
       "astrometry": {
@@ -95325,9 +95639,9 @@
       "cns5Id": "2198",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
-        "mass_solar": "model-derived",
+        "mass_solar": "unknown",
         "metallicity_dex": "model-derived",
         "radial_velocity_kms": "unknown",
         "radius_solar": "model-derived",
@@ -95436,7 +95750,36 @@
         "status": "unknown"
       },
       "simbadId": "HD  75632B",
-      "sourceType": "PM*"
+      "sourceType": "PM*",
+      "supersededGaiaPhysical": {
+        "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "1118916397393675648",
+            "status": "model-derived",
+            "uncertainty": 4.1653086,
+            "value": 11.782787
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "1118916397393675648",
+            "status": "model-derived",
+            "uncertainty": 0.040000040000000014,
+            "value": 0.621514
+          }
+        },
+        "reason": "Published spectroscopic consensus outranks Gaia DR3 GSP-Phot; FLAME radius, mass and age derived from a GSP-Phot temperature more than 2% off, or with solar-metallicity tracks for |[Fe/H]| > 0.3, are withheld."
+      }
     },
     {
       "astrometry": {
@@ -96546,7 +96889,7 @@
       "cns5Id": "2800",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "empirical-relation",
         "metallicity_dex": "model-derived",
@@ -96694,7 +97037,36 @@
         "status": "compiled-cns5"
       },
       "simbadId": "HD  99279B",
-      "sourceType": "PM*"
+      "sourceType": "PM*",
+      "supersededGaiaPhysical": {
+        "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "5334356223546958464",
+            "status": "model-derived",
+            "uncertainty": 4.0283883,
+            "value": 10.292188
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "5334356223546958464",
+            "status": "model-derived",
+            "uncertainty": 0.040000050000000065,
+            "value": 0.6284773
+          }
+        },
+        "reason": "Published spectroscopic consensus outranks Gaia DR3 GSP-Phot; FLAME radius, mass and age derived from a GSP-Phot temperature more than 2% off, or with solar-metallicity tracks for |[Fe/H]| > 0.3, are withheld."
+      }
     },
     {
       "astrometry": {
@@ -96926,9 +97298,9 @@
       "cns5Id": "1279",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "adopted",
         "luminosity_solar": "model-derived",
-        "mass_solar": "model-derived",
+        "mass_solar": "unknown",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
         "radius_solar": "model-derived",
@@ -97029,7 +97401,54 @@
         },
         "status": "compiled-cns5"
       },
+      "sharedObjectAdoption": {
+        "fields": [
+          "mass_solar",
+          "age_gyr"
+        ],
+        "recordId": "* zet Dor",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "scope": "Exact named catalog object * zet Dor / HIP 23693 / HD 33262; distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "age_gyr": {
+                "caveat": "The paper quotes 15-20 percent accuracy below 0.5 Gyr, rising to as much as 60 percent for older stars; no symmetric uncertainty is invented.",
+                "method": "Chromospheric-activity age from log R'HK through the Mamajek & Hillenbrand (2008) calibration.",
+                "reference": "2012A&A...541A..40M",
+                "section": "Table 1, log(age/yr) = 8.76",
+                "status": "model-derived",
+                "uncertainty": null,
+                "url": "https://arxiv.org/abs/1202.5884",
+                "value": 0.575
+              },
+              "mass_solar": {
+                "reason": "Gaia DR3 FLAME mass assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6), but Gaia's own GSP-Phot [M/H] for this star is -0.59, beyond the 0.3 dex limit at which the catalog already withholds FLAME mass and age.",
+                "status": "withheld",
+                "value": null
+              }
+            },
+            "decision": "Adopt the published activity age and withhold the FLAME mass, both of whose solar-metallicity assumption conflicts with Gaia's own [M/H].",
+            "fields": [
+              "mass_solar",
+              "age_gyr"
+            ],
+            "recordId": "* zet Dor",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
+      },
       "sharedPhysicalEnrichment": {
+        "mass_solar": {
+          "field": "mass_solar",
+          "identity": "* zet Dor",
+          "reference": "1999A&A...352..555A",
+          "sourceRecordId": "HIP 23693",
+          "status": "model-derived",
+          "uncertainty": 0.01,
+          "value": 0.99
+        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "identity": "* zet Dor",
@@ -97059,6 +97478,30 @@
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "4763906879239461632",
+            "status": "model-derived",
+            "uncertainty": 0.7760379,
+            "value": 3.6974847
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "4763906879239461632",
+            "status": "model-derived",
+            "uncertainty": 0.040007399999999915,
+            "value": 1.0888367
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -101551,7 +101994,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* del Cap",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-5370; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -101747,7 +102190,8 @@
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
-        "metallicity_dex": "model-derived",
+        "metallicity_dex": "unknown",
+        "metallicity_kind": "unknown",
         "radial_velocity_kms": "compiled-cns5",
         "radius_solar": "derived",
         "temperature_k": "model-derived"
@@ -101943,6 +102387,34 @@
           "valueKms": -16.312225341796875
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "metallicity_dex",
+          "metallicity_kind"
+        ],
+        "recordId": "HD 97101",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "scope": "Exact named catalog object HD 97101 / HIP 54646 / HD 97101; distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "metallicity_dex": {
+                "reason": "Uncalibrated Gaia DR3 GSP-Phot metallicity (2023A&A...674A..27A: qualitative only) of -0.74 lies below every catalogued spectroscopic value (-0.20 to +0.65); those values do not agree well enough to adopt one.",
+                "status": "withheld",
+                "value": null
+              }
+            },
+            "decision": "Withhold the contradicted Gaia DR3 metallicity; the spectroscopic pool has no consensus to adopt.",
+            "fields": [
+              "metallicity_dex",
+              "metallicity_kind"
+            ],
+            "recordId": "HD 97101",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "simbadId": "HD  97101",
       "sourceType": "PM*",
@@ -103307,6 +103779,30 @@
       "sourceType": "SB*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "1891598193816300544",
+            "status": "model-derived",
+            "uncertainty": 0.4708536000000003,
+            "value": 3.1123948
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "1891598193816300544",
+            "status": "model-derived",
+            "uncertainty": 0.04002349999999999,
+            "value": 1.2854419
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -104325,7 +104821,7 @@
       "cns5Id": "2694",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
         "metallicity_dex": "measured",
@@ -104526,19 +105022,6 @@
         "status": "gaia-dr3-fallback"
       },
       "sharedPhysicalEnrichment": {
-        "age_gyr": {
-          "field": "age_gyr",
-          "identity": "V* DS Leo",
-          "qualityFlags": [
-            "00"
-          ],
-          "quantity": null,
-          "reference": "Gaia DR3 astrophysical_parameters",
-          "sourceRecordId": "3988689609004982912",
-          "status": "model-derived",
-          "uncertainty": 8.210377699999999,
-          "value": 5.2896223
-        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "identity": "V* DS Leo",
@@ -106875,7 +107358,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* gam Vir",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-3135; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -107491,9 +107974,9 @@
       "cns5Id": "833",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
-        "mass_solar": "model-derived",
+        "mass_solar": "unknown",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
         "radius_solar": "model-derived",
@@ -107634,6 +108117,30 @@
       "sourceType": "**",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "4722135642226902656",
+            "status": "model-derived",
+            "uncertainty": 1.0270308999999997,
+            "value": 4.8597493
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "4722135642226902656",
+            "status": "model-derived",
+            "uncertainty": 0.040070149999999916,
+            "value": 0.99652565
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -114129,9 +114636,9 @@
       "cns5Id": "4715",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
-        "mass_solar": "model-derived",
+        "mass_solar": "unknown",
         "metallicity_dex": "model-derived",
         "radial_velocity_kms": "gaia-dr3-fallback",
         "radius_solar": "model-derived",
@@ -114241,7 +114748,36 @@
         "status": "gaia-dr3-fallback"
       },
       "simbadId": "HD 175224B",
-      "sourceType": "PM*"
+      "sourceType": "PM*",
+      "supersededGaiaPhysical": {
+        "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "6637963425890391552",
+            "status": "model-derived",
+            "uncertainty": 7.2107867,
+            "value": 11.625831
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "6637963425890391552",
+            "status": "model-derived",
+            "uncertainty": 0.04025733999999992,
+            "value": 0.54425186
+          }
+        },
+        "reason": "Published spectroscopic consensus outranks Gaia DR3 GSP-Phot; FLAME radius, mass and age derived from a GSP-Phot temperature more than 2% off, or with solar-metallicity tracks for |[Fe/H]| > 0.3, are withheld."
+      }
     },
     {
       "astrometry": {
@@ -115010,7 +115546,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* bet TrA",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-3915; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -119281,7 +119817,7 @@
       "cns5Id": "1332",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -119385,6 +119921,15 @@
         "status": "compiled-cns5"
       },
       "sharedPhysicalEnrichment": {
+        "mass_solar": {
+          "field": "mass_solar",
+          "identity": "* lam Aur",
+          "reference": "1999A&A...352..555A",
+          "sourceRecordId": "HIP 24813",
+          "status": "model-derived",
+          "uncertainty": 0.11,
+          "value": 1.15
+        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "identity": "* lam Aur",
@@ -119414,6 +119959,30 @@
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "188771135583573504",
+            "status": "model-derived",
+            "uncertainty": 1.0063309999999994,
+            "value": 10.108401
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "188771135583573504",
+            "status": "model-derived",
+            "uncertainty": 0.04000169999999992,
+            "value": 0.9979292
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -128243,7 +128812,7 @@
       "cns5Id": "3399",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
         "metallicity_dex": "measured",
@@ -128444,19 +129013,6 @@
         "status": "compiled-cns5"
       },
       "sharedPhysicalEnrichment": {
-        "age_gyr": {
-          "field": "age_gyr",
-          "identity": "BD+18 2776",
-          "qualityFlags": [
-            "00"
-          ],
-          "quantity": null,
-          "reference": "Gaia DR3 astrophysical_parameters",
-          "sourceRecordId": "1244644727396803584",
-          "status": "model-derived",
-          "uncertainty": 7.016476,
-          "value": 12.881973
-        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "identity": "BD+18 2776",
@@ -129084,7 +129640,7 @@
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
         "radius_solar": "unknown",
-        "temperature_k": "measured"
+        "temperature_k": "adopted"
       },
       "gaiaDr3Id": "3210731015768096000",
       "id": "cns5-1361",
@@ -129143,6 +129699,37 @@
           "valueKms": -55.60546875
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "temperature_k"
+        ],
+        "recordId": "HD 36003",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "scope": "Exact named catalog object HD 36003 / HIP 25623 / HD 36003; distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "temperature_k": {
+                "method": "Newest frozen SIMBAD mesFe_h value within 2 percent of the pool median (Gaia DR3 republications excluded). The automatic 10 percent rule had selected an edge value from a single recent survey.",
+                "reference": "2022A&A...663A...4S",
+                "sourceRecordId": "HD 36003:mesFe_h:3",
+                "status": "measured",
+                "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+                "uncertainty": null,
+                "url": "https://ui.adsabs.harvard.edu/abs/2022A%26A...663A...4S",
+                "value": 4565
+              }
+            },
+            "decision": "Replace the edge-of-tolerance survey value with the newest value at the spectroscopic consensus.",
+            "fields": [
+              "temperature_k"
+            ],
+            "recordId": "HD 36003",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -135639,9 +136226,9 @@
       "cns5Id": "4578",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
-        "mass_solar": "model-derived",
+        "mass_solar": "unknown",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
         "radius_solar": "model-derived",
@@ -135772,6 +136359,30 @@
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "4093301474693288960",
+            "status": "model-derived",
+            "uncertainty": 2.038291,
+            "value": 8.999755
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "4093301474693288960",
+            "status": "model-derived",
+            "uncertainty": 0.04010523999999993,
+            "value": 0.79944736
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -145110,7 +145721,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* tet UMa",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-2366; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -149665,7 +150276,7 @@
           "radial_velocity_error_kms"
         ],
         "recordId": "* bet Aql",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-4929; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -151610,7 +152221,7 @@
       "cns5Id": "5836",
       "fieldStatus": {
         "absolute_mag": "adopted",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "astrometry_epoch": "adopted",
         "astrometry_ref": "adopted",
         "constellation": "adopted",
@@ -151759,7 +152370,7 @@
           "constellation"
         ],
         "recordId": "* iot Psc",
-        "reviewSha256": "6a3e8b77fd84c1062a9851e73cc0764dd71a4704ea297ff3c29989f5908ee8b3",
+        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
         "scope": "Reviewed catalog object/component cns5-5836; aliases only, distinct companions remain separate.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -151800,6 +152411,15 @@
         }
       },
       "sharedPhysicalEnrichment": {
+        "mass_solar": {
+          "field": "mass_solar",
+          "identity": "* iot Psc",
+          "reference": "1999A&A...352..555A",
+          "sourceRecordId": "HIP 116771",
+          "status": "model-derived",
+          "uncertainty": 0.07,
+          "value": 1.38
+        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "identity": "* iot Psc",
@@ -151829,6 +152449,30 @@
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "2756363608023588864",
+            "status": "model-derived",
+            "uncertainty": 0.4912054999999995,
+            "value": 3.6627371
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "2756363608023588864",
+            "status": "model-derived",
+            "uncertainty": 0.04012609999999994,
+            "value": 1.2706136
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -155907,7 +156551,7 @@
       "cns5Id": "923",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -156011,6 +156655,15 @@
         "status": "gaia-dr3-fallback"
       },
       "sharedPhysicalEnrichment": {
+        "mass_solar": {
+          "field": "mass_solar",
+          "identity": "* 10 Tau",
+          "reference": "1999A&A...352..555A",
+          "sourceRecordId": "HIP 16852",
+          "status": "model-derived",
+          "uncertainty": 0.11,
+          "value": 1.25
+        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "identity": "* 10 Tau",
@@ -156040,6 +156693,30 @@
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
         "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "3263836568394170880",
+            "status": "model-derived",
+            "uncertainty": 0.6940531999999999,
+            "value": 6.5748577
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "3263836568394170880",
+            "status": "model-derived",
+            "uncertainty": 0.04002910000000015,
+            "value": 1.1299533
+          },
           "metallicity_dex": {
             "field": "metallicity_dex",
             "quality_flags": [],
@@ -156821,9 +157498,9 @@
       "cns5Id": "4901",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
-        "mass_solar": "model-derived",
+        "mass_solar": "unknown",
         "metallicity_dex": "model-derived",
         "radial_velocity_kms": "compiled-cns5",
         "radius_solar": "model-derived",
@@ -156942,7 +157619,36 @@
         "status": "compiled-cns5"
       },
       "simbadId": "HD 331161A",
-      "sourceType": "PM*"
+      "sourceType": "PM*",
+      "supersededGaiaPhysical": {
+        "observations": {
+          "age_gyr": {
+            "field": "age_gyr",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "2034581091118259328",
+            "status": "model-derived",
+            "uncertainty": 7.524668,
+            "value": 11.904745
+          },
+          "mass_solar": {
+            "field": "mass_solar",
+            "quality_flags": [
+              "00"
+            ],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "2034581091118259328",
+            "status": "model-derived",
+            "uncertainty": 0.04043012999999995,
+            "value": 0.54219824
+          }
+        },
+        "reason": "Published spectroscopic consensus outranks Gaia DR3 GSP-Phot; FLAME radius, mass and age derived from a GSP-Phot temperature more than 2% off, or with solar-metallicity tracks for |[Fe/H]| > 0.3, are withheld."
+      }
     },
     {
       "astrometry": {
@@ -157452,7 +158158,7 @@
   "reviewedComponentPropertiesSha256": "3dd8ee6dacb8b0d219e66d95fd0ebc65a9f6c845b0756eca6e5a8d8f8eab6f70",
   "reviewedMembershipExclusionsSha256": "90729a1d4bd511cd46b95012a5e9bae55da6d73682dfbf579da53caac6fa4327",
   "schemaVersion": 1,
-  "sharedEnrichmentManifestSha256": "78a0b004bfa1577e6cb18661df7e0413815bbe99f12e383237290539bbfc342d",
+  "sharedEnrichmentManifestSha256": "c0769f98edd40132a0d9958d183a5d70de14b73d1a0e9455d85cc71bad7d539f",
   "sourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
   "sources": [
     {

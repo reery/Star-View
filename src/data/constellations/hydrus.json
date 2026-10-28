@@ -172,8 +172,8 @@
         "mass_solar": 2.7,
         "luminosity_solar": 68.75200384681497,
         "radius_solar": 2.1877616239495525,
-        "metallicity_dex": -0.5397,
-        "age_gyr": 0.26643214,
+        "metallicity_dex": null,
+        "age_gyr": null,
         "absolute_mag": 0.737412,
         "epoch": 2000.0,
         "type": "star",
@@ -181,8 +181,8 @@
         "name": "Epsilon Hyi",
         "constellation": "Hydrus",
         "spectral_type": "B9Va",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 12394; Stellarium Hyi). SIMBAD identity * eps Hyi; SIMBAD compiled Johnson V=4.096; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 12394; Stellarium Hyi). SIMBAD identity * eps Hyi; SIMBAD compiled Johnson V=4.096; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr. Reviewed literature conflict: the Gaia DR3 model age and metallicity are withheld; Gaia's own GSP-Phot [M/H] of -0.54 breaks the solar-metallicity assumption of the FLAME age, and no verified replacement is adopted.",
         "designations": [
           "HIP 12394"
         ],
@@ -1196,7 +1196,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

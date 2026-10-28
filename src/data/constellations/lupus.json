@@ -119,10 +119,10 @@
         "vx_kms": -6.66734,
         "vy_kms": -19.666748,
         "vz_kms": -7.304839,
-        "temperature_k": 11594.0,
+        "temperature_k": 23200.0,
         "mass_solar": null,
-        "luminosity_solar": 3129.88,
-        "radius_solar": 13.866,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": 0.0225,
         "absolute_mag": -3.482314,
@@ -133,7 +133,7 @@
         "constellation": "Lupus",
         "spectral_type": "B1.5III",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 71860; Stellarium Lup). SIMBAD identity * alf Lup; SIMBAD compiled Johnson V=2.286; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 71860; Stellarium Lup). SIMBAD identity * alf Lup; SIMBAD compiled Johnson V=2.286; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: reviewed Star View values for temperature_k, luminosity_solar, radius_solar. Reviewed hot-star temperature: 2024A&A...687A.228D, * alf Lup mesFe_h record 1, 23200 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 71860"
         ],
@@ -565,7 +565,7 @@
         "luminosity_solar": 17.661903809539115,
         "radius_solar": 1.8620871366628675,
         "metallicity_dex": -1.1168,
-        "age_gyr": 1.2238437,
+        "age_gyr": null,
         "absolute_mag": 1.599446,
         "epoch": 2000.0,
         "type": "star",
@@ -574,7 +574,7 @@
         "constellation": "Lupus",
         "spectral_type": "F0/2V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 78970; Stellarium Lup). SIMBAD identity HD 144415; SIMBAD compiled Johnson V=5.7; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 78970; Stellarium Lup). SIMBAD identity HD 144415; SIMBAD compiled Johnson V=5.7; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
         "designations": [
           "HIP 78970"
         ],
@@ -1243,7 +1243,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

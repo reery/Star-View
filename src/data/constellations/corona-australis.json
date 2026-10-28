@@ -26,7 +26,7 @@
         "luminosity_solar": 30.958481380319952,
         "radius_solar": 2.344228815319922,
         "metallicity_dex": 0.24,
-        "age_gyr": 0.6463608,
+        "age_gyr": null,
         "absolute_mag": 0.977911,
         "epoch": 2000.0,
         "type": "star",
@@ -35,7 +35,7 @@
         "constellation": "Corona Australis",
         "spectral_type": "A3V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 90887; Stellarium CrA). SIMBAD identity HD 170642; SIMBAD compiled Johnson V=5.155; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
+        "notes": "Western constellation line-figure star (HIP 90887; Stellarium CrA). SIMBAD identity HD 170642; SIMBAD compiled Johnson V=5.155; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
         "designations": [
           "HIP 90887"
         ],
@@ -75,7 +75,7 @@
         "luminosity_solar": 27.63354891277044,
         "radius_solar": 2.2387211385683394,
         "metallicity_dex": -0.3,
-        "age_gyr": 0.6480275,
+        "age_gyr": null,
         "absolute_mag": 1.125572,
         "epoch": 2000.0,
         "type": "star",
@@ -84,7 +84,7 @@
         "constellation": "Corona Australis",
         "spectral_type": "A0/1V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 91875; Stellarium CrA). SIMBAD identity * lam CrA; SIMBAD compiled Johnson V=5.111; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
+        "notes": "Western constellation line-figure star (HIP 91875; Stellarium CrA). SIMBAD identity * lam CrA; SIMBAD compiled Johnson V=5.111; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
         "designations": [
           "HIP 91875"
         ],
@@ -270,8 +270,8 @@
         "mass_solar": 2.48,
         "luminosity_solar": 33.650196297330154,
         "radius_solar": 2.0892961308540396,
-        "metallicity_dex": -1.1698,
-        "age_gyr": 0.31969926,
+        "metallicity_dex": null,
+        "age_gyr": null,
         "absolute_mag": 1.027108,
         "epoch": 2000.0,
         "type": "star",
@@ -279,8 +279,8 @@
         "name": "Zeta CrA",
         "constellation": "Corona Australis",
         "spectral_type": "B9.5Vann",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 93542; Stellarium CrA). SIMBAD identity * zet CrA; SIMBAD compiled Johnson V=4.725; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex. Shared exact-identity physical supplements (age_gyr: Gaia DR3 astrophysical_parameters).",
+        "metallicity_kind": null,
+        "notes": "Western constellation line-figure star (HIP 93542; Stellarium CrA). SIMBAD identity * zet CrA; SIMBAD compiled Johnson V=4.725; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex. Shared exact-identity physical supplements (age_gyr: Gaia DR3 astrophysical_parameters). Reviewed literature conflict: the Gaia DR3 model age and metallicity are withheld; Gaia's own GSP-Phot [M/H] of -1.17 breaks the solar-metallicity assumption of the FLAME age, and no verified replacement is adopted.",
         "designations": [
           "HIP 93542"
         ],
@@ -835,7 +835,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

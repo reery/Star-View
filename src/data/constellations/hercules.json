@@ -21,7 +21,7 @@
         "vx_kms": -41.518252,
         "vy_kms": 10.903592,
         "vz_kms": -68.155599,
-        "temperature_k": 6310.0,
+        "temperature_k": 5820.0,
         "mass_solar": null,
         "luminosity_solar": 3.2389646,
         "radius_solar": 1.8144901,
@@ -35,7 +35,7 @@
         "constellation": "Hercules",
         "spectral_type": "F8VFe-2Hdel-1",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 77760; Stellarium Her). SIMBAD identity * chi Her; SIMBAD compiled Johnson V=4.62; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k; Gaia DR3 model values for luminosity_solar, radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "notes": "Western constellation line-figure star (HIP 77760; Stellarium Her). SIMBAD identity * chi Her; SIMBAD compiled Johnson V=4.62; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k; Gaia DR3 model values for luminosity_solar, radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S). Reviewed literature temperature: 5820 K (2022A&A...663A...4S) replaces the 6310 K Allende Prieto & Lambert (1999) model value.",
         "designations": [
           "HIP 77760"
         ],
@@ -124,7 +124,7 @@
         "luminosity_solar": 83.32966296623077,
         "radius_solar": 6.165950018614822,
         "metallicity_dex": 0.07,
-        "age_gyr": 0.45556122,
+        "age_gyr": null,
         "absolute_mag": -0.104283,
         "epoch": 2000.0,
         "type": "star",
@@ -133,7 +133,7 @@
         "constellation": "Hercules",
         "spectral_type": "A9IIIbn",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 80170; Stellarium Her). SIMBAD identity * gam Her; SIMBAD compiled Johnson V=3.76; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2014ApJ...791...58A).",
+        "notes": "Western constellation line-figure star (HIP 80170; Stellarium Her). SIMBAD identity * gam Her; SIMBAD compiled Johnson V=3.76; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2014ApJ...791...58A).",
         "designations": [
           "HIP 80170"
         ],
@@ -218,11 +218,11 @@
         "vy_kms": -3.931828,
         "vz_kms": -2.490324,
         "temperature_k": 9333.0,
-        "mass_solar": 3.3256412,
+        "mass_solar": null,
         "luminosity_solar": 137.9414404649447,
         "radius_solar": 4.9334946,
         "metallicity_dex": -0.6094,
-        "age_gyr": 0.2691418,
+        "age_gyr": null,
         "absolute_mag": -0.628675,
         "epoch": 2000.0,
         "type": "star",
@@ -231,7 +231,7 @@
         "constellation": "Hercules",
         "spectral_type": "B9V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 81126; Stellarium Her). SIMBAD identity * sig Her; SIMBAD compiled Johnson V=4.196; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, mass_solar, radius_solar, age_gyr.",
+        "notes": "Western constellation line-figure star (HIP 81126; Stellarium Her). SIMBAD identity * sig Her; SIMBAD compiled Johnson V=4.196; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
         "designations": [
           "HIP 81126"
         ],
@@ -566,7 +566,7 @@
         "luminosity_solar": 31.78726472907784,
         "radius_solar": 2.344228815319922,
         "metallicity_dex": 0.29,
-        "age_gyr": 0.55079883,
+        "age_gyr": null,
         "absolute_mag": 1.005429,
         "epoch": 2000.0,
         "type": "star",
@@ -575,7 +575,7 @@
         "constellation": "Hercules",
         "spectral_type": "A2V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 84606; Stellarium Her). SIMBAD identity * e Her; SIMBAD compiled Johnson V=4.65; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
+        "notes": "Western constellation line-figure star (HIP 84606; Stellarium Her). SIMBAD identity * e Her; SIMBAD compiled Johnson V=4.65; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E). Reviewed literature conflict: the Gaia DR3 model age is withheld; Gaia's own GSP-Phot [M/H] of -0.73 breaks the solar-metallicity assumption of the FLAME age, and no verified replacement is adopted.",
         "designations": [
           "HIP 84606"
         ],
@@ -2234,7 +2234,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

@@ -323,7 +323,8 @@ def normalize(record, simbad, gaia, supplements, extended=False):
     measured = {field: float(selected[column]) for field, column in (("temperature_k", "teff"), ("metallicity_dex", "fe_h"))
                 if (selected := select_spectroscopy(spectra, column, row["spectral_type"]))}
     gaia_temperature = by_field["temperature_k"].value if "temperature_k" in by_field else None
-    for field in ("temperature_k", "metallicity_dex", *sorted(flame_withheld(gaia_temperature, measured.get("temperature_k"), measured.get("metallicity_dex")))):
+    gaia_metallicity = by_field["metallicity_dex"].value if "metallicity_dex" in by_field else None
+    for field in ("temperature_k", "metallicity_dex", *sorted(flame_withheld(gaia_temperature, measured.get("temperature_k"), measured.get("metallicity_dex"), gaia_metallicity))):
         if field in by_field and (field in measured or field not in ("temperature_k", "metallicity_dex")):
             superseded[field] = by_field.pop(field).to_dict()
             row[field] = ""

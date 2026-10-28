@@ -37,7 +37,7 @@ class SharedObjectTests(unittest.TestCase):
 
     def test_hot_star_corrections_replace_bad_models_and_preserve_other_fields(self):
         review = json.loads((Path(__file__).resolve().parents[2] / "catalog-work/shared-enrichment/hot-star-temperature-review.json").read_text())
-        self.assertEqual(len(review["objects"]), 57)
+        self.assertEqual(len(review["objects"]), 71)
         for key, record in review["objects"].items():
             for identifier in record["starIds"]:
                 with self.subTest(identity=key, identifier=identifier):
@@ -60,6 +60,21 @@ class SharedObjectTests(unittest.TestCase):
                     before = dict(row)
                     adopt_shared_object(row, provenance)
                     self.assertEqual(row, before)
+
+    def test_literature_conflicts_adopt_verified_values_and_withhold_the_rest(self):
+        review = json.loads((Path(__file__).resolve().parents[2] / "catalog-work/shared-enrichment/literature-conflict-review.json").read_text())
+        self.assertEqual(len(review["objects"]), 13)
+        for key, record in review["objects"].items():
+            for identifier in record["starIds"]:
+                with self.subTest(identity=key, identifier=identifier):
+                    row = {"id": identifier, "name": "catalog display name", "notes": "old", **record["previousValues"][identifier]}
+                    adopt_shared_object(row)
+                    for field, decision in record["adoptedFields"].items():
+                        if decision["status"] == "withheld":
+                            self.assertEqual(row[field], "")
+                        else:
+                            self.assertEqual(float(row[field]), decision["value"])
+                    self.assertEqual(row["name"], "catalog display name")
 
     def test_contradicted_spectral_type_is_withheld_without_a_replacement(self):
         row = {"id": "cns5-2243", "name": "UPM J0901-6526", "spectral_type": "K5", "temperature_k": "3043", "notes": "source"}

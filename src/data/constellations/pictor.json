@@ -26,7 +26,7 @@
         "luminosity_solar": 8.769732603870303,
         "radius_solar": 1.4791083881682074,
         "metallicity_dex": -0.0174,
-        "age_gyr": 0.44897932,
+        "age_gyr": 0.023,
         "absolute_mag": 2.395299,
         "epoch": 2000.0,
         "type": "star",
@@ -35,7 +35,7 @@
         "constellation": "Pictor",
         "spectral_type": "A6V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 27321; Stellarium Pic). SIMBAD identity * bet Pic; SIMBAD compiled Johnson V=3.86; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...11B).",
+        "notes": "Western constellation line-figure star (HIP 27321; Stellarium Pic). SIMBAD identity * bet Pic; SIMBAD compiled Johnson V=3.86; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for age_gyr. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...11B). Reviewed literature age: 23 +/- 3 Myr, the Beta Pictoris moving-group age of Mamajek & Bell (2014), replaces the Gaia DR3 FLAME age of 449 Myr.",
         "designations": [
           "HIP 27321"
         ],
@@ -870,7 +870,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "4a47ca9a8ab1680f845f0436e7db37d0328c6d60507785a9ea190877f4334433"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

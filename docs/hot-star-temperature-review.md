@@ -93,3 +93,28 @@ Two cooler stars had the opposite failure: the SED fit returned a temperature fa
 Their luminosity and radius are withheld in the same way. Wasat is an unresolved spectroscopic binary, so its temperature is primary-dominated.
 
 Thirteen of these stars also have component records in the companion pool. Their original catalog source records, including the rejected luminosity and radius, are kept with explicit scope as `retainedCatalogSources` in the shared review. Every withheld catalog field is listed with its reason in `catalog-work/reviewed-data-retirements.json`.
+
+## 2026-10-28 extension
+
+The 2026-10-26 comparison covered temperatures selected directly from McDonald et al. 2012. Fourteen more O/B stars carried the same kind of failure through other routes: values inherited from the retired bright catalog, or temperatures from the Allende Prieto & Lambert 1999 evolutionary-model solutions (logTeff from Hipparcos absolute magnitude and colour). Each lies more than 20 percent from the frozen SIMBAD `mesFe_h` median, and each adopted value is the same automatic pool selection as in the previous extension.
+
+| Catalog object | Exact identity | Spectral type | Rejected model | Previous K | Adopted K | Source | Withheld |
+| --- | --- | --- | --- | ---: | ---: | --- | --- |
+| Naos | HIP 39429 / HD 66811 | O4I(n)fp | SED | 24,684 | 36,630 | [2023ApJS..266...11B](https://ui.adsabs.harvard.edu/abs/2023ApJS..266...11B) | luminosity, radius |
+| Mintaka | HIP 25930 / HD 36486 | O9.5IINwk | SED | 18,063 | 30,000 | [2024ApJ...971..166M](https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M) | luminosity, radius |
+| Alnilam | HIP 26311 / HD 37128 | B0Ia | SED | 18,341 | 28,000 | [2024ApJ...971..166M](https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M) | luminosity, radius |
+| Saiph | HIP 27366 / HD 38771 | B0.5Ia | SED | 18,292 | 26,000 | [2024ApJ...971..166M](https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M) | luminosity, radius |
+| Uridim | HIP 71860 / HD 129056 | B1.5III | SED | 11,594 | 23,200 | [2024A&A...687A.228D](https://ui.adsabs.harvard.edu/abs/2024A%26A...687A.228D) | luminosity, radius |
+| Aludra | HIP 35904 / HD 58350 | B5Ia | SED | 10,000 | 16,000 | [2024ApJ...971..166M](https://ui.adsabs.harvard.edu/abs/2024ApJ...971..166M) | luminosity, radius |
+| Kappa Lep | HIP 24327 / HD 33949 | B7V | SED | 10,138 | 11,588 | [2012A&A...537A.120Z](https://ui.adsabs.harvard.edu/abs/2012A%26A...537A.120Z) | luminosity, radius |
+| Algenib | HIP 1067 / HD 886 | B2IV | SED (too hot) | 27,008 | 21,631 | [2023A&A...676A.129H](https://ui.adsabs.harvard.edu/abs/2023A%26A...676A.129H) | luminosity, radius |
+| Eta Cen | HIP 71352 / HD 127972 | B2Ve | APL99 | 14,454 | 21,000 | [2018MNRAS.474.5287A](https://ui.adsabs.harvard.edu/abs/2018MNRAS.474.5287A) | luminosity, radius |
+| Alpha Ara | HIP 85792 / HD 158427 | B2Vne | APL99 | 13,183 | 22,150 | [2006MNRAS.371..252L](https://ui.adsabs.harvard.edu/abs/2006MNRAS.371..252L) | luminosity, radius |
+| Theta CrB | HIP 76127 / HD 138749 | B6Vnne | APL99 | 12,589 | 17,000 | [2023MNRAS.519.5472M](https://ui.adsabs.harvard.edu/abs/2023MNRAS.519.5472M) | luminosity, radius |
+| Sirrah | HIP 677 / HD 358 | B8IV-VHgMn | APL99 | 9,550 | 14,000 | [2023MNRAS.519.5472M](https://ui.adsabs.harvard.edu/abs/2023MNRAS.519.5472M) | luminosity, radius |
+| Alnair | HIP 109268 / HD 209952 | B6V | APL99 | 10,233 | 12,882 | [2012A&A...537A.120Z](https://ui.adsabs.harvard.edu/abs/2012A%26A...537A.120Z) | luminosity, radius |
+| Alkaid | HIP 67301 / HD 120315 | B3V | APL99 | 11,220 | 17,870 | [2009A&A...501..297Z](https://ui.adsabs.harvard.edu/abs/2009A%26A...501..297Z) | — |
+
+An APL99 radius came from the rejected solution and is withheld. Its luminosity is withheld when it was either derived from that solution (Sirrah, Alnair) or taken from a McDonald fit that is itself far too cool (Eta Cen 13,511 K, Alpha Ara 7,905 K, Theta CrB 10,799 K). Alkaid keeps its luminosity, whose McDonald fit (15,716 K) is close to the adopted value, and its interferometric radius (2018AJ....155...30B). As before, masses are unchanged, including the APL99 masses fitted with the rejected temperatures.
+
+Because the Western catalog refills blank fields from the retired bright archive, that archive was regenerated with the same shared adoption. Mintaka, Sirrah and Theta CrB have component records; their earlier catalog source records are kept as `retainedCatalogSources`. 4 Lac and Merope also lie more than 20 percent from their pool medians, but their pools have no strict-majority consensus, so they are unchanged.
