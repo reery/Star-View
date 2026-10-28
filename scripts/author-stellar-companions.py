@@ -257,12 +257,21 @@ def build():
         parent = stars[review["parentStarId"]]
         system = {key: review[key] for key in ("id", "name", "sourceRef", "sourceUrl")}
         system["components"] = []
+        # A reviewed hierarchy can complete a catalog-authored system in place,
+        # keeping its stable ID while relabelling and adding exact members.
+        extended = next((s for s in definitions if s["id"] == review["id"]), None)
+        if extended:
+            if {c["starId"] for c in extended["components"]} - {m["starId"] for m in review["components"]}:
+                raise ValueError(f"Reviewed extension drops a component: {review['id']}")
+            definitions.remove(extended)
+            system = {**extended, **system, "components": []}
         for member in review["components"]:
             identifier, label = member["starId"], member["label"]
-            if identifier in pool:
+            if identifier in pool and not (extended and any(c["starId"] == identifier for c in extended["components"])):
                 raise ValueError(f"Reviewed addition duplicates a component: {identifier}")
-            star = copy.deepcopy(stars[identifier]) if identifier in stars else blank_component(identifier, f"{review['name']} {label}", parent)
+            star = pool.get(identifier) or (copy.deepcopy(stars[identifier]) if identifier in stars else blank_component(identifier, f"{review['name']} {label}", parent))
             star["name"] = f"{review['name']} {label}"
+            star["type"] = member.get("type", star["type"])
             star["designations"] = unique([*star["designations"], *member["designations"]])
             if astrometry := member.get("astrometry"):
                 place(star, astrometry["ra_deg"], astrometry["dec_deg"], astrometry["parallax_mas"],
@@ -272,7 +281,8 @@ def build():
             pool[identifier] = star
             audit["componentRecords"][identifier] = {"membership": review["evidence"],
                 "component": label, "astrometryScope": member["note"]}
-            component = {key: member[key] for key in ("starId", "label", "alternateStarIds") if key in member}
+            previous = next((c for c in extended["components"] if c["starId"] == identifier), {}) if extended else {}
+            component = {**previous, **{key: member[key] for key in ("starId", "label", "alternateStarIds") if key in member}}
             system["components"].append(component)
         definitions.append(system)
 

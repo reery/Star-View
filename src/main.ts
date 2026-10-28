@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, RotateCcw, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, RotateCcw, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
@@ -53,7 +53,7 @@ import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type
 import type { SkyGridMode } from './sky-grid'
 import { browserDataSize, deleteBrowserData } from './browser-data'
 import { readSavedFilter, SAVED_FILTER_STORAGE_KEY, type SavedFilter } from './saved-filter'
-import { DEFAULT_PAINT_CONTROLS, DEFAULT_PAINT_LEVEL, isPaintSettingId, PAINT_LEVEL_RANGE, PAINT_SETTINGS, starPainter, type PaintControls, type PaintSettingId } from './star-paint'
+import { DEFAULT_PAINT_CONTROLS, DEFAULT_PAINT_LEVEL, isPaintSettingId, PAINT_CHANNELS, PAINT_HISTOGRAM_BINS, PAINT_LEVEL_RANGE, PAINT_SETTINGS, paintLegend, starPainter, type PaintChannel, type PaintControls, type PaintSettingId } from './star-paint'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -246,14 +246,17 @@ let paintStars: Star[] | null = null
 const linearPaintSettings = new Set<PaintSettingId>()
 /** Slider controls of the paint settings, at their defaults when absent. */
 const paintControls = new Map<PaintSettingId, PaintControls>()
+/** Channels each paint setting claims when enabled, both when absent. */
+const paintChannels = new Map<PaintSettingId, readonly PaintChannel[]>()
+const paintChannelsOf = (id: PaintSettingId) => paintChannels.get(id) ?? PAINT_CHANNELS
 let paintZoomShrink = false
 let viewer: StarViewer | undefined
 let stars: Star[] = []
 let starIndex = new Map<string, Star>()
 const starById = (id: string | null | undefined): Star | undefined => id ? starIndex.get(id) : undefined
 // Chart selections are explicit additions, independent of the overlay switches.
-// Retain them across catalog refreshes so origin and selection history stay valid.
-const constellationSelectedStars = new Map<string, Star>()
+// Each system stays loaded only while it is selected, compared, anchored or the origin.
+const constellationSelectedSystems = new Map<string, Star[]>()
 let constellationSelectionRequest = 0
 let starSystems: ReadonlyMap<string, StarSystem> = new Map()
 let activeCatalogId = ''
@@ -275,6 +278,7 @@ let observerViewAnchorId: string | null = null
 let powerSavingMode = false
 // Touch-first devices start with fewer labels; a stored preference overrides this below.
 const touchFirstInput = window.matchMedia('(hover: none) and (pointer: coarse)')
+const wideLayout = window.matchMedia('(min-width: 721px)')
 let labelLimit = touchFirstInput.matches ? 20 : 40
 let motionArrowsVisible = true
 let earthOrbitMode: EarthOrbitMode = 'now'
@@ -364,6 +368,8 @@ const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constell
 // Discover panels open from the flyout, so focus returns to its toggle.
 const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'motion' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
+// On desktop, these cards move the 3D view center left while locked, so the scene stays visible beside them.
+const viewCenteringPanels: readonly typeof lockablePanelNames[number][] = ['paint']
 
 function selectedStarAvailable(id: string): boolean {
   return starIndex.has(id)
@@ -563,6 +569,14 @@ function syncPanelLayout(): void {
   syncSelectedObjectLayout()
   syncObjectTypeLayout()
   syncVisibilityObserverLayout()
+  syncViewCenterInset()
+}
+
+function syncViewCenterInset(): void {
+  const name = viewCenteringPanels.find((candidate) => lockedPanels.has(candidate) && panelIsOpen(candidate))
+  const inset = name && wideLayout.matches && !touchFirstInput.matches
+    ? element('scene').getBoundingClientRect().right - element(`${name}-panel`).getBoundingClientRect().left : 0
+  viewer?.setViewCenterInset(Math.max(0, inset))
 }
 
 function closeObjectTypeCard(restoreFocus = false): void {
@@ -680,8 +694,7 @@ async function selectConstellationStar(object: Star, records?: ReadonlyMap<strin
   const request = ++constellationSelectionRequest
   const existing = starById(object.id)
   if (!existing) {
-    const components = records ? completeCompanionRecords([object], records) : completeCatalogCompanions([object])
-    for (const component of components) constellationSelectedStars.set(component.id, component)
+    constellationSelectedSystems.set(object.id, records ? completeCompanionRecords([object], records) : completeCatalogCompanions([object]))
     await switchCatalog(activeCatalogId, true)
     if (request !== constellationSelectionRequest) return
   }
@@ -1594,6 +1607,7 @@ function togglePanelLock(name: typeof lockablePanelNames[number]): void {
   if (locked) lockedPanels.add(name)
   else lockedPanels.delete(name)
   button.setAttribute('aria-pressed', String(locked))
+  syncViewCenterInset()
 }
 
 function sceneStatus(message: string | null): void {
@@ -2280,6 +2294,19 @@ function selectStar(id: string | null, recordHistory = true): void {
   viewer?.select(id)
   renderFollowState()
   updateSelectionHistoryControls()
+  if (releaseConstellationSystems()) void switchCatalog(activeCatalogId, true)
+}
+
+/** Forgets chart-selected systems that no selection, comparison, anchor or origin still uses. */
+function releaseConstellationSystems(): boolean {
+  const used = new Set([selectedId, referenceId, visibilityLockId, observerViewAnchorId, starComparison.other?.id])
+  let released = false
+  for (const [id, system] of constellationSelectedSystems) {
+    if (system.some((star) => used.has(star.id))) continue
+    constellationSelectedSystems.delete(id)
+    released = true
+  }
+  return released
 }
 
 function navigateSelectionHistory(direction: 'back' | 'forward'): void {
@@ -2381,7 +2408,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     ])
     const withConstellationStars = mergeCatalogStars(mergeCatalogStars(selectedCatalog, westernConstellationCatalog), notableDistantCatalog)
     nextStars = [...withConstellationStars, ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles]
-    nextStars = mergeCatalogStars(nextStars, [...constellationSelectedStars.values()])
+    nextStars = mergeCatalogStars(nextStars, [...constellationSelectedSystems.values()].flat())
   } catch (error) {
     if (request !== catalogRequest) return
     catalogError(error)
@@ -2440,6 +2467,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setDistanceUnit(distanceUnit)
   viewer.setReference(referenceId)
   viewer.setVisibilityLocked(visibilityLockId !== null)
+  syncViewCenterInset()
   viewer.select(selectedId, false)
   viewer.setVisibility(observerId, magnitudeLimit, hideFainterObjects)
   viewer.setObjectDistanceLimit(objectDistanceLimitLy)
@@ -2709,7 +2737,7 @@ function currentSavedViewSettings(): SavedViewSettings | null {
     objectSearch: element<HTMLInputElement>('object-search').value,
     viewState: viewer.getViewState(),
     graphFilter: graphs?.save() ?? [],
-    paint: [...paintSettings],
+    paint: [...paintSettings].map(([id, level]) => [id, level, [...paintChannelsOf(id)]]),
   }
 }
 
@@ -3088,14 +3116,13 @@ function setConstellationsMaximized(maximized: boolean): void {
   element('constellations-panel').classList.toggle('is-maximized', maximized)
   const button = element('constellations-maximize')
   const label = `${maximized ? 'Minimize' : 'Maximize'} constellations card height`
-  button.setAttribute('aria-pressed', String(maximized))
   button.setAttribute('aria-label', label)
   button.title = label
   icon('constellations-maximize-icon', maximized ? ChevronsDownUp : ChevronsUpDown)
 }
 // Without a saved choice, desktop opens the constellations card at full height; smaller and touch-first screens keep the compact card.
 const storedConstellationsMaximized = storedLayout('constellations-maximized')
-if (storedConstellationsMaximized === null ? window.matchMedia('(min-width: 721px)').matches && !touchFirstInput.matches : storedConstellationsMaximized === 'true') setConstellationsMaximized(true)
+if (storedConstellationsMaximized === null ? wideLayout.matches && !touchFirstInput.matches : storedConstellationsMaximized === 'true') setConstellationsMaximized(true)
 element('constellations-maximize').addEventListener('click', () => {
   const maximized = !element('constellations-panel').classList.contains('is-maximized')
   setConstellationsMaximized(maximized)
@@ -3106,7 +3133,8 @@ catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.va
 element('filter-reset').addEventListener('click', resetAllFilters, { signal: events.signal })
 const paintIcon = (shape: IconNode) => createElement(shape, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' })
 const paintSettingIcons: Record<PaintSettingId, IconNode> = {
-  'absolute-magnitude': Sun, mass: Weight, 'bolometric-luminosity': Sparkle, 'radial-velocity': ArrowLeftRight, metallicity: Atom, radius: Radius, temperature: Thermometer,
+  'absolute-magnitude': Sun, mass: Weight, 'bolometric-luminosity': Sparkle, 'radial-velocity': ArrowLeftRight, 'motion-direction': Compass, metallicity: Atom,
+  'planet-hosts': Orbit, radius: Radius, density: Box, temperature: Thermometer, 'data-gaps': CircleDashed,
 }
 element('paint-settings').append(...PAINT_SETTINGS.map((paintSetting) => {
   const { id, label, legend, gradient } = paintSetting
@@ -3129,7 +3157,10 @@ element('paint-settings').append(...PAINT_SETTINGS.map((paintSetting) => {
   expand.append(Object.assign(document.createElement('span'), { textContent: label }))
   const chevron = paintIcon(ChevronUp)
   chevron.classList.add('paint-setting-chevron')
-  heading.append(toggle, expand)
+  // Holds the name and scale buttons, so the buttons can wrap below the name beside the toggle and chevron.
+  const title = document.createElement('div')
+  title.className = 'paint-setting-title'
+  title.append(expand)
   if (!('fixed' in paintSetting)) {
     const scale = document.createElement('span')
     scale.className = 'unit-options graph-scale'
@@ -3141,9 +3172,9 @@ element('paint-settings').append(...PAINT_SETTINGS.map((paintSetting) => {
       button.setAttribute('aria-pressed', String(name === 'Rank'))
       return button
     }))
-    heading.append(scale)
+    title.append(scale)
   }
-  heading.append(chevron)
+  heading.append(toggle, title, chevron)
   const bar = document.createElement('div')
   bar.className = 'paint-legend'
   const level = document.createElement('input')
@@ -3155,7 +3186,34 @@ element('paint-settings').append(...PAINT_SETTINGS.map((paintSetting) => {
   bounds.className = 'range-bounds'
   bounds.setAttribute('aria-hidden', 'true')
   bounds.append(...legend.bounds.map((bound) => Object.assign(document.createElement('span'), { textContent: bound })))
-  body.append(bar, bounds, ...('controls' in paintSetting ? paintSetting.controls : []).map(({ name, label: controlLabel, text }) => {
+  // The visible objects' distribution and missing count appear while the setting paints or is open.
+  const histogram = Object.assign(document.createElement('div'), { className: 'paint-histogram', hidden: true })
+  histogram.setAttribute('aria-hidden', 'true')
+  histogram.append(...Array.from({ length: PAINT_HISTOGRAM_BINS }, () => document.createElement('i')))
+  body.append(histogram, bar, bounds, Object.assign(document.createElement('p'), { className: 'filter-hint paint-missing', hidden: true }))
+  if ('wheel' in legend) {
+    const wheel = document.createElement('div')
+    wheel.className = 'paint-wheel'
+    wheel.setAttribute('aria-hidden', 'true')
+    const disc = document.createElement('i')
+    disc.style.setProperty('--paint-legend', legend.wheel.gradient(DEFAULT_PAINT_LEVEL, DEFAULT_PAINT_CONTROLS))
+    wheel.append(disc, ...legend.wheel.labels.map((text) => Object.assign(document.createElement('span'), { textContent: text })))
+    body.append(wheel)
+  }
+  const channels = document.createElement('div')
+  channels.className = 'range-heading paint-control'
+  const channelGroup = document.createElement('span')
+  channelGroup.className = 'unit-options graph-scale'
+  channelGroup.setAttribute('role', 'group')
+  channelGroup.setAttribute('aria-label', `${label} paints`)
+  channelGroup.append(...PAINT_CHANNELS.map((channel) => {
+    const button = Object.assign(document.createElement('button'), { type: 'button', textContent: channel === 'color' ? 'Color' : 'Size' })
+    button.dataset.paintChannel = channel
+    button.setAttribute('aria-pressed', 'true')
+    return button
+  }))
+  channels.append(Object.assign(document.createElement('span'), { textContent: 'Paints' }), channelGroup)
+  body.append(channels, ...('controls' in paintSetting ? paintSetting.controls : []).map(({ name, label: controlLabel, text }) => {
     const control = document.createElement('div')
     control.className = 'range-filter paint-control'
     const input = Object.assign(document.createElement('input'), { id: `paint-${id}-${name}`, type: 'range', min: '0', max: '1', step: '0.01', value: String(DEFAULT_PAINT_CONTROLS[name]) })
@@ -3181,7 +3239,12 @@ function paintSettingParts(setting: HTMLElement) {
     level: setting.querySelector<HTMLInputElement>('.paint-legend input')!,
     controls: ('controls' in definition ? definition.controls : []).map((control) => ({ control, input: setting.querySelector<HTMLInputElement>(`[data-paint-control="${control.name}"]`)! })),
     bounds: setting.querySelectorAll<HTMLSpanElement>('.range-bounds span'),
+    body: setting.querySelector<HTMLElement>('.paint-setting-body')!,
+    wheel: setting.querySelector<HTMLElement>('.paint-wheel > i'),
+    histogram: setting.querySelector<HTMLElement>('.paint-histogram')!,
+    missing: setting.querySelector<HTMLElement>('.paint-missing')!,
     scales: setting.querySelectorAll<HTMLButtonElement>('[data-paint-scale]'),
+    channels: setting.querySelectorAll<HTMLButtonElement>('[data-paint-channel]'),
   }
 }
 element('paint-settings').addEventListener('click', (event) => {
@@ -3194,21 +3257,33 @@ element('paint-settings').addEventListener('click', (event) => {
     if (button.dataset.paintScale === 'Linear') linearPaintSettings.add(parts.id)
     else linearPaintSettings.delete(parts.id)
     parts.scales.forEach((scale) => scale.setAttribute('aria-pressed', String(scale === button)))
-    if (paintSettings.has(parts.id)) paintVisible(true)
+    paintVisible()
+    return
+  }
+  if (button instanceof HTMLElement && button.dataset.paintChannel) {
+    const channel = button.dataset.paintChannel as PaintChannel
+    const current = paintChannelsOf(parts.id)
+    const next = PAINT_CHANNELS.filter((candidate) => candidate === channel ? !current.includes(channel) : current.includes(candidate))
+    // A setting keeps at least one channel.
+    if (!next.length) return
+    paintChannels.set(parts.id, next)
+    if (paintSettings.has(parts.id)) claimPaintChannels(parts.id)
+    showPaintState()
+    paintVisible()
     return
   }
   if (button.classList.contains('paint-setting-expand')) {
     const expanded = button.getAttribute('aria-expanded') !== 'true'
     button.setAttribute('aria-expanded', String(expanded))
     element(button.getAttribute('aria-controls')!).hidden = !expanded
+    if (expanded) paintVisible()
     return
   }
-  // One setting paints at a time; enabling another replaces it.
-  const enable = !paintSettings.has(parts.id)
-  paintSettings.clear()
-  if (enable) paintSettings.set(parts.id, parts.level.valueAsNumber)
-  element('paint-settings').querySelectorAll<HTMLButtonElement>('.paint-setting-toggle').forEach((toggle) => toggle.setAttribute('aria-pressed', String(toggle === button && enable)))
-  setActiveIndicator('paint-active', paintSettings.size > 0)
+  if (!paintSettings.delete(parts.id)) {
+    paintSettings.set(parts.id, parts.level.valueAsNumber)
+    claimPaintChannels(parts.id)
+  }
+  showPaintState()
   paintVisible()
 }, { signal: events.signal })
 element('paint-settings').addEventListener('input', (event) => {
@@ -3226,46 +3301,79 @@ element('paint-settings').addEventListener('input', (event) => {
 function showPaintLevel(parts: NonNullable<ReturnType<typeof paintSettingParts>>, level: number): void {
   const controls = paintControls.get(parts.id) ?? DEFAULT_PAINT_CONTROLS
   parts.level.parentElement!.style.setProperty('--paint-legend', parts.gradient(level, controls))
+  if (parts.wheel && 'wheel' in parts.legend) parts.wheel.style.setProperty('--paint-legend', parts.legend.wheel.gradient(level, controls))
   parts.controls.forEach(({ control, input }) => { input.parentElement!.querySelector('output')!.textContent = control.text(controls[control.name], level) })
 }
-/** Paints by the given settings; settings left out are off at their default level. */
-function applyPaint(entries: readonly (readonly [PaintSettingId, number])[]): void {
+/** Hands the setting's channels over from the other enabled settings, turning off those left without one. */
+function claimPaintChannels(id: PaintSettingId): void {
+  const claimed = paintChannelsOf(id)
+  for (const other of [...paintSettings.keys()]) {
+    if (other === id) continue
+    const left = paintChannelsOf(other).filter((channel) => !claimed.includes(channel))
+    if (left.length) paintChannels.set(other, left)
+    else paintSettings.delete(other)
+  }
+}
+/** Shows which settings paint and the channels each one claims. */
+function showPaintState(): void {
+  element('paint-settings').querySelectorAll<HTMLElement>('[data-paint-setting]').forEach((setting) => {
+    const parts = paintSettingParts(setting)!
+    const channels = paintChannelsOf(parts.id)
+    parts.toggle.setAttribute('aria-pressed', String(paintSettings.has(parts.id)))
+    parts.channels.forEach((button) => button.setAttribute('aria-pressed', String(channels.includes(button.dataset.paintChannel as PaintChannel))))
+  })
+  setActiveIndicator('paint-active', paintSettings.size > 0)
+}
+/** Paints by the given settings and channels; settings left out are off at their default level. */
+function applyPaint(entries: readonly (readonly [PaintSettingId, number, (readonly PaintChannel[])?])[]): void {
   paintSettings.clear()
   linearPaintSettings.clear()
   paintControls.clear()
+  paintChannels.clear()
   setPaintZoomShrink(false)
-  entries.forEach(([id, level]) => paintSettings.set(id, level))
+  entries.forEach(([id, level, channels]) => {
+    paintSettings.set(id, level)
+    if (channels) paintChannels.set(id, channels)
+  })
   element('paint-settings').querySelectorAll<HTMLElement>('[data-paint-setting]').forEach((setting) => {
     const parts = paintSettingParts(setting)!
     const level = paintSettings.get(parts.id) ?? DEFAULT_PAINT_LEVEL
-    parts.toggle.setAttribute('aria-pressed', String(paintSettings.has(parts.id)))
     parts.scales.forEach((scale) => scale.setAttribute('aria-pressed', String(scale.dataset.paintScale === 'Rank')))
     parts.level.value = String(level)
     parts.controls.forEach(({ control, input }) => { input.value = String(DEFAULT_PAINT_CONTROLS[control.name]) })
     showPaintLevel(parts, level)
   })
-  setActiveIndicator('paint-active', paintSettings.size > 0)
+  showPaintState()
   paintVisible(true)
 }
 /** The objects the map filter shows, leaving out a selection it shows only because it is selected. */
 function paintableStars(): Star[] {
   return objectList.mapItems(objectListFilter(null)).map(({ star }) => star)
 }
-/** Paints by the enabled settings, fitted to the visible objects; refitting gathers them again. */
+/** Paints by the enabled settings and shows the legends of painting or open settings, fitted to the visible objects; refitting gathers them again. */
 function paintVisible(refit = false): void {
-  if (!paintSettings.size) paintStars = null
+  const settings = [...element('paint-settings').querySelectorAll<HTMLElement>('[data-paint-setting]')].map((setting) => paintSettingParts(setting)!)
+  const shown = settings.filter((parts) => paintSettings.has(parts.id) || !parts.body.hidden)
+  if (!shown.length) paintStars = null
   else if (refit || !paintStars) paintStars = paintableStars()
-  const fitted = paintStars && starPainter(paintSettings, paintStars, linearPaintSettings, paintControls)
-  element('paint-settings').querySelectorAll<HTMLElement>('[data-paint-setting]').forEach((setting) => {
-    const parts = paintSettingParts(setting)!
-    const bounds = fitted?.bounds.get(parts.id) ?? parts.legend.bounds
+  const fitted = paintStars && starPainter(paintSettings, paintStars, linearPaintSettings, paintControls, paintChannels)
+  settings.forEach((parts) => {
+    const legend = fitted?.legends.get(parts.id) ?? (paintStars && shown.includes(parts) ? paintLegend(parts.id, paintStars, linearPaintSettings.has(parts.id)) : undefined)
+    const bounds = legend?.bounds ?? parts.legend.bounds
     parts.bounds.forEach((span, index) => { span.textContent = bounds[index]! })
+    parts.histogram.hidden = !legend
+    parts.missing.hidden = !legend?.missing
+    if (!legend) return
+    const peak = Math.max(1, ...legend.histogram)
+    // Single objects stay visible beside crowded bins.
+    legend.histogram.forEach((count, index) => { (parts.histogram.children[index] as HTMLElement).style.height = count ? `max(1px, ${count / peak * 100}%)` : '0' })
+    parts.missing.textContent = `${legend.missing.toLocaleString('en-US')} ${legend.missing === 1 ? 'object' : 'objects'} without ${parts.legend.missing}.`
   })
   viewer?.setStarPaint(fitted?.painter ?? null)
 }
-/** Refits the paint when filtering changes which objects are visible. */
+/** Refits the paint and shown legends when filtering changes which objects are visible. */
 function refitPaint(): void {
-  if (!paintSettings.size || !paintStars || [...paintSettings.keys()].every((id) => linearPaintSettings.has(id))) return
+  if (!paintStars) return
   const stars = paintableStars()
   if (stars.length === paintStars.length && stars.every((star, index) => star === paintStars![index])) return
   paintStars = stars
@@ -3429,6 +3537,7 @@ window.addEventListener('resize', () => {
   syncObjectTypeLayout()
   if (!element('spectral-card').hidden) positionCardHeaderTooltips(element('spectral-card'))
   syncVisibilityObserverLayout()
+  syncViewCenterInset()
   const star = stars.find((candidate) => candidate.id === selectedId)
   if (star && !element('radius-card').hidden) renderRadiusCard(star)
   if (star && !element('mass-card').hidden) renderMassCard(star)

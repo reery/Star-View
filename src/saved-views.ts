@@ -3,7 +3,7 @@ import { isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey 
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, type MotionYears, type ViewerViewState } from './viewer'
 import type { MotionFrame } from './astronomy'
 import type { SkyGridMode } from './sky-grid'
-import { isPaintSettingId, PAINT_LEVEL_RANGE, type PaintSettingId } from './star-paint'
+import { isPaintSettingId, PAINT_CHANNELS, PAINT_LEVEL_RANGE, type PaintChannel, type PaintSettingId } from './star-paint'
 import type { SavedGraphSelection } from './graphs'
 
 export const SAVED_VIEWS_STORAGE_KEY = 'star-view-saved-views'
@@ -45,7 +45,8 @@ export interface SavedViewSettings {
   viewState: ViewerViewState
   /** Absent in views saved before graph filters and paint were stored. */
   graphFilter?: SavedGraphSelection[]
-  paint?: [PaintSettingId, number][]
+  /** Channels are absent in views saved before settings could share the paint. */
+  paint?: [PaintSettingId, number, PaintChannel[]?][]
 }
 
 export interface SavedView {
@@ -68,8 +69,12 @@ function isGraphSelection(value: unknown): value is SavedGraphSelection {
     && (value.range === undefined || (Array.isArray(value.range) && value.range.length === 2 && value.range.every(isRangeEnd)))
 }
 
-function isPaintEntry(value: unknown): value is [PaintSettingId, number] {
-  return Array.isArray(value) && value.length === 2 && isPaintSettingId(value[0])
+function isPaintChannels(value: unknown): value is PaintChannel[] {
+  return Array.isArray(value) && value.length > 0 && value.every((channel, index) => PAINT_CHANNELS.includes(channel) && value.indexOf(channel) === index)
+}
+
+function isPaintEntry(value: unknown): value is [PaintSettingId, number, PaintChannel[]?] {
+  return Array.isArray(value) && (value.length === 2 || (value.length === 3 && isPaintChannels(value[2]))) && isPaintSettingId(value[0])
     && typeof value[1] === 'number' && value[1] >= PAINT_LEVEL_RANGE[0] && value[1] <= PAINT_LEVEL_RANGE[1]
 }
 

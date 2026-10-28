@@ -838,6 +838,175 @@
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
       }
     },
+    "cns5-4975": {
+      "membership": {
+        "reviewedOn": "2026-10-28",
+        "source": "Mace et al. 2018, ApJ 854, 145 (2018ApJ...854..145M), sections 1, 4.1-4.3 and Table 3",
+        "scope": "Completes the corrected CNS5 GJ 781 pair in place. Mace et al. label the sdM primary A, the unseen white dwarf B (WD 2003+542) and the T8 subdwarf C. The frozen SIMBAD main identifier Wolf 1130 B for CNS5 4977 is the earlier name of C and remains one of its designations. The A-B orbit (P = 0.49670418 +/- 0.00000005 d, i = 29 +/- 2 deg, a = 0.014183 au) is not modelled."
+      },
+      "component": "A",
+      "astrometryScope": "Wolf 1130 A is the exact CNS5 4975 / SIMBAD Wolf 1130 record, which observes the A+B spectroscopic binary. B contributes no detected visible or near-infrared light (Mace et al. 2018, section 4.2), so existing photometry, astrometry and spectrum describe A; existing measurements retained. Its Gaia DR3 radial velocity (7.3 +/- 23.9 km/s) is blurred by A's 121 km/s orbital semi-amplitude; the published systemic velocity is -33.2 km/s (Table 3).",
+      "reviewedLiterature": {
+        "expectedName": "Wolf 1130 A",
+        "systemId": "cns5-gj-781",
+        "component": "A",
+        "fields": {
+          "mass_solar": {
+            "value": 0.308,
+            "uncertainty": 0.016,
+            "status": "calibrated",
+            "reference": "Mace et al. 2018; 2018ApJ...854..145M",
+            "sourceUrl": "https://arxiv.org/abs/1802.04803",
+            "section": "Section 4.1 and Table 4, Benedict et al. (2016) MK-mass relation",
+            "alternativeMeasurements": [
+              {
+                "value": 0.297,
+                "uncertainty": 0.011,
+                "method": "Dartmouth evolutionary models",
+                "section": "Table 4"
+              }
+            ]
+          },
+          "radius_solar": {
+            "value": 0.302,
+            "uncertainty": 0.009,
+            "status": "calibrated",
+            "reference": "Mace et al. 2018; 2018ApJ...854..145M",
+            "sourceUrl": "https://arxiv.org/abs/1802.04803",
+            "section": "Section 4.1 and Table 4, Mann et al. (2015) MK-radius-[Fe/H] relation",
+            "alternativeMeasurements": [
+              {
+                "value": 0.289,
+                "uncertainty": 0.011,
+                "method": "Dartmouth evolutionary models",
+                "section": "Table 4"
+              }
+            ]
+          }
+        },
+        "note": "Empirical K-band calibrations of the sdM primary; B adds no detected near-infrared light. Mace et al. also fit Teff 3530 +/- 60 K and [Fe/H] -0.70 +/- 0.12; the existing temperature and metallicity are retained.",
+        "adopted": {
+          "mass_solar": {
+            "value": 0.308,
+            "uncertainty": 0.016,
+            "status": "calibrated",
+            "reference": "Mace et al. 2018; 2018ApJ...854..145M",
+            "sourceUrl": "https://arxiv.org/abs/1802.04803",
+            "section": "Section 4.1 and Table 4, Benedict et al. (2016) MK-mass relation",
+            "alternativeMeasurements": [
+              {
+                "value": 0.297,
+                "uncertainty": 0.011,
+                "method": "Dartmouth evolutionary models",
+                "section": "Table 4"
+              }
+            ]
+          },
+          "radius_solar": {
+            "value": 0.302,
+            "uncertainty": 0.009,
+            "status": "calibrated",
+            "reference": "Mace et al. 2018; 2018ApJ...854..145M",
+            "sourceUrl": "https://arxiv.org/abs/1802.04803",
+            "section": "Section 4.1 and Table 4, Mann et al. (2015) MK-radius-[Fe/H] relation",
+            "alternativeMeasurements": [
+              {
+                "value": 0.289,
+                "uncertainty": 0.011,
+                "method": "Dartmouth evolutionary models",
+                "section": "Table 4"
+              }
+            ]
+          }
+        },
+        "retained": {}
+      },
+      "luminosity_solar": {
+        "field": "luminosity_solar",
+        "value": 0.01551668488,
+        "status": "derived",
+        "reference": "Stefan-Boltzmann scaling",
+        "inputs": {
+          "temperature_k": 3707.0,
+          "radius_solar": 0.302
+        }
+      }
+    },
+    "wolf-1130-b": {
+      "membership": {
+        "reviewedOn": "2026-10-28",
+        "source": "Mace et al. 2018, ApJ 854, 145 (2018ApJ...854..145M), sections 1, 4.1-4.3 and Table 3",
+        "scope": "Completes the corrected CNS5 GJ 781 pair in place. Mace et al. label the sdM primary A, the unseen white dwarf B (WD 2003+542) and the T8 subdwarf C. The frozen SIMBAD main identifier Wolf 1130 B for CNS5 4977 is the earlier name of C and remains one of its designations. The A-B orbit (P = 0.49670418 +/- 0.00000005 d, i = 29 +/- 2 deg, a = 0.014183 au) is not modelled."
+      },
+      "component": "B",
+      "astrometryScope": "Wolf 1130 B is the unseen white dwarf in a 0.4967-day orbit with A, detected only through A's radial velocities and ellipsoidal light variation (Mace et al. 2018, sections 3.2 and 4.2). Shared A position and distance; separation 0.014 au. Non-detection implies Teff below 7000 K and a cooling age above about 3.4 Gyr; no spectral type, temperature, photometry or space motion is available.",
+      "reviewedLiterature": {
+        "expectedName": "Wolf 1130 B",
+        "expectedType": "white_dwarf",
+        "systemId": "cns5-gj-781",
+        "component": "B",
+        "fields": {
+          "mass_solar": {
+            "value": 1.24,
+            "uncertaintyMinus": 0.15,
+            "uncertaintyPlus": 0.19,
+            "status": "dynamical",
+            "reference": "Mace et al. 2018; 2018ApJ...854..145M",
+            "sourceUrl": "https://arxiv.org/abs/1802.04803",
+            "section": "Abstract and section 4.2; Table 3 gives 1.242 +/- 0.005 at fixed i = 29 deg",
+            "scope": "Spectroscopic-orbit mass function with A's mass and the inclination from A's rotation; the interval carries the inclination uncertainty."
+          }
+        },
+        "note": "Ultramassive white dwarf, likely oxygen-neon. Minimum mass 0.332 +/- 0.001 solar masses (Table 3). Teff below 7000 K is an upper limit only and is not adopted.",
+        "adopted": {
+          "mass_solar": {
+            "value": 1.24,
+            "uncertaintyMinus": 0.15,
+            "uncertaintyPlus": 0.19,
+            "status": "dynamical",
+            "reference": "Mace et al. 2018; 2018ApJ...854..145M",
+            "sourceUrl": "https://arxiv.org/abs/1802.04803",
+            "section": "Abstract and section 4.2; Table 3 gives 1.242 +/- 0.005 at fixed i = 29 deg",
+            "scope": "Spectroscopic-orbit mass function with A's mass and the inclination from A's rotation; the interval carries the inclination uncertainty."
+          }
+        },
+        "retained": {}
+      }
+    },
+    "cns5-4977": {
+      "membership": {
+        "reviewedOn": "2026-10-28",
+        "source": "Mace et al. 2018, ApJ 854, 145 (2018ApJ...854..145M), sections 1, 4.1-4.3 and Table 3",
+        "scope": "Completes the corrected CNS5 GJ 781 pair in place. Mace et al. label the sdM primary A, the unseen white dwarf B (WD 2003+542) and the T8 subdwarf C. The frozen SIMBAD main identifier Wolf 1130 B for CNS5 4977 is the earlier name of C and remains one of its designations. The A-B orbit (P = 0.49670418 +/- 0.00000005 d, i = 29 +/- 2 deg, a = 0.014183 au) is not modelled."
+      },
+      "component": "C",
+      "astrometryScope": "Wolf 1130 C is the exact CNS5 4977 T8 subdwarf, a common-proper-motion companion at a projected 3150 +/- 40 au (Mace et al. 2018, section 4.3 and Table 5). Its own astrometry is retained.",
+      "reviewedLiterature": {
+        "expectedName": "Wolf 1130 C",
+        "systemId": "cns5-gj-781",
+        "component": "C",
+        "fields": {
+          "temperature_k": {
+            "value": 800,
+            "status": "estimated",
+            "reference": "Mace et al. 2018; 2018ApJ...854..145M",
+            "sourceUrl": "https://arxiv.org/abs/1802.04803",
+            "section": "Section 1 and Table 5 (approximate; no uncertainty published)"
+          }
+        },
+        "note": "Approximate temperature of the T8 subdwarf. The 0.050 solar-mass model estimate at 10 Gyr (section 4.3) is not adopted; the authors note C may be older and more massive.",
+        "adopted": {
+          "temperature_k": {
+            "value": 800,
+            "status": "estimated",
+            "reference": "Mace et al. 2018; 2018ApJ...854..145M",
+            "sourceUrl": "https://arxiv.org/abs/1802.04803",
+            "section": "Section 1 and Table 5 (approximate; no uncertainty published)"
+          }
+        },
+        "retained": {}
+      }
+    },
     "cns5-0006": {
       "membership": {
         "source": "MSC 2026-06-19",
@@ -97086,8 +97255,6 @@
     "cns5-4939": {},
     "cns5-4963": {},
     "cns5-4962": {},
-    "cns5-4975": {},
-    "cns5-4977": {},
     "hip-8796": {},
     "cns5-0485": {},
     "cns5-5220": {},
@@ -113398,7 +113565,7 @@
   "schemaVersion": 1,
   "reviewedOn": "2026-10-13",
   "systems": 823,
-  "components": 1842,
+  "components": 1843,
   "selectedFieldCoverage": {
     "individualApparentMagnitude": 955,
     "unresolvedSourcePhotometry": 106,
@@ -113890,6 +114057,7 @@
       "cns5-5898",
       "cns5-5895",
       "adhara-b",
+      "wolf-1130-b",
       "msc-00022+2705-b",
       "msc-00084+2905-b",
       "msc-00315-6257-b",
@@ -114836,6 +115004,7 @@
       "cns5-5898",
       "cns5-5896",
       "adhara-b",
+      "wolf-1130-b",
       "msc-00393+3052-ab",
       "msc-01137+2435-ab",
       "msc-02020+0246-ba",
@@ -115076,10 +115245,10 @@
     ],
     "available": {
       "spectral_type": 1226,
-      "temperature_k": 1125,
-      "mass_solar": 633,
-      "luminosity_solar": 816,
-      "radius_solar": 840,
+      "temperature_k": 1126,
+      "mass_solar": 635,
+      "luminosity_solar": 817,
+      "radius_solar": 841,
       "metallicity_dex": 785,
       "age_gyr": 141,
       "absolute_mag": 955
@@ -117718,13 +117887,9 @@
         "absolute_mag"
       ],
       "cns5-4975": [
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "age_gyr"
       ],
       "cns5-4977": [
-        "temperature_k",
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
@@ -121921,6 +122086,15 @@
         "spectral_type",
         "temperature_k",
         "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "absolute_mag"
+      ],
+      "wolf-1130-b": [
+        "spectral_type",
+        "temperature_k",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
@@ -127222,16 +127396,16 @@
     }
   },
   "coverage": {
-    "temperature_k": 1125,
-    "mass_solar": 633,
-    "luminosity_solar": 816,
-    "radius_solar": 840,
+    "temperature_k": 1126,
+    "mass_solar": 635,
+    "luminosity_solar": 817,
+    "radius_solar": 841,
     "metallicity_dex": 785,
     "age_gyr": 141
   },
   "inputSha256": {
     "src/data/star-systems.json": "ccb8b300d861fec42a9b95bfeafa8e30f3b4c53298c8c03e3f1743bf4c28fddf",
-    "src/data/object-designations.json": "44d4208c4b7ad0b2034973be040ca288c7521d83ac627f97a255a9b93d728f38",
+    "src/data/object-designations.json": "c2156eb3471da9e87c495280870902eb01771dc9885178825d84f6af36594312",
     "src/data/object-stats.json": "537b78b8cbe6a4a994d0ba3422201b673db4f89760d237a72d676a6b5ec1494a",
     "catalog-work/bright-stars/retired-catalog/stars.csv": "dd4531e8c43bb760e3cfcbb46ced8f0bdc06053d262580168f2c92da96c78bc2",
     "catalog-work/famous-cluster-stars/retired-catalog/stars.csv": "bf460fd113939969a2fbc9b659293dae56382e23773d515b701f94d3de010f4d",
@@ -127248,7 +127422,7 @@
     "catalog-work/star-systems/catalog-companions-gaia.csv": "5ae6a8cbe672091b57b8d6412668b55137745cdbdedce72f5dc22825e3305a24",
     "catalog-work/star-systems/catalog-companions-overrides.json": "1854eb74214d8bf90f729002322a62e101e1d73db557cb0c0a05c6329efe2fa0",
     "catalog-work/star-systems/reviewed-regor.json": "8e88908ce6de75b304b830edc18ef7fe470ed98777287dccca91fdd2b783fc09",
-    "catalog-work/star-systems/catalog-companions-reviewed.json": "564f60caa1af1d60bf08571d9ef48e091116760cc31bc6fcdd31541a77291a08",
+    "catalog-work/star-systems/catalog-companions-reviewed.json": "a30efb358f89c7e805580fe8401cfa35260f16d05b7f24081d355901113b214b",
     "catalog-work/star-systems/adhara-b-simbad.txt": "4392455cb01b0101e38dd2404558b26d1913c10daf5dd0bcf42322508b4b4c81",
     "catalog-work/bright-stars/simbad.csv": "8d1e328df0d1601b94f9d1cc6e051f6e78ebea3cd65b4ce5a1cfd8dad2f0eede",
     "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede",
@@ -127260,7 +127434,7 @@
     "catalog-work/star-systems/ordinary-binaries-review.json": "911d2d4551bb611b19639472161d84deb34125f40b7dc42e7d5f1afd2af3f600",
     "catalog-work/star-systems/reviewed-constellation-hierarchies.json": "1c595ad68e82e5f58a291e3792bf7ee8793d99d33c86d219678398432f93c859",
     "catalog-work/star-systems/literature-components/constellation-20261019-selected.json": "afc8cdc55981eabcf43557bb77aa94355c79c9ecd10ce84201bcd39b75344e2d",
-    "catalog-work/star-systems/reviewed-companion-literature.json": "affa32aeb71e742be84d3da662f433d1f32a1e188545d6c293c5a7ebee6cb464",
+    "catalog-work/star-systems/reviewed-companion-literature.json": "f32eb760a6fb2d213ae5e9298875bafafeaa35e6770ac619a77706941ef02c27",
     "catalog-work/star-systems/literature-components/debcat-20261011.dat": "51af2a4e465a4e2dd8a5671926a1e1069b49eadd80402c4a8bec6785c3505bbe",
     "catalog-work/star-systems/literature-components/piccotti-2020-ReadMe": "d36919462d3dc36e85f4cde8e93ce83b8c9da8b49fc92c546112bbcbaeeccd06",
     "catalog-work/star-systems/literature-components/piccotti-2020-table1.dat": "f5c73a9e5b438837432968eafafdc53b94abd9ccbfe7c633765234cd15a6f89c",

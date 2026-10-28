@@ -67,6 +67,8 @@ export interface StarViewer {
   setStarPaintZoomShrink(enabled: boolean): void
   /** hideFainter removes objects beyond the magnitude limit instead of dimming them. */
   setVisibility(observerId: string, limit: number, hideFainter: boolean): void
+  /** Centers the view in the area left of a right-edge inset, in CSS pixels; 0 restores the full view. */
+  setViewCenterInset(right: number): void
   /** Keeps the visibility base when the selection changes. */
   setVisibilityLocked(locked: boolean): void
   setDistanceUnit(unit: DistanceUnit): void
@@ -274,6 +276,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
   let starColorMode = options.colorMode
   let starPaints: StarPaint[] | null = null
+  /** Whether the paint sizes objects, rather than only coloring them. */
+  let starPaintSized = false
   let starPaintZoomShrink = false
   const starColors = stars.map((star) => starDisplayColor(star, starColorMode))
   const starColorStyles = starColors.map((color) => color.getStyle())
@@ -545,6 +549,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const OBSERVER_ZOOM_DURATION_MS = 360
   let observerTelescope = false
   let observerZoomTransition: { from: number; to: number; started: number } | null = null
+  let viewCenterOffset = 0
+  let viewCenterTransition: { from: number; to: number; started: number } | null = null
   let savedOrbitSettings: {
     enablePan: boolean
     enableZoom: boolean
@@ -1294,7 +1300,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const selectedIndex = selectedId ? starsById.get(selectedId)!.index : -1
     const selectedLabelVisible = selectedIndex >= 0 && (!observerViewEnabled || selectedIndex !== observerViewAnchorIndex)
     const ordinaryBudget = Math.max(0, labelLimit - (selectedLabelVisible && labelLimit > 0 ? 1 : 0))
-    const motionActive = controlsInteracting || controlsSettling || focusTransition !== null || observerZoomTransition !== null || simulationPlaying
+    const motionActive = controlsInteracting || controlsSettling || focusTransition !== null || observerZoomTransition !== null || viewCenterTransition !== null || simulationPlaying
     // Membership follows the same 30 Hz cadence as ordinary placement while moving.
     const budgetStale = ordinaryGroupSource !== rankedNameGroups || budgetSelectedIndex !== selectedIndex ||
       budgetLimit !== ordinaryBudget || ordinaryLayoutDirty || labelSizesDirty || obstacleBoundsDirty
@@ -1788,10 +1794,19 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     arrowUniforms.pixelRatio.value = pixelRatio
     if (!sizeChanged) return
     camera.aspect = width / height
-    camera.updateProjectionMatrix()
+    applyViewCenterOffset(viewCenterOffset)
     invalidateViewport()
     if (home) fitHome()
     requestRender()
+  }
+
+  // An asymmetric frustum moves the projection center left without moving the camera, so orbiting stays around the target.
+  function applyViewCenterOffset(offset: number): void {
+    viewCenterOffset = offset
+    if (offset && renderWidth && renderHeight) camera.setViewOffset(renderWidth, renderHeight, offset, 0, renderWidth, renderHeight)
+    else camera.clearViewOffset()
+    invalidateProjection()
+    ordinaryLayoutDirty = true
   }
 
   const events = new AbortController()
@@ -1889,6 +1904,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       applyObserverZoom(observerZoomTransition.to)
       observerZoomTransition = null
     }
+    if (reducedMotion.matches && viewCenterTransition) {
+      applyViewCenterOffset(viewCenterTransition.to)
+      viewCenterTransition = null
+    }
     if (reducedMotion.matches && focusTransition) {
       applyFocusTarget(focusTransition.to, focusTransition.position)
       focusTransition = null
@@ -1915,7 +1934,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       measuredRefreshRate = estimate
     }
     previousRafTime = time
-    const sceneNeedsFrame = sceneDirty || focusTransition !== null || observerZoomTransition !== null || controlsInteracting || controlsSettling
+    const sceneNeedsFrame = sceneDirty || focusTransition !== null || observerZoomTransition !== null || viewCenterTransition !== null || controlsInteracting || controlsSettling
     if (!sceneNeedsFrame) {
       if (refreshSamplesRemaining > 0) requestRender(false)
       else {
@@ -1974,13 +1993,20 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (progress === 1) observerZoomTransition = null
       else continueRendering = true
     }
+    if (viewCenterTransition) {
+      const progress = Math.min(1, Math.max(0, (time - viewCenterTransition.started) / OBSERVER_ZOOM_DURATION_MS))
+      const eased = progress * progress * (3 - 2 * progress)
+      applyViewCenterOffset(viewCenterTransition.from + (viewCenterTransition.to - viewCenterTransition.from) * eased)
+      if (progress === 1) viewCenterTransition = null
+      else continueRendering = true
+    }
     camera.updateMatrixWorld()
     if (updateCameraNearPlane(camera, depthPositions, extendedDepthBounds)) invalidateProjection()
     if (earthOrbitEnabled) updateEarthOrbitVisibility()
     // Looking at a distant object from the origin is still a close sky view.
     // Fade the overview only after retreating from both origin and orbit target.
     // Painted sizes and halos are the comparison, so zooming out keeps them unless asked to shrink.
-    starViewDistance.value = observerViewEnabled || (starPaints && !starPaintZoomShrink) ? 0 : Math.min(
+    starViewDistance.value = observerViewEnabled || (starPaintSized && !starPaintZoomShrink) ? 0 : Math.min(
       camera.position.distanceTo(controls.target),
       camera.position.distanceTo(pickable[referenceIndex]!.position),
     )
@@ -2222,6 +2248,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setStarPaint(painter) {
       if (!painter && !starPaints) return
       starPaints = painter ? stars.map(painter) : null
+      starPaintSized = starPaints?.some((paint) => paint.magnitude !== undefined) ?? false
       updateStarColors()
       updatePresentation()
       requestRender()
@@ -2242,6 +2269,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     },
     setVisibilityLocked(locked) {
       visibilityLocked = locked
+    },
+    setViewCenterInset(right) {
+      const to = Math.round(right / 2)
+      const from = viewCenterTransition?.to ?? viewCenterOffset
+      if (to === from) return
+      viewCenterTransition = null
+      if (reducedMotion.matches) applyViewCenterOffset(to)
+      else viewCenterTransition = { from: viewCenterOffset, to, started: performance.now() }
+      requestRender()
     },
     setDistanceUnit(unit) {
       if (unit === distanceUnit) return

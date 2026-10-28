@@ -384,13 +384,16 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .paint-setting.planet-atmosphere { margin: 0; }
 .paint-setting > .paint-setting-heading { display: flex; align-items: center; margin: 0; padding: 0; border: 0; border-radius: 7px; }
 .paint-setting > .paint-setting-heading:has([aria-expanded="true"]) { border-radius: 7px 7px 0 0; }
-.paint-setting-heading > button { display: flex; align-items: center; min-height: 40px; padding: 0; color: inherit; font: inherit; background: transparent; border: 0; cursor: pointer; }
+.paint-setting-heading > button, .paint-setting-title > .paint-setting-expand { display: flex; align-items: center; min-height: 40px; padding: 0; color: inherit; font: inherit; background: transparent; border: 0; cursor: pointer; }
 .paint-setting-heading > .paint-setting-toggle { align-self: stretch; justify-content: center; width: 44px; flex: 0 0 44px; margin: -1px 0 -1px -1px; color: var(--ink); background: var(--surface-raised); border: 1px solid transparent; border-right-color: var(--line); border-radius: 8px 0 0 8px; transition: color 120ms ease, background 120ms ease, border-color 120ms ease; }
 .paint-setting-heading:has([aria-expanded="true"]) > .paint-setting-toggle { border-bottom-color: var(--line); border-bottom-left-radius: 0; }
 /* Matches the pressed card-corner buttons, like a locked card. */
 .paint-setting-heading > .paint-setting-toggle[aria-pressed="true"] { color: var(--accent-vibrant); background: #ff8a2a14; border-color: #ff8a2a70; }
 .paint-setting-toggle:focus-visible { outline-color: var(--accent-vibrant); }
-.paint-setting-heading > .paint-setting-expand { flex: 1; gap: 10px; padding: 0 8px 0 12px; text-align: left; }
+/* Setting names wrap between words only; the scale buttons move below a name whose longest word leaves them no room. */
+.paint-setting-title { display: flex; flex: 1; flex-wrap: wrap; align-items: center; min-width: 0; }
+.paint-setting-title > .paint-setting-expand { flex: 1; gap: 10px; padding: 0 8px 0 12px; text-align: left; overflow-wrap: normal; }
+.paint-setting-title > .graph-scale { margin-block: 8px; }
 .paint-setting-heading > .paint-setting-chevron { flex-shrink: 0; margin: 0 12px 0 8px; cursor: pointer; }
 .paint-setting-heading:has(.paint-setting-expand[aria-expanded="false"]) > .paint-setting-chevron { transform: rotate(180deg); }
 .paint-setting-body { display: grid; gap: 5px; padding: 10px 12px 12px; }
@@ -401,6 +404,15 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .paint-legend input::-moz-range-track { height: 100%; background: transparent; }
 .paint-legend input::-webkit-slider-thumb { margin-top: -7px; box-shadow: 0 0 0 1px var(--panel); }
 .paint-legend input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 5px; }
+.paint-histogram { display: flex; align-items: flex-end; gap: 1px; height: 28px; padding: 0 3px; }
+.paint-histogram > i { flex: 1 1 0; min-width: 0; border-radius: 2px 2px 0 0; background: var(--stat-bar-fill); }
+/* Labels sit right, top, left and bottom of the wheel, matching their directions. */
+.paint-wheel { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; justify-items: center; gap: 4px 8px; margin-top: 7px; color: var(--muted); font-size: 11px; line-height: 1.25; text-align: center; white-space: pre-line; }
+.paint-wheel > i { grid-area: 2 / 2; width: 104px; aspect-ratio: 1; border: 1px solid var(--line); border-radius: 50%; background: var(--paint-legend); }
+.paint-wheel > span:nth-of-type(1) { grid-area: 2 / 3; justify-self: start; }
+.paint-wheel > span:nth-of-type(2) { grid-area: 1 / 2; }
+.paint-wheel > span:nth-of-type(3) { grid-area: 2 / 1; justify-self: end; }
+.paint-wheel > span:nth-of-type(4) { grid-area: 3 / 2; }
 .filter-controls { display: grid; gap: 12px; padding: 12px 14px 14px; }
 .range-filter { display: grid; gap: 7px; }
 .range-heading, .range-bounds { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -439,7 +451,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-search { padding: 10px 14px 7px; }
 .objects-heading .object-search { flex: 1; min-width: 0; max-width: 360px; padding: 0; }
 .object-database { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #776a5c transparent; }
-.object-database-table { width: 100%; min-width: 1863px; table-layout: fixed; border-collapse: separate; border-spacing: 0; font-size: 12px; line-height: 1.25; font-variant-numeric: tabular-nums; }
+.object-database-table { width: 100%; min-width: 1941px; table-layout: fixed; border-collapse: separate; border-spacing: 0; font-size: 12px; line-height: 1.25; font-variant-numeric: tabular-nums; }
 .object-database-table th { position: sticky; top: 0; z-index: 2; height: 50px; padding: 3px 6px; background: var(--surface-heading); border-top: 1px solid var(--line); text-align: left; font-weight: 600; }
 .object-database-table th:nth-child(even) { background: color-mix(in srgb, var(--panel-selected) 65%, var(--surface-heading)); }
 .object-column-heading { display: flex; align-items: center; gap: 2px; min-width: 0; height: 30px; }
@@ -457,6 +469,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-database-table th[data-column="name"] { z-index: 3; }
 .object-database-table td[data-column="planets"], .object-database-table td[data-column="distance"], .object-database-table td[data-column="temperature"], .object-database-table td[data-column="luminosity"], .object-database-table td[data-column="mass"], .object-database-table td[data-column="radius"], .object-database-table td[data-column="metallicity"], .object-database-table td[data-column="age"], .object-database-table td[data-column="absolute"], .object-database-table td[data-column="apparent"] { text-align: right; }
 .object-database-table td.is-unavailable { color: var(--muted); }
+.object-database-table td[data-column="info"] { text-align: center; }
+.object-info-dot { display: inline-block; width: 8px; height: 8px; border: 1px solid currentColor; border-radius: 50%; background: currentColor; vertical-align: middle; }
+.is-unavailable > .object-info-dot { background: transparent; }
 .object-database-table tr.is-selected td { background: var(--panel-selected); }
 .object-database-select { display: flex; align-items: center; gap: 6px; width: 100%; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; }
 .object-database-select .catalog-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -1406,9 +1421,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .dock-card.object-type-card.distance-card { width: min(560px, calc(var(--ui-width) - 78px)); }
   .dock-card.object-type-card.constellation-card { width: min(420px, calc(var(--ui-width) - 90px)); }
   .dock-card.object-type-card.planet-card { width: min(420px, calc(var(--ui-width) - 78px)); }
-  .object-type-card > .panel-heading:has(> [role="group"]) { flex-wrap: wrap; gap: 0; padding: 0; }
-  .object-type-card > .panel-heading:has(> [role="group"]) > h2 { display: flex; align-items: center; flex: 0 0 calc(100% - 98px); min-height: 44px; margin-right: 98px; padding: 0 14px; }
-  .object-type-card > .panel-heading > [role="group"] { flex: 0 0 100%; margin: 0; border-top: 1px solid var(--line); }
+  /* The two spectral diagram buttons fit beside the title. */
+  .object-type-card > .panel-heading:not(.spectral-heading):has(> [role="group"]) { flex-wrap: wrap; gap: 0; padding: 0; }
+  .object-type-card > .panel-heading:not(.spectral-heading):has(> [role="group"]) > h2 { display: flex; align-items: center; flex: 0 0 calc(100% - 98px); min-height: 44px; margin-right: 98px; padding: 0 14px; }
+  .object-type-card > .panel-heading:not(.spectral-heading) > [role="group"] { flex: 0 0 100%; margin: 0; border-top: 1px solid var(--line); }
   .object-type-card > .panel-heading > [role="group"] > button { height: 44px; margin: 0; border-top: 0; border-bottom: 0; }
   .object-type-card > .panel-heading > [role="group"] > button:first-child { border-left: 0; }
   /* Like the planet sections, the constellation Info and chart controls take a second row. */
@@ -1419,8 +1435,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .panel-heading :is(#constellation-info-toggle, #discover-constellation-info-toggle) { left: -1px; border-left-color: transparent; }
   .panel-heading :is(#constellation-grid, #discover-constellation-grid) { left: 43px; }
   .panel-heading :is(#constellation-magnify, #discover-constellation-magnify) { left: 87px; }
-  .spectral-heading > [role="group"] > .mass-reference-option > button { height: 44px; margin: 0; border-top: 0; border-bottom: 0; }
-  .spectral-heading > [role="group"] > .mass-reference-option:first-child > button { border-left: 0; }
   .moon-browser { --moon-media-height: 156px; }
   .planet-heading h2 { gap: 5px; }
   .object-type-hero { height: 180px; }

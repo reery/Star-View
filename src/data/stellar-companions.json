@@ -4282,26 +4282,6 @@
       "note": "Components associated by the corrected CNS5 system number. New members share one systemic space velocity; individual orbital motion is not modelled."
     },
     {
-      "id": "cns5-gj-781",
-      "name": "PM I20050+5426",
-      "sourceRef": "cns5-2023",
-      "sourceSystemId": "GJ 781",
-      "authoredBy": "nearest-5000",
-      "components": [
-        {
-          "starId": "cns5-4975",
-          "label": "A",
-          "cns5Id": "4975"
-        },
-        {
-          "starId": "cns5-4977",
-          "label": "B",
-          "cns5Id": "4977"
-        }
-      ],
-      "note": "Components associated by the corrected CNS5 system number. New members share one systemic space velocity; individual orbital motion is not modelled."
-    },
-    {
       "id": "cns5-gj-78.1",
       "name": "Mothallah",
       "sourceRef": "cns5-2023",
@@ -10994,6 +10974,31 @@
           "label": "B"
         }
       ]
+    },
+    {
+      "id": "cns5-gj-781",
+      "name": "Wolf 1130",
+      "sourceRef": "mace-2018-wolf-1130",
+      "sourceSystemId": "GJ 781",
+      "authoredBy": "nearest-5000",
+      "components": [
+        {
+          "starId": "cns5-4975",
+          "label": "A",
+          "cns5Id": "4975"
+        },
+        {
+          "starId": "wolf-1130-b",
+          "label": "B"
+        },
+        {
+          "starId": "cns5-4977",
+          "label": "C",
+          "cns5Id": "4977"
+        }
+      ],
+      "note": "Components associated by the corrected CNS5 system number. New members share one systemic space velocity; individual orbital motion is not modelled.",
+      "sourceUrl": "https://arxiv.org/abs/1802.04803"
     },
     {
       "id": "msc-00022+2705",
@@ -75139,9 +75144,9 @@
     },
     {
       "temperature_k": 3707.0,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
+      "mass_solar": 0.308,
+      "luminosity_solar": 0.01551668488,
+      "radius_solar": 0.302,
       "metallicity_dex": -0.78,
       "age_gyr": null,
       "absolute_mag": 12.785304,
@@ -75154,11 +75159,12 @@
       "vz_kms": 43.396234,
       "type": "star",
       "id": "cns5-4975",
-      "name": "PM I20050+5426",
+      "name": "Wolf 1130 A",
       "spectral_type": "sdM1",
       "constellation": "Cygnus",
       "metallicity_kind": "[Fe/H]",
       "designations": [
+        "PM I20050+5426",
         "GJ 781",
         "HIP 98906",
         "1RXS J200503.8+542609",
@@ -75202,9 +75208,9 @@
         "WEB 17561",
         "WISEA J200500.79+542553.7",
         "Wolf 1130",
-        "PM I20050+5426"
+        "Wolf 1130 A"
       ],
-      "notes": "Corrected CNS5 4975; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion using exact-ID Gaia DR3 radial velocity fallback. Shared exact-identity physical supplements (temperature_k: 2023ApJS..266...41P; metallicity_dex: 2023ApJS..266...41P).",
+      "notes": "Corrected CNS5 4975; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion using exact-ID Gaia DR3 radial velocity fallback. Shared exact-identity physical supplements (temperature_k: 2023ApJS..266...41P; metallicity_dex: 2023ApJS..266...41P). Wolf 1130 A is the exact CNS5 4975 / SIMBAD Wolf 1130 record, which observes the A+B spectroscopic binary. B contributes no detected visible or near-infrared light (Mace et al. 2018, section 4.2), so existing photometry, astrometry and spectrum describe A; existing measurements retained. Its Gaia DR3 radial velocity (7.3 +/- 23.9 km/s) is blurred by A's 121 km/s orbital semi-amplitude; the published systemic velocity is -33.2 km/s (Table 3). Reviewed individual literature: Empirical K-band calibrations of the sdM primary; B adds no detected near-infrared light. Mace et al. also fit Teff 3530 +/- 60 K and [Fe/H] -0.70 +/- 0.12; the existing temperature and metallicity are retained. luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
       "raw_astrometry": {
         "ra_deg": 301.25028584217137,
         "dec_deg": 54.43021426747369,
@@ -75225,7 +75231,7 @@
       "apparent_mag": 13.882999766
     },
     {
-      "temperature_k": null,
+      "temperature_k": 800,
       "mass_solar": null,
       "luminosity_solar": null,
       "radius_solar": null,
@@ -75241,7 +75247,7 @@
       "vz_kms": 43.396234,
       "type": "brown_dwarf",
       "id": "cns5-4977",
-      "name": "Wolf 1130 B",
+      "name": "Wolf 1130 C",
       "spectral_type": "T8p",
       "constellation": "Cygnus",
       "metallicity_kind": null,
@@ -75254,10 +75260,10 @@
         "WDS J20050+5426B",
         "WISE J200520.38+542433.9",
         "WISEA J200520.35+542433.6",
-        "Wolf 1130 C",
-        "Wolf 1130 B"
+        "Wolf 1130 B",
+        "Wolf 1130 C"
       ],
-      "notes": "Corrected CNS5 4977; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Systemic space velocity of PM I20050+5426 adopted from PM I20050+5426 (cns5-4975); individual orbital motion is not modelled.",
+      "notes": "Corrected CNS5 4977; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Systemic space velocity of PM I20050+5426 adopted from PM I20050+5426 (cns5-4975); individual orbital motion is not modelled. Wolf 1130 C is the exact CNS5 4977 T8 subdwarf, a common-proper-motion companion at a projected 3150 +/- 40 au (Mace et al. 2018, section 4.3 and Table 5). Its own astrometry is retained. Reviewed individual literature: Approximate temperature of the T8 subdwarf. The 0.050 solar-mass model estimate at 10 Gyr (section 4.3) is not adopted; the authors note C may be older and more massive.",
       "raw_astrometry": {
         "ra_deg": 301.3348008,
         "dec_deg": 54.4093545,
@@ -117501,6 +117507,37 @@
           }
         }
       ]
+    },
+    {
+      "temperature_k": null,
+      "mass_solar": 1.24,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "metallicity_kind": null,
+      "absolute_mag": null,
+      "apparent_mag": null,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "raw_astrometry": null,
+      "spectral_type": null,
+      "known_planets": null,
+      "x_pc": 0.400130578,
+      "y_pc": 16.212412347,
+      "z_pc": 3.440428432,
+      "epoch": 2000.0,
+      "constellation": "Cygnus",
+      "id": "wolf-1130-b",
+      "name": "Wolf 1130 B",
+      "type": "white_dwarf",
+      "designations": [
+        "Wolf 1130 B",
+        "WD 2003+542"
+      ],
+      "subtypes": [],
+      "notes": " Wolf 1130 B is the unseen white dwarf in a 0.4967-day orbit with A, detected only through A's radial velocities and ellipsoidal light variation (Mace et al. 2018, sections 3.2 and 4.2). Shared A position and distance; separation 0.014 au. Non-detection implies Teff below 7000 K and a cooling age above about 3.4 Gyr; no spectral type, temperature, photometry or space motion is available. Reviewed individual literature: Ultramassive white dwarf, likely oxygen-neon. Minimum mass 0.332 +/- 0.001 solar masses (Table 3). Teff below 7000 K is an upper limit only and is not adopted."
     },
     {
       "temperature_k": 5445.0,

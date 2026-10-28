@@ -12,9 +12,9 @@
     "catalog-work/object-designations/components.csv": "4e0c1bec3a3089dc6acc19a250b460c7a2876fcc0cfdf0b2595afe44f4166291",
     "catalog-work/object-designations/extended.csv": "ff39af2876c31ceae6bd72278d837092e8eb90e76e1e6dcc80b34d8ddd8ae1d9",
     "catalog-work/object-designations/iau-names.csv": "ad39e5c1a6ec5d47f1da6f4595647ed2f5f663408d3d6500124ddf04cac188c9",
-    "catalog-work/object-designations/preferred-names.json": "bc66081bf596c2435ce165667596e8aa02afe6f8fabb62b9c4d81bfefeb04711",
+    "catalog-work/object-designations/preferred-names.json": "7eb233d43f9c065f64858ef2f9bbe6704c6ccb0ab45f2adfead067cd4ccb5166",
     "catalog-work/object-designations/simbad.csv": "d2f31fe2362ae8b8b56b672e93ab48e144457ed5795e3b90fb905ffc78bdea12",
-    "catalog-work/object-designations/source-manifest.json": "79e3898b0416bd67f55efd1a74d74bb91afcdd6fed49470edc9b1c7a59417a09",
+    "catalog-work/object-designations/source-manifest.json": "cf994b11d8dcad0e4176d980410c25dc37351e05f83467582eb9060740fc2ff3",
     "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede",
     "src/data/catalogs/nearest-100/provenance.json": "63736bb2e9ac7edcfa6fb35571309103b6013ba7d541352894bffcff23aa884e",
     "src/data/catalogs/nearest-100/stars.csv": "8a0bea151de369d0b34eec71eef128eb66cba6cc8189cc5eced4c05a96083eeb",
@@ -31,7 +31,7 @@
     "src/data/overlays/molecular-clouds/objects.json": "6f20f8fefbbeab700c05c1a0e6b9844f42998da9d810f073973cd99da50419b4",
     "src/data/overlays/nebulae/objects.json": "d39e6c33ce9d69e766df197f054dd392623fce93a19c171a636920f175910548",
     "src/data/stars.csv": "cbe5afe70dfcd4f789ebdf61464a35ce59652dc7ad6eccfd389c5599128d2f11",
-    "src/data/stellar-companions.json": "fd761df9c4dd2687f5218857f2381740e15baafd87eff158ef84d849b07d8626"
+    "src/data/stellar-companions.json": "1101cd2c8f232d1abf887ff6e5bc00adf9570d780f0d8f7fed2aed8df0f05be5"
   },
   "objects": {
     "10pc-0029": {
@@ -119257,8 +119257,9 @@
       "simbadId": "LSPM J2004+0321"
     },
     "cns5-4975": {
-      "name": "PM I20050+5426",
+      "name": "Wolf 1130 A",
       "designations": [
+        "PM I20050+5426",
         "GJ 781",
         "HIP 98906",
         "1RXS J200503.8+542609",
@@ -119305,6 +119306,7 @@
       ],
       "sources": [
         "catalog-work/nearest-5000/simbad.csv",
+        "https://arxiv.org/abs/1802.04803",
         "src/data/catalogs/nearest-5000/stars.csv"
       ],
       "simbadId": "Wolf 1130"
@@ -119368,7 +119370,7 @@
       "simbadId": "HD 190771"
     },
     "cns5-4977": {
-      "name": "Wolf 1130 B",
+      "name": "Wolf 1130 C",
       "designations": [
         "GJ 781 B",
         "CNS5 4977",
@@ -119378,10 +119380,11 @@
         "WDS J20050+5426B",
         "WISE J200520.38+542433.9",
         "WISEA J200520.35+542433.6",
-        "Wolf 1130 C"
+        "Wolf 1130 B"
       ],
       "sources": [
         "catalog-work/nearest-5000/simbad.csv",
+        "https://arxiv.org/abs/1802.04803",
         "src/data/catalogs/nearest-5000/stars.csv"
       ],
       "simbadId": "Wolf 1130 B"

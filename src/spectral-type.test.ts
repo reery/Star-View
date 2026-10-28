@@ -64,6 +64,17 @@ describe('spectralLines', () => {
     expect(strongest('M5V')).toBe('TiO')
   })
 
+  it('deepens red TiO before blue-green TiO and weakens TiO in subdwarfs', () => {
+    const tio = (type: string, nm: number) => spectralLines(readSpectralType(type))!.find((line) => line.label === 'TiO' && line.nm === nm)?.strength ?? 0
+    expect(tio('M1V', 705.4)).toBeGreaterThan(tio('M1V', 495.4))
+    expect(tio('sdM1', 705.4)).toBeLessThan(tio('M1V', 705.4))
+    expect(tio('esdM1', 705.4)).toBeLessThan(tio('sdM1', 705.4))
+    expect(readSpectralType('sdM1')).toMatchObject({ prefix: 'sd', letter: 'M', subtype: 1 })
+    const cah = spectralLines(readSpectralType('esdM5'))!.find((line) => line.label === 'CaH')!.strength
+    expect(cah).toBeGreaterThan(tio('esdM5', 705.4))
+    expect(cah).toBeLessThan(tio('M5V', 705.4))
+  })
+
   it('draws white-dwarf families and skips unsupported classes', () => {
     expect(spectralLines(readSpectralType('DC9'))).toEqual([])
     expect(strongest('DA2')).toMatch(/^H/)

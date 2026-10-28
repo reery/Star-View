@@ -26,6 +26,80 @@
     "catalog-work/bright-stars/literature/deneb-selected-tables.json": "7a062cc68c7a7ec883c9099677a0d7b1d518af489c430b01aa82625d6b58544b"
   },
   "objects": {
+    "cns5-4975": {
+      "expectedName": "Wolf 1130 A",
+      "systemId": "cns5-gj-781",
+      "component": "A",
+      "fields": {
+        "mass_solar": {
+          "value": 0.308,
+          "uncertainty": 0.016,
+          "status": "calibrated",
+          "reference": "Mace et al. 2018; 2018ApJ...854..145M",
+          "sourceUrl": "https://arxiv.org/abs/1802.04803",
+          "section": "Section 4.1 and Table 4, Benedict et al. (2016) MK-mass relation",
+          "alternativeMeasurements": [
+            {
+              "value": 0.297,
+              "uncertainty": 0.011,
+              "method": "Dartmouth evolutionary models",
+              "section": "Table 4"
+            }
+          ]
+        },
+        "radius_solar": {
+          "value": 0.302,
+          "uncertainty": 0.009,
+          "status": "calibrated",
+          "reference": "Mace et al. 2018; 2018ApJ...854..145M",
+          "sourceUrl": "https://arxiv.org/abs/1802.04803",
+          "section": "Section 4.1 and Table 4, Mann et al. (2015) MK-radius-[Fe/H] relation",
+          "alternativeMeasurements": [
+            {
+              "value": 0.289,
+              "uncertainty": 0.011,
+              "method": "Dartmouth evolutionary models",
+              "section": "Table 4"
+            }
+          ]
+        }
+      },
+      "note": "Empirical K-band calibrations of the sdM primary; B adds no detected near-infrared light. Mace et al. also fit Teff 3530 +/- 60 K and [Fe/H] -0.70 +/- 0.12; the existing temperature and metallicity are retained."
+    },
+    "wolf-1130-b": {
+      "expectedName": "Wolf 1130 B",
+      "expectedType": "white_dwarf",
+      "systemId": "cns5-gj-781",
+      "component": "B",
+      "fields": {
+        "mass_solar": {
+          "value": 1.24,
+          "uncertaintyMinus": 0.15,
+          "uncertaintyPlus": 0.19,
+          "status": "dynamical",
+          "reference": "Mace et al. 2018; 2018ApJ...854..145M",
+          "sourceUrl": "https://arxiv.org/abs/1802.04803",
+          "section": "Abstract and section 4.2; Table 3 gives 1.242 +/- 0.005 at fixed i = 29 deg",
+          "scope": "Spectroscopic-orbit mass function with A's mass and the inclination from A's rotation; the interval carries the inclination uncertainty."
+        }
+      },
+      "note": "Ultramassive white dwarf, likely oxygen-neon. Minimum mass 0.332 +/- 0.001 solar masses (Table 3). Teff below 7000 K is an upper limit only and is not adopted."
+    },
+    "cns5-4977": {
+      "expectedName": "Wolf 1130 C",
+      "systemId": "cns5-gj-781",
+      "component": "C",
+      "fields": {
+        "temperature_k": {
+          "value": 800,
+          "status": "estimated",
+          "reference": "Mace et al. 2018; 2018ApJ...854..145M",
+          "sourceUrl": "https://arxiv.org/abs/1802.04803",
+          "section": "Section 1 and Table 5 (approximate; no uncertainty published)"
+        }
+      },
+      "note": "Approximate temperature of the T8 subdwarf. The 0.050 solar-mass model estimate at 10 Gyr (section 4.3) is not adopted; the authors note C may be older and more massive."
+    },
     "bright-dschubba": {
       "expectedName": "Dschubba A",
       "systemId": "orb6-16003-2237-a-b",

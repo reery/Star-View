@@ -6,7 +6,7 @@ import { filterAndSortObjectDatabaseItems, objectDatabaseValue, objectSpectralCl
 const sun = parseStarCatalog(readFileSync(new URL('./data/stars.csv', import.meta.url), 'utf8')).find((star) => star.id === 'sun')!
 const state = (overrides: Partial<ObjectDatabaseState> = {}): ObjectDatabaseState => ({
   sort: 'distance', direction: 'ascending', distance: 'sun',
-  filters: { type: null, subtype: null, spectral: null, motion: null }, ...overrides,
+  filters: { type: null, subtype: null, spectral: null, motion: null, info: null }, ...overrides,
 })
 const item = (name: string, fields: Partial<ObjectDatabaseItem['star']> = {}, distances = [1, 1]): ObjectDatabaseItem => ({
   star: { ...sun, name, id: name, ...fields }, sunDistancePc: distances[0]!, distancePc: distances[1]!, color: '#ffffff',
@@ -26,6 +26,14 @@ describe('Objects database', () => {
     expect(objectDatabaseValue(items[1]!, 'planets', 'sun')).toBe(0)
   })
 
+  it('sorts objects with Info articles before those without when descending', () => {
+    const items = [item('Without'), { ...item('Sun'), star: sun }]
+    expect(filterAndSortObjectDatabaseItems(items, state({ sort: 'info', direction: 'descending' })).map(({ star }) => star.name)).toEqual(['Sun', 'Without'])
+    expect(objectDatabaseValue(items[0]!, 'info', 'sun')).toBe(0)
+    const filters = { type: null, subtype: null, spectral: null, motion: null, info: new Set(['unavailable']) }
+    expect(filterAndSortObjectDatabaseItems(items, state({ filters })).map(({ star }) => star.name)).toEqual(['Without'])
+  })
+
   it('combines columns with AND and multiple values within each column with OR', () => {
     const items = [
       item('Cool dwarf', { type: 'star', spectral_type: 'M5.5V', subtypes: ['Main-sequence', 'Variable star'] }),
@@ -34,10 +42,10 @@ describe('Objects database', () => {
       item('White dwarf', { type: 'white_dwarf', spectral_type: 'DA2', subtypes: ['Variable star'] }),
     ]
     const filtered = filterAndSortObjectDatabaseItems(items, state({ filters: {
-      type: new Set(['star', 'white_dwarf']), subtype: new Set(['Main-sequence', 'Variable star']), spectral: new Set(['G', 'M']), motion: null,
+      type: new Set(['star', 'white_dwarf']), subtype: new Set(['Main-sequence', 'Variable star']), spectral: new Set(['G', 'M']), motion: null, info: null,
     } }))
     expect(filtered.map(({ star }) => star.name)).toEqual(['Cool dwarf', 'Sun-like'])
-    expect(filterAndSortObjectDatabaseItems(items, state({ filters: { type: new Set(), subtype: null, spectral: null, motion: null } }))).toEqual([])
+    expect(filterAndSortObjectDatabaseItems(items, state({ filters: { type: new Set(), subtype: null, spectral: null, motion: null, info: null } }))).toEqual([])
   })
 
   it('combines selected motion statuses and applies other column filters', () => {
@@ -46,7 +54,7 @@ describe('Objects database', () => {
       item('Full dwarf', { type: 'white_dwarf' }),
       item('Unavailable', { type: 'star', vx_kms: null, vy_kms: null, vz_kms: null, raw_astrometry: null }),
     ]
-    const filters = { type: new Set(['star']), subtype: null, spectral: null, motion: new Set(['Full space motion']) }
+    const filters = { type: new Set(['star']), subtype: null, spectral: null, motion: new Set(['Full space motion']), info: null }
     expect(filterAndSortObjectDatabaseItems(items, state({ filters })).map(({ star }) => star.name)).toEqual(['Full star'])
     filters.motion.add('unavailable')
     expect(filterAndSortObjectDatabaseItems(items, state({ filters })).map(({ star }) => star.name)).toEqual(['Full star', 'Unavailable'])

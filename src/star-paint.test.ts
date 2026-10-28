@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Star } from './catalog-model'
-import { DEFAULT_PAINT_CONTROLS, starPainter } from './star-paint'
+import { DEFAULT_PAINT_CONTROLS, PAINT_HISTOGRAM_BINS, paintLegend, starPainter } from './star-paint'
 
 const sun: Star = {
   id: 'sun', name: 'Sun', type: 'star', spectral_type: 'G2V', mass_solar: 1, radius_solar: 1, luminosity_solar: 1, temperature_k: 5772,
@@ -36,7 +36,7 @@ describe('star paint', () => {
     const dwarfs = [withMagnitude(10.2), withMagnitude(10.1), withMagnitude(10.1, 'twin'), withMagnitude(10)]
     const fitted = painter(0.5, dwarfs)
     const gray = (star: Star) => fitted.painter(star).color!.getHexString()
-    expect(fitted.bounds.get('absolute-magnitude')).toEqual(['+10.2', '+10'])
+    expect(fitted.legends.get('absolute-magnitude')!.bounds).toEqual(['+10.2', '+10'])
     expect([gray(dwarfs[0]!), gray(dwarfs[3]!)]).toEqual(['333333', 'ffffff'])
     // Equal magnitudes share the middle rank; objects outside the visible range clamp to its ends.
     expect(gray(dwarfs[1]!)).toBe(gray(dwarfs[2]!))
@@ -48,7 +48,7 @@ describe('star paint', () => {
   it('keeps the fixed magnitude scale on a linear scale', () => {
     const dwarfs = [withMagnitude(10.2), withMagnitude(10)]
     const fitted = starPainter(new Map([['absolute-magnitude', 0.5]]), dwarfs, new Set(['absolute-magnitude']))!
-    expect(fitted.bounds.get('absolute-magnitude')).toEqual(['+16', '−8'])
+    expect(fitted.legends.get('absolute-magnitude')!.bounds).toEqual(['+16', '−8'])
     expect(fitted.painter(dwarfs[1]!).color!.r).toBeGreaterThan(fitted.painter(dwarfs[0]!).color!.r)
     expect(fitted.painter(dwarfs[1]!).color!.getHexString()).not.toBe('ffffff')
     expect(fitted.painter(withMagnitude(-8)).color!.getHexString()).toBe('ffffff')
@@ -76,9 +76,9 @@ describe('star paint', () => {
       expect([gray(light), gray(heavy), gray(unknown)]).toEqual(['333333', 'ffffff', '333333'])
       expect(fitted.painter(sun).magnitude).toBeCloseTo(4)
     }
-    expect(starPainter(new Map([['mass', 0.5]]), [light, heavy])!.bounds.get('mass')).toEqual(['0.1 M☉', '20 M☉'])
+    expect(starPainter(new Map([['mass', 0.5]]), [light, heavy])!.legends.get('mass')!.bounds).toEqual(['0.1 M☉', '20 M☉'])
     const linear = starPainter(new Map([['bolometric-luminosity', 0.5]]), [light, heavy], new Set(['bolometric-luminosity']))!
-    expect(linear.bounds.get('bolometric-luminosity')).toEqual(['0.00001 L☉', '1,000,000 L☉'])
+    expect(linear.legends.get('bolometric-luminosity')!.bounds).toEqual(['0.00001 L☉', '1,000,000 L☉'])
     // The Sun sits 5 of the 11 decades above the faint end.
     expect(linear.painter(sun).magnitude).toBeCloseTo(10 - 12 * 5 / 11)
   })
@@ -88,7 +88,7 @@ describe('star paint', () => {
     const stars = [moving(-40), moving(-10), moving(10), moving(30), moving(60)]
     const fitted = (level: number, linear = false) => starPainter(new Map([['radial-velocity', level]]), stars, new Set(linear ? ['radial-velocity'] as const : []))!
     const centered = fitted(0.5)
-    expect(centered.bounds.get('radial-velocity')).toEqual(['−40 km/s', '+60 km/s'])
+    expect(centered.legends.get('radial-velocity')!.bounds).toEqual(['−40 km/s', '+60 km/s'])
     const approaching = centered.painter(stars[0]!).color!, receding = centered.painter(stars[4]!).color!
     expect(approaching.b).toBeGreaterThan(approaching.r)
     expect(receding.r).toBeGreaterThan(receding.b)
@@ -104,7 +104,7 @@ describe('star paint', () => {
     expect(fitted(1).painter(stars[0]!).magnitude).toBe(10)
     expect(fitted(1).painter(stars[4]!).color!.getHexString()).toBe(centered.painter(stars[4]!).color!.getHexString())
     const linear = fitted(0.5, true)
-    expect(linear.bounds.get('radial-velocity')).toEqual(['−100 km/s', '+100 km/s'])
+    expect(linear.legends.get('radial-velocity')!.bounds).toEqual(['−100 km/s', '+100 km/s'])
     expect(linear.painter(moving(50)).magnitude).toBeCloseTo(4)
     // Full dimness takes up to 5 magnitudes off weaker objects, leaving the fastest unchanged.
     const dimmed = starPainter(new Map([['radial-velocity', 0.5]]), stars, new Set(['radial-velocity']), new Map([['radial-velocity', { ...DEFAULT_PAINT_CONTROLS, dimness: 1 }]]))!
@@ -121,8 +121,8 @@ describe('star paint', () => {
       const fitted = starPainter(new Map([[id, 0.5]]), [poor, sun, rich])!
       expect([poor, rich, { ...sun, metallicity_dex: null, radius_solar: null }].map((star) => fitted.painter(star).color!.getHexString())).toEqual(['333333', 'ffffff', '333333'])
     }
-    expect(starPainter(new Map([['metallicity', 0.5]]), [poor, rich])!.bounds.get('metallicity')).toEqual(['−1.5 dex', '+0.3 dex'])
-    expect(starPainter(new Map([['radius', 0.5]]), [poor], new Set(['radius']))!.bounds.get('radius')).toEqual(['0.01 R☉', '1,000 R☉'])
+    expect(starPainter(new Map([['metallicity', 0.5]]), [poor, rich])!.legends.get('metallicity')!.bounds).toEqual(['−1.5 dex', '+0.3 dex'])
+    expect(starPainter(new Map([['radius', 0.5]]), [poor], new Set(['radius']))!.legends.get('radius')!.bounds).toEqual(['0.01 R☉', '1,000 R☉'])
   })
 
   it('brightens a temperature band in spectrum colors and spreads it with the width', () => {
@@ -137,6 +137,83 @@ describe('star paint', () => {
     expect(red.r).toBeGreaterThan(red.b)
     expect(narrow(hot(null)).color!.getHexString()).toBe('333333')
     expect(band(0.5, 1)(hot(30000)).color!.getHexString()).toBe('000001')
-    expect(starPainter(new Map([['temperature', 0.5]]), [])!.bounds.get('temperature')).toEqual(['250 K', '40,000 K'])
+    expect(starPainter(new Map([['temperature', 0.5]]), [])!.legends.get('temperature')!.bounds).toEqual(['250 K', '40,000 K'])
+  })
+  it('paints the direction of motion in the Galactic plane as hue and its speed as saturation', () => {
+    const moving = (vx_kms: number | null, vy_kms: number | null): Star => ({ ...sun, id: `v${vx_kms},${vy_kms}`, vx_kms, vy_kms })
+    const stars = [moving(0, 0), moving(10, 0), moving(0, 40), moving(-80, 0), moving(null, null)]
+    const fitted = starPainter(new Map([['motion-direction', 0.5]]), stars)!
+    expect(fitted.legends.get('motion-direction')).toMatchObject({ bounds: ['0 km/s', '80 km/s'], missing: 1 })
+    // Inward motion is red, motion along rotation turns toward green and outward motion is cyan.
+    const inward = fitted.painter(moving(500, 0)).color!, forward = fitted.painter(moving(0, 500)).color!, outward = fitted.painter(stars[3]!).color!
+    expect(inward.getHexString()).toBe('ff0000')
+    expect(forward.g).toBeGreaterThan(forward.b)
+    expect(outward.r).toBeLessThan(Math.min(outward.g, outward.b))
+    // Faster objects are more saturated and larger; co-moving objects share their paint.
+    const slow = fitted.painter(stars[1]!), fast = fitted.painter(moving(80, 0))
+    expect(slow.color!.g / slow.color!.r).toBeGreaterThan(fast.color!.g / fast.color!.r)
+    expect(fast.magnitude!).toBeLessThan(slow.magnitude!)
+    expect(fitted.painter(moving(80, 0))).toEqual(fitted.painter({ ...moving(80, 0), id: 'twin', x_pc: 30 }))
+    expect(fitted.painter(stars[4]!).color!.getHexString()).toBe('333333')
+    const linear = starPainter(new Map([['motion-direction', 0.5]]), stars, new Set(['motion-direction']))!
+    expect(linear.legends.get('motion-direction')!.bounds).toEqual(['0 km/s', '100 km/s'])
+    expect(linear.painter(moving(50, 0)).magnitude).toBeCloseTo(4)
+  })
+
+  it('paints density from mass and radius on a logarithmic scale', () => {
+    const giant = { ...sun, id: 'giant', mass_solar: 1, radius_solar: 100 }
+    const whiteDwarf = { ...sun, id: 'white-dwarf', mass_solar: 1, radius_solar: 0.01 }
+    const fitted = starPainter(new Map([['density', 0.5]]), [giant, sun, whiteDwarf, { ...sun, id: 'unknown', radius_solar: null }])!
+    expect(fitted.legends.get('density')).toMatchObject({ bounds: ['1.41 × 10⁻⁶ g/cm³', '1.41 × 10⁶ g/cm³'], missing: 1 })
+    expect([giant, whiteDwarf].map((star) => fitted.painter(star).color!.getHexString())).toEqual(['333333', 'ffffff'])
+    expect(fitted.painter(sun).magnitude).toBeCloseTo(4)
+    expect(starPainter(new Map([['density', 0.5]]), [], new Set(['density']))!.legends.get('density')!.bounds).toEqual(['1 × 10⁻⁸ g/cm³', '1 × 10⁷ g/cm³'])
+  })
+
+  it('paints planet hosts on a fixed scale that grows with their planets', () => {
+    const hosting = (known_planets: number | null): Star => ({ ...sun, id: `p${known_planets}`, known_planets })
+    const fitted = starPainter(new Map([['planet-hosts', 0.5]]), [hosting(0), hosting(1), hosting(7), hosting(null)], new Set())!
+    expect(fitted.legends.get('planet-hosts')).toMatchObject({ bounds: ['No planets', '7 planets'], missing: 1 })
+    const magnitude = (planets: number | null) => fitted.painter(hosting(planets)).magnitude
+    expect(magnitude(0)).toBe(10)
+    expect(magnitude(null)).toBe(10)
+    expect(magnitude(1)).toBeCloseTo(4)
+    expect(magnitude(3)).toBeLessThan(magnitude(1)!)
+    expect(magnitude(7)).toBeCloseTo(-2)
+  })
+
+  it('brightens objects that lack more catalog properties', () => {
+    const sparse = { ...sun, id: 'sparse', spectral_type: null, mass_solar: null, metallicity_dex: null, age_gyr: null, vx_kms: null, vy_kms: null, vz_kms: null }
+    const fitted = starPainter(new Map([['data-gaps', 0.5]]), [sun, sparse], new Set(['data-gaps']))!
+    expect(fitted.legends.get('data-gaps')).toMatchObject({ bounds: ['0 of 9 unknown', '9 of 9 unknown'], missing: 0 })
+    // The Sun's own record has no radial velocity relative to itself.
+    expect(fitted.painter(sun).magnitude).toBeCloseTo(10 - 12 / 9)
+    expect(fitted.painter(sparse).magnitude).toBeCloseTo(10 - 12 * 5 / 9)
+    expect(starPainter(new Map([['data-gaps', 0.5]]), [sun, sparse])!.legends.get('data-gaps')!.bounds).toEqual(['1 of 9 unknown', '5 of 9 unknown'])
+  })
+
+  it('takes color and size from different settings, each channel from the last setting claiming it', () => {
+    const rich = { ...sun, id: 'rich', metallicity_dex: 0.3, known_planets: 0 }
+    const host = { ...sun, id: 'host', metallicity_dex: -1, known_planets: 3 }
+    const stars = [rich, host]
+    const levels = new Map([['metallicity', 0.5], ['planet-hosts', 0.5]] as const)
+    const fitted = starPainter(levels, stars, new Set(), new Map(), new Map([['metallicity', ['color']], ['planet-hosts', ['size']]]))!
+    const metallicity = starPainter(new Map([['metallicity', 0.5]]), stars)!.painter, planets = starPainter(new Map([['planet-hosts', 0.5]]), stars)!.painter
+    for (const star of stars) expect(fitted.painter(star)).toEqual({ color: metallicity(star).color, magnitude: planets(star).magnitude })
+    // Without given channels, the later setting in display order paints both.
+    expect(starPainter(levels, stars)!.painter(host)).toEqual(planets(host))
+    expect(starPainter(new Map([['metallicity', 0.5]]), stars, new Set(), new Map(), new Map([['metallicity', ['size']]]))!.painter(host).color).toBeUndefined()
+  })
+
+  it('counts the visible objects of each painted setting in histogram bins between its bounds', () => {
+    const stars = [0.1, 0.1, 1, 10].map((mass_solar, index) => ({ ...sun, id: String(index), mass_solar }))
+    const nebula = { ...sun, id: 'nebula', type: 'hii_region', mass_solar: 100, nebula: {} } as Star
+    const { histogram, missing } = starPainter(new Map([['mass', 0.5]]), [...stars, nebula, { ...sun, id: 'unknown', mass_solar: null }])!.legends.get('mass')!
+    expect(missing).toBe(1)
+    expect(histogram).toHaveLength(PAINT_HISTOGRAM_BINS)
+    expect([histogram[0], histogram[PAINT_HISTOGRAM_BINS / 2], histogram.at(-1)]).toEqual([2, 1, 1])
+    expect(histogram.reduce((sum, count) => sum + count, 0)).toBe(4)
+    // Open settings show the same legend without painting.
+    expect(paintLegend('mass', [...stars, nebula], false)).toMatchObject({ histogram, missing: 0 })
   })
 })

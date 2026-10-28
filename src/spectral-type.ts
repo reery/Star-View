@@ -10,6 +10,8 @@ export interface SpectralReading {
   subtype: number | null
   /** White-dwarf feature letters after the D, primary first (e.g. "AZ"). */
   whiteDwarf: string | null
+  /** Dwarf, giant or (extreme/ultra) subdwarf prefix, as written. */
+  prefix: string | null
 }
 
 const classMeanings: Record<string, string> = {
@@ -51,7 +53,7 @@ const luminosityPattern = new RegExp(`\\(?(${luminosity})(ab|a|b)?(?:[-/](${lumi
 /** Splits a catalog spectral type into M-K parts and common suffixes, keeping unknown notation as written. */
 export function readSpectralType(type: string | null): SpectralReading {
   const text = type?.trim() ?? ''
-  const reading: SpectralReading = { parts: [], letter: null, subtype: null, whiteDwarf: null }
+  const reading: SpectralReading = { parts: [], letter: null, subtype: null, whiteDwarf: null, prefix: null }
   let index = 0
   const add = (part: string, meaning: string) => reading.parts.push({ text: part, meaning })
   const take = (pattern: RegExp) => {
@@ -62,7 +64,10 @@ export function readSpectralType(type: string | null): SpectralReading {
   }
   let match = take(/([<>])\s*/y)
   if (match) add(match[1]!, match[1] === '>' ? 'Later (cooler) than the type that follows' : 'Earlier (hotter) than the type that follows')
-  if ((match = take(/(?:d\/sd|esd|usd|sd|d|g)(?=[A-Z])/y))) add(match[0], prefixes[match[0]]!)
+  if ((match = take(/(?:d\/sd|esd|usd|sd|d|g)(?=[A-Z])/y))) {
+    reading.prefix = match[0]
+    add(match[0], prefixes[match[0]]!)
+  }
   if ((match = take(/D([ABCOQZX]*)([HPEV]*)(\d+(?:\.\d+)?)?([HPEV]*)/y))) {
     const [, families = '', leadingFlags = '', temperatureIndex, trailingFlags = ''] = match
     const flags = leadingFlags + trailingFlags
@@ -140,7 +145,8 @@ export function readSpectralType(type: string | null): SpectralReading {
 
 // Typical absorption strengths (0–1) against a continuous class scale O0 = 0 … M9 = 6.9,
 // rounded from the classification criteria in Gray's digital spectral classification
-// atlas. Schematic only: luminosity class, rotation and composition are ignored.
+// atlas. Schematic only: luminosity class and rotation are ignored; metal-poor
+// subdwarf prefixes weaken TiO against CaH (Lépine et al. 2007, ζ index).
 // [label, wavelengths in nm, line width in nm, extra width at full strength, anchors, band direction]
 type Anchors = readonly (readonly [number, number])[]
 type Feature = readonly [string | null, readonly number[], number, number, Anchors, (1 | -1)?]
@@ -157,8 +163,15 @@ const stellarFeatures: readonly Feature[] = [
   ['Fe', [404.6, 438.4, 440.5, 495.7, 527.0, 532.8], 0.6, 0.4, metals],
   ['Mg', [517.3], 1.4, 0.6, [[2, 0], [2.5, 0.1], [3, 0.2], [3.5, 0.35], [4, 0.55], [4.5, 0.7], [5, 0.85], [5.5, 0.95], [6, 0.9], [6.9, 0.8]]],
   ['Na', [589.3], 1.2, 0.8, [[2.5, 0], [3, 0.05], [3.5, 0.15], [4, 0.35], [4.5, 0.5], [5, 0.65], [5.5, 0.8], [6, 0.9], [6.9, 1]]],
-  ['TiO', [476.1, 495.4, 516.7, 544.8, 615.9, 705.4], 15, 0, [[5.3, 0], [5.5, 0.15], [5.8, 0.35], [6, 0.55], [6.3, 0.85], [6.5, 1]], 1],
+  ['CaH', [638.5, 685.0, 694.5], 8, 0, [[5.7, 0], [6, 0.3], [6.3, 0.55], [6.6, 0.75], [6.9, 0.85]], 1],
 ]
+// The red TiO bands appear first; the blue-green ones deepen from about M2.
+const titaniumOxide: readonly Feature[] = [
+  ['TiO', [615.9, 705.4], 15, 0, [[5.3, 0], [5.5, 0.15], [5.8, 0.35], [6, 0.55], [6.3, 0.85], [6.5, 1]], 1],
+  ['TiO', [476.1, 495.4, 516.7, 544.8], 15, 0, [[5.8, 0], [6, 0.2], [6.2, 0.45], [6.4, 0.75], [6.6, 1]], 1],
+]
+// Typical TiO/CaH strength ratio ζ inside each Lépine et al. (2007) subdwarf class.
+const subdwarfTiO: Record<string, number> = { sd: 0.65, esd: 0.35, usd: 0.1 }
 // White-dwarf D families (McCook–Sion): pressure-broadened lines of one dominant element.
 const whiteDwarfFeatures: Record<string, readonly Feature[]> = {
   A: [['Hα', [656.3], 10, 0, [[0, 1]]], ['Hβ', [486.1], 10, 0, [[0, 1]]], ['Hγ', [434.0], 9, 0, [[0, 1]]], ['Hδ', [410.2], 8, 0, [[0, 0.9]]], [null, [397.0], 6, 0, [[0, 0.8]]]],
@@ -188,7 +201,9 @@ export function spectralLines(reading: SpectralReading): SpectralLine[] | null {
   if (reading.whiteDwarf === '' || reading.whiteDwarf?.startsWith('X')) return null
   if (reading.whiteDwarf !== null) return [...reading.whiteDwarf].flatMap((family, position) => lines(whiteDwarfFeatures[family] ?? [], 0, position ? 0.6 : 1))
   const letter = reading.letter === null ? -1 : 'OBAFGKM'.indexOf(reading.letter)
-  return letter < 0 ? null : lines(stellarFeatures, letter + Math.min(9.9, reading.subtype ?? 5) / 10)
+  if (letter < 0) return null
+  const t = letter + Math.min(9.9, reading.subtype ?? 5) / 10
+  return [...lines(stellarFeatures, t), ...lines(titaniumOxide, t, subdwarfTiO[reading.prefix ?? ''] ?? 1)]
 }
 
 const balmerLine = (nm: number) => `Hydrogen at ${nm} nm, part of the Balmer series. Hydrogen lines are deepest in white A-type stars near 10,000 K, and in DA white dwarfs.`
@@ -203,6 +218,7 @@ const lineDescriptions: Record<string, string> = {
   Mg: 'The magnesium b triplet near 517 nm. It deepens in cooler stars.',
   Na: 'The sodium D lines at 589 nm, the yellow of sodium streetlights. Strong in cool K and M stars.',
   TiO: 'Titanium oxide molecules. Their broad bands form only in cool atmospheres below about 4,000 K and define M stars.',
+  CaH: 'Calcium hydride molecules in cool M stars. In metal-poor subdwarfs these bands stay strong while titanium oxide fades.',
   'C₂': 'Molecular carbon (Swan bands). DQ white dwarfs show carbon dredged up from their interiors.',
 }
 
@@ -262,7 +278,7 @@ function renderLines(host: HTMLElement, rows: { star: Star; reading: SpectralRea
   }
   rows.forEach(({ star, reading, lines, selected }, index) => {
     const y = top + index * rowHeight + 18
-    const type = reading.whiteDwarf !== null ? `D${reading.whiteDwarf}` : `${reading.letter}${reading.subtype ?? ''}`
+    const type = reading.whiteDwarf !== null ? `D${reading.whiteDwarf}` : `${reading.prefix ?? ''}${reading.letter}${reading.subtype ?? ''}`
     svg.append(svgNode('text', { x: left, y: y - 6, class: `temperature-graph-caption spectral-lines-name${selected ? ' is-selected' : ''}` }, `${star.name} · ${type}`),
       svgNode('rect', { x: left, y, width: right - left, height: strip, fill: 'url(#spectral-visible-gradient)', rx: 3 }))
     for (const line of lines) {
