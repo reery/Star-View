@@ -36,7 +36,7 @@ export function initializeTouchTooltips(signal: AbortSignal): void {
     hide()
     if (!event.isPrimary || !(event.target instanceof Element)) return
     const button = event.target.closest<HTMLElement>('[aria-describedby]')
-    if (!button || button.matches(':disabled, [aria-disabled="true"]')) return
+    if (!button) return
     const tooltip = button.getAttribute('aria-describedby')?.split(/\s+/)
       .map((id) => document.getElementById(id))
       // Constellation stars select on the first tap instead of revealing their tooltip.

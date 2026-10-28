@@ -36,3 +36,23 @@ export function missingCatalogMeasurements(source: Star, component: Star): strin
   return missing
 }
 
+
+export interface ReviewedRetirement { id: string; field: string; expectedPrevious: unknown }
+
+/** A reviewed correction retires a wrong value: the review ledger keeps it,
+ * but shipped records never do, not even as a retained source value. */
+export function withoutRetiredValues(stars: readonly Star[], retirements: readonly ReviewedRetirement[]): Star[] {
+  const byId = new Map<string, ReviewedRetirement[]>()
+  for (const entry of retirements) byId.set(entry.id, [...byId.get(entry.id) ?? [], entry])
+  // Ledger values are CSV text; shipped records hold parsed numbers and lists.
+  const same = (previous: unknown, value: unknown) => typeof value === 'number' && previous !== '' && Number.isFinite(Number(previous))
+    ? Math.abs(Number(previous) - value) <= 1e-9 * Math.max(1, Math.abs(value)) : JSON.stringify(previous) === JSON.stringify(value)
+  return stars.map((star) => {
+    const sources = star.catalog_sources?.map((source) => {
+      const retired = byId.get(source.record.id)?.filter(({ field, expectedPrevious }) =>
+        source.record[field as keyof typeof source.record] != null && same(expectedPrevious, source.record[field as keyof typeof source.record]))
+      return retired?.length ? { ...source, record: { ...source.record, ...Object.fromEntries(retired.map(({ field }) => [field, null])) } } : source
+    })
+    return sources?.some((source, index) => source !== star.catalog_sources![index]) ? { ...star, catalog_sources: sources } : star
+  })
+}

@@ -256,6 +256,29 @@ export interface StellarObservations {
     source_url: string
     reason: string
   }
+  // Published rotation model; the radius ratio shapes the radius card only.
+  rotation?: {
+    period_days: number
+    equatorial_velocity_kms: number
+    polar_to_equatorial_radius?: number
+    reference: string
+    source_url: string
+    scope: string
+  }
+  // GCVS 5.1 range and period; never a catalog V input.
+  variability?: {
+    gcvs_name: string
+    type: string
+    system: string
+    max_mag: number
+    min_mag?: number
+    amplitude_mag?: number
+    min_system?: string
+    period_days?: number
+    max_uncertain?: true
+    min_uncertain?: true
+    period_uncertain?: true
+  }
 }
 
 export interface Star {

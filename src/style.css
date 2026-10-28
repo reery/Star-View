@@ -59,6 +59,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .scene canvas:active { cursor: grabbing; }
 .scene-legend, .visibility-observer { z-index: 2; }
 .inspector { z-index: 4; }
+/* The right-hand button rails stack above cards so their flyouts and tooltips are never covered. */
+.scene-toolbar, .dock-rail { z-index: 2; }
 
 .inspector { position: absolute; inset: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left); pointer-events: none; }
 .selected-object, .dock-card, .observer-direction-card { color: var(--ink); background: linear-gradient(145deg, #26282af7, var(--panel-glass)); border: 1px solid #5a5148; border-radius: var(--card-radius); box-shadow: 0 14px 38px #00000080, inset 0 1px #ffffff0a; }
@@ -250,6 +252,9 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 
 .icon-button { position: relative; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; background: #1d1e20f2; border: 1px solid var(--line); border-radius: 7px; color: var(--ink); box-shadow: 0 5px 16px #00000050; }
 .icon-button[aria-pressed="true"], .panel-button[aria-expanded="true"] { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
+/* Fade the button's own paint rather than its opacity, so tooltips on greyed-out buttons stay legible. */
+.icon-button:disabled { opacity: 1; color: color-mix(in srgb, var(--ink) 40%, transparent); background: #1d1e2066; border-color: color-mix(in srgb, var(--line) 40%, transparent); box-shadow: 0 5px 16px #00000020; }
+.icon-button:is([aria-pressed="true"], [aria-expanded="true"]):disabled { color: color-mix(in srgb, var(--accent-strong) 40%, transparent); background: color-mix(in srgb, var(--panel-selected) 40%, transparent); border-color: color-mix(in srgb, var(--border-active) 40%, transparent); }
 .observer-view-button[aria-pressed="true"] { color: var(--accent-vibrant); background: #3a211b; border-color: #c55f3c; box-shadow: 0 5px 16px #00000050, 0 0 12px #ff6b3d26; }
 .observer-view-button[aria-pressed="true"]:focus-visible { outline-color: var(--accent-vibrant); }
 .panel-button { transition: background 120ms ease, border-color 120ms ease; }
@@ -284,14 +289,16 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 :root[data-tooltip-input="touch"] .mass-metric-tooltip:not([data-touch-tooltip-open]) { visibility: hidden !important; }
 .mass-metric-tooltip[data-touch-tooltip-open]:not([hidden]) { display: block; }
 .tooltip { display: none; position: absolute; right: calc(100% + 10px); white-space: nowrap; font-size: 12px; font-weight: 400; background: var(--panel); border: 1px solid var(--line); color: var(--ink); padding: 7px 10px; border-radius: 5px; pointer-events: none; z-index: 5; box-shadow: 0 6px 18px #00000070; }
-.icon-button:focus-visible:not(:disabled) .tooltip { display: block; }
+.icon-button:focus-visible .tooltip { display: block; }
 .selection-tooltip-object { display: flex; align-items: center; gap: 6px; margin-top: 5px; }
 .selection-tooltip-object[hidden] { display: none; }
 .origin-tooltip-object { display: inline-flex; align-items: center; gap: 6px; vertical-align: middle; }
 @media (hover: hover) and (pointer: fine) {
   .icon-button:hover:not(:disabled) { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
   .observer-view-button[aria-pressed="true"]:hover:not(:disabled) { color: #ff9a78; background: #46251d; border-color: #d66b47; }
-  .icon-button:hover:not(:disabled) .tooltip { display: block; }
+  .icon-button:hover .tooltip { display: block; }
+  /* A disabled flyout trigger passes the pointer to its group, so the group's hover names it. */
+  [data-toolbar-flyout]:hover:not(:has([data-toolbar-options]:hover)) > .icon-button:disabled .tooltip { display: block; }
 }
 
 .scene-legend, .visibility-observer { position: absolute; bottom: calc(22px + var(--safe-bottom)); color: var(--muted); font-size: 11px; display: flex; align-items: center; gap: 9px; pointer-events: none; }
@@ -989,6 +996,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .magnitude-scale { margin-top: 10px; padding-top: 5px; }
 .magnitude-plot { display: grid; align-items: center; padding-bottom: calc(8px + var(--magnitude-label-lanes, 1) * 20px); }
 .magnitude-visible-band { position: absolute; inset: 0 0 0 auto; background: linear-gradient(90deg, transparent, var(--magnitude-visible-color) var(--magnitude-visibility-fade-end), var(--magnitude-visible-color)); border-radius: inherit; }
+.magnitude-variability-range { position: absolute; top: 0; bottom: 0; background: var(--magnitude-marker-color); border-radius: inherit; opacity: 0.55; }
 .magnitude-visibility-limit, .magnitude-eye-limit { position: absolute; top: -3px; width: 1px; height: calc(var(--stat-bar-height) + 6px); background: var(--magnitude-visible-color); opacity: 0.35; }
 .magnitude-marker { top: -3px; height: calc(var(--stat-bar-height) + 6px); width: 2px; transform: translateX(-50%); background: var(--magnitude-marker-color); box-shadow: 0 0 0 1px var(--panel); z-index: 1; }
 .magnitude-selected { width: 3px; z-index: 2; }
@@ -1591,12 +1599,38 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 button.graph-bar-row:hover, .graph-bar-row[aria-pressed="true"] { background: var(--panel-selected); }
 .graph-bar-row[aria-pressed="true"] > span:first-child { color: var(--accent-strong); }
 .graph-body:has([aria-pressed="true"]) [aria-pressed="false"] :is(.planet-ratio-fill, i) { opacity: 0.35; }
-.graph-section-filter { margin-left: auto; overflow: hidden; color: var(--accent-vibrant); font-size: 12px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
-.graph-section-filter + .graph-section-chevron { flex-shrink: 0; margin-left: 0; }
+.graph-section-filter { overflow: hidden; color: var(--accent-vibrant); font-size: 12px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
 /* A compact scale switch before the chevron, after any active filter. */
 .graph-scale { flex-shrink: 0; margin-left: auto; }
-.graph-section-filter + .graph-scale, .graph-scale + .graph-section-chevron { margin-left: 0; }
+.graph-scale + .graph-section-chevron { margin-left: 0; }
 .graph-scale > button { height: 24px; color: var(--muted); background: none; font-weight: 400; }
+/* The title fills the space before the controls; a selection that does not fit beside it wraps to a second line. */
+.graph-section-label { display: flex; flex: 1 1 0; flex-wrap: wrap; align-items: baseline; column-gap: 10px; min-width: 0; }
+.graph-section-title { flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.graph-section-chevron { flex-shrink: 0; }
+/* Histograms add a bar count slider and its reset. */
+.graph-bins { display: flex; flex-shrink: 0; align-items: center; gap: 4px; }
+/* The slider keeps a usable width; the title gives way first. */
+.graph-bins > input { width: max(80px, 25cqi); min-width: max(80px, 25cqi); height: 20px; margin: 0; cursor: pointer; }
+.graph-bins > .panel-lock { width: 24px; height: 24px; flex-basis: 24px; color: var(--muted); }
+.graph-bins > .panel-lock:disabled { pointer-events: none; }
+/* Narrow sections move a scale switch and the slider to their own line below the title, where the slider widens; a slider alone stays beside the title until the section gets very narrow. */
+@container (max-width: 399px) {
+  .graph-section > summary:has(.graph-scale) { flex-wrap: wrap; row-gap: 0; }
+  .graph-section > summary:has(.graph-scale)::after { content: ''; order: 1; flex-basis: 100%; }
+  .graph-section > summary:has(.graph-scale) > :is(.graph-scale, .graph-bins) { order: 2; margin: 6px 0 0; }
+  .graph-section > summary:has(.graph-scale) > .graph-bins { flex: 1; }
+  .graph-section > summary:has(.graph-scale) .graph-bins > input { flex: 1; }
+}
+@container (max-width: 259px) {
+  .graph-section > summary:has(.graph-bins) { flex-wrap: wrap; row-gap: 0; }
+  .graph-section > summary:has(.graph-bins)::after { content: ''; order: 1; flex-basis: 100%; }
+  .graph-section > summary > .graph-bins { flex: 1; order: 2; margin: 6px 0 0; }
+  .graph-bins > input { flex: 1; }
+}
+/* Many bars close their gaps. */
+.graph-columns:has(> :nth-child(61)) { gap: 1px; }
+.graph-columns:has(> :nth-child(121)) { gap: 0; }
 .graph-bar-row > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 /* Narrow sections put the label and value above a full-width bar. */
 @container (max-width: 300px) {

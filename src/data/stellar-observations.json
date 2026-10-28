@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-10-15",
-  "policy": "Exact reviewed object identities only. Passband-specific photometry, conditional model ranges and withheld radial-velocity evidence are display metadata; they never fill Johnson V, scalar mass or the space-motion astrometry bundle.",
+  "reviewed": "2026-10-28",
+  "policy": "Exact reviewed object identities only. Passband-specific photometry, conditional model ranges, withheld radial-velocity evidence, published rotation models and GCVS variability are display metadata; they never fill Johnson V, scalar mass, radius or the space-motion astrometry bundle.",
   "objects": {
     "wise-0855-0714": {
       "expected_name": "WISE 0855-0714",
@@ -105,6 +105,3880 @@
           "reference": "Albert et al. 2025, AJ 169, 163, Tables 2 and 4",
           "source_url": "https://arxiv.org/abs/2501.14100",
           "scope": "Measured JWST/NIRCam F480M snapshot, not Johnson V. The same exposure gives F150W=21.316 +/- 0.014 Vega mag. Identity is confirmed by Table 4 coordinates RA=249.9258850, Dec=-68.8055121 deg at MJD 60123.90787, despite a contradictory full designation in Table 1. HST/WFC3 F127M=20.00 +/- 0.02 Vega mag on 2019-03-11 is independently reported by Fontanive et al. (2023), Tables 2-3 (https://arxiv.org/abs/2309.09923)."
+        }
+      }
+    },
+    "proxima-centauri": {
+      "expected_name": "Proxima Centauri",
+      "expected_designation": "V645 Cen",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V645 Cen",
+          "type": "UV+BY",
+          "system": "V",
+          "max_mag": 10.43,
+          "min_mag": 11.11
+        }
+      }
+    },
+    "barnards-star": {
+      "expected_name": "Barnard's Star",
+      "expected_designation": "V2500 Oph",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V2500 Oph",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 9.55,
+          "amplitude_mag": 0.02
+        }
+      }
+    },
+    "wolf-359": {
+      "expected_name": "Wolf 359",
+      "expected_designation": "CN Leo",
+      "observations": {
+        "variability": {
+          "gcvs_name": "CN Leo",
+          "type": "UV",
+          "system": "U",
+          "max_mag": 11.52,
+          "min_mag": 17.08
+        }
+      }
+    },
+    "luyten-726-8-b": {
+      "expected_name": "Luyten 726-8 B",
+      "expected_designation": "UV Cet",
+      "observations": {
+        "variability": {
+          "gcvs_name": "UV Cet",
+          "type": "UV",
+          "system": "V",
+          "max_mag": 6.8,
+          "min_mag": 12.95
+        }
+      }
+    },
+    "ross-154": {
+      "expected_name": "Ross 154",
+      "expected_designation": "V1216 Sgr",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1216 Sgr",
+          "type": "UV",
+          "system": "B",
+          "max_mag": 11.2,
+          "min_mag": 12.55
+        }
+      }
+    },
+    "ross-248": {
+      "expected_name": "Ross 248",
+      "expected_designation": "HH And",
+      "observations": {
+        "variability": {
+          "gcvs_name": "HH And",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 12.23,
+          "min_mag": 12.34
+        }
+      }
+    },
+    "epsilon-eridani": {
+      "expected_name": "Epsilon Eridani",
+      "expected_designation": "eps Eri",
+      "observations": {
+        "variability": {
+          "gcvs_name": "eps Eri",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 3.73,
+          "amplitude_mag": 0.05
+        }
+      }
+    },
+    "ross-128": {
+      "expected_name": "Ross 128",
+      "expected_designation": "FI Vir",
+      "observations": {
+        "variability": {
+          "gcvs_name": "FI Vir",
+          "type": "UV",
+          "system": "U",
+          "max_mag": 13.82,
+          "min_mag": 14.26
+        }
+      }
+    },
+    "10pc-0029": {
+      "expected_name": "61 Cyg A",
+      "expected_designation": "V1803 Cyg",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1803 Cyg",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 5.19,
+          "min_mag": 5.27
+        }
+      }
+    },
+    "10pc-0059": {
+      "expected_name": "Kapteyn's Star",
+      "expected_designation": "VZ Pic",
+      "observations": {
+        "variability": {
+          "gcvs_name": "VZ Pic",
+          "type": "BY:",
+          "system": "Hp",
+          "max_mag": 8.9,
+          "min_mag": 9.22
+        }
+      }
+    },
+    "10pc-0060": {
+      "expected_name": "Lacaille 8760",
+      "expected_designation": "AX Mic",
+      "observations": {
+        "variability": {
+          "gcvs_name": "AX Mic",
+          "type": "UV",
+          "system": "U",
+          "max_mag": 9.21,
+          "min_mag": 9.31
+        }
+      }
+    },
+    "10pc-0066": {
+      "expected_name": "V577 Mon A",
+      "expected_designation": "V577 Mon",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V577 Mon",
+          "type": "UV",
+          "system": "B",
+          "max_mag": 12.5,
+          "min_mag": 13.3
+        }
+      }
+    },
+    "10pc-0069": {
+      "expected_name": "Wolf 1061",
+      "expected_designation": "V2306 Oph",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V2306 Oph",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 10.05,
+          "min_mag": 10.1
+        }
+      }
+    },
+    "10pc-0077": {
+      "expected_name": "GJ 9066",
+      "expected_designation": "TZ Ari",
+      "observations": {
+        "variability": {
+          "gcvs_name": "TZ Ari",
+          "type": "UV+BY:",
+          "system": "U",
+          "max_mag": 14.12,
+          "min_mag": 15.42
+        }
+      }
+    },
+    "cns5-1415": {
+      "expected_name": "Ross 47",
+      "expected_designation": "V1352 Ori",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1352 Ori",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 11.48,
+          "min_mag": 11.55
+        }
+      }
+    },
+    "cns5-3700": {
+      "expected_name": "GJ 570",
+      "expected_designation": "KX Lib",
+      "observations": {
+        "variability": {
+          "gcvs_name": "KX Lib",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 5.72,
+          "amplitude_mag": 0.04
+        }
+      }
+    },
+    "cns5-4779": {
+      "expected_name": "GJ 752",
+      "expected_designation": "V1428 Aql",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1428 Aql",
+          "type": "BY:",
+          "system": "V",
+          "max_mag": 9.09,
+          "min_mag": 9.13
+        }
+      }
+    },
+    "cns5-4780": {
+      "expected_name": "VB 10",
+      "expected_designation": "V1298 Aql",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1298 Aql",
+          "type": "UV",
+          "system": "V",
+          "max_mag": 17.28,
+          "min_mag": 17.48
+        }
+      }
+    },
+    "cns5-0239": {
+      "expected_name": "Achird",
+      "expected_designation": "eta Cas",
+      "observations": {
+        "variability": {
+          "gcvs_name": "eta Cas",
+          "type": "RS:",
+          "system": "Hp",
+          "max_mag": 3.58,
+          "min_mag": 3.63
+        }
+      }
+    },
+    "cns5-1784": {
+      "expected_name": "GJ 268 A",
+      "expected_designation": "QY Aur",
+      "observations": {
+        "variability": {
+          "gcvs_name": "QY Aur",
+          "type": "UV",
+          "system": "B",
+          "max_mag": 10.9,
+          "min_mag": 13.19
+        }
+      }
+    },
+    "cns5-4136": {
+      "expected_name": "GJ 644 A",
+      "expected_designation": "V1054 Oph",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1054 Oph",
+          "type": "UV",
+          "system": "U",
+          "max_mag": 10.14,
+          "min_mag": 11.72
+        }
+      }
+    },
+    "cns5-3780": {
+      "expected_name": "GJ 581",
+      "expected_designation": "HO Lib",
+      "observations": {
+        "variability": {
+          "gcvs_name": "HO Lib",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 10.56,
+          "min_mag": 10.58
+        }
+      }
+    },
+    "cns5-2657": {
+      "expected_name": "Wolf 358",
+      "expected_designation": "EE Leo",
+      "observations": {
+        "variability": {
+          "gcvs_name": "EE Leo",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 11.64,
+          "min_mag": 11.7
+        }
+      }
+    },
+    "cns5-2125": {
+      "expected_name": "2MASS J08354256-0819237",
+      "expected_designation": "V488 Hya",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V488 Hya",
+          "type": "unique",
+          "system": "Ic",
+          "max_mag": 17.52,
+          "min_mag": 17.59,
+          "period_days": 0.128
+        }
+      }
+    },
+    "cns5-5660": {
+      "expected_name": "Fomalhaut B",
+      "expected_designation": "TW PsA",
+      "observations": {
+        "variability": {
+          "gcvs_name": "TW PsA",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 6.44,
+          "min_mag": 6.51,
+          "period_days": 10.3
+        }
+      }
+    },
+    "cns5-4607": {
+      "expected_name": "Vega",
+      "expected_designation": "alf Lyr",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Lyr",
+          "type": "DSCTC",
+          "system": "V",
+          "max_mag": -0.02,
+          "min_mag": 0.07,
+          "period_days": 0.19
+        },
+        "rotation": {
+          "period_days": 0.71,
+          "equatorial_velocity_kms": 194,
+          "polar_to_equatorial_radius": 0.887,
+          "reference": "Monnier et al. 2012, ApJL 761, L3, Table 2 (concordance model)",
+          "source_url": "https://arxiv.org/abs/1211.6055",
+          "scope": "CHARA/MIRC gravity-darkened model: equatorial radius 2.726 +/- 0.006 and polar radius 2.418 +/- 0.012 solar radii, rotation period 0.71 +/- 0.02 d, seen nearly pole-on (inclination 6.2 +/- 0.4 deg). The period fit uses a 0.71 d magnetic-field prior. Equatorial velocity is derived as 2 pi R_eq / P; the paper estimates about 195 km/s."
+        }
+      }
+    },
+    "cns5-2508": {
+      "expected_name": "GJ 382",
+      "expected_designation": "AN Sex",
+      "observations": {
+        "variability": {
+          "gcvs_name": "AN Sex",
+          "type": "RS",
+          "system": "V",
+          "max_mag": 9.16,
+          "min_mag": 9.32,
+          "period_days": 21.535
+        }
+      }
+    },
+    "cns5-1475": {
+      "expected_name": "EGGR 290",
+      "expected_designation": "V1201 Ori",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1201 Ori",
+          "type": "unique",
+          "system": "V",
+          "max_mag": 13.0,
+          "min_mag": 14.12
+        }
+      }
+    },
+    "cns5-3210": {
+      "expected_name": "Wolf 461",
+      "expected_designation": "FN Vir",
+      "observations": {
+        "variability": {
+          "gcvs_name": "FN Vir",
+          "type": "UV",
+          "system": "U",
+          "max_mag": 15.2,
+          "min_mag": 16.34
+        }
+      }
+    },
+    "cns5-5064": {
+      "expected_name": "GJ 791.2",
+      "expected_designation": "HU Del",
+      "observations": {
+        "variability": {
+          "gcvs_name": "HU Del",
+          "type": "UV",
+          "system": "U",
+          "max_mag": 14.8,
+          "min_mag": 16.04
+        }
+      }
+    },
+    "cns5-5588": {
+      "expected_name": "GJ 867 A",
+      "expected_designation": "FK Aqr",
+      "observations": {
+        "variability": {
+          "gcvs_name": "FK Aqr",
+          "type": "UV+BY",
+          "system": "U",
+          "max_mag": 10.9,
+          "min_mag": 11.72,
+          "period_days": 4.252
+        }
+      }
+    },
+    "cns5-0938": {
+      "expected_name": "Rana",
+      "expected_designation": "del Eri",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Eri",
+          "type": "RS:",
+          "system": "V",
+          "max_mag": 3.51,
+          "min_mag": 3.56
+        }
+      }
+    },
+    "cns5-5128": {
+      "expected_name": "GJ 803",
+      "expected_designation": "AU Mic",
+      "observations": {
+        "variability": {
+          "gcvs_name": "AU Mic",
+          "type": "BY+UV",
+          "system": "V",
+          "max_mag": 8.59,
+          "min_mag": 8.96,
+          "period_days": 4.865
+        }
+      }
+    },
+    "cns5-0298": {
+      "expected_name": "Wolf 47",
+      "expected_designation": "V388 Cas",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V388 Cas",
+          "type": "UV",
+          "system": "V",
+          "max_mag": 12.5,
+          "min_mag": 13.78
+        }
+      }
+    },
+    "cns5-0155": {
+      "expected_name": "GJ 22 A",
+      "expected_designation": "V547 Cas",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V547 Cas",
+          "type": "UV",
+          "system": "B",
+          "max_mag": 11.4,
+          "min_mag": 11.9
+        }
+      }
+    },
+    "cns5-4078": {
+      "expected_name": "12 Oph",
+      "expected_designation": "V2133 Oph",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V2133 Oph",
+          "type": "BY",
+          "system": "B",
+          "max_mag": 6.57,
+          "amplitude_mag": 0.04
+        }
+      }
+    },
+    "cns5-3688": {
+      "expected_name": "GJ 569",
+      "expected_designation": "CE Boo",
+      "observations": {
+        "variability": {
+          "gcvs_name": "CE Boo",
+          "type": "UV",
+          "system": "B",
+          "max_mag": 11.35,
+          "min_mag": 11.68
+        }
+      }
+    },
+    "cns5-0458": {
+      "expected_name": "GJ 75",
+      "expected_designation": "V987 Cas",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V987 Cas",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 5.63,
+          "amplitude_mag": 0.05,
+          "period_days": 21.7
+        }
+      }
+    },
+    "cns5-3169": {
+      "expected_name": "GJ 487",
+      "expected_designation": "DP Dra",
+      "observations": {
+        "variability": {
+          "gcvs_name": "DP Dra",
+          "type": "UV",
+          "system": "V",
+          "max_mag": 10.9,
+          "amplitude_mag": 1.55,
+          "min_system": "B"
+        }
+      }
+    },
+    "cns5-1408": {
+      "expected_name": "GJ 1083",
+      "expected_designation": "V780 Tau",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V780 Tau",
+          "type": "UV",
+          "system": "B",
+          "max_mag": 15.0,
+          "min_mag": 16.84
+        }
+      }
+    },
+    "cns5-0722": {
+      "expected_name": "GJ 117",
+      "expected_designation": "EP Eri",
+      "observations": {
+        "variability": {
+          "gcvs_name": "EP Eri",
+          "type": "RS",
+          "system": "V",
+          "max_mag": 6.03,
+          "min_mag": 6.08
+        }
+      }
+    },
+    "cns5-4261": {
+      "expected_name": "Ross 868",
+      "expected_designation": "V647 Her",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V647 Her",
+          "type": "UV",
+          "system": "B",
+          "max_mag": 12.2,
+          "min_mag": 12.99
+        }
+      }
+    },
+    "cns5-4259": {
+      "expected_name": "Ross 867",
+      "expected_designation": "V639 Her",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V639 Her",
+          "type": "UV",
+          "system": "V",
+          "max_mag": 12.92,
+          "min_mag": 13.02
+        }
+      }
+    },
+    "cns5-3994": {
+      "expected_name": "GJ 617 B",
+      "expected_designation": "EW Dra",
+      "observations": {
+        "variability": {
+          "gcvs_name": "EW Dra",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 10.69,
+          "min_mag": 10.74
+        }
+      }
+    },
+    "cns5-1115": {
+      "expected_name": "Ross 594",
+      "expected_designation": "V546 Per",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V546 Per",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 13.9,
+          "min_mag": 13.96
+        }
+      }
+    },
+    "cns5-2899": {
+      "expected_name": "Denebola",
+      "expected_designation": "bet Leo",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Leo",
+          "type": "DSCTC",
+          "system": "V",
+          "max_mag": 2.14,
+          "amplitude_mag": 0.025
+        }
+      }
+    },
+    "cns5-5510": {
+      "expected_name": "Wolf 1561 A",
+      "expected_designation": "FG Aqr",
+      "observations": {
+        "variability": {
+          "gcvs_name": "FG Aqr",
+          "type": "UV",
+          "system": "U",
+          "max_mag": 15.08,
+          "min_mag": 16.29
+        }
+      }
+    },
+    "cns5-4704": {
+      "expected_name": "MCC 188",
+      "expected_designation": "V1285 Aql",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1285 Aql",
+          "type": "UV",
+          "system": "U",
+          "max_mag": 10.7,
+          "min_mag": 12.86
+        }
+      }
+    },
+    "cns5-2372": {
+      "expected_name": "11 LMi",
+      "expected_designation": "SV LMi",
+      "observations": {
+        "variability": {
+          "gcvs_name": "SV LMi",
+          "type": "RS:",
+          "system": "V",
+          "max_mag": 5.39,
+          "amplitude_mag": 0.04
+        }
+      }
+    },
+    "cns5-3213": {
+      "expected_name": "Ross 458 A",
+      "expected_designation": "DT Vir",
+      "observations": {
+        "variability": {
+          "gcvs_name": "DT Vir",
+          "type": "UV+BY",
+          "system": "B",
+          "max_mag": 10.34,
+          "min_mag": 11.32
+        }
+      }
+    },
+    "cns5-2091": {
+      "expected_name": "SSSPM J0829-1309",
+      "expected_designation": "V484 Hya",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V484 Hya",
+          "type": "unique",
+          "system": "Ic",
+          "max_mag": 15.95,
+          "min_mag": 16.06,
+          "period_days": 0.1201
+        }
+      }
+    },
+    "cns5-5370": {
+      "expected_name": "Deneb Algedi",
+      "expected_designation": "del Cap",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Cap",
+          "type": "EA",
+          "system": "V",
+          "max_mag": 2.81,
+          "min_mag": 3.05,
+          "period_days": 1.0227688
+        }
+      }
+    },
+    "cns5-1863": {
+      "expected_name": "Ross 989",
+      "expected_designation": "BL Lyn",
+      "observations": {
+        "variability": {
+          "gcvs_name": "BL Lyn",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 11.76,
+          "min_mag": 11.8
+        }
+      }
+    },
+    "cns5-1412": {
+      "expected_name": "GJ 211",
+      "expected_designation": "V538 Aur",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V538 Aur",
+          "type": "BY",
+          "system": "Hp",
+          "max_mag": 6.34,
+          "min_mag": 6.38,
+          "period_days": 10.86
+        }
+      }
+    },
+    "cns5-4968": {
+      "expected_name": "GJ 774 A",
+      "expected_designation": "V375 Pav",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V375 Pav",
+          "type": "BY:",
+          "system": "Hp",
+          "max_mag": 11.17,
+          "min_mag": 12.23
+        }
+      }
+    },
+    "cns5-1376": {
+      "expected_name": "Ross 42",
+      "expected_designation": "V998 Ori",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V998 Ori",
+          "type": "UV",
+          "system": "B",
+          "max_mag": 12.6,
+          "min_mag": 13.12
+        }
+      }
+    },
+    "cns5-0509": {
+      "expected_name": "Ross 15",
+      "expected_designation": "V596 Cas",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V596 Cas",
+          "type": "UV",
+          "system": "B",
+          "max_mag": 13.3,
+          "min_mag": 14.0
+        }
+      }
+    },
+    "cns5-1172": {
+      "expected_name": "GJ 174",
+      "expected_designation": "V834 Tau",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V834 Tau",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.94,
+          "min_mag": 8.33
+        }
+      }
+    },
+    "cns5-1198": {
+      "expected_name": "58 Eri",
+      "expected_designation": "IX Eri",
+      "observations": {
+        "variability": {
+          "gcvs_name": "IX Eri",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 5.47,
+          "min_mag": 5.51,
+          "period_days": 11.3
+        }
+      }
+    },
+    "cns5-1490": {
+      "expected_name": "GJ 3371",
+      "expected_designation": "EG Cam",
+      "observations": {
+        "variability": {
+          "gcvs_name": "EG Cam",
+          "type": "BY:",
+          "system": "Hp",
+          "max_mag": 10.3,
+          "min_mag": 10.54
+        }
+      }
+    },
+    "cns5-3865": {
+      "expected_name": "Ross 1057",
+      "expected_designation": "UU UMi",
+      "observations": {
+        "variability": {
+          "gcvs_name": "UU UMi",
+          "type": "BY:",
+          "system": "Hp",
+          "max_mag": 12.04,
+          "min_mag": 12.4
+        }
+      }
+    },
+    "cns5-0026": {
+      "expected_name": "GJ 5",
+      "expected_designation": "V439 And",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V439 And",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 6.13,
+          "amplitude_mag": 0.04,
+          "period_days": 6.23
+        }
+      }
+    },
+    "cns5-3211": {
+      "expected_name": "2MASSI J1300425+191235",
+      "expected_designation": "MN Com",
+      "observations": {
+        "variability": {
+          "gcvs_name": "MN Com",
+          "type": "unique",
+          "system": "Ic",
+          "max_mag": 15.9,
+          "amplitude_mag": 0.05,
+          "period_days": 9.92
+        }
+      }
+    },
+    "cns5-1897": {
+      "expected_name": "GJ 282",
+      "expected_designation": "V869 Mon",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V869 Mon",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.18,
+          "amplitude_mag": 0.02
+        }
+      }
+    },
+    "cns5-4923": {
+      "expected_name": "GJ 770",
+      "expected_designation": "V4200 Sgr",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V4200 Sgr",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 6.18,
+          "amplitude_mag": 0.07
+        }
+      }
+    },
+    "cns5-4642": {
+      "expected_name": "GJ 4073",
+      "expected_designation": "V492 Lyr",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V492 Lyr",
+          "type": "UG",
+          "system": "V",
+          "max_mag": 18.23,
+          "amplitude_mag": 0.22
+        }
+      }
+    },
+    "cns5-1346": {
+      "expected_name": "111 Tau",
+      "expected_designation": "V1119 Tau",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1119 Tau",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 4.98,
+          "min_mag": 5.02
+        }
+      }
+    },
+    "cns5-1600": {
+      "expected_name": "GJ 233",
+      "expected_designation": "OU Gem",
+      "observations": {
+        "variability": {
+          "gcvs_name": "OU Gem",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 6.76,
+          "amplitude_mag": 0.05
+        }
+      }
+    },
+    "cns5-3119": {
+      "expected_name": "WG 22",
+      "expected_designation": "V886 Cen",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V886 Cen",
+          "type": "ZZA",
+          "system": "V",
+          "max_mag": 13.96,
+          "amplitude_mag": 0.02,
+          "period_days": 0.007
+        }
+      }
+    },
+    "cns5-2451": {
+      "expected_name": "GJ 375",
+      "expected_designation": "LU Vel",
+      "observations": {
+        "variability": {
+          "gcvs_name": "LU Vel",
+          "type": "UV",
+          "system": "U",
+          "max_mag": 11.5,
+          "min_mag": 13.76
+        }
+      }
+    },
+    "cns5-1849": {
+      "expected_name": "GJ 2060",
+      "expected_designation": "V372 Pup",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V372 Pup",
+          "type": "BY:",
+          "system": "Hp",
+          "max_mag": 9.97,
+          "min_mag": 10.13
+        }
+      }
+    },
+    "cns5-1382": {
+      "expected_name": "Wachmann Variable",
+      "expected_designation": "V371 Ori",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V371 Ori",
+          "type": "UV",
+          "system": "B",
+          "max_mag": 11.0,
+          "min_mag": 13.01
+        }
+      }
+    },
+    "cns5-3769": {
+      "expected_name": "HD 135599",
+      "expected_designation": "V379 Ser",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V379 Ser",
+          "type": "BY",
+          "system": "Hp",
+          "max_mag": 7.05,
+          "min_mag": 7.08,
+          "period_days": 5.97
+        }
+      }
+    },
+    "cns5-0930": {
+      "expected_name": "Wolf 1246",
+      "expected_designation": "KP Tau",
+      "observations": {
+        "variability": {
+          "gcvs_name": "KP Tau",
+          "type": "UV",
+          "system": "U",
+          "max_mag": 13.1,
+          "min_mag": 15.6
+        }
+      }
+    },
+    "cns5-2715": {
+      "expected_name": "LSPM J1108+6830",
+      "expected_designation": "MM UMa",
+      "observations": {
+        "variability": {
+          "gcvs_name": "MM UMa",
+          "type": "unique",
+          "system": "Ic",
+          "max_mag": 16.6,
+          "amplitude_mag": 0.01
+        }
+      }
+    },
+    "cns5-3618": {
+      "expected_name": "GJ 3860",
+      "expected_designation": "HN Boo",
+      "observations": {
+        "variability": {
+          "gcvs_name": "HN Boo",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.48,
+          "amplitude_mag": 0.04,
+          "period_days": 11.54
+        }
+      }
+    },
+    "hip-71908": {
+      "expected_name": "Xami",
+      "expected_designation": "alf Cir",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Cir",
+          "type": "ACVO",
+          "system": "V",
+          "max_mag": 3.18,
+          "min_mag": 3.21,
+          "period_days": 0.00473954
+        }
+      }
+    },
+    "cns5-4975": {
+      "expected_name": "Wolf 1130 A",
+      "expected_designation": "V1513 Cyg",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1513 Cyg",
+          "type": "UV",
+          "system": "B",
+          "max_mag": 13.29,
+          "min_mag": 13.49
+        }
+      }
+    },
+    "cns5-1544": {
+      "expected_name": "GJ 3389",
+      "expected_designation": "V352 CMa",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V352 CMa",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 6.37,
+          "min_mag": 6.4,
+          "period_days": 7.2
+        }
+      }
+    },
+    "cns5-5092": {
+      "expected_name": "GJ 795",
+      "expected_designation": "OQ Del",
+      "observations": {
+        "variability": {
+          "gcvs_name": "OQ Del",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.88,
+          "amplitude_mag": 0.04
+        }
+      }
+    },
+    "hip-746": {
+      "expected_name": "Caph",
+      "expected_designation": "bet Cas",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Cas",
+          "type": "DSCTC",
+          "system": "Hp",
+          "max_mag": 2.35,
+          "min_mag": 2.38,
+          "period_days": 0.100137
+        },
+        "rotation": {
+          "period_days": 0.8929,
+          "equatorial_velocity_kms": 215,
+          "polar_to_equatorial_radius": 0.807,
+          "reference": "Che et al. 2011, ApJ 732, 68, Table 3 (beta-free model)",
+          "source_url": "https://arxiv.org/abs/1105.0740",
+          "scope": "CHARA/MIRC gravity-darkened model: equatorial radius 3.79 (+0.10/-0.09) and polar radius 3.06 (+0.08/-0.07) solar radii, 1.12 (+0.03/-0.04) rotations per day, inclination 19.9 deg. The period is the inverse rotation rate; equatorial velocity is derived as 2 pi R_eq / P."
+        }
+      }
+    },
+    "cns5-4130": {
+      "expected_name": "GJ 641",
+      "expected_designation": "V2292 Oph",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V2292 Oph",
+          "type": "BY:",
+          "system": "V",
+          "max_mag": 6.78,
+          "amplitude_mag": 0.04
+        }
+      }
+    },
+    "cns5-5086": {
+      "expected_name": "CD-36 14261",
+      "expected_designation": "DH Mic",
+      "observations": {
+        "variability": {
+          "gcvs_name": "DH Mic",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 11.55,
+          "min_mag": 11.85,
+          "period_days": 2.1256
+        }
+      }
+    },
+    "cns5-3168": {
+      "expected_name": "GJ 486.1",
+      "expected_designation": "LW Com",
+      "observations": {
+        "variability": {
+          "gcvs_name": "LW Com",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 6.31,
+          "amplitude_mag": 0.1,
+          "period_days": 15.8
+        }
+      }
+    },
+    "cns5-2311": {
+      "expected_name": "GJ 340",
+      "expected_designation": "IP Cnc",
+      "observations": {
+        "variability": {
+          "gcvs_name": "IP Cnc",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.2,
+          "amplitude_mag": 0.02,
+          "period_days": 43.4
+        }
+      }
+    },
+    "cns5-2675": {
+      "expected_name": "GJ 3633",
+      "expected_designation": "GY Leo",
+      "observations": {
+        "variability": {
+          "gcvs_name": "GY Leo",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.37,
+          "amplitude_mag": 0.03,
+          "period_days": 11.43
+        }
+      }
+    },
+    "cns5-5254": {
+      "expected_name": "EGGR 378",
+      "expected_designation": "V2151 Cyg",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V2151 Cyg",
+          "type": "NL:",
+          "system": "Hp",
+          "max_mag": 12.08,
+          "min_mag": 12.89
+        }
+      }
+    },
+    "cns5-3195": {
+      "expected_name": "GJ 490 A",
+      "expected_designation": "BF CVn",
+      "observations": {
+        "variability": {
+          "gcvs_name": "BF CVn",
+          "type": "BY+UV:",
+          "system": "V",
+          "max_mag": 10.46,
+          "min_mag": 10.63,
+          "period_days": 3.3664
+        }
+      }
+    },
+    "cns5-4151": {
+      "expected_name": "GJ 649.1",
+      "expected_designation": "V1090 Her",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1090 Her",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.76,
+          "amplitude_mag": 0.02,
+          "period_days": 7.22,
+          "period_uncertain": true
+        }
+      }
+    },
+    "cns5-4150": {
+      "expected_name": "GJ 649.1 C",
+      "expected_designation": "V1089 Her",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1089 Her",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.93,
+          "amplitude_mag": 0.03,
+          "period_days": 15.39
+        }
+      }
+    },
+    "cns5-2364": {
+      "expected_name": "GJ 354.1",
+      "expected_designation": "DX Leo",
+      "observations": {
+        "variability": {
+          "gcvs_name": "DX Leo",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.0,
+          "amplitude_mag": 0.1
+        }
+      }
+    },
+    "cns5-3667": {
+      "expected_name": "GJ 564",
+      "expected_designation": "HP Boo",
+      "observations": {
+        "variability": {
+          "gcvs_name": "HP Boo",
+          "type": "BY",
+          "system": "Hp",
+          "max_mag": 5.98,
+          "min_mag": 6.01,
+          "period_days": 7.85
+        }
+      }
+    },
+    "cns5-0573": {
+      "expected_name": "GJ 90",
+      "expected_designation": "V989 Cas",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V989 Cas",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.13,
+          "amplitude_mag": 0.03,
+          "period_days": 6.79
+        }
+      }
+    },
+    "cns5-3223": {
+      "expected_name": "Kelu 1",
+      "expected_designation": "V421 Hya",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V421 Hya",
+          "type": "unique",
+          "system": "Ic",
+          "max_mag": 16.94,
+          "amplitude_mag": 0.02
+        }
+      }
+    },
+    "cns5-1543": {
+      "expected_name": "GJ 230",
+      "expected_designation": "V1357 Ori",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1357 Ori",
+          "type": "RS:",
+          "system": "V",
+          "max_mag": 6.44,
+          "min_mag": 6.49
+        }
+      }
+    },
+    "cns5-5748": {
+      "expected_name": "HD 220140",
+      "expected_designation": "V368 Cep",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V368 Cep",
+          "type": "RS",
+          "system": "Hp",
+          "max_mag": 7.63,
+          "min_mag": 7.7,
+          "period_days": 2.745
+        }
+      }
+    },
+    "cns5-3656": {
+      "expected_name": "GJ 3867",
+      "expected_designation": "QY Vir",
+      "observations": {
+        "variability": {
+          "gcvs_name": "QY Vir",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.76,
+          "amplitude_mag": 0.02,
+          "period_days": 21.79
+        }
+      }
+    },
+    "hip-39757": {
+      "expected_name": "Tureis",
+      "expected_designation": "rho Pup",
+      "observations": {
+        "variability": {
+          "gcvs_name": "rho Pup",
+          "type": "DSCT",
+          "system": "V",
+          "max_mag": 2.68,
+          "min_mag": 2.87,
+          "period_days": 0.1408809
+        }
+      }
+    },
+    "cns5-5201": {
+      "expected_name": "HD 200560",
+      "expected_designation": "V2436 Cyg",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V2436 Cyg",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.69,
+          "amplitude_mag": 0.03,
+          "period_days": 10.526
+        }
+      }
+    },
+    "hip-8796": {
+      "expected_name": "Mothallah",
+      "expected_designation": "alf Tri",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Tri",
+          "type": "ELL",
+          "system": "Hp",
+          "max_mag": 3.52,
+          "min_mag": 3.53
+        }
+      }
+    },
+    "cns5-5020": {
+      "expected_name": "Phoenicia",
+      "expected_designation": "V1703 Aql",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1703 Aql",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.79,
+          "amplitude_mag": 0.03,
+          "period_days": 23.98
+        }
+      }
+    },
+    "cns5-4952": {
+      "expected_name": "GJ 4130",
+      "expected_designation": "V452 Vul",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V452 Vul",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.67,
+          "amplitude_mag": 0.03,
+          "period_days": 12.039
+        }
+      }
+    },
+    "cns5-3995": {
+      "expected_name": "BD+55 1823",
+      "expected_designation": "CR Dra",
+      "observations": {
+        "variability": {
+          "gcvs_name": "CR Dra",
+          "type": "UV",
+          "system": "U",
+          "max_mag": 9.46,
+          "min_mag": 12.53
+        }
+      }
+    },
+    "cns5-4763": {
+      "expected_name": "HD 180161",
+      "expected_designation": "MV Dra",
+      "observations": {
+        "variability": {
+          "gcvs_name": "MV Dra",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.04,
+          "amplitude_mag": 0.02,
+          "period_days": 5.49
+        }
+      }
+    },
+    "cns5-5413": {
+      "expected_name": "GJ 840",
+      "expected_designation": "V402 Peg",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V402 Peg",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.73,
+          "amplitude_mag": 0.01,
+          "period_days": 4.51,
+          "period_uncertain": true
+        }
+      }
+    },
+    "hip-19893": {
+      "expected_name": "Gamma Dor",
+      "expected_designation": "gam Dor",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam Dor",
+          "type": "GDOR",
+          "system": "V",
+          "max_mag": 4.23,
+          "min_mag": 4.27
+        }
+      }
+    },
+    "hip-21421": {
+      "expected_name": "Aldebaran",
+      "expected_designation": "alf Tau",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Tau",
+          "type": "LB:",
+          "system": "V",
+          "max_mag": 0.75,
+          "min_mag": 0.95
+        }
+      }
+    },
+    "cns5-3347": {
+      "expected_name": "GJ 517",
+      "expected_designation": "EQ Vir",
+      "observations": {
+        "variability": {
+          "gcvs_name": "EQ Vir",
+          "type": "UV+BY",
+          "system": "U",
+          "max_mag": 11.8,
+          "min_mag": 14.1
+        }
+      }
+    },
+    "cns5-1871": {
+      "expected_name": "HD 59747",
+      "expected_designation": "DX Lyn",
+      "observations": {
+        "variability": {
+          "gcvs_name": "DX Lyn",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.68,
+          "amplitude_mag": 0.02,
+          "period_days": 8.03
+        }
+      }
+    },
+    "cns5-4147": {
+      "expected_name": "EGGR 197",
+      "expected_designation": "V749 Her",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V749 Her",
+          "type": "ZZA",
+          "system": "V",
+          "max_mag": 14.04,
+          "min_mag": 14.08
+        }
+      }
+    },
+    "cns5-1027": {
+      "expected_name": "50 Per",
+      "expected_designation": "V582 Per",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V582 Per",
+          "type": "RS:",
+          "system": "Hp",
+          "max_mag": 5.63,
+          "min_mag": 5.74
+        }
+      }
+    },
+    "cns5-0170": {
+      "expected_name": "13 Cet",
+      "expected_designation": "BU Cet",
+      "observations": {
+        "variability": {
+          "gcvs_name": "BU Cet",
+          "type": "RS:",
+          "system": "K",
+          "max_mag": 3.86,
+          "min_mag": 3.96
+        }
+      }
+    },
+    "cns5-0477": {
+      "expected_name": "BRLT 38",
+      "expected_designation": "BF Ari",
+      "observations": {
+        "variability": {
+          "gcvs_name": "BF Ari",
+          "type": "unique",
+          "system": "Ks",
+          "max_mag": 15.18,
+          "amplitude_mag": 0.4,
+          "period_days": 0.123
+        }
+      }
+    },
+    "cns5-4706": {
+      "expected_name": "GJ 9638",
+      "expected_designation": "V775 Her",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V775 Her",
+          "type": "RS",
+          "system": "V",
+          "max_mag": 8.05,
+          "amplitude_mag": 0.12,
+          "period_days": 2.879395
+        }
+      }
+    },
+    "cns5-0111": {
+      "expected_name": "9 Cet",
+      "expected_designation": "BE Cet",
+      "observations": {
+        "variability": {
+          "gcvs_name": "BE Cet",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 6.35,
+          "min_mag": 6.44,
+          "period_days": 7.3362
+        }
+      }
+    },
+    "cns5-1793": {
+      "expected_name": "I Pup",
+      "expected_designation": "QW Pup",
+      "observations": {
+        "variability": {
+          "gcvs_name": "QW Pup",
+          "type": "ACV",
+          "system": "V",
+          "max_mag": 4.47,
+          "amplitude_mag": 0.027
+        }
+      }
+    },
+    "cns5-5755": {
+      "expected_name": "HD 220182",
+      "expected_designation": "V453 And",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V453 And",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.36,
+          "amplitude_mag": 0.04,
+          "period_days": 7.489
+        }
+      }
+    },
+    "cns5-3307": {
+      "expected_name": "HD 116956",
+      "expected_designation": "NQ UMa",
+      "observations": {
+        "variability": {
+          "gcvs_name": "NQ UMa",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.29,
+          "amplitude_mag": 0.04,
+          "period_days": 4.27
+        }
+      }
+    },
+    "cns5-3893": {
+      "expected_name": "GJ 3917",
+      "expected_designation": "V382 Ser",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V382 Ser",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.44,
+          "amplitude_mag": 0.04,
+          "period_days": 14.045
+        }
+      }
+    },
+    "cns5-1212": {
+      "expected_name": "2MASS J04510093-3402150",
+      "expected_designation": "SY Cae",
+      "observations": {
+        "variability": {
+          "gcvs_name": "SY Cae",
+          "type": "BY:",
+          "system": "Ic",
+          "max_mag": 17.42,
+          "min_mag": 17.48,
+          "period_days": 0.2875
+        }
+      }
+    },
+    "cns5-1641": {
+      "expected_name": "HD 48189",
+      "expected_designation": "AK Pic",
+      "observations": {
+        "variability": {
+          "gcvs_name": "AK Pic",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 6.14,
+          "min_mag": 6.19,
+          "period_days": 2.6
+        }
+      }
+    },
+    "cns5-5503": {
+      "expected_name": "GJ 4268",
+      "expected_designation": "V447 Lac",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V447 Lac",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.5,
+          "amplitude_mag": 0.03,
+          "period_days": 4.4266
+        }
+      }
+    },
+    "cns5-1055": {
+      "expected_name": "HD 26913",
+      "expected_designation": "V891 Tau",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V891 Tau",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 6.92,
+          "min_mag": 7.0
+        }
+      }
+    },
+    "cns5-1056": {
+      "expected_name": "HD 26923",
+      "expected_designation": "V774 Tau",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V774 Tau",
+          "type": "BY:",
+          "system": "V",
+          "max_mag": 6.28,
+          "min_mag": 6.37
+        }
+      }
+    },
+    "cns5-1925": {
+      "expected_name": "HD 63433",
+      "expected_designation": "V377 Gem",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V377 Gem",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 6.93,
+          "amplitude_mag": 0.05,
+          "period_days": 6.46
+        }
+      }
+    },
+    "cns5-2064": {
+      "expected_name": "BD+01 2063",
+      "expected_designation": "V397 Hya",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V397 Hya",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 8.35,
+          "amplitude_mag": 0.03,
+          "period_days": 8.75,
+          "period_uncertain": true
+        }
+      }
+    },
+    "cns5-5483": {
+      "expected_name": "GJ 850",
+      "expected_designation": "V446 Lac",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V446 Lac",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.23,
+          "amplitude_mag": 0.02,
+          "period_days": 9.083
+        }
+      }
+    },
+    "cns5-5591": {
+      "expected_name": "HD 214683",
+      "expected_designation": "V403 Peg",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V403 Peg",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 8.48,
+          "amplitude_mag": 0.03,
+          "period_days": 18.05
+        }
+      }
+    },
+    "cns5-2734": {
+      "expected_name": "GJ 417",
+      "expected_designation": "MN UMa",
+      "observations": {
+        "variability": {
+          "gcvs_name": "MN UMa",
+          "type": "BY",
+          "system": "Hp",
+          "max_mag": 6.53,
+          "min_mag": 6.56,
+          "period_days": 8.25
+        }
+      }
+    },
+    "cns5-3136": {
+      "expected_name": "GJ 3743",
+      "expected_designation": "NP UMa",
+      "observations": {
+        "variability": {
+          "gcvs_name": "NP UMa",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 8.27,
+          "amplitude_mag": 0.03,
+          "period_days": 11.75
+        }
+      }
+    },
+    "cns5-5825": {
+      "expected_name": "GJ 4351",
+      "expected_designation": "V454 And",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V454 And",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 6.58,
+          "amplitude_mag": 0.02,
+          "period_days": 7.5,
+          "period_uncertain": true
+        }
+      }
+    },
+    "cns5-5018": {
+      "expected_name": "GJ 784.2 B",
+      "expected_designation": "V1412 Aql",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1412 Aql",
+          "type": "E:",
+          "system": "V",
+          "max_mag": 15.67,
+          "min_mag": 18.3
+        }
+      }
+    },
+    "cns5-0702": {
+      "expected_name": "HD 17382",
+      "expected_designation": "BC Ari",
+      "observations": {
+        "variability": {
+          "gcvs_name": "BC Ari",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.56,
+          "amplitude_mag": 0.02
+        }
+      }
+    },
+    "cns5-2515": {
+      "expected_name": "MCC 124",
+      "expected_designation": "DK Leo",
+      "observations": {
+        "variability": {
+          "gcvs_name": "DK Leo",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 9.87,
+          "min_mag": 10.2,
+          "period_days": 8.05
+        }
+      }
+    },
+    "cns5-5308": {
+      "expected_name": "HD 205434",
+      "expected_designation": "V430 Cep",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V430 Cep",
+          "type": "BY:",
+          "system": "Hp",
+          "max_mag": 9.41,
+          "min_mag": 9.52
+        }
+      }
+    },
+    "cns5-2473": {
+      "expected_name": "HD 87424",
+      "expected_designation": "V417 Hya",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V417 Hya",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 8.15,
+          "amplitude_mag": 0.03,
+          "period_days": 10.74
+        }
+      }
+    },
+    "cns5-4588": {
+      "expected_name": "GJ 718",
+      "expected_designation": "V774 Her",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V774 Her",
+          "type": "UV",
+          "system": "B",
+          "max_mag": 9.45,
+          "min_mag": 10.9,
+          "max_uncertain": true,
+          "min_uncertain": true
+        }
+      }
+    },
+    "cns5-1877": {
+      "expected_name": "HD 60491",
+      "expected_designation": "V867 Mon",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V867 Mon",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 8.16,
+          "amplitude_mag": 0.02,
+          "period_days": 4.76,
+          "period_uncertain": true
+        }
+      }
+    },
+    "cns5-4807": {
+      "expected_name": "Ross 163",
+      "expected_designation": "V2078 Cyg",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V2078 Cyg",
+          "type": "BY:",
+          "system": "Hp",
+          "max_mag": 11.34,
+          "min_mag": 11.65
+        }
+      }
+    },
+    "hip-76267": {
+      "expected_name": "Alphecca",
+      "expected_designation": "alf CrB",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf CrB",
+          "type": "EA/DM",
+          "system": "B",
+          "max_mag": 2.21,
+          "min_mag": 2.32,
+          "period_days": 17.359907
+        }
+      }
+    },
+    "cns5-3166": {
+      "expected_name": "GJ 1165",
+      "expected_designation": "VZ Crv",
+      "observations": {
+        "variability": {
+          "gcvs_name": "VZ Crv",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.93,
+          "amplitude_mag": 0.03,
+          "period_days": 18.62,
+          "period_uncertain": true
+        }
+      }
+    },
+    "cns5-0954": {
+      "expected_name": "HD 23439A",
+      "expected_designation": "V580 Per",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V580 Per",
+          "type": "E:",
+          "system": "Hp",
+          "max_mag": 7.75,
+          "min_mag": 8.07
+        }
+      }
+    },
+    "cns5-4983": {
+      "expected_name": "b01 Cyg",
+      "expected_designation": "V2008 Cyg",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V2008 Cyg",
+          "type": "RS:",
+          "system": "V",
+          "max_mag": 5.36,
+          "amplitude_mag": 0.05
+        }
+      }
+    },
+    "cns5-0349": {
+      "expected_name": "HD 7590",
+      "expected_designation": "V445 And",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V445 And",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 6.61,
+          "amplitude_mag": 0.03,
+          "period_days": 5.67
+        }
+      }
+    },
+    "cns5-5812": {
+      "expected_name": "GJ 4343",
+      "expected_designation": "V406 Peg",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V406 Peg",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 7.9,
+          "amplitude_mag": 0.01,
+          "period_days": 12.525
+        }
+      }
+    },
+    "hip-16537": {
+      "expected_name": "Ran",
+      "expected_designation": "eps Eri",
+      "observations": {
+        "variability": {
+          "gcvs_name": "eps Eri",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 3.73,
+          "amplitude_mag": 0.05
+        }
+      }
+    },
+    "hip-91262": {
+      "expected_name": "Vega",
+      "expected_designation": "alf Lyr",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Lyr",
+          "type": "DSCTC",
+          "system": "V",
+          "max_mag": -0.02,
+          "min_mag": 0.07,
+          "period_days": 0.19
+        },
+        "rotation": {
+          "period_days": 0.71,
+          "equatorial_velocity_kms": 194,
+          "polar_to_equatorial_radius": 0.887,
+          "reference": "Monnier et al. 2012, ApJL 761, L3, Table 2 (concordance model)",
+          "source_url": "https://arxiv.org/abs/1211.6055",
+          "scope": "CHARA/MIRC gravity-darkened model: equatorial radius 2.726 +/- 0.006 and polar radius 2.418 +/- 0.012 solar radii, rotation period 0.71 +/- 0.02 d, seen nearly pole-on (inclination 6.2 +/- 0.4 deg). The period fit uses a 0.71 d magnetic-field prior. Equatorial velocity is derived as 2 pi R_eq / P; the paper estimates about 195 km/s."
+        }
+      }
+    },
+    "hip-17378": {
+      "expected_name": "Rana",
+      "expected_designation": "del Eri",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Eri",
+          "type": "RS:",
+          "system": "V",
+          "max_mag": 3.51,
+          "min_mag": 3.56
+        }
+      }
+    },
+    "hip-57632": {
+      "expected_name": "Denebola",
+      "expected_designation": "bet Leo",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Leo",
+          "type": "DSCTC",
+          "system": "V",
+          "max_mag": 2.14,
+          "amplitude_mag": 0.025
+        }
+      }
+    },
+    "hip-107556": {
+      "expected_name": "Deneb Algedi",
+      "expected_designation": "del Cap",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Cap",
+          "type": "EA",
+          "system": "V",
+          "max_mag": 2.81,
+          "min_mag": 3.05,
+          "period_days": 1.0227688
+        }
+      }
+    },
+    "hip-42913": {
+      "expected_name": "Alsephina",
+      "expected_designation": "del Vel",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Vel",
+          "type": "EA",
+          "system": "V",
+          "max_mag": 1.96,
+          "amplitude_mag": 0.4
+        }
+      }
+    },
+    "hip-28360": {
+      "expected_name": "Menkalinan",
+      "expected_designation": "bet Aur",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Aur",
+          "type": "EA",
+          "system": "V",
+          "max_mag": 1.89,
+          "min_mag": 1.98,
+          "period_days": 3.960036
+        }
+      }
+    },
+    "hip-62956": {
+      "expected_name": "Alioth",
+      "expected_designation": "eps UMa",
+      "observations": {
+        "variability": {
+          "gcvs_name": "eps UMa",
+          "type": "ACV",
+          "system": "V",
+          "max_mag": 1.76,
+          "amplitude_mag": 0.02,
+          "period_days": 5.0887
+        }
+      }
+    },
+    "hip-71075": {
+      "expected_name": "Seginus",
+      "expected_designation": "gam Boo",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam Boo",
+          "type": "DSCTC",
+          "system": "V",
+          "max_mag": 3.02,
+          "min_mag": 3.07,
+          "period_days": 0.2903137
+        }
+      }
+    },
+    "hip-14576": {
+      "expected_name": "Algol",
+      "expected_designation": "bet Per",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Per",
+          "type": "EA/SD",
+          "system": "V",
+          "max_mag": 2.12,
+          "min_mag": 3.39,
+          "period_days": 2.8673043
+        }
+      }
+    },
+    "hip-677": {
+      "expected_name": "Sirrah",
+      "expected_designation": "alf And",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf And",
+          "type": "ACV:",
+          "system": "V",
+          "max_mag": 2.06,
+          "amplitude_mag": 0.04,
+          "period_days": 0.966222
+        }
+      }
+    },
+    "hip-93174": {
+      "expected_name": "Epsilon CrA",
+      "expected_designation": "eps CrA",
+      "observations": {
+        "variability": {
+          "gcvs_name": "eps CrA",
+          "type": "EW",
+          "system": "V",
+          "max_mag": 4.74,
+          "min_mag": 5.0,
+          "period_days": 0.5914264
+        }
+      }
+    },
+    "hip-48319": {
+      "expected_name": "Upsilon UMa",
+      "expected_designation": "ups UMa",
+      "observations": {
+        "variability": {
+          "gcvs_name": "ups UMa",
+          "type": "DSCT",
+          "system": "V",
+          "max_mag": 3.68,
+          "min_mag": 3.86,
+          "period_days": 0.1327
+        }
+      }
+    },
+    "hip-104521": {
+      "expected_name": "Gamma Equ",
+      "expected_designation": "gam Equ",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam Equ",
+          "type": "ACVO",
+          "system": "V",
+          "max_mag": 4.58,
+          "min_mag": 4.77,
+          "period_days": 0.00868
+        }
+      }
+    },
+    "hip-75695": {
+      "expected_name": "Nusakan",
+      "expected_designation": "bet CrB",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet CrB",
+          "type": "ACV",
+          "system": "V",
+          "max_mag": 3.65,
+          "min_mag": 3.72,
+          "period_days": 18.487
+        }
+      }
+    },
+    "hip-43109": {
+      "expected_name": "Ashlesha",
+      "expected_designation": "eps Hya",
+      "observations": {
+        "variability": {
+          "gcvs_name": "eps Hya",
+          "type": "BY:",
+          "system": "V",
+          "max_mag": 3.35,
+          "min_mag": 3.39
+        }
+      }
+    },
+    "hip-87933": {
+      "expected_name": "Xi Her",
+      "expected_designation": "ksi Her",
+      "observations": {
+        "variability": {
+          "gcvs_name": "ksi Her",
+          "type": "SRD",
+          "system": "Hp",
+          "max_mag": 3.85,
+          "min_mag": 3.88
+        }
+      }
+    },
+    "hip-7588": {
+      "expected_name": "Achernar",
+      "expected_designation": "alf Eri",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Eri",
+          "type": "BE",
+          "system": "Hp",
+          "max_mag": 0.4,
+          "min_mag": 0.46,
+          "period_days": 1.263
+        },
+        "rotation": {
+          "period_days": 1.551,
+          "equatorial_velocity_kms": 298.8,
+          "polar_to_equatorial_radius": 0.741,
+          "reference": "Domiciano de Souza et al. 2014, A&A 569, A10, as reported by Kervella et al. 2022, A&A 667, A111",
+          "source_url": "https://arxiv.org/abs/2209.07537",
+          "scope": "VLTI gravity-darkened model: equatorial radius 9.16 +/- 0.23 solar radii, equatorial-to-polar radius ratio 1.35 +/- 0.07, equatorial velocity 298.8 (+6.9/-5.5) km/s, inclination 60.6 (+7.1/-3.9) deg. The period is derived as 2 pi R_eq / v_eq."
+        }
+      }
+    },
+    "hip-76952": {
+      "expected_name": "Gamma CrB",
+      "expected_designation": "gam CrB",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam CrB",
+          "type": "DSCTC",
+          "system": "V",
+          "max_mag": 3.8,
+          "min_mag": 3.86,
+          "period_days": 0.03
+        }
+      }
+    },
+    "hip-20711": {
+      "expected_name": "Upsilon Tau",
+      "expected_designation": "ups Tau",
+      "observations": {
+        "variability": {
+          "gcvs_name": "ups Tau",
+          "type": "DSCTC",
+          "system": "V",
+          "max_mag": 4.28,
+          "min_mag": 4.31,
+          "period_days": 0.1484
+        }
+      }
+    },
+    "hip-9487": {
+      "expected_name": "Alrescha",
+      "expected_designation": "alf Psc",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Psc",
+          "type": "ACV",
+          "system": "Hp",
+          "max_mag": 3.82,
+          "min_mag": 3.83
+        }
+      }
+    },
+    "hip-20648": {
+      "expected_name": "Delta3 Tau",
+      "expected_designation": "V776 Tau",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V776 Tau",
+          "type": "ACV:",
+          "system": "V",
+          "max_mag": 4.29,
+          "min_mag": 4.32,
+          "period_days": 57.25
+        }
+      }
+    },
+    "hip-86565": {
+      "expected_name": "Omicron Ser",
+      "expected_designation": "omi Ser",
+      "observations": {
+        "variability": {
+          "gcvs_name": "omi Ser",
+          "type": "DSCTC:",
+          "system": "V",
+          "max_mag": 4.26,
+          "amplitude_mag": 0.01,
+          "period_days": 0.053
+        }
+      }
+    },
+    "hip-115738": {
+      "expected_name": "Kappa Psc",
+      "expected_designation": "kap Psc",
+      "observations": {
+        "variability": {
+          "gcvs_name": "kap Psc",
+          "type": "ACV",
+          "system": "V",
+          "max_mag": 4.87,
+          "min_mag": 4.95,
+          "period_days": 0.58525,
+          "period_uncertain": true
+        }
+      }
+    },
+    "hip-30060": {
+      "expected_name": "2 Lyn",
+      "expected_designation": "UZ Lyn",
+      "observations": {
+        "variability": {
+          "gcvs_name": "UZ Lyn",
+          "type": "E:+DSCTC:",
+          "system": "V",
+          "max_mag": 4.43,
+          "min_mag": 4.73
+        }
+      }
+    },
+    "hip-36188": {
+      "expected_name": "Gomeisa",
+      "expected_designation": "bet CMi",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet CMi",
+          "type": "BE",
+          "system": "V",
+          "max_mag": 2.84,
+          "min_mag": 2.92
+        }
+      }
+    },
+    "hip-28380": {
+      "expected_name": "Mahasim",
+      "expected_designation": "tet Aur",
+      "observations": {
+        "variability": {
+          "gcvs_name": "tet Aur",
+          "type": "ACV",
+          "system": "V",
+          "max_mag": 2.62,
+          "min_mag": 2.7,
+          "period_days": 3.6186
+        }
+      }
+    },
+    "hip-77512": {
+      "expected_name": "Delta CrB",
+      "expected_designation": "del CrB",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del CrB",
+          "type": "RS:",
+          "system": "V",
+          "max_mag": 4.57,
+          "min_mag": 4.69
+        }
+      }
+    },
+    "hip-21281": {
+      "expected_name": "Alpha Dor",
+      "expected_designation": "alf Dor",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Dor",
+          "type": "ACV",
+          "system": "V",
+          "max_mag": 3.26,
+          "min_mag": 3.3,
+          "period_days": 2.95
+        }
+      }
+    },
+    "hip-24305": {
+      "expected_name": "Mu Lep",
+      "expected_designation": "mu. Lep",
+      "observations": {
+        "variability": {
+          "gcvs_name": "mu. Lep",
+          "type": "ACV",
+          "system": "V",
+          "max_mag": 2.97,
+          "min_mag": 3.41,
+          "period_days": 2.0,
+          "period_uncertain": true
+        }
+      }
+    },
+    "hip-106985": {
+      "expected_name": "Nashira",
+      "expected_designation": "gam Cap",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam Cap",
+          "type": "ACV:",
+          "system": "J",
+          "max_mag": 3.2,
+          "amplitude_mag": 0.03,
+          "period_days": 2.78,
+          "period_uncertain": true
+        }
+      }
+    },
+    "hip-112122": {
+      "expected_name": "Tiaki",
+      "expected_designation": "bet Gru",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Gru",
+          "type": "LC:",
+          "system": "V",
+          "max_mag": 2.0,
+          "min_mag": 2.3
+        }
+      }
+    },
+    "hip-46952": {
+      "expected_name": "10 LMi",
+      "expected_designation": "SU LMi",
+      "observations": {
+        "variability": {
+          "gcvs_name": "SU LMi",
+          "type": "RS:",
+          "system": "V",
+          "max_mag": 4.54,
+          "amplitude_mag": 0.02
+        }
+      }
+    },
+    "hip-36377": {
+      "expected_name": "Hadir",
+      "expected_designation": "sig Pup",
+      "observations": {
+        "variability": {
+          "gcvs_name": "sig Pup",
+          "type": "ELL:",
+          "system": "Hp",
+          "max_mag": 3.36,
+          "min_mag": 3.39
+        }
+      }
+    },
+    "hip-80170": {
+      "expected_name": "Gamma Her",
+      "expected_designation": "gam Her",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam Her",
+          "type": "SRD:",
+          "system": "B",
+          "max_mag": 4.02,
+          "amplitude_mag": 0.09
+        }
+      }
+    },
+    "hip-113881": {
+      "expected_name": "Scheat",
+      "expected_designation": "bet Peg",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Peg",
+          "type": "LB",
+          "system": "V",
+          "max_mag": 2.31,
+          "min_mag": 2.74
+        }
+      }
+    },
+    "hip-105515": {
+      "expected_name": "Iota Cap",
+      "expected_designation": "iot Cap",
+      "observations": {
+        "variability": {
+          "gcvs_name": "iot Cap",
+          "type": "BY",
+          "system": "V",
+          "max_mag": 4.25,
+          "min_mag": 4.31,
+          "period_days": 68.0
+        }
+      }
+    },
+    "hip-102281": {
+      "expected_name": "Delta Del",
+      "expected_designation": "del Del",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Del",
+          "type": "DSCT",
+          "system": "V",
+          "max_mag": 4.38,
+          "min_mag": 4.49
+        }
+      }
+    },
+    "hip-30343": {
+      "expected_name": "Tejat",
+      "expected_designation": "mu. Gem",
+      "observations": {
+        "variability": {
+          "gcvs_name": "mu. Gem",
+          "type": "LB",
+          "system": "V",
+          "max_mag": 2.75,
+          "min_mag": 3.02
+        }
+      }
+    },
+    "hip-14328": {
+      "expected_name": "Gamma Per",
+      "expected_designation": "gam Per",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam Per",
+          "type": "EA/GS",
+          "system": "B",
+          "max_mag": 3.63,
+          "amplitude_mag": 0.55
+        }
+      }
+    },
+    "hip-98543": {
+      "expected_name": "15 Vul",
+      "expected_designation": "NT Vul",
+      "observations": {
+        "variability": {
+          "gcvs_name": "NT Vul",
+          "type": "ACV",
+          "system": "V",
+          "max_mag": 4.62,
+          "min_mag": 4.67,
+          "period_days": 14.0
+        }
+      }
+    },
+    "hip-6867": {
+      "expected_name": "Gamma Phe",
+      "expected_designation": "gam Phe",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam Phe",
+          "type": "LB:",
+          "system": "V",
+          "max_mag": 3.39,
+          "min_mag": 3.49
+        }
+      }
+    },
+    "hip-14135": {
+      "expected_name": "Menkar",
+      "expected_designation": "alf Cet",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Cet",
+          "type": "LB:",
+          "system": "Hp",
+          "max_mag": 2.6,
+          "min_mag": 2.64
+        }
+      }
+    },
+    "hip-65474": {
+      "expected_name": "Spica",
+      "expected_designation": "alf Vir",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Vir",
+          "type": "ELL+BCEP",
+          "system": "V",
+          "max_mag": 0.95,
+          "amplitude_mag": 0.1,
+          "period_days": 4.014604
+        }
+      }
+    },
+    "hip-73714": {
+      "expected_name": "Brachium",
+      "expected_designation": "sig Lib",
+      "observations": {
+        "variability": {
+          "gcvs_name": "sig Lib",
+          "type": "SRB",
+          "system": "V",
+          "max_mag": 3.2,
+          "min_mag": 3.46,
+          "period_days": 20.0
+        }
+      }
+    },
+    "hip-96406": {
+      "expected_name": "h01 Sgr",
+      "expected_designation": "V5548 Sgr",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V5548 Sgr",
+          "type": "DSCTC:",
+          "system": "B",
+          "max_mag": 5.82,
+          "amplitude_mag": 0.04,
+          "period_days": 0.1134
+        }
+      }
+    },
+    "hip-62763": {
+      "expected_name": "31 Com",
+      "expected_designation": "LS Com",
+      "observations": {
+        "variability": {
+          "gcvs_name": "LS Com",
+          "type": "FKCOM",
+          "system": "V",
+          "max_mag": 4.87,
+          "min_mag": 4.97
+        }
+      }
+    },
+    "hip-62434": {
+      "expected_name": "Mimosa",
+      "expected_designation": "bet Cru",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Cru",
+          "type": "BCEP",
+          "system": "V",
+          "max_mag": 1.23,
+          "min_mag": 1.31,
+          "period_days": 0.2365072
+        }
+      }
+    },
+    "hip-5348": {
+      "expected_name": "Wurren",
+      "expected_designation": "zet Phe",
+      "observations": {
+        "variability": {
+          "gcvs_name": "zet Phe",
+          "type": "EA/DM",
+          "system": "V",
+          "max_mag": 3.91,
+          "min_mag": 4.42,
+          "period_days": 1.6697671
+        }
+      }
+    },
+    "hip-10826": {
+      "expected_name": "Mira",
+      "expected_designation": "omi Cet",
+      "observations": {
+        "variability": {
+          "gcvs_name": "omi Cet",
+          "type": "M",
+          "system": "V",
+          "max_mag": 1.9,
+          "min_mag": 10.4,
+          "period_days": 328.8
+        }
+      }
+    },
+    "hip-14354": {
+      "expected_name": "Gorgonea Tertia",
+      "expected_designation": "rho Per",
+      "observations": {
+        "variability": {
+          "gcvs_name": "rho Per",
+          "type": "SRB",
+          "system": "V",
+          "max_mag": 3.3,
+          "min_mag": 4.0,
+          "period_days": 50.0,
+          "period_uncertain": true
+        }
+      }
+    },
+    "hip-57936": {
+      "expected_name": "Beta Hya",
+      "expected_designation": "bet Hya",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Hya",
+          "type": "ACV",
+          "system": "V",
+          "max_mag": 4.27,
+          "amplitude_mag": 0.04,
+          "period_days": 2.344
+        }
+      }
+    },
+    "hip-61585": {
+      "expected_name": "Alpha Mus",
+      "expected_designation": "alf Mus",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Mus",
+          "type": "BCEP",
+          "system": "V",
+          "max_mag": 2.68,
+          "min_mag": 2.73,
+          "period_days": 0.0903
+        }
+      }
+    },
+    "hip-82080": {
+      "expected_name": "Epsilon UMi",
+      "expected_designation": "eps UMi",
+      "observations": {
+        "variability": {
+          "gcvs_name": "eps UMi",
+          "type": "EA/D/RS",
+          "system": "V",
+          "max_mag": 4.19,
+          "min_mag": 4.23,
+          "period_days": 39.4809
+        }
+      }
+    },
+    "hip-57380": {
+      "expected_name": "Nu Vir",
+      "expected_designation": "nu. Vir",
+      "observations": {
+        "variability": {
+          "gcvs_name": "nu. Vir",
+          "type": "SRB",
+          "system": "Hp",
+          "max_mag": 4.1,
+          "min_mag": 4.16
+        }
+      }
+    },
+    "hip-78265": {
+      "expected_name": "Fang",
+      "expected_designation": "pi. Sco",
+      "observations": {
+        "variability": {
+          "gcvs_name": "pi. Sco",
+          "type": "EB",
+          "system": "Hp",
+          "max_mag": 2.82,
+          "min_mag": 2.85
+        }
+      }
+    },
+    "hip-88794": {
+      "expected_name": "Omicron Her",
+      "expected_designation": "omi Her",
+      "observations": {
+        "variability": {
+          "gcvs_name": "omi Her",
+          "type": "GCAS",
+          "system": "B",
+          "max_mag": 3.8,
+          "amplitude_mag": 0.07
+        }
+      }
+    },
+    "hip-84345": {
+      "expected_name": "Rasalgethi",
+      "expected_designation": "alf Her",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Her",
+          "type": "SRC",
+          "system": "V",
+          "max_mag": 2.74,
+          "min_mag": 4.0
+        }
+      }
+    },
+    "hip-112961": {
+      "expected_name": "Shatabhisha",
+      "expected_designation": "lam Aqr",
+      "observations": {
+        "variability": {
+          "gcvs_name": "lam Aqr",
+          "type": "LB",
+          "system": "V",
+          "max_mag": 3.57,
+          "min_mag": 3.8
+        }
+      }
+    },
+    "hip-51437": {
+      "expected_name": "Beta Sex",
+      "expected_designation": "bet Sex",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Sex",
+          "type": "ACV:",
+          "system": "V",
+          "max_mag": 5.0,
+          "min_mag": 5.1
+        }
+      }
+    },
+    "hip-41075": {
+      "expected_name": "Alsciaukat",
+      "expected_designation": "BN Lyn",
+      "observations": {
+        "variability": {
+          "gcvs_name": "BN Lyn",
+          "type": "SRD:",
+          "system": "V",
+          "max_mag": 4.21,
+          "min_mag": 4.27
+        }
+      }
+    },
+    "hip-76127": {
+      "expected_name": "Theta CrB",
+      "expected_designation": "tet CrB",
+      "observations": {
+        "variability": {
+          "gcvs_name": "tet CrB",
+          "type": "BE",
+          "system": "V",
+          "max_mag": 4.06,
+          "min_mag": 4.33
+        }
+      }
+    },
+    "hip-61199": {
+      "expected_name": "Gamma Mus",
+      "expected_designation": "gam Mus",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam Mus",
+          "type": "LPB",
+          "system": "Hp",
+          "max_mag": 3.78,
+          "min_mag": 3.8
+        }
+      }
+    },
+    "hip-68702": {
+      "expected_name": "Agena",
+      "expected_designation": "bet Cen",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Cen",
+          "type": "BCEP",
+          "system": "V",
+          "max_mag": 0.61,
+          "amplitude_mag": 0.045,
+          "period_days": 0.3
+        }
+      }
+    },
+    "hip-18724": {
+      "expected_name": "Lambda Tau",
+      "expected_designation": "lam Tau",
+      "observations": {
+        "variability": {
+          "gcvs_name": "lam Tau",
+          "type": "EA/DM",
+          "system": "V",
+          "max_mag": 3.37,
+          "min_mag": 3.91,
+          "period_days": 3.9529478
+        }
+      }
+    },
+    "hip-67464": {
+      "expected_name": "Heng",
+      "expected_designation": "nu. Cen",
+      "observations": {
+        "variability": {
+          "gcvs_name": "nu. Cen",
+          "type": "ELL:+BCEP:",
+          "system": "V",
+          "max_mag": 3.38,
+          "min_mag": 3.41,
+          "period_days": 2.6249
+        }
+      }
+    },
+    "hip-76297": {
+      "expected_name": "Gamma Lup",
+      "expected_designation": "gam Lup",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam Lup",
+          "type": "ELL:",
+          "system": "Hp",
+          "max_mag": 2.69,
+          "min_mag": 2.71
+        }
+      }
+    },
+    "hip-66657": {
+      "expected_name": "Epsilon Cen",
+      "expected_designation": "eps Cen",
+      "observations": {
+        "variability": {
+          "gcvs_name": "eps Cen",
+          "type": "BCEP",
+          "system": "V",
+          "max_mag": 2.29,
+          "min_mag": 2.31,
+          "period_days": 0.1694
+        }
+      }
+    },
+    "hip-11767": {
+      "expected_name": "Polaris",
+      "expected_designation": "alf UMi",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf UMi",
+          "type": "DCEPS",
+          "system": "V",
+          "max_mag": 1.86,
+          "min_mag": 2.13,
+          "period_days": 3.9696
+        }
+      }
+    },
+    "hip-26451": {
+      "expected_name": "Tianguan",
+      "expected_designation": "zet Tau",
+      "observations": {
+        "variability": {
+          "gcvs_name": "zet Tau",
+          "type": "E/GS+GCAS",
+          "system": "V",
+          "max_mag": 2.88,
+          "min_mag": 3.17,
+          "period_days": 132.9735
+        }
+      }
+    },
+    "hip-17851": {
+      "expected_name": "Pleione",
+      "expected_designation": "BU Tau",
+      "observations": {
+        "variability": {
+          "gcvs_name": "BU Tau",
+          "type": "GCAS",
+          "system": "V",
+          "max_mag": 4.77,
+          "min_mag": 5.5
+        }
+      }
+    },
+    "hip-75323": {
+      "expected_name": "Gamma Cir",
+      "expected_designation": "gam Cir",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam Cir",
+          "type": "BE:",
+          "system": "Hp",
+          "max_mag": 4.5,
+          "min_mag": 4.56
+        }
+      }
+    },
+    "hip-98688": {
+      "expected_name": "c Sgr",
+      "expected_designation": "V3872 Sgr",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V3872 Sgr",
+          "type": "LB",
+          "system": "V",
+          "max_mag": 4.45,
+          "min_mag": 4.64
+        }
+      }
+    },
+    "hip-81377": {
+      "expected_name": "Zeta Oph",
+      "expected_designation": "zet Oph",
+      "observations": {
+        "variability": {
+          "gcvs_name": "zet Oph",
+          "type": "GCAS",
+          "system": "V",
+          "max_mag": 2.56,
+          "min_mag": 2.58
+        }
+      }
+    },
+    "hip-67472": {
+      "expected_name": "Mu Cen",
+      "expected_designation": "mu. Cen",
+      "observations": {
+        "variability": {
+          "gcvs_name": "mu. Cen",
+          "type": "GCAS",
+          "system": "V",
+          "max_mag": 2.92,
+          "min_mag": 3.49
+        }
+      }
+    },
+    "hip-71860": {
+      "expected_name": "Uridim",
+      "expected_designation": "alf Lup",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Lup",
+          "type": "BCEP",
+          "system": "V",
+          "max_mag": 2.29,
+          "min_mag": 2.34,
+          "period_days": 0.2598466
+        }
+      }
+    },
+    "hip-17608": {
+      "expected_name": "Merope",
+      "expected_designation": "V971 Tau",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V971 Tau",
+          "type": "BCEP",
+          "system": "V",
+          "max_mag": 4.18,
+          "amplitude_mag": 0.01
+        }
+      }
+    },
+    "hip-59747": {
+      "expected_name": "Imai",
+      "expected_designation": "del Cru",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Cru",
+          "type": "BCEP",
+          "system": "V",
+          "max_mag": 2.78,
+          "min_mag": 2.84,
+          "period_days": 0.151038
+        }
+      }
+    },
+    "hip-42536": {
+      "expected_name": "Omicron Vel",
+      "expected_designation": "omi Vel",
+      "observations": {
+        "variability": {
+          "gcvs_name": "omi Vel",
+          "type": "unique",
+          "system": "V",
+          "max_mag": 3.55,
+          "min_mag": 3.67,
+          "period_days": 2.779
+        }
+      }
+    },
+    "hip-61281": {
+      "expected_name": "Kappa Dra",
+      "expected_designation": "kap Dra",
+      "observations": {
+        "variability": {
+          "gcvs_name": "kap Dra",
+          "type": "GCAS",
+          "system": "V",
+          "max_mag": 3.82,
+          "min_mag": 4.01
+        }
+      }
+    },
+    "hip-1067": {
+      "expected_name": "Algenib",
+      "expected_designation": "gam Peg",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam Peg",
+          "type": "BCEP",
+          "system": "V",
+          "max_mag": 2.78,
+          "min_mag": 2.89,
+          "period_days": 0.151750125
+        }
+      }
+    },
+    "hip-86670": {
+      "expected_name": "Kappa Sco",
+      "expected_designation": "kap Sco",
+      "observations": {
+        "variability": {
+          "gcvs_name": "kap Sco",
+          "type": "BCEP",
+          "system": "V",
+          "max_mag": 2.41,
+          "min_mag": 2.42,
+          "period_days": 0.1998303
+        }
+      }
+    },
+    "hip-52370": {
+      "expected_name": "HD 92938",
+      "expected_designation": "V518 Car",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V518 Car",
+          "type": "GCAS:",
+          "system": "Hp",
+          "max_mag": 4.6,
+          "min_mag": 4.76
+        }
+      }
+    },
+    "hip-42726": {
+      "expected_name": "HD 74560",
+      "expected_designation": "HY Vel",
+      "observations": {
+        "variability": {
+          "gcvs_name": "HY Vel",
+          "type": "ELL:",
+          "system": "V",
+          "max_mag": 4.83,
+          "min_mag": 4.9,
+          "period_days": 3.106
+        }
+      }
+    },
+    "hip-78401": {
+      "expected_name": "Dschubba",
+      "expected_designation": "del Sco",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Sco",
+          "type": "GCAS",
+          "system": "V",
+          "max_mag": 1.86,
+          "min_mag": 2.32
+        }
+      }
+    },
+    "hip-75141": {
+      "expected_name": "Delta Lup",
+      "expected_designation": "del Lup",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Lup",
+          "type": "BCEP",
+          "system": "V",
+          "max_mag": 3.2,
+          "min_mag": 3.24,
+          "period_days": 0.16547
+        }
+      }
+    },
+    "hip-30324": {
+      "expected_name": "Mirzam",
+      "expected_designation": "bet CMa",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet CMa",
+          "type": "BCEP",
+          "system": "Hp",
+          "max_mag": 1.87,
+          "min_mag": 1.9,
+          "period_days": 0.2513
+        }
+      }
+    },
+    "hip-42504": {
+      "expected_name": "HD 74146",
+      "expected_designation": "NZ Vel",
+      "observations": {
+        "variability": {
+          "gcvs_name": "NZ Vel",
+          "type": "ELL:",
+          "system": "Hp",
+          "max_mag": 5.11,
+          "min_mag": 5.14
+        }
+      }
+    },
+    "hip-27989": {
+      "expected_name": "Betelgeuse",
+      "expected_designation": "alf Ori",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Ori",
+          "type": "SRC",
+          "system": "V",
+          "max_mag": 0.0,
+          "min_mag": 1.6,
+          "period_days": 2335.0
+        }
+      }
+    },
+    "hip-75097": {
+      "expected_name": "Pherkad",
+      "expected_designation": "gam UMi",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam UMi",
+          "type": "DSCTC",
+          "system": "V",
+          "max_mag": 3.04,
+          "amplitude_mag": 0.05,
+          "period_days": 0.143009
+        }
+      }
+    },
+    "hip-86414": {
+      "expected_name": "Iota Her",
+      "expected_designation": "iot Her",
+      "observations": {
+        "variability": {
+          "gcvs_name": "iot Her",
+          "type": "BCEP",
+          "system": "U",
+          "max_mag": 2.93,
+          "amplitude_mag": 0.02
+        }
+      }
+    },
+    "hip-17358": {
+      "expected_name": "Delta Per",
+      "expected_designation": "del Per",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Per",
+          "type": "GCAS:",
+          "system": "V",
+          "max_mag": 2.99,
+          "min_mag": 3.04
+        }
+      }
+    },
+    "hip-44816": {
+      "expected_name": "Suhail",
+      "expected_designation": "lam Vel",
+      "observations": {
+        "variability": {
+          "gcvs_name": "lam Vel",
+          "type": "LC",
+          "system": "V",
+          "max_mag": 2.14,
+          "min_mag": 2.3
+        }
+      }
+    },
+    "hip-4427": {
+      "expected_name": "Tiansi",
+      "expected_designation": "gam Cas",
+      "observations": {
+        "variability": {
+          "gcvs_name": "gam Cas",
+          "type": "GCAS",
+          "system": "V",
+          "max_mag": 1.6,
+          "min_mag": 3.0
+        }
+      }
+    },
+    "hip-97365": {
+      "expected_name": "Delta Sge",
+      "expected_designation": "del Sge",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Sge",
+          "type": "LB:",
+          "system": "V",
+          "max_mag": 3.75,
+          "min_mag": 3.83
+        }
+      }
+    },
+    "hip-80763": {
+      "expected_name": "Antares",
+      "expected_designation": "alf Sco",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Sco",
+          "type": "LC",
+          "system": "V",
+          "max_mag": 0.88,
+          "min_mag": 1.16
+        }
+      }
+    },
+    "hip-22109": {
+      "expected_name": "Mu Eri",
+      "expected_designation": "mu. Eri",
+      "observations": {
+        "variability": {
+          "gcvs_name": "mu. Eri",
+          "type": "EA+LPB:",
+          "system": "V",
+          "max_mag": 4.0,
+          "amplitude_mag": 0.05,
+          "period_days": 7.380618
+        }
+      }
+    },
+    "hip-85927": {
+      "expected_name": "Shaula",
+      "expected_designation": "lam Sco",
+      "observations": {
+        "variability": {
+          "gcvs_name": "lam Sco",
+          "type": "BCEP+E:",
+          "system": "V",
+          "max_mag": 1.62,
+          "amplitude_mag": 0.06,
+          "period_days": 0.2136966
+        }
+      }
+    },
+    "hip-35264": {
+      "expected_name": "Ahadi",
+      "expected_designation": "pi. Pup",
+      "observations": {
+        "variability": {
+          "gcvs_name": "pi. Pup",
+          "type": "SRD:",
+          "system": "Hp",
+          "max_mag": 2.8,
+          "min_mag": 2.87
+        }
+      }
+    },
+    "hip-59196": {
+      "expected_name": "Delta Cen",
+      "expected_designation": "del Cen",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Cen",
+          "type": "BE",
+          "system": "V",
+          "max_mag": 2.51,
+          "min_mag": 2.65,
+          "period_days": 1.923
+        }
+      }
+    },
+    "hip-18532": {
+      "expected_name": "Epsilon Per",
+      "expected_designation": "eps Per",
+      "observations": {
+        "variability": {
+          "gcvs_name": "eps Per",
+          "type": "BCEP",
+          "system": "V",
+          "max_mag": 2.88,
+          "min_mag": 3.0
+        }
+      }
+    },
+    "hip-93015": {
+      "expected_name": "Kappa Pav",
+      "expected_designation": "kap Pav",
+      "observations": {
+        "variability": {
+          "gcvs_name": "kap Pav",
+          "type": "CEP",
+          "system": "V",
+          "max_mag": 3.91,
+          "min_mag": 4.78,
+          "period_days": 9.09423
+        }
+      }
+    },
+    "hip-12387": {
+      "expected_name": "Delta Cet",
+      "expected_designation": "del Cet",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Cet",
+          "type": "BCEP",
+          "system": "Hp",
+          "max_mag": 3.99,
+          "min_mag": 4.01,
+          "period_days": 0.161139
+        }
+      }
+    },
+    "hip-30867": {
+      "expected_name": "Beta Mon",
+      "expected_designation": "bet Mon",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Mon",
+          "type": "BE",
+          "system": "Hp",
+          "max_mag": 3.77,
+          "min_mag": 3.84
+        }
+      }
+    },
+    "hip-21444": {
+      "expected_name": "Nu Eri",
+      "expected_designation": "nu. Eri",
+      "observations": {
+        "variability": {
+          "gcvs_name": "nu. Eri",
+          "type": "BCEP",
+          "system": "V",
+          "max_mag": 3.92,
+          "amplitude_mag": 0.14,
+          "period_days": 0.17790414
+        }
+      }
+    },
+    "hip-106032": {
+      "expected_name": "Alfirk",
+      "expected_designation": "bet Cep",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Cep",
+          "type": "BCEP",
+          "system": "Hp",
+          "max_mag": 3.12,
+          "min_mag": 3.17,
+          "period_days": 0.190482
+        }
+      }
+    },
+    "hip-29655": {
+      "expected_name": "Propus",
+      "expected_designation": "eta Gem",
+      "observations": {
+        "variability": {
+          "gcvs_name": "eta Gem",
+          "type": "SRA+EA",
+          "system": "V",
+          "max_mag": 3.15,
+          "min_mag": 3.9,
+          "period_days": 232.9
+        }
+      }
+    },
+    "hip-107315": {
+      "expected_name": "Enif",
+      "expected_designation": "eps Peg",
+      "observations": {
+        "variability": {
+          "gcvs_name": "eps Peg",
+          "type": "LC",
+          "system": "V",
+          "max_mag": 0.7,
+          "min_mag": 3.5
+        }
+      }
+    },
+    "hip-25930": {
+      "expected_name": "Mintaka",
+      "expected_designation": "del Ori",
+      "observations": {
+        "variability": {
+          "gcvs_name": "del Ori",
+          "type": "EA/DM",
+          "system": "V",
+          "max_mag": 2.14,
+          "min_mag": 2.26,
+          "period_days": 5.732476
+        }
+      }
+    },
+    "hip-50371": {
+      "expected_name": "q Car",
+      "expected_designation": "V337 Car",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V337 Car",
+          "type": "LC:",
+          "system": "V",
+          "max_mag": 3.17,
+          "min_mag": 3.44
+        }
+      }
+    },
+    "hip-24436": {
+      "expected_name": "Rigel",
+      "expected_designation": "bet Ori",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Ori",
+          "type": "ACYG",
+          "system": "Hp",
+          "max_mag": 0.17,
+          "min_mag": 0.22
+        }
+      }
+    },
+    "hip-23972": {
+      "expected_name": "Lambda Eri",
+      "expected_designation": "lam Eri",
+      "observations": {
+        "variability": {
+          "gcvs_name": "lam Eri",
+          "type": "BCEP",
+          "system": "V",
+          "max_mag": 4.22,
+          "min_mag": 4.34,
+          "period_days": 0.701538
+        }
+      }
+    },
+    "hip-92420": {
+      "expected_name": "Sheliak",
+      "expected_designation": "bet Lyr",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Lyr",
+          "type": "EB",
+          "system": "V",
+          "max_mag": 3.25,
+          "min_mag": 4.36,
+          "period_days": 12.913834
+        }
+      }
+    },
+    "hip-35037": {
+      "expected_name": "Omega CMa",
+      "expected_designation": "ome CMa",
+      "observations": {
+        "variability": {
+          "gcvs_name": "ome CMa",
+          "type": "GCAS",
+          "system": "V",
+          "max_mag": 3.6,
+          "min_mag": 4.18
+        }
+      }
+    },
+    "hip-109492": {
+      "expected_name": "Zeta Cep",
+      "expected_designation": "zet Cep",
+      "observations": {
+        "variability": {
+          "gcvs_name": "zet Cep",
+          "type": "E:",
+          "system": "Hp",
+          "max_mag": 3.5,
+          "min_mag": 3.54,
+          "period_days": 7.475,
+          "period_uncertain": true
+        }
+      }
+    },
+    "hip-34088": {
+      "expected_name": "Mekbuda",
+      "expected_designation": "zet Gem",
+      "observations": {
+        "variability": {
+          "gcvs_name": "zet Gem",
+          "type": "DCEP",
+          "system": "V",
+          "max_mag": 3.62,
+          "min_mag": 4.18,
+          "period_days": 10.15073
+        }
+      }
+    },
+    "hip-39429": {
+      "expected_name": "Naos",
+      "expected_designation": "zet Pup",
+      "observations": {
+        "variability": {
+          "gcvs_name": "zet Pup",
+          "type": "ACYG:",
+          "system": "Hp",
+          "max_mag": 2.11,
+          "min_mag": 2.17
+        }
+      }
+    },
+    "hip-17448": {
+      "expected_name": "Atik",
+      "expected_designation": "omi Per",
+      "observations": {
+        "variability": {
+          "gcvs_name": "omi Per",
+          "type": "ELL",
+          "system": "V",
+          "max_mag": 3.79,
+          "min_mag": 3.88,
+          "period_days": 4.4191666
+        }
+      }
+    },
+    "hip-92609": {
+      "expected_name": "Lambda Pav",
+      "expected_designation": "lam Pav",
+      "observations": {
+        "variability": {
+          "gcvs_name": "lam Pav",
+          "type": "GCAS",
+          "system": "V",
+          "max_mag": 4.0,
+          "min_mag": 4.26
+        }
+      }
+    },
+    "hip-26069": {
+      "expected_name": "Beta Dor",
+      "expected_designation": "bet Dor",
+      "observations": {
+        "variability": {
+          "gcvs_name": "bet Dor",
+          "type": "DCEP",
+          "system": "V",
+          "max_mag": 3.46,
+          "min_mag": 4.08,
+          "period_days": 9.8426
+        }
+      }
+    },
+    "trapezium-theta1-orionis-a": {
+      "expected_name": "Theta1 Orionis A",
+      "expected_designation": "V1016 Ori",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V1016 Ori",
+          "type": "EA",
+          "system": "V",
+          "max_mag": 6.72,
+          "min_mag": 7.65,
+          "period_days": 65.43233
+        }
+      }
+    },
+    "trapezium-theta1-orionis-b": {
+      "expected_name": "Theta1 Orionis B",
+      "expected_designation": "BM Ori",
+      "observations": {
+        "variability": {
+          "gcvs_name": "BM Ori",
+          "type": "EA",
+          "system": "V",
+          "max_mag": 7.9,
+          "min_mag": 8.65,
+          "period_days": 6.470525
+        }
+      }
+    },
+    "hip-33856": {
+      "expected_name": "Nganurganity",
+      "expected_designation": "sig CMa",
+      "observations": {
+        "variability": {
+          "gcvs_name": "sig CMa",
+          "type": "LB",
+          "system": "Hp",
+          "max_mag": 3.54,
+          "min_mag": 3.64
+        }
+      }
+    },
+    "hip-18614": {
+      "expected_name": "Menkib",
+      "expected_designation": "ksi Per",
+      "observations": {
+        "variability": {
+          "gcvs_name": "ksi Per",
+          "type": "unique",
+          "system": "V",
+          "max_mag": 4.0,
+          "min_mag": 4.06
+        }
+      }
+    },
+    "hip-102098": {
+      "expected_name": "Deneb",
+      "expected_designation": "alf Cyg",
+      "observations": {
+        "variability": {
+          "gcvs_name": "alf Cyg",
+          "type": "ACYG",
+          "system": "V",
+          "max_mag": 1.21,
+          "min_mag": 1.29
+        }
+      }
+    },
+    "hip-52468": {
+      "expected_name": "w Car",
+      "expected_designation": "V520 Car",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V520 Car",
+          "type": "LC:",
+          "system": "Hp",
+          "max_mag": 4.63,
+          "min_mag": 4.7
+        }
+      }
+    },
+    "hip-26311": {
+      "expected_name": "Alnilam",
+      "expected_designation": "eps Ori",
+      "observations": {
+        "variability": {
+          "gcvs_name": "eps Ori",
+          "type": "ACYG",
+          "system": "V",
+          "max_mag": 1.64,
+          "min_mag": 1.74
+        }
+      }
+    },
+    "hip-35904": {
+      "expected_name": "Aludra",
+      "expected_designation": "eta CMa",
+      "observations": {
+        "variability": {
+          "gcvs_name": "eta CMa",
+          "type": "ACYG",
+          "system": "Hp",
+          "max_mag": 2.38,
+          "min_mag": 2.48
+        }
+      }
+    },
+    "hip-111022": {
+      "expected_name": "5 Lac",
+      "expected_designation": "V412 Lac",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V412 Lac",
+          "type": "LC",
+          "system": "Hp",
+          "max_mag": 4.39,
+          "min_mag": 4.56
+        }
+      }
+    },
+    "hip-16228": {
+      "expected_name": "HD 21291",
+      "expected_designation": "CS Cam",
+      "observations": {
+        "variability": {
+          "gcvs_name": "CS Cam",
+          "type": "ACYG:",
+          "system": "Hp",
+          "max_mag": 4.29,
+          "min_mag": 4.34,
+          "period_days": 26.76
+        }
+      }
+    },
+    "hip-23453": {
+      "expected_name": "Saclateni",
+      "expected_designation": "zet Aur",
+      "observations": {
+        "variability": {
+          "gcvs_name": "zet Aur",
+          "type": "EA",
+          "system": "V",
+          "max_mag": 3.7,
+          "min_mag": 3.97,
+          "period_days": 972.150912
+        }
+      }
+    },
+    "hip-33347": {
+      "expected_name": "Iota CMa",
+      "expected_designation": "iot CMa",
+      "observations": {
+        "variability": {
+          "gcvs_name": "iot CMa",
+          "type": "BCEP:",
+          "system": "V",
+          "max_mag": 4.36,
+          "min_mag": 4.4,
+          "period_days": 1.4,
+          "period_uncertain": true
+        }
+      }
+    },
+    "hip-89341": {
+      "expected_name": "Polis",
+      "expected_designation": "mu. Sgr",
+      "observations": {
+        "variability": {
+          "gcvs_name": "mu. Sgr",
+          "type": "EA+ACYG",
+          "system": "V",
+          "max_mag": 3.8,
+          "min_mag": 3.88,
+          "period_days": 180.55
+        }
+      }
+    },
+    "hip-54463": {
+      "expected_name": "x Car",
+      "expected_designation": "V382 Car",
+      "observations": {
+        "variability": {
+          "gcvs_name": "V382 Car",
+          "type": "L:",
+          "system": "Hp",
+          "max_mag": 4.06,
+          "min_mag": 4.15
+        }
+      }
+    },
+    "10pc-0117": {
+      "expected_name": "Altair",
+      "expected_designation": "HIP 97649",
+      "observations": {
+        "rotation": {
+          "period_days": 0.3236,
+          "equatorial_velocity_kms": 313,
+          "polar_to_equatorial_radius": 0.779,
+          "reference": "Bouchaud et al. 2020, A&A 633, A78, Table 5 and abstract",
+          "source_url": "https://arxiv.org/abs/1912.03138",
+          "scope": "Two-dimensional ESTER model fitted to interferometry and spectroscopy: equatorial radius 2.008 +/- 0.006 and polar radius 1.565 +/- 0.014 solar radii, equatorial velocity 313 km/s, inclination 50.65 +/- 1.23 deg. Rotation period 7 h 46 min."
+        }
+      }
+    },
+    "hip-97649": {
+      "expected_name": "Altair",
+      "expected_designation": "HIP 97649",
+      "observations": {
+        "rotation": {
+          "period_days": 0.3236,
+          "equatorial_velocity_kms": 313,
+          "polar_to_equatorial_radius": 0.779,
+          "reference": "Bouchaud et al. 2020, A&A 633, A78, Table 5 and abstract",
+          "source_url": "https://arxiv.org/abs/1912.03138",
+          "scope": "Two-dimensional ESTER model fitted to interferometry and spectroscopy: equatorial radius 2.008 +/- 0.006 and polar radius 1.565 +/- 0.014 solar radii, equatorial velocity 313 km/s, inclination 50.65 +/- 1.23 deg. Rotation period 7 h 46 min."
+        }
+      }
+    },
+    "hip-49669": {
+      "expected_name": "Regulus",
+      "expected_designation": "HIP 49669",
+      "observations": {
+        "rotation": {
+          "period_days": 0.6098,
+          "equatorial_velocity_kms": 349,
+          "polar_to_equatorial_radius": 0.765,
+          "reference": "Che et al. 2011, ApJ 732, 68, Table 4 (beta-free model)",
+          "source_url": "https://arxiv.org/abs/1105.0740",
+          "scope": "CHARA/MIRC gravity-darkened model: equatorial radius 4.21 (+0.07/-0.06) and polar radius 3.22 (+0.05/-0.04) solar radii, 1.64 (+0.02/-0.04) rotations per day, inclination 86.3 deg. The period is the inverse rotation rate; equatorial velocity is derived as 2 pi R_eq / P."
+        }
+      }
+    },
+    "hip-105199": {
+      "expected_name": "Alderamin",
+      "expected_designation": "HIP 105199",
+      "observations": {
+        "rotation": {
+          "period_days": 0.509,
+          "equatorial_velocity_kms": 272,
+          "polar_to_equatorial_radius": 0.789,
+          "reference": "Zhao et al. 2009, ApJ 701, 209, Table 3 (adopted beta-free model)",
+          "source_url": "https://arxiv.org/abs/0906.2241",
+          "scope": "CHARA/MIRC gravity-darkened model: equatorial radius 2.740 +/- 0.044 and polar radius 2.162 +/- 0.036 solar radii, inclination 55.70 +/- 6.23 deg, model v sin i 225 km/s. Equatorial velocity is derived as v sin i / sin i and the period as 2 pi R_eq / v_eq."
+        }
+      }
+    },
+    "hip-86032": {
+      "expected_name": "Rasalhague",
+      "expected_designation": "HIP 86032",
+      "observations": {
+        "rotation": {
+          "period_days": 0.612,
+          "equatorial_velocity_kms": 237,
+          "polar_to_equatorial_radius": 0.832,
+          "reference": "Zhao et al. 2009, ApJ 701, 209, Table 4 (standard beta = 0.25 model)",
+          "source_url": "https://arxiv.org/abs/0906.2241",
+          "scope": "CHARA/MIRC gravity-darkened model of Rasalhague A: equatorial radius 2.871 +/- 0.020 and polar radius 2.390 +/- 0.014 solar radii, inclination 87.70 +/- 0.43 deg, model v sin i 237 km/s. The authors prefer this fixed-beta model because beta and inclination are degenerate. Equatorial velocity is derived as v sin i / sin i and the period as 2 pi R_eq / v_eq."
         }
       }
     }

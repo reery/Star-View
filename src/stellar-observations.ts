@@ -17,6 +17,6 @@ export function supplementStellarObservations(stars: readonly Star[]): Star[] {
     if (star.name !== entry.expected_name || !star.designations?.includes(entry.expected_designation)) {
       throw new Error(`Reviewed observation identity drifted: ${star.id}`)
     }
-    return { ...star, stellar_observations: entry.observations }
+    return { ...star, stellar_observations: { ...star.stellar_observations, ...entry.observations } }
   })
 }

@@ -16,7 +16,7 @@ import { requiredWhiteDwarfReferences } from '../src/white-dwarf-class.ts'
 import { parseObjectStats, supplementObjectStats } from '../src/object-stats.ts'
 import { auditCatalogConsistency } from '../src/catalog-consistency.ts'
 import { completeCatalogCompanions } from '../src/stellar-companions.ts'
-import { missingCatalogMeasurements } from '../src/catalog-source.ts'
+import { missingCatalogMeasurements, withoutRetiredValues, type ReviewedRetirement } from '../src/catalog-source.ts'
 import { reviewedStarSystems } from '../src/star-systems.ts'
 import { supplementStellarObservations } from '../src/stellar-observations.ts'
 import companionData from '../src/data/stellar-companions.json' with { type: 'json' }
@@ -161,8 +161,12 @@ function writeGeneratedData(directory: string, files: Record<string, string>): v
 
 const WHITE_DWARF_REFERENCES = join(root, 'src/data/white-dwarf-class-references.json')
 
+// Values retired as wrong by a reviewed correction stay in the ledger only.
+const retirements = (JSON.parse(readFileSync(join(root, 'catalog-work/reviewed-data-retirements.json'), 'utf8')) as { retirements: ReviewedRetirement[] }).retirements
+const shipped = (stars: Parameters<typeof completeCatalogCompanions>[0]) => withoutRetiredValues(completeCatalogCompanions(stars), retirements)
+
 function shippedStars(catalogs: { stars: Parameters<typeof completeCatalogCompanions>[0] }[]) {
-  return catalogs.flatMap((catalog) => completeCatalogCompanions(catalog.stars))
+  return catalogs.flatMap((catalog) => shipped(catalog.stars))
 }
 
 /** The committed table must hold exactly the references bundled white dwarfs request; the grid is not needed here. */
@@ -208,7 +212,7 @@ function generate(): void {
     return mapStar
   })
   const effective = new Map(catalogs.map(({ id, stars }) =>
-    [id, mapRecords(supplementObjectIdentities(completeCatalogCompanions(stars), identities, { preserveAuthoredNames: true }))]))
+    [id, mapRecords(supplementObjectIdentities(shipped(stars), identities, { preserveAuthoredNames: true }))]))
   // An extending payload ships only records that its base payload lacks or differs in.
   const extensionRecords = (id: string, base: ReturnType<typeof mapRecords>, records: ReturnType<typeof mapRecords>) => {
     const baseById = new Map(base.map((record) => [record.id, record]))
@@ -223,7 +227,7 @@ function generate(): void {
     [`${id}.json`, JSON.stringify({ schemaVersion: 3, catalogId: id, ...(baseId ? { extends: baseId } : {}), sourceObjectCount: stars.length,
       stars: baseId ? extensionRecords(id, effective.get(baseId)!, effective.get(id)!) : effective.get(id)! }) + '\n']))
   writeGeneratedData('catalog-details', detailFiles)
-  const references = buildCatalogClassReferences(catalogs.map((catalog) => ({ ...catalog, stars: completeCatalogCompanions(catalog.stars) })), (id) => components.get(id))
+  const references = buildCatalogClassReferences(catalogs.map((catalog) => ({ ...catalog, stars: shipped(catalog.stars) })), (id) => components.get(id))
   requireWhiteDwarfReferences(catalogs)
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data')), {
     // Display summaries: six significant digits exceed the cards' precision and halve the bundled file.
@@ -242,7 +246,7 @@ function generate(): void {
     const chart = JSON.parse(readFileSync(join(root, 'src/data/constellations', file), 'utf8')) as ConstellationChart
     const needed = new Set(completeCatalogCompanions(chart.stars.map((figure) => figure.object))
       .map((star) => starComponentIdentity(star.id)?.canonicalStarId ?? star.id))
-    chartCompanions[`${chart.name}.json`] = JSON.stringify(supplementObjectIdentities((companionData.stars as Star[]).filter((star) => needed.has(star.id)), identities, { preserveAuthoredNames: true })) + '\n'
+    chartCompanions[`${chart.name}.json`] = JSON.stringify(supplementObjectIdentities(withoutRetiredValues((companionData.stars as Star[]).filter((star) => needed.has(star.id)), retirements), identities, { preserveAuthoredNames: true })) + '\n'
   }
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated/constellation-companions')), chartCompanions, true)
   // Retired IDs serve their article from the surviving record; component IDs already resolve by identity.

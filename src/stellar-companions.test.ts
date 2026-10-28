@@ -5,11 +5,13 @@ import { completeCatalogCompanions } from './stellar-companions'
 import { indexStarSystems, reviewedStarSystems, starComponentIdentity } from './star-systems'
 import { mergeCatalogStars } from './catalog-runtime'
 import { mkPoint } from './mk-diagram'
-import { catalogMeasurement, missingCatalogMeasurements } from './catalog-source'
+import { catalogMeasurement, missingCatalogMeasurements, withoutRetiredValues } from './catalog-source'
 import { parseObjectStats, supplementObjectStats } from './object-stats'
 import { parseObjectIdentities, supplementObjectIdentities } from './designations'
 import { apparentVisualMagnitude } from './astronomy'
 import { spaceMotionForStar } from './space-motion'
+
+const retirements = JSON.parse(readFileSync(new URL('../catalog-work/reviewed-data-retirements.json', import.meta.url), 'utf8')).retirements
 
 const bright = parseStarCatalog(readFileSync(new URL('../catalog-work/bright-stars/retired-catalog/stars.csv', import.meta.url), 'utf8'))
 const western = parseStarCatalog(readFileSync(new URL('./data/catalogs/western-constellation-stars/stars.csv', import.meta.url), 'utf8'))
@@ -148,8 +150,12 @@ describe('component coverage shared by every catalog', () => {
       apparent_mag: null, absolute_mag: null, mass_solar: null, luminosity_solar: null,
       unresolved_photometry: { magnitude_v: 2.99, error_mag: .01 } })
     expect(a.unresolved_photometry?.scope).toContain('Aa+Ab')
-    expect(catalogMeasurement(a, 'luminosity_solar')).toBe(furud.luminosity_solar)
-    expect(catalogMeasurement(a, 'radius_solar')).toBe(furud.radius_solar)
+    // The rejected SED-fit luminosity and radius are retired, so nothing can display them.
+    const [shipped] = withoutRetiredValues([a], retirements)
+    expect(furud).toMatchObject({ luminosity_solar: null, radius_solar: null })
+    expect(catalogMeasurement(shipped!, 'luminosity_solar')).toBeNull()
+    expect(catalogMeasurement(shipped!, 'radius_solar')).toBeNull()
+    expect(shipped!.catalog_sources?.some((source) => source.record.luminosity_solar != null || source.record.radius_solar != null)).toBe(false)
     expect(catalogMeasurement(a, 'absolute_mag')).toBe(furud.absolute_mag)
     expect(catalogMeasurement(a, 'temperature_k')).toBe(18500)
     expect(missingCatalogMeasurements(furud, a)).toEqual([])
@@ -182,7 +188,7 @@ describe('component coverage shared by every catalog', () => {
   it('detects replacement loss of physical values and nested astrometric uncertainties', () => {
     const source = western.find((star) => star.id === 'hip-30122')!
     const a = completeCatalogCompanions([source])[0]!
-    expect(missingCatalogMeasurements(source, { ...a, catalog_sources: undefined })).toContain('luminosity_solar')
+    expect(missingCatalogMeasurements(source, { ...a, catalog_sources: undefined })).toContain('temperature_k')
     expect(missingCatalogMeasurements(source, { ...a, catalog_sources: undefined })).toContain('raw_astrometry.parallax_error_mas')
     expect(missingCatalogMeasurements(source, a)).toEqual([])
   })

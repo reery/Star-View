@@ -11,6 +11,9 @@ import { displayMotionForStar } from './astronomy'
 import { magnitudeCardAvailable } from './magnitude-card'
 import { massProperties } from './mass-properties'
 import { missingCatalogMeasurements } from './catalog-source'
+import observationData from './data/stellar-observations.json' with { type: 'json' }
+import { radiusComparison, radiusStats } from './radius-comparison'
+import { variabilityRange, variabilitySummary } from './magnitude-card'
 
 const identities = parseObjectIdentities(JSON.parse(readFileSync(new URL('./data/object-designations.json', import.meta.url), 'utf8')))
 const stats = parseObjectStats(JSON.parse(readFileSync(new URL('./data/object-stats.json', import.meta.url), 'utf8')))
@@ -44,7 +47,7 @@ describe('scoped WISE 0855-0714 observations', () => {
     for (const frame of ['solar', 'galactic'] as const) expect(displayMotionForStar(wise, frame)?.mode).toBe('transverse')
     expect(missingCatalogMeasurements(before, wise)).toEqual([])
     expect(completed).toHaveLength(completeCatalogCompanions(stars).length)
-    const reviewedIds = new Set([wise.id, '10pc-0068', '10pc-0084'])
+    const reviewedIds = new Set(Object.keys(observationData.objects))
     expect(completed.filter((star) => !reviewedIds.has(star.id))).toEqual(completeCatalogCompanions(stars).filter((star) => !reviewedIds.has(star.id)))
   })
 
@@ -89,5 +92,35 @@ describe('cold brown dwarf enrichment', () => {
     const loaded = parseCatalogPayload({ schemaVersion: 2, catalogId: DEFAULT_CATALOG_MANIFEST.id,
       sourceObjectCount: completed.length, stars: completed }, { ...DEFAULT_CATALOG_MANIFEST, objectCount: completed.length })
     expect(loaded.find((star) => star.id === ugps.id)?.stellar_observations).toEqual(ugps.stellar_observations)
+  })
+})
+
+describe('rotation and variability observations', () => {
+  const stars = completeCatalogCompanions(supplementStellarObservations(catalogs[2]!.stars))
+  const byId = (id: string) => stars.find((star) => star.id === id)!
+
+  it('flattens only published rapid rotators and keeps the catalog radius as the equatorial radius', () => {
+    const vega = byId('cns5-4607')
+    const sun = byId('sun')
+    expect(vega.radius_solar).toBe(catalogs[2]!.stars.find((star) => star.id === vega.id)!.radius_solar)
+    const comparison = radiusComparison(vega, sun, 'origin')
+    expect(comparison.selected.polarRadiusKm! / comparison.selected.radiusKm!).toBeCloseTo(0.887, 3)
+    expect(comparison.reference.polarRadiusKm).toBe(comparison.reference.radiusKm)
+    const stats = radiusStats(comparison)
+    expect(stats.find((row) => row.label === 'Rotation period')!.values.map(({ value }) => value)).toEqual(['17 h', '25.1 days'])
+    expect(stats.find((row) => row.label === 'Equatorial velocity')!.values.map(({ value }) => value)).toEqual(['194 km/s', '2.02 km/s'])
+    expect(radiusStats(radiusComparison(byId('cns5-0583'), sun, 'origin')).some((row) => row.label === 'Rotation period')).toBe(false)
+  })
+
+  it('keeps GCVS ranges as display metadata and plots only V-band ranges', () => {
+    const proxima = byId('proxima-centauri')
+    expect(proxima.stellar_observations?.variability).toMatchObject({ gcvs_name: 'V645 Cen', system: 'V' })
+    expect(proxima.apparent_mag).toBeCloseTo(catalogs[2]!.stars.find((star) => star.id === proxima.id)!.apparent_mag!, 6)
+    expect(variabilityRange(proxima.stellar_observations?.variability)).toEqual([10.43, 11.11])
+    expect(variabilitySummary({ gcvs_name: 'omi Cet', type: 'M', system: 'V', max_mag: 2, min_mag: 10.1, period_days: 331.96 }))
+      .toEqual({ range: '+2 to +10.1', detail: ' V · Mira · period 332 days' })
+    const hipparcos = { gcvs_name: 'alf Eri', type: 'BE:', system: 'Hp', max_mag: 0.4, amplitude_mag: 0.06, period_days: 0.5 }
+    expect(variabilityRange(hipparcos)).toBeNull()
+    expect(variabilitySummary(hipparcos)).toEqual({ range: '+0.4, amplitude 0.06 mag', detail: ' Hipparcos Hp · Be star (uncertain) · period 12 h' })
   })
 })

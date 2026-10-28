@@ -14,8 +14,11 @@ export function completeCompanionRecords(stars: readonly Star[], records: Readon
   const present = new Set(stars.map((star) => starComponentIdentity(star.id)?.canonicalStarId ?? star.id))
   const result = stars.map((star) => {
     const canonicalId = starComponentIdentity(star.id)?.canonicalStarId
-    const component = canonicalId ? records.get(canonicalId) : undefined
-    if (!component) return star
+    const reviewed = canonicalId ? records.get(canonicalId) : undefined
+    if (!reviewed) return star
+    // Exact-identity observations of this component survive; reviewed component values win.
+    const component = star.stellar_observations
+      ? { ...reviewed, stellar_observations: { ...star.stellar_observations, ...reviewed.stellar_observations } } : reviewed
     const catalogSources = [...component.catalog_sources ?? [], ...star.catalog_sources ?? []]
       .filter((source, index, sources) => sources.findIndex((candidate) => JSON.stringify(candidate) === JSON.stringify(source)) === index)
     if (missingCatalogMeasurements(star, { ...component, catalog_sources: catalogSources }).length) {

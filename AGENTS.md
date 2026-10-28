@@ -5,6 +5,7 @@
 - Honor any additional request to skip tests entirely.
 
 - Catalog changes must enrich without silently discarding existing data. Compare all affected catalogs and the effective component records before and after regeneration, including physical fields, photometry, astrometry, uncertainties and provenance. Preserve original source measurements with explicit scope when they cannot be adopted for an individual component. Run `npm run catalog:preservation` to detect missing records and known-to-missing fields; investigate every failure before completing a data change.
+- Wrong data has no place in the app. A value a review rejects as wrong belongs in `catalog-work/reviewed-data-retirements.json` and the review files only; it must never ship, not even as a retained source value. Catalog generation strips retired values from every shipped record. Superseded but valid measurements and component-scoped source values may still be retained with explicit scope.
 
 - Read `docs/info-writing-guide.md` before writing or editing any Info article text.
 

@@ -369,7 +369,7 @@ const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constell
 const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'motion' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 // On desktop, these cards move the 3D view center left while locked, so the scene stays visible beside them.
-const viewCenteringPanels: readonly typeof lockablePanelNames[number][] = ['paint']
+const viewCenteringPanels: readonly typeof lockablePanelNames[number][] = ['paint', 'graphs']
 
 function selectedStarAvailable(id: string): boolean {
   return starIndex.has(id)
@@ -1243,6 +1243,18 @@ function renderRadiusCard(star: Star): void {
   element('radius-comparison-summary').hidden = !radiusMissing
   radiusModules.card.renderRadiusBars(element('radius-card'), star, comparison)
   text('radius-scale-note', renderRadiusComparison(element<HTMLCanvasElement>('radius-comparison'), comparison))
+  const rotators = [star, ...comparison.referenceMode === 'origin' && origin.id !== star.id ? [origin] : []]
+    .filter((object) => object.stellar_observations?.rotation)
+  element('radius-rotation-method').hidden = rotators.length === 0
+  element('radius-rotation-method').replaceChildren(...rotators.flatMap((object, index) => {
+    const { reference, scope, source_url } = object.stellar_observations!.rotation!
+    const link = document.createElement('a')
+    link.href = source_url
+    link.target = '_blank'
+    link.rel = 'noreferrer'
+    link.textContent = `${reference} ↗`
+    return [...index ? [document.createElement('br')] : [], `${object.name} rotation: ${scope} `, link]
+  }))
   element('radius-stats').replaceChildren(...radiusStats(comparison).map(({ label, values }) => {
     const row = document.createElement('tr')
     const heading = document.createElement('th')
