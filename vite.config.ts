@@ -68,16 +68,18 @@ function contentSecurityPolicy(): Plugin {
   }
 }
 
-// Stamps the Info card with the UTC date of the build (or dev server start).
+// Stamps the Info card with the package version and the UTC date of the build (or dev server start).
 function buildDate(): Plugin {
   const now = new Date()
   const iso = now.toISOString().slice(0, 10)
   const label = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(now)
+  const { version } = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')) as { version: string }
+  const shortVersion = `v${version.split('.').slice(0, 2).join('.')}`
   return {
     name: 'star-view-build-date',
     transformIndexHtml: {
       order: 'pre',
-      handler: (html) => html.replaceAll('%BUILD_DATE_ISO%', iso).replaceAll('%BUILD_DATE%', label),
+      handler: (html) => html.replaceAll('%BUILD_DATE_ISO%', iso).replaceAll('%BUILD_DATE%', label).replaceAll('%APP_VERSION%', shortVersion),
     },
   }
 }

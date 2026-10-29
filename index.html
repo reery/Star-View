@@ -19,7 +19,7 @@
         <section class="scene-wrap" aria-label="3D nearby-object viewer">
           <div id="scene" class="scene"></div>
           <div id="grid-legend" class="scene-legend grid-legend" data-scene-obstacle>
-            <span class="grid-symbol" aria-hidden="true"></span><span id="grid-spacing">0.5 pc grid</span>
+            <span class="grid-symbol" aria-hidden="true"></span><span id="grid-spacing"></span>
           </div>
           <p class="visibility-observer" data-scene-obstacle><span>Origin: <strong id="reference-base">Sun</strong> <span aria-hidden="true">|</span> Visibility from: <strong id="visibility-base">Sirius A</strong><button id="visibility-lock" class="visibility-lock" type="button" aria-label="Lock visibility to this object" aria-pressed="false" title="Lock visibility to this object"><span id="visibility-lock-icon"></span></button> <span aria-hidden="true">|</span> Distance from viewer: <strong id="viewer-distance">—</strong></span></p>
           <div id="scene-status" class="scene-status" role="status">Loading nearby-object map...</div>
@@ -955,7 +955,7 @@
                   <div><dt>Catalog updated</dt><dd><time datetime="2026-10-28">28 October 2026</time></dd></div>
                   <div><dt>Build date</dt><dd><time datetime="%BUILD_DATE_ISO%">%BUILD_DATE%</time></dd></div>
                   <div><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="catalog-epoch-tooltip">Position reference epoch</button><span id="catalog-epoch-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog positions use the year 2000 as their reference time.</span></dt><dd id="catalog-epoch">J2000.0</dd></div>
-                  <div><dt>Version</dt><dd>v0.7</dd></div>
+                  <div><dt>Version</dt><dd>%APP_VERSION%</dd></div>
                 </dl>
               </section>
             </div>
