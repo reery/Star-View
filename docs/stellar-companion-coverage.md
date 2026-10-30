@@ -24,6 +24,31 @@ under the same WDS root, such as Theta1/Theta2 Tauri, retain separate membership
 and orbit scopes. Existing individual values retain priority; additional reviews
 fill their missing fields.
 
+Spectroscopic binaries without a visual orbit or a triple hierarchy come from the
+frozen [SB9 catalogue](https://sb9.astro.ulb.ac.be/) (2024-06-21, Pourbaix et al.
+2004) in `catalog-work/star-systems/sb9-20240621`. Matching uses exact HIP, HD,
+HR, BD/CD/CPD, Gaia DR3, GJ, GCVS or listed SB9 identifiers, after MSC and ORB6.
+A double-lined orbit measures both stars and establishes the pair. A single-lined
+companion may be a white dwarf or substellar, so it is added only when SB9 lists
+its spectrum or `spectroscopic-binaries-review.json` records a primary-source
+classification. The 2026-10-30 pass added 30 pairs, including Alphecca, Epsilon
+UMi, Markeb, Mimosa, Deneb Algedi and the white-dwarf companions of Zeta Cap and
+Xi1 Cet. The audit's `spectroscopicBinaryCoverage` lists every SB9 decision; the
+53 single-lined systems without a verified companion classification remain
+`pending-companion-classification`. One rejected SB9 value (the `G0` secondary
+of 2MASS J03202839-0446358, an M8.5+T5 pair) is recorded in the review file and
+never shipped.
+
+Brown-dwarf composites such as `L8+T3.5` are often spectral-binary template fits,
+and a young or cloud-variable single dwarf can mimic one. They are split only
+after `ultracool-binaries-review.json` records a primary source that resolves the
+pair or confirms it by orbit, astrometric perturbation or overluminosity. The
+2026-10-30 review added 13 pairs, including WISE J1217+1626 (T9+Y0), WISE
+J0146+4234 (T9 primary, Y0 secondary, correcting the `Y+T` composite order) and
+the unresolved but orbit-confirmed SDSS J0805+4812. Eight candidates stay single
+records, among them 2MASS J2139+0220 (cloud variability) and 2MASS J1324+6358
+(binarity unlikely); the audit's `ultracoolCompositeCoverage` lists each decision.
+
 Adhara has an additional explicit A/B review in
 `catalog-companions-reviewed.json`. `bright-adhara` and `hip-33579` refer to A;
 `adhara-b` is the separate SIMBAD `* eps CMa B`, WDS J06586-2858B, Gaia DR3

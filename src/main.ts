@@ -35,7 +35,7 @@ import { constellationCardAvailable, loadConstellationChart, type ConstellationC
 import type { RadiusReference } from './radius-comparison'
 import { indexStarSystems, type StarSystem } from './star-systems'
 import { loadStellarOrbits } from './stellar-orbits'
-import { loadPlanetarySystem, planetCountForStar, planetarySystemForStar } from './planetary-systems'
+import { loadPlanetarySystem, planetCountForStar, planetarySystemForStar, planetHostId } from './planetary-systems'
 import { loadStarDetails, starDetailsLoaded } from './selected-star-details'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES,
@@ -2045,8 +2045,9 @@ function renderSelection(): void {
     element('object-system').dataset.starId = star.id
   }
   const openPlanet = activePlanetId ? planetModules?.planetDescriptionForId(activePlanetId) : undefined
-  if (!lockedDetailCards.has('planet') && openPlanet?.hostStarId !== star.id) closePlanetCard()
-  if (!element('planet-card').hidden && openPlanet?.hostStarId === star.id) highlightSystemPlanet(element('object-system'), activePlanetId, activePlanetId)
+  const ownsOpenPlanet = openPlanet?.hostStarId === planetHostId(star.id)
+  if (!lockedDetailCards.has('planet') && !ownsOpenPlanet) closePlanetCard()
+  if (!element('planet-card').hidden && ownsOpenPlanet) highlightSystemPlanet(element('object-system'), activePlanetId, activePlanetId)
   const systemToggle = element<HTMLButtonElement>('object-system-toggle')
   const systemAvailable = Boolean(availablePlanetCount || system)
   systemToggle.disabled = !systemAvailable
@@ -3087,11 +3088,12 @@ element('objects-maximize').addEventListener('click', () => {
   syncPanelLayout()
 }, { signal: events.signal })
 // Choosing a Discover card retracts the flyout until the pointer returns to Discover or keyboard navigation resumes.
+// Touch taps reopen it through the toolbar's touch toggle.
 const discoverControls = element('discover-toggle').parentElement!
 element('discover-options').addEventListener('click', (event) => {
   if (event.target instanceof Element && event.target.closest('button')) discoverControls.setAttribute('data-dismissed', '')
 }, { signal: events.signal })
-element('discover-toggle').addEventListener('pointerenter', () => discoverControls.removeAttribute('data-dismissed'), { signal: events.signal })
+element('discover-toggle').addEventListener('pointerenter', (event) => { if (event.pointerType !== 'touch') discoverControls.removeAttribute('data-dismissed') }, { signal: events.signal })
 document.addEventListener('keydown', (event) => { if (event.key === 'Tab') discoverControls.removeAttribute('data-dismissed') }, { signal: events.signal })
 element('graph-filter-active').addEventListener('click', () => togglePanel('graphs'), { signal: events.signal })
 element('paint-active').addEventListener('click', () => togglePanel('paint'), { signal: events.signal })

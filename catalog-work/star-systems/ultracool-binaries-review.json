@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-30",
+  "policy": "An L/T/Y composite classification is often a spectral-binary template fit, and atmospheric variability or youth can mimic one. A composite is split only after a primary source resolves the pair or otherwise confirms it (orbit, astrometric perturbation, overluminosity). Component spectra follow the catalog composite unless a component override is listed. Candidates stay single records.",
+  "confirmed": {
+    "cns5-3020": {
+      "parentSpectralType": "T9+Y0",
+      "source": "Liu et al. 2012, ApJ 758, 57",
+      "sourceUrl": "https://arxiv.org/abs/1206.4044",
+      "evidence": "Abstract: \"Using Keck laser guide star adaptive optics imaging, we have found that the T9 dwarf WISE J1217+1626 and T8 dwarf WISE J1711+3500 are exceptional binaries, with unusually wide separations (≈0.8″, 8–15 AU)\"; Section 3.1: \"We conclude that both WISE systems are physical binaries.\" Section 3.3.1: component A agrees with the T9 standard, B is classified Y0."
+    },
+    "cns5-4209": {
+      "parentSpectralType": "T8+T9.5",
+      "source": "Liu et al. 2012, ApJ 758, 57",
+      "sourceUrl": "https://arxiv.org/abs/1206.4044",
+      "evidence": "Abstract: \"we have found that the T9 dwarf WISE J1217+1626 and T8 dwarf WISE J1711+3500 are exceptional binaries\"; \"photometric estimates suggest T9.5 for WISE J1711+3500B.\" The B type is a photometric estimate."
+    },
+    "cns5-3053": {
+      "parentSpectralType": "T5.5+T8",
+      "source": "Burgasser et al. 2003, ApJ 586, 512",
+      "sourceUrl": "https://arxiv.org/abs/astro-ph/0211470",
+      "evidence": "Section 5.1: \"2MASS 1225−2739AB is clearly resolved into two unequal-magnitude components in our HST images.\" Separation 0.282″ ± 0.005″. The paper's colour-based T6+T8 estimate is tentative; the catalog composite T5.5+T8 is retained."
+    },
+    "cns5-3908": {
+      "parentSpectralType": "T6.5+T7.5",
+      "source": "Burgasser et al. 2006, ApJS 166, 585 (HST NICMOS T dwarfs)",
+      "sourceUrl": "https://arxiv.org/abs/astro-ph/0605577",
+      "evidence": "Section 5.5: \"With a separation of 0.″349±0.″005 ...\"; \"These observations therefore confirm common proper motion for this pair, which are almost certainly gravitationally bound.\" The paper's colour-based T6.5+T7 is not adopted; the catalog composite T6.5+T7.5 is retained."
+    },
+    "cns5-1331": {
+      "parentSpectralType": "L6+T4",
+      "source": "Burgasser et al. 2006, ApJS 166, 585; Cruz et al. 2004 (L6+T4 decomposition)",
+      "sourceUrl": "https://arxiv.org/abs/astro-ph/0605577",
+      "evidence": "Section 5.2: \"The detection of a companion to 2MASS 0518-2828 appears to confirm the binary hypothesis of Cruz et al. (2004) for this source\"; separation 0.″051 ± 0.″012. Component types are the Cruz et al. composite fit."
+    },
+    "cns5-5651": {
+      "parentSpectralType": "L6:+L8",
+      "source": "Reid, Cruz, Burgasser & Liu 2008, AJ 135, 580",
+      "sourceUrl": "https://authors.library.caltech.edu/records/4ksyp-h3470",
+      "evidence": "Abstract: \"One target, 2MASS J22551861-5713056, is resolved as a binary system, with a 4:1 flux ratio in the F110W passband. The primary has spectral type L6 ... The secondary is likely to have a spectral type between L8 and T1.\" The frozen SIMBAD record lists 2MASS J22551861-5713056 as an identifier of SIPS J2255-5713."
+    },
+    "cns5-0455": {
+      "parentSpectralType": "Y+T",
+      "source": "Dupuy, Liu & Leggett 2015, ApJ 803, 102",
+      "sourceUrl": "https://arxiv.org/abs/1502.04707",
+      "evidence": "Abstract: \"We have discovered that the brown dwarf WISEJ014656.66+423410.0 is a close binary (0.0875±0.0021 arcsec, 0.93 AU)\"; \"assign component types of T9 and Y0\"; \"the T9 primary is unexpectedly cold\".",
+      "components": {
+        "A": {"spectral_type": "T9"},
+        "B": {"spectral_type": "Y0"}
+      },
+      "rejectedSourceValues": {
+        "A": {"spectral_type": "Y", "reason": "Composite order would make the Y dwarf the primary; the resolved primary is T9."},
+        "B": {"spectral_type": "T", "reason": "The resolved secondary is Y0."}
+      }
+    },
+    "cns5-5403": {
+      "parentSpectralType": "L6+L6",
+      "source": "Reid et al. 2006, AJ 132, 891",
+      "sourceUrl": "https://arxiv.org/abs/astro-ph/0606331",
+      "evidence": "Abstract: \"Nine systems are resolved as binary\"; Section 4: \"2M2152+0937: This is another equal-luminosity/equal-mass ultracool binary.\""
+    },
+    "cns5-1536": {
+      "parentSpectralType": "L9+T1.5",
+      "source": "Gelino et al. 2014, AJ 148, 6",
+      "sourceUrl": "https://arxiv.org/abs/1405.0511",
+      "evidence": "Abstract: \"showing it is a binary with a component separation of 0.4″\"; \"Deconvolution of the composite spectrum results in a best fit binary solution with L9 and T1.5 components.\" Section 3.3: five imaging epochs; \"we can confidently confirm that these sources are physically bound\"."
+    },
+    "cns5-2988": {
+      "parentSpectralType": "T2+T7.5",
+      "source": "Liu, Dupuy & Leggett 2010, ApJ 722, 311",
+      "sourceUrl": "https://arxiv.org/abs/1008.2200",
+      "evidence": "Abstract: \"a newly discovered 0.14″ T2.0+T7.5 binary, 2MASS J12095613−1004008AB, identified with Keck laser guide star adaptive optics.\" Section 3.1: \"both the astrometry and photometry independently indicate that the system is a true physical binary.\""
+    },
+    "cns5-3999": {
+      "parentSpectralType": "T2.5+T4.0",
+      "source": "Artigau et al. 2011, ApJ 739, 48",
+      "sourceUrl": "https://arxiv.org/abs/1107.0768",
+      "evidence": "Abstract: \"The first pair (SIMP J1619275+031350AB) has a separation of 0.691″ (15.2 AU) and components T2.5+T4.0\"."
+    },
+    "cns5-1993": {
+      "parentSpectralType": "L4+T5",
+      "source": "Burgasser et al. 2016, ApJ 827, 25",
+      "sourceUrl": "https://arxiv.org/abs/1605.05390",
+      "evidence": "Abstract: \"four years of radial velocity monitoring observations of the system that reveal significant and periodic variability, confirming the binary nature of the source\"; Section 5: \"The combined detection of astrometric and radial velocity variability unambiguously confirms SDSS J0805+4812 as a VLM binary system.\" Component types L4±0.7 and T5.5±1.1. Unresolved (< 170 mas). The frozen SIMBAD record lists SDSS J080531.84+481233.0 as an identifier. Model-dependent masses are not adopted."
+    },
+    "cns5-2707": {
+      "parentSpectralType": "T0.0+T4.5",
+      "source": "Bardalez Gagliuffi et al. 2015, AJ 150, 163",
+      "sourceUrl": "https://arxiv.org/abs/1510.00392",
+      "evidence": "Section 3.1: \"Five of our unresolved spectral binaries have been previously confirmed as true binaries\"; Section 3.2.4 lists 2MASS J11061197+2754225, a T0.0±0.2 + T4.5±0.2 spectral binary (Burgasser et al. 2010) found ∼1 mag overluminous (Manjavacas et al. 2013). Unresolved (< 74 mas)."
+    }
+  },
+  "candidates": {
+    "cns5-5337": {
+      "reason": "Strong spectral-binary candidate only (Burgasser et al. 2010, 2010ApJ...710.1142B). Its periodic variability is explained by patchy clouds; Radigan et al. 2012 (arXiv:1201.3403) rule out an interacting binary, and Bardalez Gagliuffi et al. 2015 cite it as variability mimicking binarity."
+    },
+    "cns5-3304": {
+      "reason": "Spectral-binary candidate never imaged at high resolution. Gagné et al. 2018 (arXiv:1802.00493): its absolute J magnitude is fainter than field equivalents, \"suggesting that the binary hypothesis is unlikely\"; youth explains the peculiar spectrum."
+    },
+    "cns5-1972": {
+      "reason": "Weak candidate in Burgasser et al. 2010 (arXiv:0912.3808), Section 5.2.2: binary templates give significantly worse fits than the best single template."
+    },
+    "cns5-2271": {
+      "reason": "Weak candidate in Burgasser et al. 2010 (arXiv:0912.3808), Section 5.2.3; no confirmation found."
+    },
+    "cns5-5501": {
+      "reason": "Weak binary candidate (arXiv:1510.08464): only two Burgasser et al. 2010 index criteria pass; no follow-up confirmation found."
+    },
+    "cns5-3772": {
+      "reason": "Weak candidate in Burgasser et al. 2010 (arXiv:0912.3808), Section 5.2.7: \"We therefore cannot rule out the possibility that this source is a single brown dwarf with unusual atmospheric properties.\""
+    },
+    "cns5-2974": {
+      "reason": "Weak candidate in Burgasser et al. 2010 (arXiv:0912.3808), Section 5.2.6; no confirmation found."
+    },
+    "cns5-3788": {
+      "reason": "Source of the T1+T4 decomposition not identified; absent from Burgasser et al. 2010 and Geißler et al. 2011. No confirmation found."
+    }
+  }
+}

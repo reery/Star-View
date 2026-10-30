@@ -1,4 +1,4 @@
-import { ChartBar, ChartColumn, ChartPie, ChartScatter, ChevronUp, CircleX, ChevronsDownUp, ChevronsUpDown, Gauge, Layers, RotateCcw, Sun, createElement, type IconNode } from 'lucide'
+import { ChartBar, ChartColumn, ChartPie, ChartScatter, ChevronUp, CircleX, ChevronsDownUp, ChevronsUpDown, Gauge, Layers, RotateCcw, Sun, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
 import { LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type StarColorMode } from './astronomy'
 import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
 import { MAGNITUDE_VISIBILITY_GUIDES } from './magnitude-properties'
@@ -24,11 +24,12 @@ interface GraphView { items: readonly GraphItem[]; objects: readonly Star[]; ste
 /**
  * `full` is the view before any graph selection, present when other graphs narrow this one; it shows behind the narrowed counts.
  * `chosen` is this graph's own selection. `bins` shifts the histogram bin width by that many steps; positive values give more, narrower bins.
+ * `zoom` holds a zoomed scatter plot's log ends, low and high per axis.
  */
-interface GraphContext extends GraphOptions, GraphView { full: GraphView | null; chosen: readonly Selection[]; logScale: boolean; bins: number }
+interface GraphContext extends GraphOptions, GraphView { full: GraphView | null; chosen: readonly Selection[]; logScale: boolean; bins: number; zoom: readonly number[] | null }
 /**
  * A collapsible graph inside a topic; topics can hold several. `scalable` graphs switch between log and linear axes, `binned` graphs change their bin count.
- * `boxed` graphs select drawn boxes, which their heading clears. `short` names the graph in the filter bar when its title changes or carries units.
+ * `boxed` graphs select drawn boxes, which their heading zooms into and clears. `short` names the graph in the filter bar when its title changes or carries units.
  */
 interface GraphSection { id: string; title: string | ((context: GraphContext) => string); short?: string; icon: IconNode; scalable?: boolean; binned?: boolean; boxed?: boolean; render(context: GraphContext): Node[] }
 interface GraphTopic { id: string; title: string; icon: IconNode; sections: GraphSection[] }
@@ -456,7 +457,7 @@ const hrSelection = (t0: number, t1: number, l0: number, l1: number): Selection 
 })
 
 /** Temperature against luminosity, hot stars left and bright ones on top; dragging a box selects the stars inside it. */
-function hrScatter({ items, stellar, full, chosen, sun, colorMode }: GraphContext): Node[] {
+function hrScatter({ items, stellar, full, chosen, sun, colorMode, zoom }: GraphContext): Node[] {
   const plotted = (list: readonly GraphItem[]) => list.flatMap((item) => {
     const point = isStellar(item.star) ? hrPoint(item.star) : null
     return point ? [{ ...item, point }] : []
@@ -469,7 +470,7 @@ function hrScatter({ items, stellar, full, chosen, sun, colorMode }: GraphContex
     const low = Math.min(...values), high = Math.max(...values), pad = Math.max(high - low, 0.5) * 0.04
     return [low - pad, high + pad] as const
   }
-  const [cool, hot] = extent(0), [faint, bright] = extent(1)
+  const [cool, hot] = zoom ? [zoom[0]!, zoom[1]!] : extent(0), [faint, bright] = zoom ? [zoom[2]!, zoom[3]!] : extent(1)
   const x = (temperature: number) => (hot - temperature) / (hot - cool), y = (luminosity: number) => (bright - luminosity) / (bright - faint)
   const position = (fraction: number) => `${Math.max(0, Math.min(1, fraction)) * 100}%`
 
@@ -492,16 +493,19 @@ function hrScatter({ items, stellar, full, chosen, sun, colorMode }: GraphContex
   chart.append(layer('graph-dots-muted', outside, true), layer('graph-dots', inside, true))
 
   const plot = document.createElement('div')
-  plot.className = 'graph-plot'
+  plot.className = zoom ? 'graph-plot is-zoomed' : 'graph-plot'
   plot.title = 'Drag to select a region'
   rangeTests.set(plot, hrTest)
   const temperatureAt = (fraction: number) => 10 ** (hot - fraction * (hot - cool)), luminosityAt = (fraction: number) => 10 ** (bright - fraction * (bright - faint))
   brushes.set(plot, (x0, y0, x1, y1) => hrSelection(temperatureAt(Math.max(x0, x1)), temperatureAt(Math.min(x0, x1)), luminosityAt(Math.max(y0, y1)), luminosityAt(Math.min(y0, y1))))
   plot.append(chart)
+  // A zoomed plot can leave the Sun out.
   const sunPoint = sun && hrPoint(sun)
-  if (sunPoint) {
+  const sunShown = sunPoint && [x(sunPoint[0]), y(sunPoint[1])].every((fraction) => fraction >= 0 && fraction <= 1)
+  if (sunShown) {
     const marker = document.createElement('span')
-    marker.className = 'graph-plot-marker'
+    // The Sun turns dark over the bright main sequence and keeps its light color where the dots recede.
+    marker.className = chosen.length && !chosen.some(({ test }) => test(sun, 0)) ? 'graph-plot-marker is-muted' : 'graph-plot-marker'
     marker.title = 'Sun'
     Object.assign(marker.style, { left: position(x(sunPoint[0])), top: position(y(sunPoint[1])) })
     marker.append(svg(Sun, 12))
@@ -551,7 +555,7 @@ function hrScatter({ items, stellar, full, chosen, sun, colorMode }: GraphContex
     title('Temperature (K)'),
   )
   const missing = missingNote(stellar.length - shown.length, 'a temperature and luminosity')
-  if (!sunPoint) return [scatter, ...missing]
+  if (!sunShown) return [scatter, ...missing]
   // The Sun's key leads the line with the missing count.
   const key = Object.assign(document.createElement('p'), { className: 'filter-hint graph-legend' })
   key.append(svg(Sun, 12), ['Sun', ...missing.map(({ textContent }) => textContent)].join(' · '))
@@ -679,6 +683,8 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
   const linearSections = new Set<string>()
   // Bin shifts per histogram, from fewest to most bins; absent means the default.
   const binShifts = new Map<string, number>()
+  // Log ends per zoomed scatter plot; they hold while boxes change, so a box stays put under the pointer.
+  const zooms = new Map<string, readonly number[]>()
   // Selected bars per graph: the same graph combines with "or", different graphs with "and".
   const filters = new Map<string, Map<string, Selection>>()
   let selected = topics[0]!
@@ -759,7 +765,7 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
     const narrowed = items.length < full.items.length
     return {
       ...graphOptions, ...(narrowed ? view(items) : full), full: narrowed ? full : null, chosen: [...filters.get(section.id)?.values() ?? []],
-      logScale: !linearSections.has(section.id), bins: binShifts.get(section.id) ?? 0,
+      logScale: !linearSections.has(section.id), bins: binShifts.get(section.id) ?? 0, zoom: zooms.get(section.id) ?? null,
     }
   }
   const renderBody = (body: HTMLElement, section: GraphSection, context: GraphContext) => {
@@ -835,10 +841,14 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
       }
       if (section.boxed) {
         const clearBoxes = Object.assign(document.createElement('span'), { className: 'graph-reset' })
-        const reset = Object.assign(document.createElement('button'), { type: 'button', className: 'panel-lock', title: 'Clear boxes', disabled: !chosen })
-        reset.setAttribute('aria-label', 'Clear drawn boxes')
+        const zoomed = zooms.has(section.id)
+        const zoom = Object.assign(document.createElement('button'), { type: 'button', className: 'panel-lock graph-zoom', title: zoomed ? 'Zoom out' : 'Zoom in' })
+        zoom.setAttribute('aria-pressed', String(zoomed))
+        zoom.append(svg(zoomed ? ZoomOut : ZoomIn, 16))
+        const reset = Object.assign(document.createElement('button'), { type: 'button', className: 'panel-lock', title: 'Clear boxes and zoom', disabled: !chosen && !zoomed })
+        reset.setAttribute('aria-label', 'Clear drawn boxes and zoom')
         reset.append(svg(RotateCcw, 16))
-        clearBoxes.append(reset)
+        clearBoxes.append(zoom, reset)
         summary.append(clearBoxes)
       }
       summary.append(chevron)
@@ -918,7 +928,17 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
     const clearBoxes = event.target instanceof Element ? event.target.closest('.graph-reset') : null
     if (clearBoxes) {
       event.preventDefault()
-      if (event.target instanceof Element && event.target.closest('button') && filters.delete(clearBoxes.closest<HTMLElement>('[data-section]')!.dataset.section!)) applyFilters()
+      const button = event.target instanceof Element ? event.target.closest('button') : null
+      const id = clearBoxes.closest<HTMLElement>('[data-section]')!.dataset.section!
+      const plot = sections.querySelector<HTMLElement>(`[data-section="${id}"] .graph-plot`)
+      if (button?.classList.contains('graph-zoom')) {
+        if (!zooms.delete(id) && plot) zooms.set(id, zoomWindow(plot))
+        render()
+      } else if (button) {
+        const zoomed = zooms.delete(id)
+        if (filters.delete(id)) applyFilters()
+        else if (zoomed) render()
+      }
       return
     }
     const remove = event.target instanceof Element ? event.target.closest<HTMLElement>('.graph-brush-remove') : null
@@ -932,6 +952,15 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
     const section = button?.closest<HTMLElement>('[data-section]')?.dataset.section
     if (select && section) toggleSelection(section, select)
   }, { signal })
+  // Zooming doubles both axes around the drawn boxes, or the plot center without any, so a box covers four times its area; the window stays within the plot.
+  const zoomWindow = (plot: HTMLElement) => {
+    // A collapsed graph has no size, so it zooms into the center.
+    const bounds = plot.getBoundingClientRect(), boxes = bounds.width ? [...plot.querySelectorAll('.graph-brush')].map((box) => box.getBoundingClientRect()) : []
+    const start = (low: 'left' | 'top', high: 'right' | 'bottom', size: 'width' | 'height') => Math.max(0, Math.min(0.5, (boxes.length
+      ? ((Math.min(...boxes.map((box) => box[low])) + Math.max(...boxes.map((box) => box[high]))) / 2 - bounds[low]) / bounds[size] : 0.5) - 0.25))
+    const x0 = start('left', 'right', 'width'), y0 = start('top', 'bottom', 'height')
+    return brushes.get(plot)!(x0, y0, x0 + 0.5, y0 + 0.5).range!.map(Math.log10)
+  }
   // Dragging across a scatter plot adds the box to its selection. Dragging a box moves it and dragging its corner handle resizes it
   // from the opposite corner, both within the plot. Capture starts only once the pointer moves, so a plain click still reaches a box's remove button.
   sections.addEventListener('pointerdown', (event) => {
@@ -991,7 +1020,7 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
   const restore = (saved: readonly SavedGraphSelection[]) => {
     filters.clear()
     const graphOptions = options()
-    const context: GraphContext = { ...graphOptions, ...view(graphOptions.items), full: null, chosen: [], logScale: true, bins: 0 }
+    const context: GraphContext = { ...graphOptions, ...view(graphOptions.items), full: null, chosen: [], logScale: true, bins: 0, zoom: null }
     const { objects } = context
     const rendered = new Map<string, HTMLElement>()
     for (const { section: id, key, label, range } of saved) {

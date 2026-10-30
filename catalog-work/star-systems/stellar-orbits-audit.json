@@ -33,16 +33,16 @@
     },
     {
       "frozenInput": "src/data/stellar-companions.json",
-      "sha256": "1101cd2c8f232d1abf887ff6e5bc00adf9570d780f0d8f7fed2aed8df0f05be5"
+      "sha256": "77d6d0ba12f3c1adfc44b31aed313b7080b11aa11a312f846d63bfab33ae410d"
     },
     {
       "frozenInput": "src/data/object-designations.json",
       "sha256": "c2156eb3471da9e87c495280870902eb01771dc9885178825d84f6af36594312"
     }
   ],
-  "systemsReviewed": 823,
-  "systemsWithSolutions": 350,
-  "orbitCount": 413,
+  "systemsReviewed": 866,
+  "systemsWithSolutions": 354,
+  "orbitCount": 417,
   "reconciled": [
     {
       "systemId": "msc-00084+2905",
@@ -357,6 +357,11 @@
       "reason": "Ambiguous ORB6 pair label"
     },
     {
+      "systemId": "sb9-1546",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
       "systemId": "cns5-gj-113",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
@@ -532,6 +537,11 @@
       "reason": "Ambiguous ORB6 pair label"
     },
     {
+      "systemId": "sb9-1692",
+      "pair": "A",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
       "systemId": "msc-12490+6607",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
@@ -564,6 +574,11 @@
       "pair": "Aa,Ab",
       "reason": "Unresolved or overlapping component scope",
       "reference": "JAA2022"
+    },
+    {
+      "systemId": "sb9-3812",
+      "pair": "57",
+      "reason": "Ambiguous ORB6 pair label"
     },
     {
       "systemId": "orb6-15440+0231-a-b",
@@ -697,6 +712,11 @@
     {
       "systemId": "orb6-21148+3803-a-b",
       "pair": "B",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "sb9-1306",
+      "pair": "",
       "reason": "Ambiguous ORB6 pair label"
     },
     {
@@ -2883,6 +2903,22 @@
       "name": "Avior"
     },
     {
+      "systemId": "spectroscopic-cns5-3020",
+      "name": "WISE J121756.90+162640.8"
+    },
+    {
+      "systemId": "spectroscopic-cns5-3053",
+      "name": "2MASS J12255432-2739466"
+    },
+    {
+      "systemId": "spectroscopic-cns5-3908",
+      "name": "2MASS J15530228+1532369"
+    },
+    {
+      "systemId": "spectroscopic-cns5-5651",
+      "name": "SIPS J2255-5713"
+    },
+    {
       "systemId": "spectroscopic-cns5-3195",
       "name": "BD+36 2322"
     },
@@ -2891,8 +2927,44 @@
       "name": "PM J00081+4757"
     },
     {
+      "systemId": "spectroscopic-cns5-0455",
+      "name": "WISE J014656.66+423410.0"
+    },
+    {
+      "systemId": "spectroscopic-cns5-5403",
+      "name": "2MASS J21522609+0937575"
+    },
+    {
+      "systemId": "spectroscopic-cns5-2707",
+      "name": "2MASSI J1106119+275422"
+    },
+    {
+      "systemId": "spectroscopic-cns5-1536",
+      "name": "WISE J061135.13-041024.0"
+    },
+    {
       "systemId": "spectroscopic-cns5-0206",
       "name": "FF And"
+    },
+    {
+      "systemId": "spectroscopic-cns5-2988",
+      "name": "2MASS J12095613-1004008"
+    },
+    {
+      "systemId": "spectroscopic-cns5-3999",
+      "name": "SIMP J1619275+031350"
+    },
+    {
+      "systemId": "spectroscopic-cns5-1331",
+      "name": "2MASS J05185995-2828372"
+    },
+    {
+      "systemId": "spectroscopic-cns5-4209",
+      "name": "WISE J171104.60+350036.8"
+    },
+    {
+      "systemId": "spectroscopic-cns5-1993",
+      "name": "2MASS J08053189+4812330"
     },
     {
       "systemId": "spectroscopic-hip-45336",
@@ -2925,6 +2997,110 @@
     {
       "systemId": "spectroscopic-hip-111022",
       "name": "5 Lac"
+    },
+    {
+      "systemId": "sb9-47",
+      "name": "Nu And"
+    },
+    {
+      "systemId": "sb9-130",
+      "name": "CC Eri"
+    },
+    {
+      "systemId": "sb9-141",
+      "name": "Zeta Hor"
+    },
+    {
+      "systemId": "sb9-178",
+      "name": "Tau5 Eri"
+    },
+    {
+      "systemId": "sb9-567",
+      "name": "Markeb"
+    },
+    {
+      "systemId": "sb9-782",
+      "name": "Heng"
+    },
+    {
+      "systemId": "sb9-793",
+      "name": "Leepwal"
+    },
+    {
+      "systemId": "sb9-882",
+      "name": "Theta Dra"
+    },
+    {
+      "systemId": "sb9-940",
+      "name": "Epsilon UMi"
+    },
+    {
+      "systemId": "sb9-1106",
+      "name": "Epsilon CrA"
+    },
+    {
+      "systemId": "sb9-1306",
+      "name": "Zeta Cap"
+    },
+    {
+      "systemId": "sb9-1331",
+      "name": "Deneb Algedi"
+    },
+    {
+      "systemId": "sb9-1546",
+      "name": "Xi1 Cet"
+    },
+    {
+      "systemId": "sb9-1692",
+      "name": "HD 106516"
+    },
+    {
+      "systemId": "sb9-1873",
+      "name": "EO Psc"
+    },
+    {
+      "systemId": "sb9-2179",
+      "name": "HD 64606"
+    },
+    {
+      "systemId": "sb9-2446",
+      "name": "Mimosa"
+    },
+    {
+      "systemId": "sb9-3013",
+      "name": "2MASS J03202839-0446358"
+    },
+    {
+      "systemId": "sb9-3622",
+      "name": "BF Lyn"
+    },
+    {
+      "systemId": "sb9-3633",
+      "name": "BD+12 4499"
+    },
+    {
+      "systemId": "sb9-3716",
+      "name": "HD 11507"
+    },
+    {
+      "systemId": "sb9-3807",
+      "name": "G 69-47"
+    },
+    {
+      "systemId": "sb9-3808",
+      "name": "Ross 59"
+    },
+    {
+      "systemId": "sb9-3810",
+      "name": "G 236-34"
+    },
+    {
+      "systemId": "sb9-3811",
+      "name": "G 65-39"
+    },
+    {
+      "systemId": "sb9-3812",
+      "name": "Ross 1057"
     }
   ]
 }

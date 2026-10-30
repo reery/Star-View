@@ -23,7 +23,9 @@
     "catalog-work/bright-stars/literature/stock-2018-ReadMe": "4db003dc4e59f8c1cc011b26fabccd44822035e0f91fccc2bccfe196b29b8b41",
     "catalog-work/bright-stars/literature/stock-2018-selected.dat": "28621160a64c4cbd6c7cd00942146c89e7e5f9ba9a8b7994045c3b1dff8b4eb9",
     "catalog-work/bright-stars/literature/algol-selected-tables.json": "cffb1740e2dee974b0ac32466c69d61e8491c52241c5012cc9b5e1b7eb8ef604",
-    "catalog-work/bright-stars/literature/deneb-selected-tables.json": "7a062cc68c7a7ec883c9099677a0d7b1d518af489c430b01aa82625d6b58544b"
+    "catalog-work/bright-stars/literature/deneb-selected-tables.json": "7a062cc68c7a7ec883c9099677a0d7b1d518af489c430b01aa82625d6b58544b",
+    "catalog-work/star-systems/literature-components/sb9-20261030-selected.json": "9a9b1612bdcecaba78babfc8db5cc02b728284e58cec7ef3081d2ffa691ba5f3",
+    "catalog-work/shared-enrichment/literature/spectroscopy.csv": "85da8f4ab1bef2d73d791b9a72a804fe69173ac3ac84772ddda926759a4afc0e"
   },
   "objects": {
     "cns5-4975": {
@@ -2808,6 +2810,166 @@
         }
       },
       "note": "Primary gravitational mass from its interferometric radius and spectroscopic surface gravity at 124 pc. Formal mass error is 2.3 in equation 4; table lists 2.4. No faint B-component flux/mass inferred."
+    },
+    "hip-76267": {
+      "expectedName": "Alphecca A",
+      "systemId": "sb9-850",
+      "component": "A",
+      "fields": {
+        "mass_solar": {
+          "value": 2.581,
+          "status": "measured",
+          "reference": "Eker et al. 2014; 2014PASA...31...24E",
+          "sourceUrl": "https://arxiv.org/abs/1403.1583",
+          "section": "Table 3, row 133 (alpha CrB)",
+          "uncertainty": 0.045
+        },
+        "radius_solar": {
+          "value": 3.059,
+          "status": "measured",
+          "reference": "Eker et al. 2014; 2014PASA...31...24E",
+          "sourceUrl": "https://arxiv.org/abs/1403.1583",
+          "section": "Table 3, row 133 (alpha CrB)",
+          "uncertainty": 0.302
+        },
+        "temperature_k": {
+          "value": 9700,
+          "status": "compiled",
+          "reference": "Eker et al. 2014; 2014PASA...31...24E",
+          "sourceUrl": "https://arxiv.org/abs/1403.1583",
+          "section": "Table 3, row 133 (alpha CrB)",
+          "uncertainty": 200
+        },
+        "luminosity_solar": {
+          "value": 74.30191378967014,
+          "status": "derived-from-published-log",
+          "reference": "Eker et al. 2014; 2014PASA...31...24E",
+          "sourceUrl": "https://arxiv.org/abs/1403.1583",
+          "section": "Table 3, row 133 (alpha CrB)",
+          "inputs": {
+            "log10LuminositySolar": 1.871,
+            "log10Uncertainty": 0.105
+          }
+        }
+      },
+      "note": "Alphecca: homogenized detached double-lined eclipsing-binary solution from Eker et al. (2014), Table 3. Luminosities are exponentiated published log L. SB9 850 component spectra retained; no system abundance, age or total light assigned to individual components."
+    },
+    "sb9-850-b": {
+      "expectedName": "Alphecca B",
+      "systemId": "sb9-850",
+      "component": "B",
+      "fields": {
+        "mass_solar": {
+          "value": 0.922,
+          "status": "measured",
+          "reference": "Eker et al. 2014; 2014PASA...31...24E",
+          "sourceUrl": "https://arxiv.org/abs/1403.1583",
+          "section": "Table 3, row 133 (alpha CrB)",
+          "uncertainty": 0.025
+        },
+        "radius_solar": {
+          "value": 0.906,
+          "status": "measured",
+          "reference": "Eker et al. 2014; 2014PASA...31...24E",
+          "sourceUrl": "https://arxiv.org/abs/1403.1583",
+          "section": "Table 3, row 133 (alpha CrB)",
+          "uncertainty": 0.04
+        },
+        "temperature_k": {
+          "value": 5800,
+          "status": "compiled",
+          "reference": "Eker et al. 2014; 2014PASA...31...24E",
+          "sourceUrl": "https://arxiv.org/abs/1403.1583",
+          "section": "Table 3, row 133 (alpha CrB)",
+          "uncertainty": 300
+        },
+        "luminosity_solar": {
+          "value": 0.8336811846196344,
+          "status": "derived-from-published-log",
+          "reference": "Eker et al. 2014; 2014PASA...31...24E",
+          "sourceUrl": "https://arxiv.org/abs/1403.1583",
+          "section": "Table 3, row 133 (alpha CrB)",
+          "inputs": {
+            "log10LuminositySolar": -0.079,
+            "log10Uncertainty": 0.111
+          }
+        }
+      },
+      "note": "Alphecca B: secondary of the Eker et al. (2014) Table 3 solution for the 17.36-day eclipsing pair."
+    },
+    "hip-82080": {
+      "expectedName": "Epsilon UMi Aa",
+      "systemId": "sb9-940",
+      "component": "Aa",
+      "fields": {
+        "temperature_k": {
+          "value": 5279,
+          "reference": "Bale et al. 2025; 2025A&A...703A.128B",
+          "sourceUrl": "https://arxiv.org/abs/2510.19800",
+          "section": "Frozen SIMBAD spectroscopy row (* eps UMi, mespos 1)",
+          "status": "spectroscopic"
+        },
+        "metallicity_dex": {
+          "value": 0.1,
+          "quantity": "[Fe/H]",
+          "reference": "Bale et al. 2025; 2025A&A...703A.128B",
+          "sourceUrl": "https://arxiv.org/abs/2510.19800",
+          "section": "Frozen SIMBAD spectroscopy row (* eps UMi, mespos 1)",
+          "status": "spectroscopic"
+        }
+      },
+      "note": "Epsilon UMi Aa: single-lined spectroscopic binary, so the measured spectrum is the G giant's alone. Bale et al. (2025) atmosphere adopted, as for the earlier catalog record; Strassmeier et al. (2012) Table 7 (5215 +/- 50 K, [Fe/H] -0.25 +/- 0.04) is retained in the frozen snapshot. No companion properties inferred."
+    },
+    "sb9-1306-ab": {
+      "expectedName": "Zeta Cap Ab",
+      "systemId": "sb9-1306",
+      "component": "Ab",
+      "expectedType": "white_dwarf",
+      "fields": {
+        "mass_solar": {
+          "value": 0.67,
+          "status": "dynamical",
+          "reference": "Escorza & De Rosa 2023; 2023A&A...671A..97E",
+          "sourceUrl": "https://arxiv.org/abs/2301.04232",
+          "section": "Table 2 (HD 204075)",
+          "uncertainty": 0.1
+        }
+      },
+      "note": "Zeta Cap Ab: white-dwarf mass from the combined radial-velocity and Hipparcos-Gaia astrometric orbit of Escorza & De Rosa (2023)."
+    },
+    "sb9-1546-ab": {
+      "expectedName": "Xi1 Cet Ab",
+      "systemId": "sb9-1546",
+      "component": "Ab",
+      "expectedType": "white_dwarf",
+      "fields": {
+        "mass_solar": {
+          "value": 0.8,
+          "status": "estimated",
+          "reference": "Kong et al. 2018; 2018MNRAS.476..724K",
+          "sourceUrl": "https://arxiv.org/abs/1801.10284",
+          "section": "Table 1 (HD 13611)"
+        }
+      },
+      "note": "Xi1 Cet Ab: white-dwarf mass listed by Kong et al. (2018); no uncertainty published there."
+    },
+    "sb9-567-b": {
+      "expectedName": "Markeb B",
+      "systemId": "sb9-567",
+      "component": "B",
+      "expectedType": "star",
+      "fields": {
+        "mass_solar": {
+          "value": 7.7,
+          "status": "dynamical",
+          "reference": "Rowan, Kraus & Thompson 2026; PASP 138, 024203",
+          "sourceUrl": "https://arxiv.org/abs/2512.02116",
+          "section": "Abstract and Section 4 (revised-parallax solution)",
+          "uncertaintyMinus": 0.8,
+          "uncertaintyPlus": 0.9
+        }
+      },
+      "note": "Markeb B: interferometric-orbit mass of the main-sequence B companion using the revised parallax; the original-parallax solution is retained in the frozen snapshot only."
     }
   },
   "sourceReviews": {

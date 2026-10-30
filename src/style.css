@@ -733,7 +733,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .constellation-star[role="button"] { cursor: pointer; }
 .constellation-star-hit { fill: transparent; stroke: transparent; }
 .constellation-star[role="button"]:focus-visible { outline: none; }
-.constellation-star[role="button"]:focus-visible .constellation-star-hit, .constellation-star[role="button"]:hover .constellation-star-hit { stroke: var(--constellation-star-color); stroke-width: 1; }
+.constellation-star[role="button"]:focus-visible .constellation-star-hit, :root:not([data-tooltip-input="touch"]) .constellation-star[role="button"]:hover .constellation-star-hit, .constellation-star.is-previewed .constellation-star-hit { stroke: var(--constellation-star-color); stroke-width: 1; }
 .constellation-star-name, .constellation-bayer { fill: var(--ink); font-size: 12px; font-weight: 400; paint-order: stroke; stroke: #090b10; stroke-width: 4px; stroke-linejoin: round; }
 .constellation-selected-ring { fill: none; stroke: var(--accent-vibrant); stroke-width: 1.8; }
 .constellation-star.is-selected .constellation-star-name, .constellation-star.is-selected .constellation-bayer { fill: var(--accent-vibrant); font-size: var(--property-text-size); font-weight: 600; }
@@ -1593,6 +1593,7 @@ button.graph-bar-row:hover, .graph-bar-row[aria-pressed="true"] { background: va
 .graph-bins > input { width: max(80px, 25cqi); min-width: max(80px, 25cqi); height: 20px; margin: 0; cursor: pointer; }
 :is(.graph-bins, .graph-reset) > .panel-lock { width: 24px; height: 24px; flex-basis: 24px; color: var(--muted); }
 :is(.graph-bins, .graph-reset) > .panel-lock:disabled { pointer-events: none; }
+.graph-reset > .panel-lock[aria-pressed="true"] { color: var(--accent-vibrant); }
 /* Narrow sections move a scale switch and the slider to their own line below the title, where the slider widens; a slider alone stays beside the title until the section gets very narrow. */
 @container (max-width: 399px) {
   .graph-section > summary:has(.graph-scale) { flex-wrap: wrap; row-gap: 0; }
@@ -1645,10 +1646,13 @@ button.graph-bar-row:hover, .graph-bar-row[aria-pressed="true"] { background: va
 .graph-axis-y > span { right: 0; transform: translateY(-50%); }
 .graph-plot { position: relative; height: 220px; border-bottom: 1px solid var(--line); border-left: 1px solid var(--line); cursor: crosshair; touch-action: none; user-select: none; }
 .graph-plot > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+/* A zoomed plot clips the dots beyond its window. */
+.graph-plot.is-zoomed > svg { overflow: hidden; }
 .graph-plot > svg path { fill: none; stroke-width: 5px; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .graph-dots-full path { stroke: var(--graph-full-fill); }
 .graph-dots-muted { opacity: 0.35; }
-.graph-plot-marker { position: absolute; display: flex; color: var(--ink); transform: translate(-50%, -50%); pointer-events: none; }
+.graph-plot-marker { position: absolute; display: flex; color: var(--surface-control); transform: translate(-50%, -50%); pointer-events: none; }
+.graph-plot-marker.is-muted { color: var(--ink); }
 .graph-brush { position: absolute; border: 1px solid var(--accent-vibrant); border-radius: 3px; background: var(--surface-vibrant-pressed); cursor: move; }
 .graph-legend { display: flex; align-items: center; gap: 6px; }
 .graph-legend > svg { color: var(--ink); }

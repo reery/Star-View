@@ -11,6 +11,7 @@ import { renderObjectInfoContent } from './object-info-content'
 import { MISSING_VALUE, quantity } from './format'
 import { starComponentIdentity } from './star-systems'
 import { svgNode as svg } from './spectral-chart'
+import { hideTouchTooltip, registerTouchTooltip, showTouchTooltip, touchTooltipOpen, usingTouchTooltips } from './touch-tooltips'
 
 type Point = { x: number; y: number }
 type Box = { left: number; top: number; right: number; bottom: number }
@@ -229,12 +230,22 @@ function drawChart(root: HTMLElement, object: Star | null, chart: ConstellationC
       tooltip.style.top = `${Math.max(tooltip.offsetHeight + 12, p.y - 20)}px`
     }
     const hideTooltip = () => tooltip.classList.remove('is-visible')
-    // Revealing content on touch makes mobile Safari swallow the selecting click.
+    // Revealing content on touch makes mobile Safari swallow the click, so touch previews open on click.
     marker.addEventListener('pointerenter', (event) => { if (event.pointerType !== 'touch') showTooltip() })
-    marker.addEventListener('pointerleave', () => { if (document.activeElement !== marker) hideTooltip() })
+    marker.addEventListener('pointerleave', (event) => { if (event.pointerType !== 'touch' && document.activeElement !== marker) hideTooltip() })
     marker.addEventListener('focus', showTooltip)
     marker.addEventListener('blur', hideTooltip)
-    marker.addEventListener('click', () => { hideTooltip(); options.onSelect(physical) })
+    registerTouchTooltip(marker, {
+      show: () => { marker.classList.add('is-previewed'); showTooltip() },
+      hide: () => { marker.classList.remove('is-previewed'); hideTooltip() },
+    })
+    // The first tap previews a star; only a second tap on it changes the selection.
+    marker.addEventListener('click', () => {
+      if (usingTouchTooltips() && !touchTooltipOpen(marker)) { showTouchTooltip(marker, tooltip); return }
+      hideTouchTooltip()
+      hideTooltip()
+      options.onSelect(physical)
+    })
     marker.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); hideTooltip(); options.onSelect(physical) }
     })

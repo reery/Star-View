@@ -404,6 +404,18 @@ describe('component coverage shared by every catalog', () => {
     expect(completeCatalogCompanions([sun, unrelated])).toEqual([sun, unrelated])
   })
 
+  it('splits only confirmed ultracool composites and keeps spectral-binary candidates single', () => {
+    const audit = JSON.parse(readFileSync(new URL('../catalog-work/star-systems/catalog-companions-audit.json', import.meta.url), 'utf8')) as {
+      ultracoolCompositeCoverage: { id: string; decision: string }[]
+    }
+    for (const { id, decision } of audit.ultracoolCompositeCoverage) {
+      expect(reviewedStarSystems.some((system) => system.components.some((component) => component.starId === id))).toBe(decision === 'authored-confirmed-pair')
+    }
+    const pool = JSON.parse(readFileSync(new URL('./data/stellar-companions.json', import.meta.url), 'utf8')) as { stars: typeof bright }
+    const wise0146 = reviewedStarSystems.find((system) => system.id === 'spectroscopic-cns5-0455')!
+    expect(wise0146.components.map((component) => pool.stars.find((star) => star.id === component.starId)?.spectral_type)).toEqual(['T9', 'Y0'])
+  })
+
   it('keeps distinct Trapezium subsystems separate even when their common names match', () => {
     const cluster = parseStarCatalog(readFileSync(new URL('./data/catalogs/western-constellation-stars/stars.csv', import.meta.url), 'utf8'))
     const expanded = completeCatalogCompanions(cluster)

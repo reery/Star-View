@@ -21,6 +21,7 @@ from urllib.parse import urlencode
 from catalog_sources.adapters import eligible_gaia_physical, read_gaia_tap
 from catalog_sources.enrichment import GAIA_REPUBLICATIONS, estimate_temperature, derive_physical, flame_withheld
 from catalog_sources.ordinary_binaries import orbit_pairs, matching_members
+from catalog_sources.spectroscopic_binaries import FILES as SB9_FILES, sb9_systems
 from catalog_sources.companion_properties import apply_literature, property_coverage
 from catalog_sources.classification import prune_subtypes, spectral_labels
 from catalog_sources.preservation import pool_losses, retain_frozen_source
@@ -457,9 +458,20 @@ def build():
         inputs.append(path)
         for row in read_csv(path):
             source_aliases[" ".join(row["main_id"].split())] = row
+    # An L/T/Y composite may be a template fit to one variable or young dwarf,
+    # so it is split only after a reviewed confirmation of the pair.
+    ultracool_path = WORK / "ultracool-binaries-review.json"
+    inputs.append(ultracool_path)
+    ultracool = read_json(ultracool_path)
+    audit["ultracoolCompositeCoverage"] = [{"id": identifier, "decision": "withheld-spectral-binary-candidate", **review}
+                                           for identifier, review in ultracool["candidates"].items()]
     for identifier, parent in stars.items():
-        if identifier in reviewed_ids or not COMPOSITE.search(parent["spectral_type"] or ""):
+        confirmed = ultracool["confirmed"].get(identifier)
+        if identifier in reviewed_ids or not (confirmed or COMPOSITE.search(parent["spectral_type"] or "")):
             continue
+        if confirmed:
+            assert parent["spectral_type"] == confirmed["parentSpectralType"], identifier
+            audit["ultracoolCompositeCoverage"].append({"id": identifier, "decision": "authored-confirmed-pair", **confirmed})
         parts = [part for part in re.split(r"\++(?=\s*(?:[OBAFGKMLTY]|D[A-Z]|W[CN]))", parent["spectral_type"]) if part]
         if len(parts) < 2:
             continue
@@ -484,6 +496,9 @@ def build():
             star["designations"] = unique([*parent["designations"], parent["name"]]) if index == 0 else [f"{name} {label}"]
             star["notes"] = f"Individual {label} spectrum from catalog composite {parent['spectral_type']}; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred."
             evidence = {"membership": {"source": "frozen SIMBAD composite spectral classification", "mainId": main, "originalSpectralType": parent["spectral_type"], "spectralBibcode": source_row.get("sp_bibcode")}, "withheldIntegratedFields": {field: parent[field] for field in (*FIELDS, "absolute_mag") if parent[field] is not None}}
+            if confirmed:
+                evidence["reviewedUltracoolBinary"] = confirmed
+                star.update(confirmed.get("components", {}).get(label, {}))
             if index == 0:
                 retain_unresolved_photometry(star, parent, identities, evidence)
             enrich(star, simbad.get(f"{main} {label}") if main else None, evidence)
@@ -566,6 +581,71 @@ def build():
                 reviewed_ids.update(i for c in system['components'] for i in [c['starId'], *c.get('alternateStarIds', [])])
                 review.update(decision='authored-detected-pair', systemId=system['id'])
         audit['ordinaryBinaryCoverage'].append(review)
+
+    # Spectroscopic binaries have neither a visual orbit nor a triple hierarchy.
+    # A double-lined SB9 orbit measures both stars. A single-lined companion
+    # may be a white dwarf or substellar, so it needs a published SB9 spectrum
+    # or a reviewed classification.
+    sb9_path = WORK / 'sb9-20240621'
+    sb9_review_path = WORK / 'spectroscopic-binaries-review.json'
+    inputs += [*(sb9_path / name for name in SB9_FILES), sb9_review_path]
+    sb9_review = read_json(sb9_review_path)
+    audit['spectroscopicBinaryCoverage'] = []
+    for binary in sb9_systems(sb9_path, identity_ids, identities):
+        review = copy.deepcopy(binary)
+        sb9_number = binary['sb9']
+        classification = sb9_review['componentClassifications'].get(sb9_number)
+        if any(identifier in reviewed_ids for identifier in binary['catalogIds']):
+            review['decision'] = 'covered-reviewed-system'
+        elif sb9_number in sb9_review['exclusions']:
+            review.update(decision='withheld-reviewed-exclusion', evidence=sb9_review['exclusions'][sb9_number])
+        elif not binary['uniqueIdentity']:
+            review['decision'] = 'withheld-ambiguous-identity'
+        elif binary['component'] not in ('', 'A'):
+            review['decision'] = 'withheld-component-scope'
+        elif not binary['doubleLined'] and not binary['spectra'][1] and not classification:
+            review['decision'] = 'pending-companion-classification'
+        else:
+            parent_id, *alternates = binary['catalogIds']
+            parent = stars[parent_id]
+            name = sb9_review['systemNames'].get(sb9_number, re.sub(r' [A-Z][a-z]?$', '', parent['name']))
+            # Under a WDS root, the spectroscopic pair is the A branch.
+            visual = binary['component'] or ('A' if any(n.startswith('WDS J') for n in parent['designations']) else '')
+            labels = [visual + 'a', visual + 'b'] if visual else ['A', 'B']
+            system = dict(id=f'sb9-{sb9_number}', name=name, sb9Id=sb9_number, sourceRef='catalog-companions-sb9',
+                sourceUrl=f'https://sb9.astro.ulb.ac.be/DisplayFull.cgi?{sb9_number}', components=[])
+            if parent.get('raw_astrometry'):
+                system['adoptedDistance'] = {'parallaxMas': parent['raw_astrometry']['parallax_mas'],
+                    'sourceStarId': parent['id'], 'scope': 'Shared catalog parent distance; approximate for unresolved components'}
+            for index, label in enumerate(labels):
+                identifier = parent_id if index == 0 else f"{system['id']}-{label.lower()}"
+                star = blank_component(identifier, f'{name} {label}', parent)
+                star['designations'] = unique([*parent['designations'], parent['name']]) if index == 0 else []
+                star['spectral_type'] = spectrum(binary['spectra'][index])
+                if star['spectral_type']:
+                    star['type'] = 'white_dwarf' if star['spectral_type'].startswith('D') else 'brown_dwarf' if star['spectral_type'].startswith(('L', 'T', 'Y')) else 'star'
+                evidence = {'membership': {key: value for key, value in review.items() if key != 'decision'},
+                    'withheldIntegratedFields': {field: parent[field] for field in (*FIELDS, 'absolute_mag', 'vx_kms', 'vy_kms', 'vz_kms')
+                        if index == 0 and parent[field] is not None}}
+                if index == 0:
+                    retain_unresolved_photometry(star, parent, identities, evidence)
+                if star['spectral_type']:
+                    evidence['spectralClassification'] = {'method': 'SB9 component spectral type', 'parentSpectralType': parent['spectral_type']}
+                if classification and label in classification['components']:
+                    star.update(classification['components'][label])
+                    evidence['reviewedSpectroscopicClassification'] = classification
+                star['notes'] = (f"SB9 {'double' if binary['doubleLined'] else 'single'}-lined spectroscopic binary {sb9_number}, component {label}. "
+                    "Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate; "
+                    "no orbital phase or individual radial velocity inferred.")
+                enrich(star, None, evidence)
+                component = {'starId': identifier, 'label': label}
+                if index == 0 and alternates:
+                    component['alternateStarIds'] = alternates
+                system['components'].append(component)
+            definitions.append(system)
+            reviewed_ids.update(binary['catalogIds'])
+            review.update(decision='authored-spectroscopic-pair', systemId=system['id'])
+        audit['spectroscopicBinaryCoverage'].append(review)
 
     # Fill remaining blanks on previously reviewed individuals too, using their
     # own exact source identities; do not borrow a parent's Gaia/atmosphere row.

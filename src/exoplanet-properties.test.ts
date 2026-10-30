@@ -4,7 +4,7 @@ import nearby from './data/nearby-planets.json'
 import stats from './data/object-stats.json'
 import { extrasolarPhysicalSpecs, extrasolarOrbitalSpecs, type ExtrasolarPlanet } from './exoplanet-properties'
 import { planetDescriptionForId } from './planet-properties'
-import { loadPlanetarySystem, planetarySystemForStar, formatOrbitalDistance } from './planetary-systems'
+import { loadPlanetarySystem, planetarySystemForStar, planetCountForStar, planetHostId, formatOrbitalDistance } from './planetary-systems'
 
 const extrasolarPlanets = nearby.planets as readonly ExtrasolarPlanet[]
 beforeAll(async () => {
@@ -15,9 +15,9 @@ afterAll(() => vi.unstubAllGlobals())
 
 describe('nearby exoplanet coverage and scientific qualifications', () => {
   it('covers every frozen host count and connects all rows to a detail card', () => {
-    // 109 nearby stellar hosts plus the pulsars Lich and PSR J1719-1438.
-    expect(nearby.systems).toHaveLength(111)
-    expect(extrasolarPlanets).toHaveLength(208)
+    // 256 nearest-5000 and western constellation stellar hosts plus the pulsars Lich and PSR J1719-1438.
+    expect(nearby.systems).toHaveLength(258)
+    expect(extrasolarPlanets).toHaveLength(433)
     for (const system of nearby.systems) {
       const hostStats = stats.objects[system.hostStarId as keyof typeof stats.objects]
       expect(system.planets).toHaveLength(hostStats.known_planets!)
@@ -28,6 +28,14 @@ describe('nearby exoplanet coverage and scientific qualifications', () => {
         expect(JSON.stringify(extrasolarPhysicalSpecs(description as typeof extrasolarPlanets[number]))).not.toMatch(/NaN|Infinity|undefined/)
       }
     }
+  })
+
+  it('serves another catalog ID of the same host from that host system', async () => {
+    // Ran in the western constellation catalog is Epsilon Eridani in nearest-100.
+    expect(planetHostId('hip-16537')).toBe('epsilon-eridani')
+    expect(planetCountForStar('hip-16537')).toBe(planetCountForStar('epsilon-eridani'))
+    await loadPlanetarySystem('hip-16537')
+    expect(planetarySystemForStar('hip-16537')).toMatchObject({ hostStarId: 'hip-16537', planets: planetarySystemForStar('epsilon-eridani')!.planets })
   })
 
   it('distinguishes minimum mass, calculated radii and equilibrium temperature', () => {

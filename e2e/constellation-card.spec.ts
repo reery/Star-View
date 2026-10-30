@@ -385,8 +385,18 @@ test('selects figure stars with tooltips while the constellation overlay is off'
   await expect(card.locator('.is-selected .constellation-star-name')).toHaveText('Adhara A')
   await expect(page.locator('#show-western-constellation-stars')).not.toBeChecked()
   if (testInfo.project.name !== 'mobile') return
-  // A tap selects at once; revealing the tooltip first would make mobile Safari drop the click.
-  await card.getByRole('button', { name: 'Select Mirzam', exact: true }).tap()
+  // The first tap only previews a star; a second tap on it selects it.
+  const tapped = card.getByRole('button', { name: 'Select Mirzam', exact: true })
+  await tapped.tap()
+  await expect(card.locator('.constellation-tooltip:visible')).toHaveText(/Mirzam/)
+  await expect(tapped).toHaveClass(/is-previewed/)
+  await expect(page.locator('#star-name')).toHaveText('Adhara')
+  await card.getByRole('button', { name: 'Select Wezen', exact: true }).tap()
+  await expect(card.locator('.constellation-tooltip:visible')).toHaveText(/Wezen/)
+  await expect(card.locator('.is-previewed')).toHaveCount(1)
+  await tapped.tap()
+  await expect(page.locator('#star-name')).toHaveText('Adhara')
+  await tapped.tap()
   await expect(page.locator('#star-name')).toHaveText('Mirzam')
   await expect(card.locator('.constellation-tooltip:visible')).toHaveCount(0)
 })

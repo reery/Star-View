@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-30",
+  "source": {
+    "name": "SB9: The ninth catalogue of spectroscopic binary orbits (Pourbaix et al. 2004, 2004A&A...424..727P)",
+    "url": "https://sb9.astro.ulb.ac.be/SB9public.tar.gz",
+    "version": "2024-06-21 10:17:46.003549186 +0200",
+    "archiveSha256": "ac44bd8899ad39e2a7d0bb63ca758b08ee61b31edff34d798e7558f88b488011",
+    "frozenFiles": "catalog-work/star-systems/sb9-20240621 (Main.dta, Orbits.dta, Alias.dta, ReadMe.txt; Notes.dta not retained)"
+  },
+  "policy": "A double-lined SB9 orbit measures both stars, so it establishes both components. A single-lined orbit establishes an unseen companion of unknown nature, which may be a white dwarf or a substellar object; it is authored only with a published SB9 component spectrum or a reviewed classification below. Other single-lined systems remain pending review.",
+  "systemNames": {},
+  "componentClassifications": {
+    "567": {
+      "source": "Rowan, Kraus & Thompson 2026, PASP 138, 024203 (interferometric orbit)",
+      "sourceUrl": "https://arxiv.org/abs/2512.02116",
+      "evidence": "Abstract: \"We detect a main sequence B star companion and rule out the compact object scenario.\"",
+      "components": {
+        "B": {
+          "type": "star"
+        }
+      }
+    },
+    "782": {
+      "source": "Jerzykiewicz et al. 2021, MNRAS 503, 5554",
+      "sourceUrl": "https://arxiv.org/abs/2104.11770",
+      "evidence": "Abstract: \"the secondary components are pre-MS stars, in the process of contracting onto the MS.\" Table 7 gives only model ranges (M2 0.59-1.45 Msun), so no individual value is adopted.",
+      "components": {
+        "B": {
+          "type": "star"
+        }
+      }
+    },
+    "940": {
+      "source": "Strassmeier et al. 2012 Table 4 SB1 orbit (P = 39.48042 +/- 0.00012 d, K = 31.849 +/- 0.013 km/s, e = 0, f(M) = 0.1325 Msun); Bale et al. 2025 primary mass 3.50 Msun; eclipsing binary (Avvakumova et al. 2013, 2013AN....334..860A)",
+      "sourceUrl": "https://arxiv.org/abs/1208.3741",
+      "reasoning": "With the 3.50 Msun primary and an edge-on eclipsing orbit, f(M) = 0.1325 Msun requires a companion of about 1.5 Msun, above the white-dwarf mass limit. Hinderer (1957), quoted in the Strassmeier et al. 2012 notes, classified it as a dA8-dF0 dwarf; that classification was not verified verbatim and is not adopted as a spectral type.",
+      "components": {
+        "Ab": {
+          "type": "star"
+        }
+      }
+    },
+    "1081": {
+      "source": "Hutter et al. 2016, ApJS 227, 4 (NPOI interferometry)",
+      "sourceUrl": "https://arxiv.org/abs/1609.05254",
+      "evidence": "Abstract: \"including the first detection of the companion of $\\beta$ Scuti with precise relative astrometry\"; a resolved optical companion is luminous. The far-UV B9 type (Parsons & Ake 1998) was not verified and is not adopted.",
+      "components": {
+        "B": {
+          "type": "star"
+        }
+      }
+    },
+    "1106": {
+      "source": "Bakis et al. 2024, PASA 41, e083",
+      "sourceUrl": "https://arxiv.org/abs/2409.17303",
+      "evidence": "Table 4 (this study): K1 = 36.4 (0.05) km/s, K2 = 273.7 (0.05) km/s. The secondary's lines are measured, so this contact binary is double-lined in current data; SB9 lists only K1.",
+      "components": {
+        "B": {
+          "type": "star"
+        }
+      }
+    },
+    "1306": {
+      "source": "Escorza & De Rosa 2023, A&A 671, A97, 'Barium and related stars, and their white-dwarf companions III. The masses of the white dwarfs'",
+      "sourceUrl": "https://arxiv.org/abs/2301.04232",
+      "evidence": "Table 2 row: \"HD 204075 | 2367 ±9 | 0.26 ±0.05 | ... | 133 ±5 | 0.67 ±0.10 | ...\" with column MWD = 0.67 ± 0.10 Msun from the combined RV/astrometric orbit.",
+      "components": {
+        "Ab": {
+          "type": "white_dwarf"
+        }
+      }
+    },
+    "1331": {
+      "source": "Waisberg, Klein & Katz 2026, RNAAS 10, 78 (interferometric detection)",
+      "sourceUrl": "https://doi.org/10.3847/2515-5172/ae5a98",
+      "evidence": "Abstract: \"The secondary was detected with a K band flux ratio 6.0% ± 0.2%, confirming it is a red dwarf\"; footnote: the eclipse \"could not be explained by a white dwarf companion\". Model-based mass/radius/temperature (M ≃ 0.65 Msun) are approximate and not adopted.",
+      "components": {
+        "Ab": {
+          "type": "star"
+        }
+      }
+    },
+    "1546": {
+      "source": "Kong et al. 2018, MNRAS 476, 724 (Sirius-like systems)",
+      "sourceUrl": "https://arxiv.org/abs/1801.10284",
+      "evidence": "Table 1 row for HD 13611 (Xi1 Cet): white-dwarf companion mass 0.80 Msun, a = 3.8 au, P = 4.50 yr. The DA4 class (McCook & Sion 1999) was not verified and is not adopted.",
+      "components": {
+        "Ab": {
+          "type": "white_dwarf"
+        }
+      }
+    },
+    "2446": {
+      "source": "Gratton et al. 2023, A&A 678, A93 (SPHERE imaging)",
+      "sourceUrl": "https://arxiv.org/abs/2308.09962",
+      "evidence": "Appendix A, HIP 62434: imaged companion \"projected at about 0.1 arcsec (about 9 au) from the star ... (M=1.9±0.07 M⊙)\" and \"It is then reasonable to identify AB as the responsible of the RV variations\" of the 5-yr Aerts et al. (1998) orbit. Photometric mass not adopted.",
+      "components": {
+        "Ab": {
+          "type": "star"
+        }
+      }
+    },
+    "3013": {
+      "source": "Frozen SIMBAD composite classification M8.5+T5 for 2MASS J03202839-0446358 (catalog-work/nearest-5000/simbad.csv); SB9 orbit 2008ApJ...678L.125B",
+      "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=2MASS+J03202839-0446358",
+      "evidence": "SB9 Main.dta lists component spectra M8|G0. A G0 star cannot be the unseen companion of this late-M dwarf; the SB9 secondary type is rejected and never shipped. Component spectra follow the SIMBAD composite: M8.5 primary and T5 brown-dwarf secondary.",
+      "rejectedSourceValues": {
+        "B": {
+          "spectral_type": "G0",
+          "reason": "Inconsistent with the M8.5+T5 composite classification of the same object."
+        },
+        "A": {
+          "spectral_type": "M8",
+          "reason": "Superseded by the finer M8.5 composite classification."
+        }
+      },
+      "components": {
+        "A": {
+          "spectral_type": "M8.5"
+        },
+        "B": {
+          "type": "brown_dwarf",
+          "spectral_type": "T5"
+        }
+      }
+    }
+  },
+  "exclusions": {}
+}

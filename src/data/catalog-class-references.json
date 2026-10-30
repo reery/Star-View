@@ -8,7 +8,7 @@
     "western-constellation-stars",
     "notable-distant-stars"
   ],
-  "uniqueObjects": 6080,
+  "uniqueObjects": 6123,
   "classes": [
     {
       "spectral": "A0.5V",
@@ -392,7 +392,7 @@
       "letter": "A",
       "subtype": 1,
       "stage": "IV",
-      "count": 8,
+      "count": 7,
       "metrics": {
         "mass": {
           "value": 2.3684,
@@ -1920,7 +1920,7 @@
       "letter": "B",
       "subtype": 0.5,
       "stage": "IV",
-      "count": 1,
+      "count": 2,
       "metrics": {
         "mass": {
           "value": null,
@@ -2443,47 +2443,35 @@
       "letter": "B",
       "subtype": 1,
       "stage": "IV",
-      "count": 2,
+      "count": 1,
       "metrics": {
         "mass": {
-          "value": 12.3,
+          "value": 10.1,
           "range": [
             10.1,
-            14.5
+            10.1
           ],
-          "count": 2
+          "count": 1
         },
         "gravity": {
-          "value": 78.3342,
-          "range": [
-            78.3342,
-            78.3342
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         },
         "escapeKms": {
-          "value": 881.196,
-          "range": [
-            881.196,
-            881.196
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         },
         "density": {
-          "value": 0.0565318,
-          "range": [
-            0.0565318,
-            0.0565318
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         },
         "luminosityPerMass": {
-          "value": 1065.07,
-          "range": [
-            1065.07,
-            1065.07
-          ],
-          "count": 1
+          "value": null,
+          "range": null,
+          "count": 0
         }
       }
     },
@@ -2541,7 +2529,7 @@
       "letter": "B",
       "subtype": 2.5,
       "stage": "IV",
-      "count": 3,
+      "count": 2,
       "metrics": {
         "mass": {
           "value": null,
@@ -2673,7 +2661,7 @@
       "letter": "B",
       "subtype": 2,
       "stage": "IV",
-      "count": 16,
+      "count": 17,
       "metrics": {
         "mass": {
           "value": 9.4,
@@ -3890,7 +3878,7 @@
       "letter": "B",
       "subtype": 8,
       "stage": "V",
-      "count": 15,
+      "count": 16,
       "metrics": {
         "mass": {
           "value": 3.40375,
@@ -4059,32 +4047,47 @@
       "letter": "B",
       "subtype": 9.5,
       "stage": "IV",
-      "count": 1,
+      "count": 2,
       "metrics": {
         "mass": {
-          "value": null,
-          "range": null,
-          "count": 0
+          "value": 2.581,
+          "range": [
+            2.581,
+            2.581
+          ],
+          "count": 1
         },
         "gravity": {
-          "value": null,
-          "range": null,
-          "count": 0
+          "value": 75.6304,
+          "range": [
+            75.6304,
+            75.6304
+          ],
+          "count": 1
         },
         "escapeKms": {
-          "value": null,
-          "range": null,
-          "count": 0
+          "value": 567.367,
+          "range": [
+            567.367,
+            567.367
+          ],
+          "count": 1
         },
         "density": {
-          "value": null,
-          "range": null,
-          "count": 0
+          "value": 0.127116,
+          "range": [
+            0.127116,
+            0.127116
+          ],
+          "count": 1
         },
         "luminosityPerMass": {
-          "value": null,
-          "range": null,
-          "count": 0
+          "value": 28.788,
+          "range": [
+            28.788,
+            28.788
+          ],
+          "count": 1
         }
       }
     },
@@ -4391,7 +4394,7 @@
       "letter": "B",
       "subtype": 9,
       "stage": "V",
-      "count": 8,
+      "count": 7,
       "metrics": {
         "mass": {
           "value": 3.905,
@@ -4523,7 +4526,7 @@
       "letter": "F",
       "subtype": 0,
       "stage": "III",
-      "count": 3,
+      "count": 2,
       "metrics": {
         "mass": {
           "value": 1.91,
@@ -4670,7 +4673,7 @@
       "letter": "F",
       "subtype": 0,
       "stage": "V",
-      "count": 6,
+      "count": 7,
       "metrics": {
         "mass": {
           "value": 1.635,
@@ -5002,7 +5005,7 @@
       "letter": "F",
       "subtype": 2,
       "stage": "V",
-      "count": 11,
+      "count": 12,
       "metrics": {
         "mass": {
           "value": 1.455,
@@ -5149,47 +5152,47 @@
       "letter": "F",
       "subtype": 4,
       "stage": "V",
-      "count": 8,
+      "count": 7,
       "metrics": {
         "mass": {
-          "value": 1.43463,
+          "value": 1.395,
           "range": [
             1.2,
-            1.59316
+            1.58
           ],
-          "count": 5
+          "count": 4
         },
         "gravity": {
-          "value": 146.973,
+          "value": 158.946,
           "range": [
             90.5159,
             207.61
           ],
-          "count": 5
+          "count": 4
         },
         "escapeKms": {
-          "value": 571.109,
+          "value": 579.38,
           "range": [
             524.914,
             603.046
           ],
-          "count": 5
+          "count": 4
         },
         "density": {
-          "value": 0.491721,
+          "value": 0.554001,
           "range": [
             0.21272,
             0.847876
           ],
-          "count": 5
+          "count": 4
         },
         "luminosityPerMass": {
-          "value": 4.33489,
+          "value": 3.79817,
           "range": [
             2.59152,
             6.52382
           ],
-          "count": 5
+          "count": 4
         }
       }
     },
@@ -5398,7 +5401,7 @@
       "letter": "F",
       "subtype": 5,
       "stage": "V",
-      "count": 15,
+      "count": 17,
       "metrics": {
         "mass": {
           "value": 1.37733,
@@ -5625,7 +5628,7 @@
       "letter": "F",
       "subtype": 6,
       "stage": "V",
-      "count": 16,
+      "count": 15,
       "metrics": {
         "mass": {
           "value": 1.248,
@@ -5949,11 +5952,45 @@
       }
     },
     {
+      "spectral": "F8IV",
+      "letter": "F",
+      "subtype": 8,
+      "stage": "IV",
+      "count": 1,
+      "metrics": {
+        "mass": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "gravity": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "escapeKms": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "density": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": null,
+          "count": 0
+        }
+      }
+    },
+    {
       "spectral": "F8V",
       "letter": "F",
       "subtype": 8,
       "stage": "V",
-      "count": 13,
+      "count": 14,
       "metrics": {
         "mass": {
           "value": 1.13087,
@@ -6100,47 +6137,47 @@
       "letter": "F",
       "subtype": 9,
       "stage": "V",
-      "count": 20,
+      "count": 19,
       "metrics": {
         "mass": {
-          "value": 1.1833,
+          "value": 1.14218,
           "range": [
             0.9,
-            1.55338
+            1.37
           ],
-          "count": 10
+          "count": 9
         },
         "gravity": {
-          "value": 180.813,
+          "value": 194.409,
           "range": [
-            58.4482,
+            116.456,
             259.999
           ],
-          "count": 10
+          "count": 9
         },
         "escapeKms": {
-          "value": 570.307,
+          "value": 581.614,
           "range": [
-            468.549,
+            537.485,
             629.814
           ],
-          "count": 10
+          "count": 9
         },
         "density": {
-          "value": 0.744385,
+          "value": 0.814725,
           "range": [
-            0.111318,
+            0.335834,
             1.21915
           ],
-          "count": 10
+          "count": 9
         },
         "luminosityPerMass": {
-          "value": 2.37073,
+          "value": 1.95531,
           "range": [
             1.38308,
-            6.1095
+            2.72367
           ],
-          "count": 10
+          "count": 9
         }
       }
     },
@@ -6364,7 +6401,7 @@
       "letter": "G",
       "subtype": 0,
       "stage": "V",
-      "count": 24,
+      "count": 23,
       "metrics": {
         "mass": {
           "value": 0.973255,
@@ -7265,89 +7302,6 @@
       }
     },
     {
-      "spectral": "G4Ib",
-      "letter": "G",
-      "subtype": 4,
-      "stage": "I",
-      "count": 1,
-      "metrics": {
-        "mass": {
-          "value": 4.70026,
-          "range": [
-            4.70026,
-            4.70026
-          ],
-          "count": 1
-        },
-        "gravity": {
-          "value": 1.42889,
-          "range": [
-            1.42889,
-            1.42889
-          ],
-          "count": 1
-        },
-        "escapeKms": {
-          "value": 244.356,
-          "range": [
-            244.356,
-            244.356
-          ],
-          "count": 1
-        },
-        "density": {
-          "value": 0.000244616,
-          "range": [
-            0.000244616,
-            0.000244616
-          ],
-          "count": 1
-        },
-        "luminosityPerMass": {
-          "value": 123.135,
-          "range": [
-            123.135,
-            123.135
-          ],
-          "count": 1
-        }
-      }
-    },
-    {
-      "spectral": "G4IIa",
-      "letter": "G",
-      "subtype": 4,
-      "stage": "II",
-      "count": 1,
-      "metrics": {
-        "mass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "gravity": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "escapeKms": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "density": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "luminosityPerMass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        }
-      }
-    },
-    {
       "spectral": "G4V",
       "letter": "G",
       "subtype": 4,
@@ -7484,7 +7438,7 @@
       "letter": "G",
       "subtype": 5,
       "stage": "II",
-      "count": 2,
+      "count": 3,
       "metrics": {
         "mass": {
           "value": null,
@@ -7518,7 +7472,7 @@
       "letter": "G",
       "subtype": 5,
       "stage": "II",
-      "count": 1,
+      "count": 2,
       "metrics": {
         "mass": {
           "value": 3.11,
@@ -8110,7 +8064,7 @@
       "letter": "G",
       "subtype": 7,
       "stage": "III",
-      "count": 3,
+      "count": 2,
       "metrics": {
         "mass": {
           "value": null,
@@ -8457,7 +8411,7 @@
       "letter": "G",
       "subtype": 8,
       "stage": "II",
-      "count": 3,
+      "count": 4,
       "metrics": {
         "mass": {
           "value": null,
@@ -9592,7 +9546,7 @@
       "letter": "K",
       "subtype": 0,
       "stage": "V",
-      "count": 33,
+      "count": 32,
       "metrics": {
         "mass": {
           "value": 0.849093,
@@ -10222,7 +10176,7 @@
       "letter": "K",
       "subtype": 2.5,
       "stage": "V",
-      "count": 23,
+      "count": 22,
       "metrics": {
         "mass": {
           "value": 0.783955,
@@ -10637,7 +10591,7 @@
       "letter": "K",
       "subtype": 2,
       "stage": "V",
-      "count": 34,
+      "count": 35,
       "metrics": {
         "mass": {
           "value": 0.798869,
@@ -11716,7 +11670,7 @@
       "letter": "K",
       "subtype": 7.5,
       "stage": "V",
-      "count": 6,
+      "count": 7,
       "metrics": {
         "mass": {
           "value": 0.604033,
@@ -11768,44 +11722,44 @@
       "count": 65,
       "metrics": {
         "mass": {
-          "value": 0.60005,
+          "value": 0.598993,
           "range": [
             0.1606,
             0.672
           ],
-          "count": 56
+          "count": 55
         },
         "gravity": {
-          "value": 448.244,
+          "value": 448.756,
           "range": [
             338.522,
             1339.73
           ],
-          "count": 55
+          "count": 54
         },
         "escapeKms": {
-          "value": 608.612,
+          "value": 608.417,
           "range": [
             581.345,
             633.721
           ],
-          "count": 55
+          "count": 54
         },
         "density": {
-          "value": 4.26419,
+          "value": 4.28202,
           "range": [
             2.37398,
             37.993
           ],
-          "count": 55
+          "count": 54
         },
         "luminosityPerMass": {
-          "value": 0.15395,
+          "value": 0.154219,
           "range": [
             0.0193422,
             0.249697
           ],
-          "count": 55
+          "count": 54
         }
       }
     },
@@ -12345,44 +12299,44 @@
       "count": 84,
       "metrics": {
         "mass": {
-          "value": 0.532984,
+          "value": 0.53197,
           "range": [
             0.2878,
             0.6492
           ],
-          "count": 70
+          "count": 69
         },
         "gravity": {
-          "value": 521.421,
+          "value": 522.722,
           "range": [
             365.177,
             835.005
           ],
-          "count": 70
+          "count": 69
         },
         "escapeKms": {
-          "value": 615.095,
+          "value": 615.173,
           "range": [
             581.168,
             648.736
           ],
-          "count": 70
+          "count": 69
         },
         "density": {
-          "value": 5.31246,
+          "value": 5.33748,
           "range": [
             2.73613,
             13.2569
           ],
-          "count": 70
+          "count": 69
         },
         "luminosityPerMass": {
-          "value": 0.157359,
+          "value": 0.157802,
           "range": [
             0.0363175,
             3.59922
           ],
-          "count": 70
+          "count": 69
         }
       }
     },
@@ -12508,7 +12462,7 @@
       "letter": "M",
       "subtype": 1.5,
       "stage": "V",
-      "count": 57,
+      "count": 58,
       "metrics": {
         "mass": {
           "value": 0.454126,
@@ -13021,7 +12975,7 @@
       "letter": "M",
       "subtype": 2,
       "stage": "V",
-      "count": 117,
+      "count": 116,
       "metrics": {
         "mass": {
           "value": 0.430278,
@@ -13583,7 +13537,7 @@
       "letter": "M",
       "subtype": 3,
       "stage": "V",
-      "count": 218,
+      "count": 219,
       "metrics": {
         "mass": {
           "value": 0.364325,
@@ -14062,7 +14016,7 @@
       "letter": "M",
       "subtype": 4,
       "stage": "V",
-      "count": 292,
+      "count": 291,
       "metrics": {
         "mass": {
           "value": 0.260415,
@@ -15332,10 +15286,10 @@
       "label": "A-type subgiant",
       "low": 11.9905,
       "high": 270.12,
-      "count": 32,
-      "median": 45.8999,
-      "p10": 15.662,
-      "p90": 102.034
+      "count": 31,
+      "median": 44.9263,
+      "p10": 14.7388,
+      "p90": 102.563
     },
     {
       "key": "AV",
@@ -15380,12 +15334,12 @@
     {
       "key": "BIV",
       "label": "B-type subgiant",
-      "low": 132.911,
+      "low": 74.3019,
       "high": 28000,
-      "count": 30,
-      "median": 1188.51,
-      "p10": 192.477,
-      "p90": 5878.77
+      "count": 28,
+      "median": 713.137,
+      "p10": 160.226,
+      "p90": 4661.55
     },
     {
       "key": "brown_dwarf:L",
@@ -15422,10 +15376,10 @@
       "label": "B-type main-sequence star",
       "low": 33.6502,
       "high": 31622.8,
-      "count": 51,
-      "median": 288.09,
-      "p10": 92.0822,
-      "p90": 3493
+      "count": 48,
+      "median": 273.171,
+      "p10": 91.4839,
+      "p90": 5034.96
     },
     {
       "key": "DA",
@@ -15522,40 +15476,40 @@
       "label": "F-type main-sequence star",
       "low": 0.799109,
       "high": 69.2509,
-      "count": 114,
-      "median": 3.26371,
-      "p10": 1.52976,
-      "p90": 10.0625
+      "count": 111,
+      "median": 3.20712,
+      "p10": 1.52792,
+      "p90": 8.46019
     },
     {
       "key": "GI",
       "label": "G-type supergiant",
       "low": 556.559,
       "high": 6114.66,
-      "count": 8,
-      "median": 1713.97,
-      "p10": 572.105,
-      "p90": 3935.02
+      "count": 7,
+      "median": 1714.89,
+      "p10": 840.679,
+      "p90": 4246.4
     },
     {
       "key": "GII",
       "label": "G-type bright giant",
       "low": 74.3298,
-      "high": 1186.71,
-      "count": 9,
-      "median": 271.683,
-      "p10": 116.688,
-      "p90": 826.322
+      "high": 736.226,
+      "count": 8,
+      "median": 219.752,
+      "p10": 111.393,
+      "p90": 481.273
     },
     {
       "key": "GIII",
       "label": "G-type giant",
       "low": 36.3078,
       "high": 433.175,
-      "count": 70,
-      "median": 73.8222,
-      "p10": 49.5167,
-      "p90": 227.654
+      "count": 68,
+      "median": 70.3568,
+      "p10": 49.5125,
+      "p90": 229.31
     },
     {
       "key": "GIV",
@@ -15572,10 +15526,10 @@
       "label": "G-type main-sequence star",
       "low": 0.359765,
       "high": 4.0685,
-      "count": 135,
-      "median": 0.94219,
-      "p10": 0.512304,
-      "p90": 1.52971
+      "count": 134,
+      "median": 0.93873,
+      "p10": 0.51061,
+      "p90": 1.51652
     },
     {
       "key": "KI",
@@ -15622,10 +15576,10 @@
       "label": "K-type main-sequence star",
       "low": 0.00310636,
       "high": 0.729186,
-      "count": 354,
-      "median": 0.20372,
-      "p10": 0.0841668,
-      "p90": 0.407086
+      "count": 351,
+      "median": 0.203418,
+      "p10": 0.0841426,
+      "p90": 0.402798
     },
     {
       "key": "MI",
@@ -15662,10 +15616,10 @@
       "label": "M-type main-sequence star",
       "low": 0.000120226,
       "high": 2.19517,
-      "count": 1600,
-      "median": 0.0106959,
-      "p10": 0.00210558,
-      "p90": 0.0447755
+      "count": 1599,
+      "median": 0.0106767,
+      "p10": 0.0021047,
+      "p90": 0.0446802
     },
     {
       "key": "MVI",

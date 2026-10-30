@@ -83,6 +83,26 @@ test('Discover maximizes only height and magnifies the constellation overview @m
   expect(errors).toEqual([])
 })
 
+test('Discover toggles its flyout on repeated touch taps @mobile', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'Touch flyout')
+  await openViewer(page)
+  const discover = page.locator('#discover-toggle')
+  const option = page.locator('#constellations-toggle')
+  await discover.tap()
+  await expect(option).toBeVisible()
+  await discover.tap()
+  await expect(option).toBeHidden()
+  // Choosing a card retracts the flyout; the next tap reopens it.
+  await discover.tap()
+  await option.tap()
+  await expect(page.locator('#constellations-panel')).toBeVisible()
+  await expect(option).toBeHidden()
+  await discover.tap()
+  await expect(option).toBeVisible()
+  await discover.tap()
+  await expect(option).toBeHidden()
+})
+
 test('Discover browses all constellations with shared charts and selection @mobile', async ({ page, isMobile }, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))

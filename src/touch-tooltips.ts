@@ -1,8 +1,11 @@
 type TooltipActions = { show: () => void; hide: () => void }
+type TooltipButton = HTMLElement | SVGElement
 
-const actions = new WeakMap<HTMLElement, TooltipActions>()
+const actions = new WeakMap<TooltipButton, TooltipActions>()
+let active: { button: TooltipButton; tooltip: HTMLElement } | undefined
+let observer: MutationObserver | undefined
 
-export function registerTouchTooltip(button: HTMLElement, handlers: TooltipActions): void {
+export function registerTouchTooltip(button: TooltipButton, handlers: TooltipActions): void {
   actions.set(button, handlers)
 }
 
@@ -10,18 +13,35 @@ export function usingTouchTooltips(): boolean {
   return document.documentElement.dataset.tooltipInput === 'touch'
 }
 
+export function touchTooltipOpen(button: TooltipButton): boolean {
+  return active?.button === button
+}
+
+export function hideTouchTooltip(): void {
+  if (active) {
+    active.tooltip.removeAttribute('data-touch-tooltip-open')
+    actions.get(active.button)?.hide()
+    active = undefined
+  }
+  observer?.disconnect()
+}
+
+export function showTouchTooltip(button: TooltipButton, tooltip: HTMLElement): void {
+  hideTouchTooltip()
+  active = { button, tooltip }
+  tooltip.setAttribute('data-touch-tooltip-open', '')
+  actions.get(button)?.show()
+  observer = new MutationObserver(() => {
+    if (!button.isConnected || !button.checkVisibility()) hideTouchTooltip()
+  })
+  observer.observe(button.closest('.dock-card, .selected-object') ?? document.body, {
+    subtree: true, childList: true, attributes: true, attributeFilter: ['hidden'],
+  })
+}
+
 /** Touch must not depend on Safari focusing a button or emulating hover. */
 export function initializeTouchTooltips(signal: AbortSignal): void {
-  let active: { button: HTMLElement; tooltip: HTMLElement } | undefined
-  let observer: MutationObserver | undefined
-  const hide = () => {
-    if (active) {
-      active.tooltip.removeAttribute('data-touch-tooltip-open')
-      actions.get(active.button)?.hide()
-      active = undefined
-    }
-    observer?.disconnect()
-  }
+  const hide = hideTouchTooltip
   const keyboardOrMouse = () => {
     hide()
     delete document.documentElement.dataset.tooltipInput
@@ -33,28 +53,21 @@ export function initializeTouchTooltips(signal: AbortSignal): void {
       return
     }
     document.documentElement.dataset.tooltipInput = 'touch'
+    const button = event.isPrimary && event.target instanceof Element ? event.target.closest<HTMLElement>('[aria-describedby]') : null
+    // A second tap acts on the open tooltip's button instead of reopening it.
+    if (button && touchTooltipOpen(button)) return
     hide()
-    if (!event.isPrimary || !(event.target instanceof Element)) return
-    const button = event.target.closest<HTMLElement>('[aria-describedby]')
     if (!button) return
     const tooltip = button.getAttribute('aria-describedby')?.split(/\s+/)
       .map((id) => document.getElementById(id))
-      // Constellation stars select on the first tap instead of revealing their tooltip.
+      // Revealing constellation tooltips on pointerdown makes mobile Safari swallow the click; they open on click.
       .find((element) => element?.matches('.mass-metric-tooltip[role="tooltip"]:not([hidden], .constellation-tooltip)'))
-    if (!tooltip) return
-    active = { button, tooltip }
-    tooltip.setAttribute('data-touch-tooltip-open', '')
-    actions.get(button)?.show()
-    observer = new MutationObserver(() => {
-      if (!button.isConnected || !button.checkVisibility()) hide()
-    })
-    observer.observe(button.closest('.dock-card, .selected-object') ?? document.body, {
-      subtree: true, childList: true, attributes: true, attributeFilter: ['hidden'],
-    })
+    if (tooltip) showTouchTooltip(button, tooltip)
   }, { capture: true, passive: true, signal })
 
   document.addEventListener('pointermove', (event) => {
-    if (event.pointerType === 'touch') hide()
+    // Tap jitter on the open tooltip's button must not turn the second tap into another preview.
+    if (event.pointerType === 'touch') { if (!(event.target instanceof Node && active?.button.contains(event.target))) hide() }
     else if (event.pointerType === 'mouse' && usingTouchTooltips()) keyboardOrMouse()
   }, { capture: true, passive: true, signal })
   document.addEventListener('pointercancel', hide, { capture: true, passive: true, signal })

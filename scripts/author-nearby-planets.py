@@ -36,14 +36,29 @@ def query(url, adql):
 
 
 def inventory():
-    stars = {}
-    for catalog in ["nearest-100", "nearest-1000"]:
+    """Hosts by catalog ID, plus later-catalog IDs whose exact archive hosts an earlier ID already covers."""
+    names = {identifier: entry["name"] for identifier, entry in
+             json.loads((ROOT / "src/data/object-designations.json").read_text())["objects"].items()}
+    # Reviewed component records name the exact component the planets orbit.
+    names.update({star["id"]: star["name"] for star in json.loads((ROOT / "src/data/stellar-companions.json").read_text())["stars"]})
+    stats = json.loads((ROOT / "src/data/object-stats.json").read_text())["objects"]
+    hosts, aliases, covered = {}, {}, {}
+    for catalog in ["nearest-100", "nearest-1000", "nearest-5000", "western-constellation-stars"]:
         with (ROOT / f"src/data/catalogs/{catalog}/stars.csv").open() as handle:
             for row in csv.DictReader(handle):
-                stars.setdefault(row["id"], row)
-    stats = json.loads((ROOT / "src/data/object-stats.json").read_text())["objects"]
-    return {identifier: (row, stats[identifier]) for identifier, row in stars.items()
-            if identifier != "sun" and stats[identifier]["known_planets"]}
+                identifier = row["id"]
+                if identifier == "sun" or identifier in hosts or identifier in aliases or not stats[identifier]["known_planets"]:
+                    continue
+                planet_hosts = stats[identifier]["planetHosts"]
+                matches = {covered.get(host) for host in planet_hosts}
+                if matches == {None}:
+                    hosts[identifier] = ({"name": names.get(identifier, row["name"])}, stats[identifier])
+                    covered.update({host: identifier for host in planet_hosts})
+                elif len(matches) == 1 and stats[next(iter(matches))]["planetHosts"] == planet_hosts:
+                    aliases[identifier] = next(iter(matches))
+                else:
+                    raise ValueError(f"Partial planet host overlap for {identifier}; review host identity")
+    return hosts, aliases
 
 
 def pulsar_inventory():
@@ -57,7 +72,7 @@ def pulsar_inventory():
 
 def refresh(retrieved, pulsars=False):
     """Query the archive; --pulsars refreshes only the separately frozen pulsar-host snapshot."""
-    hosts = sorted({host for _, stats in (pulsar_inventory() if pulsars else inventory()).values() for host in stats["planetHosts"]})
+    hosts = sorted({host for _, stats in (pulsar_inventory() if pulsars else inventory()[0]).values() for host in stats["planetHosts"]})
     columns = ["hostname", "pl_name", "pl_bmassprov", "cb_flag", "pl_controv_flag",
                "discoverymethod", "disc_year", "disc_facility", "disc_refname"]
     for field in FIELDS:
@@ -105,7 +120,8 @@ def build():
             raise ValueError(f"Checksum mismatch: {name}")
     with (WORK / "planets.csv").open() as handle:
         rows = list(csv.DictReader(handle))
-    hosts = list(inventory().items())
+    stellar_hosts, aliases = inventory()
+    hosts = list(stellar_hosts.items())
     if (WORK / "pulsar-planets.csv").exists():
         with (WORK / "pulsar-planets.csv").open() as handle:
             rows += list(csv.DictReader(handle))
@@ -150,7 +166,7 @@ def build():
             "epoch": manifest["pulsarsRetrieved"] if host_id.startswith("psr-") else manifest["retrieved"], "note": "Composite published parameters; values may come from different studies. Distances are approximate orbital sizes or projected separations for imaging discoveries, not current positions."},
             "planets": system_planets})
     return {"schemaVersion": 1, "retrieved": manifest["retrieved"], "sourceChecksumsSha256": manifest["checksumsSha256"],
-            "systems": systems, "planets": planets}
+            "aliases": aliases, "systems": systems, "planets": planets}
 
 
 if __name__ == "__main__":
