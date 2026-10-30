@@ -57,7 +57,8 @@ export function initializeTouchTooltips(signal: AbortSignal): void {
     // A second tap acts on the open tooltip's button instead of reopening it.
     if (button && touchTooltipOpen(button)) return
     hide()
-    if (!button) return
+    // Card tabs switch on the first tap; tapping the active tab again explains it.
+    if (!button || button.matches('.mass-reference-option > .distance-reference-button[aria-pressed="false"]:not(:disabled)')) return
     const tooltip = button.getAttribute('aria-describedby')?.split(/\s+/)
       .map((id) => document.getElementById(id))
       // Revealing constellation tooltips on pointerdown makes mobile Safari swallow the click; they open on click.

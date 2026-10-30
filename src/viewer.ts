@@ -13,7 +13,7 @@ import { createMilkyWayLayer } from './milky-way-layer'
 import { createEarthOrbitLayer } from './earth-orbit-layer'
 import { createMotionArrowMesh } from './motion-arrow-layer'
 import { createMapGrid, gridOpacityForDisplay, makeGridGeometry } from './map-grid'
-import { createSkyGridLayer, type SkyGridMode } from './sky-grid'
+import { createSkyGridLayer, makeSkyGridGeometry, type SkyGridMode } from './sky-grid'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC } from './earth-orbit'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderMultisampling, renderPixelRatio, targetRenderFps } from './render-scheduling'
@@ -46,6 +46,8 @@ export interface StarViewer {
   setCameraView(view: 'top' | 'side' | 'front'): void
   setGridVisible(visible: boolean): void
   setSkyGrid(mode: SkyGridMode): void
+  /** Shows only objects between the distances from the center as they move, inside a grid sphere of the given radius; null shows all. */
+  setNeighborhood(neighborhood: { centerId: string; innerPc: number; outerPc: number; spherePc: number } | null): void
   setViewState(state: ViewerViewState): void
   setObjectDistanceLimit(distanceLy: number): void
   setObjectFilter(keys: readonly FilterKey[]): void
@@ -320,6 +322,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   function updateEarthOrbitVisibility(): void {
     earthOrbitGroup.visible = earthOrbitEnabled
+      && mapVisible[sunIndex] === 1
       && !(observerViewEnabled && referenceIndex === sunIndex)
       && camera.position.distanceTo(earthOrbitGroup.position) <= EARTH_ORBIT_MAX_VIEW_DISTANCE_PC
     setData(container, 'earthOrbitVisible', String(earthOrbitGroup.visible))
@@ -417,6 +420,25 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const gridOpacity = { value: gridOpacityForDisplay(window.devicePixelRatio) }
   const skyGrid = createSkyGridLayer(container, gridOpacity)
   scene.add(skyGrid.lines)
+  // The galactic sky-grid globe, built on first use and scaled around the center object.
+  const neighborhoodSphere = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xe7a05b, transparent: true, opacity: 0.3, depthWrite: false }))
+  neighborhoodSphere.visible = false
+  scene.add(neighborhoodSphere)
+  let neighborhood: { index: number; innerPc: number; outerPc: number } | null = null
+  const neighborhoodInside = new Uint8Array(stars.length).fill(1)
+  /** Membership follows the simulated positions; returns whether any object entered or left. */
+  function updateNeighborhoodMembership(): boolean {
+    let changed = false
+    const center = neighborhood && pickable[neighborhood.index]!.position
+    for (let index = 0; index < stars.length; index++) {
+      const distance = center && index !== neighborhood!.index ? pickable[index]!.position.distanceTo(center) : 0
+      const inside = !center || index === neighborhood!.index || (distance >= neighborhood!.innerPc && distance <= neighborhood!.outerPc) ? 1 : 0
+      if (inside === neighborhoodInside[index]) continue
+      neighborhoodInside[index] = inside
+      changed = true
+    }
+    return changed
+  }
   const gridRadius = { value: gridHalfSize }
   const grid = createMapGrid(gridSpacing, gridHalfSize, { radius: gridRadius, opacity: gridOpacity })
   const origin = basePositions[referenceIndex]!.clone()
@@ -866,8 +888,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       starPositionAttribute.setXYZ(index, position.x, position.y, position.z)
     }
     starPositionAttribute.needsUpdate = true
-    updatePointVisibility()
+    if (neighborhood && updateNeighborhoodMembership()) updatePresentation()
+    else updatePointVisibility()
     earthOrbitGroup.position.copy(pickable[sunIndex]!.position)
+    if (neighborhood) neighborhoodSphere.position.copy(pickable[neighborhood.index]!.position)
     container.dataset.simulationYears = String(simulationYears)
     syncObserverCamera()
     applySelectionFollow()
@@ -1039,7 +1063,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         visibilityBase.id,
         referenceDistancesLy[index]!,
         objectDistanceLimitLy,
-      ) && (!objectPredicate || objectPredicate(star, referenceDistancesLy[index]! / LIGHT_YEARS_PER_PARSEC))
+      ) && neighborhoodInside[index] === 1 && (!objectPredicate || objectPredicate(star, referenceDistancesLy[index]! / LIGHT_YEARS_PER_PARSEC))
       tiers[index] = tier
       mapVisible[index] = visible && !(hideFainterObjects && tier === 'background') ? 1 : 0
       // Painted magnitudes size every object, independent of distance.
@@ -1073,6 +1097,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     haloOpacities.needsUpdate = true
     haloDiameters.needsUpdate = true
     updatePointVisibility()
+    updateEarthOrbitVisibility()
     guides.visible = !observerViewEnabled && selectedId !== null && mapVisible[starsById.get(selectedId)!.index] === 1
     rankedNameGroups = []
     for (const candidate of rankedCandidates) {
@@ -2303,6 +2328,22 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       skyGrid.setMode(mode)
       requestRender()
     },
+    setNeighborhood(next) {
+      const center = next && starsById.get(next.centerId)
+      neighborhood = center ? { index: center.index, innerPc: next.innerPc, outerPc: next.outerPc } : null
+      if (updateNeighborhoodMembership()) updatePresentation()
+      neighborhoodSphere.visible = Boolean(center && next.spherePc > 0)
+      if (neighborhoodSphere.visible) {
+        if (!neighborhoodSphere.geometry.getAttribute('position')) {
+          neighborhoodSphere.geometry.dispose()
+          neighborhoodSphere.geometry = makeSkyGridGeometry('galactic')
+        }
+        neighborhoodSphere.position.copy(pickable[center!.index]!.position)
+        neighborhoodSphere.scale.setScalar(next!.spherePc)
+        container.dataset.neighborhoodRadiusPc = String(next!.spherePc)
+      } else delete container.dataset.neighborhoodRadiusPc
+      requestRender()
+    },
     setViewState(state) {
       if (observerViewEnabled) return
       const values = [...state.position, ...state.target]
@@ -2366,6 +2407,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       delete container.dataset.milkyWayVisible
       delete container.dataset.simulationYears
       delete container.dataset.followTarget
+      delete container.dataset.neighborhoodRadiusPc
       delete labelLayer.dataset.bubbleTriangleCount
       delete labelLayer.dataset.molecularCloudPuffCount
     },

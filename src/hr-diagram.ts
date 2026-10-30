@@ -1,7 +1,7 @@
 import type { Star } from './catalog-model'
 import { hrCardAvailable } from './spectral-properties'
 export { hrCardAvailable } from './spectral-properties'
-import { placeSpectralMarkerLabels, spectralMarker, svgNode } from './spectral-chart'
+import { placeSpectralMarkerLabels, spectralMarker, svgNode, temperaturePalette } from './spectral-chart'
 export { renderSpectralFeatures } from './spectral-type'
 
 export type HrMagnitudeMode = 'visual' | 'bolometric'
@@ -73,11 +73,6 @@ const spectralGuides = [
   ['O', 40000], ['B', 18000], ['A', 8500], ['F', 6600], ['G', 5550],
   ['K', 4500], ['M', 3100], ['L', 1750], ['T', 950], ['Y', 350],
 ] as const
-const colors = [
-  [50000, '#648cff'], [18000, '#91b7ff'], [8500, '#d9e5ff'],
-  [6600, '#fff3d3'], [5550, '#ffe291'], [4500, '#ffa95e'],
-  [3100, '#ee5b42'], [1750, '#aa362b'], [950, '#702a2a'], [250, '#442026'],
-] as const
 
 const number = (value: number) => value.toLocaleString('en-US', { maximumFractionDigits: 2 })
 
@@ -120,7 +115,7 @@ export function renderHrDiagram(card: HTMLElement, star: Star, reference: Star, 
   const y = (value: number) => top + size * hrPosition({ temperature: 5772, magnitude: value }, axes).y
   const defs = svgNode('defs')
   const gradient = svgNode('linearGradient', { id: 'hr-temperature-gradient', x1: 0, x2: 1, y1: 0, y2: 0 })
-  for (const [temperature, color] of colors) gradient.append(svgNode('stop', { offset: `${Math.max(0, Math.min(100, (x(temperature) - left) / size * 100))}%`, 'stop-color': color }))
+  for (const [temperature, color] of temperaturePalette) gradient.append(svgNode('stop', { offset: `${Math.max(0, Math.min(100, (x(temperature) - left) / size * 100))}%`, 'stop-color': color }))
   defs.append(gradient)
   const clip = svgNode('clipPath', { id: 'hr-plot-clip' })
   clip.append(svgNode('rect', { x: left, y: top, width: size, height: size }))

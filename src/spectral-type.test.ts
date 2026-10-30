@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { readSpectralType, spectralLines } from './spectral-type'
+import { readSpectralType, spectralLines, ultracoolPosition } from './spectral-type'
 
 const parts = (type: string) => readSpectralType(type).parts.map(({ text }) => text)
 const meaning = (type: string, part: string) => readSpectralType(type).parts.find(({ text }) => text === part)?.meaning
@@ -81,5 +81,24 @@ describe('spectralLines', () => {
     expect(spectralLines(readSpectralType('DX'))).toBeNull()
     expect(spectralLines(readSpectralType('T6'))).toBeNull()
     expect(spectralLines(readSpectralType(null))).toBeNull()
+  })
+})
+
+describe('ultracoolPosition', () => {
+  const place = (spectral_type: string, type = 'brown_dwarf') => ultracoolPosition({ type: type as 'brown_dwarf', spectral_type })
+
+  it('places L, T and Y subtypes on one continuous scale', () => {
+    expect(place('T1.5')).toEqual({ spectralClass: 'T', position: 21.5 })
+    expect(place('L8.5+T3.5')).toEqual({ spectralClass: 'L', position: 18.5 })
+    expect(place('sdL0')).toEqual({ spectralClass: 'L', position: 10 })
+    expect(place('Y4')).toEqual({ spectralClass: 'Y', position: 34 })
+    expect(place('Y')).toEqual({ spectralClass: 'Y', position: null })
+  })
+
+  it('includes late M dwarfs from M7, and brown dwarfs from M6', () => {
+    expect(place('M8V', 'star')).toEqual({ spectralClass: 'M', position: 8 })
+    expect(place('M6.5V', 'star')).toBeNull()
+    expect(place('M6.5V')).toEqual({ spectralClass: 'M', position: 6.5 })
+    for (const spectral of ['M5.5V', 'M', 'G2V', 'DA2', 'M16']) expect(place(spectral)).toBeNull()
   })
 })

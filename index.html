@@ -418,7 +418,8 @@
                 <h2 id="spectral-heading">Spectral type</h2>
                 <div class="distance-reference-buttons" role="group" aria-label="Spectral type diagram">
                   <span class="mass-reference-option" data-tooltip-always><button id="spectral-hr" class="object-section-button distance-reference-button" type="button" aria-pressed="true" aria-controls="spectral-hr-content" aria-describedby="spectral-hr-tooltip">H-R</button><span id="spectral-hr-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Hertzsprung–Russell diagram. Shows how a star’s temperature relates to its intrinsic brightness.</span></span>
-                  <span class="mass-reference-option" data-tooltip-always><button id="spectral-mk" class="object-section-button distance-reference-button" type="button" aria-pressed="false" aria-controls="spectral-mk-content" aria-describedby="spectral-mk-tooltip">M-K</button><span id="spectral-mk-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Morgan–Keenan classification. Groups stars by the patterns in their spectra: spectral type indicates temperature, and luminosity class distinguishes dwarfs, giants, and supergiants.</span></span>
+                  <span class="mass-reference-option" data-tooltip-always><button id="spectral-mk" class="object-section-button distance-reference-button" type="button" aria-pressed="false" aria-controls="spectral-mk-content" aria-describedby="spectral-mk-tooltip">M-K</button><span id="spectral-mk-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Morgan–Keenan classification. Groups stars by the patterns in their spectra: spectral type indicates temperature, and luminosity class distinguishes dwarfs, giants, and supergiants. White dwarfs and brown dwarfs use separate schemes.</span></span>
+                  <span class="mass-reference-option" data-tooltip-always><button id="spectral-wd" class="object-section-button distance-reference-button" type="button" aria-pressed="false" aria-controls="spectral-wd-content" aria-describedby="spectral-wd-tooltip" hidden>D-T</button><span id="spectral-wd-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">D type against temperature. Shows which white-dwarf family appears at which temperature: as a white dwarf cools over billions of years, the features in its spectrum change.</span></span>
                 </div>
                 <button id="spectral-lock" class="panel-lock" type="button" aria-label="Keep Spectral type open" aria-pressed="false"><span id="spectral-lock-icon"></span></button>
                 <button id="spectral-close" class="panel-lock" type="button" aria-label="Close spectral type card"><span id="spectral-close-icon"></span></button>
@@ -456,12 +457,19 @@
                         <tr><th scope="row">Luminosity class</th><td id="mk-selected-class"></td><td id="mk-reference-class"></td></tr>
                       </tbody>
                     </table>
-                    <section class="degenerate-classification" aria-labelledby="degenerate-heading">
-                      <h3 id="degenerate-heading">Degenerate stars</h3>
-                      <p class="degenerate-kind">White dwarfs</p>
-                      <div id="white-dwarf-families" class="white-dwarf-families" role="list" aria-label="White dwarf spectral families"></div>
-                      <div id="white-dwarf-stars" class="white-dwarf-stars"></div>
-                    </section>
+                  </div>
+                </div>
+                <div id="spectral-wd-content" hidden>
+                  <figure class="spectral-figure"><div id="wd-diagram"></div></figure>
+                  <div class="spectral-readout">
+                    <p id="wd-missing" class="radius-note" hidden></p>
+                    <table class="radius-stats spectral-stats wd-stats" aria-label="White-dwarf cooling diagram values">
+                      <thead><tr><th scope="col"></th><th id="wd-selected-name" scope="col"></th><th id="wd-reference-name" scope="col"></th></tr></thead>
+                      <tbody>
+                        <tr><th scope="row">Spectral type</th><td id="wd-selected-type"></td><td id="wd-reference-type"></td></tr>
+                        <tr><th scope="row">Temperature</th><td id="wd-selected-temperature"></td><td id="wd-reference-temperature"></td></tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
                 <div class="spectral-readout">
@@ -472,6 +480,17 @@
                       <thead><tr><th id="spectral-decoder-type" scope="col"></th><th id="spectral-decoder-name" scope="col"></th></tr></thead>
                       <tbody id="spectral-decoder-rows"></tbody>
                     </table>
+                    <section id="white-dwarf-sequence" class="spectral-sequence" aria-labelledby="white-dwarf-sequence-heading" hidden>
+                      <h4 id="white-dwarf-sequence-heading">White-dwarf families</h4>
+                      <div id="white-dwarf-classes" class="sequence-classes" role="list" aria-label="White-dwarf spectral families"></div>
+                      <div id="white-dwarf-stars" class="sequence-stars"></div>
+                    </section>
+                    <section id="ultracool-sequence" class="spectral-sequence" aria-labelledby="ultracool-sequence-heading" hidden>
+                      <h4 id="ultracool-sequence-heading">Ultracool dwarf sequence</h4>
+                      <div id="ultracool-classes" class="sequence-classes" role="list" aria-label="Ultracool spectral classes"></div>
+                      <div id="ultracool-scale" class="ultracool-scale"></div>
+                      <div id="ultracool-stars" class="sequence-stars"></div>
+                    </section>
                   </section>
                   <section class="mass-section" aria-labelledby="spectral-lines-heading">
                     <h3 id="spectral-lines-heading" class="card-subgroup-heading">Absorption lines</h3>
@@ -493,15 +512,24 @@
                     <div id="spectral-mk-method" hidden>
                       <p>M-K (Morgan–Keenan) places the catalog’s spectral subtype against its luminosity class. The classes describe spectral features associated with stellar surface gravity; they are not equal steps in absolute magnitude.</p>
                       <p>Only explicit O–M subtypes and luminosity classes are plotted. Intermediate classes are shown between rows. Missing classes are not inferred from temperature or brightness. White dwarfs and L, T and Y dwarfs use separate classification schemes.</p>
-                      <p>The white-dwarf D classification uses spectral features rather than an M-K luminosity class. Additional letters are retained in the catalog label; a number, as in DA2, is a temperature index.</p>
                       <a href="https://ned.ipac.caltech.edu/level5/March02/Morgan/Morgan1.html" target="_blank" rel="noreferrer">M-K classification: Morgan, Abt &amp; Tapscott ↗</a>
-                      <a href="https://heasarc.gsfc.nasa.gov/W3Browse/all/mcksion.html" target="_blank" rel="noreferrer">White-dwarf classification: McCook–Sion ↗</a>
+                    </div>
+                    <div id="spectral-wd-method" hidden>
+                      <p>Each row is a white-dwarf family. Its band spans the temperatures where that family is observed; faint bands are rare, such as hot DB stars between about 40,000 and 20,000 K and the hot, carbon-rich DQ stars. Temperature decreases to the right on a logarithmic scale.</p>
+                      <p>Dashed arrows mark where features fade as a white dwarf cools: ionized helium gives way to neutral helium near 45,000 K (DO to DB), helium lines vanish below about 11,000 K (DB to DC, DQ or DZ), and hydrogen lines vanish below about 5,000 K (DA to DC).</p>
+                      <p>Positions use the catalog temperature. Without one, the temperature index in the spectral type is used: DA2 means about 50,400 K ÷ 2. Dots are the other loaded white dwarfs.</p>
+                      <a href="https://doi.org/10.1007/s10509-024-04307-5" target="_blank" rel="noreferrer">White-dwarf spectral evolution: Bédard 2024 ↗</a>
                     </div>
                     <p>Reading the type splits the catalog label into its Morgan–Keenan parts and common suffixes. Notation not covered here is shown as written.</p>
+                    <p>White dwarfs use the D classification, based on spectral features rather than an M-K luminosity class. Additional letters are retained in the catalog label; a number, as in DA2, is a temperature index.</p>
+                    <p>The ultracool dwarf sequence covers M7 and later types, and brown dwarfs from M6. Its colors and temperatures follow the mean dwarf sequence; each object is placed by its spectral subtype, not by its own temperature.</p>
                     <p>The absorption strips show typical line strengths for the spectral class, not the star’s observed spectrum. Line widths and depths are schematic; luminosity class, rotation and composition are ignored. White dwarfs show the main features of their D family. L, T and Y dwarfs emit mostly infrared light and are not drawn.</p>
                     <a href="https://ned.ipac.caltech.edu/level5/Gray/Gray_contents.html" target="_blank" rel="noreferrer">Spectral features: Gray, digital classification atlas ↗</a><br>
+                    <a href="https://heasarc.gsfc.nasa.gov/W3Browse/all/mcksion.html" target="_blank" rel="noreferrer">White-dwarf classification: McCook–Sion ↗</a><br>
                     <a href="https://arxiv.org/abs/astro-ph/0308182" target="_blank" rel="noreferrer">Calcium emission (k): Gray et al. 2003 ↗</a><br>
-                    <a href="https://arxiv.org/abs/0812.0364" target="_blank" rel="noreferrer">Young L dwarfs (β, γ): Cruz et al. 2009 ↗</a>
+                    <a href="https://arxiv.org/abs/0812.0364" target="_blank" rel="noreferrer">Young L dwarfs (β, γ): Cruz et al. 2009 ↗</a><br>
+                    <a href="https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt" target="_blank" rel="noreferrer">Ultracool temperatures: Pecaut &amp; Mamajek ↗</a><br>
+                    <a href="https://doi.org/10.1146/annurev.astro.42.053102.134017" target="_blank" rel="noreferrer">L and T dwarfs: Kirkpatrick 2005 ↗</a>
                   </details>
                 </div>
               </div>
@@ -688,6 +716,7 @@
                   <div id="discover-options" class="discover-options" data-toolbar-options>
                     <button id="top-lists-toggle" class="icon-button panel-button" type="button" aria-label="Top lists" aria-controls="top-lists-panel" aria-expanded="false"><span id="top-lists-icon"></span><span class="tooltip">Top lists</span></button>
                     <button id="constellations-toggle" class="icon-button panel-button" type="button" aria-label="Constellations" aria-controls="constellations-panel" aria-expanded="false"><span id="constellations-icon"></span><span class="tooltip">Constellations</span></button>
+                    <button id="neighborhood-toggle" class="icon-button panel-button" type="button" aria-label="Neighborhood" aria-controls="neighborhood-panel" aria-expanded="false"><span id="neighborhood-icon"></span><span class="tooltip">Neighborhood</span></button>
                     <button id="motion-toggle" class="icon-button panel-button" type="button" aria-label="Stellar motion" aria-controls="motion-panel" aria-expanded="false"><span id="motion-icon"></span><span class="tooltip">Stellar motion</span></button>
                     <button id="paint-toggle" class="icon-button panel-button" type="button" aria-label="Paint" aria-controls="paint-panel" aria-expanded="false"><span id="paint-icon"></span><span class="tooltip">Paint</span></button>
                     <button id="graphs-toggle" class="icon-button panel-button" type="button" aria-label="Graphs" aria-controls="graphs-panel" aria-expanded="false"><span id="graphs-icon"></span><span class="tooltip">Graphs</span></button>
@@ -701,6 +730,7 @@
                 <div class="dock-indicators" role="group" aria-label="Active view changes">
                   <button id="motion-active" class="icon-button" type="button" aria-label="Stellar motion active" aria-pressed="true" aria-controls="motion-panel" hidden><span id="motion-active-icon"></span><span class="tooltip">Stellar motion active</span></button>
                   <button id="paint-active" class="icon-button" type="button" aria-label="Paint active" aria-pressed="true" aria-controls="paint-panel" hidden><span id="paint-active-icon"></span><span class="tooltip">Paint active</span></button>
+                  <button id="neighborhood-active" class="icon-button" type="button" aria-label="Neighborhood active" aria-pressed="true" aria-controls="neighborhood-panel" hidden><span id="neighborhood-active-icon"></span><span class="tooltip">Neighborhood active</span></button>
                   <button id="graph-filter-active" class="icon-button" type="button" aria-label="Graph filter active" aria-pressed="true" aria-controls="graphs-panel" hidden><span id="graph-filter-active-icon"></span><span class="tooltip">Graph filter active</span></button>
                 </div>
               </div>
@@ -899,6 +929,32 @@
                   <button id="paint-close" class="panel-lock" type="button" aria-label="Close paint card"><span id="paint-close-icon"></span></button>
                 </div>
                 <div id="paint-settings" class="filter-controls card-scroll-content" role="group" aria-label="Paint settings"></div>
+              </section>
+              <section id="neighborhood-panel" class="dock-card" aria-labelledby="neighborhood-heading" data-scene-obstacle hidden>
+                <div class="panel-heading neighborhood-heading">
+                  <h2 id="neighborhood-heading">Neighborhood</h2>
+                  <button id="neighborhood-clear" class="panel-lock" type="button" aria-label="Turn off neighborhood" title="Turn off neighborhood"><span id="neighborhood-clear-icon"></span></button>
+                  <button id="neighborhood-lock" class="panel-lock" type="button" aria-label="Keep Neighborhood open" aria-pressed="false"><span id="neighborhood-lock-icon"></span></button>
+                  <button id="neighborhood-close" class="panel-lock" type="button" aria-label="Close neighborhood card"><span id="neighborhood-close-icon"></span></button>
+                </div>
+                <div class="filter-controls card-scroll-content">
+                  <div class="range-heading neighborhood-center"><span>Center</span><span class="origin-tooltip-object"><span id="neighborhood-center-swatch" class="star-swatch" aria-hidden="true"></span><span id="neighborhood-center-name"></span></span></div>
+                  <button id="neighborhood-recenter" class="neighborhood-recenter" type="button" hidden>Center on <span class="origin-tooltip-object"><span id="neighborhood-recenter-swatch" class="star-swatch" aria-hidden="true"></span><span id="neighborhood-recenter-name"></span></span></button>
+                  <div class="range-filter">
+                    <div class="range-heading"><label for="neighborhood-radius">Radius</label><output id="neighborhood-radius-value" for="neighborhood-radius">10 ly</output></div>
+                    <input id="neighborhood-radius" type="range" min="1" max="100" step="1" value="10" aria-valuetext="10 light-years">
+                    <div class="range-bounds" aria-hidden="true"><span>1 ly</span><span>100 ly</span></div>
+                  </div>
+                  <p id="neighborhood-limit-note" class="filter-hint" hidden></p>
+                  <button id="neighborhood-catalog" class="neighborhood-recenter" type="button" hidden></button>
+                  <section id="neighborhood-birth" class="planet-atmosphere paint-setting" aria-label="Birth year" hidden>
+                    <div class="card-subgroup-heading paint-setting-heading neighborhood-birth-heading">
+                      <button id="neighborhood-birth-toggle" class="paint-setting-toggle" type="button" aria-pressed="false" aria-label="Show light from my birth year" title="Show light from my birth year"><span id="neighborhood-birth-icon"></span></button>
+                      <label id="neighborhood-birth-label" for="neighborhood-birth-year" title="Light now arriving from these stars set out around your birth year.">Birth year</label>
+                      <select id="neighborhood-birth-year"><option value="" disabled selected>Year</option></select>
+                    </div>
+                  </section>
+                </div>
               </section>
               <section id="preferences-panel" class="dock-card preferences" aria-labelledby="preferences-heading" hidden>
                 <div class="panel-heading"><h2 id="preferences-heading">Preferences</h2><button id="preferences-lock" class="panel-lock" type="button" aria-label="Keep Preferences open" aria-pressed="false"><span id="preferences-lock-icon"></span></button></div>

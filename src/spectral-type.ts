@@ -1,6 +1,6 @@
 import type { Star } from './catalog-model'
-import { luminosityRows, whiteDwarfFamilies } from './mk-properties'
-import { svgNode } from './spectral-chart'
+import { luminosityRows, whiteDwarfClassification, whiteDwarfFamilies, whiteDwarfIndexTemperature } from './mk-properties'
+import { starIcon, svgNode, temperatureColor } from './spectral-chart'
 
 export interface SpectralPart { text: string; meaning: string }
 export interface SpectralReading {
@@ -79,7 +79,7 @@ export function readSpectralType(type: string | null): SpectralReading {
     }
     for (const flag of flags) add(flag, whiteDwarfFlags[flag]!)
     if (temperatureIndex && Number(temperatureIndex) > 0) {
-      add(temperatureIndex, `Temperature index: about ${(Math.round(50_400 / Number(temperatureIndex) / 100) * 100).toLocaleString('en-US')} K`)
+      add(temperatureIndex, `Temperature index: about ${(Math.round(whiteDwarfIndexTemperature(Number(temperatureIndex)) / 100) * 100).toLocaleString('en-US')} K`)
     }
   }
   const rules: [RegExp, (match: RegExpExecArray) => boolean | void][] = [
@@ -295,6 +295,152 @@ function renderLines(host: HTMLElement, rows: { star: Star; reading: SpectralRea
   host.replaceChildren(labelRow, svg)
 }
 
+// Mean dwarf sequence, version 2022.04.16 (Pecaut & Mamajek): temperature in kelvin
+// against a continuous type scale M0 = 0, L0 = 10, T0 = 20, Y0 = 30.
+// https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt
+const ultracoolTemperatures = [
+  [6, 2810], [6.5, 2740], [7, 2680], [7.5, 2630], [8, 2570], [8.5, 2420], [9, 2380], [9.5, 2350],
+  [10, 2270], [11, 2160], [12, 2060], [13, 1920], [14, 1870], [15, 1710], [16, 1550], [17, 1530], [18, 1420], [19, 1370],
+  [20, 1255], [21, 1240], [22, 1220], [23, 1200], [24, 1180], [24.5, 1170], [25, 1160], [25.5, 1040], [26, 950],
+  [27, 825], [27.5, 750], [28, 680], [28.5, 600], [29, 560], [29.5, 510],
+  [30, 450], [30.5, 400], [31, 360], [31.5, 325], [32, 320], [34, 250],
+] as const
+// [class, first and end position on the type scale, temperature range of the class in the table]
+const ultracoolClasses = [['M', 6, 10, 2810, 2350], ['L', 10, 20, 2270, 1370], ['T', 20, 30, 1255, 510], ['Y', 30, 35, 450, 250]] as const
+const ULTRACOOL_START = 6, ULTRACOOL_SPAN = 29
+// Iron and silicate clouds sink out of view across the L/T transition while the
+// temperature barely changes (Kirkpatrick 2005).
+const ultracoolPlateau = [18, 25] as const
+
+/** Class and position (M0 = 0 … Y0 = 30) on the ultracool dwarf sequence: M7 and later, or M6 and later for brown dwarfs. */
+export function ultracoolPosition(star: Pick<Star, 'type' | 'spectral_type'>, reading = readSpectralType(star.spectral_type)): { spectralClass: string; position: number | null } | null {
+  const classIndex = reading.letter === null ? -1 : 'MLTY'.indexOf(reading.letter)
+  if (classIndex < 0 || (reading.subtype !== null && reading.subtype >= 10)) return null
+  const position = reading.subtype === null ? null : classIndex * 10 + reading.subtype
+  const brownDwarf = star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf'
+  if (classIndex === 0 && (position === null || position < (brownDwarf ? 6 : 7))) return null
+  return { spectralClass: reading.letter!, position }
+}
+
+const ultracoolTemperature = (position: number) => {
+  const index = ultracoolTemperatures.findIndex(([anchor]) => anchor >= position)
+  if (index <= 0) return ultracoolTemperatures.at(index)![1]
+  const [x0, t0] = ultracoolTemperatures[index - 1]!, [x1, t1] = ultracoolTemperatures[index]!
+  return t0 + (t1 - t0) * (position - x0) / (x1 - x0)
+}
+
+interface SequenceCell { key: string; description: string; weight: number }
+interface SequenceStar { star: Star; selected: boolean; cell: string | null; position: number | null; title: string }
+
+/** Class cells with tooltips, then one row per object with its icon at `position` (0–1 across the cells). */
+function renderSequence(card: HTMLElement, id: 'white-dwarf' | 'ultracool', cells: readonly SequenceCell[], objects: readonly SequenceStar[]): void {
+  const section = card.querySelector<HTMLElement>(`#${id}-sequence`)!
+  section.hidden = !objects.length
+  if (!objects.length) return
+  const classes = card.querySelector<HTMLElement>(`#${id}-classes`)!
+  classes.style.gridTemplateColumns = cells.map(({ weight }) => `minmax(0, ${weight}fr)`).join(' ')
+  classes.replaceChildren(...cells.map(({ key, description }) => {
+    const cell = document.createElement('div')
+    cell.className = 'sequence-class'
+    cell.dataset.class = key
+    cell.setAttribute('role', 'listitem')
+    const button = document.createElement('button')
+    button.type = 'button'
+    button.className = 'sequence-class-help'
+    button.textContent = key
+    const tooltip = document.createElement('span')
+    tooltip.id = `${id}-${key.toLowerCase()}-tooltip`
+    tooltip.className = 'tooltip mass-metric-tooltip sequence-class-tooltip'
+    tooltip.setAttribute('role', 'tooltip')
+    tooltip.textContent = description
+    button.setAttribute('aria-describedby', tooltip.id)
+    cell.append(button, tooltip)
+    cell.classList.toggle('is-selected', objects.some((object) => object.selected && object.cell === key))
+    cell.classList.toggle('is-reference', objects.some((object) => !object.selected && object.cell === key))
+    return cell
+  }))
+  card.querySelector(`#${id}-stars`)!.replaceChildren(...objects.map(({ star, selected, cell, position, title }) => {
+    const row = document.createElement('div')
+    row.className = `sequence-star is-${selected ? 'selected' : 'reference'}`
+    row.dataset.class = cell ?? ''
+    row.title = title
+    const icon = document.createElement('span')
+    icon.className = 'sequence-star-icon'
+    const image = document.createElement('img')
+    image.src = starIcon(star)
+    image.alt = ''
+    icon.append(image)
+    const name = document.createElement('span')
+    name.className = 'sequence-star-name'
+    name.textContent = star.name
+    if (position === null) row.classList.add('is-unclassified')
+    else {
+      const percent = `${(position * 100).toFixed(3)}%`
+      icon.style.left = percent
+      // Name on the side with more room.
+      if (position > 0.5) name.style.right = `calc(100% - ${percent} + 26px)`
+      else name.style.left = `calc(${percent} + 26px)`
+    }
+    row.append(icon, name)
+    return row
+  }))
+}
+
+function renderWhiteDwarfSequence(card: HTMLElement, pairs: readonly [Star, boolean][]): void {
+  const objects = pairs.flatMap(([star, selected]): SequenceStar[] => {
+    if (star.type !== 'white_dwarf') return []
+    const classification = whiteDwarfClassification(star)
+    const index = whiteDwarfFamilies.findIndex(([family]) => family === classification?.family)
+    return [{ star, selected, cell: classification?.family ?? null, position: index < 0 ? null : (index + 0.5) / whiteDwarfFamilies.length,
+      title: classification?.description ?? 'White-dwarf spectral classification not available' }]
+  })
+  renderSequence(card, 'white-dwarf', whiteDwarfFamilies.map(([key, description]) => ({ key, description, weight: 1 })), objects)
+}
+
+function renderUltracoolSequence(card: HTMLElement, pairs: readonly [Star, boolean][]): void {
+  const rounded = (value: number) => (Math.round(value / 10) * 10).toLocaleString('en-US'), kelvin = (value: number) => `${rounded(value)} K`
+  const objects = pairs.flatMap(([star, selected]): SequenceStar[] => {
+    const place = ultracoolPosition(star)
+    if (!place) return []
+    const { spectralClass, position } = place
+    return [{ star, selected, cell: spectralClass, position: position === null ? null : (Math.min(position, ULTRACOOL_START + ULTRACOOL_SPAN) - ULTRACOOL_START) / ULTRACOOL_SPAN,
+      title: position === null ? `${star.spectral_type}: no subtype in the catalog` : `${star.spectral_type}: typically about ${kelvin(ultracoolTemperature(position))} for this type` }]
+  })
+  renderSequence(card, 'ultracool', ultracoolClasses.map(([key, first, end, hot, cool]) => ({
+    key, weight: end - first, description: `${classMeanings[key]}. About ${rounded(hot)}–${kelvin(cool)}.`,
+  })), objects)
+  if (!objects.length) return
+  const offset = (position: number) => `${((position - ULTRACOOL_START) / ULTRACOOL_SPAN * 100).toFixed(2)}%`
+  const bar = document.createElement('div')
+  bar.className = 'ultracool-bar'
+  bar.style.setProperty('--ultracool-gradient', `linear-gradient(90deg, ${ultracoolTemperatures.map(([position, temperature]) => `${temperatureColor(temperature)} ${offset(position)}`).join(', ')})`)
+  bar.style.setProperty('--ultracool-step', `${100 / ULTRACOOL_SPAN}%`)
+  const temperatures = ultracoolClasses.slice(1).map(([, first, , hot]) => {
+    const label = document.createElement('span')
+    label.className = 'ultracool-temperature'
+    label.style.left = offset(first)
+    label.textContent = kelvin(hot)
+    return label
+  })
+  const [plateauStart, plateauEnd] = ultracoolPlateau
+  const plateau = document.createElement('span')
+  plateau.className = 'mass-metric-copy ultracool-plateau'
+  plateau.style.left = offset(plateauStart)
+  plateau.style.width = `${((plateauEnd - plateauStart) / ULTRACOOL_SPAN * 100).toFixed(2)}%`
+  const help = document.createElement('button')
+  help.type = 'button'
+  help.className = 'mass-metric-help'
+  help.textContent = 'Clouds clear'
+  const tooltip = document.createElement('span')
+  tooltip.id = 'ultracool-plateau-tooltip'
+  tooltip.className = 'tooltip mass-metric-tooltip'
+  tooltip.setAttribute('role', 'tooltip')
+  tooltip.textContent = `From late L to mid T, the temperature barely drops, from about ${rounded(ultracoolTemperature(plateauStart))} to ${kelvin(ultracoolTemperature(plateauEnd))}, yet the spectrum changes completely: clouds of iron and silicate dust sink out of view, and methane takes over.`
+  help.setAttribute('aria-describedby', tooltip.id)
+  plateau.append(help, tooltip)
+  card.querySelector('#ultracool-scale')!.replaceChildren(plateau, bar, ...temperatures)
+}
+
 export function renderSpectralFeatures(card: HTMLElement, star: Star, reference: Star): void {
   const get = (id: string) => card.querySelector<HTMLElement>(`#${id}`)!
   const reading = readSpectralType(star.spectral_type)
@@ -314,14 +460,16 @@ export function renderSpectralFeatures(card: HTMLElement, star: Star, reference:
   const decoderNote = get('spectral-decoder-missing')
   decoderNote.textContent = reading.parts.length ? '' : `${star.name} has no catalog spectral type.`
   decoderNote.hidden = !decoderNote.textContent
+  const pairs: [Star, boolean][] = reference.id === star.id ? [[star, true]] : [[star, true], [reference, false]]
+  renderWhiteDwarfSequence(card, pairs)
+  renderUltracoolSequence(card, pairs)
 
-  const rows: [Star, boolean][] = reference.id === star.id ? [[star, true]] : [[star, true], [reference, false]]
-  const plotted = rows.flatMap(([object, selected]) => {
+  const plotted = pairs.flatMap(([object, selected]) => {
     const objectReading = object === star ? reading : readSpectralType(object.spectral_type)
     const lines = spectralLines(objectReading)
     return lines ? [{ star: object, reading: objectReading, lines, selected }] : []
   })
-  const missing = rows.filter(([object]) => !plotted.some((row) => row.star === object)).map(([object]) => {
+  const missing = pairs.filter(([object]) => !plotted.some((row) => row.star === object)).map(([object]) => {
     const { letter } = object === star ? reading : readSpectralType(object.spectral_type)
     return letter && 'LTY'.includes(letter)
       ? `${object.name} is ${letter === 'L' ? 'an' : 'a'} ${letter}-type dwarf: it emits mostly infrared light, and its class rests on near-infrared features.`

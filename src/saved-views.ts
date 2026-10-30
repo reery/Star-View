@@ -5,6 +5,7 @@ import type { MotionFrame } from './astronomy'
 import type { SkyGridMode } from './sky-grid'
 import { isPaintSettingId, PAINT_CHANNELS, PAINT_LEVEL_RANGE, type PaintChannel, type PaintSettingId } from './star-paint'
 import type { SavedGraphSelection } from './graphs'
+import { NEIGHBORHOOD_RADIUS_LY } from './neighborhood'
 
 export const SAVED_VIEWS_STORAGE_KEY = 'star-view-saved-views'
 export const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000] as const
@@ -47,6 +48,8 @@ export interface SavedViewSettings {
   graphFilter?: SavedGraphSelection[]
   /** Channels are absent in views saved before settings could share the paint. */
   paint?: [PaintSettingId, number, PaintChannel[]?][]
+  /** Absent in views saved without a neighborhood. The birth year stays private and is never saved. */
+  neighborhood?: { centerId: string; radiusLy: number }
 }
 
 export interface SavedView {
@@ -121,6 +124,9 @@ function isSavedView(value: unknown): value is SavedView {
     && (viewState.observerTelescope === undefined || typeof viewState.observerTelescope === 'boolean')
     && (settings.graphFilter === undefined || (Array.isArray(settings.graphFilter) && settings.graphFilter.every(isGraphSelection)))
     && (settings.paint === undefined || (Array.isArray(settings.paint) && settings.paint.every(isPaintEntry)))
+    && (settings.neighborhood === undefined || (isRecord(settings.neighborhood) && typeof settings.neighborhood.centerId === 'string'
+      && Number.isInteger(settings.neighborhood.radiusLy) && (settings.neighborhood.radiusLy as number) >= NEIGHBORHOOD_RADIUS_LY.min
+      && (settings.neighborhood.radiusLy as number) <= NEIGHBORHOOD_RADIUS_LY.max))
 }
 
 export function readSavedViews(): SavedView[] {

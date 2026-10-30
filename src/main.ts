@@ -1,9 +1,10 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, RotateCcw, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, RotateCcw, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
+import { FIRST_BIRTH_YEAR, NEIGHBORHOOD_RADIUS_LY, NeighborhoodIcon, neighborhoodBounds } from './neighborhood'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogMeasurement, catalogSourceFor } from './catalog-source'
@@ -16,10 +17,10 @@ import { loadMolecularClouds, molecularCloudOverlayManifest } from './molecular-
 import { bubbleOverlayManifest, loadBubbles } from './bubble-overlay'
 import { catalogs, catalogErrors } from './registry'
 import legacyStarIds from './data/legacy-star-ids.json'
-import { apparentVisualMagnitude, formatDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
+import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
-import { isObjectMapVisible, mapVisibilityTier } from './viewer-primitives'
+import { isObjectMapVisible, mapVisibilityTier, motionTravelDistancePc } from './viewer-primitives'
 import { renderSelectedStarPreview } from './selected-star-preview'
 import { COMPARISON_DETAIL_TOGGLES, initializeStarComparison } from './star-comparison'
 import { radialVelocitySource, specValues, type SpecValue } from './spec-values'
@@ -121,6 +122,12 @@ appendConstellationContent(element('constellation-card'))
 
 icon('discover-icon', Compass)
 icon('constellations-icon', ConstellationIcon)
+icon('neighborhood-icon', NeighborhoodIcon)
+icon('neighborhood-active-icon', NeighborhoodIcon)
+icon('neighborhood-clear-icon', FunnelX)
+icon('neighborhood-birth-icon', Cake)
+icon('neighborhood-lock-icon', Lock)
+icon('neighborhood-close-icon', X)
 icon('top-lists-icon', Trophy)
 icon('top-lists-lock-icon', Lock)
 icon('top-lists-close-icon', X)
@@ -238,6 +245,15 @@ let constellationBrowser: ReturnType<typeof import('./constellation-browser').in
 let topLists: ReturnType<typeof import('./top-lists').initializeTopLists> | undefined
 let graphs: ReturnType<typeof import('./graphs').initializeGraphs> | undefined
 let graphFilter: ObjectListFilter | null = null
+/** The Neighborhood keeps its center while active, so selecting a neighbor does not move it. */
+let neighborhoodCenter: Star | null = null
+let neighborhoodRadiusLy: number = NEIGHBORHOOD_RADIUS_LY.initial
+let neighborhoodBirthYear: number | null = null
+let neighborhoodFilter: ObjectListFilter | null = null
+/** Yearly displacement in parsecs per object and motion frame, for Neighborhood membership at the simulated time. */
+const neighborhoodMotions = { galactic: new WeakMap<Star, ReturnType<typeof galacticToWorld> | null>(), solar: new WeakMap<Star, ReturnType<typeof galacticToWorld> | null>() }
+/** Farthest object of the chosen catalog from the Sun, so the Neighborhood can say where its coverage ends. */
+let catalogReachLy = Infinity
 let glossaryInitialized = false
 const paintSettings = new Map<PaintSettingId, number>()
 /** Visible objects the paint is fitted to; null while nothing is painted. */
@@ -363,10 +379,10 @@ document.querySelectorAll('.time-markers').forEach((markers) => {
   ticks.forEach((marker, index) => marker.style.setProperty('--marker-position', `${index / (ticks.length - 1) * 100}%`))
 })
 const selectionHistory = new SelectionHistory(selectedId)
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'preferences', 'info'] as const
-const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'preferences'] as const
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'info'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences'] as const
 // Discover panels open from the flyout, so focus returns to its toggle.
-const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'motion' ? 'discover-toggle' : `${name}-toggle`
+const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'neighborhood' || name === 'motion' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 // On desktop, these cards move the 3D view center left while locked, so the scene stays visible beside them.
 const viewCenteringPanels: readonly typeof lockablePanelNames[number][] = ['paint', 'graphs']
@@ -488,6 +504,11 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
   if (name === 'graphs' && open) {
     if (graphs) graphs.open()
     else void loadGraphsPanel()
+  }
+  if (name === 'neighborhood' && open) {
+    // Opening starts a neighborhood around the selection; an active one keeps its center.
+    if (neighborhoodCenter) renderNeighborhood()
+    else setNeighborhoodCenter(defaultNeighborhoodCenter())
   }
 }
 
@@ -751,39 +772,47 @@ function closeSpectralCard(restoreFocus = false): void {
 
 let spectralMagnitudeMode: HrMagnitudeMode | null = null
 let spectralCatalogStars = false
-let spectralDiagram: 'hr' | 'mk' = 'hr'
+// 'class' is the classification diagram: M-K for stars, cooling for white dwarfs.
+let spectralDiagram: 'hr' | 'class' = 'hr'
 
 let spectralRenderRequest = 0
 const spectralModules = new Map<'hr' | 'mk', typeof import('./hr-diagram') | typeof import('./mk-diagram')>()
 
 async function renderSpectralCard(star: Star): Promise<void> {
   const request = ++spectralRenderRequest
-  const diagram = spectralDiagram
-  let module = spectralModules.get(diagram)
+  // White dwarfs have their own cooling diagram; brown dwarfs have no M-K luminosity class.
+  const classDiagram = star.type === 'star' ? 'mk' : star.type === 'white_dwarf' ? 'wd' : null
+  const diagram = spectralDiagram === 'class' && classDiagram ? classDiagram : 'hr'
+  const moduleName = diagram === 'hr' ? 'hr' : 'mk'
+  let module = spectralModules.get(moduleName)
   if (!module) {
     const result = await loadCardFeature<typeof import('./hr-diagram') | typeof import('./mk-diagram')>('spectral', 'spectral diagram',
-      () => diagram === 'hr' ? import('./hr-diagram') : import('./mk-diagram'),
+      () => moduleName === 'hr' ? import('./hr-diagram') : import('./mk-diagram'),
       () => request === spectralRenderRequest && selectedId === star.id)
     if (!result) return
     module = result.value
-    spectralModules.set(diagram, module)
+    spectralModules.set(moduleName, module)
   } else {
     clearLoadRecovery(element('spectral-card').querySelector<HTMLElement>('.card-scroll-content')!)
   }
   if (request !== spectralRenderRequest || element('spectral-card').hidden || selectedId !== star.id) return
   const { sun, origin, other } = cardReferences()
   const reference = other ?? spectralReference(origin, sun)
-  for (const diagram of ['hr', 'mk'] as const) {
-    element(`spectral-${diagram}`).setAttribute('aria-pressed', String(spectralDiagram === diagram))
-    element(`spectral-${diagram}-content`).hidden = spectralDiagram !== diagram
-    element(`spectral-${diagram}-method`).hidden = spectralDiagram !== diagram
+  element<HTMLButtonElement>('spectral-mk').disabled = !classDiagram
+  element('spectral-mk').hidden = classDiagram === 'wd'
+  element('spectral-wd').hidden = classDiagram !== 'wd'
+  for (const shown of ['hr', 'mk', 'wd'] as const) {
+    element(`spectral-${shown}`).setAttribute('aria-pressed', String(diagram === shown))
+    element(`spectral-${shown}-content`).hidden = diagram !== shown
+    element(`spectral-${shown}-method`).hidden = diagram !== shown
   }
   if ('renderHrDiagram' in module) {
     const { hrMagnitude, renderHrDiagram } = module
     const mode = spectralMagnitudeMode ?? (hrMagnitude(star, 'visual') === null && hrMagnitude(star, 'bolometric') !== null ? 'bolometric' : 'visual')
     element('spectral-catalog').setAttribute('aria-pressed', String(spectralCatalogStars))
     renderHrDiagram(element('spectral-card'), star, reference, mode, spectralCatalogStars ? stars : null)
-  } else module.renderMkDiagram(element('spectral-card'), star, reference)
+  } else if (diagram === 'wd') module.renderWhiteDwarfDiagram(element('spectral-card'), star, reference, stars)
+  else module.renderMkDiagram(element('spectral-card'), star, reference)
   module.renderSpectralFeatures(element('spectral-card'), star, reference)
   syncObjectTypeLayout()
   positionCardHeaderTooltips(element('spectral-card'))
@@ -1554,7 +1583,7 @@ function syncSelectedObjectLayout(): void {
   selectedCard.style.maxHeight = `${Math.max(68, availableHeight)}px`
 }
 
-function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active', active: boolean): void {
+function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active' | 'neighborhood-active', active: boolean): void {
   const indicator = element(id)
   if (indicator.hidden !== active) return
   indicator.hidden = !active
@@ -1700,6 +1729,7 @@ function setSimulationYears(years: number): void {
   simulationYears = Math.abs(clamped) < 1e-9 ? 0 : clamped
   renderSimulationTime()
   viewer?.setSimulationYears(simulationYears)
+  if (neighborhoodCenter && !simulationPlaying) applyNeighborhood()
 }
 
 function playbackFrame(time: number): void {
@@ -1729,6 +1759,7 @@ function setSimulationPlaying(playing: boolean): void {
   if (playbackFrameRequest !== null) cancelAnimationFrame(playbackFrameRequest)
   playbackFrameRequest = playing ? requestAnimationFrame(playbackFrame) : null
   renderPlaybackState()
+  if (neighborhoodCenter && !playing) applyNeighborhood()
 }
 
 renderSimulationTime()
@@ -2002,6 +2033,7 @@ function renderSelection(): void {
   objectList.setSelected(selectedId)
   updateReferenceControl()
   updateObserverControl()
+  renderNeighborhood()
   if (!star) {
     starComparison.render()
     if (!lockedDetailCards.has('planet')) closePlanetCard()
@@ -2276,7 +2308,113 @@ function baseObjectListFilter(selected = selectedId): ObjectListFilter {
     star.y_pc - observer.y_pc,
     star.z_pc - observer.z_pc,
   )) ?? Infinity, magnitudeLimit) !== 'background'
+  const neighborhood = neighborhoodFilter
   return (star, distancePc) => isObjectMapVisible(star, visibleKeys, selected, observerId, distancePc * LIGHT_YEARS_PER_PARSEC, objectDistanceLimitLy) && brightEnough(star)
+    && (!neighborhood || neighborhood(star, distancePc))
+}
+
+function currentNeighborhoodBounds() {
+  return neighborhoodBounds(neighborhoodRadiusLy, neighborhoodCenter?.id === 'sun' ? neighborhoodBirthYear : null, new Date().getFullYear())
+}
+
+function setNeighborhoodCenter(center: Star | null): void {
+  neighborhoodCenter = center
+  applyNeighborhood()
+}
+
+function viewerNeighborhood(): Parameters<StarViewer['setNeighborhood']>[0] {
+  if (!neighborhoodCenter) return null
+  const { innerLy, outerLy, sphereLy } = currentNeighborhoodBounds()
+  return { centerId: neighborhoodCenter.id, innerPc: innerLy / LIGHT_YEARS_PER_PARSEC, outerPc: outerLy / LIGHT_YEARS_PER_PARSEC, spherePc: sphereLy / LIGHT_YEARS_PER_PARSEC }
+}
+
+/** The object's map position at the simulated time, as the 3D view moves it. */
+function simulatedPosition(star: Star): ReturnType<typeof galacticToWorld> {
+  const position = galacticToWorld(star)
+  if (simulationYears === 0) return position
+  const motions = neighborhoodMotions[motionFrame]
+  let motion = motions.get(star)
+  if (motion === undefined) motions.set(star, motion = displayMotionForStar(star, motionFrame)?.velocity.multiplyScalar(motionTravelDistancePc(1, 1)) ?? null)
+  return motion ? position.addScaledVector(motion, simulationYears) : position
+}
+
+/**
+ * The 3D view tracks membership as objects move; the lists, Graphs and Paint follow the simulated time
+ * whenever playback is paused. The center itself always stays visible.
+ */
+function applyNeighborhood(): void {
+  const center = neighborhoodCenter
+  const { innerLy, outerLy } = currentNeighborhoodBounds()
+  const centerPosition = center && simulatedPosition(center)
+  neighborhoodFilter = center && ((star) => {
+    if (star.id === center.id) return true
+    const distanceLy = simulatedPosition(star).distanceTo(centerPosition!) * LIGHT_YEARS_PER_PARSEC
+    return distanceLy >= innerLy && distanceLy <= outerLy
+  })
+  viewer?.setNeighborhood(viewerNeighborhood())
+  setActiveIndicator('neighborhood-active', !!center)
+  updateObjectListFilter()
+  renderNeighborhood()
+}
+
+/**
+ * The smallest larger nearest-objects catalog expected to reach the distance, else the largest. These catalogs
+ * fill a sphere around the Sun, so their reach grows with the cube root of their size.
+ */
+function catalogReaching(distanceLy: number): typeof sliderCatalogs[number] | undefined {
+  const active = sliderCatalogs.find((catalog) => catalog.manifest.id === activeCatalogId)
+  if (!active) return undefined
+  const larger = sliderCatalogs.filter((catalog) => catalog.manifest.objectCount > active.manifest.objectCount)
+  return larger.find((catalog) => catalogReachLy * Math.cbrt(catalog.manifest.objectCount / active.manifest.objectCount) >= distanceLy) ?? larger.at(-1)
+}
+
+/** The center a new neighborhood starts from. */
+function defaultNeighborhoodCenter(): Star | null {
+  return starById(selectedId) ?? starById(referenceId) ?? null
+}
+
+function renderNeighborhood(): void {
+  if (element('neighborhood-panel').hidden) return
+  const center = neighborhoodCenter
+  element<HTMLButtonElement>('neighborhood-clear').disabled = !center
+  text('neighborhood-center-name', center?.name ?? 'Off')
+  element('neighborhood-center-swatch').hidden = !center
+  if (center) element('neighborhood-center-swatch').style.background = starDisplayColor(center, starColorMode).getStyle()
+  // While off, the button starts a neighborhood again.
+  const target = center ? starById(selectedId) : defaultNeighborhoodCenter()
+  const recenter = element<HTMLButtonElement>('neighborhood-recenter')
+  recenter.hidden = !target || target.id === center?.id
+  if (target) {
+    text('neighborhood-recenter-name', target.name)
+    element('neighborhood-recenter-swatch').style.background = starDisplayColor(target, starColorMode).getStyle()
+  }
+  const sun = center?.id === 'sun'
+  const birthYear = sun ? neighborhoodBirthYear : null
+  const { outerLy, sphereLy } = currentNeighborhoodBounds()
+  const radius = element<HTMLInputElement>('neighborhood-radius')
+  radius.disabled = birthYear !== null
+  radius.value = String(Math.min(NEIGHBORHOOD_RADIUS_LY.max, birthYear === null ? neighborhoodRadiusLy : sphereLy))
+  const radiusText = birthYear === null ? `${neighborhoodRadiusLy} ly` : `${sphereLy} ± ${outerLy - sphereLy} ly`
+  radius.setAttribute('aria-valuetext', radiusText.replace('ly', 'light-years'))
+  text('neighborhood-radius-value', radiusText)
+  element('neighborhood-birth').hidden = !sun
+  element('neighborhood-birth-toggle').setAttribute('aria-pressed', String(birthYear !== null))
+  element('neighborhood-birth-label').title = `Light now arriving from these stars set out around ${birthYear ?? 'your birth year'}.`
+  // The catalog's coverage and the Filter's visibility distance from the origin still apply.
+  const reference = starById(referenceId)
+  const reach = (from: Star) => !center ? 0 : Math.hypot(center.x_pc - from.x_pc, center.y_pc - from.y_pc, center.z_pc - from.z_pc) * LIGHT_YEARS_PER_PARSEC + outerLy
+  const sunReach = reach(starById('sun')!)
+  const larger = sunReach > catalogReachLy ? catalogReaching(sunReach) : undefined
+  const catalogButton = element<HTMLButtonElement>('neighborhood-catalog')
+  catalogButton.hidden = !larger
+  catalogButton.dataset.catalogId = larger?.manifest.id ?? ''
+  catalogButton.textContent = larger ? `Load ${larger.manifest.label}` : ''
+  const notes = [
+    sunReach > catalogReachLy ? `The chosen catalog reaches about ${Math.round(catalogReachLy)} ly from the Sun.` : '',
+    reference && reach(reference) > objectDistanceLimitLy ? `Filter hides objects beyond ${objectDistanceLimitLy} ly from ${reference.id === 'sun' ? 'the Sun' : reference.name}.` : '',
+  ].filter(Boolean)
+  element('neighborhood-limit-note').hidden = !notes.length
+  element('neighborhood-limit-note').textContent = notes.join(' ')
 }
 
 /** The map filter narrowed by any Graphs selection, as the 3D view applies it. */
@@ -2408,7 +2546,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   if (!definition) return
   const request = ++catalogRequest
   sceneStatus(`Loading ${definition.manifest.label}...`)
-  let nextStars: Star[]
+  let nextStars: Star[], reachLy: number
   try {
     const loadOverlay = (types: readonly FilterKey[], load: () => Promise<Star[]>) =>
       types.some((type) => visibleKeys.has(type)) ? load() : Promise.resolve([])
@@ -2424,6 +2562,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       loadOverlay(MOLECULAR_CLOUD_OBJECT_TYPES, loadMolecularClouds),
       loadOverlay(BUBBLE_OBJECT_TYPES, loadBubbles),
     ])
+    reachLy = selectedCatalog.reduce((farthest, star) => Math.max(farthest, Math.hypot(star.x_pc, star.y_pc, star.z_pc)), 0) * LIGHT_YEARS_PER_PARSEC
     const withConstellationStars = mergeCatalogStars(mergeCatalogStars(selectedCatalog, westernConstellationCatalog), notableDistantCatalog)
     nextStars = [...withConstellationStars, ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles]
     nextStars = mergeCatalogStars(nextStars, [...constellationSelectedSystems.values()].flat())
@@ -2442,6 +2581,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   // Source details hydrate only the current scene, never the memoized map payload.
   stars = nextStars.map((star) => ({ ...star }))
   starIndex = new Map(stars.map((star) => [star.id, star]))
+  catalogReachLy = reachLy
   constellationBrowser?.refresh()
   starSystems = indexStarSystems(stars)
   activeCatalogId = id
@@ -2491,6 +2631,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setObjectDistanceLimit(objectDistanceLimitLy)
   viewer.setObjectFilter([...visibleKeys])
   viewer.setObjectPredicate(graphFilter)
+  viewer.setNeighborhood(viewerNeighborhood())
   viewer.setLabelLimit(labelLimit)
   viewer.setMotionArrowsVisible(motionArrowsVisible)
   viewer.setMotionFrame(motionFrame)
@@ -2756,6 +2897,7 @@ function currentSavedViewSettings(): SavedViewSettings | null {
     viewState: viewer.getViewState(),
     graphFilter: graphs?.save() ?? [],
     paint: [...paintSettings].map(([id, level]) => [id, level, [...paintChannelsOf(id)]]),
+    ...neighborhoodCenter && { neighborhood: { centerId: neighborhoodCenter.id, radiusLy: neighborhoodRadiusLy } },
   }
 }
 
@@ -2946,6 +3088,10 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   if (graphFilter.length && !graphs) await import('./graphs').then(initializeGraphs, () => undefined)
   graphs?.restore(graphFilter)
   graphs?.refresh()
+  // A view restores its neighborhood sphere; the birth-year shell is never part of it.
+  neighborhoodBirthYear = null
+  neighborhoodRadiusLy = settings.neighborhood?.radiusLy ?? neighborhoodRadiusLy
+  setNeighborhoodCenter(settings.neighborhood ? starById(legacyStarId(settings.neighborhood.centerId)) ?? null : null)
   renderDistances()
   renderSelection()
   syncSavedSettingsInputs()
@@ -3098,6 +3244,39 @@ document.addEventListener('keydown', (event) => { if (event.key === 'Tab') disco
 element('graph-filter-active').addEventListener('click', () => togglePanel('graphs'), { signal: events.signal })
 element('paint-active').addEventListener('click', () => togglePanel('paint'), { signal: events.signal })
 element('motion-active').addEventListener('click', () => togglePanel('motion'), { signal: events.signal })
+element('neighborhood-active').addEventListener('click', () => togglePanel('neighborhood'), { signal: events.signal })
+const birthYears = element<HTMLSelectElement>('neighborhood-birth-year')
+for (let year = new Date().getFullYear(); year >= FIRST_BIRTH_YEAR; year--) birthYears.add(new Option(String(year)))
+element('neighborhood-radius').addEventListener('input', () => {
+  neighborhoodRadiusLy = element<HTMLInputElement>('neighborhood-radius').valueAsNumber
+  neighborhoodCenter ??= defaultNeighborhoodCenter()
+  applyNeighborhood()
+}, { signal: events.signal })
+// Choosing a year turns the shell on; the toggle switches it off and back on, or opens the list before a year is chosen.
+element('neighborhood-birth-toggle').addEventListener('click', () => {
+  if (neighborhoodBirthYear === null && !birthYears.value) {
+    try { birthYears.showPicker() } catch { birthYears.focus() }
+    return
+  }
+  neighborhoodBirthYear = neighborhoodBirthYear === null ? Number(birthYears.value) : null
+  applyNeighborhood()
+}, { signal: events.signal })
+birthYears.addEventListener('change', () => {
+  neighborhoodBirthYear = Number(birthYears.value)
+  applyNeighborhood()
+}, { signal: events.signal })
+element('neighborhood-catalog').addEventListener('click', () => {
+  const id = element('neighborhood-catalog').dataset.catalogId
+  if (!id) return
+  renderCatalogRange(id)
+  void switchCatalog(id)
+}, { signal: events.signal })
+element('neighborhood-recenter').addEventListener('click', () => setNeighborhoodCenter(defaultNeighborhoodCenter()), { signal: events.signal })
+element('neighborhood-clear').addEventListener('click', () => {
+  setNeighborhoodCenter(null)
+  // The button is now disabled, so keyboard focus moves to the slider that starts a neighborhood again.
+  element('neighborhood-radius').focus()
+}, { signal: events.signal })
 function setGraphsCompact(compact: boolean): void {
   element('control-dock').toggleAttribute('data-graphs-compact', compact)
   const button = element('graphs-width')
@@ -3512,6 +3691,7 @@ element('motion-frame').addEventListener('change', () => {
   motionFrame = element<HTMLInputElement>('motion-frame-solar').checked ? 'solar' : 'galactic'
   viewer?.setMotionFrame(motionFrame)
   refreshDistanceCard()
+  if (neighborhoodCenter) applyNeighborhood()
 }, { signal: events.signal })
 element('time-play').addEventListener('click', () => {
   if (!simulationPlaying) {
@@ -3589,7 +3769,7 @@ for (const name of panelNames) {
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
 }
-for (const name of ['motion', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint'] as const) {
+for (const name of ['motion', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()
@@ -3763,9 +3943,11 @@ element('magnitude-row').addEventListener('click', toggleMagnitudeCard, { signal
 document.querySelector('.radius-row')!.addEventListener('click', toggleRadiusCard, { signal: events.signal })
 document.querySelector('.spectral-row')!.addEventListener('click', toggleSpectralCard, { signal: events.signal })
 element('rotation-row').addEventListener('click', togglePulsarCard, { signal: events.signal })
-for (const diagram of ['hr', 'mk'] as const) {
+for (const diagram of ['hr', 'mk', 'wd'] as const) {
   element(`spectral-${diagram}`).addEventListener('click', () => {
-    spectralDiagram = diagram
+    // A second tap on the chosen tab only shows its touch tooltip.
+    if (spectralDiagram === (diagram === 'hr' ? 'hr' : 'class')) return
+    spectralDiagram = diagram === 'hr' ? 'hr' : 'class'
     const star = stars.find((candidate) => candidate.id === selectedId)
     if (star && !element('spectral-card').hidden) renderSpectralCard(star)
     element('spectral-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
