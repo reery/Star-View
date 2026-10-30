@@ -18,7 +18,7 @@ import { auditCatalogConsistency } from '../src/catalog-consistency.ts'
 import { completeCatalogCompanions } from '../src/stellar-companions.ts'
 import { missingCatalogMeasurements, withoutRetiredValues, type ReviewedRetirement } from '../src/catalog-source.ts'
 import { reviewedStarSystems } from '../src/star-systems.ts'
-import { supplementStellarObservations } from '../src/stellar-observations.ts'
+import { supplementStellarObservations, supplementSurfaceGravity } from '../src/stellar-observations.ts'
 import companionData from '../src/data/stellar-companions.json' with { type: 'json' }
 import planetarySystems from '../src/data/planetary-systems.json' with { type: 'json' }
 import nearbyPlanets from '../src/data/nearby-planets.json' with { type: 'json' }
@@ -163,7 +163,8 @@ const WHITE_DWARF_REFERENCES = join(root, 'src/data/white-dwarf-class-references
 
 // Values retired as wrong by a reviewed correction stay in the ledger only.
 const retirements = (JSON.parse(readFileSync(join(root, 'catalog-work/reviewed-data-retirements.json'), 'utf8')) as { retirements: ReviewedRetirement[] }).retirements
-const shipped = (stars: Parameters<typeof completeCatalogCompanions>[0]) => withoutRetiredValues(completeCatalogCompanions(stars), retirements)
+// Measured log g is attached after completion so that companion records receive it too.
+const shipped = (stars: Parameters<typeof completeCatalogCompanions>[0]) => withoutRetiredValues(supplementSurfaceGravity(completeCatalogCompanions(stars)), retirements)
 
 function shippedStars(catalogs: { stars: Parameters<typeof completeCatalogCompanions>[0] }[]) {
   return catalogs.flatMap((catalog) => shipped(catalog.stars))
@@ -246,7 +247,7 @@ function generate(): void {
     const chart = JSON.parse(readFileSync(join(root, 'src/data/constellations', file), 'utf8')) as ConstellationChart
     const needed = new Set(completeCatalogCompanions(chart.stars.map((figure) => figure.object))
       .map((star) => starComponentIdentity(star.id)?.canonicalStarId ?? star.id))
-    chartCompanions[`${chart.name}.json`] = JSON.stringify(supplementObjectIdentities(withoutRetiredValues((companionData.stars as Star[]).filter((star) => needed.has(star.id)), retirements), identities, { preserveAuthoredNames: true })) + '\n'
+    chartCompanions[`${chart.name}.json`] = JSON.stringify(supplementObjectIdentities(withoutRetiredValues(supplementSurfaceGravity((companionData.stars as Star[]).filter((star) => needed.has(star.id))), retirements), identities, { preserveAuthoredNames: true })) + '\n'
   }
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated/constellation-companions')), chartCompanions, true)
   // Retired IDs serve their article from the surviving record; component IDs already resolve by identity.

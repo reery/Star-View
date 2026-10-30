@@ -420,6 +420,7 @@
                   <span class="mass-reference-option" data-tooltip-always><button id="spectral-hr" class="object-section-button distance-reference-button" type="button" aria-pressed="true" aria-controls="spectral-hr-content" aria-describedby="spectral-hr-tooltip">H-R</button><span id="spectral-hr-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Hertzsprung–Russell diagram. Shows how a star’s temperature relates to its intrinsic brightness.</span></span>
                   <span class="mass-reference-option" data-tooltip-always><button id="spectral-mk" class="object-section-button distance-reference-button" type="button" aria-pressed="false" aria-controls="spectral-mk-content" aria-describedby="spectral-mk-tooltip">M-K</button><span id="spectral-mk-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Morgan–Keenan classification. Groups stars by the patterns in their spectra: spectral type indicates temperature, and luminosity class distinguishes dwarfs, giants, and supergiants. White dwarfs and brown dwarfs use separate schemes.</span></span>
                   <span class="mass-reference-option" data-tooltip-always><button id="spectral-wd" class="object-section-button distance-reference-button" type="button" aria-pressed="false" aria-controls="spectral-wd-content" aria-describedby="spectral-wd-tooltip" hidden>D-T</button><span id="spectral-wd-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">D type against temperature. Shows which white-dwarf family appears at which temperature: as a white dwarf cools over billions of years, the features in its spectrum change.</span></span>
+                  <span class="mass-reference-option" data-tooltip-always><button id="spectral-kiel" class="object-section-button distance-reference-button" type="button" aria-pressed="false" aria-controls="spectral-kiel-content" aria-describedby="spectral-kiel-tooltip">Kiel</button><span id="spectral-kiel-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Kiel diagram. Shows surface gravity against temperature. Gravity is measured from the spectrum without knowing the distance, and it separates giants, dwarfs, white dwarfs and brown dwarfs by how compact they are.</span></span>
                 </div>
                 <button id="spectral-lock" class="panel-lock" type="button" aria-label="Keep Spectral type open" aria-pressed="false"><span id="spectral-lock-icon"></span></button>
                 <button id="spectral-close" class="panel-lock" type="button" aria-label="Close spectral type card"><span id="spectral-close-icon"></span></button>
@@ -472,6 +473,24 @@
                     </table>
                   </div>
                 </div>
+                <div id="spectral-kiel-content" hidden>
+                  <figure class="spectral-figure">
+                    <div id="kiel-diagram"></div>
+                    <span class="mass-reference-option spectral-catalog-option" data-tooltip-always><button id="spectral-kiel-catalog" class="panel-lock spectral-catalog-toggle" type="button" aria-label="Catalog stars" aria-pressed="false" aria-describedby="spectral-kiel-catalog-tooltip"><span id="spectral-kiel-catalog-icon"></span></button><span id="spectral-kiel-catalog-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog stars: show the loaded stars as dots, so the selection appears among its neighbors.</span></span>
+                  </figure>
+                  <div class="spectral-readout">
+                    <p id="kiel-missing" class="radius-note" hidden></p>
+                    <table class="radius-stats spectral-stats kiel-stats" aria-label="Kiel diagram values">
+                      <thead><tr><th scope="col"></th><th id="kiel-selected-name" scope="col"></th><th id="kiel-reference-name" scope="col"></th></tr></thead>
+                      <tbody>
+                        <tr><th scope="row">Spectral type</th><td id="kiel-selected-type"></td><td id="kiel-reference-type"></td></tr>
+                        <tr><th scope="row">Temperature</th><td id="kiel-selected-temperature"></td><td id="kiel-reference-temperature"></td></tr>
+                        <tr><th scope="row">log g (spectra)</th><td id="kiel-selected-measured"></td><td id="kiel-reference-measured"></td></tr>
+                        <tr><th scope="row">log g (mass, radius)</th><td id="kiel-selected-derived"></td><td id="kiel-reference-derived"></td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
                 <div class="spectral-readout">
                   <section class="mass-section" aria-labelledby="spectral-decoder-heading">
                     <h3 id="spectral-decoder-heading" class="card-subgroup-heading">Reading the type</h3>
@@ -519,6 +538,15 @@
                       <p>Dashed arrows mark where features fade as a white dwarf cools: ionized helium gives way to neutral helium near 45,000 K (DO to DB), helium lines vanish below about 11,000 K (DB to DC, DQ or DZ), and hydrogen lines vanish below about 5,000 K (DA to DC).</p>
                       <p>Positions use the catalog temperature. Without one, the temperature index in the spectral type is used: DA2 means about 50,400 K ÷ 2. Dots are the other loaded white dwarfs.</p>
                       <a href="https://doi.org/10.1007/s10509-024-04307-5" target="_blank" rel="noreferrer">White-dwarf spectral evolution: Bédard 2024 ↗</a>
+                    </div>
+                    <div id="spectral-kiel-method" hidden>
+                      <p>Surface gravity is shown as log g, the base-10 logarithm of the gravitational acceleration in cm/s². It increases downward: supergiants with weak surface gravity are at the top, compact white dwarfs near the bottom. The Sun has log g 4.44. Temperature decreases to the right on a logarithmic scale.</p>
+                      <p>Filled dots use log g measured from spectra: pressure in the atmosphere broadens absorption lines, so the measurement needs neither distance nor mass. Hollow dots use g = GM/R² from catalog mass and radius. Where an object has both, a ring marks its mass and radius value beside the spectroscopic position.</p>
+                      <p>Each spectroscopic value is one paper’s measurement from SIMBAD, the newest that agrees within 0.3 dex with most published values. Values impossible for the object’s luminosity class, and values that a paper assumed for all its stars, are not used.</p>
+                      <p>The catalog-stars toggle at the top right of the diagram adds every loaded object with a temperature and a log g.</p>
+                      <p>The main sequence follows the mean dwarf sequence. The white-dwarf line assumes a typical 0.6 M☉ white dwarf; the other regions are schematic guides, not classification boundaries.</p>
+                      <a href="https://simbad.cds.unistra.fr/simbad/" target="_blank" rel="noreferrer">Spectroscopic measurements: SIMBAD ↗</a><br>
+                      <a href="https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt" target="_blank" rel="noreferrer">Dwarf sequence: Pecaut &amp; Mamajek ↗</a>
                     </div>
                     <p>Reading the type splits the catalog label into its Morgan–Keenan parts and common suffixes. Notation not covered here is shown as written.</p>
                     <p>White dwarfs use the D classification, based on spectral features rather than an M-K luminosity class. Additional letters are retained in the catalog label; a number, as in DA2, is a temperature index.</p>

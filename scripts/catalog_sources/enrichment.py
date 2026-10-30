@@ -180,10 +180,22 @@ def select_spectroscopy(observations, column, spectral_type=None):
 
     This is not a new averaged measurement. Values and bibliography remain those
     of the selected paper, and the complete raw measurement pool remains frozen.
+    """
+    consistent = consistent_spectroscopy(observations, column, spectral_type)
+    return newest_spectroscopy(consistent) if consistent else None
+
+
+def newest_spectroscopy(observations):
+    return max(observations, key=lambda item: (item["bibcode"][:4], item["bibcode"], int(item.get("mespos") or 0)))
+
+
+def consistent_spectroscopy(observations, column, spectral_type=None, bounds=None):
+    """Measurements within tolerance of a strict-majority median; empty on conflict.
 
     Survey grids (RAVE, LAMOST, APOGEE Net) can return their edge for cool dwarfs.
     Such solutions contradict the spectral type, and their [Fe/H] is equally
     unusable. Three agreeing papers instead indicate a wrong spectral type.
+    `bounds` limits log g to the range plausible for the object's class.
     """
     conflicting = [item for item in observations if contradicts_spectral_type(item, spectral_type)]
     if conflicting:
@@ -200,15 +212,17 @@ def select_spectroscopy(observations, column, spectral_type=None):
             continue
         if column == "fe_h" and not -5 <= value <= 1.5:
             continue
+        if bounds and not bounds[0] <= value <= bounds[1]:
+            continue
         candidates.append(observation)
     if not candidates:
-        return None
+        return []
     center = median(float(item[column]) for item in candidates)
-    tolerance = .3 if column == "fe_h" else .1 * center
+    tolerance = .3 if column in ("fe_h", "log_g") else .1 * center
     consistent = [item for item in candidates if abs(float(item[column]) - center) <= tolerance]
     if not consistent or len(consistent) <= len(candidates) / 2 and len(candidates) > 1:
-        return None
-    return max(consistent, key=lambda item: (item["bibcode"][:4], item["bibcode"], int(item.get("mespos") or 0)))
+        return []
+    return consistent
 
 
 def flame_withheld(gaia_temperature, temperature=None, metallicity=None, gaia_metallicity=None):

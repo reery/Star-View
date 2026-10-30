@@ -133,6 +133,7 @@ icon('top-lists-lock-icon', Lock)
 icon('top-lists-close-icon', X)
 icon('graphs-icon', ChartColumn)
 icon('spectral-catalog-icon', ChartScatter)
+icon('spectral-kiel-catalog-icon', ChartScatter)
 icon('graphs-width-icon', ChevronsRightLeft)
 icon('graphs-clear-icon', FunnelX)
 icon('graph-filter-active-icon', ChartColumn)
@@ -773,7 +774,7 @@ function closeSpectralCard(restoreFocus = false): void {
 let spectralMagnitudeMode: HrMagnitudeMode | null = null
 let spectralCatalogStars = false
 // 'class' is the classification diagram: M-K for stars, cooling for white dwarfs.
-let spectralDiagram: 'hr' | 'class' = 'hr'
+let spectralDiagram: 'hr' | 'class' | 'kiel' = 'hr'
 
 let spectralRenderRequest = 0
 const spectralModules = new Map<'hr' | 'mk', typeof import('./hr-diagram') | typeof import('./mk-diagram')>()
@@ -782,8 +783,9 @@ async function renderSpectralCard(star: Star): Promise<void> {
   const request = ++spectralRenderRequest
   // White dwarfs have their own cooling diagram; brown dwarfs have no M-K luminosity class.
   const classDiagram = star.type === 'star' ? 'mk' : star.type === 'white_dwarf' ? 'wd' : null
-  const diagram = spectralDiagram === 'class' && classDiagram ? classDiagram : 'hr'
-  const moduleName = diagram === 'hr' ? 'hr' : 'mk'
+  const diagram = spectralDiagram === 'class' && classDiagram ? classDiagram : spectralDiagram === 'kiel' ? 'kiel' : 'hr'
+  // The Kiel diagram shares the H-R module's temperature axis.
+  const moduleName = diagram === 'hr' || diagram === 'kiel' ? 'hr' : 'mk'
   let module = spectralModules.get(moduleName)
   if (!module) {
     const result = await loadCardFeature<typeof import('./hr-diagram') | typeof import('./mk-diagram')>('spectral', 'spectral diagram',
@@ -801,15 +803,17 @@ async function renderSpectralCard(star: Star): Promise<void> {
   element<HTMLButtonElement>('spectral-mk').disabled = !classDiagram
   element('spectral-mk').hidden = classDiagram === 'wd'
   element('spectral-wd').hidden = classDiagram !== 'wd'
-  for (const shown of ['hr', 'mk', 'wd'] as const) {
+  for (const shown of ['hr', 'mk', 'wd', 'kiel'] as const) {
     element(`spectral-${shown}`).setAttribute('aria-pressed', String(diagram === shown))
     element(`spectral-${shown}-content`).hidden = diagram !== shown
     element(`spectral-${shown}-method`).hidden = diagram !== shown
   }
-  if ('renderHrDiagram' in module) {
+  // H-R and Kiel share one catalog-stars choice.
+  for (const toggle of ['spectral-catalog', 'spectral-kiel-catalog']) element(toggle).setAttribute('aria-pressed', String(spectralCatalogStars))
+  if (diagram === 'kiel' && 'renderKielDiagram' in module) module.renderKielDiagram(element('spectral-card'), star, reference, spectralCatalogStars ? stars : null)
+  else if ('renderHrDiagram' in module) {
     const { hrMagnitude, renderHrDiagram } = module
     const mode = spectralMagnitudeMode ?? (hrMagnitude(star, 'visual') === null && hrMagnitude(star, 'bolometric') !== null ? 'bolometric' : 'visual')
-    element('spectral-catalog').setAttribute('aria-pressed', String(spectralCatalogStars))
     renderHrDiagram(element('spectral-card'), star, reference, mode, spectralCatalogStars ? stars : null)
   } else if (diagram === 'wd') module.renderWhiteDwarfDiagram(element('spectral-card'), star, reference, stars)
   else module.renderMkDiagram(element('spectral-card'), star, reference)
@@ -3943,11 +3947,12 @@ element('magnitude-row').addEventListener('click', toggleMagnitudeCard, { signal
 document.querySelector('.radius-row')!.addEventListener('click', toggleRadiusCard, { signal: events.signal })
 document.querySelector('.spectral-row')!.addEventListener('click', toggleSpectralCard, { signal: events.signal })
 element('rotation-row').addEventListener('click', togglePulsarCard, { signal: events.signal })
-for (const diagram of ['hr', 'mk', 'wd'] as const) {
+for (const diagram of ['hr', 'mk', 'wd', 'kiel'] as const) {
   element(`spectral-${diagram}`).addEventListener('click', () => {
+    const chosen = diagram === 'mk' || diagram === 'wd' ? 'class' : diagram
     // A second tap on the chosen tab only shows its touch tooltip.
-    if (spectralDiagram === (diagram === 'hr' ? 'hr' : 'class')) return
-    spectralDiagram = diagram === 'hr' ? 'hr' : 'class'
+    if (spectralDiagram === chosen) return
+    spectralDiagram = chosen
     const star = stars.find((candidate) => candidate.id === selectedId)
     if (star && !element('spectral-card').hidden) renderSpectralCard(star)
     element('spectral-card').querySelector<HTMLElement>('.card-scroll-content')!.scrollTop = 0
@@ -3960,11 +3965,13 @@ for (const mode of ['visual', 'bolometric'] as const) {
     if (star && !element('spectral-card').hidden) renderSpectralCard(star)
   }, { signal: events.signal })
 }
-element('spectral-catalog').addEventListener('click', () => {
-  spectralCatalogStars = !spectralCatalogStars
-  const star = stars.find((candidate) => candidate.id === selectedId)
-  if (star && !element('spectral-card').hidden) renderSpectralCard(star)
-}, { signal: events.signal })
+for (const toggle of ['spectral-catalog', 'spectral-kiel-catalog']) {
+  element(toggle).addEventListener('click', () => {
+    spectralCatalogStars = !spectralCatalogStars
+    const star = stars.find((candidate) => candidate.id === selectedId)
+    if (star && !element('spectral-card').hidden) renderSpectralCard(star)
+  }, { signal: events.signal })
+}
 for (const mode of ['origin', 'jupiter', 'earth'] as const) {
   element(`radius-reference-${mode}`).addEventListener('click', () => {
     radiusReference = mode

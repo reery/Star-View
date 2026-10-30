@@ -256,6 +256,16 @@ export interface StellarObservations {
     source_url: string
     reason: string
   }
+  // One paper's spectroscopic log g (cgs), independent of catalog mass and radius.
+  surface_gravity?: {
+    log_g: number
+    reference: string
+    // Independent papers within 0.3 dex of the selected value.
+    measurements: number
+    // Spread between three or more papers; SIMBAD lists no per-paper errors.
+    scatter_dex?: number
+    scope?: string
+  }
   // Published rotation model; the radius ratio shapes the radius card only.
   rotation?: {
     period_days: number

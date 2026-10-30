@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { parseStarCatalog } from './catalog'
 import { parseObjectIdentities, supplementObjectIdentities } from './designations'
 import { parseObjectStats, supplementObjectStats } from './object-stats'
-import { supplementStellarObservations } from './stellar-observations'
+import { supplementStellarObservations, supplementSurfaceGravity } from './stellar-observations'
 import { completeCatalogCompanions } from './stellar-companions'
 import { mergeCatalogStars, parseCatalogPayload } from './catalog-runtime'
 import { DEFAULT_CATALOG_MANIFEST } from './catalog-manifest'
@@ -122,5 +122,15 @@ describe('rotation and variability observations', () => {
     const hipparcos = { gcvs_name: 'alf Eri', type: 'BE:', system: 'Hp', max_mag: 0.4, amplitude_mag: 0.06, period_days: 0.5 }
     expect(variabilityRange(hipparcos)).toBeNull()
     expect(variabilitySummary(hipparcos)).toEqual({ range: '+0.4, amplitude 0.06 mag', detail: ' Hipparcos Hp · Be star (uncertain) · period 12 h' })
+  })
+})
+
+describe('measured surface gravity', () => {
+  it('attaches the selected paper without its source record, and leaves other fields alone', () => {
+    const stars = catalogs[1]!.stars
+    const before = stars.find((star) => star.id === '10pc-0029')!
+    const after = supplementSurfaceGravity(stars).find((star) => star.id === before.id)!
+    expect(after.stellar_observations?.surface_gravity).toEqual({ log_g: 4.63, reference: '2025A&A...698A..93J', measurements: 27, scatter_dex: 0.105 })
+    expect({ ...after, stellar_observations: undefined }).toEqual({ ...before, stellar_observations: undefined })
   })
 })

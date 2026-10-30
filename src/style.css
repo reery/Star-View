@@ -1245,13 +1245,13 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .spectral-card:has(#spectral-hr-content[hidden]) > .spectral-magnitude-buttons { display: none; }
 .spectral-figure { margin: 0; padding: 8px 8px 0; }
 /* Inside the plot's top-right corner (viewBox 400 wide; plot right edge 384, top 50). */
-#spectral-hr-content .spectral-figure { position: relative; container-type: inline-size; }
+#spectral-hr-content .spectral-figure, #spectral-kiel-content .spectral-figure { position: relative; container-type: inline-size; }
 .spectral-catalog-option { position: absolute; top: calc(8px + 12.5cqw + 4px); right: calc(8px + 4cqw + 4px); }
 .panel-lock.spectral-catalog-toggle { width: 34px; height: 34px; flex-basis: 34px; background: #0b0e14d9; border-color: var(--line); }
 .panel-lock.spectral-catalog-toggle[aria-pressed="true"] { border-color: var(--border-vibrant-pressed); }
 .spectral-catalog-option .mass-metric-tooltip { left: auto; right: 0; }
 .spectral-catalog-option .mass-metric-tooltip::before { left: auto; right: 13px; }
-#hr-diagram svg, #mk-diagram svg, #wd-diagram svg { display: block; width: 100%; height: auto; font-family: inherit; font-variant-numeric: tabular-nums; }
+#hr-diagram svg, #mk-diagram svg, #wd-diagram svg, #kiel-diagram svg { display: block; width: 100%; height: auto; font-family: inherit; font-variant-numeric: tabular-nums; }
 .hr-axis-text { fill: var(--muted); font-size: 13px; }
 .hr-grid { stroke: #ffffff12; stroke-width: 1; }
 .hr-frame { fill: none; stroke: var(--line); stroke-width: 1; }
@@ -1269,7 +1269,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .hr-region-band.hr-giants { stroke-width: 26; }
 .hr-region-band.hr-subgiants { stroke-width: 14; }
 .hr-region-band.hr-white-dwarfs { stroke: #bfd9ff22; stroke-width: 18; }
-.hr-dot { fill: none; stroke: #f3e6d266; stroke-width: 3; stroke-linecap: round; }
+.hr-dot, .kiel-dot { fill: none; stroke: #f3e6d266; stroke-width: 3; stroke-linecap: round; }
+/* Kiel values from catalog mass and radius: hollow, beside filled spectroscopic dots. */
+.kiel-derived-dot { fill: none; stroke: #f3e6d24d; stroke-width: 0.8; }
+.kiel-derived-marker { fill: none; stroke: var(--ink); stroke-width: 1.25; }
+.kiel-derived-marker line { stroke-dasharray: 3 3; }
 .hr-region-line { fill: none; stroke-width: 1; stroke-linejoin: round; stroke-linecap: round; }
 .hr-region-line.hr-main-sequence { stroke: #ffe7c775; }
 .hr-region-line.hr-cool-dwarfs, .hr-cooling { stroke: #ee776780; stroke-dasharray: 4 4; }
