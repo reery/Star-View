@@ -1,9 +1,10 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, RotateCcw, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, RotateCcw, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
+import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
 import { FIRST_BIRTH_YEAR, NEIGHBORHOOD_RADIUS_LY, NeighborhoodIcon, neighborhoodBounds } from './neighborhood'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
@@ -128,6 +129,15 @@ icon('neighborhood-clear-icon', FunnelX)
 icon('neighborhood-birth-icon', Cake)
 icon('neighborhood-lock-icon', Lock)
 icon('neighborhood-close-icon', X)
+icon('spaceship-icon', Rocket)
+icon('spaceship-active-icon', Rocket)
+icon('spaceship-clear-icon', Trash2)
+icon('spaceship-close-icon', X)
+icon('spaceship-travelled-reset-icon', RotateCcw)
+icon('spaceship-throttle-up-icon', ChevronUp)
+icon('spaceship-throttle-down-icon', ChevronDown)
+for (const [key, shape] of [['q', RotateCcw], ['w', ArrowUp], ['e', RotateCw], ['a', ArrowLeft], ['s', ArrowDown], ['d', ArrowRight]] as const) icon(`spaceship-key-${key}-icon`, shape)
+const updateSpaceshipGizmo = createSpaceshipGizmo(element('spaceship-gizmo'))
 icon('top-lists-icon', Trophy)
 icon('top-lists-lock-icon', Lock)
 icon('top-lists-close-icon', X)
@@ -248,6 +258,17 @@ let graphs: ReturnType<typeof import('./graphs').initializeGraphs> | undefined
 let graphFilter: ObjectListFilter | null = null
 /** The Neighborhood keeps its center while active, so selecting a neighbor does not move it. */
 let neighborhoodCenter: Star | null = null
+/** Session-only: the ship survives catalog changes but is never saved in a view. */
+let spaceship: Spaceship | null = null
+let spaceshipSpeedLevel = 1
+let spaceshipLabels: SpaceshipLabels = 'selected'
+/** Whether the map rates brightness from the ship rather than the selected object. */
+let spaceshipVisibility = false
+const spaceshipKeys = new Set<SpaceshipKey>()
+/** Touch throttle from -1 (backward) to 1 (forward); it overrides W and S while held. */
+let spaceshipThrottle = 0
+let spaceshipTelemetry: SpaceshipTelemetry | null = null
+let spaceshipStatsTime = -Infinity
 let neighborhoodRadiusLy: number = NEIGHBORHOOD_RADIUS_LY.initial
 let neighborhoodBirthYear: number | null = null
 let neighborhoodFilter: ObjectListFilter | null = null
@@ -380,10 +401,11 @@ document.querySelectorAll('.time-markers').forEach((markers) => {
   ticks.forEach((marker, index) => marker.style.setProperty('--marker-position', `${index / (ticks.length - 1) * 100}%`))
 })
 const selectionHistory = new SelectionHistory(selectedId)
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'info'] as const
+// The Spaceship card floats at the bottom center: it opens beside other cards and only its own controls close it.
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'info', 'spaceship'] as const
 const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences'] as const
 // Discover panels open from the flyout, so focus returns to its toggle.
-const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'neighborhood' || name === 'motion' ? 'discover-toggle' : `${name}-toggle`
+const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 // On desktop, these cards move the 3D view center left while locked, so the scene stays visible beside them.
 const viewCenteringPanels: readonly typeof lockablePanelNames[number][] = ['paint', 'graphs']
@@ -436,7 +458,9 @@ function updateObserverControl(): void {
   const selected = starById(selectedId)
   const origin = starById(referenceId)
   const observer = starById(observerViewAnchorId)
-  button.disabled = sceneBusy || (!observerView && !selected)
+  // Piloting a ship and observing from an object both own the camera.
+  const piloting = spaceship?.piloting === true
+  button.disabled = sceneBusy || piloting || (!observerView && !selected)
   button.setAttribute('aria-pressed', String(observerView))
   button.setAttribute('aria-label', observerView ? 'Exit observer view' : selected ? `Observe from ${selected.name}` : 'Enter observer view')
   text('observer-view-tooltip', observerView ? 'Exit observer view' : 'Observe from')
@@ -445,7 +469,7 @@ function updateObserverControl(): void {
   element('observer-view-target-swatch').style.background = selected ? starDisplayColor(selected, starColorMode).getStyle() : ''
   const originButton = element<HTMLButtonElement>('observer-view-origin')
   const observingOrigin = observerView && observerViewAnchorId === referenceId
-  originButton.disabled = sceneBusy || !origin || selectedId === referenceId
+  originButton.disabled = sceneBusy || piloting || !origin || selectedId === referenceId
   originButton.setAttribute('aria-pressed', String(observingOrigin))
   originButton.setAttribute('aria-label', origin ? `Observe from origin ${origin.name}` : 'Observe from origin')
   text('observer-view-origin-name', origin?.name ?? 'set origin')
@@ -468,7 +492,7 @@ function updateObserverControl(): void {
     element<HTMLButtonElement>(id).disabled = sceneBusy || !observerView
   }
   for (const id of cameraViewButtonIds) {
-    element<HTMLButtonElement>(id).disabled = sceneBusy || observerView
+    element<HTMLButtonElement>(id).disabled = sceneBusy || observerView || piloting
   }
 }
 
@@ -510,6 +534,11 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
     // Opening starts a neighborhood around the selection; an active one keeps its center.
     if (neighborhoodCenter) renderNeighborhood()
     else setNeighborhoodCenter(defaultNeighborhoodCenter())
+  }
+  if (name === 'spaceship') {
+    // Opening turns the camera into a ship; an existing one keeps its place.
+    if (open && !spaceship) launchSpaceship()
+    else renderSpaceship()
   }
 }
 
@@ -582,7 +611,7 @@ async function selectTopListObject(object: import('./top-lists').TopListObject):
 function syncPanelLayout(): void {
   const dock = element('control-dock')
   const motionOpen = panelIsOpen('motion')
-  const dockPanel = panelNames.find((name) => name !== 'views' && name !== 'motion' && panelIsOpen(name))
+  const dockPanel = panelNames.find((name) => name !== 'views' && name !== 'motion' && name !== 'spaceship' && panelIsOpen(name))
   if (dockPanel) dock.dataset.open = dockPanel
   else if (motionOpen) dock.dataset.open = 'motion'
   else delete dock.dataset.open
@@ -1587,7 +1616,7 @@ function syncSelectedObjectLayout(): void {
   selectedCard.style.maxHeight = `${Math.max(68, availableHeight)}px`
 }
 
-function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active' | 'neighborhood-active', active: boolean): void {
+function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active' | 'neighborhood-active' | 'spaceship-active', active: boolean): void {
   const indicator = element(id)
   if (indicator.hidden !== active) return
   indicator.hidden = !active
@@ -1613,13 +1642,13 @@ function syncVisibilityObserverLayout(): void {
 
 function togglePanel(name: typeof panelNames[number]): void {
   const opening = !panelIsOpen(name)
-  if (!opening) {
-    setPanelOpen(name, false)
+  if (!opening || name === 'spaceship') {
+    setPanelOpen(name, opening)
     syncPanelLayout()
     return
   }
   for (const candidate of panelNames) {
-    if (candidate === name) continue
+    if (candidate === name || candidate === 'spaceship') continue
     if (candidate === 'motion' && name !== 'motion' && lockedPanels.has('motion')) continue
     setPanelOpen(candidate, false)
   }
@@ -1641,7 +1670,7 @@ function dismissOpenPanel(): void {
   }
   let changed = false
   for (const name of panelNames) {
-    if (!panelIsOpen(name)) continue
+    if (!panelIsOpen(name) || name === 'spaceship') continue
     const lockable = lockablePanelNames.find((candidate) => candidate === name)
     if (lockable && lockedPanels.has(lockable)) continue
     setPanelOpen(name, false)
@@ -2024,7 +2053,7 @@ function renderSelection(): void {
     magnitudeCard.dataset.visibilityGuide = magnitudeCard.dataset.defaultVisibilityGuide ?? 'eye'
   }
   text('reference-base', reference.name)
-  text('visibility-base', stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun')
+  text('visibility-base', spaceship && spaceshipVisibility ? 'Spaceship' : stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun')
   const visibilityLock = element('visibility-lock')
   visibilityLock.setAttribute('aria-pressed', String(visibilityLockId !== null))
   visibilityLock.title = visibilityLockId === null ? 'Lock visibility to this object' : 'Unlock visibility'
@@ -2421,6 +2450,98 @@ function renderNeighborhood(): void {
   element('neighborhood-limit-note').textContent = notes.join(' ')
 }
 
+function spaceshipTopSpeedPc(): number {
+  return SPACESHIP_SPEEDS_LY_PER_S[spaceshipSpeedLevel]! / LIGHT_YEARS_PER_PARSEC
+}
+
+/** Starts a ship where the camera is, facing where it looks. */
+function launchSpaceship(): void {
+  if (!viewer || sceneBusy) return
+  if (observerView) setObserverViewAnchor(null)
+  const { position, target } = viewer.getViewState()
+  spaceship = createSpaceship(position, target)
+  applySpaceship()
+}
+
+function applySpaceship(): void {
+  viewer?.setSpaceship(spaceship, spaceship ? spaceshipLabels : 'all', spaceshipVisibility)
+  applySpaceshipInput()
+  renderSpaceship()
+  updateObserverControl()
+}
+
+/** Leaving parks the ship in view; boarding flies the camera back into it. */
+function setSpaceshipPiloting(piloting: boolean): void {
+  if (!spaceship) return
+  spaceship.piloting = piloting
+  spaceshipKeys.clear()
+  setSpaceshipThrottle(0)
+  applySpaceship()
+}
+
+function applySpaceshipInput(): void {
+  const held = (key: SpaceshipKey) => spaceshipKeys.has(key) ? 1 : 0
+  const piloting = spaceship?.piloting === true
+  viewer?.setSpaceshipInput({
+    forward: piloting ? spaceshipThrottle || held('w') - held('s') : 0,
+    strafe: piloting ? held('d') - held('a') : 0,
+    yaw: piloting ? held('q') - held('e') : 0,
+    topSpeedPc: spaceshipTopSpeedPc(),
+  })
+  for (const keycap of element('spaceship-keys').querySelectorAll<HTMLElement>('[data-key]')) {
+    keycap.classList.toggle('is-pressed', spaceshipKeys.has(keycap.dataset.key as SpaceshipKey))
+  }
+}
+
+function setSpaceshipThrottle(value: number): void {
+  spaceshipThrottle = Math.max(-1, Math.min(1, value))
+  const throttle = element('spaceship-throttle')
+  throttle.style.setProperty('--throttle', String(spaceshipThrottle))
+  throttle.setAttribute('aria-valuenow', spaceshipThrottle.toFixed(2))
+  applySpaceshipInput()
+}
+
+function formatSpeed(pcPerSecond: number): string {
+  const value = pcPerSecond * (distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1)
+  return `${value.toLocaleString('en-US', { maximumSignificantDigits: 3 })} ${distanceUnit}/s`
+}
+
+function renderSpaceship(): void {
+  const cardOpen = panelIsOpen('spaceship')
+  setActiveIndicator('spaceship-active', spaceship !== null && !cardOpen)
+  // Touch screens show the readout in a small box of its own while the card is closed.
+  const inHud = touchFirstInput.matches && !cardOpen
+  const readout = element('spaceship-readout')
+  const home = inHud ? element('spaceship-hud') : element('spaceship-panel').querySelector<HTMLElement>('.spaceship-dashboard')!
+  if (readout.parentElement !== home) home.prepend(readout)
+  element('spaceship-hud').hidden = !inHud || !spaceship
+  element('spaceship-throttle').hidden = !touchFirstInput.matches || spaceship?.piloting !== true
+  element<HTMLButtonElement>('spaceship-clear').disabled = !spaceship
+  element<HTMLButtonElement>('spaceship-exit').disabled = !spaceship
+  const parked = spaceship?.piloting === false
+  text('spaceship-exit-label', parked ? 'Board ship' : 'Exit ship')
+  icon('spaceship-exit-icon', parked ? LogIn : LogOut)
+  text('spaceship-speed-level-value', formatSpeed(spaceshipTopSpeedPc()))
+  element('spaceship-visibility-selected').setAttribute('aria-pressed', String(!spaceshipVisibility))
+  element('spaceship-visibility-ship').setAttribute('aria-pressed', String(spaceshipVisibility))
+  renderSpaceshipTelemetry(true)
+}
+
+/** The navball follows every frame; numbers update ten times a second so they stay readable. */
+function renderSpaceshipTelemetry(force = false): void {
+  const telemetry = spaceshipTelemetry
+  if (!telemetry || !spaceship || element('spaceship-readout').closest('[hidden]')) return
+  updateSpaceshipGizmo(telemetry.orientation, telemetry.selectedDirection)
+  const now = performance.now()
+  if (!force && telemetry.speedPc > 0 && now - spaceshipStatsTime < 100) return
+  spaceshipStatsTime = now
+  text('spaceship-speed', `${formatDistance(telemetry.speedPc, distanceUnit)}/s`)
+  element('spaceship-speed-row').style.setProperty('--spaceship-speed', String(Math.min(1, telemetry.speedPc / spaceshipTopSpeedPc())))
+  text('spaceship-target-name', starById(selectedId)?.name ?? 'No selection')
+  text('spaceship-target-distance', telemetry.selectedDistancePc === null ? '–' : formatDistance(telemetry.selectedDistancePc, distanceUnit))
+  text('spaceship-travelled', formatDistance(telemetry.travelledPc, distanceUnit))
+}
+
 /** The map filter narrowed by any Graphs selection, as the 3D view applies it. */
 function objectListFilter(selected = selectedId): ObjectListFilter {
   const base = baseObjectListFilter(selected), graph = graphFilter
@@ -2616,6 +2737,10 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       },
       onViewerDistance: renderViewerDistance,
       onGridScale: renderGridScale,
+      onSpaceship(telemetry) {
+        spaceshipTelemetry = telemetry
+        renderSpaceshipTelemetry()
+      },
       onStatus: sceneStatus,
       colorMode: starColorMode,
       earthOrbitDate: earthOrbitDateForMode(earthOrbitMode),
@@ -2655,6 +2780,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   observerView = viewer.setObserverView(observerView, observerViewAnchorId ?? undefined, retainedView?.observerRollRadians)
   viewer.setObserverTelescope(Boolean(retainedView?.observerTelescope), false)
   if (!observerView) observerViewAnchorId = null
+  if (spaceship) applySpaceship()
   sceneStatus(null)
 }
 
@@ -3035,6 +3161,8 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   }
   setSavedViewsStatus(`Loading “${savedView.name}”`)
   setSimulationPlaying(false)
+  // The saved camera replaces the cockpit; the ship stays parked where it is.
+  if (spaceship?.piloting) setSpaceshipPiloting(false)
   if (observerView) viewer?.setObserverView(false)
   observerView = false
   observerViewAnchorId = null
@@ -3249,6 +3377,99 @@ element('graph-filter-active').addEventListener('click', () => togglePanel('grap
 element('paint-active').addEventListener('click', () => togglePanel('paint'), { signal: events.signal })
 element('motion-active').addEventListener('click', () => togglePanel('motion'), { signal: events.signal })
 element('neighborhood-active').addEventListener('click', () => togglePanel('neighborhood'), { signal: events.signal })
+element('spaceship-active').addEventListener('click', () => togglePanel('spaceship'), { signal: events.signal })
+element('spaceship-exit').addEventListener('click', () => setSpaceshipPiloting(spaceship?.piloting === false), { signal: events.signal })
+element('spaceship-clear').addEventListener('click', () => {
+  spaceship = null
+  spaceshipTelemetry = null
+  spaceshipKeys.clear()
+  setSpaceshipThrottle(0)
+  applySpaceship()
+  renderSelection()
+  setPanelOpen('spaceship', false)
+  syncPanelLayout()
+  element('discover-toggle').focus()
+}, { signal: events.signal })
+for (const [id, fromShip] of [['spaceship-visibility-selected', false], ['spaceship-visibility-ship', true]] as const) {
+  element(id).addEventListener('click', () => {
+    if (spaceshipVisibility === fromShip) return
+    spaceshipVisibility = fromShip
+    applySpaceship()
+    renderSelection()
+  }, { signal: events.signal })
+}
+element('spaceship-travelled-reset').addEventListener('click', () => {
+  if (!spaceship) return
+  spaceship.travelledPc = 0
+  if (spaceshipTelemetry) spaceshipTelemetry.travelledPc = 0
+  renderSpaceshipTelemetry(true)
+}, { signal: events.signal })
+element('spaceship-speed-level').addEventListener('input', () => {
+  const input = element<HTMLInputElement>('spaceship-speed-level')
+  spaceshipSpeedLevel = input.valueAsNumber
+  input.setAttribute('aria-valuetext', ['Slow', 'Medium', 'Fast'][spaceshipSpeedLevel]!)
+  applySpaceshipInput()
+  renderSpaceship()
+}, { signal: events.signal })
+element('spaceship-labels').addEventListener('input', () => {
+  const input = element<HTMLInputElement>('spaceship-labels')
+  spaceshipLabels = SPACESHIP_LABELS[input.valueAsNumber] ?? spaceshipLabels
+  input.setAttribute('aria-valuetext', { none: 'Off', selected: 'Selected object only', all: 'All' }[spaceshipLabels])
+  text('spaceship-labels-value', { none: 'Off', selected: 'Selected', all: 'All' }[spaceshipLabels])
+  viewer?.setSpaceship(spaceship, spaceship ? spaceshipLabels : 'all', spaceshipVisibility)
+}, { signal: events.signal })
+// Flight keys by position, ignored while typing; the on-screen keycaps work the same while held.
+function spaceshipKey(event: KeyboardEvent): SpaceshipKey | undefined {
+  if (event.metaKey || event.ctrlKey || event.altKey) return undefined
+  if (event.target instanceof Element && event.target.closest('input:not([type="range"], [type="checkbox"], [type="radio"]), textarea, select, [contenteditable]')) return undefined
+  return SPACESHIP_KEYS[event.code as keyof typeof SPACESHIP_KEYS]
+}
+document.addEventListener('keydown', (event) => {
+  const key = spaceship?.piloting ? spaceshipKey(event) : undefined
+  if (!key) return
+  event.preventDefault()
+  if (spaceshipKeys.has(key)) return
+  spaceshipKeys.add(key)
+  applySpaceshipInput()
+}, { signal: events.signal })
+document.addEventListener('keyup', (event) => {
+  const key = SPACESHIP_KEYS[event.code as keyof typeof SPACESHIP_KEYS]
+  if (key && spaceshipKeys.delete(key)) applySpaceshipInput()
+}, { signal: events.signal })
+window.addEventListener('blur', () => {
+  if (!spaceshipKeys.size) return
+  spaceshipKeys.clear()
+  applySpaceshipInput()
+}, { signal: events.signal })
+element('spaceship-keys').addEventListener('pointerdown', (event) => {
+  const keycap = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-key]') : null
+  if (!keycap || !spaceship?.piloting) return
+  event.preventDefault()
+  const key = keycap.dataset.key as SpaceshipKey
+  keycap.setPointerCapture(event.pointerId)
+  keycap.addEventListener('lostpointercapture', () => {
+    spaceshipKeys.delete(key)
+    applySpaceshipInput()
+  }, { once: true, signal: events.signal })
+  spaceshipKeys.add(key)
+  applySpaceshipInput()
+}, { signal: events.signal })
+// The touch throttle works like a held joystick: slide up from the touch point to fly forward, down to fly back.
+const spaceshipThrottlePad = element('spaceship-throttle')
+let spaceshipThrottleOrigin: number | null = null
+spaceshipThrottlePad.addEventListener('pointerdown', (event) => {
+  event.preventDefault()
+  spaceshipThrottlePad.setPointerCapture(event.pointerId)
+  spaceshipThrottleOrigin = event.clientY
+}, { signal: events.signal })
+spaceshipThrottlePad.addEventListener('pointermove', (event) => {
+  if (spaceshipThrottleOrigin !== null) setSpaceshipThrottle((spaceshipThrottleOrigin - event.clientY) / (spaceshipThrottlePad.clientHeight * 0.4))
+}, { signal: events.signal })
+spaceshipThrottlePad.addEventListener('lostpointercapture', () => {
+  spaceshipThrottleOrigin = null
+  setSpaceshipThrottle(0)
+}, { signal: events.signal })
+touchFirstInput.addEventListener('change', renderSpaceship, { signal: events.signal })
 const birthYears = element<HTMLSelectElement>('neighborhood-birth-year')
 for (let year = new Date().getFullYear(); year >= FIRST_BIRTH_YEAR; year--) birthYears.add(new Option(String(year)))
 element('neighborhood-radius').addEventListener('input', () => {
@@ -3607,6 +3828,7 @@ element('distance-units').addEventListener('change', () => {
   try { localStorage.setItem('star-view-distance-unit', distanceUnit) } catch {}
   viewer?.setDistanceUnit(distanceUnit)
   renderDistances()
+  renderSpaceship()
 }, { signal: events.signal })
 element('star-colors').addEventListener('change', () => {
   starColorMode = element<HTMLInputElement>('star-colors-exaggerated').checked ? 'exaggerated' : 'real'
@@ -3773,7 +3995,7 @@ for (const name of panelNames) {
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
 }
-for (const name of ['motion', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood'] as const) {
+for (const name of ['motion', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'spaceship'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()

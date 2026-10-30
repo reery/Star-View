@@ -23,6 +23,7 @@ import { createMolecularCloudLayer } from './molecular-cloud-layer'
 import { createBubbleLayer } from './bubble-layer'
 import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
 import { mapComponentVisibility } from './star-systems'
+import { createSpaceshipModel, SPACESHIP_LENGTH_PC, spaceshipMoving, stepSpaceship, type Spaceship, type SpaceshipInput, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
 import type { StarPaint, StarPainter } from './star-paint'
 import {
   GUIDE_DASH_PX, GUIDE_GAP_PX,
@@ -46,6 +47,13 @@ export interface StarViewer {
   setCameraView(view: 'top' | 'side' | 'front'): void
   setGridVisible(visible: boolean): void
   setSkyGrid(mode: SkyGridMode): void
+  /**
+   * Pilots the camera as the ship, or shows it parked; null removes it. The viewer updates the ship in place
+   * while flying, so the same object can be handed to a recreated viewer. Labels apply while the ship exists;
+   * visibilityFromShip rates object brightness from the ship instead of the visibility base.
+   */
+  setSpaceship(ship: Spaceship | null, labels: SpaceshipLabels, visibilityFromShip: boolean): void
+  setSpaceshipInput(input: SpaceshipInput): void
   /** Shows only objects between the distances from the center as they move, inside a grid sphere of the given radius; null shows all. */
   setNeighborhood(neighborhood: { centerId: string; innerPc: number; outerPc: number; spherePc: number } | null): void
   setViewState(state: ViewerViewState): void
@@ -96,6 +104,8 @@ interface ViewerOptions {
   onSelectedDistance?(distancePc: number | null): void
   onViewerDistance?(distancePc: number): void
   onGridScale?(scale: GridScale): void
+  /** Reported on every drawn frame while a ship exists. */
+  onSpaceship?(telemetry: SpaceshipTelemetry): void
   onStatus(message: string | null): void
   colorMode: StarColorMode
   earthOrbitDate?: Date | null
@@ -537,7 +547,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const selectionMidpoint = new Vector3()
   let lastSelectionDistanceUpdate = -Infinity
   let selectedId: string | null = null
-  let visibilityBase = sun
+  let visibilityBaseStar = sun
   let visibilityLocked = false
   let magnitudeLimit = 7
   let hideFainterObjects = false
@@ -571,6 +581,28 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const OBSERVER_ZOOM_DURATION_MS = 360
   let observerTelescope = false
   let observerZoomTransition: { from: number; to: number; started: number } | null = null
+  let spaceship: Spaceship | null = null
+  let spaceshipLabels: SpaceshipLabels = 'all'
+  let spaceshipInput: SpaceshipInput = { forward: 0, strafe: 0, yaw: 0, topSpeedPc: 1 }
+  let spaceshipModel: ReturnType<typeof createSpaceshipModel> | null = null
+  /** Whether the camera currently is the ship, with first-person controls. */
+  let spaceshipCockpit = false
+  /** The camera flying out of the ship when leaving it, or back in when boarding. */
+  let spaceshipFlight: { fromPosition: Vector3; toPosition: Vector3; fromQuaternion: Quaternion; toQuaternion: Quaternion; started: number; boarding: boolean } | null = null
+  let spaceshipTurn: { from: Vector3; rotation: Quaternion; started: number } | null = null
+  const SPACESHIP_FLIGHT_MS = 700
+  const spaceshipTelemetry: SpaceshipTelemetry = { speedPc: 0, travelledPc: 0, selectedDistancePc: null, selectedDirection: null, orientation: new Quaternion() }
+  const spaceshipDirection = new Vector3()
+  const spaceshipTurnStep = new Quaternion()
+  const identityQuaternion = new Quaternion()
+  const selectedDirection = new Vector3()
+  let spaceshipFlying = false
+  let spaceshipVisibility = false
+  // The ship as a visibility base, in catalog coordinates; refreshed a few times a second in flight.
+  const spaceshipObserver: Star = { ...sun, id: 'spaceship', name: 'Spaceship' }
+  let spaceshipObserverTime = -Infinity
+  /** Whether the ship, not orbit controls, places the camera. */
+  const cameraIsShip = () => spaceshipCockpit || spaceshipFlight !== null
   let viewCenterOffset = 0
   let viewCenterTransition: { from: number; to: number; started: number } | null = null
   let savedOrbitSettings: {
@@ -791,6 +823,136 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     invalidateProjection()
   }
 
+  /** Points the cockpit along a world direction from the ship. */
+  function applySpaceshipDirection(direction: Vector3): void {
+    const { position } = spaceship!
+    controls.target.copy(position)
+    camera.position.copy(position).addScaledVector(direction, -OBSERVER_ORBIT_RADIUS_PC)
+    camera.lookAt(position)
+    updatingControls = true
+    try {
+      controls.update()
+    } finally {
+      updatingControls = false
+    }
+    invalidateProjection()
+  }
+
+  // The cockpit looks around like observer view; the keys move its anchor.
+  function enterSpaceshipCockpit(): void {
+    spaceshipCockpit = true
+    configureObserverControls(true)
+    setOrbitUp(worldUp)
+    home = false
+    focusTransition = null
+    applySpaceshipDirection(spaceshipDirection.set(0, 0, -1).applyQuaternion(spaceship!.quaternion))
+    updateSpaceshipModel()
+  }
+
+  function leaveSpaceshipCockpit(): void {
+    spaceshipCockpit = false
+    spaceshipTurn = null
+    spaceshipFlying = false
+    configureObserverControls(false)
+    if (!spaceship) return
+    // A parked ship holds still.
+    spaceship.quaternion.copy(camera.quaternion)
+    spaceship.velocity.set(0, 0, 0)
+    spaceship.yawRate = 0
+  }
+
+  /** Leaving pulls the camera back behind and above the ship; boarding flies it back to the cockpit. */
+  function startSpaceshipFlight(boarding: boolean): void {
+    const ship = spaceship!
+    const toPosition = boarding
+      ? ship.position.clone().addScaledVector(spaceshipDirection.set(0, 0, -1).applyQuaternion(ship.quaternion), -OBSERVER_ORBIT_RADIUS_PC)
+      : new Vector3(0.7, 0.4, 1).multiplyScalar(SPACESHIP_LENGTH_PC * 4).applyQuaternion(ship.quaternion).add(ship.position)
+    const toQuaternion = boarding ? ship.quaternion.clone() : new Quaternion().setFromRotationMatrix(new Matrix4().lookAt(toPosition, ship.position, worldUp))
+    focusTransition = null
+    spaceshipFlight = { fromPosition: camera.position.clone(), toPosition, fromQuaternion: camera.quaternion.clone(), toQuaternion, started: performance.now(), boarding }
+    if (reducedMotion.matches) finishSpaceshipFlight()
+  }
+
+  function finishSpaceshipFlight(): void {
+    const { boarding, toPosition } = spaceshipFlight!
+    spaceshipFlight = null
+    if (boarding) enterSpaceshipCockpit()
+    else applyFocusTarget(spaceship!.position, toPosition)
+    captureFollowTarget()
+  }
+
+  function turnSpaceshipToward(target: Vector3): void {
+    const to = target.clone().sub(spaceship!.position)
+    if (to.lengthSq() < 1e-18) return
+    to.normalize()
+    const from = new Vector3().subVectors(controls.target, camera.position).normalize()
+    spaceshipTurn = null
+    if (reducedMotion.matches) applySpaceshipDirection(to)
+    else spaceshipTurn = { from, rotation: new Quaternion().setFromUnitVectors(from, to), started: performance.now() }
+  }
+
+  /** Moves the cockpit one frame; returns whether it is still moving or turning. */
+  function flySpaceship(time: number, elapsedMs: number): boolean {
+    const ship = spaceship!
+    ship.quaternion.copy(camera.quaternion)
+    const turn = spaceshipTurn
+    if (!turn && !spaceshipMoving(ship, spaceshipInput)) return false
+    const yaw = stepSpaceship(ship, spaceshipInput, Math.min(elapsedMs, 100) / 1000)
+    if (turn) {
+      const progress = Math.min(1, Math.max(0, (time - turn.started) / SPACESHIP_FLIGHT_MS))
+      spaceshipTurnStep.slerpQuaternions(identityQuaternion, turn.rotation, progress * progress * (3 - 2 * progress))
+      spaceshipDirection.copy(turn.from).applyQuaternion(spaceshipTurnStep)
+      if (progress === 1) spaceshipTurn = null
+    } else spaceshipDirection.subVectors(controls.target, camera.position).normalize().applyAxisAngle(worldUp, yaw)
+    applySpaceshipDirection(spaceshipDirection)
+    return spaceshipTurn !== null || spaceshipMoving(ship, spaceshipInput)
+  }
+
+  function updateSpaceshipModel(): void {
+    if (spaceship && !spaceshipModel) {
+      spaceshipModel = createSpaceshipModel()
+      scene.add(spaceshipModel.group)
+    }
+    // The parked ship counts for the near plane, so close views of it are not clipped.
+    depthPositions.length = stars.length
+    if (spaceship && !spaceshipCockpit) depthPositions.push(spaceship.position)
+    if (!spaceshipModel) return
+    spaceshipModel.group.visible = spaceship !== null && !spaceshipCockpit
+    if (!spaceship) return
+    spaceshipModel.group.position.copy(spaceship.position)
+    spaceshipModel.group.quaternion.copy(spaceship.quaternion)
+  }
+
+  function visibilityBasePosition(): Vector3 {
+    return spaceship && spaceshipVisibility ? spaceship.position : pickable[starsById.get(visibilityBaseStar.id)!.index]!.position
+  }
+
+  /** Rates magnitudes from the ship's latest position, at most four times a second while it flies. */
+  function syncSpaceshipObserver(time: number): void {
+    const { x, y, z } = spaceship!.position
+    if (x === spaceshipObserver.x_pc && -z === spaceshipObserver.y_pc && y === spaceshipObserver.z_pc) return
+    if (spaceshipFlying && time - spaceshipObserverTime < 250) return
+    spaceshipObserverTime = time
+    spaceshipObserver.x_pc = x
+    spaceshipObserver.y_pc = -z
+    spaceshipObserver.z_pc = y
+    // Same id, new position: recompute the magnitudes.
+    rankedBaseId = ''
+    updatePresentation()
+  }
+
+  function reportSpaceship(): void {
+    const ship = spaceship!
+    const selected = selectedId === null ? undefined : starsById.get(selectedId)
+    spaceshipTelemetry.speedPc = ship.velocity.length()
+    spaceshipTelemetry.travelledPc = ship.travelledPc
+    spaceshipTelemetry.orientation.copy(spaceshipCockpit ? camera.quaternion : ship.quaternion)
+    spaceshipTelemetry.selectedDirection = selected ? selectedDirection.subVectors(pickable[selected.index]!.position, ship.position) : null
+    spaceshipTelemetry.selectedDistancePc = selected ? selectedDirection.length() : null
+    if (selected) selectedDirection.normalize()
+    options.onSpaceship?.(spaceshipTelemetry)
+  }
+
   function setSelectionGuidePoints(referencePosition: Vector3, selectedPosition: Vector3): void {
     const footX = selectedPosition.x
     const footY = referencePosition.y
@@ -810,7 +972,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function captureFollowTarget(preferred?: 'star' | 'distance'): void {
-    if (observerViewEnabled || !followSelection || selectedId === null) {
+    if (observerViewEnabled || cameraIsShip() || !followSelection || selectedId === null) {
       delete container.dataset.followTarget
       return
     }
@@ -828,7 +990,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function applySelectionFollow(): void {
-    if (observerViewEnabled || !followSelection || selectedId === null) return
+    if (observerViewEnabled || cameraIsShip() || !followSelection || selectedId === null) return
     const selectedIndex = starsById.get(selectedId)!.index
     const selectedPosition = pickable[selectedIndex]!.position
     if (followTarget === 'star') followCurrent.copy(selectedPosition)
@@ -1027,6 +1189,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function updatePresentation(): void {
     componentVisible = mapComponentVisibility(stars, selectedId)
     ordinaryLayoutDirty = true
+    const visibilityBase = spaceship && spaceshipVisibility ? spaceshipObserver : visibilityBaseStar
     const baseChanged = rankedBaseId !== visibilityBase.id
     const rankingChanged = baseChanged || rankedSelection !== selectedId
     if (baseChanged) {
@@ -1323,8 +1486,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const viewport = projectionViewport!
     const selectedIndex = selectedId ? starsById.get(selectedId)!.index : -1
     const selectedLabelVisible = selectedIndex >= 0 && (!observerViewEnabled || selectedIndex !== observerViewAnchorIndex)
-    const ordinaryBudget = Math.max(0, labelLimit - (selectedLabelVisible && labelLimit > 0 ? 1 : 0))
+    // A ship's label setting replaces the name budget: none, only the selection, or the usual limit.
+    const nameLimit = spaceshipLabels === 'all' ? labelLimit : 0
+    const namesShown = spaceshipLabels === 'all' ? labelLimit > 0 : spaceshipLabels === 'selected'
+    const ordinaryBudget = Math.max(0, nameLimit - (selectedLabelVisible && nameLimit > 0 ? 1 : 0))
     const motionActive = controlsInteracting || controlsSettling || focusTransition !== null || observerZoomTransition !== null || viewCenterTransition !== null || simulationPlaying
+      || spaceshipFlight !== null || spaceshipFlying
     // Membership follows the same 30 Hz cadence as ordinary placement while moving.
     const budgetStale = ordinaryGroupSource !== rankedNameGroups || budgetSelectedIndex !== selectedIndex ||
       budgetLimit !== ordinaryBudget || ordinaryLayoutDirty || labelSizesDirty || obstacleBoundsDirty
@@ -1365,7 +1532,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     for (const label of axisLabels) if (label.width === 0 || label.height === 0) labelsToMeasure.push(label)
     for (const label of measurementLabels) if (label.width === 0 || label.height === 0) labelsToMeasure.push(label)
     // Every active star label is budgeted; a zero limit keeps only a visible selected anchor.
-    if (labelLimit > 0) {
+    if (namesShown) {
       for (const label of starLabels) if (label.width === 0 || label.height === 0) labelsToMeasure.push(label)
     }
     if (labelsToMeasure.length > 0) {
@@ -1389,7 +1556,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         .filter((element) => !element.hidden)
         .map((element) => ({
           bounds: element.getBoundingClientRect(),
-          blocksSelected: element.matches('.selected-object, .scene-toolbar, .time-controls, .control-dock, .scene-legend, .visibility-observer'),
+          blocksSelected: element.matches('.selected-object, .scene-toolbar, .time-controls, .spaceship-card, .spaceship-hud, .control-dock, .scene-legend, .visibility-observer'),
         }))
       obstacleBoundsDirty = false
     }
@@ -1495,7 +1662,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       setTransform(label.anchor, `translate(${anchor.x - viewport.left}px, ${anchor.y - viewport.top}px)`)
       // Selection keeps a name visible even without component photometry or
       // when the object falls below the observer's magnitude limit.
-      if (labelLimit === 0 || (!foreground && tiers[label.index!] === 'background')) {
+      if (!namesShown || (!foreground && tiers[label.index!] === 'background')) {
         setHidden(label.text, true)
         continue
       }
@@ -1578,7 +1745,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     molecularCloudLayer?.setSelected(id)
     bubbleLayer?.setSelected(id)
     obstacleBoundsDirty = true
-    if (star && !observerViewEnabled && !visibilityLocked) visibilityBase = star
+    if (star && !observerViewEnabled && !visibilityLocked) visibilityBaseStar = star
     updatePresentation()
     disposeGeometry(guides)
     guides.clear()
@@ -1625,6 +1792,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (observerViewEnabled) {
       resize()
       captureFollowTarget()
+      return
+    }
+    // Selecting turns the cockpit toward the object instead of moving the camera to it.
+    if (cameraIsShip()) {
+      if (focus && spaceshipCockpit) turnSpaceshipToward(pickable[selectedIndex]!.position)
+      resize()
       return
     }
     if (focus) {
@@ -1711,7 +1884,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     focusTransition = null
     controlsInteracting = false
     controlsSettling = false
-    if (anchor) visibilityBase = anchor.star
+    if (anchor) visibilityBaseStar = anchor.star
     select(selectedId, false)
     if (anchor) {
       placeObserverCamera(anchor.index)
@@ -1765,8 +1938,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function reset(): void {
-    if (observerViewEnabled) return
+    if (observerViewEnabled || spaceshipCockpit || spaceshipFlight?.boarding) return
     focusTransition = null
+    spaceshipFlight = null
     controlsInteracting = false
     controlsSettling = false
     controls.reset()
@@ -1776,7 +1950,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function setCameraView(view: 'top' | 'side' | 'front'): void {
-    if (observerViewEnabled) return
+    if (observerViewEnabled || spaceshipCockpit || spaceshipFlight?.boarding) return
+    spaceshipFlight = null
     const target = controls.target.clone()
     const distance = camera.position.distanceTo(target)
     const direction = view === 'top' ? new Vector3(0, 1, 0)
@@ -1902,6 +2077,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function onControlsStart(): void {
     options.onInteraction()
     focusTransition = null
+    spaceshipTurn = null
     home = false
     controlsInteracting = true
     controlsSettling = true
@@ -1959,6 +2135,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     previousRafTime = time
     const sceneNeedsFrame = sceneDirty || focusTransition !== null || observerZoomTransition !== null || viewCenterTransition !== null || controlsInteracting || controlsSettling
+      || spaceshipFlight !== null || spaceshipFlying
     if (!sceneNeedsFrame) {
       if (refreshSamplesRemaining > 0) requestRender(false)
       else {
@@ -1991,6 +2168,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         resize()
       }
       else continueRendering = true
+    } else if (spaceshipFlight) {
+      const progress = Math.min(1, Math.max(0, (time - spaceshipFlight.started) / SPACESHIP_FLIGHT_MS))
+      const eased = progress * progress * (3 - 2 * progress)
+      camera.position.lerpVectors(spaceshipFlight.fromPosition, spaceshipFlight.toPosition, eased)
+      camera.quaternion.slerpQuaternions(spaceshipFlight.fromQuaternion, spaceshipFlight.toQuaternion, eased)
+      invalidateProjection()
+      if (progress === 1) finishSpaceshipFlight()
+      else continueRendering = true
     } else {
       const dampingFactor = controls.dampingFactor
       if (controls.enableDamping) controls.dampingFactor = effectiveDampingFactor(dampingFactor, elapsedMs)
@@ -2009,6 +2194,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         controlsSettling = false
         resize()
       }
+      spaceshipFlying = spaceshipCockpit && flySpaceship(time, elapsedMs)
+      if (spaceshipFlying) continueRendering = true
     }
     if (observerZoomTransition) {
       const progress = Math.min(1, Math.max(0, (time - observerZoomTransition.started) / OBSERVER_ZOOM_DURATION_MS))
@@ -2034,12 +2221,19 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       camera.position.distanceTo(controls.target),
       camera.position.distanceTo(pickable[referenceIndex]!.position),
     )
-    const visibilityBaseIndex = starsById.get(visibilityBase.id)!.index
-    const viewerDistance = camera.position.distanceTo(pickable[visibilityBaseIndex]!.position)
+    const viewerDistance = camera.position.distanceTo(visibilityBasePosition())
     updateGridScale(viewerDistance)
     if ((!continueRendering && !simulationPlaying) || time - lastViewerDistanceReport >= 250) {
       options.onViewerDistance?.(viewerDistance)
       lastViewerDistanceReport = time
+    }
+    if (spaceship) {
+      if (spaceshipVisibility) syncSpaceshipObserver(time)
+      if (spaceshipModel!.group.visible) {
+        const distance = Math.max(1e-9, camera.position.distanceTo(spaceship.position))
+        spaceshipModel!.setScreenLength(SPACESHIP_LENGTH_PC / distance * camera.projectionMatrix.elements[5]! * 0.5 * renderHeight, renderer.getPixelRatio())
+      }
+      reportSpaceship()
     }
     updateGuideDashScales()
     updateMotionArrows()
@@ -2284,8 +2478,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setVisibility(observerId, limit, hideFainter) {
       const base = starsById.get(observerId)?.star
       if (!base || !Number.isFinite(limit) || limit < 0 || limit > 25) return
-      if (base === visibilityBase && limit === magnitudeLimit && hideFainter === hideFainterObjects) return
-      visibilityBase = base
+      if (base === visibilityBaseStar && limit === magnitudeLimit && hideFainter === hideFainterObjects) return
+      visibilityBaseStar = base
       magnitudeLimit = limit
       hideFainterObjects = hideFainter
       updatePresentation()
@@ -2306,8 +2500,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setDistanceUnit(unit) {
       if (unit === distanceUnit) return
       distanceUnit = unit
-      const visibilityBaseIndex = starsById.get(visibilityBase.id)!.index
-      updateGridScale(camera.position.distanceTo(pickable[visibilityBaseIndex]!.position))
+      updateGridScale(camera.position.distanceTo(visibilityBasePosition()))
       obstacleBoundsDirty = true
       measurementLabels.forEach((label) => {
         const { distancePc, suffix } = label.measurement!
@@ -2328,6 +2521,43 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       skyGrid.setMode(mode)
       requestRender()
     },
+    setSpaceship(next, labels, visibilityFromShip) {
+      if (labels !== spaceshipLabels) {
+        spaceshipLabels = labels
+        ordinaryLayoutDirty = true
+      }
+      const visibilityChanged = (next !== null && visibilityFromShip) !== (spaceship !== null && spaceshipVisibility)
+      spaceshipVisibility = visibilityFromShip
+      const previous = spaceship
+      if (next !== previous) {
+        spaceshipFlight = null
+        if (spaceshipCockpit) {
+          leaveSpaceshipCockpit()
+          // Without a ship, orbit a point just ahead instead of the former cockpit.
+          if (!next) applyFocusTarget(spaceshipDirection.subVectors(controls.target, camera.position).normalize().multiplyScalar(0.3).add(camera.position), camera.position.clone())
+        }
+      }
+      spaceship = next
+      if (next?.piloting && !spaceshipCockpit && !spaceshipFlight?.boarding) {
+        // A recreated viewer or a new ship starts in the cockpit; boarding a parked ship flies there.
+        if (next === previous) startSpaceshipFlight(true)
+        else enterSpaceshipCockpit()
+      } else if (next && !next.piloting && (spaceshipCockpit || spaceshipFlight?.boarding)) {
+        if (spaceshipCockpit) leaveSpaceshipCockpit()
+        startSpaceshipFlight(false)
+      }
+      updateSpaceshipModel()
+      if (visibilityChanged) {
+        if (next && visibilityFromShip) syncSpaceshipObserver(performance.now())
+        updatePresentation()
+      }
+      container.dataset.spaceship = next ? next.piloting ? 'piloting' : 'parked' : 'off'
+      requestRender()
+    },
+    setSpaceshipInput(input) {
+      spaceshipInput = input
+      requestRender()
+    },
     setNeighborhood(next) {
       const center = next && starsById.get(next.centerId)
       neighborhood = center ? { index: center.index, innerPc: next.innerPc, outerPc: next.outerPc } : null
@@ -2345,7 +2575,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       requestRender()
     },
     setViewState(state) {
-      if (observerViewEnabled) return
+      if (observerViewEnabled || spaceshipCockpit || spaceshipFlight?.boarding) return
+      spaceshipFlight = null
       const values = [...state.position, ...state.target]
       if (values.some((value) => !Number.isFinite(value))) return
       focusTransition = null
@@ -2385,6 +2616,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       nebulaLayer?.dispose()
       molecularCloudLayer?.dispose()
       bubbleLayer?.dispose()
+      spaceshipModel?.dispose()
       dotTexture.dispose()
       earthOrbit.dispose()
       haloTexture.dispose()
@@ -2408,6 +2640,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       delete container.dataset.simulationYears
       delete container.dataset.followTarget
       delete container.dataset.neighborhoodRadiusPc
+      delete container.dataset.spaceship
       delete labelLayer.dataset.bubbleTriangleCount
       delete labelLayer.dataset.molecularCloudPuffCount
     },

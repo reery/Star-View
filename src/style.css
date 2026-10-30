@@ -67,7 +67,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .scene-toolbar, .dock-rail { z-index: 2; }
 
 .inspector { position: absolute; z-index: 4; inset: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left); pointer-events: none; }
-.selected-object, .dock-card, .observer-direction-card { color: var(--ink); background: linear-gradient(145deg, #26282af7, var(--panel-glass)); border: 1px solid #5a5148; border-radius: var(--card-radius); box-shadow: 0 14px 38px #00000080, inset 0 1px #ffffff0a; }
+.selected-object, .dock-card, .observer-direction-card, .spaceship-hud { color: var(--ink); background: linear-gradient(145deg, #26282af7, var(--panel-glass)); border: 1px solid #5a5148; border-radius: var(--card-radius); box-shadow: 0 14px 38px #00000080, inset 0 1px #ffffff0a; }
 .selected-object, .dock-card { isolation: isolate; }
 .selected-object { position: absolute; top: 20px; left: 20px; width: 292px; max-height: calc(var(--ui-height) - 40px); display: flex; flex-direction: column; overflow: hidden; pointer-events: auto; }
 /* Like .card-scroll-content: the summary with the section buttons stays put and only the body scrolls. */
@@ -160,6 +160,83 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .time-markers i.marker-end::after { right: 0; left: auto; transform: none; }
 .time-markers .time-now-marker { top: 1px; height: 20px; background: var(--ink); }
 .time-markers .time-now-marker::after { content: 'Now'; top: 20px; color: var(--ink); font-weight: 500; }
+/* Spaceship: a compact card at the bottom center, above an open Stellar motion card. */
+.dock-card.spaceship-card { position: fixed; left: 50%; bottom: calc(20px + var(--safe-bottom)); width: min(620px, calc(var(--ui-width) - 40px)); translate: -50% 0; }
+.scene-wrap:has(.control-dock[data-motion-open]) :is(.spaceship-card, .spaceship-hud) { bottom: var(--motion-panel-clearance, 150px); }
+.panel-heading.spaceship-heading { padding-right: 98px; }
+.panel-heading #spaceship-clear { right: 43px; border-radius: 0; }
+.spaceship-body { display: grid; gap: 10px; padding: 10px 12px 12px; }
+.spaceship-dashboard { display: grid; grid-template-columns: 68px auto minmax(0, 1fr) auto 112px; grid-template-areas: "gizmo keys stats actions settings"; align-items: center; gap: 12px; }
+.spaceship-dashboard > .spaceship-readout { display: contents; }
+.spaceship-dashboard .spaceship-gizmo-frame { grid-area: gizmo; }
+.spaceship-dashboard .spaceship-stats { grid-area: stats; }
+.spaceship-keys { grid-area: keys; display: grid; grid-template-columns: repeat(3, 30px); gap: 4px; padding-bottom: 2px; }
+.spaceship-key { display: grid; place-items: center; align-content: center; height: 30px; color: var(--muted); background: var(--surface-control); border: 1px solid var(--line); border-radius: 5px; box-shadow: 0 2px 0 var(--line); cursor: pointer; user-select: none; -webkit-user-select: none; touch-action: none; transition: color 80ms ease, background 80ms ease, border-color 80ms ease, translate 80ms ease, box-shadow 80ms ease; }
+.spaceship-key kbd { color: var(--ink); font: inherit; font-size: 11px; font-weight: 600; line-height: 1; }
+.spaceship-key svg { width: 11px; height: 11px; }
+.spaceship-key.is-pressed { color: var(--accent-strong); background: var(--panel-selected); border-color: var(--border-active); box-shadow: 0 0 0 var(--line); translate: 0 2px; }
+.spaceship-key.is-pressed kbd { color: var(--accent-strong); }
+.spaceship-stats { display: grid; gap: 3px; min-width: 0; font-size: 12px; line-height: 1.3; }
+.spaceship-stats > div { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-width: 0; min-height: 20px; }
+.spaceship-stats dt { min-width: 0; color: var(--muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.spaceship-stats dd { display: flex; align-items: center; gap: 4px; }
+.spaceship-stats output { color: var(--accent-strong); font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* The speed bar under the speed row shows the share of the top speed. */
+.spaceship-stats > .spaceship-speed { flex-wrap: wrap; padding-bottom: 5px; border-bottom: var(--mass-metric-divider); }
+.spaceship-speed::after { content: ''; flex: 1 0 100%; height: var(--stat-bar-height); margin-top: 3px; border-radius: var(--stat-bar-radius); background: var(--stat-bar-fill) 0 0 / calc(var(--spaceship-speed, 0) * 100%) 100% no-repeat, #ffffff1a; }
+.spaceship-speed output { font-size: 15px; font-weight: 600; }
+.spaceship-reset { display: grid; place-items: center; width: 20px; height: 20px; padding: 0; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 4px; }
+.spaceship-reset svg { width: 12px; height: 12px; }
+.spaceship-reset:focus-visible { outline-offset: 1px; }
+.spaceship-actions { grid-area: actions; display: grid; gap: 6px; }
+.spaceship-visibility.unit-options > button { height: 30px; color: var(--ink); background: transparent; white-space: nowrap; }
+.spaceship-visibility.unit-options > button[aria-pressed="true"] { background: var(--panel-selected); color: var(--accent-strong); }
+.spaceship-card .spaceship-exit { min-height: 30px; padding: 4px 8px; color: var(--ink); font-size: 12px; white-space: nowrap; }
+.spaceship-exit svg { width: 15px; height: 15px; }
+/* Three-level sliders stay short: stacked at the right on desktop, side by side below on narrow and touch layouts. */
+.spaceship-settings { grid-area: settings; display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px 20px; }
+.spaceship-settings .range-filter { gap: 3px; }
+.spaceship-settings .range-heading { font-size: 12px; }
+.spaceship-gizmo { width: 100%; height: auto; overflow: visible; font-family: inherit; }
+.spaceship-gizmo-globe { fill: #ffffff08; stroke: var(--line); stroke-width: 1; }
+.spaceship-gizmo-circle { fill: none; stroke: #b29d8780; stroke-width: 1; }
+.spaceship-gizmo-circle.is-plane { stroke: #e7a05bb3; stroke-width: 1.3; }
+.spaceship-gizmo-circle.is-back { stroke-dasharray: 2 3; opacity: 0.45; }
+.spaceship-gizmo-axis { stroke-width: 2; stroke-linecap: round; }
+.spaceship-gizmo-label { font-size: 9px; font-weight: 600; }
+.spaceship-gizmo-axis.axis-0 { stroke: #c99a86; }
+.spaceship-gizmo-axis.axis-1 { stroke: #d6bb9c; }
+.spaceship-gizmo-axis.axis-2 { stroke: #a9c4cf; }
+.spaceship-gizmo-label.axis-0 { fill: #c99a86; }
+.spaceship-gizmo-label.axis-1 { fill: #d6bb9c; }
+.spaceship-gizmo-label.axis-2 { fill: #a9c4cf; }
+:is(.spaceship-gizmo-axis, .spaceship-gizmo-label).is-back { opacity: 0.35; }
+.spaceship-gizmo-heading { fill: none; stroke: var(--ink); stroke-width: 1.2; }
+.spaceship-gizmo-target { fill: none; stroke: var(--accent-vibrant); stroke-width: 1.8; }
+.spaceship-gizmo-target.is-back { stroke-dasharray: 2 2; opacity: 0.6; }
+/* On touch screens the readout sits in its own box at the lower left, and a faint pad beside the controls sets the throttle. */
+.spaceship-hud { position: absolute; left: calc(20px + var(--safe-left)); bottom: calc(44px + var(--safe-bottom)); display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: center; gap: 10px; width: min(250px, calc(var(--ui-width) - 150px)); padding: 8px 10px; pointer-events: auto; }
+.spaceship-hud > .spaceship-readout { display: contents; }
+.spaceship-throttle { position: absolute; right: calc(74px + var(--safe-right)); bottom: calc(84px + var(--safe-bottom)); display: grid; grid-template-rows: auto 1fr auto; justify-items: center; align-items: center; width: 48px; height: min(220px, 40dvh); padding: 8px 0; color: #edc69b59; background: #ffffff08; border: 1px solid #ffffff1f; border-radius: 24px; pointer-events: auto; touch-action: none; user-select: none; -webkit-user-select: none; }
+.spaceship-throttle svg { width: 18px; height: 18px; }
+.spaceship-throttle-knob { width: 30px; height: 30px; border: 1px solid #ffffff38; border-radius: 50%; background: #ffffff14; translate: 0 calc(var(--throttle, 0) * -60px); }
+.spaceship-throttle:active .spaceship-throttle-knob { border-color: var(--border-active); background: color-mix(in srgb, var(--accent) 30%, transparent); }
+@media (hover: hover) {
+  .spaceship-reset:hover { color: var(--accent-strong); background: var(--panel-hover); }
+}
+@media (max-width: 720px) {
+  .spaceship-dashboard { grid-template-columns: 64px auto minmax(0, 1fr); grid-template-areas: "gizmo keys stats" "actions actions actions" "settings settings settings"; }
+  .spaceship-actions { grid-template-columns: auto minmax(0, 1fr); }
+  .spaceship-settings { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+}
+@media (hover: none) and (pointer: coarse) {
+  .spaceship-keys { display: none; }
+  .spaceship-dashboard { grid-template-columns: 64px minmax(0, 1fr) auto; grid-template-areas: "gizmo stats actions" "settings settings settings"; }
+  .spaceship-settings { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+}
+@media (hover: none) and (pointer: coarse) and (max-width: 720px) {
+  .spaceship-dashboard { grid-template-columns: 64px minmax(0, 1fr); grid-template-areas: "gizmo stats" "actions actions" "settings settings"; }
+}
 .control-dock { position: absolute; right: 18px; bottom: 20px; display: grid; grid-template-columns: 44px; align-items: end; gap: 10px; pointer-events: none; }
 /* A tall card stretches the rail column; keep the empty space above the rail click-through to the toolbar. */
 .dock-rail, .dock-card { pointer-events: auto; }
@@ -264,8 +341,9 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .icon-button:focus-visible { outline-color: var(--accent-strong); }
 [data-toolbar-flyout] { position: relative; width: 44px; height: 44px; }
 [data-toolbar-options] { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
-/* Six Discover cards: three in a row above the toggle and three beside it; the corner above the toggle bridges the pointer to the upper row. */
-.discover-options { top: auto; bottom: 0; display: grid; grid-template-columns: repeat(3, 44px); }
+/* Seven Discover cards: three in a row above the toggle and four beside it; the corner above the toggle bridges the pointer to the upper row. */
+.discover-options { top: auto; bottom: 0; display: grid; grid-template-columns: repeat(4, 44px); }
+.discover-options > :first-child { grid-column-start: 2; }
 .discover-options::after { content: ''; position: absolute; top: 0; right: -44px; width: 44px; height: 44px; }
 .discover-controls .discover-options > :nth-child(-n + 3) .tooltip { top: auto; bottom: calc(100% + 8px); }
 .camera-view-button { width: 60px; flex: 0 0 60px; font: inherit; font-size: 12px; font-weight: 500; }
@@ -355,12 +433,12 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .browser-data-dialog p { margin: 0; }
 #browser-data-error { margin-top: 10px; color: var(--danger); }
 .browser-data-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
-.neighborhood-recenter { display: flex; align-items: center; justify-content: center; gap: 6px; }
-:is(.browser-data-actions button, .neighborhood-recenter) { min-width: 56px; min-height: 40px; padding: 7px 10px; background: transparent; border: 1px solid var(--line); border-radius: 6px; }
+:is(.neighborhood-recenter, .spaceship-exit) { display: flex; align-items: center; justify-content: center; gap: 6px; }
+:is(.browser-data-actions button, .neighborhood-recenter, .spaceship-exit) { min-width: 56px; min-height: 40px; padding: 7px 10px; background: transparent; border: 1px solid var(--line); border-radius: 6px; }
 #browser-data-no { color: var(--accent); }
 @media (hover: hover) {
   .browser-data-delete:hover:not(:disabled) { background: color-mix(in srgb, var(--danger) 18%, transparent); }
-  :is(.browser-data-actions button, .neighborhood-recenter):hover { background: var(--panel-hover); }
+  :is(.browser-data-actions button, .neighborhood-recenter, .spaceship-exit):hover { background: var(--panel-hover); }
 }
 .preferences-group { display: grid; gap: 12px; }
 .preferences-group > .card-subgroup-heading { margin: 0 -14px; padding-inline: 14px; }
@@ -1415,6 +1493,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .time-readout { min-width: 0; }
   .control-dock { right: 12px; bottom: 12px; }
   .observer-direction-card { --observer-bottom: 44px; right: 66px; }
+  .dock-card.spaceship-card { left: calc(12px + var(--safe-left)); bottom: calc(12px + var(--safe-bottom)); width: min(500px, calc(var(--ui-width) - 140px)); translate: none; }
+  .spaceship-hud { left: calc(12px + var(--safe-left)); bottom: calc(64px + var(--safe-bottom)); }
+  .spaceship-throttle { right: calc(66px + var(--safe-right)); bottom: calc(68px + var(--safe-bottom)); }
   .dock-card { max-height: calc(var(--ui-height) - 24px); }
   .dock-card.catalog.is-expanded { max-height: calc(var(--ui-height) - 36px); }
   .catalog.is-expanded .objects-heading { flex-wrap: wrap; gap: 0; padding: 0; }

@@ -748,6 +748,7 @@
                     <button id="motion-toggle" class="icon-button panel-button" type="button" aria-label="Stellar motion" aria-controls="motion-panel" aria-expanded="false"><span id="motion-icon"></span><span class="tooltip">Stellar motion</span></button>
                     <button id="paint-toggle" class="icon-button panel-button" type="button" aria-label="Paint" aria-controls="paint-panel" aria-expanded="false"><span id="paint-icon"></span><span class="tooltip">Paint</span></button>
                     <button id="graphs-toggle" class="icon-button panel-button" type="button" aria-label="Graphs" aria-controls="graphs-panel" aria-expanded="false"><span id="graphs-icon"></span><span class="tooltip">Graphs</span></button>
+                    <button id="spaceship-toggle" class="icon-button panel-button" type="button" aria-label="Spaceship" aria-controls="spaceship-panel" aria-expanded="false"><span id="spaceship-icon"></span><span class="tooltip">Spaceship</span></button>
                   </div>
                 </div>
                 <button id="filter-toggle" class="icon-button panel-button" type="button" aria-label="Filter" aria-controls="filter-panel" aria-expanded="false"><span id="filter-icon"></span><span class="tooltip">Filter</span></button>
@@ -759,6 +760,7 @@
                   <button id="motion-active" class="icon-button" type="button" aria-label="Stellar motion active" aria-pressed="true" aria-controls="motion-panel" hidden><span id="motion-active-icon"></span><span class="tooltip">Stellar motion active</span></button>
                   <button id="paint-active" class="icon-button" type="button" aria-label="Paint active" aria-pressed="true" aria-controls="paint-panel" hidden><span id="paint-active-icon"></span><span class="tooltip">Paint active</span></button>
                   <button id="neighborhood-active" class="icon-button" type="button" aria-label="Neighborhood active" aria-pressed="true" aria-controls="neighborhood-panel" hidden><span id="neighborhood-active-icon"></span><span class="tooltip">Neighborhood active</span></button>
+                  <button id="spaceship-active" class="icon-button" type="button" aria-label="Spaceship active" aria-pressed="true" aria-controls="spaceship-panel" hidden><span id="spaceship-active-icon"></span><span class="tooltip">Spaceship active</span></button>
                   <button id="graph-filter-active" class="icon-button" type="button" aria-label="Graph filter active" aria-pressed="true" aria-controls="graphs-panel" hidden><span id="graph-filter-active-icon"></span><span class="tooltip">Graph filter active</span></button>
                 </div>
               </div>
@@ -984,6 +986,44 @@
                   </section>
                 </div>
               </section>
+              <section id="spaceship-panel" class="dock-card spaceship-card" aria-labelledby="spaceship-heading" data-scene-obstacle hidden>
+                <div class="panel-heading spaceship-heading">
+                  <h2 id="spaceship-heading">Spaceship</h2>
+                  <button id="spaceship-clear" class="panel-lock" type="button" aria-label="Clear spaceship" title="Clear spaceship"><span id="spaceship-clear-icon"></span></button>
+                  <button id="spaceship-close" class="panel-lock" type="button" aria-label="Close spaceship card"><span id="spaceship-close-icon"></span></button>
+                </div>
+                <div class="spaceship-body">
+                  <div class="spaceship-dashboard">
+                    <div id="spaceship-readout" class="spaceship-readout">
+                      <div id="spaceship-gizmo" class="spaceship-gizmo-frame"></div>
+                      <dl class="spaceship-stats">
+                        <div id="spaceship-speed-row" class="spaceship-speed"><dt>Speed</dt><dd><output id="spaceship-speed">0.00 ly/s</output></dd></div>
+                        <div><dt id="spaceship-target-name">No selection</dt><dd><output id="spaceship-target-distance">–</output></dd></div>
+                        <div><dt>Travelled</dt><dd><button id="spaceship-travelled-reset" class="spaceship-reset" type="button" aria-label="Reset travelled distance" title="Reset travelled distance"><span id="spaceship-travelled-reset-icon"></span></button><output id="spaceship-travelled">0.00 ly</output></dd></div>
+                      </dl>
+                    </div>
+                    <div id="spaceship-keys" class="spaceship-keys" role="img" aria-label="Fly with W and S forward and backward, A and D sideways, and Q and E to turn."><span class="spaceship-key" data-key="q" title="Turn left"><kbd>Q</kbd><span id="spaceship-key-q-icon"></span></span><span class="spaceship-key" data-key="w" title="Forward"><kbd>W</kbd><span id="spaceship-key-w-icon"></span></span><span class="spaceship-key" data-key="e" title="Turn right"><kbd>E</kbd><span id="spaceship-key-e-icon"></span></span><span class="spaceship-key" data-key="a" title="Strafe left"><kbd>A</kbd><span id="spaceship-key-a-icon"></span></span><span class="spaceship-key" data-key="s" title="Backward"><kbd>S</kbd><span id="spaceship-key-s-icon"></span></span><span class="spaceship-key" data-key="d" title="Strafe right"><kbd>D</kbd><span id="spaceship-key-d-icon"></span></span></div>
+                    <div class="spaceship-actions">
+                      <div id="spaceship-visibility" class="unit-options spaceship-visibility" role="group" aria-label="Visibility from" title="Visibility from">
+                        <button id="spaceship-visibility-selected" type="button" aria-pressed="true">Selected</button><button id="spaceship-visibility-ship" type="button" aria-pressed="false">Ship</button>
+                      </div>
+                      <button id="spaceship-exit" class="spaceship-exit" type="button"><span id="spaceship-exit-icon"></span><span id="spaceship-exit-label">Exit ship</span></button>
+                    </div>
+                    <div class="spaceship-settings">
+                      <div class="range-filter">
+                        <div class="range-heading"><label for="spaceship-speed-level">Top speed</label><output id="spaceship-speed-level-value" for="spaceship-speed-level"></output></div>
+                        <input id="spaceship-speed-level" type="range" min="0" max="2" step="1" value="1" aria-valuetext="Medium">
+                        <div class="range-bounds" aria-hidden="true"><span>Slow</span><span>Medium</span><span>Fast</span></div>
+                      </div>
+                      <div class="range-filter">
+                        <div class="range-heading"><label for="spaceship-labels">Labels</label><output id="spaceship-labels-value" for="spaceship-labels">Selected</output></div>
+                        <input id="spaceship-labels" type="range" min="0" max="2" step="1" value="1" aria-valuetext="Selected object only">
+                        <div class="range-bounds" aria-hidden="true"><span>Off</span><span>Selected</span><span>All</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
               <section id="preferences-panel" class="dock-card preferences" aria-labelledby="preferences-heading" hidden>
                 <div class="panel-heading"><h2 id="preferences-heading">Preferences</h2><button id="preferences-lock" class="panel-lock" type="button" aria-label="Keep Preferences open" aria-pressed="false"><span id="preferences-lock-icon"></span></button></div>
                 <div class="display-settings card-scroll-content" aria-label="Display settings">
@@ -1043,6 +1083,8 @@
                 </dl>
               </section>
             </div>
+            <section id="spaceship-hud" class="spaceship-hud" aria-label="Spaceship" data-scene-obstacle hidden></section>
+            <div id="spaceship-throttle" class="spaceship-throttle" role="slider" aria-label="Throttle: hold and slide up to fly forward, down to fly backward" aria-orientation="vertical" aria-valuemin="-1" aria-valuemax="1" aria-valuenow="0" data-scene-obstacle hidden><span id="spaceship-throttle-up-icon"></span><span class="spaceship-throttle-knob"></span><span id="spaceship-throttle-down-icon"></span></div>
             <section id="observer-direction-card" class="observer-direction-card" aria-labelledby="observer-direction-title" data-scene-obstacle hidden>
               <h2 id="observer-direction-title" class="observer-direction-title"><span>Observing from</span><button id="observer-object" class="observer-direction-object" type="button"><span id="observer-object-swatch" class="star-swatch" aria-hidden="true"></span><span id="observer-object-name"></span></button></h2>
               <div class="observer-direction-buttons" role="group" aria-label="Observer camera controls">
