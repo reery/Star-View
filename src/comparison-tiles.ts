@@ -14,9 +14,9 @@ export function renderComparisonName(target: HTMLElement, star: Star, mode: Star
   target.replaceChildren(swatch, name)
 }
 
-// A bar segment from `from` to `to` (percent), with an optional marker for the object itself,
-// a caption above it and end labels beside it.
-interface FactBar { from: number; to: number; marker?: number; caption?: string; ends?: readonly [string, string] }
+// A bar segment from `from` to `to` (percent), or a gradient track with the marker in the object's color,
+// with an optional marker for the object itself, a caption above it and end labels beside it.
+interface FactBar { from?: number; to?: number; gradient?: string; marker?: number; caption?: string; ends?: readonly [string, string] }
 export interface Fact { title: string; icon: IconNode; value: string; unit: string; notes: string[]; bar?: FactBar }
 
 /** One horizontal row per quantity, with a value cell for each shown object. */
@@ -76,15 +76,19 @@ export function renderFact(facts: Fact[], objects: Star[], colorMode: StarColorM
       const track = document.createElement('div')
       track.className = 'mass-ratio-track mass-fact-progress'
       track.setAttribute('aria-hidden', 'true')
-      const fill = document.createElement('span')
-      fill.className = 'mass-ratio-fill'
-      fill.style.left = `${fact.bar.from}%`
-      fill.style.width = `${fact.bar.to - fact.bar.from}%`
-      track.append(fill)
+      if (fact.bar.gradient) track.style.background = fact.bar.gradient
+      else {
+        const fill = document.createElement('span')
+        fill.className = 'mass-ratio-fill'
+        fill.style.left = `${fact.bar.from ?? 0}%`
+        fill.style.width = `${(fact.bar.to ?? 0) - (fact.bar.from ?? 0)}%`
+        track.append(fill)
+      }
       if (fact.bar.marker !== undefined) {
         const marker = document.createElement('span')
         marker.className = 'mass-ratio-marker'
         marker.style.left = `${fact.bar.marker}%`
+        if (fact.bar.gradient) marker.style.background = starDisplayColor(objects[index]!, colorMode).getStyle()
         track.append(marker)
       }
       const [low, high] = fact.bar.ends ?? []

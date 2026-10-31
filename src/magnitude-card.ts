@@ -33,7 +33,7 @@ export function initializeMagnitudeVisibility(card: HTMLElement, onChange: () =>
     tooltip.className = 'tooltip mass-metric-tooltip'
     tooltip.setAttribute('role', 'tooltip')
     tooltip.textContent = `${label}. ${guide.detail}`
-    attachPopoverTooltip(button, tooltip, true)
+    attachPopoverTooltip(button, tooltip, 'below')
     button.append(createElement(guide.icon, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' }), tooltip)
     button.addEventListener('click', () => {
       card.dataset.visibilityGuide = guide.id

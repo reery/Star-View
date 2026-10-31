@@ -595,8 +595,9 @@
                     <h4 id="radius-typical-heading" class="mass-metric-heading">Typical object size</h4>
                     <div class="mass-metric-ratio"><strong id="radius-typical-value"></strong></div>
                     <div id="radius-typical-bar" class="mass-ratio-bar radius-ratio-bar has-class-range" role="img">
-                      <div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit mass-typical-low"></span><span class="mass-typical-limit mass-typical-high"></span><span class="mass-ratio-sun"></span><span class="mass-ratio-marker"></span></div>
-                      <div class="mass-ratio-labels" aria-hidden="true"><span id="radius-typical-low"></span><span id="radius-typical-mid"></span><span id="radius-typical-high"></span></div>
+                      <div class="mass-ratio-track"><span class="mass-ratio-fill"></span><span class="mass-typical-limit mass-typical-low"></span><span class="mass-typical-limit mass-typical-high"></span><span class="mass-ratio-marker"></span></div>
+                      <div class="radius-range-labels" aria-hidden="true"><span id="radius-typical-low"></span><span id="radius-typical-high"></span></div>
+                      <div class="radius-range-legend" aria-hidden="true"><span class="luminosity-median-legend"><i class="radius-legend-object"></i><span id="radius-legend-object"></span></span><span class="luminosity-median-legend"><i class="radius-legend-range"></i>Typical range</span></div>
                     </div>
                   </div>
                 </div>
@@ -604,7 +605,7 @@
                   <thead><tr><th scope="col">Dimension</th><th id="radius-selected-column" scope="col">Selected</th><th id="radius-reference-column" scope="col">Sun</th></tr></thead>
                   <tbody id="radius-stats"></tbody>
                 </table>
-                <details class="radius-method"><summary>Units, imagery &amp; assumptions</summary><p id="radius-scale-note"></p><p>The radius bars use logarithmic scales. The reference bar is centered on 1× the chosen object and expands by powers of ten to include the selected radius. The typical-size bar marks an approximate range for the object’s class; its guide tick is the geometric middle of that range, not a measured population average. The logarithmic axis extends to include values outside the range, with a thinner line beyond the marked boundaries.</p><p id="radius-typical-method"></p><a id="radius-typical-source" target="_blank" rel="noreferrer" hidden></a><p id="radius-rotation-method" hidden></p><p>Based on catalog radii, which may be measured, estimated, or model-derived. Area and volume are derived, not independent measurements.</p><p>Stars are represented as spheres using their catalog radii. Rapid rotators with a measured shape are drawn as oblate spheroids: the catalog radius is the equatorial radius, and the polar radius follows the published polar-to-equatorial ratio. Diameter = 2 × radius; surface area = 4πr²; volume = 4πr³/3. These derived values inherit the catalog radius’s uncertainty; extra digits do not imply extra accuracy. Stellar surface detail, shine, and temperature-based colors are illustrative. Cool dwarfs are brightened for visibility, although much of their radiation is infrared.</p><p>R☉ = 695,700 km. R♃ = 71,492 km and R⊕ = 6,378.1 km (equatorial radii). Jupiter and Earth are oblate spheroids with polar radii 66,854 km and 6,356.8 km; their area and volume account for this flattening, as do those of flattened stars.</p><p>Rotation periods are sidereal. The Sun’s 25.1 days is its equatorial rate of 14.37° per day; its adopted 25.4-day period applies at 16° latitude. Jupiter rotates in 9.925 h (System III) and Earth in 23.9345 h. For these three, equatorial velocity is 2π × equatorial radius ÷ period.</p><p>Jupiter uses a Hubble photographic map with the Great Red Spot facing the viewer; the unobserved small polar caps extend the map’s nearest observed row. Earth uses NASA’s Blue Marble satellite mosaic with its historical cloud composite. Planetary shading adds illustrative daylight and grazing-angle atmospheric haze. These views show recognizable features, not the current rotation or illumination.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU nominal conversion constants ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html" target="_blank" rel="noreferrer">NASA: Sun ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html" target="_blank" rel="noreferrer">NASA: Jupiter &amp; Earth ↗</a><p class="radius-image-credit">Jupiter: <a href="https://science.nasa.gov/asset/hubble/jupiter-global-map-2019/" target="_blank" rel="noreferrer">NASA, ESA, A. Simon &amp; M.H. Wong ↗</a><br />Earth: <a href="https://svs.gsfc.nasa.gov/2915/" target="_blank" rel="noreferrer">NASA/GSFC Scientific Visualization Studio ↗</a> · <a href="https://science.nasa.gov/blogs/earth-matters/2011/10/06/crafting-the-blue-marble/" target="_blank" rel="noreferrer">Blue Marble clouds: Reto Stöckli &amp; Robert Simmon ↗</a></p></details>
+                <details class="radius-method"><summary>Units, imagery &amp; assumptions</summary><p id="radius-scale-note"></p><p>The radius bars use logarithmic scales. The reference bar is centered on 1× the chosen object and expands by powers of ten to include the selected radius. The typical-size bar marks an approximate range for the object’s class, not a population distribution. It spans that range and extends only toward a value outside it, with a thinner line beyond the marked boundaries.</p><p id="radius-typical-method"></p><a id="radius-typical-source" target="_blank" rel="noreferrer" hidden></a><p id="radius-rotation-method" hidden></p><p>Based on catalog radii, which may be measured, estimated, or model-derived. Area and volume are derived, not independent measurements.</p><p>Stars are represented as spheres using their catalog radii. Rapid rotators with a measured shape are drawn as oblate spheroids: the catalog radius is the equatorial radius, and the polar radius follows the published polar-to-equatorial ratio. Diameter = 2 × radius; surface area = 4πr²; volume = 4πr³/3. These derived values inherit the catalog radius’s uncertainty; extra digits do not imply extra accuracy. Stellar surface detail, shine, and temperature-based colors are illustrative. Cool dwarfs are brightened for visibility, although much of their radiation is infrared.</p><p>R☉ = 695,700 km. R♃ = 71,492 km and R⊕ = 6,378.1 km (equatorial radii). Jupiter and Earth are oblate spheroids with polar radii 66,854 km and 6,356.8 km; their area and volume account for this flattening, as do those of flattened stars.</p><p>Rotation periods are sidereal. The Sun’s 25.1 days is its equatorial rate of 14.37° per day; its adopted 25.4-day period applies at 16° latitude. Jupiter rotates in 9.925 h (System III) and Earth in 23.9345 h. For these three, equatorial velocity is 2π × equatorial radius ÷ period.</p><p>Jupiter uses a Hubble photographic map with the Great Red Spot facing the viewer; the unobserved small polar caps extend the map’s nearest observed row. Earth uses NASA’s Blue Marble satellite mosaic with its historical cloud composite. Planetary shading adds illustrative daylight and grazing-angle atmospheric haze. These views show recognizable features, not the current rotation or illumination.</p><a href="https://arxiv.org/abs/1510.07674" target="_blank" rel="noreferrer">IAU nominal conversion constants ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html" target="_blank" rel="noreferrer">NASA: Sun ↗</a> · <a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html" target="_blank" rel="noreferrer">NASA: Jupiter &amp; Earth ↗</a><p class="radius-image-credit">Jupiter: <a href="https://science.nasa.gov/asset/hubble/jupiter-global-map-2019/" target="_blank" rel="noreferrer">NASA, ESA, A. Simon &amp; M.H. Wong ↗</a><br />Earth: <a href="https://svs.gsfc.nasa.gov/2915/" target="_blank" rel="noreferrer">NASA/GSFC Scientific Visualization Studio ↗</a> · <a href="https://science.nasa.gov/blogs/earth-matters/2011/10/06/crafting-the-blue-marble/" target="_blank" rel="noreferrer">Blue Marble clouds: Reto Stöckli &amp; Robert Simmon ↗</a></p></details>
               </div>
             </section>
             <section id="distance-card" class="dock-card object-type-card distance-card" aria-labelledby="distance-heading" data-scene-obstacle hidden>
@@ -986,44 +987,6 @@
                   </section>
                 </div>
               </section>
-              <section id="spaceship-panel" class="dock-card spaceship-card" aria-labelledby="spaceship-heading" data-scene-obstacle hidden>
-                <div class="panel-heading spaceship-heading">
-                  <h2 id="spaceship-heading">Spaceship</h2>
-                  <button id="spaceship-clear" class="panel-lock" type="button" aria-label="Clear spaceship" title="Clear spaceship"><span id="spaceship-clear-icon"></span></button>
-                  <button id="spaceship-close" class="panel-lock" type="button" aria-label="Close spaceship card"><span id="spaceship-close-icon"></span></button>
-                </div>
-                <div class="spaceship-body">
-                  <div class="spaceship-dashboard">
-                    <div id="spaceship-readout" class="spaceship-readout">
-                      <div id="spaceship-gizmo" class="spaceship-gizmo-frame"></div>
-                      <dl class="spaceship-stats">
-                        <div id="spaceship-speed-row" class="spaceship-speed"><dt>Speed</dt><dd><output id="spaceship-speed">0.00 ly/s</output></dd></div>
-                        <div><dt id="spaceship-target-name">No selection</dt><dd><output id="spaceship-target-distance">–</output></dd></div>
-                        <div><dt>Travelled</dt><dd><button id="spaceship-travelled-reset" class="spaceship-reset" type="button" aria-label="Reset travelled distance" title="Reset travelled distance"><span id="spaceship-travelled-reset-icon"></span></button><output id="spaceship-travelled">0.00 ly</output></dd></div>
-                      </dl>
-                    </div>
-                    <div id="spaceship-keys" class="spaceship-keys" role="img" aria-label="Fly with W and S forward and backward, A and D sideways, and Q and E to turn."><span class="spaceship-key" data-key="q" title="Turn left"><kbd>Q</kbd><span id="spaceship-key-q-icon"></span></span><span class="spaceship-key" data-key="w" title="Forward"><kbd>W</kbd><span id="spaceship-key-w-icon"></span></span><span class="spaceship-key" data-key="e" title="Turn right"><kbd>E</kbd><span id="spaceship-key-e-icon"></span></span><span class="spaceship-key" data-key="a" title="Strafe left"><kbd>A</kbd><span id="spaceship-key-a-icon"></span></span><span class="spaceship-key" data-key="s" title="Backward"><kbd>S</kbd><span id="spaceship-key-s-icon"></span></span><span class="spaceship-key" data-key="d" title="Strafe right"><kbd>D</kbd><span id="spaceship-key-d-icon"></span></span></div>
-                    <div class="spaceship-actions">
-                      <div id="spaceship-visibility" class="unit-options spaceship-visibility" role="group" aria-label="Visibility from" title="Visibility from">
-                        <button id="spaceship-visibility-selected" type="button" aria-pressed="true">Selected</button><button id="spaceship-visibility-ship" type="button" aria-pressed="false">Ship</button>
-                      </div>
-                      <button id="spaceship-exit" class="spaceship-exit" type="button"><span id="spaceship-exit-icon"></span><span id="spaceship-exit-label">Exit ship</span></button>
-                    </div>
-                    <div class="spaceship-settings">
-                      <div class="range-filter">
-                        <div class="range-heading"><label for="spaceship-speed-level">Top speed</label><output id="spaceship-speed-level-value" for="spaceship-speed-level"></output></div>
-                        <input id="spaceship-speed-level" type="range" min="0" max="2" step="1" value="1" aria-valuetext="Medium">
-                        <div class="range-bounds" aria-hidden="true"><span>Slow</span><span>Medium</span><span>Fast</span></div>
-                      </div>
-                      <div class="range-filter">
-                        <div class="range-heading"><label for="spaceship-labels">Labels</label><output id="spaceship-labels-value" for="spaceship-labels">Selected</output></div>
-                        <input id="spaceship-labels" type="range" min="0" max="2" step="1" value="1" aria-valuetext="Selected object only">
-                        <div class="range-bounds" aria-hidden="true"><span>Off</span><span>Selected</span><span>All</span></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
               <section id="preferences-panel" class="dock-card preferences" aria-labelledby="preferences-heading" hidden>
                 <div class="panel-heading"><h2 id="preferences-heading">Preferences</h2><button id="preferences-lock" class="panel-lock" type="button" aria-label="Keep Preferences open" aria-pressed="false"><span id="preferences-lock-icon"></span></button></div>
                 <div class="display-settings card-scroll-content" aria-label="Display settings">
@@ -1083,7 +1046,45 @@
                 </dl>
               </section>
             </div>
-            <section id="spaceship-hud" class="spaceship-hud" aria-label="Spaceship" data-scene-obstacle hidden></section>
+            <div class="spaceship-dock">
+              <section id="spaceship-hud" class="spaceship-hud" aria-label="Spaceship" data-scene-obstacle hidden>
+                <div id="spaceship-gizmo" class="spaceship-gizmo-frame"></div>
+                <dl class="spaceship-stats">
+                  <div id="spaceship-speed-row" class="spaceship-speed"><dt>Speed</dt><dd><output id="spaceship-speed">0.00 ly/s</output></dd></div>
+                  <div><dt id="spaceship-target-name">No selection</dt><dd><output id="spaceship-target-distance">–</output></dd></div>
+                  <div><dt>Travelled</dt><dd><button id="spaceship-travelled-reset" class="spaceship-reset" type="button" aria-label="Reset travelled distance" title="Reset travelled distance"><span id="spaceship-travelled-reset-icon"></span></button><output id="spaceship-travelled">0.00 ly</output></dd></div>
+                </dl>
+              </section>
+              <section id="spaceship-panel" class="dock-card spaceship-card" aria-labelledby="spaceship-heading" data-scene-obstacle hidden>
+                <div class="panel-heading spaceship-heading">
+                  <h2 id="spaceship-heading">Spaceship</h2>
+                  <button id="spaceship-clear" class="panel-lock" type="button" aria-label="Clear spaceship" title="Clear spaceship"><span id="spaceship-clear-icon"></span></button>
+                  <button id="spaceship-help" class="panel-lock" type="button" aria-label="Flight controls"><span id="spaceship-help-icon"></span></button>
+                  <div id="spaceship-help-tooltip" class="tooltip mass-metric-tooltip" role="tooltip"><div class="spaceship-help"><div id="spaceship-keys" class="spaceship-keys" aria-hidden="true"><span class="spaceship-key" data-key="q"><kbd>Q</kbd><span id="spaceship-key-q-icon"></span></span><span class="spaceship-key" data-key="w"><kbd>W</kbd><span id="spaceship-key-w-icon"></span></span><span class="spaceship-key" data-key="e"><kbd>E</kbd><span id="spaceship-key-e-icon"></span></span><span class="spaceship-key" data-key="a"><kbd>A</kbd><span id="spaceship-key-a-icon"></span></span><span class="spaceship-key" data-key="s"><kbd>S</kbd><span id="spaceship-key-s-icon"></span></span><span class="spaceship-key" data-key="d"><kbd>D</kbd><span id="spaceship-key-d-icon"></span></span></div><p class="spaceship-help-keys">W and S fly forward and back, A and D slide sideways, Q and E turn.</p><p class="spaceship-help-touch">Hold the throttle pad and slide up to fly forward, down to fly back.</p><p>Drag the view to look around. Selecting an object turns the ship toward it.</p></div></div>
+                  <button id="spaceship-close" class="panel-lock" type="button" aria-label="Close spaceship card"><span id="spaceship-close-icon"></span></button>
+                </div>
+                <div class="spaceship-body">
+                  <div class="spaceship-actions">
+                    <div id="spaceship-visibility" class="unit-options spaceship-visibility" role="group" aria-label="Visibility from" title="Visibility from">
+                      <button id="spaceship-visibility-selected" type="button" aria-pressed="true">Selected</button><button id="spaceship-visibility-ship" type="button" aria-pressed="false">Ship</button>
+                    </div>
+                    <button id="spaceship-exit" class="spaceship-exit" type="button"><span id="spaceship-exit-icon"></span><span id="spaceship-exit-label">Exit ship</span></button>
+                  </div>
+                  <div class="spaceship-settings">
+                    <div class="range-filter">
+                      <div class="range-heading"><label for="spaceship-speed-level">Top speed</label><output id="spaceship-speed-level-value" for="spaceship-speed-level"></output></div>
+                      <input id="spaceship-speed-level" type="range" min="0" max="2" step="1" value="1" aria-valuetext="Medium">
+                      <div class="range-bounds" aria-hidden="true"><span>Slow</span><span>Medium</span><span>Fast</span></div>
+                    </div>
+                    <div class="range-filter">
+                      <div class="range-heading"><label for="spaceship-labels">Labels</label><output id="spaceship-labels-value" for="spaceship-labels">Selected</output></div>
+                      <input id="spaceship-labels" type="range" min="0" max="2" step="1" value="1" aria-valuetext="Selected object only">
+                      <div class="range-bounds" aria-hidden="true"><span>Off</span><span>Selected</span><span>All</span></div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
             <div id="spaceship-throttle" class="spaceship-throttle" role="slider" aria-label="Throttle: hold and slide up to fly forward, down to fly backward" aria-orientation="vertical" aria-valuemin="-1" aria-valuemax="1" aria-valuenow="0" data-scene-obstacle hidden><span id="spaceship-throttle-up-icon"></span><span class="spaceship-throttle-knob"></span><span id="spaceship-throttle-down-icon"></span></div>
             <section id="observer-direction-card" class="observer-direction-card" aria-labelledby="observer-direction-title" data-scene-obstacle hidden>
               <h2 id="observer-direction-title" class="observer-direction-title"><span>Observing from</span><button id="observer-object" class="observer-direction-object" type="button"><span id="observer-object-swatch" class="star-swatch" aria-hidden="true"></span><span id="observer-object-name"></span></button></h2>
@@ -1102,6 +1103,12 @@
     <div id="saved-view-context-backdrop" class="saved-view-context-backdrop" aria-hidden="true" hidden></div>
     <div id="saved-view-context-menu" class="saved-view-context-menu" role="menu" aria-label="Saved view actions" hidden>
       <button id="saved-view-context-delete" class="saved-view-context-delete" type="button" role="menuitem" tabindex="-1"></button>
+    </div>
+    <div id="scene-context-backdrop" class="saved-view-context-backdrop" aria-hidden="true" hidden></div>
+    <div id="scene-context-menu" class="saved-view-context-menu" role="menu" aria-label="Object actions" tabindex="-1" hidden>
+      <button id="scene-context-compare" class="scene-context-item" type="button" role="menuitem" tabindex="-1">Compare <span class="origin-tooltip-object" data-scene-context-object="target"><span class="star-swatch" aria-hidden="true"></span><span></span></span> against <span class="origin-tooltip-object" data-scene-context-object="selected"><span class="star-swatch" aria-hidden="true"></span><span></span></span></button>
+      <button id="scene-context-origin" class="scene-context-item" type="button" role="menuitem" tabindex="-1">Make <span class="origin-tooltip-object" data-scene-context-object="target"><span class="star-swatch" aria-hidden="true"></span><span></span></span> the origin</button>
+      <p id="scene-context-distance" class="scene-context-distance"><span id="scene-context-distance-value"></span> from <span class="origin-tooltip-object" data-scene-context-object="target"><span class="star-swatch" aria-hidden="true"></span><span></span></span> to <span class="origin-tooltip-object" data-scene-context-object="selected"><span class="star-swatch" aria-hidden="true"></span><span></span></span></p>
     </div>
     <dialog id="browser-data-dialog" class="browser-data-dialog" aria-labelledby="browser-data-question">
       <p id="browser-data-question"></p>

@@ -61,7 +61,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .workspace { min-height: 0; }
 .scene-wrap { position: relative; width: 100%; height: 100%; overflow: hidden; min-width: 0; min-height: 0; background: #000000; color: var(--ink); }
 .scene { position: absolute; inset: 0; }
-.scene canvas { position: relative; z-index: 1; display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.scene canvas { position: relative; z-index: 1; display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 .scene canvas:active { cursor: grabbing; }
 /* The right-hand button rails stack above cards so their flyouts and tooltips are never covered. */
 .scene-toolbar, .dock-rail { z-index: 2; }
@@ -108,6 +108,15 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .saved-view-context-menu { position: fixed; z-index: 10; max-width: min(320px, calc(var(--ui-width) - 16px)); padding: 4px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 5px; box-shadow: var(--popover-shadow); font-size: var(--property-text-size); line-height: 1.4; }
 .saved-view-context-delete { display: block; width: 100%; padding: 7px 10px; color: var(--danger); background: transparent; border: 0; border-radius: 3px; text-align: left; }
 .saved-view-context-delete:focus-visible { background: var(--panel-hover); }
+#scene-context-menu:focus-visible { outline: none; }
+.scene-context-item { display: block; width: 100%; padding: 7px 10px; color: var(--ink); background: transparent; border: 0; border-radius: 3px; text-align: left; }
+.scene-context-item:focus-visible, .scene-context-item[data-highlighted] { background: var(--panel-hover); }
+/* Inline names share the sentence's baseline; the swatch alone is centered on the text. */
+#scene-context-menu .origin-tooltip-object { display: inline; vertical-align: baseline; }
+#scene-context-menu .star-swatch { margin-right: 5px; vertical-align: middle; }
+[data-scene-context-object] > span:last-child { text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
+.scene-context-distance { margin: 0; padding: 7px 10px; color: var(--muted); }
+.scene-context-item:not([hidden]) ~ .scene-context-distance { margin-top: 4px; border-top: var(--mass-metric-divider); }
 /* States shift the card with translate, which animates without relayout. */
 .observer-direction-card { --observer-bottom: 48px; position: absolute; right: 74px; bottom: var(--observer-bottom); display: grid; gap: 5px; padding: 7px 8px 8px; pointer-events: auto; translate: var(--observer-shift-x, 0px) var(--observer-shift-y, 0px); transition: translate 120ms ease; }
 .observer-direction-title { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 0 2px; color: var(--muted); font-size: 10px; line-height: 1.2; font-weight: 600; letter-spacing: 0.04em; white-space: nowrap; }
@@ -121,7 +130,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .observer-direction-button[aria-pressed="true"] { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
 @media (hover: hover) and (pointer: fine) {
   .saved-views-table tbody tr:hover { background: var(--panel-hover); }
-  .saved-view-context-delete:hover { background: var(--panel-hover); }
+  .saved-view-context-delete:hover, .scene-context-item:hover { background: var(--panel-hover); }
   .observer-direction-object:hover:not(:disabled) { color: var(--accent-strong); text-decoration: underline; text-underline-offset: 2px; }
   .observer-direction-button:hover:not(:disabled) { color: var(--accent-strong); background: var(--panel-selected); border-color: var(--border-active); }
 }
@@ -160,18 +169,21 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .time-markers i.marker-end::after { right: 0; left: auto; transform: none; }
 .time-markers .time-now-marker { top: 1px; height: 20px; background: var(--ink); }
 .time-markers .time-now-marker::after { content: 'Now'; top: 20px; color: var(--ink); font-weight: 500; }
-/* Spaceship: a compact card at the bottom center, above an open Stellar motion card. */
-.dock-card.spaceship-card { position: fixed; left: 50%; bottom: calc(20px + var(--safe-bottom)); width: min(620px, calc(var(--ui-width) - 40px)); translate: -50% 0; }
-.scene-wrap:has(.control-dock[data-motion-open]) :is(.spaceship-card, .spaceship-hud) { bottom: var(--motion-panel-clearance, 150px); }
-.panel-heading.spaceship-heading { padding-right: 98px; }
-.panel-heading #spaceship-clear { right: 43px; border-radius: 0; }
-.spaceship-body { display: grid; gap: 10px; padding: 10px 12px 12px; }
-.spaceship-dashboard { display: grid; grid-template-columns: 68px auto minmax(0, 1fr) auto 112px; grid-template-areas: "gizmo keys stats actions settings"; align-items: center; gap: 12px; }
-.spaceship-dashboard > .spaceship-readout { display: contents; }
-.spaceship-dashboard .spaceship-gizmo-frame { grid-area: gizmo; }
-.spaceship-dashboard .spaceship-stats { grid-area: stats; }
-.spaceship-keys { grid-area: keys; display: grid; grid-template-columns: repeat(3, 30px); gap: 4px; padding-bottom: 2px; }
-.spaceship-key { display: grid; place-items: center; align-content: center; height: 30px; color: var(--muted); background: var(--surface-control); border: 1px solid var(--line); border-radius: 5px; box-shadow: 0 2px 0 var(--line); cursor: pointer; user-select: none; -webkit-user-select: none; touch-action: none; transition: color 80ms ease, background 80ms ease, border-color 80ms ease, translate 80ms ease, box-shadow 80ms ease; }
+/* Spaceship: the stats tile stays at the bottom center, above an open Stellar motion card, and the compact card
+   opens to its right, above the caption at the bottom right. Both stay beneath every other card. */
+.spaceship-dock { position: fixed; z-index: -1; left: 50%; bottom: calc(20px + var(--safe-bottom)); width: 250px; translate: -50% 0; pointer-events: none; }
+.scene-wrap:has(.control-dock[data-motion-open]) .spaceship-dock { bottom: var(--motion-panel-clearance, 150px); }
+.dock-card.spaceship-card { position: absolute; left: calc(100% + 10px); bottom: 30px; width: max-content; }
+.panel-heading.spaceship-heading { padding-right: 142px; }
+.panel-heading #spaceship-clear { right: 87px; border-radius: 0; }
+.panel-heading #spaceship-help { right: 43px; border-radius: 0; }
+.spaceship-body { display: grid; grid-template-columns: auto 128px; align-items: center; gap: 12px; padding: 10px 12px 12px; }
+.spaceship-help { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 6px 12px; }
+.spaceship-help .spaceship-keys { grid-row: span 2; }
+.spaceship-help p { margin: 0; }
+.spaceship-help-touch { display: none; }
+.spaceship-keys { display: grid; grid-template-columns: repeat(3, 30px); gap: 4px; padding-bottom: 2px; }
+.spaceship-key { display: grid; place-items: center; align-content: center; height: 30px; color: var(--muted); background: var(--surface-control); border: 1px solid var(--line); border-radius: 5px; box-shadow: 0 2px 0 var(--line); transition: color 80ms ease, background 80ms ease, border-color 80ms ease, translate 80ms ease, box-shadow 80ms ease; }
 .spaceship-key kbd { color: var(--ink); font: inherit; font-size: 11px; font-weight: 600; line-height: 1; }
 .spaceship-key svg { width: 11px; height: 11px; }
 .spaceship-key.is-pressed { color: var(--accent-strong); background: var(--panel-selected); border-color: var(--border-active); box-shadow: 0 0 0 var(--line); translate: 0 2px; }
@@ -188,13 +200,13 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .spaceship-reset { display: grid; place-items: center; width: 20px; height: 20px; padding: 0; color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 4px; }
 .spaceship-reset svg { width: 12px; height: 12px; }
 .spaceship-reset:focus-visible { outline-offset: 1px; }
-.spaceship-actions { grid-area: actions; display: grid; gap: 6px; }
+.spaceship-actions { display: grid; gap: 6px; }
 .spaceship-visibility.unit-options > button { height: 30px; color: var(--ink); background: transparent; white-space: nowrap; }
 .spaceship-visibility.unit-options > button[aria-pressed="true"] { background: var(--panel-selected); color: var(--accent-strong); }
 .spaceship-card .spaceship-exit { min-height: 30px; padding: 4px 8px; color: var(--ink); font-size: 12px; white-space: nowrap; }
 .spaceship-exit svg { width: 15px; height: 15px; }
-/* Three-level sliders stay short: stacked at the right on desktop, side by side below on narrow and touch layouts. */
-.spaceship-settings { grid-area: settings; display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px 20px; }
+/* Three-level sliders stay short: stacked at the right, side by side below on narrow layouts. */
+.spaceship-settings { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px 20px; }
 .spaceship-settings .range-filter { gap: 3px; }
 .spaceship-settings .range-heading { font-size: 12px; }
 .spaceship-gizmo { width: 100%; height: auto; overflow: visible; font-family: inherit; }
@@ -214,28 +226,31 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .spaceship-gizmo-heading { fill: none; stroke: var(--ink); stroke-width: 1.2; }
 .spaceship-gizmo-target { fill: none; stroke: var(--accent-vibrant); stroke-width: 1.8; }
 .spaceship-gizmo-target.is-back { stroke-dasharray: 2 2; opacity: 0.6; }
-/* On touch screens the readout sits in its own box at the lower left, and a faint pad beside the controls sets the throttle. */
-.spaceship-hud { position: absolute; left: calc(20px + var(--safe-left)); bottom: calc(44px + var(--safe-bottom)); display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: center; gap: 10px; width: min(250px, calc(var(--ui-width) - 150px)); padding: 8px 10px; pointer-events: auto; }
-.spaceship-hud > .spaceship-readout { display: contents; }
-.spaceship-throttle { position: absolute; right: calc(74px + var(--safe-right)); bottom: calc(84px + var(--safe-bottom)); display: grid; grid-template-rows: auto 1fr auto; justify-items: center; align-items: center; width: 48px; height: min(220px, 40dvh); padding: 8px 0; color: #edc69b59; background: #ffffff08; border: 1px solid #ffffff1f; border-radius: 24px; pointer-events: auto; touch-action: none; user-select: none; -webkit-user-select: none; }
+/* The stats tile is a little more see-through than cards and opens the closed card. On touch screens a faint pad beside the controls sets the throttle. */
+.spaceship-hud { display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: center; gap: 10px; min-width: 0; padding: 8px 10px; background: linear-gradient(145deg, #26282acc, #202224bf); pointer-events: auto; }
+.spaceship-dock:has(> .spaceship-card[hidden]) .spaceship-hud { cursor: pointer; }
+.spaceship-throttle { position: absolute; z-index: -1; right: calc(74px + var(--safe-right)); bottom: calc(84px + var(--safe-bottom)); display: grid; grid-template-rows: auto 1fr auto; justify-items: center; align-items: center; width: 48px; height: min(220px, 40dvh); padding: 8px 0; color: #edc69b59; background: #ffffff08; border: 1px solid #ffffff1f; border-radius: 24px; pointer-events: auto; touch-action: none; user-select: none; -webkit-user-select: none; }
 .spaceship-throttle svg { width: 18px; height: 18px; }
 .spaceship-throttle-knob { width: 30px; height: 30px; border: 1px solid #ffffff38; border-radius: 50%; background: #ffffff14; translate: 0 calc(var(--throttle, 0) * -60px); }
 .spaceship-throttle:active .spaceship-throttle-knob { border-color: var(--border-active); background: color-mix(in srgb, var(--accent) 30%, transparent); }
 @media (hover: hover) {
   .spaceship-reset:hover { color: var(--accent-strong); background: var(--panel-hover); }
 }
+/* Without room beside the centered tile, tile and card share the bottom center. */
+@media (max-width: 1020px) {
+  .spaceship-dock { left: calc(20px + var(--safe-left)); right: calc(20px + var(--safe-right)); display: flex; justify-content: center; align-items: flex-end; gap: 10px; width: auto; translate: none; }
+  .spaceship-hud { flex: 0 1 250px; }
+  .dock-card.spaceship-card { position: static; width: auto; min-width: 0; }
+}
 @media (max-width: 720px) {
-  .spaceship-dashboard { grid-template-columns: 64px auto minmax(0, 1fr); grid-template-areas: "gizmo keys stats" "actions actions actions" "settings settings settings"; }
+  .spaceship-body { grid-template-columns: minmax(0, 1fr); }
   .spaceship-actions { grid-template-columns: auto minmax(0, 1fr); }
   .spaceship-settings { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
 }
 @media (hover: none) and (pointer: coarse) {
-  .spaceship-keys { display: none; }
-  .spaceship-dashboard { grid-template-columns: 64px minmax(0, 1fr) auto; grid-template-areas: "gizmo stats actions" "settings settings settings"; }
-  .spaceship-settings { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-}
-@media (hover: none) and (pointer: coarse) and (max-width: 720px) {
-  .spaceship-dashboard { grid-template-columns: 64px minmax(0, 1fr); grid-template-areas: "gizmo stats" "actions actions" "settings settings"; }
+  .spaceship-help { grid-template-columns: minmax(0, 1fr); }
+  :is(.spaceship-help .spaceship-keys, .spaceship-help-keys) { display: none; }
+  .spaceship-help-touch { display: block; }
 }
 .control-dock { position: absolute; right: 18px; bottom: 20px; display: grid; grid-template-columns: 44px; align-items: end; gap: 10px; pointer-events: none; }
 /* A tall card stretches the rail column; keep the empty space above the rail click-through to the toolbar. */
@@ -926,7 +941,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .magnitude-marker::after,
 .temperature-marker::before { left: 50%; transform: translateX(-50%); }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-track { isolation: isolate; }
-:is(#mass-card, #radius-typical-bar) .mass-ratio-sun { z-index: 0; }
+#mass-card .mass-ratio-sun { z-index: 0; }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-fill { z-index: 1; }
 :is(#mass-card, #radius-typical-bar) .mass-ratio-marker { z-index: 2; }
 :is(#mass-card, #radius-typical-bar) .mass-typical-limit { z-index: 3; background: var(--ink); }
@@ -1318,6 +1333,13 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .radius-metric .mass-metric-heading { font-weight: 400; }
 .radius-metric .mass-metric-ratio { grid-row: 1; }
 .radius-ratio-bar { grid-column: 1 / -1; }
+/* Range labels sit under their ticks; shifting by the tick's own position keeps edge labels inside the bar. */
+.radius-range-labels { position: relative; height: 1.4em; margin-top: 5px; font-size: var(--property-text-size); line-height: 1.4; color: var(--muted); }
+.radius-range-labels > span { position: absolute; left: var(--mass-range-low-position); transform: translateX(calc(-1 * var(--mass-range-low-position))); white-space: nowrap; }
+.radius-range-labels > :last-child { left: var(--mass-range-high-position); transform: translateX(calc(-1 * var(--mass-range-high-position))); }
+.radius-range-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; }
+.radius-range-legend .radius-legend-object { flex-basis: 3px; background: var(--accent-vibrant); }
+.radius-range-legend .radius-legend-range { flex-basis: 16px; border-inline: 2px solid var(--ink); border-radius: 0; background: linear-gradient(#ffffff24, #ffffff24) center / 100% 6px no-repeat; }
 .spectral-body { padding: 0 0 18px; font-size: var(--property-text-size); line-height: 1.55; }
 .spectral-magnitude-buttons { flex-shrink: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); border-left: 0; border-bottom: 1px solid var(--line); }
 .spectral-card:has(#spectral-hr-content[hidden]) > .spectral-magnitude-buttons { display: none; }
@@ -1493,8 +1515,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .time-readout { min-width: 0; }
   .control-dock { right: 12px; bottom: 12px; }
   .observer-direction-card { --observer-bottom: 44px; right: 66px; }
-  .dock-card.spaceship-card { left: calc(12px + var(--safe-left)); bottom: calc(12px + var(--safe-bottom)); width: min(500px, calc(var(--ui-width) - 140px)); translate: none; }
-  .spaceship-hud { left: calc(12px + var(--safe-left)); bottom: calc(64px + var(--safe-bottom)); }
+  /* The tile stacks above the card at the lower left, clear of the throttle and the controls. */
+  .spaceship-dock { right: auto; bottom: calc(12px + var(--safe-bottom)); left: calc(12px + var(--safe-left)); flex-direction: column; align-items: flex-start; width: min(500px, calc(var(--ui-width) - 140px)); }
+  .spaceship-dock:has(> .spaceship-card[hidden]) { bottom: calc(64px + var(--safe-bottom)); }
+  .spaceship-hud { flex: none; width: min(250px, 100%); }
+  .dock-card.spaceship-card { align-self: stretch; }
   .spaceship-throttle { right: calc(66px + var(--safe-right)); bottom: calc(68px + var(--safe-bottom)); }
   .dock-card { max-height: calc(var(--ui-height) - 24px); }
   .dock-card.catalog.is-expanded { max-height: calc(var(--ui-height) - 36px); }

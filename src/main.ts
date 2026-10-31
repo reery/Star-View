@@ -132,6 +132,7 @@ icon('neighborhood-close-icon', X)
 icon('spaceship-icon', Rocket)
 icon('spaceship-active-icon', Rocket)
 icon('spaceship-clear-icon', Trash2)
+icon('spaceship-help-icon', CircleHelp)
 icon('spaceship-close-icon', X)
 icon('spaceship-travelled-reset-icon', RotateCcw)
 icon('spaceship-throttle-up-icon', ChevronUp)
@@ -252,6 +253,8 @@ const events = new AbortController()
 initializeTouchTooltips(events.signal)
 initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, events.signal)
 for (const help of document.querySelectorAll<HTMLButtonElement>('.compact-property .mass-metric-help')) attachPopoverTooltip(help, help.nextElementSibling as HTMLElement)
+// The Spaceship card sits at the bottom of the screen, so its help rises above it.
+attachPopoverTooltip(element<HTMLButtonElement>('spaceship-help'), element('spaceship-help-tooltip'), 'above')
 let constellationBrowser: ReturnType<typeof import('./constellation-browser').initializeConstellationBrowser> | undefined
 let topLists: ReturnType<typeof import('./top-lists').initializeTopLists> | undefined
 let graphs: ReturnType<typeof import('./graphs').initializeGraphs> | undefined
@@ -367,6 +370,9 @@ if (savedFilter) {
 }
 let savedViews = readSavedViews()
 let savedViewMenuRow: HTMLTableRowElement | null = null
+let sceneMenuTargetId: string | null = null
+/** The pointer that opened the scene menu while still pressed; releasing it over an item chooses that item. */
+let sceneMenuPointerId: number | null = null
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
   if (localStorage.getItem('star-view-color-mode') === 'real') starColorMode = 'real'
@@ -2509,12 +2515,8 @@ function formatSpeed(pcPerSecond: number): string {
 function renderSpaceship(): void {
   const cardOpen = panelIsOpen('spaceship')
   setActiveIndicator('spaceship-active', spaceship !== null && !cardOpen)
-  // Touch screens show the readout in a small box of its own while the card is closed.
-  const inHud = touchFirstInput.matches && !cardOpen
-  const readout = element('spaceship-readout')
-  const home = inHud ? element('spaceship-hud') : element('spaceship-panel').querySelector<HTMLElement>('.spaceship-dashboard')!
-  if (readout.parentElement !== home) home.prepend(readout)
-  element('spaceship-hud').hidden = !inHud || !spaceship
+  // The stats tile rests while the ship is parked and returns on boarding.
+  element('spaceship-hud').hidden = spaceship?.piloting !== true
   element('spaceship-throttle').hidden = !touchFirstInput.matches || spaceship?.piloting !== true
   element<HTMLButtonElement>('spaceship-clear').disabled = !spaceship
   element<HTMLButtonElement>('spaceship-exit').disabled = !spaceship
@@ -2530,7 +2532,7 @@ function renderSpaceship(): void {
 /** The navball follows every frame; numbers update ten times a second so they stay readable. */
 function renderSpaceshipTelemetry(force = false): void {
   const telemetry = spaceshipTelemetry
-  if (!telemetry || !spaceship || element('spaceship-readout').closest('[hidden]')) return
+  if (!telemetry || !spaceship || element('spaceship-hud').hidden) return
   updateSpaceshipGizmo(telemetry.orientation, telemetry.selectedDirection)
   const now = performance.now()
   if (!force && telemetry.speedPc > 0 && now - spaceshipStatsTime < 100) return
@@ -2731,6 +2733,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       onInteraction: onSceneInteraction,
       onSelect: selectStar,
       onHover: (id) => starComparison.hover(id),
+      onContextMenu: openSceneContextMenu,
       onSelectedDistance(distancePc) {
         selectedDistancePc = distancePc
         if (distancePc !== null && selectedId !== null) renderSelectedDistance(distancePc)
@@ -2966,6 +2969,70 @@ function openSavedViewContextMenu(row: HTMLTableRowElement, x: number, y: number
   menu.style.left = `${Math.max(8, Math.min(x, window.innerWidth - bounds.width - 8))}px`
   menu.style.top = `${Math.max(8, Math.min(y, window.innerHeight - bounds.height - 8))}px`
   remove.focus({ preventScroll: true })
+}
+
+function closeSceneContextMenu(): void {
+  element('scene-context-menu').hidden = true
+  element('scene-context-backdrop').hidden = true
+  element('app').inert = false
+  sceneMenuTargetId = sceneMenuPointerId = null
+  highlightSceneMenuItem(null)
+}
+
+function openSceneContextMenu(id: string, x: number, y: number, held: PointerEvent | null): boolean {
+  const target = starById(id)
+  const selected = starById(selectedId)
+  if (!target || !selected) return false
+  const distancePc = id === selected.id ? null : viewer?.distanceBetween(id, selected.id) ?? null
+  const compare = element('scene-context-compare')
+  const origin = element('scene-context-origin')
+  compare.hidden = !starComparison.canCompare(id)
+  origin.hidden = sceneBusy || id === referenceId
+  element('scene-context-distance').hidden = distancePc === null
+  if (compare.hidden && origin.hidden && distancePc === null) return false
+  const menu = element('scene-context-menu')
+  for (const object of menu.querySelectorAll<HTMLElement>('[data-scene-context-object]')) {
+    const star = object.dataset.sceneContextObject === 'target' ? target : selected
+    object.querySelector<HTMLElement>('.star-swatch')!.style.background = starDisplayColor(star, starColorMode).getStyle()
+    object.lastElementChild!.textContent = star.name
+  }
+  if (distancePc !== null) text('scene-context-distance-value', formatDistance(distancePc, distanceUnit))
+  sceneMenuTargetId = id
+  sceneMenuPointerId = held?.pointerId ?? null
+  menu.style.left = '0px'
+  menu.style.top = '0px'
+  menu.hidden = false
+  element('scene-context-backdrop').hidden = false
+  element('app').inert = true
+  const bounds = menu.getBoundingClientRect()
+  // A finger would cover a menu to its right, so touch opens below left of it; a mouse opens below right.
+  const touch = held?.pointerType === 'touch'
+  const left = touch ? x - bounds.width - 12 : x + 2
+  const top = y + (touch ? 12 : 2)
+  menu.style.left = `${Math.max(8, Math.min(left, window.innerWidth - bounds.width - 8))}px`
+  menu.style.top = `${Math.max(8, Math.min(top, window.innerHeight - bounds.height - 8))}px`
+  // Pointers open this menu, so no item looks chosen until a key or the pointer picks one.
+  menu.focus({ preventScroll: true })
+  return true
+}
+
+function sceneMenuItemAt(event: PointerEvent): HTMLButtonElement | null {
+  return document.elementFromPoint(event.clientX, event.clientY)?.closest<HTMLButtonElement>('#scene-context-menu [role="menuitem"]:not([hidden])') ?? null
+}
+
+function highlightSceneMenuItem(item: HTMLButtonElement | null): void {
+  for (const candidate of element('scene-context-menu').querySelectorAll('[role="menuitem"]')) candidate.toggleAttribute('data-highlighted', candidate === item)
+}
+
+/** Moves focus between a context menu's visible items with the arrow, Home and End keys. */
+function navigateContextMenu(event: KeyboardEvent): void {
+  if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return
+  event.preventDefault()
+  const items = [...(event.currentTarget as HTMLElement).querySelectorAll<HTMLButtonElement>('[role="menuitem"]:not([hidden])')]
+  const index = items.indexOf(document.activeElement as HTMLButtonElement)
+  const next = event.key === 'Home' || index < 0 && event.key === 'ArrowDown' ? 0 : event.key === 'End' || index < 0 ? items.length - 1
+    : (index + (event.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length
+  items[next]?.focus({ preventScroll: true })
 }
 
 function renderSavedViews(): void {
@@ -3373,11 +3440,19 @@ element('discover-options').addEventListener('click', (event) => {
 }, { signal: events.signal })
 element('discover-toggle').addEventListener('pointerenter', (event) => { if (event.pointerType !== 'touch') discoverControls.removeAttribute('data-dismissed') }, { signal: events.signal })
 document.addEventListener('keydown', (event) => { if (event.key === 'Tab') discoverControls.removeAttribute('data-dismissed') }, { signal: events.signal })
+/** Returns focus to Discover after closing one of its cards, without reopening the flyout. */
+function focusDiscoverToggle(): void {
+  discoverControls.setAttribute('data-dismissed', '')
+  element('discover-toggle').focus()
+}
 element('graph-filter-active').addEventListener('click', () => togglePanel('graphs'), { signal: events.signal })
 element('paint-active').addEventListener('click', () => togglePanel('paint'), { signal: events.signal })
 element('motion-active').addEventListener('click', () => togglePanel('motion'), { signal: events.signal })
 element('neighborhood-active').addEventListener('click', () => togglePanel('neighborhood'), { signal: events.signal })
 element('spaceship-active').addEventListener('click', () => togglePanel('spaceship'), { signal: events.signal })
+element('spaceship-hud').addEventListener('click', (event) => {
+  if (!panelIsOpen('spaceship') && !(event.target instanceof Element && event.target.closest('button'))) togglePanel('spaceship')
+}, { signal: events.signal })
 element('spaceship-exit').addEventListener('click', () => setSpaceshipPiloting(spaceship?.piloting === false), { signal: events.signal })
 element('spaceship-clear').addEventListener('click', () => {
   spaceship = null
@@ -3388,7 +3463,7 @@ element('spaceship-clear').addEventListener('click', () => {
   renderSelection()
   setPanelOpen('spaceship', false)
   syncPanelLayout()
-  element('discover-toggle').focus()
+  focusDiscoverToggle()
 }, { signal: events.signal })
 for (const [id, fromShip] of [['spaceship-visibility-selected', false], ['spaceship-visibility-ship', true]] as const) {
   element(id).addEventListener('click', () => {
@@ -3441,19 +3516,6 @@ window.addEventListener('blur', () => {
   spaceshipKeys.clear()
   applySpaceshipInput()
 }, { signal: events.signal })
-element('spaceship-keys').addEventListener('pointerdown', (event) => {
-  const keycap = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-key]') : null
-  if (!keycap || !spaceship?.piloting) return
-  event.preventDefault()
-  const key = keycap.dataset.key as SpaceshipKey
-  keycap.setPointerCapture(event.pointerId)
-  keycap.addEventListener('lostpointercapture', () => {
-    spaceshipKeys.delete(key)
-    applySpaceshipInput()
-  }, { once: true, signal: events.signal })
-  spaceshipKeys.add(key)
-  applySpaceshipInput()
-}, { signal: events.signal })
 // The touch throttle works like a held joystick: slide up from the touch point to fly forward, down to fly back.
 const spaceshipThrottlePad = element('spaceship-throttle')
 let spaceshipThrottleOrigin: number | null = null
@@ -3462,7 +3524,10 @@ spaceshipThrottlePad.addEventListener('pointerdown', (event) => {
   spaceshipThrottlePad.setPointerCapture(event.pointerId)
   spaceshipThrottleOrigin = event.clientY
 }, { signal: events.signal })
+// OrbitControls follows every pointer on the document once a view drag starts, so throttle moves must not reach it.
+spaceshipThrottlePad.addEventListener('pointerup', (event) => event.stopPropagation(), { signal: events.signal })
 spaceshipThrottlePad.addEventListener('pointermove', (event) => {
+  event.stopPropagation()
   if (spaceshipThrottleOrigin !== null) setSpaceshipThrottle((spaceshipThrottleOrigin - event.clientY) / (spaceshipThrottlePad.clientHeight * 0.4))
 }, { signal: events.signal })
 spaceshipThrottlePad.addEventListener('lostpointercapture', () => {
@@ -3999,7 +4064,9 @@ for (const name of ['motion', 'objects', 'glossary', 'constellations', 'top-list
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()
-    element(panelToggleId(name)).focus()
+    const toggle = panelToggleId(name)
+    if (toggle === 'discover-toggle') focusDiscoverToggle()
+    else element(toggle).focus()
   }, { signal: events.signal })
 }
 element<HTMLFormElement>('save-view-form').addEventListener('submit', (event) => {
@@ -4055,15 +4122,54 @@ element('saved-view-context-backdrop').addEventListener('contextmenu', (event) =
   event.preventDefault()
   closeSavedViewContextMenu(true)
 }, { signal: events.signal })
-element('saved-view-context-menu').addEventListener('keydown', (event) => {
-  if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) event.preventDefault()
+element('saved-view-context-menu').addEventListener('keydown', navigateContextMenu, { signal: events.signal })
+element('scene-context-menu').addEventListener('keydown', navigateContextMenu, { signal: events.signal })
+element('scene-context-compare').addEventListener('click', () => {
+  const id = sceneMenuTargetId
+  closeSceneContextMenu()
+  if (id !== null) starComparison.compare(id)
 }, { signal: events.signal })
-window.addEventListener('resize', () => closeSavedViewContextMenu(), { signal: events.signal })
+element('scene-context-origin').addEventListener('click', () => {
+  const id = sceneMenuTargetId
+  closeSceneContextMenu()
+  if (id !== null) setOrigin(id)
+}, { signal: events.signal })
+element('scene-context-backdrop').addEventListener('click', closeSceneContextMenu, { signal: events.signal })
+element('scene-context-backdrop').addEventListener('contextmenu', (event) => {
+  event.preventDefault()
+  closeSceneContextMenu()
+}, { signal: events.signal })
+document.addEventListener('pointermove', (event) => {
+  if (event.pointerId === sceneMenuPointerId) highlightSceneMenuItem(sceneMenuItemAt(event))
+}, { passive: true, signal: events.signal })
+document.addEventListener('pointerup', (event) => {
+  if (event.pointerId !== sceneMenuPointerId) return
+  const item = sceneMenuItemAt(event)
+  sceneMenuPointerId = null
+  highlightSceneMenuItem(null)
+  item?.click()
+}, { signal: events.signal })
+document.addEventListener('pointercancel', (event) => {
+  if (event.pointerId !== sceneMenuPointerId) return
+  sceneMenuPointerId = null
+  highlightSceneMenuItem(null)
+}, { signal: events.signal })
+window.addEventListener('resize', () => {
+  closeSavedViewContextMenu()
+  closeSceneContextMenu()
+}, { signal: events.signal })
 document.addEventListener('keydown', (event) => {
   if (element<HTMLDialogElement>('browser-data-dialog').open) return
   if (!element('saved-view-context-menu').hidden) {
     if (event.key === 'Escape' || event.key === 'Tab') {
       closeSavedViewContextMenu(true)
+      event.preventDefault()
+      return
+    }
+  }
+  if (!element('scene-context-menu').hidden) {
+    if (event.key === 'Escape' || event.key === 'Tab') {
+      closeSceneContextMenu()
       event.preventDefault()
       return
     }

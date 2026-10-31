@@ -1,5 +1,5 @@
 import type { Star } from './catalog-model'
-import { typicalMassRangePosition } from './mass-classification'
+import { classRangePlacement } from './mass-classification'
 import { JUPITER_RADIUS_KM, SOLAR_RADIUS_KM } from './radius-comparison'
 
 export interface TypicalRadiusRange {
@@ -61,6 +61,5 @@ export function typicalRadiusRange(star: Pick<Star, 'type' | 'spectral_type'>): 
 }
 
 export function typicalRadiusPosition(radiusKm: number, range: TypicalRadiusRange) {
-  return typicalMassRangePosition(radiusKm / range.radiusKmPerUnit,
-    [range.low, range.high], Math.sqrt(range.low * range.high))
+  return classRangePlacement(radiusKm / range.radiusKmPerUnit, [range.low, range.high])
 }

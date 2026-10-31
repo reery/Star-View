@@ -456,6 +456,11 @@ export class TapGesture {
     if (this.active.size > 1) this.blocked = true
   }
 
+  /** True while a single unmoved primary pointer is down and could still end as a tap. */
+  get pending(): boolean {
+    return this.origin !== null && !this.blocked && this.active.size === 1
+  }
+
   move(pointer: GesturePointer): void {
     if (this.origin?.pointerId === pointer.pointerId) {
       const distance = Math.hypot(pointer.clientX - this.origin.clientX, pointer.clientY - this.origin.clientY)

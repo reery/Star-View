@@ -434,8 +434,19 @@ export function initializeStarComparison(options: {
   }, { signal })
   window.addEventListener('resize', positionHint, { signal })
 
+  function canCompare(id: string): boolean {
+    const selected = selectedStar()
+    return eligible(selected) && eligible(options.star(id)) && id !== selected!.id
+  }
+
   return {
-    render, clearColumns, positionHint, hover,
+    render, clearColumns, positionHint, hover, canCompare,
+    /** Compares the selected object with another, as picking it after Compare would. */
+    compare(id: string): void {
+      if (!canCompare(id)) return
+      baseId = options.context().selectedId
+      completeComparison(options.star(id)!)
+    },
     get other() { return comparisonStar() },
     get waiting() { return waiting },
     abort(): boolean {

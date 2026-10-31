@@ -198,7 +198,7 @@ function gradient(level: number): string {
   return `linear-gradient(90deg, ${stops.join(', ')})`
 }
 
-function radialGradient(level: number, { dimness }: PaintControls): string {
+export function radialGradient(level: number, { dimness }: PaintControls): string {
   const stops = Array.from({ length: 21 }, (_, index) => {
     const progress = index / 10 - 1
     const value = brightness(radialStrength(progress, level), dimness)

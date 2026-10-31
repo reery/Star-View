@@ -33,7 +33,7 @@ import {
   guideDashScale, isObjectMapVisible, mapVisibilityTier, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPointInto,
   shouldRunOrdinaryLabelLayout, starApparentDiameter, starBlocksLabels, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
-  type MotionArrowGeometry, type ProjectedPickable,
+  type MotionArrowGeometry, type PointerPosition, type ProjectedPickable,
 } from './viewer-primitives'
 
 export interface StarViewer {
@@ -82,6 +82,8 @@ export interface StarViewer {
   /** Keeps the visibility base when the selection changes. */
   setVisibilityLocked(locked: boolean): void
   setDistanceUnit(unit: DistanceUnit): void
+  /** Current separation in parsecs, following simulated motion. */
+  distanceBetween(firstId: string, secondId: string): number | null
   dispose(): void
 }
 
@@ -101,6 +103,8 @@ interface ViewerOptions {
   onInteraction(): void
   onSelect(id: string | null): void
   onHover?(id: string | null): void
+  /** A right-click or touch hold on an object; held is the pointer still pressed, which stops orbiting the view when this returns true. */
+  onContextMenu?(id: string, x: number, y: number, held: PointerEvent | null): boolean
   onSelectedDistance?(distancePc: number | null): void
   onViewerDistance?(distancePc: number): void
   onGridScale?(scale: GridScale): void
@@ -2010,7 +2014,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   const events = new AbortController()
   const gesture = new TapGesture()
-  function pick(event: PointerEvent, refreshStale: boolean): string | null {
+  function pick(event: PointerPosition & { pointerType?: string }, refreshStale: boolean): string | null {
     if (refreshStale && projectionDirty) refreshProjectionCache()
     if (!projectionViewport || projectionDirty) return null
     if (projectionGridDirty) {
@@ -2025,7 +2029,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     return pickProjectedStarAtScreenPoint(projectionGrid, projectionViewport, event, event.pointerType === 'touch' ? 24 : 16)
       ?? pickExtendedVolume(event, projectionViewport)
   }
-  function pickExtendedVolume(event: PointerEvent, viewport: DOMRect): string | null {
+  function pickExtendedVolume(event: PointerPosition, viewport: DOMRect): string | null {
     let picked: string | null = null
     let nearestDepth = Infinity
     const projectionScale = camera.projectionMatrix.elements[5]! * 0.5 * viewport.height
@@ -2043,9 +2047,28 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
   let hoverFrame: number | null = null
   let hoverEvent: PointerEvent | null = null
+  let pressEvent: PointerEvent | null = null
+  let holdTimer: number | undefined
+  function showContextMenu(event: MouseEvent, held: PointerEvent | null): void {
+    const id = options.onContextMenu && pick(event, true)
+    if (!id || !options.onContextMenu!(id, event.clientX, event.clientY, held) || !held) return
+    // Cancelling the press ends any orbit and releases capture, so the held pointer can slide into the menu.
+    canvas.dispatchEvent(new PointerEvent('pointercancel', { pointerId: held.pointerId }))
+  }
   canvas.addEventListener('pointerdown', (event) => {
     options.onInteraction()
     gesture.begin(event)
+    pressEvent = event
+    clearTimeout(holdTimer)
+    if (event.pointerType === 'touch') holdTimer = window.setTimeout(() => {
+      if (!events.signal.aborted && gesture.pending) showContextMenu(event, event)
+    }, 500)
+  }, { signal: events.signal })
+  canvas.addEventListener('contextmenu', (event) => {
+    // Touch holds open the menu on their own timer; a right-drag that pans the view does not open it.
+    if (!pressEvent || pressEvent.pointerType === 'touch') return
+    if (Math.hypot(event.clientX - pressEvent.clientX, event.clientY - pressEvent.clientY) > 6) return
+    showContextMenu(event, event.buttons ? pressEvent : null)
   }, { signal: events.signal })
   canvas.addEventListener('pointermove', (event) => {
     gesture.move(event)
@@ -2336,6 +2359,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
     },
     select,
+    distanceBetween(firstId, secondId) {
+      const first = starsById.get(firstId)
+      const second = starsById.get(secondId)
+      return first && second ? pickable[first.index]!.position.distanceTo(pickable[second.index]!.position) : null
+    },
     setReference(id) {
       const reference = starsById.get(id)
       if (!reference || reference.index === referenceIndex) return

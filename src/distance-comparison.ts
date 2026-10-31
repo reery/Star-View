@@ -10,6 +10,7 @@ import { MISSING_VALUE } from './format'
 import { spaceMotionForStar } from './space-motion'
 import { radialVelocityKms, radialVelocitySource } from './spec-values'
 import { createStarAppearance } from './star-appearance'
+import { DEFAULT_PAINT_CONTROLS, DEFAULT_PAINT_LEVEL, radialGradient } from './star-paint'
 import { SIMULATION_YEAR_LIMIT } from './viewer'
 import { motionTravelDistancePc, STAR_DIAMETER_PX, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity } from './viewer-primitives'
 
@@ -17,6 +18,8 @@ const WIDTH = 560
 const HEIGHT = 232
 const RADIUS = 82
 const CENTER_Y = 116
+/** About 80% of the catalog's radial velocities lie within this many km/s of rest. */
+const RADIAL_VELOCITY_LIMIT = 40
 
 export function distanceGeometry(selected: Star, reference: Star, years = 0, frame: MotionFrame = 'galactic') {
   const position = (star: Star) => {
@@ -163,6 +166,10 @@ function radialFact(star: Star, unit: DistanceUnit, comparing: boolean): Fact {
   const where = closest && `${rounded(closest.distancePc * scale, coarseStep(closest.distancePc * scale, closest.distanceErrorPc * scale))} ${unit}`
   return {
     ...fact, value: number(Math.abs(speed)), unit: `km/s ${speed < 0 ? 'approaching' : 'receding'}`,
+    bar: {
+      gradient: radialGradient(DEFAULT_PAINT_LEVEL, DEFAULT_PAINT_CONTROLS),
+      marker: 50 + 50 * Math.max(-1, Math.min(1, speed / RADIAL_VELOCITY_LIMIT)),
+    },
     notes: [
       ...(error ? [`± ${number(error)} km/s`] : []), scope,
       ...(closest ? [closest.years >= 0 ? `Closest approach in ${when} years at ${where}` : `Closest approach was ${when} years ago at ${where}`] : []),

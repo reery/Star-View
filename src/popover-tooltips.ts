@@ -2,8 +2,12 @@ import { registerTouchTooltip, usingTouchTooltips } from './touch-tooltips'
 
 let hideActiveTooltip: (() => void) | undefined
 
-/** Below-preferred tooltips may extend past the card's bottom edge, staying within the viewport. */
-export function attachPopoverTooltip(button: HTMLButtonElement, tooltip: HTMLElement, preferBelow = false): void {
+/**
+ * Tooltips prefer the space above their label and stay within the card. With `extend`, they may reach past
+ * the card's edge on that side, staying within the viewport; 'below' also makes below the preferred side.
+ */
+export function attachPopoverTooltip(button: HTMLButtonElement, tooltip: HTMLElement, extend?: 'above' | 'below'): void {
+  const preferBelow = extend === 'below'
   tooltip.setAttribute('popover', 'manual')
   button.setAttribute('aria-describedby', tooltip.id)
   let hovered = false
@@ -23,10 +27,11 @@ export function attachPopoverTooltip(button: HTMLButtonElement, tooltip: HTMLEle
       return
     }
     const card = button.closest<HTMLElement>('.dock-card, .selected-object')!
-    const scroller = button.closest<HTMLElement>('.card-scroll-content, .object-card-body')!
+    // Buttons outside a scroll area, such as in card headings, never scroll out of view.
+    const scroller = button.closest<HTMLElement>('.card-scroll-content, .object-card-body')
     const anchor = button.getBoundingClientRect()
-    const scrollBounds = scroller.getBoundingClientRect()
-    if (anchor.bottom <= scrollBounds.top || anchor.top >= scrollBounds.bottom) {
+    const scrollBounds = scroller?.getBoundingClientRect()
+    if (scrollBounds && (anchor.bottom <= scrollBounds.top || anchor.top >= scrollBounds.bottom)) {
       hide()
       return
     }
@@ -34,7 +39,7 @@ export function attachPopoverTooltip(button: HTMLButtonElement, tooltip: HTMLEle
     const margin = 8, gap = 8
     const leftEdge = Math.max(margin, bounds.left + margin)
     const rightEdge = Math.min(window.innerWidth - margin, bounds.right - margin)
-    const topEdge = Math.max(margin, bounds.top + margin)
+    const topEdge = Math.max(margin, extend === 'above' ? 0 : bounds.top + margin)
     const bottomEdge = Math.min(window.innerHeight, preferBelow ? Infinity : bounds.bottom) - margin
     const maxWidth = rightEdge - leftEdge
     let width = Math.min(button.closest('.moon-properties') ? 300 : 280, maxWidth)
