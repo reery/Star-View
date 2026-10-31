@@ -442,6 +442,9 @@ export function projectMotionDirection(position: Vector3, velocity: Vector3, cam
 
 type GesturePointer = PointerPosition & { pointerId: number; button: number }
 
+/** How long an unmoved touch rests on an object before it opens the object's context menu. */
+export const CONTEXT_MENU_HOLD_MS = 500
+
 export class TapGesture {
   private active = new Set<number>()
   private origin: GesturePointer | null = null

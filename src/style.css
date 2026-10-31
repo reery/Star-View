@@ -111,10 +111,6 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 #scene-context-menu:focus-visible { outline: none; }
 .scene-context-item { display: block; width: 100%; padding: 7px 10px; color: var(--ink); background: transparent; border: 0; border-radius: 3px; text-align: left; }
 .scene-context-item:focus-visible, .scene-context-item[data-highlighted] { background: var(--panel-hover); }
-/* Inline names share the sentence's baseline; the swatch alone is centered on the text. */
-#scene-context-menu .origin-tooltip-object { display: inline; vertical-align: baseline; }
-#scene-context-menu .star-swatch { margin-right: 5px; vertical-align: middle; }
-[data-scene-context-object] > span:last-child { text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
 .scene-context-distance { margin: 0; padding: 7px 10px; color: var(--muted); }
 .scene-context-item:not([hidden]) ~ .scene-context-distance { margin-top: 4px; border-top: var(--mass-metric-divider); }
 /* States shift the card with translate, which animates without relayout. */
@@ -390,7 +386,10 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .tooltip { display: none; position: absolute; right: calc(100% + 10px); white-space: nowrap; font-size: 12px; font-weight: 400; background: var(--panel); border: 1px solid var(--line); color: var(--ink); padding: 7px 10px; border-radius: 5px; pointer-events: none; z-index: 5; box-shadow: var(--popover-shadow); }
 .icon-button:focus-visible .tooltip { display: block; }
 .selection-tooltip-object { display: flex; align-items: center; gap: 6px; margin-top: 5px; }
-.origin-tooltip-object { display: inline-flex; align-items: center; gap: 6px; vertical-align: middle; }
+/* A named object in running text: the name sits on the text's baseline and only its swatch is centered on the text. */
+.origin-tooltip-object { white-space: nowrap; }
+.origin-tooltip-object > .star-swatch { margin-right: 5px; vertical-align: middle; }
+:is(.origin-tooltip-object, .selection-tooltip-object) > span:not(.star-swatch) { text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
 @media (hover: hover) and (pointer: fine) {
   .icon-button:hover:not(:disabled) { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
   .observer-view-button[aria-pressed="true"]:hover:not(:disabled) { color: #ff9a78; background: #46251d; border-color: #d66b47; }
@@ -603,6 +602,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .star-list.is-virtualized { display: block; position: relative; padding-top: 2px; }
 .star-list.is-virtualized .catalog-entry { top: 2px; left: 14px; right: 14px; width: calc(100% - 28px); height: 36px; }
 .catalog-virtual-spacer { width: 1px; pointer-events: none; }
+@media (pointer: coarse) {
+  /* A touch hold on an object opens its context menu instead of selecting text. */
+  #objects-panel [data-star] { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+}
 .catalog-entry { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; align-items: center; gap: 6px; text-align: left; width: 100%; min-height: 36px; padding: 5px 8px; background: transparent; border: 1px solid transparent; border-radius: 5px; color: var(--ink); }
 .catalog-entry:hover { background: var(--panel-hover); }
 .catalog-entry.is-selected { background: var(--panel-selected); border-color: #916b48; }

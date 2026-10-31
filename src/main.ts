@@ -21,7 +21,7 @@ import legacyStarIds from './data/legacy-star-ids.json'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
-import { isObjectMapVisible, mapVisibilityTier, motionTravelDistancePc } from './viewer-primitives'
+import { CONTEXT_MENU_HOLD_MS, isObjectMapVisible, mapVisibilityTier, motionTravelDistancePc } from './viewer-primitives'
 import { renderSelectedStarPreview } from './selected-star-preview'
 import { COMPARISON_DETAIL_TOGGLES, initializeStarComparison } from './star-comparison'
 import { radialVelocitySource, specValues, type SpecValue } from './spec-values'
@@ -373,6 +373,10 @@ let savedViewMenuRow: HTMLTableRowElement | null = null
 let sceneMenuTargetId: string | null = null
 /** The pointer that opened the scene menu while still pressed; releasing it over an item chooses that item. */
 let sceneMenuPointerId: number | null = null
+/** When a touch that opened the menu was released; a click it may still produce must not reach the page. */
+let sceneMenuReleaseTime: number | undefined
+let objectPress: PointerEvent | null = null
+let objectHold: { pointerId: number; x: number; y: number; timer: number } | null = null
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
   if (localStorage.getItem('star-view-color-mode') === 'real') starColorMode = 'real'
@@ -2975,6 +2979,7 @@ function closeSceneContextMenu(): void {
   element('scene-context-menu').hidden = true
   element('scene-context-backdrop').hidden = true
   element('app').inert = false
+  viewer?.setControlsEnabled(true)
   sceneMenuTargetId = sceneMenuPointerId = null
   highlightSceneMenuItem(null)
 }
@@ -3004,6 +3009,7 @@ function openSceneContextMenu(id: string, x: number, y: number, held: PointerEve
   menu.hidden = false
   element('scene-context-backdrop').hidden = false
   element('app').inert = true
+  viewer?.setControlsEnabled(false)
   const bounds = menu.getBoundingClientRect()
   // A finger would cover a menu to its right, so touch opens below left of it; a mouse opens below right.
   const touch = held?.pointerType === 'touch'
@@ -3022,6 +3028,11 @@ function sceneMenuItemAt(event: PointerEvent): HTMLButtonElement | null {
 
 function highlightSceneMenuItem(item: HTMLButtonElement | null): void {
   for (const candidate of element('scene-context-menu').querySelectorAll('[role="menuitem"]')) candidate.toggleAttribute('data-highlighted', candidate === item)
+}
+
+function cancelObjectHold(): void {
+  if (objectHold) clearTimeout(objectHold.timer)
+  objectHold = null
 }
 
 /** Moves focus between a context menu's visible items with the arrow, Home and End keys. */
@@ -4139,21 +4150,62 @@ element('scene-context-backdrop').addEventListener('contextmenu', (event) => {
   event.preventDefault()
   closeSceneContextMenu()
 }, { signal: events.signal })
+// Objects card rows open the same menu with a right-click or a touch hold.
+element('objects-panel').addEventListener('contextmenu', (event) => {
+  const row = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-star]') : null
+  if (!row) return
+  event.preventDefault()
+  // Touch holds open the menu on their own timer.
+  if (objectPress?.pointerType === 'touch') return
+  const bounds = row.getBoundingClientRect()
+  const held = event.buttons && objectPress ? objectPress : null
+  openSceneContextMenu(row.dataset.star!, event.clientX || bounds.left + 12, event.clientY || bounds.bottom, held)
+}, { signal: events.signal })
+element('objects-panel').addEventListener('pointerdown', (event) => {
+  cancelObjectHold()
+  objectPress = event
+  const row = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-star]') : null
+  if (event.pointerType !== 'touch' || !event.isPrimary || !row) return
+  objectHold = {
+    pointerId: event.pointerId, x: event.clientX, y: event.clientY,
+    timer: window.setTimeout(() => {
+      objectHold = null
+      openSceneContextMenu(row.dataset.star!, event.clientX, event.clientY, event)
+    }, CONTEXT_MENU_HOLD_MS),
+  }
+}, { passive: true, signal: events.signal })
 document.addEventListener('pointermove', (event) => {
+  if (objectHold?.pointerId === event.pointerId && Math.hypot(event.clientX - objectHold.x, event.clientY - objectHold.y) > 6) cancelObjectHold()
   if (event.pointerId === sceneMenuPointerId) highlightSceneMenuItem(sceneMenuItemAt(event))
 }, { passive: true, signal: events.signal })
+// A finger sliding into the menu must not scroll the list beneath it.
+document.addEventListener('touchmove', (event) => {
+  if (sceneMenuPointerId !== null) event.preventDefault()
+}, { passive: false, signal: events.signal })
 document.addEventListener('pointerup', (event) => {
+  if (objectHold?.pointerId === event.pointerId) cancelObjectHold()
   if (event.pointerId !== sceneMenuPointerId) return
   const item = sceneMenuItemAt(event)
   sceneMenuPointerId = null
   highlightSceneMenuItem(null)
   item?.click()
+  if (event.pointerType === 'touch') sceneMenuReleaseTime = event.timeStamp
 }, { signal: events.signal })
 document.addEventListener('pointercancel', (event) => {
+  if (objectHold?.pointerId === event.pointerId) cancelObjectHold()
   if (event.pointerId !== sceneMenuPointerId) return
   sceneMenuPointerId = null
   highlightSceneMenuItem(null)
 }, { signal: events.signal })
+document.addEventListener('pointerdown', () => { sceneMenuReleaseTime = undefined }, { capture: true, passive: true, signal: events.signal })
+document.addEventListener('click', (event) => {
+  const release = sceneMenuReleaseTime
+  sceneMenuReleaseTime = undefined
+  // Some touch browsers follow a long press with a click on whatever is now under the finger.
+  if (release === undefined || !event.isTrusted || event.timeStamp - release > 1000) return
+  event.preventDefault()
+  event.stopImmediatePropagation()
+}, { capture: true, signal: events.signal })
 window.addEventListener('resize', () => {
   closeSavedViewContextMenu()
   closeSceneContextMenu()

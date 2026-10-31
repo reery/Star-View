@@ -28,7 +28,7 @@ import type { StarPaint, StarPainter } from './star-paint'
 import {
   GUIDE_DASH_PX, GUIDE_GAP_PX,
   MOTION_ARROW_TAIL_OFFSET_PX,
-  STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices,
+  CONTEXT_MENU_HOLD_MS, STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices,
   compareMapLabelCandidates, focusProgress,
   guideDashScale, isObjectMapVisible, mapVisibilityTier, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPointInto,
@@ -84,6 +84,8 @@ export interface StarViewer {
   setDistanceUnit(unit: DistanceUnit): void
   /** Current separation in parsecs, following simulated motion. */
   distanceBetween(firstId: string, secondId: string): number | null
+  /** Stops pointers from orbiting the view while an overlay such as a context menu is open. */
+  setControlsEnabled(enabled: boolean): void
   dispose(): void
 }
 
@@ -2062,7 +2064,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     clearTimeout(holdTimer)
     if (event.pointerType === 'touch') holdTimer = window.setTimeout(() => {
       if (!events.signal.aborted && gesture.pending) showContextMenu(event, event)
-    }, 500)
+    }, CONTEXT_MENU_HOLD_MS)
   }, { signal: events.signal })
   canvas.addEventListener('contextmenu', (event) => {
     // Touch holds open the menu on their own timer; a right-drag that pans the view does not open it.
@@ -2363,6 +2365,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       const first = starsById.get(firstId)
       const second = starsById.get(secondId)
       return first && second ? pickable[first.index]!.position.distanceTo(pickable[second.index]!.position) : null
+    },
+    setControlsEnabled(enabled) {
+      controls.enabled = enabled
     },
     setReference(id) {
       const reference = starsById.get(id)
