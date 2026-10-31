@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, RotateCcw, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, RotateCcw, Ruler, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
@@ -53,9 +53,9 @@ import { objectSubtypeDescription } from './object-subtype-info'
 import { MISSING_VALUE, preciseMeasurement, quantity, scientificQuantity } from './format'
 import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
 import type { SkyGridMode } from './sky-grid'
-import { browserDataSize, deleteBrowserData } from './browser-data'
+import { browserDataSize, deleteBrowserData, exportBrowserData, importBrowserData } from './browser-data'
 import { readSavedFilter, SAVED_FILTER_STORAGE_KEY, type SavedFilter } from './saved-filter'
-import { DEFAULT_PAINT_CONTROLS, DEFAULT_PAINT_LEVEL, isPaintSettingId, PAINT_CHANNELS, PAINT_HISTOGRAM_BINS, PAINT_LEVEL_RANGE, PAINT_SETTINGS, paintLegend, starPainter, type PaintChannel, type PaintControls, type PaintSettingId } from './star-paint'
+import { DEFAULT_PAINT_CONTROLS, DEFAULT_PAINT_LEVEL, isPaintSettingId, PAINT_CHANNELS, PAINT_HISTOGRAM_BINS, PAINT_LEVEL_RANGE, PAINT_SETTINGS, paintLegend, starPainter, type PaintChannel, type PaintContext, type PaintControls, type PaintSettingId } from './star-paint'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
   const found = document.getElementById(id)
@@ -2615,7 +2615,8 @@ function setOrigin(id: string): void {
   referenceId = id
   selectedDistancePc = null
   objectList.setReference(referenceId, objectListFilter())
-  refitPaint()
+  // Distance paint measures from the origin, so it repaints even when the same objects stay visible.
+  if (paintStars) paintVisible(true)
   graphs?.refresh()
   viewer?.setReference(referenceId)
   renderSelection()
@@ -3379,6 +3380,36 @@ element('browser-data-yes').addEventListener('click', () => {
     positionBrowserDataDialog()
   }
 }, { signal: events.signal })
+function browserDataTransferError(message: string): void {
+  text('browser-data-transfer-error', message)
+  element('browser-data-transfer-error').hidden = false
+}
+element('export-browser-data').addEventListener('click', async () => {
+  element('browser-data-transfer-error').hidden = true
+  try {
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(await exportBrowserData())
+    link.download = `star-view-data-${new Date().toISOString().slice(0, 10)}.json.gz`
+    link.click()
+    setTimeout(() => URL.revokeObjectURL(link.href))
+  } catch {
+    browserDataTransferError('Could not export browser data.')
+  }
+}, { signal: events.signal })
+element('import-browser-data').addEventListener('click', () => element('import-browser-data-file').click(), { signal: events.signal })
+element('import-browser-data-file').addEventListener('change', async () => {
+  const input = element<HTMLInputElement>('import-browser-data-file')
+  const file = input.files?.[0]
+  input.value = ''
+  if (!file) return
+  element('browser-data-transfer-error').hidden = true
+  try {
+    await importBrowserData(file)
+    window.location.reload()
+  } catch {
+    browserDataTransferError('Could not import this file. Choose a Star View data export.')
+  }
+}, { signal: events.signal })
 for (const type of ['input', 'change']) {
   element('preferences-panel').addEventListener(type, updateBrowserDataSize, { signal: events.signal })
 }
@@ -3632,11 +3663,12 @@ catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.va
 element('filter-reset').addEventListener('click', resetAllFilters, { signal: events.signal })
 const paintIcon = (shape: IconNode) => createElement(shape, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' })
 const paintSettingIcons: Record<PaintSettingId, IconNode> = {
-  'absolute-magnitude': Sun, mass: Weight, 'bolometric-luminosity': Sparkle, 'radial-velocity': ArrowLeftRight, 'motion-direction': Compass, metallicity: Atom,
+  'absolute-magnitude': Sun, mass: Weight, 'bolometric-luminosity': Sparkle, distance: Ruler, 'radial-velocity': ArrowLeftRight, 'motion-direction': Compass, metallicity: Atom,
   'planet-hosts': Orbit, radius: Radius, density: Box, temperature: Thermometer, 'data-gaps': CircleDashed,
 }
 element('paint-settings').append(...PAINT_SETTINGS.map((paintSetting) => {
   const { id, label, legend, gradient } = paintSetting
+  const initialLevel = 'level' in paintSetting ? paintSetting.level.initial : DEFAULT_PAINT_LEVEL
   const setting = document.createElement('section')
   setting.className = 'planet-atmosphere paint-setting'
   setting.dataset.paintSetting = id
@@ -3665,10 +3697,11 @@ element('paint-settings').append(...PAINT_SETTINGS.map((paintSetting) => {
     scale.className = 'unit-options graph-scale'
     scale.setAttribute('role', 'group')
     scale.setAttribute('aria-label', `${label} scale`)
-    scale.append(...(['Rank', 'Linear'] as const).map((name) => {
-      const button = Object.assign(document.createElement('button'), { type: 'button', textContent: name, title: name === 'Rank' ? 'Rank the visible objects' : 'Fixed linear scale' })
+    const scales: readonly (readonly [string, string])[] = 'scales' in paintSetting ? paintSetting.scales : [['Rank', 'Rank the visible objects'], ['Linear', 'Fixed linear scale']]
+    scale.append(...scales.map(([name, scaleTitle], index) => {
+      const button = Object.assign(document.createElement('button'), { type: 'button', textContent: name, title: scaleTitle })
       button.dataset.paintScale = name
-      button.setAttribute('aria-pressed', String(name === 'Rank'))
+      button.setAttribute('aria-pressed', String(index === 0))
       return button
     }))
     title.append(scale)
@@ -3677,14 +3710,19 @@ element('paint-settings').append(...PAINT_SETTINGS.map((paintSetting) => {
   const bar = document.createElement('div')
   bar.className = 'paint-legend'
   const level = document.createElement('input')
-  Object.assign(level, { type: 'range', min: String(PAINT_LEVEL_RANGE[0]), max: String(PAINT_LEVEL_RANGE[1]), step: '0.01', value: String(DEFAULT_PAINT_LEVEL) })
-  level.setAttribute('aria-label', `${label} midpoint`)
-  bar.style.setProperty('--paint-legend', gradient(DEFAULT_PAINT_LEVEL, DEFAULT_PAINT_CONTROLS))
+  Object.assign(level, { type: 'range', min: String(PAINT_LEVEL_RANGE[0]), max: String(PAINT_LEVEL_RANGE[1]), step: '0.01', value: String(initialLevel) })
+  level.setAttribute('aria-label', 'level' in paintSetting ? paintSetting.level.label : `${label} midpoint`)
+  bar.style.setProperty('--paint-legend', gradient(initialLevel, DEFAULT_PAINT_CONTROLS))
   bar.append(level)
   const bounds = document.createElement('div')
   bounds.className = 'range-bounds'
   bounds.setAttribute('aria-hidden', 'true')
   bounds.append(...legend.bounds.map((bound) => Object.assign(document.createElement('span'), { textContent: bound })))
+  // More than two labels mark their places along the legend.
+  if (legend.bounds.length > 2) {
+    bounds.classList.add('paint-ticks')
+    bounds.childNodes.forEach((span, index) => { (span as HTMLElement).style.left = `${index / (legend.bounds.length - 1) * 100}%` })
+  }
   // The visible objects' distribution and missing count appear while the setting paints or is open.
   const histogram = Object.assign(document.createElement('div'), { className: 'paint-histogram', hidden: true })
   histogram.setAttribute('aria-hidden', 'true')
@@ -3695,7 +3733,7 @@ element('paint-settings').append(...PAINT_SETTINGS.map((paintSetting) => {
     wheel.className = 'paint-wheel'
     wheel.setAttribute('aria-hidden', 'true')
     const disc = document.createElement('i')
-    disc.style.setProperty('--paint-legend', legend.wheel.gradient(DEFAULT_PAINT_LEVEL, DEFAULT_PAINT_CONTROLS))
+    disc.style.setProperty('--paint-legend', legend.wheel.gradient(initialLevel, DEFAULT_PAINT_CONTROLS))
     wheel.append(disc, ...legend.wheel.labels.map((text) => Object.assign(document.createElement('span'), { textContent: text })))
     body.append(wheel)
   }
@@ -3720,7 +3758,7 @@ element('paint-settings').append(...PAINT_SETTINGS.map((paintSetting) => {
     const controlHeading = document.createElement('div')
     controlHeading.className = 'range-heading'
     controlHeading.append(Object.assign(document.createElement('label'), { htmlFor: input.id, textContent: controlLabel }),
-      Object.assign(document.createElement('output'), { htmlFor: input.id, textContent: text(DEFAULT_PAINT_CONTROLS[name], DEFAULT_PAINT_LEVEL) }))
+      Object.assign(document.createElement('output'), { htmlFor: input.id, textContent: text(DEFAULT_PAINT_CONTROLS[name], initialLevel) }))
     control.append(controlHeading, input)
     return control
   }))
@@ -3733,7 +3771,7 @@ function paintSettingParts(setting: HTMLElement) {
   if (!isPaintSettingId(id)) return null
   const definition = PAINT_SETTINGS.find((candidate) => candidate.id === id)!
   return {
-    id, gradient: definition.gradient, legend: definition.legend,
+    id, gradient: definition.gradient, legend: definition.legend, initialLevel: 'level' in definition ? definition.level.initial : DEFAULT_PAINT_LEVEL,
     toggle: setting.querySelector<HTMLButtonElement>('.paint-setting-toggle')!,
     level: setting.querySelector<HTMLInputElement>('.paint-legend input')!,
     controls: ('controls' in definition ? definition.controls : []).map((control) => ({ control, input: setting.querySelector<HTMLInputElement>(`[data-paint-control="${control.name}"]`)! })),
@@ -3836,8 +3874,8 @@ function applyPaint(entries: readonly (readonly [PaintSettingId, number, (readon
   })
   element('paint-settings').querySelectorAll<HTMLElement>('[data-paint-setting]').forEach((setting) => {
     const parts = paintSettingParts(setting)!
-    const level = paintSettings.get(parts.id) ?? DEFAULT_PAINT_LEVEL
-    parts.scales.forEach((scale) => scale.setAttribute('aria-pressed', String(scale.dataset.paintScale === 'Rank')))
+    const level = paintSettings.get(parts.id) ?? parts.initialLevel
+    parts.scales.forEach((scale, index) => scale.setAttribute('aria-pressed', String(index === 0)))
     parts.level.value = String(level)
     parts.controls.forEach(({ control, input }) => { input.value = String(DEFAULT_PAINT_CONTROLS[control.name]) })
     showPaintLevel(parts, level)
@@ -3855,9 +3893,10 @@ function paintVisible(refit = false): void {
   const shown = settings.filter((parts) => paintSettings.has(parts.id) || !parts.body.hidden)
   if (!shown.length) paintStars = null
   else if (refit || !paintStars) paintStars = paintableStars()
-  const fitted = paintStars && starPainter(paintSettings, paintStars, linearPaintSettings, paintControls, paintChannels)
+  const context: PaintContext = { origin: starById(referenceId) ?? { x_pc: 0, y_pc: 0, z_pc: 0 }, unit: distanceUnit }
+  const fitted = paintStars && starPainter(paintSettings, paintStars, linearPaintSettings, paintControls, paintChannels, context)
   settings.forEach((parts) => {
-    const legend = fitted?.legends.get(parts.id) ?? (paintStars && shown.includes(parts) ? paintLegend(parts.id, paintStars, linearPaintSettings.has(parts.id)) : undefined)
+    const legend = fitted?.legends.get(parts.id) ?? (paintStars && shown.includes(parts) ? paintLegend(parts.id, paintStars, linearPaintSettings.has(parts.id), context) : undefined)
     const bounds = legend?.bounds ?? parts.legend.bounds
     parts.bounds.forEach((span, index) => { span.textContent = bounds[index]! })
     parts.histogram.hidden = !legend
@@ -3905,6 +3944,7 @@ element('distance-units').addEventListener('change', () => {
   viewer?.setDistanceUnit(distanceUnit)
   renderDistances()
   renderSpaceship()
+  if (paintStars) paintVisible()
 }, { signal: events.signal })
 element('star-colors').addEventListener('change', () => {
   starColorMode = element<HTMLInputElement>('star-colors-exaggerated').checked ? 'exaggerated' : 'real'

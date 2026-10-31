@@ -1,5 +1,5 @@
 import { Color, SRGBColorSpace } from 'three'
-import { temperatureSpectrumColor } from './astronomy'
+import { LIGHT_YEARS_PER_PARSEC, temperatureSpectrumColor, type DistanceUnit } from './astronomy'
 import type { Star } from './catalog-model'
 import { formatNumber } from './format'
 import { scientificPlanetValue } from './planet-value'
@@ -13,7 +13,8 @@ export interface StarPaint {
 
 export type StarPainter = (star: Star) => StarPaint
 
-type PaintBounds = readonly [string, string]
+/** Labels evenly spaced along the legend, from its left end to its right end. */
+type PaintBounds = readonly string[]
 
 /** What a setting paints: an object's color, or its core size and halo. */
 export type PaintChannel = 'color' | 'size'
@@ -51,9 +52,21 @@ interface PaintWheel {
   labels: readonly [string, string, string, string]
 }
 
+/** The origin distances are measured from and the unit they are shown in. */
+export interface PaintContext {
+  origin: Pick<Star, 'x_pc' | 'y_pc' | 'z_pc'>
+  unit: DistanceUnit
+}
+
+const SUN_CONTEXT: PaintContext = { origin: { x_pc: 0, y_pc: 0, z_pc: 0 }, unit: 'ly' }
+
 interface PaintSetting {
   id: string
   label: string
+  /** Names and titles of the scale buttons, the second linear; ranking and the fixed linear scale unless given. */
+  scales?: readonly (readonly [string, string])[]
+  /** The slider's starting value and label; the midpoint unless given. */
+  level?: { initial: number; label: string }
   /** Bounds shown until the setting is fitted to visible objects; missing completes "objects without …". */
   legend: { bounds: PaintBounds; missing: string; note?: string; wheel?: PaintWheel }
   /** CSS gradient for the legend bar at a level between 0 and 1. */
@@ -62,7 +75,7 @@ interface PaintSetting {
   /** Keeps the fixed scale, without a choice between ranking and linear. */
   fixed?: true
   /** Fits the scale to the objects the map shows; a linear scale keeps the fixed legend range instead. */
-  fit(stars: readonly Star[], linear: boolean): PaintScale
+  fit(stars: readonly Star[], linear: boolean, context: PaintContext): PaintScale
 }
 
 export const DEFAULT_PAINT_LEVEL = 0.5
@@ -349,6 +362,73 @@ const temperatureSetting = {
   },
 } satisfies PaintSetting
 
+/** Hues from the nearest objects to the farthest: red, orange, yellow, green, cyan, blue and violet, all bright against the dark sky. */
+const DISTANCE_SPECTRUM = [[1, 0.2, 0.2], [1, 0.55, 0.1], [1, 0.92, 0.15], [0.35, 0.9, 0.3], [0.15, 0.85, 0.95], [0.35, 0.5, 1], [0.75, 0.4, 1]] as const
+const DISTANCE_LABELS = 5
+/** The logarithmic scale starts no nearer than 1 ly, so close companions of the origin don't stretch it over empty decades. */
+const LOG_DISTANCE_FLOOR_PC = 1 / LIGHT_YEARS_PER_PARSEC
+/** The shortest reach the slider leaves, as a share of the legend. */
+const MIN_DISTANCE_REACH = 0.02
+
+function distanceTint(progress: number): readonly number[] {
+  const at = clamp(progress) * (DISTANCE_SPECTRUM.length - 1)
+  const index = Math.min(DISTANCE_SPECTRUM.length - 2, Math.floor(at))
+  const [from, to] = [DISTANCE_SPECTRUM[index]!, DISTANCE_SPECTRUM[index + 1]!]
+  return from.map((channel, rgb) => channel + (to[rgb]! - channel) * (at - index))
+}
+
+const distanceReach = (level: number) => Math.max(MIN_DISTANCE_REACH, level)
+
+/** The spectrum up to the reach, darkest beyond it. */
+function distanceGradient(level: number): string {
+  const reach = distanceReach(level) * 100
+  const stops = Array.from({ length: 21 }, (_, index) => `rgb(${distanceTint(index / 20).map((channel) => Math.round(channel * 255)).join(' ')}) ${(index / 20 * reach).toFixed(2)}%`)
+  const dark = Math.round(gray(0) * 255)
+  return `linear-gradient(90deg, ${stops.join(', ')}, rgb(${dark} ${dark} ${dark}) ${reach.toFixed(2)}%)`
+}
+
+const distanceText = (unit: DistanceUnit) => (distancePc: number) =>
+  `${(distancePc * (unit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1)).toLocaleString('en-US', { maximumSignificantDigits: 3 })} ${unit}`
+
+/** Paints objects in the spectrum by their distance from the origin, nearest red and farthest violet, and larger nearer;
+ * objects beyond the reach are painted darkest. */
+const distanceSetting = {
+  id: 'distance' as const, label: 'Distance', gradient: distanceGradient,
+  scales: [['Log', 'Logarithmic distance scale'], ['Linear', 'Linear distance scale']],
+  level: { initial: 1, label: 'Distance reach' },
+  legend: {
+    bounds: ['Near', '', '', '', 'Far'], missing: 'a position',
+    note: 'Distance from the origin; nearer objects are larger. The slider sets the reach: objects beyond it are painted darkest, so a shorter reach tells nearby distances apart more finely. Log spreads nearby objects wider; Linear keeps equal distance steps.',
+  },
+  fit(stars: readonly Star[], linear: boolean, { origin, unit }: PaintContext): PaintScale {
+    const distance = (star: Star) => Math.hypot(star.x_pc - origin.x_pc, star.y_pc - origin.y_pc, star.z_pc - origin.z_pc)
+    const distances = stars.filter((star) => !extended(star)).map(distance)
+    const farthest = distances.reduce((max, entry) => Math.max(max, entry), 0)
+    const nearest = Math.min(farthest, distances.reduce((min, entry) => entry >= LOG_DISTANCE_FLOOR_PC ? Math.min(min, entry) : min, Infinity))
+    const key = (distancePc: number) => linear ? distancePc : Math.log10(Math.max(LOG_DISTANCE_FLOOR_PC, nearest, distancePc))
+    const extent = [linear ? 0 : key(nearest), key(farthest)] as const
+    const span = extent[1] - extent[0]
+    const format = distanceText(unit)
+    return {
+      bounds: Array.from({ length: DISTANCE_LABELS }, (_, index) => {
+        const at = extent[0] + index / (DISTANCE_LABELS - 1) * span
+        return format(linear ? at : 10 ** at)
+      }),
+      histogram: histogram(distances.map(key), extent), missing: 0,
+      paint(star, level) {
+        if (extended(star)) return {}
+        const progress = span > 0 ? clamp((key(distance(star)) - extent[0]) / span) : 0
+        const reach = distanceReach(level)
+        if (progress > reach) return painted(0)
+        const share = progress / reach
+        const [red, green, blue] = distanceTint(share)
+        // Full brightness keeps every hue legible; the farthest objects within reach stay a quarter of the way up the size scale.
+        return { color: new Color().setRGB(red!, green!, blue!, SRGBColorSpace), magnitude: painted(1 - 0.75 * share).magnitude }
+      },
+    }
+  },
+} satisfies PaintSetting
+
 export const PAINT_SETTINGS = [
   keyedSetting('absolute-magnitude', 'Absolute magnitude', 'an absolute magnitude',
     'Rank spreads the visible objects evenly from faintest to brightest; Linear uses the fixed magnitude scale. Objects without an absolute magnitude are painted darkest.',
@@ -360,6 +440,7 @@ export const PAINT_SETTINGS = [
   keyedSetting('bolometric-luminosity', 'Bolometric luminosity', 'a bolometric luminosity',
     'Rank spreads the visible objects evenly from faintest to most luminous; Linear uses the fixed logarithmic luminosity scale. Objects without a bolometric luminosity are painted darkest.',
     LUMINOSITY_POWERS, solar('L☉'), (star) => logPositive(star.luminosity_solar)),
+  distanceSetting,
   radialVelocitySetting,
   motionDirectionSetting,
   keyedSetting('metallicity', 'Metallicity', 'a metallicity',
@@ -398,23 +479,23 @@ export interface FittedPaint {
   legends: ReadonlyMap<PaintSettingId, PaintLegend>
 }
 
-function fit(setting: typeof PAINT_SETTINGS[number], visible: readonly Star[], linear: boolean): PaintScale {
-  return setting.fit(visible, 'fixed' in setting || linear)
+function fit(setting: typeof PAINT_SETTINGS[number], visible: readonly Star[], linear: boolean, context: PaintContext): PaintScale {
+  return setting.fit(visible, 'fixed' in setting || linear, context)
 }
 
 /** Fits a setting's legend to the visible objects as painting would, for a setting shown without painting. */
-export function paintLegend(id: PaintSettingId, visible: readonly Star[], linear: boolean): PaintLegend {
-  return fit(PAINT_SETTINGS.find((setting) => setting.id === id)!, visible, linear)
+export function paintLegend(id: PaintSettingId, visible: readonly Star[], linear: boolean, context = SUN_CONTEXT): PaintLegend {
+  return fit(PAINT_SETTINGS.find((setting) => setting.id === id)!, visible, linear, context)
 }
 
 /** Combines the enabled settings, keyed to their levels and slider controls and fitted to the visible objects unless linear; null when nothing is painted.
  * Each channel takes the paint of the last setting in display order that claims it; settings claim both channels unless given. */
 export function starPainter(
   enabled: ReadonlyMap<PaintSettingId, number>, visible: readonly Star[], linear: ReadonlySet<PaintSettingId> = new Set(), controls: ReadonlyMap<PaintSettingId, PaintControls> = new Map(),
-  channels: ReadonlyMap<PaintSettingId, readonly PaintChannel[]> = new Map(),
+  channels: ReadonlyMap<PaintSettingId, readonly PaintChannel[]> = new Map(), context = SUN_CONTEXT,
 ): FittedPaint | null {
   const settings = PAINT_SETTINGS.filter((setting) => enabled.has(setting.id)).map((setting) => ({
-    id: setting.id, channels: channels.get(setting.id) ?? PAINT_CHANNELS, scale: fit(setting, visible, linear.has(setting.id)),
+    id: setting.id, channels: channels.get(setting.id) ?? PAINT_CHANNELS, scale: fit(setting, visible, linear.has(setting.id), context),
   }))
   if (!settings.length) return null
   const [colored, sized] = PAINT_CHANNELS.map((channel) => settings.findLast((setting) => setting.channels.includes(channel)))

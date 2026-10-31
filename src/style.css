@@ -441,6 +441,11 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .display-settings { display: grid; gap: 12px; padding: 12px 14px 14px; }
 .browser-data-delete { justify-self: start; min-height: 34px; padding: 6px 8px; color: var(--danger); background: color-mix(in srgb, var(--danger) 10%, transparent); border: 1px solid color-mix(in srgb, var(--danger) 45%, transparent); border-radius: 6px; font-size: 12px; font-variant-numeric: tabular-nums; text-align: center; }
 .browser-data-delete:disabled { opacity: 0.45; cursor: default; }
+.browser-data-controls { display: grid; justify-self: start; gap: 8px; }
+.browser-data-controls > .browser-data-delete { justify-self: stretch; }
+.browser-data-transfer { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.browser-data-transfer > button { min-height: 34px; padding: 6px 8px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; white-space: nowrap; }
+#browser-data-transfer-error { margin: 0; color: var(--danger); font-size: 12px; }
 .preferences[data-delete-confirmation] > * { filter: blur(3px); }
 .browser-data-dialog { position: fixed; width: min(320px, calc(var(--ui-width) - 32px)); max-height: calc(var(--ui-height) - 32px); margin: 0; padding: 14px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 5px; box-shadow: var(--popover-shadow); font-size: var(--property-text-size); line-height: 1.4; }
 .browser-data-dialog::backdrop { background: transparent; }
@@ -452,7 +457,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 #browser-data-no { color: var(--accent); }
 @media (hover: hover) {
   .browser-data-delete:hover:not(:disabled) { background: color-mix(in srgb, var(--danger) 18%, transparent); }
-  :is(.browser-data-actions button, .neighborhood-recenter, .spaceship-exit):hover { background: var(--panel-hover); }
+  :is(.browser-data-actions button, .browser-data-transfer > button, .neighborhood-recenter, .spaceship-exit):hover { background: var(--panel-hover); }
 }
 .preferences-group { display: grid; gap: 12px; }
 .preferences-group > .card-subgroup-heading { margin: 0 -14px; padding-inline: 14px; }
@@ -512,6 +517,14 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .paint-legend input::-moz-range-track { height: 100%; background: transparent; }
 .paint-legend input::-webkit-slider-thumb { margin-top: -7px; box-shadow: 0 0 0 1px var(--panel); }
 .paint-legend input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 5px; }
+/* Ticks mark each label's place on the legend; the end labels stay inside it. */
+.range-bounds.paint-ticks { position: relative; display: block; height: 19px; font-variant-numeric: tabular-nums; }
+.paint-ticks > span { position: absolute; top: 0; padding-top: 7px; transform: translateX(-50%); white-space: nowrap; }
+.paint-ticks > span::before { content: ''; position: absolute; top: 0; left: 50%; width: 1px; height: 5px; background: var(--muted); }
+.paint-ticks > span:first-child { transform: none; }
+.paint-ticks > span:first-child::before { left: 0; }
+.paint-ticks > span:last-child { transform: translateX(-100%); }
+.paint-ticks > span:last-child::before { right: 0; left: auto; }
 .paint-histogram { display: flex; align-items: flex-end; gap: 1px; height: 28px; padding: 0 3px; }
 .paint-histogram > i { flex: 1 1 0; min-width: 0; border-radius: 2px 2px 0 0; background: var(--stat-bar-fill); }
 /* Labels sit right, top, left and bottom of the wheel, matching their directions. */

@@ -1026,7 +1026,12 @@
                   </section>
                   <section class="preferences-group" aria-labelledby="data-preferences-heading">
                     <h3 id="data-preferences-heading" class="card-subgroup-heading">Data</h3>
-                    <button id="delete-browser-data" class="browser-data-delete" type="button" aria-haspopup="dialog" aria-controls="browser-data-dialog" title="Size estimate includes saved views, preferences and storage keys">Delete all Star View browser data</button>
+                    <div class="browser-data-controls">
+                      <div class="browser-data-transfer"><button id="import-browser-data" type="button" aria-controls="import-browser-data-file" title="Replace all Star View browser data with an exported file">Import data</button><button id="export-browser-data" type="button" title="Download all Star View browser data as a compressed JSON file">Export data</button></div>
+                      <button id="delete-browser-data" class="browser-data-delete" type="button" aria-haspopup="dialog" aria-controls="browser-data-dialog" title="Size estimate includes saved views, preferences and storage keys">Delete all Star View browser data</button>
+                    </div>
+                    <input id="import-browser-data-file" type="file" accept=".gz,.json,application/gzip,application/json" hidden>
+                    <p id="browser-data-transfer-error" role="alert" hidden></p>
                   </section>
                 </div>
               </section>
@@ -1039,7 +1044,7 @@
                   <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                   <div><dt>License</dt><dd>MIT</dd></div>
                   <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
-                  <div><dt>Catalog updated</dt><dd><time datetime="2026-10-28">28 October 2026</time></dd></div>
+                  <div><dt>Catalog updated</dt><dd><time datetime="2026-10-31">31 October 2026</time></dd></div>
                   <div><dt>Build date</dt><dd><time datetime="%BUILD_DATE_ISO%">%BUILD_DATE%</time></dd></div>
                   <div><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="catalog-epoch-tooltip">Position reference epoch</button><span id="catalog-epoch-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog positions use the year 2000 as their reference time.</span></dt><dd id="catalog-epoch">J2000.0</dd></div>
                   <div><dt>Version</dt><dd>%APP_VERSION%</dd></div>

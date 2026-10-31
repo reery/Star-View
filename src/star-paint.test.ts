@@ -192,6 +192,22 @@ describe('star paint', () => {
     expect(starPainter(new Map([['data-gaps', 0.5]]), [sun, sparse])!.legends.get('data-gaps')!.bounds).toEqual(['1 of 9 unknown', '5 of 9 unknown'])
   })
 
+  it('paints distance from the origin in a spectrum up to the reach', () => {
+    const at = (x_pc: number) => ({ ...sun, id: String(x_pc), x_pc })
+    const stars = [sun, at(1), at(10), at(100)]
+    const fitted = (level: number, linear = false, origin = sun) =>
+      starPainter(new Map([['distance', level]]), stars, new Set(linear ? ['distance'] as const : []), new Map(), new Map(), { origin, unit: 'pc' })!
+    const hex = (level: number, star: Star, linear = false, origin = sun) => fitted(level, linear, origin).painter(star).color!.getHexString()
+    expect(fitted(1).legends.get('distance')).toMatchObject({ bounds: ['1 pc', '3.16 pc', '10 pc', '31.6 pc', '100 pc'], missing: 0 })
+    expect(fitted(1, true).legends.get('distance')!.bounds).toEqual(['0 pc', '25 pc', '50 pc', '75 pc', '100 pc'])
+    // The origin and the nearest objects are red, the middle green and the farthest violet, nearer ones larger.
+    expect([hex(1, sun), hex(1, stars[1]!), hex(1, stars[2]!), hex(1, stars[3]!)]).toEqual(['ff3333', 'ff3333', '59e64d', 'bf66ff'])
+    expect(fitted(1).painter(stars[1]!).magnitude!).toBeLessThan(fitted(1).painter(stars[3]!).magnitude!)
+    // A shorter reach spreads the spectrum over nearer objects and paints those beyond it darkest.
+    expect([hex(0.5, stars[2]!), hex(0.5, stars[3]!)]).toEqual(['bf66ff', '333333'])
+    expect(hex(1, sun, false, stars[3]!)).toBe('bf66ff')
+  })
+
   it('takes color and size from different settings, each channel from the last setting claiming it', () => {
     const rich = { ...sun, id: 'rich', metallicity_dex: 0.3, known_planets: 0 }
     const host = { ...sun, id: 'host', metallicity_dex: -1, known_planets: 3 }
