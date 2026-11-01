@@ -1,5 +1,5 @@
 import { Color, SRGBColorSpace } from 'three'
-import { LIGHT_YEARS_PER_PARSEC, temperatureSpectrumColor, type DistanceUnit } from './astronomy'
+import { LIGHT_YEARS_PER_PARSEC, SOLAR_PECULIAR_VELOCITY_KMS, temperatureSpectrumColor, type DistanceUnit } from './astronomy'
 import type { Star } from './catalog-model'
 import { formatNumber } from './format'
 import { scientificPlanetValue } from './planet-value'
@@ -284,9 +284,12 @@ const radialVelocitySetting = {
   },
 } satisfies PaintSetting
 
-/** Heliocentric velocity components in the Galactic plane, toward the Galactic center and along Galactic rotation. */
-function planarVelocity({ vx_kms, vy_kms }: Star): readonly [number, number] | null {
-  return vx_kms !== null && vy_kms !== null && Number.isFinite(vx_kms) && Number.isFinite(vy_kms) ? [vx_kms, vy_kms] : null
+/** Velocity components in the Galactic plane relative to the Local Standard of Rest, toward the Galactic center and along Galactic rotation;
+ * the Sun moves with its peculiar velocity, so objects sharing its motion share its paint. */
+function planarVelocity({ id, vx_kms, vy_kms }: Star): readonly [number, number] | null {
+  const { vx_kms: solarX, vy_kms: solarY } = SOLAR_PECULIAR_VELOCITY_KMS
+  if (id === 'sun') return [solarX, solarY]
+  return vx_kms !== null && vy_kms !== null && Number.isFinite(vx_kms) && Number.isFinite(vy_kms) ? [vx_kms + solarX, vy_kms + solarY] : null
 }
 
 /** The pure sRGB hue of a direction in the Galactic plane, turning from red toward the Galactic center in the sense of Galactic longitude. */
@@ -307,7 +310,7 @@ function directionWheel(level: number, { dimness }: PaintControls): string {
 }
 
 const motionDirection = keyedSetting('motion-direction', 'Motion direction', 'a full space velocity',
-  'The wheel shows the Galactic plane from the north: each object takes the hue of its direction of motion relative to the Sun, Inward toward the Galactic center along the map\'s +X axis and Forward along the Galaxy\'s rotation, +Y. Faster objects lie farther out, more saturated and larger, so objects of one color move together. Rank spreads the visible objects evenly from slowest to fastest; Linear uses the fixed speed scale. Objects without a full space velocity are painted darkest.',
+  'The wheel shows the Galactic plane from the north: each object takes the hue of its direction of motion relative to the Local Standard of Rest, the average motion of stars near the Sun, Inward toward the Galactic center along the map\'s +X axis and Forward along the Galaxy\'s rotation, +Y. Faster objects lie farther out, more saturated and larger, so objects of one color move together. Rank spreads the visible objects evenly from slowest to fastest; Linear uses the fixed speed scale. Objects without a full space velocity are painted darkest.',
   PLANAR_SPEED_RANGE, speedText, (star) => { const velocity = planarVelocity(star); return velocity && Math.hypot(...velocity) },
   (star, strength) => { const velocity = planarVelocity(star); return velocity ? saturated(directionHue(Math.atan2(velocity[1], velocity[0])), strength) : WHITE })
 

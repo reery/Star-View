@@ -40,7 +40,7 @@ export interface StarSystem {
 // A display limit, not an inferred orbital size. Use projected separation because
 // independent component parallaxes can produce spurious line-of-sight offsets.
 export const MIN_MAP_COMPONENT_SEPARATION_AU = 500
-const AU_PER_PARSEC = 206264.80624709636
+export const AU_PER_PARSEC = 206264.80624709636
 
 function projectedSeparationAu(a: Star, b: Star): number {
   const da = Math.hypot(a.x_pc, a.y_pc, a.z_pc)

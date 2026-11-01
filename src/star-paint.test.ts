@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Star } from './catalog-model'
+import { SOLAR_PECULIAR_VELOCITY_KMS } from './astronomy'
 import { DEFAULT_PAINT_CONTROLS, PAINT_HISTOGRAM_BINS, paintLegend, starPainter } from './star-paint'
 
 const sun: Star = {
@@ -140,7 +141,11 @@ describe('star paint', () => {
     expect(starPainter(new Map([['temperature', 0.5]]), [])!.legends.get('temperature')!.bounds).toEqual(['250 K', '40,000 K'])
   })
   it('paints the direction of motion in the Galactic plane as hue and its speed as saturation', () => {
-    const moving = (vx_kms: number | null, vy_kms: number | null): Star => ({ ...sun, id: `v${vx_kms},${vy_kms}`, vx_kms, vy_kms })
+    // Velocities relative to the Local Standard of Rest, stored relative to the Sun.
+    const moving = (vx_kms: number | null, vy_kms: number | null): Star => ({
+      ...sun, id: `v${vx_kms},${vy_kms}`,
+      vx_kms: vx_kms === null ? null : vx_kms - SOLAR_PECULIAR_VELOCITY_KMS.vx_kms, vy_kms: vy_kms === null ? null : vy_kms - SOLAR_PECULIAR_VELOCITY_KMS.vy_kms,
+    })
     const stars = [moving(0, 0), moving(10, 0), moving(0, 40), moving(-80, 0), moving(null, null)]
     const fitted = starPainter(new Map([['motion-direction', 0.5]]), stars)!
     expect(fitted.legends.get('motion-direction')).toMatchObject({ bounds: ['0 km/s', '80 km/s'], missing: 1 })
@@ -155,6 +160,12 @@ describe('star paint', () => {
     expect(fast.magnitude!).toBeLessThan(slow.magnitude!)
     expect(fitted.painter(moving(80, 0))).toEqual(fitted.painter({ ...moving(80, 0), id: 'twin', x_pc: 30 }))
     expect(fitted.painter(stars[4]!).color!.getHexString()).toBe('333333')
+    // The Sun moves inward and forward, and objects at rest relative to it share its paint.
+    const solar = fitted.painter(sun).color!
+    expect(solar.r).toBeGreaterThan(solar.g)
+    expect(solar.g).toBeGreaterThan(solar.b)
+    expect(fitted.painter({ ...sun, vx_kms: null, vy_kms: null })).toEqual(fitted.painter(sun))
+    expect(fitted.painter({ ...sun, id: 'twin', x_pc: 30 })).toEqual(fitted.painter(sun))
     const linear = starPainter(new Map([['motion-direction', 0.5]]), stars, new Set(['motion-direction']))!
     expect(linear.legends.get('motion-direction')!.bounds).toEqual(['0 km/s', '100 km/s'])
     expect(linear.painter(moving(50, 0)).magnitude).toBeCloseTo(4)

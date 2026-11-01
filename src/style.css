@@ -647,6 +647,17 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .identity-heading .star-name { display: block; min-width: 0; }
 .identity .star-name { font-size: 24px; font-weight: 500; line-height: 1.15; }
 .star-distance { display: block; flex-shrink: 0; font-size: 11px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.properties > .object-links-row { align-items: center; padding: 1px 0; }
+.is-comparing #object-links-row { display: none; }
+/* Most important on the right; 24px pitch per WCAG 2.2 target spacing. */
+.object-links { display: flex; justify-content: flex-end; gap: 4px; margin-right: -4px; }
+.object-link { display: grid; place-items: center; width: 20px; height: 20px; color: var(--muted); border-radius: 4px; text-decoration: none; transition: color 120ms ease, background 120ms ease; }
+.object-link svg { width: 14px; height: 14px; }
+.wikipedia-mark { font-family: "Linux Libertine", "Hoefler Text", Georgia, "Times New Roman", serif; font-size: 16px; line-height: 1; }
+.object-link:focus-visible { outline: 2px solid var(--accent-vibrant); outline-offset: 0; }
+@media (hover: hover) and (pointer: fine) {
+  .object-link:hover { color: var(--accent-vibrant); background: var(--surface-vibrant-hover); }
+}
 .star-components { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
 .star-component { display: grid; place-items: center; min-width: 36px; min-height: 28px; padding: 3px 9px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 6px; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; transition: color 120ms ease, background 120ms ease, border-color 120ms ease; }
 #star-components .star-component { display: flex; align-items: center; justify-content: center; gap: 4px; }

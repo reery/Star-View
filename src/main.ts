@@ -39,6 +39,7 @@ import { indexStarSystems, type StarSystem } from './star-systems'
 import { loadStellarOrbits } from './stellar-orbits'
 import { loadPlanetarySystem, planetCountForStar, planetarySystemForStar, planetHostId } from './planetary-systems'
 import { loadStarDetails, starDetailsLoaded } from './selected-star-details'
+import { renderObjectLinks } from './object-links'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES,
   filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey,
@@ -324,6 +325,7 @@ let labelLimit = touchFirstInput.matches ? 20 : 40
 let motionArrowsVisible = true
 let earthOrbitMode: EarthOrbitMode = 'now'
 let milkyWayVisible = true
+let oortCloudVisible = true
 let motionFrame: MotionFrame = 'galactic'
 let motionYears: MotionYears = 1_000
 let simulationYears = 0
@@ -384,6 +386,7 @@ try {
   if (isEarthOrbitMode(storedEarthOrbitMode)) earthOrbitMode = storedEarthOrbitMode
   else if (localStorage.getItem('star-view-earth-orbit-visible') === 'false') earthOrbitMode = 'off'
   if (localStorage.getItem('star-view-milky-way-visible') === 'false') milkyWayVisible = false
+  if (localStorage.getItem('star-view-oort-cloud-visible') === 'false') oortCloudVisible = false
   const storedLabelLimit = localStorage.getItem('star-view-label-limit')
   const parsedLabelLimit = Number(storedLabelLimit)
   if (storedLabelLimit !== null && parsedLabelLimit >= 0 && parsedLabelLimit <= 140 && parsedLabelLimit % 20 === 0) labelLimit = parsedLabelLimit
@@ -394,6 +397,7 @@ earthOrbitModeInput.value = String(EARTH_ORBIT_MODES.indexOf(earthOrbitMode))
 earthOrbitModeInput.setAttribute('aria-valuetext', earthOrbitModeLabel(earthOrbitMode))
 text('earth-orbit-mode-value', earthOrbitModeLabel(earthOrbitMode))
 element<HTMLInputElement>('milky-way-visible').checked = milkyWayVisible
+element<HTMLInputElement>('oort-cloud-visible').checked = oortCloudVisible
 const labelLimitInput = element<HTMLInputElement>('label-limit')
 labelLimitInput.value = String(labelLimit)
 labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
@@ -2107,6 +2111,7 @@ function renderSelection(): void {
   const system = starSystems.get(star.id)
   text('star-name', system?.name ?? star.name)
   renderSelectedDistance(displayedDistancePc)
+  void renderObjectLinks(element('object-links'), star)
   renderSystemComponents(system, star.id)
   const availablePlanetCount = planetCountForStar(star.id) ?? 0
   const knownPlanetCount = planetCountForStar(star.id) ?? star.known_planets ?? 0
@@ -2753,6 +2758,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       colorMode: starColorMode,
       earthOrbitDate: earthOrbitDateForMode(earthOrbitMode),
       milkyWayVisible,
+      oortCloudVisible,
     })
   } catch (error) {
     console.error('Could not create the 3D viewer.', error)
@@ -3087,6 +3093,7 @@ function currentSavedViewSettings(): SavedViewSettings | null {
     objectDistanceLimitLy,
     earthOrbitMode,
     milkyWayVisible,
+    oortCloudVisible,
     motionArrowsVisible,
     motionYears,
     motionFrame,
@@ -3160,6 +3167,7 @@ function syncSceneAndMotionInputs(): void {
   earthOrbitModeInput.setAttribute('aria-valuetext', earthOrbitModeLabel(earthOrbitMode))
   text('earth-orbit-mode-value', earthOrbitModeLabel(earthOrbitMode))
   element<HTMLInputElement>('milky-way-visible').checked = milkyWayVisible
+  element<HTMLInputElement>('oort-cloud-visible').checked = oortCloudVisible
   element<HTMLInputElement>('motion-arrows-visible').checked = motionArrowsVisible
   element<HTMLSelectElement>('motion-years').value = String(motionYears)
   element<HTMLInputElement>(`motion-frame-${motionFrame}`).checked = true
@@ -3258,6 +3266,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   objectDistanceLimitLy = settings.objectDistanceLimitLy
   earthOrbitMode = settings.earthOrbitMode
   milkyWayVisible = settings.milkyWayVisible
+  oortCloudVisible = settings.oortCloudVisible ?? true
   motionArrowsVisible = settings.motionArrowsVisible
   motionYears = settings.motionYears
   motionFrame = settings.motionFrame
@@ -3312,6 +3321,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   try {
     localStorage.setItem('star-view-earth-orbit-mode', earthOrbitMode)
     localStorage.setItem('star-view-milky-way-visible', String(milkyWayVisible))
+    localStorage.setItem('star-view-oort-cloud-visible', String(oortCloudVisible))
   } catch {}
   setSimulationPlaying(settings.simulationPlaying)
   setPanelOpen('views', false)
@@ -4022,6 +4032,11 @@ element('milky-way-visible').addEventListener('change', () => {
   milkyWayVisible = element<HTMLInputElement>('milky-way-visible').checked
   try { localStorage.setItem('star-view-milky-way-visible', String(milkyWayVisible)) } catch {}
   viewer?.setMilkyWayVisible(milkyWayVisible)
+}, { signal: events.signal })
+element('oort-cloud-visible').addEventListener('change', () => {
+  oortCloudVisible = element<HTMLInputElement>('oort-cloud-visible').checked
+  try { localStorage.setItem('star-view-oort-cloud-visible', String(oortCloudVisible)) } catch {}
+  viewer?.setOortCloudVisible(oortCloudVisible)
 }, { signal: events.signal })
 element('motion-years').addEventListener('change', () => {
   const years = Number(element<HTMLSelectElement>('motion-years').value) as MotionYears

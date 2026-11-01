@@ -5,6 +5,8 @@ import { ICRS_TO_GALACTIC_ROWS, isBubbleObject, isCompactObject, isMolecularClou
 
 export const LIGHT_YEARS_PER_PARSEC = 3.261563777
 export const SOLAR_GALACTIC_VELOCITY_KMS = Object.freeze({ vx_kms: 12.9, vy_kms: 245.6, vz_kms: 7.78 })
+/** The Sun's peculiar velocity relative to the Local Standard of Rest (Schönrich, Binney & Dehnen 2010). */
+export const SOLAR_PECULIAR_VELOCITY_KMS = Object.freeze({ vx_kms: 11.1, vy_kms: 12.24, vz_kms: 7.25 })
 const ICRS_TO_GALACTIC = new Matrix3().set(...ICRS_TO_GALACTIC_ROWS.flat() as [number, number, number, number, number, number, number, number, number])
 export type Position = Pick<Star, 'x_pc' | 'y_pc' | 'z_pc'>
 export type MotionMode = 'full' | 'transverse'

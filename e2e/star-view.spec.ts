@@ -165,7 +165,7 @@ test('positions Earth from the orbit slider and remembers its stop', async ({ pa
   await expect(slider).toHaveValue('1')
   await expect(slider).toHaveAttribute('aria-valuetext', 'Now')
   await expect(page.locator('#earth-orbit-mode-value')).toHaveText('Now')
-  await expect(slider.locator('xpath=ancestor::div[contains(@class, "range-filter")]/following-sibling::label[1]')).toContainText('Show Milky Way')
+  await expect(slider.locator('xpath=ancestor::div[contains(@class, "range-filter")]/following-sibling::label[1]')).toContainText('Milky Way')
   const visible = await canvas.screenshot({ scale: 'css', path: testInfo.outputPath('earth-orbit-now.png') })
 
   await slider.fill('0')
@@ -201,7 +201,7 @@ test('toggles the optimized Milky Way backdrop and remembers the choice', async 
   await expect(scene).toHaveAttribute('data-milky-way-visible', 'true')
   await expect(scene).toHaveAttribute('data-milky-way-ready', 'true')
   await openPreferences(page)
-  const toggle = page.getByRole('switch', { name: 'Show Milky Way' })
+  const toggle = page.getByRole('switch', { name: 'Milky Way' })
   await expect(toggle).toBeChecked()
   await expect(page.locator('#preferences-panel #milky-way-visible')).toBeVisible()
   await expect(page.locator('#filter-panel #milky-way-visible')).toHaveCount(0)
@@ -213,7 +213,7 @@ test('toggles the optimized Milky Way backdrop and remembers the choice', async 
 
   await openViewer(page)
   await openPreferences(page)
-  await expect(page.getByRole('switch', { name: 'Show Milky Way' })).not.toBeChecked()
+  await expect(page.getByRole('switch', { name: 'Milky Way' })).not.toBeChecked()
   await expect(scene).toHaveAttribute('data-milky-way-visible', 'false')
   await expect(scene).not.toHaveAttribute('data-milky-way-ready')
 })

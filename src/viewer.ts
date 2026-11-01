@@ -11,6 +11,7 @@ import { createDepthLabel } from './depth-label'
 import { updateCameraNearPlane } from './camera-depth'
 import { createMilkyWayLayer } from './milky-way-layer'
 import { createEarthOrbitLayer } from './earth-orbit-layer'
+import { createOortCloudLayer, OORT_CLOUD_RADIUS_PC } from './oort-cloud-layer'
 import { createMotionArrowMesh } from './motion-arrow-layer'
 import { createMapGrid, gridOpacityForDisplay, makeGridGeometry } from './map-grid'
 import { createSkyGridLayer, makeSkyGridGeometry, type SkyGridMode } from './sky-grid'
@@ -65,6 +66,7 @@ export interface StarViewer {
   setMotionArrowsVisible(visible: boolean): void
   setEarthOrbitDate(date: Date | null): void
   setMilkyWayVisible(visible: boolean): void
+  setOortCloudVisible(visible: boolean): void
   setMotionFrame(frame: MotionFrame): void
   setMotionYears(years: MotionYears): void
   setFollowSelection(enabled: boolean): void
@@ -116,6 +118,7 @@ interface ViewerOptions {
   colorMode: StarColorMode
   earthOrbitDate?: Date | null
   milkyWayVisible?: boolean
+  oortCloudVisible?: boolean
 }
 
 // Last drawn motion arrow in client CSS px, returned by the label layer's motionArrowSnapshot() test hook.
@@ -336,12 +339,29 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let earthOrbitEnabled = initialEarthOrbitDate !== null
   scene.add(earthOrbitGroup)
 
+  const oortCloud = createOortCloudLayer(earthOrbitGroup.position)
+  let oortCloudEnabled = options.oortCloudVisible ?? true
+  scene.add(oortCloud.sprite)
+
+  function sunShown(): boolean {
+    return mapVisible[sunIndex] === 1 && !(observerViewEnabled && referenceIndex === sunIndex)
+  }
+
   function updateEarthOrbitVisibility(): void {
     earthOrbitGroup.visible = earthOrbitEnabled
-      && mapVisible[sunIndex] === 1
-      && !(observerViewEnabled && referenceIndex === sunIndex)
+      && sunShown()
       && camera.position.distanceTo(earthOrbitGroup.position) <= EARTH_ORBIT_MAX_VIEW_DISTANCE_PC
     setData(container, 'earthOrbitVisible', String(earthOrbitGroup.visible))
+  }
+
+  // Fade the cloud out as its on-screen radius shrinks into the Sun's own dot and halo.
+  function updateOortCloudVisibility(): void {
+    const radiusPx = OORT_CLOUD_RADIUS_PC / camera.position.distanceTo(oortCloud.sprite.position)
+      / Math.tan(camera.fov * Math.PI / 360) * camera.zoom * renderHeight / 2
+    const fade = Math.min(1, Math.max(0, (radiusPx - 15) / 60))
+    oortCloud.sprite.visible = oortCloudEnabled && fade > 0 && sunShown()
+    oortCloud.setFade(fade)
+    setData(container, 'oortCloudVisible', String(oortCloud.sprite.visible))
   }
 
   function positionEarthMarker(date: Date): void {
@@ -1059,6 +1079,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (neighborhood && updateNeighborhoodMembership()) updatePresentation()
     else updatePointVisibility()
     earthOrbitGroup.position.copy(pickable[sunIndex]!.position)
+    oortCloud.sprite.position.copy(earthOrbitGroup.position)
     if (neighborhood) neighborhoodSphere.position.copy(pickable[neighborhood.index]!.position)
     container.dataset.simulationYears = String(simulationYears)
     syncObserverCamera()
@@ -2239,6 +2260,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     camera.updateMatrixWorld()
     if (updateCameraNearPlane(camera, depthPositions, extendedDepthBounds)) invalidateProjection()
     if (earthOrbitEnabled) updateEarthOrbitVisibility()
+    if (oortCloudEnabled) updateOortCloudVisibility()
     // Looking at a distant object from the origin is still a close sky view.
     // Fade the overview only after retreating from both origin and orbit target.
     // Painted sizes and halos are the comparison, so zooming out keeps them unless asked to shrink.
@@ -2341,6 +2363,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   sceneObstacleElements.forEach((element) => obstacleObserver.observe(element))
   updatePresentation()
   updateEarthOrbitVisibility()
+  updateOortCloudVisibility()
   if (initialEarthOrbitDate) positionEarthMarker(initialEarthOrbitDate)
   container.dataset.earthOrbitRadiusPc = String(EARTH_ORBIT_DISPLAY_RADIUS_PC)
   container.dataset.milkyWayVisible = String(milkyWayVisible)
@@ -2434,6 +2457,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       milkyWayVisible = visible
       container.dataset.milkyWayVisible = String(visible)
       milkyWay.setVisible(visible)
+      requestRender()
+    },
+    setOortCloudVisible(visible) {
+      if (visible === oortCloudEnabled) return
+      oortCloudEnabled = visible
+      updateOortCloudVisibility()
       requestRender()
     },
     setMotionFrame(frame) {
@@ -2652,6 +2681,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       spaceshipModel?.dispose()
       dotTexture.dispose()
       earthOrbit.dispose()
+      oortCloud.dispose()
       haloTexture.dispose()
       milkyWay.dispose()
       renderer.renderLists.dispose()
@@ -2662,6 +2692,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       delete container.dataset.gridSpacingPc
       delete container.dataset.gridHalfSizePc
       delete container.dataset.earthOrbitVisible
+      delete container.dataset.oortCloudVisible
       delete container.dataset.earthOrbitDate
       delete container.dataset.earthEclipticLongitudeDeg
       delete container.dataset.earthOrbitRadiusPc

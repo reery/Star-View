@@ -27,6 +27,8 @@ export interface SavedViewSettings {
   objectDistanceLimitLy: number
   earthOrbitMode: EarthOrbitMode
   milkyWayVisible: boolean
+  /** Absent in views saved before the option existed. */
+  oortCloudVisible?: boolean
   motionArrowsVisible: boolean
   motionYears: MotionYears
   motionFrame: MotionFrame
@@ -103,6 +105,7 @@ function isSavedView(value: unknown): value is SavedView {
     && typeof settings.objectDistanceLimitLy === 'number' && OBJECT_DISTANCE_STEPS_LY.includes(settings.objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])
     && typeof settings.earthOrbitMode === 'string' && isEarthOrbitMode(settings.earthOrbitMode)
     && typeof settings.milkyWayVisible === 'boolean'
+    && (settings.oortCloudVisible === undefined || typeof settings.oortCloudVisible === 'boolean')
     && typeof settings.motionArrowsVisible === 'boolean'
     && typeof settings.motionYears === 'number' && MOTION_YEAR_OPTIONS.includes(settings.motionYears as MotionYears)
     && (settings.motionFrame === 'galactic' || settings.motionFrame === 'solar')
