@@ -42,12 +42,14 @@ export function showTouchTooltip(button: TooltipButton, tooltip: HTMLElement): v
 /** Touch must not depend on Safari focusing a button or emulating hover. */
 export function initializeTouchTooltips(signal: AbortSignal): void {
   const hide = hideTouchTooltip
+  let openedLink: Element | undefined
   const keyboardOrMouse = () => {
     hide()
     delete document.documentElement.dataset.tooltipInput
   }
 
   document.addEventListener('pointerdown', (event) => {
+    openedLink = undefined
     if (event.pointerType !== 'touch') {
       keyboardOrMouse()
       return
@@ -63,8 +65,17 @@ export function initializeTouchTooltips(signal: AbortSignal): void {
       .map((id) => document.getElementById(id))
       // Revealing constellation tooltips on pointerdown makes mobile Safari swallow the click; they open on click.
       .find((element) => element?.matches('.mass-metric-tooltip[role="tooltip"]:not([hidden], .constellation-tooltip)'))
-    if (tooltip) showTouchTooltip(button, tooltip)
+    if (tooltip) {
+      showTouchTooltip(button, tooltip)
+      if (button.matches('a[href]')) openedLink = button
+    }
   }, { capture: true, passive: true, signal })
+
+  // A link's first tap names its destination; the second tap follows it.
+  document.addEventListener('click', (event) => {
+    if (openedLink && event.target instanceof Node && openedLink.contains(event.target)) event.preventDefault()
+    openedLink = undefined
+  }, { capture: true, signal })
 
   document.addEventListener('pointermove', (event) => {
     // Tap jitter on the open tooltip's button must not turn the second tap into another preview.

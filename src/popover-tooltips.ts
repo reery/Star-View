@@ -6,7 +6,7 @@ let hideActiveTooltip: (() => void) | undefined
  * Tooltips prefer the space above their label and stay within the card. With `extend`, they may reach past
  * the card's edge on that side, staying within the viewport; 'below' also makes below the preferred side.
  */
-export function attachPopoverTooltip(button: HTMLButtonElement, tooltip: HTMLElement, extend?: 'above' | 'below'): void {
+export function attachPopoverTooltip(button: HTMLElement, tooltip: HTMLElement, extend?: 'above' | 'below'): void {
   const preferBelow = extend === 'below'
   tooltip.setAttribute('popover', 'manual')
   button.setAttribute('aria-describedby', tooltip.id)

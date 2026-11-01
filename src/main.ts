@@ -2993,12 +2993,13 @@ function closeSceneContextMenu(): void {
 
 function openSceneContextMenu(id: string, x: number, y: number, held: PointerEvent | null): boolean {
   const target = starById(id)
-  const selected = starById(selectedId)
+  // Without a selection the menu measures and compares against the origin.
+  const selected = starById(selectedId) ?? starById(referenceId)
   if (!target || !selected) return false
   const distancePc = id === selected.id ? null : viewer?.distanceBetween(id, selected.id) ?? null
   const compare = element('scene-context-compare')
   const origin = element('scene-context-origin')
-  compare.hidden = !starComparison.canCompare(id)
+  compare.hidden = !starComparison.canCompare(id, selected.id)
   origin.hidden = sceneBusy || id === referenceId
   element('scene-context-distance').hidden = distancePc === null
   if (compare.hidden && origin.hidden && distancePc === null) return false
@@ -4193,7 +4194,10 @@ element('scene-context-menu').addEventListener('keydown', navigateContextMenu, {
 element('scene-context-compare').addEventListener('click', () => {
   const id = sceneMenuTargetId
   closeSceneContextMenu()
-  if (id !== null) starComparison.compare(id)
+  if (id === null) return
+  // Comparisons belong to the selection, so the origin becomes selected when nothing is.
+  if (selectedId === null) selectStar(referenceId)
+  starComparison.compare(id)
 }, { signal: events.signal })
 element('scene-context-origin').addEventListener('click', () => {
   const id = sceneMenuTargetId

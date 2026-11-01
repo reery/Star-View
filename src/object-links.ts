@@ -2,6 +2,7 @@ import { createElement, Image, RadioTower, Satellite, ScrollText, type IconNode 
 import type { Star } from './catalog-model'
 import { objectSkyPosition } from './constellations'
 import { loadJsonData } from './json-data'
+import { attachPopoverTooltip } from './popover-tooltips'
 import objectLinksUrl from './data/object-links.json?url&no-inline'
 
 interface ObjectLinkData {
@@ -58,7 +59,7 @@ export function objectLinks(star: Star, data: ObjectLinkData | undefined): Objec
   return links
 }
 
-/** Specs link icons, most important on the right; the row hides when an object has none. */
+/** Specs link icons, most important on the right; the row hides by CSS when no cell has any. */
 export async function renderObjectLinks(container: HTMLElement, star: Star): Promise<void> {
   // Selection re-renders often; keep the same links so hover and focus survive.
   if (container.dataset.starId === star.id) return
@@ -66,14 +67,19 @@ export async function renderObjectLinks(container: HTMLElement, star: Star): Pro
   const data = await loadObjectLinks().then((objects) => objects[star.id], () => undefined)
   if (container.dataset.starId !== star.id) return
   const links = objectLinks(star, data).reverse()
-  container.replaceChildren(...links.map((link) => {
+  container.replaceChildren(...links.map((link, index) => {
     const anchor = document.createElement('a')
     anchor.className = 'object-link'
     anchor.href = link.url
     anchor.target = '_blank'
     anchor.rel = 'noreferrer'
-    anchor.title = link.title
     anchor.setAttribute('aria-label', link.title)
+    const tooltip = document.createElement('span')
+    tooltip.id = `${container.id}-${index}-tooltip`
+    tooltip.className = 'tooltip mass-metric-tooltip'
+    tooltip.setAttribute('role', 'tooltip')
+    tooltip.textContent = link.title
+    attachPopoverTooltip(anchor, tooltip, 'below')
     if (link.icon === 'W') {
       const mark = document.createElement('span')
       mark.className = 'wikipedia-mark'
@@ -81,7 +87,7 @@ export async function renderObjectLinks(container: HTMLElement, star: Star): Pro
       mark.textContent = 'W'
       anchor.append(mark)
     } else anchor.append(createElement(link.icon, { width: 14, height: 14, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
+    anchor.append(tooltip)
     return anchor
   }))
-  container.parentElement!.hidden = !links.length
 }

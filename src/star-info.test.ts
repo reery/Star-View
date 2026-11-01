@@ -102,7 +102,7 @@ describe('bright-star articles', () => {
       expect(existingKeys.has(id), id).toBe(false)
       const article = starInfoForId(surviving(id))!
       expect(article.introduction.label, id).toBe(definition.name)
-      expect(article.introduction.source?.title, id).toMatch(/reviewed 2026-10-28$/)
+      expect(article.introduction.source?.title, id).toMatch(/reviewed 2026-11-01$/)
       expect(article.introduction.source?.url, id).toMatch(/^https:\/\//)
       expect(article.sections.length, id).toBeGreaterThan(0)
       expect(new Set(article.sections.map(({ id }) => id)).size, id).toBe(article.sections.length)

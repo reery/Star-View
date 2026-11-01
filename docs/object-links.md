@@ -4,8 +4,10 @@ The Specs card shows a Links row above Designations. Its icons open further
 reading in a new tab, ordered by importance from right to left: Wikipedia (a
 serif W) on the right, then Aladin Lite, Jim Kaler’s STARS, the ATNF Pulsar
 Catalogue and ESA/Hubble. An icon appears only when that object has a link; the row is hidden
-when it has none, and while comparing two objects. The collapsed card is
-unchanged.
+when it has none. While comparing two stars, each star's links sit in its own
+column. Each icon names its destination in a tooltip; on touch screens the
+first tap shows the tooltip and highlights the icon, and a second tap opens the
+link. The collapsed card is unchanged.
 
 `scripts/author-object-links.py` builds `src/data/object-links.json` offline
 from frozen sources in `catalog-work/object-links/`, retrieved on

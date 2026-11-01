@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-10-28",
+  "reviewedAt": "2026-11-01",
   "articles": {
     "fomalhaut": {
       "name": "Fomalhaut",
@@ -295,7 +295,7 @@
         {
           "id": "1",
           "title": "A flattened star",
-          "text": "Zosma spins at about 280 km/s at its equator, enough to give it a pronounced bulge. Interferometry measures its apparent size, but no single radius describes its flattened shape."
+          "text": "Zosma spins at about 280 km/s at its equator; its polar radius is estimated at about 84% of its equatorial radius. Interferometry measures its apparent size, but not yet its shape."
         },
         {
           "id": "2",
@@ -938,7 +938,11 @@
         {
           "id": "1",
           "title": "Spinning at the limit",
-          "text": "Rotating at 95% of the critical velocity at which it would break apart, the star is flattened: its equatorial circumference is 34% larger than its polar circumference."
+          "text": "Polarization measurements show it spinning so close to breakup that its equatorial radius is about 46% larger than its polar radius. It turns once every 1.6 days, and its poles are about 4,000 K hotter than its equator.",
+          "source": {
+            "title": "Bailey et al. 2024: ϵ Sagittarii, an extreme rapid rotator",
+            "url": "https://arxiv.org/abs/2407.11352"
+          }
         },
         {
           "id": "2",
@@ -1346,7 +1350,20 @@
         {
           "id": "1",
           "title": "A giant flattened by rotation",
-          "text": "Interferometry shows its equatorial radius is 33% larger than its polar radius. Such fast rotation is unusual for an evolved star and suggests that it formed when two stars merged."
+          "text": "VLTI interferometry shows that its equator moves at about 104 km/s, turning once every 15 days, and bulges about 17% beyond its polar radius. Its poles are about 900 K hotter than its equator.",
+          "source": {
+            "title": "Domiciano de Souza et al. 2018: the evolved fast rotator Sargas",
+            "url": "https://arxiv.org/abs/1810.09903"
+          }
+        },
+        {
+          "id": "2",
+          "title": "Born from a merger?",
+          "text": "Such fast rotation is unusual for an evolved giant, and the star has too little mass for its brightness. A 2022 study concludes that it is most probably the product of two stars that merged.",
+          "source": {
+            "title": "Lewis et al. 2022: θ Scorpii A, a post-merger rapid rotator?",
+            "url": "https://arxiv.org/abs/2204.02719"
+          }
         }
       ]
     },
@@ -2690,7 +2707,7 @@
         {
           "id": "1",
           "title": "A spinning Be star",
-          "text": "Alcyone is a blue-white giant spinning so fast that it is visibly oblate: about 10.6 times the Sun’s radius at the equator but 8 at the poles. Like many Be stars, it has flung a disk of gas from its equator."
+          "text": "Alcyone is a blue-white giant spinning fast enough to be oblate: models estimate about 10.6 times the Sun’s radius at the equator but 8 at the poles. Like many Be stars, it has flung a disk of gas from its equator."
         },
         {
           "id": "2",
@@ -2915,7 +2932,7 @@
         {
           "id": "1",
           "title": "A disk seen by interferometry",
-          "text": "Its equator moves at about 470 km/s, giving it a pronounced bulge. VLT interferometry in 2003 and 2005 showed a dense disk of gas orbiting its equator and a polar wind of about 1,000 km/s."
+          "text": "Its equator moves at about 470 km/s, so models estimate that it bulges strongly. VLT interferometry in 2003 and 2005 showed a dense disk of gas orbiting its equator and a polar wind of about 1,000 km/s."
         },
         {
           "id": "2",
@@ -3013,8 +3030,17 @@
       "sections": [
         {
           "id": "1",
-          "title": "A spinning reference star",
-          "text": "It rotates at more than 306 km/s, flattening it to 2.76 solar radii at the equator and 2.15 at the poles, and we see it almost edge-on. Astronomers use it as a telluric standard, to remove the imprint of Earth’s atmosphere from spectra of other stars. It may belong to the TW Hydrae association."
+          "title": "Flattened and seen edge-on",
+          "text": "Its equator moves at about 308 km/s, turning once every 11 hours and flattening the star to 2.82 solar radii at the equator and 2.21 at the poles. We see it almost edge-on.",
+          "source": {
+            "title": "Howarth et al. 2023: the rapid rotator ζ Aql",
+            "url": "https://arxiv.org/abs/2301.05018"
+          }
+        },
+        {
+          "id": "2",
+          "title": "Filtering out Earth’s air",
+          "text": "Astronomers use it as a telluric standard, to remove the imprint of Earth’s atmosphere from spectra of other stars. It may belong to the TW Hydrae association."
         }
       ]
     },
@@ -3329,7 +3355,7 @@
         {
           "id": "1",
           "title": "A flattened young star",
-          "text": "Spinning at about 183 km/s, it bulges 17% at the equator. It belongs to the Lower Centaurus–Crux group of the Scorpius–Centaurus association, 16 to 20 million years old."
+          "text": "Spinning at about 183 km/s, it bulges an estimated 17% at the equator. It belongs to the Lower Centaurus–Crux group of the Scorpius–Centaurus association, 16 to 20 million years old."
         }
       ]
     },
@@ -3370,7 +3396,7 @@
         {
           "id": "2",
           "title": "Spinning edge-on",
-          "text": "Spinning at about 225 km/s, it is 17% wider at the equator, where it is about 3,000 K cooler than at its poles. We see its disk of gas edge-on."
+          "text": "Spinning at about 225 km/s, it is an estimated 17% wider at the equator, where it is about 3,000 K cooler than at its poles. We see its disk of gas edge-on."
         }
       ]
     },
@@ -4145,7 +4171,7 @@
         {
           "id": "1",
           "title": "A flattened, dusty star",
-          "text": "About 249 million years old, it spins at about 235 km/s, bulging 18% at the equator. Excess infrared light suggests a dust disk, and a suspected active companion probably produces its weak X-rays."
+          "text": "About 249 million years old, it spins at about 235 km/s, bulging an estimated 18% at the equator. Excess infrared light suggests a dust disk, and a suspected active companion probably produces its weak X-rays."
         }
       ]
     },
@@ -4485,7 +4511,7 @@
         {
           "id": "1",
           "title": "A flattened young star",
-          "text": "Spinning at about 250 km/s, it bulges 17% at the equator. A Sun-like 9th-magnitude star 86 arcseconds away may be a wide companion."
+          "text": "Spinning at about 250 km/s, it bulges an estimated 17% at the equator. A Sun-like 9th-magnitude star 86 arcseconds away may be a wide companion."
         }
       ]
     },
@@ -4545,7 +4571,7 @@
         {
           "id": "1",
           "title": "A lily, a fly and a ram",
-          "text": "Bode counted it in the asterism Musca Borealis, the northern fly, and Lacaille in the defunct constellation Lilium, the lily. It spins at about 175 km/s, bulging 12% at the equator, has a close companion, and may belong to the AB Doradus moving group."
+          "text": "Bode counted it in the asterism Musca Borealis, the northern fly, and Lacaille in the defunct constellation Lilium, the lily. It spins at about 175 km/s, bulging an estimated 12% at the equator, has a close companion, and may belong to the AB Doradus moving group."
         }
       ]
     },
@@ -4581,7 +4607,7 @@
         {
           "id": "1",
           "title": "A young, flattened star",
-          "text": "About 252 million years old, it spins at about 133 km/s, bulging 11% at the equator. Five faint visual companions lie within 100 arcseconds."
+          "text": "About 252 million years old, it spins at about 133 km/s, bulging an estimated 11% at the equator. Five faint visual companions lie within 100 arcseconds."
         }
       ]
     },
@@ -4629,7 +4655,7 @@
         {
           "id": "1",
           "title": "An edge-on, eccentric orbit",
-          "text": "The two stars orbit every 2.5 years on a very elongated path seen almost edge-on. The primary spins at about 255 km/s, bulging 13% at the equator."
+          "text": "The two stars orbit every 2.5 years on a very elongated path seen almost edge-on. The primary spins at about 255 km/s, bulging an estimated 13% at the equator."
         }
       ]
     },
@@ -4641,7 +4667,7 @@
         {
           "id": "1",
           "title": "A pair with a vanishing third",
-          "text": "Two stars orbit every 291 days without eclipses; the primary spins fast enough to be noticeably flattened. A third star was reported in 1929 but has never been seen again, even with modern instruments."
+          "text": "Two stars orbit every 291 days without eclipses; the primary spins fast enough that it is estimated to be noticeably flattened. A third star was reported in 1929 but has never been seen again, even with modern instruments."
         }
       ]
     },
@@ -4771,7 +4797,7 @@
         {
           "id": "1",
           "title": "A flattened star",
-          "text": "Spinning at about 217 km/s, it is flattened: about 4.2 times the Sun’s radius at the equator but 3.1 at the poles, which are more than 2,000 K hotter. An orange dwarf 31 arcseconds away is a companion."
+          "text": "Spinning at least 217 km/s, it is flattened: about 4.2 times the Sun’s radius at the equator but 3.1 at the poles, which are more than 2,000 K hotter. An orange dwarf 31 arcseconds away is a companion."
         }
       ]
     },
@@ -4908,7 +4934,7 @@
         {
           "id": "1",
           "title": "A fast-spinning Be star",
-          "text": "Spinning at about 320 km/s at its equator, it is flattened and gravity-darkened. Material thrown off roughly every ten years settles into a gas disk. Claims of companions have never been confirmed."
+          "text": "Spinning at about 320 km/s at its equator, it is estimated to be flattened and gravity-darkened. Material thrown off roughly every ten years settles into a gas disk. Claims of companions have never been confirmed."
         }
       ]
     },
@@ -5790,7 +5816,7 @@
         {
           "id": "1",
           "title": "A slowly pulsating B star",
-          "text": "With about five times the Sun’s mass, it varies slightly every 2.7 days and spins at about 205 km/s, bulging 7% at the equator."
+          "text": "With about five times the Sun’s mass, it varies slightly every 2.7 days and spins at about 205 km/s, bulging an estimated 7% at the equator."
         }
       ]
     },
@@ -6552,7 +6578,7 @@
         {
           "id": "1",
           "title": "A flattened spinner",
-          "text": "Only about 65 million years old, it spins at least 271 km/s. The rotation flattens the star so that it is 24% wider at the equator than from pole to pole."
+          "text": "Only about 65 million years old, it spins at least 271 km/s. The rotation flattens the star so that it is an estimated 24% wider at the equator than from pole to pole."
         },
         {
           "id": "2",
@@ -6610,7 +6636,7 @@
         {
           "id": "1",
           "title": "Young and spinning",
-          "text": "Only about 44 million years old, it has 4.7 times the Sun’s mass and shines 365 times as brightly. It spins at least 166 km/s, bulging 6% at the equator, and flickers by less than a hundredth of a magnitude every 10.7 hours."
+          "text": "Only about 44 million years old, it has 4.7 times the Sun’s mass and shines 365 times as brightly. It spins at least 166 km/s, bulging an estimated 6% at the equator, and flickers by less than a hundredth of a magnitude every 10.7 hours."
         }
       ]
     },
@@ -6789,7 +6815,7 @@
         {
           "id": "1",
           "title": "A young, flattened star",
-          "text": "About 209 million years old, it has 2.25 times the Sun’s mass and spins at least 162 km/s, which makes it bulge 7% at the equator. It shines about 40 times as brightly as the Sun."
+          "text": "About 209 million years old, it has 2.25 times the Sun’s mass and spins at least 162 km/s, which makes it bulge an estimated 7% at the equator. It shines about 40 times as brightly as the Sun."
         }
       ]
     },
@@ -7074,7 +7100,7 @@
         {
           "id": "1",
           "title": "A spinning star and a red dwarf",
-          "text": "The bright white primary spins at least 285 km/s, bulging 20% at the equator. A red dwarf circles it every 200 days at 0.9 AU, and may one day share an envelope with it when the primary swells into a giant. A faint third star lies about 147 AU away."
+          "text": "The bright white primary spins at least 285 km/s, bulging an estimated 20% at the equator. A red dwarf circles it every 200 days at 0.9 AU, and may one day share an envelope with it when the primary swells into a giant. A faint third star lies about 147 AU away."
         },
         {
           "id": "2",
@@ -7299,7 +7325,7 @@
         {
           "id": "2",
           "title": "A flattened spinner",
-          "text": "Sigma Herculis A spins at least 280 km/s, which makes it bulge 18% at the equator. It has 2.6 times the Sun’s mass and shines 230 times as brightly."
+          "text": "Sigma Herculis A spins at least 280 km/s, which makes it bulge an estimated 18% at the equator. It has 2.6 times the Sun’s mass and shines 230 times as brightly."
         }
       ]
     },
@@ -7504,7 +7530,7 @@
         {
           "id": "1",
           "title": "Spinning and pulsing",
-          "text": "With five times the Sun’s mass, it spins at least 255 km/s, which makes it bulge 12% at the equator. Measurements by the TESS space telescope show that it pulsates slowly, as many young B-type stars do."
+          "text": "With five times the Sun’s mass, it spins at least 255 km/s, which makes it bulge an estimated 12% at the equator. Measurements by the TESS space telescope show that it pulsates slowly, as many young B-type stars do."
         }
       ]
     },
@@ -7878,7 +7904,7 @@
         {
           "id": "1",
           "title": "A flattened spinner",
-          "text": "It spins at least 155 km/s, so fast that its equator bulges 22% beyond its polar radius. In Chinese astronomy, it is the first star of the Celestial Spring, together with Beta¹ and Alpha Sagittarii."
+          "text": "It spins at least 155 km/s, so fast that its equator bulges an estimated 22% beyond its polar radius. In Chinese astronomy, it is the first star of the Celestial Spring, together with Beta¹ and Alpha Sagittarii."
         }
       ]
     },
@@ -7931,7 +7957,7 @@
         {
           "id": "1",
           "title": "Ten-hour days",
-          "text": "It rotates once every 0.415 days, about ten hours, which makes it bulge 9% at the equator. It also pulsates as a Delta Scuti variable every 3.56 hours. With Phi, Kappa and Chi Tauri, it formed the Arabic asterism Al Kalbain, the Two Dogs."
+          "text": "It rotates once every 0.415 days, about ten hours, which makes it bulge an estimated 9% at the equator. It also pulsates as a Delta Scuti variable every 3.56 hours. With Phi, Kappa and Chi Tauri, it formed the Arabic asterism Al Kalbain, the Two Dogs."
         }
       ]
     },
@@ -8223,7 +8249,7 @@
         {
           "id": "1",
           "title": "A small partner",
-          "text": "Adaptive optics revealed a 12th-magnitude companion with about 0.16 times the Sun’s mass, at least 237 AU away. Yildun itself spins at least 180 km/s, bulging 7% at the equator."
+          "text": "Adaptive optics revealed a 12th-magnitude companion with about 0.16 times the Sun’s mass, at least 237 AU away. Yildun itself spins at least 180 km/s, bulging an estimated 7% at the equator."
         }
       ]
     },
@@ -8282,13 +8308,13 @@
     },
     "hip-22509": {
       "name": "Pi² Orionis",
-      "introduction": "is a white star in Orion, about 218 light-years away, that spins fast enough to flatten itself noticeably.",
+      "introduction": "is a white star in Orion, about 218 light-years away, spinning fast enough that it is probably flattened.",
       "wikipedia": "https://en.wikipedia.org/wiki/Pi2_Orionis",
       "sections": [
         {
           "id": "1",
           "title": "A flattened spinner",
-          "text": "It spins at least 261 km/s, which makes its equator bulge 13% beyond its polar radius, and shines 70 times as brightly as the Sun. The Bright Star Catalogue lists it as a spectroscopic binary, but this does not appear to be the case."
+          "text": "It spins at least 261 km/s, which makes its equator bulge an estimated 13% beyond its polar radius, and shines 70 times as brightly as the Sun. The Bright Star Catalogue lists it as a spectroscopic binary, but this does not appear to be the case."
         }
       ]
     },
@@ -8999,7 +9025,7 @@
         {
           "id": "1",
           "title": "A flattened spinner",
-          "text": "About 339 million years old, it spins at least 145 km/s, which makes its equator bulge 12%. It has four times the Sun’s mass and shines about 250 times as brightly."
+          "text": "About 339 million years old, it spins at least 145 km/s, which makes its equator bulge an estimated 12%. It has four times the Sun’s mass and shines about 250 times as brightly."
         }
       ]
     },
@@ -9257,7 +9283,7 @@
         {
           "id": "2",
           "title": "A flattened spinner",
-          "text": "It spins at least 205 km/s, bulging 17% at the equator, and shines 185 times as brightly as the Sun. A 9th-magnitude star 106 arcseconds away may be a wide companion."
+          "text": "It spins at least 205 km/s, bulging an estimated 17% at the equator, and shines 185 times as brightly as the Sun. A 9th-magnitude star 106 arcseconds away may be a wide companion."
         }
       ]
     },
@@ -9447,7 +9473,7 @@
         {
           "id": "1",
           "title": "A fast young spinner",
-          "text": "About 207 million years old, it spins at least 207 km/s, bulging 10% at the equator, and shines 41 times as brightly as the Sun."
+          "text": "About 207 million years old, it spins at least 207 km/s, bulging an estimated 10% at the equator, and shines 41 times as brightly as the Sun."
         }
       ]
     },
@@ -9459,7 +9485,7 @@
         {
           "id": "1",
           "title": "A flattened spinner",
-          "text": "About 117 million years old, it spins at least 212 km/s, bulging 7% at the equator, and shines about 107 times as brightly as the Sun."
+          "text": "About 117 million years old, it spins at least 212 km/s, bulging an estimated 7% at the equator, and shines about 107 times as brightly as the Sun."
         }
       ]
     },
@@ -9471,7 +9497,7 @@
         {
           "id": "1",
           "title": "A future brightest star",
-          "text": "At its closest it should reach magnitude −2.1. Today it spins at least 222 km/s, so fast that its equator bulges 21% beyond its polar radius, and it shines 150 times as brightly as the Sun."
+          "text": "At its closest it should reach magnitude −2.1. Today it spins at least 222 km/s, so fast that its equator bulges an estimated 21% beyond its polar radius, and it shines 150 times as brightly as the Sun."
         }
       ]
     },
@@ -10007,7 +10033,7 @@
         {
           "id": "1",
           "title": "A flattened spinner",
-          "text": "It spins at least 219 km/s, bulging 10% at the equator, and shines about 330 times as brightly as the Sun. With Pi, Epsilon and Sigma Ceti, it formed Al Sufi’s “Whale’s Breast”."
+          "text": "It spins at least 219 km/s, bulging an estimated 10% at the equator, and shines about 330 times as brightly as the Sun. With Pi, Epsilon and Sigma Ceti, it formed Al Sufi’s “Whale’s Breast”."
         }
       ]
     },
@@ -10525,7 +10551,7 @@
         {
           "id": "1",
           "title": "A flattened spinner",
-          "text": "About 273 million years old, the primary spins at least 149 km/s, bulging 7% at the equator, and shines 31 times as brightly as the Sun."
+          "text": "About 273 million years old, the primary spins at least 149 km/s, bulging an estimated 7% at the equator, and shines 31 times as brightly as the Sun."
         }
       ]
     },

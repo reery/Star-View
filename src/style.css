@@ -341,7 +341,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 }
 
 .icon-button { position: relative; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; background: #1d1e20f2; border: 1px solid var(--line); border-radius: 7px; color: var(--ink); box-shadow: 0 5px 16px #00000050; }
-.icon-button[aria-pressed="true"], .panel-button[aria-expanded="true"] { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
+.icon-button[aria-pressed="true"], .panel-button[aria-expanded="true"], .discover-controls:not([data-dismissed]):is(:focus-within, [data-touch-open]) > .icon-button { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
 /* Fade the button's own paint rather than its opacity, so tooltips on greyed-out buttons stay legible. */
 .icon-button:disabled { opacity: 1; color: color-mix(in srgb, var(--ink) 40%, transparent); background: #1d1e2066; border-color: color-mix(in srgb, var(--line) 40%, transparent); box-shadow: 0 5px 16px #00000020; }
 .icon-button:is([aria-pressed="true"], [aria-expanded="true"]):disabled { color: color-mix(in srgb, var(--accent-strong) 40%, transparent); background: color-mix(in srgb, var(--panel-selected) 40%, transparent); border-color: color-mix(in srgb, var(--border-active) 40%, transparent); }
@@ -391,7 +391,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .origin-tooltip-object > .star-swatch { margin-right: 5px; vertical-align: middle; }
 :is(.origin-tooltip-object, .selection-tooltip-object) > span:not(.star-swatch) { text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
 @media (hover: hover) and (pointer: fine) {
-  .icon-button:hover:not(:disabled) { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
+  .icon-button:hover:not(:disabled), .discover-controls:not([data-dismissed]):hover > .icon-button { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
   .observer-view-button[aria-pressed="true"]:hover:not(:disabled) { color: #ff9a78; background: #46251d; border-color: #d66b47; }
   .icon-button:hover .tooltip { display: block; }
   /* A disabled flyout trigger passes the pointer to its group, so the group's hover names it. */
@@ -648,13 +648,16 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .identity .star-name { font-size: 24px; font-weight: 500; line-height: 1.15; }
 .star-distance { display: block; flex-shrink: 0; font-size: 11px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .properties > .object-links-row { align-items: center; padding: 1px 0; }
-.is-comparing #object-links-row { display: none; }
+.object-links-row:not(:has(.object-link)) { display: none; }
+.is-comparing .object-links { flex-wrap: wrap; }
 /* Most important on the right; 24px pitch per WCAG 2.2 target spacing. */
 .object-links { display: flex; justify-content: flex-end; gap: 4px; margin-right: -4px; }
 .object-link { display: grid; place-items: center; width: 20px; height: 20px; color: var(--muted); border-radius: 4px; text-decoration: none; transition: color 120ms ease, background 120ms ease; }
 .object-link svg { width: 14px; height: 14px; }
 .wikipedia-mark { font-family: "Linux Libertine", "Hoefler Text", Georgia, "Times New Roman", serif; font-size: 16px; line-height: 1; }
 .object-link:focus-visible { outline: 2px solid var(--accent-vibrant); outline-offset: 0; }
+/* Touch shows the tooltip on the first tap, so mark the link it names. */
+:root[data-tooltip-input="touch"] .object-link:has(> .tooltip:popover-open) { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); box-shadow: inset 0 0 0 1px var(--border-vibrant-pressed); }
 @media (hover: hover) and (pointer: fine) {
   .object-link:hover { color: var(--accent-vibrant); background: var(--surface-vibrant-hover); }
 }

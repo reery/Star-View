@@ -2,6 +2,7 @@ import type { DistanceUnit, StarColorMode } from './astronomy'
 import { describeObject, STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
 import { MISSING_VALUE } from './format'
 import { loadStarDetails } from './selected-star-details'
+import { renderObjectLinks } from './object-links'
 import { objectDesignations } from './designations'
 import { objectSubtypeDescription } from './object-subtype-info'
 import { renderSelectedStarPreview } from './selected-star-preview'
@@ -239,7 +240,17 @@ export function initializeStarComparison(options: {
       }
     }
     renderHint()
-    if (!other || !selected) { syncDetails(); return }
+    // Links persist across re-renders, unlike the rebuilt value cells, so hover and focus survive.
+    const links = get('object-comparison-links')
+    links.hidden = !other || !selected
+    if (!other || !selected) {
+      links.replaceChildren()
+      delete links.dataset.starId
+      syncDetails()
+      return
+    }
+    links.setAttribute('aria-label', `Links: ${other.name}`)
+    void renderObjectLinks(links, other)
     get('comparison-other-select').setAttribute('aria-label', `Select ${other.name}`)
     for (const [prefix, star] of [['main', selected], ['other', other]] as const) {
       get(`comparison-${prefix}-name`).textContent = star.name
@@ -434,9 +445,9 @@ export function initializeStarComparison(options: {
   }, { signal })
   window.addEventListener('resize', positionHint, { signal })
 
-  function canCompare(id: string): boolean {
-    const selected = selectedStar()
-    return eligible(selected) && eligible(options.star(id)) && id !== selected!.id
+  function canCompare(id: string, baseId = options.context().selectedId): boolean {
+    const base = options.star(baseId)
+    return eligible(base) && eligible(options.star(id)) && id !== base!.id
   }
 
   return {

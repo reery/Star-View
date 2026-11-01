@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-10-28",
+  "reviewed": "2026-11-01",
   "policy": "Exact reviewed object identities only. Passband-specific photometry, conditional model ranges, withheld radial-velocity evidence, published rotation models and GCVS variability are display metadata; they never fill Johnson V, scalar mass, radius or the space-motion astrometry bundle.",
   "objects": {
     "wise-0855-0714": {
@@ -3979,6 +3979,90 @@
           "reference": "Zhao et al. 2009, ApJ 701, 209, Table 4 (standard beta = 0.25 model)",
           "source_url": "https://arxiv.org/abs/0906.2241",
           "scope": "CHARA/MIRC gravity-darkened model of Rasalhague A: equatorial radius 2.871 +/- 0.020 and polar radius 2.390 +/- 0.014 solar radii, inclination 87.70 +/- 0.43 deg, model v sin i 237 km/s. The authors prefer this fixed-beta model because beta and inclination are degenerate. Equatorial velocity is derived as v sin i / sin i and the period as 2 pi R_eq / v_eq."
+        }
+      }
+    },
+    "hip-86228": {
+      "expected_name": "Sargas",
+      "expected_designation": "HIP 86228",
+      "observations": {
+        "rotation": {
+          "period_days": 14.74,
+          "equatorial_velocity_kms": 104.0,
+          "polar_to_equatorial_radius": 0.855,
+          "reference": "Domiciano de Souza et al. 2018, A&A 619, A167, Table 2 (omega-model)",
+          "source_url": "https://arxiv.org/abs/1810.09903",
+          "scope": "VLTI/PIONIER interferometry and VLT/UVES spectroscopy fitted with a gravity-darkened Roche model: equatorial radius 30.30 (+0.08/-0.09) solar radii, derived polar radius 25.92 solar radii, equatorial velocity 104.0 (+0.9/-1.1) km/s, inclination 61.8 (+0.8/-0.9) deg, rotation period 14.74 d. The authors prefer the omega-model; their beta-model gives 30.30 and 25.81 solar radii."
+        }
+      }
+    },
+    "hip-59774": {
+      "expected_name": "Megrez",
+      "expected_designation": "HIP 59774",
+      "observations": {
+        "rotation": {
+          "period_days": 0.3984,
+          "equatorial_velocity_kms": 318.9,
+          "polar_to_equatorial_radius": 0.754,
+          "reference": "Jones et al. 2015, ApJ 813, 58, Table 6 (ELR gravity-darkening model)",
+          "source_url": "https://arxiv.org/abs/1508.05643",
+          "scope": "CHARA oblate-star model fitted to interferometric visibilities, photometry and v sin i: equatorial radius 2.511 (+0.074/-0.068) and polar radius 1.893 (+0.046/-0.045) solar radii, equatorial velocity 318.9 (+15.5/-15.6) km/s, inclination 50.0 (+4.0/-4.1) deg. Neither gravity-darkening law is favored; the von Zeipel model (Table 5) gives 2.512 and 1.921 solar radii. The period is derived as 2 pi R_eq / v_eq."
+        }
+      }
+    },
+    "hip-77233": {
+      "expected_name": "Chow",
+      "expected_designation": "HIP 77233",
+      "observations": {
+        "rotation": {
+          "period_days": 0.7521,
+          "equatorial_velocity_kms": 282.2,
+          "polar_to_equatorial_radius": 0.732,
+          "reference": "Jones et al. 2015, ApJ 813, 58, Table 6 (ELR gravity-darkening model)",
+          "source_url": "https://arxiv.org/abs/1508.05643",
+          "scope": "CHARA oblate-star model fitted to interferometric visibilities, photometry and v sin i of Beta Serpentis A: equatorial radius 4.195 (+0.092/-0.084) and polar radius 3.070 (+0.057/-0.059) solar radii, equatorial velocity 282.2 (+10.1/-9.7) km/s, inclination 50.1 +/- 2.7 deg. Neither gravity-darkening law is favored; the von Zeipel model (Table 5) gives 4.486 and 3.037 solar radii. The period is derived as 2 pi R_eq / v_eq."
+        }
+      }
+    },
+    "hip-58001": {
+      "expected_name": "Phecda",
+      "expected_designation": "HIP 58001",
+      "observations": {
+        "rotation": {
+          "period_days": 0.4433,
+          "equatorial_velocity_kms": 386.3,
+          "polar_to_equatorial_radius": 0.646,
+          "reference": "Jones et al. 2015, ApJ 813, 58, Table 6 (ELR gravity-darkening model)",
+          "source_url": "https://arxiv.org/abs/1508.05643",
+          "scope": "CHARA oblate-star model fitted to interferometric visibilities, photometry and v sin i: equatorial radius 3.385 (+0.204/-0.257) and polar radius 2.186 (+0.083/-0.110) solar radii, equatorial velocity 386.3 (+10.5/-8.4) km/s, inclination 28.5 (+5.7/-5.9) deg, rotating at 0.999 of the critical rate. Neither gravity-darkening law is favored; the von Zeipel model (Table 5) gives 3.435 and 2.233 solar radii. The period is derived as 2 pi R_eq / v_eq."
+        }
+      }
+    },
+    "hip-90185": {
+      "expected_name": "Kaus Australis",
+      "expected_designation": "HIP 90185",
+      "observations": {
+        "rotation": {
+          "period_days": 1.61,
+          "equatorial_velocity_kms": 276.5,
+          "polar_to_equatorial_radius": 0.683,
+          "reference": "Bailey et al. 2024, ApJ 972, 103, Table 5 (best-fitting model)",
+          "source_url": "https://arxiv.org/abs/2407.11352",
+          "scope": "Gravity-darkened Roche model fitted to multi-wavelength linear polarimetry: equatorial radius 8.80 (2-sigma range 8.47-8.89) and polar radius 6.01 (5.90-6.08) solar radii, inclination 80 (76-90) deg, rotation rate 0.999 (0.995-1.0) of critical, rotation period 1.61 (1.57-1.64) d. Equatorial velocity is derived as 2 pi R_eq / P."
+        }
+      }
+    },
+    "hip-93747": {
+      "expected_name": "Okab",
+      "expected_designation": "HIP 93747",
+      "observations": {
+        "rotation": {
+          "period_days": 0.4633,
+          "equatorial_velocity_kms": 307.9,
+          "polar_to_equatorial_radius": 0.784,
+          "reference": "Howarth et al. 2023, MNRAS 520, 1193, Table 5 (adopted base model)",
+          "source_url": "https://arxiv.org/abs/2301.05018",
+          "scope": "Roche model with omega-model gravity darkening fitted to photopolarimetry, flux distribution and line profiles: equatorial radius 2.82 and polar radius 2.21 +/- 0.02 solar radii, inclination 84.9 deg (85 +5/-7), rotation rate 0.946 of critical, equatorial rotation period 11.12 h matched to the TESS photometric period. Equatorial velocity is derived as 2 pi R_eq / P."
         }
       }
     }
