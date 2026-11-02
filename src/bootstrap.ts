@@ -6,11 +6,13 @@ import { createLoadError } from './load-recovery'
 async function start(): Promise<void> {
   const status = document.getElementById('scene-status')!
   status.textContent = 'Loading…'
+  status.classList.add('is-loading')
   try {
     await import('./main')
   } catch (error) {
     console.error('Could not start Star View.', error)
     status.hidden = false
+    status.classList.remove('is-loading')
     status.replaceChildren(createLoadError('Star View', () => { void start() }))
   }
 }

@@ -1725,9 +1725,10 @@ function togglePanelLock(name: typeof lockablePanelNames[number]): void {
   syncViewCenterInset()
 }
 
-function sceneStatus(message: string | null): void {
+function sceneStatus(message: string | null, loading = false): void {
   const status = element('scene-status')
   status.textContent = message
+  status.classList.toggle('is-loading', loading)
   status.hidden = message === null
   sceneBusy = message !== null
   element<HTMLButtonElement>('filter-save').disabled = sceneBusy || !viewer
@@ -2762,7 +2763,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   const definition = catalogs.find((catalog) => catalog.manifest.id === id)
   if (!definition) return
   const request = ++catalogRequest
-  sceneStatus('Loading…')
+  sceneStatus('Loading…', true)
   let nextStars: Star[], reachLy: number
   try {
     const loadOverlay = (types: readonly FilterKey[], load: () => Promise<Star[]>) =>
