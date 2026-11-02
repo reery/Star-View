@@ -3,6 +3,10 @@
   "compatibility_date": "2026-10-21",
   // Renders /objects/<id> from index.html with the object's title, description and summary.
   "main": "worker/index.ts",
+  // Production serves only the custom domain; branch builds keep their workers.dev Preview URLs.
+  "routes": [{ "pattern": "starview-app.com", "custom_domain": true }],
+  "workers_dev": false,
+  "preview_urls": true,
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
