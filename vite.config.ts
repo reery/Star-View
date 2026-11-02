@@ -70,6 +70,11 @@ function imprint(env: Record<string, string>): Plugin {
   const address = [field('STREET'), field('CITY')].filter(Boolean).join('<br>')
   return {
     name: 'star-view-imprint',
+    // Names only: the values must not appear in build logs.
+    buildStart() {
+      const missing = ['NAME', 'STREET', 'CITY', 'EMAIL'].filter((name) => !field(name)).map((name) => `IMPRINT_${name}`)
+      if (missing.length) this.warn(`Imprint build variables not set: ${missing.join(', ')}`)
+    },
     transformIndexHtml: {
       order: 'pre',
       handler: (html) => html

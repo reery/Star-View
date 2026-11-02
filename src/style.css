@@ -632,7 +632,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .companion-icon { display: inline-block; flex-shrink: 0; color: var(--muted); vertical-align: middle; }
 .catalog-name > .companion-icon { margin-right: 4px; }
 .reference-target { display: inline-flex; flex-shrink: 0; color: var(--accent-vibrant); line-height: 1; }
-.info-brand { position: sticky; top: 0; z-index: 3; background: linear-gradient(125deg, #393029 0%, #2a2b32 55%, var(--panel) 100%); display: flex; align-items: center; gap: 12px; padding: 18px 16px; border-bottom: 1px solid var(--line); }
+.info-brand { background: linear-gradient(125deg, #393029 0%, #2a2b32 55%, var(--panel) 100%); display: flex; align-items: center; gap: 12px; padding: 18px 16px; border-bottom: 1px solid var(--line); }
 .info-brand-icon { display: grid; place-items: center; width: 42px; height: 42px; flex: 0 0 42px; color: var(--accent-strong); background: #171819; border: 1px solid #73583e; border-radius: 50%; box-shadow: 0 0 18px #e7a05b24; }
 .info-brand h2 { font-size: 19px; line-height: 1.2; font-weight: 600; }
 .info-brand p { margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.4; }
@@ -825,7 +825,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .comparison-member:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .dock-card.object-type-card { position: absolute; top: var(--object-detail-top, 20px); left: var(--object-detail-left, 324px); width: min(380px, calc(var(--ui-width) - 402px)); max-width: var(--object-detail-max-width, none); max-height: calc(var(--ui-height) - var(--object-detail-top, 20px) - 20px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; pointer-events: auto; background: linear-gradient(145deg, #26282a, var(--panel)); }
 .dock-card:has(> .card-scroll-content), .dock-card.catalog { display: flex; flex-direction: column; overflow: hidden; }
-.dock-card:has(> .card-scroll-content) > .panel-heading, .catalog > .panel-heading, .catalog > .object-search { flex-shrink: 0; }
+.dock-card:has(> .card-scroll-content) > :is(.panel-heading, .info-brand), .catalog > .panel-heading, .catalog > .object-search { flex-shrink: 0; }
 .object-type-card > .panel-heading { padding-right: 98px; }
 .object-type-card > .panel-heading > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
 .card-scroll-content { min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; }
