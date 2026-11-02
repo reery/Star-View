@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, RotateCcw, Ruler, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
@@ -132,6 +132,7 @@ icon('neighborhood-lock-icon', Lock)
 icon('neighborhood-close-icon', X)
 icon('spaceship-icon', Rocket)
 icon('spaceship-active-icon', Rocket)
+icon('rotation-active-icon', Rotate3d)
 icon('spaceship-clear-icon', Trash2)
 icon('spaceship-help-icon', CircleHelp)
 icon('spaceship-close-icon', X)
@@ -166,6 +167,14 @@ icon('discover-constellation-magnify-icon', Search)
 icon('discover-constellation-grid-icon', Globe)
 icon('discover-constellation-info-icon', BookOpen)
 icon('reset-icon', Focus)
+icon('rotation-icon', Rotate3d)
+icon('rotation-left-icon', Play)
+icon('rotation-right-icon', Play)
+icon('rotation-reset-icon', RotateCcw)
+icon('rotation-faster-icon', Plus)
+icon('rotation-slower-icon', Minus)
+icon('rotation-lock-icon', Lock)
+icon('rotation-close-icon', X)
 icon('grid-icon', Grid2X2)
 icon('equatorial-grid-icon', Globe)
 icon('galactic-grid-icon', Galaxy)
@@ -338,6 +347,12 @@ let simulationDirection: 1 | -1 = 1
 let playbackSecondsPerThousandYears = 1
 let playbackFrameRequest: number | null = null
 let previousPlaybackTime = 0
+// Seconds per turn: a calm minute by default, never faster than a turn every 20 seconds.
+const AUTO_ROTATION_SECONDS_PER_TURN = [180, 120, 90, 60, 45, 30, 20] as const
+let autoRotationSpeedIndex = 3
+let autoRotation: 'left' | 'right' | null = null
+/** The view before the first turn, restored by the card's Reset. */
+let autoRotationStart: ViewerViewState | null = null
 let catalogRequest = 0
 let sceneBusy = true
 const filterCategories = new Set<FilterCategoryId>(DEFAULT_FILTER_CATEGORIES)
@@ -416,8 +431,8 @@ document.querySelectorAll('.time-markers').forEach((markers) => {
 })
 const selectionHistory = new SelectionHistory(selectedId)
 // The Spaceship card floats at the bottom center: it opens beside other cards and only its own controls close it.
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'info', 'spaceship'] as const
-const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences'] as const
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'rotation'] as const
 // Discover panels open from the flyout, so focus returns to its toggle.
 const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
@@ -508,6 +523,9 @@ function updateObserverControl(): void {
   for (const id of cameraViewButtonIds) {
     element<HTMLButtonElement>(id).disabled = sceneBusy || observerView || piloting
   }
+  // A ship, parked or piloted, owns the camera's motion.
+  element<HTMLButtonElement>('rotation-toggle').disabled = sceneBusy || spaceship !== null
+  renderAutoRotation()
 }
 
 function cardsHaveClearance(first: HTMLElement, second: HTMLElement, gap = 10): boolean {
@@ -554,6 +572,7 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
     if (open && !spaceship) launchSpaceship()
     else renderSpaceship()
   }
+  if (name === 'rotation') renderAutoRotation()
 }
 
 async function loadGlossaryPanel(): Promise<void> {
@@ -1630,7 +1649,7 @@ function syncSelectedObjectLayout(): void {
   selectedCard.style.maxHeight = `${Math.max(68, availableHeight)}px`
 }
 
-function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active' | 'neighborhood-active' | 'spaceship-active', active: boolean): void {
+function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active', active: boolean): void {
   const indicator = element(id)
   if (indicator.hidden !== active) return
   indicator.hidden = !active
@@ -1763,6 +1782,34 @@ function renderPlaybackSpeed(): void {
   text('time-speed-value', `1k years / ${playbackSecondsPerThousandYears}s`)
   element<HTMLButtonElement>('time-slower').disabled = sceneBusy || playbackSecondsPerThousandYears >= 15
   element<HTMLButtonElement>('time-faster').disabled = sceneBusy || playbackSecondsPerThousandYears <= 0.5
+}
+
+function setAutoRotation(direction: 'left' | 'right' | null): void {
+  if (direction && !autoRotationStart) autoRotationStart = viewer?.getViewState() ?? null
+  autoRotation = direction
+  applyAutoRotation()
+  renderAutoRotation()
+}
+
+function applyAutoRotation(): void {
+  // OrbitControls turns once in 60 / speed seconds; its positive direction swings the camera left.
+  const speed = autoRotation ? 60 / AUTO_ROTATION_SECONDS_PER_TURN[autoRotationSpeedIndex]! : 0
+  viewer?.setAutoRotation(autoRotation === 'right' ? -speed : speed)
+}
+
+function renderAutoRotation(): void {
+  setActiveIndicator('rotation-active', autoRotation !== null && !panelIsOpen('rotation'))
+  for (const direction of ['left', 'right'] as const) {
+    const playing = autoRotation === direction
+    const play = element<HTMLButtonElement>(`rotation-${direction}`)
+    play.setAttribute('aria-pressed', String(playing))
+    play.setAttribute('aria-label', playing ? 'Pause automatic rotation' : `Rotate ${direction}`)
+    icon(`rotation-${direction}-icon`, playing ? Pause : Play)
+  }
+  // Observer view keeps its own camera, so the earlier view returns only outside it.
+  element<HTMLButtonElement>('rotation-reset').disabled = !autoRotationStart || observerView
+  element<HTMLButtonElement>('rotation-faster').disabled = autoRotationSpeedIndex === AUTO_ROTATION_SECONDS_PER_TURN.length - 1
+  element<HTMLButtonElement>('rotation-slower').disabled = autoRotationSpeedIndex === 0
 }
 
 function renderFollowState(): void {
@@ -2479,6 +2526,11 @@ function launchSpaceship(): void {
 }
 
 function applySpaceship(): void {
+  if (spaceship) setAutoRotation(null)
+  if (spaceship && panelIsOpen('rotation')) {
+    setPanelOpen('rotation', false)
+    syncPanelLayout()
+  }
   viewer?.setSpaceship(spaceship, spaceship ? spaceshipLabels : 'all', spaceshipVisibility)
   applySpaceshipInput()
   renderSpaceship()
@@ -2783,6 +2835,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setSimulationYears(simulationYears)
   viewer.setSimulationPlaying(simulationPlaying)
   viewer.setPowerSavingMode(powerSavingMode)
+  applyAutoRotation()
   viewer.setGridVisible(gridVisible)
   viewer.setSkyGrid(skyGridMode)
   viewer.setStarPaintZoomShrink(paintZoomShrink)
@@ -3503,6 +3556,7 @@ element('paint-active').addEventListener('click', () => togglePanel('paint'), { 
 element('motion-active').addEventListener('click', () => togglePanel('motion'), { signal: events.signal })
 element('neighborhood-active').addEventListener('click', () => togglePanel('neighborhood'), { signal: events.signal })
 element('spaceship-active').addEventListener('click', () => togglePanel('spaceship'), { signal: events.signal })
+element('rotation-active').addEventListener('click', () => togglePanel('rotation'), { signal: events.signal })
 element('spaceship-hud').addEventListener('click', (event) => {
   if (!panelIsOpen('spaceship') && !(event.target instanceof Element && event.target.closest('button'))) togglePanel('spaceship')
 }, { signal: events.signal })
@@ -4058,6 +4112,23 @@ element('time-play').addEventListener('click', () => {
   }
   setSimulationPlaying(!simulationPlaying)
 }, { signal: events.signal })
+for (const direction of ['left', 'right'] as const) {
+  element(`rotation-${direction}`).addEventListener('click', () => setAutoRotation(autoRotation === direction ? null : direction), { signal: events.signal })
+}
+element('rotation-reset').addEventListener('click', () => {
+  if (!autoRotationStart) return
+  const start = autoRotationStart
+  autoRotationStart = null
+  setAutoRotation(null)
+  viewer?.setViewState(start)
+}, { signal: events.signal })
+for (const [id, step] of [['rotation-faster', 1], ['rotation-slower', -1]] as const) {
+  element(id).addEventListener('click', () => {
+    autoRotationSpeedIndex = Math.max(0, Math.min(AUTO_ROTATION_SECONDS_PER_TURN.length - 1, autoRotationSpeedIndex + step))
+    applyAutoRotation()
+    renderAutoRotation()
+  }, { signal: events.signal })
+}
 element('time-now').addEventListener('click', () => {
   setSimulationPlaying(false)
   simulationDirection = 1
@@ -4127,7 +4198,7 @@ for (const name of panelNames) {
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
 }
-for (const name of ['motion', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'spaceship'] as const) {
+for (const name of ['motion', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'spaceship', 'rotation'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()

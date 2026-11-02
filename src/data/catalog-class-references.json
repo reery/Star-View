@@ -8,7 +8,7 @@
     "western-constellation-stars",
     "notable-distant-stars"
   ],
-  "uniqueObjects": 6123,
+  "uniqueObjects": 6134,
   "classes": [
     {
       "spectral": "A0.5V",
@@ -6039,7 +6039,7 @@
       "letter": "F",
       "subtype": 9.5,
       "stage": "V",
-      "count": 6,
+      "count": 5,
       "metrics": {
         "mass": {
           "value": 0.99234,
@@ -9120,7 +9120,7 @@
       "letter": "G",
       "subtype": 9,
       "stage": "V",
-      "count": 17,
+      "count": 19,
       "metrics": {
         "mass": {
           "value": 0.90675,
@@ -13537,7 +13537,7 @@
       "letter": "M",
       "subtype": 3,
       "stage": "V",
-      "count": 219,
+      "count": 220,
       "metrics": {
         "mass": {
           "value": 0.364325,
@@ -15345,11 +15345,11 @@
       "key": "brown_dwarf:L",
       "label": "L-type brown dwarf",
       "low": 0.0000177828,
-      "high": 0.000138038,
-      "count": 16,
-      "median": 0.0000499429,
-      "p10": 0.0000223931,
-      "p90": 0.0000933502
+      "high": 0.000141254,
+      "count": 20,
+      "median": 0.0000582142,
+      "p10": 0.0000228056,
+      "p90": 0.000112487
     },
     {
       "key": "brown_dwarf:T",
@@ -15527,7 +15527,7 @@
       "low": 0.359765,
       "high": 4.0685,
       "count": 134,
-      "median": 0.93873,
+      "median": 0.93345,
       "p10": 0.51061,
       "p90": 1.51652
     },
@@ -15616,10 +15616,10 @@
       "label": "M-type main-sequence star",
       "low": 0.000120226,
       "high": 2.19517,
-      "count": 1599,
-      "median": 0.0106767,
-      "p10": 0.0021047,
-      "p90": 0.0446802
+      "count": 1601,
+      "median": 0.0107151,
+      "p10": 0.00210646,
+      "p90": 0.0447329
     },
     {
       "key": "MVI",

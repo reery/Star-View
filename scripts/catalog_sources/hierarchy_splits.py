@@ -9,8 +9,9 @@ FIELDS = ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar",
           "absolute_mag", "apparent_mag", "known_planets")
 
 
-def apply_hierarchy_splits(root, systems, pool, audit):
-    path = root / "catalog-work/star-systems/reviewed-constellation-hierarchies.json"
+def apply_hierarchy_splits(root, systems, pool, audit,
+                           plan_path="catalog-work/star-systems/reviewed-constellation-hierarchies.json"):
+    path = root / plan_path
     plan = json.loads(path.read_text())
     inputs = [path]
     for relative, digest in plan["inputSha256"].items():
@@ -35,12 +36,14 @@ def apply_hierarchy_splits(root, systems, pool, audit):
         previous_sources = source.pop("catalog_sources", [])
         retained = {"catalog_id": "reviewed-unresolved-parent", "record": source,
                     "scope": review["sourceScope"]}
-        source_evidence = copy.deepcopy(audit["componentRecords"][identifier])
+        source_evidence = copy.deepcopy(audit["componentRecords"].get(identifier, {}))
+        # A parent alias that names the other member (HD 130948C) stays in the retained source only.
+        inherited = [name for name in parent["designations"] if name not in members[1]["designations"]]
         for member in members:
             star = copy.deepcopy(parent)
             star.update(dict.fromkeys(FIELDS))
-            star.update(id=member["starId"], name=member["name"], type="star", subtypes=[],
-                        designations=list(dict.fromkeys([*(parent["designations"] if member["starId"] == identifier else []),
+            star.update(id=member["starId"], name=member["name"], type=member.get("type", "star"), subtypes=[],
+                        designations=list(dict.fromkeys([*(inherited if member["starId"] == identifier else []),
                                                         *member["designations"]])))
             for key in ("resolved_photometry", "radial_velocity_observation", "stellar_observations", "unresolved_photometry"):
                 star.pop(key, None)

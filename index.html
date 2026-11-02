@@ -687,6 +687,7 @@
                   <button id="top-view" class="icon-button camera-view-button" type="button" aria-label="Top view" aria-controls="scene" disabled>Top</button>
                   <button id="side-view" class="icon-button camera-view-button" type="button" aria-label="Side view" aria-controls="scene" disabled>Side</button>
                   <button id="front-view" class="icon-button camera-view-button" type="button" aria-label="Back view" aria-controls="scene" disabled>Back</button>
+                  <button id="rotation-toggle" class="icon-button panel-button" type="button" aria-label="Automatic rotation" aria-controls="rotation-panel" aria-expanded="false" disabled><span id="rotation-icon"></span><span class="tooltip">Automatic rotation</span></button>
                 </div>
               </div>
               <div class="grid-controls" data-toolbar-flyout role="group" aria-label="Grid controls">
@@ -763,6 +764,7 @@
                   <button id="paint-active" class="icon-button" type="button" aria-label="Paint active" aria-pressed="true" aria-controls="paint-panel" hidden><span id="paint-active-icon"></span><span class="tooltip">Paint active</span></button>
                   <button id="neighborhood-active" class="icon-button" type="button" aria-label="Neighborhood active" aria-pressed="true" aria-controls="neighborhood-panel" hidden><span id="neighborhood-active-icon"></span><span class="tooltip">Neighborhood active</span></button>
                   <button id="spaceship-active" class="icon-button" type="button" aria-label="Spaceship active" aria-pressed="true" aria-controls="spaceship-panel" hidden><span id="spaceship-active-icon"></span><span class="tooltip">Spaceship active</span></button>
+                  <button id="rotation-active" class="icon-button" type="button" aria-label="Automatic rotation active" aria-pressed="true" aria-controls="rotation-panel" hidden><span id="rotation-active-icon"></span><span class="tooltip">Automatic rotation active</span></button>
                   <button id="graph-filter-active" class="icon-button" type="button" aria-label="Graph filter active" aria-pressed="true" aria-controls="graphs-panel" hidden><span id="graph-filter-active-icon"></span><span class="tooltip">Graph filter active</span></button>
                 </div>
               </div>
@@ -795,6 +797,20 @@
                       </div>
                     </div>
                   </div>
+                </div>
+              </section>
+              <section id="rotation-panel" class="dock-card rotation-card" aria-labelledby="rotation-heading" data-scene-obstacle hidden>
+                <div class="panel-heading rotation-heading">
+                  <h2 id="rotation-heading">Automatic rotation</h2>
+                  <div class="rotation-transport">
+                    <button id="rotation-left" class="object-section-button distance-reference-button time-button" type="button" aria-label="Rotate left" aria-pressed="false"><span id="rotation-left-icon"></span></button>
+                    <button id="rotation-right" class="object-section-button distance-reference-button time-button" type="button" aria-label="Rotate right" aria-pressed="false"><span id="rotation-right-icon"></span></button>
+                    <button id="rotation-reset" class="object-section-button distance-reference-button time-button" type="button" aria-label="Return to the view before rotating" title="Return to the view before rotating" disabled><span id="rotation-reset-icon"></span></button>
+                    <button id="rotation-faster" class="object-section-button distance-reference-button time-button" type="button" aria-label="Increase rotation speed" title="Faster"><span id="rotation-faster-icon"></span></button>
+                    <button id="rotation-slower" class="object-section-button distance-reference-button time-button" type="button" aria-label="Decrease rotation speed" title="Slower"><span id="rotation-slower-icon"></span></button>
+                  </div>
+                  <button id="rotation-lock" class="panel-lock time-lock" type="button" aria-label="Keep Automatic rotation open" aria-pressed="false"><span id="rotation-lock-icon"></span></button>
+                  <button id="rotation-close" class="panel-lock time-lock" type="button" aria-label="Close automatic rotation card"><span id="rotation-close-icon"></span></button>
                 </div>
               </section>
               <section id="filter-panel" class="dock-card filter-section" aria-labelledby="filter-heading" hidden>

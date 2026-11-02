@@ -46,6 +46,8 @@ export interface StarViewer {
   setObserverTelescope(enabled: boolean, animate?: boolean): void
   reset(): void
   setCameraView(view: 'top' | 'side' | 'front'): void
+  /** Orbits the camera horizontally around its target; speed is in OrbitControls units (2 = one turn in 30 s), negative turns the camera right, 0 stops. */
+  setAutoRotation(speed: number): void
   setGridVisible(visible: boolean): void
   setSkyGrid(mode: SkyGridMode): void
   /**
@@ -2228,12 +2230,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       updatingControls = true
       let changed: boolean
       try {
-        changed = controls.update()
+        changed = controls.update(Math.min(elapsedMs, 100) / 1000)
       } finally {
         updatingControls = false
         controls.dampingFactor = dampingFactor
       }
-      if (controlsInteracting || changed) {
+      // Slow auto-rotation moves the camera by less than OrbitControls reports as a change.
+      if (controls.autoRotate) invalidateProjection()
+      if (controlsInteracting || changed || controls.autoRotate) {
         controlsSettling = true
         continueRendering = true
       } else if (controlsSettling) {
@@ -2408,6 +2412,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setObserverTelescope,
     reset,
     setCameraView,
+    setAutoRotation(speed) {
+      controls.autoRotate = speed !== 0
+      controls.autoRotateSpeed = speed
+      if (speed !== 0) home = false
+      requestRender()
+    },
     setObjectDistanceLimit(distanceLy) {
       if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 40000) return
       if (distanceLy === objectDistanceLimitLy) return

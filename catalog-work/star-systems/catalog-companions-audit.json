@@ -95759,6 +95759,4169 @@
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
     },
+    "cns5-0962": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-153",
+          "expectedComponents": {
+            "cns5-0961": "A",
+            "cns5-0962": "BC"
+          },
+          "parentStarId": "cns5-0962",
+          "expectedParentName": "G 221-24A",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "sourceScope": "GJ 153 BC (G 221-24A) catalog source; unresolved B+C contributions; not an individual B/C measurement",
+          "note": "MSC 03480+6840 and ORB6 KUI 13BC resolve the CNS5 BC record into a 0.68-arcsec visual pair with a 40.9-year orbit. MSC lists the composite M2V+K6V and inconsistent component V values (11.18 each in sys.tsv, combined 10.43 or 11.40), so no individual magnitude or spectral type is adopted.",
+          "components": [
+            {
+              "starId": "cns5-0962",
+              "label": "B",
+              "name": "HD 23189 B",
+              "designations": [
+                "WDS J03480+6840B",
+                "KUI 13B"
+              ],
+              "note": "Brighter or first-listed KUI 13 component, retaining the former BC selection ID."
+            },
+            {
+              "starId": "cns5-gj-153-c",
+              "label": "C",
+              "name": "HD 23189 C",
+              "designations": [
+                "WDS J03480+6840C",
+                "KUI 13C"
+              ],
+              "note": "KUI 13 C, the visual companion of B."
+            }
+          ]
+        },
+        "component": "B"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": null,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": null,
+          "age_gyr": null,
+          "absolute_mag": null,
+          "epoch": 2000.0,
+          "x_pc": -12.995496606,
+          "y_pc": 11.746910094,
+          "z_pc": 3.43757856,
+          "vx_kms": 4.873673,
+          "vy_kms": 2.643604,
+          "vz_kms": 23.24741,
+          "type": "star",
+          "id": "cns5-0962",
+          "name": "G 221-24A",
+          "spectral_type": null,
+          "constellation": "Camelopardalis",
+          "metallicity_kind": null,
+          "designations": [
+            "CNS5 962",
+            "Gaia DR3 493650660396520064",
+            "KUI 13B",
+            "WDS J03480+6840B",
+            "G 221-24A"
+          ],
+          "notes": "Corrected CNS5 962; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Systemic space velocity of HD 23189 adopted from HD 23189 (cns5-0961); individual orbital motion is not modelled.",
+          "raw_astrometry": {
+            "ra_deg": 57.008656122272384,
+            "dec_deg": 68.67859060565098,
+            "parallax_mas": 56.01649557465748,
+            "parallax_error_mas": 0.11765775,
+            "pm_ra_cosdec_masyr": 129.5318581106198,
+            "pm_ra_error_masyr": 0.16746149957180023,
+            "pm_dec_masyr": 258.1570625893111,
+            "pm_dec_error_masyr": 0.13431306183338165,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "epoch": 2016.0,
+            "astrometry_ref": "2020yCat.1350....0G",
+            "radial_velocity_ref": null
+          },
+          "subtypes": [],
+          "known_planets": null,
+          "apparent_mag": null
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot."
+    },
+    "cns5-gj-153-c": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-153",
+          "expectedComponents": {
+            "cns5-0961": "A",
+            "cns5-0962": "BC"
+          },
+          "parentStarId": "cns5-0962",
+          "expectedParentName": "G 221-24A",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "sourceScope": "GJ 153 BC (G 221-24A) catalog source; unresolved B+C contributions; not an individual B/C measurement",
+          "note": "MSC 03480+6840 and ORB6 KUI 13BC resolve the CNS5 BC record into a 0.68-arcsec visual pair with a 40.9-year orbit. MSC lists the composite M2V+K6V and inconsistent component V values (11.18 each in sys.tsv, combined 10.43 or 11.40), so no individual magnitude or spectral type is adopted.",
+          "components": [
+            {
+              "starId": "cns5-0962",
+              "label": "B",
+              "name": "HD 23189 B",
+              "designations": [
+                "WDS J03480+6840B",
+                "KUI 13B"
+              ],
+              "note": "Brighter or first-listed KUI 13 component, retaining the former BC selection ID."
+            },
+            {
+              "starId": "cns5-gj-153-c",
+              "label": "C",
+              "name": "HD 23189 C",
+              "designations": [
+                "WDS J03480+6840C",
+                "KUI 13C"
+              ],
+              "note": "KUI 13 C, the visual companion of B."
+            }
+          ]
+        },
+        "component": "C"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": null,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": null,
+          "age_gyr": null,
+          "absolute_mag": null,
+          "epoch": 2000.0,
+          "x_pc": -12.995496606,
+          "y_pc": 11.746910094,
+          "z_pc": 3.43757856,
+          "vx_kms": 4.873673,
+          "vy_kms": 2.643604,
+          "vz_kms": 23.24741,
+          "type": "star",
+          "id": "cns5-0962",
+          "name": "G 221-24A",
+          "spectral_type": null,
+          "constellation": "Camelopardalis",
+          "metallicity_kind": null,
+          "designations": [
+            "CNS5 962",
+            "Gaia DR3 493650660396520064",
+            "KUI 13B",
+            "WDS J03480+6840B",
+            "G 221-24A"
+          ],
+          "notes": "Corrected CNS5 962; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Systemic space velocity of HD 23189 adopted from HD 23189 (cns5-0961); individual orbital motion is not modelled.",
+          "raw_astrometry": {
+            "ra_deg": 57.008656122272384,
+            "dec_deg": 68.67859060565098,
+            "parallax_mas": 56.01649557465748,
+            "parallax_error_mas": 0.11765775,
+            "pm_ra_cosdec_masyr": 129.5318581106198,
+            "pm_ra_error_masyr": 0.16746149957180023,
+            "pm_dec_masyr": 258.1570625893111,
+            "pm_dec_error_masyr": 0.13431306183338165,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "epoch": 2016.0,
+            "astrometry_ref": "2020yCat.1350....0G",
+            "radial_velocity_ref": null
+          },
+          "subtypes": [],
+          "known_planets": null,
+          "apparent_mag": null
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot."
+    },
+    "cns5-2285": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-337",
+          "expectedComponents": {
+            "cns5-2285": "AB",
+            "cns5-2284": "CD"
+          },
+          "parentStarId": "cns5-2285",
+          "expectedParentName": "Pi1 Cnc",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "sourceScope": "Pi1 Cnc (GJ 337 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+          "note": "GJ 337 A/B is the double-lined 2.7-year pair FIN 347 Aa,Ab (SB9 559; ORB6 grade 1, Msn2021a; MSC S2,V,a). The app keeps the Gliese A/B labels for WDS Aa/Ab.",
+          "components": [
+            {
+              "starId": "cns5-2285",
+              "label": "A",
+              "name": "Pi1 Cnc A",
+              "designations": [
+                "WDS J09123+1500Aa"
+              ],
+              "note": "WDS Aa, the brighter G9V component, retaining the former AB selection ID."
+            },
+            {
+              "starId": "cns5-gj-337-b",
+              "label": "B",
+              "name": "Pi1 Cnc B",
+              "designations": [
+                "GJ 337 B",
+                "WDS J09123+1500Ab"
+              ],
+              "note": "WDS Ab, the fainter G9V spectroscopic and visual companion."
+            }
+          ]
+        },
+        "component": "A"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 5396.0,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": -0.31,
+          "age_gyr": null,
+          "absolute_mag": 4.96585,
+          "epoch": 2000.0,
+          "x_pc": -13.225317439,
+          "y_pc": -9.141073993,
+          "z_pc": 12.496446283,
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null,
+          "type": "star",
+          "id": "cns5-2285",
+          "name": "Pi1 Cnc",
+          "spectral_type": "G9V",
+          "constellation": "Cancer",
+          "metallicity_kind": "[Fe/H]",
+          "designations": [
+            "GJ 337",
+            "GJ 337 A",
+            "GJ 337 B",
+            "HD 79096",
+            "HIP 45170",
+            "1RXS J091218.4+150001",
+            "2MASS J09121762+1459454",
+            "81 Cnc",
+            "AG+15 1030",
+            "AKARI-IRC-V1 J0912172+145947",
+            "ASCC 947554",
+            "BD+15 2003",
+            "BUP 125A",
+            "CCDM J09123+1459AP",
+            "Ci 20 514",
+            "CNS5 2285",
+            "CSI+15 2003 1",
+            "CSI+15 2003 5",
+            "FIN 347",
+            "Gaia DR1 607464712464224384",
+            "Gaia DR2 607464716759460480",
+            "Gaia DR3 607464716759460480",
+            "GAT 1113",
+            "GC 12693",
+            "GCRV 6016",
+            "GEN# +1.00079096",
+            "HIC 45170",
+            "HR 3650",
+            "IDS 09068+1524 AP",
+            "IRAS 09095+1512",
+            "JP11 1777",
+            "LFT 633",
+            "LHS 2114",
+            "LSPM J0912+1459",
+            "LTT 12423",
+            "N30 2178",
+            "NLTT 21191",
+            "pi.01 Cnc",
+            "Pi1 Cancri",
+            "PLX 2193",
+            "PM 09096+1512",
+            "PMC 90-93 5903",
+            "PPM 126206",
+            "SAO 98427",
+            "SBC9 559",
+            "SKY# 17752",
+            "STT 569A",
+            "TD1 13647",
+            "TIC 35229531",
+            "TYC 825-1543-1",
+            "UBV 8813",
+            "USNO-B1.0 1049-00177195",
+            "WDS J09123+1500A",
+            "WDS J09123+1500Aa,Ab",
+            "WEB 8616",
+            "WISEA J091217.18+145948.2",
+            "YZ 15 3722",
+            "Pi1 Cnc"
+          ],
+          "notes": "Corrected CNS5 2285; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Shared exact-identity physical supplements (temperature_k: 2024A&A...683A.125P; metallicity_dex: 2024A&A...683A.125P).",
+          "raw_astrometry": {
+            "ra_deg": 138.0744391435794,
+            "dec_deg": 14.995441364484178,
+            "parallax_mas": 49.11000061035156,
+            "parallax_error_mas": 0.54,
+            "pm_ra_cosdec_masyr": -524.4,
+            "pm_ra_error_masyr": 0.6000000238418579,
+            "pm_dec_masyr": 245.64,
+            "pm_dec_error_masyr": 0.28999999165534973,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "epoch": 1991.25,
+            "astrometry_ref": "2007A&A...474..653V",
+            "radial_velocity_ref": null
+          },
+          "subtypes": [
+            "Main-sequence"
+          ],
+          "known_planets": null,
+          "apparent_mag": 6.510000298
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "Pi1 Cnc A",
+        "systemId": "cns5-gj-337",
+        "component": "A",
+        "note": "Component V and class from the MSC FIN 347 Aa,Ab subsystem; its compiled masses are not adopted without the original publication.",
+        "fields": {
+          "apparent_mag": {
+            "value": 7.02,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 09123+1500 Aa,Ab Vmag1",
+            "status": "compiled-catalog"
+          },
+          "spectral_type": {
+            "value": "G9V",
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 09123+1500 Aa,Ab SP1",
+            "status": "compiled-catalog"
+          }
+        },
+        "adopted": {
+          "apparent_mag": {
+            "value": 7.02,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 09123+1500 Aa,Ab Vmag1",
+            "status": "compiled-catalog"
+          },
+          "spectral_type": {
+            "value": "G9V",
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 09123+1500 Aa,Ab SP1",
+            "status": "compiled-catalog"
+          },
+          "absolute_mag": {
+            "value": 5.475849702,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 7.02,
+              "distance_pc": 20.362451346
+            }
+          }
+        },
+        "retained": {}
+      },
+      "temperature_k": {
+        "field": "temperature_k",
+        "value": 5380,
+        "status": "estimated",
+        "reference": "Pecaut-Mamajek 2022.04.16",
+        "spectralType": "G9V"
+      },
+      "spectralSubtypes": {
+        "spectralType": "G9V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "cns5-gj-337-b": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-337",
+          "expectedComponents": {
+            "cns5-2285": "AB",
+            "cns5-2284": "CD"
+          },
+          "parentStarId": "cns5-2285",
+          "expectedParentName": "Pi1 Cnc",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "sourceScope": "Pi1 Cnc (GJ 337 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+          "note": "GJ 337 A/B is the double-lined 2.7-year pair FIN 347 Aa,Ab (SB9 559; ORB6 grade 1, Msn2021a; MSC S2,V,a). The app keeps the Gliese A/B labels for WDS Aa/Ab.",
+          "components": [
+            {
+              "starId": "cns5-2285",
+              "label": "A",
+              "name": "Pi1 Cnc A",
+              "designations": [
+                "WDS J09123+1500Aa"
+              ],
+              "note": "WDS Aa, the brighter G9V component, retaining the former AB selection ID."
+            },
+            {
+              "starId": "cns5-gj-337-b",
+              "label": "B",
+              "name": "Pi1 Cnc B",
+              "designations": [
+                "GJ 337 B",
+                "WDS J09123+1500Ab"
+              ],
+              "note": "WDS Ab, the fainter G9V spectroscopic and visual companion."
+            }
+          ]
+        },
+        "component": "B"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 5396.0,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": -0.31,
+          "age_gyr": null,
+          "absolute_mag": 4.96585,
+          "epoch": 2000.0,
+          "x_pc": -13.225317439,
+          "y_pc": -9.141073993,
+          "z_pc": 12.496446283,
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null,
+          "type": "star",
+          "id": "cns5-2285",
+          "name": "Pi1 Cnc",
+          "spectral_type": "G9V",
+          "constellation": "Cancer",
+          "metallicity_kind": "[Fe/H]",
+          "designations": [
+            "GJ 337",
+            "GJ 337 A",
+            "GJ 337 B",
+            "HD 79096",
+            "HIP 45170",
+            "1RXS J091218.4+150001",
+            "2MASS J09121762+1459454",
+            "81 Cnc",
+            "AG+15 1030",
+            "AKARI-IRC-V1 J0912172+145947",
+            "ASCC 947554",
+            "BD+15 2003",
+            "BUP 125A",
+            "CCDM J09123+1459AP",
+            "Ci 20 514",
+            "CNS5 2285",
+            "CSI+15 2003 1",
+            "CSI+15 2003 5",
+            "FIN 347",
+            "Gaia DR1 607464712464224384",
+            "Gaia DR2 607464716759460480",
+            "Gaia DR3 607464716759460480",
+            "GAT 1113",
+            "GC 12693",
+            "GCRV 6016",
+            "GEN# +1.00079096",
+            "HIC 45170",
+            "HR 3650",
+            "IDS 09068+1524 AP",
+            "IRAS 09095+1512",
+            "JP11 1777",
+            "LFT 633",
+            "LHS 2114",
+            "LSPM J0912+1459",
+            "LTT 12423",
+            "N30 2178",
+            "NLTT 21191",
+            "pi.01 Cnc",
+            "Pi1 Cancri",
+            "PLX 2193",
+            "PM 09096+1512",
+            "PMC 90-93 5903",
+            "PPM 126206",
+            "SAO 98427",
+            "SBC9 559",
+            "SKY# 17752",
+            "STT 569A",
+            "TD1 13647",
+            "TIC 35229531",
+            "TYC 825-1543-1",
+            "UBV 8813",
+            "USNO-B1.0 1049-00177195",
+            "WDS J09123+1500A",
+            "WDS J09123+1500Aa,Ab",
+            "WEB 8616",
+            "WISEA J091217.18+145948.2",
+            "YZ 15 3722",
+            "Pi1 Cnc"
+          ],
+          "notes": "Corrected CNS5 2285; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Shared exact-identity physical supplements (temperature_k: 2024A&A...683A.125P; metallicity_dex: 2024A&A...683A.125P).",
+          "raw_astrometry": {
+            "ra_deg": 138.0744391435794,
+            "dec_deg": 14.995441364484178,
+            "parallax_mas": 49.11000061035156,
+            "parallax_error_mas": 0.54,
+            "pm_ra_cosdec_masyr": -524.4,
+            "pm_ra_error_masyr": 0.6000000238418579,
+            "pm_dec_masyr": 245.64,
+            "pm_dec_error_masyr": 0.28999999165534973,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "epoch": 1991.25,
+            "astrometry_ref": "2007A&A...474..653V",
+            "radial_velocity_ref": null
+          },
+          "subtypes": [
+            "Main-sequence"
+          ],
+          "known_planets": null,
+          "apparent_mag": 6.510000298
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "Pi1 Cnc B",
+        "systemId": "cns5-gj-337",
+        "component": "B",
+        "note": "Component V and class from the MSC FIN 347 Aa,Ab subsystem; its compiled masses are not adopted without the original publication.",
+        "fields": {
+          "apparent_mag": {
+            "value": 7.52,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 09123+1500 Aa,Ab Vmag2",
+            "status": "compiled-catalog"
+          },
+          "spectral_type": {
+            "value": "G9V",
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 09123+1500 Aa,Ab SP2",
+            "status": "compiled-catalog"
+          }
+        },
+        "adopted": {
+          "apparent_mag": {
+            "value": 7.52,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 09123+1500 Aa,Ab Vmag2",
+            "status": "compiled-catalog"
+          },
+          "spectral_type": {
+            "value": "G9V",
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 09123+1500 Aa,Ab SP2",
+            "status": "compiled-catalog"
+          },
+          "absolute_mag": {
+            "value": 5.975849702,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 7.52,
+              "distance_pc": 20.362451346
+            }
+          }
+        },
+        "retained": {}
+      },
+      "temperature_k": {
+        "field": "temperature_k",
+        "value": 5380,
+        "status": "estimated",
+        "reference": "Pecaut-Mamajek 2022.04.16",
+        "spectralType": "G9V"
+      },
+      "spectralSubtypes": {
+        "spectralType": "G9V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "cns5-2284": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-337",
+          "expectedComponents": {
+            "cns5-2285": "A",
+            "cns5-gj-337-b": "B",
+            "cns5-2284": "CD"
+          },
+          "parentStarId": "cns5-2284",
+          "expectedParentName": "Pi1 Cnc C",
+          "sourceUrl": "https://arxiv.org/html/astro-ph/0503379v1",
+          "sourceScope": "Pi1 Cnc C (GJ 337 CD) catalog source; unresolved C+D brown dwarf contributions; not an individual C/D measurement",
+          "note": "Burgasser et al. 2005 resolve Gliese 337CD into two brown dwarfs 0.53 arcsec apart (Delta Ks 0.08 +/- 0.12; MSC Ea,Eb). Neither the catalog composite L8.5+L7.5 nor the photometric L8+L8/T: estimate identifies which spectrum belongs to C or D, so component spectral types are withheld.",
+          "components": [
+            {
+              "starId": "cns5-2284",
+              "label": "C",
+              "name": "Pi1 Cnc C",
+              "type": "brown_dwarf",
+              "designations": [
+                "WDS J09123+1500Ea"
+              ],
+              "note": "Gliese 337 C (WDS Ea), retaining the former CD selection ID."
+            },
+            {
+              "starId": "cns5-gj-337-d",
+              "label": "D",
+              "name": "Pi1 Cnc D",
+              "type": "brown_dwarf",
+              "designations": [
+                "GJ 337 D",
+                "WDS J09123+1500Eb"
+              ],
+              "note": "Gliese 337 D (WDS Eb)."
+            }
+          ]
+        },
+        "component": "C"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": null,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": null,
+          "age_gyr": null,
+          "absolute_mag": null,
+          "epoch": 2000.0,
+          "x_pc": -13.231153971,
+          "y_pc": -9.143192513,
+          "z_pc": 12.495477855,
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null,
+          "type": "brown_dwarf",
+          "id": "cns5-2284",
+          "name": "Pi1 Cnc C",
+          "spectral_type": "L8.5+L7.5",
+          "constellation": "Cancer",
+          "metallicity_kind": null,
+          "designations": [
+            "GJ 337 C",
+            "GJ 337 D",
+            "2MASS J09121469+1459396",
+            "2MASSW J0912145+145940",
+            "BUG 16",
+            "CNS5 2284",
+            "pi.01 Cnc C",
+            "Pi1 Cancri C",
+            "TIC 35229529",
+            "WDS J09123+1500E",
+            "WDS J09123+1500Ea,Eb",
+            "Pi1 Cnc C"
+          ],
+          "notes": "Corrected CNS5 2284; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld.",
+          "raw_astrometry": {
+            "ra_deg": 138.0593945,
+            "dec_deg": 14.9952419,
+            "parallax_mas": 49.099998474121094,
+            "parallax_error_mas": 0.3,
+            "pm_ra_cosdec_masyr": -523.5999755859375,
+            "pm_ra_error_masyr": 0.5,
+            "pm_dec_masyr": 244.3000030517578,
+            "pm_dec_error_masyr": 0.4000000059604645,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "epoch": 2000.0,
+            "astrometry_ref": "2014yCat.2328....0C; 2018A&A...616A...1G",
+            "radial_velocity_ref": null
+          },
+          "subtypes": [
+            "L-type"
+          ],
+          "known_planets": null,
+          "apparent_mag": null
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot."
+    },
+    "cns5-gj-337-d": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-337",
+          "expectedComponents": {
+            "cns5-2285": "A",
+            "cns5-gj-337-b": "B",
+            "cns5-2284": "CD"
+          },
+          "parentStarId": "cns5-2284",
+          "expectedParentName": "Pi1 Cnc C",
+          "sourceUrl": "https://arxiv.org/html/astro-ph/0503379v1",
+          "sourceScope": "Pi1 Cnc C (GJ 337 CD) catalog source; unresolved C+D brown dwarf contributions; not an individual C/D measurement",
+          "note": "Burgasser et al. 2005 resolve Gliese 337CD into two brown dwarfs 0.53 arcsec apart (Delta Ks 0.08 +/- 0.12; MSC Ea,Eb). Neither the catalog composite L8.5+L7.5 nor the photometric L8+L8/T: estimate identifies which spectrum belongs to C or D, so component spectral types are withheld.",
+          "components": [
+            {
+              "starId": "cns5-2284",
+              "label": "C",
+              "name": "Pi1 Cnc C",
+              "type": "brown_dwarf",
+              "designations": [
+                "WDS J09123+1500Ea"
+              ],
+              "note": "Gliese 337 C (WDS Ea), retaining the former CD selection ID."
+            },
+            {
+              "starId": "cns5-gj-337-d",
+              "label": "D",
+              "name": "Pi1 Cnc D",
+              "type": "brown_dwarf",
+              "designations": [
+                "GJ 337 D",
+                "WDS J09123+1500Eb"
+              ],
+              "note": "Gliese 337 D (WDS Eb)."
+            }
+          ]
+        },
+        "component": "D"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": null,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": null,
+          "age_gyr": null,
+          "absolute_mag": null,
+          "epoch": 2000.0,
+          "x_pc": -13.231153971,
+          "y_pc": -9.143192513,
+          "z_pc": 12.495477855,
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null,
+          "type": "brown_dwarf",
+          "id": "cns5-2284",
+          "name": "Pi1 Cnc C",
+          "spectral_type": "L8.5+L7.5",
+          "constellation": "Cancer",
+          "metallicity_kind": null,
+          "designations": [
+            "GJ 337 C",
+            "GJ 337 D",
+            "2MASS J09121469+1459396",
+            "2MASSW J0912145+145940",
+            "BUG 16",
+            "CNS5 2284",
+            "pi.01 Cnc C",
+            "Pi1 Cancri C",
+            "TIC 35229529",
+            "WDS J09123+1500E",
+            "WDS J09123+1500Ea,Eb",
+            "Pi1 Cnc C"
+          ],
+          "notes": "Corrected CNS5 2284; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld.",
+          "raw_astrometry": {
+            "ra_deg": 138.0593945,
+            "dec_deg": 14.9952419,
+            "parallax_mas": 49.099998474121094,
+            "parallax_error_mas": 0.3,
+            "pm_ra_cosdec_masyr": -523.5999755859375,
+            "pm_ra_error_masyr": 0.5,
+            "pm_dec_masyr": 244.3000030517578,
+            "pm_dec_error_masyr": 0.4000000059604645,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "epoch": 2000.0,
+            "astrometry_ref": "2014yCat.2328....0C; 2018A&A...616A...1G",
+            "radial_velocity_ref": null
+          },
+          "subtypes": [
+            "L-type"
+          ],
+          "known_planets": null,
+          "apparent_mag": null
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot."
+    },
+    "cns5-2733": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-417",
+          "expectedComponents": {
+            "cns5-2734": "A",
+            "cns5-2733": "BC"
+          },
+          "parentStarId": "cns5-2733",
+          "expectedParentName": "HD 97334B",
+          "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+          "sourceScope": "Gl 417 BC (HD 97334B) catalog source; unresolved B+C brown dwarf contributions; not an individual B/C measurement",
+          "note": "Gl 417 BC is the resolved 0.07-arcsec L-dwarf pair BOY 5 Ea,Eb with an 8.6-year dynamical orbit (Dupuy & Liu 2017; ORB6).",
+          "components": [
+            {
+              "starId": "cns5-2733",
+              "label": "B",
+              "name": "HD 97334B",
+              "type": "brown_dwarf",
+              "designations": [
+                "WDS J11125+3549Ea"
+              ],
+              "note": "Gl 417 B, the Dupuy & Liu primary (WDS Ea), retaining the former BC selection ID."
+            },
+            {
+              "starId": "cns5-gj-417-c",
+              "label": "C",
+              "name": "GJ 417 C",
+              "type": "brown_dwarf",
+              "designations": [
+                "GJ 417 C",
+                "Gl 417 C",
+                "WDS J11125+3549Eb"
+              ],
+              "note": "Gl 417 C, the Dupuy & Liu secondary (WDS Eb)."
+            }
+          ]
+        },
+        "component": "B"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": null,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": null,
+          "age_gyr": null,
+          "absolute_mag": null,
+          "epoch": 2000.0,
+          "x_pc": -8.985711044,
+          "y_pc": -0.68749905,
+          "z_pc": 21.497549968,
+          "vx_kms": -16.686177,
+          "vy_kms": -24.176301,
+          "vz_kms": -11.472469,
+          "type": "brown_dwarf",
+          "id": "cns5-2733",
+          "name": "HD 97334B",
+          "spectral_type": "L4.5+L6",
+          "constellation": "Ursa Major",
+          "metallicity_kind": null,
+          "designations": [
+            "GJ 417 C",
+            "HD 97334B",
+            "2MASS J11122567+3548131",
+            "2MASSI J1112256+354813",
+            "2MASSW J1112256+354813",
+            "2MASSW J1112257+354813",
+            "BOY 5",
+            "CNS5 2733",
+            "Gaia DR2 761918578311083264",
+            "Gaia DR3 761918578311083264",
+            "KIR 3B",
+            "SDSS J111225.55+354812.1",
+            "TIC 85335211",
+            "WDS J11125+3549E",
+            "WDS J11125+3549Ea,Eb",
+            "WISEA J111225.43+354811.1",
+            "GJ 417 B"
+          ],
+          "notes": "Corrected CNS5 2733; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Systemic space velocity of HD 97334 adopted from HD 97334 (cns5-2734); individual orbital motion is not modelled.",
+          "raw_astrometry": {
+            "ra_deg": 168.10555672848,
+            "dec_deg": 35.80289455668,
+            "parallax_mas": 42.900001525878906,
+            "parallax_error_mas": 1.1,
+            "pm_ra_cosdec_masyr": -236.3000030517578,
+            "pm_ra_error_masyr": 2.0999999046325684,
+            "pm_dec_masyr": -152.10000610351562,
+            "pm_dec_error_masyr": 2.0999999046325684,
+            "radial_velocity_kms": -4.28,
+            "radial_velocity_error_kms": 0.13,
+            "epoch": 2015.5,
+            "astrometry_ref": "2018A&A...616A...1G",
+            "radial_velocity_ref": "2010ApJ...723..684B"
+          },
+          "subtypes": [
+            "L-type"
+          ],
+          "known_planets": null,
+          "apparent_mag": null
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "HD 97334B",
+        "systemId": "cns5-gj-417",
+        "component": "B",
+        "expectedType": "brown_dwarf",
+        "note": "Dupuy & Liu 2017 total-mass analysis: the mass and temperature are evolutionary-model inferences from the dynamical total mass (99.2 MJup), not direct individual measurements. Age is the shared system model age.",
+        "fields": {
+          "spectral_type": {
+            "value": "L4.5",
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "compiled",
+            "uncertaintySubtypes": 1.0
+          },
+          "temperature_k": {
+            "value": 1639,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 31,
+            "uncertaintyPlus": 29,
+            "uncertaintyKind": "1-sigma"
+          },
+          "luminosity_solar": {
+            "value": 7.379042301291015e-05,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "derived-from-published-log",
+            "inputs": {
+              "log10LuminositySolar": -4.132,
+              "log10Uncertainty": 0.03
+            }
+          },
+          "mass_solar": {
+            "value": 0.04917,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 0.00172,
+            "uncertaintyPlus": 0.00162,
+            "uncertaintyKind": "1-sigma",
+            "inputs": {
+              "massJupiter": 51.5,
+              "massJupiterMinus": 1.8,
+              "massJupiterPlus": 1.7,
+              "jupiterToSolar": "IAU 2015 nominal, 1/1047.348644"
+            }
+          },
+          "age_gyr": {
+            "value": 0.49,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 0.04,
+            "uncertaintyPlus": 0.03,
+            "uncertaintyKind": "1-sigma",
+            "scope": "Gl 417 BC system age from the total-mass analysis."
+          }
+        },
+        "adopted": {
+          "spectral_type": {
+            "value": "L4.5",
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "compiled",
+            "uncertaintySubtypes": 1.0
+          },
+          "temperature_k": {
+            "value": 1639,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 31,
+            "uncertaintyPlus": 29,
+            "uncertaintyKind": "1-sigma"
+          },
+          "luminosity_solar": {
+            "value": 7.379042301291015e-05,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "derived-from-published-log",
+            "inputs": {
+              "log10LuminositySolar": -4.132,
+              "log10Uncertainty": 0.03
+            }
+          },
+          "mass_solar": {
+            "value": 0.04917,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 0.00172,
+            "uncertaintyPlus": 0.00162,
+            "uncertaintyKind": "1-sigma",
+            "inputs": {
+              "massJupiter": 51.5,
+              "massJupiterMinus": 1.8,
+              "massJupiterPlus": 1.7,
+              "jupiterToSolar": "IAU 2015 nominal, 1/1047.348644"
+            }
+          },
+          "age_gyr": {
+            "value": 0.49,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 0.04,
+            "uncertaintyPlus": 0.03,
+            "uncertaintyKind": "1-sigma",
+            "scope": "Gl 417 BC system age from the total-mass analysis."
+          }
+        },
+        "retained": {}
+      },
+      "radius_solar": {
+        "field": "radius_solar",
+        "value": 0.1065355955,
+        "status": "derived",
+        "reference": "Stefan-Boltzmann scaling",
+        "inputs": {
+          "temperature_k": 1639.0,
+          "luminosity_solar": 7.379042301291015e-05
+        }
+      },
+      "spectralSubtypes": {
+        "spectralType": "L4.5",
+        "labels": [
+          "L-type"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "cns5-gj-417-c": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-417",
+          "expectedComponents": {
+            "cns5-2734": "A",
+            "cns5-2733": "BC"
+          },
+          "parentStarId": "cns5-2733",
+          "expectedParentName": "HD 97334B",
+          "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+          "sourceScope": "Gl 417 BC (HD 97334B) catalog source; unresolved B+C brown dwarf contributions; not an individual B/C measurement",
+          "note": "Gl 417 BC is the resolved 0.07-arcsec L-dwarf pair BOY 5 Ea,Eb with an 8.6-year dynamical orbit (Dupuy & Liu 2017; ORB6).",
+          "components": [
+            {
+              "starId": "cns5-2733",
+              "label": "B",
+              "name": "HD 97334B",
+              "type": "brown_dwarf",
+              "designations": [
+                "WDS J11125+3549Ea"
+              ],
+              "note": "Gl 417 B, the Dupuy & Liu primary (WDS Ea), retaining the former BC selection ID."
+            },
+            {
+              "starId": "cns5-gj-417-c",
+              "label": "C",
+              "name": "GJ 417 C",
+              "type": "brown_dwarf",
+              "designations": [
+                "GJ 417 C",
+                "Gl 417 C",
+                "WDS J11125+3549Eb"
+              ],
+              "note": "Gl 417 C, the Dupuy & Liu secondary (WDS Eb)."
+            }
+          ]
+        },
+        "component": "C"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": null,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": null,
+          "age_gyr": null,
+          "absolute_mag": null,
+          "epoch": 2000.0,
+          "x_pc": -8.985711044,
+          "y_pc": -0.68749905,
+          "z_pc": 21.497549968,
+          "vx_kms": -16.686177,
+          "vy_kms": -24.176301,
+          "vz_kms": -11.472469,
+          "type": "brown_dwarf",
+          "id": "cns5-2733",
+          "name": "HD 97334B",
+          "spectral_type": "L4.5+L6",
+          "constellation": "Ursa Major",
+          "metallicity_kind": null,
+          "designations": [
+            "GJ 417 C",
+            "HD 97334B",
+            "2MASS J11122567+3548131",
+            "2MASSI J1112256+354813",
+            "2MASSW J1112256+354813",
+            "2MASSW J1112257+354813",
+            "BOY 5",
+            "CNS5 2733",
+            "Gaia DR2 761918578311083264",
+            "Gaia DR3 761918578311083264",
+            "KIR 3B",
+            "SDSS J111225.55+354812.1",
+            "TIC 85335211",
+            "WDS J11125+3549E",
+            "WDS J11125+3549Ea,Eb",
+            "WISEA J111225.43+354811.1",
+            "GJ 417 B"
+          ],
+          "notes": "Corrected CNS5 2733; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Systemic space velocity of HD 97334 adopted from HD 97334 (cns5-2734); individual orbital motion is not modelled.",
+          "raw_astrometry": {
+            "ra_deg": 168.10555672848,
+            "dec_deg": 35.80289455668,
+            "parallax_mas": 42.900001525878906,
+            "parallax_error_mas": 1.1,
+            "pm_ra_cosdec_masyr": -236.3000030517578,
+            "pm_ra_error_masyr": 2.0999999046325684,
+            "pm_dec_masyr": -152.10000610351562,
+            "pm_dec_error_masyr": 2.0999999046325684,
+            "radial_velocity_kms": -4.28,
+            "radial_velocity_error_kms": 0.13,
+            "epoch": 2015.5,
+            "astrometry_ref": "2018A&A...616A...1G",
+            "radial_velocity_ref": "2010ApJ...723..684B"
+          },
+          "subtypes": [
+            "L-type"
+          ],
+          "known_planets": null,
+          "apparent_mag": null
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "GJ 417 C",
+        "systemId": "cns5-gj-417",
+        "component": "C",
+        "expectedType": "brown_dwarf",
+        "note": "Dupuy & Liu 2017 total-mass analysis: the mass and temperature are evolutionary-model inferences from the dynamical total mass (99.2 MJup), not direct individual measurements. Age is the shared system model age.",
+        "fields": {
+          "spectral_type": {
+            "value": "L6",
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "compiled",
+            "uncertaintySubtypes": 1.0
+          },
+          "temperature_k": {
+            "value": 1560,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 26,
+            "uncertaintyPlus": 29,
+            "uncertaintyKind": "1-sigma"
+          },
+          "luminosity_solar": {
+            "value": 6.0255958607435806e-05,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "derived-from-published-log",
+            "inputs": {
+              "log10LuminositySolar": -4.22,
+              "log10Uncertainty": 0.03
+            }
+          },
+          "mass_solar": {
+            "value": 0.04554,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertainty": 0.00181,
+            "uncertaintyKind": "1-sigma",
+            "inputs": {
+              "massJupiter": 47.7,
+              "massJupiterUncertainty": 1.9,
+              "jupiterToSolar": "IAU 2015 nominal, 1/1047.348644"
+            }
+          },
+          "age_gyr": {
+            "value": 0.49,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 0.04,
+            "uncertaintyPlus": 0.03,
+            "uncertaintyKind": "1-sigma",
+            "scope": "Gl 417 BC system age from the total-mass analysis."
+          }
+        },
+        "adopted": {
+          "spectral_type": {
+            "value": "L6",
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "compiled",
+            "uncertaintySubtypes": 1.0
+          },
+          "temperature_k": {
+            "value": 1560,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 26,
+            "uncertaintyPlus": 29,
+            "uncertaintyKind": "1-sigma"
+          },
+          "luminosity_solar": {
+            "value": 6.0255958607435806e-05,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "derived-from-published-log",
+            "inputs": {
+              "log10LuminositySolar": -4.22,
+              "log10Uncertainty": 0.03
+            }
+          },
+          "mass_solar": {
+            "value": 0.04554,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertainty": 0.00181,
+            "uncertaintyKind": "1-sigma",
+            "inputs": {
+              "massJupiter": 47.7,
+              "massJupiterUncertainty": 1.9,
+              "jupiterToSolar": "IAU 2015 nominal, 1/1047.348644"
+            }
+          },
+          "age_gyr": {
+            "value": 0.49,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 0.04,
+            "uncertaintyPlus": 0.03,
+            "uncertaintyKind": "1-sigma",
+            "scope": "Gl 417 BC system age from the total-mass analysis."
+          }
+        },
+        "retained": {}
+      },
+      "radius_solar": {
+        "field": "radius_solar",
+        "value": 0.1062682303,
+        "status": "derived",
+        "reference": "Stefan-Boltzmann scaling",
+        "inputs": {
+          "temperature_k": 1560.0,
+          "luminosity_solar": 6.0255958607435806e-05
+        }
+      },
+      "spectralSubtypes": {
+        "spectralType": "L6",
+        "labels": [
+          "L-type"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "cns5-3668": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-564",
+          "expectedComponents": {
+            "cns5-3667": "A",
+            "cns5-3668": "BC"
+          },
+          "parentStarId": "cns5-3668",
+          "expectedParentName": "HD 130948BC",
+          "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+          "sourceScope": "HD 130948BC catalog source; unresolved B+C brown dwarf contributions; not an individual B/C measurement",
+          "note": "HD 130948 BC is the resolved 0.13-arcsec L-dwarf pair POT 1BC with a 10.0-year dynamical orbit (Dupuy & Liu 2017; ORB6).",
+          "components": [
+            {
+              "starId": "cns5-3668",
+              "label": "B",
+              "name": "GJ 564 B",
+              "type": "brown_dwarf",
+              "designations": [],
+              "note": "HD 130948 B, the Dupuy & Liu primary, retaining the former BC selection ID."
+            },
+            {
+              "starId": "cns5-gj-564-c",
+              "label": "C",
+              "name": "GJ 564 C",
+              "type": "brown_dwarf",
+              "designations": [
+                "HD 130948C",
+                "GJ 564 C",
+                "WDS J14503+2355C"
+              ],
+              "note": "HD 130948 C, the Dupuy & Liu secondary."
+            }
+          ]
+        },
+        "component": "B"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": null,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": null,
+          "age_gyr": null,
+          "absolute_mag": null,
+          "epoch": 2000.0,
+          "x_pc": 6.937893203,
+          "y_pc": 4.465066098,
+          "z_pc": 16.235513283,
+          "vx_kms": 4.688451,
+          "vy_kms": 9.564574,
+          "vz_kms": -7.447044,
+          "type": "brown_dwarf",
+          "id": "cns5-3668",
+          "name": "HD 130948BC",
+          "spectral_type": "L4+L4",
+          "constellation": "Bootes",
+          "metallicity_kind": null,
+          "designations": [
+            "GJ 564 B",
+            "GJ 564 C",
+            "HD 130948B",
+            "HD 130948C",
+            "CNS5 3668",
+            "POT 1BC",
+            "WDS J14503+2355B",
+            "WDS J14503+2355C",
+            "HD 130948BC"
+          ],
+          "notes": "Corrected CNS5 3668; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Systemic space velocity of HD 130948 adopted from HD 130948 (cns5-3667); individual orbital motion is not modelled.",
+          "raw_astrometry": {
+            "ra_deg": 222.56667,
+            "dec_deg": 23.911611,
+            "parallax_mas": 54.90999984741211,
+            "parallax_error_mas": 0.07,
+            "pm_ra_cosdec_masyr": 144.5800018310547,
+            "pm_ra_error_masyr": 0.10999999940395355,
+            "pm_dec_masyr": 31.729999542236328,
+            "pm_dec_error_masyr": 0.12999999523162842,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "epoch": 1999.3,
+            "astrometry_ref": "2009AJ....137....1F; 2018A&A...616A...1G",
+            "radial_velocity_ref": null
+          },
+          "subtypes": [
+            "L-type"
+          ],
+          "known_planets": null,
+          "apparent_mag": null
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "GJ 564 B",
+        "systemId": "cns5-gj-564",
+        "component": "B",
+        "expectedType": "brown_dwarf",
+        "note": "Dupuy & Liu 2017 total-mass analysis: the mass and temperature are evolutionary-model inferences from the dynamical total mass (115.4 MJup), not direct individual measurements. Age is the shared system model age.",
+        "fields": {
+          "spectral_type": {
+            "value": "L4",
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "compiled",
+            "uncertaintySubtypes": 1.0
+          },
+          "temperature_k": {
+            "value": 1920,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 60,
+            "uncertaintyPlus": 70,
+            "uncertaintyKind": "1-sigma"
+          },
+          "luminosity_solar": {
+            "value": 0.0001412537544622754,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "derived-from-published-log",
+            "inputs": {
+              "log10LuminositySolar": -3.85,
+              "log10Uncertainty": 0.06
+            }
+          },
+          "mass_solar": {
+            "value": 0.0571,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 0.00201,
+            "uncertaintyPlus": 0.00191,
+            "uncertaintyKind": "1-sigma",
+            "inputs": {
+              "massJupiter": 59.8,
+              "massJupiterMinus": 2.1,
+              "massJupiterPlus": 2.0,
+              "jupiterToSolar": "IAU 2015 nominal, 1/1047.348644"
+            }
+          },
+          "age_gyr": {
+            "value": 0.44,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertainty": 0.04,
+            "uncertaintyKind": "1-sigma",
+            "scope": "HD 130948 BC system age from the total-mass analysis."
+          }
+        },
+        "adopted": {
+          "spectral_type": {
+            "value": "L4",
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "compiled",
+            "uncertaintySubtypes": 1.0
+          },
+          "temperature_k": {
+            "value": 1920,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 60,
+            "uncertaintyPlus": 70,
+            "uncertaintyKind": "1-sigma"
+          },
+          "luminosity_solar": {
+            "value": 0.0001412537544622754,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "derived-from-published-log",
+            "inputs": {
+              "log10LuminositySolar": -3.85,
+              "log10Uncertainty": 0.06
+            }
+          },
+          "mass_solar": {
+            "value": 0.0571,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 0.00201,
+            "uncertaintyPlus": 0.00191,
+            "uncertaintyKind": "1-sigma",
+            "inputs": {
+              "massJupiter": 59.8,
+              "massJupiterMinus": 2.1,
+              "massJupiterPlus": 2.0,
+              "jupiterToSolar": "IAU 2015 nominal, 1/1047.348644"
+            }
+          },
+          "age_gyr": {
+            "value": 0.44,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertainty": 0.04,
+            "uncertaintyKind": "1-sigma",
+            "scope": "HD 130948 BC system age from the total-mass analysis."
+          }
+        },
+        "retained": {}
+      },
+      "radius_solar": {
+        "field": "radius_solar",
+        "value": 0.1074113531,
+        "status": "derived",
+        "reference": "Stefan-Boltzmann scaling",
+        "inputs": {
+          "temperature_k": 1920.0,
+          "luminosity_solar": 0.0001412537544622754
+        }
+      },
+      "spectralSubtypes": {
+        "spectralType": "L4",
+        "labels": [
+          "L-type"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "cns5-gj-564-c": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-564",
+          "expectedComponents": {
+            "cns5-3667": "A",
+            "cns5-3668": "BC"
+          },
+          "parentStarId": "cns5-3668",
+          "expectedParentName": "HD 130948BC",
+          "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+          "sourceScope": "HD 130948BC catalog source; unresolved B+C brown dwarf contributions; not an individual B/C measurement",
+          "note": "HD 130948 BC is the resolved 0.13-arcsec L-dwarf pair POT 1BC with a 10.0-year dynamical orbit (Dupuy & Liu 2017; ORB6).",
+          "components": [
+            {
+              "starId": "cns5-3668",
+              "label": "B",
+              "name": "GJ 564 B",
+              "type": "brown_dwarf",
+              "designations": [],
+              "note": "HD 130948 B, the Dupuy & Liu primary, retaining the former BC selection ID."
+            },
+            {
+              "starId": "cns5-gj-564-c",
+              "label": "C",
+              "name": "GJ 564 C",
+              "type": "brown_dwarf",
+              "designations": [
+                "HD 130948C",
+                "GJ 564 C",
+                "WDS J14503+2355C"
+              ],
+              "note": "HD 130948 C, the Dupuy & Liu secondary."
+            }
+          ]
+        },
+        "component": "C"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": null,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": null,
+          "age_gyr": null,
+          "absolute_mag": null,
+          "epoch": 2000.0,
+          "x_pc": 6.937893203,
+          "y_pc": 4.465066098,
+          "z_pc": 16.235513283,
+          "vx_kms": 4.688451,
+          "vy_kms": 9.564574,
+          "vz_kms": -7.447044,
+          "type": "brown_dwarf",
+          "id": "cns5-3668",
+          "name": "HD 130948BC",
+          "spectral_type": "L4+L4",
+          "constellation": "Bootes",
+          "metallicity_kind": null,
+          "designations": [
+            "GJ 564 B",
+            "GJ 564 C",
+            "HD 130948B",
+            "HD 130948C",
+            "CNS5 3668",
+            "POT 1BC",
+            "WDS J14503+2355B",
+            "WDS J14503+2355C",
+            "HD 130948BC"
+          ],
+          "notes": "Corrected CNS5 3668; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Systemic space velocity of HD 130948 adopted from HD 130948 (cns5-3667); individual orbital motion is not modelled.",
+          "raw_astrometry": {
+            "ra_deg": 222.56667,
+            "dec_deg": 23.911611,
+            "parallax_mas": 54.90999984741211,
+            "parallax_error_mas": 0.07,
+            "pm_ra_cosdec_masyr": 144.5800018310547,
+            "pm_ra_error_masyr": 0.10999999940395355,
+            "pm_dec_masyr": 31.729999542236328,
+            "pm_dec_error_masyr": 0.12999999523162842,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "epoch": 1999.3,
+            "astrometry_ref": "2009AJ....137....1F; 2018A&A...616A...1G",
+            "radial_velocity_ref": null
+          },
+          "subtypes": [
+            "L-type"
+          ],
+          "known_planets": null,
+          "apparent_mag": null
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "GJ 564 C",
+        "systemId": "cns5-gj-564",
+        "component": "C",
+        "expectedType": "brown_dwarf",
+        "note": "Dupuy & Liu 2017 total-mass analysis: the mass and temperature are evolutionary-model inferences from the dynamical total mass (115.4 MJup), not direct individual measurements. Age is the shared system model age.",
+        "fields": {
+          "spectral_type": {
+            "value": "L4",
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "compiled",
+            "uncertaintySubtypes": 1.0
+          },
+          "temperature_k": {
+            "value": 1800,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 70,
+            "uncertaintyPlus": 50,
+            "uncertaintyKind": "1-sigma"
+          },
+          "luminosity_solar": {
+            "value": 0.00010964781961431851,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "derived-from-published-log",
+            "inputs": {
+              "log10LuminositySolar": -3.96,
+              "log10Uncertainty": 0.06
+            }
+          },
+          "mass_solar": {
+            "value": 0.05309,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 0.00181,
+            "uncertaintyPlus": 0.00191,
+            "uncertaintyKind": "1-sigma",
+            "inputs": {
+              "massJupiter": 55.6,
+              "massJupiterMinus": 1.9,
+              "massJupiterPlus": 2.0,
+              "jupiterToSolar": "IAU 2015 nominal, 1/1047.348644"
+            }
+          },
+          "age_gyr": {
+            "value": 0.44,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertainty": 0.04,
+            "uncertaintyKind": "1-sigma",
+            "scope": "HD 130948 BC system age from the total-mass analysis."
+          }
+        },
+        "adopted": {
+          "spectral_type": {
+            "value": "L4",
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "compiled",
+            "uncertaintySubtypes": 1.0
+          },
+          "temperature_k": {
+            "value": 1800,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 70,
+            "uncertaintyPlus": 50,
+            "uncertaintyKind": "1-sigma"
+          },
+          "luminosity_solar": {
+            "value": 0.00010964781961431851,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "derived-from-published-log",
+            "inputs": {
+              "log10LuminositySolar": -3.96,
+              "log10Uncertainty": 0.06
+            }
+          },
+          "mass_solar": {
+            "value": 0.05309,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertaintyMinus": 0.00181,
+            "uncertaintyPlus": 0.00191,
+            "uncertaintyKind": "1-sigma",
+            "inputs": {
+              "massJupiter": 55.6,
+              "massJupiterMinus": 1.9,
+              "massJupiterPlus": 2.0,
+              "jupiterToSolar": "IAU 2015 nominal, 1/1047.348644"
+            }
+          },
+          "age_gyr": {
+            "value": 0.44,
+            "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D",
+            "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+            "section": "Table 41",
+            "status": "evolutionary-model",
+            "uncertainty": 0.04,
+            "uncertaintyKind": "1-sigma",
+            "scope": "HD 130948 BC system age from the total-mass analysis."
+          }
+        },
+        "retained": {}
+      },
+      "radius_solar": {
+        "field": "radius_solar",
+        "value": 0.1076732036,
+        "status": "derived",
+        "reference": "Stefan-Boltzmann scaling",
+        "inputs": {
+          "temperature_k": 1800.0,
+          "luminosity_solar": 0.00010964781961431851
+        }
+      },
+      "spectralSubtypes": {
+        "spectralType": "L4",
+        "labels": [
+          "L-type"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "cns5-3797": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-584",
+          "expectedComponents": {
+            "cns5-3797": "AB",
+            "cns5-3798": "C"
+          },
+          "parentStarId": "cns5-3797",
+          "expectedParentName": "Eta CrB",
+          "sourceUrl": "https://arxiv.org/html/1010.4043v1",
+          "sourceScope": "Eta CrB (GJ 584 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+          "note": "Eta CrB A/B is the 41.6-year visual and double-lined pair STF 1937AB with a combined PHASES/CORAVEL orbit (Muterspaugh et al. 2010; ORB6; MSC V,S2,a).",
+          "components": [
+            {
+              "starId": "cns5-3797",
+              "label": "A",
+              "name": "Eta CrB A",
+              "designations": [
+                "WDS J15232+3017A"
+              ],
+              "note": "HD 137107 A (PHASES M1), retaining the former AB selection ID."
+            },
+            {
+              "starId": "cns5-gj-584-b",
+              "label": "B",
+              "name": "Eta CrB B",
+              "designations": [
+                "HR 5728",
+                "HD 137108",
+                "WDS J15232+3017B"
+              ],
+              "note": "HD 137107 B = HD 137108 = HR 5728 (PHASES M2)."
+            }
+          ]
+        },
+        "component": "A"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 5961.0,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": -0.04,
+          "age_gyr": null,
+          "absolute_mag": 3.720164,
+          "epoch": 2000.0,
+          "x_pc": 6.616903388,
+          "y_pc": 7.230249569,
+          "z_pc": 14.934708855,
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null,
+          "type": "star",
+          "id": "cns5-3797",
+          "name": "Eta CrB",
+          "spectral_type": "G2V+G2V",
+          "constellation": "Corona Borealis",
+          "metallicity_kind": "[Fe/H]",
+          "designations": [
+            "GJ 584",
+            "HIP 75312",
+            "1E 1521.1+3027",
+            "1E 1521.2+3027",
+            "1RXS J152312.1+301719",
+            "2 CrB",
+            "2E 1521.1+3027",
+            "2E 3430",
+            "2MASS J15231232+3017162",
+            "[TSA98] J152313.28+301714.13",
+            "[ZEH2003] RX J1523.2+3017 1",
+            "ADS 9617 AB",
+            "AG+30 1425",
+            "AKARI-IRC-V1 J1523124+301715",
+            "ASCC 592532",
+            "BD+30 2653",
+            "CCDM J15233+3018AB",
+            "CNS5 3797",
+            "CSI+30 2653 1",
+            "Eta Coronae Borealis",
+            "Gaia DR3 1276781047094217216",
+            "GC 20696",
+            "GCRV 8909",
+            "GEN# +1.00137107",
+            "HIC 75312",
+            "HR 5727",
+            "HR 5728",
+            "IDS 15191+3039 AB",
+            "IRAS 15211+3027",
+            "KIR 4AB",
+            "LSPM J1523+3017",
+            "LTT 14581",
+            "N30 3466",
+            "NLTT 40103",
+            "NSV 7054",
+            "PPM 78550",
+            "RX J1523.2+3017",
+            "SAO 64673",
+            "SBC7 542",
+            "SBC9 842",
+            "STF 1937AB",
+            "TD1 18202",
+            "TIC 284292958",
+            "UBV 13243",
+            "UCAC4 602-052462",
+            "USNO-B1.0 1202-00232620",
+            "uvby98 100137107",
+            "WDS J15232+3017AB",
+            "WISE J152312.46+301714.8",
+            "Eta CrB"
+          ],
+          "notes": "Corrected CNS5 3797; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Shared exact-identity physical supplements (temperature_k: 2022A&A...663A...4S; metallicity_dex: 2022A&A...663A...4S).",
+          "raw_astrometry": {
+            "ra_deg": 230.8009434550569,
+            "dec_deg": 30.2882415507534,
+            "parallax_mas": 55.97999954223633,
+            "parallax_error_mas": 0.78,
+            "pm_ra_cosdec_masyr": 116.83,
+            "pm_ra_error_masyr": 0.4000000059604645,
+            "pm_dec_masyr": -171.37,
+            "pm_dec_error_masyr": 0.49000000953674316,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "epoch": 1991.25,
+            "astrometry_ref": "2007A&A...474..653V",
+            "radial_velocity_ref": null
+          },
+          "subtypes": [],
+          "known_planets": null,
+          "apparent_mag": 4.979999547
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "Eta CrB A",
+        "systemId": "cns5-gj-584",
+        "component": "A",
+        "note": "Dynamical mass from the combined visual/double-lined orbit at its orbit-derived distance of 18.50 +/- 0.22 pc. Component V from the MSC STF 1937AB subsystem. The catalog composite G2V+G2V and the MSC G0V/G3V classes disagree, so no component class is adopted.",
+        "fields": {
+          "mass_solar": {
+            "value": 1.243,
+            "reference": "Muterspaugh et al. 2010; 2010AJ....140.1623M",
+            "sourceUrl": "https://arxiv.org/html/1010.4043v1",
+            "section": "Table 6; Section IV.3.1",
+            "status": "dynamical",
+            "uncertainty": 0.054,
+            "uncertaintyKind": "1-sigma"
+          },
+          "apparent_mag": {
+            "value": 5.64,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 15232+3017 A,B Vmag1",
+            "status": "compiled-catalog"
+          }
+        },
+        "adopted": {
+          "mass_solar": {
+            "value": 1.243,
+            "reference": "Muterspaugh et al. 2010; 2010AJ....140.1623M",
+            "sourceUrl": "https://arxiv.org/html/1010.4043v1",
+            "section": "Table 6; Section IV.3.1",
+            "status": "dynamical",
+            "uncertainty": 0.054,
+            "uncertaintyKind": "1-sigma"
+          },
+          "apparent_mag": {
+            "value": 5.64,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 15232+3017 A,B Vmag1",
+            "status": "compiled-catalog"
+          },
+          "absolute_mag": {
+            "value": 4.380164453,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 5.64,
+              "distance_pc": 17.863522829
+            }
+          }
+        },
+        "retained": {}
+      }
+    },
+    "cns5-gj-584-b": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-584",
+          "expectedComponents": {
+            "cns5-3797": "AB",
+            "cns5-3798": "C"
+          },
+          "parentStarId": "cns5-3797",
+          "expectedParentName": "Eta CrB",
+          "sourceUrl": "https://arxiv.org/html/1010.4043v1",
+          "sourceScope": "Eta CrB (GJ 584 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+          "note": "Eta CrB A/B is the 41.6-year visual and double-lined pair STF 1937AB with a combined PHASES/CORAVEL orbit (Muterspaugh et al. 2010; ORB6; MSC V,S2,a).",
+          "components": [
+            {
+              "starId": "cns5-3797",
+              "label": "A",
+              "name": "Eta CrB A",
+              "designations": [
+                "WDS J15232+3017A"
+              ],
+              "note": "HD 137107 A (PHASES M1), retaining the former AB selection ID."
+            },
+            {
+              "starId": "cns5-gj-584-b",
+              "label": "B",
+              "name": "Eta CrB B",
+              "designations": [
+                "HR 5728",
+                "HD 137108",
+                "WDS J15232+3017B"
+              ],
+              "note": "HD 137107 B = HD 137108 = HR 5728 (PHASES M2)."
+            }
+          ]
+        },
+        "component": "B"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 5961.0,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": -0.04,
+          "age_gyr": null,
+          "absolute_mag": 3.720164,
+          "epoch": 2000.0,
+          "x_pc": 6.616903388,
+          "y_pc": 7.230249569,
+          "z_pc": 14.934708855,
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null,
+          "type": "star",
+          "id": "cns5-3797",
+          "name": "Eta CrB",
+          "spectral_type": "G2V+G2V",
+          "constellation": "Corona Borealis",
+          "metallicity_kind": "[Fe/H]",
+          "designations": [
+            "GJ 584",
+            "HIP 75312",
+            "1E 1521.1+3027",
+            "1E 1521.2+3027",
+            "1RXS J152312.1+301719",
+            "2 CrB",
+            "2E 1521.1+3027",
+            "2E 3430",
+            "2MASS J15231232+3017162",
+            "[TSA98] J152313.28+301714.13",
+            "[ZEH2003] RX J1523.2+3017 1",
+            "ADS 9617 AB",
+            "AG+30 1425",
+            "AKARI-IRC-V1 J1523124+301715",
+            "ASCC 592532",
+            "BD+30 2653",
+            "CCDM J15233+3018AB",
+            "CNS5 3797",
+            "CSI+30 2653 1",
+            "Eta Coronae Borealis",
+            "Gaia DR3 1276781047094217216",
+            "GC 20696",
+            "GCRV 8909",
+            "GEN# +1.00137107",
+            "HIC 75312",
+            "HR 5727",
+            "HR 5728",
+            "IDS 15191+3039 AB",
+            "IRAS 15211+3027",
+            "KIR 4AB",
+            "LSPM J1523+3017",
+            "LTT 14581",
+            "N30 3466",
+            "NLTT 40103",
+            "NSV 7054",
+            "PPM 78550",
+            "RX J1523.2+3017",
+            "SAO 64673",
+            "SBC7 542",
+            "SBC9 842",
+            "STF 1937AB",
+            "TD1 18202",
+            "TIC 284292958",
+            "UBV 13243",
+            "UCAC4 602-052462",
+            "USNO-B1.0 1202-00232620",
+            "uvby98 100137107",
+            "WDS J15232+3017AB",
+            "WISE J152312.46+301714.8",
+            "Eta CrB"
+          ],
+          "notes": "Corrected CNS5 3797; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Shared exact-identity physical supplements (temperature_k: 2022A&A...663A...4S; metallicity_dex: 2022A&A...663A...4S).",
+          "raw_astrometry": {
+            "ra_deg": 230.8009434550569,
+            "dec_deg": 30.2882415507534,
+            "parallax_mas": 55.97999954223633,
+            "parallax_error_mas": 0.78,
+            "pm_ra_cosdec_masyr": 116.83,
+            "pm_ra_error_masyr": 0.4000000059604645,
+            "pm_dec_masyr": -171.37,
+            "pm_dec_error_masyr": 0.49000000953674316,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "epoch": 1991.25,
+            "astrometry_ref": "2007A&A...474..653V",
+            "radial_velocity_ref": null
+          },
+          "subtypes": [],
+          "known_planets": null,
+          "apparent_mag": 4.979999547
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "Eta CrB B",
+        "systemId": "cns5-gj-584",
+        "component": "B",
+        "note": "Dynamical mass from the combined visual/double-lined orbit at its orbit-derived distance of 18.50 +/- 0.22 pc. Component V from the MSC STF 1937AB subsystem. The catalog composite G2V+G2V and the MSC G0V/G3V classes disagree, so no component class is adopted.",
+        "fields": {
+          "mass_solar": {
+            "value": 1.1,
+            "reference": "Muterspaugh et al. 2010; 2010AJ....140.1623M",
+            "sourceUrl": "https://arxiv.org/html/1010.4043v1",
+            "section": "Table 6; Section IV.3.1",
+            "status": "dynamical",
+            "uncertainty": 0.039,
+            "uncertaintyKind": "1-sigma"
+          },
+          "apparent_mag": {
+            "value": 5.95,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 15232+3017 A,B Vmag2",
+            "status": "compiled-catalog"
+          }
+        },
+        "adopted": {
+          "mass_solar": {
+            "value": 1.1,
+            "reference": "Muterspaugh et al. 2010; 2010AJ....140.1623M",
+            "sourceUrl": "https://arxiv.org/html/1010.4043v1",
+            "section": "Table 6; Section IV.3.1",
+            "status": "dynamical",
+            "uncertainty": 0.039,
+            "uncertaintyKind": "1-sigma"
+          },
+          "apparent_mag": {
+            "value": 5.95,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 15232+3017 A,B Vmag2",
+            "status": "compiled-catalog"
+          },
+          "absolute_mag": {
+            "value": 4.690164453,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 5.95,
+              "distance_pc": 17.863522829
+            }
+          }
+        },
+        "retained": {}
+      }
+    },
+    "cns5-4332": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-684",
+          "expectedComponents": {
+            "cns5-4332": "AB",
+            "cns5-4338": "C"
+          },
+          "parentStarId": "cns5-4332",
+          "expectedParentName": "26 Dra",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "sourceScope": "26 Dra (GJ 684 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+          "note": "26 Dra A/B is the 76-year visual pair BU 962AB, also SB9 2557 (ORB6; MSC V,S1,a).",
+          "components": [
+            {
+              "starId": "cns5-4332",
+              "label": "A",
+              "name": "26 Dra A",
+              "designations": [],
+              "note": "BU 962 A, retaining the former AB selection ID."
+            },
+            {
+              "starId": "cns5-gj-684-b",
+              "label": "B",
+              "name": "26 Dra B",
+              "designations": [
+                "WDS J17350+6153B"
+              ],
+              "note": "BU 962 B; its MSC spectral type K5? is uncertain and withheld."
+            }
+          ]
+        },
+        "component": "A"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 5921.0,
+          "mass_solar": null,
+          "luminosity_solar": 1.4839954,
+          "radius_solar": 1.157654062,
+          "metallicity_dex": -0.04,
+          "age_gyr": null,
+          "absolute_mag": 4.413102,
+          "epoch": 2000.0,
+          "x_pc": -0.210618808,
+          "y_pc": 12.151205991,
+          "z_pc": 7.786996382,
+          "vx_kms": 32.741044,
+          "vy_kms": -4.508926,
+          "vz_kms": -20.536859,
+          "type": "star",
+          "id": "cns5-4332",
+          "name": "26 Dra",
+          "spectral_type": "G0V",
+          "constellation": "Draco",
+          "metallicity_kind": "[Fe/H]",
+          "designations": [
+            "GJ 684 A",
+            "HD 160269",
+            "HD 160269A",
+            "HIP 86036",
+            "1E 1734.4+6154",
+            "1RXS J173458.8+615227",
+            "26 Dra A",
+            "2MASS J17345954+6152290",
+            "2RE J1734+615",
+            "2RE J173453+615238",
+            "[ZEH2003] RX J1734.9+6152 1",
+            "ADS 10660 A",
+            "AG+61 1002",
+            "AKARI-IRC-V1 J1734598+615226",
+            "ASCC 135576",
+            "BD+61 1678",
+            "BD+61 1678A",
+            "BU 962A",
+            "CCDM J17351+6152A",
+            "Ci 20 1049",
+            "CNS5 4332",
+            "CSI+61 1678 1",
+            "CSI+61 1678 2",
+            "EUVE J1734+61.8",
+            "Gaia DR2 1439121018358632832",
+            "Gaia DR3 1439121018358632832",
+            "GC 23874",
+            "GCRV 10172",
+            "GEN# +1.00160269",
+            "GSC 04199-01513",
+            "HIC 86036",
+            "HR 6573",
+            "IDS 17340+6157 A",
+            "IRAS 17344+6154",
+            "LDS 2736A",
+            "LFT 1360",
+            "LHS 3305",
+            "LSPM J1734+6152",
+            "LTT 15223",
+            "NLTT 45144",
+            "PLX 4013",
+            "PMSC 17340+6157A",
+            "PPM 20453",
+            "RBS 1655",
+            "ROT 2474",
+            "RX J1734.9+6152",
+            "SAO 17546",
+            "SBC9 2557",
+            "SKY# 31752",
+            "TD1 20755",
+            "TIC 219777482",
+            "TYC 4199-1513-1",
+            "UBV 15012",
+            "uvby98 100160269",
+            "WDS J17350+6153A",
+            "WEB 14517",
+            "WISE J173459.93+615223.5",
+            "WISEA J173459.99+615223.5",
+            "26 Dra"
+          ],
+          "notes": "Corrected CNS5 4332; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2022A&A...663A...4S; metallicity_dex: 2022A&A...663A...4S). radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
+          "raw_astrometry": {
+            "ra_deg": 263.75066378504704,
+            "dec_deg": 61.872440036356195,
+            "parallax_mas": 69.28321399452818,
+            "parallax_error_mas": 0.22952616,
+            "pm_ra_cosdec_masyr": 236.2468919044787,
+            "pm_ra_error_masyr": 0.22603757679462433,
+            "pm_dec_masyr": -466.1107418907421,
+            "pm_dec_error_masyr": 0.24580755829811096,
+            "radial_velocity_kms": -15.351804733276367,
+            "radial_velocity_error_kms": 0.3214021325111389,
+            "epoch": 2016.0,
+            "astrometry_ref": "2020yCat.1350....0G",
+            "radial_velocity_ref": "2020yCat.1350....0G"
+          },
+          "subtypes": [
+            "Main-sequence"
+          ],
+          "known_planets": null,
+          "apparent_mag": 5.209999671
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "26 Dra A",
+        "systemId": "cns5-gj-684",
+        "component": "A",
+        "note": "Component V and class from the MSC BU 962AB subsystem; the class agrees with the retained catalog G0V. Temperature and [Fe/H] belong to the SIMBAD identity * 26 Dra, whose aliases name only component A; a seeing-limited spectrum may include light from B, 1.5 arcsec away and 3.3 mag fainter in V.",
+        "fields": {
+          "apparent_mag": {
+            "value": 5.28,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 17350+6153 A,B Vmag1",
+            "status": "compiled-catalog"
+          },
+          "spectral_type": {
+            "value": "G0V",
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 17350+6153 A,B SP1",
+            "status": "compiled-catalog"
+          },
+          "temperature_k": {
+            "value": 5921,
+            "reference": "2022A&A...663A...4S",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+26+Dra",
+            "section": "Frozen SIMBAD mesFe_H, main_id * 26 Dra, mespos 1",
+            "status": "spectroscopic"
+          },
+          "metallicity_dex": {
+            "value": -0.04,
+            "quantity": "[Fe/H]",
+            "reference": "2022A&A...663A...4S",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+26+Dra",
+            "section": "Frozen SIMBAD mesFe_H, main_id * 26 Dra, mespos 1",
+            "status": "spectroscopic"
+          }
+        },
+        "adopted": {
+          "apparent_mag": {
+            "value": 5.28,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 17350+6153 A,B Vmag1",
+            "status": "compiled-catalog"
+          },
+          "spectral_type": {
+            "value": "G0V",
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 17350+6153 A,B SP1",
+            "status": "compiled-catalog"
+          },
+          "temperature_k": {
+            "value": 5921,
+            "reference": "2022A&A...663A...4S",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+26+Dra",
+            "section": "Frozen SIMBAD mesFe_H, main_id * 26 Dra, mespos 1",
+            "status": "spectroscopic"
+          },
+          "metallicity_dex": {
+            "value": -0.04,
+            "quantity": "[Fe/H]",
+            "reference": "2022A&A...663A...4S",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+26+Dra",
+            "section": "Frozen SIMBAD mesFe_H, main_id * 26 Dra, mespos 1",
+            "status": "spectroscopic"
+          },
+          "absolute_mag": {
+            "value": 4.483102329,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 5.28,
+              "distance_pc": 14.433761809
+            }
+          }
+        },
+        "retained": {}
+      },
+      "spectralSubtypes": {
+        "spectralType": "G0V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "cns5-gj-684-b": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-684",
+          "expectedComponents": {
+            "cns5-4332": "AB",
+            "cns5-4338": "C"
+          },
+          "parentStarId": "cns5-4332",
+          "expectedParentName": "26 Dra",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "sourceScope": "26 Dra (GJ 684 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+          "note": "26 Dra A/B is the 76-year visual pair BU 962AB, also SB9 2557 (ORB6; MSC V,S1,a).",
+          "components": [
+            {
+              "starId": "cns5-4332",
+              "label": "A",
+              "name": "26 Dra A",
+              "designations": [],
+              "note": "BU 962 A, retaining the former AB selection ID."
+            },
+            {
+              "starId": "cns5-gj-684-b",
+              "label": "B",
+              "name": "26 Dra B",
+              "designations": [
+                "WDS J17350+6153B"
+              ],
+              "note": "BU 962 B; its MSC spectral type K5? is uncertain and withheld."
+            }
+          ]
+        },
+        "component": "B"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 5921.0,
+          "mass_solar": null,
+          "luminosity_solar": 1.4839954,
+          "radius_solar": 1.157654062,
+          "metallicity_dex": -0.04,
+          "age_gyr": null,
+          "absolute_mag": 4.413102,
+          "epoch": 2000.0,
+          "x_pc": -0.210618808,
+          "y_pc": 12.151205991,
+          "z_pc": 7.786996382,
+          "vx_kms": 32.741044,
+          "vy_kms": -4.508926,
+          "vz_kms": -20.536859,
+          "type": "star",
+          "id": "cns5-4332",
+          "name": "26 Dra",
+          "spectral_type": "G0V",
+          "constellation": "Draco",
+          "metallicity_kind": "[Fe/H]",
+          "designations": [
+            "GJ 684 A",
+            "HD 160269",
+            "HD 160269A",
+            "HIP 86036",
+            "1E 1734.4+6154",
+            "1RXS J173458.8+615227",
+            "26 Dra A",
+            "2MASS J17345954+6152290",
+            "2RE J1734+615",
+            "2RE J173453+615238",
+            "[ZEH2003] RX J1734.9+6152 1",
+            "ADS 10660 A",
+            "AG+61 1002",
+            "AKARI-IRC-V1 J1734598+615226",
+            "ASCC 135576",
+            "BD+61 1678",
+            "BD+61 1678A",
+            "BU 962A",
+            "CCDM J17351+6152A",
+            "Ci 20 1049",
+            "CNS5 4332",
+            "CSI+61 1678 1",
+            "CSI+61 1678 2",
+            "EUVE J1734+61.8",
+            "Gaia DR2 1439121018358632832",
+            "Gaia DR3 1439121018358632832",
+            "GC 23874",
+            "GCRV 10172",
+            "GEN# +1.00160269",
+            "GSC 04199-01513",
+            "HIC 86036",
+            "HR 6573",
+            "IDS 17340+6157 A",
+            "IRAS 17344+6154",
+            "LDS 2736A",
+            "LFT 1360",
+            "LHS 3305",
+            "LSPM J1734+6152",
+            "LTT 15223",
+            "NLTT 45144",
+            "PLX 4013",
+            "PMSC 17340+6157A",
+            "PPM 20453",
+            "RBS 1655",
+            "ROT 2474",
+            "RX J1734.9+6152",
+            "SAO 17546",
+            "SBC9 2557",
+            "SKY# 31752",
+            "TD1 20755",
+            "TIC 219777482",
+            "TYC 4199-1513-1",
+            "UBV 15012",
+            "uvby98 100160269",
+            "WDS J17350+6153A",
+            "WEB 14517",
+            "WISE J173459.93+615223.5",
+            "WISEA J173459.99+615223.5",
+            "26 Dra"
+          ],
+          "notes": "Corrected CNS5 4332; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2022A&A...663A...4S; metallicity_dex: 2022A&A...663A...4S). radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
+          "raw_astrometry": {
+            "ra_deg": 263.75066378504704,
+            "dec_deg": 61.872440036356195,
+            "parallax_mas": 69.28321399452818,
+            "parallax_error_mas": 0.22952616,
+            "pm_ra_cosdec_masyr": 236.2468919044787,
+            "pm_ra_error_masyr": 0.22603757679462433,
+            "pm_dec_masyr": -466.1107418907421,
+            "pm_dec_error_masyr": 0.24580755829811096,
+            "radial_velocity_kms": -15.351804733276367,
+            "radial_velocity_error_kms": 0.3214021325111389,
+            "epoch": 2016.0,
+            "astrometry_ref": "2020yCat.1350....0G",
+            "radial_velocity_ref": "2020yCat.1350....0G"
+          },
+          "subtypes": [
+            "Main-sequence"
+          ],
+          "known_planets": null,
+          "apparent_mag": 5.209999671
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "26 Dra B",
+        "systemId": "cns5-gj-684",
+        "component": "B",
+        "note": "Component V from the MSC BU 962AB subsystem. Its uncertain K5? class is withheld.",
+        "fields": {
+          "apparent_mag": {
+            "value": 8.54,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 17350+6153 A,B Vmag2",
+            "status": "compiled-catalog"
+          }
+        },
+        "adopted": {
+          "apparent_mag": {
+            "value": 8.54,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 17350+6153 A,B Vmag2",
+            "status": "compiled-catalog"
+          },
+          "absolute_mag": {
+            "value": 7.743102329,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 8.54,
+              "distance_pc": 14.433761809
+            }
+          }
+        },
+        "retained": {}
+      }
+    },
+    "cns5-1023": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-161.1",
+          "expectedComponents": {
+            "cns5-1027": "E",
+            "cns5-1023": "AB"
+          },
+          "parentStarId": "cns5-1023",
+          "expectedParentName": "HD 25893A",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "sourceScope": "HD 25893A catalog source; CNS5 AB scope with unresolved B contribution; not an individual B measurement",
+          "note": "HD 25893 A/B is the 3.9-arcsec visual pair STT 531AB (ORB6; MSC V). MSC lists B as the 0.19-arcsec equal pair Ba,Bb (Horch et al. 2021); the B record is that unresolved subsystem.",
+          "components": [
+            {
+              "starId": "cns5-1023",
+              "label": "A",
+              "name": "HD 25893A",
+              "designations": [],
+              "note": "STT 531 A; the record's Gaia DR3 source is this component."
+            },
+            {
+              "starId": "cns5-gj-161.1-b",
+              "label": "B",
+              "name": "HD 25893B",
+              "designations": [
+                "WDS J04076+3804B"
+              ],
+              "note": "STT 531 B, the unresolved Ba+Bb subsystem; position and motion shared from A."
+            }
+          ]
+        },
+        "component": "A"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 5000.0,
+          "mass_solar": null,
+          "luminosity_solar": 0.53191113,
+          "radius_solar": 0.9719237061,
+          "metallicity_dex": -0.06,
+          "age_gyr": null,
+          "absolute_mag": 5.607172,
+          "epoch": 2000.0,
+          "x_pc": -19.53482674,
+          "y_pc": 7.073629243,
+          "z_pc": -3.76098623,
+          "vx_kms": -32.234792,
+          "vy_kms": -15.981755,
+          "vz_kms": -7.902509,
+          "type": "star",
+          "id": "cns5-1023",
+          "name": "HD 25893A",
+          "spectral_type": null,
+          "constellation": "Perseus",
+          "metallicity_kind": "[Fe/H]",
+          "designations": [
+            "HD 25893A",
+            "ADS 2995 A",
+            "BD+37 878A",
+            "CCDM J04075+3803A",
+            "CNS5 1023",
+            "CSI+37 878 3",
+            "G 39-1A",
+            "Gaia DR2 225709641034907264",
+            "Gaia DR3 225709641034907264",
+            "IDS 04009+3749 A",
+            "LSPM J0407+3804W",
+            "LTT 11346",
+            "NLTT 12566",
+            "PMSC 04019+3746A",
+            "STT 531A",
+            "TIC 664915372",
+            "TYC 2877-247-1",
+            "WDS J04076+3804A",
+            "GJ 160.1 A"
+          ],
+          "notes": "Corrected CNS5 1023; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2022A&A...663A...4S; metallicity_dex: 2022A&A...663A...4S). radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Systemic space velocity of 50 Per adopted from 50 Per (cns5-1027); individual orbital motion is not modelled.",
+          "raw_astrometry": {
+            "ra_deg": 61.894149126044205,
+            "dec_deg": 38.073549604931806,
+            "parallax_mas": 47.36147111219601,
+            "parallax_error_mas": 0.025694598,
+            "pm_ra_cosdec_masyr": 176.89752816022292,
+            "pm_ra_error_masyr": 0.025304323062300682,
+            "pm_dec_masyr": -222.7120904239128,
+            "pm_dec_error_masyr": 0.018144210800528526,
+            "radial_velocity_kms": 27.670642852783203,
+            "radial_velocity_error_kms": 0.14588923752307892,
+            "epoch": 2016.0,
+            "astrometry_ref": "2020yCat.1350....0G",
+            "radial_velocity_ref": "2020yCat.1350....0G"
+          },
+          "subtypes": [],
+          "known_planets": null,
+          "apparent_mag": 7.22999952
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "HD 25893A",
+        "systemId": "cns5-gj-161.1",
+        "component": "A",
+        "note": "Component V and class from the MSC STT 531AB subsystem. Temperature, [Fe/H] and the Gaia FLAME luminosity belong to the identities of HD 25893A alone (SIMBAD HD 25893A; Gaia DR3 225709641034907264), resolved 3.9 arcsec from B.",
+        "fields": {
+          "apparent_mag": {
+            "value": 7.32,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 04076+3804 A,B Vmag1",
+            "status": "compiled-catalog"
+          },
+          "spectral_type": {
+            "value": "G9V",
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 04076+3804 A,B SP1",
+            "status": "compiled-catalog"
+          },
+          "temperature_k": {
+            "value": 5000,
+            "reference": "2022A&A...663A...4S",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=HD+25893A",
+            "section": "Frozen SIMBAD mesFe_H, main_id HD 25893A, mespos 1",
+            "status": "spectroscopic"
+          },
+          "metallicity_dex": {
+            "value": -0.06,
+            "quantity": "[Fe/H]",
+            "reference": "2022A&A...663A...4S",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=HD+25893A",
+            "section": "Frozen SIMBAD mesFe_H, main_id HD 25893A, mespos 1",
+            "status": "spectroscopic"
+          },
+          "luminosity_solar": {
+            "value": 0.53191113,
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "sourceUrl": "https://gea.esac.esa.int/archive/",
+            "section": "Frozen Gaia DR3 lum_flame, source_id 225709641034907264",
+            "status": "model-derived",
+            "uncertaintyMinus": 0.00502933,
+            "uncertaintyPlus": 0.0050236,
+            "uncertaintyKind": "16th-84th-percentile",
+            "inputs": {
+              "flameFlags": "20"
+            }
+          }
+        },
+        "adopted": {
+          "apparent_mag": {
+            "value": 7.32,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 04076+3804 A,B Vmag1",
+            "status": "compiled-catalog"
+          },
+          "spectral_type": {
+            "value": "G9V",
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 04076+3804 A,B SP1",
+            "status": "compiled-catalog"
+          },
+          "temperature_k": {
+            "value": 5000,
+            "reference": "2022A&A...663A...4S",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=HD+25893A",
+            "section": "Frozen SIMBAD mesFe_H, main_id HD 25893A, mespos 1",
+            "status": "spectroscopic"
+          },
+          "metallicity_dex": {
+            "value": -0.06,
+            "quantity": "[Fe/H]",
+            "reference": "2022A&A...663A...4S",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=HD+25893A",
+            "section": "Frozen SIMBAD mesFe_H, main_id HD 25893A, mespos 1",
+            "status": "spectroscopic"
+          },
+          "luminosity_solar": {
+            "value": 0.53191113,
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "sourceUrl": "https://gea.esac.esa.int/archive/",
+            "section": "Frozen Gaia DR3 lum_flame, source_id 225709641034907264",
+            "status": "model-derived",
+            "uncertaintyMinus": 0.00502933,
+            "uncertaintyPlus": 0.0050236,
+            "uncertaintyKind": "16th-84th-percentile",
+            "inputs": {
+              "flameFlags": "20"
+            }
+          },
+          "absolute_mag": {
+            "value": 5.69717248,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 7.32,
+              "distance_pc": 21.113756271
+            }
+          }
+        },
+        "retained": {}
+      },
+      "radius_solar": {
+        "field": "radius_solar",
+        "value": 0.9719237061,
+        "status": "derived",
+        "reference": "Stefan-Boltzmann scaling",
+        "inputs": {
+          "temperature_k": 5000.0,
+          "luminosity_solar": 0.53191113
+        }
+      },
+      "spectralSubtypes": {
+        "spectralType": "G9V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "cns5-gj-161.1-b": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-161.1",
+          "expectedComponents": {
+            "cns5-1027": "E",
+            "cns5-1023": "AB"
+          },
+          "parentStarId": "cns5-1023",
+          "expectedParentName": "HD 25893A",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "sourceScope": "HD 25893A catalog source; CNS5 AB scope with unresolved B contribution; not an individual B measurement",
+          "note": "HD 25893 A/B is the 3.9-arcsec visual pair STT 531AB (ORB6; MSC V). MSC lists B as the 0.19-arcsec equal pair Ba,Bb (Horch et al. 2021); the B record is that unresolved subsystem.",
+          "components": [
+            {
+              "starId": "cns5-1023",
+              "label": "A",
+              "name": "HD 25893A",
+              "designations": [],
+              "note": "STT 531 A; the record's Gaia DR3 source is this component."
+            },
+            {
+              "starId": "cns5-gj-161.1-b",
+              "label": "B",
+              "name": "HD 25893B",
+              "designations": [
+                "WDS J04076+3804B"
+              ],
+              "note": "STT 531 B, the unresolved Ba+Bb subsystem; position and motion shared from A."
+            }
+          ]
+        },
+        "component": "B"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 5000.0,
+          "mass_solar": null,
+          "luminosity_solar": 0.53191113,
+          "radius_solar": 0.9719237061,
+          "metallicity_dex": -0.06,
+          "age_gyr": null,
+          "absolute_mag": 5.607172,
+          "epoch": 2000.0,
+          "x_pc": -19.53482674,
+          "y_pc": 7.073629243,
+          "z_pc": -3.76098623,
+          "vx_kms": -32.234792,
+          "vy_kms": -15.981755,
+          "vz_kms": -7.902509,
+          "type": "star",
+          "id": "cns5-1023",
+          "name": "HD 25893A",
+          "spectral_type": null,
+          "constellation": "Perseus",
+          "metallicity_kind": "[Fe/H]",
+          "designations": [
+            "HD 25893A",
+            "ADS 2995 A",
+            "BD+37 878A",
+            "CCDM J04075+3803A",
+            "CNS5 1023",
+            "CSI+37 878 3",
+            "G 39-1A",
+            "Gaia DR2 225709641034907264",
+            "Gaia DR3 225709641034907264",
+            "IDS 04009+3749 A",
+            "LSPM J0407+3804W",
+            "LTT 11346",
+            "NLTT 12566",
+            "PMSC 04019+3746A",
+            "STT 531A",
+            "TIC 664915372",
+            "TYC 2877-247-1",
+            "WDS J04076+3804A",
+            "GJ 160.1 A"
+          ],
+          "notes": "Corrected CNS5 1023; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2022A&A...663A...4S; metallicity_dex: 2022A&A...663A...4S). radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Systemic space velocity of 50 Per adopted from 50 Per (cns5-1027); individual orbital motion is not modelled.",
+          "raw_astrometry": {
+            "ra_deg": 61.894149126044205,
+            "dec_deg": 38.073549604931806,
+            "parallax_mas": 47.36147111219601,
+            "parallax_error_mas": 0.025694598,
+            "pm_ra_cosdec_masyr": 176.89752816022292,
+            "pm_ra_error_masyr": 0.025304323062300682,
+            "pm_dec_masyr": -222.7120904239128,
+            "pm_dec_error_masyr": 0.018144210800528526,
+            "radial_velocity_kms": 27.670642852783203,
+            "radial_velocity_error_kms": 0.14588923752307892,
+            "epoch": 2016.0,
+            "astrometry_ref": "2020yCat.1350....0G",
+            "radial_velocity_ref": "2020yCat.1350....0G"
+          },
+          "subtypes": [],
+          "known_planets": null,
+          "apparent_mag": 7.22999952
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "HD 25893B",
+        "systemId": "cns5-gj-161.1",
+        "component": "B",
+        "note": "MSC STT 531AB V of B, which is the combined light of the unresolved Ba+Bb pair.",
+        "fields": {
+          "apparent_mag": {
+            "value": 9.69,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 04076+3804 A,B Vmag2",
+            "status": "compiled-catalog",
+            "scope": "Combined Ba+Bb light of the B subsystem."
+          }
+        },
+        "adopted": {
+          "apparent_mag": {
+            "value": 9.69,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 04076+3804 A,B Vmag2",
+            "status": "compiled-catalog",
+            "scope": "Combined Ba+Bb light of the B subsystem."
+          },
+          "absolute_mag": {
+            "value": 8.06717248,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 9.69,
+              "distance_pc": 21.113756271
+            }
+          }
+        },
+        "retained": {}
+      }
+    },
+    "cns5-1849": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-2060",
+          "expectedComponents": {
+            "cns5-1849": "AB",
+            "cns5-1848": "C"
+          },
+          "parentStarId": "cns5-1849",
+          "expectedParentName": "CD-29 4446",
+          "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+          "sourceScope": "CD-29 4446 (GJ 2060 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+          "note": "GJ 2060 A/B is the 0.25-arcsec, 7.8-year AB Doradus moving-group pair HDS 1054AB with resolved spectra and a dynamical total mass (Rodet et al. 2018; ORB6; MSC V,S1).",
+          "components": [
+            {
+              "starId": "cns5-1849",
+              "label": "A",
+              "name": "GJ 2060 A",
+              "designations": [
+                "WDS J07289-3015A"
+              ],
+              "note": "GJ 2060 A, retaining the former AB selection ID."
+            },
+            {
+              "starId": "cns5-gj-2060-b",
+              "label": "B",
+              "name": "GJ 2060 B",
+              "designations": [
+                "GJ 2060 B",
+                "CD-29 4446B",
+                "WDS J07289-3015B"
+              ],
+              "note": "GJ 2060 B."
+            }
+          ]
+        },
+        "component": "A"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 3180.0,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": -0.09,
+          "age_gyr": null,
+          "absolute_mag": 9.11571,
+          "epoch": 2000.0,
+          "x_pc": -6.811180279,
+          "y_pc": -13.928510546,
+          "z_pc": -1.632713256,
+          "vx_kms": -5.322104,
+          "vy_kms": -25.89875,
+          "vz_kms": -15.710588,
+          "type": "star",
+          "id": "cns5-1849",
+          "name": "CD-29 4446",
+          "spectral_type": "M1Ve",
+          "constellation": "Puppis",
+          "metallicity_kind": "[Fe/H]",
+          "designations": [
+            "GJ 2060 A",
+            "GJ 2060 B",
+            "HIP 36349",
+            "1RXS J072851.7-301459",
+            "2EUVE J0728-30.2",
+            "2MASS J07285137-3014490",
+            "2RE J0728-301",
+            "2RE J072851-301454",
+            "ASAS J072851-3014.8",
+            "ASAS J072851-3014.9",
+            "CCDM J07289-3015AC",
+            "CD-29 4446",
+            "CD-29 4446A",
+            "CD-29 4446B",
+            "CNS5 1849",
+            "CPD-29 1747",
+            "EUVE J0728-30.2",
+            "Gaia DR2 5605469398353836544",
+            "Gaia DR3 5605469402661155968",
+            "GSC 07104-00159",
+            "HDS 1054",
+            "HIC 36349",
+            "LTT 2853",
+            "NLTT 17946",
+            "PM J07288-3014",
+            "RE J0728-301",
+            "RE J072851-301523",
+            "RX J0728.8-3015",
+            "SKF 1945AB",
+            "TIC 112603301",
+            "TYC 7104-159-1",
+            "UCAC4 299-023214",
+            "V372 Pup",
+            "WDS J07289-3015AB",
+            "WISE J072851.28-301450.9",
+            "WISEA J072851.27-301450.8",
+            "GJ 2060"
+          ],
+          "notes": "Corrected CNS5 1849; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2021MNRAS.508.5148C; metallicity_dex: 2021MNRAS.508.5148C).",
+          "raw_astrometry": {
+            "ra_deg": 112.21340001198539,
+            "dec_deg": -30.24774602314018,
+            "parallax_mas": 64.14011057455802,
+            "parallax_error_mas": 0.5319891,
+            "pm_ra_cosdec_masyr": -112.74090020612914,
+            "pm_ra_error_masyr": 0.42554551362991333,
+            "pm_dec_masyr": -160.99639244151766,
+            "pm_dec_error_masyr": 0.4810672700405121,
+            "radial_velocity_kms": 27.1086368560791,
+            "radial_velocity_error_kms": 4.114834785461426,
+            "epoch": 2016.0,
+            "astrometry_ref": "2020yCat.1350....0G",
+            "radial_velocity_ref": "2020yCat.1350....0G"
+          },
+          "subtypes": [
+            "Main-sequence"
+          ],
+          "known_planets": null,
+          "apparent_mag": 10.079999699
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "GJ 2060 A",
+        "systemId": "cns5-gj-2060",
+        "component": "A",
+        "note": "Resolved SINFONI spectra (Rodet et al. 2018): class from template comparison, temperature from BT-SETTL fits, luminosity at the paper's 15.69 pc. The paper measures only the total dynamical mass, so no component mass is adopted. Component V from the MSC HDS 1054AB subsystem.",
+        "fields": {
+          "spectral_type": {
+            "value": "M1V",
+            "reference": "Rodet et al. 2018; 2018A&A...618A..23R",
+            "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+            "section": "Abstract; Section 4",
+            "status": "resolved-spectroscopy",
+            "uncertaintySubtypes": 0.5
+          },
+          "temperature_k": {
+            "value": 3700,
+            "reference": "Rodet et al. 2018; 2018A&A...618A..23R",
+            "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+            "section": "Abstract; Section 4",
+            "status": "atmosphere-model-fit",
+            "uncertainty": 100
+          },
+          "luminosity_solar": {
+            "value": 0.06309573444801933,
+            "reference": "Rodet et al. 2018; 2018A&A...618A..23R",
+            "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+            "section": "Abstract",
+            "status": "derived-from-published-log",
+            "inputs": {
+              "log10LuminositySolar": -1.2,
+              "log10Uncertainty": 0.05,
+              "distancePc": 15.69
+            }
+          },
+          "apparent_mag": {
+            "value": 10.14,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 07289-3015 A,B Vmag1",
+            "status": "compiled-catalog"
+          }
+        },
+        "adopted": {
+          "spectral_type": {
+            "value": "M1V",
+            "reference": "Rodet et al. 2018; 2018A&A...618A..23R",
+            "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+            "section": "Abstract; Section 4",
+            "status": "resolved-spectroscopy",
+            "uncertaintySubtypes": 0.5
+          },
+          "temperature_k": {
+            "value": 3700,
+            "reference": "Rodet et al. 2018; 2018A&A...618A..23R",
+            "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+            "section": "Abstract; Section 4",
+            "status": "atmosphere-model-fit",
+            "uncertainty": 100
+          },
+          "luminosity_solar": {
+            "value": 0.06309573444801933,
+            "reference": "Rodet et al. 2018; 2018A&A...618A..23R",
+            "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+            "section": "Abstract",
+            "status": "derived-from-published-log",
+            "inputs": {
+              "log10LuminositySolar": -1.2,
+              "log10Uncertainty": 0.05,
+              "distancePc": 15.69
+            }
+          },
+          "apparent_mag": {
+            "value": 10.14,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 07289-3015 A,B Vmag1",
+            "status": "compiled-catalog"
+          },
+          "absolute_mag": {
+            "value": 9.175710301,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 10.14,
+              "distance_pc": 15.590424478
+            }
+          }
+        },
+        "retained": {}
+      },
+      "radius_solar": {
+        "field": "radius_solar",
+        "value": 0.611292682,
+        "status": "derived",
+        "reference": "Stefan-Boltzmann scaling",
+        "inputs": {
+          "temperature_k": 3700.0,
+          "luminosity_solar": 0.06309573444801933
+        }
+      },
+      "spectralSubtypes": {
+        "spectralType": "M1V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "cns5-gj-2060-b": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-2060",
+          "expectedComponents": {
+            "cns5-1849": "AB",
+            "cns5-1848": "C"
+          },
+          "parentStarId": "cns5-1849",
+          "expectedParentName": "CD-29 4446",
+          "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+          "sourceScope": "CD-29 4446 (GJ 2060 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+          "note": "GJ 2060 A/B is the 0.25-arcsec, 7.8-year AB Doradus moving-group pair HDS 1054AB with resolved spectra and a dynamical total mass (Rodet et al. 2018; ORB6; MSC V,S1).",
+          "components": [
+            {
+              "starId": "cns5-1849",
+              "label": "A",
+              "name": "GJ 2060 A",
+              "designations": [
+                "WDS J07289-3015A"
+              ],
+              "note": "GJ 2060 A, retaining the former AB selection ID."
+            },
+            {
+              "starId": "cns5-gj-2060-b",
+              "label": "B",
+              "name": "GJ 2060 B",
+              "designations": [
+                "GJ 2060 B",
+                "CD-29 4446B",
+                "WDS J07289-3015B"
+              ],
+              "note": "GJ 2060 B."
+            }
+          ]
+        },
+        "component": "B"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 3180.0,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": -0.09,
+          "age_gyr": null,
+          "absolute_mag": 9.11571,
+          "epoch": 2000.0,
+          "x_pc": -6.811180279,
+          "y_pc": -13.928510546,
+          "z_pc": -1.632713256,
+          "vx_kms": -5.322104,
+          "vy_kms": -25.89875,
+          "vz_kms": -15.710588,
+          "type": "star",
+          "id": "cns5-1849",
+          "name": "CD-29 4446",
+          "spectral_type": "M1Ve",
+          "constellation": "Puppis",
+          "metallicity_kind": "[Fe/H]",
+          "designations": [
+            "GJ 2060 A",
+            "GJ 2060 B",
+            "HIP 36349",
+            "1RXS J072851.7-301459",
+            "2EUVE J0728-30.2",
+            "2MASS J07285137-3014490",
+            "2RE J0728-301",
+            "2RE J072851-301454",
+            "ASAS J072851-3014.8",
+            "ASAS J072851-3014.9",
+            "CCDM J07289-3015AC",
+            "CD-29 4446",
+            "CD-29 4446A",
+            "CD-29 4446B",
+            "CNS5 1849",
+            "CPD-29 1747",
+            "EUVE J0728-30.2",
+            "Gaia DR2 5605469398353836544",
+            "Gaia DR3 5605469402661155968",
+            "GSC 07104-00159",
+            "HDS 1054",
+            "HIC 36349",
+            "LTT 2853",
+            "NLTT 17946",
+            "PM J07288-3014",
+            "RE J0728-301",
+            "RE J072851-301523",
+            "RX J0728.8-3015",
+            "SKF 1945AB",
+            "TIC 112603301",
+            "TYC 7104-159-1",
+            "UCAC4 299-023214",
+            "V372 Pup",
+            "WDS J07289-3015AB",
+            "WISE J072851.28-301450.9",
+            "WISEA J072851.27-301450.8",
+            "GJ 2060"
+          ],
+          "notes": "Corrected CNS5 1849; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2021MNRAS.508.5148C; metallicity_dex: 2021MNRAS.508.5148C).",
+          "raw_astrometry": {
+            "ra_deg": 112.21340001198539,
+            "dec_deg": -30.24774602314018,
+            "parallax_mas": 64.14011057455802,
+            "parallax_error_mas": 0.5319891,
+            "pm_ra_cosdec_masyr": -112.74090020612914,
+            "pm_ra_error_masyr": 0.42554551362991333,
+            "pm_dec_masyr": -160.99639244151766,
+            "pm_dec_error_masyr": 0.4810672700405121,
+            "radial_velocity_kms": 27.1086368560791,
+            "radial_velocity_error_kms": 4.114834785461426,
+            "epoch": 2016.0,
+            "astrometry_ref": "2020yCat.1350....0G",
+            "radial_velocity_ref": "2020yCat.1350....0G"
+          },
+          "subtypes": [
+            "Main-sequence"
+          ],
+          "known_planets": null,
+          "apparent_mag": 10.079999699
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "GJ 2060 B",
+        "systemId": "cns5-gj-2060",
+        "component": "B",
+        "note": "Resolved SINFONI spectra (Rodet et al. 2018): class from template comparison, temperature from BT-SETTL fits, luminosity at the paper's 15.69 pc. The paper measures only the total dynamical mass, so no component mass is adopted. Component V from the MSC HDS 1054AB subsystem.",
+        "fields": {
+          "spectral_type": {
+            "value": "M3V",
+            "reference": "Rodet et al. 2018; 2018A&A...618A..23R",
+            "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+            "section": "Abstract; Section 4",
+            "status": "resolved-spectroscopy",
+            "uncertaintySubtypes": 0.5
+          },
+          "temperature_k": {
+            "value": 3400,
+            "reference": "Rodet et al. 2018; 2018A&A...618A..23R",
+            "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+            "section": "Abstract; Section 4",
+            "status": "atmosphere-model-fit",
+            "uncertainty": 100
+          },
+          "luminosity_solar": {
+            "value": 0.023442288153199226,
+            "reference": "Rodet et al. 2018; 2018A&A...618A..23R",
+            "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+            "section": "Abstract",
+            "status": "derived-from-published-log",
+            "inputs": {
+              "log10LuminositySolar": -1.63,
+              "log10Uncertainty": 0.05,
+              "distancePc": 15.69
+            }
+          },
+          "apparent_mag": {
+            "value": 12.01,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 07289-3015 A,B Vmag2",
+            "status": "compiled-catalog"
+          }
+        },
+        "adopted": {
+          "spectral_type": {
+            "value": "M3V",
+            "reference": "Rodet et al. 2018; 2018A&A...618A..23R",
+            "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+            "section": "Abstract; Section 4",
+            "status": "resolved-spectroscopy",
+            "uncertaintySubtypes": 0.5
+          },
+          "temperature_k": {
+            "value": 3400,
+            "reference": "Rodet et al. 2018; 2018A&A...618A..23R",
+            "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+            "section": "Abstract; Section 4",
+            "status": "atmosphere-model-fit",
+            "uncertainty": 100
+          },
+          "luminosity_solar": {
+            "value": 0.023442288153199226,
+            "reference": "Rodet et al. 2018; 2018A&A...618A..23R",
+            "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+            "section": "Abstract",
+            "status": "derived-from-published-log",
+            "inputs": {
+              "log10LuminositySolar": -1.63,
+              "log10Uncertainty": 0.05,
+              "distancePc": 15.69
+            }
+          },
+          "apparent_mag": {
+            "value": 12.01,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 07289-3015 A,B Vmag2",
+            "status": "compiled-catalog"
+          },
+          "absolute_mag": {
+            "value": 11.045710301,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 12.01,
+              "distance_pc": 15.590424478
+            }
+          }
+        },
+        "retained": {}
+      },
+      "radius_solar": {
+        "field": "radius_solar",
+        "value": 0.4412602541,
+        "status": "derived",
+        "reference": "Stefan-Boltzmann scaling",
+        "inputs": {
+          "temperature_k": 3400.0,
+          "luminosity_solar": 0.023442288153199226
+        }
+      },
+      "spectralSubtypes": {
+        "spectralType": "M3V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "cns5-2793": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-426.1",
+          "expectedComponents": {
+            "cns5-2793": "AB",
+            "cns5-2792": "C"
+          },
+          "parentStarId": "cns5-2793",
+          "expectedParentName": "Iota Leo",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "sourceScope": "Iota Leo (GJ 426.1 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+          "note": "Iota Leo A/B is the 1.9-arcsec visual pair STF 1536AB (ORB6 grade 2, JAA2023; SB9 671; MSC V,a). The Hipparcos astrometry and catalog spectral type describe the combined light.",
+          "components": [
+            {
+              "starId": "cns5-2793",
+              "label": "A",
+              "name": "Iota Leo A",
+              "designations": [],
+              "note": "STF 1536 A, retaining the former AB selection ID."
+            },
+            {
+              "starId": "cns5-gj-426.1-b",
+              "label": "B",
+              "name": "Iota Leo B",
+              "designations": [
+                "iot Leo B",
+                "WDS J11239+1032B"
+              ],
+              "note": "STF 1536 B."
+            }
+          ]
+        },
+        "component": "A"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 6750.0,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": 0.06,
+          "age_gyr": null,
+          "absolute_mag": 2.13862,
+          "epoch": 2000.0,
+          "x_pc": -4.018646772,
+          "y_pc": -9.749903221,
+          "z_pc": 21.195744264,
+          "vx_kms": 20.96731,
+          "vy_kms": 2.774479,
+          "vz_kms": -4.822273,
+          "type": "star",
+          "id": "cns5-2793",
+          "name": "Iota Leo",
+          "spectral_type": "F1IV",
+          "constellation": "Leo",
+          "metallicity_kind": "[Fe/H]",
+          "designations": [
+            "GJ 426.1 A",
+            "GJ 9359 A",
+            "HD 99028",
+            "HIP 55642",
+            "1RXS J112355.7+103158",
+            "2MASS J11235546+1031459",
+            "78 Leo",
+            "[ZEH2003] RX J1123.9+1031 1",
+            "ADS 8148 A",
+            "AKARI-IRC-V1 J1123555+103145",
+            "ASCC 952105",
+            "BD+11 2348",
+            "BD+11 2348A",
+            "CCDM J11239+1032A",
+            "CNS5 2793",
+            "CSI+11 2348 1",
+            "CSI+11 2348 2",
+            "CSV 101199",
+            "Gaia DR2 3915612630249291008",
+            "Gaia DR3 3915612630249291008",
+            "GC 15652",
+            "GCRV 6956",
+            "GEN# +1.00099028",
+            "HIC 55642",
+            "HR 4399",
+            "IDS 11187+1105 A",
+            "iot Leo",
+            "iot Leo A",
+            "Iota Leonis",
+            "Iota Leonis A",
+            "IRAS 11213+1048",
+            "IRC +10238",
+            "JP11 2056",
+            "LSPM J1123+1031",
+            "N30 2669",
+            "NLTT 27257",
+            "NSV 5184",
+            "PLX 2640",
+            "PLX 2640.00",
+            "PMC 90-93 5934",
+            "ROT 1694",
+            "RX J1123.8+1032",
+            "RX J1123.9+1031",
+            "SAO 99587",
+            "SBC7 431",
+            "SBC9 671",
+            "SKY# 21658",
+            "STF 1536A",
+            "SV* ZI 884",
+            "TD1 15591",
+            "TIC 396915247",
+            "TYC 858-1221-1",
+            "UBV 10339",
+            "UBV M 17027",
+            "USNO-B1.0 1005-00194952",
+            "uvby98 100099028",
+            "WDS J11239+1032A",
+            "WEB 9999",
+            "YPAC 503",
+            "YZ 10 4280",
+            "Iota Leo"
+          ],
+          "notes": "Corrected CNS5 2793; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Shared exact-identity physical supplements (temperature_k: 2023MNRAS.519.5472M; metallicity_dex: 1990ApJ...354..310B). Systemic space velocity of Iota Leo adopted from Iota Leo C (cns5-2792); individual orbital motion is not modelled.",
+          "raw_astrometry": {
+            "ra_deg": 170.98070335382747,
+            "dec_deg": 10.52969776275755,
+            "parallax_mas": 42.2400016784668,
+            "parallax_error_mas": 0.83,
+            "pm_ra_cosdec_masyr": 141.45,
+            "pm_ra_error_masyr": 0.9399999976158142,
+            "pm_dec_masyr": -79.14,
+            "pm_dec_error_masyr": 0.6200000047683716,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "epoch": 1991.25,
+            "astrometry_ref": "2007A&A...474..653V",
+            "radial_velocity_ref": null
+          },
+          "subtypes": [
+            "Subgiant"
+          ],
+          "known_planets": null,
+          "apparent_mag": 4.010000366
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "Iota Leo A",
+        "systemId": "cns5-gj-426.1",
+        "component": "A",
+        "note": "Component V from the MSC STF 1536AB subsystem. Class, temperature and [Fe/H] belong to the SIMBAD identity * iot Leo, whose aliases name only component A; a seeing-limited spectrum may include light from B, 1.9 arcsec away and 2.65 mag fainter in V. MSC lists F3V for A.",
+        "fields": {
+          "apparent_mag": {
+            "value": 4.06,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 11239+1032 A,B Vmag1",
+            "status": "compiled-catalog"
+          },
+          "spectral_type": {
+            "value": "F1IV",
+            "reference": "SIMBAD",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+iot+Leo",
+            "section": "Frozen SIMBAD basic sp_type, main_id * iot Leo",
+            "status": "compiled"
+          },
+          "temperature_k": {
+            "value": 6750,
+            "reference": "2023MNRAS.519.5472M",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+iot+Leo",
+            "section": "Frozen SIMBAD mesFe_H, main_id * iot Leo, mespos 1",
+            "status": "spectroscopic"
+          },
+          "metallicity_dex": {
+            "value": 0.06,
+            "quantity": "[Fe/H]",
+            "reference": "1990ApJ...354..310B",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+iot+Leo",
+            "section": "Frozen SIMBAD mesFe_H, main_id * iot Leo",
+            "status": "spectroscopic"
+          }
+        },
+        "adopted": {
+          "apparent_mag": {
+            "value": 4.06,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 11239+1032 A,B Vmag1",
+            "status": "compiled-catalog"
+          },
+          "spectral_type": {
+            "value": "F1IV",
+            "reference": "SIMBAD",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+iot+Leo",
+            "section": "Frozen SIMBAD basic sp_type, main_id * iot Leo",
+            "status": "compiled"
+          },
+          "temperature_k": {
+            "value": 6750,
+            "reference": "2023MNRAS.519.5472M",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+iot+Leo",
+            "section": "Frozen SIMBAD mesFe_H, main_id * iot Leo, mespos 1",
+            "status": "spectroscopic"
+          },
+          "metallicity_dex": {
+            "value": 0.06,
+            "quantity": "[Fe/H]",
+            "reference": "1990ApJ...354..310B",
+            "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+iot+Leo",
+            "section": "Frozen SIMBAD mesFe_H, main_id * iot Leo",
+            "status": "spectroscopic"
+          },
+          "absolute_mag": {
+            "value": 2.188619634,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 4.06,
+              "distance_pc": 23.674241479
+            }
+          }
+        },
+        "retained": {}
+      },
+      "spectralSubtypes": {
+        "spectralType": "F1IV",
+        "labels": [
+          "Subgiant"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "cns5-gj-426.1-b": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-426.1",
+          "expectedComponents": {
+            "cns5-2793": "AB",
+            "cns5-2792": "C"
+          },
+          "parentStarId": "cns5-2793",
+          "expectedParentName": "Iota Leo",
+          "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+          "sourceScope": "Iota Leo (GJ 426.1 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+          "note": "Iota Leo A/B is the 1.9-arcsec visual pair STF 1536AB (ORB6 grade 2, JAA2023; SB9 671; MSC V,a). The Hipparcos astrometry and catalog spectral type describe the combined light.",
+          "components": [
+            {
+              "starId": "cns5-2793",
+              "label": "A",
+              "name": "Iota Leo A",
+              "designations": [],
+              "note": "STF 1536 A, retaining the former AB selection ID."
+            },
+            {
+              "starId": "cns5-gj-426.1-b",
+              "label": "B",
+              "name": "Iota Leo B",
+              "designations": [
+                "iot Leo B",
+                "WDS J11239+1032B"
+              ],
+              "note": "STF 1536 B."
+            }
+          ]
+        },
+        "component": "B"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 6750.0,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": 0.06,
+          "age_gyr": null,
+          "absolute_mag": 2.13862,
+          "epoch": 2000.0,
+          "x_pc": -4.018646772,
+          "y_pc": -9.749903221,
+          "z_pc": 21.195744264,
+          "vx_kms": 20.96731,
+          "vy_kms": 2.774479,
+          "vz_kms": -4.822273,
+          "type": "star",
+          "id": "cns5-2793",
+          "name": "Iota Leo",
+          "spectral_type": "F1IV",
+          "constellation": "Leo",
+          "metallicity_kind": "[Fe/H]",
+          "designations": [
+            "GJ 426.1 A",
+            "GJ 9359 A",
+            "HD 99028",
+            "HIP 55642",
+            "1RXS J112355.7+103158",
+            "2MASS J11235546+1031459",
+            "78 Leo",
+            "[ZEH2003] RX J1123.9+1031 1",
+            "ADS 8148 A",
+            "AKARI-IRC-V1 J1123555+103145",
+            "ASCC 952105",
+            "BD+11 2348",
+            "BD+11 2348A",
+            "CCDM J11239+1032A",
+            "CNS5 2793",
+            "CSI+11 2348 1",
+            "CSI+11 2348 2",
+            "CSV 101199",
+            "Gaia DR2 3915612630249291008",
+            "Gaia DR3 3915612630249291008",
+            "GC 15652",
+            "GCRV 6956",
+            "GEN# +1.00099028",
+            "HIC 55642",
+            "HR 4399",
+            "IDS 11187+1105 A",
+            "iot Leo",
+            "iot Leo A",
+            "Iota Leonis",
+            "Iota Leonis A",
+            "IRAS 11213+1048",
+            "IRC +10238",
+            "JP11 2056",
+            "LSPM J1123+1031",
+            "N30 2669",
+            "NLTT 27257",
+            "NSV 5184",
+            "PLX 2640",
+            "PLX 2640.00",
+            "PMC 90-93 5934",
+            "ROT 1694",
+            "RX J1123.8+1032",
+            "RX J1123.9+1031",
+            "SAO 99587",
+            "SBC7 431",
+            "SBC9 671",
+            "SKY# 21658",
+            "STF 1536A",
+            "SV* ZI 884",
+            "TD1 15591",
+            "TIC 396915247",
+            "TYC 858-1221-1",
+            "UBV 10339",
+            "UBV M 17027",
+            "USNO-B1.0 1005-00194952",
+            "uvby98 100099028",
+            "WDS J11239+1032A",
+            "WEB 9999",
+            "YPAC 503",
+            "YZ 10 4280",
+            "Iota Leo"
+          ],
+          "notes": "Corrected CNS5 2793; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Shared exact-identity physical supplements (temperature_k: 2023MNRAS.519.5472M; metallicity_dex: 1990ApJ...354..310B). Systemic space velocity of Iota Leo adopted from Iota Leo C (cns5-2792); individual orbital motion is not modelled.",
+          "raw_astrometry": {
+            "ra_deg": 170.98070335382747,
+            "dec_deg": 10.52969776275755,
+            "parallax_mas": 42.2400016784668,
+            "parallax_error_mas": 0.83,
+            "pm_ra_cosdec_masyr": 141.45,
+            "pm_ra_error_masyr": 0.9399999976158142,
+            "pm_dec_masyr": -79.14,
+            "pm_dec_error_masyr": 0.6200000047683716,
+            "radial_velocity_kms": null,
+            "radial_velocity_error_kms": null,
+            "epoch": 1991.25,
+            "astrometry_ref": "2007A&A...474..653V",
+            "radial_velocity_ref": null
+          },
+          "subtypes": [
+            "Subgiant"
+          ],
+          "known_planets": null,
+          "apparent_mag": 4.010000366
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "Iota Leo B",
+        "systemId": "cns5-gj-426.1",
+        "component": "B",
+        "note": "Component V from the MSC STF 1536AB subsystem; MSC gives no class for B.",
+        "fields": {
+          "apparent_mag": {
+            "value": 6.71,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 11239+1032 A,B Vmag2",
+            "status": "compiled-catalog"
+          }
+        },
+        "adopted": {
+          "apparent_mag": {
+            "value": 6.71,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 11239+1032 A,B Vmag2",
+            "status": "compiled-catalog"
+          },
+          "absolute_mag": {
+            "value": 4.838619634,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 6.71,
+              "distance_pc": 23.674241479
+            }
+          }
+        },
+        "retained": {}
+      }
+    },
+    "cns5-5225": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-818.1",
+          "expectedComponents": {
+            "cns5-5225": "AB",
+            "cns5-5226": "C"
+          },
+          "parentStarId": "cns5-5225",
+          "expectedParentName": "HD 200525",
+          "sourceUrl": "https://arxiv.org/html/2304.01861v1",
+          "sourceScope": "HD 200525 (GJ 818.1 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+          "note": "HD 200525 A/B is the 0.19-arcsec, 5.3-year spectro-visual pair resolved at SOAR (Tokovinin 2023; ORB6; MSC V,A,S2). The WDS name I 379 refers to a spurious historical measurement of this real pair. Its Gaia DR3 parallax is biased by the orbit.",
+          "components": [
+            {
+              "starId": "cns5-5225",
+              "label": "A",
+              "name": "HD 200525A",
+              "designations": [
+                "WDS J21094-7310A"
+              ],
+              "note": "HIP 104440 A, retaining the former AB selection ID."
+            },
+            {
+              "starId": "cns5-gj-818.1-b",
+              "label": "B",
+              "name": "HD 200525B",
+              "designations": [
+                "GJ 818.1 B",
+                "WDS J21094-7310B"
+              ],
+              "note": "HIP 104440 B."
+            }
+          ]
+        },
+        "component": "A"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 5974.0,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": null,
+          "age_gyr": null,
+          "absolute_mag": 4.030153,
+          "epoch": 2000.0,
+          "x_pc": 13.252375992,
+          "y_pc": -11.119762796,
+          "z_pc": -12.391901909,
+          "vx_kms": -49.966754,
+          "vy_kms": -28.762853,
+          "vz_kms": -13.308396,
+          "type": "star",
+          "id": "cns5-5225",
+          "name": "HD 200525",
+          "spectral_type": "F9.5V",
+          "constellation": "Pavo",
+          "metallicity_kind": null,
+          "designations": [
+            "GJ 818.1 A",
+            "GJ 818.1 B",
+            "GJ 9719 A",
+            "HIP 104440",
+            "1RXS J210924.0-731010",
+            "2MASS J21092250-7310235",
+            "AKARI-IRC-V1 J2109228-731024",
+            "CCDM J21094-7310AB",
+            "CD-73 1547",
+            "CNS5 5225",
+            "CPC 21.2 3358",
+            "CPD-73 2192",
+            "CSI-73 2192 41",
+            "CSI-73 2192 43",
+            "CSI-73 2192 44",
+            "Gaia DR2 6371557530914670976",
+            "Gaia DR3 6371557530914670976",
+            "GC 29489",
+            "GCRV 13265",
+            "GEN# +1.00200525",
+            "HDO 305AB",
+            "HIC 104440",
+            "HR 8061",
+            "I 379",
+            "IDS 20588-7334 AB",
+            "IDS 20588-7344 AB",
+            "IRAS 21042-7322",
+            "LFT 1601",
+            "LHS 3635",
+            "LPM 762",
+            "LTT 8374",
+            "N30 4665",
+            "NLTT 50541",
+            "PLX 5058",
+            "PM 21042-7322",
+            "PPM 374890",
+            "RBS 1728",
+            "SAO 257890",
+            "SBC9 4073",
+            "SKY# 40249",
+            "TD1 27615",
+            "TIC 311430135",
+            "TYC 9333-1274-1",
+            "UBV 18226",
+            "UBV M 25401",
+            "uvby98 100200525",
+            "WDS J21094-7310AB",
+            "WEB 19009",
+            "HD 200525"
+          ],
+          "notes": "Corrected CNS5 5225; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2011A&A...530A.138C).",
+          "raw_astrometry": {
+            "ra_deg": 317.3502273752858,
+            "dec_deg": -73.17454548407463,
+            "parallax_mas": 46.993019936270365,
+            "parallax_error_mas": 1.0012591,
+            "pm_ra_cosdec_masyr": 431.2357549169602,
+            "pm_ra_error_masyr": 0.7549402713775635,
+            "pm_dec_masyr": -388.9255138052405,
+            "pm_dec_error_masyr": 0.8615322709083557,
+            "radial_velocity_kms": -8.33508014678955,
+            "radial_velocity_error_kms": 0.4530779719352722,
+            "epoch": 2016.0,
+            "astrometry_ref": "2020yCat.1350....0G",
+            "radial_velocity_ref": "2020yCat.1350....0G"
+          },
+          "subtypes": [
+            "Main-sequence"
+          ],
+          "known_planets": null,
+          "apparent_mag": 5.670000154
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "HD 200525A",
+        "systemId": "cns5-gj-818.1",
+        "component": "A",
+        "note": "Mass from the combined SOAR/CHIRON orbit with its orbital parallax of 51.0 mas; no uncertainty is quoted. Component V from the MSC subsystem (SOAR Delta y = 3.15). The published F9.5V describes A+B and the MSC G3IV conflicts with it, so no component class is adopted.",
+        "fields": {
+          "mass_solar": {
+            "value": 1.15,
+            "reference": "Tokovinin 2023; 2023AJ....165..160T",
+            "sourceUrl": "https://arxiv.org/html/2304.01861v1",
+            "section": "Section III.11",
+            "status": "dynamical",
+            "uncertaintyKind": "unreported",
+            "inputs": {
+              "orbitalParallaxMas": 51.0
+            }
+          },
+          "apparent_mag": {
+            "value": 5.74,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 21094-7310 A,B Vmag1",
+            "status": "compiled-catalog"
+          }
+        },
+        "adopted": {
+          "mass_solar": {
+            "value": 1.15,
+            "reference": "Tokovinin 2023; 2023AJ....165..160T",
+            "sourceUrl": "https://arxiv.org/html/2304.01861v1",
+            "section": "Section III.11",
+            "status": "dynamical",
+            "uncertaintyKind": "unreported",
+            "inputs": {
+              "orbitalParallaxMas": 51.0
+            }
+          },
+          "apparent_mag": {
+            "value": 5.74,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 21094-7310 A,B Vmag1",
+            "status": "compiled-catalog"
+          },
+          "absolute_mag": {
+            "value": 4.100152846,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 5.74,
+              "distance_pc": 21.279892551
+            }
+          }
+        },
+        "retained": {}
+      }
+    },
+    "cns5-gj-818.1-b": {
+      "membership": {
+        "reviewedHierarchy": {
+          "systemId": "cns5-gj-818.1",
+          "expectedComponents": {
+            "cns5-5225": "AB",
+            "cns5-5226": "C"
+          },
+          "parentStarId": "cns5-5225",
+          "expectedParentName": "HD 200525",
+          "sourceUrl": "https://arxiv.org/html/2304.01861v1",
+          "sourceScope": "HD 200525 (GJ 818.1 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+          "note": "HD 200525 A/B is the 0.19-arcsec, 5.3-year spectro-visual pair resolved at SOAR (Tokovinin 2023; ORB6; MSC V,A,S2). The WDS name I 379 refers to a spurious historical measurement of this real pair. Its Gaia DR3 parallax is biased by the orbit.",
+          "components": [
+            {
+              "starId": "cns5-5225",
+              "label": "A",
+              "name": "HD 200525A",
+              "designations": [
+                "WDS J21094-7310A"
+              ],
+              "note": "HIP 104440 A, retaining the former AB selection ID."
+            },
+            {
+              "starId": "cns5-gj-818.1-b",
+              "label": "B",
+              "name": "HD 200525B",
+              "designations": [
+                "GJ 818.1 B",
+                "WDS J21094-7310B"
+              ],
+              "note": "HIP 104440 B."
+            }
+          ]
+        },
+        "component": "B"
+      },
+      "retainedUnresolvedParent": {
+        "record": {
+          "temperature_k": 5974.0,
+          "mass_solar": null,
+          "luminosity_solar": null,
+          "radius_solar": null,
+          "metallicity_dex": null,
+          "age_gyr": null,
+          "absolute_mag": 4.030153,
+          "epoch": 2000.0,
+          "x_pc": 13.252375992,
+          "y_pc": -11.119762796,
+          "z_pc": -12.391901909,
+          "vx_kms": -49.966754,
+          "vy_kms": -28.762853,
+          "vz_kms": -13.308396,
+          "type": "star",
+          "id": "cns5-5225",
+          "name": "HD 200525",
+          "spectral_type": "F9.5V",
+          "constellation": "Pavo",
+          "metallicity_kind": null,
+          "designations": [
+            "GJ 818.1 A",
+            "GJ 818.1 B",
+            "GJ 9719 A",
+            "HIP 104440",
+            "1RXS J210924.0-731010",
+            "2MASS J21092250-7310235",
+            "AKARI-IRC-V1 J2109228-731024",
+            "CCDM J21094-7310AB",
+            "CD-73 1547",
+            "CNS5 5225",
+            "CPC 21.2 3358",
+            "CPD-73 2192",
+            "CSI-73 2192 41",
+            "CSI-73 2192 43",
+            "CSI-73 2192 44",
+            "Gaia DR2 6371557530914670976",
+            "Gaia DR3 6371557530914670976",
+            "GC 29489",
+            "GCRV 13265",
+            "GEN# +1.00200525",
+            "HDO 305AB",
+            "HIC 104440",
+            "HR 8061",
+            "I 379",
+            "IDS 20588-7334 AB",
+            "IDS 20588-7344 AB",
+            "IRAS 21042-7322",
+            "LFT 1601",
+            "LHS 3635",
+            "LPM 762",
+            "LTT 8374",
+            "N30 4665",
+            "NLTT 50541",
+            "PLX 5058",
+            "PM 21042-7322",
+            "PPM 374890",
+            "RBS 1728",
+            "SAO 257890",
+            "SBC9 4073",
+            "SKY# 40249",
+            "TD1 27615",
+            "TIC 311430135",
+            "TYC 9333-1274-1",
+            "UBV 18226",
+            "UBV M 25401",
+            "uvby98 100200525",
+            "WDS J21094-7310AB",
+            "WEB 19009",
+            "HD 200525"
+          ],
+          "notes": "Corrected CNS5 5225; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2011A&A...530A.138C).",
+          "raw_astrometry": {
+            "ra_deg": 317.3502273752858,
+            "dec_deg": -73.17454548407463,
+            "parallax_mas": 46.993019936270365,
+            "parallax_error_mas": 1.0012591,
+            "pm_ra_cosdec_masyr": 431.2357549169602,
+            "pm_ra_error_masyr": 0.7549402713775635,
+            "pm_dec_masyr": -388.9255138052405,
+            "pm_dec_error_masyr": 0.8615322709083557,
+            "radial_velocity_kms": -8.33508014678955,
+            "radial_velocity_error_kms": 0.4530779719352722,
+            "epoch": 2016.0,
+            "astrometry_ref": "2020yCat.1350....0G",
+            "radial_velocity_ref": "2020yCat.1350....0G"
+          },
+          "subtypes": [
+            "Main-sequence"
+          ],
+          "known_planets": null,
+          "apparent_mag": 5.670000154
+        },
+        "evidence": {}
+      },
+      "astrometryScope": "Shared unresolved parent astrometry and bulk motion, not a resolved orbital snapshot.",
+      "reviewedLiterature": {
+        "expectedName": "HD 200525B",
+        "systemId": "cns5-gj-818.1",
+        "component": "B",
+        "note": "Mass from the combined SOAR/CHIRON orbit with its orbital parallax of 51.0 mas; no uncertainty is quoted. Component V from the MSC subsystem (SOAR Delta y = 3.15).",
+        "fields": {
+          "mass_solar": {
+            "value": 0.74,
+            "reference": "Tokovinin 2023; 2023AJ....165..160T",
+            "sourceUrl": "https://arxiv.org/html/2304.01861v1",
+            "section": "Section III.11",
+            "status": "dynamical",
+            "uncertaintyKind": "unreported",
+            "inputs": {
+              "orbitalParallaxMas": 51.0
+            }
+          },
+          "apparent_mag": {
+            "value": 8.89,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 21094-7310 A,B Vmag2",
+            "status": "compiled-catalog"
+          }
+        },
+        "adopted": {
+          "mass_solar": {
+            "value": 0.74,
+            "reference": "Tokovinin 2023; 2023AJ....165..160T",
+            "sourceUrl": "https://arxiv.org/html/2304.01861v1",
+            "section": "Section III.11",
+            "status": "dynamical",
+            "uncertaintyKind": "unreported",
+            "inputs": {
+              "orbitalParallaxMas": 51.0
+            }
+          },
+          "apparent_mag": {
+            "value": 8.89,
+            "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T",
+            "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+            "section": "sys.tsv 21094-7310 A,B Vmag2",
+            "status": "compiled-catalog"
+          },
+          "absolute_mag": {
+            "value": 7.250152846,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 8.89,
+              "distance_pc": 21.279892551
+            }
+          }
+        },
+        "retained": {}
+      }
+    },
     "10pc-0061": {
       "reviewedPhysicalOverride": {
         "values": {
@@ -100737,7 +104900,6 @@
     "cns5-0866": {},
     "cns5-0868": {},
     "cns5-0961": {},
-    "cns5-0962": {},
     "cns5-0990": {},
     "cns5-0991": {},
     "cns5-1042": {},
@@ -100783,8 +104945,6 @@
     "cns5-2262": {},
     "cns5-2280": {},
     "cns5-2279": {},
-    "cns5-2285": {},
-    "cns5-2284": {},
     "cns5-2342": {},
     "cns5-2343": {},
     "cns5-2459": {},
@@ -100804,7 +104964,6 @@
     "cns5-2639": {},
     "cns5-2638": {},
     "cns5-2734": {},
-    "cns5-2733": {},
     "cns5-2749": {},
     "cns5-2748": {},
     "cns5-2753": {},
@@ -100853,10 +105012,8 @@
     "hip-71908": {},
     "cns5-3639": {},
     "cns5-3667": {},
-    "cns5-3668": {},
     "cns5-3727": {},
     "cns5-3729": {},
-    "cns5-3797": {},
     "cns5-3798": {},
     "cns5-3813": {},
     "cns5-3814": {},
@@ -100882,7 +105039,6 @@
     "cns5-4265": {},
     "cns5-4301": {},
     "cns5-4302": {},
-    "cns5-4332": {},
     "cns5-4338": {},
     "cns5-4435": {},
     "cns5-4434": {},
@@ -100991,7 +105147,6 @@
     "cns5-0950": {},
     "cns5-0949": {},
     "cns5-1027": {},
-    "cns5-1023": {},
     "hip-19921": {},
     "cns5-1062": {},
     "hip-21421": {},
@@ -101005,7 +105160,6 @@
     "cns5-1065": {},
     "cns5-1367": {},
     "cns5-1366": {},
-    "cns5-1849": {},
     "cns5-1848": {},
     "cns5-2108": {},
     "cns5-2107": {},
@@ -101168,7 +105322,6 @@
     "cns5-5433": {},
     "cns5-5457": {},
     "cns5-5458": {},
-    "cns5-2793": {},
     "cns5-2792": {},
     "cns5-5503": {},
     "cns5-5506": {},
@@ -101238,7 +105391,6 @@
     "cns5-5018": {},
     "cns5-5201": {},
     "cns5-5202": {},
-    "cns5-5225": {},
     "cns5-5226": {},
     "cns5-5282": {},
     "cns5-5281": {},
@@ -125154,11 +129306,11 @@
   "schemaVersion": 1,
   "reviewedOn": "2026-10-13",
   "systems": 866,
-  "components": 1929,
+  "components": 1940,
   "selectedFieldCoverage": {
-    "individualApparentMagnitude": 955,
+    "individualApparentMagnitude": 962,
     "unresolvedSourcePhotometry": 131,
-    "subtypes": 1024,
+    "subtypes": 1027,
     "missingSubtypes": [
       "gj-105-c",
       "cns5-1723",
@@ -125233,6 +129385,7 @@
       "cns5-2187",
       "cns5-2262",
       "cns5-2280",
+      "cns5-2284",
       "cns5-2342",
       "cns5-2500",
       "cns5-2504",
@@ -125303,7 +129456,6 @@
       "cns5-4845",
       "cns5-5708",
       "cns5-0005",
-      "cns5-1023",
       "cns5-1062",
       "cns5-1143",
       "cns5-1148",
@@ -125395,6 +129547,7 @@
       "cns5-4904",
       "cns5-5018",
       "cns5-5202",
+      "cns5-5225",
       "cns5-5226",
       "cns5-5282",
       "cns5-5281",
@@ -126064,7 +130217,14 @@
       "sb9-3808-b",
       "sb9-3810-b",
       "sb9-3811-b",
-      "sb9-3812-b"
+      "sb9-3812-b",
+      "cns5-gj-153-c",
+      "cns5-gj-337-d",
+      "cns5-gj-584-b",
+      "cns5-gj-684-b",
+      "cns5-gj-161.1-b",
+      "cns5-gj-426.1-b",
+      "cns5-gj-818.1-b"
     ],
     "missingVisualPhotometry": [
       "10pc-0033",
@@ -126909,7 +131069,11 @@
       "cns5-3515",
       "sb9-3811-b",
       "cns5-3865",
-      "sb9-3812-b"
+      "sb9-3812-b",
+      "cns5-gj-153-c",
+      "cns5-gj-337-d",
+      "cns5-gj-417-c",
+      "cns5-gj-564-c"
     ]
   },
   "propertyCoverage": {
@@ -126924,14 +131088,14 @@
       "absolute_mag"
     ],
     "available": {
-      "spectral_type": 1287,
-      "temperature_k": 1174,
-      "mass_solar": 595,
-      "luminosity_solar": 818,
-      "radius_solar": 842,
-      "metallicity_dex": 786,
-      "age_gyr": 86,
-      "absolute_mag": 955
+      "spectral_type": 1289,
+      "temperature_k": 1178,
+      "mass_solar": 603,
+      "luminosity_solar": 823,
+      "radius_solar": 847,
+      "metallicity_dex": 783,
+      "age_gyr": 90,
+      "absolute_mag": 962
     },
     "withoutProperties": [
       "cns5-1615",
@@ -126957,6 +131121,7 @@
       "cns5-2153",
       "cns5-2188",
       "cns5-2187",
+      "cns5-2284",
       "cns5-2580",
       "cns5-3027",
       "cns5-3028",
@@ -127330,7 +131495,9 @@
       "sb9-3808-b",
       "sb9-3810-b",
       "sb9-3811-b",
-      "sb9-3812-b"
+      "sb9-3812-b",
+      "cns5-gj-153-c",
+      "cns5-gj-337-d"
     ],
     "missingByComponent": {
       "10pc-0033": [
@@ -129089,9 +133256,11 @@
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
+        "metallicity_dex",
         "age_gyr"
       ],
       "cns5-2284": [
+        "spectral_type",
         "temperature_k",
         "mass_solar",
         "luminosity_solar",
@@ -129190,12 +133359,7 @@
         "age_gyr"
       ],
       "cns5-2733": [
-        "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
-        "age_gyr",
         "absolute_mag"
       ],
       "cns5-2749": [
@@ -129430,12 +133594,7 @@
         "age_gyr"
       ],
       "cns5-3668": [
-        "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
         "metallicity_dex",
-        "age_gyr",
         "absolute_mag"
       ],
       "cns5-3727": [
@@ -129451,9 +133610,11 @@
         "absolute_mag"
       ],
       "cns5-3797": [
-        "mass_solar",
+        "spectral_type",
+        "temperature_k",
         "luminosity_solar",
         "radius_solar",
+        "metallicity_dex",
         "age_gyr"
       ],
       "cns5-3798": [
@@ -129573,6 +133734,8 @@
       ],
       "cns5-4332": [
         "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
         "age_gyr"
       ],
       "cns5-4338": [
@@ -130178,7 +134341,6 @@
         "absolute_mag"
       ],
       "cns5-1023": [
-        "spectral_type",
         "mass_solar",
         "age_gyr"
       ],
@@ -130262,8 +134424,7 @@
       ],
       "cns5-1849": [
         "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
+        "metallicity_dex",
         "age_gyr"
       ],
       "cns5-1848": [
@@ -131569,7 +135730,8 @@
         "absolute_mag"
       ],
       "cns5-5225": [
-        "mass_solar",
+        "spectral_type",
+        "temperature_k",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
@@ -140007,34 +144169,117 @@
       "msc-13252-1110-ab": [
         "metallicity_dex",
         "absolute_mag"
+      ],
+      "cns5-gj-153-c": [
+        "spectral_type",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "absolute_mag"
+      ],
+      "cns5-gj-337-b": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "cns5-gj-337-d": [
+        "spectral_type",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "absolute_mag"
+      ],
+      "cns5-gj-417-c": [
+        "metallicity_dex",
+        "absolute_mag"
+      ],
+      "cns5-gj-564-c": [
+        "metallicity_dex",
+        "absolute_mag"
+      ],
+      "cns5-gj-584-b": [
+        "spectral_type",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "cns5-gj-684-b": [
+        "spectral_type",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "cns5-gj-161.1-b": [
+        "spectral_type",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "cns5-gj-2060-b": [
+        "mass_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "cns5-gj-426.1-b": [
+        "spectral_type",
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
+      ],
+      "cns5-gj-818.1-b": [
+        "spectral_type",
+        "temperature_k",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr"
       ]
     }
   },
   "sourcePreservation": {
-    "componentRecordsWithSources": 809,
-    "sourceRecords": 1476,
+    "componentRecordsWithSources": 831,
+    "sourceRecords": 1509,
     "missingIndividualFieldsWithSourceValues": {
-      "temperature_k": 130,
+      "temperature_k": 137,
       "mass_solar": 137,
-      "luminosity_solar": 138,
-      "radius_solar": 138,
-      "metallicity_dex": 130,
+      "luminosity_solar": 141,
+      "radius_solar": 141,
+      "metallicity_dex": 139,
       "age_gyr": 98,
       "absolute_mag": 134,
       "apparent_mag": 134,
-      "spectral_type": 92,
+      "spectral_type": 100,
       "vx_kms": 68,
       "vy_kms": 68,
       "vz_kms": 68
     }
   },
   "coverage": {
-    "temperature_k": 1174,
-    "mass_solar": 595,
-    "luminosity_solar": 818,
-    "radius_solar": 842,
-    "metallicity_dex": 786,
-    "age_gyr": 86
+    "temperature_k": 1178,
+    "mass_solar": 603,
+    "luminosity_solar": 823,
+    "radius_solar": 847,
+    "metallicity_dex": 783,
+    "age_gyr": 90
   },
   "inputSha256": {
     "src/data/star-systems.json": "ccb8b300d861fec42a9b95bfeafa8e30f3b4c53298c8c03e3f1743bf4c28fddf",
@@ -140073,6 +144318,8 @@
     "catalog-work/star-systems/spectroscopic-binaries-review.json": "b46cb2402b63fe3aa421629c1ca8a4114a4cb43157bd7bbd89d0c1745876a2f5",
     "catalog-work/star-systems/reviewed-constellation-hierarchies.json": "1c595ad68e82e5f58a291e3792bf7ee8793d99d33c86d219678398432f93c859",
     "catalog-work/star-systems/literature-components/constellation-20261019-selected.json": "afc8cdc55981eabcf43557bb77aa94355c79c9ecd10ce84201bcd39b75344e2d",
+    "catalog-work/star-systems/reviewed-component-splits.json": "d44a31bec7893b29cc4f5dc8b3d9c57b6d149488af1e72e7dc046095412ed8e4",
+    "catalog-work/star-systems/literature-components/component-splits-20261102-selected.json": "50b5e748148b373860188cce8e3fdcc4b150cf58d404b82d692246baa21b49c8",
     "catalog-work/star-systems/reviewed-companion-literature.json": "00145b5881d0a2d54466edb9e2f664950386229a604584deb265e6727623c6a8",
     "catalog-work/star-systems/literature-components/debcat-20261011.dat": "51af2a4e465a4e2dd8a5671926a1e1069b49eadd80402c4a8bec6785c3505bbe",
     "catalog-work/star-systems/literature-components/piccotti-2020-ReadMe": "d36919462d3dc36e85f4cde8e93ce83b8c9da8b49fc92c546112bbcbaeeccd06",
@@ -140099,6 +144346,10 @@
     "catalog-work/star-systems/reviewed-constellation-literature.json": "d93fefcabbb347ba5eafdff2f48c5ca973b53965e8eebcea2125eda59c791848",
     "catalog-work/star-systems/reviewed-constellation-data.json": "3a37cfde2607a0d583eed0ba6c2721b956c49177e94304c40fceac27d6673b63",
     "catalog-work/star-systems/literature-components/constellation-20261019-motion-selected.json": "a1a95aba0ce31aef48807a80a068a31f06b1e46e782557b002d232c83b1d0d2b",
+    "catalog-work/star-systems/reviewed-component-split-data.json": "a376dc7738fab436b75cc6000acd0dd0dce6ada1506bc6494942d6d1dc050b06",
+    "catalog-work/nearest-5000/gaia.csv": "cce37753723808c2155fba1807ac178e22ca12126cabccd418b12165404a3bf5",
+    "catalog-work/nearest-5000/simbad.csv": "d9810d3115ecb453f3566eb0c97afbace55f19b9b1efd942e4d51ef2766b4935",
+    "catalog-work/nearest-5000/spectroscopy.csv": "b17853360e0a1b703065139a2a991536a987c44148f69fced4339a1abf552f90",
     "catalog-work/star-systems/reviewed-white-dwarf-components.json": "3d6adbe4120a1a438b99c5229bc75713a5da5946cf3302357f4d36a9457a4066",
     "catalog-work/shared-enrichment/white-dwarfs/literature.json": "926b7af5fbc6d4c8dc64a5d07d5969daced3f539e1f86cacb16a0dd66df93712",
     "catalog-work/shared-enrichment/white-dwarfs/obrien2024-ReadMe.txt": "51f8a0a2fcd9b8b396e5d3b973619ccb2c710132b91786826597832b62e99d0a",

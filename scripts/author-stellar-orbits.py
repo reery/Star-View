@@ -180,7 +180,8 @@ def main():
             continue
         sid = next(iter(candidates))
         designation = line[30:44].strip()
-        period = number(line[81:92])
+        # ORB6 bytes 81-92; long periods in days fill byte 81 (Eta CrB 15204.9 d).
+        period = number(line[80:92])
         factor = {'m': 1 / 525960, 'h': 1 / 8766, 'd': 1 / 365.25, 'y': 1, 'c': 100}.get(line[92:93])
         reference = line[237:245].strip()
         if not period or period <= 0 or not factor:

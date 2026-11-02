@@ -135,18 +135,22 @@ button, p, h2, dd { overflow-wrap: anywhere; }
   .inspector:has(.control-dock[data-open]:not([data-open="motion"]):not([data-open="objects"])) .observer-direction-card { --observer-shift-x: -286px; }
 }
 .time-controls { position: fixed; left: calc(20px + var(--safe-left)); bottom: calc(20px + var(--safe-bottom)); padding: 0; overflow: hidden; }
-.panel-heading.time-heading { align-items: stretch; gap: 0; padding-right: 0; }
-.time-heading h2 { display: flex; align-items: center; flex-shrink: 0; margin-right: 10px; white-space: nowrap; }
+.panel-heading:is(.time-heading, .rotation-heading) { align-items: stretch; gap: 0; padding-right: 0; }
+:is(.time-heading, .rotation-heading) h2 { display: flex; align-items: center; flex-shrink: 0; margin-right: 10px; white-space: nowrap; }
 .time-controls-body { display: grid; gap: 10px; padding: 10px 12px 12px; }
 .time-transport { display: flex; align-items: stretch; flex: 1; min-width: 0; }
-.time-heading .distance-reference-button.time-button, .time-heading .distance-reference-button.time-speed-button { display: grid; place-items: center; flex: 0 0 44px; width: 44px; padding: 0; }
-.time-heading .time-button svg, .time-heading .time-speed-button svg { width: 20px; height: 20px; }
+:is(.time-heading, .rotation-heading) .distance-reference-button.time-button, .time-heading .distance-reference-button.time-speed-button { display: grid; place-items: center; flex: 0 0 44px; width: 44px; padding: 0; }
+:is(.time-heading, .rotation-heading) .time-button svg, .time-heading .time-speed-button svg { width: 20px; height: 20px; }
 .time-readout { display: flex; align-items: center; justify-content: center; min-width: 112px; margin: -1px 0; padding: 0 10px; border-right: 1px solid var(--line); }
 .time-readout output { color: var(--accent-strong); font-size: var(--property-text-size); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .time-speed { display: flex; align-items: stretch; margin-left: auto; }
 .time-speed output { display: flex; align-items: center; justify-content: center; min-width: 100px; padding: 0 8px; color: var(--muted); font-size: 12px; font-weight: 400; text-align: center; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.panel-heading.time-heading .time-lock { position: static; align-self: stretch; height: auto; margin: -1px -1px -1px 0; border-radius: 0 var(--card-radius) 0 0; }
-.panel-heading.time-heading .time-lock:not(:last-child) { margin-right: 0; border-radius: 0; }
+.panel-heading:is(.time-heading, .rotation-heading) .time-lock { position: static; align-self: stretch; height: auto; margin: -1px -1px -1px 0; border-radius: 0 var(--card-radius) 0 0; }
+.panel-heading:is(.time-heading, .rotation-heading) .time-lock:not(:last-child) { margin-right: 0; border-radius: 0; }
+/* Automatic rotation: only the Stellar motion header, sized to its controls. */
+.dock-card.rotation-card { width: max-content; max-width: calc(var(--ui-width) - var(--dock-gutter)); overflow: hidden; }
+.rotation-transport { display: flex; }
+#rotation-left-icon svg { transform: scaleX(-1); }
 .time-range { display: grid; gap: 4px; min-width: 0; }
 .time-directions { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: 11px; line-height: 1; }
 /* The mass-card ratio bar, enlarged: translucent track, fill from Now to the marker, thin ticks and a vibrant marker. */
@@ -367,7 +371,9 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .grid-controls:focus-within:has(#toggle-grid:not(:disabled)) .grid-options,
 .selection-controls:focus-within:has(.icon-button:not(:disabled)) .selection-options,
 .observer-view-controls:focus-within:has(.observer-view-button:not(:disabled)) .observer-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
-.camera-view-controls #reset-view .tooltip, .origin-controls #set-origin .tooltip, .observer-view-controls #observer-view .tooltip, .grid-controls .tooltip, .selection-controls .tooltip, .discover-controls .tooltip { top: calc(100% + 8px); right: 0; }
+/* A first touch names the previous object while revealing Next; the second touch selects it. */
+.selection-controls[data-touch-open] > .icon-button:not(:disabled) .tooltip { display: block; }
+.camera-view-controls :is(#reset-view, #rotation-toggle) .tooltip, .origin-controls #set-origin .tooltip, .observer-view-controls #observer-view .tooltip, .grid-controls .tooltip, .selection-controls .tooltip, .discover-controls .tooltip { top: calc(100% + 8px); right: 0; }
 @media (hover: hover) and (pointer: fine) {
   .discover-controls:not([data-dismissed]):hover .discover-options,
   .camera-view-controls:hover:has(#reset-view:not(:disabled)) .camera-view-options,
@@ -1531,6 +1537,13 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .time-speed { flex: 1; min-width: 0; margin: 0; }
   .time-speed > .time-speed-button:first-child { border-left: 0; }
   .time-speed output { flex: 1; min-width: 0; padding: 0 4px; line-height: 1.2; white-space: normal; }
+  /* Automatic rotation: the title beside lock and close, the controls sharing the second row. */
+  .panel-heading.rotation-heading { flex-wrap: wrap; padding: 0; }
+  .rotation-heading h2 { flex: 1; min-height: 44px; margin-right: 0; padding: 0 14px; }
+  .panel-heading.rotation-heading .time-lock { order: 1; height: 45px; margin-bottom: 0; }
+  .rotation-transport { order: 2; flex-basis: 100%; border-top: 1px solid var(--line); }
+  .rotation-heading .distance-reference-button.time-button { flex: 1 0 44px; }
+  .rotation-transport > .time-button:first-child { border-left: 0; }
 }
 
 @media (max-width: 720px) {
@@ -1644,6 +1657,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
     transform: none;
     transition: none;
   }
+  .selection-controls[data-touch-open] > .icon-button .tooltip { position: fixed; top: calc(var(--toolbar-options-top, 12px) + 52px); right: calc(12px + var(--safe-right)); }
   .dock-rail .discover-options { top: max(12px, calc(var(--toolbar-options-top, 60px) - 48px)); bottom: auto; }
   .dock-rail .discover-options::after { content: none; }
   .selected-object { top: 12px; left: 12px; width: min(244px, calc(var(--ui-width) - 78px)); }

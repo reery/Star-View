@@ -33,7 +33,7 @@
     },
     {
       "frozenInput": "src/data/stellar-companions.json",
-      "sha256": "77d6d0ba12f3c1adfc44b31aed313b7080b11aa11a312f846d63bfab33ae410d"
+      "sha256": "88bb4078cd3bcb611fccf3bec6c7cfa655974a70c0eaad0a8210b745b128c450"
     },
     {
       "frozenInput": "src/data/object-designations.json",
@@ -41,8 +41,8 @@
     }
   ],
   "systemsReviewed": 866,
-  "systemsWithSolutions": 354,
-  "orbitCount": 417,
+  "systemsWithSolutions": 363,
+  "orbitCount": 427,
   "reconciled": [
     {
       "systemId": "msc-00084+2905",
@@ -378,18 +378,6 @@
       "reference": "Sef2010a"
     },
     {
-      "systemId": "cns5-gj-153",
-      "pair": "B,C",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Baz1986a"
-    },
-    {
-      "systemId": "cns5-gj-161.1",
-      "pair": "A,B",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Hei1986b"
-    },
-    {
       "systemId": "stein-2051",
       "pair": "A",
       "reason": "Ambiguous ORB6 pair label"
@@ -453,12 +441,6 @@
       "reference": "Tok2019c"
     },
     {
-      "systemId": "cns5-gj-2060",
-      "pair": "A,B",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Jnn2022"
-    },
-    {
       "systemId": "msc-07292-4318",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
@@ -485,12 +467,6 @@
       "pair": "Aa,Ab",
       "reason": "Unresolved or overlapping component scope",
       "reference": "Tok2021c"
-    },
-    {
-      "systemId": "cns5-gj-337",
-      "pair": "Aa,Ab",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Msn2021a"
     },
     {
       "systemId": "cns5-gj-11386",
@@ -520,18 +496,6 @@
       "reason": "Ambiguous ORB6 pair label"
     },
     {
-      "systemId": "cns5-gj-417",
-      "pair": "Ea,Eb",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Dup2017"
-    },
-    {
-      "systemId": "cns5-gj-426.1",
-      "pair": "A,B",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "JAA2023"
-    },
-    {
       "systemId": "cns5-gj-455.1",
       "pair": "A",
       "reason": "Ambiguous ORB6 pair label"
@@ -556,18 +520,6 @@
       "systemId": "msc-13239+5456",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
-    },
-    {
-      "systemId": "cns5-gj-564",
-      "pair": "B,C",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Dup2017"
-    },
-    {
-      "systemId": "cns5-gj-584",
-      "pair": "A,B",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Mut2010b"
     },
     {
       "systemId": "cns5-gj-586",
@@ -615,12 +567,6 @@
       "pair": "Ba,Bb",
       "reason": "Unresolved or overlapping component scope",
       "reference": "Tok2025a"
-    },
-    {
-      "systemId": "cns5-gj-684",
-      "pair": "A,B",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Sod1999"
     },
     {
       "systemId": "cns5-gj-692.1",
@@ -702,12 +648,6 @@
       "systemId": "msc-21069+3845",
       "pair": "A",
       "reason": "Ambiguous ORB6 pair label"
-    },
-    {
-      "systemId": "cns5-gj-818.1",
-      "pair": "A,B",
-      "reason": "Unresolved or overlapping component scope",
-      "reference": "Tok2023b"
     },
     {
       "systemId": "orb6-21148+3803-a-b",
@@ -1319,10 +1259,6 @@
       "name": "LP 356-14"
     },
     {
-      "systemId": "cns5-gj-153",
-      "name": "HD 23189"
-    },
-    {
       "systemId": "cns5-gj-165",
       "name": "Ross 29"
     },
@@ -1383,10 +1319,6 @@
       "name": "BD-08 2582"
     },
     {
-      "systemId": "cns5-gj-337",
-      "name": "Pi1 Cnc"
-    },
-    {
       "systemId": "cns5-gj-347",
       "name": "Ross 439"
     },
@@ -1413,10 +1345,6 @@
     {
       "systemId": "cns5-gj-401",
       "name": "BD-18 3019"
-    },
-    {
-      "systemId": "cns5-gj-417",
-      "name": "HD 97334"
     },
     {
       "systemId": "cns5-gj-421",
@@ -1479,10 +1407,6 @@
       "name": "BD+06 2986"
     },
     {
-      "systemId": "cns5-gj-584",
-      "name": "Eta CrB"
-    },
-    {
       "systemId": "cns5-gj-586",
       "name": "HD 137763"
     },
@@ -1509,10 +1433,6 @@
     {
       "systemId": "cns5-gj-676",
       "name": "CD-51 10924"
-    },
-    {
-      "systemId": "cns5-gj-684",
-      "name": "26 Dra"
     },
     {
       "systemId": "cns5-gj-698",
@@ -1687,10 +1607,6 @@
       "name": "BD+16 502"
     },
     {
-      "systemId": "cns5-gj-161.1",
-      "name": "50 Per"
-    },
-    {
       "systemId": "cns5-gj-167.3",
       "name": "Epsilon Ret"
     },
@@ -1713,10 +1629,6 @@
     {
       "systemId": "cns5-gj-2043",
       "name": "LP 417-213"
-    },
-    {
-      "systemId": "cns5-gj-2060",
-      "name": "CD-29 4446"
     },
     {
       "systemId": "cns5-gj-2075",
@@ -2019,10 +1931,6 @@
       "name": "G 264-18"
     },
     {
-      "systemId": "cns5-gj-426.1",
-      "name": "Iota Leo"
-    },
-    {
       "systemId": "cns5-gj-4268",
       "name": "HD 211472"
     },
@@ -2129,10 +2037,6 @@
     {
       "systemId": "cns5-gj-816.1",
       "name": "HD 200560"
-    },
-    {
-      "systemId": "cns5-gj-818.1",
-      "name": "HD 200525"
     },
     {
       "systemId": "cns5-gj-828.5",

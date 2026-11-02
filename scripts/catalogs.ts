@@ -37,11 +37,20 @@ import stellarOrbits from '../src/data/stellar-orbits.json' with { type: 'json' 
 import compactOrbits from '../src/data/compact-system-orbits.json' with { type: 'json' }
 
 const root = fileURLToPath(new URL('../', import.meta.url))
-const identities = parseObjectIdentities(JSON.parse(readFileSync(join(root, 'src/data/object-designations.json'), 'utf8')))
 const objectStats = parseObjectStats(JSON.parse(readFileSync(join(root, 'src/data/object-stats.json'), 'utf8')))
-const supplement = (stars: Parameters<typeof supplementObjectIdentities>[0]) => supplementStellarObservations(supplementObjectStats(supplementObjectIdentities(stars, identities), objectStats))
 const components = new Map(reviewedStarSystems.flatMap((system) => system.components.flatMap((component) =>
   [component.starId, ...component.alternateStarIds ?? []].map((id) => [id, { canonicalStarId: component.starId }] as const))))
+// A split blended source keeps its SIMBAD identity; an alias naming a sibling component (HD 130948C) ships only with that sibling.
+const aliasOwners = new Map<string, Set<string>>()
+for (const star of companionData.stars as Star[]) {
+  for (const name of star.designations ?? []) aliasOwners.set(name, (aliasOwners.get(name) ?? new Set()).add(star.id))
+}
+const identities = Object.fromEntries(Object.entries(parseObjectIdentities(JSON.parse(readFileSync(join(root, 'src/data/object-designations.json'), 'utf8'))))
+  .map(([id, identity]) => {
+    const canonical = components.get(id)?.canonicalStarId
+    return [id, canonical ? { ...identity, designations: identity.designations.filter((name) => aliasOwners.get(name)?.has(canonical) ?? true) } : identity]
+  }))
+const supplement = (stars: Parameters<typeof supplementObjectIdentities>[0]) => supplementStellarObservations(supplementObjectStats(supplementObjectIdentities(stars, identities), objectStats))
 const [command, ...args] = process.argv.slice(2)
 const compactOverlayDirectory = join(root, 'src/data/overlays/compact-remnants')
 const nebulaOverlayDirectory = join(root, 'src/data/overlays/nebulae')

@@ -37,3 +37,15 @@ and uncertainty conventions. `constellation-20261019-intermediate-adoptions.json
 retains earlier generated source adoptions during reconciliation; it is history,
 not a set of independent new measurements. See
 `docs/constellation-motion-enrichment.md` for the adoption and validation limits.
+
+# Combined CNS5 component splits, 2026-11-02
+
+`component-splits-20261102-selected.json` freezes the verbatim MSC rows (archive
+hash identical to `catalog-companions-msc.json`) of the 13 systems whose CNS5
+record combined two components, plus selected tables and passages from Rodet et
+al. 2018 (GJ 2060), Muterspaugh et al. 2010 (Eta CrB), Tokovinin 2023
+(HD 200525), Dupuy & Liu 2017 (Gl 417 BC, HD 130948 BC) and Burgasser et al.
+2005 (Gl 337 CD) with document hashes. `../reviewed-component-splits.json`
+approves the splits and records three deferred systems;
+`../reviewed-component-split-data.json` maps the adopted values. See
+`docs/combined-cns5-components.md`.

@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-11-02",
+  "policy": "Exact-component values for the 2026-11-02 component splits. Primary-paper values win over MSC compilations; MSC subsystem V and spectral types are adopted only when unambiguous and consistent with the retained catalog classification. A parent's spectroscopic values return to its first member only when the frozen SIMBAD identity is that component alone (A aliases, no B alias). Values of blended A+B identities and total masses stay in the retained unresolved parent source.",
+  "inputSha256": {
+    "catalog-work/star-systems/literature-components/component-splits-20261102-selected.json": "50b5e748148b373860188cce8e3fdcc4b150cf58d404b82d692246baa21b49c8",
+    "catalog-work/nearest-5000/gaia.csv": "cce37753723808c2155fba1807ac178e22ca12126cabccd418b12165404a3bf5",
+    "catalog-work/nearest-5000/simbad.csv": "d9810d3115ecb453f3566eb0c97afbace55f19b9b1efd942e4d51ef2766b4935",
+    "catalog-work/nearest-5000/spectroscopy.csv": "b17853360e0a1b703065139a2a991536a987c44148f69fced4339a1abf552f90"
+  },
+  "objects": {
+    "cns5-2285": {
+      "expectedName": "Pi1 Cnc A",
+      "systemId": "cns5-gj-337",
+      "component": "A",
+      "note": "Component V and class from the MSC FIN 347 Aa,Ab subsystem; its compiled masses are not adopted without the original publication.",
+      "fields": {
+        "apparent_mag": {"value": 7.02, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 09123+1500 Aa,Ab Vmag1", "status": "compiled-catalog"},
+        "spectral_type": {"value": "G9V", "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 09123+1500 Aa,Ab SP1", "status": "compiled-catalog"}
+      }
+    },
+    "cns5-gj-337-b": {
+      "expectedName": "Pi1 Cnc B",
+      "systemId": "cns5-gj-337",
+      "component": "B",
+      "note": "Component V and class from the MSC FIN 347 Aa,Ab subsystem; its compiled masses are not adopted without the original publication.",
+      "fields": {
+        "apparent_mag": {"value": 7.52, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 09123+1500 Aa,Ab Vmag2", "status": "compiled-catalog"},
+        "spectral_type": {"value": "G9V", "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 09123+1500 Aa,Ab SP2", "status": "compiled-catalog"}
+      }
+    },
+    "cns5-2733": {
+      "expectedName": "HD 97334B",
+      "systemId": "cns5-gj-417",
+      "component": "B",
+      "expectedType": "brown_dwarf",
+      "note": "Dupuy & Liu 2017 total-mass analysis: the mass and temperature are evolutionary-model inferences from the dynamical total mass (99.2 MJup), not direct individual measurements. Age is the shared system model age.",
+      "fields": {
+        "spectral_type": {"value": "L4.5", "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "compiled", "uncertaintySubtypes": 1.0},
+        "temperature_k": {"value": 1639, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "evolutionary-model", "uncertaintyMinus": 31, "uncertaintyPlus": 29, "uncertaintyKind": "1-sigma"},
+        "luminosity_solar": {"value": 7.379042301291015e-05, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "derived-from-published-log", "inputs": {"log10LuminositySolar": -4.132, "log10Uncertainty": 0.03}},
+        "mass_solar": {"value": 0.04917, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "evolutionary-model", "uncertaintyMinus": 0.00172, "uncertaintyPlus": 0.00162, "uncertaintyKind": "1-sigma", "inputs": {"massJupiter": 51.5, "massJupiterMinus": 1.8, "massJupiterPlus": 1.7, "jupiterToSolar": "IAU 2015 nominal, 1/1047.348644"}},
+        "age_gyr": {"value": 0.49, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "evolutionary-model", "uncertaintyMinus": 0.04, "uncertaintyPlus": 0.03, "uncertaintyKind": "1-sigma", "scope": "Gl 417 BC system age from the total-mass analysis."}
+      }
+    },
+    "cns5-gj-417-c": {
+      "expectedName": "GJ 417 C",
+      "systemId": "cns5-gj-417",
+      "component": "C",
+      "expectedType": "brown_dwarf",
+      "note": "Dupuy & Liu 2017 total-mass analysis: the mass and temperature are evolutionary-model inferences from the dynamical total mass (99.2 MJup), not direct individual measurements. Age is the shared system model age.",
+      "fields": {
+        "spectral_type": {"value": "L6", "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "compiled", "uncertaintySubtypes": 1.0},
+        "temperature_k": {"value": 1560, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "evolutionary-model", "uncertaintyMinus": 26, "uncertaintyPlus": 29, "uncertaintyKind": "1-sigma"},
+        "luminosity_solar": {"value": 6.0255958607435806e-05, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "derived-from-published-log", "inputs": {"log10LuminositySolar": -4.22, "log10Uncertainty": 0.03}},
+        "mass_solar": {"value": 0.04554, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "evolutionary-model", "uncertainty": 0.00181, "uncertaintyKind": "1-sigma", "inputs": {"massJupiter": 47.7, "massJupiterUncertainty": 1.9, "jupiterToSolar": "IAU 2015 nominal, 1/1047.348644"}},
+        "age_gyr": {"value": 0.49, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "evolutionary-model", "uncertaintyMinus": 0.04, "uncertaintyPlus": 0.03, "uncertaintyKind": "1-sigma", "scope": "Gl 417 BC system age from the total-mass analysis."}
+      }
+    },
+    "cns5-3668": {
+      "expectedName": "GJ 564 B",
+      "systemId": "cns5-gj-564",
+      "component": "B",
+      "expectedType": "brown_dwarf",
+      "note": "Dupuy & Liu 2017 total-mass analysis: the mass and temperature are evolutionary-model inferences from the dynamical total mass (115.4 MJup), not direct individual measurements. Age is the shared system model age.",
+      "fields": {
+        "spectral_type": {"value": "L4", "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "compiled", "uncertaintySubtypes": 1.0},
+        "temperature_k": {"value": 1920, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "evolutionary-model", "uncertaintyMinus": 60, "uncertaintyPlus": 70, "uncertaintyKind": "1-sigma"},
+        "luminosity_solar": {"value": 0.0001412537544622754, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "derived-from-published-log", "inputs": {"log10LuminositySolar": -3.85, "log10Uncertainty": 0.06}},
+        "mass_solar": {"value": 0.0571, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "evolutionary-model", "uncertaintyMinus": 0.00201, "uncertaintyPlus": 0.00191, "uncertaintyKind": "1-sigma", "inputs": {"massJupiter": 59.8, "massJupiterMinus": 2.1, "massJupiterPlus": 2.0, "jupiterToSolar": "IAU 2015 nominal, 1/1047.348644"}},
+        "age_gyr": {"value": 0.44, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "evolutionary-model", "uncertainty": 0.04, "uncertaintyKind": "1-sigma", "scope": "HD 130948 BC system age from the total-mass analysis."}
+      }
+    },
+    "cns5-gj-564-c": {
+      "expectedName": "GJ 564 C",
+      "systemId": "cns5-gj-564",
+      "component": "C",
+      "expectedType": "brown_dwarf",
+      "note": "Dupuy & Liu 2017 total-mass analysis: the mass and temperature are evolutionary-model inferences from the dynamical total mass (115.4 MJup), not direct individual measurements. Age is the shared system model age.",
+      "fields": {
+        "spectral_type": {"value": "L4", "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "compiled", "uncertaintySubtypes": 1.0},
+        "temperature_k": {"value": 1800, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "evolutionary-model", "uncertaintyMinus": 70, "uncertaintyPlus": 50, "uncertaintyKind": "1-sigma"},
+        "luminosity_solar": {"value": 0.00010964781961431851, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "derived-from-published-log", "inputs": {"log10LuminositySolar": -3.96, "log10Uncertainty": 0.06}},
+        "mass_solar": {"value": 0.05309, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "evolutionary-model", "uncertaintyMinus": 0.00181, "uncertaintyPlus": 0.00191, "uncertaintyKind": "1-sigma", "inputs": {"massJupiter": 55.6, "massJupiterMinus": 1.9, "massJupiterPlus": 2.0, "jupiterToSolar": "IAU 2015 nominal, 1/1047.348644"}},
+        "age_gyr": {"value": 0.44, "reference": "Dupuy & Liu 2017; 2017ApJS..231...15D", "sourceUrl": "https://arxiv.org/html/1703.05775v2", "section": "Table 41", "status": "evolutionary-model", "uncertainty": 0.04, "uncertaintyKind": "1-sigma", "scope": "HD 130948 BC system age from the total-mass analysis."}
+      }
+    },
+    "cns5-3797": {
+      "expectedName": "Eta CrB A",
+      "systemId": "cns5-gj-584",
+      "component": "A",
+      "note": "Dynamical mass from the combined visual/double-lined orbit at its orbit-derived distance of 18.50 +/- 0.22 pc. Component V from the MSC STF 1937AB subsystem. The catalog composite G2V+G2V and the MSC G0V/G3V classes disagree, so no component class is adopted.",
+      "fields": {
+        "mass_solar": {"value": 1.243, "reference": "Muterspaugh et al. 2010; 2010AJ....140.1623M", "sourceUrl": "https://arxiv.org/html/1010.4043v1", "section": "Table 6; Section IV.3.1", "status": "dynamical", "uncertainty": 0.054, "uncertaintyKind": "1-sigma"},
+        "apparent_mag": {"value": 5.64, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 15232+3017 A,B Vmag1", "status": "compiled-catalog"}
+      }
+    },
+    "cns5-gj-584-b": {
+      "expectedName": "Eta CrB B",
+      "systemId": "cns5-gj-584",
+      "component": "B",
+      "note": "Dynamical mass from the combined visual/double-lined orbit at its orbit-derived distance of 18.50 +/- 0.22 pc. Component V from the MSC STF 1937AB subsystem. The catalog composite G2V+G2V and the MSC G0V/G3V classes disagree, so no component class is adopted.",
+      "fields": {
+        "mass_solar": {"value": 1.1, "reference": "Muterspaugh et al. 2010; 2010AJ....140.1623M", "sourceUrl": "https://arxiv.org/html/1010.4043v1", "section": "Table 6; Section IV.3.1", "status": "dynamical", "uncertainty": 0.039, "uncertaintyKind": "1-sigma"},
+        "apparent_mag": {"value": 5.95, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 15232+3017 A,B Vmag2", "status": "compiled-catalog"}
+      }
+    },
+    "cns5-4332": {
+      "expectedName": "26 Dra A",
+      "systemId": "cns5-gj-684",
+      "component": "A",
+      "note": "Component V and class from the MSC BU 962AB subsystem; the class agrees with the retained catalog G0V. Temperature and [Fe/H] belong to the SIMBAD identity * 26 Dra, whose aliases name only component A; a seeing-limited spectrum may include light from B, 1.5 arcsec away and 3.3 mag fainter in V.",
+      "fields": {
+        "apparent_mag": {"value": 5.28, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 17350+6153 A,B Vmag1", "status": "compiled-catalog"},
+        "spectral_type": {"value": "G0V", "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 17350+6153 A,B SP1", "status": "compiled-catalog"},
+        "temperature_k": {"value": 5921, "reference": "2022A&A...663A...4S", "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+26+Dra", "section": "Frozen SIMBAD mesFe_H, main_id * 26 Dra, mespos 1", "status": "spectroscopic"},
+        "metallicity_dex": {"value": -0.04, "quantity": "[Fe/H]", "reference": "2022A&A...663A...4S", "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+26+Dra", "section": "Frozen SIMBAD mesFe_H, main_id * 26 Dra, mespos 1", "status": "spectroscopic"}
+      }
+    },
+    "cns5-gj-684-b": {
+      "expectedName": "26 Dra B",
+      "systemId": "cns5-gj-684",
+      "component": "B",
+      "note": "Component V from the MSC BU 962AB subsystem. Its uncertain K5? class is withheld.",
+      "fields": {
+        "apparent_mag": {"value": 8.54, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 17350+6153 A,B Vmag2", "status": "compiled-catalog"}
+      }
+    },
+    "cns5-1023": {
+      "expectedName": "HD 25893A",
+      "systemId": "cns5-gj-161.1",
+      "component": "A",
+      "note": "Component V and class from the MSC STT 531AB subsystem. Temperature, [Fe/H] and the Gaia FLAME luminosity belong to the identities of HD 25893A alone (SIMBAD HD 25893A; Gaia DR3 225709641034907264), resolved 3.9 arcsec from B.",
+      "fields": {
+        "apparent_mag": {"value": 7.32, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 04076+3804 A,B Vmag1", "status": "compiled-catalog"},
+        "spectral_type": {"value": "G9V", "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 04076+3804 A,B SP1", "status": "compiled-catalog"},
+        "temperature_k": {"value": 5000, "reference": "2022A&A...663A...4S", "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=HD+25893A", "section": "Frozen SIMBAD mesFe_H, main_id HD 25893A, mespos 1", "status": "spectroscopic"},
+        "metallicity_dex": {"value": -0.06, "quantity": "[Fe/H]", "reference": "2022A&A...663A...4S", "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=HD+25893A", "section": "Frozen SIMBAD mesFe_H, main_id HD 25893A, mespos 1", "status": "spectroscopic"},
+        "luminosity_solar": {"value": 0.53191113, "reference": "Gaia DR3 astrophysical_parameters", "sourceUrl": "https://gea.esac.esa.int/archive/", "section": "Frozen Gaia DR3 lum_flame, source_id 225709641034907264", "status": "model-derived", "uncertaintyMinus": 0.00502933, "uncertaintyPlus": 0.0050236, "uncertaintyKind": "16th-84th-percentile", "inputs": {"flameFlags": "20"}}
+      }
+    },
+    "cns5-gj-161.1-b": {
+      "expectedName": "HD 25893B",
+      "systemId": "cns5-gj-161.1",
+      "component": "B",
+      "note": "MSC STT 531AB V of B, which is the combined light of the unresolved Ba+Bb pair.",
+      "fields": {
+        "apparent_mag": {"value": 9.69, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 04076+3804 A,B Vmag2", "status": "compiled-catalog", "scope": "Combined Ba+Bb light of the B subsystem."}
+      }
+    },
+    "cns5-1849": {
+      "expectedName": "GJ 2060 A",
+      "systemId": "cns5-gj-2060",
+      "component": "A",
+      "note": "Resolved SINFONI spectra (Rodet et al. 2018): class from template comparison, temperature from BT-SETTL fits, luminosity at the paper's 15.69 pc. The paper measures only the total dynamical mass, so no component mass is adopted. Component V from the MSC HDS 1054AB subsystem.",
+      "fields": {
+        "spectral_type": {"value": "M1V", "reference": "Rodet et al. 2018; 2018A&A...618A..23R", "sourceUrl": "https://arxiv.org/html/1806.05491v1", "section": "Abstract; Section 4", "status": "resolved-spectroscopy", "uncertaintySubtypes": 0.5},
+        "temperature_k": {"value": 3700, "reference": "Rodet et al. 2018; 2018A&A...618A..23R", "sourceUrl": "https://arxiv.org/html/1806.05491v1", "section": "Abstract; Section 4", "status": "atmosphere-model-fit", "uncertainty": 100},
+        "luminosity_solar": {"value": 0.06309573444801933, "reference": "Rodet et al. 2018; 2018A&A...618A..23R", "sourceUrl": "https://arxiv.org/html/1806.05491v1", "section": "Abstract", "status": "derived-from-published-log", "inputs": {"log10LuminositySolar": -1.2, "log10Uncertainty": 0.05, "distancePc": 15.69}},
+        "apparent_mag": {"value": 10.14, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 07289-3015 A,B Vmag1", "status": "compiled-catalog"}
+      }
+    },
+    "cns5-gj-2060-b": {
+      "expectedName": "GJ 2060 B",
+      "systemId": "cns5-gj-2060",
+      "component": "B",
+      "note": "Resolved SINFONI spectra (Rodet et al. 2018): class from template comparison, temperature from BT-SETTL fits, luminosity at the paper's 15.69 pc. The paper measures only the total dynamical mass, so no component mass is adopted. Component V from the MSC HDS 1054AB subsystem.",
+      "fields": {
+        "spectral_type": {"value": "M3V", "reference": "Rodet et al. 2018; 2018A&A...618A..23R", "sourceUrl": "https://arxiv.org/html/1806.05491v1", "section": "Abstract; Section 4", "status": "resolved-spectroscopy", "uncertaintySubtypes": 0.5},
+        "temperature_k": {"value": 3400, "reference": "Rodet et al. 2018; 2018A&A...618A..23R", "sourceUrl": "https://arxiv.org/html/1806.05491v1", "section": "Abstract; Section 4", "status": "atmosphere-model-fit", "uncertainty": 100},
+        "luminosity_solar": {"value": 0.023442288153199226, "reference": "Rodet et al. 2018; 2018A&A...618A..23R", "sourceUrl": "https://arxiv.org/html/1806.05491v1", "section": "Abstract", "status": "derived-from-published-log", "inputs": {"log10LuminositySolar": -1.63, "log10Uncertainty": 0.05, "distancePc": 15.69}},
+        "apparent_mag": {"value": 12.01, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 07289-3015 A,B Vmag2", "status": "compiled-catalog"}
+      }
+    },
+    "cns5-2793": {
+      "expectedName": "Iota Leo A",
+      "systemId": "cns5-gj-426.1",
+      "component": "A",
+      "note": "Component V from the MSC STF 1536AB subsystem. Class, temperature and [Fe/H] belong to the SIMBAD identity * iot Leo, whose aliases name only component A; a seeing-limited spectrum may include light from B, 1.9 arcsec away and 2.65 mag fainter in V. MSC lists F3V for A.",
+      "fields": {
+        "apparent_mag": {"value": 4.06, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 11239+1032 A,B Vmag1", "status": "compiled-catalog"},
+        "spectral_type": {"value": "F1IV", "reference": "SIMBAD", "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+iot+Leo", "section": "Frozen SIMBAD basic sp_type, main_id * iot Leo", "status": "compiled"},
+        "temperature_k": {"value": 6750, "reference": "2023MNRAS.519.5472M", "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+iot+Leo", "section": "Frozen SIMBAD mesFe_H, main_id * iot Leo, mespos 1", "status": "spectroscopic"},
+        "metallicity_dex": {"value": 0.06, "quantity": "[Fe/H]", "reference": "1990ApJ...354..310B", "sourceUrl": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=*+iot+Leo", "section": "Frozen SIMBAD mesFe_H, main_id * iot Leo", "status": "spectroscopic"}
+      }
+    },
+    "cns5-gj-426.1-b": {
+      "expectedName": "Iota Leo B",
+      "systemId": "cns5-gj-426.1",
+      "component": "B",
+      "note": "Component V from the MSC STF 1536AB subsystem; MSC gives no class for B.",
+      "fields": {
+        "apparent_mag": {"value": 6.71, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 11239+1032 A,B Vmag2", "status": "compiled-catalog"}
+      }
+    },
+    "cns5-5225": {
+      "expectedName": "HD 200525A",
+      "systemId": "cns5-gj-818.1",
+      "component": "A",
+      "note": "Mass from the combined SOAR/CHIRON orbit with its orbital parallax of 51.0 mas; no uncertainty is quoted. Component V from the MSC subsystem (SOAR Delta y = 3.15). The published F9.5V describes A+B and the MSC G3IV conflicts with it, so no component class is adopted.",
+      "fields": {
+        "mass_solar": {"value": 1.15, "reference": "Tokovinin 2023; 2023AJ....165..160T", "sourceUrl": "https://arxiv.org/html/2304.01861v1", "section": "Section III.11", "status": "dynamical", "uncertaintyKind": "unreported", "inputs": {"orbitalParallaxMas": 51.0}},
+        "apparent_mag": {"value": 5.74, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 21094-7310 A,B Vmag1", "status": "compiled-catalog"}
+      }
+    },
+    "cns5-gj-818.1-b": {
+      "expectedName": "HD 200525B",
+      "systemId": "cns5-gj-818.1",
+      "component": "B",
+      "note": "Mass from the combined SOAR/CHIRON orbit with its orbital parallax of 51.0 mas; no uncertainty is quoted. Component V from the MSC subsystem (SOAR Delta y = 3.15).",
+      "fields": {
+        "mass_solar": {"value": 0.74, "reference": "Tokovinin 2023; 2023AJ....165..160T", "sourceUrl": "https://arxiv.org/html/2304.01861v1", "section": "Section III.11", "status": "dynamical", "uncertaintyKind": "unreported", "inputs": {"orbitalParallaxMas": 51.0}},
+        "apparent_mag": {"value": 8.89, "reference": "Tokovinin MSC 2026-06-19; 2018ApJS..235....6T", "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz", "section": "sys.tsv 21094-7310 A,B Vmag2", "status": "compiled-catalog"}
+      }
+    }
+  }
+}

@@ -656,6 +656,7 @@ def build():
             enrich(star, next(iter(candidates.values())), audit["componentRecords"].get(identifier, {}))
 
     inputs += apply_hierarchy_splits(ROOT, definitions, pool, audit)
+    inputs += apply_hierarchy_splits(ROOT, definitions, pool, audit, "catalog-work/star-systems/reviewed-component-splits.json")
 
     overrides = read_json(files[5])["objects"]
     if overrides.keys() & hierarchy_review["physicalOverrides"].keys():
@@ -671,6 +672,7 @@ def build():
     inputs += apply_literature(ROOT, WORK / "reviewed-companion-literature.json", definitions, pool, audit)
     inputs += apply_literature(ROOT, WORK / "reviewed-constellation-literature.json", definitions, pool, audit)
     inputs += apply_literature(ROOT, WORK / "reviewed-constellation-data.json", definitions, pool, audit)
+    inputs += apply_literature(ROOT, WORK / "reviewed-component-split-data.json", definitions, pool, audit)
     inputs += apply_literature(ROOT, WORK / "reviewed-white-dwarf-components.json", definitions, pool, audit)
     inputs += apply_cluster_astrometry(ROOT, definitions, pool, audit)
     inputs += apply_literature(ROOT, ROOT / "catalog-work/famous-cluster-stars/physical-review.json", definitions, pool, audit)
