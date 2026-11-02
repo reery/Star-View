@@ -29,9 +29,11 @@ import nearest100Info from '../src/data/nearest-100-info.json' with { type: 'jso
 import constellationStarInfo from '../src/data/constellation-star-info.json' with { type: 'json' }
 import compactObjectInfo from '../src/data/compact-object-info.json' with { type: 'json' }
 import legacyStarIds from '../src/data/legacy-star-ids.json' with { type: 'json' }
-import { starComponentIdentity } from '../src/star-systems.ts'
+import { indexStarSystems, starComponentIdentity } from '../src/star-systems.ts'
 import type { ConstellationChart } from '../src/constellations.ts'
-import type { Star } from '../src/catalog-model.ts'
+import { describeObject, objectTypeLabel, type Star } from '../src/catalog-model.ts'
+import type { ObjectPage, ObjectPageAlias } from '../src/object-page.ts'
+import { mergeCatalogStarLayers } from '../src/catalog-merge.ts'
 import { splitCatalogDetails } from '../src/catalog-detail-model.ts'
 import stellarOrbits from '../src/data/stellar-orbits.json' with { type: 'json' }
 import compactOrbits from '../src/data/compact-system-orbits.json' with { type: 'json' }
@@ -168,6 +170,54 @@ function writeGeneratedData(directory: string, files: Record<string, string>): v
   }
 }
 
+interface ArticleSummary { name: string; introduction: string }
+
+const LIGHT_YEARS_PER_PARSEC = 3.261563777
+// main.ts merges these into the selected nearby catalog; nearby catalogs share IDs instead.
+const ADDITIVE_CATALOGS = ['western-constellation-stars', 'notable-distant-stars']
+const brief = (text: string) => text.length <= 160 ? text : `${text.slice(0, 159).replace(/\s+\S*$/, '')}…`
+
+/** Page summaries for /objects/<id>; each object is listed under the smallest catalog that holds it. */
+function objectPages(sources: { catalog: string; stars: readonly Omit<Star, 'notes'>[] }[], articleFor: (starId: string) => ArticleSummary | undefined): Record<string, ObjectPage | ObjectPageAlias> {
+  // Catalogs repeat a star under different IDs, so systems are indexed within the owning catalog.
+  const owners = new Map<string, { catalog: string; star: Omit<Star, 'notes'>; systems: ReturnType<typeof indexStarSystems> }>()
+  const sorted = [...sources].sort((first, second) => first.stars.length - second.stars.length)
+  for (const { catalog, stars } of sorted) {
+    // Map records defer their notes, which system indexing does not read.
+    const systems = indexStarSystems(stars as readonly Star[])
+    for (const star of stars) if (!owners.has(star.id)) owners.set(star.id, { catalog, star, systems })
+  }
+  // Like main.ts, merge the additive layers into the nearby catalogs; an absorbed record redirects to its survivor.
+  // Parsed map records carry empty notes, as in parseCatalogPayload.
+  const parsed = (stars: readonly Omit<Star, 'notes'>[]) => stars.map((star) => ({ ...star, notes: '' }))
+  const aliases = new Map<string, string>()
+  const layered = sorted.filter(({ catalog }) => ADDITIVE_CATALOGS.includes(catalog))
+  layered.reduce((merged, { stars }) => mergeCatalogStarLayers(merged, parsed(stars), starComponentIdentity, aliases),
+    [...new Map(sorted.filter((source) => !layered.includes(source)).flatMap(({ stars }) => parsed(stars).map((star) => [star.id, star]))).values()])
+  const canonical = (id: string) => aliases.get(id) ?? id
+  return Object.fromEntries([...owners].sort(([first], [second]) => first < second ? -1 : 1).map(([id, { catalog, star, systems }]) => {
+    if (aliases.has(id)) return [id, { canonical: canonical(id) }]
+    const article = articleFor(id)
+    const distanceLy = Math.hypot(star.x_pc, star.y_pc, star.z_pc) * LIGHT_YEARS_PER_PARSEC
+    const kind = describeObject(star)
+    const planets = star.known_planets ?? 0
+    const facts: [string, string][] = [
+      ['Object type', objectTypeLabel(star.type)],
+      ...distanceLy > 0 ? [['Distance from Sun', `${distanceLy.toFixed(2)} ly`] as [string, string]] : [],
+      ...star.spectral_type ? [['Spectral type', star.spectral_type] as [string, string]] : [],
+      ...star.apparent_mag != null ? [['Apparent mag. (V)', star.apparent_mag.toFixed(2).replace('-', '−')] as [string, string]] : [],
+      ...planets > 0 ? [['Known planets', String(planets)] as [string, string]] : [],
+    ]
+    const description = article ? `${article.name} ${article.introduction}`
+      : `${star.name} is ${/^[AEIOU]/.test(kind) ? 'an' : 'a'} ${kind === 'Sun-like star' ? kind : kind.toLowerCase()}${distanceLy > 0 ? ` ${distanceLy.toFixed(2)} light-years from the Sun` : ''}${star.spectral_type ? ` with spectral type ${star.spectral_type}` : ''}.`
+    // Components absorbed by another record link to the surviving page.
+    const related = [...new Map(systems.get(id)?.components.filter((component) => component.star.id !== id)
+      .map((component) => [canonical(component.star.id), component.star.name] as const))].map(([componentId, name]) => ({ id: componentId, name }))
+    const page: ObjectPage = { name: star.name, catalog, description: brief(description), facts, ...(article ? { introduction: `${article.name} ${article.introduction}` } : {}), ...(planets > 0 ? { planets } : {}), related }
+    return [id, page]
+  }))
+}
+
 const WHITE_DWARF_REFERENCES = join(root, 'src/data/white-dwarf-class-references.json')
 
 // Values retired as wrong by a reviewed correction stay in the ledger only.
@@ -275,6 +325,7 @@ function generate(): void {
   const orbitFiles = Object.fromEntries([...stellarOrbits.systems, ...compactOrbits.systems].map((system) =>
     [`stellar-orbit-${system.systemId}.json`, JSON.stringify(system.orbits) + '\n']))
   writeGeneratedData('stellar-orbits', orbitFiles)
+  const orbitSystemIds = [...stellarOrbits.systems, ...compactOrbits.systems].map((system) => system.systemId)
   const systemFiles = Object.fromEntries([...planetarySystems.systems, ...nearbyPlanets.systems].map((system) =>
     [`planetary-system-${system.hostStarId}.json`, JSON.stringify({ system, planets: nearbyPlanets.planets.filter((planet) => planet.hostStarId === system.hostStarId) }) + '\n']))
   writeGeneratedData('planetary-systems', systemFiles)
@@ -285,6 +336,8 @@ function generate(): void {
     'planet-moons.json': JSON.stringify({ ...planetDetails.moons, ...smallBodies.moons }) + '\n',
     'small-body-details.json': JSON.stringify({ objects: smallBodies.objects }) + '\n',
     'exoplanet-source.json': JSON.stringify({ retrieved: nearbyPlanets.retrieved }) + '\n',
+    // Loaded with the orbit module, so systems without solutions request nothing.
+    'stellar-orbit-ids.json': JSON.stringify(orbitSystemIds) + '\n',
   }, true)
   const { manifest: overlayManifest, objects } = loadCompactOverlay()
   const nebulae = loadNebulaOverlay()
@@ -298,6 +351,16 @@ function generate(): void {
     [`${bubbles.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: bubbles.manifest.id, objects: bubbles.objects }) + '\n',
   }, true)
   console.log(`Generated ${objects.length} compact-object, ${nebulae.objects.length} nebula, ${molecularClouds.objects.length} molecular-cloud and ${bubbles.objects.length} bubble overlay rows.`)
+  // Same resolution as starInfoArticleId: system, canonical component, then reviewed alias.
+  const articles = new Map(articleEntries.map(({ id, article }) => [id, article as ArticleSummary]))
+  const articleFor = (starId: string) => {
+    const identity = starComponentIdentity(starId)
+    const id = [identity?.systemId ?? starId, identity?.canonicalStarId ?? starId, starInfoAliases[starId]].find((candidate) => candidate !== undefined && articles.has(candidate))
+    return id === undefined ? undefined : articles.get(id)
+  }
+  const pages = objectPages([...catalogs.map(({ id }) => ({ catalog: id, stars: effective.get(id)! })), { catalog: overlayManifest.id, stars: objects }], articleFor)
+  writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated')), { 'object-pages.json': JSON.stringify(pages) + '\n' }, true)
+  console.log(`Generated ${Object.keys(pages).length} object pages.`)
 }
 
 try {

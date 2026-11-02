@@ -1,14 +1,13 @@
 import type { StellarOrbit } from './stellar-orbits'
-import { loadJsonData } from './json-data'
+import { loadDataShardEntry } from './data-shards'
+import systemIds from './data/generated/stellar-orbit-ids.json'
 
-const payloads = import.meta.glob<string>([
-  './data/generated/stellar-orbits/*.json',
-  '!./data/generated/stellar-orbits/* [0-9]*.json',
-], { query: '?url&no-inline', import: 'default', eager: true })
+// Payloads exist only for systems with reviewed orbit entries; absence means no orbit solutions.
+const systems = new Set(systemIds)
 
-export function loadStellarOrbitData(systemId: string): Promise<StellarOrbit[]> {
-  const url = payloads[`./data/generated/stellar-orbits/stellar-orbit-${systemId}.json`]
-  // Payloads exist only for systems with reviewed orbit entries; absence means no orbit solutions.
-  if (!url) return Promise.resolve([])
-  return loadJsonData<StellarOrbit[]>(url)
+export async function loadStellarOrbitData(systemId: string): Promise<StellarOrbit[]> {
+  if (!systems.has(systemId)) return []
+  const orbits = await loadDataShardEntry<StellarOrbit[]>('stellar-orbit', systemId)
+  if (!orbits) throw new Error(`Missing stellar orbits: ${systemId}`)
+  return orbits
 }

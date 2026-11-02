@@ -58,8 +58,8 @@ function sameSkyPosition(first: Star, second: Star): boolean {
   return cosine >= SAME_SKY_POSITION_COSINE
 }
 
-/** Merge a catalog layer while retaining one marker for objects shared under different catalog IDs. */
-export function mergeCatalogStarLayers(primary: readonly Star[], additional: readonly Star[], componentIdentity: (id: string) => { canonicalStarId: string } | undefined): Star[] {
+/** Merge a catalog layer while retaining one marker for objects shared under different catalog IDs; `merges` records each additional ID that another record absorbed. */
+export function mergeCatalogStarLayers(primary: readonly Star[], additional: readonly Star[], componentIdentity: (id: string) => { canonicalStarId: string } | undefined, merges?: Map<string, string>): Star[] {
   const merged = [...primary]
   const ids = new Map(merged.map((star, index) => [star.id, index]))
   const names = new Map(merged.map((star, index) => [star.name.toLocaleLowerCase('en-US'), index]))
@@ -79,6 +79,7 @@ export function mergeCatalogStarLayers(primary: readonly Star[], additional: rea
       (namedDuplicate !== undefined && !distinctComponent(merged[namedDuplicate]!) ? namedDuplicate : undefined) ??
       merged.findIndex((candidate) => !distinctComponent(candidate) && sameSkyPosition(candidate, star))
     if (duplicate >= 0) {
+      if (merged[duplicate]!.id !== star.id) merges?.set(star.id, merged[duplicate]!.id)
       merged[duplicate] = supplementPhysicalFields(merged[duplicate]!, star)
       ids.set(star.id, duplicate)
       names.set(normalizedName, duplicate)

@@ -1,6 +1,6 @@
 import { renderObjectInfoContent, type InfoImage, type InfoSource, type ObjectInfo } from './object-info-content'
 import { starInfoArticleId } from './star-info-availability'
-import { loadJsonData } from './json-data'
+import { loadDataShardEntry } from './data-shards'
 import sun from './assets/stars/sun.jpg'
 import alphaCentauri from './assets/stars/alpha-centauri.jpg'
 import luhman from './assets/stars/luhman-16.jpg'
@@ -101,10 +101,6 @@ function articleContent(id: string, dataset: ArticlePayload): ObjectInfo {
   }
 }
 
-const payloads = import.meta.glob<string>([
-  './data/generated/star-articles/*.json',
-  '!./data/generated/star-articles/* [0-9]*.json',
-], { query: '?url&no-inline', import: 'default', eager: true })
 const articles = new Map<string, ObjectInfo>()
 const pending = new Map<string, Promise<void>>()
 
@@ -113,10 +109,10 @@ export function loadStarInfo(starId: string): Promise<void> {
   if (!id) return Promise.resolve()
   let result = pending.get(id)
   if (!result) {
-    const url = payloads[`./data/generated/star-articles/star-article-${id}.json`]
-    if (!url) return Promise.reject(new Error(`Missing star article: ${id}`))
-    result = loadJsonData<ArticlePayload>(url).then((payload) => { articles.set(id, articleContent(id, payload)) })
-      .catch((error: unknown) => { pending.delete(id); throw error })
+    result = loadDataShardEntry<ArticlePayload>('star-article', id).then((payload) => {
+      if (!payload) throw new Error(`Missing star article: ${id}`)
+      articles.set(id, articleContent(id, payload))
+    }).catch((error: unknown) => { pending.delete(id); throw error })
     pending.set(id, result)
   }
   return result

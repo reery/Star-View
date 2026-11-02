@@ -3,12 +3,15 @@
 `npm run catalog:generate` keeps the reviewed source files intact and writes separate browser payloads:
 
 - `generated/catalogs/`: schema 3 map records, without `notes` or `catalog_sources`.
-- `generated/catalog-details/`: one content-keyed notes/source snapshot per distinct effective record. Shared IDs with different catalog source records retain separate snapshots. Each key ends in the first 16 hex digits of the snapshot's SHA-256, and builds emit the snapshot as `assets/catalog-details/<hash>.json`. The browser derives that URL from the map record's key, with no lookup table. Objects with identical snapshots share one file, and the build rejects any file whose content does not match its key.
+- `generated/catalog-details/`: one content-keyed notes/source snapshot per distinct effective record. Shared IDs with different catalog source records retain separate snapshots. Each key ends in the first 16 hex digits of the snapshot's SHA-256. Objects with identical snapshots share one entry, and the build rejects any file whose content does not match its key.
 - `generated/star-articles/`: one article per reviewed article identity, including its review date and section sources.
 - `generated/stellar-orbits/`: one orbit array per reviewed stellar system, including systems with no adopted orbit.
 - `generated/planetary-systems/`: one exact planet host and its planet measurements. Opening a planet card does not import the full exoplanet archive.
+- `generated/object-pages.json`: the summary of every object's `/objects/<id>` page (see [object-pages.md](object-pages.md)).
 
-The map loads only the selected catalog and enabled overlays. Small system-identity, planet-count and article-availability indexes remain available at startup. Article and system URL lookups live in optional modules; source-note URLs are derived from content hashes. Their JSON bodies load only when needed.
+These generated files stay one per object for audits and tests. The build groups each set into a fixed number of shards, `assets/<set>-<index>-<content hash>.json`, so the deployment's file count does not grow with the catalogs (Cloudflare's free plan allows 20,000 files). `src/data-shards.ts` holds the shard counts and the FNV-1a key-to-shard function shared by the build, the browser and the Worker. Vite defines the shards' content hashes for the browser; the dev server builds each shard on request. Raise a set's count in `DATA_SHARD_COUNTS` when its shards grow well beyond about 100 KB.
+
+The map loads only the selected catalog and enabled overlays. Small system-identity, planet-count and article-availability indexes remain available at startup. The orbit module carries the list of systems with orbit payloads, so other systems request nothing. A shard loads only when one of its keys is needed, and serves its other keys from memory.
 
 Info loads the selected article, sharing its cached content across reviewed component aliases. System loads the selected stellar system and the exact selected planet host. Specs loads the selected star's notes and retained source measurements, including scoped fallback values and tooltips. Constellation charts continue loading one chart and its companions at a time.
 

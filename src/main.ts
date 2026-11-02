@@ -46,6 +46,8 @@ import {
 } from './object-filter'
 import { ObjectList, type ObjectListFilter } from './object-list'
 import { SelectionHistory } from './selection-history'
+import { objectIdFromPath, objectPageTitle, objectPath, type ObjectPage, type ObjectPageAlias } from './object-page'
+import { loadDataShardEntry } from './data-shards'
 import { appendConstellationContent } from './constellation-card-content'
 import { initializeToolbarTouch } from './toolbar-touch'
 import { initializeTouchTooltips } from './touch-tooltips'
@@ -311,8 +313,10 @@ const constellationSelectedSystems = new Map<string, Star[]>()
 let constellationSelectionRequest = 0
 let starSystems: ReadonlyMap<string, StarSystem> = new Map()
 let activeCatalogId = ''
-let selectedId: string | null = 'sirius-a'
-let observerId = 'sirius-a'
+// An /objects/<id> link selects that object once its catalog is loaded; the URL then follows the selection.
+const routedObjectId = objectIdFromPath(location.pathname)
+let selectedId: string | null = routedObjectId ?? 'sirius-a'
+let observerId = routedObjectId ?? 'sirius-a'
 // A locked visibility base ignores selection changes; unlocking returns to the last selected object.
 let visibilityLockId: string | null = null
 let lastSelectedId = observerId
@@ -2631,6 +2635,7 @@ function selectStar(id: string | null, recordHistory = true): void {
   if (recordHistory) selectionHistory.record(id)
   selectedDistancePc = null
   selectedId = id
+  syncObjectRoute()
   if (id !== null) lastSelectedId = id
   if (id !== null && !observerView && visibilityLockId === null) observerId = id
   updateObjectListFilter()
@@ -2639,6 +2644,29 @@ function selectStar(id: string | null, recordHistory = true): void {
   renderFollowState()
   updateSelectionHistoryControls()
   if (releaseConstellationSystems()) void switchCatalog(activeCatalogId, true)
+}
+
+/** Names the selected object in the URL and title without adding browser history entries. */
+function syncObjectRoute(): void {
+  const star = starById(selectedId)
+  const path = star ? objectPath(star.id) : '/'
+  if (location.pathname !== path) history.replaceState(history.state, '', `${path}${location.search}${location.hash}`)
+  document.title = star ? objectPageTitle(star.name) : 'Star View'
+  // The Worker's summary describes only the linked object.
+  if (star?.id !== routedObjectId) document.getElementById('object-summary')?.remove()
+}
+
+/** Opens a linked object from its catalog, or the default selection when the link names none. */
+async function openRoutedObject(): Promise<void> {
+  if (routedObjectId === null) return
+  // The start catalog keeps the linked object selected when it holds it.
+  if (selectedId === null) {
+    const page = await loadDataShardEntry<ObjectPage | ObjectPageAlias>('object-page', routedObjectId).catch(() => undefined)
+    // The Worker redirects merged records; the visitor may have selected another object meanwhile.
+    if (page && 'catalog' in page && selectedId === null) await selectTopListObject({ catalog: page.catalog, id: routedObjectId, designation: null })
+    if (selectedId === null) selectStar('sirius-a')
+  }
+  if (starById(selectedId)) syncObjectRoute()
 }
 
 /** Forgets chart-selected systems that no selection, comparison, anchor or origin still uses. */
@@ -3354,6 +3382,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
     if (!observerView) observerViewAnchorId = null
   }
   selectionHistory.record(selectedId)
+  syncObjectRoute()
   lastSelectedId = selectedId ?? observerId
   objectList.setReference(referenceId, objectListFilter())
   applyPaint(settings.paint ?? [])
@@ -3481,7 +3510,7 @@ window.addEventListener('storage', updateBrowserDataSize, { signal: events.signa
 window.addEventListener('resize', positionBrowserDataDialog, { signal: events.signal })
 syncFilterInputs()
 renderCatalogRange(initialCatalogId)
-void switchCatalog(initialCatalogId)
+void switchCatalog(initialCatalogId).then(openRoutedObject)
 if (catalogErrors.length) catalogError(catalogErrors.join('\n'))
 
 element('object-search').addEventListener('input', () => objectList.setQuery(element<HTMLInputElement>('object-search').value), { signal: events.signal })

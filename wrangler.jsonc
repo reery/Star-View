@@ -1,9 +1,13 @@
 {
   "name": "star-view",
   "compatibility_date": "2026-10-21",
+  // Renders /objects/<id> from index.html with the object's title, description and summary.
+  "main": "worker/index.ts",
   "assets": {
     "directory": "./dist",
-    // The app uses one document, with no client-side path routes.
+    "binding": "ASSETS",
+    // Only object pages invoke the Worker; all other requests are served as static assets.
+    "run_worker_first": ["/objects/*"],
     // Missing chunks must return 404 instead of index.html under an asset URL.
     "not_found_handling": "none"
   },

@@ -1,8 +1,8 @@
 import type { Star } from './catalog-model'
 import type { CatalogDetails } from './catalog-detail-model'
-import { loadJsonData } from './json-data'
+import { loadDataShardEntry } from './data-shards'
 
-// Keys end in a content hash; vite.config.ts emits each payload under that hash.
+// Keys end in a content hash; identical notes share one shard entry under that hash.
 const DETAIL_KEY = /-([0-9a-f]{16})$/
 const pending = new Map<string, Promise<CatalogDetails>>()
 
@@ -11,7 +11,8 @@ function loadDetails(key: string): Promise<CatalogDetails> {
   if (!hash) return Promise.reject(new Error(`Invalid catalog source-note key: ${key}`))
   let result = pending.get(hash)
   if (!result) {
-    result = loadJsonData<CatalogDetails>(`${import.meta.env.BASE_URL}assets/catalog-details/${hash}.json`)
+    result = loadDataShardEntry<CatalogDetails>('catalog-detail', hash)
+      .then((details) => details ?? Promise.reject(new Error(`Missing catalog source notes: ${key}`)))
       .catch((error: unknown) => { pending.delete(hash); throw error })
     pending.set(hash, result)
   }
