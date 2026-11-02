@@ -5,7 +5,7 @@ import { createLoadError } from './load-recovery'
 // a missing startup chunk otherwise prevents main.ts from executing at all.
 async function start(): Promise<void> {
   const status = document.getElementById('scene-status')!
-  status.textContent = 'Loading nearby-object map...'
+  status.textContent = 'Loading…'
   try {
     await import('./main')
   } catch (error) {

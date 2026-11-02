@@ -60,7 +60,7 @@ export async function loadWithRecovery<T>(
     loading.className = 'load-recovery'
     loading.setAttribute('role', 'status')
     loading.tabIndex = -1
-    loading.textContent = `Loading ${options.label}…`
+    loading.textContent = 'Loading…'
     if (!options.keepContent) target.classList.add('load-state')
     target.prepend(loading)
     if (restoreFocus) loading.focus({ preventScroll: true })
