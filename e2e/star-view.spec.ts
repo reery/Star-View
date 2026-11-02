@@ -525,6 +525,20 @@ test('opens an accessible project info card', { tag: '@mobile' }, async ({ page 
   await expect(info).toBeFocused()
 })
 
+test('shows the imprint and privacy notice in English and German', async ({ page }) => {
+  await openViewer(page)
+  await page.locator('#info-toggle').click()
+  const notice = page.locator('#legal-notice')
+  await notice.locator('summary').click()
+  await expect(notice.locator('section[lang="en"]')).toBeVisible()
+  await expect(notice.locator('section[lang="de"]')).toBeHidden()
+  await expect(notice).not.toContainText('%IMPRINT')
+  await notice.getByRole('button', { name: 'DE', exact: true }).click()
+  await expect(notice.getByRole('button', { name: 'DE', exact: true })).toHaveAttribute('aria-pressed', 'true')
+  await expect(notice.locator('section[lang="de"]')).toContainText('Impressum')
+  await expect(notice.locator('section[lang="en"]')).toBeHidden()
+})
+
 test('presents the selected object beside an expandable control dock', async ({ page }, testInfo) => {
   await openViewer(page)
   await expect(page.locator('.app-header, .scene-heading, .catalog-footer')).toHaveCount(0)

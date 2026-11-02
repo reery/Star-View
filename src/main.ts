@@ -3609,6 +3609,17 @@ for (const [id, fromShip] of [['spaceship-visibility-selected', false], ['spaces
     renderSelection()
   }, { signal: events.signal })
 }
+// The legal notice opens in German for German-language browsers.
+const legalLanguage = element('legal-language')
+function showLegalLanguage(lang: string): void {
+  for (const button of legalLanguage.querySelectorAll('button')) button.setAttribute('aria-pressed', String(button.lang === lang))
+  for (const text of element('legal-notice').querySelectorAll<HTMLElement>(':scope > section')) text.hidden = text.lang !== lang
+}
+showLegalLanguage(navigator.language.startsWith('de') ? 'de' : 'en')
+legalLanguage.addEventListener('click', (event) => {
+  const button = (event.target as Element).closest('button')
+  if (button) showLegalLanguage(button.lang)
+}, { signal: events.signal })
 element('spaceship-travelled-reset').addEventListener('click', () => {
   if (!spaceship) return
   spaceship.travelledPc = 0

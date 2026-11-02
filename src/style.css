@@ -201,8 +201,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .spaceship-reset svg { width: 12px; height: 12px; }
 .spaceship-reset:focus-visible { outline-offset: 1px; }
 .spaceship-actions { display: grid; gap: 6px; }
-.spaceship-visibility.unit-options > button { height: 30px; color: var(--ink); background: transparent; white-space: nowrap; }
-.spaceship-visibility.unit-options > button[aria-pressed="true"] { background: var(--panel-selected); color: var(--accent-strong); }
+:is(.spaceship-visibility, .legal-language).unit-options > button { height: 30px; color: var(--ink); background: transparent; white-space: nowrap; }
+:is(.spaceship-visibility, .legal-language).unit-options > button[aria-pressed="true"] { background: var(--panel-selected); color: var(--accent-strong); }
 .spaceship-card .spaceship-exit { min-height: 30px; padding: 4px 8px; color: var(--ink); font-size: 12px; white-space: nowrap; }
 .spaceship-exit svg { width: 15px; height: 15px; }
 /* Three-level sliders stay short: stacked at the right, side by side below on narrow layouts. */
@@ -641,6 +641,12 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .info-meta dt { color: var(--muted); }
 .info-meta dd { text-align: right; font-weight: 500; }
 .attribution-note { color: var(--muted); font-size: 10px; font-weight: 400; }
+.dock-card.info-card:has(.legal-notice[open]) { width: min(480px, calc(var(--ui-width) - var(--dock-gutter))); }
+.legal-notice { margin-inline: 16px; margin-bottom: 16px; font-size: 12px; }
+.legal-language { width: max-content; margin-top: 10px; }
+.legal-notice h3 { margin-top: 14px; color: var(--ink); font-size: 13px; font-weight: 600; }
+.legal-notice address { margin-top: 8px; color: var(--ink); font-style: normal; }
+.legal-notice strong { color: var(--ink); font-weight: 500; }
 .star-swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 1px solid #ffffff40; flex-shrink: 0; }
 .catalog-name { font-size: 12px; font-weight: 500; min-width: 0; }
 .catalog-distance { color: var(--muted); font-size: 10px; white-space: nowrap; font-variant-numeric: tabular-nums; }

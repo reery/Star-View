@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, realpathSync } from 'node:fs'
 import { extname, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { defineConfig, type Plugin } from 'vite'
+import { defineConfig, loadEnv, type Plugin } from 'vite'
 import { writeBrotliSidecars } from './scripts/brotli.ts'
 import { dataShard, dataShards } from './scripts/data-shards.ts'
 import { DATA_SHARD_COUNTS, DATA_SHARD_PATH, dataShardPath, OBJECT_PAGE_SHARDS_PATH, type DataShardSet } from './src/data-shards.ts'
@@ -58,6 +58,24 @@ function buildDate(): Plugin {
     transformIndexHtml: {
       order: 'pre',
       handler: (html) => html.replaceAll('%BUILD_DATE_ISO%', iso).replaceAll('%BUILD_DATE%', label).replaceAll('%APP_VERSION%', shortVersion),
+    },
+  }
+}
+
+// Fills the Info card's legal notice from IMPRINT_* build variables (Cloudflare Workers Builds or an
+// untracked .env file), so the operator's contact details never enter the repository.
+function imprint(env: Record<string, string>): Plugin {
+  const escape = (value: string) => value.replace(/[&<>"]/g, (character) => `&#${character.charCodeAt(0)};`)
+  const field = (name: string) => escape(env[`IMPRINT_${name}`]?.trim() ?? '')
+  const address = [field('STREET'), field('CITY')].filter(Boolean).join('<br>')
+  return {
+    name: 'star-view-imprint',
+    transformIndexHtml: {
+      order: 'pre',
+      handler: (html) => html
+        .replaceAll('%IMPRINT_NAME%', field('NAME') || 'No name provided')
+        .replaceAll('%IMPRINT_ADDRESS%', address || 'No address provided')
+        .replaceAll('%IMPRINT_EMAIL%', field('EMAIL') || 'No email provided'),
     },
   }
 }
@@ -245,7 +263,7 @@ function brotliAssets(): Plugin {
 }
 
 export default defineConfig(({ mode }) => ({
-  plugins: [contentSecurityPolicy(), buildDate(), preloadMainChunks(), dataShardFiles(), cloudflareAssetConfig(), brotliAssets()],
+  plugins: [contentSecurityPolicy(), buildDate(), imprint(loadEnv(mode, process.cwd(), 'IMPRINT_')), preloadMainChunks(), dataShardFiles(), cloudflareAssetConfig(), brotliAssets()],
   // Keep a manual-refresh option for long inspection sessions in Safari.
   server: {
     ...(mode === 'manual' ? { hmr: false } : {}),
