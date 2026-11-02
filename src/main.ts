@@ -1909,7 +1909,7 @@ async function renderActiveObjectSection(): Promise<void> {
         return
       }
       container.setAttribute('aria-busy', 'true')
-      text('star-notes', 'Loading source notes…')
+      text('star-notes', 'Loading…')
       await streamWhenLoaded(container, loadStarDetails(star))
     } else if (section === 'info') {
       if (infoContentStarId === star.id) {
@@ -2391,7 +2391,7 @@ function renderSelection(): void {
     .filter((observation) => observation !== undefined)
     .map((observation) => `${'scope' in observation ? observation.scope : observation.reason} ${observation.reference}: ${observation.source_url}`))
   text('star-notes', starDetailsLoaded(star) ? [star.notes, ...observationNotes, ...[...sourceNotes].map((source) => `${source.scope} ${source.record.notes}`)]
-    .filter(Boolean).join('\n\n') || 'No source notes available.' : 'Loading source notes…')
+    .filter(Boolean).join('\n\n') || 'No source notes available.' : 'Loading…')
   specsContentStar = starDetailsLoaded(star) ? star : undefined
   starComparison.render()
   const referenceName = reference.id === 'sun' ? 'the Sun' : reference.name
@@ -2762,7 +2762,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   const definition = catalogs.find((catalog) => catalog.manifest.id === id)
   if (!definition) return
   const request = ++catalogRequest
-  sceneStatus(`Loading ${definition.manifest.label}...`)
+  sceneStatus('Loading…')
   let nextStars: Star[], reachLy: number
   try {
     const loadOverlay = (types: readonly FilterKey[], load: () => Promise<Star[]>) =>
