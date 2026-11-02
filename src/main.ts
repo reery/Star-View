@@ -203,9 +203,11 @@ icon('glossary-close-icon', X)
 icon('info-icon', CircleHelp)
 icon('info-brand-icon', Orbit)
 icon('filter-lock-icon', Lock)
+icon('filter-close-icon', X)
 icon('filter-reset-icon', RotateCcw)
 icon('filter-save-icon', Save)
 icon('preferences-lock-icon', Lock)
+icon('preferences-close-icon', X)
 icon('objects-lock-icon', Lock)
 icon('objects-close-icon', X)
 icon('objects-expand-icon', ChevronsLeftRight)
@@ -412,11 +414,8 @@ try {
 } catch {}
 element<HTMLInputElement>(`star-colors-${starColorMode}`).checked = true
 const earthOrbitModeInput = element<HTMLInputElement>('earth-orbit-mode')
-earthOrbitModeInput.value = String(EARTH_ORBIT_MODES.indexOf(earthOrbitMode))
-earthOrbitModeInput.setAttribute('aria-valuetext', earthOrbitModeLabel(earthOrbitMode))
-text('earth-orbit-mode-value', earthOrbitModeLabel(earthOrbitMode))
-element<HTMLInputElement>('milky-way-visible').checked = milkyWayVisible
-element<HTMLInputElement>('oort-cloud-visible').checked = oortCloudVisible
+// Overrides any form state the browser restored on reload, so the inputs match the app's settings.
+syncSceneAndMotionInputs()
 const labelLimitInput = element<HTMLInputElement>('label-limit')
 labelLimitInput.value = String(labelLimit)
 labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
@@ -4239,7 +4238,7 @@ for (const name of panelNames) {
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
 }
-for (const name of ['motion', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'spaceship', 'rotation'] as const) {
+for (const name of ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'spaceship', 'rotation'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()

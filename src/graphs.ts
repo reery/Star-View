@@ -46,7 +46,7 @@ interface Histogram {
   /** Range text for one bin, from its lower and upper edge. */
   label(low: number, high: number): string
   ticks(min: number, max: number): number[]
-  tick(value: number): string
+  tickLabels(ticks: readonly number[]): string[]
   /** Values below this edge join the first bin, such as the Sun's apparent magnitude. */
   floor?: number
   color?(center: number): string
@@ -153,12 +153,16 @@ const linearTicks = (min: number, max: number) => {
   const step = niceStep(max - min, 4)
   return Array.from({ length: Math.floor(max / step) - Math.ceil(min / step) + 1 }, (_, index) => (Math.ceil(min / step) + index) * step)
 }
-/** Decades, with 3× steps when fewer than three decades fit. */
+/** Decades, with 3× steps when fewer than three decades fit; wider axes keep about six decades, at multiples of the step, so labels stay legible. */
 const logTicks = (min: number, max: number) => {
   const decades = Array.from({ length: Math.floor(max) - Math.floor(min) + 1 }, (_, index) => Math.floor(min) + index)
-  const ticks = decades.filter((decade) => decade >= min).length < 3 ? decades.flatMap((decade) => [decade, decade + Math.log10(3)]) : decades
-  return ticks.filter((tick) => tick >= min - 1e-9 && tick <= max + 1e-9)
+  const inside = (tick: number) => tick >= min - 1e-9 && tick <= max + 1e-9
+  const shown = decades.filter(inside)
+  if (shown.length < 3) return decades.flatMap((decade) => [decade, decade + Math.log10(3)]).filter(inside)
+  const every = Math.ceil(shown.length / 6)
+  return shown.filter((decade) => decade % every === 0)
 }
+const linearTickLabels = (ticks: readonly number[]) => ticks.map(number)
 
 const superscript = (value: number) => String(value).replace(/[-\d]/g, (char) => '⁻⁰¹²³⁴⁵⁶⁷⁸⁹'['-0123456789'.indexOf(char)]!)
 /** Labels log ticks; an axis reaching beyond 0.01 to 10⁴ switches to powers of ten throughout, so its labels stay narrow. */
@@ -235,7 +239,7 @@ function countBars(groups: readonly { label: string; count: number; full?: numbe
   })))
 }
 
-function histogram({ values, full, label, ticks, tick, floor = -Infinity, color, markers = [], select, linearRanges, bins: binShift }: Histogram): HTMLElement {
+function histogram({ values, full, label, ticks, tickLabels, floor = -Infinity, color, markers = [], select, linearRanges, bins: binShift }: Histogram): HTMLElement {
   // Bins span the full view, so they stay put while other graphs narrow this one.
   const clamped = (full ?? values).map((value) => Math.max(value, floor))
   const low = Math.min(...clamped), high = Math.max(...clamped)
@@ -291,9 +295,10 @@ function histogram({ values, full, label, ticks, tick, floor = -Infinity, color,
   const axis = document.createElement('div')
   axis.className = 'graph-axis'
   axis.setAttribute('aria-hidden', 'true')
-  axis.append(...ticks(min, max).map((value) => {
+  const tickValues = ticks(min, max), labels = tickLabels(tickValues)
+  axis.append(...tickValues.map((value, index) => {
     const label = document.createElement('span')
-    label.textContent = tick(value)
+    label.textContent = labels[index]!
     label.style.left = position(value)
     // Keep the outermost labels inside the card.
     label.style.transform = `translateX(${value <= min ? 0 : value >= max ? -100 : -50}%)`
@@ -362,14 +367,14 @@ function distanceHistogram({ items, full, distanceUnit, referenceName, logScale,
     return [histogram({
       values: items.map(({ distancePc }) => value(distancePc)), full: full?.items.map(({ distancePc }) => value(distancePc)), floor: 0, linearRanges: true, bins,
       label: (low, high) => `${low === -Infinity ? 'Within' : `${number(10 ** low)} to`} ${number(10 ** high)} ${distanceUnit} ${low === -Infinity ? 'of' : 'from'} ${referenceName}`,
-      ticks: logTicks, tick: (tick) => number(10 ** tick),
+      ticks: logTicks, tickLabels: logTickLabels,
       select: (low, high) => (_, distancePc) => value(distancePc) >= low && value(distancePc) < high,
     })]
   }
   return [histogram({
     values: items.map(({ distancePc }) => distancePc * scale), full: full?.items.map(({ distancePc }) => distancePc * scale), bins,
     label: (low, high) => `${number(low)} to ${number(high)} ${distanceUnit} from ${referenceName}`,
-    ticks: linearTicks, tick: number,
+    ticks: linearTicks, tickLabels: linearTickLabels,
     select: (low, high) => (_, distancePc) => inRange(distancePc * scale, low, high),
   })]
 }
@@ -525,13 +530,12 @@ function hrScatter({ items, stellar, full, chosen, sun, colorMode, zoom }: Graph
     return [box]
   }))
 
-  // Luminosity can span ten decades or more; about six labels stay legible.
   const axis = (className: string, ticks: number[], place: (label: HTMLElement, tick: number) => void) => {
     const element = document.createElement('div')
     element.className = className
     element.setAttribute('aria-hidden', 'true')
-    const shown = ticks.filter((_, index) => index % Math.ceil(ticks.length / 6) === 0), labels = logTickLabels(shown)
-    element.append(...shown.map((tick, index) => {
+    const labels = logTickLabels(ticks)
+    element.append(...ticks.map((tick, index) => {
       const label = Object.assign(document.createElement('span'), { textContent: labels[index]! })
       place(label, tick)
       return label
@@ -576,13 +580,13 @@ const logValue = (value: number | null | undefined) => value && value > 0 ? Math
 /** A solar-unit property on a log axis, with the Sun marked. */
 const solarHistogram = (field: 'mass_solar' | 'radius_solar' | 'luminosity_solar', unit: string, missing: string) => (context: GraphContext): Node[] =>
   propertyHistogram(context, (star) => logValue(star[field]), missing, {
-    label: logRange(unit), ticks: logTicks, tick: (value) => number(10 ** value), markers: sunMarker(logValue(context.sun?.[field])),
+    label: logRange(unit), ticks: logTicks, tickLabels: logTickLabels, markers: sunMarker(logValue(context.sun?.[field])),
   })
 
 function temperatureHistogram(context: GraphContext): Node[] {
   const { sun, colorMode } = context
   return propertyHistogram(context, (star) => logValue(star.temperature_k), 'a temperature', {
-    label: logRange('K'), ticks: logTicks, tick: (value) => number(10 ** value),
+    label: logRange('K'), ticks: logTicks, tickLabels: logTickLabels,
     color: (center) => temperatureColor(10 ** center, colorMode),
     markers: sunMarker(logValue(sun?.temperature_k)),
   })
@@ -591,20 +595,20 @@ function temperatureHistogram(context: GraphContext): Node[] {
 // Metallicity is relative to the Sun, which marks 0 dex.
 function metallicityHistogram(context: GraphContext): Node[] {
   return propertyHistogram(context, (star) => star.metallicity_dex, 'a metallicity', {
-    label: (low, high) => `${number(low)} to ${number(high)} dex`, ticks: linearTicks, tick: number, markers: sunMarker(0),
+    label: (low, high) => `${number(low)} to ${number(high)} dex`, ticks: linearTicks, tickLabels: linearTickLabels, markers: sunMarker(0),
   })
 }
 
 function apparentMagnitudeHistogram(context: GraphContext): Node[] {
   return propertyHistogram(context, (star) => star.apparent_mag, 'an apparent magnitude', {
-    label: magnitudeRange, ticks: linearTicks, tick: number, floor: -2,
+    label: magnitudeRange, ticks: linearTicks, tickLabels: linearTickLabels, floor: -2,
     markers: MAGNITUDE_VISIBILITY_GUIDES.filter(({ id }) => id !== 'city').map(({ limit, icon, name }) => ({ value: limit, icon, label: `${name} +${limit}` })),
   })
 }
 
 function absoluteMagnitudeHistogram(context: GraphContext): Node[] {
   return propertyHistogram(context, (star) => star.absolute_mag, 'an absolute magnitude', {
-    label: magnitudeRange, ticks: linearTicks, tick: number, markers: sunMarker(context.sun?.absolute_mag),
+    label: magnitudeRange, ticks: linearTicks, tickLabels: linearTickLabels, markers: sunMarker(context.sun?.absolute_mag),
   })
 }
 

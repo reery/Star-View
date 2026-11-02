@@ -273,9 +273,10 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading .panel-lock, .panel-heading .save-view-button { position: absolute; z-index: 1; top: -1px; right: -1px; height: 45px; border-color: transparent transparent var(--line) var(--line); border-radius: 0 var(--card-radius) 0 0; background: var(--surface-raised); }
 .panel-lock[aria-pressed="true"] { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); border-color: var(--border-vibrant-pressed); }
 .panel-lock:focus-visible, .save-view-button:focus-visible { outline-color: var(--accent-vibrant); }
-.panel-heading.filter-heading { padding-right: 142px; }
-.panel-heading #filter-save { right: 87px; border-radius: 0; }
-.panel-heading #filter-reset { right: 43px; border-radius: 0; }
+.panel-heading.filter-heading { padding-right: 186px; }
+.panel-heading #filter-save { right: 131px; border-radius: 0; }
+.panel-heading #filter-reset { right: 87px; border-radius: 0; }
+.panel-heading.preferences-heading { padding-right: 98px; }
 .panel-heading.paint-heading { padding-right: 186px; }
 .panel-heading #paint-shrink { right: 131px; border-radius: 0; }
 .panel-heading #paint-reset { right: 87px; border-radius: 0; }
@@ -293,7 +294,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading.glossary-heading { flex: 0 0 45px; gap: 18px; padding-right: 98px; }
 /* These headings are 45px tall, 1px more than the others, so their buttons start at the top edge to share the bottom border. */
 :is(.glossary-heading, .constellations-detail-heading) > .panel-lock { top: 0; }
-.panel-heading:is(.objects-heading, .glossary-heading, .paint-heading, .neighborhood-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
+.panel-heading:is(.objects-heading, .glossary-heading, .paint-heading, .neighborhood-heading, .filter-heading, .preferences-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
 .glossary-heading h2 { flex: 0 0 auto; }
 .glossary-search { position: relative; flex: 1; min-width: 0; }
 .glossary-search > span { position: absolute; top: 50%; left: 9px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }

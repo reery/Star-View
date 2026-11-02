@@ -112,7 +112,7 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
       uniform float opacity;
       varying float lineEmphasis;
       void main() {
-        gl_FragColor = vec4(color, opacity * lineEmphasis * 0.65);
+        gl_FragColor = vec4(color, opacity * lineEmphasis);
         #include <colorspace_fragment>
       }
     `,

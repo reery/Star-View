@@ -1,4 +1,4 @@
-<img src="starview_v11.png" alt="Star View v0.7 screenshot" width="800">
+<img src="starview_v12.png" alt="Star View v0.8.0 screenshot" width="800">
 
 # Star View
 

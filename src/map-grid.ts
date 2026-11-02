@@ -5,6 +5,12 @@ export function gridOpacityForDisplay(devicePixelRatio: number): number {
   return Math.min(0.9, 0.46 + Math.max(0, ratio - 1) * 0.22)
 }
 
+/** Sky-grid lines are one device pixel wide, so they need a steeper boost on dense displays. */
+export function skyGridOpacityForDisplay(devicePixelRatio: number): number {
+  const ratio = Number.isFinite(devicePixelRatio) && devicePixelRatio > 0 ? devicePixelRatio : 1
+  return Math.min(1, 0.3 + Math.max(0, ratio - 1) * 0.35)
+}
+
 export function makeGridGeometry(spacingPc: number, halfSizePc: number): BufferGeometry {
   const limit = Math.floor(halfSizePc / spacingPc + 1e-9)
   const positions: number[] = []
