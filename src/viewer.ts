@@ -13,7 +13,7 @@ import { createMilkyWayLayer } from './milky-way-layer'
 import { createEarthOrbitLayer } from './earth-orbit-layer'
 import { createOortCloudLayer, OORT_CLOUD_RADIUS_PC } from './oort-cloud-layer'
 import { createMotionArrowMesh } from './motion-arrow-layer'
-import { createMapGrid, gridOpacityForDisplay, makeGridGeometry } from './map-grid'
+import { createMapGrid, gridOpacityForDisplay, makeGridGeometry, skyGridOpacityForDisplay } from './map-grid'
 import { createSkyGridLayer, makeSkyGridGeometry, type SkyGridMode } from './sky-grid'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC } from './earth-orbit'
@@ -456,7 +456,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let gridSpacing = gridScale.spacingPc
   let gridHalfSize = gridScale.halfSizePc
   const gridOpacity = { value: gridOpacityForDisplay(window.devicePixelRatio) }
-  const skyGrid = createSkyGridLayer(container, gridOpacity)
+  const skyGridOpacity = { value: skyGridOpacityForDisplay(window.devicePixelRatio) }
+  const skyGrid = createSkyGridLayer(container, skyGridOpacity)
   scene.add(skyGrid.lines)
   // The galactic sky-grid globe, built on first use and scaled around the center object.
   const neighborhoodSphere = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xe7a05b, transparent: true, opacity: 0.3, depthWrite: false }))
@@ -2018,6 +2019,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     nebulaLayer?.setViewportHeight(height * pixelRatio)
     molecularCloudLayer?.setViewportHeight(height * pixelRatio)
     gridOpacity.value = gridOpacityForDisplay(displayPixelRatio)
+    skyGridOpacity.value = skyGridOpacityForDisplay(displayPixelRatio)
     axisMaterial.opacity = Math.min(1, 0.55 * pixelRatio)
     arrowUniforms.pixelRatio.value = pixelRatio
     if (!sizeChanged) return

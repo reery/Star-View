@@ -827,6 +827,7 @@
                   <button id="filter-save" class="panel-lock" type="button" aria-label="Save filter as default" title="Save filter as default" disabled><span id="filter-save-icon"></span></button>
                   <button id="filter-reset" class="panel-lock" type="button" aria-label="Reset all filters" title="Reset all"><span id="filter-reset-icon"></span></button>
                   <button id="filter-lock" class="panel-lock" type="button" aria-label="Keep Filter open" aria-pressed="false"><span id="filter-lock-icon"></span></button>
+                  <button id="filter-close" class="panel-lock" type="button" aria-label="Close filter card"><span id="filter-close-icon"></span></button>
                 </div>
                 <div class="filter-controls card-scroll-content">
                   <div class="range-filter">
@@ -1013,7 +1014,7 @@
                 </div>
               </section>
               <section id="preferences-panel" class="dock-card preferences" aria-labelledby="preferences-heading" hidden>
-                <div class="panel-heading"><h2 id="preferences-heading">Preferences</h2><button id="preferences-lock" class="panel-lock" type="button" aria-label="Keep Preferences open" aria-pressed="false"><span id="preferences-lock-icon"></span></button></div>
+                <div class="panel-heading preferences-heading"><h2 id="preferences-heading">Preferences</h2><button id="preferences-lock" class="panel-lock" type="button" aria-label="Keep Preferences open" aria-pressed="false"><span id="preferences-lock-icon"></span></button><button id="preferences-close" class="panel-lock" type="button" aria-label="Close preferences card"><span id="preferences-close-icon"></span></button></div>
                 <div class="display-settings card-scroll-content" aria-label="Display settings">
                   <div id="distance-units" class="segmented-choice" role="group" aria-labelledby="distance-units-label"><span id="distance-units-label">Distances</span><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></div>
                   <div id="star-colors" class="segmented-choice" role="group" aria-labelledby="star-colors-label"><span id="star-colors-label">Colors</span><div class="unit-options"><label><input id="star-colors-real" type="radio" name="star-color-mode" value="real"><span>Real</span></label><label><input id="star-colors-exaggerated" type="radio" name="star-color-mode" value="exaggerated" checked><span>Exaggerated</span></label></div></div>
