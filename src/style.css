@@ -281,7 +281,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading #paint-reset { right: 87px; border-radius: 0; }
 .panel-heading.neighborhood-heading { padding-right: 142px; }
 .panel-heading #neighborhood-clear { right: 87px; border-radius: 0; }
-.dock-card.glossary-card { display: flex; flex-direction: column; width: min(640px, calc(var(--ui-width) - var(--dock-gutter))); height: min(520px, calc(var(--ui-height) - 100px)); overflow: hidden; }
+.dock-card.glossary-card { position: relative; display: flex; flex-direction: column; width: min(640px, calc(var(--ui-width) - var(--dock-gutter))); height: min(520px, calc(var(--ui-height) - 100px)); overflow: hidden; }
 /* Wide enough for the supernova candidates table without horizontal scrolling. */
 .dock-card.top-lists-card { width: min(900px, calc(var(--ui-width) - var(--dock-gutter))); }
 /* Wide enough for the paint setting titles beside their scale buttons. */
@@ -832,6 +832,17 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .load-state > :not(.load-recovery) { display: none !important; }
 .load-recovery { display: grid; grid-column: 1 / -1; gap: 8px; margin: 0; padding: 12px; color: var(--muted); font-size: var(--property-text-size); line-height: 1.5; }
 .load-recovery-actions { display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink); }
+/* While visible content loads, a faint highlight runs along the frame from left to right every 2 s. */
+@media (prefers-reduced-motion: no-preference) {
+  :is(.selected-object, .object-type-card, .glossary-card):is([aria-busy="true"], :has([aria-busy="true"]:not([hidden], [hidden] *, details:not([open]) *)))::after,
+  .scene-status.is-loading::after {
+    content: ''; position: absolute; inset: 0; z-index: 4; border: 1px solid transparent; border-radius: calc(var(--card-radius) - 1px); pointer-events: none;
+    background: linear-gradient(90deg, transparent, var(--border-active), transparent) -66.7% 0 / 40% 100% no-repeat border-box;
+    mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0); mask-composite: exclude;
+    animation: load-sweep 2s ease-in-out 150ms infinite;
+  }
+}
+@keyframes load-sweep { 20%, to { background-position-x: 166.7%; } }
 /* Opening cards paint at once; their content fades in, or streams in via content-stream.ts once loaded. */
 @media (prefers-reduced-motion: no-preference) {
   .object-type-card > :not(.panel-heading) { animation: card-fade 200ms ease-out; }
