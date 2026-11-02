@@ -1,6 +1,6 @@
 import { Camera, Matrix4, Vector3, Vector4 } from 'three'
 import type { Star } from './catalog-model'
-import { LIGHT_YEARS_PER_PARSEC, visibilityTier } from './astronomy'
+import { isMapVisibilityBase, LIGHT_YEARS_PER_PARSEC, visibilityTier } from './astronomy'
 import type { LabelRect, LayoutViewport } from './label-layout'
 import { filterKeyForObject, type FilterKey } from './object-filter'
 
@@ -67,6 +67,12 @@ export function budgetVisibleLabelIndices(
     }
   }
   return selected
+}
+
+/** Extended nebulae, clouds and bubbles have no point magnitude, so the magnitude limit keeps them eligible. */
+export function mapVisibilityTier(star: Star, observer: Star, selectedId: string | null, magnitude: number, limit: number): ReturnType<typeof visibilityTier> {
+  if (isMapVisibilityBase(star, observer)) return 'base'
+  return star.id === selectedId || star.nebula || star.molecular_cloud || star.bubble || magnitude <= limit ? 'eligible' : 'background'
 }
 
 export function starBlocksLabels(tier: ReturnType<typeof visibilityTier>): boolean {
@@ -436,6 +442,9 @@ export function projectMotionDirection(position: Vector3, velocity: Vector3, cam
 
 type GesturePointer = PointerPosition & { pointerId: number; button: number }
 
+/** How long an unmoved touch rests on an object before it opens the object's context menu. */
+export const CONTEXT_MENU_HOLD_MS = 500
+
 export class TapGesture {
   private active = new Set<number>()
   private origin: GesturePointer | null = null
@@ -448,6 +457,11 @@ export class TapGesture {
     }
     this.active.add(pointer.pointerId)
     if (this.active.size > 1) this.blocked = true
+  }
+
+  /** True while a single unmoved primary pointer is down and could still end as a tap. */
+  get pending(): boolean {
+    return this.origin !== null && !this.blocked && this.active.size === 1
   }
 
   move(pointer: GesturePointer): void {

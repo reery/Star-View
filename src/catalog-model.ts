@@ -167,6 +167,20 @@ export interface CompactObjectDetails {
   source_url: string
   ra_deg: number
   dec_deg: number
+  period_derivative: number | null
+  period_derivative_error: number | null
+  dispersion_measure_pc_cm3: number | null
+  transverse_velocity_kms: number | null
+  /** Readable ATNF type classes, plus Millisecond pulsar below 30 ms. */
+  pulsar_classes: string[]
+  /** Readable ATNF associations, such as a supernova remnant or gamma-ray source. */
+  associations: string[]
+  glitch_count: number | null
+  eccentricity: number | null
+  projected_semi_major_axis_lt_s: number | null
+  /** Companion masses for a 1.35 M☉ pulsar at 90° and 60° inclination. */
+  companion_min_mass_solar: number | null
+  companion_median_mass_solar: number | null
 }
 
 export interface RawAstrometry {
@@ -241,6 +255,39 @@ export interface StellarObservations {
     reference: string
     source_url: string
     reason: string
+  }
+  // One paper's spectroscopic log g (cgs), independent of catalog mass and radius.
+  surface_gravity?: {
+    log_g: number
+    reference: string
+    // Independent papers within 0.3 dex of the selected value.
+    measurements: number
+    // Spread between three or more papers; SIMBAD lists no per-paper errors.
+    scatter_dex?: number
+    scope?: string
+  }
+  // Published rotation model; the radius ratio shapes the radius card only.
+  rotation?: {
+    period_days: number
+    equatorial_velocity_kms: number
+    polar_to_equatorial_radius?: number
+    reference: string
+    source_url: string
+    scope: string
+  }
+  // GCVS 5.1 range and period; never a catalog V input.
+  variability?: {
+    gcvs_name: string
+    type: string
+    system: string
+    max_mag: number
+    min_mag?: number
+    amplitude_mag?: number
+    min_system?: string
+    period_days?: number
+    max_uncertain?: true
+    min_uncertain?: true
+    period_uncertain?: true
   }
 }
 

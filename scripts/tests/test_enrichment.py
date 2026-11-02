@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from catalog_sources.enrichment import FIELDS, derive_physical, enrich_from_frozen, estimate_temperature, select_spectroscopy
+from catalog_sources.enrichment import FIELDS, derive_physical, enrich_from_frozen, estimate_temperature, flame_withheld, select_spectroscopy
 
 
 def empty_row(**values):
@@ -16,6 +16,12 @@ def empty_row(**values):
 
 
 class EnrichmentTests(unittest.TestCase):
+    def test_flame_mass_and_age_need_near_solar_gaia_metallicity(self):
+        self.assertEqual(flame_withheld(None, gaia_metallicity=-0.3), set())
+        self.assertEqual(flame_withheld(None, gaia_metallicity=-0.31), {"mass_solar", "age_gyr"})
+        self.assertEqual(flame_withheld(None, metallicity=0.1, gaia_metallicity=0.45), {"mass_solar", "age_gyr"})
+        self.assertEqual(flame_withheld(5000, 5200, gaia_metallicity=-0.6), {"radius_solar", "mass_solar", "age_gyr"})
+
     def test_zeta_sco_review_precedes_reddened_sed_and_derived_radius(self):
         spec = importlib.util.spec_from_file_location("landmark_author", Path(__file__).resolve().parents[1] / "author-landmark-stars.py")
         author = importlib.util.module_from_spec(spec)
@@ -131,6 +137,21 @@ class EnrichmentTests(unittest.TestCase):
         self.assertIsNone(select_spectroscopy([observation(-1, 2020), observation(0, 2024)], "fe_h"))
         values = [observation(-.1, 2010), observation(-.12, 2015), observation(-.09, 2020), observation(1, 2025)]
         self.assertEqual(select_spectroscopy(values, "fe_h")["bibcode"][:4], "2020")
+
+    def test_solutions_contradicting_a_dwarf_spectral_type_are_withheld(self):
+        def observation(teff, fe_h, bibcode):
+            return {"teff": str(teff), "fe_h": str(fe_h), "bibcode": bibcode, "mespos": "1"}
+        # WOH G 618: APOGEE Net returned a G-star solution for an M6 dwarf.
+        apogee_net = observation(5623, -.267, "2022AJ....163..152S")
+        self.assertEqual(select_spectroscopy([apogee_net], "teff"), apogee_net)
+        self.assertIsNone(select_spectroscopy([apogee_net], "teff", "M6.0"))
+        self.assertIsNone(select_spectroscopy([apogee_net], "fe_h", "M6.0"))
+        survey = [observation(4297, -.1, "2020AJ....160...83S"), observation(4297, -.1, "2013AJ....146..134K")]
+        self.assertEqual(select_spectroscopy([*survey, observation(2936, "", "2018MNRAS.475.1960F")], "teff", "M4.0Ve")["teff"], "2936")
+        # Three agreeing papers indicate a wrong spectral type instead; giants are not checked.
+        agreeing = [observation(3535, -.39, "2019ApJ...878..134K"), observation(3538, 0, "2024A&A...683A.125P"), observation(3461, "", "2014MNRAS.443.2561G")]
+        self.assertEqual(select_spectroscopy(agreeing, "teff", "M6V")["teff"], "3538")
+        self.assertEqual(select_spectroscopy([apogee_net], "teff", "M6III"), apogee_net)
 
     def test_unknown_identity_does_not_match_a_nearby_star(self):
         row = empty_row(name="Procyon", ra_deg="114.825497908", dec_deg="5.224987557")

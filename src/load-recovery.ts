@@ -26,6 +26,8 @@ interface LoadOptions {
   onChange?(): void
   focusTarget?: HTMLElement
   keepContent?: boolean
+  /** Skip the timed loading message; the caller hides the wait itself. */
+  silent?: boolean
 }
 
 const requests = new WeakMap<HTMLElement, object>()
@@ -66,7 +68,7 @@ export async function loadWithRecovery<T>(
   }
   target.setAttribute('aria-busy', 'true')
   // Cached modules resolve before this timer, avoiding layout work on ordinary re-renders.
-  const timer = window.setTimeout(showLoading, 150)
+  const timer = options.silent ? undefined : window.setTimeout(showLoading, 150)
   if (restoreFocus) showLoading()
   try {
     const value = await load()

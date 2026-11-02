@@ -3,7 +3,7 @@ import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
 import { isDeepStrictEqual } from 'node:util'
-import { buildCatalog, catalogCoverage, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from '../src/catalogs.ts'
+import { buildCatalog, catalogCoverage, composeCatalog, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from '../src/catalogs.ts'
 import { parseCompactOverlayManifest, parseCompactOverlayPayload } from '../src/compact-overlay-model.ts'
 import { parseNebulaOverlayManifest, parseNebulaOverlayPayload } from '../src/nebula-overlay-model.ts'
 import { parseMolecularCloudOverlayManifest, parseMolecularCloudOverlayPayload } from '../src/molecular-cloud-overlay-model.ts'
@@ -16,9 +16,9 @@ import { requiredWhiteDwarfReferences } from '../src/white-dwarf-class.ts'
 import { parseObjectStats, supplementObjectStats } from '../src/object-stats.ts'
 import { auditCatalogConsistency } from '../src/catalog-consistency.ts'
 import { completeCatalogCompanions } from '../src/stellar-companions.ts'
-import { missingCatalogMeasurements } from '../src/catalog-source.ts'
+import { missingCatalogMeasurements, withoutRetiredValues, type ReviewedRetirement } from '../src/catalog-source.ts'
 import { reviewedStarSystems } from '../src/star-systems.ts'
-import { supplementStellarObservations } from '../src/stellar-observations.ts'
+import { supplementStellarObservations, supplementSurfaceGravity } from '../src/stellar-observations.ts'
 import companionData from '../src/data/stellar-companions.json' with { type: 'json' }
 import planetarySystems from '../src/data/planetary-systems.json' with { type: 'json' }
 import nearbyPlanets from '../src/data/nearby-planets.json' with { type: 'json' }
@@ -26,20 +26,33 @@ import planetDetails from '../src/data/planet-details.json' with { type: 'json' 
 import smallBodies from '../src/data/solar-small-bodies.json' with { type: 'json' }
 import starInfo from '../src/data/star-info.json' with { type: 'json' }
 import nearest100Info from '../src/data/nearest-100-info.json' with { type: 'json' }
-import brightStarInfo from '../src/data/bright-star-info.json' with { type: 'json' }
+import constellationStarInfo from '../src/data/constellation-star-info.json' with { type: 'json' }
+import compactObjectInfo from '../src/data/compact-object-info.json' with { type: 'json' }
 import legacyStarIds from '../src/data/legacy-star-ids.json' with { type: 'json' }
-import { starComponentIdentity } from '../src/star-systems.ts'
+import { indexStarSystems, starComponentIdentity } from '../src/star-systems.ts'
 import type { ConstellationChart } from '../src/constellations.ts'
-import type { Star } from '../src/catalog-model.ts'
+import { describeObject, objectTypeLabel, type Star } from '../src/catalog-model.ts'
+import type { ObjectPage, ObjectPageAlias } from '../src/object-page.ts'
+import { mergeCatalogStarLayers } from '../src/catalog-merge.ts'
 import { splitCatalogDetails } from '../src/catalog-detail-model.ts'
 import stellarOrbits from '../src/data/stellar-orbits.json' with { type: 'json' }
+import compactOrbits from '../src/data/compact-system-orbits.json' with { type: 'json' }
 
 const root = fileURLToPath(new URL('../', import.meta.url))
-const identities = parseObjectIdentities(JSON.parse(readFileSync(join(root, 'src/data/object-designations.json'), 'utf8')))
 const objectStats = parseObjectStats(JSON.parse(readFileSync(join(root, 'src/data/object-stats.json'), 'utf8')))
-const supplement = (stars: Parameters<typeof supplementObjectIdentities>[0]) => supplementStellarObservations(supplementObjectStats(supplementObjectIdentities(stars, identities), objectStats))
 const components = new Map(reviewedStarSystems.flatMap((system) => system.components.flatMap((component) =>
   [component.starId, ...component.alternateStarIds ?? []].map((id) => [id, { canonicalStarId: component.starId }] as const))))
+// A split blended source keeps its SIMBAD identity; an alias naming a sibling component (HD 130948C) ships only with that sibling.
+const aliasOwners = new Map<string, Set<string>>()
+for (const star of companionData.stars as Star[]) {
+  for (const name of star.designations ?? []) aliasOwners.set(name, (aliasOwners.get(name) ?? new Set()).add(star.id))
+}
+const identities = Object.fromEntries(Object.entries(parseObjectIdentities(JSON.parse(readFileSync(join(root, 'src/data/object-designations.json'), 'utf8'))))
+  .map(([id, identity]) => {
+    const canonical = components.get(id)?.canonicalStarId
+    return [id, canonical ? { ...identity, designations: identity.designations.filter((name) => aliasOwners.get(name)?.has(canonical) ?? true) } : identity]
+  }))
+const supplement = (stars: Parameters<typeof supplementObjectIdentities>[0]) => supplementStellarObservations(supplementObjectStats(supplementObjectIdentities(stars, identities), objectStats))
 const [command, ...args] = process.argv.slice(2)
 const compactOverlayDirectory = join(root, 'src/data/overlays/compact-remnants')
 const nebulaOverlayDirectory = join(root, 'src/data/overlays/nebulae')
@@ -77,21 +90,45 @@ function loadBubbleOverlay() {
   return { manifest, objects }
 }
 
-function validate(directory?: string): void {
-  const packages = directory ? [resolve(directory)] : [
+function packageDefinitions(extra?: string) {
+  const paths = [
     join(root, 'src/data'),
     ...readdirSync(join(root, 'src/data/catalogs'), { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => join(root, 'src/data/catalogs', entry.name)),
   ]
+  if (extra && !paths.includes(extra)) paths.push(extra)
   const ids = new Set<string>()
-  const catalogs: { id: string; stars: ReturnType<typeof loadCatalog> }[] = []
-  for (const path of packages) {
+  return paths.map((path) => {
     const manifest = path === join(root, 'src/data') ? DEFAULT_CATALOG_MANIFEST : parseCatalogManifest(readFileSync(join(path, 'catalog.json'), 'utf8'))
     if (ids.has(manifest.id) || (path !== join(root, 'src/data') && manifest.id === DEFAULT_CATALOG_MANIFEST.id)) throw new Error(`Duplicate or reserved catalog id: ${manifest.id}`)
     ids.add(manifest.id)
-    const stars = loadCatalog({ manifest, csv: readFileSync(join(path, 'stars.csv'), 'utf8') })
+    return { path, manifest, csv: readFileSync(join(path, 'stars.csv'), 'utf8') }
+  })
+}
+
+/** Load source rows, composing each extending catalog onto its base. */
+function loadPackageStars(definitions: ReturnType<typeof packageDefinitions>) {
+  const loaded = new Map<string, Star[]>()
+  const load = (definition: (typeof definitions)[number], pending = new Set<string>()): Star[] => {
+    const cached = loaded.get(definition.manifest.id)
+    if (cached) return cached
+    const baseId = definition.manifest.extends
+    const base = baseId ? definitions.find((candidate) => candidate.manifest.id === baseId) : undefined
+    if (baseId && (!base || pending.has(baseId))) throw new Error(`${definition.manifest.id}: missing or cyclic extended catalog ${baseId}`)
+    const stars = loadCatalog(definition, base && load(base, new Set([...pending, definition.manifest.id])))
+    loaded.set(definition.manifest.id, stars)
+    return stars
+  }
+  return definitions.map((definition) => ({ ...definition, stars: load(definition) }))
+}
+
+function validate(directory?: string): void {
+  const target = directory && resolve(directory)
+  const catalogs: { id: string; stars: ReturnType<typeof loadCatalog> }[] = []
+  for (const { path, manifest, stars } of loadPackageStars(packageDefinitions(target))) {
+    if (target && path !== target) continue
     catalogs.push({ id: manifest.id, stars: supplement(stars) })
     const coverage = catalogCoverage(stars)
-    if (['nearest-neighbors', 'bright-stars', 'nearest-100', 'western-constellation-stars', 'famous-cluster-stars'].includes(manifest.id) && coverage.constellations !== coverage.objects) throw new Error(`${path}: incomplete bundled constellation coverage`)
+    if (['nearest-neighbors', 'bright-stars', 'nearest-100', 'nearest-1000', 'nearest-5000', 'western-constellation-stars', 'famous-cluster-stars'].includes(manifest.id) && coverage.constellations !== coverage.objects) throw new Error(`${path}: incomplete bundled constellation coverage`)
     console.log(`${manifest.id}: ${stars.length} rows; non-Sun coverage ${JSON.stringify(coverage)}`)
   }
   if (!directory) {
@@ -133,10 +170,63 @@ function writeGeneratedData(directory: string, files: Record<string, string>): v
   }
 }
 
+interface ArticleSummary { name: string; introduction: string }
+
+const LIGHT_YEARS_PER_PARSEC = 3.261563777
+// main.ts merges these into the selected nearby catalog; nearby catalogs share IDs instead.
+const ADDITIVE_CATALOGS = ['western-constellation-stars', 'notable-distant-stars']
+const brief = (text: string) => text.length <= 160 ? text : `${text.slice(0, 159).replace(/\s+\S*$/, '')}…`
+
+/** Page summaries for /objects/<id>; each object is listed under the smallest catalog that holds it. */
+function objectPages(sources: { catalog: string; stars: readonly Omit<Star, 'notes'>[] }[], articleFor: (starId: string) => ArticleSummary | undefined): Record<string, ObjectPage | ObjectPageAlias> {
+  // Catalogs repeat a star under different IDs, so systems are indexed within the owning catalog.
+  const owners = new Map<string, { catalog: string; star: Omit<Star, 'notes'>; systems: ReturnType<typeof indexStarSystems> }>()
+  const sorted = [...sources].sort((first, second) => first.stars.length - second.stars.length)
+  for (const { catalog, stars } of sorted) {
+    // Map records defer their notes, which system indexing does not read.
+    const systems = indexStarSystems(stars as readonly Star[])
+    for (const star of stars) if (!owners.has(star.id)) owners.set(star.id, { catalog, star, systems })
+  }
+  // Like main.ts, merge the additive layers into the nearby catalogs; an absorbed record redirects to its survivor.
+  // Parsed map records carry empty notes, as in parseCatalogPayload.
+  const parsed = (stars: readonly Omit<Star, 'notes'>[]) => stars.map((star) => ({ ...star, notes: '' }))
+  const aliases = new Map<string, string>()
+  const layered = sorted.filter(({ catalog }) => ADDITIVE_CATALOGS.includes(catalog))
+  layered.reduce((merged, { stars }) => mergeCatalogStarLayers(merged, parsed(stars), starComponentIdentity, aliases),
+    [...new Map(sorted.filter((source) => !layered.includes(source)).flatMap(({ stars }) => parsed(stars).map((star) => [star.id, star]))).values()])
+  const canonical = (id: string) => aliases.get(id) ?? id
+  return Object.fromEntries([...owners].sort(([first], [second]) => first < second ? -1 : 1).map(([id, { catalog, star, systems }]) => {
+    if (aliases.has(id)) return [id, { canonical: canonical(id) }]
+    const article = articleFor(id)
+    const distanceLy = Math.hypot(star.x_pc, star.y_pc, star.z_pc) * LIGHT_YEARS_PER_PARSEC
+    const kind = describeObject(star)
+    const planets = star.known_planets ?? 0
+    const facts: [string, string][] = [
+      ['Object type', objectTypeLabel(star.type)],
+      ...distanceLy > 0 ? [['Distance from Sun', `${distanceLy.toFixed(2)} ly`] as [string, string]] : [],
+      ...star.spectral_type ? [['Spectral type', star.spectral_type] as [string, string]] : [],
+      ...star.apparent_mag != null ? [['Apparent mag. (V)', star.apparent_mag.toFixed(2).replace('-', '−')] as [string, string]] : [],
+      ...planets > 0 ? [['Known planets', String(planets)] as [string, string]] : [],
+    ]
+    const description = article ? `${article.name} ${article.introduction}`
+      : `${star.name} is ${/^[AEIOU]/.test(kind) ? 'an' : 'a'} ${kind === 'Sun-like star' ? kind : kind.toLowerCase()}${distanceLy > 0 ? ` ${distanceLy.toFixed(2)} light-years from the Sun` : ''}${star.spectral_type ? ` with spectral type ${star.spectral_type}` : ''}.`
+    // Components absorbed by another record link to the surviving page.
+    const related = [...new Map(systems.get(id)?.components.filter((component) => component.star.id !== id)
+      .map((component) => [canonical(component.star.id), component.star.name] as const))].map(([componentId, name]) => ({ id: componentId, name }))
+    const page: ObjectPage = { name: star.name, catalog, description: brief(description), facts, ...(article ? { introduction: `${article.name} ${article.introduction}` } : {}), ...(planets > 0 ? { planets } : {}), related }
+    return [id, page]
+  }))
+}
+
 const WHITE_DWARF_REFERENCES = join(root, 'src/data/white-dwarf-class-references.json')
 
+// Values retired as wrong by a reviewed correction stay in the ledger only.
+const retirements = (JSON.parse(readFileSync(join(root, 'catalog-work/reviewed-data-retirements.json'), 'utf8')) as { retirements: ReviewedRetirement[] }).retirements
+// Measured log g is attached after completion so that companion records receive it too.
+const shipped = (stars: Parameters<typeof completeCatalogCompanions>[0]) => withoutRetiredValues(supplementSurfaceGravity(completeCatalogCompanions(stars)), retirements)
+
 function shippedStars(catalogs: { stars: Parameters<typeof completeCatalogCompanions>[0] }[]) {
-  return catalogs.flatMap((catalog) => completeCatalogCompanions(catalog.stars))
+  return catalogs.flatMap((catalog) => shipped(catalog.stars))
 }
 
 /** The committed table must hold exactly the references bundled white dwarfs request; the grid is not needed here. */
@@ -159,19 +249,10 @@ function writeWhiteDwarfReferences(): void {
 }
 
 function loadCatalogPackages() {
-  const packages = [
-    { manifest: DEFAULT_CATALOG_MANIFEST, csv: readFileSync(join(root, 'src/data/stars.csv'), 'utf8') },
-    ...readdirSync(join(root, 'src/data/catalogs'), { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => {
-      const directory = join(root, 'src/data/catalogs', entry.name)
-      return {
-        manifest: parseCatalogManifest(readFileSync(join(directory, 'catalog.json'), 'utf8')),
-        csv: readFileSync(join(directory, 'stars.csv'), 'utf8'),
-      }
-    }),
-  ]
-  return packages.map((definition) => ({
-    id: definition.manifest.id,
-    stars: supplement(loadCatalog(definition)),
+  return loadPackageStars(packageDefinitions()).map(({ manifest, stars }) => ({
+    id: manifest.id,
+    extends: manifest.extends,
+    stars: supplement(stars),
   }))
 }
 
@@ -190,10 +271,23 @@ function generate(): void {
     detailFiles[file] = content + '\n'
     return mapStar
   })
-  const files = Object.fromEntries(catalogs.map(({ id, stars }) =>
-    [`${id}.json`, JSON.stringify({ schemaVersion: 3, catalogId: id, sourceObjectCount: stars.length, stars: mapRecords(supplementObjectIdentities(completeCatalogCompanions(stars), identities, { preserveAuthoredNames: true })) }) + '\n']))
+  const effective = new Map(catalogs.map(({ id, stars }) =>
+    [id, mapRecords(supplementObjectIdentities(shipped(stars), identities, { preserveAuthoredNames: true }))]))
+  // An extending payload ships only records that its base payload lacks or differs in.
+  const extensionRecords = (id: string, base: ReturnType<typeof mapRecords>, records: ReturnType<typeof mapRecords>) => {
+    const baseById = new Map(base.map((record) => [record.id, record]))
+    const delta = records.filter((record) => !isDeepStrictEqual(baseById.get(record.id), record))
+    const composed = new Map(composeCatalog(base, delta).map((record) => [record.id, record]))
+    if (composed.size !== records.length || records.some((record) => !isDeepStrictEqual(composed.get(record.id), record))) {
+      throw new Error(`Extending catalog payload does not reproduce its records: ${id}`)
+    }
+    return delta
+  }
+  const files = Object.fromEntries(catalogs.map(({ id, extends: baseId, stars }) =>
+    [`${id}.json`, JSON.stringify({ schemaVersion: 3, catalogId: id, ...(baseId ? { extends: baseId } : {}), sourceObjectCount: stars.length,
+      stars: baseId ? extensionRecords(id, effective.get(baseId)!, effective.get(id)!) : effective.get(id)! }) + '\n']))
   writeGeneratedData('catalog-details', detailFiles)
-  const references = buildCatalogClassReferences(catalogs.map((catalog) => ({ ...catalog, stars: completeCatalogCompanions(catalog.stars) })), (id) => components.get(id))
+  const references = buildCatalogClassReferences(catalogs.map((catalog) => ({ ...catalog, stars: shipped(catalog.stars) })), (id) => components.get(id))
   requireWhiteDwarfReferences(catalogs)
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data')), {
     // Display summaries: six significant digits exceed the cards' precision and halve the bundled file.
@@ -212,28 +306,38 @@ function generate(): void {
     const chart = JSON.parse(readFileSync(join(root, 'src/data/constellations', file), 'utf8')) as ConstellationChart
     const needed = new Set(completeCatalogCompanions(chart.stars.map((figure) => figure.object))
       .map((star) => starComponentIdentity(star.id)?.canonicalStarId ?? star.id))
-    chartCompanions[`${chart.name}.json`] = JSON.stringify(supplementObjectIdentities((companionData.stars as Star[]).filter((star) => needed.has(star.id)), identities, { preserveAuthoredNames: true })) + '\n'
+    chartCompanions[`${chart.name}.json`] = JSON.stringify(supplementObjectIdentities(withoutRetiredValues(supplementSurfaceGravity((companionData.stars as Star[]).filter((star) => needed.has(star.id))), retirements), identities, { preserveAuthoredNames: true })) + '\n'
   }
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated/constellation-companions')), chartCompanions, true)
   // Retired IDs serve their article from the surviving record; component IDs already resolve by identity.
   const legacyIds: Record<string, string> = legacyStarIds.ids
   const articleId = (id: string) => starComponentIdentity(id) ? id : legacyIds[id] ?? id
-  const articleFiles = Object.fromEntries([starInfo, nearest100Info, brightStarInfo].flatMap((dataset) =>
-    Object.entries(dataset.articles).map(([id, article]) => [`star-article-${articleId(id)}.json`, JSON.stringify({ reviewedAt: dataset.reviewedAt, article }) + '\n'])))
+  // Exact catalog IDs of the same single star in another catalog; resolved only through the startup index.
+  const articleEntries = [starInfo, nearest100Info, constellationStarInfo, compactObjectInfo].flatMap((dataset) =>
+    Object.entries(dataset.articles).map(([id, definition]) => {
+      const { aliases = [], ...article } = definition as typeof definition & { aliases?: string[] }
+      return { id: articleId(id), reviewedAt: dataset.reviewedAt, article, aliases }
+    }))
+  const articleFiles = Object.fromEntries(articleEntries.map(({ id, reviewedAt, article }) =>
+    [`star-article-${id}.json`, JSON.stringify({ reviewedAt, article }) + '\n']))
+  const starInfoAliases = Object.fromEntries(articleEntries.flatMap(({ id, aliases }) => aliases.map((alias) => [alias, id])))
   writeGeneratedData('star-articles', articleFiles)
-  const orbitFiles = Object.fromEntries(stellarOrbits.systems.map((system) =>
+  const orbitFiles = Object.fromEntries([...stellarOrbits.systems, ...compactOrbits.systems].map((system) =>
     [`stellar-orbit-${system.systemId}.json`, JSON.stringify(system.orbits) + '\n']))
   writeGeneratedData('stellar-orbits', orbitFiles)
+  const orbitSystemIds = [...stellarOrbits.systems, ...compactOrbits.systems].map((system) => system.systemId)
   const systemFiles = Object.fromEntries([...planetarySystems.systems, ...nearbyPlanets.systems].map((system) =>
     [`planetary-system-${system.hostStarId}.json`, JSON.stringify({ system, planets: nearbyPlanets.planets.filter((planet) => planet.hostStarId === system.hostStarId) }) + '\n']))
   writeGeneratedData('planetary-systems', systemFiles)
   const planetCounts = Object.fromEntries([...planetarySystems.systems, ...nearbyPlanets.systems].map((system) => [system.hostStarId, system.planets.length]))
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated')), {
-    'startup-index.json': JSON.stringify({ planetCounts, starInfoIds: [...new Set([starInfo, nearest100Info, brightStarInfo].flatMap((dataset) => Object.keys(dataset.articles).map(articleId)))], planetInfoIds: [...planetDetails.planets, ...smallBodies.objects].map((planet) => planet.id) }) + '\n',
+    'startup-index.json': JSON.stringify({ planetCounts, planetHostAliases: nearbyPlanets.aliases, starInfoIds: [...new Set(articleEntries.map(({ id }) => id))], starInfoAliases, planetInfoIds: [...planetDetails.planets, ...smallBodies.objects].map((planet) => planet.id) }) + '\n',
     'planet-details.json': JSON.stringify({ earth: planetDetails.earth, planets: planetDetails.planets }) + '\n',
     'planet-moons.json': JSON.stringify({ ...planetDetails.moons, ...smallBodies.moons }) + '\n',
     'small-body-details.json': JSON.stringify({ objects: smallBodies.objects }) + '\n',
     'exoplanet-source.json': JSON.stringify({ retrieved: nearbyPlanets.retrieved }) + '\n',
+    // Loaded with the orbit module, so systems without solutions request nothing.
+    'stellar-orbit-ids.json': JSON.stringify(orbitSystemIds) + '\n',
   }, true)
   const { manifest: overlayManifest, objects } = loadCompactOverlay()
   const nebulae = loadNebulaOverlay()
@@ -247,6 +351,16 @@ function generate(): void {
     [`${bubbles.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: bubbles.manifest.id, objects: bubbles.objects }) + '\n',
   }, true)
   console.log(`Generated ${objects.length} compact-object, ${nebulae.objects.length} nebula, ${molecularClouds.objects.length} molecular-cloud and ${bubbles.objects.length} bubble overlay rows.`)
+  // Same resolution as starInfoArticleId: system, canonical component, then reviewed alias.
+  const articles = new Map(articleEntries.map(({ id, article }) => [id, article as ArticleSummary]))
+  const articleFor = (starId: string) => {
+    const identity = starComponentIdentity(starId)
+    const id = [identity?.systemId ?? starId, identity?.canonicalStarId ?? starId, starInfoAliases[starId]].find((candidate) => candidate !== undefined && articles.has(candidate))
+    return id === undefined ? undefined : articles.get(id)
+  }
+  const pages = objectPages([...catalogs.map(({ id }) => ({ catalog: id, stars: effective.get(id)! })), { catalog: overlayManifest.id, stars: objects }], articleFor)
+  writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated')), { 'object-pages.json': JSON.stringify(pages) + '\n' }, true)
+  console.log(`Generated ${Object.keys(pages).length} object pages.`)
 }
 
 try {

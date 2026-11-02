@@ -1,0 +1,377 @@
+{
+  "schemaVersion": 1,
+  "sources": {
+    "msc-20260619": {
+      "reference": "Tokovinin physical Multiple Star Catalog (MSC), June 19 2026; 2018ApJS..235....6T",
+      "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+      "retrievedOn": "2026-11-02",
+      "archiveSha256": "4471cfba7c84e9c604083c87e729cad96eb72b0813259ef8097aad136780d535",
+      "selection": "Every sys.tsv, comp.tsv and notes.tsv row of the 13 WDS systems that the frozen CNS5 records combine. The archive hash equals the one recorded in catalog-companions-msc.json; rows are verbatim.",
+      "systems": {
+        "03480+6840": "HD 23189 (GJ 153)",
+        "09123+1500": "Pi1 Cnc (GJ 337)",
+        "11125+3549": "HD 97334 (GJ 417)",
+        "14503+2355": "HD 130948 (GJ 564)",
+        "15232+3017": "Eta CrB (GJ 584)",
+        "17350+6153": "26 Dra (GJ 684)",
+        "04076+3804": "50 Per / HD 25893 (GJ 161.1, GJ 160.1)",
+        "07289-3015": "CD-29 4446 (GJ 2060)",
+        "11239+1032": "Iota Leo (GJ 426.1)",
+        "21094-7310": "HD 200525 (GJ 818.1)",
+        "02482+2704": "HD 17382 (GJ 113)",
+        "07291+3147": "Rho Gem (GJ 274)",
+        "08317+1924": "CU Cnc / CV Cnc (GJ 2069)"
+      },
+      "tables": {
+        "sys.tsv": [
+          "02482+2704|A  |B  |*  |Cmpr    |    9.2200|k|  20.277|\"| 22.5| 7.62|K1V  |16.50|M5V  |  1.04|s|  0.14|v|LDS_1138 AB Gaia pos.         ",
+          "02482+2704|Aa |Ab |A  |S1,A    |   16.3000|y|   0.284|\"|  0.0| 7.62|K1V  | 0.00|     |  0.86|v|  0.18|m|SB9_2276 VB6                  ",
+          "03480+6840|A  |BC |*  |Chmr    |    4.0700|k|  16.913|\"| 12.6| 9.43|K7   |10.43|M2V  |  0.66|v|  1.02|s|KUI_13 A,BC Gaia pos.         ",
+          "03480+6840|B  |C  |BC |V,a     |   40.8800|y|   0.676|\"|  0.0|11.18|M2V  |11.18|     |  0.51|v|  0.51|v|KUI_13 BC                     ",
+          "04076+3804|E  |AB |*  |Cmpr    |    1.0800|M| 745.900|\"|280.0| 5.50|F7   | 7.32|G9V  |  1.21|v|  2.12|s|ALC_1 EA                      ",
+          "04076+3804|A  |B  |AB |V       |  590.0000|y|   3.870|\"|356.0| 7.32|G9V  | 9.69|     |  0.88|v|  1.24|s|STT_531 AB                    ",
+          "04076+3804|Ba |Bb |B  |v       |    7.0700|y|   0.187|\"|327.6|10.40|     |10.40|     |  0.62|v|  0.62|v|2021AJ....161..134H dK~0      ",
+          "04076+3804|Ea |Eb |X  |a??     |    0.0000|y|   0.000| |  0.0| 5.50|F7V  | 0.00|     |  1.21|v|  0.00| |G-sol. HIP N04:RV=const       ",
+          "07289-3015|AB |C  |*  |Cmp     |   27.6000|k|  64.000|\"|183.0| 9.96|M1V  |13.92|M5V  |  1.11|s|  0.21|v|SKF_1945 AB,C                 ",
+          "07289-3015|A  |B  |AB |V,S1    |    7.7800|y|   0.254|\"|161.0|10.14|M0.5V|12.01|M1.5 |  0.59|r|  0.52|r|HDS_1054 AB                   ",
+          "07291+3147|AB |E  |*  |Cmrp    |  992.0000|k| 757.000|\"|355.3| 4.18|F0V  | 7.74|K2.5 |  1.86|s|  0.79|v|A_2124 AE  E=GJ 273.1         ",
+          "07291+3147|A  |B  |AB |Ch      |  356.0000|y|   3.400|\"|  8.0| 4.18|F0V  |12.50|     |  1.47|v|  0.38|v|A_2124 AB                     ",
+          "07291+3147|Ea |Eb |X  |a??     |    0.0000|y|   0.000| |  0.0| 7.74|K2.5 | 0.00|     |  0.79|v|  0.00|-|HIP acc? RV=const             ",
+          "08317+1924|A  |B  |*  |Cmphr   |    1.8400|k|  10.368|\"|348.5|12.01|M3.5e|14.36|M4   |  0.98|s|  0.52|s|LDS_905 AB Gaia pos.          ",
+          "08317+1924|Aa |Ab |A  |V       |   66.0000|y|   0.977|\"|181.0|12.04|M4   |15.70|     |  0.83|s|  0.15|r|BEU_12 Aa,Ab dI=3.7           ",
+          "08317+1924|Ba |Bb |B  |V       |   44.3000|y|   0.606|\"|185.4|13.79|M4   |14.84|     |  0.29|r|  0.23|r|DEL_1 Ba,Bb                   ",
+          "08317+1924|Aa1|Aa2|Aa |S2,E,A  |    2.7700|d|   2.189|m|  0.0|12.04|M3.5e|12.45|     |  0.43|r|  0.40|r|1999A&A...344..897D           ",
+          "09123+1500|A  |E  |*  |Cmp     |   18.4000|k|  43.000|\"|262.0| 6.51|G9V  |17.00|L8   |  1.88|s|  0.10|s|WIL_1 AE                      ",
+          "09123+1500|Ea |Eb |E  |v       |  111.0000|y|   0.530|\"|291.0|17.00|L8   | 0.00|L8/T |  0.05|r|  0.05|r|BUG_16 Ea,Eb                  ",
+          "09123+1500|Aa |Ab |A  |S2,V,a  |    2.7045|y|   0.112|\"|  0.0| 7.02|G9V  | 7.52|G9V  |  0.98|r|  0.90|r|SB9_559, FIN_347 Aa,Ab        ",
+          "11125+3549|A  |E  |*  |Cmp     |   86.4000|k|  89.880|\"|245.0| 6.48|G0V  |21.00|L4   |  1.04|v|  0.10|s|KIR_3 AE                      ",
+          "11125+3549|Ea |Eb |E  |V       |   15.6500|y|   0.130|\"| 79.0|24.00|L4   | 0.00|L6   |  0.05|r|  0.05|r|BOY_5 Ea,Eb                   ",
+          "11239+1032|AB |C  |*  |Cmpr    |  378.0000|k| 331.300|\"|346.0| 4.06|F3V  |11.06|K6V  |  2.71|s|  0.62|s|STF_1536 AB,C                 ",
+          "11239+1032|A  |B  |AB |V,a     |  184.4600|y|   1.915|\"|100.0| 4.06|F3V  | 6.71|     |  1.71|v|  1.00|v|STF_1536 AB dmu               ",
+          "11239+1032|Ca |Cb |C  |a       |    0.0000|y|   0.000| |  0.0|10.67|     | 0.00|     |  0.62|v|  0.00| |RUWE=11.7                     ",
+          "14503+2355|A  |BC |*  |Cm,V    | 3590.0000|y|  13.400|\"|104.5| 5.88|G1V  |13.30|L2   |  1.06|v|  0.12|s|POT_1 AB                      ",
+          "14503+2355|B  |C  |BC |V       |   10.2800|y|   0.124|\"|  0.0|13.90|L2   |14.20|L2   |  0.07|r|  0.05|r|POT_1 BC                      ",
+          "15232+3017|AB |E  |*  |Cpm     |  137.0000|k| 193.500|\"|136.0| 4.98|G0V  |17.00|L8   |  2.34|s|  0.06|r|KIR_4 AB,E                    ",
+          "15232+3017|A  |B  |AB |V,S2,a  |   41.6280|y|   0.863|\"|  0.0| 5.64|G0V  | 5.95|G3V  |  1.24|r|  1.10|r|STF_1937 AB SB9_842 q=0.885   ",
+          "17350+6153|AB |C  |*  |Cmpr    |  700.0000|k| 737.600|\"|161.0| 5.28|G0V  |10.19|M1Ve |  1.77|s|  0.57|v|LDS_2736 AB,C                 ",
+          "17350+6153|A  |B  |AB |V,S1,a  |   76.1000|y|   1.530|\"|  0.0| 5.28|G0V  | 8.54|K5?  |  1.07|v|  0.70|v|BU_962 AB SB9_2557            ",
+          "21094-7310|AB |C  |*  |Cmhrp   |  955.0000|y|   6.374|\"|118.1| 6.37|G3IV |13.50|M4?  |  1.83|s|  0.30|v|HDO_305 AB,C Gaia pos.        ",
+          "21094-7310|A  |B  |AB |V,A,S2  |    5.3320|y|   0.191|\"| 24.0| 5.74|G3IV | 8.89|     |  1.11|v|  0.71|v|\"I_379\" false                 "
+        ],
+        "comp.tsv": [
+          "02482+2704| 42.038134| 27.068649|   43.57|DR3 |  280.0| -119.1|   9.3| A|    0.0|K1V     | 13081| 17382| 0.00| 7.62| 7.38| 6.06| 5.69| 5.61| 3|5|BD+26_465, BC_Ari, GJ_113                         ",
+          "02482+2704| 42.040759| 27.073876|   43.45|DR3 |  279.7| -115.6|  13.0| B|   20.0|M5V     |     0|     0|16.90|16.50|13.91|10.73|10.17| 9.87| 0|0|GJ_113, LP_354-414, BC_Ari                        ",
+          "03480+6840| 57.004309| 68.672895|   55.83|DR3 |  124.8|  250.6|   2.6| A|    0.0|K7      | 17749| 23189| 0.00| 9.33| 8.77| 6.87| 6.26| 6.11| 3|5|BD+68_278, GJ_153A                                ",
+          "03480+6840| 57.007189| 68.677471|   55.98|DR3 |  161.1|  248.4|   1.7| B|   19.2|M2V+K6V | 17750|     0|12.90|11.40|10.48| 7.38| 6.80| 6.57| 0|0|GJ_153B                                           ",
+          "04076+3804| 62.152572| 38.039739|   47.19|DR3 |  164.8| -201.4|  26.4| E|    0.0|F7V     | 19335| 25998| 5.97| 5.50| 5.40| 4.79| 4.51| 4.28| 4|5|V*_V582_Per, *50_Per, GJ_9145, GJ_161.1, HR_1278  ",
+          "04076+3804| 61.893163| 38.074546|   47.21|DR2 |  176.9| -222.9|  26.5| A|  745.9|G9V(k)  | 19255| 25893| 7.99| 7.08| 7.04| 5.39| 4.95| 4.79| 0|0|V*_V491_Per, ADS_2995, BD+37_878, GJ_160.1        ",
+          "07289-3015|112.214420|-30.246500|   63.72|HIP | -130.1| -131.0|  28.1| A|    0.0|M1Ve    | 36349|     0| 0.00| 9.96| 9.26| 6.61| 5.97| 5.72| 3|5|CD-29_4446, GJ_2060, V372_Pup                     ",
+          "07289-3015|112.213221|-30.264617|   65.09|DR2 | -134.5| -189.6|   0.0| C|   64.0|M5V     |     0|     0|14.90|13.00|12.16| 8.90| 8.37| 8.06| 0|0|GJ_2060C, UCAC3_120-52469                         ",
+          "07291+3147|112.278113| 31.784898|   56.11|DR3 |  138.0|  129.0|  -4.0| A|    0.0|F0V     | 36366| 58946| 0.00| 4.18| 4.09| 3.22| 3.16| 2.98| 3|4|BD+32_1562, ADS_6109, HR_2852, *62rho_Gem, GJ_274A",
+          "07291+3147|112.257421| 31.993893|   55.19|DR3 |  158.2|  175.9|  -4.0| E|  755.0|K2.5V   | 36357|     0| 8.67| 7.71| 7.45| 6.04| 5.66| 5.50| 0|0|BD+32_1561, V*_V376_Gem, GJ_273.1, GJ_9233        ",
+          "08317+1924|127.906565| 19.394135|   60.24|DR2 | -228.6| -120.0|   4.4| A|    0.0|M3.5e   | 41824|     0| 0.00|12.01|10.58| 7.51| 6.89| 6.60| 5|5|GJ_2069A, V*_CU_Cnc                               ",
+          "08317+1924|127.905907| 19.397115|   60.14|DR2 | -233.0| -128.1|   7.5| B|    9.6|M4.0V   |     0|     0|15.10|13.41|12.28| 8.62| 8.05| 7.72| 0|0|V*_CV_Cnc, GJ_2069B                               ",
+          "09123+1500|138.073119| 14.996040|   49.15|DR2 | -523.6|  244.3|  49.8| A|    0.0|G9V     | 45170| 79096| 0.00| 6.51| 6.30| 5.12| 4.77| 4.66| 4|5|BD+15_2003, HR_3650, *81pi_1Cnc, GJ_337           ",
+          "09123+1500|138.061208| 14.994333|   49.15|    | -524.0|  245.1|   0.0| E|   43.0|L8      |     0|     0| 0.00|17.00| 0.00|15.42|14.62|14.04| 0|0|GJ_337C                                           ",
+          "11125+3549|168.134793| 35.814080|   44.06|DR3 | -249.2| -151.4|  -2.6| A|    0.0|G0V     | 54745| 97334| 0.00| 6.41| 6.26| 5.26| 5.02| 4.96| 3|5|BD+36_2162, HR_4345, GJ_417, V*_MN_UMa            ",
+          "11125+3549|168.106814| 35.803540|   42.24|DR3 | -236.9| -149.8|  -4.3| E|   89.7|L4.5+L6:|     0|     0| 0.00|21.41|19.96|14.58|13.50|12.72| 0|0|GJ_417B                                           ",
+          "11239+1032|170.981090| 10.529500|   42.35|DR2 |  149.4|  -80.7| -11.8| A|    0.0|F3V     | 55642| 99028| 4.35| 4.00| 3.91| 3.08| 2.84| 2.79| 4|3|*_iot_Leo, ADS_8148, BD+11_2348, HR_4399          ",
+          "11239+1032|170.958136| 10.618952|   41.67|DR3 |  155.5|  -77.0|  -9.0| C|  331.3|K6V     |     0|     0|12.25|10.67| 9.94| 7.79| 7.16| 6.94| 0|0|LSPM_J1123+1037, TYC_858-720-1                    ",
+          "14503+2355|222.565922| 23.911851|   54.95|DR3 |  144.4|   31.7|  -1.5| A|    0.0|G1V     | 72567|130948| 0.00| 5.88| 5.73| 5.00| 4.69| 4.46| 3|5|BD+24_2786, HR_5534, GJ_564, HP_Boo               ",
+          "15232+3017|230.800838| 30.287777|   54.26|dyn |  139.0| -188.0|  -7.4| A|    0.0|G0V     | 75312|137107| 0.00| 5.58| 5.51| 4.05| 3.70| 3.71| 3|5|BD+30_2653, ADS_9617, HR_5727, *eta_CrB, GJ_584AB ",
+          "15232+3017|230.844292| 30.248944|   54.26|    |  125.8| -176.5|   0.0| E|  193.5|L8V     |     0|     0| 0.00|17.00| 0.00|15.95|14.93|14.35| 0|0|KIR_4E                                            ",
+          "15232+3017|230.801125| 30.288461|   54.26|    |  139.0| -188.0|  -5.9| B|    2.6|G2V     |     0|137108| 6.48| 5.95| 5.51| 4.05| 3.70| 3.71| 0|0|BD+30_2653B, ADS_9617B, HR_5728                   ",
+          "17350+6153|263.746891| 61.875832|   70.47|HIP |  277.0| -526.0| -16.3| A|    0.0|G0Va    | 86036|160269| 0.00| 5.23| 5.07| 4.24| 3.88| 3.74| 3|5|BD+61_1678, ADS_10660, HR_6573, *26_Dra, GJ_684   ",
+          "17350+6153|263.893643| 61.681565|   69.83|DR2 |  261.9| -514.4| -15.3| C|  737.6|M1V     | 86087|     0|11.45| 9.97| 9.17| 6.88| 6.27| 6.07| 0|0|ADS_10660C, GJ_685, BD+61_1678C                   ",
+          "21094-7310|317.343607|-73.172817|   51.10|dyn |  445.3| -330.7| -10.1| A|    0.0|F9.5V   |104440|200525| 6.27| 5.68| 5.51| 4.34| 3.96| 4.19| 3|5|CPD-73_2192, GJ_818.1AB                           ",
+          "21094-7310|317.348965|-73.174019|   50.60|DR3 |  433.8| -303.7|  -8.3| C|    7.2|        |     0|     0| 6.27|13.50|11.28| 7.77| 7.34| 7.34| 0|0|CD-73_1547, GJ_818.1C, NLTT_50542                 "
+        ],
+        "notes.tsv": [
+          "02482+2704|Age ~500Myr? LAF_28AC not found in DR2.                                         |2016A&A...593A..38B",
+          "02482+2704|DR3: RUWE(A,B)=2.2,1.4. B is BY Dra-type variable.                              |",
+          "03480+6840|DR3: RUWE(A,B)=1.0,1.5, dbl.peaks in B                                          |",
+          "03480+6840|RV(A)=2.58 km/s, const.                                                         |2018A&A...619A..81H",
+          "03480+6840|DR2-HIP: dmu(A)=(-0.1,0.7) mas/yr, subsystem? 2020: attempted corr. of BC orb.  |",
+          "03480+6840|DR3: RUWE(A,B)=1.0,1.5 fdbl(B)=92                                               |",
+          "04076+3804|E is the primary, but the WDS code is based on AB coordinates.                  |",
+          "04076+3804|DR3: RUWE(A)=1.4 DR2-HIP: dmu<0.5mas/yr. Ba,BB resolbed in DR3, two sources?    |",
+          "07289-3015|Orbit and masses for AB. Member of AB Dor group. Likely age ~50Myr.             |2018A&A...618A..23R",
+          "07289-3015|V(ABC)=(10.09,12.01,13.92), masses=(0.57,0.33,0.19). HIP.plx(AB)=63.72mas.      |2019AJ....157..216W",
+          "07291+3147|RV(E)= -3.98 km/s, const. dT=2601d. DR2-HIP: no dmu, hence E is single.         |2018A&A...619A..81H",
+          "07291+3147|DR2-HIP: dmu(E)~0. DR3: RUWE(E)=1.1                                             |",
+          "07291+3147|E shows no RV trend, single.                                                    |2021AJ....161..134H",
+          "08317+1924|Beuzit et al. 2004A&A.425.997 resolved Aab: 0.682\", 158d, dK=3.2, dV=4-5 est.   |",
+          "08317+1924|HIP1 plx 78.1mas, HIP2 plx 90.4mas. Astrometric ampl. of 66-yr orb. too small?  |",
+          "08317+1924|RV(A,B)= +3.64, +7.48 km/s, Vsini(A)=6.7, Teff(A,B)=3141,3528K                  |2018MNRAS.475.1960F",
+          "08317+1924|Caballero: Castor group, ~200 Myr old                                           |2010A&A...514A..98C",
+          "08317+1924|In fact DEL_1 is the northern, fainter pair! BEU_12 is the southern, brighter.  |",
+          "09123+1500|Burgasser et al.: E is resolved, dK=0.1mag. E = GJ337C.                         |2005AJ....129.2849B",
+          "09123+1500|E is not found in DR2, DR3. No plx(A) in DR3.                                   |",
+          "11125+3549|RV(A) const. according to DM91, Nid02, Abt2006.  A = MN UMa, BY Dra type        |",
+          "11125+3549|Bouy2003: ptm of Ea,Eb: 18.58/19.65 at 808nm, J(Ea)=14.57, K(Ea)=12.69          |2003AJ....126.1526B",
+          "11125+3549|Her-Lyra assoc., age 257 Myr.                                                   |2013A&A...556A..53E",
+          "11125+3549|DR3: RUWE(A,E)=0.9,1.6                                                          |",
+          "11239+1032|C is unresolved at SOAR. DR3: no plx(A), RUWE(C)=11.7, A7 NSS solution.         |",
+          "14503+2355|B,C rotate differently (62, 86 km/s), misaligned? BC orbit precesses?           |2012ApJ...750...79K",
+          "14503+2355|DR3: RUWE(A)=1.0, BC not foud.                                                  |",
+          "15232+3017|E= GJ_584C: K=14.24,J-K=2.09, brown dwarf. Also 2MASS. WDS comp. C,D are optical|",
+          "17350+6153|Abt2006: SB1 P=27796d* e=0.18* K1=3.18 V0=-16.29                                |",
+          "17350+6153|Sperauskas: RV(C)=const (also Tokovinin 1992)                                   |2019A&A...626A..31S",
+          "21094-7310|C=NLTT 50542, PM=(461,-287), CPM (R10)                                          |",
+          "21094-7310|AB Astrom. orb. Gln2006 P=6.65yr => a=0.23\", q=0.69. Resolved at 0.14\".         |",
+          "21094-7310|CHIRON spectro-visual orbit of Aa,Ab.                                           |2023AJ....165..160T",
+          "21094-7310|DR3: RUWE(A,C)=21.1, 1.3 plx(A)=46.99. SOAR: dy(AB)=3.15mag                     |"
+        ]
+      }
+    },
+    "rodet-2018-gj-2060": {
+      "reference": "Rodet et al. 2018, A&A 618, A23; 2018A&A...618A..23R",
+      "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+      "retrievedOn": "2026-11-02",
+      "documentSha256": "404d0b0477338309788af4b2956f7c235616c5ccd68b2ec60bb3ae903ffbd56b",
+      "selectedText": [
+        "We estimate a spectral type of M 1\\pm 0.5 , \\mathrm{L/L_{\\odot}=-1.20\\pm 0.05} dex, and \\mathrm{T_{eff}=3700\\pm 100} K for GJ 2060 A. The B component is a M 3\\pm 0.5 dwarf with \\mathrm{L/L_{\\odot}=-1.63\\pm 0.05} dex and \\mathrm{T_{eff}=3400\\pm 100} K.",
+        "Therefore, we estimate that GJ 2060 A is a M1 \\pm 0.5 dwarf.",
+        "We find \\mathrm{T_{eff}=3700\\pm 100} K and log g > 4.0 dex for GJ 2060 A. Similarly, we find \\mathrm{T_{eff}=3400\\pm 100} K and log g \\geq 3.5 dex for GJ 2060 B.",
+        "Parameter This work a (au) 4.03\\pm 0.03\\left(\\frac{d}{15.69\\text{ pc}}\\"
+      ],
+      "componentMapping": "GJ 2060 A/B = WDS 07289-3015 (HDS 1054) A/B = MSC A/B. Luminosities use the paper's adopted distance (abstract and Table 10 axis at 15.69 pc).",
+      "note": "Individual masses in Tables 11-12 are evolutionary-model predictions; only the total dynamical mass is measured."
+    },
+    "muterspaugh-2010-eta-crb": {
+      "reference": "Muterspaugh et al. 2010, AJ 140, 1623; 2010AJ....140.1623M",
+      "sourceUrl": "https://arxiv.org/html/1010.4043v1",
+      "retrievedOn": "2026-11-02",
+      "documentSha256": "3698a1ebde2e2894f6be6002f4cdfcc82bd1669792b2a66cf1b53b3221dc18b0",
+      "caption": "Table 6: Double-line Spectroscopic Binary Orbit Parameters",
+      "selectedTables": [
+        [
+          [
+            "HD Number",
+            "Period (d)",
+            "T∘ (HMJD)",
+            "Semimajor Axis (arcsec)",
+            "Eccentricity",
+            "Inclination (deg)",
+            "ω (deg)",
+            "Ω (deg)",
+            "M2/M1",
+            "M1+M2 (M⊙)",
+            "M1 (M⊙)",
+            "M2 (M⊙)",
+            "d (parsec)",
+            "χ2"
+          ],
+          [
+            "",
+            "σP",
+            "σT∘",
+            "σa",
+            "σe",
+            "σi",
+            "σω",
+            "σΩ",
+            "σM1/M2",
+            "σM1+M2",
+            "σM1",
+            "σM2",
+            "σd",
+            "DOF"
+          ],
+          [
+            "137107",
+            "15204.9",
+            "42612.9",
+            "0.86226",
+            "0.27907",
+            "58.084",
+            "39.885",
+            "202.827",
+            "0.885",
+            "2.343",
+            "1.243",
+            "1.100",
+            "18.50",
+            "2102.6"
+          ],
+          [
+            "",
+            "(1.4)",
+            "(3.4)",
+            "(0.00033)",
+            "(0.00026)",
+            "(0.026)",
+            "(0.064)",
+            "(0.024)",
+            "(0.031)",
+            "(0.084)",
+            "(0.054)",
+            "(0.039)",
+            "(0.22)",
+            "(2049)"
+          ]
+        ]
+      ],
+      "selectedText": [
+        "The masses are 1.243\\pm 0.054\\,M_{\\odot} and 1.100\\pm 0.039\\,M_{\\odot} ."
+      ],
+      "componentMapping": "M1/M2 = HD 137107 (eta CrB) A/B = WDS 15232+3017 STF 1937 A/B. Masses use the orbit-derived distance 18.50 +/- 0.22 pc and CORAVEL two-component velocities."
+    },
+    "tokovinin-2023-hip-104440": {
+      "reference": "Tokovinin 2023, AJ 165, 160; 2023AJ....165..160T",
+      "sourceUrl": "https://arxiv.org/html/2304.01861v1",
+      "retrievedOn": "2026-11-02",
+      "documentSha256": "58e436e5098ab886f9aacc808a7c6bb2866cbf3ac9f6c3047294fe2267de43db",
+      "selectedText": [
+        "The bright ( V=5.68 mag, F9.5V) visual pair A,B known as I 379 has been presumably discovered by R. Innes in 1898, although we know now that the separations on the order of 1″ measured by him were totally wrong (this pair is never wider than 0 \\farcs 3). Apart from the three spurious measurements by Innes, only W. Finsen reported a resolution of this pair in 1932 which also does not match the orbit. The magnitude difference measured at SOAR is substantial, \\Delta y=3.15 mag, and such close pairs are beyond the capacity of visual observers. In this case, the WDS name I 379 corresponds to the spurious discovery, despite several “confirming” visual resolutions. Goldin & Makarov [7] published two possible astrometric orbits of this star with periods of 6.65 and 5.87 yr based on Hipparcos transits. The true period is even shorter, 5.3 yr. The first visual orbit of A,B which also used the CHIRON RVs has been published in [ 31 ] ; it is updated here (Figure 11 ). The pair goes though the periastron in 2022.9, and the previous periastron in 2017.4 has been also covered. The orbit ignores spurious historic micrometer measurements and is based entirely on the SOAR and CHIRON data. The absolute magnitudes of A and B correspond to the masses of 1.13 and 0.72 M_{\\odot} and a dynamic parallax of 49.7 mas which compares well with the GDR3 parallax of star C, 50.6 mas; the GRD3 parallax of A, 47.0 mas, is biased. Masses derived from the combined orbit are 1.15 and 0.74 M_{\\odot} , and the orbital parallax is 51.0 mas."
+      ],
+      "componentMapping": "HIP 104440 = HD 200525 = GJ 818.1; A,B = WDS 21094-7310 A/B. The F9.5V class and V=5.68 describe unresolved A+B.",
+      "note": "Combined-orbit masses have no quoted uncertainty and use the orbital parallax 51.0 mas; the Gaia DR3 parallax of A (47.0 mas) is described as biased."
+    },
+    "dupuy-liu-2017-gl417bc-hd130948bc": {
+      "reference": "Dupuy & Liu 2017, ApJS 231, 15; 2017ApJS..231...15D",
+      "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+      "retrievedOn": "2026-11-02",
+      "documentSha256": "2eb3c665114976722c44b229a6c3de5f9c8f5a2846218f0a40cacfe1500a101d",
+      "caption": "Table 41: Summary of Properties for Dynamical Mass Sample",
+      "selectedTables": [
+        [
+          [
+            "",
+            "",
+            "Primary component",
+            "",
+            "Secondary component",
+            "",
+            ""
+          ],
+          [
+            "System",
+            "",
+            "M (MJup)",
+            "log⁡(Lbol/L☉)",
+            "SpT",
+            "Teff (K)",
+            "",
+            "M (MJup)",
+            "log⁡(Lbol/L☉)",
+            "SpT",
+            "Teff (K)",
+            "",
+            "Age (Gyr)"
+          ],
+          [
+            "Gl 417BC††The individual masses quoted for Gl 417BC and HD 130948BC are not measured directly but rather are inferred from evolutionary models in our total-mass analysis. The component effective temperatures are also from our total-mass analysis.",
+            "",
+            "51.5−1.8+1.7",
+            "−4.132±0.030",
+            "L4.5±1.0",
+            "1639−31+29",
+            "",
+            "47.7±1.9",
+            "−4.220±0.030",
+            "L6±1.0",
+            "1560−26+29",
+            "",
+            "0.49−0.04+0.03"
+          ],
+          [
+            "HD 130948BC††The individual masses quoted for Gl 417BC and HD 130948BC are not measured directly but rather are inferred from evolutionary models in our total-mass analysis. The component effective temperatures are also from our total-mass analysis.",
+            "",
+            "59.8−2.1+2.0",
+            "−3.85±0.06",
+            "L4±1.0",
+            "1920−60+70",
+            "",
+            "55.6−1.9+2.0",
+            "−3.96±0.06",
+            "L4±1.0",
+            "1800−70+50",
+            "",
+            "0.44±0.04"
+          ]
+        ]
+      ],
+      "componentMapping": "Primary/secondary = Gl 417 B/C (WDS 11125+3549 Ea/Eb, BOY 5) and HD 130948 B/C (WDS 14503+2355 B/C, POT 1BC).",
+      "note": "Table footnote: the individual masses of Gl 417BC and HD 130948BC are not measured directly but inferred from evolutionary models in the total-mass analysis; component effective temperatures are also from that analysis. Masses in Jupiter masses."
+    },
+    "burgasser-2005-gl337cd": {
+      "reference": "Burgasser et al. 2005, AJ 129, 2849; 2005AJ....129.2849B",
+      "sourceUrl": "https://arxiv.org/html/astro-ph/0503379v1",
+      "retrievedOn": "2026-11-02",
+      "documentSha256": "6892a1ae538c0309e9606efc07f482baec78939a6c832722aa2abd9f1de0c67c",
+      "caption": "Table 2: Properties of Gliese 337CD",
+      "selectedTables": [
+        [
+          [
+            "Parameter",
+            "Value",
+            "Ref"
+          ],
+          [
+            "SpTaaOptical spectral type from Wilson et al. [79].",
+            "L8",
+            "1"
+          ],
+          [
+            "d",
+            "20.5±0.4 pc",
+            "2"
+          ],
+          [
+            "μ",
+            "0.′′5789±0.′′0009 yr-1",
+            "2"
+          ],
+          [
+            "Age",
+            "0.6-3.4 Gyr",
+            "1"
+          ],
+          [
+            "ρA​B−C​D",
+            "43″",
+            "1"
+          ],
+          [
+            "",
+            "880 AU",
+            "1"
+          ],
+          [
+            "ρC−D",
+            "0.′′53±0.′′03",
+            "3"
+          ],
+          [
+            "",
+            "10.9±0.6 AU",
+            "3"
+          ],
+          [
+            "θC−D",
+            "291​°±8​°",
+            "3"
+          ],
+          [
+            "Δ​Ks",
+            "0.08±0.12 mag",
+            "3"
+          ],
+          [
+            "Δ​K2.2",
+            "0.11±0.10 mag",
+            "3"
+          ],
+          [
+            "Period",
+            "∼140-180 yr",
+            "3"
+          ]
+        ]
+      ],
+      "componentMapping": "Gliese 337 C/D = Pi1 Cnc C/D = WDS 09123+1500 Ea/Eb.",
+      "note": "Resolves Gliese 337CD at 0.53 arcsec with Delta Ks = 0.08 +/- 0.12. Component types L8+L8/T: in its Table 3 are estimated from differential photometry; no individual classification is adopted."
+    }
+  }
+}

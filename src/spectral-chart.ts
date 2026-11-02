@@ -10,6 +10,23 @@ export function svgNode<K extends keyof SVGElementTagNameMap>(tag: K, attributes
   return node
 }
 
+// Temperature guide colors, hot to cool, shared by the spectral diagrams.
+export const temperaturePalette = [
+  [50000, '#648cff'], [18000, '#91b7ff'], [8500, '#d9e5ff'],
+  [6600, '#fff3d3'], [5550, '#ffe291'], [4500, '#ffa95e'],
+  [3100, '#ee5b42'], [1750, '#aa362b'], [950, '#702a2a'], [250, '#442026'],
+] as const
+
+/** Palette color at a temperature, interpolated in log temperature. */
+export function temperatureColor(temperature: number): string {
+  const index = temperaturePalette.findIndex(([anchor]) => temperature >= anchor)
+  if (index <= 0) return temperaturePalette.at(index)![1]
+  const [hot, hotColor] = temperaturePalette[index - 1]!, [cool, coolColor] = temperaturePalette[index]!
+  const t = Math.log(hot / temperature) / Math.log(hot / cool)
+  const channel = (color: string, offset: number) => parseInt(color.slice(offset, offset + 2), 16)
+  return `#${[1, 3, 5].map((offset) => Math.round(channel(hotColor, offset) + (channel(coolColor, offset) - channel(hotColor, offset)) * t).toString(16).padStart(2, '0')).join('')}`
+}
+
 const icons = new WeakMap<Star, string>()
 export function starIcon(star: Star): string {
   const cached = icons.get(star)

@@ -22,7 +22,7 @@ import clusterProvenance from '../catalog-work/famous-cluster-stars/retired-cata
 import compactManifestRaw from './data/overlays/compact-remnants/manifest.json?raw'
 import compactPayloadRaw from './data/overlays/compact-remnants/objects.json?raw'
 import { buildCatalog, catalogCoverage, catalogSelection, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from './catalogs'
-import { parseStarCatalog } from './catalog'
+import { CONSTELLATIONS, parseStarCatalog } from './catalog'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, temperatureToColor, visibilityTier } from './astronomy'
 import { catalogLoader, mergeCatalogStars, parseCatalogPayload } from './catalog-runtime'
 import { mapComponentVisibility, indexStarSystems } from './star-systems'
@@ -401,6 +401,21 @@ describe('catalog packages and display settings', () => {
     expect(() => parseCatalogPayload({ schemaVersion: 2, catalogId: metadata.id, sourceObjectCount: metadata.objectCount, stars: nearest1000.map((star) => star.id === source.id ? { ...star, metallicity_kind: null } : star) }, metadata)).toThrow('metallicity quantity')
   })
 
+  it('composes an extending catalog from additions only, sharing its base rows', async () => {
+    const metadata = { ...parseCatalogManifest(nearest1000Manifest), id: 'extended', extends: 'nearest-1000', objectCount: nearest1000.length + 1 }
+    const addition = { ...nearest1000.find((star) => star.id === 'cns5-0239')!, id: 'cns5-9999', name: 'Addition' }
+    const payload = { schemaVersion: 2, catalogId: 'extended', extends: 'nearest-1000', sourceObjectCount: metadata.objectCount, stars: [addition] }
+    const composed = parseCatalogPayload(payload, metadata, nearest1000)
+    expect(composed).toHaveLength(nearest1000.length + 1)
+    expect(composed[0]).toBe(nearest1000[0])
+    expect(composed.at(-1)).toMatchObject({ id: 'cns5-9999' })
+    expect(() => parseCatalogPayload(payload, metadata)).toThrow('Invalid catalog payload')
+    const fetcher = vi.fn(async () => new Response(JSON.stringify(payload)))
+    const loadBase = vi.fn(async () => nearest1000)
+    await expect(catalogLoader(metadata, 'extended.json', fetcher, loadBase)()).resolves.toHaveLength(nearest1000.length + 1)
+    expect(() => loadCatalog({ manifest: metadata, csv: nearest1000Csv })).toThrow('extended base')
+  })
+
   it('keeps the Mu Cas primary bright when its shared-position companion remains the visibility reference', () => {
     const primary = nearest1000.find((star) => star.id === 'cns5-0317')!
     const secondary = nearest1000.find((star) => star.id === 'mu-cassiopeiae-b')!
@@ -553,7 +568,7 @@ describe('catalog packages and display settings', () => {
     expect(cluster).toHaveLength(43)
     expect(catalogCoverage(cluster)).toMatchObject({
       objects: 42, constellations: 42, magnitudes: 42, rawAstrometry: 42,
-      temperatures: 42, masses: 33, luminosities: 42, radii: 42, metallicities: 34, ages: 13,
+      temperatures: 42, masses: 22, luminosities: 42, radii: 42, metallicities: 34, ages: 10,
     })
     expect(provenance.groups.map((group: { name: string }) => group.name)).toEqual([
       'Pleiades', 'Trapezium Cluster', 'Hyades', 'Coma Star Cluster', 'Southern Pleiades', 'Omicron Velorum Cluster', 'Beehive Cluster',
@@ -614,25 +629,37 @@ describe('catalog packages and display settings', () => {
     expect(trapezium.every((star) => !indexStarSystems(cluster).has(star.id))).toBe(true)
   })
 
-  it('rebuilds bright and landmark catalogs exactly from frozen sources', () => {
-    execFileSync('python3', ['scripts/author-bright-stars.py'], { cwd: fileURLToPath(new URL('../', import.meta.url)) })
+  it('rebuilds landmark catalogs exactly from frozen sources', () => {
     execFileSync('python3', ['scripts/author-landmark-stars.py'], { cwd: fileURLToPath(new URL('../', import.meta.url)) })
   })
 
   it('validates the source-defined compact-remnant overlay and its nullable measurements', () => {
     const compactManifest = parseCompactOverlayManifest(compactManifestRaw)
     const compact = parseCompactOverlayPayload(JSON.parse(compactPayloadRaw), compactManifest)
-    expect(compact).toHaveLength(269)
-    expect(compactManifest.counts).toEqual({ pulsar: 266, neutron_star: 1, black_hole: 2 })
+    expect(compact).toHaveLength(278)
+    expect(compactManifest.counts).toEqual({ pulsar: 272, neutron_star: 4, black_hole: 2 })
     expect(Math.max(...compact.map((object) => Math.hypot(object.x_pc, object.y_pc, object.z_pc) * 3.261563777))).toBeLessThanOrEqual(3000)
-    expect(compact.filter((object) => object.type === 'pulsar' && object.compact?.rotation_period_s !== null)).toHaveLength(263)
+    expect(compact.filter((object) => object.type === 'pulsar' && object.compact?.rotation_period_s !== null)).toHaveLength(269)
+    // astropy spellings (Ophiucus, Boötes, Chamaleon) would break constellation links.
+    expect(compact.filter((object) => !CONSTELLATIONS.includes(object.constellation as never))).toEqual([])
+    // ATNF writes 0 for a missing uncertainty; the overlay stores null instead.
+    expect(compact.some((object) => object.compact?.rotation_period_error_s === 0 || object.compact?.orbital_period_error_days === 0)).toBe(false)
+    expect(compact.find((object) => object.id === 'psr-j0835m4510')?.compact).toMatchObject({
+      glitch_count: 21, associations: expect.arrayContaining(['Supernova remnant: Vela']),
+    })
+    expect(compact.find((object) => object.id === 'psr-j0453p1559-b')).toMatchObject({
+      type: 'neutron_star', mass_solar: 1.174, compact: { companion: 'Pulsar PSR J0453+1559' },
+    })
     expect(compact.find((object) => object.id === 'gaia-bh1')).toMatchObject({
       type: 'black_hole', mass_solar: 9.27, compact: { confidence: 'confirmed', orbital_period_days: 185.387 },
     })
     expect(compact.find((object) => object.id === 'gaia-ns1')).toMatchObject({
       type: 'neutron_star', mass_solar: 1.9, compact: { confidence: 'candidate' },
     })
-    expect(compact.filter((object) => object.type === 'pulsar').every((object) => object.mass_solar === null)).toBe(true)
+    // Only reviewed timing masses are adopted; ATNF companion limits never become pulsar masses.
+    expect(compact.filter((object) => object.type === 'pulsar' && object.mass_solar !== null).map((object) => object.id).sort()).toEqual([
+      'psr-j0437m4715', 'psr-j0453p1559', 'psr-j1012p5307', 'psr-j1614m2230', 'psr-j1756m2251', 'psr-j1829p2456', 'psr-j2222m0137',
+    ])
     const unsafePayload = JSON.parse(compactPayloadRaw)
     unsafePayload.objects[0].compact.source_url = 'javascript:alert(1)'
     expect(() => parseCompactOverlayPayload(unsafePayload, compactManifest)).toThrow(/row/)

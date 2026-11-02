@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Star } from './catalog-model'
-import { HR_SUN, hrAxes, hrCardAvailable, hrMagnitude, hrPoint, hrPosition } from './hr-diagram'
+import { derivedLogG, HR_SUN, hrAxes, hrCardAvailable, hrMagnitude, hrPoint, hrPosition, kielPoint } from './hr-diagram'
 import { spectralReference } from './spectral-chart'
 
 const sun = { type: 'star', temperature_k: 5772, absolute_mag: 4.83, luminosity_solar: 1 } as Star
@@ -96,5 +96,22 @@ describe('Hertzsprung–Russell coordinates', () => {
         expect(position.y).toBeLessThan(1)
       }
     }
+  })
+})
+
+describe('Kiel coordinates', () => {
+  const solar = { type: 'star', temperature_k: 5772, mass_solar: 1, radius_solar: 1, luminosity_solar: 1 } as Star
+
+  it('derives log g from catalog mass and radius and prefers a spectroscopic measurement', () => {
+    expect(derivedLogG(solar)).toBeCloseTo(4.438, 3)
+    expect(kielPoint(solar)).toEqual({ temperature: 5772, logG: derivedLogG(solar), measured: false, derived: derivedLogG(solar) })
+    const surface_gravity = { log_g: 4.5, reference: '2025A&A...698A..93J', measurements: 3 }
+    expect(kielPoint({ ...solar, stellar_observations: { surface_gravity } })).toMatchObject({ logG: 4.5, measured: true, derived: derivedLogG(solar) })
+  })
+
+  it('needs a temperature and either log g source, and never plots compact objects', () => {
+    expect(kielPoint({ ...solar, temperature_k: null })).toBeNull()
+    expect(kielPoint({ ...solar, mass_solar: null })).toBeNull()
+    expect(kielPoint({ ...solar, type: 'pulsar' })).toBeNull()
   })
 })

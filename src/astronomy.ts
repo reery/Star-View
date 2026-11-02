@@ -5,6 +5,8 @@ import { ICRS_TO_GALACTIC_ROWS, isBubbleObject, isCompactObject, isMolecularClou
 
 export const LIGHT_YEARS_PER_PARSEC = 3.261563777
 export const SOLAR_GALACTIC_VELOCITY_KMS = Object.freeze({ vx_kms: 12.9, vy_kms: 245.6, vz_kms: 7.78 })
+/** The Sun's peculiar velocity relative to the Local Standard of Rest (Schönrich, Binney & Dehnen 2010). */
+export const SOLAR_PECULIAR_VELOCITY_KMS = Object.freeze({ vx_kms: 11.1, vy_kms: 12.24, vz_kms: 7.25 })
 const ICRS_TO_GALACTIC = new Matrix3().set(...ICRS_TO_GALACTIC_ROWS.flat() as [number, number, number, number, number, number, number, number, number])
 export type Position = Pick<Star, 'x_pc' | 'y_pc' | 'z_pc'>
 export type MotionMode = 'full' | 'transverse'
@@ -153,11 +155,13 @@ export function displayMotionForStar(
   if (!raw) return null
   const velocity = rawAstrometryVelocityToWorld(raw)
   if (!velocity) return null
-  if (raw.radial_velocity_kms === null || frame === 'solar') return { velocity, mode: raw.radial_velocity_kms === null ? 'transverse' : 'full' }
+  const mode = raw.radial_velocity_kms === null ? 'transverse' : 'full'
+  if (frame === 'solar') return { velocity, mode }
+  // Transverse-only stars share the Sun's orbit too, so their Sun-relative motion is the same in both frames.
   const solar = galacticVelocityToWorld(SOLAR_GALACTIC_VELOCITY_KMS)
   if (!solar) return null
   velocity.add(solar)
-  return velocity.lengthSq() === 0 ? null : { velocity, mode: 'full' }
+  return velocity.lengthSq() === 0 ? null : { velocity, mode }
 }
 
 export function sunRelativeMetrics(star: Position, sun: Position) {
@@ -223,6 +227,11 @@ export function temperatureToColor(kelvin: number | null, mode: StarColorMode = 
   if (kelvin === null) return new Color(0xb8b8b8)
   if (!Number.isFinite(kelvin) || kelvin <= 0) throw new RangeError('Temperature must be positive and finite.')
   return interpolateColor(mode === 'exaggerated' ? EXAGGERATED_TEMPERATURE_COLORS : REAL_TEMPERATURE_COLORS, kelvin)
+}
+
+/** A vivid spectrum from brown through red, orange, yellow and white to blue, blending the brown dwarf colors into the exaggerated stellar ones. */
+export function temperatureSpectrumColor(kelvin: number): Color {
+  return interpolateColor(BROWN_DWARF_COLORS, kelvin).lerp(temperatureToColor(kelvin, 'exaggerated'), Math.max(0, Math.min(1, (kelvin - 1300) / 500)))
 }
 
 export function starDisplayColor(

@@ -51,6 +51,39 @@
           "note": "Adhara B has its own Gaia DR3 distance and sky position from exact SIMBAD * eps CMa B / WDS J06586-2858B. Spectral type, physical parameters, Johnson V photometry and radial velocity are unavailable in this frozen source. Gaia G=8.384104 is not substituted for V. No primary properties, space velocity or orbit copied or inferred."
         }
       ]
+    },
+    {
+      "id": "cns5-gj-781",
+      "name": "Wolf 1130",
+      "parentStarId": "cns5-4975",
+      "sourceRef": "mace-2018-wolf-1130",
+      "sourceUrl": "https://arxiv.org/abs/1802.04803",
+      "evidence": {
+        "reviewedOn": "2026-10-28",
+        "source": "Mace et al. 2018, ApJ 854, 145 (2018ApJ...854..145M), sections 1, 4.1-4.3 and Table 3",
+        "scope": "Completes the corrected CNS5 GJ 781 pair in place. Mace et al. label the sdM primary A, the unseen white dwarf B (WD 2003+542) and the T8 subdwarf C. The frozen SIMBAD main identifier Wolf 1130 B for CNS5 4977 is the earlier name of C and remains one of its designations. The A-B orbit (P = 0.49670418 +/- 0.00000005 d, i = 29 +/- 2 deg, a = 0.014183 au) is not modelled."
+      },
+      "components": [
+        {
+          "starId": "cns5-4975",
+          "label": "A",
+          "designations": ["Wolf 1130 A"],
+          "note": "Wolf 1130 A is the exact CNS5 4975 / SIMBAD Wolf 1130 record, which observes the A+B spectroscopic binary. B contributes no detected visible or near-infrared light (Mace et al. 2018, section 4.2), so existing photometry, astrometry and spectrum describe A; existing measurements retained. Its Gaia DR3 radial velocity (7.3 +/- 23.9 km/s) is blurred by A's 121 km/s orbital semi-amplitude; the published systemic velocity is -33.2 km/s (Table 3)."
+        },
+        {
+          "starId": "wolf-1130-b",
+          "label": "B",
+          "type": "white_dwarf",
+          "designations": ["Wolf 1130 B", "WD 2003+542"],
+          "note": "Wolf 1130 B is the unseen white dwarf in a 0.4967-day orbit with A, detected only through A's radial velocities and ellipsoidal light variation (Mace et al. 2018, sections 3.2 and 4.2). Shared A position and distance; separation 0.014 au. Non-detection implies Teff below 7000 K and a cooling age above about 3.4 Gyr; no spectral type, temperature, photometry or space motion is available."
+        },
+        {
+          "starId": "cns5-4977",
+          "label": "C",
+          "designations": ["Wolf 1130 C"],
+          "note": "Wolf 1130 C is the exact CNS5 4977 T8 subdwarf, a common-proper-motion companion at a projected 3150 +/- 40 au (Mace et al. 2018, section 4.3 and Table 5). Its own astrometry is retained."
+        }
+      ]
     }
   ]
 }

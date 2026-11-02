@@ -3,9 +3,10 @@ import { generatedJsonFetch } from './test-support/generated-json'
 import { readFileSync } from 'node:fs'
 import { parseStarCatalog } from './catalog'
 import { completeCatalogCompanions } from './stellar-companions'
-import { indexStarSystems, reviewedStarSystems } from './star-systems'
+import { indexStarSystems, reviewedCompactSystems, reviewedStarSystems } from './star-systems'
 import { loadStellarOrbits, orbitalPlanePoint, orbitBarycenterVisible, orbitHasGeometry, orbitMassFraction, projectedOrbitPoint, stellarOrbitsForSystem, type StellarOrbit } from './stellar-orbits'
 import data from './data/stellar-orbits.json'
+import compactData from './data/compact-system-orbits.json'
 import audit from '../catalog-work/star-systems/stellar-orbits-audit.json'
 
 const stars = completeCatalogCompanions(parseStarCatalog(readFileSync(new URL('./data/stars.csv', import.meta.url), 'utf8')))
@@ -65,9 +66,11 @@ describe('reviewed stellar orbits', () => {
   })
 
   it('audits every reviewed system and retains exact disjoint component scopes', () => {
-    expect(new Set(data.systems.map((s) => s.systemId))).toEqual(new Set(reviewedStarSystems.map((s) => s.id)))
-    for (const system of data.systems) {
-      const ids = new Set(reviewedStarSystems.find((s) => s.id === system.systemId)!.components.map((c) => c.starId))
+    const systems = [...data.systems, ...compactData.systems]
+    const reviewed = [...reviewedStarSystems, ...reviewedCompactSystems]
+    expect(new Set(systems.map((s) => s.systemId))).toEqual(new Set(reviewed.map((s) => s.id)))
+    for (const system of systems) {
+      const ids = new Set(reviewed.find((s) => s.id === system.systemId)!.components.map((c) => c.starId))
       const pairs = new Set<string>()
       for (const orbit of system.orbits) {
         expect(orbit.periodYears).toBeGreaterThan(0)

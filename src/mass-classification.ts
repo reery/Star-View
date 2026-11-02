@@ -22,6 +22,14 @@ export function typicalMassRangePosition(value: number | null, [rangeLow, rangeH
   }
 }
 
+// The bar spans the class range; it extends, with a little room, only toward an outlier.
+export function classRangePlacement(value: number, [rangeLow, rangeHigh]: MassRange) {
+  const pad = (rangeHigh / rangeLow) ** 0.1
+  const low = value < rangeLow ? value / pad : rangeLow, high = value > rangeHigh ? value * pad : rangeHigh
+  const position = (entry: number) => Math.log(entry / low) / Math.log(high / low) * 100
+  return { low, high, position: position(value), rangeLowPosition: position(rangeLow), rangeHighPosition: position(rangeHigh) }
+}
+
 export function massComparisonClass(star: Pick<Star, 'type' | 'spectral_type'>) {
   if (star.type !== 'star') {
     if (!['white_dwarf', 'brown_dwarf', 'sub_brown_dwarf', 'neutron_star', 'pulsar', 'black_hole'].includes(star.type)) return null

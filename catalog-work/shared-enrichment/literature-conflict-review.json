@@ -1,0 +1,558 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-10-28",
+  "scope": "Catalog physical values that contradict object-specific literature: Gaia DR3 FLAME ages and masses whose own GSP-Phot metallicity breaks FLAME's solar-metallicity assumption, uncalibrated GSP-Phot metallicities of hot stars, and isolated outlier selections from the frozen SIMBAD mesFe_h pool. Found by comparing Info articles with spec-sheet values and catalog values with the frozen literature pool. This is a reviewed candidate set, not a full catalog audit.",
+  "policy": "Exact SIMBAD/HIP/HD and stable IDs only. Adopt a published value only after checking it in the primary source; otherwise withhold the contradicted model value without inventing a replacement. Preserve membership, spectra, coordinates, motion and unrelated physical fields. Original values remain in this ledger and in catalog provenance.",
+  "objects": {
+    "* bet Pic": {
+      "label": "Beta Pic",
+      "starIds": [
+        "hip-27321"
+      ],
+      "identity": {
+        "simbadId": "* bet Pic",
+        "hip": 27321,
+        "hd": 39060
+      },
+      "previousValues": {
+        "hip-27321": {
+          "age_gyr": "0.44897932"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 0.44897932,
+            "sourceRecordId": "4792774797545800832"
+          },
+          "metallicity_dex": {
+            "value": -0.3739,
+            "sourceRecordId": "4792774797545800832"
+          }
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": 0.023,
+          "uncertainty": 0.003,
+          "status": "model-derived",
+          "reference": "2014MNRAS.445.2169M",
+          "url": "https://arxiv.org/abs/1409.2737",
+          "section": "Abstract",
+          "method": "Median Beta Pictoris moving-group age; the star is the group's namesake member.",
+          "caveat": "Moving-group age with its published 1-sigma uncertainty."
+        }
+      }
+    },
+    "* zet Dor": {
+      "label": "Zeta Dor",
+      "starIds": [
+        "cns5-1279"
+      ],
+      "identity": {
+        "simbadId": "* zet Dor",
+        "hip": 23693,
+        "hd": 33262
+      },
+      "previousValues": {
+        "cns5-1279": {
+          "mass_solar": "1.0888367",
+          "age_gyr": "3.6974847"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 3.6974847,
+            "sourceRecordId": "4763906879239461632"
+          },
+          "mass_solar": {
+            "value": 1.0888367,
+            "sourceRecordId": "4763906879239461632"
+          },
+          "metallicity_dex": {
+            "value": -0.5931,
+            "sourceRecordId": "4763906879239461632"
+          }
+        }
+      },
+      "adoptedFields": {
+        "mass_solar": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Gaia DR3 FLAME mass assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6), but Gaia's own GSP-Phot [M/H] for this star is -0.59, beyond the 0.3 dex limit at which the catalog already withholds FLAME mass and age."
+        },
+        "age_gyr": {
+          "value": 0.575,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2012A&A...541A..40M",
+          "url": "https://arxiv.org/abs/1202.5884",
+          "section": "Table 1, log(age/yr) = 8.76",
+          "method": "Chromospheric-activity age from log R'HK through the Mamajek & Hillenbrand (2008) calibration.",
+          "caveat": "The paper quotes 15-20 percent accuracy below 0.5 Gyr, rising to as much as 60 percent for older stars; no symmetric uncertainty is invented."
+        }
+      }
+    },
+    "* bet Com": {
+      "label": "Beta Com",
+      "starIds": [
+        "cns5-3247",
+        "hip-64394"
+      ],
+      "identity": {
+        "simbadId": "* bet Com",
+        "hip": 64394,
+        "hd": 114710
+      },
+      "previousValues": {
+        "cns5-3247": {
+          "age_gyr": "6.3486595"
+        },
+        "hip-64394": {
+          "age_gyr": "6.3486595"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 6.3486595,
+            "sourceRecordId": "1460229442589223424"
+          }
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": 2.0,
+          "uncertainty": 0.5,
+          "status": "model-derived",
+          "reference": "2008ApJ...687.1264M",
+          "url": "https://arxiv.org/abs/0807.1686",
+          "section": "Table 13, HD 114710",
+          "method": "Chromospheric-activity age 2.5 Gyr and activity-rotation age 1.5 Gyr; the adopted value spans both.",
+          "caveat": "Range midpoint; the half-range is not a statistical error."
+        }
+      }
+    },
+    "* e Her": {
+      "label": "e Her",
+      "starIds": [
+        "hip-84606"
+      ],
+      "identity": {
+        "simbadId": "* e Her",
+        "hip": 84606,
+        "hd": 156729
+      },
+      "previousValues": {
+        "hip-84606": {
+          "age_gyr": "0.55079883"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 0.55079883,
+            "sourceRecordId": "1340068730232295552"
+          },
+          "metallicity_dex": {
+            "value": -0.73,
+            "sourceRecordId": "1340068730232295552"
+          }
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6), but Gaia's own GSP-Phot [M/H] for this star is -0.73, beyond the 0.3 dex limit at which the catalog already withholds FLAME mass and age. A frequently quoted age of 155 Myr is attributed to 2012A&ARv..20...51V, but that review gives no age for this star, so it is not adopted."
+        }
+      }
+    },
+    "* zet CrA": {
+      "label": "Zeta CrA",
+      "starIds": [
+        "hip-93542"
+      ],
+      "identity": {
+        "simbadId": "* zet CrA",
+        "hip": 93542,
+        "hd": 176638
+      },
+      "previousValues": {
+        "hip-93542": {
+          "age_gyr": "0.31969926",
+          "metallicity_dex": "-1.1698",
+          "metallicity_kind": "[M/H]"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 0.31969926,
+            "sourceRecordId": "6715596505954270080"
+          },
+          "metallicity_dex": {
+            "value": -1.1698,
+            "sourceRecordId": "6715596505954270080"
+          }
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6), but Gaia's own GSP-Phot [M/H] for this star is -1.17, beyond the 0.3 dex limit at which the catalog already withholds FLAME mass and age. It conflicts with the published Stromgren-photometry age of about 76 Myr (2015ApJ...804..146D); that value is not adopted here because its primary table could not be verified (VizieR unreachable on 2026-10-28)."
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Uncalibrated Gaia DR3 GSP-Phot metallicity: Andrae et al. 2023 (2023A&A...674A..27A) describe these values as useful only at a qualitative level, and the frozen literature pool has no spectroscopic abundance for this hot star."
+        }
+      }
+    },
+    "* tet Crt": {
+      "label": "Theta Crt",
+      "starIds": [
+        "hip-56633"
+      ],
+      "identity": {
+        "simbadId": "* tet Crt",
+        "hip": 56633,
+        "hd": 100889
+      },
+      "previousValues": {
+        "hip-56633": {
+          "age_gyr": "0.2895535",
+          "metallicity_dex": "-0.6924",
+          "metallicity_kind": "[M/H]"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 0.2895535,
+            "sourceRecordId": "3587107658569000960"
+          },
+          "metallicity_dex": {
+            "value": -0.6924,
+            "sourceRecordId": "3587107658569000960"
+          }
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6), but Gaia's own GSP-Phot [M/H] for this star is -0.69, beyond the 0.3 dex limit at which the catalog already withholds FLAME mass and age. It conflicts with the published Stromgren-photometry age of about 117 Myr (2015ApJ...804..146D); that value is not adopted here because its primary table could not be verified (VizieR unreachable on 2026-10-28)."
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Uncalibrated Gaia DR3 GSP-Phot metallicity: Andrae et al. 2023 (2023A&A...674A..27A) describe these values as useful only at a qualitative level, and the frozen literature pool has no spectroscopic abundance for this hot star."
+        }
+      }
+    },
+    "* eps Hyi": {
+      "label": "Epsilon Hyi",
+      "starIds": [
+        "hip-12394"
+      ],
+      "identity": {
+        "simbadId": "* eps Hyi",
+        "hip": 12394,
+        "hd": 16978
+      },
+      "previousValues": {
+        "hip-12394": {
+          "age_gyr": "0.26643214",
+          "metallicity_dex": "-0.5397",
+          "metallicity_kind": "[M/H]"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 0.26643214,
+            "sourceRecordId": "4695167130257543424"
+          },
+          "metallicity_dex": {
+            "value": -0.5397,
+            "sourceRecordId": "4695167130257543424"
+          }
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6), but Gaia's own GSP-Phot [M/H] for this star is -0.54, beyond the 0.3 dex limit at which the catalog already withholds FLAME mass and age. It conflicts with the published Stromgren-photometry age of about 133 Myr (2015ApJ...804..146D); that value is not adopted here because its primary table could not be verified (VizieR unreachable on 2026-10-28)."
+        },
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Uncalibrated Gaia DR3 GSP-Phot metallicity: Andrae et al. 2023 (2023A&A...674A..27A) describe these values as useful only at a qualitative level, and the frozen literature pool has no spectroscopic abundance for this hot star."
+        }
+      }
+    },
+    "* tau PsA": {
+      "label": "Tau PsA",
+      "starIds": [
+        "hip-109422"
+      ],
+      "identity": {
+        "simbadId": "* tau PsA",
+        "hip": 109422,
+        "hd": 210302
+      },
+      "previousValues": {
+        "hip-109422": {
+          "age_gyr": "3.3200555"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 3.3200555,
+            "sourceRecordId": "6612242034982766848"
+          },
+          "metallicity_dex": {
+            "value": -0.4239,
+            "sourceRecordId": "6612242034982766848"
+          }
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6), but Gaia's own GSP-Phot [M/H] for this star is -0.42, beyond the 0.3 dex limit at which the catalog already withholds FLAME mass and age. It conflicts with the published Geneva-Copenhagen isochrone age of about 1.3 Gyr (2009A&A...501..941H); that value is not adopted here because its primary table could not be verified (VizieR unreachable on 2026-10-28)."
+        }
+      }
+    },
+    "* alf Tau": {
+      "label": "Aldebaran",
+      "starIds": [
+        "hip-21421"
+      ],
+      "identity": {
+        "simbadId": "* alf Tau",
+        "hip": 21421,
+        "hd": 29139
+      },
+      "previousValues": {
+        "hip-21421": {
+          "metallicity_dex": "-0.93",
+          "metallicity_kind": "[Fe/H]"
+        }
+      },
+      "evidence": {
+        "pool": {
+          "count": 68,
+          "median": -0.165
+        },
+        "rejected": {
+          "value": -0.93,
+          "reference": "2024A&A...690A..97C",
+          "reason": "Isolated outlier; 0.76 dex below the median of the pool."
+        }
+      },
+      "adoptedFields": {
+        "metallicity_dex": {
+          "value": -0.2,
+          "uncertainty": null,
+          "status": "measured",
+          "quantity": "[Fe/H]",
+          "reference": "2025A&A...698A..93J",
+          "url": "https://ui.adsabs.harvard.edu/abs/2025A%26A...698A..93J",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* alf Tau:mesFe_h:4",
+          "method": "Newest frozen SIMBAD mesFe_h value within 0.3 dex of the pool median, held by a strict majority (Gaia DR3 republications excluded)"
+        }
+      }
+    },
+    "HD 97101": {
+      "label": "HD 97101",
+      "starIds": [
+        "cns5-2724"
+      ],
+      "identity": {
+        "simbadId": "HD 97101",
+        "hip": 54646,
+        "hd": 97101
+      },
+      "previousValues": {
+        "cns5-2724": {
+          "metallicity_dex": "-0.7434",
+          "metallicity_kind": "[M/H]"
+        }
+      },
+      "evidence": {
+        "pool": [
+          [
+            -0.2,
+            "2016ApJ...822...97H"
+          ],
+          [
+            -0.07,
+            "2021A&A...656A.162M"
+          ],
+          [
+            0.04,
+            "2021A&A...656A.162M"
+          ],
+          [
+            0.24,
+            "2024A&A...691A..53S"
+          ],
+          [
+            0.243,
+            "2021ApJS..255....8R"
+          ],
+          [
+            0.65,
+            "2017AJ....153...21L"
+          ],
+          [
+            0.65,
+            "2022A&A...663A...4S"
+          ]
+        ]
+      },
+      "adoptedFields": {
+        "metallicity_dex": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Uncalibrated Gaia DR3 GSP-Phot metallicity (2023A&A...674A..27A: qualitative only) of -0.74 lies below every catalogued spectroscopic value (-0.20 to +0.65); those values do not agree well enough to adopt one."
+        }
+      }
+    },
+    "* chi Her": {
+      "label": "Chi Her",
+      "starIds": [
+        "hip-77760"
+      ],
+      "identity": {
+        "simbadId": "* chi Her",
+        "hip": 77760,
+        "hd": 142373
+      },
+      "previousValues": {
+        "hip-77760": {
+          "temperature_k": "6310"
+        }
+      },
+      "evidence": {
+        "pool": {
+          "count": 58,
+          "median": 5843.0
+        },
+        "rejected": {
+          "value": 6310,
+          "reference": "1999A&A...352..555A",
+          "method": "Evolutionary-track interpolation from Hipparcos absolute magnitude and colour"
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 5820,
+          "uncertainty": null,
+          "status": "measured",
+          "reference": "2022A&A...663A...4S",
+          "url": "https://ui.adsabs.harvard.edu/abs/2022A%26A...663A...4S",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* chi Her:mesFe_h:2",
+          "method": "Catalogued effective temperature: newest frozen SIMBAD mesFe_h value within 10 percent of the pool median, held by a strict majority of the pool (Gaia DR3 republications excluded)"
+        }
+      }
+    },
+    "* 41 Ara": {
+      "label": "41 Ara",
+      "starIds": [
+        "cns5-4255"
+      ],
+      "identity": {
+        "simbadId": "* 41 Ara",
+        "hip": 84720,
+        "hd": 156274
+      },
+      "previousValues": {
+        "cns5-4255": {
+          "temperature_k": "4759",
+          "radius_solar": "0.997472931"
+        }
+      },
+      "evidence": {
+        "pool": {
+          "count": 21,
+          "median": 5242.0
+        },
+        "rejected": {
+          "value": 4759,
+          "reference": "2024A&A...690A..97C",
+          "reason": "9 percent from the median of 21 catalogued values."
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 5242,
+          "uncertainty": null,
+          "status": "measured",
+          "reference": "2024A&A...683A.125P",
+          "url": "https://ui.adsabs.harvard.edu/abs/2024A%26A...683A.125P",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "* 41 Ara:mesFe_h:2",
+          "method": "Newest frozen SIMBAD mesFe_h value within 2 percent of the pool median (Gaia DR3 republications excluded). The automatic 10 percent rule had selected an edge value from a single recent survey."
+        },
+        "radius_solar": {
+          "value": 0.822126212,
+          "status": "derived",
+          "method": "Stefan-Boltzmann scaling R = sqrt(L) (5772 K / Teff)^2 from the retained luminosity and the reviewed temperature",
+          "inputs": {
+            "luminosity_solar": 0.45979026,
+            "temperature_k": 5242
+          }
+        }
+      }
+    },
+    "HD 36003": {
+      "label": "HD 36003",
+      "starIds": [
+        "cns5-1361"
+      ],
+      "identity": {
+        "simbadId": "HD 36003",
+        "hip": 25623,
+        "hd": 36003
+      },
+      "previousValues": {
+        "cns5-1361": {
+          "temperature_k": "4971"
+        }
+      },
+      "evidence": {
+        "pool": {
+          "count": 23,
+          "median": 4568.0
+        },
+        "rejected": {
+          "value": 4971,
+          "reference": "2024A&A...683A.125P",
+          "reason": "9 percent from the median of 23 catalogued values."
+        }
+      },
+      "adoptedFields": {
+        "temperature_k": {
+          "value": 4565,
+          "uncertainty": null,
+          "status": "measured",
+          "reference": "2022A&A...663A...4S",
+          "url": "https://ui.adsabs.harvard.edu/abs/2022A%26A...663A...4S",
+          "table": "SIMBAD mesFe_h, frozen 2026-10-05 literature snapshot",
+          "sourceRecordId": "HD 36003:mesFe_h:3",
+          "method": "Newest frozen SIMBAD mesFe_h value within 2 percent of the pool median (Gaia DR3 republications excluded). The automatic 10 percent rule had selected an edge value from a single recent survey."
+        }
+      }
+    }
+  }
+}

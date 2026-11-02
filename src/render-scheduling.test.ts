@@ -1,16 +1,22 @@
 import { describe, expect, it } from 'vitest'
-import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderPixelRatio, targetRenderFps } from './render-scheduling'
+import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderMultisampling, renderPixelRatio, targetRenderFps } from './render-scheduling'
 
 describe('renderer quality policy', () => {
   it.each([
-    [2, false, 1],
-    [2, true, 0.5],
-    [0.75, false, 0.75],
-    [0.4, true, 0.4],
-    [NaN, false, 1],
-    [NaN, true, 0.5],
-  ])('maps DPR %s with power saving %s to %s', (ratio, powerSaving, expected) => {
+    [3, false, 1.5, false],
+    [2, false, 1.5, false],
+    [2, true, 1, false],
+    [1.5, false, 1.5, false],
+    [1.25, false, 1, true],
+    [1, false, 1, true],
+    [1, true, 1, false],
+    [0.75, false, 0.75, true],
+    [0.4, true, 0.4, false],
+    [NaN, false, 1, true],
+    [NaN, true, 1, false],
+  ])('maps DPR %s with power saving %s to %s (MSAA %s)', (ratio, powerSaving, expected, multisampling) => {
     expect(renderPixelRatio(ratio, powerSaving)).toBe(expected)
+    expect(renderMultisampling(ratio, powerSaving)).toBe(multisampling)
   })
 
   it.each([

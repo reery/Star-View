@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Star } from './catalog-model'
-import { objectTypeCensus, spectralGroup } from './graphs'
+import { objectTypeCensus, radialVelocity, spectralGroup } from './graphs'
 
 const object = (id: string, type: Star['type'], temperature_k: number | null) => ({ id, type, temperature_k }) as Star
 
@@ -26,5 +26,15 @@ describe('spectral groups', () => {
     expect(group('white_dwarf', 'DA2')).toBe('D')
     expect(group('star', null)).toBeNull()
     expect(group('pulsar', 'B0')).toBeNull()
+  })
+})
+
+describe('radial velocity', () => {
+  const body = (x_pc: number, vx_kms: number | null) => ({ x_pc, y_pc: 0, z_pc: 0, vx_kms, vy_kms: 0, vz_kms: 0 }) as Star
+  it('is negative while approaching the reference and needs both motions', () => {
+    expect(radialVelocity(body(2, -10), body(0, 0))).toBe(-10)
+    expect(radialVelocity(body(2, 5), body(4, 0))).toBe(-5)
+    expect(radialVelocity(body(2, 5), body(0, null))).toBeNull()
+    expect(radialVelocity(body(0, 5), body(0, 0))).toBeNull()
   })
 })

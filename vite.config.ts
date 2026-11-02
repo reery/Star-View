@@ -1,8 +1,12 @@
 import { existsSync, readFileSync, realpathSync } from 'node:fs'
 import { extname, resolve, sep } from 'node:path'
-import { defineConfig, type Plugin } from 'vite'
+import { fileURLToPath } from 'node:url'
+import { defineConfig, loadEnv, type Plugin } from 'vite'
 import { writeBrotliSidecars } from './scripts/brotli.ts'
-import { CATALOG_DETAIL_ASSET_PATH, catalogDetailAsset, catalogDetailAssets } from './scripts/catalog-detail-assets.ts'
+import { dataShard, dataShards } from './scripts/data-shards.ts'
+import { DATA_SHARD_COUNTS, DATA_SHARD_PATH, dataShardPath, OBJECT_PAGE_SHARDS_PATH, type DataShardSet } from './src/data-shards.ts'
+import { SITE_ORIGIN } from './src/object-page.ts'
+import { CONTENT_SECURITY_POLICY, HTTPS_ONLY_HEADERS, SECURITY_HEADERS } from './worker/security-headers.ts'
 
 const COMPRESSIBLE = new Set(['.css', '.html', '.js', '.json', '.svg', '.txt', '.xml'])
 const CONTENT_TYPES: Record<string, string> = {
@@ -15,33 +19,15 @@ const CONTENT_TYPES: Record<string, string> = {
   '.xml': 'application/xml; charset=utf-8',
 }
 
-const CONTENT_SECURITY_POLICY = [
-  "default-src 'self'",
-  "script-src 'self'",
-  "style-src 'self'",
-  "img-src 'self' data:",
-  "connect-src 'self'",
-  "object-src 'none'",
-  "base-uri 'none'",
-  "form-action 'none'",
-  "require-trusted-types-for 'script'",
-  "trusted-types 'none'",
-].join('; ')
-
-// Meta policies ignore frame-ancestors, so only response headers carry it.
-const SECURITY_HEADERS: Record<string, string> = {
-  'Content-Security-Policy': `${CONTENT_SECURITY_POLICY}; frame-ancestors 'none'`,
-  'X-Frame-Options': 'DENY',
-  'X-Content-Type-Options': 'nosniff',
-  'Referrer-Policy': 'no-referrer',
-  'Cross-Origin-Opener-Policy': 'same-origin',
-  'Cross-Origin-Resource-Policy': 'same-origin',
-  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
-}
-const HTTPS_ONLY_HEADERS: Record<string, string> = {
-  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
-}
 const IMMUTABLE_CACHE_CONTROL = 'public, max-age=31536000, immutable'
+
+// RFC 9116; renew Expires before it lapses.
+const SECURITY_TXT = [
+  'Contact: mailto:security@starview-app.com',
+  'Expires: 2027-10-25T23:00:00.000Z',
+  'Preferred-Languages: en, de',
+  'Canonical: https://starview-app.com/.well-known/security.txt',
+].join('\n') + '\n'
 
 function headerRule(pattern: string, headers: Record<string, string>): string {
   return [pattern, ...Object.entries(headers).map(([name, value]) => `  ${name}: ${value}`)].join('\n')
@@ -57,6 +43,45 @@ function contentSecurityPolicy(): Plugin {
       attrs: { 'http-equiv': 'Content-Security-Policy', content: CONTENT_SECURITY_POLICY },
       injectTo: 'head-prepend',
     }],
+  }
+}
+
+// Stamps the Info card with the package version and the UTC date of the build (or dev server start).
+function buildDate(): Plugin {
+  const now = new Date()
+  const iso = now.toISOString().slice(0, 10)
+  const label = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(now)
+  const { version } = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')) as { version: string }
+  const shortVersion = `v${version.split('.').slice(0, 2).join('.')}`
+  return {
+    name: 'star-view-build-date',
+    transformIndexHtml: {
+      order: 'pre',
+      handler: (html) => html.replaceAll('%BUILD_DATE_ISO%', iso).replaceAll('%BUILD_DATE%', label).replaceAll('%APP_VERSION%', shortVersion),
+    },
+  }
+}
+
+// Fills the Info card's legal notice from IMPRINT_* build variables (Cloudflare Workers Builds or an
+// untracked .env file), so the operator's contact details never enter the repository.
+function imprint(env: Record<string, string>): Plugin {
+  const escape = (value: string) => value.replace(/[&<>"]/g, (character) => `&#${character.charCodeAt(0)};`)
+  const field = (name: string) => escape(env[`IMPRINT_${name}`]?.trim() ?? '')
+  const address = [field('STREET'), field('CITY')].filter(Boolean).join('<br>')
+  return {
+    name: 'star-view-imprint',
+    // Names only: the values must not appear in build logs.
+    buildStart() {
+      const missing = ['NAME', 'STREET', 'CITY', 'EMAIL'].filter((name) => !field(name)).map((name) => `IMPRINT_${name}`)
+      if (missing.length) this.warn(`Imprint build variables not set: ${missing.join(', ')}`)
+    },
+    transformIndexHtml: {
+      order: 'pre',
+      handler: (html) => html
+        .replaceAll('%IMPRINT_NAME%', field('NAME') || 'No name provided')
+        .replaceAll('%IMPRINT_ADDRESS%', address || 'No address provided')
+        .replaceAll('%IMPRINT_EMAIL%', field('EMAIL') || 'No email provided'),
+    },
   }
 }
 
@@ -95,25 +120,32 @@ function preloadMainChunks(): Plugin {
   }
 }
 
-// Source-note payloads are already named by content hash, so the browser derives each URL
-// from the catalog record instead of downloading a lookup table of bundler-hashed URLs.
-function catalogDetailFiles(): Plugin {
-  let directory = ''
+// Per-object payloads ship as content-hashed shards (src/data-shards.ts), so the file count stays
+// fixed as catalogs grow; the generated files stay individual for audits and tests.
+function dataShardFiles(): Plugin {
+  const generated = fileURLToPath(new URL('./src/data/generated', import.meta.url))
+  const sitemap = fileURLToPath(new URL('./public/sitemap.xml', import.meta.url))
+  let shards: ReturnType<typeof dataShards> | undefined
   return {
-    name: 'star-view-catalog-details',
-    configResolved(config) {
-      directory = resolve(config.root, 'src/data/generated/catalog-details')
+    name: 'star-view-data-shards',
+    config(_, { command }) {
+      // The dev server builds each shard on request, so its URLs need no content hash.
+      shards = command === 'build' ? dataShards(generated, sitemap) : undefined
+      const hashes = Object.fromEntries(Object.entries(DATA_SHARD_COUNTS).map(([set, count]) =>
+        [set, shards?.[set as DataShardSet].map(({ hash }) => hash) ?? Array<string>(count).fill('dev')]))
+      return { define: { __DATA_SHARD_HASHES__: JSON.stringify(hashes) } }
     },
     generateBundle() {
-      for (const [hash, source] of catalogDetailAssets(directory)) {
-        this.emitFile({ type: 'asset', fileName: `assets/catalog-details/${hash}.json`, source })
+      for (const [set, files] of Object.entries(shards!)) {
+        files.forEach(({ hash, content }, index) => this.emitFile({ type: 'asset', fileName: dataShardPath(set as DataShardSet, index, hash), source: content }))
       }
+      this.emitFile({ type: 'asset', fileName: OBJECT_PAGE_SHARDS_PATH, source: JSON.stringify(shards!['object-page'].map(({ hash }) => hash)) + '\n' })
     },
     configureServer(server) {
       server.middlewares.use((request, response, next) => {
-        const hash = CATALOG_DETAIL_ASSET_PATH.exec(request.url?.split('?')[0] ?? '')?.[1]
-        if (!hash) return next()
-        const content = catalogDetailAsset(directory, hash)
+        const match = DATA_SHARD_PATH.exec(request.url?.split('?')[0] ?? '')
+        if (!match) return next()
+        const content = dataShard(generated, sitemap, match[1]!, Number(match[2]))
         if (content === undefined) {
           response.statusCode = 404
           response.end('Not found')
@@ -148,6 +180,9 @@ function cloudflareAssetConfig(): Plugin {
       })
       // Cloudflare compresses at the edge; the Brotli sidecars are for `vite preview` only.
       this.emitFile({ type: 'asset', fileName: '.assetsignore', source: '*.br\n' })
+      this.emitFile({ type: 'asset', fileName: '.well-known/security.txt', source: SECURITY_TXT })
+      // public/sitemap.xml is written by scripts/author-sitemap.py.
+      this.emitFile({ type: 'asset', fileName: 'robots.txt', source: `User-agent: *\nAllow: /\n\nSitemap: ${SITE_ORIGIN}/sitemap.xml\n` })
     },
   }
 }
@@ -233,7 +268,7 @@ function brotliAssets(): Plugin {
 }
 
 export default defineConfig(({ mode }) => ({
-  plugins: [contentSecurityPolicy(), preloadMainChunks(), catalogDetailFiles(), cloudflareAssetConfig(), brotliAssets()],
+  plugins: [contentSecurityPolicy(), buildDate(), imprint(loadEnv(mode, process.cwd(), 'IMPRINT_')), preloadMainChunks(), dataShardFiles(), cloudflareAssetConfig(), brotliAssets()],
   // Keep a manual-refresh option for long inspection sessions in Safari.
   server: {
     ...(mode === 'manual' ? { hmr: false } : {}),

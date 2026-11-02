@@ -10,7 +10,11 @@ const payloads = import.meta.glob<string>([
 function definition(manifest: typeof DEFAULT_CATALOG_MANIFEST): CatalogDefinition {
   const loadUrl = payloads[`./data/generated/catalogs/${manifest.id}.json`]
   if (!loadUrl) throw new Error(`Missing generated catalog payload: ${manifest.id}`)
-  return { manifest, load: catalogLoader(manifest, loadUrl) }
+  const base = manifest.extends ? () => {
+    const definition = catalogs.find((catalog) => catalog.manifest.id === manifest.extends)
+    return definition ? definition.load() : Promise.reject(new Error(`Missing extended catalog: ${manifest.extends}`))
+  } : undefined
+  return { manifest, load: catalogLoader(manifest, loadUrl, fetch, base) }
 }
 
 export const catalogs: CatalogDefinition[] = [definition(DEFAULT_CATALOG_MANIFEST)]

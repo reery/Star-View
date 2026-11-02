@@ -1,5 +1,5 @@
 import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
-import type { CatalogManifest } from './catalog-manifest'
+import { composeCatalog, type CatalogManifest } from './catalog-manifest'
 import { validDesignations } from './designations'
 import { mergeCatalogStarLayers } from './catalog-merge'
 import { starComponentIdentity } from './star-systems'
@@ -17,16 +17,17 @@ export function mergeCatalogStars(primary: readonly Star[], additional: readonly
   return mergeCatalogStarLayers(primary, additional, starComponentIdentity)
 }
 
-export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): Star[] {
+/** An extending payload holds only additions and replacements; `base` is its parsed base catalog. */
+export function parseCatalogPayload(value: unknown, manifest: CatalogManifest, base?: readonly Star[]): Star[] {
   if (!value || typeof value !== 'object') throw new Error('Catalog payload must be an object.')
   const payload = value as Record<string, unknown>
-  if (![2, 3].includes(payload.schemaVersion as number) || payload.catalogId !== manifest.id || !Array.isArray(payload.stars)) {
+  if (![2, 3].includes(payload.schemaVersion as number) || payload.catalogId !== manifest.id || !Array.isArray(payload.stars)
+    || payload.extends !== manifest.extends || Boolean(manifest.extends) !== Boolean(base)) {
     throw new Error(`Invalid catalog payload: ${manifest.id}`)
   }
-  const stars = payload.stars as Record<string, unknown>[]
-  if (payload.sourceObjectCount !== manifest.objectCount || stars.length < manifest.objectCount) throw new Error('Catalog objectCount does not match payload rows.')
+  const additions = payload.stars as Record<string, unknown>[]
   const ids = new Set<string>()
-  for (const star of stars) {
+  for (const star of additions) {
     if (!star || typeof star !== 'object' || typeof star.id !== 'string' || !star.id || ids.has(star.id) ||
       typeof star.name !== 'string' || !star.name || typeof star.type !== 'string' || !STELLAR_OBJECT_TYPES.includes(star.type as never) ||
       !validDesignations(star.designations) ||
@@ -47,17 +48,20 @@ export function parseCatalogPayload(value: unknown, manifest: CatalogManifest): 
     }
     if (star.epoch !== manifest.epoch) throw new Error('Catalog manifest epoch does not match payload.')
   }
-  if (!ids.has('sun')) throw new Error('Catalog payload requires the Sun reference.')
   // Companion completion happens during generation, preserving the effective records
   // without downloading the complete physical-data pool in the browser.
-  return stars.map((star) => ({ ...star, notes: star.notes ?? '' })) as unknown as Star[]
+  const parsed = additions.map((star) => ({ ...star, notes: star.notes ?? '' })) as unknown as Star[]
+  const stars = base ? composeCatalog(base, parsed) : parsed
+  if (payload.sourceObjectCount !== manifest.objectCount || stars.length < manifest.objectCount) throw new Error('Catalog objectCount does not match payload rows.')
+  if (!stars.some((star) => star.id === 'sun')) throw new Error('Catalog payload requires the Sun reference.')
+  return stars
 }
 
 /** Fetch and parse a JSON payload once; a failed load is forgotten so it can be retried. */
 export function memoizedPayloadLoader<T>(
   label: string,
   loadUrl: () => Promise<string>,
-  parse: (value: unknown) => T,
+  parse: (value: unknown) => T | Promise<T>,
   fetcher: typeof fetch = fetch,
 ): () => Promise<T> {
   let cached: Promise<T> | undefined
@@ -71,7 +75,19 @@ export function memoizedPayloadLoader<T>(
   })
 }
 
-export function catalogLoader(manifest: CatalogManifest, url: string | (() => Promise<string>), fetcher: typeof fetch = fetch): () => Promise<Star[]> {
+export function catalogLoader(
+  manifest: CatalogManifest,
+  url: string | (() => Promise<string>),
+  fetcher: typeof fetch = fetch,
+  loadBase?: () => Promise<Star[]>,
+): () => Promise<Star[]> {
   const loadUrl = typeof url === 'string' ? () => Promise.resolve(url) : url
-  return memoizedPayloadLoader(manifest.label, loadUrl, (value) => parseCatalogPayload(value, manifest), fetcher)
+  let base: Promise<Star[]> | undefined
+  const load = memoizedPayloadLoader(manifest.label, loadUrl, async (value) => parseCatalogPayload(value, manifest, base && await base), fetcher)
+  // The base catalog's memoized rows are shared, not refetched or copied; both requests run in parallel.
+  return () => {
+    base = loadBase?.()
+    base?.catch(() => undefined)
+    return load()
+  }
 }

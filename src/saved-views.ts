@@ -3,8 +3,9 @@ import { isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey 
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, type MotionYears, type ViewerViewState } from './viewer'
 import type { MotionFrame } from './astronomy'
 import type { SkyGridMode } from './sky-grid'
-import { isPaintSettingId, PAINT_LEVEL_RANGE, type PaintSettingId } from './star-paint'
+import { isPaintSettingId, PAINT_CHANNELS, PAINT_LEVEL_RANGE, type PaintChannel, type PaintSettingId } from './star-paint'
 import type { SavedGraphSelection } from './graphs'
+import { NEIGHBORHOOD_RADIUS_LY } from './neighborhood'
 
 export const SAVED_VIEWS_STORAGE_KEY = 'star-view-saved-views'
 export const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000] as const
@@ -14,14 +15,20 @@ export interface SavedViewSettings {
   /** Legacy saved views use this flag to enable the constellation catalog that now holds the bright stars. */
   showAlwaysBright: boolean
   showWesternConstellationStars: boolean
+  /** Absent in entries saved before the catalog existed. */
+  showNotableDistantStars?: boolean
   /** Legacy saved views use this flag to enable the combined constellation catalog. */
   showFamousClusterStars: boolean
   filterCategories: FilterCategoryId[]
   filterSubtypes: FilterKey[]
   magnitudeLimit: number
+  /** Absent in views saved before the option existed. */
+  hideFainterObjects?: boolean
   objectDistanceLimitLy: number
   earthOrbitMode: EarthOrbitMode
   milkyWayVisible: boolean
+  /** Absent in views saved before the option existed. */
+  oortCloudVisible?: boolean
   motionArrowsVisible: boolean
   motionYears: MotionYears
   motionFrame: MotionFrame
@@ -41,7 +48,10 @@ export interface SavedViewSettings {
   viewState: ViewerViewState
   /** Absent in views saved before graph filters and paint were stored. */
   graphFilter?: SavedGraphSelection[]
-  paint?: [PaintSettingId, number][]
+  /** Channels are absent in views saved before settings could share the paint. */
+  paint?: [PaintSettingId, number, PaintChannel[]?][]
+  /** Absent in views saved without a neighborhood. The birth year stays private and is never saved. */
+  neighborhood?: { centerId: string; radiusLy: number }
 }
 
 export interface SavedView {
@@ -61,11 +71,15 @@ const isRangeEnd = (value: unknown) => value === null || (typeof value === 'numb
 
 function isGraphSelection(value: unknown): value is SavedGraphSelection {
   return isRecord(value) && typeof value.section === 'string' && typeof value.key === 'string' && typeof value.label === 'string'
-    && (value.range === undefined || (Array.isArray(value.range) && value.range.length === 2 && value.range.every(isRangeEnd)))
+    && (value.range === undefined || (Array.isArray(value.range) && (value.range.length === 2 || value.range.length === 4) && value.range.every(isRangeEnd)))
 }
 
-function isPaintEntry(value: unknown): value is [PaintSettingId, number] {
-  return Array.isArray(value) && value.length === 2 && isPaintSettingId(value[0])
+function isPaintChannels(value: unknown): value is PaintChannel[] {
+  return Array.isArray(value) && value.length > 0 && value.every((channel, index) => PAINT_CHANNELS.includes(channel) && value.indexOf(channel) === index)
+}
+
+function isPaintEntry(value: unknown): value is [PaintSettingId, number, PaintChannel[]?] {
+  return Array.isArray(value) && (value.length === 2 || (value.length === 3 && isPaintChannels(value[2]))) && isPaintSettingId(value[0])
     && typeof value[1] === 'number' && value[1] >= PAINT_LEVEL_RANGE[0] && value[1] <= PAINT_LEVEL_RANGE[1]
 }
 
@@ -82,13 +96,16 @@ function isSavedView(value: unknown): value is SavedView {
   return typeof settings.catalogId === 'string'
     && typeof settings.showAlwaysBright === 'boolean'
     && typeof settings.showWesternConstellationStars === 'boolean'
+    && (settings.showNotableDistantStars === undefined || typeof settings.showNotableDistantStars === 'boolean')
     && typeof settings.showFamousClusterStars === 'boolean'
     && Array.isArray(settings.filterCategories) && settings.filterCategories.every(isFilterCategoryId)
     && Array.isArray(settings.filterSubtypes) && settings.filterSubtypes.every(isFilterKey)
     && typeof settings.magnitudeLimit === 'number' && settings.magnitudeLimit >= 0 && settings.magnitudeLimit <= 25
+    && (settings.hideFainterObjects === undefined || typeof settings.hideFainterObjects === 'boolean')
     && typeof settings.objectDistanceLimitLy === 'number' && OBJECT_DISTANCE_STEPS_LY.includes(settings.objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])
     && typeof settings.earthOrbitMode === 'string' && isEarthOrbitMode(settings.earthOrbitMode)
     && typeof settings.milkyWayVisible === 'boolean'
+    && (settings.oortCloudVisible === undefined || typeof settings.oortCloudVisible === 'boolean')
     && typeof settings.motionArrowsVisible === 'boolean'
     && typeof settings.motionYears === 'number' && MOTION_YEAR_OPTIONS.includes(settings.motionYears as MotionYears)
     && (settings.motionFrame === 'galactic' || settings.motionFrame === 'solar')
@@ -110,6 +127,9 @@ function isSavedView(value: unknown): value is SavedView {
     && (viewState.observerTelescope === undefined || typeof viewState.observerTelescope === 'boolean')
     && (settings.graphFilter === undefined || (Array.isArray(settings.graphFilter) && settings.graphFilter.every(isGraphSelection)))
     && (settings.paint === undefined || (Array.isArray(settings.paint) && settings.paint.every(isPaintEntry)))
+    && (settings.neighborhood === undefined || (isRecord(settings.neighborhood) && typeof settings.neighborhood.centerId === 'string'
+      && Number.isInteger(settings.neighborhood.radiusLy) && (settings.neighborhood.radiusLy as number) >= NEIGHBORHOOD_RADIUS_LY.min
+      && (settings.neighborhood.radiusLy as number) <= NEIGHBORHOOD_RADIUS_LY.max))
 }
 
 export function readSavedViews(): SavedView[] {

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "id": "notable-distant-stars",
+  "label": "Notable distant stars",
+  "description": "Reviewed stars beyond the nearby catalogs that belong to notable systems: measured stellar companions of pulsars and the luminous stars of dormant black-hole and neutron-star systems, plus the Sun.",
+  "epoch": 2000,
+  "objectCount": 8,
+  "sources": [
+    {
+      "name": "ATNF Pulsar Catalogue v2.9.0; host pulsar positions and system astrometry",
+      "url": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html"
+    },
+    {
+      "name": "Nagarajan et al. 2024; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/2312.05313"
+    },
+    {
+      "name": "Gaia Collaboration et al. 2024; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/2404.10486"
+    },
+    {
+      "name": "El-Badry et al. 2024; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/2402.06722"
+    },
+    {
+      "name": "Demorest et al. 2010",
+      "url": "https://arxiv.org/abs/1010.5788"
+    },
+    {
+      "name": "Durant et al. 2012",
+      "url": "https://arxiv.org/abs/1111.2346"
+    },
+    {
+      "name": "El-Badry et al. 2023",
+      "url": "https://arxiv.org/abs/2209.06833"
+    },
+    {
+      "name": "El-Badry et al. 2024",
+      "url": "https://arxiv.org/abs/2402.06722"
+    },
+    {
+      "name": "Gaia Collaboration 2024",
+      "url": "https://arxiv.org/abs/2404.10486"
+    },
+    {
+      "name": "Guo et al. 2021",
+      "url": "https://arxiv.org/abs/2107.09474"
+    },
+    {
+      "name": "Mata Sánchez et al. 2020",
+      "url": "https://arxiv.org/abs/2004.02901"
+    },
+    {
+      "name": "Reardon et al. 2024",
+      "url": "https://arxiv.org/abs/2407.07132"
+    },
+    {
+      "name": "van Kerkwijk et al. 1996",
+      "url": "https://arxiv.org/abs/astro-ph/9606045"
+    }
+  ],
+  "cutoffPolicy": "Explicitly reviewed members of notable systems only; no magnitude or distance cutoff. Companions of compact objects need an individually measured mass. Sun is included only as the map origin.",
+  "snapshot": "J2000 map positions from the compact-remnant overlay; companion measurements reviewed 2026-10-26."
+}

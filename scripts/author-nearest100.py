@@ -19,7 +19,7 @@ from astropy.utils import iers
 from catalog_sources.adapters import eligible_gaia_physical, read_gaia_tap, read_primary_overrides
 from catalog_sources.metallicity import metallicity_kind
 from catalog_sources.solar import adopt_solar_reference, solar_provenance
-from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, manifest_sha256
+from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, flame_withheld, manifest_sha256
 from catalog_sources.ultracool_motion import enrich_reviewed_motion
 from catalog_sources.shared_objects import adopt_shared_object
 from catalog_sources.filesystem import atomic_write_text, safe_output_directory, write_managed_files
@@ -288,9 +288,10 @@ def apply_reviewed_and_gaia_physical(row, reviewed, gaia, fields=None):
                 fields["absolute_mag"] = field_source("derived", photometry["reference"], json.dumps(photometry, sort_keys=True))
 
     gaia_eligible = eligible_gaia_physical(gaia) if row["type"] == "star" else {}
+    invalid = flame_withheld(None, gaia_metallicity=gaia_eligible["metallicity_dex"].value if "metallicity_dex" in gaia_eligible else None)
     gaia_adopted = {}
     for field, observation in gaia_eligible.items():
-        if row.get(field, "") != "":
+        if row.get(field, "") != "" or field in invalid:
             continue
         row[field] = format_value(observation)
         if field == "metallicity_dex":

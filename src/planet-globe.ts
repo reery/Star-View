@@ -161,7 +161,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
   controls.minZoom = 1
   controls.maxZoom = 2.5
   controls.cursorStyle = 'grab'
-  // 48 × 32 segments keep silhouette faceting below one device pixel at the 172 px globe on 3× displays.
+  // 48 × 32 segments keep silhouette faceting below one device pixel at the 208 px planet globe on 3× displays.
   const geometry = new SphereGeometry(1, 48, 32)
   const jupiter = planetDescriptionForId('jupiter')!
   const jupiterGeometry = geometry.clone()

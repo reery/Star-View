@@ -1,4 +1,4 @@
-import { formatDistance, sunRelativeMetrics, type DistanceUnit } from './astronomy'
+import { formatDistance, galacticToWorld, galacticVelocityToWorld, sunRelativeMetrics, type DistanceUnit } from './astronomy'
 import { describeObject, type Star } from './catalog-model'
 import { catalogMeasurement, catalogSourceFor } from './catalog-source'
 import { measurement, MISSING_VALUE, quantity } from './format'
@@ -16,6 +16,13 @@ export interface SpecValue {
 export function radialVelocitySource(star: Star) {
   return star.raw_astrometry?.radial_velocity_kms == null
     ? star.catalog_sources?.find((entry) => entry.record.raw_astrometry?.radial_velocity_kms != null) : undefined
+}
+
+/** The radial velocity along the line of sight from the Sun: the bulk motion that moves the object on the map, otherwise a scoped measurement. */
+export function radialVelocityKms(star: Star): number | null {
+  const velocity = galacticVelocityToWorld(star)
+  return velocity ? galacticToWorld(star).normalize().dot(velocity)
+    : star.radial_velocity_observation?.value_kms ?? radialVelocitySource(star)?.record.raw_astrometry?.radial_velocity_kms ?? null
 }
 
 const degrees = (value: number) => `${value.toLocaleString('en-US', { maximumFractionDigits: 9 })} deg`

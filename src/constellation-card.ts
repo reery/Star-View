@@ -6,10 +6,12 @@ import { renderConstellationVisibility } from './constellation-visibility-card'
 import { constellationGrid } from './constellation-grid'
 import { constellationInfoAvailable, constellationInfoLinks, loadConstellationInfo } from './constellation-info'
 import { createLoadError } from './load-recovery'
+import { streamWhenLoaded } from './content-stream'
 import { renderObjectInfoContent } from './object-info-content'
 import { MISSING_VALUE, quantity } from './format'
 import { starComponentIdentity } from './star-systems'
 import { svgNode as svg } from './spectral-chart'
+import { hideTouchTooltip, registerTouchTooltip, showTouchTooltip, touchTooltipOpen, usingTouchTooltips } from './touch-tooltips'
 
 type Point = { x: number; y: number }
 type Box = { left: number; top: number; right: number; bottom: number }
@@ -228,11 +230,22 @@ function drawChart(root: HTMLElement, object: Star | null, chart: ConstellationC
       tooltip.style.top = `${Math.max(tooltip.offsetHeight + 12, p.y - 20)}px`
     }
     const hideTooltip = () => tooltip.classList.remove('is-visible')
-    marker.addEventListener('pointerenter', showTooltip)
-    marker.addEventListener('pointerleave', () => { if (document.activeElement !== marker) hideTooltip() })
+    // Revealing content on touch makes mobile Safari swallow the click, so touch previews open on click.
+    marker.addEventListener('pointerenter', (event) => { if (event.pointerType !== 'touch') showTooltip() })
+    marker.addEventListener('pointerleave', (event) => { if (event.pointerType !== 'touch' && document.activeElement !== marker) hideTooltip() })
     marker.addEventListener('focus', showTooltip)
     marker.addEventListener('blur', hideTooltip)
-    marker.addEventListener('click', () => { hideTooltip(); options.onSelect(physical) })
+    registerTouchTooltip(marker, {
+      show: () => { marker.classList.add('is-previewed'); showTooltip() },
+      hide: () => { marker.classList.remove('is-previewed'); hideTooltip() },
+    })
+    // The first tap previews a star; only a second tap on it changes the selection.
+    marker.addEventListener('click', () => {
+      if (usingTouchTooltips() && !touchTooltipOpen(marker)) { showTouchTooltip(marker, tooltip); return }
+      hideTouchTooltip()
+      hideTooltip()
+      options.onSelect(physical)
+    })
     marker.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); hideTooltip(); options.onSelect(physical) }
     })
@@ -353,9 +366,13 @@ async function renderInfo(root: HTMLElement, state: CardState): Promise<void> {
   const current = () => cards.get(root) === state && state.infoFor === request
   container.setAttribute('aria-busy', 'true')
   try {
-    const info = await loadConstellationInfo(chart.name)
-    if (!current()) return
-    renderObjectInfoContent(container, info, constellationInfoLinks(chart, options.objects, options.onSelect))
+    await streamWhenLoaded(container, (async () => {
+      const info = await loadConstellationInfo(chart.name)
+      if (!current()) return
+      renderObjectInfoContent(container, info, constellationInfoLinks(chart, options.objects, options.onSelect))
+      // The hero image streams in with the article instead of appearing afterwards.
+      await container.querySelector('img')?.decode().catch(() => undefined)
+    })())
   } catch (error) {
     if (!current()) return
     state.infoFor = undefined

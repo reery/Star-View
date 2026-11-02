@@ -56,6 +56,14 @@ describe('constellation data and common system motion', () => {
     expect(pool.get('msc-06290+2013-bb')!.raw_astrometry?.radial_velocity_kms).toBeNull()
   })
 
+  it('derives Beta Phe bulk motion from the adopted binary-orbit parallax', () => {
+    for (const id of ['hip-5165', 'orb6-01061-4643-a-b-b']) {
+      const star = pool.get(id)!
+      expect(star.raw_astrometry).toMatchObject({ parallax_mas: 17.93, parallax_error_mas: 0.53 })
+      expect(Math.hypot(...velocityFields.map((field) => star[field]!)), id).toBeCloseTo(23.31, 2)
+    }
+  })
+
   it('retains interval conventions rather than turning 95 percent bounds into one-sigma errors', () => {
     expect(pool.get('hip-43109')!.raw_astrometry).toMatchObject({ radial_velocity_kms:35.526,radial_velocity_error_kms:null })
     expect(pool.get('hip-75695')!.raw_astrometry).toMatchObject({ radial_velocity_kms:-19.856,radial_velocity_error_kms:null })

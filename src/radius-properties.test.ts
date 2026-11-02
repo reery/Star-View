@@ -20,29 +20,28 @@ describe('radius scales', () => {
     const range = typicalRadiusRange({ type: 'white_dwarf', spectral_type: 'DA2' })!
     expect(typicalRadiusPosition(0.006 * SOLAR_RADIUS_KM, range).position).toBeGreaterThan(0)
     expect(typicalRadiusPosition(0.01 * SOLAR_RADIUS_KM, range)).toEqual({
-      low: 0.005, high: 0.02, position: 50, rangeLowPosition: 0, rangeHighPosition: 100, typicalPosition: 50,
+      low: 0.005, high: 0.02, position: 50, rangeLowPosition: 0, rangeHighPosition: 100,
     })
     expect(typicalRadiusPosition(0.018 * SOLAR_RADIUS_KM, range).position).toBeLessThan(100)
     const below = typicalRadiusPosition(0.004 * SOLAR_RADIUS_KM, range)
-    expect(below.low).toBeCloseTo(0.004)
+    expect(below.low).toBeLessThan(0.004)
     expect(below.high).toBe(0.02)
-    expect(below.position).toBe(0)
-    expect(below.rangeLowPosition).toBeGreaterThan(0)
+    expect(below.position).toBeGreaterThan(0)
+    expect(below.rangeLowPosition).toBeGreaterThan(below.position)
     const above = typicalRadiusPosition(0.03 * SOLAR_RADIUS_KM, range)
     expect(above.low).toBe(0.005)
-    expect(above.high).toBeCloseTo(0.03)
-    expect(above.position).toBe(100)
-    expect(above.rangeHighPosition).toBeLessThan(100)
+    expect(above.high).toBeGreaterThan(0.03)
+    expect(above.position).toBeLessThan(100)
+    expect(above.rangeHighPosition).toBeLessThan(above.position)
   })
 
   it('places Alpha Centauri A beyond the marked G-star upper boundary', () => {
     const range = typicalRadiusRange({ type: 'star', spectral_type: 'G2V' })!
     const layout = typicalRadiusPosition(1.22 * SOLAR_RADIUS_KM, range)
     expect(layout.low).toBe(0.85)
-    expect(layout.high).toBeCloseTo(1.22)
-    expect(layout.position).toBe(100)
-    expect(layout.rangeHighPosition).toBeCloseTo(Math.log(1.1 / 0.85) / Math.log(1.22 / 0.85) * 100)
-    expect(layout.rangeHighPosition).toBeLessThan(layout.position!)
+    expect(layout.high).toBeCloseTo(1.22 * (1.1 / 0.85) ** 0.1)
+    expect(layout.position).toBeLessThan(100)
+    expect(layout.rangeHighPosition).toBeLessThan(layout.position)
   })
 
   it('distinguishes main-sequence stars from evolved stars with the same spectral color', () => {

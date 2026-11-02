@@ -1,5 +1,6 @@
 import Papa from 'papaparse'
 import { uniqueDesignations } from './designations.ts'
+import { composeCatalog } from './catalog-manifest.ts'
 import { STELLAR_OBJECT_TYPES, type ObjectType, type RawAstrometry, type Star } from './catalog-model.ts'
 
 export { OBJECT_TYPES, describeObject, objectTypeLabel, type ObjectType, type RawAstrometry, type Star } from './catalog-model.ts'
@@ -63,7 +64,8 @@ function numeric(value: string | undefined, field: string, record: number, optio
   return number
 }
 
-export function parseStarCatalog(csv: string): Star[] {
+/** With `base`, the CSV holds an extending catalog's additions; checks apply to the composition. */
+export function parseStarCatalog(csv: string, base?: readonly Star[]): Star[] {
   const result = Papa.parse<CsvRecord>(csv, {
     delimiter: ',',
     header: true,
@@ -90,7 +92,7 @@ export function parseStarCatalog(csv: string): Star[] {
   if (result.data.length === 0) throw new Error('The object catalog is empty.')
 
   const ids = new Set<string>()
-  const stars = result.data.map((row, index): Star => {
+  const rows = result.data.map((row, index): Star => {
     const record = index + 1
     const type = row.type?.trim()
     if (!isObjectType(type)) {
@@ -192,6 +194,7 @@ export function parseStarCatalog(csv: string): Star[] {
     return star
   })
 
+  const stars = base ? composeCatalog(base, rows) : rows
   const sun = stars.find((star) => star.id === 'sun')
   if (!sun) throw new Error('The catalog must contain the reference star with id "sun".')
   if (sun.x_pc !== 0 || sun.y_pc !== 0 || sun.z_pc !== 0) {

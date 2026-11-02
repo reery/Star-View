@@ -435,7 +435,7 @@ test('uses the selected renderer resolution cap', { tag: '@mobile' }, async ({ p
   await openPreferences(page)
   const powerSaving = page.getByRole('switch', { name: 'Power saving mode' })
   await expect(powerSaving).not.toBeChecked()
-  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1, 1)
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1.5, 1)
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
   const start = { x: bounds.x + bounds.width * 0.45, y: bounds.y + bounds.height * 0.55 }
@@ -443,9 +443,9 @@ test('uses the selected renderer resolution cap', { tag: '@mobile' }, async ({ p
   await page.mouse.move(start.x, start.y)
   await page.mouse.down()
   await page.mouse.move(start.x + 60, start.y - 20, { steps: 5 })
-  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1, 1)
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1.5, 1)
   await page.mouse.up()
-  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1, 1)
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1.5, 1)
 
   await openPreferences(page)
   await powerSaving.check()
@@ -456,11 +456,11 @@ test('uses the selected renderer resolution cap', { tag: '@mobile' }, async ({ p
   await page.mouse.move(start.x, start.y)
   await page.mouse.down()
   await page.mouse.move(start.x + 60, start.y - 20, { steps: 5 })
-  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(0.5, 1)
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1, 1)
   await page.mouse.up()
 
   await page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click())
-  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(0.5, 1)
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1, 1)
   const powerFrame = PNG.sync.read(await canvas.screenshot({ scale: 'css' }))
   let visiblePixels = 0
   for (let offset = 0; offset < powerFrame.data.length; offset += 4) {
@@ -471,7 +471,7 @@ test('uses the selected renderer resolution cap', { tag: '@mobile' }, async ({ p
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await openPreferences(page)
   await expect(page.getByRole('switch', { name: 'Power saving mode' })).not.toBeChecked()
-  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1, 1)
+  await expect.poll(() => canvasPixelRatio(page)).toBeCloseTo(1.5, 1)
 })
 
 test('caps sustained power-saving animation draws at 30 FPS', async ({ page }) => {

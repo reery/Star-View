@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { mkPoint, whiteDwarfClassification } from './mk-diagram'
+import { whiteDwarfDiagramTemperature } from './mk-properties'
 
 const classify = (spectral_type: string | null) => mkPoint({ type: 'star', spectral_type })
 
@@ -57,8 +58,10 @@ describe('white-dwarf D classification', () => {
   const classifyD = (spectral_type: string | null) => whiteDwarfClassification({ type: 'white_dwarf', spectral_type })
 
   it('places Sirius B in DA while preserving its temperature index', () => {
-    expect(classifyD('DA2')).toEqual({ family: 'DA', spectralType: 'DA2', description: 'Hydrogen lines' })
-    expect(classifyD('DB3.5')).toMatchObject({ family: 'DB', spectralType: 'DB3.5' })
+    expect(classifyD('DA2')).toEqual({ family: 'DA', spectralType: 'DA2', description: 'Hydrogen lines', temperatureIndex: 2 })
+    expect(classifyD('DB3.5')).toMatchObject({ family: 'DB', spectralType: 'DB3.5', temperatureIndex: 3.5 })
+    expect(classifyD('DAP3')?.temperatureIndex).toBe(3)
+    expect(classifyD('DC')?.temperatureIndex).toBeNull()
   })
 
   it('keeps hybrid features and magnetic qualifiers in the full catalog label', () => {
@@ -71,5 +74,14 @@ describe('white-dwarf D classification', () => {
   it('does not infer DX or classify ordinary stars as white dwarfs', () => {
     for (const spectral of [null, 'D', 'DH', 'G2V', 'DA2+M4V']) expect(classifyD(spectral)).toBeNull()
     expect(whiteDwarfClassification({ type: 'star', spectral_type: 'DA2' })).toBeNull()
+  })
+})
+
+describe('white-dwarf cooling diagram temperature', () => {
+  it('prefers the catalog temperature and otherwise uses the temperature index', () => {
+    expect(whiteDwarfDiagramTemperature({ type: 'white_dwarf', spectral_type: 'DA2', temperature_k: 25_369 })).toEqual({ temperature: 25_369, fromIndex: false })
+    expect(whiteDwarfDiagramTemperature({ type: 'white_dwarf', spectral_type: 'DA2', temperature_k: null })).toEqual({ temperature: 25_200, fromIndex: true })
+    expect(whiteDwarfDiagramTemperature({ type: 'white_dwarf', spectral_type: 'DC', temperature_k: null })).toBeNull()
+    expect(whiteDwarfDiagramTemperature({ type: 'star', spectral_type: 'G2V', temperature_k: 5772 })).toBeNull()
   })
 })

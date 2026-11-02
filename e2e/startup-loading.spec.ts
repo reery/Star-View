@@ -1,5 +1,11 @@
 import { expect, test, type Page } from '@playwright/test'
-import { writeFileSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { dataShardIndex, type DataShardSet } from '../src/data-shards.ts'
+
+// Per-object payloads are grouped into shards; this matches the shard that holds a key.
+const shard = (set: DataShardSet, key: string) => new RegExp(`/${set}-${dataShardIndex(set, key)}-[0-9a-f]+\\.json$`)
+const startCatalog = JSON.parse(readFileSync(new URL('../src/data/generated/catalogs/nearest-neighbors.json', import.meta.url), 'utf8')) as { stars: { id: string; catalog_detail_key: string }[] }
+const detailShard = (id: string) => shard('catalog-detail', startCatalog.stars.find((star) => star.id === id)!.catalog_detail_key.slice(-16))
 
 function trackRequests(page: Page): string[] {
   const requests: string[] = []
@@ -80,11 +86,11 @@ test('Info and constellation data wait for activation after a catalog change and
   await page.locator('#constellation-close').click()
 
   await page.locator('#object-info-toggle').click()
-  await expect(page.locator('#object-info > section')).toHaveCount(3)
+  await expect(page.locator('#object-info > section')).toHaveCount(5)
   await expect(page.locator('#object-info img')).toHaveJSProperty('naturalWidth', 1080)
   expect(requests.filter((url) => /\/star-info-/.test(url))).toHaveLength(1)
   expect(requests.filter((url) => /\/star-article-/.test(url))).toHaveLength(1)
-  expect(requests.some((url) => /\/star-article-sirius-/.test(url))).toBe(true)
+  expect(requests.some((url) => shard('star-article', 'sirius').test(url))).toBe(true)
   expect(requests.some((url) => /\/(stellar-orbits|nearby-planets)-/.test(url))).toBe(false)
 
   await page.locator('#object-specs-toggle').click()
@@ -92,7 +98,7 @@ test('Info and constellation data wait for activation after a catalog change and
   await expect(page.locator('#constellation-chart > svg')).toBeVisible()
   await page.locator('#constellation-close').click()
   await page.locator('#object-info-toggle').click()
-  await expect(page.locator('#object-info > section')).toHaveCount(3)
+  await expect(page.locator('#object-info > section')).toHaveCount(5)
   await page.waitForLoadState('networkidle')
   expect(chartRequests()).toHaveLength(3)
   expect(requests.filter((url) => /\/star-info-/.test(url))).toHaveLength(1)
@@ -109,7 +115,7 @@ test('System, planet Info, and moon assets follow their own activation', async (
   expect(requests.some((url) => /nearby-planets|stellar-orbits/.test(url))).toBe(false)
   await page.locator('#object-system-toggle').click()
   await expect(page.locator('#object-system .planet-row[data-planet-id="mars"]')).toBeVisible()
-  expect(requests.filter((url) => /\/planetary-system-sun-/.test(url))).toHaveLength(1)
+  expect(requests.filter((url) => shard('planetary-system', 'sun').test(url))).toHaveLength(1)
   expect(requests.some((url) => /\/(nearby-planets|stellar-orbit-)/.test(url))).toBe(false)
   expect(requests.filter((url) => /sun-.*\.jpg$/.test(url))).toEqual([])
 
@@ -149,7 +155,7 @@ test('map payloads omit source records and Specs fetches only the selected star 
   await expect(page.locator('#star-notes')).not.toHaveText('Loading source notes…')
   const details = () => requests.filter((url) => /\/catalog-detail-/.test(url))
   expect(details()).toHaveLength(1)
-  expect(details()[0]).toContain('/catalog-detail-sirius-a-')
+  expect(details()[0]).toMatch(detailShard('sirius-a'))
   await page.locator('#object-specs-toggle').click()
   await page.locator('#object-specs-toggle').click()
   await expect(page.locator('#star-notes')).not.toHaveText('Loading source notes…')
@@ -158,7 +164,7 @@ test('map payloads omit source records and Specs fetches only the selected star 
   await selectSun(page)
   await expect(page.locator('#star-notes')).toContainText('IAU 2015 nominal effective temperature')
   expect(details()).toHaveLength(2)
-  expect(details()[1]).toContain('/catalog-detail-sun-')
+  expect(details()[1]).toMatch(detailShard('sun'))
   expect(requests.some((url) => /\/(star-article|stellar-orbit-|planetary-system-)/.test(url))).toBe(false)
 })
 
@@ -168,12 +174,12 @@ test('System loads individual stellar and planet hosts and reuses them on return
   await page.locator('#object-system-toggle').click()
   await expect(page.locator('#object-system .stellar-orbit-diagram')).toBeVisible()
   expect(requests.filter((url) => /\/stellar-orbit-(?!data-)/.test(url))).toHaveLength(1)
-  expect(requests.some((url) => /\/stellar-orbit-sirius-/.test(url))).toBe(true)
+  expect(requests.some((url) => shard('stellar-orbit', 'sirius').test(url))).toBe(true)
   expect(requests.filter((url) => /\/planetary-system-(?!data-)/.test(url))).toHaveLength(0)
   await selectSun(page)
   await expect(page.locator('#object-system .planet-row[data-planet-id="mars"]')).toBeVisible()
   expect(requests.filter((url) => /\/planetary-system-(?!data-)/.test(url))).toHaveLength(1)
-  expect(requests.some((url) => /\/planetary-system-sun-/.test(url))).toBe(true)
+  expect(requests.some((url) => shard('planetary-system', 'sun').test(url))).toBe(true)
   await page.locator('#object-search').fill('Sirius')
   await page.locator('#star-list button[data-star="sirius-a"]').click()
   await expect(page.locator('#object-system .stellar-orbit-diagram')).toBeVisible()
@@ -184,7 +190,8 @@ test('System loads individual stellar and planet hosts and reuses them on return
   await page.locator('#object-search').fill('Proxima')
   await page.locator('#star-list button[data-star="proxima-centauri"]').click()
   await expect(page.locator('#object-system .planet-row')).toHaveCount(2)
-  expect(requests.filter((url) => /\/planetary-system-(?!data-)/.test(url))).toHaveLength(2)
+  // Hosts in an already loaded shard need no request.
+  expect(requests.filter((url) => /\/planetary-system-(?!data-)/.test(url))).toHaveLength(new Set(['sun', 'proxima-centauri'].map((id) => dataShardIndex('planetary-system', id))).size)
   await page.locator('#object-system .planet-row[data-planet-id="exo-proxima-cen-b"] button').click()
   await expect(page.locator('#planet-card [data-planet-spec="mass"]')).toContainText('Minimum mass (m sin i)')
   await expect(page.locator('#planet-card [data-planet-spec="radius"]')).toContainText('estimated')
@@ -194,9 +201,9 @@ test('System loads individual stellar and planet hosts and reuses them on return
 test('a delayed article cannot overwrite the newly selected star Info', async ({ page }) => {
   let release!: () => void
   const held = new Promise<void>((resolve) => { release = resolve })
-  await page.route(/\/star-article-sirius-.*\.json$/, async (route) => { await held; await route.continue() })
+  await page.route(shard('star-article', 'sirius'), async (route) => { await held; await route.continue() })
   await openWithoutBackground(page)
-  const started = page.waitForRequest(/\/star-article-sirius-.*\.json$/)
+  const started = page.waitForRequest(shard('star-article', 'sirius'))
   await page.locator('#object-info-toggle').click()
   await started
   await selectSun(page)
@@ -208,7 +215,7 @@ test('a delayed article cannot overwrite the newly selected star Info', async ({
 
 test('source-note loading can be retried after a temporary network failure', async ({ page }) => {
   let attempts = 0
-  await page.route(/\/catalog-detail-sirius-a-.*\.json$/, async (route) => {
+  await page.route(detailShard('sirius-a'), async (route) => {
     attempts++
     if (attempts === 1) await route.fulfill({ status: 503, contentType: 'application/json', body: '{}' })
     else await route.continue()
@@ -227,9 +234,9 @@ test('source-note loading can be retried after a temporary network failure', asy
 test('delayed source notes cannot replace the newly selected star details', async ({ page }) => {
   let release!: () => void
   const held = new Promise<void>((resolve) => { release = resolve })
-  await page.route(/\/catalog-detail-sirius-a-.*\.json$/, async (route) => { await held; await route.continue() })
+  await page.route(detailShard('sirius-a'), async (route) => { await held; await route.continue() })
   await openWithoutBackground(page)
-  const started = page.waitForRequest(/\/catalog-detail-sirius-a-.*\.json$/)
+  const started = page.waitForRequest(detailShard('sirius-a'))
   await page.locator('#object-specs-toggle').click()
   await started
   await selectSun(page)
@@ -243,9 +250,9 @@ test('delayed source notes cannot replace the newly selected star details', asyn
 test('closing System during its first load leaves the closed section unrendered', async ({ page }) => {
   let release!: () => void
   const held = new Promise<void>((resolve) => { release = resolve })
-  await page.route(/\/stellar-orbit-sirius-.*\.json$/, async (route) => { await held; await route.continue() })
+  await page.route(shard('stellar-orbit', 'sirius'), async (route) => { await held; await route.continue() })
   await openWithoutBackground(page)
-  const started = page.waitForRequest(/\/stellar-orbit-sirius-.*\.json$/)
+  const started = page.waitForRequest(shard('stellar-orbit', 'sirius'))
   await page.locator('#object-system-toggle').click()
   await started
   await page.locator('#object-specs-toggle').click()

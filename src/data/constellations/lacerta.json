@@ -24,8 +24,8 @@
         "temperature_k": 4346.0,
         "mass_solar": null,
         "luminosity_solar": 1556.2971077740278,
-        "radius_solar": 73.28568,
-        "metallicity_dex": 0.0511,
+        "radius_solar": 69.585613,
+        "metallicity_dex": -0.05,
         "age_gyr": null,
         "absolute_mag": -2.424889,
         "epoch": 2000.0,
@@ -34,8 +34,8 @@
         "name": "1 Lac",
         "constellation": "Lacerta",
         "spectral_type": "K3-II-III",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 109937; Stellarium Lac). SIMBAD identity *   1 Lac; SIMBAD compiled Johnson V=4.15; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 109937; Stellarium Lac). SIMBAD identity *   1 Lac; SIMBAD compiled Johnson V=4.15; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...682A.145S).",
         "designations": [
           "HIP 109937"
         ],
@@ -217,10 +217,10 @@
         "vx_kms": 9.446894,
         "vy_kms": -8.616009,
         "vz_kms": -3.743103,
-        "temperature_k": 12500.0,
+        "temperature_k": 19750.0,
         "mass_solar": null,
-        "luminosity_solar": 2818.097680501993,
-        "radius_solar": 11.319067,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": -0.04,
         "age_gyr": null,
         "absolute_mag": -3.227494,
@@ -231,7 +231,7 @@
         "constellation": "Lacerta",
         "spectral_type": "B2IV",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 111104; Stellarium Lac). SIMBAD identity *   6 Lac; SIMBAD compiled Johnson V=4.511; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 1992ApJ...387..673G).",
+        "notes": "Western constellation line-figure star (HIP 111104; Stellarium Lac). SIMBAD identity *   6 Lac; SIMBAD compiled Johnson V=4.511; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (metallicity_dex: 1992ApJ...387..673G). Reviewed hot-star temperature: 2009A&A...501..297Z, * 6 Lac mesFe_h record 2, 19750 K. Unresolved named multiple: this is the apparent, primary-dominated temperature of the catalogued light, not a resolved measurement of every member. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 111104"
         ],
@@ -831,7 +831,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

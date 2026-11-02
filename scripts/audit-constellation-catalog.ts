@@ -92,7 +92,7 @@ function build() {
     }
   }
   const articleIds = new Set<string>()
-  for (const file of ['star-info', 'nearest-100-info', 'bright-star-info']) {
+  for (const file of ['star-info', 'nearest-100-info', 'constellation-star-info']) {
     for (const id of Object.keys(json<{ articles: Record<string, unknown> }>(`src/data/${file}.json`).articles)) articleIds.add(id)
   }
   const hasInfo = (star: Star): boolean => {

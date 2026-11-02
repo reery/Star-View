@@ -8,7 +8,7 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-from catalog_sources.classification import spectral_labels
+from catalog_sources.classification import prune_subtypes, spectral_labels
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/object-stats"
@@ -34,6 +34,11 @@ LABELS = {
     "RV*": "RV Tauri variable", "Fl*": "Flare star", "FU*": "FU Orionis variable",
     "RC*": "R Coronae Borealis variable", "N*": "Neutron star", "Psr": "Pulsar",
     "Or*": "Orion variable", "HS*": "Hot subdwarf",
+}
+# SIMBAD candidate codes that do not follow the usual "X?" -> "X*" pattern.
+CANDIDATES = {
+    "s?r": "s*r", "s?y": "s*y", "s?b": "s*b", "RB?": "RG*", "S*?": "S*", "C*?": "C*", "V*?": "V*",
+    "N*?": "N*", "Y*?": "Y*O", "LX?": "LXB", "HX?": "HXB",
 }
 
 
@@ -99,22 +104,17 @@ def build():
         codes = sorted(types.get(key(main), set())) if main else []
         labels = [LABELS[code] for code in codes if code in LABELS]
         # Candidate classes stay explicitly tentative.
-        labels.extend(LABELS[code[:-1] + "*"] + " candidate" for code in codes
-                      if code.endswith("?") and code[:-1] + "*" in LABELS)
+        candidates = (CANDIDATES.get(code, code[:-1] + "*") for code in codes if code.endswith("?"))
+        labels.extend(LABELS[code] + " candidate" for code in candidates if code in LABELS)
         labels.extend(spectral_labels(row))
-        labels = list(dict.fromkeys(labels))
-        if "Supergiant" in labels and any(label in labels for label in ["Red supergiant", "Yellow supergiant", "Blue supergiant", "Evolved supergiant"]):
-            labels.remove("Supergiant")
+        labels = prune_subtypes(list(dict.fromkeys(labels)))
         if row["type"] == "pulsar":
-            labels = [label for label in labels if label not in {"Pulsar", "Neutron star"}]
+            labels = [label for label in labels if label.removesuffix(" candidate") not in {"Pulsar", "Neutron star"}]
         elif row["type"] == "neutron_star":
-            labels = [label for label in labels if label != "Neutron star"]
+            labels = [label for label in labels if label.removesuffix(" candidate") != "Neutron star"]
         if "Wolf–Rayet" in labels:
             labels.remove("Wolf–Rayet")
             labels.insert(0, "Wolf–Rayet")
-        # Specialized variability classes already imply Variable star.
-        if "Variable star" in labels and any("variable" in label.lower() and label != "Variable star" for label in labels):
-            labels.remove("Variable star")
         counts = hosts.get(key(main), set()) if main else set()
         known = len(counts) if counts else None
         if identifier == "sun":

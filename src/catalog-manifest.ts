@@ -8,6 +8,16 @@ export interface CatalogManifest {
   sources: { name: string; url: string }[]
   cutoffPolicy: string
   snapshot: string
+  /** A catalog that stores only rows added to (or replacing) another catalog's rows. */
+  extends?: string
+}
+
+/** Compose an extending catalog: base order, same-ID replacements, then additions. */
+export function composeCatalog<T extends { id: string }>(base: readonly T[], additions: readonly T[]): T[] {
+  const replacements = new Map(additions.map((star) => [star.id, star]))
+  if (replacements.size !== additions.length) throw new Error('Catalog additions repeat an ID.')
+  const ids = new Set(base.map((star) => star.id))
+  return [...base.map((star) => replacements.get(star.id) ?? star), ...additions.filter((star) => !ids.has(star.id))]
 }
 
 export const DEFAULT_CATALOG_MANIFEST: CatalogManifest = {
@@ -33,6 +43,8 @@ export function parseCatalogManifest(raw: string): CatalogManifest {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(manifest.id as string)) throw new Error('Invalid catalog id.')
   if (typeof manifest.epoch !== 'number' || !Number.isFinite(manifest.epoch)) throw new Error('Invalid catalog epoch.')
   if (!Number.isInteger(manifest.objectCount) || (manifest.objectCount as number) < 1) throw new Error('Invalid catalog objectCount.')
+  if (manifest.extends !== undefined && (typeof manifest.extends !== 'string' || manifest.extends === manifest.id
+    || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(manifest.extends))) throw new Error('Invalid extended catalog id.')
   if (!Array.isArray(manifest.sources) || !manifest.sources.length || manifest.sources.some((source: unknown) => {
     if (!source || typeof source !== 'object') return true
     const entry = source as Record<string, unknown>

@@ -2,7 +2,7 @@ import Papa from 'papaparse'
 import { CATALOG_HEADERS, parseStarCatalog, type Star } from './catalog.ts'
 import { DEFAULT_CATALOG_MANIFEST, type CatalogManifest } from './catalog-manifest.ts'
 
-export { DEFAULT_CATALOG_MANIFEST, parseCatalogManifest, type CatalogManifest } from './catalog-manifest.ts'
+export { composeCatalog, DEFAULT_CATALOG_MANIFEST, parseCatalogManifest, type CatalogManifest } from './catalog-manifest.ts'
 export { catalogSelection } from './catalog-selection.ts'
 
 export interface CatalogDefinition {
@@ -10,8 +10,10 @@ export interface CatalogDefinition {
   csv: string
 }
 
-export function loadCatalog(definition: CatalogDefinition): Star[] {
-  const stars = parseStarCatalog(definition.csv)
+/** An extending catalog's CSV holds only its additions; `base` is the extended catalog. */
+export function loadCatalog(definition: CatalogDefinition, base?: readonly Star[]): Star[] {
+  if (Boolean(definition.manifest.extends) !== Boolean(base)) throw new Error(`Catalog ${definition.manifest.id} requires exactly its extended base.`)
+  const stars = parseStarCatalog(definition.csv, base)
   if (stars.length !== definition.manifest.objectCount) throw new Error('Catalog objectCount does not match CSV rows.')
   if (stars.some((star) => star.epoch !== definition.manifest.epoch)) throw new Error('Catalog manifest epoch does not match CSV.')
   return stars

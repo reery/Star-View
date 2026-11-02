@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-11-02",
+  "policy": "Split a corrected CNS5 record that combines two published components only when the frozen MSC hierarchy, an ORB6 orbit or a primary paper resolves the pair. The first member keeps the source ID and its own aliases; aliases naming the second member move to it. The unresolved parent stays a scoped retained source. Shared position and bulk motion are approximate; no individual orbital phase or velocity is inferred.",
+  "inputSha256": {
+    "catalog-work/star-systems/literature-components/component-splits-20261102-selected.json": "50b5e748148b373860188cce8e3fdcc4b150cf58d404b82d692246baa21b49c8",
+    "catalog-work/star-systems/orb6-20261009.txt": "dbca5302763cbb9d39ec71f016cd46905d8b58e97aeb30a19cf3346043125852"
+  },
+  "notSplit": [
+    {"systemId": "cns5-gj-113", "record": "cns5-0702 HD 17382 (CNS5 AB)",
+     "reason": "MSC 02482+2704 Aa,Ab is a 16.3-year single-lined spectroscopic/astrometric pair (SB9 2276) whose companion has only a minimum mass of 0.18 Msun and no spectrum. An unclassified companion is not authored."},
+    {"systemId": "cns5-gj-274", "record": "cns5-1852 Rho Gem (CNS5 AB)",
+     "reason": "MSC 07291+3147 B is a V=12.5 star 3.4 arcsec away, physical only by hypothetical parallax (Ch), with no spectrum or orbit. The record's light and astrometry are those of A."},
+    {"systemId": "cns5-gj-2069", "record": "cns5-2108 CU Cnc (CNS5 AE); cns5-2107/cns5-2106 CV Cnc A/B (CNS5 BC/D)",
+     "reason": "Legacy Gliese labels do not match the MSC hierarchy: CU Cnc holds the eclipsing Aa1/Aa2 pair plus the 1-arcsec Ab, and CV Cnc A/B are already separate records for WDS Ba/Bb. MSC notes conflicting assignments of DEL 1 and BEU 12. A three-member relabeling needs its own review."}
+  ],
+  "systems": [
+    {
+      "systemId": "cns5-gj-153",
+      "expectedComponents": {"cns5-0961": "A", "cns5-0962": "BC"},
+      "parentStarId": "cns5-0962",
+      "expectedParentName": "G 221-24A",
+      "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+      "sourceScope": "GJ 153 BC (G 221-24A) catalog source; unresolved B+C contributions; not an individual B/C measurement",
+      "note": "MSC 03480+6840 and ORB6 KUI 13BC resolve the CNS5 BC record into a 0.68-arcsec visual pair with a 40.9-year orbit. MSC lists the composite M2V+K6V and inconsistent component V values (11.18 each in sys.tsv, combined 10.43 or 11.40), so no individual magnitude or spectral type is adopted.",
+      "components": [
+        {"starId": "cns5-0962", "label": "B", "name": "HD 23189 B", "designations": ["WDS J03480+6840B", "KUI 13B"],
+         "note": "Brighter or first-listed KUI 13 component, retaining the former BC selection ID."},
+        {"starId": "cns5-gj-153-c", "label": "C", "name": "HD 23189 C", "designations": ["WDS J03480+6840C", "KUI 13C"],
+         "note": "KUI 13 C, the visual companion of B."}
+      ]
+    },
+    {
+      "systemId": "cns5-gj-337",
+      "expectedComponents": {"cns5-2285": "AB", "cns5-2284": "CD"},
+      "parentStarId": "cns5-2285",
+      "expectedParentName": "Pi1 Cnc",
+      "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+      "sourceScope": "Pi1 Cnc (GJ 337 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+      "note": "GJ 337 A/B is the double-lined 2.7-year pair FIN 347 Aa,Ab (SB9 559; ORB6 grade 1, Msn2021a; MSC S2,V,a). The app keeps the Gliese A/B labels for WDS Aa/Ab.",
+      "components": [
+        {"starId": "cns5-2285", "label": "A", "name": "Pi1 Cnc A", "designations": ["WDS J09123+1500Aa"],
+         "note": "WDS Aa, the brighter G9V component, retaining the former AB selection ID."},
+        {"starId": "cns5-gj-337-b", "label": "B", "name": "Pi1 Cnc B", "designations": ["GJ 337 B", "WDS J09123+1500Ab"],
+         "note": "WDS Ab, the fainter G9V spectroscopic and visual companion."}
+      ]
+    },
+    {
+      "systemId": "cns5-gj-337",
+      "expectedComponents": {"cns5-2285": "A", "cns5-gj-337-b": "B", "cns5-2284": "CD"},
+      "parentStarId": "cns5-2284",
+      "expectedParentName": "Pi1 Cnc C",
+      "sourceUrl": "https://arxiv.org/html/astro-ph/0503379v1",
+      "sourceScope": "Pi1 Cnc C (GJ 337 CD) catalog source; unresolved C+D brown dwarf contributions; not an individual C/D measurement",
+      "note": "Burgasser et al. 2005 resolve Gliese 337CD into two brown dwarfs 0.53 arcsec apart (Delta Ks 0.08 +/- 0.12; MSC Ea,Eb). Neither the catalog composite L8.5+L7.5 nor the photometric L8+L8/T: estimate identifies which spectrum belongs to C or D, so component spectral types are withheld.",
+      "components": [
+        {"starId": "cns5-2284", "label": "C", "name": "Pi1 Cnc C", "type": "brown_dwarf", "designations": ["WDS J09123+1500Ea"],
+         "note": "Gliese 337 C (WDS Ea), retaining the former CD selection ID."},
+        {"starId": "cns5-gj-337-d", "label": "D", "name": "Pi1 Cnc D", "type": "brown_dwarf", "designations": ["GJ 337 D", "WDS J09123+1500Eb"],
+         "note": "Gliese 337 D (WDS Eb)."}
+      ]
+    },
+    {
+      "systemId": "cns5-gj-417",
+      "expectedComponents": {"cns5-2734": "A", "cns5-2733": "BC"},
+      "parentStarId": "cns5-2733",
+      "expectedParentName": "HD 97334B",
+      "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+      "sourceScope": "Gl 417 BC (HD 97334B) catalog source; unresolved B+C brown dwarf contributions; not an individual B/C measurement",
+      "note": "Gl 417 BC is the resolved 0.07-arcsec L-dwarf pair BOY 5 Ea,Eb with an 8.6-year dynamical orbit (Dupuy & Liu 2017; ORB6).",
+      "components": [
+        {"starId": "cns5-2733", "label": "B", "name": "HD 97334B", "type": "brown_dwarf", "designations": ["WDS J11125+3549Ea"],
+         "note": "Gl 417 B, the Dupuy & Liu primary (WDS Ea), retaining the former BC selection ID."},
+        {"starId": "cns5-gj-417-c", "label": "C", "name": "GJ 417 C", "type": "brown_dwarf", "designations": ["GJ 417 C", "Gl 417 C", "WDS J11125+3549Eb"],
+         "note": "Gl 417 C, the Dupuy & Liu secondary (WDS Eb)."}
+      ]
+    },
+    {
+      "systemId": "cns5-gj-564",
+      "expectedComponents": {"cns5-3667": "A", "cns5-3668": "BC"},
+      "parentStarId": "cns5-3668",
+      "expectedParentName": "HD 130948BC",
+      "sourceUrl": "https://arxiv.org/html/1703.05775v2",
+      "sourceScope": "HD 130948BC catalog source; unresolved B+C brown dwarf contributions; not an individual B/C measurement",
+      "note": "HD 130948 BC is the resolved 0.13-arcsec L-dwarf pair POT 1BC with a 10.0-year dynamical orbit (Dupuy & Liu 2017; ORB6).",
+      "components": [
+        {"starId": "cns5-3668", "label": "B", "name": "GJ 564 B", "type": "brown_dwarf", "designations": [],
+         "note": "HD 130948 B, the Dupuy & Liu primary, retaining the former BC selection ID."},
+        {"starId": "cns5-gj-564-c", "label": "C", "name": "GJ 564 C", "type": "brown_dwarf", "designations": ["HD 130948C", "GJ 564 C", "WDS J14503+2355C"],
+         "note": "HD 130948 C, the Dupuy & Liu secondary."}
+      ]
+    },
+    {
+      "systemId": "cns5-gj-584",
+      "expectedComponents": {"cns5-3797": "AB", "cns5-3798": "C"},
+      "parentStarId": "cns5-3797",
+      "expectedParentName": "Eta CrB",
+      "sourceUrl": "https://arxiv.org/html/1010.4043v1",
+      "sourceScope": "Eta CrB (GJ 584 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+      "note": "Eta CrB A/B is the 41.6-year visual and double-lined pair STF 1937AB with a combined PHASES/CORAVEL orbit (Muterspaugh et al. 2010; ORB6; MSC V,S2,a).",
+      "components": [
+        {"starId": "cns5-3797", "label": "A", "name": "Eta CrB A", "designations": ["WDS J15232+3017A"],
+         "note": "HD 137107 A (PHASES M1), retaining the former AB selection ID."},
+        {"starId": "cns5-gj-584-b", "label": "B", "name": "Eta CrB B", "designations": ["HR 5728", "HD 137108", "WDS J15232+3017B"],
+         "note": "HD 137107 B = HD 137108 = HR 5728 (PHASES M2)."}
+      ]
+    },
+    {
+      "systemId": "cns5-gj-684",
+      "expectedComponents": {"cns5-4332": "AB", "cns5-4338": "C"},
+      "parentStarId": "cns5-4332",
+      "expectedParentName": "26 Dra",
+      "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+      "sourceScope": "26 Dra (GJ 684 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+      "note": "26 Dra A/B is the 76-year visual pair BU 962AB, also SB9 2557 (ORB6; MSC V,S1,a).",
+      "components": [
+        {"starId": "cns5-4332", "label": "A", "name": "26 Dra A", "designations": [],
+         "note": "BU 962 A, retaining the former AB selection ID."},
+        {"starId": "cns5-gj-684-b", "label": "B", "name": "26 Dra B", "designations": ["WDS J17350+6153B"],
+         "note": "BU 962 B; its MSC spectral type K5? is uncertain and withheld."}
+      ]
+    },
+    {
+      "systemId": "cns5-gj-161.1",
+      "expectedComponents": {"cns5-1027": "E", "cns5-1023": "AB"},
+      "parentStarId": "cns5-1023",
+      "expectedParentName": "HD 25893A",
+      "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+      "sourceScope": "HD 25893A catalog source; CNS5 AB scope with unresolved B contribution; not an individual B measurement",
+      "note": "HD 25893 A/B is the 3.9-arcsec visual pair STT 531AB (ORB6; MSC V). MSC lists B as the 0.19-arcsec equal pair Ba,Bb (Horch et al. 2021); the B record is that unresolved subsystem.",
+      "components": [
+        {"starId": "cns5-1023", "label": "A", "name": "HD 25893A", "designations": [],
+         "note": "STT 531 A; the record's Gaia DR3 source is this component."},
+        {"starId": "cns5-gj-161.1-b", "label": "B", "name": "HD 25893B", "designations": ["WDS J04076+3804B"],
+         "note": "STT 531 B, the unresolved Ba+Bb subsystem; position and motion shared from A."}
+      ]
+    },
+    {
+      "systemId": "cns5-gj-2060",
+      "expectedComponents": {"cns5-1849": "AB", "cns5-1848": "C"},
+      "parentStarId": "cns5-1849",
+      "expectedParentName": "CD-29 4446",
+      "sourceUrl": "https://arxiv.org/html/1806.05491v1",
+      "sourceScope": "CD-29 4446 (GJ 2060 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+      "note": "GJ 2060 A/B is the 0.25-arcsec, 7.8-year AB Doradus moving-group pair HDS 1054AB with resolved spectra and a dynamical total mass (Rodet et al. 2018; ORB6; MSC V,S1).",
+      "components": [
+        {"starId": "cns5-1849", "label": "A", "name": "GJ 2060 A", "designations": ["WDS J07289-3015A"],
+         "note": "GJ 2060 A, retaining the former AB selection ID."},
+        {"starId": "cns5-gj-2060-b", "label": "B", "name": "GJ 2060 B", "designations": ["GJ 2060 B", "CD-29 4446B", "WDS J07289-3015B"],
+         "note": "GJ 2060 B."}
+      ]
+    },
+    {
+      "systemId": "cns5-gj-426.1",
+      "expectedComponents": {"cns5-2793": "AB", "cns5-2792": "C"},
+      "parentStarId": "cns5-2793",
+      "expectedParentName": "Iota Leo",
+      "sourceUrl": "https://www.ctio.noirlab.edu/~atokovin/stars/newmsc-20260619.tar.gz",
+      "sourceScope": "Iota Leo (GJ 426.1 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+      "note": "Iota Leo A/B is the 1.9-arcsec visual pair STF 1536AB (ORB6 grade 2, JAA2023; SB9 671; MSC V,a). The Hipparcos astrometry and catalog spectral type describe the combined light.",
+      "components": [
+        {"starId": "cns5-2793", "label": "A", "name": "Iota Leo A", "designations": [],
+         "note": "STF 1536 A, retaining the former AB selection ID."},
+        {"starId": "cns5-gj-426.1-b", "label": "B", "name": "Iota Leo B", "designations": ["iot Leo B", "WDS J11239+1032B"],
+         "note": "STF 1536 B."}
+      ]
+    },
+    {
+      "systemId": "cns5-gj-818.1",
+      "expectedComponents": {"cns5-5225": "AB", "cns5-5226": "C"},
+      "parentStarId": "cns5-5225",
+      "expectedParentName": "HD 200525",
+      "sourceUrl": "https://arxiv.org/html/2304.01861v1",
+      "sourceScope": "HD 200525 (GJ 818.1 AB) catalog source; unresolved A+B contributions; not an individual A/B measurement",
+      "note": "HD 200525 A/B is the 0.19-arcsec, 5.3-year spectro-visual pair resolved at SOAR (Tokovinin 2023; ORB6; MSC V,A,S2). The WDS name I 379 refers to a spurious historical measurement of this real pair. Its Gaia DR3 parallax is biased by the orbit.",
+      "components": [
+        {"starId": "cns5-5225", "label": "A", "name": "HD 200525A", "designations": ["WDS J21094-7310A"],
+         "note": "HIP 104440 A, retaining the former AB selection ID."},
+        {"starId": "cns5-gj-818.1-b", "label": "B", "name": "HD 200525B", "designations": ["GJ 818.1 B", "WDS J21094-7310B"],
+         "note": "HIP 104440 B."}
+      ]
+    }
+  ]
+}

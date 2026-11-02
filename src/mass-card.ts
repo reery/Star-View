@@ -3,6 +3,7 @@ import type { StarColorMode } from './astronomy'
 import { isCompactObject, type Star } from './catalog-model'
 import { renderFact, type Fact } from './comparison-tiles'
 import { MISSING_VALUE } from './format'
+import { classRangePlacement } from './mass-classification'
 import { typicalMassClass, type TypicalMassClass } from './mass-comparison'
 import { JUPITER_MASS_SOLAR, massFuel, massProperties } from './mass-properties'
 import { renderPlotMarkers, type PlotPoint } from './plot-markers'
@@ -25,13 +26,7 @@ function massFact(star: Star, typical: TypicalMassClass | null, comparing: boole
   const substellar = mass !== null && (mass < 0.08 || star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf')
   // A one-object sample only compares the object with itself.
   const range = mass !== null && typical?.metrics.mass.range && typical.metrics.mass.range[0] < typical.metrics.mass.range[1] ? typical.metrics.mass.range : null
-  // The bar spans the class range; it extends, with a little room, only toward an outlying mass.
-  const placement = range && (() => {
-    const pad = (range[1] / range[0]) ** 0.1
-    const low = mass! < range[0] ? mass! / pad : range[0], high = mass! > range[1] ? mass! * pad : range[1]
-    const position = (value: number) => Math.log(value / low) / Math.log(high / low) * 100
-    return { rangeLowPosition: position(range[0]), rangeHighPosition: position(range[1]), position: position(mass!) }
-  })()
+  const placement = range && classRangePlacement(mass!, range)
   const error = uncertainty !== null && uncertainty !== undefined && Number.isFinite(uncertainty) && uncertainty >= 0 ? [`± ${number(uncertainty)} M☉`] : []
   return {
     title: 'Mass', icon: Weight, value: mass === null ? MISSING_VALUE : number(mass), unit: mass === null ? '' : 'M☉',

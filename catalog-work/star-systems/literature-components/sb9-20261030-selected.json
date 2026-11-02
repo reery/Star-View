@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "sources": {
+    "eker-2014-alpha-crb": {
+      "reference": "Eker et al. 2014, PASA 31, e024; 2014PASA...31...24E",
+      "sourceUrl": "https://arxiv.org/html/1403.1583v1",
+      "retrievedOn": "2026-10-30",
+      "retrieval": "Verbatim HTML table text; no full-document hash recorded because only extracted page text was available.",
+      "caption": "Table 3: Homogenized parameters and orbital sizes of detached, double-lined eclipsing binaries.",
+      "selectedTables": [
+        [
+          [
+            "ID",
+            "System",
+            "M1 (M/Msun)",
+            "M2 (M/Msun)",
+            "R1 (R/Rsun)",
+            "R2 (R/Rsun)",
+            "T1 (K)",
+            "T2 (K)",
+            "log L1 (L/Lsun)",
+            "log L2 (L/Lsun)",
+            "log g1 (cgs)",
+            "log g2 (cgs)",
+            "a (Rsun)"
+          ],
+          [
+            "133",
+            "alpha CrB",
+            "2.581 ± 0.045",
+            "0.922 ± 0.025",
+            "3.059 ± 0.302",
+            "0.906 ± 0.040",
+            "9700 ± 200",
+            "5800 ± 300",
+            "1.871 ± 0.105",
+            "-0.079 ± 0.111",
+            "3.879 ± 0.096",
+            "4.489 ± 0.042",
+            "42.852 ± 0.322"
+          ]
+        ]
+      ],
+      "componentMapping": "Primary (1) = SB9 850 component A, the A-type star; secondary (2) = SB9 850 component B, the G-type star."
+    },
+    "strassmeier-2012-eps-umi": {
+      "reference": "Strassmeier et al. 2012, AN 333, 663; 2012AN....333..663S",
+      "sourceUrl": "https://arxiv.org/html/1208.3741v1",
+      "retrievedOn": "2026-10-30",
+      "retrieval": "Verbatim HTML table text; no full-document hash recorded because only extracted page text was available.",
+      "selectedTables": [
+        [
+          [
+            "Name",
+            "Porb (days)",
+            "TPer (HJD 245+)",
+            "K (km/s)",
+            "gamma (km/s)",
+            "e",
+            "omega (deg)",
+            "a1 sin i (10^6 km)",
+            "f(M)",
+            "rms"
+          ],
+          [
+            "eps UMi",
+            "39.48042 ± 0.00012",
+            "3933.392 ± 0.0047",
+            "31.849 ± 0.013",
+            "-9.8623 ± 0.0085",
+            "0",
+            "…",
+            "17.290 ± 0.0068",
+            "0.1325 ± 0.00016",
+            "0.121"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "SB",
+            "pi (mas)",
+            "Teff (K)",
+            "log g",
+            "[Fe/H]",
+            "WLi (mA)",
+            "log n(Li)",
+            "zetaRT (km/s)",
+            "vsini (km/s)"
+          ],
+          [
+            "eps UMi",
+            "aa",
+            "9.41",
+            "5215 ± 50",
+            "3.21 ± 0.08",
+            "-0.25 ± 0.04",
+            "38 ± 6",
+            "1.80 ± 0.16",
+            "3",
+            "25.6 ± 0.2"
+          ]
+        ]
+      ],
+      "notes": "Table 1 lists eps UMi as SB1 with spectral type G5III. The Section 5 note attributing a dA8-dF0 secondary to Hinderer (1957) could only be read as a summary and is not adopted."
+    },
+    "escorza-2023-zeta-cap": {
+      "reference": "Escorza & De Rosa 2023, A&A 671, A97; 2023A&A...671A..97E",
+      "sourceUrl": "https://arxiv.org/html/2301.04232v1",
+      "retrievedOn": "2026-10-30",
+      "retrieval": "Verbatim HTML text; no full-document hash recorded because only extracted page text was available.",
+      "selectedTables": [
+        [
+          [
+            "Star ID",
+            "P [days]",
+            "e",
+            "T0 [HJD]",
+            "a [AU]",
+            "omega [deg]",
+            "Omega [deg]",
+            "i [deg]",
+            "MWD",
+            "Fit chi2",
+            "chi2 HGCA"
+          ],
+          [
+            "HD 204075",
+            "2367 ±9",
+            "0.26 ±0.05",
+            "2455474 ±109",
+            "6.0 ±0.4",
+            "255 ±15",
+            "9 ±165",
+            "133 ±5",
+            "0.67 ±0.10",
+            "5.62",
+            "41.1"
+          ]
+        ]
+      ],
+      "componentMapping": "MWD is the white-dwarf companion of the barium giant zeta Cap (HD 204075), Star View sb9-1306 component Ab."
+    },
+    "kong-2018-xi1-cet": {
+      "reference": "Kong et al. 2018, MNRAS 476, 724; 2018MNRAS.476..724K",
+      "sourceUrl": "https://arxiv.org/html/1801.10284v1",
+      "retrievedOn": "2026-10-30",
+      "retrieval": "Verbatim HTML text; no full-document hash recorded because only extracted page text was available.",
+      "selectedTables": [
+        [
+          [
+            "Name",
+            "SpT",
+            "V",
+            "parallax",
+            "distance",
+            "...",
+            "...",
+            "M_WD",
+            "separation",
+            "a",
+            "P",
+            "..."
+          ],
+          [
+            "HD 13611a",
+            "G6II/III",
+            "4.45",
+            "8.51±0.51",
+            "117.51±7.07",
+            "–",
+            "–",
+            "0.80",
+            "<0.16",
+            "3.8",
+            "4.50",
+            "– | 2 | CES"
+          ]
+        ]
+      ],
+      "columnDefinition": "Section 2: \"the mass of the WD in solar mass, binary separation in arcseconds, the estimated semimajor axis (a, in au), measured or estimated orbital periods (P, in yr).\"",
+      "componentMapping": "HD 13611 = Xi1 Cet; its white-dwarf companion is Star View sb9-1546 component Ab."
+    },
+    "rowan-2026-kappa-vel": {
+      "reference": "Rowan, Kraus & Thompson 2026, PASP 138, 024203",
+      "sourceUrl": "https://arxiv.org/html/2512.02116v2",
+      "retrievedOn": "2026-10-30",
+      "retrieval": "Verbatim HTML text; no full-document hash recorded because only extracted page text was available.",
+      "selectedText": [
+        "We detect a main sequence B star companion and rule out the compact object scenario.",
+        "the masses are M1=13^{+3}_{-2} M⊙ and M2=7.7^{+0.9}_{-0.8} M⊙"
+      ],
+      "componentMapping": "M2 is the kappa Vel secondary, Star View sb9-567 component B. Masses use the paper's revised parallax; its original-parallax solution (M2 = 6.9 ± 1.0) is not adopted."
+    }
+  }
+}

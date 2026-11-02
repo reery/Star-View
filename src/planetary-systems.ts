@@ -23,15 +23,22 @@ export interface PlanetarySystem {
 const systems = new Map<string, PlanetarySystem>()
 const planets = new Map<string, ExtrasolarPlanet>()
 const pending = new Map<string, Promise<void>>()
+// Exact catalog IDs of the same host in another catalog, sharing that host's system.
+const hostAliases: Readonly<Record<string, string>> = index.planetHostAliases
+
+/** Catalog ID under which this star's planets are stored. */
+export function planetHostId(starId: string): string {
+  return hostAliases[starId] ?? starId
+}
 
 /** Fetch only this exact host, including its planet measurements for detail cards. */
 export function loadPlanetarySystem(starId: string): Promise<void> {
   if (planetCountForStar(starId) === undefined) return Promise.resolve()
   let result = pending.get(starId)
   if (!result) {
-    result = import('./planetary-system-data').then(({ loadPlanetarySystemData }) => loadPlanetarySystemData(starId))
+    result = import('./planetary-system-data').then(({ loadPlanetarySystemData }) => loadPlanetarySystemData(planetHostId(starId)))
       .then((payload) => {
-        systems.set(starId, payload.system)
+        systems.set(starId, { ...payload.system, hostStarId: starId })
         for (const planet of payload.planets) planets.set(planet.id, planet)
       }).catch((error: unknown) => { pending.delete(starId); throw error })
     pending.set(starId, result)
@@ -44,7 +51,7 @@ export function extrasolarPlanetForId(id: string): ExtrasolarPlanet | undefined 
 }
 
 export function planetCountForStar(starId: string): number | undefined {
-  return (index.planetCounts as Readonly<Record<string, number>>)[starId]
+  return (index.planetCounts as Readonly<Record<string, number>>)[planetHostId(starId)]
 }
 
 export function planetarySystemForStar(starId: string): PlanetarySystem | undefined {

@@ -5,11 +5,13 @@ import { completeCatalogCompanions } from './stellar-companions'
 import { indexStarSystems, reviewedStarSystems, starComponentIdentity } from './star-systems'
 import { mergeCatalogStars } from './catalog-runtime'
 import { mkPoint } from './mk-diagram'
-import { catalogMeasurement, missingCatalogMeasurements } from './catalog-source'
+import { catalogMeasurement, missingCatalogMeasurements, withoutRetiredValues } from './catalog-source'
 import { parseObjectStats, supplementObjectStats } from './object-stats'
 import { parseObjectIdentities, supplementObjectIdentities } from './designations'
 import { apparentVisualMagnitude } from './astronomy'
 import { spaceMotionForStar } from './space-motion'
+
+const retirements = JSON.parse(readFileSync(new URL('../catalog-work/reviewed-data-retirements.json', import.meta.url), 'utf8')).retirements
 
 const bright = parseStarCatalog(readFileSync(new URL('../catalog-work/bright-stars/retired-catalog/stars.csv', import.meta.url), 'utf8'))
 const western = parseStarCatalog(readFileSync(new URL('./data/catalogs/western-constellation-stars/stars.csv', import.meta.url), 'utf8'))
@@ -148,8 +150,12 @@ describe('component coverage shared by every catalog', () => {
       apparent_mag: null, absolute_mag: null, mass_solar: null, luminosity_solar: null,
       unresolved_photometry: { magnitude_v: 2.99, error_mag: .01 } })
     expect(a.unresolved_photometry?.scope).toContain('Aa+Ab')
-    expect(catalogMeasurement(a, 'luminosity_solar')).toBe(furud.luminosity_solar)
-    expect(catalogMeasurement(a, 'radius_solar')).toBe(furud.radius_solar)
+    // The rejected SED-fit luminosity and radius are retired, so nothing can display them.
+    const [shipped] = withoutRetiredValues([a], retirements)
+    expect(furud).toMatchObject({ luminosity_solar: null, radius_solar: null })
+    expect(catalogMeasurement(shipped!, 'luminosity_solar')).toBeNull()
+    expect(catalogMeasurement(shipped!, 'radius_solar')).toBeNull()
+    expect(shipped!.catalog_sources?.some((source) => source.record.luminosity_solar != null || source.record.radius_solar != null)).toBe(false)
     expect(catalogMeasurement(a, 'absolute_mag')).toBe(furud.absolute_mag)
     expect(catalogMeasurement(a, 'temperature_k')).toBe(18500)
     expect(missingCatalogMeasurements(furud, a)).toEqual([])
@@ -162,10 +168,15 @@ describe('component coverage shared by every catalog', () => {
   it('preserves every known source measurement and uncertainty across all bundled catalogs', () => {
     const identities = parseObjectIdentities(JSON.parse(readFileSync(new URL('./data/object-designations.json', import.meta.url), 'utf8')))
     const stats = parseObjectStats(JSON.parse(readFileSync(new URL('./data/object-stats.json', import.meta.url), 'utf8')))
-    const paths = [new URL('./data/stars.csv', import.meta.url),
-      ...readdirSync(new URL('./data/catalogs/', import.meta.url)).map((id) => new URL(`./data/catalogs/${id}/stars.csv`, import.meta.url))]
-    for (const path of paths) {
-      const original = supplementObjectStats(supplementObjectIdentities(parseStarCatalog(readFileSync(path, 'utf8')), identities), stats)
+    const csv = (id: string) => readFileSync(new URL(`./data/catalogs/${id}/stars.csv`, import.meta.url), 'utf8')
+    // An extending catalog's CSV holds only additions to its base catalog.
+    const catalogs = [parseStarCatalog(readFileSync(new URL('./data/stars.csv', import.meta.url), 'utf8')),
+      ...readdirSync(new URL('./data/catalogs/', import.meta.url)).map((id) => {
+        const base = JSON.parse(readFileSync(new URL(`./data/catalogs/${id}/catalog.json`, import.meta.url), 'utf8')).extends as string | undefined
+        return parseStarCatalog(csv(id), base ? parseStarCatalog(csv(base)) : undefined)
+      })]
+    for (const catalog of catalogs) {
+      const original = supplementObjectStats(supplementObjectIdentities(catalog, identities), stats)
       const expanded = new Map(completeCatalogCompanions(original).map((star) => [star.id, star]))
       for (const source of original) {
         expect(expanded.has(source.id), source.id).toBe(true)
@@ -177,7 +188,7 @@ describe('component coverage shared by every catalog', () => {
   it('detects replacement loss of physical values and nested astrometric uncertainties', () => {
     const source = western.find((star) => star.id === 'hip-30122')!
     const a = completeCatalogCompanions([source])[0]!
-    expect(missingCatalogMeasurements(source, { ...a, catalog_sources: undefined })).toContain('luminosity_solar')
+    expect(missingCatalogMeasurements(source, { ...a, catalog_sources: undefined })).toContain('temperature_k')
     expect(missingCatalogMeasurements(source, { ...a, catalog_sources: undefined })).toContain('raw_astrometry.parallax_error_mas')
     expect(missingCatalogMeasurements(source, a)).toEqual([])
   })
@@ -391,6 +402,18 @@ describe('component coverage shared by every catalog', () => {
   it('does not infer a system from a spectral label or a shared sky position', () => {
     const unrelated = { ...dubhe, id: 'unreviewed-binary', name: 'Unreviewed binary' }
     expect(completeCatalogCompanions([sun, unrelated])).toEqual([sun, unrelated])
+  })
+
+  it('splits only confirmed ultracool composites and keeps spectral-binary candidates single', () => {
+    const audit = JSON.parse(readFileSync(new URL('../catalog-work/star-systems/catalog-companions-audit.json', import.meta.url), 'utf8')) as {
+      ultracoolCompositeCoverage: { id: string; decision: string }[]
+    }
+    for (const { id, decision } of audit.ultracoolCompositeCoverage) {
+      expect(reviewedStarSystems.some((system) => system.components.some((component) => component.starId === id))).toBe(decision === 'authored-confirmed-pair')
+    }
+    const pool = JSON.parse(readFileSync(new URL('./data/stellar-companions.json', import.meta.url), 'utf8')) as { stars: typeof bright }
+    const wise0146 = reviewedStarSystems.find((system) => system.id === 'spectroscopic-cns5-0455')!
+    expect(wise0146.components.map((component) => pool.stars.find((star) => star.id === component.starId)?.spectral_type)).toEqual(['T9', 'Y0'])
   })
 
   it('keeps distinct Trapezium subsystems separate even when their common names match', () => {

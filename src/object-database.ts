@@ -3,12 +3,14 @@ import { OBJECT_TYPES, objectTypeLabel, type Star } from './catalog-model'
 import { formatDistance, type DistanceUnit } from './astronomy'
 import { companionIcon } from './companion-icon'
 import { spaceMotionForStar } from './space-motion'
+import { starInfoAvailable } from './star-info-availability'
 
 export const OBJECT_DATABASE_COLUMNS = [
   { key: 'name', label: 'Name', width: 190 },
   { key: 'type', label: 'Object type', width: 128, filter: 'type' },
   { key: 'distance', label: 'Distance from Sun', width: 125 },
   { key: 'subtype', label: 'Sub-type', width: 190, filter: 'subtype' },
+  { key: 'info', label: 'Info', width: 78, filter: 'info' },
   { key: 'planets', label: 'Planets', width: 75 },
   { key: 'spectral', label: 'Spectral type', width: 110, filter: 'spectral' },
   { key: 'temperature', label: 'Temperature', unit: 'K', width: 105 },
@@ -23,7 +25,7 @@ export const OBJECT_DATABASE_COLUMNS = [
 ] as const
 
 export type ObjectDatabaseColumn = typeof OBJECT_DATABASE_COLUMNS[number]['key']
-export type ObjectDatabaseFilter = 'type' | 'subtype' | 'spectral' | 'motion'
+export type ObjectDatabaseFilter = 'type' | 'subtype' | 'spectral' | 'motion' | 'info'
 export interface ObjectDatabaseItem {
   star: Star
   distancePc: number
@@ -55,6 +57,7 @@ export function objectDatabaseValue(item: ObjectDatabaseItem, column: ObjectData
     case 'type': return objectTypeLabel(star.type)
     case 'distance': return distance === 'sun' ? item.sunDistancePc : item.distancePc
     case 'subtype': return star.subtypes?.length ? star.subtypes.join(' · ') : null
+    case 'info': return starInfoAvailable(star.id) ? 1 : 0
     case 'planets': return star.known_planets ?? null
     case 'spectral': return star.spectral_type
     case 'temperature': return star.temperature_k
@@ -74,12 +77,13 @@ function missing(value: string | number | null): boolean {
 }
 
 export function filterAndSortObjectDatabaseItems<T extends ObjectDatabaseItem>(items: readonly T[], state: ObjectDatabaseState): T[] {
-  const { type, subtype, spectral, motion } = state.filters
+  const { type, subtype, spectral, motion, info } = state.filters
   return items.filter(({ star }) =>
     (!type || type.has(star.type)) &&
     (!subtype || (star.subtypes?.length ? star.subtypes : ['unavailable']).some((label) => subtype.has(label))) &&
     (!spectral || spectral.has(objectSpectralClass(star))) &&
-    (!motion || motion.has(spaceMotionForStar(star).label ?? 'unavailable')),
+    (!motion || motion.has(spaceMotionForStar(star).label ?? 'unavailable')) &&
+    (!info || info.has(starInfoAvailable(star.id) ? 'available' : 'unavailable')),
   ).sort((first, second) => {
     const a = objectDatabaseValue(first, state.sort, state.distance)
     const b = objectDatabaseValue(second, state.sort, state.distance)
@@ -122,7 +126,7 @@ export class ObjectDatabase {
   private filterButton: HTMLButtonElement | null = null
   readonly state: ObjectDatabaseState = {
     sort: 'distance', direction: 'ascending', distance: 'sun',
-    filters: { type: null, subtype: null, spectral: null, motion: null },
+    filters: { type: null, subtype: null, spectral: null, motion: null, info: null },
   }
 
   constructor(container: HTMLElement, onChange: () => void, onSelect: (id: string) => void) {
@@ -315,6 +319,7 @@ export class ObjectDatabase {
 
   private options(filter: ObjectDatabaseFilter): { value: string; label: string }[] {
     if (filter === 'type') return OBJECT_TYPES.filter((type) => this.stars.some((star) => star.type === type)).map((type) => ({ value: type, label: objectTypeLabel(type) }))
+    if (filter === 'info') return [{ value: 'available', label: 'Info article available' }, { value: 'unavailable', label: 'No Info article yet' }]
     if (filter === 'spectral') return [
       ...[...'OBAFGKM'].map((value) => ({ value, label: value })),
       { value: 'other', label: 'Other spectral types' },
@@ -434,6 +439,15 @@ export class ObjectDatabase {
         continue
       }
       const value = objectDatabaseValue(item, key, this.state.distance)
+      if (key === 'info') {
+        const dot = document.createElement('span')
+        dot.className = 'object-info-dot'
+        cell.append(dot)
+        cell.title = value ? 'Info article available' : 'No Info article yet'
+        cell.setAttribute('aria-label', cell.title)
+        cell.classList.toggle('is-unavailable', !value)
+        continue
+      }
       cell.textContent = missing(value) ? '—' : key === 'distance' ? formatDistance(value as number, this.unit).replace(/\s\S+$/, '') : typeof value === 'number' ? numberLabel(value) : String(value)
       if (missing(value)) {
         cell.classList.add('is-unavailable')

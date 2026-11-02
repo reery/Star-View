@@ -119,12 +119,12 @@
         "vx_kms": -49.97028,
         "vy_kms": 11.491749,
         "vz_kms": 7.89033,
-        "temperature_k": 5899.0,
+        "temperature_k": 5992.0,
         "mass_solar": 1.0293616,
         "luminosity_solar": 1.4362096,
         "radius_solar": 1.1473675,
-        "metallicity_dex": -0.2884,
-        "age_gyr": 6.3486595,
+        "metallicity_dex": 0.0,
+        "age_gyr": 2.0,
         "absolute_mag": 4.447885,
         "epoch": 2000.0,
         "type": "star",
@@ -132,8 +132,8 @@
         "name": "Beta Com",
         "constellation": "Coma Berenices",
         "spectral_type": "F9.5V",
-        "metallicity_kind": "[M/H]",
-        "notes": "Corrected CNS5 3247; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Corrected CNS5 3247; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Reviewed literature age: 2.0 +/- 0.5 Gyr, spanning the activity (2.5 Gyr) and rotation (1.5 Gyr) ages of Mamajek & Hillenbrand (2008), replaces the Gaia DR3 FLAME age of 6.3 Gyr.",
         "designations": [
           "HIP 64394"
         ],
@@ -662,7 +662,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

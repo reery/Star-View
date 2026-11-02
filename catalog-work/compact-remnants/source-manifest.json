@@ -1,14 +1,22 @@
 {
   "schemaVersion": 1,
   "atnf": {
-    "catalogVersion": "2.8.1",
+    "catalogVersion": "2.9.0",
     "softwareVersion": "1.54",
     "downloadUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/downloads/psrcat_pkg.tar.gz",
-    "downloaded": "2026-09-30",
-    "archiveSha256": "2ea143fc2c9a01184f5a94715422351c49ecf97cae26004ea4897e56421d4cbd",
-    "subsetSha256": "055ed1271e5bd46e0b517c1a068ec617ff432a27c05e3898f35b21368e4cd073",
-    "selection": "DIST > 0 && DIST <= 0.9198041814; psrcat -nocand -nointerim",
-    "rows": 266
+    "downloaded": "2026-10-26",
+    "archiveSha256": "55daa29f71f344c8de4064969b5812d6cb3a9b851efae0bef004ac9d5f6740c0",
+    "subsetSha256": "b7d890737e6e975b19e015279cb7167d52c3c49a94c9f39640b901b2fd2cc9c8",
+    "glitchSubsetSha256": "5b45ffbd87d3ba834a128fe8daa23cba45345e9b6cff21add925bc81aa6a636d",
+    "selection": "Derived DIST > 0 && DIST <= 0.9198041814 kpc; no CAND or INTERIM type; verbatim psrcat.db records and their glitch.db rows",
+    "rows": 272,
+    "previous": {
+      "catalogVersion": "2.8.1",
+      "downloaded": "2026-09-30",
+      "archiveSha256": "2ea143fc2c9a01184f5a94715422351c49ecf97cae26004ea4897e56421d4cbd",
+      "rows": 266,
+      "change": "All 266 pulsars remain selected. v2.9.0 adds J0657-4657, J0927-7641, J1207-45, J1752-2849_P, J1810-0623 and J2029-4239, and revises the distances of J0317+1328, J1231-1411 and J1455-3330."
+    }
   },
   "blackcat": {
     "catalogVersion": "2025",

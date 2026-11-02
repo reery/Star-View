@@ -45,12 +45,26 @@ export const whiteDwarfFamilies = [
   ['DX', 'Peculiar or unclassifiable spectrum'],
 ] as const
 
-export function whiteDwarfClassification(star: Pick<Star, 'type' | 'spectral_type'>): { family: string; spectralType: string; description: string } | null {
+/** McCook–Sion temperature index: the number in DA2 is 50,400 K divided by the temperature. */
+export const whiteDwarfIndexTemperature = (index: number) => 50_400 / index
+
+export interface WhiteDwarfClassification { family: string; spectralType: string; description: string; temperatureIndex: number | null }
+
+export function whiteDwarfClassification(star: Pick<Star, 'type' | 'spectral_type'>): WhiteDwarfClassification | null {
   if (star.type !== 'white_dwarf') return null
   const spectralType = star.spectral_type?.trim()
-  const classification = spectralType?.match(/^D([ABCOQZX])[ABCOQZXHPEV]*(?:\d+(?:\.\d+)?)?(?:[?:]|pec)?$/i)
+  const classification = spectralType?.match(/^D([ABCOQZX])[ABCOQZXHPEV]*(\d+(?:\.\d+)?)?(?:[?:]|pec)?$/i)
   if (!classification || !spectralType) return null
   const family = `D${classification[1]!.toUpperCase()}`
   const description = whiteDwarfFamilies.find(([type]) => type === family)![1]
-  return { family, spectralType, description }
+  const index = classification[2] ? Number(classification[2]) : null
+  return { family, spectralType, description, temperatureIndex: index && index > 0 ? index : null }
+}
+
+/** Catalog temperature, or else the one implied by the type's temperature index. */
+export function whiteDwarfDiagramTemperature(star: Pick<Star, 'type' | 'spectral_type' | 'temperature_k'>): { temperature: number; fromIndex: boolean } | null {
+  if (star.type !== 'white_dwarf') return null
+  if (star.temperature_k !== null && Number.isFinite(star.temperature_k) && star.temperature_k > 0) return { temperature: star.temperature_k, fromIndex: false }
+  const index = whiteDwarfClassification(star)?.temperatureIndex
+  return index ? { temperature: whiteDwarfIndexTemperature(index), fromIndex: true } : null
 }

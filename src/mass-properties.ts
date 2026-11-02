@@ -9,6 +9,7 @@ const G = 6.67430e-11 // CODATA 2022, m³ kg⁻¹ s⁻²
 const LIGHT_SPEED = 299792458
 // IAU 2015 B3 nominal Jupiter GM divided by nominal solar GM.
 export const JUPITER_MASS_SOLAR = 1.2668653e17 / SOLAR_GM
+export const EARTH_MASS_SOLAR = EARTH_GM / SOLAR_GM
 const SOLAR_GRAVITY = SOLAR_GM / SOLAR_RADIUS_M ** 2
 const SOLAR_ESCAPE_KMS = Math.sqrt(2 * SOLAR_GM / SOLAR_RADIUS_M) / 1000
 const SOLAR_DENSITY = (SOLAR_GM / G) / (4 * Math.PI * SOLAR_RADIUS_M ** 3 / 3) / 1000

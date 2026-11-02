@@ -68,11 +68,19 @@ export function initializeToolbarTouch(toolbar: HTMLElement, signal: AbortSignal
     const group = target?.closest<HTMLElement>('[data-toolbar-flyout]') ?? null
     if (group !== openGroup) close()
     if (event.pointerType !== 'touch' || !group || !rails.some((rail) => rail.contains(group))) return
-    if (group === openGroup || !group.querySelector('button:not(:disabled)')) return
-
-    openGroup = group
+    if (group === openGroup) {
+      // A trigger with no action of its own toggles its options, as hovering in and out does.
+      const trigger = target!.closest('button')
+      if (trigger?.parentElement !== group || trigger.getAttribute('aria-controls') !== group.querySelector('[data-toolbar-options]')?.id) return
+      if (group.hasAttribute('data-dismissed')) group.removeAttribute('data-dismissed')
+      else close()
+    } else {
+      if (!group.querySelector('button:not(:disabled)')) return
+      openGroup = group
+      group.removeAttribute('data-dismissed')
+      group.setAttribute('data-touch-open', '')
+    }
     openingTouch = group
-    group.setAttribute('data-touch-open', '')
     // The first touch only reveals the options; a subsequent tap performs
     // the primary action. Do not depend on mobile browsers focusing buttons.
     event.preventDefault()

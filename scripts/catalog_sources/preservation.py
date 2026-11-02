@@ -2,6 +2,7 @@
 
 import copy
 
+from .classification import prune_subtypes
 from .precision import calculated_float
 
 
@@ -38,8 +39,10 @@ def lost_fields(previous, current, retained=(), prefix=""):
             missing.extend(lost_fields(value, adopted if isinstance(adopted, dict) else {},
                 [entry for entry in alternatives if isinstance(entry, dict)], f"{prefix}{field}."))
         elif isinstance(value, list):
-            kept = [adopted, *alternatives]
-            if not all(any(isinstance(entry, list) and item in entry for entry in kept) for item in value):
+            kept = [entry for entry in [adopted, *alternatives] if isinstance(entry, list)]
+            # A subtype implied by a more specific retained label is redundant, not lost.
+            if not all(any(item in entry or field == "subtypes" and item not in prune_subtypes([*entry, item])
+                           for entry in kept) for item in value):
                 missing.append(f"{prefix}{field}")
         elif not known(adopted) and not any(known(entry) for entry in alternatives):
             missing.append(f"{prefix}{field}")
@@ -74,7 +77,13 @@ def pool_losses(previous, proposed, retirements):
         identifier = star["id"]
         adopted = current.get(identifier)
         if adopted is None:
-            errors.append(f"{identifier}: missing component record")
+            # A merged duplicate may retire only while its complete record and
+            # native sources survive, scoped, on one remaining record.
+            record = {key: value for key, value in star.items() if key != "catalog_sources"}
+            if not any(any(source["record"] == record and source.get("scope") for source in other.get("catalog_sources", []))
+                       and all(source in other["catalog_sources"] for source in star.get("catalog_sources", []))
+                       for other in proposed["stars"]):
+                errors.append(f"{identifier}: missing component record")
             continue
         sources = [source["record"] for source in adopted.get("catalog_sources", [])]
         missing = lost_fields(star, adopted, sources)

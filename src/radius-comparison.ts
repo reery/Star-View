@@ -12,12 +12,18 @@ export const JUPITER_RADIUS_KM = 71_492
 const JUPITER_POLAR_RADIUS_KM = 66_854
 export const EARTH_RADIUS_KM = 6_378.1
 const EARTH_POLAR_RADIUS_KM = 6_356.8
+// NASA fact sheets: sidereal rotation; the Sun's equatorial rate is 14.37°/day.
+const SOLAR_EQUATORIAL_ROTATION_DAYS = 360 / 14.37
+const JUPITER_ROTATION_DAYS = 9.925 / 24
+const EARTH_ROTATION_DAYS = 23.9345 / 24
 export type RadiusReference = 'auto' | 'origin' | 'jupiter' | 'earth'
 
 export interface RadiusBody {
   name: string
   radiusKm: number | null
   polarRadiusKm: number | null
+  rotationPeriodDays: number | null
+  equatorialVelocityKms: number | null
   color: string
   kind: 'star' | 'dwarf' | 'jupiter' | 'earth'
 }
@@ -29,13 +35,21 @@ export interface RadiusComparison {
   referenceMode: Exclude<RadiusReference, 'auto'>
 }
 
+const equatorialVelocity = (radiusKm: number, periodDays: number) => 2 * Math.PI * radiusKm / (periodDays * 86_400)
+
 function stellarBody(star: Star): RadiusBody {
   const radius = star.radius_solar
   const available = !isCompactObject(star) && !isNebulaObject(star) && !isMolecularCloudObject(star) && !isBubbleObject(star)
     && radius !== null && Number.isFinite(radius) && radius > 0
   const radiusKm = available ? radius * SOLAR_RADIUS_KM : null
+  const rotation = star.stellar_observations?.rotation
+  const solarPeriod = star.id === 'sun' ? SOLAR_EQUATORIAL_ROTATION_DAYS : null
   return {
-    name: star.name, radiusKm, polarRadiusKm: radiusKm,
+    name: star.name, radiusKm,
+    // The catalog radius is drawn as the equatorial radius of a measured rapid rotator.
+    polarRadiusKm: radiusKm === null ? null : radiusKm * (rotation?.polar_to_equatorial_radius ?? 1),
+    rotationPeriodDays: rotation?.period_days ?? solarPeriod,
+    equatorialVelocityKms: rotation?.equatorial_velocity_kms ?? (solarPeriod && equatorialVelocity(SOLAR_RADIUS_KM, solarPeriod)),
     color: `#${starDisplayColor(star, 'real').getHexString()}`,
     kind: star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf' ? 'dwarf' : 'star',
   }
@@ -43,10 +57,12 @@ function stellarBody(star: Star): RadiusBody {
 
 const jupiter: RadiusBody = {
   name: 'Jupiter', radiusKm: JUPITER_RADIUS_KM, polarRadiusKm: JUPITER_POLAR_RADIUS_KM,
+  rotationPeriodDays: JUPITER_ROTATION_DAYS, equatorialVelocityKms: equatorialVelocity(JUPITER_RADIUS_KM, JUPITER_ROTATION_DAYS),
   color: '#c7b49b', kind: 'jupiter',
 }
 const earth: RadiusBody = {
   name: 'Earth', radiusKm: EARTH_RADIUS_KM, polarRadiusKm: EARTH_POLAR_RADIUS_KM,
+  rotationPeriodDays: EARTH_ROTATION_DAYS, equatorialVelocityKms: equatorialVelocity(EARTH_RADIUS_KM, EARTH_ROTATION_DAYS),
   color: '#739bd1', kind: 'earth',
 }
 
@@ -76,21 +92,30 @@ export function dimensionNumber(value: number): string {
   return value.toLocaleString('en-US', { maximumSignificantDigits: 4 })
 }
 
+const rotationNumber = (value: number) => value.toLocaleString('en-US', { maximumSignificantDigits: 3 })
+
 export function radiusStats(comparison: RadiusComparison): { label: string; values: { value: string }[] }[] {
-  return [
-    { label: 'Radius', measure: (body: RadiusBody) => body.radiusKm, unit: 'km' },
-    { label: 'Diameter', measure: (body: RadiusBody) => body.radiusKm === null ? null : body.radiusKm * 2, unit: 'km' },
-    { label: 'Surface area', measure: surfaceArea, unit: 'km²' },
-    { label: 'Volume', measure: volume, unit: 'km³' },
-  ].map(({ label, measure, unit }) => ({
+  const bodies = [comparison.selected, comparison.reference]
+  const length = (value: number) => `${dimensionNumber(value)} km`
+  const scientific = (unit: string) => (value: number) => `${value.toExponential(3).replace('e+', 'e')} ${unit}`
+  const rows: { label: string; measure: (body: RadiusBody) => number | null; format: (value: number) => string }[] = [
+    { label: 'Radius', measure: (body) => body.radiusKm, format: length },
+    ...bodies.some((body) => body.polarRadiusKm !== body.radiusKm)
+      ? [{ label: 'Polar radius', measure: (body: RadiusBody) => body.polarRadiusKm, format: length }] : [],
+    { label: 'Diameter', measure: (body) => body.radiusKm === null ? null : body.radiusKm * 2, format: length },
+    { label: 'Surface area', measure: surfaceArea, format: scientific('km²') },
+    { label: 'Volume', measure: volume, format: scientific('km³') },
+    ...comparison.selected.rotationPeriodDays === null ? [] : [
+      { label: 'Rotation period', measure: (body: RadiusBody) => body.rotationPeriodDays,
+        format: (days: number) => days < 2 ? `${rotationNumber(days * 24)} h` : `${rotationNumber(days)} days` },
+      { label: 'Equatorial velocity', measure: (body: RadiusBody) => body.equatorialVelocityKms, format: (value: number) => `${rotationNumber(value)} km/s` },
+    ],
+  ]
+  return rows.map(({ label, measure, format }) => ({
     label,
-    values: [comparison.selected, comparison.reference].map((body) => {
+    values: bodies.map((body) => {
       const value = measure(body)
-      const formatted = value === null ? null : label === 'Surface area' || label === 'Volume'
-        ? value.toExponential(3).replace('e+', 'e') : dimensionNumber(value)
-      return {
-        value: formatted === null ? MISSING_VALUE : `${formatted} ${unit}`,
-      }
+      return { value: value === null ? MISSING_VALUE : format(value) }
     }),
   }))
 }
@@ -169,7 +194,8 @@ export function renderRadiusComparison(canvas: HTMLCanvasElement, comparison: Ra
   const displayScale = (canvas.getBoundingClientRect().width || WIDTH) / WIDTH
   const unresolved = !missing && Math.min(...radii) / kmPerPixel * 2 * displayScale < 1
   const note = missing ? 'No sizes are inferred from spectral type, luminosity, or temperature.'
-    : `Both objects use the same linear scale.${cropped ? ` The larger object extends beyond the frame; its ${selected.radiusKm! >= reference.radiusKm! ? 'upper-right' : 'upper-left'} limb is shown.` : ''}${unresolved ? ' The smaller disk is below one display pixel; a guide marks its location without enlarging it.' : ''} Glow is outside the measured radius.`
+    : `Both objects use the same linear scale.${[selected, reference].filter(({ kind, radiusKm, polarRadiusKm }) => kind === 'star' && polarRadiusKm !== radiusKm)
+      .map(({ name, radiusKm, polarRadiusKm }) => ` ${name} is drawn flattened by its rotation: the polar radius is ${dimensionNumber(polarRadiusKm! / radiusKm!)}× the equatorial radius.`).join('')}${cropped ? ` The larger object extends beyond the frame; its ${selected.radiusKm! >= reference.radiusKm! ? 'upper-right' : 'upper-left'} limb is shown.` : ''}${unresolved ? ' The smaller disk is below one display pixel; a guide marks its location without enlarging it.' : ''} Glow is outside the measured radius.`
   canvas.setAttribute('aria-label', `${radiusSummary(comparison)} ${note}`)
   if (renderedComparisons.get(canvas) === key) return note
   if (!missing && (reference.kind === 'jupiter' || reference.kind === 'earth')) {
@@ -238,13 +264,19 @@ function drawBody(context: CanvasRenderingContext2D, body: RadiusBody, paneX: nu
     // radius fraction puts an extreme giant's surface near the faded end of
     // the gradient, leaving almost no light outside its cropped physical edge.
     const innerWidth = Math.min(6, radius * 0.08)
-    const halo = context.createRadialGradient(x, y, radius - innerWidth, x, y, radius + haloWidth)
+    // A rotationally flattened star keeps its glow parallel to the oblate limb.
+    const flattening = polarRadius / radius
+    context.save()
+    context.translate(x, y)
+    context.scale(1, flattening)
+    const halo = context.createRadialGradient(0, 0, radius - innerWidth, 0, 0, radius + haloWidth)
     halo.addColorStop(0, `${body.color}${cropped ? 'b0' : '90'}`)
     halo.addColorStop(0.28, `${body.color}${cropped ? '80' : '60'}`)
     halo.addColorStop(0.58, `${body.color}${cropped ? '30' : '20'}`)
     halo.addColorStop(1, `${body.color}00`)
     context.fillStyle = halo
-    context.fillRect(paneX, 0, WIDTH / 2, HEIGHT)
+    context.fillRect(paneX - x, -y / flattening, WIDTH / 2, HEIGHT / flattening)
+    context.restore()
     context.fillStyle = body.color
     context.beginPath()
     context.ellipse(x, y, radius, polarRadius, 0, 0, Math.PI * 2)

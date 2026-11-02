@@ -48,7 +48,9 @@ function validDetails(value: unknown): value is CompactObjectDetails {
   return (details.confidence === 'confirmed' || details.confidence === 'candidate')
     && ['distance_method', 'distance_source', 'position_source', 'detection_method', 'source_label'].every((field) => typeof details[field] === 'string')
     && isSafeSourceUrl(details.source_url)
-    && ['mass_error_solar', 'rotation_period_s', 'rotation_period_error_s', 'radio_luminosity_1400_mjy_kpc2', 'characteristic_age_yr', 'surface_magnetic_field_gauss', 'spin_down_power_erg_s', 'orbital_period_days', 'orbital_period_error_days'].every((field) => finiteOrNull(details[field]))
+    && ['mass_error_solar', 'rotation_period_s', 'rotation_period_error_s', 'radio_luminosity_1400_mjy_kpc2', 'characteristic_age_yr', 'surface_magnetic_field_gauss', 'spin_down_power_erg_s', 'orbital_period_days', 'orbital_period_error_days',
+      'period_derivative', 'period_derivative_error', 'dispersion_measure_pc_cm3', 'transverse_velocity_kms', 'glitch_count', 'eccentricity', 'projected_semi_major_axis_lt_s', 'companion_min_mass_solar', 'companion_median_mass_solar'].every((field) => finiteOrNull(details[field]))
+    && ['pulsar_classes', 'associations'].every((field) => Array.isArray(details[field]) && (details[field] as unknown[]).every((entry) => typeof entry === 'string'))
     && (details.companion === null || typeof details.companion === 'string')
     && typeof details.ra_deg === 'number' && Number.isFinite(details.ra_deg)
     && typeof details.dec_deg === 'number' && Number.isFinite(details.dec_deg)

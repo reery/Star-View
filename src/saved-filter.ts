@@ -9,9 +9,13 @@ export interface SavedFilter {
   /** Legacy filters use this flag to enable the constellation catalog that now holds the bright stars. */
   showAlwaysBright: boolean
   showWesternConstellationStars: boolean
+  /** Absent in entries saved before the catalog existed. */
+  showNotableDistantStars?: boolean
   filterCategories: FilterCategoryId[]
   filterSubtypes: FilterKey[]
   magnitudeLimit: number
+  /** Absent in filters saved before the option existed. */
+  hideFainterObjects?: boolean
   objectDistanceLimitLy: number
 }
 
@@ -26,9 +30,11 @@ export function readSavedFilter(catalogIds: readonly string[]): SavedFilter | nu
       || typeof filter.catalogId !== 'string' || !catalogIds.includes(filter.catalogId)
       || typeof filter.showAlwaysBright !== 'boolean'
       || typeof filter.showWesternConstellationStars !== 'boolean'
+      || (filter.showNotableDistantStars !== undefined && typeof filter.showNotableDistantStars !== 'boolean')
       || !Array.isArray(filter.filterCategories) || !filter.filterCategories.every(isFilterCategoryId)
       || !Array.isArray(filter.filterSubtypes) || !filter.filterSubtypes.every(isFilterKey)
       || typeof filter.magnitudeLimit !== 'number' || !Number.isFinite(filter.magnitudeLimit) || filter.magnitudeLimit < 0 || filter.magnitudeLimit > 25
+      || (filter.hideFainterObjects !== undefined && typeof filter.hideFainterObjects !== 'boolean')
       || typeof filter.objectDistanceLimitLy !== 'number' || !OBJECT_DISTANCE_STEPS_LY.includes(filter.objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])) return null
     return filter as unknown as SavedFilter
   } catch {

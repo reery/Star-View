@@ -217,10 +217,10 @@
         "vx_kms": 1.748073,
         "vy_kms": -16.806049,
         "vz_kms": -4.278355,
-        "temperature_k": 21001.0,
+        "temperature_k": 31660.0,
         "mass_solar": null,
-        "luminosity_solar": 7568.238907693111,
-        "radius_solar": 6.571585,
+        "luminosity_solar": null,
+        "radius_solar": null,
         "metallicity_dex": -0.0066,
         "age_gyr": null,
         "absolute_mag": -3.002058,
@@ -231,7 +231,7 @@
         "constellation": "Scorpius",
         "spectral_type": "B0V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 81266; Stellarium Sco). SIMBAD identity * tau Sco; SIMBAD compiled Johnson V=2.81; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Motion RV: 3.15 +/- 0.70 km/s from Cazorla et al. 2017; reviewed literature override. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...11B).",
+        "notes": "Western constellation line-figure star (HIP 81266; Stellarium Sco). SIMBAD identity * tau Sco; SIMBAD compiled Johnson V=2.81; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Motion RV: 3.15 +/- 0.70 km/s from Cazorla et al. 2017; reviewed literature override. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...11B). Reviewed hot-star temperature: 2023ApJS..266...11B, * tau Sco mesFe_h record 1, 31660 K. SIMBAD mesFe_h records no uncertainty for this value; none is invented. No temperature is inferred from the spectral label. The old broadband SED luminosity and dependent radius are withheld; no component-safe replacement is adopted in this review.",
         "designations": [
           "HIP 81266"
         ],
@@ -417,8 +417,8 @@
         "mass_solar": 1.77,
         "luminosity_solar": 19.314122902682616,
         "radius_solar": 3.1622776601683795,
-        "metallicity_dex": -1.0844,
-        "age_gyr": 1.3445904,
+        "metallicity_dex": -0.29,
+        "age_gyr": null,
         "absolute_mag": 1.57715,
         "epoch": 2000.0,
         "type": "star",
@@ -426,8 +426,8 @@
         "name": "Eta Sco",
         "constellation": "Scorpius",
         "spectral_type": "F5IV",
-        "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 84143; Stellarium Sco). SIMBAD identity * eta Sco; SIMBAD compiled Johnson V=3.33; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex, age_gyr.",
+        "metallicity_kind": "[Fe/H]",
+        "notes": "Western constellation line-figure star (HIP 84143; Stellarium Sco). SIMBAD identity * eta Sco; SIMBAD compiled Johnson V=3.33; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
         "designations": [
           "HIP 84143"
         ],
@@ -1516,7 +1516,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "960a33396b9225f8fa6f296a8c029d143d5ebe84c41c24fba60eb1e28b555688"
+      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",
