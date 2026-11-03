@@ -30,7 +30,7 @@
             <span class="grid-symbol" aria-hidden="true"></span><span id="grid-spacing"></span>
           </div>
           <p class="visibility-observer" data-scene-obstacle><span>Origin: <strong id="reference-base">Sun</strong> <span aria-hidden="true">|</span> Visibility from: <strong id="visibility-base">Sirius A</strong><button id="visibility-lock" class="visibility-lock" type="button" aria-label="Lock visibility to this object" aria-pressed="false" title="Lock visibility to this object"><span id="visibility-lock-icon"></span></button> <span aria-hidden="true">|</span> Distance from viewer: <strong id="viewer-distance">—</strong></span></p>
-          <div id="scene-status" class="scene-status" role="status">Loading…</div>
+          <div id="scene-status" class="scene-status is-loading" role="status">Loading…</div>
           <aside id="inspector" class="inspector" aria-label="Object controls">
             <section id="selected-object-card" class="selected-object" aria-label="Selected object" data-scene-obstacle>
               <div class="selected-object-content">
@@ -840,6 +840,10 @@
                     <span>Western constellation stars</span>
                     <span class="switch-control"><input id="show-western-constellation-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
                   </label>
+                  <label class="filter-toggle" for="show-naked-eye-stars" title="Every star brighter than magnitude 6.5, visible without a telescope from a dark site.">
+                    <span>Naked-eye stars</span>
+                    <span class="switch-control"><input id="show-naked-eye-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+                  </label>
                   <label class="filter-toggle" for="show-notable-distant-stars" title="Distant stars in notable systems, such as the companions of pulsars. They also appear whenever pulsars are shown.">
                     <span>Notable distant stars</span>
                     <span class="switch-control"><input id="show-notable-distant-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
@@ -1075,7 +1079,7 @@
                     <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                     <div><dt>License</dt><dd>MIT</dd></div>
                     <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
-                    <div><dt>Catalog updated</dt><dd><time datetime="2026-10-31">31 October 2026</time></dd></div>
+                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-03">03 November 2026</time></dd></div>
                     <div><dt>Build date</dt><dd><time datetime="%BUILD_DATE_ISO%">%BUILD_DATE%</time></dd></div>
                     <div><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="catalog-epoch-tooltip">Position reference epoch</button><span id="catalog-epoch-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog positions use the year 2000 as their reference time.</span></dt><dd id="catalog-epoch">J2000.0</dd></div>
                     <div><dt>Version</dt><dd>%APP_VERSION%</dd></div>

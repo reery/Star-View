@@ -833,17 +833,25 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .load-state > :not(.load-recovery) { display: none !important; }
 .load-recovery { display: grid; grid-column: 1 / -1; gap: 8px; margin: 0; padding: 12px; color: var(--muted); font-size: var(--property-text-size); line-height: 1.5; }
 .load-recovery-actions { display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink); }
-/* While visible content loads, a faint highlight runs along the frame from left to right every 2 s. */
+/* While visible content loads, a faint highlight runs along the frame from left to right every 1.5 s. */
 @media (prefers-reduced-motion: no-preference) {
-  :is(.selected-object, .object-type-card, .glossary-card):is([aria-busy="true"], :has([aria-busy="true"]:not([hidden], [hidden] *, details:not([open]) *)))::after,
-  .scene-status.is-loading::after {
+  :is(.selected-object, .object-type-card, .glossary-card):is([aria-busy="true"], :has([aria-busy="true"]:not([hidden], [hidden] *, details:not([open]) *)))::after {
     content: ''; position: absolute; inset: 0; z-index: 4; border: 1px solid transparent; border-radius: calc(var(--card-radius) - 1px); pointer-events: none;
     background: linear-gradient(90deg, transparent, var(--border-active), transparent) -66.7% 0 / 40% 100% no-repeat border-box;
     mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0); mask-composite: exclude;
-    animation: load-sweep 2s ease-in-out 150ms infinite;
+    animation: load-sweep 1.5s ease-in-out 150ms infinite;
+  }
+  /* The scene status shows while startup blocks the main thread, so its sweep moves by a compositor-driven transform beneath an inner cover. */
+  .scene-status.is-loading { overflow: hidden; }
+  .scene-status.is-loading::before { content: ''; position: absolute; inset: 1px; z-index: -1; border-radius: calc(var(--card-radius) - 2px); background: var(--panel); }
+  .scene-status.is-loading::after {
+    content: ''; position: absolute; inset: 0 auto 0 0; z-index: -2; width: 40%; transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, var(--border-active), transparent);
+    animation: scene-load-sweep 1.5s ease-in-out infinite;
   }
 }
-@keyframes load-sweep { 20%, to { background-position-x: 166.7%; } }
+@keyframes load-sweep { 26.7%, to { background-position-x: 166.7%; } }
+@keyframes scene-load-sweep { 26.7%, to { transform: translateX(250%); } }
 /* Opening cards paint at once; their content fades in, or streams in via content-stream.ts once loaded. */
 @media (prefers-reduced-motion: no-preference) {
   .object-type-card > :not(.panel-heading) { animation: card-fade 200ms ease-out; }

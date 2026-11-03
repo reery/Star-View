@@ -10,6 +10,8 @@ export interface SavedFilter {
   showAlwaysBright: boolean
   showWesternConstellationStars: boolean
   /** Absent in entries saved before the catalog existed. */
+  showNakedEyeStars?: boolean
+  /** Absent in entries saved before the catalog existed. */
   showNotableDistantStars?: boolean
   filterCategories: FilterCategoryId[]
   filterSubtypes: FilterKey[]
@@ -30,6 +32,7 @@ export function readSavedFilter(catalogIds: readonly string[]): SavedFilter | nu
       || typeof filter.catalogId !== 'string' || !catalogIds.includes(filter.catalogId)
       || typeof filter.showAlwaysBright !== 'boolean'
       || typeof filter.showWesternConstellationStars !== 'boolean'
+      || (filter.showNakedEyeStars !== undefined && typeof filter.showNakedEyeStars !== 'boolean')
       || (filter.showNotableDistantStars !== undefined && typeof filter.showNotableDistantStars !== 'boolean')
       || !Array.isArray(filter.filterCategories) || !filter.filterCategories.every(isFilterCategoryId)
       || !Array.isArray(filter.filterSubtypes) || !filter.filterSubtypes.every(isFilterKey)

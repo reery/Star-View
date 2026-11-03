@@ -128,7 +128,7 @@ function validate(directory?: string): void {
     if (target && path !== target) continue
     catalogs.push({ id: manifest.id, stars: supplement(stars) })
     const coverage = catalogCoverage(stars)
-    if (['nearest-neighbors', 'bright-stars', 'nearest-100', 'nearest-1000', 'nearest-5000', 'western-constellation-stars', 'famous-cluster-stars'].includes(manifest.id) && coverage.constellations !== coverage.objects) throw new Error(`${path}: incomplete bundled constellation coverage`)
+    if (['nearest-neighbors', 'bright-stars', 'nearest-100', 'nearest-1000', 'nearest-5000', 'western-constellation-stars', 'naked-eye-stars', 'famous-cluster-stars'].includes(manifest.id) && coverage.constellations !== coverage.objects) throw new Error(`${path}: incomplete bundled constellation coverage`)
     console.log(`${manifest.id}: ${stars.length} rows; non-Sun coverage ${JSON.stringify(coverage)}`)
   }
   if (!directory) {
@@ -174,7 +174,7 @@ interface ArticleSummary { name: string; introduction: string }
 
 const LIGHT_YEARS_PER_PARSEC = 3.261563777
 // main.ts merges these into the selected nearby catalog; nearby catalogs share IDs instead.
-const ADDITIVE_CATALOGS = ['western-constellation-stars', 'notable-distant-stars']
+const ADDITIVE_CATALOGS = ['western-constellation-stars', 'naked-eye-stars', 'notable-distant-stars']
 const brief = (text: string) => text.length <= 160 ? text : `${text.slice(0, 159).replace(/\s+\S*$/, '')}…`
 
 /** Page summaries for /objects/<id>; each object is listed under the smallest catalog that holds it. */

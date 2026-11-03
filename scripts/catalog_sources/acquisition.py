@@ -232,6 +232,82 @@ def acquire_nearest5000(
     return manifest
 
 
+NAKED_EYE_LIMIT_V = 6.5
+
+
+def naked_eye_simbad_query() -> str:
+    return (
+        "SELECT b.main_id, b.ra, b.dec, b.coo_bibcode, b.otype, b.sp_type, b.sp_bibcode, b.plx_value, b.plx_err, "
+        "b.plx_bibcode, b.pmra, b.pmdec, b.pm_err_maj, b.pm_err_min, b.pm_err_angle, b.pm_bibcode, b.rvz_radvel, "
+        "b.rvz_err, b.rvz_bibcode, f.flux AS V, f.flux_err AS V_err, f.bibcode AS V_bibcode, i.ids FROM basic AS b "
+        "JOIN flux AS f ON b.oid=f.oidref AND f.filter='V' LEFT OUTER JOIN ids AS i ON b.oid=i.oidref "
+        f"WHERE f.flux <= {NAKED_EYE_LIMIT_V} ORDER BY main_id"
+    )
+
+
+def acquire_naked_eye_stars(
+    output: Path,
+    retrieved: str,
+    force: bool = False,
+    timeout: float = DEFAULT_NETWORK_TIMEOUT_SECONDS,
+    simbad_url: str = SIMBAD_TAP_URL,
+) -> dict:
+    """Freeze every SIMBAD object with Johnson V <= 6.5 and its exact Gaia DR3 enrichment.
+
+    VizieR-only Hipparcos model tables are not part of this snapshot.
+    """
+    if not timeout > 0:
+        raise ValueError("Network timeout must be positive")
+    output = safe_output_directory(output)
+    managed = ("simbad.adql", "simbad.csv", "parents.adql", "parents.csv", "gaia.adql", "gaia.csv", "distance.adql", "distance.csv",
+               "spectroscopy.adql", "spectroscopy.csv", "source-manifest.json")
+    if any(managed_path(output, name).exists() for name in managed) and not force:
+        raise FileExistsError("Source snapshot exists; use --force only for an intentional refresh")
+    chunk = lambda values, size: [values[start:start + size] for start in range(0, len(values), size)]
+    with tempfile.TemporaryDirectory(prefix=".catalog-acquire-", dir=output) as staging_name:
+        staging = Path(staging_name)
+        counts = {}
+
+        def run(name: str, url: str, queries: list[str]) -> None:
+            atomic_write_text(staging / f"{name}.adql", "\n".join(queries) + "\n")
+            counts[name] = _chunked_tap(url, queries, staging / f"{name}.csv", timeout)
+
+        run("simbad", simbad_url, [naked_eye_simbad_query()])
+        simbad = list(csv.DictReader(io.StringIO((staging / "simbad.csv").read_text())))
+        # Close components often carry only V; SIMBAD gives the parallax to their system record.
+        unplaced = sorted({row["main_id"] for row in simbad if not row["plx_value"]})
+        run("parents", simbad_url, ["SELECT c.main_id AS child_id, p.main_id AS parent_id, p.otype, p.plx_value, p.plx_err, p.plx_bibcode, p.pmra, p.pmdec, "
+                                    "p.pm_bibcode, p.rvz_radvel, p.rvz_err, p.rvz_bibcode, i.ids FROM basic AS c JOIN h_link AS h ON h.child=c.oid "
+                                    "JOIN basic AS p ON p.oid=h.parent LEFT OUTER JOIN ids AS i ON i.oidref=p.oid "
+                                    f"WHERE c.main_id IN ({_quoted(values)}) ORDER BY child_id, parent_id" for values in chunk(unplaced, 500)])
+        gaia_ids = sorted({alias.strip().removeprefix("Gaia DR3 ") for row in simbad for alias in (row["ids"] or "").split("|")
+                           if alias.strip().startswith("Gaia DR3 ")}, key=int)
+        run("gaia", GAIA_TAP_URL, [gaia_query(ids) for ids in chunk(gaia_ids, 1000)])
+        run("distance", GAIA_TAP_URL, ["SELECT source_id,r_med_geo,r_lo_geo,r_hi_geo FROM external.gaiaedr3_distance "
+                                       f"WHERE source_id IN ({','.join(ids)}) ORDER BY source_id" for ids in chunk(gaia_ids, 1000)])
+        main_ids = sorted({row["main_id"] for row in simbad})
+        run("spectroscopy", simbad_url, ["SELECT b.main_id,m.teff,m.log_g,m.fe_h,m.bibcode,m.mespos FROM basic AS b JOIN mesFe_h AS m "
+                                         f"ON b.oid=m.oidref WHERE b.main_id IN ({_quoted(values)})" for values in chunk(main_ids, 500)])
+        manifest = {
+            "schemaVersion": 1,
+            "retrieved": retrieved,
+            "selection": f"Every SIMBAD object with a compiled Johnson V flux <= {NAKED_EYE_LIMIT_V}",
+            "identityPolicy": "Exact SIMBAD records; exact Gaia DR3 aliases for Gaia astrometry, astrophysical parameters and Bailer-Jones distances",
+            "rowCounts": counts,
+            "sources": {
+                "simbad": {"url": simbad_url, "queryFile": "simbad.adql"},
+                "parents": {"url": simbad_url, "queryFile": "parents.adql", "scope": "SIMBAD hierarchy parents of selected objects without a parallax"},
+                "gaia": {"release": "DR3", "url": GAIA_TAP_URL, "queryFile": "gaia.adql"},
+                "distance": {"release": "Bailer-Jones et al. 2021 Gaia EDR3 distances", "url": GAIA_TAP_URL, "queryFile": "distance.adql", "reference": "2021AJ....161..147B"},
+                "spectroscopy": {"url": simbad_url, "queryFile": "spectroscopy.adql"},
+            },
+            "checksumsSha256": {name: sha256(staging / name) for name in managed[:-1]},
+        }
+        write_canonical_json(staging / "source-manifest.json", manifest)
+        write_managed_files(output, {name: (staging / name).read_bytes() for name in managed}, True)
+    return manifest
+
+
 def acquire_physical_supplements(
     output: Path,
     retrieved: str,

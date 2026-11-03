@@ -1,0 +1,51 @@
+{
+  "checksumsSha256": {
+    "distance.adql": "ca67aacb8b8d78f5a1adb3054c9a07bc238ab77ad927a3090acbf2b2a4531c6a",
+    "distance.csv": "2f48a19bbdb037272fdc1e53118dc8d68cd07c148508d1c320fbfb60a9675675",
+    "gaia.adql": "ad7d0e1dd595aebee8290ab73a3ba3a55cf583153f886768600867a67e640a3f",
+    "gaia.csv": "6aeba274df81ef883da2587f519e2f85a2e091feedf7c99d2fc1028d98c2e6b7",
+    "parents.adql": "5090fdcb02ca115ec2ce7a940b7b428b4eb70adfc7a22c5b6dbf3208d5861fb6",
+    "parents.csv": "1450163f86b3507458192b3eae5dfa5bc1abe3c7ead954f02f0250543cc5e221",
+    "simbad.adql": "8294b3cfae420c2ba3c0ca25ea07f28fdc9cf3e6397f3b98d40770b8b4ef4c24",
+    "simbad.csv": "deec1fb922b1e9afc3ed20ea0c24f7905d6840af0b6df71a82f617948054b85c",
+    "spectroscopy.adql": "d7b8e03e5c4dcc718a3b1ca514ae0343046ed74f1baa67b4f84cfce133c02959",
+    "spectroscopy.csv": "688c4331bcca6a6bda4252ac43bc64b6d8f9c2a2890d65e4a8e1618dfed550df"
+  },
+  "identityPolicy": "Exact SIMBAD records; exact Gaia DR3 aliases for Gaia astrometry, astrophysical parameters and Bailer-Jones distances",
+  "retrieved": "2026-11-03",
+  "rowCounts": {
+    "distance": 8181,
+    "gaia": 8447,
+    "parents": 213,
+    "simbad": 9015,
+    "spectroscopy": 40653
+  },
+  "schemaVersion": 1,
+  "selection": "Every SIMBAD object with a compiled Johnson V flux <= 6.5",
+  "sources": {
+    "distance": {
+      "queryFile": "distance.adql",
+      "reference": "2021AJ....161..147B",
+      "release": "Bailer-Jones et al. 2021 Gaia EDR3 distances",
+      "url": "https://gea.esac.esa.int/tap-server/tap/sync"
+    },
+    "gaia": {
+      "queryFile": "gaia.adql",
+      "release": "DR3",
+      "url": "https://gea.esac.esa.int/tap-server/tap/sync"
+    },
+    "parents": {
+      "queryFile": "parents.adql",
+      "scope": "SIMBAD hierarchy parents of selected objects without a parallax",
+      "url": "https://simbad.harvard.edu/simbad/sim-tap/sync"
+    },
+    "simbad": {
+      "queryFile": "simbad.adql",
+      "url": "https://simbad.harvard.edu/simbad/sim-tap/sync"
+    },
+    "spectroscopy": {
+      "queryFile": "spectroscopy.adql",
+      "url": "https://simbad.harvard.edu/simbad/sim-tap/sync"
+    }
+  }
+}

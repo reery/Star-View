@@ -24,17 +24,24 @@ MANIFEST = ROOT / "catalog-work/shared-enrichment/source-manifest.json"
 LITERATURE = "catalog-work/shared-enrichment/literature"
 # Exact-identity snapshot for CNS5 objects beyond the nearest-1000 buffer. It is
 # opt-in so that existing catalogs keep their frozen enrichment byte for byte.
+# `extended=True` selects it; a snapshot directory selects that snapshot instead.
 EXTENSION = "catalog-work/nearest-5000"
 # SIMBAD mesFe_h rows that reproduce Gaia DR3 GSP-Phot values (76 of 77 identical
 # Teff and [M/H]); they are photometric model values, not spectroscopy.
 GAIA_REPUBLICATIONS = {"2024A&A...681A.107R"}
 
 
+def extension_directory(extended):
+    return EXTENSION if extended is True else extended
+
+
 @cache
-def extension_rows(name):
-    manifest = json.loads((ROOT / EXTENSION / "source-manifest.json").read_text())
-    verify_sha256(ROOT / EXTENSION / name, manifest["checksumsSha256"][name])
-    return csv_rows(f"{EXTENSION}/{name}")
+def extension_rows(name, directory=EXTENSION):
+    manifest = json.loads((ROOT / directory / "source-manifest.json").read_text())
+    if name not in manifest["checksumsSha256"]:
+        return []
+    verify_sha256(ROOT / directory / name, manifest["checksumsSha256"][name])
+    return csv_rows(f"{directory}/{name}")
 
 
 def normalized_id(value):
@@ -86,13 +93,14 @@ def source_index(extended=False):
                    for row in csv_rows(f"catalog-work/bright-stars/{filename}.csv")}
     if extended:
         # Fill only identities absent from the earlier snapshots.
-        for row in extension_rows("simbad.csv"):
+        directory = extension_directory(extended)
+        for row in extension_rows("simbad.csv", directory):
             sources.setdefault(normalized_id(row["main_id"]), {k: v for k, v in row.items() if v})
-        for row in extension_rows("fundamental.csv"):
+        for row in extension_rows("fundamental.csv", directory):
             fundamental.setdefault(row["HIP"], row)
-        for row in extension_rows("sed.csv"):
+        for row in extension_rows("sed.csv", directory):
             sed.setdefault(row["HIP"], row)
-        for record in read_gaia_tap(ROOT / EXTENSION / "gaia.csv"):
+        for record in read_gaia_tap(ROOT / directory / "gaia.csv"):
             gaia.setdefault(record.identity.gaia_dr3_id, record)
     return sources, identities, fundamental, sed, measured, diameters, gaia, bright_hips
 
@@ -154,7 +162,7 @@ def spectroscopy_index(extended=False):
         index.setdefault(normalized_id(observation["main_id"]), []).append(observation)
     if extended:
         additions = {}
-        for observation in extension_rows("spectroscopy.csv"):
+        for observation in extension_rows("spectroscopy.csv", extension_directory(extended)):
             if normalized_id(observation["main_id"]) not in index:
                 additions.setdefault(normalized_id(observation["main_id"]), []).append(observation)
         index.update(additions)
@@ -298,7 +306,15 @@ def derive_physical(row):
     return {field: {"field": field, "value": float(row[field]), "status": "derived", "reference": "Stefan-Boltzmann scaling", "inputs": inputs}}
 
 
-def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only=False, extended=False):
+def contradicts_class(teff, spectral_type, tolerance):
+    """Teff beyond `tolerance` of the Pecaut-Mamajek temperature of its spectral class and subtype, any luminosity class."""
+    # Am notation (kA6hA9mF0) states the class after a prefix.
+    match = re.search(r"([OBAFGKM])(\d(?:\.\d+)?)", re.sub(r"\s+", "", spectral_type or ""))
+    expected = sequence_temperature(match.group(1), float(match.group(2))) if match and teff is not None else None
+    return expected is not None and abs(teff - expected) > tolerance * expected
+
+
+def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only=False, extended=False, gaia_fields=FIELDS, class_tolerance=None):
     sources, identities, fundamental, sed, measured, diameters, gaia, bright_hips = source_index(extended)
     key = normalized_id(main_id or identities.get(row["id"]))
     source = sources.get(key, {})
@@ -363,7 +379,9 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
         for column, field in (("teff", "temperature_k"), ("fe_h", "metallicity_dex")):
             if row.get(field):
                 continue
-            observation = select_spectroscopy(spectroscopy_index(extended).get(key, []), column, row.get("spectral_type"))
+            observations = [item for item in spectroscopy_index(extended).get(key, [])
+                            if not class_tolerance or not contradicts_class(number(item.get("teff")), row.get("spectral_type"), class_tolerance)]
+            observation = select_spectroscopy(observations, column, row.get("spectral_type"))
             if observation:
                 adopt(field, observation[column], observation["bibcode"], "measured",
                       sourceRecordId=f"{key}:mesFe_h:{observation['mespos']}",
@@ -397,11 +415,14 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
         gaia_ids = {alias.removeprefix("Gaia DR3 ") for alias in identifiers if re.fullmatch(r"Gaia DR3 \d+", alias)}
         if len(gaia_ids) == 1:
             physical = eligible_gaia_physical(gaia.get(next(iter(gaia_ids))))
+            # FLAME values follow from the GSP-Phot temperature, so a contradicted temperature withholds them all.
+            if class_tolerance and "temperature_k" in physical and contradicts_class(physical["temperature_k"].value, row.get("spectral_type"), class_tolerance):
+                physical = {}
             invalid = flame_withheld(physical["temperature_k"].value if "temperature_k" in physical else None, number(row.get("temperature_k")),
                                      number(row.get("metallicity_dex")) if row.get("metallicity_kind") == "[Fe/H]" else None,
                                      physical["metallicity_dex"].value if "metallicity_dex" in physical else None)
             for field, observation in physical.items():
-                if field in invalid:
+                if field in invalid or field not in gaia_fields:
                     continue
                 adopt(field, observation.value, observation.reference, observation.status, observation.uncertainty,
                       sourceRecordId=observation.source_record_id, qualityFlags=list(observation.quality_flags),

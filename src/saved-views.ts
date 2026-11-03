@@ -16,6 +16,8 @@ export interface SavedViewSettings {
   showAlwaysBright: boolean
   showWesternConstellationStars: boolean
   /** Absent in entries saved before the catalog existed. */
+  showNakedEyeStars?: boolean
+  /** Absent in entries saved before the catalog existed. */
   showNotableDistantStars?: boolean
   /** Legacy saved views use this flag to enable the combined constellation catalog. */
   showFamousClusterStars: boolean
@@ -96,6 +98,7 @@ function isSavedView(value: unknown): value is SavedView {
   return typeof settings.catalogId === 'string'
     && typeof settings.showAlwaysBright === 'boolean'
     && typeof settings.showWesternConstellationStars === 'boolean'
+    && (settings.showNakedEyeStars === undefined || typeof settings.showNakedEyeStars === 'boolean')
     && (settings.showNotableDistantStars === undefined || typeof settings.showNotableDistantStars === 'boolean')
     && typeof settings.showFamousClusterStars === 'boolean'
     && Array.isArray(settings.filterCategories) && settings.filterCategories.every(isFilterCategoryId)

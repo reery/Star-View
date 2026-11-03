@@ -104,7 +104,8 @@ def read_gaia_tap(path: Path) -> list[NormalizedSourceRecord]:
             astrometry_ref="Gaia DR3",
             radial_velocity_ref="Gaia DR3" if radial_velocity is not None else None,
             quality_flags=tuple(flag for flag in ("duplicated-source" if row.get("duplicated_source", "").lower() == "true" else None,) if flag),
-        ) if all(value is not None for value in motion) else None
+        # A non-positive parallax gives no distance; the row's physical parameters remain usable.
+        ) if all(value is not None for value in motion) and motion[0] > 0 else None
         physical = []
         flame_flags = tuple(filter(None, (_text(row.get("flags_flame")),)))
         for field, column, lower, upper, flags in (
