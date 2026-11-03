@@ -836,18 +836,20 @@
                     <div id="catalog-range-markers" class="range-markers" aria-hidden="true"></div>
                   </div>
                   <p id="catalog-error" class="catalog-error" role="alert" hidden></p>
-                  <label class="filter-toggle" for="show-western-constellation-stars">
-                    <span>Western constellation stars</span>
-                    <span class="switch-control"><input id="show-western-constellation-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
-                  </label>
-                  <label class="filter-toggle" for="show-naked-eye-stars" title="Every star brighter than magnitude 6.5, visible without a telescope from a dark site.">
-                    <span>Naked-eye stars</span>
-                    <span class="switch-control"><input id="show-naked-eye-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
-                  </label>
-                  <label class="filter-toggle" for="show-notable-distant-stars" title="Distant stars in notable systems, such as the companions of pulsars. They also appear whenever pulsars are shown.">
-                    <span>Notable distant stars</span>
-                    <span class="switch-control"><input id="show-notable-distant-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
-                  </label>
+                  <div class="catalog-toggles" role="group" aria-label="Additional catalogs">
+                    <label class="filter-toggle" for="show-western-constellation-stars">
+                      <span>Western constellation stars</span>
+                      <span class="switch-control"><input id="show-western-constellation-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+                    </label>
+                    <label class="filter-toggle" for="show-naked-eye-stars" title="Every star brighter than magnitude 6.5, visible without a telescope from a dark site.">
+                      <span>Naked-eye stars</span>
+                      <span class="switch-control"><input id="show-naked-eye-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+                    </label>
+                    <label class="filter-toggle" for="show-notable-distant-stars" title="Distant stars in notable systems, such as the companions of pulsars. They also appear whenever pulsars are shown.">
+                      <span>Notable distant stars</span>
+                      <span class="switch-control"><input id="show-notable-distant-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+                    </label>
+                  </div>
                   <div id="object-categories" class="category-toggles" role="group" aria-label="Object categories"></div>
                   <div class="range-filter">
                     <div class="range-heading"><label for="object-distance-limit">Object visibility distance</label><output id="object-distance-limit-value" for="object-distance-limit">100 ly</output></div>
