@@ -34,11 +34,16 @@ function supplementPhysicalFields(primary: Star, additional: Star): Star {
 }
 
 const SAME_SKY_POSITION_COSINE = Math.cos(Math.PI / (180 * 3600))
+// Separation is never below the declination difference; the margin covers rounding in the cosine test.
+const SAME_SKY_DECLINATION_WINDOW_DEG = 2 / 3600
 
-function sameSkyPosition(first: Star, second: Star): boolean {
+const isBarycenter = (star: Star) => Boolean(catalogFlags(star).barycenter)
+
+/** `barycenter` is true when either row documents a barycenter solution. */
+function sameSkyPosition(first: Star, second: Star, barycenter: boolean): boolean {
   const firstAstrometry = first.raw_astrometry
   const secondAstrometry = second.raw_astrometry
-  if (firstAstrometry && secondAstrometry) {
+  if (firstAstrometry && secondAstrometry && Math.abs(firstAstrometry.dec_deg - secondAstrometry.dec_deg) <= SAME_SKY_DECLINATION_WINDOW_DEG) {
     const firstRa = firstAstrometry.ra_deg * Math.PI / 180
     const firstDec = firstAstrometry.dec_deg * Math.PI / 180
     const secondRa = secondAstrometry.ra_deg * Math.PI / 180
@@ -50,7 +55,7 @@ function sameSkyPosition(first: Star, second: Star): boolean {
   // rendered J2000 position remains component-specific. Only use the rendered
   // direction fallback when a row explicitly documents that distinction; close
   // components such as Sirius A/B must remain separate objects.
-  if (!catalogFlags(first).barycenter && !catalogFlags(second).barycenter) return false
+  if (!barycenter) return false
   const firstLength = Math.hypot(first.x_pc, first.y_pc, first.z_pc)
   const secondLength = Math.hypot(second.x_pc, second.y_pc, second.z_pc)
   if (firstLength === 0 || secondLength === 0) return false
@@ -63,6 +68,8 @@ export function mergeCatalogStarLayers(primary: readonly Star[], additional: rea
   const merged = [...primary]
   const ids = new Map(merged.map((star, index) => [star.id, index]))
   const names = new Map(merged.map((star, index) => [star.name.toLocaleLowerCase('en-US'), index]))
+  // Parsed once per row instead of once per compared pair.
+  const barycenters = merged.map(isBarycenter)
   const components = new Map(merged.flatMap((star, index) => {
     const identity = componentIdentity(star.id)
     return identity ? [[identity.canonicalStarId, index] as const] : []
@@ -74,13 +81,15 @@ export function mergeCatalogStarLayers(primary: readonly Star[], additional: rea
       const candidateIdentity = componentIdentity(candidate.id)
       return identity && candidateIdentity && identity.canonicalStarId !== candidateIdentity.canonicalStarId
     }
+    const barycenter = isBarycenter(star)
     const namedDuplicate = names.get(normalizedName)
     const duplicate = ids.get(star.id) ?? (identity ? components.get(identity.canonicalStarId) : undefined) ??
       (namedDuplicate !== undefined && !distinctComponent(merged[namedDuplicate]!) ? namedDuplicate : undefined) ??
-      merged.findIndex((candidate) => !distinctComponent(candidate) && sameSkyPosition(candidate, star))
+      merged.findIndex((candidate, index) => sameSkyPosition(candidate, star, barycenter || barycenters[index]!) && !distinctComponent(candidate))
     if (duplicate >= 0) {
       if (merged[duplicate]!.id !== star.id) merges?.set(star.id, merged[duplicate]!.id)
       merged[duplicate] = supplementPhysicalFields(merged[duplicate]!, star)
+      barycenters[duplicate] = isBarycenter(merged[duplicate]!)
       ids.set(star.id, duplicate)
       names.set(normalizedName, duplicate)
       if (identity) components.set(identity.canonicalStarId, duplicate)
@@ -90,6 +99,7 @@ export function mergeCatalogStarLayers(primary: readonly Star[], additional: rea
     names.set(normalizedName, merged.length)
     if (identity) components.set(identity.canonicalStarId, merged.length)
     merged.push(star)
+    barycenters.push(isBarycenter(star))
   }
   return merged
 }
