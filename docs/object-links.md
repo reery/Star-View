@@ -11,11 +11,14 @@ link. The collapsed card is unchanged.
 
 `scripts/author-object-links.py` builds `src/data/object-links.json` offline
 from frozen sources in `catalog-work/object-links/`, retrieved on
-**2026-11-01**. The app loads the file once, on the first selection.
-`npm run catalog:validate` runs `--check` to keep it in step with the identity
-supplement. Refresh the sources explicitly with
+**2026-11-01** and extended on **2026-11-03** with Wikidata and Wikipedia
+records for the naked-eye stars. The app loads the file once, on the first
+selection. `npm run catalog:validate` runs `--check` to keep it in step with the
+identity supplement. Refresh the sources explicitly with
 `python3 scripts/author-object-links.py --refresh --retrieved YYYY-MM-DD --cache DIR`;
-the response cache lets an interrupted refresh resume. `--review` prints
+the response cache lets an interrupted refresh resume. `--extend` instead
+queries only SIMBAD identifiers without a Wikidata record and resolves only new
+Wikipedia titles, leaving earlier records untouched. `--review` prints
 rejected, ambiguous and unmatched sources.
 
 ## Matching

@@ -95,8 +95,8 @@ describe('bolometric luminosity physics and class references', () => {
 
   it('uses measured class distributions and falls back to published envelopes without inventing a median', () => {
     const range = luminosityClassRange({ ...sun, spectral_type: 'A1V' })!
-    expect(range.low).toBeGreaterThan(8)
-    expect(range.low).toBeLessThan(9)
+    expect(range.low).toBeGreaterThan(5)
+    expect(range.low).toBeLessThan(6)
     expect(range.high).toBeGreaterThan(100)
     expect(range.median).toBeGreaterThan(range.low)
     expect(range.median).toBeLessThan(range.high)

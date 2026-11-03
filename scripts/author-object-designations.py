@@ -111,11 +111,19 @@ def build():
         if hashlib.sha256((WORK / filename).read_bytes()).hexdigest() != expected:
             raise ValueError(f"Designation source checksum mismatch: {filename}")
 
+    # Only new naked-eye records: shared rows keep their curated identities, and the
+    # snapshot's system records would make component identifiers ambiguous.
+    naked_eye = {identifier: row["simbadId"] for identifier, row in read_json(ROOT / "src/data/catalogs/naked-eye-stars/provenance.json")["objects"].items()
+                 if row.get("simbadId") and "sharedFrom" not in row}
+    naked_eye_source = ROOT / "catalog-work/naked-eye-stars/simbad.csv"
+
     # Collapse repeated exact SIMBAD records, keeping the published aliases.
     records = {}
     for path in [ROOT / f"catalog-work/{catalog}/simbad.csv" for catalog in
-                 ("nearest-1000", "nearest-5000", "western-constellation-stars", "famous-cluster-stars", "bright-stars")] + [WORK / "simbad.csv", WORK / "components.csv", WORK / "extended.csv"]:
+                 ("nearest-1000", "nearest-5000", "western-constellation-stars", "famous-cluster-stars", "bright-stars")] + [naked_eye_source, WORK / "simbad.csv", WORK / "components.csv", WORK / "extended.csv"]:
         for row in read_csv(path):
+            if path == naked_eye_source and row["main_id"] not in naked_eye.values():
+                continue
             main = key(row["main_id"])
             record = records.setdefault(main, {"mainId": row["main_id"], "aliases": [], "sources": [], "queries": []})
             record["aliases"].extend([row["main_id"], *(row.get("ids") or "").split("|")])
@@ -219,6 +227,8 @@ def build():
             identifiers.append(bright[identifier]["queryId"])
         if identifier in landmarks:
             identifiers.append(landmarks[identifier].get("queryId") or landmarks[identifier].get("simbadId") or "")
+        if identifier in naked_eye:
+            identifiers.append(naked_eye[identifier])
         if identifier.startswith("hip-"):
             identifiers.append("HIP " + identifier.removeprefix("hip-"))
         if identifier in pulsars:

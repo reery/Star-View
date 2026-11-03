@@ -1,7 +1,7 @@
 {
   "name": "star-view",
   "private": true,
-  "version": "0.8.0",
+  "version": "0.8.1",
   "type": "module",
   "scripts": {
     "dev": "npm run catalog:generate && vite",
@@ -15,8 +15,8 @@
     "test:e2e": "npm run build && playwright test",
     "build": "npm run catalog:generate && npm run catalog:validate && tsc && vite build",
     "catalog:preservation": "python3 scripts/audit-catalog-preservation.py",
-    "catalog:validate": "npm run catalog:preservation && python3 scripts/author-surface-gravity.py --check && python3 scripts/author-stellar-companions.py --check && python3 scripts/author-notable-distant-stars.py --check && python3 scripts/author-constellations.py && python3 scripts/author-top-lists.py --check && python3 scripts/author-object-links.py --check && python3 scripts/author-sitemap.py --check && node scripts/catalogs.ts validate",
-    "catalog:generate": "python3 scripts/author-surface-gravity.py --check && python3 scripts/author-stellar-companions.py --check && python3 scripts/author-notable-distant-stars.py --check && node scripts/catalogs.ts generate",
+    "catalog:validate": "npm run catalog:preservation && python3 scripts/author-surface-gravity.py --check && python3 scripts/author-stellar-companions.py --check && python3 scripts/author-notable-distant-stars.py --check && python3 scripts/author-naked-eye-stars.py --check && python3 scripts/author-constellations.py && python3 scripts/author-top-lists.py --check && python3 scripts/author-object-links.py --check && python3 scripts/author-sitemap.py --check && node scripts/catalogs.ts validate",
+    "catalog:generate": "python3 scripts/author-surface-gravity.py --check && python3 scripts/author-stellar-companions.py --check && python3 scripts/author-notable-distant-stars.py --check && python3 scripts/author-naked-eye-stars.py --check && node scripts/catalogs.ts generate",
     "catalog:sitemap": "python3 scripts/author-sitemap.py",
     "catalog:companions": "python3 scripts/author-stellar-companions.py --write",
     "catalog:build": "node scripts/catalogs.ts build",

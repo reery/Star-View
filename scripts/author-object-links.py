@@ -3,8 +3,9 @@
 Wikipedia articles come from Wikidata items carrying an object's exact SIMBAD
 identifier (P3083). Jim Kaler's STARS pages and ESA/Hubble observations match
 exact designations; ATNF links use the frozen PSRJ names. No positional or
-fuzzy matching. Run --refresh to freeze the network sources, --check to compare
-the checked-in links without writing them.
+fuzzy matching. Run --refresh to freeze the network sources, --extend to add
+Wikidata and Wikipedia records only for identifiers without one, --check to
+compare the checked-in links without writing them.
 """
 
 import argparse
@@ -95,7 +96,7 @@ def identities():
     return json.loads((ROOT / "src/data/object-designations.json").read_text())["objects"]
 
 
-def refresh_wikidata():
+def refresh_wikidata(skip=frozenset()):
     names = set()
     for entry in identities().values():
         if entry.get("simbadId"):
@@ -103,7 +104,7 @@ def refresh_wikidata():
             parent = component_parent(entry["simbadId"])
             if parent:
                 names.add(parent)
-    names = sorted(names)
+    names = sorted(names - skip)
     rows = []
     for start in range(0, len(names), 250):
         values = " ".join(json.dumps(name) for name in names[start:start + 250])
@@ -221,6 +222,22 @@ def refresh(retrieved):
                 "checksumsSha256": {name: hashlib.sha256(content.encode()).hexdigest() for name, content in files.items()}}
     files["source-manifest.json"] = json.dumps(manifest, indent=2) + "\n"
     # Publish only after every request succeeded, so a failure never leaves a mixed snapshot.
+    write_managed_files(WORK, files, force=True)
+
+
+def extend(retrieved):
+    """Freeze Wikidata and Wikipedia records for identifiers new since the snapshot; earlier records stay byte-identical."""
+    manifest, sources = checked_sources()
+    wikidata = sources["wikidata.json"] + refresh_wikidata({row["sim"] for row in sources["wikidata.json"]})
+    wikidata.sort(key=lambda row: json.dumps(row, sort_keys=True))
+    titles = {row[field] for row in wikidata for field in ["article", "parentArticle"] if field in row} - set(sources["wikipedia-pages.json"])
+    files = {
+        "wikidata.json": json.dumps(wikidata, indent=1, ensure_ascii=False) + "\n",
+        "wikipedia-pages.json": json.dumps({**sources["wikipedia-pages.json"], **refresh_wikipedia(titles)}, indent=1, ensure_ascii=False, sort_keys=True) + "\n",
+    }
+    manifest["extended"] = [*manifest.get("extended", []), {"retrieved": retrieved, "scope": "Wikidata and Wikipedia records for identifiers without one"}]
+    manifest["checksumsSha256"].update({name: hashlib.sha256(content.encode()).hexdigest() for name, content in files.items()})
+    files["source-manifest.json"] = json.dumps(manifest, indent=2) + "\n"
     write_managed_files(WORK, files, force=True)
 
 
@@ -355,18 +372,19 @@ def build():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--refresh", action="store_true", help="Freeze the network sources before building")
-    parser.add_argument("--retrieved", help="Explicit ISO date recorded with --refresh")
+    parser.add_argument("--extend", action="store_true", help="Freeze Wikidata and Wikipedia records only for identifiers without one")
+    parser.add_argument("--retrieved", help="Explicit ISO date recorded with --refresh or --extend")
     parser.add_argument("--cache", type=Path, help="Response cache directory for resumable refreshes")
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--review", action="store_true", help="Print rejected, ambiguous and unmatched sources")
     args = parser.parse_args()
-    if args.refresh:
+    if args.refresh or args.extend:
         if not args.retrieved:
-            parser.error("--refresh requires --retrieved")
+            parser.error("--refresh and --extend require --retrieved")
         if args.cache:
             CACHE = args.cache
             CACHE.mkdir(parents=True, exist_ok=True)
-        refresh(args.retrieved)
+        refresh(args.retrieved) if args.refresh else extend(args.retrieved)
     payload, review = build()
     # One object per line keeps the shipped file compact and its diffs readable.
     content = "{\n" + ",\n".join([f'"schemaVersion":{payload["schemaVersion"]}', f'"retrieved":"{payload["retrieved"]}"', '"objects":{\n' + ",\n".join(

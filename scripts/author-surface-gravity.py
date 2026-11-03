@@ -35,8 +35,9 @@ COMPANIONS = ROOT / "src/data/stellar-companions.json"
 DESIGNATIONS = ROOT / "src/data/object-designations.json"
 RETIREMENTS = ROOT / "catalog-work/reviewed-data-retirements.json"
 SIMBAD = [ROOT / f"catalog-work/{name}/simbad.csv" for name in
-          ("nearest-1000", "nearest-5000", "bright-stars", "western-constellation-stars", "famous-cluster-stars")]
-SPECTROSCOPY = [ROOT / LITERATURE / "spectroscopy.csv", ROOT / EXTENSION / "spectroscopy.csv"]
+          ("nearest-1000", "nearest-5000", "bright-stars", "western-constellation-stars", "famous-cluster-stars", "naked-eye-stars")]
+NAKED_EYE = "catalog-work/naked-eye-stars"
+SPECTROSCOPY = [ROOT / LITERATURE / "spectroscopy.csv", ROOT / EXTENSION / "spectroscopy.csv", ROOT / NAKED_EYE / "spectroscopy.csv"]
 SYSTEM_SCOPE = "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
 # Generous log g (cgs) ranges; they reject impossible values, not unusual stars.
 TYPE_BOUNDS = {"star": (-1, 6.5), "white_dwarf": (6, 10), "brown_dwarf": (2.5, 6), "sub_brown_dwarf": (2.5, 6)}
@@ -86,6 +87,10 @@ def objects():
     for star in json.loads(COMPANIONS.read_text())["stars"]:
         stars.setdefault(star["id"], star)
         catalogs.setdefault(star["id"], set()).add("companions")
+    # Naked-eye stars copies curated records verbatim; a copy lists nothing together that its own catalog does not.
+    for names in catalogs.values():
+        if len(names) > 1:
+            names.discard("naked-eye-stars")
     return stars, catalogs
 
 
@@ -103,6 +108,7 @@ def build():
     retired = {(entry["id"], entry["expectedPrevious"]) for entry in json.loads(RETIREMENTS.read_text())["retirements"]
                if entry["path"] == str(OUTPUT.relative_to(ROOT)) and entry["field"] == "log_g"}
     spectra = spectroscopy_index(True)
+    spectra = {**spectroscopy_index(NAKED_EYE), **spectra}
     assumed = assumed_sources(spectra)
     adopted, withheld = {}, {"shared-identity": 0, "conflicting": 0, "implausible": 0}
     stars, catalogs = objects()

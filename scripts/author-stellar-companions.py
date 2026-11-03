@@ -153,7 +153,8 @@ def build():
     aliases = {identifier: c["starId"] for s in definitions for c in s["components"] for identifier in [c["starId"], *c.get("alternateStarIds", [])]}
     stars = {}
     catalog_sources = []
-    sources = [*sorted((ROOT / "src/data/catalogs").glob("*/stars.csv")),
+    # Naked-eye stars copies curated rows and adds unresolved single records; its systems are not authored here yet.
+    sources = [*sorted(path for path in (ROOT / "src/data/catalogs").glob("*/stars.csv") if path.parent.name != "naked-eye-stars"),
                ROOT / "catalog-work/famous-cluster-stars/retired-catalog/stars.csv",
                ROOT / "catalog-work/bright-stars/retired-catalog/stars.csv"]
     for path in [*sorted(sources, key=lambda p: read_json(p.parent / "catalog.json")["id"]), ROOT / "src/data/stars.csv"]:

@@ -327,6 +327,7 @@ let magnitudeLimit = 7
 let hideFainterObjects = false
 let objectDistanceLimitLy = 100
 let showWesternConstellationStars = false
+let showNakedEyeStars = false
 let showNotableDistantStars = false
 let gridVisible = true
 let skyGridMode: SkyGridMode = 'off'
@@ -368,12 +369,13 @@ let visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availabl
 let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
+const NAKED_EYE_CATALOG_ID = 'naked-eye-stars'
 const NOTABLE_DISTANT_CATALOG_ID = 'notable-distant-stars'
 // Retired catalog IDs (bright-stars) restore saved selections on their surviving records.
 const legacyStarId = (id: string) => (legacyStarIds.ids as Record<string, string>)[id] ?? id
 
 // Nearest-N catalogs form an ordered size progression; the landmark catalogs are additive toggles.
-const ADDITIVE_CATALOG_IDS: readonly string[] = [WESTERN_CONSTELLATION_CATALOG_ID, NOTABLE_DISTANT_CATALOG_ID]
+const ADDITIVE_CATALOG_IDS: readonly string[] = [WESTERN_CONSTELLATION_CATALOG_ID, NAKED_EYE_CATALOG_ID, NOTABLE_DISTANT_CATALOG_ID]
 const sliderCatalogs = catalogs.filter((catalog) => !ADDITIVE_CATALOG_IDS.includes(catalog.manifest.id))
   .sort((first, second) => first.manifest.objectCount - second.manifest.objectCount)
 const savedFilter = readSavedFilter(sliderCatalogs.map((catalog) => catalog.manifest.id))
@@ -381,6 +383,7 @@ const initialCatalogId = savedFilter?.catalogId ?? 'nearest-neighbors'
 if (savedFilter) {
   // The retired bright-star switch now maps to the constellation catalog that contains its stars.
   showWesternConstellationStars = savedFilter.showWesternConstellationStars || savedFilter.showAlwaysBright
+  showNakedEyeStars = savedFilter.showNakedEyeStars ?? false
   showNotableDistantStars = savedFilter.showNotableDistantStars ?? false
   filterCategories.clear()
   savedFilter.filterCategories.forEach((category) => filterCategories.add(category))
@@ -2769,9 +2772,10 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       types.some((type) => visibleKeys.has(type)) ? load() : Promise.resolve([])
     const loadAdditive = (catalogId: string, enabled: boolean) => enabled && id !== catalogId
       ? catalogs.find((catalog) => catalog.manifest.id === catalogId)!.load() : Promise.resolve([])
-    const [selectedCatalog, westernConstellationCatalog, notableDistantCatalog, compactObjects, nebulae, molecularClouds, bubbles] = await Promise.all([
+    const [selectedCatalog, westernConstellationCatalog, nakedEyeCatalog, notableDistantCatalog, compactObjects, nebulae, molecularClouds, bubbles] = await Promise.all([
       definition.load(),
       loadAdditive(WESTERN_CONSTELLATION_CATALOG_ID, showWesternConstellationStars),
+      loadAdditive(NAKED_EYE_CATALOG_ID, showNakedEyeStars),
       // Pulsar companions live here, so visible pulsars bring their systems along.
       loadAdditive(NOTABLE_DISTANT_CATALOG_ID, showNotableDistantStars || visibleKeys.has('pulsar')),
       loadOverlay(COMPACT_OBJECT_TYPES, loadCompactRemnants),
@@ -2780,7 +2784,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       loadOverlay(BUBBLE_OBJECT_TYPES, loadBubbles),
     ])
     reachLy = selectedCatalog.reduce((farthest, star) => Math.max(farthest, Math.hypot(star.x_pc, star.y_pc, star.z_pc)), 0) * LIGHT_YEARS_PER_PARSEC
-    const withConstellationStars = mergeCatalogStars(mergeCatalogStars(selectedCatalog, westernConstellationCatalog), notableDistantCatalog)
+    const withConstellationStars = mergeCatalogStars(mergeCatalogStars(mergeCatalogStars(selectedCatalog, westernConstellationCatalog), nakedEyeCatalog), notableDistantCatalog)
     nextStars = [...withConstellationStars, ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles]
     nextStars = mergeCatalogStars(nextStars, [...constellationSelectedSystems.values()].flat())
   } catch (error) {
@@ -3166,6 +3170,7 @@ function currentSavedViewSettings(): SavedViewSettings | null {
     catalogId: activeCatalogId,
     showAlwaysBright: false,
     showWesternConstellationStars,
+    showNakedEyeStars,
     showNotableDistantStars,
     showFamousClusterStars: false,
     filterCategories: [...filterCategories],
@@ -3231,6 +3236,7 @@ function saveCurrentView(): void {
 function syncFilterInputs(): void {
   renderCatalogRange(activeCatalogId)
   element<HTMLInputElement>('show-western-constellation-stars').checked = showWesternConstellationStars
+  element<HTMLInputElement>('show-naked-eye-stars').checked = showNakedEyeStars
   element<HTMLInputElement>('show-notable-distant-stars').checked = showNotableDistantStars
   const distanceIndex = OBJECT_DISTANCE_STEPS_LY.indexOf(objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])
   const distanceInput = element<HTMLInputElement>('object-distance-limit')
@@ -3257,6 +3263,7 @@ function syncSceneAndMotionInputs(): void {
 
 function resetAllFilters(): void {
   showWesternConstellationStars = false
+  showNakedEyeStars = false
   showNotableDistantStars = false
   filterCategories.clear()
   DEFAULT_FILTER_CATEGORIES.forEach((category) => filterCategories.add(category))
@@ -3283,6 +3290,7 @@ function saveCurrentFilter(): void {
     catalogId: activeCatalogId,
     showAlwaysBright: false,
     showWesternConstellationStars,
+    showNakedEyeStars,
     showNotableDistantStars,
     filterCategories: [...filterCategories],
     filterSubtypes: [...filterSubtypes],
@@ -3337,6 +3345,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   observerViewAnchorId = null
   visibilityLockId = null
   showWesternConstellationStars = settings.showWesternConstellationStars || settings.showFamousClusterStars || settings.showAlwaysBright
+  showNakedEyeStars = settings.showNakedEyeStars ?? false
   showNotableDistantStars = settings.showNotableDistantStars ?? false
   filterCategories.clear()
   settings.filterCategories.forEach((category) => filterCategories.add(category))
@@ -4036,6 +4045,10 @@ catalogRange.addEventListener('change', () => {
 }, { signal: events.signal })
 element('show-western-constellation-stars').addEventListener('change', () => {
   showWesternConstellationStars = element<HTMLInputElement>('show-western-constellation-stars').checked
+  void switchCatalog(activeCatalogId, true)
+}, { signal: events.signal })
+element('show-naked-eye-stars').addEventListener('change', () => {
+  showNakedEyeStars = element<HTMLInputElement>('show-naked-eye-stars').checked
   void switchCatalog(activeCatalogId, true)
 }, { signal: events.signal })
 element('show-notable-distant-stars').addEventListener('change', () => {
