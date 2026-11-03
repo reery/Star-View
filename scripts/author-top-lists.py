@@ -22,7 +22,7 @@ OUTPUT = ROOT / "src/data/top-lists.json"
 FROZEN = ROOT / "catalog-work/top-lists/simbad.json"
 CATALOGS = ROOT / "src/data/generated/catalogs"
 # Earlier catalogs win, so links prefer the landmark records.
-CATALOG_ORDER = ["western-constellation-stars", "nearest-1000", "nearest-5000", "nearest-100"]
+CATALOG_ORDER = ["western-constellation-stars", "nearest-1000", "nearest-5000", "nearest-100", "naked-eye-stars"]
 LY_PER_PC = 3.261563777
 
 LARGEST = "https://en.wikipedia.org/w/index.php?oldid=1381460615"
@@ -264,10 +264,12 @@ PIONEER_NOTES = {"PSR B1240-64": "Its period was known to only three significant
 # The source lists Betelgeuse at 408–548 ly; the upper estimate carries its uncertainty.
 SUPERNOVA_DISTANCE_SOURCES = {"Betelgeuse": "Source range 408–548 ly"}
 # Components that SIMBAD resolves only as their system; the source's γ² Vel B is the O-type companion.
+# None keeps a component unlinked when the only catalog record is another component (15 Mon is S Mon A).
 COMPONENTS = {
     "Acrux B": ("western-constellation-stars", "msc-12266-6306-b"),
     "Beta Centauri Ab (Hadar)": ("western-constellation-stars", "msc-14038-6022-ab"),
     "Gamma² Velorum B": ("western-constellation-stars", "msc-08095-4720-ab"),
+    "S Monocerotis B": None,
 }
 
 
@@ -327,7 +329,7 @@ def entry(index, frozen, name, identifier, value, distance_pc, distance_source=N
 def candidate(index, records, frozen, name, identifier, ly, spectral_class, stage, supernova_type):
     row = entry(index, frozen, name, identifier, None, ly / LY_PER_PC, SUPERNOVA_DISTANCE_SOURCES.get(name))
     if name in COMPONENTS:
-        row["object"] = records[COMPONENTS[name]]
+        row["object"] = COMPONENTS[name] and records[COMPONENTS[name]]
     row["fields"] = [spectral_class, stage, supernova_type]
     return row
 
