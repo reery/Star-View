@@ -9,6 +9,7 @@ Run with --check to compare the checked-in files without writing them.
 """
 
 import argparse
+import bisect
 import csv
 import importlib.util
 import io
@@ -48,6 +49,8 @@ LIGHT_YEARS_PER_PARSEC = 3.261563777
 MAX_DISTANCE_PC = 20000 / LIGHT_YEARS_PER_PARSEC
 # A star within this radius of a curated record at a consistent distance is that record's object or system.
 MATCH_ARCSEC = 20
+# Separation is never below the declination difference; the margin covers rounding in the separation test.
+MATCH_DEC_WINDOW_DEG = (MATCH_ARCSEC + 1) / 3600
 GAIA_DR3_BIBCODE = "2020yCat.1350....0G"
 # Against the snapshot's spectroscopic consensus, GSP-Phot Teff misses by over 20 percent for 62% of
 # O, 47% of B0-B4 and 37% of M stars, but at most 8% of later classes. FLAME values inherit that Teff.
@@ -98,7 +101,7 @@ def snapshot():
 
 
 def curated_records():
-    """Rows of the curated catalogs, an exact identifier index and positions."""
+    """Rows of the curated catalogs, an exact identifier index and positions ordered by declination."""
     rows = {}
     for catalog in SOURCE_CATALOGS:
         for row in csv_rows(ROOT / f"src/data/catalogs/{catalog}/stars.csv"):
@@ -133,7 +136,7 @@ def curated_records():
                                          "pm_ra_cosdec_masyr": raw.get("pm_ra_cosdec_masyr"), "pm_dec_masyr": raw.get("pm_dec_masyr")})
             distance = math.dist((0, 0, 0), (star["x_pc"], star["y_pc"], star["z_pc"]))
             positions += [(identifier, direction, distance) for identifier in members.get(star["id"], [])]
-    return rows, index, positions
+    return rows, index, sorted(positions, key=lambda item: item[1][1])
 
 
 def j2000_direction(row):
@@ -155,7 +158,9 @@ def curated_match(source, index, positions, distance):
         return [], None
     # A component without its own parallax belongs to the curated system at its position.
     direction = (float(source["ra"]), float(source["dec"]))
-    nearby = sorted(identifier for identifier, position, curated_distance in positions
+    band = positions[bisect.bisect_left(positions, direction[1] - MATCH_DEC_WINDOW_DEG, key=lambda item: item[1][1]):
+                     bisect.bisect_right(positions, direction[1] + MATCH_DEC_WINDOW_DEG, key=lambda item: item[1][1])]
+    nearby = sorted(identifier for identifier, position, curated_distance in band
                     if separation_arcsec(direction, position) <= MATCH_ARCSEC and (distance is None or 2 / 3 <= curated_distance / distance <= 3 / 2))
     method = f"position within {MATCH_ARCSEC} arcsec" + (" at a consistent distance" if distance else "; no parallax of its own")
     return nearby, method if nearby else None
@@ -188,15 +193,13 @@ def star_id(source):
     return re.sub(r"[^a-z0-9]+", "-", landmarks.display_name(source).casefold()).strip("-")
 
 
-def new_row(source, identifier, gaia, distance, distance_provenance, retrieved, system=None):
+def new_row(source, identifier, gaia, distance, distance_provenance, retrieved, constellation, system=None):
     ra, dec = math.radians(float(source["ra"])), math.radians(float(source["dec"]))
     radial = (math.cos(dec) * math.cos(ra), math.cos(dec) * math.sin(ra), math.sin(dec))
     east = (-math.sin(ra), math.cos(ra), 0)
     north = (-math.sin(dec) * math.cos(ra), -math.sin(dec) * math.sin(ra), math.cos(dec))
     position = landmarks.matrix_vector(landmarks.ICRS_TO_GALACTIC, tuple(distance * value for value in radial))
     visual = float(source["v"])
-    constellation = get_constellation(SkyCoord(ra=float(source["ra"]) * units.deg, dec=float(source["dec"]) * units.deg, frame="icrs"),
-                                      short_name=False, constellation_list="iau").strip()
     row = {header: "" for header in landmarks.HEADERS}
     row.update({
         "type": "star", "id": identifier, "name": landmarks.display_name(source), "spectral_type": source["sp_type"],
@@ -282,14 +285,18 @@ def build():
             entry.update({"status": "represented", "reason": f"component of {', '.join(nearby)}; no parallax of its own"})
     rows, provenance = [], {"sun": {"origin": "Map origin; not a naked-eye selection."}}
     taken = set(curated)
-    for item in new:
+    # One vectorized lookup; per-star SkyCoord transforms dominate otherwise.
+    constellations = get_constellation(SkyCoord(ra=[float(item["source"]["ra"]) for item in new] * units.deg,
+                                                dec=[float(item["source"]["dec"]) for item in new] * units.deg, frame="icrs"),
+                                       short_name=False, constellation_list="iau") if new else []
+    for item, constellation in zip(new, constellations):
         source = item["source"]
         identifier = star_id(source)
         if identifier in taken:
             raise ValueError(f"Naked-eye star ID collides with an existing record: {identifier} ({source['main_id']})")
         taken.add(identifier)
         # Gaia errors describe the component's own source, not its system's motion.
-        row = new_row(source, identifier, None if item["system"] else gaia.get(item["gaiaId"]), item["distance"], item["distanceProvenance"], retrieved, item["system"])
+        row = new_row(source, identifier, None if item["system"] else gaia.get(item["gaiaId"]), item["distance"], item["distanceProvenance"], retrieved, str(constellation).strip(), item["system"])
         gaia_suitable = not re.match(GAIA_UNSUITABLE_TYPES, source["sp_type"] or "")
         error = number(source["plx_err"])
         flame_suitable = bool(error) and float(source["plx_value"]) / error >= FLAME_MIN_PARALLAX_SNR
