@@ -41,8 +41,8 @@ export function createOortCloudLayer(sunPosition: Vector3): OortCloudLayer {
   sprite.name = 'oort-cloud'
   sprite.position.copy(sunPosition)
   sprite.scale.setScalar(OORT_CLOUD_RADIUS_PC * 2)
-  // Behind star cores, above the Milky Way panorama.
-  sprite.renderOrder = 1.5
+  // Behind star cores, after the dust cloud bodies (1.8) so only clouds in front of it dim it.
+  sprite.renderOrder = 1.9
   sprite.visible = false
   return {
     sprite,

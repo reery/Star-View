@@ -1,6 +1,6 @@
 import {
   Color, CustomBlending, DataTexture, Float32BufferAttribute, InstancedBufferAttribute, InstancedBufferGeometry,
-  LinearFilter, Mesh, OneFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, RedFormat, RepeatWrapping, ShaderMaterial, UnsignedByteType, Vector3,
+  LinearFilter, Mesh, OneFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, RedFormat, RepeatWrapping, ShaderMaterial, UnsignedByteType, Vector3, ZeroFactor,
 } from 'three'
 import type { NebulaDetails, Star } from './catalog-model'
 import { galacticToWorld, type StarColorMode } from './astronomy'
@@ -24,7 +24,7 @@ export function seededRandom(seed: number): () => number {
   }
 }
 
-function gaussian(random: () => number): number {
+export function gaussian(random: () => number): number {
   return Math.sqrt(-2 * Math.log(1 - random())) * Math.cos(2 * Math.PI * random())
 }
 
@@ -57,6 +57,9 @@ export interface NebulaPuffs {
   realColors: Float32Array
   vividColors: Float32Array
 }
+
+/** The instance data every puff layer draws; `local` is only needed to build nebula shapes. */
+export type PuffInstances = Omit<NebulaPuffs, 'local'>
 
 function paletteColor(palette: readonly string[], t: number, target: Color, scratch: Color): Color {
   const scaled = Math.max(0, Math.min(1, t)) * (palette.length - 1)
@@ -185,7 +188,7 @@ export function generateNebulaPuffs(star: Star, observer: Vector3): NebulaPuffs 
 
 // Copies each visible nebula's first LOD fraction of puffs into the front of the target buffers.
 export function packNebulaInstances(
-  sources: readonly NebulaPuffs[],
+  sources: readonly PuffInstances[],
   visible: readonly boolean[],
   fraction: number,
   target: { centers: Float32Array; shapes: Float32Array; realColors: Float32Array; vividColors: Float32Array },
@@ -242,12 +245,27 @@ export interface NebulaLayer {
   setLevelOfDetail(fraction: number): void
   setColorMode(mode: StarColorMode): void
   setViewportHeight(pixels: number): void
+  /** Scales every puff's opacity, e.g. to fade the whole layer in. */
+  setOpacity(opacity: number): void
   instanceCount(): number
   dispose(): void
 }
 
 export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, mode: StarColorMode): NebulaLayer {
-  const sources = nebulae.map((nebula) => generateNebulaPuffs(nebula, observer))
+  return createPuffLayer(nebulae.map((nebula) => generateNebulaPuffs(nebula, observer)), mode)
+}
+
+export interface PuffLayerOptions {
+  /** Dim what lies behind instead of emitting light; the puff color is the absorbed fraction. */
+  absorb?: boolean
+  maxScreenFraction?: number
+}
+
+export function createPuffLayer(
+  sources: readonly PuffInstances[],
+  mode: StarColorMode,
+  { absorb = false, maxScreenFraction = NEBULA_MAX_SCREEN_FRACTION }: PuffLayerOptions = {},
+): NebulaLayer {
   const capacity = sources.reduce((sum, puffs) => sum + puffs.count, 0)
   const geometry = new InstancedBufferGeometry()
   geometry.setAttribute('position', new Float32BufferAttribute([-1, -1, 0, 1, -1, 0, 1, 1, 0, -1, 1, 0], 3))
@@ -273,7 +291,7 @@ export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, m
     gain: { value: mode === 'exaggerated' ? 2.6 : 2.3 },
     alphaScale: { value: 1 },
     viewportHeight: { value: 1 },
-    maxScreenFraction: { value: NEBULA_MAX_SCREEN_FRACTION },
+    maxScreenFraction: { value: maxScreenFraction },
     minPixels: { value: MIN_PUFF_PIXELS },
   }
   const material = new ShaderMaterial({
@@ -281,10 +299,11 @@ export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, m
     transparent: true,
     // Screen compositing gives overlapping emission a gentle highlight rolloff
     // instead of clipping large areas to white and overwhelming stellar marks.
+    // Absorbing puffs instead multiply what lies behind by one minus their color.
     blending: CustomBlending,
-    blendSrc: OneFactor,
+    blendSrc: absorb ? ZeroFactor : OneFactor,
     blendDst: OneMinusSrcColorFactor,
-    blendSrcAlpha: OneFactor,
+    blendSrcAlpha: absorb ? ZeroFactor : OneFactor,
     blendDstAlpha: OneMinusSrcAlphaFactor,
     premultipliedAlpha: true,
     depthTest: true,
@@ -362,8 +381,9 @@ export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, m
   // After opaque-like star cores (2), before additive stellar halos (3).
   mesh.renderOrder = 2.5
   mesh.visible = false
-  let visibility: boolean[] = nebulae.map(() => false)
+  let visibility: boolean[] = sources.map(() => false)
   let fraction = 1
+  let opacity = 1
   let packedKey = ''
 
   function repack(): void {
@@ -373,7 +393,7 @@ export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, m
     const count = packNebulaInstances(sources, visibility, fraction, buffers)
     geometry.instanceCount = count
     mesh.visible = count > 0
-    uniforms.alphaScale.value = 1 / fraction
+    uniforms.alphaScale.value = opacity / fraction
     if (count === 0) return
     for (const [, attribute] of attributes) {
       attribute.clearUpdateRanges()
@@ -385,7 +405,7 @@ export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, m
   return {
     mesh,
     setVisible(next) {
-      visibility = nebulae.map((_, index) => next[index] === true)
+      visibility = sources.map((_, index) => next[index] === true)
       repack()
     },
     setLevelOfDetail(next) {
@@ -399,6 +419,10 @@ export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, m
     },
     setViewportHeight(pixels) {
       if (pixels > 0) uniforms.viewportHeight.value = pixels
+    },
+    setOpacity(next) {
+      opacity = next
+      uniforms.alphaScale.value = opacity / fraction
     },
     instanceCount: () => geometry.instanceCount,
     dispose() {
