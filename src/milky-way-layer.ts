@@ -1,11 +1,17 @@
-import { BackSide, BoxGeometry, LinearFilter, Mesh, RepeatWrapping, ShaderMaterial, SRGBColorSpace, Texture, Vector2 } from 'three'
+import { BackSide, BoxGeometry, Group, LinearFilter, Mesh, RepeatWrapping, ShaderMaterial, SRGBColorSpace, Texture, Vector2 } from 'three'
+import { LIGHT_YEARS_PER_PARSEC, type StarColorMode } from './astronomy'
+import type { GalaxyLayer } from './galaxy-layer'
 import milkyWayAvifUrl from './assets/milky-way.avif'
 import milkyWayJpegUrl from './assets/milky-way.jpg'
 
 export interface MilkyWayLayer {
-  mesh: Mesh
+  /** The panorama and, once loaded, the Galaxy seen from outside. */
+  group: Group
   setVisible(visible: boolean): void
-  setSaturation(saturation: number): void
+  setColorMode(mode: StarColorMode): void
+  /** Crossfades from the Sun's sky panorama to the Galaxy as the camera leaves the Sun. */
+  setSunDistance(distancePc: number): void
+  setViewportHeight(pixels: number): void
   /** Reload after a restored WebGL context: the decoded panorama is not retained after upload. */
   reload(): void
   /** Advances the fade-in; returns true while another frame is needed. */
@@ -14,6 +20,18 @@ export interface MilkyWayLayer {
 }
 
 const FADE_MS = 800
+// The panorama is the Sun's sky: it fades out between 5,000 and 20,000 ly from the Sun,
+// while the Galaxy builds up from 3,000 ly to full strength at 40,000 ly.
+const PANORAMA_FADE_PC = [5_000, 20_000].map((ly) => ly / LIGHT_YEARS_PER_PARSEC) as [number, number]
+const GALAXY_FADE_PC = [3_000, 40_000].map((ly) => ly / LIGHT_YEARS_PER_PARSEC) as [number, number]
+
+/** Smoothstep over the logarithm of distance, so each zoom step changes the fade alike. */
+export function distanceFade(distancePc: number, [start, end]: readonly [number, number]): number {
+  const t = Math.min(1, Math.max(0, Math.log(distancePc / start) / Math.log(end / start)))
+  return t * t * (3 - 2 * t)
+}
+
+const saturationForMode = (mode: StarColorMode) => mode === 'exaggerated' ? 1.3 : 1
 
 // A 1×1 AVIF: browsers that cannot decode it receive the JPEG instead of downloading both.
 const AVIF_PROBE = 'data:image/avif;base64,AAAAHGZ0eXBhdmlmAAAAAG1pZjFhdmlmbWlhZgAAANZtZXRhAAAAAAAAACFoZGxyAAAAAAAAAABwaWN0AAAAAAAAAAAAAAAAAAAAACJpbG9jAAAAAERAAAEAAQAAAAAA+gABAAAAAAAAAB4AAAAjaWluZgAAAAAAAQAAABVpbmZlAgAAAAABAABhdjAxAAAAAA5waXRtAAAAAAABAAAAVmlwcnAAAAA4aXBjbwAAAAxhdjFDgSACAAAAABRpc3BlAAAAAAAAAAEAAAABAAAAEHBpeGkAAAAAAwgICAAAABZpcG1hAAAAAAAAAAEAAQOBAgMAAAAmbWRhdBIACgc4AAbQENBpMhEZQmMEwAA0AAAAkEDJHGFCvg=='
@@ -75,13 +93,17 @@ function releaseMilkyWayTexture(contextLost = false): void {
 // this preserves its exact Galactic orientation: the centre points toward
 // Galactic x, north is +world y, and increasing longitude points toward
 // -world z, matching galacticToWorld().
-export function createMilkyWayLayer(saturation: number, maxTextureSize: number, reducedMotion: MediaQueryList, onLoad: (ready: boolean | null) => void): MilkyWayLayer {
+export function createMilkyWayLayer(
+  mode: StarColorMode, maxTextureSize: number, reducedMotion: MediaQueryList,
+  onLoad: (ready: boolean | null) => void, onGalaxyLoad: () => void,
+): MilkyWayLayer {
   const uniforms = {
     map: { value: null as Texture | null },
     texelSize: { value: new Vector2() },
     intensity: { value: 0.12 },
-    saturation: { value: saturation },
+    saturation: { value: saturationForMode(mode) },
     opacity: { value: 1 },
+    distanceOpacity: { value: 1 },
   }
   const geometry = new BoxGeometry(1, 1, 1)
   const material = new ShaderMaterial({
@@ -106,6 +128,7 @@ export function createMilkyWayLayer(saturation: number, maxTextureSize: number, 
       uniform float intensity;
       uniform float saturation;
       uniform float opacity;
+      uniform float distanceOpacity;
       varying vec3 worldDirection;
       #include <common>
       void main() {
@@ -126,7 +149,7 @@ export function createMilkyWayLayer(saturation: number, maxTextureSize: number, 
         float skyAlpha = max(max(skyColor.r, skyColor.g), skyColor.b);
         gl_FragColor = vec4(skyColor, skyAlpha);
         #include <colorspace_fragment>
-        gl_FragColor *= opacity;
+        gl_FragColor *= opacity * distanceOpacity;
       }
     `,
   })
@@ -137,11 +160,40 @@ export function createMilkyWayLayer(saturation: number, maxTextureSize: number, 
   mesh.onBeforeRender = (_renderer, _scene, activeCamera) => {
     mesh.matrixWorld.copyPosition(activeCamera.matrixWorld)
   }
+  const group = new Group()
+  group.add(mesh)
   let visible = false
   let requested: Promise<Panorama> | undefined
   let disposed = false
   let fadeStarted: number | null = null
   let fading = false
+  let colorMode = mode
+  let viewportHeight = 1
+  let galaxyOpacity = 0
+  let galaxy: GalaxyLayer | null = null
+  let galaxyRequested = false
+
+  function updateMeshVisibility(): void {
+    mesh.visible = visible && uniforms.map.value !== null && uniforms.distanceOpacity.value > 0
+  }
+
+  // Generated on first need from a small separate module; never fetched while the Milky Way is hidden.
+  function updateGalaxy(): void {
+    if (galaxy) galaxy.setOpacity(visible ? galaxyOpacity : 0)
+    else if (visible && galaxyOpacity > 0 && !galaxyRequested) {
+      galaxyRequested = true
+      import('./galaxy-layer').then(({ createGalaxyLayer }) => {
+        if (disposed) return
+        galaxy = createGalaxyLayer(colorMode)
+        galaxy.setViewportHeight(viewportHeight)
+        group.add(galaxy.group)
+        updateGalaxy()
+        onGalaxyLoad()
+      }, () => {
+        galaxyRequested = false
+      })
+    }
+  }
 
   function load(): void {
     if (uniforms.map.value) return
@@ -160,7 +212,7 @@ export function createMilkyWayLayer(saturation: number, maxTextureSize: number, 
       const textureWidth = Math.min(width, maxTextureSize)
       const textureHeight = height * textureWidth / width
       uniforms.texelSize.value.set(1 / textureWidth, 1 / textureHeight)
-      mesh.visible = visible
+      updateMeshVisibility()
       onLoad(true)
     }, () => {
       if (disposed || pending !== requested) return
@@ -181,15 +233,28 @@ export function createMilkyWayLayer(saturation: number, maxTextureSize: number, 
   }
 
   return {
-    mesh,
+    group,
     setVisible(next) {
       visible = next
       if (next) load()
       else release()
-      mesh.visible = next && uniforms.map.value !== null
+      updateMeshVisibility()
+      updateGalaxy()
     },
-    setSaturation(next) {
-      uniforms.saturation.value = next
+    setColorMode(next) {
+      colorMode = next
+      uniforms.saturation.value = saturationForMode(next)
+      galaxy?.setColorMode(next)
+    },
+    setSunDistance(distance) {
+      uniforms.distanceOpacity.value = 1 - distanceFade(distance, PANORAMA_FADE_PC)
+      updateMeshVisibility()
+      galaxyOpacity = distanceFade(distance, GALAXY_FADE_PC)
+      updateGalaxy()
+    },
+    setViewportHeight(pixels) {
+      viewportHeight = pixels
+      galaxy?.setViewportHeight(pixels)
     },
     reload() {
       release(true)
@@ -207,6 +272,7 @@ export function createMilkyWayLayer(saturation: number, maxTextureSize: number, 
       disposed = true
       geometry.dispose()
       material.dispose()
+      galaxy?.dispose()
     },
   }
 }

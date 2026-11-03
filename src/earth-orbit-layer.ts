@@ -1,4 +1,4 @@
-import { BufferGeometry, CanvasTexture, Group, Line, LineBasicMaterial, Points, PointsMaterial, SRGBColorSpace, Vector3 } from 'three'
+import { AlwaysDepth, BufferGeometry, CanvasTexture, Group, Line, LineBasicMaterial, Points, PointsMaterial, SRGBColorSpace, Vector3 } from 'three'
 import { EARTH_AXIS_DISPLAY_HALF_LENGTH_PC, earthOrbitMarker, earthOrbitPoints } from './earth-orbit'
 
 export interface EarthOrbitLayer {
@@ -35,11 +35,13 @@ export function createEarthOrbitLayer(sunPosition: Vector3): EarthOrbitLayer {
   group.position.copy(sunPosition)
   const orbitLine = new Line(
     new BufferGeometry().setFromPoints(earthOrbitPoints()),
-    new LineBasicMaterial({ color: 0x5dbfea, transparent: true, opacity: 0.82, depthTest: false, depthWrite: false, toneMapped: false }),
+    // Always drawn on top, but still depth-tested so dust clouds behind it know it lies in front.
+    new LineBasicMaterial({ color: 0x5dbfea, transparent: true, opacity: 0.82, depthTest: true, depthFunc: AlwaysDepth, depthWrite: false, toneMapped: false }),
   )
   orbitLine.name = 'earth-orbit-line'
   orbitLine.frustumCulled = false
-  orbitLine.renderOrder = 1
+  // After the dust cloud bodies (1.8), which darken everything drawn before them, and before star cores (2).
+  orbitLine.renderOrder = 1.85
 
   const texture = earthMarkerTexture()
   const pointGeometry = new BufferGeometry().setFromPoints([new Vector3()])

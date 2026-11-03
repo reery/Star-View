@@ -24,7 +24,7 @@ This project is still in active development and there are a lot of features to c
 - Type-aware inspector with stellar, compact-object, molecular-cloud, nebula or interstellar-bubble properties and source notes
 - Searchable origin-relative list of objects matching the active distance and object-type filters
 - Map filters for brightness as seen from the selected star, distance from the active origin (to 3000 light-years), object type, and an optional deduplicated bright-star overlay
-- Real or exaggerated temperature colors, magnitude-based glow, motion arrows, a seasonal Earth-orbit reference and an optional Galactic-aligned 360° Milky Way backdrop
+- Real or exaggerated temperature colors, magnitude-based glow, motion arrows, a seasonal Earth-orbit reference and an optional Galactic-aligned 360° Milky Way backdrop that gives way to the whole Galaxy when zoomed far out
 - Distance and height guides relative to the active origin
 - Rotation-only **Observer view** from any selected object, with the observing object hidden and other stars still selectable
 - Light-year or parsec units, grid toggle and an optional power-saving mode

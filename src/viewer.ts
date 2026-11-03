@@ -22,6 +22,7 @@ import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLa
 import { createNebulaLayer } from './nebula-layer'
 import { createMolecularCloudLayer } from './molecular-cloud-layer'
 import { createBubbleLayer } from './bubble-layer'
+import { createFaintObjectClouds, faintObjectBlobs, isFaintObject } from './faint-object-cloud'
 import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
 import { mapComponentVisibility } from './star-systems'
 import { createSpaceshipModel, SPACESHIP_LENGTH_PC, spaceshipMoving, stepSpaceship, type Spaceship, type SpaceshipInput, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
@@ -325,12 +326,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   camera.far = controls.maxDistance * 5
 
   let milkyWayVisible = options.milkyWayVisible ?? true
-  const milkyWay = createMilkyWayLayer(starColorMode === 'exaggerated' ? 1.3 : 1, renderer.capabilities.maxTextureSize, reducedMotion, (ready) => {
+  const milkyWay = createMilkyWayLayer(starColorMode, renderer.capabilities.maxTextureSize, reducedMotion, (ready) => {
     if (ready === null) delete container.dataset.milkyWayReady
     else container.dataset.milkyWayReady = ready ? 'true' : 'error'
     if (ready) requestRender()
-  })
-  scene.add(milkyWay.mesh)
+  }, () => requestRender())
+  scene.add(milkyWay.group)
 
   const starViewDistance = { value: camera.position.distanceTo(controls.target) }
   const { dotTexture, haloTexture, starMaterial, haloMaterial } = createStarAppearance(starViewDistance, true)
@@ -444,6 +445,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     ? createBubbleLayer(bubbleIndices.map((index) => stars[index]!), starColorMode)
     : null
   if (bubbleLayer) scene.add(bubbleLayer.mesh)
+  // Far away, blobs of red dwarfs and fainter objects draw as one cloud each.
+  const faintBlobs = faintObjectBlobs(basePositions, (index) => isFaintObject(stars[index]!))
+  const faintBlobOf = new Int32Array(stars.length).fill(-1)
+  faintBlobs.forEach(({ members }, blob) => members.forEach((index) => { faintBlobOf[index] = blob }))
+  const faintHidden = new Uint8Array(stars.length)
+  const faintClouds = createFaintObjectClouds(faintBlobs, starColorMode)
+  scene.add(faintClouds.group)
 
   const arrowCapacity = Math.max(1, motions.filter(Boolean).length)
   const {
@@ -1284,6 +1292,18 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       bubbleLayer.setVisible(bubbleVisibility)
       labelLayer.dataset.bubbleVisibleCount = String(bubbleVisibility.filter(Boolean).length)
     }
+    // The selected object always stays drawn, even inside a collapsed blob.
+    const faintShown = faintBlobs.map(() => false)
+    let faintHiddenCount = 0
+    stars.forEach((star, index) => {
+      const blob = faintBlobOf[index]!
+      const member = blob >= 0 && mapVisible[index] === 1 && star.id !== selectedId
+      if (member) faintShown[blob] = true
+      faintHidden[index] = member && faintClouds.collapsed(blob) ? 1 : 0
+      faintHiddenCount += faintHidden[index]!
+    })
+    faintClouds.setShown(faintShown)
+    setData(labelLayer, 'faintCloudHiddenCount', String(faintHiddenCount))
     coreDiameters.needsUpdate = true
     coreEmphases.needsUpdate = true
     selectionEmphases.needsUpdate = true
@@ -1294,7 +1314,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     guides.visible = !observerViewEnabled && selectedId !== null && mapVisible[starsById.get(selectedId)!.index] === 1
     rankedNameGroups = []
     for (const candidate of rankedCandidates) {
-      if (candidate.index === observerIndex || !componentVisible[candidate.index] || !mapVisible[candidate.index] || tiers[candidate.index] === 'background') continue
+      if (candidate.index === observerIndex || !componentVisible[candidate.index] || !mapVisible[candidate.index] || faintHidden[candidate.index] || tiers[candidate.index] === 'background') continue
       const group = rankedNameGroups.at(-1)
       if (!group || candidate.priority !== group.priority || candidate.magnitude !== group.magnitude) {
         rankedNameGroups.push({ priority: candidate.priority, magnitude: candidate.magnitude, indices: [candidate.index] })
@@ -1321,7 +1341,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function updatePointVisibility(): void {
     const observerIndex = observerViewEnabled ? observerViewAnchorIndex ?? -1 : -1
     for (let index = 0; index < stars.length; index++) {
-      nextCoreEnabled[index] = componentVisible[index] && mapVisible[index] && index !== observerIndex
+      nextCoreEnabled[index] = componentVisible[index] && mapVisible[index] && !faintHidden[index] && index !== observerIndex
         && !isNebula[index] && !isMolecularCloud[index] && !isBubble[index] ? 1 : 0
     }
     for (let index = 0; index < stars.length; index++) {
@@ -2017,7 +2037,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     renderer.setPixelRatio(pixelRatio)
     renderer.setSize(width, height)
     nebulaLayer?.setViewportHeight(height * pixelRatio)
+    milkyWay.setViewportHeight(height * pixelRatio)
     molecularCloudLayer?.setViewportHeight(height * pixelRatio)
+    faintClouds.setViewportHeight(height * pixelRatio)
     gridOpacity.value = gridOpacityForDisplay(displayPixelRatio)
     skyGridOpacity.value = skyGridOpacityForDisplay(displayPixelRatio)
     axisMaterial.opacity = Math.min(1, 0.55 * pixelRatio)
@@ -2267,6 +2289,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (updateCameraNearPlane(camera, depthPositions, extendedDepthBounds)) invalidateProjection()
     if (earthOrbitEnabled) updateEarthOrbitVisibility()
     if (oortCloudEnabled) updateOortCloudVisibility()
+    milkyWay.setSunDistance(camera.position.distanceTo(pickable[sunIndex]!.position))
+    if (faintClouds.update(camera.position)) updatePresentation()
     // Looking at a distant object from the origin is still a close sky view.
     // Fade the overview only after retreating from both origin and orbit target.
     // Painted sizes and halos are the comparison, so zooming out keeps them unless asked to shrink.
@@ -2530,11 +2554,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setStarColorMode(mode) {
       if ((mode !== 'real' && mode !== 'exaggerated') || mode === starColorMode) return
       starColorMode = mode
-      milkyWay.setSaturation(mode === 'exaggerated' ? 1.3 : 1)
+      milkyWay.setColorMode(mode)
       updateStarColors()
       nebulaLayer?.setColorMode(mode)
       molecularCloudLayer?.setColorMode(mode)
       bubbleLayer?.setColorMode(mode)
+      faintClouds.setColorMode(mode)
       requestRender()
     },
     setStarPaint(painter) {
@@ -2690,6 +2715,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       nebulaLayer?.dispose()
       molecularCloudLayer?.dispose()
       bubbleLayer?.dispose()
+      faintClouds.dispose()
       spaceshipModel?.dispose()
       dotTexture.dispose()
       earthOrbit.dispose()
@@ -2719,6 +2745,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       delete container.dataset.spaceship
       delete labelLayer.dataset.bubbleTriangleCount
       delete labelLayer.dataset.molecularCloudPuffCount
+      delete labelLayer.dataset.faintCloudHiddenCount
     },
   }
 }
