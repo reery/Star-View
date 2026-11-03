@@ -853,9 +853,9 @@
                   <div id="object-categories" class="category-toggles" role="group" aria-label="Object categories"></div>
                   <div class="range-filter">
                     <div class="range-heading"><label for="object-distance-limit">Object visibility distance</label><output id="object-distance-limit-value" for="object-distance-limit">100 ly</output></div>
-                    <input id="object-distance-limit" type="range" min="0" max="24" step="1" value="14" aria-valuetext="100 light-years" aria-describedby="object-distance-steps">
-                    <div class="range-bounds" aria-hidden="true"><span>5 ly</span><span>10000 ly</span></div>
-                    <span id="object-distance-steps" class="sr-only">Distance steps above 100 light-years are 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, and 10000 light-years.</span>
+                    <input id="object-distance-limit" type="range" min="0" max="25" step="1" value="14" aria-valuetext="100 light-years" aria-describedby="object-distance-steps">
+                    <div class="range-bounds" aria-hidden="true"><span>5 ly</span><span>20000 ly</span></div>
+                    <span id="object-distance-steps" class="sr-only">Distance steps above 100 light-years are 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000, and 20000 light-years.</span>
                   </div>
                   <div class="range-filter">
                     <div class="range-heading"><label for="magnitude-limit">V magnitude limit</label><output id="magnitude-limit-value" for="magnitude-limit">7</output></div>
@@ -1042,14 +1042,16 @@
                       <div class="range-bounds" aria-hidden="true"><span>Off</span><span>Dec</span></div>
                       <span id="earth-orbit-mode-description" class="sr-only">Stops are Off, Now, January, February, March, April, May, June, July, August, September, October, November, and December.</span>
                     </div>
-                    <label class="filter-toggle" for="milky-way-visible">
-                      <span>Milky Way</span>
-                      <span class="switch-control"><input id="milky-way-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
-                    </label>
-                    <label class="filter-toggle" for="oort-cloud-visible">
-                      <span>Oort cloud</span>
-                      <span class="switch-control"><input id="oort-cloud-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
-                    </label>
+                    <div class="catalog-toggles" role="group" aria-label="Scene layers">
+                      <label class="filter-toggle" for="milky-way-visible">
+                        <span>Milky Way</span>
+                        <span class="switch-control"><input id="milky-way-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
+                      </label>
+                      <label class="filter-toggle" for="oort-cloud-visible">
+                        <span>Oort cloud</span>
+                        <span class="switch-control"><input id="oort-cloud-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
+                      </label>
+                    </div>
                   </section>
                   <section class="preferences-group" aria-labelledby="motion-preferences-heading">
                     <h3 id="motion-preferences-heading" class="card-subgroup-heading">Motion arrows</h3>
@@ -1081,7 +1083,7 @@
                     <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                     <div><dt>License</dt><dd>MIT</dd></div>
                     <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
-                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-03">03 November 2026</time></dd></div>
+                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-03">3 November 2026</time></dd></div>
                     <div><dt>Build date</dt><dd><time datetime="%BUILD_DATE_ISO%">%BUILD_DATE%</time></dd></div>
                     <div><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="catalog-epoch-tooltip">Position reference epoch</button><span id="catalog-epoch-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog positions use the year 2000 as their reference time.</span></dt><dd id="catalog-epoch">J2000.0</dd></div>
                     <div><dt>Version</dt><dd>%APP_VERSION%</dd></div>

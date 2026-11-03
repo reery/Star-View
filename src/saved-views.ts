@@ -8,7 +8,7 @@ import type { SavedGraphSelection } from './graphs'
 import { NEIGHBORHOOD_RADIUS_LY } from './neighborhood'
 
 export const SAVED_VIEWS_STORAGE_KEY = 'star-view-saved-views'
-export const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000] as const
+export const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000, 20000] as const
 
 export interface SavedViewSettings {
   catalogId: string
