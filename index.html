@@ -750,8 +750,8 @@
             </section>
             <div id="control-dock" class="control-dock" data-scene-obstacle>
               <div class="dock-rail" role="group" aria-label="Map and information controls">
-                <div class="discover-controls" data-toolbar-flyout role="group" aria-label="Discover">
-                  <button id="discover-toggle" class="icon-button" type="button" aria-label="Discover" aria-controls="discover-options"><span id="discover-icon"></span><span class="tooltip">Discover</span></button>
+                <div class="discover-controls" data-toolbar-flyout role="group" aria-label="Explore">
+                  <button id="discover-toggle" class="icon-button" type="button" aria-label="Explore" aria-controls="discover-options"><span id="discover-icon"></span><span class="tooltip">Explore</span></button>
                   <div id="discover-options" class="discover-options" data-toolbar-options>
                     <button id="top-lists-toggle" class="icon-button panel-button" type="button" aria-label="Top lists" aria-controls="top-lists-panel" aria-expanded="false"><span id="top-lists-icon"></span><span class="tooltip">Top lists</span></button>
                     <button id="constellations-toggle" class="icon-button panel-button" type="button" aria-label="Constellations" aria-controls="constellations-panel" aria-expanded="false"><span id="constellations-icon"></span><span class="tooltip">Constellations</span></button>
@@ -766,7 +766,12 @@
                 <button id="objects-toggle" class="icon-button panel-button" type="button" aria-label="Objects" aria-controls="objects-panel" aria-expanded="false"><span id="objects-icon"></span><span class="tooltip">Objects</span></button>
                 <button id="glossary-toggle" class="icon-button panel-button" type="button" aria-label="Glossary" aria-controls="glossary-panel" aria-expanded="false"><span id="glossary-icon"></span><span class="tooltip">Glossary</span></button>
                 <button id="preferences-toggle" class="icon-button panel-button" type="button" aria-label="Preferences" aria-controls="preferences-panel" aria-expanded="false"><span id="preferences-icon"></span><span class="tooltip">Preferences</span></button>
-                <button id="info-toggle" class="icon-button panel-button" type="button" aria-label="Info" aria-controls="info-panel" aria-expanded="false"><span id="info-icon"></span><span class="tooltip">Info</span></button>
+                <div class="info-controls" data-toolbar-flyout role="group" aria-label="Info and tutorial">
+                  <button id="info-toggle" class="icon-button panel-button" type="button" aria-label="Info" aria-controls="info-panel" aria-expanded="false"><span id="info-icon"></span><span class="tooltip">Info</span></button>
+                  <div class="info-options" data-toolbar-options>
+                    <button id="tutorial-toggle" class="icon-button" type="button" aria-label="Tutorial" aria-controls="welcome-tile"><span id="tutorial-icon"></span><span class="tooltip">Tutorial</span></button>
+                  </div>
+                </div>
                 <div class="dock-indicators" role="group" aria-label="Active view changes">
                   <button id="motion-active" class="icon-button" type="button" aria-label="Stellar motion active" aria-pressed="true" aria-controls="motion-panel" hidden><span id="motion-active-icon"></span><span class="tooltip">Stellar motion active</span></button>
                   <button id="paint-active" class="icon-button" type="button" aria-label="Paint active" aria-pressed="true" aria-controls="paint-panel" hidden><span id="paint-active-icon"></span><span class="tooltip">Paint active</span></button>
@@ -1023,48 +1028,57 @@
                 <div class="panel-heading preferences-heading"><h2 id="preferences-heading">Preferences</h2><button id="preferences-lock" class="panel-lock" type="button" aria-label="Keep Preferences open" aria-pressed="false"><span id="preferences-lock-icon"></span></button><button id="preferences-close" class="panel-lock" type="button" aria-label="Close preferences card"><span id="preferences-close-icon"></span></button></div>
                 <div class="display-settings card-scroll-content" aria-label="Display settings">
                   <div id="distance-units" class="segmented-choice" role="group" aria-labelledby="distance-units-label"><span id="distance-units-label">Distances</span><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></div>
-                  <div id="star-colors" class="segmented-choice" role="group" aria-labelledby="star-colors-label"><span id="star-colors-label">Colors</span><div class="unit-options"><label><input id="star-colors-real" type="radio" name="star-color-mode" value="real"><span>Real</span></label><label><input id="star-colors-exaggerated" type="radio" name="star-color-mode" value="exaggerated" checked><span>Exaggerated</span></label></div></div>
+                  <div id="star-colors" class="segmented-choice" role="group" aria-labelledby="star-colors-label"><button id="star-colors-label" type="button" class="mass-metric-help">Colors</button><span id="star-colors-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Colors of stars, nebulae, clouds and the Milky Way. Real uses restrained colors. Exaggerated strengthens the differences, so temperatures and regions are easier to tell apart.</span><div class="unit-options"><label><input id="star-colors-real" type="radio" name="star-color-mode" value="real"><span>Real</span></label><label><input id="star-colors-exaggerated" type="radio" name="star-color-mode" value="exaggerated" checked><span>Exaggerated</span></label></div></div>
                   <label class="filter-toggle" for="color-blind-palette">
-                    <span class="preference-choice-text"><span>Color-blind friendly paint</span><span id="color-blind-palette-hint" class="filter-hint">Changes the Distance and Motion direction paints.</span></span>
-                    <span class="switch-control"><input id="color-blind-palette" type="checkbox" role="switch" aria-describedby="color-blind-palette-hint"><span class="switch-track" aria-hidden="true"></span></span>
-                  </label>
+                    <span class="mass-metric-help">Color-blind mode</span>
+                    <span class="switch-control"><input id="color-blind-palette" type="checkbox" role="switch" aria-describedby="color-blind-palette-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
+                  </label><span id="color-blind-palette-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Changes the Distance and Motion direction paints to colors that stay distinct with red-green or blue-yellow color blindness. Other paints and object colors stay the same.</span>
                   <div class="range-filter">
                     <div class="range-heading"><label for="label-limit">Labels</label><output id="label-limit-value" for="label-limit">40</output></div>
                     <input id="label-limit" type="range" min="0" max="140" step="20" value="40" aria-valuetext="40 labels">
                     <div class="range-bounds" aria-hidden="true"><span>Off</span><span>140</span></div>
                   </div>
                   <label class="power-saving-choice" for="power-saving-mode">
-                    <span>Power saving mode</span>
-                    <span class="switch-control"><input id="power-saving-mode" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
-                  </label>
+                    <span class="mass-metric-help">Power saving mode</span>
+                    <span class="switch-control"><input id="power-saving-mode" type="checkbox" role="switch" aria-describedby="power-saving-mode-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
+                  </label><span id="power-saving-mode-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Uses less power by drawing the map at 30 frames per second and a lower resolution, with less detail in nebulae and molecular clouds.</span>
                   <section class="preferences-group" aria-labelledby="scene-preferences-heading">
                     <h3 id="scene-preferences-heading" class="card-subgroup-heading">Scene</h3>
                     <div class="range-filter">
-                      <div class="range-heading"><label for="earth-orbit-mode">Earth’s orbit</label><output id="earth-orbit-mode-value" for="earth-orbit-mode">Now</output></div>
-                      <input id="earth-orbit-mode" type="range" min="0" max="13" step="1" value="1" list="earth-orbit-mode-stops" aria-valuetext="Now" aria-describedby="earth-orbit-mode-description">
+                      <div class="range-heading"><label for="earth-orbit-mode"><span class="mass-metric-help">Earth’s orbit</span></label><span id="earth-orbit-mode-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">The blue ring around the Sun, with Earth marked at its position for the chosen date. Not to scale: the ring is drawn about 72,000 times too large, so it stays visible from light-years away.</span><output id="earth-orbit-mode-value" for="earth-orbit-mode">Now</output></div>
+                      <input id="earth-orbit-mode" type="range" min="0" max="13" step="1" value="1" list="earth-orbit-mode-stops" aria-valuetext="Now" aria-describedby="earth-orbit-mode-description earth-orbit-mode-tooltip">
                       <datalist id="earth-orbit-mode-stops"><option value="0" label="Off"></option><option value="1" label="Now"></option><option value="2" label="Jan"></option><option value="3" label="Feb"></option><option value="4" label="Mar"></option><option value="5" label="Apr"></option><option value="6" label="May"></option><option value="7" label="Jun"></option><option value="8" label="Jul"></option><option value="9" label="Aug"></option><option value="10" label="Sep"></option><option value="11" label="Oct"></option><option value="12" label="Nov"></option><option value="13" label="Dec"></option></datalist>
                       <div class="range-bounds" aria-hidden="true"><span>Off</span><span>Dec</span></div>
                       <span id="earth-orbit-mode-description" class="sr-only">Stops are Off, Now, January, February, March, April, May, June, July, August, September, October, November, and December.</span>
                     </div>
+                    <div class="range-filter">
+                      <div class="range-heading"><label for="visibility-cone-mode"><span class="mass-metric-help">Show visibility cone</span></label><span id="visibility-cone-mode-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">A faint blue cone from Earth over the sky that stays above the horizon through the chosen two hours, for the latitude chosen in the constellation card and Earth’s position on the date set by Earth’s orbit. The equatorial grid turns blue inside it. Now uses your clock.</span><output id="visibility-cone-mode-value" for="visibility-cone-mode">Off</output></div>
+                      <input id="visibility-cone-mode" type="range" min="0" max="8" step="1" value="0" list="visibility-cone-mode-stops" aria-valuetext="Off" aria-describedby="visibility-cone-mode-description visibility-cone-mode-tooltip">
+                      <datalist id="visibility-cone-mode-stops"><option value="0" label="Off"></option><option value="1" label="Now"></option><option value="2" label="18–20"></option><option value="3" label="20–22"></option><option value="4" label="22–24"></option><option value="5" label="0–2"></option><option value="6" label="2–4"></option><option value="7" label="4–6"></option><option value="8" label="6–8"></option></datalist>
+                      <div class="range-bounds" aria-hidden="true"><span>Off</span><span>6–8</span></div>
+                      <span id="visibility-cone-mode-description" class="sr-only">Stops are Off, Now, then two-hour windows from 18 to 20 through 6 to 8.</span>
+                    </div>
                     <div class="catalog-toggles" role="group" aria-label="Scene layers">
                       <label class="filter-toggle" for="milky-way-visible">
-                        <span>Milky Way</span>
-                        <span class="switch-control"><input id="milky-way-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
-                      </label>
+                        <span class="mass-metric-help">Milky Way</span>
+                        <span class="switch-control"><input id="milky-way-visible" type="checkbox" role="switch" aria-describedby="milky-way-visible-tooltip" checked><span class="switch-track" aria-hidden="true"></span></span>
+                      </label><span id="milky-way-visible-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">The Milky Way as a faint band across the sky behind the stars. Thousands of light-years from the Sun, it gives way to a model of the whole Galaxy.</span>
                       <label class="filter-toggle" for="oort-cloud-visible">
-                        <span>Oort cloud</span>
-                        <span class="switch-control"><input id="oort-cloud-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
-                      </label>
+                        <span class="mass-metric-help">Oort cloud</span>
+                        <span class="switch-control"><input id="oort-cloud-visible" type="checkbox" role="switch" aria-describedby="oort-cloud-visible-tooltip" checked><span class="switch-track" aria-hidden="true"></span></span>
+                      </label><span id="oort-cloud-visible-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">A faint haze around the Sun for the Oort cloud, the vast shell of icy bodies at the edge of the Solar System. Drawn to scale, with a diameter of about 200,000 au (3.2 ly or 0.97 pc).</span>
                     </div>
                   </section>
                   <section class="preferences-group" aria-labelledby="motion-preferences-heading">
                     <h3 id="motion-preferences-heading" class="card-subgroup-heading">Motion arrows</h3>
-                    <label class="filter-toggle" for="motion-arrows-visible">
-                      <span>Motion arrows</span>
-                      <span class="switch-control"><input id="motion-arrows-visible" type="checkbox" role="switch" checked><span class="switch-track" aria-hidden="true"></span></span>
-                    </label>
-                    <div class="catalog-choice"><label for="motion-years">Arrow length</label><select id="motion-years"><option value="1000" selected>1k years</option><option value="5000">5k years</option><option value="10000">10k years</option><option value="25000">25k years</option><option value="50000">50k years</option></select></div>
-                    <div id="motion-frame" class="segmented-choice" role="group" aria-labelledby="motion-frame-label"><span id="motion-frame-label">Motion frame</span><div class="unit-options"><label><input id="motion-frame-galactic" type="radio" name="motion-frame" value="galactic" checked><span>Galactic</span></label><label><input id="motion-frame-solar" type="radio" name="motion-frame" value="solar"><span>Solar</span></label></div></div>
+                    <div class="catalog-toggles">
+                      <label class="filter-toggle" for="motion-arrows-visible">
+                        <span class="mass-metric-help">Motion arrows</span>
+                        <span class="switch-control"><input id="motion-arrows-visible" type="checkbox" role="switch" aria-describedby="motion-arrows-visible-tooltip" checked><span class="switch-track" aria-hidden="true"></span></span>
+                      </label><span id="motion-arrows-visible-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Arrows show which way objects move and how far they travel in the time set by Arrow length. A dashed line means only the motion across the sky is known.</span>
+                      <div class="catalog-choice"><label for="motion-years">Arrow length</label><select id="motion-years"><option value="1000" selected>1k years</option><option value="5000">5k years</option><option value="10000">10k years</option><option value="25000">25k years</option><option value="50000">50k years</option></select></div>
+                      <div id="motion-frame" class="segmented-choice" role="group" aria-labelledby="motion-frame-label"><button id="motion-frame-label" type="button" class="mass-metric-help">Motion frame</button><span id="motion-frame-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">What motion is measured against. Galactic shows how objects move relative to the Galaxy, including the Sun’s own motion. Solar shows how they move relative to the Sun, which then stands still.</span><div class="unit-options"><label><input id="motion-frame-galactic" type="radio" name="motion-frame" value="galactic" checked><span>Galactic</span></label><label><input id="motion-frame-solar" type="radio" name="motion-frame" value="solar"><span>Solar</span></label></div></div>
+                    </div>
                   </section>
                   <section class="preferences-group" aria-labelledby="data-preferences-heading">
                     <h3 id="data-preferences-heading" class="card-subgroup-heading">Data</h3>
@@ -1080,14 +1094,14 @@
               <section id="info-panel" class="dock-card info-card" aria-labelledby="info-heading" hidden>
                 <div class="info-brand">
                   <span id="info-brand-icon" class="info-brand-icon"></span>
-                  <div><h2 id="info-heading">Star View</h2><p>Explore our stellar neighborhood.</p></div>
+                  <div><h2 id="info-heading">Star View</h2><p>Explore · Ask · Investigate · Understand</p></div>
                 </div>
                 <div class="card-scroll-content">
                   <dl class="info-meta">
                     <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                     <div><dt>License</dt><dd>MIT</dd></div>
                     <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
-                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-03">3 November 2026</time></dd></div>
+                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-04">4 November 2026</time></dd></div>
                     <div><dt>Build date</dt><dd><time datetime="%BUILD_DATE_ISO%">%BUILD_DATE%</time></dd></div>
                     <div><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="catalog-epoch-tooltip">Position reference epoch</button><span id="catalog-epoch-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog positions use the year 2000 as their reference time.</span></dt><dd id="catalog-epoch">J2000.0</dd></div>
                     <div><dt>Version</dt><dd>%APP_VERSION%</dd></div>
@@ -1199,6 +1213,19 @@
         <button id="browser-data-no" type="button" autofocus>No</button>
       </div>
     </dialog>
+    <section id="welcome-tile" class="welcome-tile" role="dialog" aria-labelledby="welcome-heading" hidden>
+      <div class="info-brand">
+        <span id="welcome-icon" class="info-brand-icon"></span>
+        <div><h2 id="welcome-heading">Welcome to Star View</h2><p>Explore · Ask · Investigate · Understand</p></div>
+      </div>
+      <div id="welcome-body" class="welcome-body">
+        <p>Do you want to be shown around here?</p>
+        <div class="browser-data-actions">
+          <button id="welcome-no" type="button">No</button>
+          <button id="welcome-yes" type="button">Yes</button>
+        </div>
+      </div>
+    </section>
     <noscript>This nearby-object viewer requires JavaScript.</noscript>
     <script type="module" src="/src/bootstrap.ts"></script>
   </body>

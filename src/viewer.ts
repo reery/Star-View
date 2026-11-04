@@ -12,9 +12,11 @@ import { updateCameraNearPlane } from './camera-depth'
 import { createMilkyWayLayer } from './milky-way-layer'
 import { createEarthOrbitLayer } from './earth-orbit-layer'
 import { createOortCloudLayer, OORT_CLOUD_RADIUS_PC } from './oort-cloud-layer'
+import { createVisibilityConeLayer } from './visibility-cone-layer'
 import { createMotionArrowMesh } from './motion-arrow-layer'
 import { createMapGrid, gridOpacityForDisplay, makeGridGeometry, skyGridOpacityForDisplay } from './map-grid'
-import { createSkyGridLayer, makeSkyGridGeometry, type SkyGridMode } from './sky-grid'
+import { createSkyGridLayer, makeSkyGridGeometry, skyWindowCone, type SkyGridMode } from './sky-grid'
+import type { SkyHours } from './constellation-visibility'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC } from './earth-orbit'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderMultisampling, renderPixelRatio, targetRenderFps } from './render-scheduling'
@@ -70,6 +72,7 @@ export interface StarViewer {
   setEarthOrbitDate(date: Date | null): void
   setMilkyWayVisible(visible: boolean): void
   setOortCloudVisible(visible: boolean): void
+  setVisibilityCone(view: VisibilityConeView | null): void
   setMotionFrame(frame: MotionFrame): void
   setMotionYears(years: MotionYears): void
   setFollowSelection(enabled: boolean): void
@@ -122,7 +125,10 @@ interface ViewerOptions {
   earthOrbitDate?: Date | null
   milkyWayVisible?: boolean
   oortCloudVisible?: boolean
+  visibilityCone?: VisibilityConeView | null
 }
+
+export interface VisibilityConeView { latitude: number; hours: SkyHours }
 
 // Last drawn motion arrow in client CSS px, returned by the label layer's motionArrowSnapshot() test hook.
 export interface MotionArrowSnapshot {
@@ -469,6 +475,24 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const skyGridOpacity = { value: skyGridOpacityForDisplay(window.devicePixelRatio) }
   const skyGrid = createSkyGridLayer(container, skyGridOpacity)
   scene.add(skyGrid.lines)
+  const visibilityCone = createVisibilityConeLayer(earthOrbitGroup.position)
+  let visibilityConeView: VisibilityConeView | null = null
+  // With the orbit switched off, the cone falls back to today.
+  let visibilityConeDate = initialEarthOrbitDate ?? new Date()
+  scene.add(visibilityCone.mesh)
+  // The grid highlight stays in Observer view from the Sun, where the cone would surround the camera.
+  function updateVisibilityConeVisibility(): void {
+    visibilityCone.mesh.visible = visibilityConeView !== null && sunShown()
+    visibilityCone.followSun()
+    setData(container, 'visibilityConeVisible', String(visibilityCone.mesh.visible))
+  }
+  function setVisibilityCone(view: VisibilityConeView | null): void {
+    visibilityConeView = view
+    const cone = view && skyWindowCone(view.latitude, visibilityConeDate, view.hours)
+    skyGrid.setVisibleCone(cone)
+    if (cone) visibilityCone.setCone(cone, visibilityConeDate)
+    updateVisibilityConeVisibility()
+  }
   // The galactic sky-grid globe, built on first use and scaled around the center object.
   const neighborhoodSphere = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xe7a05b, transparent: true, opacity: 0.3, depthWrite: false }))
   neighborhoodSphere.visible = false
@@ -2290,6 +2314,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (updateCameraNearPlane(camera, depthPositions, extendedDepthBounds)) invalidateProjection()
     if (earthOrbitEnabled) updateEarthOrbitVisibility()
     if (oortCloudEnabled) updateOortCloudVisibility()
+    if (visibilityConeView) updateVisibilityConeVisibility()
     milkyWay.setSunDistance(camera.position.distanceTo(pickable[sunIndex]!.position))
     if (faintClouds.update(camera.position)) updatePresentation()
     // Looking at a distant object from the origin is still a close sky view.
@@ -2396,6 +2421,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   updatePresentation()
   updateEarthOrbitVisibility()
   updateOortCloudVisibility()
+  setVisibilityCone(options.visibilityCone ?? null)
   if (initialEarthOrbitDate) positionEarthMarker(initialEarthOrbitDate)
   container.dataset.earthOrbitRadiusPc = String(EARTH_ORBIT_DISPLAY_RADIUS_PC)
   container.dataset.milkyWayVisible = String(milkyWayVisible)
@@ -2491,6 +2517,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         delete container.dataset.earthOrbitDate
         delete container.dataset.earthEclipticLongitudeDeg
       }
+      visibilityConeDate = date ?? new Date()
+      if (visibilityConeView) setVisibilityCone(visibilityConeView)
       requestRender()
     },
     setMilkyWayVisible(visible) {
@@ -2504,6 +2532,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (visible === oortCloudEnabled) return
       oortCloudEnabled = visible
       updateOortCloudVisibility()
+      requestRender()
+    },
+    setVisibilityCone(view) {
+      setVisibilityCone(view)
       requestRender()
     },
     setMotionFrame(frame) {
@@ -2725,6 +2757,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       dotTexture.dispose()
       earthOrbit.dispose()
       oortCloud.dispose()
+      visibilityCone.dispose()
       haloTexture.dispose()
       milkyWay.dispose()
       renderer.renderLists.dispose()
@@ -2736,6 +2769,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       delete container.dataset.gridHalfSizePc
       delete container.dataset.earthOrbitVisible
       delete container.dataset.oortCloudVisible
+      delete container.dataset.visibilityConeVisible
       delete container.dataset.earthOrbitDate
       delete container.dataset.earthEclipticLongitudeDeg
       delete container.dataset.earthOrbitRadiusPc

@@ -1,5 +1,5 @@
 import { expect, test, type Locator } from '@playwright/test'
-import { openSpecs, openViewer } from './support'
+import { openSpecs, openViewer, selectObject } from './support'
 
 test('aligns close and lock controls on every selected-object detail card', { tag: '@mobile' }, async ({ page }, testInfo) => {
   test.setTimeout(90_000)
@@ -93,4 +93,27 @@ test('aligns close and lock controls on every selected-object detail card', { ta
   await page.locator('#object-system-toggle').click()
   await checkCard('planet', page.locator('.planet-row[data-planet-id="jupiter"] button'))
   expect(errors).toEqual([])
+})
+
+test('keeps the distance heading on one row and radial velocity readable on phones', { tag: '@mobile' }, async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile', 'Phone layout only.')
+  await openViewer(page)
+  await selectObject(page, 'Proxima Centauri', { showSpecs: true })
+  await page.locator('#distance-toggle').click()
+  const tile = page.locator('#distance-facts .mass-fact').last()
+  await expect(tile).toContainText('Closest approach')
+  const layout = await page.locator('#distance-card').evaluate((card) => {
+    const box = (selector: string) => card.querySelector(selector)!.getBoundingClientRect()
+    const fact = [...card.querySelectorAll('#distance-facts .mass-fact')].at(-1)!
+    return {
+      reference: box('#distance-reference-sun'), lock: box('#distance-lock'), title: box('#distance-heading'),
+      tile: fact.getBoundingClientRect(), bar: fact.querySelector('.mass-fact-progress')!.getBoundingClientRect(),
+    }
+  })
+  expect(layout.reference.top).toBeLessThan(layout.lock.bottom)
+  expect(layout.reference.left).toBeGreaterThanOrEqual(layout.title.right)
+  expect(layout.reference.right).toBeLessThanOrEqual(layout.lock.left)
+  expect(layout.bar.width).toBeGreaterThan(layout.tile.width * 0.8)
+  await page.setViewportSize({ width: 360, height: 640 })
+  await expect.poll(() => page.locator('#distance-card').evaluate((card) => card.getBoundingClientRect().right - [...card.querySelectorAll('#distance-facts .mass-fact-notes')].at(-1)!.getBoundingClientRect().right)).toBeGreaterThan(0)
 })

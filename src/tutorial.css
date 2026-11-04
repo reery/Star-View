@@ -1,0 +1,23 @@
+.tutorial-tile { position: fixed; top: 0; left: 0; z-index: 20; display: flex; flex-direction: column; width: min(340px, calc(var(--ui-width) - 24px)); max-height: calc(var(--ui-height) - 24px); overflow: hidden; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: var(--card-radius); box-shadow: 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; font-size: var(--property-text-size); }
+.tutorial-tile.is-appearing::after { animation-delay: 0s; animation-iteration-count: 1; }
+.tutorial-tile > .panel-heading { position: static; flex-shrink: 0; justify-content: space-between; gap: 12px; padding: 0 14px; }
+.tutorial-progress { flex-shrink: 0; color: var(--muted); font-size: 12px; font-weight: 400; font-variant-numeric: tabular-nums; }
+.tutorial-content { min-height: 0; padding: 12px 14px 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; line-height: 1.4; }
+.tutorial-items { display: grid; gap: 8px; margin: 10px 0 0; padding: 10px 0 0; list-style: none; border-top: var(--mass-metric-divider); }
+.tutorial-items li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; }
+.tutorial-items b { font-weight: 600; }
+.tutorial-items svg { width: 18px; height: 18px; margin-top: 1px; color: var(--accent); }
+.tutorial-tile > .browser-data-actions { flex-shrink: 0; margin: 0; padding: 12px 14px; }
+.tutorial-tile > .browser-data-actions button { color: var(--accent); }
+.tutorial-tile > .browser-data-actions .tutorial-quit { margin-right: auto; }
+.tutorial-tile > .browser-data-actions .tutorial-next { color: var(--accent-strong); background: var(--panel-selected); border-color: var(--border-active); }
+.tutorial-ring { position: fixed; top: 0; left: 0; z-index: 19; border: 2px solid var(--tutorial-yellow); border-radius: 8px; box-shadow: 0 0 0 4px #ffd84d2e; pointer-events: none; }
+.tutorial-ring.is-point { border-radius: 50%; }
+.tutorial-pressed.is-flashing { animation: tutorial-flash 700ms ease-in-out; }
+@keyframes tutorial-flash { 25%, 75% { opacity: 0.1; } }
+.tutorial-arrow { --tutorial-head: 38px; position: fixed; top: 0; left: 0; z-index: 21; height: 46px; transform-origin: 100% 50%; pointer-events: none; filter: drop-shadow(0 2px 6px #000000b3); }
+.tutorial-arrow > i { display: block; height: 100%; background: var(--tutorial-yellow); clip-path: polygon(0 34%, calc(100% - var(--tutorial-head)) 34%, calc(100% - var(--tutorial-head)) 0, 100% 50%, calc(100% - var(--tutorial-head)) 100%, calc(100% - var(--tutorial-head)) 66%, 0 66%); animation: tutorial-nudge 1.3s ease-in-out infinite; }
+@keyframes tutorial-nudge { 50% { transform: translateX(-9px); } }
+@media (prefers-reduced-motion: reduce) {
+  .tutorial-pressed.is-flashing, .tutorial-arrow > i { animation: none; }
+}

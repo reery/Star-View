@@ -5,6 +5,13 @@ const RAD = Math.PI / 180
 export const VISIBILITY_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] as const
 export const EVENING_SOLAR_HOUR = 22
 export const NIGHT_SUN_ALTITUDE_DEG = -18
+export const LATITUDE_STORAGE_KEY = 'star-view-constellation-latitude'
+
+/** The constellation card's latitude for a stored value; its options are the tens from 80° S to 80° N. */
+export function observerLatitude(stored: string | null): number {
+  const latitude = Number(stored)
+  return stored && latitude % 10 === 0 && Math.abs(latitude) <= 80 ? latitude : 40
+}
 
 /** Geometric horizon, without refraction, terrain, or a naked-eye brightness limit. */
 export function visibleLatitudeRange(declination: number): { south: number; north: number } | null {
@@ -19,6 +26,40 @@ export function skyAltitude(declination: number, latitude: number, hourAngle: nu
   return Math.asin(Math.max(-1, Math.min(1, sine))) / RAD
 }
 
+export const VISIBILITY_CONE_MODES = ['off', 'now', '18-20', '20-22', '22-24', '0-2', '2-4', '4-6', '6-8'] as const
+export type VisibilityConeMode = typeof VISIBILITY_CONE_MODES[number]
+export interface SkyHours { start: number; end: number }
+
+export function isVisibilityConeMode(value: string | null): value is VisibilityConeMode {
+  return value !== null && VISIBILITY_CONE_MODES.includes(value as VisibilityConeMode)
+}
+
+export function visibilityConeModeLabel(mode: VisibilityConeMode): string {
+  if (mode === 'off') return 'Off'
+  return mode === 'now' ? 'Now' : mode.replace('-', '–')
+}
+
+/** The two hours a stop covers. "Now" takes the hour either side of the browser's clock. */
+export function visibilityConeHours(mode: VisibilityConeMode, now = new Date()): SkyHours | null {
+  if (mode === 'off') return null
+  if (mode === 'now') {
+    const hour = now.getHours() + now.getMinutes() / 60
+    return { start: hour - 1, end: hour + 1 }
+  }
+  const [start, end] = mode.split('-').map(Number) as [number, number]
+  return { start, end }
+}
+
+/** The Sun's J2000 equatorial position on a date, in degrees. */
+export function sunEquatorialPosition(date: Date): { ra: number; dec: number } {
+  const longitude = earthEclipticLongitude(date) - Math.PI
+  const obliquity = EARTH_OBLIQUITY_DEG * RAD
+  return {
+    ra: Math.atan2(Math.cos(obliquity) * Math.sin(longitude), Math.cos(longitude)) / RAD,
+    dec: Math.asin(Math.sin(obliquity) * Math.sin(longitude)) / RAD,
+  }
+}
+
 /**
  * Seasonal guide at 10 pm apparent solar time on each month's 15th.
  * A representative J2000 year keeps the Sun in the catalogue's coordinate frame.
@@ -29,13 +70,10 @@ export function eveningVisibilityMonths(position: SkyPosition, latitude: number)
   if (!visibleLatitudeRange(position.dec_deg) || !Number.isFinite(position.ra_deg)
     || !Number.isFinite(latitude) || Math.abs(latitude) > 90) return VISIBILITY_MONTHS.map(() => false)
   const solarHourAngle = (EVENING_SOLAR_HOUR - 12) * 15
-  const obliquity = EARTH_OBLIQUITY_DEG * RAD
   return VISIBILITY_MONTHS.map((_, month) => {
-    const longitude = earthEclipticLongitude(new Date(Date.UTC(2000, month, 15, 22))) - Math.PI
-    const sunRa = Math.atan2(Math.cos(obliquity) * Math.sin(longitude), Math.cos(longitude)) / RAD
-    const sunDec = Math.asin(Math.sin(obliquity) * Math.sin(longitude)) / RAD
-    return skyAltitude(sunDec, latitude, solarHourAngle) <= NIGHT_SUN_ALTITUDE_DEG
-      && skyAltitude(position.dec_deg, latitude, sunRa + solarHourAngle - position.ra_deg) > 1e-8
+    const sun = sunEquatorialPosition(new Date(Date.UTC(2000, month, 15, 22)))
+    return skyAltitude(sun.dec, latitude, solarHourAngle) <= NIGHT_SUN_ALTITUDE_DEG
+      && skyAltitude(position.dec_deg, latitude, sun.ra + solarHourAngle - position.ra_deg) > 1e-8
   })
 }
 

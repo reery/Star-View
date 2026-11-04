@@ -1,4 +1,5 @@
 import { isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
+import { isVisibilityConeMode, type VisibilityConeMode } from './constellation-visibility'
 import { isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey } from './object-filter'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, type MotionYears, type ViewerViewState } from './viewer'
 import type { MotionFrame } from './astronomy'
@@ -31,6 +32,8 @@ export interface SavedViewSettings {
   milkyWayVisible: boolean
   /** Absent in views saved before the option existed. */
   oortCloudVisible?: boolean
+  /** Absent in views saved before the option existed. */
+  visibilityConeMode?: VisibilityConeMode
   motionArrowsVisible: boolean
   motionYears: MotionYears
   motionFrame: MotionFrame
@@ -109,6 +112,7 @@ function isSavedView(value: unknown): value is SavedView {
     && typeof settings.earthOrbitMode === 'string' && isEarthOrbitMode(settings.earthOrbitMode)
     && typeof settings.milkyWayVisible === 'boolean'
     && (settings.oortCloudVisible === undefined || typeof settings.oortCloudVisible === 'boolean')
+    && (settings.visibilityConeMode === undefined || (typeof settings.visibilityConeMode === 'string' && isVisibilityConeMode(settings.visibilityConeMode)))
     && typeof settings.motionArrowsVisible === 'boolean'
     && typeof settings.motionYears === 'number' && MOTION_YEAR_OPTIONS.includes(settings.motionYears as MotionYears)
     && (settings.motionFrame === 'galactic' || settings.motionFrame === 'solar')

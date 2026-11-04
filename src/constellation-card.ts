@@ -95,7 +95,7 @@ function drawChart(root: HTMLElement, object: Star | null, chart: ConstellationC
   const width = Math.max(250, container.clientWidth || 380)
   const preferredHeight = Math.max(340, Math.round(width * 0.94))
   const headingHeight = part(root, 'heading').closest<HTMLElement>('.panel-heading')!.offsetHeight
-  // Discover's full overview fits below its heading, including on short screens.
+  // Explore's full overview fits below its heading, including on short screens.
   // Convert available CSS pixels to the SVG's coordinate scale on narrow cards.
   const availableHeight = (root.clientHeight - headingHeight - 1) * width / Math.max(1, container.clientWidth)
   const height = !object && root.clientHeight ? Math.max(96, Math.min(preferredHeight, Math.floor(availableHeight))) : preferredHeight

@@ -68,7 +68,7 @@ export async function loadConstellationChart(object: Pick<Star, 'id' | 'constell
   return loadConstellationByName(object.constellation!)
 }
 
-/** Share chart and companion caches between object cards and Discover. */
+/** Share chart and companion caches between object cards and Explore. */
 export async function loadConstellationByName(name: string): Promise<ConstellationChart | null> {
   if (!constellationCharts.has(name)) return null
   let pending = loaded.get(name)

@@ -97,3 +97,15 @@ test('saved observer views restore telescope zoom', async ({ page }) => {
   await expect(page.locator('#observer-telescope')).toHaveAttribute('aria-pressed', 'true')
   await expect(page.locator('#scene')).toHaveAttribute('data-observer-zoom', '1.6')
 })
+
+test('the observer card clears the open info card', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'Phones stack these cards differently.')
+  await openViewer(page)
+  await page.locator('#observer-view').click()
+  await page.locator('#info-toggle').click()
+  await expect(page.locator('#info-panel')).toBeVisible()
+  await expect.poll(async () => {
+    const [observer, info] = await Promise.all([page.locator('#observer-direction-card').boundingBox(), page.locator('#info-panel').boundingBox()])
+    return info!.x - (observer!.x + observer!.width)
+  }).toBe(12)
+})

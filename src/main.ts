@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
@@ -20,6 +20,7 @@ import { catalogs, catalogErrors } from './registry'
 import legacyStarIds from './data/legacy-star-ids.json'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
+import { isVisibilityConeMode, LATITUDE_STORAGE_KEY, observerLatitude, VISIBILITY_CONE_MODES, visibilityConeHours, visibilityConeModeLabel, type VisibilityConeMode } from './constellation-visibility'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { CONTEXT_MENU_HOLD_MS, isObjectMapVisible, mapVisibilityTier, motionTravelDistancePc } from './viewer-primitives'
 import { renderSelectedStarPreview } from './selected-star-preview'
@@ -202,6 +203,8 @@ icon('glossary-lock-icon', Lock)
 icon('glossary-close-icon', X)
 icon('info-icon', CircleHelp)
 icon('info-brand-icon', Orbit)
+icon('welcome-icon', Orbit)
+icon('tutorial-icon', GraduationCap)
 icon('filter-lock-icon', Lock)
 icon('filter-close-icon', X)
 icon('filter-reset-icon', RotateCcw)
@@ -267,6 +270,11 @@ const events = new AbortController()
 initializeTouchTooltips(events.signal)
 initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, events.signal)
 for (const help of document.querySelectorAll<HTMLButtonElement>('.compact-property .mass-metric-help')) attachPopoverTooltip(help, help.nextElementSibling as HTMLElement)
+for (const help of document.querySelectorAll<HTMLElement>('.preferences .mass-metric-help')) {
+  // Tooltips sit outside labels so their text stays out of the control's accessible name.
+  const label = help.closest('label')
+  attachPopoverTooltip(help, (label ?? help).nextElementSibling as HTMLElement, undefined, label?.control ?? undefined)
+}
 // The Spaceship card sits at the bottom of the screen, so its help rises above it.
 attachPopoverTooltip(element<HTMLButtonElement>('spaceship-help'), element('spaceship-help-tooltip'), 'above')
 let constellationBrowser: ReturnType<typeof import('./constellation-browser').initializeConstellationBrowser> | undefined
@@ -342,6 +350,19 @@ let motionArrowsVisible = true
 let earthOrbitMode: EarthOrbitMode = 'now'
 let milkyWayVisible = true
 let oortCloudVisible = true
+let visibilityConeMode: VisibilityConeMode = 'off'
+let visibilityLatitude = observerLatitude(null)
+function visibilityConeView() {
+  const hours = visibilityConeHours(visibilityConeMode)
+  return hours && { latitude: visibilityLatitude, hours }
+}
+function syncVisibilityConeControl(): void {
+  const input = element<HTMLInputElement>('visibility-cone-mode')
+  const label = visibilityConeModeLabel(visibilityConeMode)
+  input.value = String(VISIBILITY_CONE_MODES.indexOf(visibilityConeMode))
+  input.setAttribute('aria-valuetext', label)
+  text('visibility-cone-mode-value', label)
+}
 let motionFrame: MotionFrame = 'galactic'
 let motionYears: MotionYears = 1_000
 let simulationYears = 0
@@ -413,6 +434,9 @@ try {
   else if (localStorage.getItem('star-view-earth-orbit-visible') === 'false') earthOrbitMode = 'off'
   if (localStorage.getItem('star-view-milky-way-visible') === 'false') milkyWayVisible = false
   if (localStorage.getItem('star-view-oort-cloud-visible') === 'false') oortCloudVisible = false
+  const storedVisibilityConeMode = localStorage.getItem('star-view-visibility-cone-mode')
+  if (isVisibilityConeMode(storedVisibilityConeMode)) visibilityConeMode = storedVisibilityConeMode
+  visibilityLatitude = observerLatitude(localStorage.getItem(LATITUDE_STORAGE_KEY))
   const storedLabelLimit = localStorage.getItem('star-view-label-limit')
   const parsedLabelLimit = Number(storedLabelLimit)
   if (storedLabelLimit !== null && parsedLabelLimit >= 0 && parsedLabelLimit <= 140 && parsedLabelLimit % 20 === 0) labelLimit = parsedLabelLimit
@@ -442,7 +466,7 @@ const selectionHistory = new SelectionHistory(selectedId)
 // The Spaceship card floats at the bottom center: it opens beside other cards and only its own controls close it.
 const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation'] as const
 const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'rotation'] as const
-// Discover panels open from the flyout, so focus returns to its toggle.
+// Explore panels open from the flyout, so focus returns to its toggle.
 const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 // On desktop, these cards move the 3D view center left while locked, so the scene stays visible beside them.
@@ -2846,6 +2870,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       earthOrbitDate: earthOrbitDateForMode(earthOrbitMode),
       milkyWayVisible,
       oortCloudVisible,
+      visibilityCone: visibilityConeView(),
     })
   } catch (error) {
     console.error('Could not create the 3D viewer.', error)
@@ -3193,6 +3218,7 @@ function currentSavedViewSettings(): SavedViewSettings | null {
     earthOrbitMode,
     milkyWayVisible,
     oortCloudVisible,
+    visibilityConeMode,
     motionArrowsVisible,
     motionYears,
     motionFrame,
@@ -3268,6 +3294,7 @@ function syncSceneAndMotionInputs(): void {
   text('earth-orbit-mode-value', earthOrbitModeLabel(earthOrbitMode))
   element<HTMLInputElement>('milky-way-visible').checked = milkyWayVisible
   element<HTMLInputElement>('oort-cloud-visible').checked = oortCloudVisible
+  syncVisibilityConeControl()
   element<HTMLInputElement>('motion-arrows-visible').checked = motionArrowsVisible
   element<HTMLSelectElement>('motion-years').value = String(motionYears)
   element<HTMLInputElement>(`motion-frame-${motionFrame}`).checked = true
@@ -3370,6 +3397,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   earthOrbitMode = settings.earthOrbitMode
   milkyWayVisible = settings.milkyWayVisible
   oortCloudVisible = settings.oortCloudVisible ?? true
+  visibilityConeMode = settings.visibilityConeMode ?? 'off'
   motionArrowsVisible = settings.motionArrowsVisible
   motionYears = settings.motionYears
   motionFrame = settings.motionFrame
@@ -3426,6 +3454,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
     localStorage.setItem('star-view-earth-orbit-mode', earthOrbitMode)
     localStorage.setItem('star-view-milky-way-visible', String(milkyWayVisible))
     localStorage.setItem('star-view-oort-cloud-visible', String(oortCloudVisible))
+    localStorage.setItem('star-view-visibility-cone-mode', visibilityConeMode)
   } catch {}
   setSimulationPlaying(settings.simulationPlaying)
   setPanelOpen('views', false)
@@ -3588,7 +3617,7 @@ element('objects-maximize').addEventListener('click', () => {
   setObjectsHeight('100dvh')
   syncPanelLayout()
 }, { signal: events.signal })
-// Choosing a Discover card retracts the flyout until the pointer returns to Discover or keyboard navigation resumes.
+// Choosing an Explore card retracts the flyout until the pointer returns to Explore or keyboard navigation resumes.
 // Touch taps reopen it through the toolbar's touch toggle.
 const discoverControls = element('discover-toggle').parentElement!
 element('discover-options').addEventListener('click', (event) => {
@@ -3596,7 +3625,7 @@ element('discover-options').addEventListener('click', (event) => {
 }, { signal: events.signal })
 element('discover-toggle').addEventListener('pointerenter', (event) => { if (event.pointerType !== 'touch') discoverControls.removeAttribute('data-dismissed') }, { signal: events.signal })
 document.addEventListener('keydown', (event) => { if (event.key === 'Tab') discoverControls.removeAttribute('data-dismissed') }, { signal: events.signal })
-/** Returns focus to Discover after closing one of its cards, without reopening the flyout. */
+/** Returns focus to Explore after closing one of its cards, without reopening the flyout. */
 function focusDiscoverToggle(): void {
   discoverControls.setAttribute('data-dismissed', '')
   element('discover-toggle').focus()
@@ -3744,7 +3773,8 @@ function setGraphsCompact(compact: boolean): void {
   button.title = label
   icon('graphs-width-icon', compact ? ChevronsLeftRight : ChevronsRightLeft)
 }
-if (storedLayout('graphs-compact') === 'true') setGraphsCompact(true)
+// Without a saved choice, Graphs opens narrow.
+if (storedLayout('graphs-compact') !== 'false') setGraphsCompact(true)
 element('graphs-width').addEventListener('click', () => {
   const compact = !element('control-dock').hasAttribute('data-graphs-compact')
   setGraphsCompact(compact)
@@ -3761,7 +3791,9 @@ function setSidebarCollapsed(id: string, collapsed: boolean): void {
   icon(`${id}-icon`, collapsed ? PanelLeftOpen : PanelLeftClose)
 }
 for (const id of ['constellations-sidebar', 'top-lists-sidebar', 'graphs-sidebar']) {
-  setSidebarCollapsed(id, storedLayout(`${id}-collapsed`) === 'true')
+  // Without a saved choice, Top lists and Graphs open with the sidebar retracted; Constellations keeps its names visible.
+  const storedCollapsed = storedLayout(`${id}-collapsed`)
+  setSidebarCollapsed(id, storedCollapsed === null ? id !== 'constellations-sidebar' : storedCollapsed === 'true')
   element(id).addEventListener('click', () => {
     const collapsed = element(id).getAttribute('aria-expanded') === 'true'
     setSidebarCollapsed(id, collapsed)
@@ -3776,9 +3808,8 @@ function setConstellationsMaximized(maximized: boolean): void {
   button.title = label
   icon('constellations-maximize-icon', maximized ? ChevronsDownUp : ChevronsUpDown)
 }
-// Without a saved choice, desktop opens the constellations card at full height; smaller and touch-first screens keep the compact card.
-const storedConstellationsMaximized = storedLayout('constellations-maximized')
-if (storedConstellationsMaximized === null ? wideLayout.matches && !touchFirstInput.matches : storedConstellationsMaximized === 'true') setConstellationsMaximized(true)
+// Without a saved choice, the constellations card opens at full height.
+if (storedLayout('constellations-maximized') !== 'false') setConstellationsMaximized(true)
 element('constellations-maximize').addEventListener('click', () => {
   const maximized = !element('constellations-panel').classList.contains('is-maximized')
   setConstellationsMaximized(maximized)
@@ -4157,6 +4188,21 @@ element('earth-orbit-mode').addEventListener('input', () => {
   try { localStorage.setItem('star-view-earth-orbit-mode', mode) } catch {}
   viewer?.setEarthOrbitDate(earthOrbitDateForMode(mode))
 }, { signal: events.signal })
+element('visibility-cone-mode').addEventListener('input', () => {
+  const mode = VISIBILITY_CONE_MODES[element<HTMLInputElement>('visibility-cone-mode').valueAsNumber]
+  if (!mode) return
+  visibilityConeMode = mode
+  syncVisibilityConeControl()
+  try { localStorage.setItem('star-view-visibility-cone-mode', mode) } catch {}
+  viewer?.setVisibilityCone(visibilityConeView())
+}, { signal: events.signal })
+// Constellation cards render on demand, so their latitude selects are heard here.
+document.addEventListener('change', (event) => {
+  const target = event.target
+  if (!(target instanceof HTMLSelectElement) || target.dataset.constellationPart !== 'constellation-latitude') return
+  visibilityLatitude = Number(target.value)
+  viewer?.setVisibilityCone(visibilityConeView())
+}, { signal: events.signal })
 element('milky-way-visible').addEventListener('change', () => {
   milkyWayVisible = element<HTMLInputElement>('milky-way-visible').checked
   try { localStorage.setItem('star-view-milky-way-visible', String(milkyWayVisible)) } catch {}
@@ -4281,6 +4327,35 @@ for (const name of ['motion', 'filter', 'objects', 'glossary', 'constellations',
     else element(toggle).focus()
   }, { signal: events.signal })
 }
+const welcomeTile = element('welcome-tile')
+function showWelcome(): void {
+  if (document.querySelector('.tutorial-tile')) return
+  welcomeTile.hidden = false
+  element('welcome-yes').focus({ preventScroll: true })
+}
+function answerWelcome(): void {
+  storeLayout('welcome-answered', 'true')
+  welcomeTile.hidden = true
+}
+async function startTutorial(): Promise<void> {
+  // Only a visitor who accepts downloads the tour.
+  const result = await loadWithRecovery(element('welcome-body'), () => import('./tutorial'), {
+    label: 'the tutorial', keepContent: true, retry: () => { void startTutorial() },
+    isCurrent: () => !events.signal.aborted,
+  })
+  if (!result) return
+  answerWelcome()
+  result.value.runTutorial({
+    ensureSelection: () => { if (selectedId === null) selectStar(lastSelectedId ?? 'sirius-a') },
+    openObjectMenu: (id, x, y) => selectedId !== null && id !== selectedId && id !== referenceId
+      && starComparison.canCompare(id, selectedId) && openSceneContextMenu(id, x, y, null),
+    thousandLightYearsStep: OBJECT_DISTANCE_STEPS_LY.indexOf(1000),
+  }, events.signal)
+}
+element('tutorial-toggle').addEventListener('click', showWelcome, { signal: events.signal })
+element('welcome-no').addEventListener('click', answerWelcome, { signal: events.signal })
+element('welcome-yes').addEventListener('click', () => { void startTutorial() }, { signal: events.signal })
+if (storedLayout('welcome-answered') === null) showWelcome()
 element<HTMLFormElement>('save-view-form').addEventListener('submit', (event) => {
   event.preventDefault()
   saveCurrentView()

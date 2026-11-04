@@ -44,6 +44,7 @@
   --graph-full-fill: #ffffff2e;
   --stat-bar-reference: #a7bdcc;
   --planet-earth-reference: var(--stat-bar-reference);
+  --tutorial-yellow: #ffd84d;
 }
 
 * { box-sizing: border-box; }
@@ -131,8 +132,9 @@ button, p, h2, dd { overflow-wrap: anywhere; }
   .observer-direction-button:hover:not(:disabled) { color: var(--accent-strong); background: var(--panel-selected); border-color: var(--border-active); }
 }
 @media (min-width: 721px) {
-  /* Clear the open 276px card and its 10px gap. */
-  .inspector:has(.control-dock[data-open]:not([data-open="motion"]):not([data-open="objects"])) .observer-direction-card { --observer-shift-x: -286px; }
+  /* Clear the open 276px card, or the 320px info card, and its 10px gap. */
+  .inspector:has(.control-dock[data-open]:not([data-open="motion"]):not([data-open="objects"]):not([data-open="info"])) .observer-direction-card { --observer-shift-x: -286px; }
+  .inspector:has(.control-dock[data-open="info"]) .observer-direction-card { --observer-shift-x: -330px; }
 }
 .time-controls { position: fixed; left: calc(20px + var(--safe-left)); bottom: calc(20px + var(--safe-bottom)); padding: 0; overflow: hidden; }
 .panel-heading:is(.time-heading, .rotation-heading) { align-items: stretch; gap: 0; padding-right: 0; }
@@ -257,7 +259,12 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .dock-rail, .dock-card { pointer-events: auto; }
 /* Active graph filter and paint sit left of the Info button, out of the rail's vertical space; an open card shows its own state. */
 .dock-rail { position: relative; }
-.dock-indicators { position: absolute; right: calc(100% + 4px); bottom: 0; display: flex; gap: 4px; }
+.dock-indicators { position: absolute; right: calc(100% + 4px); bottom: 0; display: flex; gap: 4px; transition: transform 160ms ease; }
+/* Clears the Tutorial button with a gap wide enough to read as a separate group. */
+.control-dock .info-controls:is(:focus-within, [data-touch-open]) ~ .dock-indicators { transform: translateX(-64px); }
+@media (hover: hover) and (pointer: fine) {
+  .control-dock .info-controls:hover ~ .dock-indicators { transform: translateX(-64px); }
+}
 .dock-indicators .tooltip { right: 0; bottom: calc(100% + 8px); }
 .control-dock[data-open]:not([data-open="motion"]) .dock-indicators { display: none; }
 .control-dock[data-motion-open] #motion-active { display: none; }
@@ -357,11 +364,12 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .icon-button:focus-visible { outline-color: var(--accent-strong); }
 [data-toolbar-flyout] { position: relative; width: 44px; height: 44px; }
 [data-toolbar-options] { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
-/* Seven Discover cards: three in a row above the toggle and four beside it; the corner above the toggle bridges the pointer to the upper row. */
+/* Seven Explore cards: three in a row above the toggle and four beside it; the corner above the toggle bridges the pointer to the upper row. */
 .discover-options { top: auto; bottom: 0; display: grid; grid-template-columns: repeat(4, 44px); }
 .discover-options > :first-child { grid-column-start: 2; }
 .discover-options::after { content: ''; position: absolute; top: 0; right: -44px; width: 44px; height: 44px; }
 .discover-controls .discover-options > :nth-child(-n + 3) .tooltip { top: auto; bottom: calc(100% + 8px); }
+.info-controls .tooltip { top: auto; bottom: calc(100% + 8px); right: 0; }
 .camera-view-button { width: 60px; flex: 0 0 60px; font: inherit; font-size: 12px; font-weight: 500; }
 .origin-controls:focus-visible, .observer-view-controls:focus-visible, .selection-controls:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; border-radius: 7px; }
 [data-toolbar-flyout]:has([data-toolbar-options] button:not(:disabled)) > button:disabled { pointer-events: none; }
@@ -371,6 +379,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .origin-controls:focus-within:has(#go-to-origin:not(:disabled)) .origin-options,
 .grid-controls:focus-within:has(#toggle-grid:not(:disabled)) .grid-options,
 .selection-controls:focus-within:has(.icon-button:not(:disabled)) .selection-options,
+.info-controls:focus-within .info-options,
 .observer-view-controls:focus-within:has(.observer-view-button:not(:disabled)) .observer-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
 /* A first touch names the previous object while revealing Next; the second touch selects it. */
 .selection-controls[data-touch-open] > .icon-button:not(:disabled) .tooltip { display: block; }
@@ -381,10 +390,12 @@ button, p, h2, dd { overflow-wrap: anywhere; }
   .origin-controls:hover:has(#go-to-origin:not(:disabled)) .origin-options,
   .grid-controls:hover:has(#toggle-grid:not(:disabled)) .grid-options,
   .selection-controls:hover:has(.icon-button:not(:disabled)) .selection-options,
+  .info-controls:hover .info-options,
   .observer-view-controls:hover:has(.observer-view-button:not(:disabled)) .observer-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
 }
 @media (prefers-reduced-motion: reduce) {
   [data-toolbar-options] { transition: none; transform: none; }
+  .dock-indicators { transition: none; }
 }
 .toolbar-divider { width: 20px; height: 1px; background: var(--line); margin: 4px 12px; }
 /* Touch visibility is explicit so emulated hover/focus cannot leave a tooltip stuck open. */
@@ -498,7 +509,6 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .category-toggles { display: grid; padding: 2px 0; border-block: 1px solid var(--line); }
 .toggle-text { display: grid; gap: 1px; min-width: 0; }
 .filter-hint { color: var(--muted); font-size: 11px; line-height: 1.3; }
-.preference-choice-text { display: grid; gap: 2px; }
 .filter-toggle.is-unavailable { color: var(--muted); cursor: default; }
 .paint-setting.planet-atmosphere { margin: 0; }
 .paint-setting > .paint-setting-heading { display: flex; align-items: center; margin: 0; padding: 0; border: 0; border-radius: 7px; }
@@ -649,6 +659,12 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .info-meta dd { text-align: right; font-weight: 500; }
 .attribution-note { color: var(--muted); font-size: 10px; font-weight: 400; }
 .dock-card.info-card { width: min(320px, calc(var(--ui-width) - var(--dock-gutter))); }
+.welcome-tile { position: fixed; top: 50%; left: 50%; z-index: 20; width: min(440px, calc(var(--ui-width) - 24px)); max-height: calc(var(--ui-height) - 24px); overflow: auto; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: var(--card-radius); box-shadow: 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; transform: translate(-50%, -50%); }
+.welcome-tile .info-brand h2 { font-size: 26px; }
+.welcome-tile .info-brand p { margin-top: 5px; font-size: var(--property-text-size); }
+.welcome-body { padding: 16px; font-size: var(--property-text-size); line-height: 1.4; }
+.welcome-body button { color: var(--accent); }
+#welcome-yes { color: var(--accent-strong); background: var(--panel-selected); border-color: var(--border-active); }
 .legal-notice { margin-inline: 16px; margin-bottom: 16px; font-size: 12px; }
 .legal-language { width: max-content; margin-top: 10px; }
 .legal-notice h3 { margin-top: 14px; color: var(--ink); font-size: 13px; font-weight: 600; }
@@ -841,7 +857,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .load-recovery-actions { display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink); }
 /* While visible content loads, a faint highlight runs along the frame from left to right every 1.5 s. */
 @media (prefers-reduced-motion: no-preference) {
-  :is(.selected-object, .object-type-card, .glossary-card):is([aria-busy="true"], :has([aria-busy="true"]:not([hidden], [hidden] *, details:not([open]) *)))::after {
+  :is(.selected-object, .object-type-card, .glossary-card):is([aria-busy="true"], :has([aria-busy="true"]:not([hidden], [hidden] *, details:not([open]) *)))::after, .tutorial-tile.is-appearing::after {
     content: ''; position: absolute; inset: 0; z-index: 4; border: 1px solid transparent; border-radius: calc(var(--card-radius) - 1px); pointer-events: none;
     background: linear-gradient(90deg, transparent, var(--border-active), transparent) -66.7% 0 / 40% 100% no-repeat border-box;
     mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0); mask-composite: exclude;
@@ -1362,6 +1378,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .distance-card:not(.has-comparison) .mass-fact:not(:last-child:nth-child(odd)) .mass-fact-cell { grid-template-columns: minmax(0, 1fr); align-items: start; }
   .distance-card:not(.has-comparison) .mass-fact:not(:last-child:nth-child(odd)) .mass-fact-notes { margin-top: 2px; text-align: left; }
 }
+/* Narrow single-object cards give the radial velocity bar and notes their own full-width row. */
+@container (max-width: 439px) {
+  .distance-card:not(.has-comparison) .mass-fact:last-child .mass-fact-cell { display: contents; }
+  .distance-card:not(.has-comparison) .mass-fact:last-child .mass-fact-notes { grid-column: 1 / -1; margin-top: 8px; text-align: left; }
+}
 #distance-comparison { display: block; width: 100%; aspect-ratio: 560 / 232; background: #090b10; }
 .radius-body { padding: 0 16px 18px; font-size: var(--property-text-size); line-height: 1.55; }
 .radius-figure { margin: 0 -16px; }
@@ -1617,10 +1638,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .dock-card.object-type-card.distance-card { width: min(560px, calc(var(--ui-width) - 78px)); }
   .dock-card.object-type-card.constellation-card { width: min(420px, calc(var(--ui-width) - 90px)); }
   .dock-card.object-type-card.planet-card { width: min(420px, calc(var(--ui-width) - 78px)); }
-  /* The two spectral diagram buttons fit beside the title. */
-  .object-type-card > .panel-heading:not(.spectral-heading):has(> [role="group"]) { flex-wrap: wrap; gap: 0; padding: 0; }
-  .object-type-card > .panel-heading:not(.spectral-heading):has(> [role="group"]) > h2 { display: flex; align-items: center; flex: 0 0 calc(100% - 98px); min-height: 44px; margin-right: 98px; padding: 0 14px; }
-  .object-type-card > .panel-heading:not(.spectral-heading) > [role="group"] { flex: 0 0 100%; margin: 0; border-top: 1px solid var(--line); }
+  /* The two spectral diagram buttons and a lone distance reference fit beside the title. */
+  .object-type-card > .panel-heading:not(.spectral-heading, .distance-heading:has(> [role="group"] > [hidden])):has(> [role="group"]) { flex-wrap: wrap; gap: 0; padding: 0; }
+  .object-type-card > .panel-heading:not(.spectral-heading, .distance-heading:has(> [role="group"] > [hidden])):has(> [role="group"]) > h2 { display: flex; align-items: center; flex: 0 0 calc(100% - 98px); min-height: 44px; margin-right: 98px; padding: 0 14px; }
+  .object-type-card > .panel-heading:not(.spectral-heading, .distance-heading:has(> [role="group"] > [hidden])) > [role="group"] { flex: 0 0 100%; margin: 0; border-top: 1px solid var(--line); }
   .object-type-card > .panel-heading > [role="group"] > button { height: 44px; margin: 0; border-top: 0; border-bottom: 0; }
   .object-type-card > .panel-heading > [role="group"] > button:first-child { border-left: 0; }
   /* Like the planet sections, the constellation Info and chart controls take a second row. */
@@ -1637,9 +1658,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 }
 
 @media (max-width: 720px) and (orientation: portrait) {
-  /* Narrow enough that both stacked views and the time slider fit below the heading: 183px is the heading, slider and bottom gap. */
-  .dock-card.object-type-card.distance-card { width: min(560px, calc(var(--ui-width) - 78px), max(220px, calc((var(--ui-height) - var(--object-detail-top, 90px) - 183px) * 280 / 464))); }
+  /* Narrow enough that both stacked views and the time slider fit below the heading: 183px is a two-row heading, slider and bottom gap. 242px keeps the title and lone reference on one row. */
+  .dock-card.object-type-card.distance-card { width: min(560px, calc(var(--ui-width) - 78px), max(242px, calc((var(--ui-height) - var(--object-detail-top, 90px) - 183px) * 280 / 464))); }
   #distance-comparison { aspect-ratio: 280 / 464; }
+  .object-type-card > .panel-heading.distance-heading { gap: 6px; padding-right: 87px; }
+  .distance-heading .object-section-button.distance-reference-button { padding: 0 6px; }
 }
 
 @media (max-width: 400px) {
@@ -1722,7 +1745,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .object-search input, .glossary-search input, .save-view-name-field input { font-size: 1rem; }
 }
 
-/* Discover uses the glossary shell and the shared constellation card content. */
+/* Explore uses the glossary shell and the shared constellation card content. */
 .dock-card.constellations-card { width: min(560px, calc(var(--ui-width) - var(--dock-gutter))); }
 .constellations-card .glossary-body { grid-template-columns: min(148px, 30%) minmax(0, 1fr); }
 .constellations-card .glossary-heading { padding-right: 142px; }
@@ -1735,7 +1758,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .constellations-detail-heading #discover-constellation-grid { right: 43px; }
 .constellations-detail-heading #discover-constellation-info-toggle { right: 87px; }
 .constellations-detail-heading h3 { font: inherit; }
-/* Top lists reuse the Discover shell; rows share the selected-object hover. */
+/* Top lists reuse the Explore shell; rows share the selected-object hover. */
 .top-lists-card .glossary-body { grid-template-columns: min(148px, 30%) minmax(0, 1fr); }
 .constellations-detail-heading.top-lists-detail-heading { padding-right: 16px; }
 .top-lists-card .constellations-detail > .card-scroll-content { overflow-x: auto; }

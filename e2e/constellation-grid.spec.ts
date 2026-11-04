@@ -29,7 +29,7 @@ test('equatorial grids adapt to zoom independently in both constellation cards @
   await expect(page.locator('#constellation-magnify')).toHaveAttribute('aria-pressed', 'true')
   if (isMobile) await page.locator('#constellation-close').click()
 
-  const discover = page.getByRole('button', { name: 'Discover', exact: true })
+  const discover = page.getByRole('button', { name: 'Explore', exact: true })
   if (isMobile) await discover.tap()
   else await discover.hover()
   await page.getByRole('button', { name: 'Constellations', exact: true }).click()
