@@ -8,11 +8,40 @@
     "simbad.csv": "d2f31fe2362ae8b8b56b672e93ab48e144457ed5795e3b90fb905ffc78bdea12",
     "components.adql": "060f2470f9a4f0aedbca9c9393a7e33e1b4e154328ab4af6bb8e4ade02d4e07b",
     "components.csv": "4e0c1bec3a3089dc6acc19a250b460c7a2876fcc0cfdf0b2595afe44f4166291",
-    "extended.adql": "a2884308c458a3c43414fd48c7bb8287d40804cd6c62436ddc815c33459c82ac",
-    "extended.csv": "ff39af2876c31ceae6bd72278d837092e8eb90e76e1e6dcc80b34d8ddd8ae1d9",
-    "preferred-names.json": "7eb233d43f9c065f64858ef2f9bbe6704c6ccb0ab45f2adfead067cd4ccb5166",
+    "extended.adql": "b71ac6c178582f6b728c0b51dcab0dbef3aae550dfeaaa720b07797dc1bffbea",
+    "extended.csv": "37942bc9c0fa7d3862b4b9c435a35f14eb6d49735b1654fa8bdbbe35d9e5c707",
+    "preferred-names.json": "e5e52cc050193d73b813b090ba75149481325c3a261ccdf6b2c72b830194eca7",
     "iau-names.csv": "ad39e5c1a6ec5d47f1da6f4595647ed2f5f663408d3d6500124ddf04cac188c9"
   },
   "iauSource": "https://iauarchive.eso.org/public/themes/naming_stars/",
-  "iauRawHtmlSha256": "67392808893e0d45fc7e5ded7cdb4eb12987fed62b0d03e8d89d631181f7646d"
+  "iauRawHtmlSha256": "67392808893e0d45fc7e5ded7cdb4eb12987fed62b0d03e8d89d631181f7646d",
+  "extensions": [
+    {
+      "retrieved": "2026-11-03",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "extended.adql",
+        "extended.csv"
+      ],
+      "note": "Second extended.adql query appended for nebula batch 1 of the 2000-ly census; earlier rows are unchanged."
+    },
+    {
+      "retrieved": "2026-11-04",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "extended.adql",
+        "extended.csv"
+      ],
+      "note": "Third extended.adql query appended for nebula batch 2; vdB numbers are omitted because SIMBAD attaches them to the illuminating stars. Earlier rows are unchanged."
+    },
+    {
+      "retrieved": "2026-11-04",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "extended.adql",
+        "extended.csv"
+      ],
+      "note": "Fourth extended.adql query appended for nebula batch 3; vdB, vdBH, DG 174 and LBN 472 identifiers are omitted because SIMBAD attaches them to the illuminating stars. Earlier rows are unchanged."
+    }
+  ]
 }

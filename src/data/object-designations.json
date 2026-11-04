@@ -11,11 +11,11 @@
     "catalog-work/nearest-1000/simbad.csv": "0d1ab9881afdfbbac62ea7d05d31cb0d8ca4c4235a4b14eb3d0e5b789a932dbd",
     "catalog-work/nearest-5000/simbad.csv": "d9810d3115ecb453f3566eb0c97afbace55f19b9b1efd942e4d51ef2766b4935",
     "catalog-work/object-designations/components.csv": "4e0c1bec3a3089dc6acc19a250b460c7a2876fcc0cfdf0b2595afe44f4166291",
-    "catalog-work/object-designations/extended.csv": "ff39af2876c31ceae6bd72278d837092e8eb90e76e1e6dcc80b34d8ddd8ae1d9",
+    "catalog-work/object-designations/extended.csv": "37942bc9c0fa7d3862b4b9c435a35f14eb6d49735b1654fa8bdbbe35d9e5c707",
     "catalog-work/object-designations/iau-names.csv": "ad39e5c1a6ec5d47f1da6f4595647ed2f5f663408d3d6500124ddf04cac188c9",
-    "catalog-work/object-designations/preferred-names.json": "7eb233d43f9c065f64858ef2f9bbe6704c6ccb0ab45f2adfead067cd4ccb5166",
+    "catalog-work/object-designations/preferred-names.json": "e5e52cc050193d73b813b090ba75149481325c3a261ccdf6b2c72b830194eca7",
     "catalog-work/object-designations/simbad.csv": "d2f31fe2362ae8b8b56b672e93ab48e144457ed5795e3b90fb905ffc78bdea12",
-    "catalog-work/object-designations/source-manifest.json": "cf994b11d8dcad0e4176d980410c25dc37351e05f83467582eb9060740fc2ff3",
+    "catalog-work/object-designations/source-manifest.json": "021db5e6e96ed5218baa2233604e2fe3bc2f20b92daa5c7b987646454d6ebf82",
     "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede",
     "src/data/catalogs/naked-eye-stars/provenance.json": "499e63259f0844cc9b73531b16943d60fa3059713bc6d80920ad3f86413bf512",
     "src/data/catalogs/naked-eye-stars/stars.csv": "337db05f44a07ed899287bf8641f18dd2192069b29d03589e1b7c742c309c391",
@@ -32,7 +32,7 @@
     "src/data/overlays/bubbles/objects.json": "d67197bf55a22ba6cfb78a5253eb924d8df1c82f3ac04e6523ed46f736ef6a90",
     "src/data/overlays/compact-remnants/objects.json": "d0590b143253913ae14e783cdf05b15db8a22f2e4b8c97f0fde545390f7c49ce",
     "src/data/overlays/molecular-clouds/objects.json": "6f20f8fefbbeab700c05c1a0e6b9844f42998da9d810f073973cd99da50419b4",
-    "src/data/overlays/nebulae/objects.json": "d39e6c33ce9d69e766df197f054dd392623fce93a19c171a636920f175910548",
+    "src/data/overlays/nebulae/objects.json": "7073f544a2495442b3b99f9801d3177eab9f11c6db59cbcb30d6389c72447d18",
     "src/data/stars.csv": "2a4b067f5205f531b830f5b7b81c02883e6028bdaf2223890ddf65e363dd6d64",
     "src/data/stellar-companions.json": "88bb4078cd3bcb611fccf3bec6c7cfa655974a70c0eaad0a8210b745b128c450"
   },
@@ -4044,6 +4044,24 @@
       ],
       "simbadId": "*  80 Tau A"
     },
+    "abell-31": {
+      "name": "Abell 31",
+      "designations": [
+        "PK 219+31",
+        "PK 219+31 1",
+        "PN A55 20",
+        "PN A66 31",
+        "PN ARO 135",
+        "PN G219.1+31.2",
+        "PN VV' 81",
+        "Sh 2-290"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "PN A66   31"
+    },
     "abell-35": {
       "name": "Abell 35",
       "designations": [
@@ -4059,6 +4077,38 @@
         "src/data/overlays/nebulae/objects.json"
       ],
       "simbadId": "PN A66   35"
+    },
+    "abell-36": {
+      "name": "Abell 36",
+      "designations": [
+        "ESO 577-24",
+        "PK 318+41 1",
+        "PN A55 25",
+        "PN A66 36",
+        "PN G318.4+41.4",
+        "PN VV' 116"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "PN A66   36"
+    },
+    "abell-7": {
+      "name": "Abell 7",
+      "designations": [
+        "PK 215-30 1",
+        "PN A55 6",
+        "PN A66 7",
+        "PN ARO 215",
+        "PN G215.5-30.8",
+        "PN VV' 27"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "PN A66    7"
     },
     "alpha-centauri-a": {
       "name": "Alpha Centauri A",
@@ -7371,6 +7421,20 @@
         "src/data/overlays/molecular-clouds/objects.json"
       ]
     },
+    "california-nebula": {
+      "name": "California Nebula",
+      "designations": [
+        "LBN 160.18-12.15",
+        "LBN 756",
+        "NGC 1499",
+        "Sh 2-220"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "NGC  1499"
+    },
     "capella-ab": {
       "name": "Capella Ab",
       "designations": [],
@@ -7380,6 +7444,19 @@
         "src/data/catalogs/nearest-1000/stars.csv",
         "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
+    },
+    "ced-184": {
+      "name": "Ced 184",
+      "designations": [
+        "DG 164",
+        "LBN 094.20+08.02",
+        "LBN 422"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "LBN 094.20+08.02"
     },
     "chi-draconis-b": {
       "name": "Chi Draconis B",
@@ -140933,6 +141010,26 @@
       ],
       "simbadId": "* d Lup A"
     },
+    "dumbbell-nebula": {
+      "name": "Dumbbell Nebula",
+      "designations": [
+        "Diabolo Nebula",
+        "M 27",
+        "M27",
+        "NGC 6853",
+        "PK 060-03",
+        "PK 060-03 1",
+        "PN ARO 14",
+        "PN G060.8-03.6",
+        "PN VV 246",
+        "PN VV' 521"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "M  27"
+    },
     "epsilon-eridani": {
       "name": "Epsilon Eridani",
       "designations": [
@@ -141238,6 +141335,20 @@
         "src/data/stars.csv"
       ],
       "simbadId": "V* EZ Aqr"
+    },
+    "flaming-star-nebula": {
+      "name": "Flaming Star Nebula",
+      "designations": [
+        "IC 405",
+        "LBN 172.16-02.02",
+        "LBN 795",
+        "Sh 2-229"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC  405"
     },
     "gaia-bh1": {
       "name": "Gaia BH1",
@@ -146436,6 +146547,25 @@
         "src/data/catalogs/naked-eye-stars/stars.csv"
       ],
       "simbadId": "*  57 UMa A"
+    },
+    "helix-nebula": {
+      "name": "Helix Nebula",
+      "designations": [
+        "HELICAL NEB",
+        "ESO 602-22",
+        "NGC 7293",
+        "PK 036-57",
+        "PK 036-57 1",
+        "PN ARO 17",
+        "PN G036.1-57.1",
+        "PN VV 275",
+        "PN VV' 563"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "NGC  7293"
     },
     "hinds-variable-nebula": {
       "name": "Hind's Variable Nebula",
@@ -474224,6 +474354,107 @@
       ],
       "simbadId": "* i Ori A"
     },
+    "ic-1287": {
+      "name": "IC 1287",
+      "designations": [
+        "Ced 163",
+        "LBN 021.10-00.60",
+        "LBN 75",
+        "vdB 124"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC 1287"
+    },
+    "ic-348": {
+      "name": "IC 348",
+      "designations": [
+        "Gingrich 1",
+        "omi Per Cloud",
+        "Ced 20",
+        "LBN 160.47-17.86",
+        "LBN 758",
+        "Omicron Persei Cloud",
+        "vdB 19"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cds.unistra.fr/simbad/sim-basic?Ident=IC+348",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC  348"
+    },
+    "ic-420": {
+      "name": "IC 420",
+      "designations": [
+        "GN 05.29.8",
+        "LBN 207.80-19.58",
+        "vdB 44"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC  420"
+    },
+    "ic-426": {
+      "name": "IC 426",
+      "designations": [
+        "Ced 55j",
+        "DG 61",
+        "LBN 203.76-16.35",
+        "LBN 921"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC  426"
+    },
+    "ic-432": {
+      "name": "IC 432",
+      "designations": [
+        "Ced 55m",
+        "GN 05.38.4.02",
+        "LBN 206.21-16.20",
+        "LBN 946",
+        "vdB 51"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC  432"
+    },
+    "ic-435": {
+      "name": "IC 435",
+      "designations": [
+        "Ced 55q",
+        "GN 05.40.5",
+        "vdB 57"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC  435"
+    },
+    "ic-4591": {
+      "name": "IC 4591",
+      "designations": [
+        "Ced 127",
+        "DG 131",
+        "LBN 1096",
+        "LBN 348.08+16.86"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC 4591"
+    },
     "ic-4592": {
       "name": "Blue Horsehead Nebula",
       "designations": [
@@ -474309,6 +474540,42 @@
       ],
       "simbadId": "IC 4606"
     },
+    "ic-4812": {
+      "name": "IC 4812",
+      "designations": [
+        "Ced 165a"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC 4812"
+    },
+    "ic-59": {
+      "name": "IC 59",
+      "designations": [
+        "LBN 123.63-01.77",
+        "LBN 620"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC   59"
+    },
+    "ic-63": {
+      "name": "IC 63",
+      "designations": [
+        "Ced 4b",
+        "LBN 123.88-01.93",
+        "LBN 622"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC   63"
+    },
     "iota-oct-a": {
       "name": "Iota Oct A",
       "designations": [
@@ -474333,6 +474600,36 @@
         "src/data/catalogs/nearest-1000/stars.csv",
         "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
+    },
+    "iris-nebula": {
+      "name": "Iris Nebula",
+      "designations": [
+        "GN 21.01.0",
+        "LBN 104.08+14.21",
+        "LBN 487",
+        "NGC 7023",
+        "vdB 139"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "NGC  7023"
+    },
+    "iswe-1": {
+      "name": "IsWe 1",
+      "designations": [
+        "PK 149-03 1",
+        "PK 150-03",
+        "PK 150-03 1",
+        "PN G149.7-03.3",
+        "PN IsWe 1"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "PN IsWe    1"
     },
     "kappa1-scl-a": {
       "name": "Kappa1 Scl A",
@@ -474581,6 +474878,24 @@
       ],
       "simbadId": "* lam Oph B"
     },
+    "lambda-orionis-nebula": {
+      "name": "Lambda Orionis Nebula",
+      "designations": [
+        "Sh 2-264"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "lbn-472": {
+      "name": "LBN 472",
+      "designations": [
+        "DG 174"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
     "local-bubble": {
       "name": "Local Bubble",
       "designations": [
@@ -474591,6 +474906,19 @@
       "sources": [
         "src/data/overlays/bubbles/objects.json"
       ]
+    },
+    "lotr-5": {
+      "name": "LoTr 5",
+      "designations": [
+        "PK 339+88 1",
+        "PN G339.9+88.4",
+        "PN LoTr 5"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "PN LoTr    5"
     },
     "luhman-16-a": {
       "name": "Luhman 16 A",
@@ -474708,6 +475036,39 @@
       ],
       "simbadId": "G 272-61B"
     },
+    "medusa-nebula": {
+      "name": "Medusa Nebula",
+      "designations": [
+        "Abell 21",
+        "PK 205+14 1",
+        "PN A55 16",
+        "PN A66 21",
+        "PN ARO 388",
+        "PN G205.1+14.2",
+        "PN YM 29",
+        "Sh 2-274"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "PN A66   21"
+    },
+    "messier-78": {
+      "name": "Messier 78",
+      "designations": [
+        "Ced 55u",
+        "M 78",
+        "M78",
+        "NGC 2068",
+        "vdB 59"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "M  78"
+    },
     "mu-cassiopeiae-b": {
       "name": "Mu Cassiopeiae B",
       "designations": [],
@@ -474746,6 +475107,86 @@
       ],
       "simbadId": "* mu. Lib A"
     },
+    "mwp-1": {
+      "name": "MWP 1",
+      "designations": [],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "ngc-1333": {
+      "name": "NGC 1333",
+      "designations": [
+        "Ced 16",
+        "GN 03.26.1",
+        "LBN 158.31-20.44",
+        "LBN 741",
+        "vdB 17"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "NGC  1333"
+    },
+    "ngc-1360": {
+      "name": "NGC 1360",
+      "designations": [
+        "ESO 482-7",
+        "PK 220-53 1",
+        "PN ARO 208",
+        "PN G220.3-53.9",
+        "PN M 1-3",
+        "PN VV 10",
+        "PN VV' 16"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "NGC  1360"
+    },
+    "ngc-2023": {
+      "name": "NGC 2023",
+      "designations": [
+        "GN 05.39.1.02",
+        "LBN 954",
+        "vdB 52"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "NGC  2023"
+    },
+    "ngc-2071": {
+      "name": "NGC 2071",
+      "designations": [
+        "Ced 55v",
+        "LBN 205.32-14.04",
+        "LBN 938",
+        "vdB 60"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "NGC  2071"
+    },
+    "ngc-6726": {
+      "name": "NGC 6726/6727",
+      "designations": [
+        "Ced 165b",
+        "GN 18.58.3",
+        "NGC 6726",
+        "NGC 6727"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "NGC  6726"
+    },
     "omega-leo-a": {
       "name": "Omega Leo A",
       "designations": [
@@ -474779,6 +475220,13 @@
         "src/data/overlays/nebulae/objects.json"
       ],
       "simbadId": "M  42"
+    },
+    "pfp-1": {
+      "name": "PFP 1",
+      "designations": [],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
     },
     "pi-ari-a": {
       "name": "Pi Ari A",
@@ -478281,6 +478729,19 @@
       ],
       "simbadId": "PSR B2334+61"
     },
+    "puwe-1": {
+      "name": "PuWe 1",
+      "designations": [
+        "PK 158+17 1",
+        "PN G158.9+17.8",
+        "PN PuWe 1"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "PN PuWe    1"
+    },
     "rigel-ba": {
       "name": "Rigel Ba",
       "designations": [],
@@ -478513,6 +478974,60 @@
         "src/data/catalogs/nearest-1000/stars.csv"
       ]
     },
+    "running-man-nebula": {
+      "name": "Running Man Nebula",
+      "designations": [
+        "ONC Flank N",
+        "the Running Man Nebula",
+        "NGC 1973",
+        "NGC 1975",
+        "NGC 1977",
+        "Sh 2-279"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "NGC  1977"
+    },
+    "sh-2-1": {
+      "name": "Sh 2-1",
+      "designations": [
+        "LBN 1093",
+        "LBN 346.83+20.76"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "LBN  1093"
+    },
+    "sh-2-126": {
+      "name": "Sh 2-126",
+      "designations": [
+        "LBN 094.98-16.95",
+        "LBN 428"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "LBN 094.98-16.95"
+    },
+    "sh-2-174": {
+      "name": "Sh 2-174",
+      "designations": [
+        "LBN 120.29+18.39",
+        "LBN 598",
+        "PK 120+18 1",
+        "PN G120.3+18.3"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "LBN 120.29+18.39"
+    },
     "sh-2-216": {
       "name": "Sh 2-216",
       "designations": [
@@ -478541,6 +479056,50 @@
       ],
       "simbadId": "LBN 006.00+24.73"
     },
+    "sh-2-277": {
+      "name": "Flame Nebula and IC 434",
+      "designations": [
+        "IC 434",
+        "NGC 2024",
+        "Sh 2-277"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "SH  2-277"
+    },
+    "sh-2-64": {
+      "name": "W40",
+      "designations": [
+        "LBN 028.77+03.43",
+        "LBN 90",
+        "Sh 2-64"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "LBN 028.77+03.43"
+    },
+    "sh-2-68": {
+      "name": "Sh 2-68",
+      "designations": [
+        "LBN 030.63+06.37",
+        "LBN 031.47+05.12",
+        "LBN 93",
+        "LBN 96",
+        "PK 030+06 1",
+        "PN G030.6+06.2",
+        "PN HDW 9",
+        "PN YM 15"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "SH  2-68"
+    },
     "sh-2-7": {
       "name": "Sh 2-7",
       "designations": [
@@ -478552,6 +479111,13 @@
         "src/data/overlays/nebulae/objects.json"
       ],
       "simbadId": "LBN  1099"
+    },
+    "sh-2-9": {
+      "name": "Sh 2-9",
+      "designations": [],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
     },
     "sigma-cas-a": {
       "name": "Sigma Cas A",
@@ -478763,6 +479329,28 @@
         "src/data/catalogs/naked-eye-stars/stars.csv"
       ],
       "simbadId": "* tau01 Hyi A"
+    },
+    "tk-1": {
+      "name": "TK 1",
+      "designations": [
+        "Ton 320"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "toby-jug-nebula": {
+      "name": "Toby Jug Nebula",
+      "designations": [
+        "ESO 124-3",
+        "GN 07.55.9",
+        "IC 2220"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC 2220"
     },
     "trapezium-theta1-orionis-a": {
       "name": "Theta1 Orionis A",
@@ -479095,6 +479683,19 @@
       ],
       "simbadId": "* ups Gru A"
     },
+    "vdb-1": {
+      "name": "vdB 1",
+      "designations": [
+        "GN 00.08.0",
+        "LBN 117.68-03.69",
+        "LBN 578"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "LBN 117.68-03.69"
+    },
     "vdb-101": {
       "name": "vdB 101",
       "designations": [],
@@ -479116,6 +479717,13 @@
         "src/data/overlays/nebulae/objects.json"
       ]
     },
+    "vdb-127": {
+      "name": "vdB 127",
+      "designations": [],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
     "vdb-129": {
       "name": "vdB 129",
       "designations": [],
@@ -479123,8 +479731,95 @@
         "src/data/overlays/nebulae/objects.json"
       ]
     },
+    "vdb-134": {
+      "name": "vdB 134",
+      "designations": [
+        "GN 20.28.5"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdb-138": {
+      "name": "vdB 138",
+      "designations": [],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdb-141": {
+      "name": "vdB 141",
+      "designations": [
+        "GN 21.15.8"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdb-149": {
+      "name": "vdB 149",
+      "designations": [],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdb-150": {
+      "name": "vdB 150",
+      "designations": [
+        "GN 22.08.8"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdb-151": {
+      "name": "vdB 151",
+      "designations": [],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdb-152": {
+      "name": "vdB 152",
+      "designations": [
+        "Ced 201",
+        "GN 22.12.2"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
     "vdb-156": {
       "name": "vdB 156",
+      "designations": [],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdb-16": {
+      "name": "vdB 16",
+      "designations": [
+        "GN 03.25.3"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdb-18": {
+      "name": "vdB 18",
+      "designations": [
+        "GN 03.31.9",
+        "LBN 155.19-14.40",
+        "LBN 721"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "LBN 155.19-14.40"
+    },
+    "vdb-24": {
+      "name": "vdB 24",
       "designations": [],
       "sources": [
         "src/data/overlays/nebulae/objects.json"
@@ -479151,6 +479846,85 @@
         "src/data/overlays/nebulae/objects.json"
       ]
     },
+    "vdb-29": {
+      "name": "vdB 29",
+      "designations": [
+        "DG 46",
+        "GN 04.45.2"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdb-31": {
+      "name": "vdB 31",
+      "designations": [
+        "GN 04.52.5.02"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdb-37": {
+      "name": "vdB 37",
+      "designations": [
+        "GN 05.15.4",
+        "LBN 189.78-13.76",
+        "LBN 850",
+        "LBN 851"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "LBN   851"
+    },
+    "vdb-38": {
+      "name": "vdB 38",
+      "designations": [
+        "GN 05.19.0"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdb-4": {
+      "name": "vdB 4",
+      "designations": [],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdb-42": {
+      "name": "vdB 42",
+      "designations": [
+        "GN 05.28.9"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdb-49": {
+      "name": "vdB 49",
+      "designations": [
+        "LBN 200.62-14.08",
+        "LBN 894"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "LBN 200.62-14.08"
+    },
+    "vdb-50": {
+      "name": "vdB 50",
+      "designations": [
+        "GN 05.37.7.01"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
     "vdb-7": {
       "name": "vdB 7",
       "designations": [
@@ -479161,6 +479935,36 @@
         "src/data/overlays/nebulae/objects.json"
       ],
       "simbadId": "VDB   7"
+    },
+    "vdb-9": {
+      "name": "vdB 9",
+      "designations": [
+        "GN 02.47.7"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vdbh-7": {
+      "name": "vdBH 7",
+      "designations": [],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "wede-1": {
+      "name": "WeDe 1",
+      "designations": [
+        "PK 197-06",
+        "PK 197-06 1",
+        "PN G197.4-06.4",
+        "PN WeDe 1"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "PN G197.4-06.4"
     },
     "wise-0855-0714": {
       "name": "WISE 0855-0714",
@@ -479177,6 +479981,22 @@
         "src/data/stars.csv"
       ],
       "simbadId": "WISEA J085510.74-071442.5"
+    },
+    "witch-head-nebula": {
+      "name": "Witch Head Nebula",
+      "designations": [
+        "the Witch Head Nebula",
+        "Ced 41",
+        "IC 2118",
+        "LBN 207.50-27.78",
+        "LBN 959",
+        "NGC 1909"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "NGC  1909"
     },
     "wolf-359": {
       "name": "Wolf 359",

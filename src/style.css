@@ -1632,6 +1632,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 }
 
 @media (max-width: 720px) and (orientation: portrait) {
+  /* Narrow enough that both stacked views and the time slider fit below the heading: 183px is the heading, slider and bottom gap. */
+  .dock-card.object-type-card.distance-card { width: min(560px, calc(var(--ui-width) - 78px), max(220px, calc((var(--ui-height) - var(--object-detail-top, 90px) - 183px) * 280 / 464))); }
   #distance-comparison { aspect-ratio: 280 / 464; }
 }
 

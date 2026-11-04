@@ -1,7 +1,7 @@
 {
   "name": "star-view",
   "private": true,
-  "version": "0.8.1",
+  "version": "0.8.2",
   "type": "module",
   "scripts": {
     "dev": "npm run catalog:generate && vite",
@@ -17,7 +17,7 @@
     "catalog:preservation": "python3 scripts/audit-catalog-preservation.py",
     "catalog:validate": "npm run catalog:check-authored && npm run catalog:validate:generated",
     "catalog:validate:generated": "npm run catalog:preservation && python3 scripts/author-constellations.py && python3 scripts/author-top-lists.py --check && python3 scripts/author-object-links.py --check && python3 scripts/author-sitemap.py --check && node scripts/catalogs.ts validate",
-    "catalog:check-authored": "python3 scripts/author-surface-gravity.py --check && python3 scripts/author-stellar-companions.py --check && python3 scripts/author-notable-distant-stars.py --check && python3 scripts/author-naked-eye-stars.py --check",
+    "catalog:check-authored": "python3 scripts/author-surface-gravity.py --check && python3 scripts/author-stellar-companions.py --check && python3 scripts/author-notable-distant-stars.py --check && python3 scripts/author-naked-eye-stars.py --check && python3 scripts/author-nebulae.py --check",
     "catalog:generate": "npm run catalog:check-authored && node scripts/catalogs.ts generate",
     "catalog:sitemap": "python3 scripts/author-sitemap.py",
     "catalog:companions": "python3 scripts/author-stellar-companions.py --write",

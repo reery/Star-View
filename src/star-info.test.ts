@@ -7,6 +7,8 @@ import definitions from './data/star-info.json'
 import nearest100Definitions from './data/nearest-100-info.json'
 import constellationDefinitions from './data/constellation-star-info.json'
 import compactDefinitions from './data/compact-object-info.json'
+import nebulaDefinitions from './data/nebula-info.json'
+import nebulaObjects from './data/overlays/nebulae/objects.json'
 import legacyStarIds from './data/legacy-star-ids.json'
 import westernCsv from './data/catalogs/western-constellation-stars/stars.csv?raw'
 import nearest1000Csv from './data/catalogs/nearest-1000/stars.csv?raw'
@@ -21,7 +23,7 @@ const surviving = (id: string) => (legacyStarIds.ids as Record<string, string>)[
 beforeAll(async () => {
   vi.stubGlobal('fetch', generatedJsonFetch)
   await Promise.all([...Object.keys(definitions.articles), ...Object.keys(nearest100Definitions.articles),
-    ...Object.keys(constellationDefinitions.articles).map(surviving), ...Object.keys(compactDefinitions.articles)].map(loadStarInfo))
+    ...Object.keys(constellationDefinitions.articles).map(surviving), ...Object.keys(compactDefinitions.articles), ...Object.keys(nebulaDefinitions.articles)].map(loadStarInfo))
 })
 afterAll(() => vi.unstubAllGlobals())
 
@@ -67,6 +69,31 @@ describe('pulsar articles', () => {
     for (const pulsar of ['psr-j0437m4715', 'psr-j0453p1559', 'psr-j1614m2230', 'psr-j2222m0137', 'gaia-bh1', 'gaia-bh3', 'gaia-ns1']) {
       expect(starInfoForId(pulsar)).toBeDefined()
       expect(starInfoForId(`${pulsar}-b`)).toBe(starInfoForId(pulsar))
+    }
+  })
+})
+
+describe('nebula articles', () => {
+  it('cover every nebula in the overlay, sourced', () => {
+    expect(Object.keys(nebulaDefinitions.articles).sort()).toEqual(nebulaObjects.objects.map(({ id }) => id).sort())
+    for (const { id } of nebulaObjects.objects) {
+      const info = starInfoForId(id)
+      expect(starInfoAvailable(id), id).toBe(true)
+      expect(info?.introduction.text, id).toMatch(/^[a-z]/)
+      expect(info!.introduction.source?.url, id).toMatch(/^https:\/\//)
+      expect(info!.sections.every((section) => section.source?.url.startsWith('https://')), id).toBe(true)
+    }
+  })
+
+  it('resolve every local image with its dimensions and credit', () => {
+    const illustrated = Object.keys(nebulaDefinitions.articles).filter((id) => 'image' in nebulaDefinitions.articles[id as keyof typeof nebulaDefinitions.articles])
+    expect(illustrated).toHaveLength(81)
+    for (const id of illustrated) {
+      const image = starInfoForId(id)?.image
+      expect(image?.src, id).toContain(`${id}`)
+      expect(image?.width, id).toBeLessThanOrEqual(600)
+      expect(image?.alt.length, id).toBeGreaterThan(0)
+      expect(image?.credit.length, id).toBeGreaterThan(0)
     }
   })
 })

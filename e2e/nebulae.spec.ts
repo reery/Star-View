@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { expect, test, type Page } from '@playwright/test'
 import { PNG } from 'pngjs'
 import { LIGHT_YEARS_PER_PARSEC } from '../src/astronomy'
-import { hideEarthOrbit, hideMilkyWay, openFilter, openPreferences, openViewer, zoomViewer } from './support'
+import { hideEarthOrbit, hideMilkyWay, openFilter, openPreferences, openViewer, selectObject, zoomViewer } from './support'
 
 type NebulaRow = { type: string; nebula: { distance_pc: number; puff_count: number } }
 const NEBULAE: NebulaRow[] = JSON.parse(readFileSync(new URL('../src/data/overlays/nebulae/objects.json', import.meta.url), 'utf8')).objects
@@ -184,4 +184,27 @@ test('keeps the Orion Nebula visible with bright and constellation stars enabled
   const stats = nebulaPixels(image)
   expect(stats.count).toBeGreaterThan(1500)
   expect(stats.saturation).toBeGreaterThan(0.25)
+})
+
+test('offers Info for nebulae and loads the local image only when opened', async ({ page }) => {
+  const images: string[] = []
+  page.on('request', (request) => { if (request.url().endsWith('.avif')) images.push(new URL(request.url()).pathname) })
+  await page.goto('/')
+  await expect(page.locator('#scene-status')).toBeHidden()
+  await enableNebulae(page)
+  await selectObject(page, 'Iris Nebula')
+  await expect(page.locator('#object-info-toggle')).toBeEnabled()
+  expect(images.filter((path) => path.includes('iris-nebula'))).toHaveLength(0)
+  await page.locator('#object-info-toggle').click()
+  const info = page.locator('#object-info')
+  await expect(info.locator(':scope > p')).toContainText('Iris Nebula is a bright, flower-like reflection nebula')
+  const image = info.locator('figure img')
+  await expect.poll(() => image.evaluate((element: HTMLImageElement) => element.naturalWidth)).toBe(600)
+  expect(images.filter((path) => path.includes('iris-nebula')).length).toBeGreaterThan(0)
+  await expect(info.locator('figcaption')).toContainText('CC BY 4.0')
+
+  // A nebula with no informative photograph still has its article.
+  await selectObject(page, 'vdB 156')
+  await expect(info.locator(':scope > p')).toContainText('vdB 156 is a very large')
+  await expect(info.locator('figure')).toHaveCount(0)
 })

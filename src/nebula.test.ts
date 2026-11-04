@@ -4,7 +4,7 @@ import manifestRaw from './data/overlays/nebulae/manifest.json?raw'
 import payloadRaw from './data/overlays/nebulae/objects.json?raw'
 import { equatorialToGalacticPc, type Star } from './catalog-model'
 import { galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor } from './astronomy'
-import { parseNebulaOverlayManifest, parseNebulaOverlayPayload } from './nebula-overlay-model'
+import { decodeNebulaMask, parseNebulaOverlayManifest, parseNebulaOverlayPayload } from './nebula-overlay-model'
 import { generateNebulaPuffs, nebulaBasis, packNebulaInstances, seededRandom } from './nebula-layer'
 
 const manifest = parseNebulaOverlayManifest(manifestRaw)
@@ -24,13 +24,13 @@ describe('nebula overlay data', () => {
       ['pleiades-nebula', 'reflection_nebula'],
       ['orion-nebula', 'hii_region'],
     ])
-    expect(nebulae).toHaveLength(22)
-    expect(manifest.counts).toEqual({ reflection_nebula: 17, hii_region: 4, planetary_nebula: 1 })
+    expect(nebulae).toHaveLength(89)
+    expect(manifest.counts).toEqual({ reflection_nebula: 59, hii_region: 14, planetary_nebula: 16 })
     expect(byId('sh-2-216').type).toBe('planetary_nebula')
   })
 
-  it('keeps every census nebula within 1 sigma of 500 ly and at least 5 arcmin across', () => {
-    const cutoffPc = 500 / LIGHT_YEARS_PER_PARSEC
+  it('keeps every census nebula within 1 sigma of 2000 ly and at least 5 arcmin across', () => {
+    const cutoffPc = 2000 / LIGHT_YEARS_PER_PARSEC
     for (const nebula of nebulae.filter((candidate) => candidate.id !== 'orion-nebula')) {
       const { distance_pc, distance_error_pc, angular_size_arcmin } = nebula.nebula!
       expect(distance_pc - (distance_error_pc ?? 0), nebula.id).toBeLessThanOrEqual(cutoffPc)
@@ -68,6 +68,19 @@ describe('nebula overlay data', () => {
     expect(() => parseNebulaOverlayPayload(payloadWith((object) => { object.nebula.shape.kind = 'torus' }), manifest)).toThrow(/row/)
     expect(() => parseNebulaOverlayPayload(payloadWith((object) => { object.nebula.source_url = 'http://example.com' }), manifest)).toThrow(/row/)
     expect(() => parseNebulaOverlayPayload(payloadWith((object) => { object.type = 'reflection_nebula' }), manifest)).toThrow(/counts/)
+  })
+
+  it('rejects malformed H-alpha masks', () => {
+    const masked = JSON.parse(payloadRaw).objects.findIndex((object: Record<string, any>) => object.nebula.shape.mask)
+    const withMask = (change: (shape: Record<string, any>) => void) => {
+      const payload = JSON.parse(payloadRaw)
+      change(payload.objects[masked].nebula.shape)
+      return payload
+    }
+    expect(() => parseNebulaOverlayPayload(withMask((shape) => { shape.mask.size = [3, 3] }), manifest)).toThrow(/row/)
+    expect(() => parseNebulaOverlayPayload(withMask((shape) => { shape.position_angle_deg = 10 }), manifest)).toThrow(/row/)
+    expect(() => parseNebulaOverlayPayload(withMask((shape) => { shape.kind = 'blister' }), manifest)).toThrow(/row/)
+    expect(() => parseNebulaOverlayPayload(withMask((shape) => { shape.mask.values = 'not base64!' }), manifest)).toThrow(/row/)
   })
 
   it('uses palette colors for both color modes', () => {
@@ -135,6 +148,30 @@ describe('nebula puff volumes', () => {
       expect(radius).toBeGreaterThanOrEqual(0.8 - 1e-6)
       expect(radius).toBeLessThanOrEqual(1 + 1e-6)
     }
+  })
+
+  it('places mask-shaped puffs where the H-alpha map is bright', () => {
+    const lambda = byId('lambda-orionis-nebula')
+    const { semi_axes_pc: [depth, major, minor], mask } = lambda.nebula!.shape
+    const values = decodeNebulaMask(mask!)
+    const [columns, rows] = mask!.size
+    const puffs = generateNebulaPuffs(lambda, sun)
+    expect(puffs.count).toBe(lambda.nebula!.puff_count)
+    let dark = 0
+    for (let index = 0; index < puffs.count; index++) {
+      const [d, u, v] = puffs.local.subarray(index * 3, index * 3 + 3)
+      expect(Math.abs(u!)).toBeLessThanOrEqual(major)
+      expect(Math.abs(v!)).toBeLessThanOrEqual(minor)
+      expect(Math.abs(d!)).toBeLessThanOrEqual(depth)
+      const column = Math.min(columns - 1, Math.floor((v! / minor + 1) / 2 * columns))
+      const row = Math.min(rows - 1, Math.floor((u! / major + 1) / 2 * rows))
+      if (values[row * columns + column] === 0) dark++
+    }
+    expect(dark).toBe(0)
+    // Kernels follow the mask pixel scale, not the uniform-volume overlap rule.
+    const kernel = 2 * 2 * major / rows
+    expect(puffs.shapes[0]).toBeGreaterThanOrEqual(0.9 * kernel)
+    expect(puffs.shapes[0]).toBeLessThanOrEqual(1.1 * kernel)
   })
 
   it('packs visible nebulae with level-of-detail prefixes', () => {
