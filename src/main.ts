@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Shrink, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
@@ -157,7 +157,7 @@ icon('motion-active-icon', Clock)
 icon('graphs-lock-icon', Lock)
 icon('graphs-close-icon', X)
 icon('paint-icon', Paintbrush)
-icon('paint-shrink-icon', Shrink)
+icon('paint-keep-size-icon', Expand)
 icon('paint-reset-icon', RotateCcw)
 icon('paint-lock-icon', Lock)
 icon('paint-close-icon', X)
@@ -304,7 +304,7 @@ const paintControls = new Map<PaintSettingId, PaintControls>()
 /** Channels each paint setting claims when enabled, both when absent. */
 const paintChannels = new Map<PaintSettingId, readonly PaintChannel[]>()
 const paintChannelsOf = (id: PaintSettingId) => paintChannels.get(id) ?? PAINT_CHANNELS
-let paintZoomShrink = false
+let paintZoomShrink = true
 let viewer: StarViewer | undefined
 let stars: Star[] = []
 let starIndex = new Map<string, Star>()
@@ -368,6 +368,7 @@ const availableKeys = availableFilterKeys(compactOverlayManifest.counts, nebulaO
 let visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
 let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
+let colorBlindPalette = false
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
 const NAKED_EYE_CATALOG_ID = 'naked-eye-stars'
 const NOTABLE_DISTANT_CATALOG_ID = 'notable-distant-stars'
@@ -406,6 +407,7 @@ let objectHold: { pointerId: number; x: number; y: number; timer: number } | nul
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
   if (localStorage.getItem('star-view-color-mode') === 'real') starColorMode = 'real'
+  colorBlindPalette = localStorage.getItem('star-view-color-blind-palette') === 'true'
   const storedEarthOrbitMode = localStorage.getItem('star-view-earth-orbit-mode')
   if (isEarthOrbitMode(storedEarthOrbitMode)) earthOrbitMode = storedEarthOrbitMode
   else if (localStorage.getItem('star-view-earth-orbit-visible') === 'false') earthOrbitMode = 'off'
@@ -416,6 +418,7 @@ try {
   if (storedLabelLimit !== null && parsedLabelLimit >= 0 && parsedLabelLimit <= 140 && parsedLabelLimit % 20 === 0) labelLimit = parsedLabelLimit
 } catch {}
 element<HTMLInputElement>(`star-colors-${starColorMode}`).checked = true
+element<HTMLInputElement>('color-blind-palette').checked = colorBlindPalette
 const earthOrbitModeInput = element<HTMLInputElement>('earth-orbit-mode')
 // Overrides any form state the browser restored on reload, so the inputs match the app's settings.
 syncSceneAndMotionInputs()
@@ -2948,6 +2951,15 @@ for (const category of FILTER_CATEGORIES) {
     const name = document.createElement('span')
     name.textContent = subtype.label
     option.append(checkbox, name)
+    if ((COMPACT_OBJECT_TYPES as readonly string[]).includes(subtype.key)) {
+      // The shape this type takes on the map.
+      const shape = document.createElement('span')
+      shape.className = 'remnant-shape'
+      shape.dataset.remnant = subtype.key
+      shape.setAttribute('aria-hidden', 'true')
+      shape.style.color = starDisplayColor({ type: subtype.key as Star['type'], temperature_k: null, spectral_type: null }).getStyle()
+      option.append(shape)
+    }
     if (!availableKeys.has(subtype.key)) {
       option.classList.add('is-unavailable')
       option.append(noDataHint(`type-${subtype.key}-hint`, checkbox))
@@ -3826,7 +3838,7 @@ element('paint-settings').append(...PAINT_SETTINGS.map((paintSetting) => {
   const level = document.createElement('input')
   Object.assign(level, { type: 'range', min: String(PAINT_LEVEL_RANGE[0]), max: String(PAINT_LEVEL_RANGE[1]), step: '0.01', value: String(initialLevel) })
   level.setAttribute('aria-label', 'level' in paintSetting ? paintSetting.level.label : `${label} midpoint`)
-  bar.style.setProperty('--paint-legend', gradient(initialLevel, DEFAULT_PAINT_CONTROLS))
+  bar.style.setProperty('--paint-legend', gradient(initialLevel, DEFAULT_PAINT_CONTROLS, colorBlindPalette))
   bar.append(level)
   const bounds = document.createElement('div')
   bounds.className = 'range-bounds'
@@ -3847,7 +3859,7 @@ element('paint-settings').append(...PAINT_SETTINGS.map((paintSetting) => {
     wheel.className = 'paint-wheel'
     wheel.setAttribute('aria-hidden', 'true')
     const disc = document.createElement('i')
-    disc.style.setProperty('--paint-legend', legend.wheel.gradient(initialLevel, DEFAULT_PAINT_CONTROLS))
+    disc.style.setProperty('--paint-legend', legend.wheel.gradient(initialLevel, DEFAULT_PAINT_CONTROLS, colorBlindPalette))
     wheel.append(disc, ...legend.wheel.labels.map((text) => Object.assign(document.createElement('span'), { textContent: text })))
     body.append(wheel)
   }
@@ -3951,8 +3963,8 @@ element('paint-settings').addEventListener('input', (event) => {
 /** Shows a setting's legend and slider readouts at its level and controls. */
 function showPaintLevel(parts: NonNullable<ReturnType<typeof paintSettingParts>>, level: number): void {
   const controls = paintControls.get(parts.id) ?? DEFAULT_PAINT_CONTROLS
-  parts.level.parentElement!.style.setProperty('--paint-legend', parts.gradient(level, controls))
-  if (parts.wheel && 'wheel' in parts.legend) parts.wheel.style.setProperty('--paint-legend', parts.legend.wheel.gradient(level, controls))
+  parts.level.parentElement!.style.setProperty('--paint-legend', parts.gradient(level, controls, colorBlindPalette))
+  if (parts.wheel && 'wheel' in parts.legend) parts.wheel.style.setProperty('--paint-legend', parts.legend.wheel.gradient(level, controls, colorBlindPalette))
   parts.controls.forEach(({ control, input }) => { input.parentElement!.querySelector('output')!.textContent = control.text(controls[control.name], level) })
 }
 /** Hands the setting's channels over from the other enabled settings, turning off those left without one. */
@@ -3981,7 +3993,7 @@ function applyPaint(entries: readonly (readonly [PaintSettingId, number, (readon
   linearPaintSettings.clear()
   paintControls.clear()
   paintChannels.clear()
-  setPaintZoomShrink(false)
+  setPaintZoomShrink(true)
   entries.forEach(([id, level, channels]) => {
     paintSettings.set(id, level)
     if (channels) paintChannels.set(id, channels)
@@ -4007,7 +4019,7 @@ function paintVisible(refit = false): void {
   const shown = settings.filter((parts) => paintSettings.has(parts.id) || !parts.body.hidden)
   if (!shown.length) paintStars = null
   else if (refit || !paintStars) paintStars = paintableStars()
-  const context: PaintContext = { origin: starById(referenceId) ?? { x_pc: 0, y_pc: 0, z_pc: 0 }, unit: distanceUnit }
+  const context: PaintContext = { origin: starById(referenceId) ?? { x_pc: 0, y_pc: 0, z_pc: 0 }, unit: distanceUnit, colorBlindPalette }
   const fitted = paintStars && starPainter(paintSettings, paintStars, linearPaintSettings, paintControls, paintChannels, context)
   settings.forEach((parts) => {
     const legend = fitted?.legends.get(parts.id) ?? (paintStars && shown.includes(parts) ? paintLegend(parts.id, paintStars, linearPaintSettings.has(parts.id), context) : undefined)
@@ -4033,10 +4045,10 @@ function refitPaint(): void {
 }
 function setPaintZoomShrink(enabled: boolean): void {
   paintZoomShrink = enabled
-  element('paint-shrink').setAttribute('aria-pressed', String(enabled))
+  element('paint-keep-size').setAttribute('aria-pressed', String(!enabled))
   viewer?.setStarPaintZoomShrink(enabled)
 }
-element('paint-shrink').addEventListener('click', () => setPaintZoomShrink(!paintZoomShrink), { signal: events.signal })
+element('paint-keep-size').addEventListener('click', () => setPaintZoomShrink(!paintZoomShrink), { signal: events.signal })
 element('paint-reset').addEventListener('click', () => applyPaint([]), { signal: events.signal })
 element('filter-save').addEventListener('click', saveCurrentFilter, { signal: events.signal })
 catalogRange.addEventListener('change', () => {
@@ -4072,6 +4084,15 @@ element('star-colors').addEventListener('change', () => {
   updateSelectionHistoryControls()
   viewer?.setStarColorMode(starColorMode)
   graphs?.refresh()
+}, { signal: events.signal })
+element('color-blind-palette').addEventListener('change', () => {
+  colorBlindPalette = element<HTMLInputElement>('color-blind-palette').checked
+  try { localStorage.setItem('star-view-color-blind-palette', String(colorBlindPalette)) } catch {}
+  for (const setting of element('paint-settings').querySelectorAll<HTMLElement>('[data-paint-setting]')) {
+    const parts = paintSettingParts(setting)!
+    showPaintLevel(parts, parts.level.valueAsNumber)
+  }
+  if (paintStars) paintVisible()
 }, { signal: events.signal })
 const magnitudeLimitInput = element<HTMLInputElement>('magnitude-limit')
 const magnitudeLimitGuides = MAGNITUDE_VISIBILITY_GUIDES.filter((guide) => guide.limit <= Number(magnitudeLimitInput.max))

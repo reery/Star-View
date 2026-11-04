@@ -278,7 +278,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading #filter-reset { right: 87px; border-radius: 0; }
 .panel-heading.preferences-heading { padding-right: 98px; }
 .panel-heading.paint-heading { padding-right: 186px; }
-.panel-heading #paint-shrink { right: 131px; border-radius: 0; }
+.panel-heading #paint-keep-size { right: 131px; border-radius: 0; }
 .panel-heading #paint-reset { right: 87px; border-radius: 0; }
 .panel-heading.neighborhood-heading { padding-right: 142px; }
 .panel-heading #neighborhood-clear { right: 87px; border-radius: 0; }
@@ -498,6 +498,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .category-toggles { display: grid; padding: 2px 0; border-block: 1px solid var(--line); }
 .toggle-text { display: grid; gap: 1px; min-width: 0; }
 .filter-hint { color: var(--muted); font-size: 11px; line-height: 1.3; }
+.preference-choice-text { display: grid; gap: 2px; }
 .filter-toggle.is-unavailable { color: var(--muted); cursor: default; }
 .paint-setting.planet-atmosphere { margin: 0; }
 .paint-setting > .paint-setting-heading { display: flex; align-items: center; margin: 0; padding: 0; border: 0; border-radius: 7px; }
@@ -567,6 +568,10 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-type-option input { width: 16px; height: 16px; margin: 0; flex: 0 0 auto; }
 .object-type-option:has(input:disabled) { color: var(--muted); cursor: default; }
 .object-type-option .filter-hint { margin-left: auto; }
+.remnant-shape { flex: 0 0 10px; width: 10px; height: 10px; background: currentColor; }
+.remnant-shape[data-remnant="pulsar"] { clip-path: polygon(38% 0, 62% 0, 62% 38%, 100% 38%, 100% 62%, 62% 62%, 62% 100%, 38% 100%, 38% 62%, 0 62%, 0 38%, 38% 38%); }
+.remnant-shape[data-remnant="neutron_star"] { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.remnant-shape[data-remnant="black_hole"] { border: 2px solid; border-radius: 50%; background: none; }
 #catalog-count { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; font-weight: 500; }
 .panel-heading.objects-heading { gap: 12px; padding-right: 142px; }
 .objects-heading h2 { flex: 0 0 auto; white-space: nowrap; }
@@ -643,7 +648,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .info-meta dt { color: var(--muted); }
 .info-meta dd { text-align: right; font-weight: 500; }
 .attribution-note { color: var(--muted); font-size: 10px; font-weight: 400; }
-.dock-card.info-card:has(.legal-notice[open]) { width: min(480px, calc(var(--ui-width) - var(--dock-gutter))); }
+.dock-card.info-card { width: min(320px, calc(var(--ui-width) - var(--dock-gutter))); }
 .legal-notice { margin-inline: 16px; margin-bottom: 16px; font-size: 12px; }
 .legal-language { width: max-content; margin-top: 10px; }
 .legal-notice h3 { margin-top: 14px; color: var(--ink); font-size: 13px; font-weight: 600; }

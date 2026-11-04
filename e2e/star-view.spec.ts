@@ -525,11 +525,41 @@ test('opens an accessible project info card', { tag: '@mobile' }, async ({ page 
   await expect(info).toBeFocused()
 })
 
+test('ties the zoom-out limit to the object visibility distance, whatever the catalog', async ({ page }) => {
+  await openViewer(page)
+  const setDistanceLimit = (step: number) => page.locator('#object-distance-limit').evaluate((input: HTMLInputElement, value) => {
+    input.value = String(value)
+    input.dispatchEvent(new Event('input', { bubbles: true }))
+  }, step)
+  const viewerDistanceLy = async () => Number.parseFloat((await page.locator('#viewer-distance').textContent())!.replaceAll(',', ''))
+  const expectViewerDistanceNear = (distanceLy: number) => expect.poll(async () => Math.abs(await viewerDistanceLy() / distanceLy - 1)).toBeLessThan(0.02)
+
+  await setDistanceLimit(19) // 1,000 ly
+  for (let attempt = 0; attempt < 8; attempt++) await zoomViewer(page, 'out', 20)
+  await expectViewerDistanceNear(181_000)
+  await setDistanceLimit(14) // 100 ly
+  await expectViewerDistanceNear(18_100)
+})
+
+test('shrinks painted stars on zoom-out unless asked to keep their sizes', async ({ page }) => {
+  await openViewer(page)
+  await page.locator('#discover-toggle').click()
+  await page.locator('#paint-toggle').click()
+  const keepSize = page.getByRole('button', { name: 'Keep painted star sizes when zooming out' })
+  await expect(keepSize).toHaveAttribute('aria-pressed', 'false')
+  await keepSize.click()
+  await expect(keepSize).toHaveAttribute('aria-pressed', 'true')
+  await page.locator('#paint-reset').click()
+  await expect(keepSize).toHaveAttribute('aria-pressed', 'false')
+})
+
 test('shows the imprint and privacy notice in English and German', async ({ page }) => {
   await openViewer(page)
   await page.locator('#info-toggle').click()
   const notice = page.locator('#legal-notice')
+  await expect(page.locator('#info-panel')).toHaveCSS('width', '320px')
   await notice.locator('summary').click()
+  await expect(page.locator('#info-panel')).toHaveCSS('width', '320px')
   await expect(notice.locator('section[lang="en"]')).toBeVisible()
   await expect(notice.locator('section[lang="de"]')).toBeHidden()
   await expect(notice).not.toContainText('%IMPRINT')

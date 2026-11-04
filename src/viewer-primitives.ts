@@ -9,6 +9,8 @@ export const STAR_CORE_FULL_STRENGTH_DISTANCE_PC = 200 / LIGHT_YEARS_PER_PARSEC
 export const STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER = 1.6
 export const STAR_HALO_FULL_STRENGTH_DISTANCE_PC = 50 / LIGHT_YEARS_PER_PARSEC
 export const STAR_CORE_MIN_DIAMETER_PX = 2
+/** Keeps the shapes of compact remnants legible at any zoom, though they lack a magnitude to size them. */
+export const STAR_REMNANT_MIN_DIAMETER_PX = 8
 export const STAR_CORE_MIN_VIEW_SCALE = 0.3
 export const STAR_HALO_MIN_VIEW_SCALE = 0.3
 export const STAR_HALO_MIN_OPACITY_SCALE = 0.08
@@ -79,6 +81,11 @@ export function starBlocksLabels(tier: ReturnType<typeof visibilityTier>): boole
   return tier !== 'background'
 }
 
+/** The map's core shape, telling compact remnants apart without color: 0 round, 1 pulsar plus, 2 neutron star diamond, 3 black hole ring. */
+export function starCoreShape({ type }: Pick<Star, 'type'>): number {
+  return type === 'pulsar' ? 1 : type === 'neutron_star' ? 2 : type === 'black_hole' ? 3 : 0
+}
+
 export function starCoreWhiteStrength(star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'>): number {
   if (star.type === 'pulsar' || star.type === 'neutron_star' || star.type === 'black_hole') return 0.2
   if (star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf') return 0.08
@@ -89,6 +96,11 @@ export function starCoreWhiteStrength(star: Pick<Star, 'type' | 'temperature_k' 
     return 0.15 + 0.25 * Math.max(0, Math.min(1, (temperature - 2500) / 1500))
   }
   return 0.4 + 0.6 * (temperature - 4000) / 1000
+}
+
+/** Zoom-out reach follows the object visibility distance, reaching its full 181,000 ly at 1,000 ly. */
+export function maxOrbitDistancePc(objectDistanceLimitLy: number): number {
+  return Math.min(objectDistanceLimitLy, 1000) * 181 / LIGHT_YEARS_PER_PARSEC
 }
 
 export function isObjectMapVisible(

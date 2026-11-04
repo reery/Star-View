@@ -32,9 +32,9 @@ import {
   MOTION_ARROW_TAIL_OFFSET_PX,
   CONTEXT_MENU_HOLD_MS, STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices,
   compareMapLabelCandidates, focusProgress,
-  guideDashScale, isObjectMapVisible, mapVisibilityTier, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
+  guideDashScale, isObjectMapVisible, mapVisibilityTier, maxOrbitDistancePc, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPointInto,
-  shouldRunOrdinaryLabelLayout, starApparentDiameter, starBlocksLabels, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
+  shouldRunOrdinaryLabelLayout, starApparentDiameter, starBlocksLabels, starCoreShape, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
   type MotionArrowGeometry, type PointerPosition, type ProjectedPickable,
 } from './viewer-primitives'
 
@@ -302,7 +302,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let starPaints: StarPaint[] | null = null
   /** Whether the paint sizes objects, rather than only coloring them. */
   let starPaintSized = false
-  let starPaintZoomShrink = false
+  let starPaintZoomShrink = true
   const starColors = stars.map((star) => starDisplayColor(star, starColorMode))
   const starColorStyles = starColors.map((color) => color.getStyle())
   const starBounds = new Box3().setFromPoints(pickable.map((star) => star.position))
@@ -322,8 +322,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   catalogSphere.radius = Math.max(catalogSphere.radius, 0.75)
   const homeDirection = new Vector3(-4.8, 3.8, -6.2).normalize()
   controls.minDistance = 0.08
-  controls.maxDistance = Math.max(30, catalogSphere.radius * 24)
-  camera.far = controls.maxDistance * 5
+  let objectDistanceLimitLy = 100
+  controls.maxDistance = maxOrbitDistancePc(objectDistanceLimitLy)
+  camera.far = maxOrbitDistancePc(Infinity) * 5
 
   let milkyWayVisible = options.milkyWayVisible ?? true
   const milkyWay = createMilkyWayLayer(starColorMode, renderer.capabilities.maxTextureSize, reducedMotion, (ready) => {
@@ -389,6 +390,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   starGeometry.setAttribute('coreEmphasis', coreEmphases)
   const coreWhiteStrengths = new Float32BufferAttribute(stars.map(starCoreWhiteStrength), 1)
   starGeometry.setAttribute('coreWhiteStrength', coreWhiteStrengths)
+  starGeometry.setAttribute('coreShape', new Float32BufferAttribute(stars.map(starCoreShape), 1))
   const starPoints = new Points(starGeometry, starMaterial)
   starPoints.frustumCulled = false
   starPoints.renderOrder = 2
@@ -588,7 +590,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let visibilityLocked = false
   let magnitudeLimit = 7
   let hideFainterObjects = false
-  let objectDistanceLimitLy = 100
   let visibleKeys = new Set<FilterKey>(FILTER_KEYS)
   let objectPredicate: ((star: Star, distancePc: number) => boolean) | null = null
   let labelLimit = 40
@@ -2293,7 +2294,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (faintClouds.update(camera.position)) updatePresentation()
     // Looking at a distant object from the origin is still a close sky view.
     // Fade the overview only after retreating from both origin and orbit target.
-    // Painted sizes and halos are the comparison, so zooming out keeps them unless asked to shrink.
+    // Zooming out shrinks painted sizes and halos unless asked to keep them for comparison.
     starViewDistance.value = observerViewEnabled || (starPaintSized && !starPaintZoomShrink) ? 0 : Math.min(
       camera.position.distanceTo(controls.target),
       camera.position.distanceTo(pickable[referenceIndex]!.position),
@@ -2449,6 +2450,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 40000) return
       if (distanceLy === objectDistanceLimitLy) return
       objectDistanceLimitLy = distanceLy
+      const maxDistance = maxOrbitDistancePc(distanceLy)
+      if (savedOrbitSettings) savedOrbitSettings.maxDistance = maxDistance
+      else controls.maxDistance = maxDistance
       updatePresentation()
       requestRender()
     },

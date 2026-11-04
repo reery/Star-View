@@ -4,10 +4,10 @@ import { apparentVisualMagnitude, LIGHT_YEARS_PER_PARSEC } from './astronomy'
 import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-layout'
 import {
   GUIDE_DASH_PX, GUIDE_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
-  ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress, isObjectMapVisible,
+  ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress, isObjectMapVisible, maxOrbitDistancePc,
   guideDashScale, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
-  shouldRunOrdinaryLabelLayout, starCoreViewScale, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
+  shouldRunOrdinaryLabelLayout, starCoreShape, starCoreViewScale, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
   starHaloStrength, starHaloViewOpacityScale, starHaloViewScale, type MotionArrowGeometry,
   type PointerPosition, type ProjectedPickable, type Viewport,
 } from './viewer-primitives'
@@ -212,6 +212,12 @@ describe('object map filtering', () => {
   it('controls the Sun independently from the star object type', () => {
     expect(isObjectMapVisible(sun, new Set(['sun']), null, 'target')).toBe(true)
     expect(isObjectMapVisible(sun, new Set(['star']), 'sun', 'sun', 0, Infinity)).toBe(false)
+  })
+})
+
+describe('map core shapes', () => {
+  it('gives each compact remnant type its own shape and leaves other objects round', () => {
+    expect((['pulsar', 'neutron_star', 'black_hole', 'star', 'white_dwarf'] as const).map((type) => starCoreShape({ type }))).toEqual([1, 2, 3, 0, 0])
   })
 })
 
@@ -519,6 +525,14 @@ describe('projected motion direction', () => {
       expect(projectMotionDirection(position, new Vector3(1, 0, 0), makeCamera(), viewport)).toBeNull()
     }
     expect(projectMotionDirection(new Vector3(), new Vector3(1, 0, 0), makeCamera(), { ...viewport, width: 0 })).toBeNull()
+  })
+})
+
+describe('orbit zoom-out reach', () => {
+  it('scales with the object visibility distance up to its full reach at 1,000 ly', () => {
+    expect(maxOrbitDistancePc(100) * LIGHT_YEARS_PER_PARSEC).toBeCloseTo(18_100)
+    expect(maxOrbitDistancePc(1000) * LIGHT_YEARS_PER_PARSEC).toBeCloseTo(181_000)
+    expect(maxOrbitDistancePc(20_000)).toBe(maxOrbitDistancePc(1000))
   })
 })
 

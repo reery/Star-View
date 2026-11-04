@@ -986,7 +986,7 @@
               <section id="paint-panel" class="dock-card" aria-labelledby="paint-heading" data-scene-obstacle hidden>
                 <div class="panel-heading paint-heading">
                   <h2 id="paint-heading">Paint</h2>
-                  <button id="paint-shrink" class="panel-lock" type="button" aria-label="Shrink painted stars when zooming out" title="Shrink painted stars when zooming out" aria-pressed="false"><span id="paint-shrink-icon"></span></button>
+                  <button id="paint-keep-size" class="panel-lock" type="button" aria-label="Keep painted star sizes when zooming out" title="Keep painted star sizes when zooming out" aria-pressed="false"><span id="paint-keep-size-icon"></span></button>
                   <button id="paint-reset" class="panel-lock" type="button" aria-label="Reset paint" title="Reset paint"><span id="paint-reset-icon"></span></button>
                   <button id="paint-lock" class="panel-lock" type="button" aria-label="Keep Paint open" aria-pressed="false"><span id="paint-lock-icon"></span></button>
                   <button id="paint-close" class="panel-lock" type="button" aria-label="Close paint card"><span id="paint-close-icon"></span></button>
@@ -1024,6 +1024,10 @@
                 <div class="display-settings card-scroll-content" aria-label="Display settings">
                   <div id="distance-units" class="segmented-choice" role="group" aria-labelledby="distance-units-label"><span id="distance-units-label">Distances</span><div class="unit-options"><label><input id="unit-pc" type="radio" name="distance-unit" value="pc"><span>pc</span></label><label><input id="unit-ly" type="radio" name="distance-unit" value="ly" checked><span>ly</span></label></div></div>
                   <div id="star-colors" class="segmented-choice" role="group" aria-labelledby="star-colors-label"><span id="star-colors-label">Colors</span><div class="unit-options"><label><input id="star-colors-real" type="radio" name="star-color-mode" value="real"><span>Real</span></label><label><input id="star-colors-exaggerated" type="radio" name="star-color-mode" value="exaggerated" checked><span>Exaggerated</span></label></div></div>
+                  <label class="filter-toggle" for="color-blind-palette">
+                    <span class="preference-choice-text"><span>Color-blind friendly paint</span><span id="color-blind-palette-hint" class="filter-hint">Changes the Distance and Motion direction paints.</span></span>
+                    <span class="switch-control"><input id="color-blind-palette" type="checkbox" role="switch" aria-describedby="color-blind-palette-hint"><span class="switch-track" aria-hidden="true"></span></span>
+                  </label>
                   <div class="range-filter">
                     <div class="range-heading"><label for="label-limit">Labels</label><output id="label-limit-value" for="label-limit">40</output></div>
                     <input id="label-limit" type="range" min="0" max="140" step="20" value="40" aria-valuetext="40 labels">

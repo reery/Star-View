@@ -47,15 +47,16 @@ interface PaintScale extends PaintLegend {
 /** A wheel showing directions the main bar does not, with angles growing counterclockwise from the right. */
 interface PaintWheel {
   /** CSS background of the wheel at a level between 0 and 1. */
-  gradient(level: number, controls: PaintControls): string
+  gradient(level: number, controls: PaintControls, colorBlindPalette?: boolean): string
   /** Labels to the right, top, left and bottom of the wheel. */
   labels: readonly [string, string, string, string]
 }
 
-/** The origin distances are measured from and the unit they are shown in. */
+/** The origin distances are measured from, the unit they are shown in and the palette for color vision deficiencies. */
 export interface PaintContext {
   origin: Pick<Star, 'x_pc' | 'y_pc' | 'z_pc'>
   unit: DistanceUnit
+  colorBlindPalette?: boolean
 }
 
 const SUN_CONTEXT: PaintContext = { origin: { x_pc: 0, y_pc: 0, z_pc: 0 }, unit: 'ly' }
@@ -70,7 +71,7 @@ interface PaintSetting {
   /** Bounds shown until the setting is fitted to visible objects; missing completes "objects without …". */
   legend: { bounds: PaintBounds; missing: string; note?: string; wheel?: PaintWheel }
   /** CSS gradient for the legend bar at a level between 0 and 1. */
-  gradient(level: number, controls: PaintControls): string
+  gradient(level: number, controls: PaintControls, colorBlindPalette?: boolean): string
   controls?: readonly PaintControl[]
   /** Keeps the fixed scale, without a choice between ranking and linear. */
   fixed?: true
@@ -225,12 +226,12 @@ export function radialGradient(level: number, { dimness }: PaintControls): strin
  * The linear scale spans the fixed key range, given from the dark end. */
 function keyedSetting<const Id extends string>(
   id: Id, label: string, missing: string, note: string, range: readonly [number, number], format: (key: number) => string, value: (star: Star) => number | null,
-  tint?: (star: Star, strength: number) => readonly number[],
+  tint?: (star: Star, strength: number, context: PaintContext) => readonly number[],
 ) {
   const bounds: PaintBounds = [format(range[0]), format(range[1])]
   return {
     id, label, gradient, legend: { bounds, missing, note },
-    fit(stars: readonly Star[], linear: boolean): PaintScale {
+    fit(stars: readonly Star[], linear: boolean, context: PaintContext): PaintScale {
       const visible = visibleKeys(stars, value)
       // Ranking spreads even closely spaced values of the visible objects over the whole scale.
       const sorted = linear ? [] : visible.keys.sort((first, second) => first - second)
@@ -244,7 +245,7 @@ function keyedSetting<const Id extends string>(
           const progress = linear ? clamp(((entry ?? range[0]) - range[0]) / (range[1] - range[0]))
             : sorted.length < 2 ? Number(entry !== null) : clamp(meanRank(sorted, entry) / (sorted.length - 1))
           const strength = curved(progress, level)
-          return painted(strength, tint?.(star, strength), dimness)
+          return painted(strength, tint?.(star, strength, context), dimness)
         },
       }
     },
@@ -292,12 +293,23 @@ function planarVelocity({ id, vx_kms, vy_kms }: Star): readonly [number, number]
   return vx_kms !== null && vy_kms !== null && Number.isFinite(vx_kms) && Number.isFinite(vy_kms) ? [vx_kms + solarX, vy_kms + solarY] : null
 }
 
-/** The pure sRGB hue of a direction in the Galactic plane, turning from red toward the Galactic center in the sense of Galactic longitude. */
-const directionHue = (angle: number) => channels(new Color().setHSL((angle / (2 * Math.PI) % 1 + 1) % 1, 1, 0.5, SRGBColorSpace))
+/** A closed loop through lightness and blue–yellow, the color differences that survive color vision deficiencies, from toward the Galactic center in the sense of Galactic longitude.
+ * Tuned on simulated protanopia, deuteranopia and tritanopia: directions over about 45° apart stay distinct. */
+const COLOR_BLIND_DIRECTIONS = [[0.95, 0.87, 0.39], [1, 0.52, 0.26], [0.6, 0.38, 0.09], [0.24, 0.33, 0.87], [0.29, 0.71, 0.98], [0.78, 0.97, 1]] as const
+
+const mixChannels = (from: readonly number[], to: readonly number[], share: number) => from.map((channel, rgb) => channel + (to[rgb]! - channel) * share)
+
+/** The sRGB color of a direction in the Galactic plane, turning from toward the Galactic center in the sense of Galactic longitude: a pure hue from red, or the color-blind loop. */
+function directionTint(angle: number, colorBlindPalette = false): readonly number[] {
+  const turn = (angle / (2 * Math.PI) % 1 + 1) % 1
+  if (!colorBlindPalette) return channels(new Color().setHSL(turn, 1, 0.5, SRGBColorSpace))
+  const at = turn * COLOR_BLIND_DIRECTIONS.length, index = Math.floor(at)
+  return mixChannels(COLOR_BLIND_DIRECTIONS[index]!, COLOR_BLIND_DIRECTIONS[(index + 1) % COLOR_BLIND_DIRECTIONS.length]!, at - index)
+}
 
 /** The Galactic plane seen from the north, +X toward the Galactic center to the right and +Y along rotation up: each direction in its hue,
  * blending from the slowest object's paint at the center to the fastest's at the rim, as the objects are painted. */
-function directionWheel(level: number, { dimness }: PaintControls): string {
+function directionWheel(level: number, { dimness }: PaintControls, colorBlindPalette = false): string {
   const rings = Array.from({ length: 21 }, (_, index) => ({ at: index * 5, strength: curved(index / 20, level) }))
   const radial = (color: (strength: number) => string) => `radial-gradient(circle closest-side, ${rings.map(({ at, strength }) => `${color(strength)} ${at}%`).join(', ')})`
   // Darkening over whitening over the hues composes brightness × (white blended toward the hue), like painted().
@@ -305,16 +317,19 @@ function directionWheel(level: number, { dimness }: PaintControls): string {
     radial((strength) => `rgb(0 0 0 / ${(1 - brightness(strength, dimness)).toFixed(3)})`),
     radial((strength) => `rgb(255 255 255 / ${(1 - strength).toFixed(3)})`),
     // Conic angles run clockwise from the top, where Galactic directions point 90° counterclockwise from the right.
-    `conic-gradient(${Array.from({ length: 13 }, (_, index) => `hsl(${(450 - index * 30) % 360} 100% 50%) ${index * 30}deg`).join(', ')})`,
+    `conic-gradient(${Array.from({ length: 13 }, (_, index) => {
+      const [red, green, blue] = directionTint((90 - index * 30) * Math.PI / 180, colorBlindPalette).map((channel) => Math.round(channel * 255))
+      return `rgb(${red} ${green} ${blue}) ${index * 30}deg`
+    }).join(', ')})`,
   ].join(', ')
 }
 
 const motionDirection = keyedSetting('motion-direction', 'Motion direction', 'a full space velocity',
-  'The wheel shows the Galactic plane from the north: each object takes the hue of its direction of motion relative to the Local Standard of Rest, the average motion of stars near the Sun, Inward toward the Galactic center along the map\'s +X axis and Forward along the Galaxy\'s rotation, +Y. Faster objects lie farther out, more saturated and larger, so objects of one color move together. Rank spreads the visible objects evenly from slowest to fastest; Linear uses the fixed speed scale. Objects without a full space velocity are painted darkest.',
+  'The wheel shows the Galactic plane from the north: each object takes the color of its direction of motion relative to the Local Standard of Rest, the average motion of stars near the Sun, Inward toward the Galactic center along the map\'s +X axis and Forward along the Galaxy\'s rotation, +Y. Faster objects lie farther out, more saturated and larger, so objects of one color move together. Rank spreads the visible objects evenly from slowest to fastest; Linear uses the fixed speed scale. Objects without a full space velocity are painted darkest.',
   PLANAR_SPEED_RANGE, speedText, (star) => { const velocity = planarVelocity(star); return velocity && Math.hypot(...velocity) },
-  (star, strength) => { const velocity = planarVelocity(star); return velocity ? saturated(directionHue(Math.atan2(velocity[1], velocity[0])), strength) : WHITE })
+  (star, strength, { colorBlindPalette }) => { const velocity = planarVelocity(star); return velocity ? saturated(directionTint(Math.atan2(velocity[1], velocity[0]), colorBlindPalette), strength) : WHITE })
 
-/** Paints objects in the hue of their direction of motion in the Galactic plane, saturated and sized by their speed in it. */
+/** Paints objects in the color of their direction of motion in the Galactic plane, saturated and sized by their speed in it. */
 const motionDirectionSetting = {
   ...motionDirection, controls: [dimnessControl],
   legend: { ...motionDirection.legend, wheel: { gradient: directionWheel, labels: ['Inward\n+X', 'Forward\n+Y', 'Outward\n−X', 'Backward\n−Y'] } },
@@ -367,25 +382,27 @@ const temperatureSetting = {
 
 /** Hues from the nearest objects to the farthest: red, orange, yellow, green, cyan, blue and violet, all bright against the dark sky. */
 const DISTANCE_SPECTRUM = [[1, 0.2, 0.2], [1, 0.55, 0.1], [1, 0.92, 0.15], [0.35, 0.9, 0.3], [0.15, 0.85, 0.95], [0.35, 0.5, 1], [0.75, 0.4, 1]] as const
+/** Yellow through coral to blue, from the nearest objects to the farthest. Tuned on simulated protanopia, deuteranopia and tritanopia: colors a quarter of the scale apart stay distinct, all bright against the dark sky. */
+const COLOR_BLIND_DISTANCE_SPECTRUM = [[0.85, 1, 0.06], [0.84, 0.82, 0.32], [0.95, 0.55, 0.31], [0.83, 0.36, 0.49], [0.49, 0.51, 0.78], [0.37, 0.7, 1]] as const
 const DISTANCE_LABELS = 5
 /** The logarithmic scale starts no nearer than 1 ly, so close companions of the origin don't stretch it over empty decades. */
 const LOG_DISTANCE_FLOOR_PC = 1 / LIGHT_YEARS_PER_PARSEC
 /** The shortest reach the slider leaves, as a share of the legend. */
 const MIN_DISTANCE_REACH = 0.02
 
-function distanceTint(progress: number): readonly number[] {
-  const at = clamp(progress) * (DISTANCE_SPECTRUM.length - 1)
-  const index = Math.min(DISTANCE_SPECTRUM.length - 2, Math.floor(at))
-  const [from, to] = [DISTANCE_SPECTRUM[index]!, DISTANCE_SPECTRUM[index + 1]!]
-  return from.map((channel, rgb) => channel + (to[rgb]! - channel) * (at - index))
+function distanceTint(progress: number, colorBlindPalette = false): readonly number[] {
+  const spectrum: readonly (readonly number[])[] = colorBlindPalette ? COLOR_BLIND_DISTANCE_SPECTRUM : DISTANCE_SPECTRUM
+  const at = clamp(progress) * (spectrum.length - 1)
+  const index = Math.min(spectrum.length - 2, Math.floor(at))
+  return mixChannels(spectrum[index]!, spectrum[index + 1]!, at - index)
 }
 
 const distanceReach = (level: number) => Math.max(MIN_DISTANCE_REACH, level)
 
 /** The spectrum up to the reach, darkest beyond it. */
-function distanceGradient(level: number): string {
+function distanceGradient(level: number, _controls: PaintControls, colorBlindPalette = false): string {
   const reach = distanceReach(level) * 100
-  const stops = Array.from({ length: 21 }, (_, index) => `rgb(${distanceTint(index / 20).map((channel) => Math.round(channel * 255)).join(' ')}) ${(index / 20 * reach).toFixed(2)}%`)
+  const stops = Array.from({ length: 21 }, (_, index) => `rgb(${distanceTint(index / 20, colorBlindPalette).map((channel) => Math.round(channel * 255)).join(' ')}) ${(index / 20 * reach).toFixed(2)}%`)
   const dark = Math.round(gray(0) * 255)
   return `linear-gradient(90deg, ${stops.join(', ')}, rgb(${dark} ${dark} ${dark}) ${reach.toFixed(2)}%)`
 }
@@ -393,7 +410,7 @@ function distanceGradient(level: number): string {
 const distanceText = (unit: DistanceUnit) => (distancePc: number) =>
   `${(distancePc * (unit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1)).toLocaleString('en-US', { maximumSignificantDigits: 3 })} ${unit}`
 
-/** Paints objects in the spectrum by their distance from the origin, nearest red and farthest violet, and larger nearer;
+/** Paints objects in the spectrum by their distance from the origin, nearest first, and larger nearer;
  * objects beyond the reach are painted darkest. */
 const distanceSetting = {
   id: 'distance' as const, label: 'Distance', gradient: distanceGradient,
@@ -403,7 +420,7 @@ const distanceSetting = {
     bounds: ['Near', '', '', '', 'Far'], missing: 'a position',
     note: 'Distance from the origin; nearer objects are larger. The slider sets the reach: objects beyond it are painted darkest, so a shorter reach tells nearby distances apart more finely. Log spreads nearby objects wider; Linear keeps equal distance steps.',
   },
-  fit(stars: readonly Star[], linear: boolean, { origin, unit }: PaintContext): PaintScale {
+  fit(stars: readonly Star[], linear: boolean, { origin, unit, colorBlindPalette }: PaintContext): PaintScale {
     const distance = (star: Star) => Math.hypot(star.x_pc - origin.x_pc, star.y_pc - origin.y_pc, star.z_pc - origin.z_pc)
     const distances = stars.filter((star) => !extended(star)).map(distance)
     const farthest = distances.reduce((max, entry) => Math.max(max, entry), 0)
@@ -424,7 +441,7 @@ const distanceSetting = {
         const reach = distanceReach(level)
         if (progress > reach) return painted(0)
         const share = progress / reach
-        const [red, green, blue] = distanceTint(share)
+        const [red, green, blue] = distanceTint(share, colorBlindPalette)
         // Full brightness keeps every hue legible; the farthest objects within reach stay a quarter of the way up the size scale.
         return { color: new Color().setRGB(red!, green!, blue!, SRGBColorSpace), magnitude: painted(1 - 0.75 * share).magnitude }
       },

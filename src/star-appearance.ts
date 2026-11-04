@@ -2,7 +2,7 @@ import { AdditiveBlending, CanvasTexture, LessDepth, NoBlending, PointsMaterial,
 import {
   STAR_CORE_FULL_STRENGTH_DISTANCE_PC, STAR_CORE_MIN_DIAMETER_PX, STAR_CORE_MIN_VIEW_SCALE,
   STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER,
-  STAR_HALO_FULL_STRENGTH_DISTANCE_PC, STAR_HALO_MIN_OPACITY_SCALE, STAR_HALO_MIN_VIEW_SCALE,
+  STAR_HALO_FULL_STRENGTH_DISTANCE_PC, STAR_HALO_MIN_OPACITY_SCALE, STAR_HALO_MIN_VIEW_SCALE, STAR_REMNANT_MIN_DIAMETER_PX,
 } from './viewer-primitives'
 
 // Shared by the map and distance card: identical textures, colors and shaders.
@@ -31,15 +31,16 @@ export function createStarAppearance(starViewDistance: { value: number }, select
   })
   starMaterial.onBeforeCompile = (shader) => {
     shader.uniforms.starViewDistance = starViewDistance
-    shader.vertexShader = `${selectionAttribute}\nuniform float starViewDistance;\nattribute float coreDiameter;\nattribute float coreEmphasis;\nattribute float coreWhiteStrength;\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\n${shader.vertexShader}`
+    shader.vertexShader = `${selectionAttribute}\nuniform float starViewDistance;\nattribute float coreDiameter;\nattribute float coreEmphasis;\nattribute float coreWhiteStrength;\nattribute float coreShape;\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\nvarying float vCoreShape;\n${shader.vertexShader}`
       .replace('gl_PointSize = size;', `float coreOverviewRatio = pow(min(1.0, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC})), ${STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER});
       float coreViewScale = max(${STAR_CORE_MIN_VIEW_SCALE}, sqrt(coreOverviewRatio));
-      float displayDiameter = max(coreDiameter * coreViewScale, 10.0 * ${selection});
+      float displayDiameter = max(max(coreDiameter * coreViewScale, 10.0 * ${selection}), coreShape > 0.5 ? ${STAR_REMNANT_MIN_DIAMETER_PX}.0 : 0.0);
       gl_PointSize = size * max(${STAR_CORE_MIN_DIAMETER_PX}.0, displayDiameter);
       vCoreDiameter = displayDiameter;
       vCoreEmphasis = coreEmphasis;
-      vCoreWhiteStrength = coreWhiteStrength;`)
-    shader.fragmentShader = `varying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\n${shader.fragmentShader}`.replace(
+      vCoreWhiteStrength = coreWhiteStrength;
+      vCoreShape = coreShape;`)
+    shader.fragmentShader = `varying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\nvarying float vCoreShape;\n${shader.fragmentShader}`.replace(
       '#include <color_fragment>',
       `#include <color_fragment>
       float coreRadius = length(gl_PointCoord - vec2(0.5)) * 2.0;
@@ -49,7 +50,13 @@ export function createStarAppearance(starViewDistance: { value: number }, select
       float hotCenterOuter = mix(vCoreDiameter > 3.0 ? 0.74 : 0.42, 0.68, compactEmphasis);
       float hotCenter = 1.0 - smoothstep(hotCenterInner, hotCenterOuter, coreRadius);
       float whiteStrength = mix(vCoreWhiteStrength, 1.0, 0.55 * vCoreEmphasis);
-      diffuseColor.rgb = mix(diffuseColor.rgb, vec3(1.0), hotCenter * whiteStrength);`,
+      diffuseColor.rgb = mix(diffuseColor.rgb, vec3(1.0), hotCenter * whiteStrength);
+      if (vCoreShape > 0.5) {
+        vec2 corePoint = abs(gl_PointCoord - vec2(0.5)) * 2.0;
+        diffuseColor.a = vCoreShape < 1.5 ? step(min(corePoint.x, corePoint.y), 0.24) * step(max(corePoint.x, corePoint.y), 0.95)
+          : vCoreShape < 2.5 ? step(corePoint.x + corePoint.y, 0.95)
+          : step(0.52, coreRadius) * step(coreRadius, 0.95);
+      }`,
     )
   }
   const haloCanvas = document.createElement('canvas')

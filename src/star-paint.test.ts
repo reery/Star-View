@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { Star } from './catalog-model'
 import { SOLAR_PECULIAR_VELOCITY_KMS } from './astronomy'
-import { DEFAULT_PAINT_CONTROLS, PAINT_HISTOGRAM_BINS, paintLegend, starPainter } from './star-paint'
+import { DEFAULT_PAINT_CONTROLS, PAINT_HISTOGRAM_BINS, PAINT_SETTINGS, paintLegend, starPainter } from './star-paint'
 
 const sun: Star = {
   id: 'sun', name: 'Sun', type: 'star', spectral_type: 'G2V', mass_solar: 1, radius_solar: 1, luminosity_solar: 1, temperature_k: 5772,
@@ -217,6 +217,22 @@ describe('star paint', () => {
     // A shorter reach spreads the spectrum over nearer objects and paints those beyond it darkest.
     expect([hex(0.5, stars[2]!), hex(0.5, stars[3]!)]).toEqual(['bf66ff', '333333'])
     expect(hex(1, sun, false, stars[3]!)).toBe('bf66ff')
+  })
+
+  it('swaps only the distance and motion direction colors for the color-blind palette', () => {
+    const moving = { ...sun, id: 'moving', x_pc: 10, vx_kms: 60, vy_kms: 0, metallicity_dex: 0.2 }
+    const stars = [sun, moving]
+    const paint = (id: 'distance' | 'motion-direction' | 'metallicity', colorBlindPalette: boolean) =>
+      starPainter(new Map([[id, 1]]), stars, new Set(), new Map(), new Map(), { origin: sun, unit: 'pc', colorBlindPalette })!.painter(moving)
+    for (const id of ['distance', 'motion-direction'] as const) {
+      expect(paint(id, true).color!.getHexString()).not.toBe(paint(id, false).color!.getHexString())
+      expect(paint(id, true).magnitude).toBe(paint(id, false).magnitude)
+    }
+    expect(paint('metallicity', true)).toEqual(paint('metallicity', false))
+    const setting = (id: string) => PAINT_SETTINGS.find((candidate) => candidate.id === id)!
+    expect(setting('distance').gradient(1, DEFAULT_PAINT_CONTROLS, true)).not.toBe(setting('distance').gradient(1, DEFAULT_PAINT_CONTROLS))
+    const wheel = setting('motion-direction').legend as { wheel: { gradient: (level: number, controls: typeof DEFAULT_PAINT_CONTROLS, colorBlindPalette?: boolean) => string } }
+    expect(wheel.wheel.gradient(1, DEFAULT_PAINT_CONTROLS, true)).not.toBe(wheel.wheel.gradient(1, DEFAULT_PAINT_CONTROLS))
   })
 
   it('takes color and size from different settings, each channel from the last setting claiming it', () => {
