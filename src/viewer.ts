@@ -2319,6 +2319,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     skyGrid.updateLabels(camera, projectionViewport!, (bounds) => blocked.queryAny(bounds, (other) => overlaps(bounds, other)), ordinaryLabelsLaidOut)
     // The fade alone does not move labels, so it keeps frames coming without setLabelsMoving().
     const milkyWayFading = milkyWay.updateFade(time)
+    nebulaLayer?.renderOffscreen(renderer, camera)
     if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
     else renderer.render(scene, camera)
     setData(labelLayer, 'drawCalls', String(renderer.info.render.calls))

@@ -37,6 +37,9 @@ export interface NebulaShape {
   position_angle_deg: number
   // Line-of-sight sheet centers relative to the nebula center (layers only).
   layer_offsets_pc: number[]
+  // Observed sky brightness (8-bit, base64) on a tangent-plane grid spanning both semi-axes:
+  // rows run toward Galactic north, columns toward increasing longitude (position angle 0 only).
+  mask?: { size: [number, number]; values: string }
 }
 
 export interface NebulaDetails {

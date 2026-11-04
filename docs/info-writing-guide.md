@@ -1,6 +1,6 @@
 # Writing Info articles
 
-Read this before adding or editing Info text for a star, system or other object (`src/data/star-info.json`, `nearest-100-info.json`, `constellation-star-info.json`). The Info tab is where a reader learns why an object is worth their attention. Write for a curious reader without astronomy training.
+Read this before adding or editing Info text for a star, system or other object (`src/data/star-info.json`, `nearest-100-info.json`, `constellation-star-info.json`, `nebula-info.json`). The Info tab is where a reader learns why an object is worth their attention. Write for a curious reader without astronomy training.
 
 ## What an article must do
 

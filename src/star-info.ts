@@ -72,6 +72,9 @@ const images: Readonly<Record<string, InfoImage>> = {
   },
 }
 
+// Nebula articles name their own image file, so the credits stay in the deferred article payloads.
+const nebulaImages = import.meta.glob<string>('./assets/nebulae/*.avif', { query: '?url&no-inline', import: 'default', eager: true })
+
 interface ArticlePayload {
   reviewedAt: string
   article: {
@@ -79,6 +82,7 @@ interface ArticlePayload {
     introduction: string
     wikipedia?: string
     source?: InfoSource
+    image?: Omit<InfoImage, 'src'> & { file: string }
     sections: { id: string; title: string; text: string; source?: InfoSource }[]
   }
 }
@@ -90,8 +94,9 @@ function articleContent(id: string, dataset: ArticlePayload): ObjectInfo {
     : article.wikipedia
       ? { title: `Wikipedia: ${article.name} · reviewed ${dataset.reviewedAt}`, url: article.wikipedia }
       : undefined
+  const image = article.image && { ...article.image, src: nebulaImages[`./assets/nebulae/${article.image.file}`]! }
   return {
-    image: images[id],
+    image: images[id] ?? image,
     introduction: { label: article.name, text: article.introduction, source },
     sections: article.sections.map((section) => ({
       id: section.id, title: section.title,

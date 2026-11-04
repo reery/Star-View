@@ -7,8 +7,8 @@
     "planets": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
   },
   "sourceChecksumsSha256": {
-    "simbad.csv": "2c9176cb5553a6c1b442c64cad7a2cd383bf6434419d774a806d61f48f120558",
-    "simbad.adql": "009c28bb391b80d1fc56d426cb7f72c8c64368e3ca308f4ac20f093f0bf256e0",
+    "simbad.csv": "dbd51c4fbea3e31193cbfc01f4e546677189bb5b313b81d37c06b05b8b4b1f33",
+    "simbad.adql": "10d1f0eee49e02a7cd927b21e209e6bf257d13147ae72031767657da56134295",
     "types.csv": "78f2745a265e2ec34115ef02072a13ad3b007d8028beeff3b64eef54042372bc",
     "types.adql": "70661c7e93361cd294a039794f4739d98c8d172aa97668bab0a38833a5685ead",
     "planet-hosts.csv": "4e0b982a1c38b8bfae606608ed6c003c1ed3872b5a460f215d4f6965bbe21323",
@@ -5912,6 +5912,27 @@
       "sourceTypes": [],
       "planetHosts": []
     },
+    "abell-31": {
+      "subtypes": [
+        "Hot subdwarf"
+      ],
+      "known_planets": null,
+      "simbadId": "PN A66   31",
+      "sourceTypes": [
+        "*",
+        "HII",
+        "HS*",
+        "HS?",
+        "IR",
+        "NIR",
+        "Opt",
+        "PN",
+        "WD*",
+        "WD?",
+        "blu"
+      ],
+      "planetHosts": []
+    },
     "abell-35": {
       "subtypes": [
         "Variable star"
@@ -5926,6 +5947,43 @@
         "PN",
         "V*",
         "WD*"
+      ],
+      "planetHosts": []
+    },
+    "abell-36": {
+      "subtypes": [
+        "Hot subdwarf",
+        "Variable star"
+      ],
+      "known_planets": null,
+      "simbadId": "PN A66   36",
+      "sourceTypes": [
+        "*",
+        "G",
+        "HS*",
+        "HS?",
+        "IR",
+        "NIR",
+        "PN",
+        "V*",
+        "blu"
+      ],
+      "planetHosts": []
+    },
+    "abell-7": {
+      "subtypes": [
+        "Hot subdwarf candidate"
+      ],
+      "known_planets": null,
+      "simbadId": "PN A66    7",
+      "sourceTypes": [
+        "*",
+        "HS?",
+        "NIR",
+        "PN",
+        "WD*",
+        "WD?",
+        "blu"
       ],
       "planetHosts": []
     },
@@ -7212,6 +7270,15 @@
       "sourceTypes": [],
       "planetHosts": []
     },
+    "california-nebula": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "NGC  1499",
+      "sourceTypes": [
+        "HII"
+      ],
+      "planetHosts": []
+    },
     "capella-ab": {
       "subtypes": [
         "Giant"
@@ -7219,6 +7286,17 @@
       "known_planets": null,
       "simbadId": null,
       "sourceTypes": [],
+      "planetHosts": []
+    },
+    "ced-184": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "LBN 094.20+08.02",
+      "sourceTypes": [
+        "HII",
+        "ISM",
+        "RNe"
+      ],
       "planetHosts": []
     },
     "chi-draconis-b": {
@@ -53749,6 +53827,27 @@
       "sourceTypes": [],
       "planetHosts": []
     },
+    "dumbbell-nebula": {
+      "subtypes": [
+        "Hot subdwarf candidate"
+      ],
+      "known_planets": null,
+      "simbadId": "M  27",
+      "sourceTypes": [
+        "*",
+        "G",
+        "HS?",
+        "IR",
+        "NIR",
+        "PN",
+        "UV",
+        "WD*",
+        "WD?",
+        "X",
+        "blu"
+      ],
+      "planetHosts": []
+    },
     "epsilon-eridani": {
       "subtypes": [
         "BY Draconis variable",
@@ -53829,6 +53928,16 @@
         "UV",
         "V*",
         "X"
+      ],
+      "planetHosts": []
+    },
+    "flaming-star-nebula": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "IC  405",
+      "sourceTypes": [
+        "HII",
+        "Rad"
       ],
       "planetHosts": []
     },
@@ -53996,6 +54105,27 @@
       "known_planets": null,
       "simbadId": null,
       "sourceTypes": [],
+      "planetHosts": []
+    },
+    "helix-nebula": {
+      "subtypes": [
+        "Hot subdwarf candidate"
+      ],
+      "known_planets": null,
+      "simbadId": "NGC  7293",
+      "sourceTypes": [
+        "*",
+        "G",
+        "HS?",
+        "IR",
+        "NIR",
+        "PN",
+        "Rad",
+        "WD*",
+        "WD?",
+        "X",
+        "blu"
+      ],
       "planetHosts": []
     },
     "hinds-variable-nebula": {
@@ -66676,6 +66806,91 @@
       ],
       "planetHosts": []
     },
+    "ic-1287": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "IC 1287",
+      "sourceTypes": [
+        "GNe",
+        "HII",
+        "ISM",
+        "RNe"
+      ],
+      "planetHosts": []
+    },
+    "ic-348": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "IC  348",
+      "sourceTypes": [
+        "*",
+        "As*",
+        "Cl*",
+        "HII",
+        "ISM",
+        "OpC",
+        "RNe",
+        "SFR"
+      ],
+      "planetHosts": []
+    },
+    "ic-420": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "IC  420",
+      "sourceTypes": [
+        "RNe"
+      ],
+      "planetHosts": []
+    },
+    "ic-426": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "IC  426",
+      "sourceTypes": [
+        "Cld",
+        "DNe",
+        "HII",
+        "ISM",
+        "MoC",
+        "RNe"
+      ],
+      "planetHosts": []
+    },
+    "ic-432": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "IC  432",
+      "sourceTypes": [
+        "GNe",
+        "HII",
+        "ISM",
+        "RNe"
+      ],
+      "planetHosts": []
+    },
+    "ic-435": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "IC  435",
+      "sourceTypes": [
+        "GNe",
+        "ISM",
+        "RNe"
+      ],
+      "planetHosts": []
+    },
+    "ic-4591": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "IC 4591",
+      "sourceTypes": [
+        "HII",
+        "ISM",
+        "RNe"
+      ],
+      "planetHosts": []
+    },
     "ic-4592": {
       "subtypes": [],
       "known_planets": null,
@@ -66741,6 +66956,36 @@
       ],
       "planetHosts": []
     },
+    "ic-4812": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "IC 4812",
+      "sourceTypes": [
+        "GNe"
+      ],
+      "planetHosts": []
+    },
+    "ic-59": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "IC   59",
+      "sourceTypes": [
+        "HII",
+        "RNe"
+      ],
+      "planetHosts": []
+    },
+    "ic-63": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "IC   63",
+      "sourceTypes": [
+        "HII",
+        "ISM",
+        "smm"
+      ],
+      "planetHosts": []
+    },
     "iota-pegasi-b": {
       "subtypes": [
         "Main-sequence"
@@ -66748,6 +66993,37 @@
       "known_planets": null,
       "simbadId": null,
       "sourceTypes": [],
+      "planetHosts": []
+    },
+    "iris-nebula": {
+      "subtypes": [
+        "Variable star"
+      ],
+      "known_planets": null,
+      "simbadId": "NGC  7023",
+      "sourceTypes": [
+        "Cl*",
+        "HII",
+        "IR",
+        "ISM",
+        "OpC",
+        "RNe",
+        "UV",
+        "V*"
+      ],
+      "planetHosts": []
+    },
+    "iswe-1": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "PN IsWe    1",
+      "sourceTypes": [
+        "*",
+        "PN",
+        "WD*",
+        "WD?",
+        "blu"
+      ],
       "planetHosts": []
     },
     "lacaille-9352": {
@@ -66792,11 +67068,45 @@
         "GJ 411"
       ]
     },
+    "lambda-orionis-nebula": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "lbn-472": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "local-bubble": {
       "subtypes": [],
       "known_planets": null,
       "simbadId": null,
       "sourceTypes": [],
+      "planetHosts": []
+    },
+    "lotr-5": {
+      "subtypes": [
+        "Spectroscopic binary",
+        "Variable star"
+      ],
+      "known_planets": null,
+      "simbadId": "PN LoTr    5",
+      "sourceTypes": [
+        "*",
+        "NIR",
+        "Opt",
+        "PN",
+        "SB*",
+        "UV",
+        "V*",
+        "WD*",
+        "X"
+      ],
       "planetHosts": []
     },
     "luhman-16-a": {
@@ -66861,6 +67171,32 @@
       ],
       "planetHosts": []
     },
+    "medusa-nebula": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "PN A66   21",
+      "sourceTypes": [
+        "*",
+        "HII",
+        "NIR",
+        "PN",
+        "WD*",
+        "WD?"
+      ],
+      "planetHosts": []
+    },
+    "messier-78": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "M  78",
+      "sourceTypes": [
+        "C?*",
+        "Cl*",
+        "ISM",
+        "RNe"
+      ],
+      "planetHosts": []
+    },
     "mu-cassiopeiae-b": {
       "subtypes": [],
       "known_planets": null,
@@ -66875,6 +67211,91 @@
       "sourceTypes": [],
       "planetHosts": []
     },
+    "mwp-1": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "ngc-1333": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "NGC  1333",
+      "sourceTypes": [
+        "As*",
+        "Cl*",
+        "GNe",
+        "HII",
+        "ISM",
+        "OpC",
+        "RNe",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
+    "ngc-1360": {
+      "subtypes": [
+        "Hot subdwarf",
+        "Spectroscopic binary"
+      ],
+      "known_planets": null,
+      "simbadId": "NGC  1360",
+      "sourceTypes": [
+        "*",
+        "G",
+        "HS*",
+        "HS?",
+        "IR",
+        "NIR",
+        "PN",
+        "Rad",
+        "SB*",
+        "UV",
+        "X",
+        "blu"
+      ],
+      "planetHosts": []
+    },
+    "ngc-2023": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "NGC  2023",
+      "sourceTypes": [
+        "HII",
+        "IR",
+        "ISM",
+        "Mas",
+        "RNe",
+        "X"
+      ],
+      "planetHosts": []
+    },
+    "ngc-2071": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "NGC  2071",
+      "sourceTypes": [
+        "C?*",
+        "Cl*",
+        "GNe",
+        "HII",
+        "IR",
+        "ISM",
+        "RNe"
+      ],
+      "planetHosts": []
+    },
+    "ngc-6726": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "NGC  6726",
+      "sourceTypes": [
+        "ISM",
+        "RNe"
+      ],
+      "planetHosts": []
+    },
     "orion-nebula": {
       "subtypes": [],
       "known_planets": null,
@@ -66887,6 +67308,13 @@
         "Rad",
         "X"
       ],
+      "planetHosts": []
+    },
+    "pfp-1": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "pleiades-nebula": {
@@ -69466,6 +69894,21 @@
       ],
       "planetHosts": []
     },
+    "puwe-1": {
+      "subtypes": [
+        "Variable star"
+      ],
+      "known_planets": null,
+      "simbadId": "PN PuWe    1",
+      "sourceTypes": [
+        "*",
+        "PN",
+        "V*",
+        "WD*",
+        "WD?"
+      ],
+      "planetHosts": []
+    },
     "rigel-ba": {
       "subtypes": [
         "Main-sequence"
@@ -69564,6 +70007,48 @@
       "sourceTypes": [],
       "planetHosts": []
     },
+    "running-man-nebula": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "NGC  1977",
+      "sourceTypes": [
+        "C?*",
+        "Cl*",
+        "HII",
+        "OpC",
+        "SFR"
+      ],
+      "planetHosts": []
+    },
+    "sh-2-1": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "LBN  1093",
+      "sourceTypes": [
+        "HII"
+      ],
+      "planetHosts": []
+    },
+    "sh-2-126": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "LBN 094.98-16.95",
+      "sourceTypes": [
+        "HII"
+      ],
+      "planetHosts": []
+    },
+    "sh-2-174": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "LBN 120.29+18.39",
+      "sourceTypes": [
+        "*",
+        "HII",
+        "PN"
+      ],
+      "planetHosts": []
+    },
     "sh-2-216": {
       "subtypes": [
         "Emission-line star",
@@ -69595,6 +70080,46 @@
       ],
       "planetHosts": []
     },
+    "sh-2-277": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "SH  2-277",
+      "sourceTypes": [
+        "*",
+        "HII"
+      ],
+      "planetHosts": []
+    },
+    "sh-2-64": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "LBN 028.77+03.43",
+      "sourceTypes": [
+        "GNe",
+        "HII",
+        "Rad",
+        "SNR"
+      ],
+      "planetHosts": []
+    },
+    "sh-2-68": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "SH  2-68",
+      "sourceTypes": [
+        "*",
+        "GNe",
+        "HII",
+        "ISM",
+        "NIR",
+        "PM*",
+        "PN",
+        "PN?",
+        "RNe",
+        "WD*"
+      ],
+      "planetHosts": []
+    },
     "sh-2-7": {
       "subtypes": [],
       "known_planets": null,
@@ -69602,6 +70127,13 @@
       "sourceTypes": [
         "HII"
       ],
+      "planetHosts": []
+    },
+    "sh-2-9": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "sirius-a": {
@@ -69645,6 +70177,24 @@
       "known_planets": 8,
       "simbadId": null,
       "sourceTypes": [],
+      "planetHosts": []
+    },
+    "tk-1": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "toby-jug-nebula": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "IC 2220",
+      "sourceTypes": [
+        "G",
+        "ISM",
+        "RNe"
+      ],
       "planetHosts": []
     },
     "trapezium-theta1-orionis-a": {
@@ -69739,6 +70289,17 @@
       ],
       "planetHosts": []
     },
+    "vdb-1": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "LBN 117.68-03.69",
+      "sourceTypes": [
+        "HII",
+        "ISM",
+        "RNe"
+      ],
+      "planetHosts": []
+    },
     "vdb-101": {
       "subtypes": [],
       "known_planets": null,
@@ -69760,6 +70321,13 @@
       "sourceTypes": [],
       "planetHosts": []
     },
+    "vdb-127": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "vdb-129": {
       "subtypes": [],
       "known_planets": null,
@@ -69767,7 +70335,80 @@
       "sourceTypes": [],
       "planetHosts": []
     },
+    "vdb-134": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdb-138": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdb-141": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdb-149": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdb-150": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdb-151": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdb-152": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "vdb-156": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdb-16": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdb-18": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "LBN 155.19-14.40",
+      "sourceTypes": [
+        "HII",
+        "RNe"
+      ],
+      "planetHosts": []
+    },
+    "vdb-24": {
       "subtypes": [],
       "known_planets": null,
       "simbadId": null,
@@ -69795,6 +70436,70 @@
       "sourceTypes": [],
       "planetHosts": []
     },
+    "vdb-29": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdb-31": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdb-37": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "LBN   851",
+      "sourceTypes": [
+        "G",
+        "HII",
+        "ISM",
+        "RNe"
+      ],
+      "planetHosts": []
+    },
+    "vdb-38": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdb-4": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdb-42": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdb-49": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "LBN 200.62-14.08",
+      "sourceTypes": [
+        "HII",
+        "RNe"
+      ],
+      "planetHosts": []
+    },
+    "vdb-50": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "vdb-7": {
       "subtypes": [],
       "known_planets": null,
@@ -69803,6 +70508,32 @@
         "*",
         "ISM",
         "RNe"
+      ],
+      "planetHosts": []
+    },
+    "vdb-9": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "vdbh-7": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "wede-1": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "PN G197.4-06.4",
+      "sourceTypes": [
+        "*",
+        "PN",
+        "WD*",
+        "WD?"
       ],
       "planetHosts": []
     },
@@ -69817,6 +70548,19 @@
         "BD*",
         "MIR",
         "PM*"
+      ],
+      "planetHosts": []
+    },
+    "witch-head-nebula": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "NGC  1909",
+      "sourceTypes": [
+        "HII",
+        "ISM",
+        "PN",
+        "RNe",
+        "X"
       ],
       "planetHosts": []
     },

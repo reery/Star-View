@@ -5,11 +5,40 @@
     "planets": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
   },
   "checksumsSha256": {
-    "simbad.csv": "2c9176cb5553a6c1b442c64cad7a2cd383bf6434419d774a806d61f48f120558",
-    "simbad.adql": "009c28bb391b80d1fc56d426cb7f72c8c64368e3ca308f4ac20f093f0bf256e0",
+    "simbad.csv": "dbd51c4fbea3e31193cbfc01f4e546677189bb5b313b81d37c06b05b8b4b1f33",
+    "simbad.adql": "10d1f0eee49e02a7cd927b21e209e6bf257d13147ae72031767657da56134295",
     "types.csv": "78f2745a265e2ec34115ef02072a13ad3b007d8028beeff3b64eef54042372bc",
     "types.adql": "70661c7e93361cd294a039794f4739d98c8d172aa97668bab0a38833a5685ead",
     "planet-hosts.csv": "4e0b982a1c38b8bfae606608ed6c003c1ed3872b5a460f215d4f6965bbe21323",
     "planet-hosts.adql": "81bbfcbc18c46c0b48238f47723cf581ea118fda46b332ebbc40c0eaf0000308"
-  }
+  },
+  "extensions": [
+    {
+      "retrieved": "2026-11-03",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "simbad.adql",
+        "simbad.csv"
+      ],
+      "note": "Classifications of nebula batch 1 of the 2000-ly census appended through the ident index; earlier rows are unchanged. The batch 1 statement was lost from simbad.adql before batch 3; its result rows remain in simbad.csv."
+    },
+    {
+      "retrieved": "2026-11-04",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "simbad.adql",
+        "simbad.csv"
+      ],
+      "note": "Classifications of nebula batch 2 appended through the ident index; earlier rows are unchanged."
+    },
+    {
+      "retrieved": "2026-11-04",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "simbad.adql",
+        "simbad.csv"
+      ],
+      "note": "Classifications of nebula batch 3 appended through the ident index; earlier rows are unchanged."
+    }
+  ]
 }

@@ -1,9 +1,12 @@
 import {
-  Color, CustomBlending, DataTexture, Float32BufferAttribute, InstancedBufferAttribute, InstancedBufferGeometry,
-  LinearFilter, Mesh, OneFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, RedFormat, RepeatWrapping, ShaderMaterial, UnsignedByteType, Vector3, ZeroFactor,
+  AddEquation, Color, CustomBlending, DataTexture, Float32BufferAttribute, HalfFloatType, InstancedBufferAttribute, InstancedBufferGeometry,
+  LinearFilter, Mesh, MinEquation, OneFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, PlaneGeometry, RedFormat, RepeatWrapping, Scene,
+  ShaderMaterial, UnsignedByteType, Vector2, Vector3, WebGLRenderTarget, ZeroFactor,
+  type Camera, type Texture, type WebGLRenderer,
 } from 'three'
 import type { NebulaDetails, Star } from './catalog-model'
 import { galacticToWorld, type StarColorMode } from './astronomy'
+import { decodeNebulaMask } from './nebula-overlay-model'
 
 // Each puff is one camera-facing quad: all nebulae share a single instanced draw call.
 export const NEBULA_MAX_SCREEN_FRACTION = 0.2
@@ -12,6 +15,8 @@ export const NEBULA_MAX_SCREEN_FRACTION = 0.2
 const PUFF_OVERLAP = 36
 const PUFF_ALPHA = 0.22 * 9 / PUFF_OVERLAP
 const MIN_PUFF_PIXELS = 1.5
+// Kernel radius of mask-shaped nebulae in mask pixels.
+const MASK_PUFF_PIXELS = 2
 
 export function seededRandom(seed: number): () => number {
   let state = seed >>> 0
@@ -68,6 +73,37 @@ function paletteColor(palette: readonly string[], t: number, target: Color, scra
 }
 
 type Sample = { d: number; u: number; v: number; t: number; size: number; alpha: number }
+
+interface MaskPixels { values: Uint8Array; lit: number[]; peak: number }
+
+// Every lit pixel gets puffs in turn; a seeded shuffle keeps any prefix an unbiased level-of-detail subset.
+function maskPixels(mask: { values: string }, random: () => number): MaskPixels {
+  const values = decodeNebulaMask(mask)
+  const lit: number[] = []
+  values.forEach((value, index) => { if (value > 0) lit.push(index) })
+  for (let index = lit.length - 1; index > 0; index--) {
+    const swap = Math.floor(random() * (index + 1))
+    ;[lit[index], lit[swap]] = [lit[swap]!, lit[index]!]
+  }
+  return { values, lit, peak: values.reduce((peak, value) => Math.max(peak, value), 0) }
+}
+
+// Opacity follows the observed brightness pixel by pixel, which avoids the speckle of random placement.
+function maskSampler(details: NebulaDetails, { values, lit, peak }: MaskPixels, random: () => number): () => Sample {
+  const { kind, semi_axes_pc: [depth, major, minor], mask } = details.shape
+  const [columns, rows] = mask!.size
+  let next = 0
+  return () => {
+    const pixel = lit[next++ % lit.length]!
+    const v = ((pixel % columns) + random()) / columns * 2 - 1
+    const u = (Math.floor(pixel / columns) + random()) / rows * 2 - 1
+    // Sky offsets set the depth range of a sphere (filled) or its surface (shell).
+    const cap = Math.sqrt(Math.max(0, 1 - u * u - v * v))
+    const d = kind === 'shell' ? (random() < 0.5 ? -cap : cap) : (random() * 2 - 1) * Math.max(0.2, cap)
+    const brightness = values[pixel]! / peak
+    return { d: d * depth, u: u * major, v: v * minor, t: 1 - brightness, size: 1, alpha: brightness }
+  }
+}
 
 function shapeSampler(details: NebulaDetails, random: () => number): () => Sample {
   const { kind, semi_axes_pc: [depth, major, minor], layer_offsets_pc: offsets } = details.shape
@@ -150,11 +186,21 @@ export function generateNebulaPuffs(star: Star, observer: Vector3): NebulaPuffs 
   if (!details) throw new Error(`Not a nebula: ${star.id}`)
   const count = details.puff_count
   const random = seededRandom(details.seed)
-  const sample = shapeSampler(details, random)
+  const mask = details.shape.mask
+  const pixels = mask ? maskPixels(mask, random) : null
+  const sample = pixels ? maskSampler(details, pixels, random) : shapeSampler(details, random)
   const center = galacticToWorld(star)
   const basis = nebulaBasis(center, observer, details.shape.position_angle_deg)
   const [, major, minor] = details.shape.semi_axes_pc
-  const baseRadius = Math.sqrt(PUFF_OVERLAP * major * minor / count)
+  let baseRadius = Math.sqrt(PUFF_OVERLAP * major * minor / count)
+  let alphaScale = 1
+  if (mask && pixels) {
+    // Kernels of a few map pixels blend neighbours smoothly; the brightest pixel
+    // then reaches the same optical depth as the core of a uniform nebula.
+    const [columns, rows] = mask.size
+    baseRadius = MASK_PUFF_PIXELS * Math.max(2 * major / rows, 2 * minor / columns)
+    alphaScale = PUFF_OVERLAP * pixels.lit.length / (count * Math.PI * MASK_PUFF_PIXELS ** 2)
+  }
   const noiseScale = 0.35 / Math.sqrt(major * minor)
   const noiseOffset = (details.seed % 997) / 997
   const puffs: NebulaPuffs = {
@@ -176,7 +222,7 @@ export function generateNebulaPuffs(star: Star, observer: Vector3): NebulaPuffs 
     puffs.centers.set([position.x, position.y, position.z], index * 3)
     puffs.shapes.set([
       baseRadius * size * (0.9 + 0.2 * random()),
-      details.brightness * alpha * PUFF_ALPHA * (0.45 + 0.55 * random()),
+      details.brightness * alpha * alphaScale * PUFF_ALPHA * (0.45 + 0.55 * random()),
       noiseScale,
       noiseOffset,
     ], index * 4)
@@ -247,24 +293,78 @@ export interface NebulaLayer {
   setViewportHeight(pixels: number): void
   /** Scales every puff's opacity, e.g. to fade the whole layer in. */
   setOpacity(opacity: number): void
+  /** Draws the puffs of a half-resolution layer for the coming frame; a no-op otherwise. */
+  renderOffscreen(renderer: WebGLRenderer, camera: Camera): void
   instanceCount(): number
   dispose(): void
 }
 
 export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, mode: StarColorMode): NebulaLayer {
-  return createPuffLayer(nebulae.map((nebula) => generateNebulaPuffs(nebula, observer)), mode)
+  return createPuffLayer(nebulae.map((nebula) => generateNebulaPuffs(nebula, observer)), mode, { halfResolution: true })
 }
 
 export interface PuffLayerOptions {
   /** Dim what lies behind instead of emitting light; the puff color is the absorbed fraction. */
   absorb?: boolean
   maxScreenFraction?: number
+  /**
+   * Render emitting puffs at half resolution, a quarter of the fill cost, and composite them
+   * in the scene with the nearest puff depth so opaque objects and cloud absorption still sort.
+   */
+  halfResolution?: boolean
+}
+
+// View depth (pc) stored as a fraction of this range in the half-resolution alpha channel.
+const OFFSCREEN_DEPTH_RANGE = 4096
+
+function createHalfResolutionComposite(texture: Texture): Mesh {
+  const material = new ShaderMaterial({
+    uniforms: { nebulaMap: { value: texture } },
+    transparent: true,
+    // The same screen compositing as full-resolution puffs; screening is order independent.
+    blending: CustomBlending,
+    blendSrc: OneFactor,
+    blendDst: OneMinusSrcColorFactor,
+    blendSrcAlpha: OneFactor,
+    blendDstAlpha: OneMinusSrcAlphaFactor,
+    depthTest: true,
+    depthWrite: false,
+    toneMapped: false,
+    vertexShader: `
+      varying vec2 vUv;
+      varying vec2 vDepthProjection;
+      void main() {
+        vUv = uv;
+        vDepthProjection = vec2(projectionMatrix[2][2], projectionMatrix[3][2]);
+        gl_Position = vec4(position.xy, 0.0, 1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform sampler2D nebulaMap;
+      varying vec2 vUv;
+      varying vec2 vDepthProjection;
+      void main() {
+        vec3 color = texture2D(nebulaMap, vUv).rgb;
+        float coverage = max(color.r, max(color.g, color.b));
+        if (coverage < 0.0005) discard;
+        // Nearest-texel depth: filtering would blend gas depth with the empty-sky sentinel.
+        ivec2 size = textureSize(nebulaMap, 0);
+        float viewDepth = texelFetch(nebulaMap, min(ivec2(vUv * vec2(size)), size - 1), 0).a * ${OFFSCREEN_DEPTH_RANGE}.0;
+        gl_FragDepth = clamp((vDepthProjection.y / viewDepth - vDepthProjection.x) * 0.5 + 0.5, 0.0, 1.0);
+        // Already display-encoded and premultiplied; coverage is the least opacity that keeps it valid.
+        gl_FragColor = vec4(color, coverage);
+      }
+    `,
+  })
+  const mesh = new Mesh(new PlaneGeometry(2, 2), material)
+  mesh.frustumCulled = false
+  return mesh
 }
 
 export function createPuffLayer(
   sources: readonly PuffInstances[],
   mode: StarColorMode,
-  { absorb = false, maxScreenFraction = NEBULA_MAX_SCREEN_FRACTION }: PuffLayerOptions = {},
+  { absorb = false, maxScreenFraction = NEBULA_MAX_SCREEN_FRACTION, halfResolution = false }: PuffLayerOptions = {},
 ): NebulaLayer {
   const capacity = sources.reduce((sum, puffs) => sum + puffs.count, 0)
   const geometry = new InstancedBufferGeometry()
@@ -296,17 +396,20 @@ export function createPuffLayer(
   }
   const material = new ShaderMaterial({
     uniforms,
+    defines: halfResolution ? { HALF_RESOLUTION_TARGET: '' } : {},
     transparent: true,
     // Screen compositing gives overlapping emission a gentle highlight rolloff
     // instead of clipping large areas to white and overwhelming stellar marks.
     // Absorbing puffs instead multiply what lies behind by one minus their color.
+    // Half-resolution targets keep the nearest puff depth in alpha instead of coverage.
     blending: CustomBlending,
     blendSrc: absorb ? ZeroFactor : OneFactor,
     blendDst: OneMinusSrcColorFactor,
     blendSrcAlpha: absorb ? ZeroFactor : OneFactor,
     blendDstAlpha: OneMinusSrcAlphaFactor,
+    blendEquationAlpha: halfResolution ? MinEquation : AddEquation,
     premultipliedAlpha: true,
-    depthTest: true,
+    depthTest: !halfResolution,
     depthWrite: false,
     toneMapped: false,
     vertexShader: `
@@ -323,9 +426,11 @@ export function createPuffLayer(
       varying vec3 vNoisePosition;
       varying vec3 vColor;
       varying float vAlpha;
+      varying float vViewDepth;
       void main() {
         vec4 viewCenter = modelViewMatrix * vec4(puffCenter, 1.0);
         float depth = -viewCenter.z;
+        vViewDepth = depth;
         float radius = puffShape.x;
         // Fade puffs the camera is inside or about to enter; bounds overdraw when flying through.
         float nearFade = smoothstep(radius, radius * 4.0, depth);
@@ -358,6 +463,7 @@ export function createPuffLayer(
       varying vec3 vNoisePosition;
       varying vec3 vColor;
       varying float vAlpha;
+      varying float vViewDepth;
       void main() {
         float r2 = dot(vUv, vUv);
         if (r2 >= 1.0) discard;
@@ -370,17 +476,28 @@ export function createPuffLayer(
         float wisps = smoothstep(0.38, 0.7, detail);
         float emission = 0.72 + 0.42 * broad + 0.18 * wisps;
         float alpha = 1.0 - exp(-vAlpha * falloff * emission * gain);
-        gl_FragColor = vec4(vColor, alpha);
-        #include <colorspace_fragment>
-        gl_FragColor.rgb *= gl_FragColor.a;
+        #ifdef HALF_RESOLUTION_TARGET
+          // Render targets stay linear, so encode for display as the canvas would.
+          gl_FragColor = vec4(sRGBTransferOETF(vec4(vColor, 1.0)).rgb * alpha,
+            alpha > 0.002 ? vViewDepth / ${OFFSCREEN_DEPTH_RANGE}.0 : 1.0);
+        #else
+          gl_FragColor = vec4(vColor, alpha);
+          #include <colorspace_fragment>
+          gl_FragColor.rgb *= gl_FragColor.a;
+        #endif
       }
     `,
   })
-  const mesh = new Mesh(geometry, material)
-  mesh.frustumCulled = false
+  const puffs = new Mesh(geometry, material)
+  puffs.frustumCulled = false
+  const target = halfResolution ? new WebGLRenderTarget(1, 1, { type: HalfFloatType, depthBuffer: false }) : null
+  const offscreen = target ? new Scene().add(puffs) : null
+  const mesh = target ? createHalfResolutionComposite(target.texture) : puffs
   // After opaque-like star cores (2), before additive stellar halos (3).
   mesh.renderOrder = 2.5
   mesh.visible = false
+  const drawingSize = new Vector2()
+  const clearColor = new Color()
   let visibility: boolean[] = sources.map(() => false)
   let fraction = 1
   let opacity = 1
@@ -424,11 +541,36 @@ export function createPuffLayer(
       opacity = next
       uniforms.alphaScale.value = opacity / fraction
     },
+    renderOffscreen(renderer, camera) {
+      if (!target || !offscreen || !mesh.visible) return
+      const previousTarget = renderer.getRenderTarget()
+      if (previousTarget) drawingSize.set(previousTarget.width, previousTarget.height)
+      else renderer.getDrawingBufferSize(drawingSize)
+      target.setSize(Math.max(1, Math.ceil(drawingSize.x / 2)), Math.max(1, Math.ceil(drawingSize.y / 2)))
+      // Puff sizes, screen caps and the minimum kernel follow the pixels actually drawn.
+      uniforms.viewportHeight.value = target.height
+      renderer.getClearColor(clearColor)
+      const clearAlpha = renderer.getClearAlpha()
+      try {
+        renderer.setRenderTarget(target)
+        // Alpha 1 is the empty-sky depth sentinel.
+        renderer.setClearColor(0x000000, 1)
+        renderer.render(offscreen, camera)
+      } finally {
+        renderer.setClearColor(clearColor, clearAlpha)
+        renderer.setRenderTarget(previousTarget)
+      }
+    },
     instanceCount: () => geometry.instanceCount,
     dispose() {
       geometry.dispose()
       material.dispose()
       noise.dispose()
+      if (target) {
+        target.dispose()
+        mesh.geometry.dispose()
+        ;(mesh.material as ShaderMaterial).dispose()
+      }
     },
   }
 }

@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "id": "nebulae",
   "label": "Nebulae",
-  "description": "A separately loaded, hand-curated overlay of the catalogued nebulae within about 500 ly, plus the Orion Nebula, rendered as approximate 3D volumes.",
+  "description": "A separately loaded overlay of the catalogued nebulae within about 2000 ly, rendered as approximate 3D volumes. Large H II regions take their sky shape from an all-sky H-alpha map.",
   "epoch": 2000,
-  "objectCount": 22,
+  "objectCount": 89,
   "counts": {
-    "reflection_nebula": 17,
-    "hii_region": 4,
-    "planetary_nebula": 1
+    "reflection_nebula": 59,
+    "hii_region": 14,
+    "planetary_nebula": 16
   },
   "sources": [
     {
@@ -58,8 +58,44 @@
     {
       "name": "van Leeuwen (2007); Hipparcos new reduction parallaxes (VizieR I/311)",
       "url": "https://ui.adsabs.harvard.edu/abs/2007A%26A...474..653V"
+    },
+    {
+      "name": "Finkbeiner (2003); full-sky H-alpha composite of WHAM, VTSS and SHASSA (LAMBDA)",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F"
+    },
+    {
+      "name": "Dzib et al. (2026); DYNAMO-VLBA parallaxes of young stars in Orion",
+      "url": "https://doi.org/10.1051/0004-6361/202558169"
+    },
+    {
+      "name": "Cantat-Gaudin & Anders (2020); Gaia DR2 open-cluster parallaxes",
+      "url": "https://ui.adsabs.harvard.edu/abs/2020A%26A...633A..99C"
+    },
+    {
+      "name": "Cantat-Gaudin et al. (2020); Gaia DR2 open-cluster parallaxes",
+      "url": "https://ui.adsabs.harvard.edu/abs/2020A%26A...640A...1C"
+    },
+    {
+      "name": "Stanghellini, Shaw & Villaver (2008); planetary nebula angular diameters",
+      "url": "https://ui.adsabs.harvard.edu/abs/2008ApJ...689..194S"
+    },
+    {
+      "name": "Acker et al. (1992); Strasbourg-ESO Catalogue of Galactic Planetary Nebulae",
+      "url": "https://ui.adsabs.harvard.edu/abs/1992ESOPN...1....1A"
+    },
+    {
+      "name": "van den Bergh & Herbst (1975); Catalogue of southern stars embedded in nebulosity",
+      "url": "https://ui.adsabs.harvard.edu/abs/1975AJ.....80..208V"
+    },
+    {
+      "name": "Lauberts (1982); ESO/Uppsala Survey of the ESO(B) Atlas (VizieR VII/34)",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/VII/34"
+    },
+    {
+      "name": "Comerón et al. (2022); The extended population associated with W40",
+      "url": "https://arxiv.org/abs/2203.07634"
     }
   ],
-  "cutoffPolicy": "Every reflection nebula, H II region and planetary nebula that is listed in NGC/IC, van den Bergh, Sharpless or HASH, spans at least 5 arcmin, and whose adopted distance is within 1 sigma of 500 ly (distance - error <= 153.3 pc). Distances come from the SIMBAD-adopted parallax (Gaia EDR3, else Hipparcos 2007) of the illuminating or central star; several stars use an inverse-variance mean. Sizes come from LBN for named NGC/IC nebulae, Sharpless or HASH for ionized nebulae, and twice the van den Bergh maximum radius otherwise. The Orion Nebula (about 1265 ly) is kept as a showcase beyond the cutoff. Excluded: dark nebulae and molecular clouds, nebulae under 5 arcmin (most young-star nebulae in Taurus, Ophiuchus and Corona Australis), the Corona Australis nebulae NGC 6726/6727 and IC 4812 (illuminating stars at 155 pc), the possible planetary nebula FP J1912-0331, and H-alpha-only ionized regions such as Spica's.",
-  "snapshot": "J2000 map positions; literature reviewed 2026-10-01."
+  "cutoffPolicy": "Every reflection nebula, H II region and planetary nebula that is listed in NGC/IC, van den Bergh, van den Bergh & Herbst, Sharpless, HASH, or in Lynds with a reflection-catalogue identification (Cederblad or Dorschner & Gürtler), spans at least 5 arcmin, and whose adopted distance is within 1 sigma of 2000 ly (distance - error <= 613.2 pc); the census is being added in reviewed batches, so it is not yet complete beyond 500 ly (153.3 pc). Distances come from the SIMBAD-adopted parallax (Gaia EDR3, else Hipparcos 2007) of the illuminating or central star; several stars use an inverse-variance mean, and Gaia DR2 cluster parallaxes or VLBA parallaxes of cluster members replace stars whose own parallax is unreliable or embedded. Sizes come from LBN for named NGC/IC nebulae, Sharpless for ionized nebulae, the SIMBAD-adopted angular diameter (or HASH radius) for planetary nebulae, twice the van den Bergh maximum radius in the north, and ESO/Uppsala or the van den Bergh & Herbst diameter south of the Lynds limit. H II regions larger than about 1 degree take their sky shape and relative brightness from the Finkbeiner (2003) H-alpha map. The Orion Nebula (about 1265 ly) was kept as a showcase beyond the earlier 500-ly cutoff. Excluded: dark nebulae and molecular clouds, nebulae under 5 arcmin, the possible planetary nebula FP J1912-0331, H-alpha-only ionized regions such as Spica's, and Barnard's Loop until its distance is settled (published estimates of about 170 and 440 pc disagree).",
+  "snapshot": "J2000 map positions; literature reviewed 2026-10-01 (500-ly census), 2026-11-03 (2000-ly batch 1) and 2026-11-04 (batches 2 and 3)."
 }

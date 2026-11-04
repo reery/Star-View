@@ -38,6 +38,24 @@ function strings(value: unknown, minimum = 1): value is string[] {
   return Array.isArray(value) && value.length >= minimum && value.every((entry) => typeof entry === 'string' && entry.length > 0)
 }
 
+export function decodeNebulaMask(mask: { values: string }): Uint8Array {
+  return Uint8Array.from(atob(mask.values), (character) => character.charCodeAt(0))
+}
+
+function validMask(shape: Record<string, unknown>): boolean {
+  const mask = shape.mask as Record<string, unknown> | undefined
+  if (mask === undefined) return true
+  const size = mask?.size
+  if (!Array.isArray(size) || size.length !== 2 || !size.every((cells) => Number.isInteger(cells) && cells >= 2 && cells <= 128)
+    || typeof mask.values !== 'string' || !['ellipsoid', 'shell'].includes(shape.kind as string) || shape.position_angle_deg !== 0) return false
+  try {
+    const values = decodeNebulaMask(mask as { values: string })
+    return values.length === size[0] * size[1] && values.some((cell) => cell > 0)
+  } catch {
+    return false
+  }
+}
+
 function validDetails(value: unknown): value is NebulaDetails {
   if (!value || typeof value !== 'object') return false
   const details = value as Record<string, unknown>
@@ -59,9 +77,10 @@ function validDetails(value: unknown): value is NebulaDetails {
     && typeof shape.position_angle_deg === 'number' && Number.isFinite(shape.position_angle_deg)
     && Array.isArray(shape.layer_offsets_pc) && shape.layer_offsets_pc.every((offset) => typeof offset === 'number' && Number.isFinite(offset))
     && (shape.kind !== 'layers' || shape.layer_offsets_pc.length > 0)
+    && validMask(shape)
     && !!palette && hexes(palette.real) && hexes(palette.exaggerated)
     && typeof details.brightness === 'number' && details.brightness > 0 && details.brightness <= 1
-    && Number.isInteger(details.puff_count) && (details.puff_count as number) >= 16 && (details.puff_count as number) <= 1024
+    && Number.isInteger(details.puff_count) && (details.puff_count as number) >= 16 && (details.puff_count as number) <= 4096
     && Number.isInteger(details.seed)
 }
 
