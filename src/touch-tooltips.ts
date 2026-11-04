@@ -67,11 +67,11 @@ export function initializeTouchTooltips(signal: AbortSignal): void {
       .find((element) => element?.matches('.mass-metric-tooltip[role="tooltip"]:not([hidden], .constellation-tooltip)'))
     if (tooltip) {
       showTouchTooltip(button, tooltip)
-      if (button.matches('a[href]')) openedLink = button
+      if (button.matches('a[href], label .mass-metric-help')) openedLink = button
     }
   }, { capture: true, passive: true, signal })
 
-  // A link's first tap names its destination; the second tap follows it.
+  // A link's first tap names its destination and a setting's first tap explains it; the second tap acts.
   document.addEventListener('click', (event) => {
     if (openedLink && event.target instanceof Node && openedLink.contains(event.target)) event.preventDefault()
     openedLink = undefined

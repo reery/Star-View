@@ -22,11 +22,14 @@ test('short landscape controls scroll without overlap and keep flyouts usable @m
   // Buttons retain their full touch targets rather than shrinking to fit.
   await expect(page.locator('#reset-view')).toHaveCSS('height', '44px')
   await expect(page.locator('#info-toggle')).toHaveCSS('height', '44px')
+  // Info is a flyout trigger: the first tap reveals Tutorial, the second opens the card.
+  await page.locator('#info-toggle').tap()
+  await expect(page.locator('#tutorial-toggle')).toBeVisible()
   await page.locator('#info-toggle').tap()
   await expect(page.locator('#info-panel')).toBeVisible()
   await page.locator('#info-toggle').tap()
   expect(await toolbar.evaluate((element) => element.scrollTop)).toBeGreaterThan(0)
-  // Discover's flyout also escapes the shared scrolling viewport.
+  // Explore's flyout also escapes the shared scrolling viewport.
   await page.locator('#discover-toggle').tap()
   await expect(page.locator('#constellations-toggle')).toBeVisible()
   const discover = (await page.locator('#constellations-toggle').boundingBox())!

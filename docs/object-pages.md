@@ -1,6 +1,6 @@
 # Object pages and the sitemap
 
-Every catalog and compact-remnant object has a page at `/objects/<id>`, named by its stable catalog ID. The app reads the path at startup and selects that object. An object outside the start catalog loads its catalog the way Discover top lists do. Afterwards the URL and the title follow the selection, without adding browser history entries. The start page stays at `/` until a visitor selects an object.
+Every catalog and compact-remnant object has a page at `/objects/<id>`, named by its stable catalog ID. The app reads the path at startup and selects that object. An object outside the start catalog loads its catalog the way Explore top lists do. Afterwards the URL and the title follow the selection, without adding browser history entries. The start page stays at `/` until a visitor selects an object.
 
 ## Worker
 
@@ -24,6 +24,6 @@ Unknown IDs return the start page with status 404. A record that the map merges 
 - known planets,
 - membership in the nearest neighbors or nearest 100,
 - a curated catalog: Western constellation stars or notable distant stars,
-- an entry in a Discover top list.
+- an entry in an Explore top list.
 
 Change these rules in the script. The build adds `robots.txt`, which points to the sitemap. A sitemap holds at most 50,000 URLs; the script fails before that limit.

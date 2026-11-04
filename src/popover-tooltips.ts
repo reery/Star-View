@@ -5,8 +5,9 @@ let hideActiveTooltip: (() => void) | undefined
 /**
  * Tooltips prefer the space above their label and stay within the card. With `extend`, they may reach past
  * the card's edge on that side, staying within the viewport; 'below' also makes below the preferred side.
+ * With `control`, label text that cannot take focus opens its tooltip when the keyboard reaches its control.
  */
-export function attachPopoverTooltip(button: HTMLElement, tooltip: HTMLElement, extend?: 'above' | 'below'): void {
+export function attachPopoverTooltip(button: HTMLElement, tooltip: HTMLElement, extend?: 'above' | 'below', control?: HTMLElement): void {
   const preferBelow = extend === 'below'
   tooltip.setAttribute('popover', 'manual')
   button.setAttribute('aria-describedby', tooltip.id)
@@ -94,7 +95,8 @@ export function attachPopoverTooltip(button: HTMLElement, tooltip: HTMLElement, 
     hovered = false
     if (document.activeElement !== button) hide()
   })
-  button.addEventListener('focus', () => { if (!usingTouchTooltips()) show() })
-  button.addEventListener('blur', () => { if (!hovered && !usingTouchTooltips()) hide() })
+  const focusTarget = control ?? button
+  focusTarget.addEventListener('focus', () => { if (!usingTouchTooltips() && (!control || control.matches(':focus-visible'))) show() })
+  focusTarget.addEventListener('blur', () => { if (!hovered && !usingTouchTooltips()) hide() })
   registerTouchTooltip(button, { show, hide })
 }

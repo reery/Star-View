@@ -1,6 +1,67 @@
 import { describe, expect, it } from 'vitest'
 import { Vector3 } from 'three'
-import { makeSkyGridGeometry, placeSkyGridLabels, skyGridDirection, skyGridMarkers, type SkyGridLabelSlot } from './sky-grid'
+import { makeSkyGridGeometry, placeSkyGridLabels, skyGridDirection, skyGridMarkers, skyWindowCone, type SkyGridLabelSlot } from './sky-grid'
+import { skyAltitude, sunEquatorialPosition, visibilityConeHours } from './constellation-visibility'
+import { earthOrbitMarker } from './earth-orbit'
+
+describe('sky window cone', () => {
+  const angleDeg = (a: Vector3, b: Vector3) => a.angleTo(b) * 180 / Math.PI
+  const polaris = skyGridDirection('equatorial', 37.95, 89.264)
+  const sirius = skyGridDirection('equatorial', 101.287, -16.716)
+  const betelgeuse = skyGridDirection('equatorial', 88.793, 7.407)
+  const rigel = skyGridDirection('equatorial', 78.634, -8.202)
+  const november = new Date(Date.UTC(2026, 10, 4, 12))
+  const december = new Date(Date.UTC(2026, 11, 15, 12))
+  const inside = (cone: ReturnType<typeof skyWindowCone>, direction: Vector3) => angleDeg(cone.axis, direction) <= cone.halfAngleDeg
+
+  it('holds Sirius and Orion from 50° N before dawn in November, but not in the early evening', () => {
+    const dawn = skyWindowCone(50, november, visibilityConeHours('4-6')!)
+    for (const star of [sirius, betelgeuse, rigel]) expect(inside(dawn, star)).toBe(true)
+    const evening = skyWindowCone(50, november, visibilityConeHours('18-20')!)
+    for (const star of [sirius, betelgeuse, rigel]) expect(inside(evening, star)).toBe(false)
+  })
+
+  it('keeps Polaris in view from the north and out of view from the south', () => {
+    const hours = visibilityConeHours('22-24')!
+    expect(inside(skyWindowCone(50, december, hours), polaris)).toBe(true)
+    expect(inside(skyWindowCone(-30, december, hours), polaris)).toBe(false)
+  })
+
+  it('narrows as the zenith moves further through the window, most at the equator', () => {
+    const hours = { start: 0, end: 2 }
+    expect(skyWindowCone(0, december, hours).halfAngleDeg).toBeCloseTo(75, 6)
+    expect(skyWindowCone(80, december, hours).halfAngleDeg).toBeGreaterThan(87)
+  })
+
+  it('turns with the date and the hour while its size stays fixed', () => {
+    const hours = { start: 0, end: 2 }
+    const june = new Date(Date.UTC(2026, 5, 15, 12))
+    expect(angleDeg(skyWindowCone(40, june, hours).axis, skyWindowCone(40, december, hours).axis)).toBeGreaterThan(30)
+    expect(skyWindowCone(40, june, hours).halfAngleDeg).toBeCloseTo(skyWindowCone(40, december, hours).halfAngleDeg, 6)
+    expect(angleDeg(skyWindowCone(40, december, { start: 4, end: 6 }).axis, skyWindowCone(40, december, hours).axis)).toBeGreaterThan(20)
+  })
+
+  it('points away from the Sun, through Earth, around midnight as Earth moves around its orbit', () => {
+    for (let month = 0; month < 12; month++) {
+      const date = new Date(Date.UTC(2026, month, 15, 12))
+      // Up to the 15° of a 1 am centre plus the obliquity's reach in declination.
+      expect(angleDeg(skyWindowCone(0, date, { start: 0, end: 2 }).axis, earthOrbitMarker(date).earthPosition)).toBeLessThan(28)
+    }
+  })
+
+  it.each([-60, -20, 0, 40, 80])('keeps everything inside above the horizon through the window at %d°', (latitude) => {
+    const cone = skyWindowCone(latitude, december, { start: 22, end: 24 })
+    const sunRa = sunEquatorialPosition(december).ra
+    for (let ra = 0; ra < 360; ra += 10) {
+      for (let dec = -85; dec <= 85; dec += 5) {
+        if (!inside(cone, skyGridDirection('equatorial', ra, dec))) continue
+        for (const hour of [22, 23, 24]) {
+          expect(skyAltitude(dec, latitude, sunRa + (hour - 12) * 15 - ra)).toBeGreaterThanOrEqual(-1e-6)
+        }
+      }
+    }
+  })
+})
 
 describe('sky coordinate frames', () => {
   it('places Galactic center, increasing longitude and north on the established world axes', () => {

@@ -1,10 +1,14 @@
 import { BufferGeometry, Color, Float32BufferAttribute, LineSegments, ShaderMaterial, Vector3, Vector4, type PerspectiveCamera } from 'three'
 import { equatorialToGalacticPc } from './catalog-model'
 import { galacticToWorld } from './astronomy'
+import { sunEquatorialPosition, type SkyHours } from './constellation-visibility'
 import { overlaps, type LabelRect, type LayoutViewport } from './label-layout'
 
 export type SkyGridMode = 'off' | 'equatorial' | 'galactic'
 type SkyGridFrame = Exclude<SkyGridMode, 'off'>
+
+/** The Earth orbit marker's blue, shared by the visible-sky highlight and cone. */
+export const VISIBLE_SKY_COLOR = 0x51c8ff
 
 /** Unit sky directions, using the same fixed ICRS/Galactic axes as the catalog. */
 export function skyGridDirection(frame: SkyGridFrame, longitudeDeg: number, latitudeDeg: number): Vector3 {
@@ -12,6 +16,21 @@ export function skyGridDirection(frame: SkyGridFrame, longitudeDeg: number, lati
   const longitude = longitudeDeg * Math.PI / 180
   const latitude = latitudeDeg * Math.PI / 180
   return new Vector3(Math.cos(latitude) * Math.cos(longitude), Math.sin(latitude), -Math.cos(latitude) * Math.sin(longitude))
+}
+
+export interface SkyCone { axis: Vector3; halfAngleDeg: number }
+
+/**
+ * The round cone of sky that stays above a level horizon through a window of
+ * local solar hours. The zenith traces the latitude's declination as Earth turns,
+ * so this is the widest cone within 90° of the zenith at both ends of the window.
+ * Declination carries Earth's axial tilt, and the Sun's position carries the date.
+ */
+export function skyWindowCone(latitude: number, date: Date, hours: SkyHours): SkyCone {
+  const sunRa = sunEquatorialPosition(date).ra
+  const first = skyGridDirection('equatorial', sunRa + (hours.start - 12) * 15, latitude)
+  const last = skyGridDirection('equatorial', sunRa + (hours.end - 12) * 15, latitude)
+  return { axis: first.clone().add(last).normalize(), halfAngleDeg: 90 - first.angleTo(last) * 90 / Math.PI }
 }
 
 export function makeSkyGridGeometry(frame: SkyGridFrame): BufferGeometry {
@@ -95,13 +114,18 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
   layer.hidden = true
   container.append(layer)
   const material = new ShaderMaterial({
-    uniforms: { color: { value: new Color(0x9daeb8) }, opacity },
+    uniforms: {
+      color: { value: new Color(0x9daeb8) }, opacity,
+      visibleColor: { value: new Color(VISIBLE_SKY_COLOR) }, visibleAxis: { value: new Vector3(0, 1, 0) }, visibleCos: { value: -1 }, highlight: { value: 0 },
+    },
     transparent: true, depthWrite: false, toneMapped: false,
     vertexShader: `
       attribute float emphasis;
       varying float lineEmphasis;
+      varying vec3 lineDirection;
       void main() {
         lineEmphasis = emphasis;
+        lineDirection = position;
         // A sphere at infinity: translation and zoom distance cannot move it.
         gl_Position = projectionMatrix * vec4(mat3(viewMatrix) * position, 0.0);
         gl_Position.z = gl_Position.w;
@@ -110,9 +134,15 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
     fragmentShader: `
       uniform vec3 color;
       uniform float opacity;
+      uniform vec3 visibleColor;
+      uniform vec3 visibleAxis;
+      uniform float visibleCos;
+      uniform float highlight;
       varying float lineEmphasis;
+      varying vec3 lineDirection;
       void main() {
-        gl_FragColor = vec4(color, opacity * lineEmphasis);
+        float visible = highlight * step(visibleCos, dot(normalize(lineDirection), visibleAxis));
+        gl_FragColor = vec4(mix(color, visibleColor, visible), min(1.0, opacity * lineEmphasis * (1.0 + 1.6 * visible)));
         #include <colorspace_fragment>
       }
     `,
@@ -124,15 +154,27 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
   let mode: SkyGridMode = 'off'
   let labels: Array<SkyGridLabelSlot & { direction: Vector3; anchor: HTMLDivElement; text: HTMLDivElement }> = []
   let layoutDirty = true
+  let highlightEnabled = false
   const clip = new Vector4()
   container.dataset.skyGrid = mode
+  // Only the equatorial grid's declinations mean anything for an observer's latitude.
+  const syncHighlight = () => { material.uniforms.highlight!.value = highlightEnabled && mode === 'equatorial' ? 1 : 0 }
 
   return {
     lines,
     layer,
+    setVisibleCone(cone: SkyCone | null) {
+      highlightEnabled = cone !== null
+      if (cone) {
+        material.uniforms.visibleAxis!.value.copy(cone.axis)
+        material.uniforms.visibleCos!.value = Math.cos(cone.halfAngleDeg * Math.PI / 180)
+      }
+      syncHighlight()
+    },
     setMode(next: SkyGridMode) {
       if (next === mode) return
       mode = next
+      syncHighlight()
       container.dataset.skyGrid = next
       lines.visible = next !== 'off'
       layer.hidden = next === 'off'

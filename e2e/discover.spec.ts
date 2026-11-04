@@ -1,28 +1,28 @@
 import { expect, test, type Page } from '@playwright/test'
 import { openSpecs, openViewer } from './support'
 
-async function openConstellations(page: Page, mobile: boolean) {
-  const discover = page.getByRole('button', { name: 'Discover', exact: true })
+async function openDiscoverCard(page: Page, mobile: boolean, name: string) {
+  const discover = page.getByRole('button', { name: 'Explore', exact: true })
   if (mobile) await discover.tap()
   else await discover.hover()
-  await page.getByRole('button', { name: 'Constellations', exact: true }).click()
+  await page.getByRole('button', { name, exact: true }).click()
+}
+
+async function openConstellations(page: Page, mobile: boolean) {
+  await openDiscoverCard(page, mobile, 'Constellations')
   await expect(page.locator('#discover-constellation-chart > svg')).toBeVisible()
 }
 
-test('Discover maximizes only height and magnifies the constellation overview @mobile', async ({ page, isMobile }, testInfo) => {
+test('Explore maximizes only height and magnifies the constellation overview @mobile', async ({ page, isMobile }, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   await openViewer(page)
   await openConstellations(page, isMobile)
   const panel = page.locator('#constellations-panel')
-  // Desktop opens maximized; restore the compact card before measuring it.
-  if (!isMobile) {
-    const restore = page.getByRole('button', { name: 'Minimize constellations card height', exact: true })
-    await expect(restore).toHaveAttribute('aria-pressed', 'true')
-    await restore.click()
-  } else {
-    await expect(page.getByRole('button', { name: 'Maximize constellations card height', exact: true })).toHaveAttribute('aria-pressed', 'false')
-  }
+  // The card opens maximized; restore the compact card before measuring it.
+  const restore = page.getByRole('button', { name: 'Minimize constellations card height', exact: true })
+  await expect(restore).toHaveAttribute('aria-pressed', 'true')
+  await restore.click()
   const initial = (await panel.boundingBox())!
   const chartFits = () => page.locator('#discover-constellation-chart').evaluate((chart) => {
     const detail = document.getElementById('constellations-detail')!.getBoundingClientRect()
@@ -83,7 +83,35 @@ test('Discover maximizes only height and magnifies the constellation overview @m
   expect(errors).toEqual([])
 })
 
-test('Discover toggles its flyout on repeated touch taps @mobile', async ({ page, isMobile }) => {
+test('Explore cards open with their default layouts until a choice is saved @mobile', async ({ page, isMobile }, testInfo) => {
+  await openViewer(page)
+  const dock = page.locator('#control-dock')
+  const constellations = page.locator('#constellations-panel')
+  await expect(dock).toHaveAttribute('data-graphs-compact', '')
+  await expect(constellations).toHaveClass(/is-maximized/)
+  await expect(page.locator('#graphs-sidebar')).toHaveAttribute('aria-expanded', 'false')
+  await expect(page.locator('#top-lists-sidebar')).toHaveAttribute('aria-expanded', 'false')
+  await expect(page.locator('#constellations-sidebar')).toHaveAttribute('aria-expanded', 'true')
+  for (const [name, card] of [['Graphs', 'graphs'], ['Top lists', 'top-lists'], ['Constellations', 'constellations']] as const) {
+    await page.mouse.move(5, 5)
+    await openDiscoverCard(page, isMobile, name)
+    await expect(page.locator(`#${card}-panel`)).toBeVisible()
+    if (card === 'graphs' && !isMobile) expect((await page.locator('#graphs-panel').boundingBox())!.width).toBe(440)
+    await page.locator(`#${card}-panel`).screenshot({ path: testInfo.outputPath(`${card}-default.png`) })
+  }
+
+  await page.evaluate(() => {
+    for (const key of ['graphs-compact', 'graphs-sidebar-collapsed', 'top-lists-sidebar-collapsed', 'constellations-maximized']) localStorage.setItem(`star-view-${key}`, 'false')
+  })
+  await page.reload()
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await expect(dock).not.toHaveAttribute('data-graphs-compact', '')
+  await expect(constellations).not.toHaveClass(/is-maximized/)
+  await expect(page.locator('#graphs-sidebar')).toHaveAttribute('aria-expanded', 'true')
+  await expect(page.locator('#top-lists-sidebar')).toHaveAttribute('aria-expanded', 'true')
+})
+
+test('Explore toggles its flyout on repeated touch taps @mobile', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'Touch flyout')
   await openViewer(page)
   const discover = page.locator('#discover-toggle')
@@ -103,7 +131,7 @@ test('Discover toggles its flyout on repeated touch taps @mobile', async ({ page
   await expect(option).toBeHidden()
 })
 
-test('Discover browses all constellations with shared charts and selection @mobile', async ({ page, isMobile }, testInfo) => {
+test('Explore browses all constellations with shared charts and selection @mobile', async ({ page, isMobile }, testInfo) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   const charts: string[] = []
@@ -160,7 +188,7 @@ test('Discover browses all constellations with shared charts and selection @mobi
   expect(errors).toEqual([])
 })
 
-test('Discover and an object constellation card keep independent charts and unique IDs', async ({ page, isMobile }) => {
+test('Explore and an object constellation card keep independent charts and unique IDs', async ({ page, isMobile }) => {
   test.skip(isMobile, 'Side by side desktop cards')
   await openViewer(page)
   await openSpecs(page)
@@ -183,7 +211,7 @@ test('Discover and an object constellation card keep independent charts and uniq
   await expect(page.locator('#discover-constellation-heading')).toHaveText('Orion')
 })
 
-test('Discover recovers from a failed chart and ignores an obsolete chart request', async ({ page, isMobile }) => {
+test('Explore recovers from a failed chart and ignores an obsolete chart request', async ({ page, isMobile }) => {
   test.skip(isMobile, 'Network lifecycle coverage')
   await openViewer(page)
   await openConstellations(page, false)

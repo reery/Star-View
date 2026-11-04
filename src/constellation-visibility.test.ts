@@ -1,9 +1,30 @@
 import { describe, expect, it } from 'vitest'
-import { eveningVisibilityMonths, latitudeLabel, skyAltitude, visibleLatitudeRange, visibilityMonthLabel } from './constellation-visibility'
+import { eveningVisibilityMonths, isVisibilityConeMode, latitudeLabel, observerLatitude, skyAltitude, visibilityConeHours, visibilityConeModeLabel, VISIBILITY_CONE_MODES, visibleLatitudeRange, visibilityMonthLabel } from './constellation-visibility'
 
 const sirius = { ra_deg: 101.287, dec_deg: -16.716 }
 
+describe('visibility cone stops', () => {
+  it('offers Off, Now, and two-hour windows through the night', () => {
+    expect(VISIBILITY_CONE_MODES.map(visibilityConeModeLabel)).toEqual(['Off', 'Now', '18–20', '20–22', '22–24', '0–2', '2–4', '4–6', '6–8'])
+    expect(visibilityConeHours('off')).toBeNull()
+    expect(visibilityConeHours('22-24')).toEqual({ start: 22, end: 24 })
+    expect(visibilityConeHours('4-6')).toEqual({ start: 4, end: 6 })
+    expect(isVisibilityConeMode('0-2')).toBe(true)
+    expect(isVisibilityConeMode('true')).toBe(false)
+  })
+
+  it('centres Now on the clock', () => {
+    expect(visibilityConeHours('now', new Date(2026, 10, 4, 5, 30))).toEqual({ start: 4.5, end: 6.5 })
+  })
+})
+
 describe('Earth visibility geometry', () => {
+  it('reads only the card\'s own latitudes from storage', () => {
+    expect(observerLatitude('-30')).toBe(-30)
+    expect(observerLatitude('0')).toBe(0)
+    for (const stored of [null, '', '999', '35', '90', 'north']) expect(observerLatitude(stored)).toBe(40)
+  })
+
   it('finds the full latitude range for southern, northern, and equatorial objects', () => {
     expect(visibleLatitudeRange(sirius.dec_deg)!.south).toBe(-90)
     expect(visibleLatitudeRange(sirius.dec_deg)!.north).toBeCloseTo(73.284, 8)

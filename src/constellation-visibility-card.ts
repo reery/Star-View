@@ -1,11 +1,10 @@
 import type { SkyPosition } from './constellations'
-import { eveningVisibilityMonths, latitudeLabel, visibleLatitudeRange, visibilityMonthLabel, VISIBILITY_MONTHS } from './constellation-visibility'
+import { eveningVisibilityMonths, LATITUDE_STORAGE_KEY, latitudeLabel, visibleLatitudeRange, visibilityMonthLabel, VISIBILITY_MONTHS } from './constellation-visibility'
 import land from './data/world-land.json'
 import { MISSING_VALUE } from './format'
 import { svgNode as svg } from './spectral-chart'
 
 const states = new WeakMap<HTMLElement, { position: SkyPosition | null; name: string }>()
-const LATITUDE_STORAGE_KEY = 'star-view-constellation-latitude'
 const explanation = 'Approximate season at 10 pm local solar time on the 15th of each month. The object is above a level horizon and the Sun is at least 18° below it. Civil clock time, terrain, weather, and brightness limits are not included.'
 
 function drawVisibility(root: HTMLElement): void {

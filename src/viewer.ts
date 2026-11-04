@@ -12,9 +12,11 @@ import { updateCameraNearPlane } from './camera-depth'
 import { createMilkyWayLayer } from './milky-way-layer'
 import { createEarthOrbitLayer } from './earth-orbit-layer'
 import { createOortCloudLayer, OORT_CLOUD_RADIUS_PC } from './oort-cloud-layer'
+import { createVisibilityConeLayer } from './visibility-cone-layer'
 import { createMotionArrowMesh } from './motion-arrow-layer'
 import { createMapGrid, gridOpacityForDisplay, makeGridGeometry, skyGridOpacityForDisplay } from './map-grid'
-import { createSkyGridLayer, makeSkyGridGeometry, type SkyGridMode } from './sky-grid'
+import { createSkyGridLayer, makeSkyGridGeometry, skyWindowCone, type SkyGridMode } from './sky-grid'
+import type { SkyHours } from './constellation-visibility'
 import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC } from './earth-orbit'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderMultisampling, renderPixelRatio, targetRenderFps } from './render-scheduling'
@@ -32,9 +34,9 @@ import {
   MOTION_ARROW_TAIL_OFFSET_PX,
   CONTEXT_MENU_HOLD_MS, STAR_DIAMETER_PX, ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices,
   compareMapLabelCandidates, focusProgress,
-  guideDashScale, isObjectMapVisible, mapVisibilityTier, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
+  guideDashScale, isObjectMapVisible, mapVisibilityTier, maxOrbitDistancePc, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirectionInto, projectSelectedAnchor, projectWorldPointInto,
-  shouldRunOrdinaryLabelLayout, starApparentDiameter, starBlocksLabels, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
+  shouldRunOrdinaryLabelLayout, starApparentDiameter, starBlocksLabels, starCoreShape, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
   type MotionArrowGeometry, type PointerPosition, type ProjectedPickable,
 } from './viewer-primitives'
 
@@ -70,6 +72,7 @@ export interface StarViewer {
   setEarthOrbitDate(date: Date | null): void
   setMilkyWayVisible(visible: boolean): void
   setOortCloudVisible(visible: boolean): void
+  setVisibilityCone(view: VisibilityConeView | null): void
   setMotionFrame(frame: MotionFrame): void
   setMotionYears(years: MotionYears): void
   setFollowSelection(enabled: boolean): void
@@ -122,7 +125,10 @@ interface ViewerOptions {
   earthOrbitDate?: Date | null
   milkyWayVisible?: boolean
   oortCloudVisible?: boolean
+  visibilityCone?: VisibilityConeView | null
 }
+
+export interface VisibilityConeView { latitude: number; hours: SkyHours }
 
 // Last drawn motion arrow in client CSS px, returned by the label layer's motionArrowSnapshot() test hook.
 export interface MotionArrowSnapshot {
@@ -302,7 +308,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let starPaints: StarPaint[] | null = null
   /** Whether the paint sizes objects, rather than only coloring them. */
   let starPaintSized = false
-  let starPaintZoomShrink = false
+  let starPaintZoomShrink = true
   const starColors = stars.map((star) => starDisplayColor(star, starColorMode))
   const starColorStyles = starColors.map((color) => color.getStyle())
   const starBounds = new Box3().setFromPoints(pickable.map((star) => star.position))
@@ -322,8 +328,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   catalogSphere.radius = Math.max(catalogSphere.radius, 0.75)
   const homeDirection = new Vector3(-4.8, 3.8, -6.2).normalize()
   controls.minDistance = 0.08
-  controls.maxDistance = Math.max(30, catalogSphere.radius * 24)
-  camera.far = controls.maxDistance * 5
+  let objectDistanceLimitLy = 100
+  controls.maxDistance = maxOrbitDistancePc(objectDistanceLimitLy)
+  camera.far = maxOrbitDistancePc(Infinity) * 5
 
   let milkyWayVisible = options.milkyWayVisible ?? true
   const milkyWay = createMilkyWayLayer(starColorMode, renderer.capabilities.maxTextureSize, reducedMotion, (ready) => {
@@ -389,6 +396,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   starGeometry.setAttribute('coreEmphasis', coreEmphases)
   const coreWhiteStrengths = new Float32BufferAttribute(stars.map(starCoreWhiteStrength), 1)
   starGeometry.setAttribute('coreWhiteStrength', coreWhiteStrengths)
+  starGeometry.setAttribute('coreShape', new Float32BufferAttribute(stars.map(starCoreShape), 1))
   const starPoints = new Points(starGeometry, starMaterial)
   starPoints.frustumCulled = false
   starPoints.renderOrder = 2
@@ -467,6 +475,24 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const skyGridOpacity = { value: skyGridOpacityForDisplay(window.devicePixelRatio) }
   const skyGrid = createSkyGridLayer(container, skyGridOpacity)
   scene.add(skyGrid.lines)
+  const visibilityCone = createVisibilityConeLayer(earthOrbitGroup.position)
+  let visibilityConeView: VisibilityConeView | null = null
+  // With the orbit switched off, the cone falls back to today.
+  let visibilityConeDate = initialEarthOrbitDate ?? new Date()
+  scene.add(visibilityCone.mesh)
+  // The grid highlight stays in Observer view from the Sun, where the cone would surround the camera.
+  function updateVisibilityConeVisibility(): void {
+    visibilityCone.mesh.visible = visibilityConeView !== null && sunShown()
+    visibilityCone.followSun()
+    setData(container, 'visibilityConeVisible', String(visibilityCone.mesh.visible))
+  }
+  function setVisibilityCone(view: VisibilityConeView | null): void {
+    visibilityConeView = view
+    const cone = view && skyWindowCone(view.latitude, visibilityConeDate, view.hours)
+    skyGrid.setVisibleCone(cone)
+    if (cone) visibilityCone.setCone(cone, visibilityConeDate)
+    updateVisibilityConeVisibility()
+  }
   // The galactic sky-grid globe, built on first use and scaled around the center object.
   const neighborhoodSphere = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xe7a05b, transparent: true, opacity: 0.3, depthWrite: false }))
   neighborhoodSphere.visible = false
@@ -588,7 +614,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let visibilityLocked = false
   let magnitudeLimit = 7
   let hideFainterObjects = false
-  let objectDistanceLimitLy = 100
   let visibleKeys = new Set<FilterKey>(FILTER_KEYS)
   let objectPredicate: ((star: Star, distancePc: number) => boolean) | null = null
   let labelLimit = 40
@@ -2289,11 +2314,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (updateCameraNearPlane(camera, depthPositions, extendedDepthBounds)) invalidateProjection()
     if (earthOrbitEnabled) updateEarthOrbitVisibility()
     if (oortCloudEnabled) updateOortCloudVisibility()
+    if (visibilityConeView) updateVisibilityConeVisibility()
     milkyWay.setSunDistance(camera.position.distanceTo(pickable[sunIndex]!.position))
     if (faintClouds.update(camera.position)) updatePresentation()
     // Looking at a distant object from the origin is still a close sky view.
     // Fade the overview only after retreating from both origin and orbit target.
-    // Painted sizes and halos are the comparison, so zooming out keeps them unless asked to shrink.
+    // Zooming out shrinks painted sizes and halos unless asked to keep them for comparison.
     starViewDistance.value = observerViewEnabled || (starPaintSized && !starPaintZoomShrink) ? 0 : Math.min(
       camera.position.distanceTo(controls.target),
       camera.position.distanceTo(pickable[referenceIndex]!.position),
@@ -2395,6 +2421,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   updatePresentation()
   updateEarthOrbitVisibility()
   updateOortCloudVisibility()
+  setVisibilityCone(options.visibilityCone ?? null)
   if (initialEarthOrbitDate) positionEarthMarker(initialEarthOrbitDate)
   container.dataset.earthOrbitRadiusPc = String(EARTH_ORBIT_DISPLAY_RADIUS_PC)
   container.dataset.milkyWayVisible = String(milkyWayVisible)
@@ -2449,6 +2476,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 40000) return
       if (distanceLy === objectDistanceLimitLy) return
       objectDistanceLimitLy = distanceLy
+      const maxDistance = maxOrbitDistancePc(distanceLy)
+      if (savedOrbitSettings) savedOrbitSettings.maxDistance = maxDistance
+      else controls.maxDistance = maxDistance
       updatePresentation()
       requestRender()
     },
@@ -2487,6 +2517,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         delete container.dataset.earthOrbitDate
         delete container.dataset.earthEclipticLongitudeDeg
       }
+      visibilityConeDate = date ?? new Date()
+      if (visibilityConeView) setVisibilityCone(visibilityConeView)
       requestRender()
     },
     setMilkyWayVisible(visible) {
@@ -2500,6 +2532,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (visible === oortCloudEnabled) return
       oortCloudEnabled = visible
       updateOortCloudVisibility()
+      requestRender()
+    },
+    setVisibilityCone(view) {
+      setVisibilityCone(view)
       requestRender()
     },
     setMotionFrame(frame) {
@@ -2721,6 +2757,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       dotTexture.dispose()
       earthOrbit.dispose()
       oortCloud.dispose()
+      visibilityCone.dispose()
       haloTexture.dispose()
       milkyWay.dispose()
       renderer.renderLists.dispose()
@@ -2732,6 +2769,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       delete container.dataset.gridHalfSizePc
       delete container.dataset.earthOrbitVisible
       delete container.dataset.oortCloudVisible
+      delete container.dataset.visibilityConeVisible
       delete container.dataset.earthOrbitDate
       delete container.dataset.earthEclipticLongitudeDeg
       delete container.dataset.earthOrbitRadiusPc
