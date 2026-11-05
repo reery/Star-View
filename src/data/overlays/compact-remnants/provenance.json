@@ -716,6 +716,16 @@
     "reviewed": "2026-11-05",
     "policy": "Only individually measured pulsar and neutron-star companion masses from relativistic timing or optical spectroscopy, keyed by exact ATNF PSRJ name. Total-mass-only systems and model-dependent X-ray mass fits are not split into component masses.",
     "adoptedDistances": {
+      "J0212+5321": {
+        "distance_pc": 1160,
+        "distance_method": "Parallax",
+        "source_label": "Perez et al. 2023",
+        "source_url": "https://arxiv.org/abs/2306.04951",
+        "parallax_mas": 0.858,
+        "parallax_error_mas": 0.023,
+        "parallax_ref": "Gaia DR3",
+        "note": "Gaia DR3 parallax 0.858(23) mas (source 455282205716288384), which Perez et al. give as 1.16(3) kpc; the dispersion-measure distances are 1.15 kpc (NE2001) and 1.27 kpc (YMW16)."
+      },
       "J0418+5732": {
         "distance_pc": 2000,
         "distance_method": "Assumed distance",
@@ -750,6 +760,13 @@
         "source_label": "Ding et al. 2023",
         "source_url": "https://arxiv.org/abs/2212.06351",
         "note": "Replaces ATNF's 0.70 kpc (Verbiest et al. 2012); MSPSRpi Table 6 gives 0.877(35) kpc."
+      },
+      "J1023+0038": {
+        "distance_pc": 1368,
+        "distance_method": "VLBI parallax",
+        "source_label": "Deller et al. 2012",
+        "source_url": "https://arxiv.org/abs/1207.5670",
+        "note": "Parallax 0.731(22) mas, 1368 +42/-39 pc; Gaia DR3 agrees at 0.686(71) mas. Replaces ATNF's 1.19 kpc, the distance from one light-curve model of Stringer et al. 2021 (their other models give 1.26-1.30 kpc), which used this parallax as a prior and describes its fitted distances as underestimates."
       },
       "J1024-0719": {
         "distance_pc": 1080,
@@ -930,7 +947,7 @@
     "ATNF DIST is the catalogue-adopted distance: DIST_A, else a parallax above 3 sigma, else the YMW16 dispersion-measure distance bounded by DIST_AMN/DIST_AMX.",
     "Derived spin quantities follow psrcat v1.54 with a 10^45 g cm^2 moment of inertia; companion minimum and median masses assume a 1.35 M_sun pulsar at 90 and 60 degrees inclination.",
     "ATNF companion mass limits are not stored as pulsar masses; measured pulsar masses come only from the reviewed binary list.",
-    "A reviewed distance replaces the ATNF DIST only where ATNF rests on a measurement newer work supersedes; the ATNF value stays in the record's notes.",
+    "A reviewed distance replaces the ATNF DIST only where ATNF rests on a measurement newer work supersedes, or on an error; a superseded ATNF value stays in the record's notes, and an erroneous one stays only in the review files.",
     "Modelled masses are kept apart from mass_solar in compact.mass_model and are never used as measurements.",
     "An ATNF uncertainty of 0 means no uncertainty was reported and is stored as null.",
     "Millisecond marks spin periods below 30 ms; Radio marks pulsars without the ATNF NRAD or XINS radio-quiet codes; other classes come from ATNF TYPE codes.",

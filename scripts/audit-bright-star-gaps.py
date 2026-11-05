@@ -13,7 +13,7 @@ EXTRA_COMPONENTS = ('msc-07346+3153-cb', 'msc-13252-1110-ab')
 def render():
     baseline = json.loads((ROOT / 'catalog-work/bright-stars/gap-baseline.json').read_text())['records']
     # Bright landmarks now ship in the constellation catalog, some under the surviving ID of the same object.
-    stars = json.loads((ROOT / 'src/data/generated/catalogs/western-constellation-stars.json').read_text())['stars']
+    stars = json.loads((ROOT / 'src/data/generated/catalog-records/western-constellation-stars.json').read_text())['stars']
     legacy = json.loads((ROOT / 'src/data/legacy-star-ids.json').read_text())
     legacy = {**legacy['ids'], **legacy['sharedIds']}
     pool = json.loads((ROOT / 'src/data/stellar-companions.json').read_text())

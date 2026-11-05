@@ -357,7 +357,8 @@ def pulsar_object(record, glitch_count, measured, adopted=None, modelled=None):
     period_days, period_days_error = orbital_period(record)
     semi_major_axis, eccentricity, minimum, median = binary(record)
     motion = proper_motion(record, ra, dec)
-    parallax = value(record, "PX")
+    corrected_parallax = adopted is not None and "parallax_mas" in adopted
+    parallax = adopted["parallax_mas"] if corrected_parallax else value(record, "PX")
     epoch_mjd = value(record, "POSEPOCH") if "POSEPOCH" in record else value(record, "PEPOCH")
     raw_astrometry = None
     if parallax is not None and parallax > 0 and motion and motion[0] is not None and motion[2] is not None:
@@ -366,14 +367,14 @@ def pulsar_object(record, glitch_count, measured, adopted=None, modelled=None):
             "dec_deg": round(dec, 9),
             "epoch": jyear_from_mjd(epoch_mjd),
             "parallax_mas": parallax,
-            "parallax_error_mas": significant(uncertainty(record, "PX"), 2),
+            "parallax_error_mas": adopted["parallax_error_mas"] if corrected_parallax else significant(uncertainty(record, "PX"), 2),
             "pm_ra_cosdec_masyr": significant(motion[0]),
             "pm_ra_error_masyr": significant(motion[1]),
             "pm_dec_masyr": significant(motion[2]),
             "pm_dec_error_masyr": significant(motion[3]),
             "radial_velocity_kms": None,
             "radial_velocity_error_kms": None,
-            "astrometry_ref": ", ".join(dict.fromkeys(filter(None, (reference(record, "PX"), *motion[4].split(", "))))),
+            "astrometry_ref": ", ".join(dict.fromkeys(filter(None, (adopted["parallax_ref"] if corrected_parallax else reference(record, "PX"), *motion[4].split(", "))))),
             "radial_velocity_ref": None,
         }
     transverse = None
@@ -417,8 +418,10 @@ def pulsar_object(record, glitch_count, measured, adopted=None, modelled=None):
         details["mass_model"] = {key: modelled[key] for key in ("value_solar", "reference", "source_url", "scope")}
     note = f"ATNF adopted distance {atnf_kpc:.3f} kpc ({atnf_method.lower()}; reference {atnf_source})." if atnf_kpc else "ATNF lists no distance."
     if adopted:
+        # A superseded ATNF value is retained; one rejected as wrong stays in the review file.
+        superseded = "" if "atnf_rejected" in adopted else f"Superseded: {note} "
         note = (f"Distance {adopted['distance_pc']} pc ({distance_method.lower()}): {adopted['source_label']}, {adopted['source_url']}. "
-                f"Superseded: {note} {adopted['note']}")
+                f"{superseded}{adopted['note']}")
     if modelled:
         note += f" Modelled, unmeasured mass {modelled['value_solar']} M_sun: {modelled['reference']}, {modelled['source_url']}."
     if measured:
@@ -594,12 +597,13 @@ def render():
         "overlayId": "compact-remnants",
         "sourceManifest": source_manifest,
         "curatedObjects": curated,
-        "reviewedBinaries": reviewed,
+        "reviewedBinaries": {**reviewed, "adoptedDistances": {
+            name: {key: entry for key, entry in adopted.items() if key != "atnf_rejected"} for name, adopted in distances.items()}},
         "notes": [
             "ATNF DIST is the catalogue-adopted distance: DIST_A, else a parallax above 3 sigma, else the YMW16 dispersion-measure distance bounded by DIST_AMN/DIST_AMX.",
             "Derived spin quantities follow psrcat v1.54 with a 10^45 g cm^2 moment of inertia; companion minimum and median masses assume a 1.35 M_sun pulsar at 90 and 60 degrees inclination.",
             "ATNF companion mass limits are not stored as pulsar masses; measured pulsar masses come only from the reviewed binary list.",
-            "A reviewed distance replaces the ATNF DIST only where ATNF rests on a measurement newer work supersedes; the ATNF value stays in the record's notes.",
+            "A reviewed distance replaces the ATNF DIST only where ATNF rests on a measurement newer work supersedes, or on an error; a superseded ATNF value stays in the record's notes, and an erroneous one stays only in the review files.",
             "Modelled masses are kept apart from mass_solar in compact.mass_model and are never used as measurements.",
             "An ATNF uncertainty of 0 means no uncertainty was reported and is stored as null.",
             "Millisecond marks spin periods below 30 ms; Radio marks pulsars without the ATNF NRAD or XINS radio-quiet codes; other classes come from ATNF TYPE codes.",

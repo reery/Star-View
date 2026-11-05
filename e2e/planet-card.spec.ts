@@ -31,6 +31,8 @@ test('planet and moon tooltips respond to touch and dismiss on movement @mobile'
   const session = await page.context().newCDPSession(page)
   await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: bounds.x + 5, y: bounds.y + 5 }] })
   await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: bounds.x + 5, y: bounds.y + 30 }] })
+  // A finger that pauses before lifting has no flick speed left, so the card stays open.
+  await page.waitForTimeout(120)
   await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] })
   await expect(tooltip).toBeHidden()
   await diameter.tap()

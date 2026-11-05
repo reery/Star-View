@@ -1,5 +1,5 @@
 import type { Star } from './catalog-model.ts'
-import { objectDesignations, uniqueDesignations } from './designations.ts'
+import { combinedDesignations, uniqueDesignations } from './designations.ts'
 import { catalogFlags } from './catalog-detail-model.ts'
 
 const OVERLAY_PHYSICAL_FIELDS = [
@@ -11,7 +11,7 @@ function supplementPhysicalFields(primary: Star, additional: Star): Star {
   supplemented.subtypes = uniqueDesignations([...(primary.subtypes ?? []), ...(additional.subtypes ?? [])])
   supplemented.known_planets = primary.known_planets ?? additional.known_planets ?? null
   supplemented.stellar_observations = primary.stellar_observations ?? additional.stellar_observations
-  supplemented.designations = uniqueDesignations([...objectDesignations(primary), additional.name, ...objectDesignations(additional)], primary.name)
+  Object.assign(supplemented, combinedDesignations(primary, additional.name, additional, primary.name))
   // A reviewed component may deliberately withhold blended system estimates.
   // An overlapping legacy overlay must not restore those rejected values.
   const withheld = new Set(catalogFlags(primary).withheld ?? [])
@@ -38,11 +38,18 @@ const SAME_SKY_POSITION_COSINE = Math.cos(Math.PI / (180 * 3600))
 const SAME_SKY_DECLINATION_WINDOW_DEG = 2 / 3600
 
 const isBarycenter = (star: Star) => Boolean(catalogFlags(star).barycenter)
+const skyPosition = (star: Star) => star.raw_astrometry ?? star.sky_position
+
+/** Bands twice the window wide, so rows inside the window are always in the same or an adjacent band. */
+function declinationBand(star: Star): number | null {
+  const declination = skyPosition(star)?.dec_deg
+  return Number.isFinite(declination) ? Math.floor(declination! / (2 * SAME_SKY_DECLINATION_WINDOW_DEG)) : null
+}
 
 /** `barycenter` is true when either row documents a barycenter solution. */
 function sameSkyPosition(first: Star, second: Star, barycenter: boolean): boolean {
-  const firstAstrometry = first.raw_astrometry
-  const secondAstrometry = second.raw_astrometry
+  const firstAstrometry = skyPosition(first)
+  const secondAstrometry = skyPosition(second)
   if (firstAstrometry && secondAstrometry && Math.abs(firstAstrometry.dec_deg - secondAstrometry.dec_deg) <= SAME_SKY_DECLINATION_WINDOW_DEG) {
     const firstRa = firstAstrometry.ra_deg * Math.PI / 180
     const firstDec = firstAstrometry.dec_deg * Math.PI / 180
@@ -66,30 +73,54 @@ function sameSkyPosition(first: Star, second: Star, barycenter: boolean): boolea
 /** Merge a catalog layer while retaining one marker for objects shared under different catalog IDs; `merges` records each additional ID that another record absorbed. */
 export function mergeCatalogStarLayers(primary: readonly Star[], additional: readonly Star[], componentIdentity: (id: string) => { canonicalStarId: string } | undefined, merges?: Map<string, string>): Star[] {
   const merged = [...primary]
+  if (!additional.length) return merged
   const ids = new Map(merged.map((star, index) => [star.id, index]))
-  const names = new Map(merged.map((star, index) => [star.name.toLocaleLowerCase('en-US'), index]))
+  const names = new Map(merged.map((star, index) => [star.name.toLowerCase(), index]))
   // Parsed once per row instead of once per compared pair.
   const barycenters = merged.map(isBarycenter)
   const components = new Map(merged.flatMap((star, index) => {
     const identity = componentIdentity(star.id)
     return identity ? [[identity.canonicalStarId, index] as const] : []
   }))
+  // A sky match needs a nearby declination unless a barycenter row falls back to its rendered direction.
+  const declinationBands = new Map<number, number[]>()
+  const barycenterRows: number[] = []
+  const indexSkyPosition = (index: number) => {
+    const band = declinationBand(merged[index]!)
+    if (band !== null) {
+      const rows = declinationBands.get(band)
+      if (rows) rows.push(index)
+      else declinationBands.set(band, [index])
+    }
+    if (barycenters[index]) barycenterRows.push(index)
+  }
+  merged.forEach((_, index) => indexSkyPosition(index))
   for (const star of additional) {
-    const normalizedName = star.name.toLocaleLowerCase('en-US')
+    const normalizedName = star.name.toLowerCase()
     const identity = componentIdentity(star.id)
     const distinctComponent = (candidate: Star) => {
       const candidateIdentity = componentIdentity(candidate.id)
       return identity && candidateIdentity && identity.canonicalStarId !== candidateIdentity.canonicalStarId
     }
     const barycenter = isBarycenter(star)
+    const isSkyDuplicate = (index: number) => sameSkyPosition(merged[index]!, star, barycenter || barycenters[index]!) && !distinctComponent(merged[index]!)
+    const firstSkyDuplicate = () => {
+      if (barycenter) return merged.findIndex((_, index) => isSkyDuplicate(index))
+      const band = declinationBand(star)
+      const nearby = band === null ? [] : [band - 1, band, band + 1].flatMap((key) => declinationBands.get(key) ?? [])
+      const matches = [...nearby, ...barycenterRows].filter(isSkyDuplicate)
+      return matches.length ? Math.min(...matches) : -1
+    }
     const namedDuplicate = names.get(normalizedName)
     const duplicate = ids.get(star.id) ?? (identity ? components.get(identity.canonicalStarId) : undefined) ??
       (namedDuplicate !== undefined && !distinctComponent(merged[namedDuplicate]!) ? namedDuplicate : undefined) ??
-      merged.findIndex((candidate, index) => sameSkyPosition(candidate, star, barycenter || barycenters[index]!) && !distinctComponent(candidate))
+      firstSkyDuplicate()
     if (duplicate >= 0) {
       if (merged[duplicate]!.id !== star.id) merges?.set(star.id, merged[duplicate]!.id)
       merged[duplicate] = supplementPhysicalFields(merged[duplicate]!, star)
-      barycenters[duplicate] = isBarycenter(merged[duplicate]!)
+      const becameBarycenter = !barycenters[duplicate] && isBarycenter(merged[duplicate]!)
+      barycenters[duplicate] ||= becameBarycenter
+      if (becameBarycenter) barycenterRows.push(duplicate)
       ids.set(star.id, duplicate)
       names.set(normalizedName, duplicate)
       if (identity) components.set(identity.canonicalStarId, duplicate)
@@ -99,7 +130,8 @@ export function mergeCatalogStarLayers(primary: readonly Star[], additional: rea
     names.set(normalizedName, merged.length)
     if (identity) components.set(identity.canonicalStarId, merged.length)
     merged.push(star)
-    barycenters.push(isBarycenter(star))
+    barycenters.push(barycenter)
+    indexSkyPosition(merged.length - 1)
   }
   return merged
 }

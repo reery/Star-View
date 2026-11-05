@@ -301,6 +301,12 @@ export interface Star {
   catalog_detail_key?: string
   catalog_note_supplements?: { key?: string; notes?: string; fields: string[] }[]
   catalog_flags?: { withheld?: string[]; barycenter?: boolean; source_rv?: boolean }
+  /** Stands in for deferred raw astrometry on the map, where merging and sky charts need only the position. */
+  sky_position?: { ra_deg: number; dec_deg: number }
+  /** Stands in for deferred designations on the map, where charts and top lists identify stars by HIP number. */
+  hip_numbers?: number[]
+  /** Where a merged row's deferred designations come from, in merge order. */
+  catalog_designation_parts?: DesignationPart[]
   type: ObjectType
   id: string
   name: string
@@ -371,6 +377,8 @@ export interface Star {
   molecular_cloud?: MolecularCloudDetails
   bubble?: BubbleDetails
 }
+
+export type DesignationPart = { key: string } | { names: readonly string[] }
 
 export interface CatalogSource {
   catalog_id: string

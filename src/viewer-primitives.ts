@@ -71,10 +71,10 @@ export function budgetVisibleLabelIndices(
   return selected
 }
 
-/** Extended nebulae, clouds and bubbles have no point magnitude, so the magnitude limit keeps them eligible. */
-export function mapVisibilityTier(star: Star, observer: Star, selectedId: string | null, magnitude: number, limit: number): ReturnType<typeof visibilityTier> {
+/** The selection and origin stay eligible; extended nebulae, clouds and bubbles have no point magnitude to limit. */
+export function mapVisibilityTier(star: Star, observer: Star, selectedId: string | null, originId: string, magnitude: number, limit: number): ReturnType<typeof visibilityTier> {
   if (isMapVisibilityBase(star, observer)) return 'base'
-  return star.id === selectedId || star.nebula || star.molecular_cloud || star.bubble || magnitude <= limit ? 'eligible' : 'background'
+  return star.id === selectedId || star.id === originId || star.nebula || star.molecular_cloud || star.bubble || magnitude <= limit ? 'eligible' : 'background'
 }
 
 export function starBlocksLabels(tier: ReturnType<typeof visibilityTier>): boolean {

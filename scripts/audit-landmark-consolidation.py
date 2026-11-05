@@ -133,7 +133,7 @@ def audit(before, retired):
     comparisons.append({"source": pool, "target": pool, "recordsCompared": len(old_pool["stars"])})
     western_before = effective(before / f"src/data/generated/catalogs/{WESTERN}.json")
     retired_before = effective(before / f"src/data/generated/catalogs/{retired}.json")
-    western_after = effective(ROOT / f"src/data/generated/catalogs/{WESTERN}.json")
+    western_after = effective(ROOT / f"src/data/generated/catalog-records/{WESTERN}.json")
     return {"reviewedOn": config["reviewedOn"], "retiredCatalogId": retired, "retiredNonSolarRecords": len(retired_before) - 1,
             "mappedToSurvivingIds": len([identifier for identifier in retired_before if identifier in id_map]),
             "previouslyMissingIds": sorted(identifier for identifier in retired_before.keys() - western_before.keys() if identifier not in id_map),

@@ -57,6 +57,29 @@ test('startup defers closed features and fetches catalog JSON directly', async (
   await expect(page.locator('#object-system > *')).toHaveCount(0)
 })
 
+test('object search loads designations on first use and finds an alias', async ({ page }) => {
+  const requests = trackRequests(page)
+  await openWithoutBackground(page)
+  await expect(page.locator('#star-name')).toHaveText('Sirius')
+  const designations = () => requests.filter((url) => /\/designations-[a-z-]+-[^/]*\.json$/.test(url))
+  expect(designations()).toEqual([])
+  await page.locator('#objects-toggle').click()
+  await page.locator('#object-search').focus()
+  await expect.poll(() => designations().length).toBeGreaterThan(0)
+  expect(designations().some((url) => url.includes('designations-nearest-neighbors-'))).toBe(true)
+  await page.locator('#object-search').fill('HD48915')
+  await expect(page.locator('#star-list button[data-star="sirius-a"]')).toBeVisible()
+})
+
+test('Specs shows astrometry and designations that load with the selected object', async ({ page }) => {
+  await openWithoutBackground(page)
+  await page.locator('#object-specs-toggle').click()
+  await expect(page.locator('#star-notes')).not.toHaveText('Loading…')
+  await expect(page.locator('#parallax')).toHaveText(/\d+\.\d+.*mas/)
+  await page.locator('#designations-row > summary').click()
+  await expect(page.locator('#object-designations li', { hasText: /^HD 48915$/ })).toBeVisible()
+})
+
 test('Info and constellation data wait for activation after a catalog change and are reused', async ({ page }) => {
   const requests = trackRequests(page)
   const errors: string[] = []
@@ -146,8 +169,8 @@ test('map payloads omit source records and Specs fetches only the selected star 
   const response = page.waitForResponse(/\/nearest-neighbors-.*\.json$/)
   await openWithoutBackground(page)
   const payload = await (await response).json()
-  expect(payload.schemaVersion).toBe(3)
-  expect(payload.stars.every((star: Record<string, unknown>) => !('notes' in star) && !('catalog_sources' in star))).toBe(true)
+  expect(payload.schemaVersion).toBe(4)
+  expect(payload.stars.every((star: Record<string, unknown>) => !('notes' in star) && !('catalog_sources' in star) && !('designations' in star))).toBe(true)
   expect(requests.some((url) => /\/catalog-detail/.test(url))).toBe(false)
 
   await page.locator('#object-specs-toggle').click()

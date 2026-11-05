@@ -21,7 +21,7 @@ export function mergeCatalogStars(primary: readonly Star[], additional: readonly
 export function parseCatalogPayload(value: unknown, manifest: CatalogManifest, base?: readonly Star[]): Star[] {
   if (!value || typeof value !== 'object') throw new Error('Catalog payload must be an object.')
   const payload = value as Record<string, unknown>
-  if (![2, 3].includes(payload.schemaVersion as number) || payload.catalogId !== manifest.id || !Array.isArray(payload.stars)
+  if (![2, 3, 4].includes(payload.schemaVersion as number) || payload.catalogId !== manifest.id || !Array.isArray(payload.stars)
     || payload.extends !== manifest.extends || Boolean(manifest.extends) !== Boolean(base)) {
     throw new Error(`Invalid catalog payload: ${manifest.id}`)
   }
@@ -36,7 +36,7 @@ export function parseCatalogPayload(value: unknown, manifest: CatalogManifest, b
       throw new Error(`Invalid catalog payload row: ${manifest.id}`)
     }
     ids.add(star.id)
-    if (payload.schemaVersion === 3 && (typeof star.catalog_detail_key !== 'string' || !star.catalog_detail_key
+    if ((payload.schemaVersion as number) >= 3 && (typeof star.catalog_detail_key !== 'string' || !star.catalog_detail_key
       || Object.hasOwn(star, 'notes') || Object.hasOwn(star, 'catalog_sources'))) {
       throw new Error(`Invalid deferred catalog details: ${manifest.id}:${star.id}`)
     }

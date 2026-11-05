@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { motionArrows, openViewer, selectCatalog, selectObject, openMotion } from './support'
+import { motionArrows, openViewer, selectCatalog, selectObject, openMotion, showMotionArrows } from './support'
 
 test('star selections retain the exact system component through controls and history', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
@@ -141,6 +141,7 @@ test('empty System tabs are disabled and the Sun planet view remains available',
 
 test('close systems draw the brightest star plus explicitly selected companions', { tag: '@mobile' }, async ({ page }, testInfo) => {
   await openViewer(page)
+  await showMotionArrows(page)
   await selectCatalog(page, 'nearest-100')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   const label = (id: string) => page.locator(`.projected-labels [data-star-id="${id}"]`)

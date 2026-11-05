@@ -1,11 +1,11 @@
-import type { Star } from './catalog-model.ts'
+import type { DesignationPart, Star } from './catalog-model.ts'
 
 /** Keep published spellings, collapse padding, and remove repeated names. */
 export function uniqueDesignations(values: readonly string[], preferredName?: string): string[] {
-  const seen = new Set(preferredName ? [preferredName.trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-US')] : [])
+  const seen = new Set(preferredName ? [preferredName.trim().replace(/\s+/g, ' ').toLowerCase()] : [])
   return values.flatMap((value) => {
     const designation = value.trim().replace(/\s+/g, ' ')
-    const key = designation.toLocaleLowerCase('en-US')
+    const key = designation.toLowerCase()
     if (!designation || seen.has(key)) return []
     seen.add(key)
     return [designation]
@@ -23,6 +23,32 @@ export function objectDesignations(star: Star): string[] {
     ...(star.nebula?.designations ?? []),
     ...(star.bubble?.designations ?? []),
   ], star.name)
+}
+
+/** The number in a whole `HIP n` designation; a component suffix such as `HIP 123 A` is not one. */
+export function hipNumber(designation: string): number | null {
+  const match = /^HIP(\d+)$/.exec(designation.replace(/\s+/g, ''))
+  return match ? Number(match[1]) : null
+}
+
+export function objectHipNumbers(star: Star): number[] {
+  return star.hip_numbers ?? (star.designations ?? []).flatMap((designation) => hipNumber(designation) ?? [])
+}
+
+/** Where a row's designations are found: in its own record, or in its deferred details. */
+export function designationParts(star: Star): readonly DesignationPart[] {
+  if (star.catalog_designation_parts) return star.catalog_designation_parts
+  return star.designations === undefined && star.catalog_detail_key ? [{ key: star.catalog_detail_key }] : [{ names: objectDesignations(star) }]
+}
+
+/** Combines two rows' designations with a name between them, as a list when all are loaded and as parts otherwise. */
+export function combinedDesignations(first: Star, name: string, second: Star, preferredName: string): Pick<Star, 'designations' | 'catalog_designation_parts' | 'hip_numbers'> {
+  const parts = [...designationParts(first), { names: [name] }, ...designationParts(second)]
+  if (parts.every((part) => 'names' in part)) {
+    return { designations: uniqueDesignations(parts.flatMap((part) => (part as { names: readonly string[] }).names), preferredName) }
+  }
+  const hipNumbers = [...objectHipNumbers(first), ...(hipNumber(name) === null ? [] : [hipNumber(name)!]), ...objectHipNumbers(second)]
+  return { designations: undefined, catalog_designation_parts: parts, hip_numbers: [...new Set(hipNumbers)] }
 }
 
 export interface ObjectIdentity {

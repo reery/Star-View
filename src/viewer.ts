@@ -617,7 +617,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let visibleKeys = new Set<FilterKey>(FILTER_KEYS)
   let objectPredicate: ((star: Star, distancePc: number) => boolean) | null = null
   let labelLimit = 40
-  let motionArrowsVisible = true
+  let motionArrowsVisible = false
   let motionFrame: MotionFrame = 'galactic'
   let motionYears: MotionYears = 1_000
   let simulationYears = 0
@@ -713,7 +713,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let pendingFrame: number | null = null
   let sceneDirty = false
   let lastViewerDistanceReport = 0
-  let forceNextFrame = false
   let nextRenderDeadline = 0
   let lastRenderTime = 0
   let previousRafTime = 0
@@ -1223,10 +1222,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   // scheduling frames while focus animation or OrbitControls damping is active.
   function requestRender(force = true): void {
     if (disposed || contextLost || document.hidden) return
-    if (force) {
-      sceneDirty = true
-      if (lastRenderTime === 0) forceNextFrame = true
-    }
+    if (force) sceneDirty = true
     if (pendingFrame !== null) return
     pendingFrame = requestAnimationFrame(render)
   }
@@ -1235,7 +1231,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (pendingFrame !== null) cancelAnimationFrame(pendingFrame)
     pendingFrame = null
     sceneDirty = false
-    forceNextFrame = false
     nextRenderDeadline = 0
     lastRenderTime = 0
     previousRafTime = 0
@@ -1251,6 +1246,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   function updatePresentation(): void {
     componentVisible = mapComponentVisibility(stars, selectedId)
+    componentVisible[referenceIndex] = 1
     ordinaryLayoutDirty = true
     const visibilityBase = spaceship && spaceshipVisibility ? spaceshipObserver : visibilityBaseStar
     const baseChanged = rankedBaseId !== visibilityBase.id
@@ -1281,7 +1277,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const observerIndex = observerViewEnabled ? observerViewAnchorIndex ?? -1 : -1
     stars.forEach((star, index) => {
       const magnitude = apparentMagnitudes[index]!
-      const tier = mapVisibilityTier(star, visibilityBase, selectedId, magnitude, magnitudeLimit)
+      const tier = mapVisibilityTier(star, visibilityBase, selectedId, stars[referenceIndex]!.id, magnitude, magnitudeLimit)
       const visible = isObjectMapVisible(
         star,
         visibleKeys,
@@ -1317,12 +1313,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       bubbleLayer.setVisible(bubbleVisibility)
       labelLayer.dataset.bubbleVisibleCount = String(bubbleVisibility.filter(Boolean).length)
     }
-    // The selected object always stays drawn, even inside a collapsed blob.
+    // The selected object and the origin always stay drawn, even inside a collapsed blob.
     const faintShown = faintBlobs.map(() => false)
     let faintHiddenCount = 0
     stars.forEach((star, index) => {
       const blob = faintBlobOf[index]!
-      const member = blob >= 0 && mapVisible[index] === 1 && star.id !== selectedId
+      const member = blob >= 0 && mapVisible[index] === 1 && star.id !== selectedId && index !== referenceIndex
       if (member) faintShown[blob] = true
       faintHidden[index] = member && faintClouds.collapsed(blob) ? 1 : 0
       faintHiddenCount += faintHidden[index]!
@@ -2242,13 +2238,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       return
     }
     const fps = targetRenderFps(powerSavingMode, measuredRefreshRate)
-    const deadline = advanceFrameDeadline(time, nextRenderDeadline, fps, forceNextFrame)
+    const deadline = advanceFrameDeadline(time, nextRenderDeadline, fps)
     nextRenderDeadline = deadline.next
     if (!deadline.due) {
       requestRender(false)
       return
     }
-    forceNextFrame = false
     // Playback can outpace the render cadence; apply only the latest time on drawn frames.
     if (simulationPending) applySimulationYears()
     sceneDirty = false

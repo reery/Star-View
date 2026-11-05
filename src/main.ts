@@ -10,7 +10,8 @@ import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObje
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogMeasurement, catalogSourceFor } from './catalog-source'
 import { completeLoadedCompanions as completeCatalogCompanions } from './constellation-companions'
-import { objectDesignations } from './designations'
+import { hipNumber, objectDesignations, objectHipNumbers } from './designations'
+import { designationsAvailable, loadCatalogDesignations } from './catalog-designations'
 import { completeCompanionRecords } from './companion-records'
 import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
 import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
@@ -23,6 +24,7 @@ import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthO
 import { isVisibilityConeMode, LATITUDE_STORAGE_KEY, observerLatitude, VISIBILITY_CONE_MODES, visibilityConeHours, visibilityConeModeLabel, type VisibilityConeMode } from './constellation-visibility'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
 import { CONTEXT_MENU_HOLD_MS, isObjectMapVisible, mapVisibilityTier, motionTravelDistancePc } from './viewer-primitives'
+import { targetRenderFps } from './render-scheduling'
 import { renderSelectedStarPreview } from './selected-star-preview'
 import { COMPARISON_DETAIL_TOGGLES, initializeStarComparison } from './star-comparison'
 import { radialVelocitySource, specValues, type SpecValue } from './spec-values'
@@ -51,6 +53,7 @@ import { objectIdFromPath, objectPageTitle, objectPath, type ObjectPage, type Ob
 import { loadDataShardEntry } from './data-shards'
 import { appendConstellationContent } from './constellation-card-content'
 import { initializeToolbarTouch } from './toolbar-touch'
+import { initializeCardSwipes } from './card-swipe'
 import { initializeTouchTooltips } from './touch-tooltips'
 import { attachPopoverTooltip } from './popover-tooltips'
 import startupIndex from './data/generated/startup-index.json'
@@ -356,7 +359,7 @@ let powerSavingMode = false
 const touchFirstInput = window.matchMedia('(hover: none) and (pointer: coarse)')
 const wideLayout = window.matchMedia('(min-width: 721px)')
 let labelLimit = touchFirstInput.matches ? 20 : 40
-let motionArrowsVisible = true
+let motionArrowsVisible = false
 let earthOrbitMode: EarthOrbitMode = 'now'
 let milkyWayVisible = true
 let oortCloudVisible = true
@@ -405,6 +408,13 @@ const NAKED_EYE_CATALOG_ID = 'naked-eye-stars'
 const NOTABLE_DISTANT_CATALOG_ID = 'notable-distant-stars'
 /** Compact objects' stellar companions live in the notable distant catalog, so showing one brings the other. */
 const compactObjectsVisible = (keys: ReadonlySet<string>) => keys.has('pulsar') || keys.has('neutron_star') || keys.has('black_hole')
+/** The landmark catalogs the current filter adds to the selected catalog. */
+const additiveCatalogIds = (selected: string) => [
+  ...(showWesternConstellationStars ? [WESTERN_CONSTELLATION_CATALOG_ID] : []),
+  ...(showNakedEyeStars ? [NAKED_EYE_CATALOG_ID] : []),
+  // Pulsar companions live here, so visible pulsars bring their systems along.
+  ...(showNotableDistantStars || compactObjectsVisible(visibleKeys) ? [NOTABLE_DISTANT_CATALOG_ID] : []),
+].filter((id) => id !== selected)
 // Retired catalog IDs (bright-stars) restore saved selections on their surviving records.
 const legacyStarId = (id: string) => (legacyStarIds.ids as Record<string, string>)[id] ?? id
 
@@ -446,6 +456,9 @@ try {
   else if (localStorage.getItem('star-view-earth-orbit-visible') === 'false') earthOrbitMode = 'off'
   if (localStorage.getItem('star-view-milky-way-visible') === 'false') milkyWayVisible = false
   if (localStorage.getItem('star-view-oort-cloud-visible') === 'false') oortCloudVisible = false
+  if (localStorage.getItem('star-view-grid-visible') === 'false') gridVisible = false
+  const storedSkyGridMode = localStorage.getItem('star-view-sky-grid-mode')
+  if (storedSkyGridMode === 'equatorial' || storedSkyGridMode === 'galactic') skyGridMode = storedSkyGridMode
   const storedVisibilityConeMode = localStorage.getItem('star-view-visibility-cone-mode')
   if (isVisibilityConeMode(storedVisibilityConeMode)) visibilityConeMode = storedVisibilityConeMode
   visibilityLatitude = observerLatitude(localStorage.getItem(LATITUDE_STORAGE_KEY))
@@ -458,6 +471,7 @@ element<HTMLInputElement>('color-blind-palette').checked = colorBlindPalette
 const earthOrbitModeInput = element<HTMLInputElement>('earth-orbit-mode')
 // Overrides any form state the browser restored on reload, so the inputs match the app's settings.
 syncSceneAndMotionInputs()
+syncGridInputs()
 const labelLimitInput = element<HTMLInputElement>('label-limit')
 labelLimitInput.value = String(labelLimit)
 labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${labelLimit} labels`)
@@ -678,7 +692,8 @@ function initializeGraphs(module: typeof import('./graphs')): NonNullable<typeof
 
 /** Prefer the loaded record of a merged identity; otherwise add the listed catalog record. */
 async function selectTopListObject(object: import('./top-lists').TopListObject): Promise<void> {
-  const loaded = starById(object.id) ?? (object.designation === null ? undefined : stars.find((star) => objectDesignations(star).includes(object.designation!)))
+  const hip = object.designation === null ? null : hipNumber(object.designation)
+  const loaded = starById(object.id) ?? (hip === null ? undefined : stars.find((star) => objectHipNumbers(star).includes(hip)))
   if (loaded) return selectConstellationStar(loaded)
   const payload = object.catalog === compactOverlayManifest.id ? await loadCompactRemnants()
     : await catalogs.find((catalog) => catalog.manifest.id === object.catalog)!.load()
@@ -1317,7 +1332,11 @@ function renderDistanceCard(star: Star): void {
   }
   const reference = referenceMode === 'sun' ? sun : origin
   distanceCardModule.renderDistanceComparison(element<HTMLCanvasElement>('distance-comparison'), star, reference, starColorMode, distanceUnit, distanceYears, motionFrame, other)
-  const factsKey = [star.id, other?.id, distanceUnit, starColorMode].join('|')
+  // Uncertainties and radial velocities arrive with the details.
+  for (const object of other ? [star, other] : [star]) {
+    if (!starDetailsLoaded(object)) void loadStarDetails(object).then(refreshDistanceCard, (error: unknown) => console.error('Could not load source details.', error))
+  }
+  const factsKey = [star.id, other?.id, distanceUnit, starColorMode, starDetailsLoaded(star), other && starDetailsLoaded(other)].join('|')
   if (factsKey !== distanceFactsKey) {
     distanceFactsKey = factsKey
     distanceCardModule.renderDistanceFacts(element('distance-card'), star, sun, starColorMode, distanceUnit, other)
@@ -1875,6 +1894,11 @@ function setSimulationYears(years: number): void {
 function playbackFrame(time: number): void {
   playbackFrameRequest = null
   if (!simulationPlaying) return
+  // Each step rewrites the timeline readouts, so power saving slows the steps along with the drawing.
+  if (powerSavingMode && previousPlaybackTime > 0 && time - previousPlaybackTime < 1000 / targetRenderFps(true, null) - 1) {
+    playbackFrameRequest = requestAnimationFrame(playbackFrame)
+    return
+  }
   if (previousPlaybackTime > 0) {
     const elapsed = Math.min(100, Math.max(0, time - previousPlaybackTime))
     let next = simulationYears + simulationDirection * elapsed / playbackSecondsPerThousandYears
@@ -2451,7 +2475,7 @@ function renderSelection(): void {
 function baseObjectListFilter(selected = selectedId): ObjectListFilter {
   const observer = hideFainterObjects ? starById(observerId) : undefined
   // Brightness is seen from the observer, while list distances are from the reference.
-  const brightEnough = (star: Star) => !observer || mapVisibilityTier(star, observer, selected, apparentVisualMagnitude(star.absolute_mag, Math.hypot(
+  const brightEnough = (star: Star) => !observer || mapVisibilityTier(star, observer, selected, referenceId, apparentVisualMagnitude(star.absolute_mag, Math.hypot(
     star.x_pc - observer.x_pc,
     star.y_pc - observer.y_pc,
     star.z_pc - observer.z_pc,
@@ -2806,6 +2830,38 @@ function renderDistances(): void {
   renderSelection()
 }
 
+/** Names search at once; designations join it when this finishes, starting from the first focus on the search box. */
+async function prepareObjectSearch(): Promise<void> {
+  const loadedStars = stars
+  if (loadedStars.every(designationsAvailable)) return
+  const layers = [activeCatalogId, ...additiveCatalogIds(activeCatalogId)]
+  const catalogIds = layers.flatMap((id) => {
+    const base = catalogs.find((catalog) => catalog.manifest.id === id)?.manifest.extends
+    return base ? [base, id] : [id]
+  })
+  try {
+    await Promise.all(catalogIds.map(loadCatalogDesignations))
+    // Rows added from other catalogs, such as a selected constellation star's system, bring their own.
+    await Promise.all(loadedStars.filter((star) => !designationsAvailable(star)).map(loadStarDetails))
+    if (loadedStars === stars) objectList.refreshSearch()
+  } catch (error) {
+    console.error('Could not load object designations for search.', error)
+  }
+}
+
+// Toggling a switch back and forth repeats the same merge of unchanging payloads.
+const MERGED_CATALOG_LAYERS_KEPT = 4
+const mergedLayerCache = new Map<string, Star[]>()
+function mergedCatalogLayers(id: string, selected: Star[], ...layers: Star[][]): Star[] {
+  const key = `${id}:${layers.map((layer) => layer.length > 0).join()}`
+  let merged = mergedLayerCache.get(key)
+  if (merged) mergedLayerCache.delete(key)
+  else merged = layers.reduce(mergeCatalogStars, selected)
+  mergedLayerCache.set(key, merged)
+  if (mergedLayerCache.size > MERGED_CATALOG_LAYERS_KEPT) mergedLayerCache.delete(mergedLayerCache.keys().next().value!)
+  return merged
+}
+
 async function switchCatalog(id: string, refresh = false): Promise<void> {
   if (id === activeCatalogId && !refresh) return
   const definition = catalogs.find((catalog) => catalog.manifest.id === id)
@@ -2816,21 +2872,21 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   try {
     const loadOverlay = (types: readonly FilterKey[], load: () => Promise<Star[]>) =>
       types.some((type) => visibleKeys.has(type)) ? load() : Promise.resolve([])
-    const loadAdditive = (catalogId: string, enabled: boolean) => enabled && id !== catalogId
+    const additive = additiveCatalogIds(id)
+    const loadAdditive = (catalogId: string) => additive.includes(catalogId)
       ? catalogs.find((catalog) => catalog.manifest.id === catalogId)!.load() : Promise.resolve([])
     const [selectedCatalog, westernConstellationCatalog, nakedEyeCatalog, notableDistantCatalog, compactObjects, nebulae, molecularClouds, bubbles] = await Promise.all([
       definition.load(),
-      loadAdditive(WESTERN_CONSTELLATION_CATALOG_ID, showWesternConstellationStars),
-      loadAdditive(NAKED_EYE_CATALOG_ID, showNakedEyeStars),
-      // Pulsar companions live here, so visible pulsars bring their systems along.
-      loadAdditive(NOTABLE_DISTANT_CATALOG_ID, showNotableDistantStars || compactObjectsVisible(visibleKeys)),
+      loadAdditive(WESTERN_CONSTELLATION_CATALOG_ID),
+      loadAdditive(NAKED_EYE_CATALOG_ID),
+      loadAdditive(NOTABLE_DISTANT_CATALOG_ID),
       loadOverlay(COMPACT_OBJECT_TYPES, loadCompactRemnants),
       loadOverlay(NEBULA_OBJECT_TYPES, loadNebulae),
       loadOverlay(MOLECULAR_CLOUD_OBJECT_TYPES, loadMolecularClouds),
       loadOverlay(BUBBLE_OBJECT_TYPES, loadBubbles),
     ])
     reachLy = selectedCatalog.reduce((farthest, star) => Math.max(farthest, Math.hypot(star.x_pc, star.y_pc, star.z_pc)), 0) * LIGHT_YEARS_PER_PARSEC
-    const withConstellationStars = mergeCatalogStars(mergeCatalogStars(mergeCatalogStars(selectedCatalog, westernConstellationCatalog), nakedEyeCatalog), notableDistantCatalog)
+    const withConstellationStars = mergedCatalogLayers(id, selectedCatalog, westernConstellationCatalog, nakedEyeCatalog, notableDistantCatalog)
     nextStars = [...withConstellationStars, ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles]
     nextStars = mergeCatalogStars(nextStars, [...constellationSelectedSystems.values()].flat())
   } catch (error) {
@@ -3446,6 +3502,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   }
   element<HTMLInputElement>('object-search').value = settings.objectSearch
   objectList.setQuery(settings.objectSearch)
+  if (settings.objectSearch) void prepareObjectSearch()
   viewer.setViewState(settings.viewState)
   const savedObserverAnchorId = settings.observerViewAnchorId === null ? null : legacyStarId(settings.observerViewAnchorId)
   const anchorAvailable = savedObserverAnchorId !== null && starIndex.has(savedObserverAnchorId)
@@ -3482,6 +3539,8 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
     localStorage.setItem('star-view-milky-way-visible', String(milkyWayVisible))
     localStorage.setItem('star-view-oort-cloud-visible', String(oortCloudVisible))
     localStorage.setItem('star-view-visibility-cone-mode', visibilityConeMode)
+    localStorage.setItem('star-view-grid-visible', String(gridVisible))
+    localStorage.setItem('star-view-sky-grid-mode', skyGridMode)
   } catch {}
   setSimulationPlaying(settings.simulationPlaying)
   setPanelOpen('views', false)
@@ -3590,7 +3649,11 @@ renderCatalogRange(initialCatalogId)
 void switchCatalog(initialCatalogId).then(openRoutedObject)
 if (catalogErrors.length) catalogError(catalogErrors.join('\n'))
 
-element('object-search').addEventListener('input', () => objectList.setQuery(element<HTMLInputElement>('object-search').value), { signal: events.signal })
+element('object-search').addEventListener('focus', () => void prepareObjectSearch(), { signal: events.signal })
+element('object-search').addEventListener('input', () => {
+  objectList.setQuery(element<HTMLInputElement>('object-search').value)
+  void prepareObjectSearch()
+}, { signal: events.signal })
 // Card size and sidebar choices persist across visits.
 function storeLayout(key: string, value: string): void {
   try { localStorage.setItem(`star-view-${key}`, value) } catch {}
@@ -4599,6 +4662,7 @@ for (const name of detailCardNames) {
     element(`${name}-lock`).setAttribute('aria-pressed', String(lockedDetailCards.has(name)))
   }, { signal: events.signal })
 }
+initializeCardSwipes(element('inspector'), element<HTMLDetailsElement>('object-card-details'), touchFirstInput, events.signal)
 document.querySelector('.object-type-row')!.addEventListener('click', () => toggleObjectTypeCard(), { signal: events.signal })
 document.querySelector('.metallicity-row')!.addEventListener('click', toggleMetallicityCard, { signal: events.signal })
 document.querySelector('.distance-row')!.addEventListener('click', toggleDistanceCard, { signal: events.signal })
@@ -4678,6 +4742,7 @@ for (const view of cameraViews) {
 element('toggle-grid').addEventListener('click', () => {
   if (!viewer) return
   gridVisible = !gridVisible
+  try { localStorage.setItem('star-view-grid-visible', String(gridVisible)) } catch {}
   viewer.setGridVisible(gridVisible)
   syncGridInputs()
 }, { signal: events.signal })
@@ -4685,6 +4750,7 @@ for (const frame of ['equatorial', 'galactic'] as const) {
   element(`toggle-${frame}-grid`).addEventListener('click', () => {
     if (!viewer) return
     skyGridMode = skyGridMode === frame ? 'off' : frame
+    try { localStorage.setItem('star-view-sky-grid-mode', skyGridMode) } catch {}
     viewer.setSkyGrid(skyGridMode)
     syncGridInputs()
   }, { signal: events.signal })

@@ -4,7 +4,7 @@ import { PNG } from 'pngjs'
 import { Vector3 } from 'three'
 import { galacticToWorld } from '../src/astronomy'
 import { parseStarCatalog } from '../src/catalog'
-import { arrowIntersectsRect, motionArrows, openFilter, openPreferences, openViewer, selectCatalog, zoomViewer } from './support'
+import { arrowIntersectsRect, motionArrows, openFilter, openPreferences, openViewer, selectCatalog, showMotionArrows, zoomViewer } from './support'
 
 test('refreshes the rendered distance texture when selecting a distant cluster star', { tag: '@mobile' }, async ({ page }) => {
   const textureErrors: string[] = []
@@ -214,6 +214,7 @@ test('keeps front-camera names stable when the selected star leaves the camera v
 test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', async ({ page, isMobile }, testInfo) => {
   test.skip(isMobile, 'The supplied clear-space composition is a desktop viewport regression.')
   await openViewer(page)
+  await showMotionArrows(page)
   await openPreferences(page)
   await page.locator('#label-limit').fill('140')
   await openFilter(page)

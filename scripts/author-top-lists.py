@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "src/data/top-lists.json"
 FROZEN = ROOT / "catalog-work/top-lists/simbad.json"
-CATALOGS = ROOT / "src/data/generated/catalogs"
+CATALOGS = ROOT / "src/data/generated/catalog-records"
 # Earlier catalogs win, so links prefer the landmark records.
 CATALOG_ORDER = ["western-constellation-stars", "nearest-1000", "nearest-5000", "nearest-100", "naked-eye-stars"]
 LY_PER_PC = 3.261563777

@@ -174,6 +174,13 @@ export async function openViewer(page: Page) {
   await starPoint(page, 'sirius-a')
 }
 
+/** Motion arrows start off; switches them on without opening the preferences card over the scene. */
+export async function showMotionArrows(page: Page) {
+  await page.locator('#motion-arrows-visible').evaluate((input: HTMLInputElement) => {
+    if (!input.checked) input.click()
+  })
+}
+
 // The saved-views toolbar replaced the discrete zoom buttons. A wheel delta of
 // about 512 matches the old button's 1.3x OrbitControls dolly step.
 export async function zoomViewer(page: Page, direction: 'in' | 'out', steps = 1) {
