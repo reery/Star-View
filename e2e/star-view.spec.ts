@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs'
 import { Box3, PerspectiveCamera, Sphere, Spherical, Vector3 } from 'three'
 import { parseStarCatalog, type Star } from '../src/catalog'
 import { galacticToWorld, LIGHT_YEARS_PER_PARSEC } from '../src/astronomy'
-import { arrowPixelMask, hideEarthOrbit, hideMilkyWay, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openSpecs, openViewer, selectCatalog, starPoint, zoomViewer, type MotionArrowSnapshot, shippedObjectCount, shippedOverlayCount, openMotion } from './support'
+import { arrowPixelMask, hideEarthOrbit, hideMilkyWay, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openSpecs, openViewer, selectCatalog, starPoint, zoomViewer, type MotionArrowSnapshot, shippedObjectCount, shippedOverlayCount, openMotion, showMotionArrows } from './support'
 
 function resetCamera(stars: readonly Star[], bounds: { width: number; height: number }, selectedId: string | null, distanceScale = 1) {
   const sun = galacticToWorld(stars.find((star) => star.id === 'sun')!)
@@ -286,6 +286,7 @@ async function sceneFits(page: Page) {
 
 test('switches project catalogs while preserving settings and compatible selection', async ({ page }, testInfo) => {
   await openViewer(page)
+  await showMotionArrows(page)
   await openPreferences(page)
   await page.locator('#label-limit').fill('20')
   await openFilter(page)
@@ -341,6 +342,7 @@ test('switches project catalogs while preserving settings and compatible selecti
 
 test('searches the virtualized nearest-1000 list within bounded name budgets', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
+  await showMotionArrows(page)
   await selectCatalog(page, 'nearest-1000')
   await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${shippedObjectCount('nearest-1000')}$`))
   await openPreferences(page)
@@ -415,8 +417,28 @@ test('defaults to light-years, converts every distance without moving the camera
   await expect(page.locator('#distance-value')).toHaveText('8.61')
 })
 
+test('keeps the origin on the map and in the list when hiding fainter objects', async ({ page }) => {
+  await openViewer(page)
+  await selectCatalog(page, 'nearest-1000')
+  await page.locator('#hide-fainter-objects').check()
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('Arcturus')
+  await page.getByRole('button', { name: 'Select Arcturus', exact: true }).click()
+  await openFilter(page)
+  await page.getByLabel('V magnitude limit', { exact: true }).fill('4')
+  // The Sun is about +5 from Arcturus. Resetting the view frames both objects.
+  await page.locator('#reset-view').click()
+  const sun = page.locator('.map-anchor[data-star-id="sun"]')
+  await expect(sun).toHaveAttribute('data-map-visible', 'true')
+  await expect(sun).toHaveAttribute('data-core-visible', 'true')
+  await page.getByRole('button', { name: 'Objects', exact: true }).click()
+  await page.getByLabel('Search objects').fill('Sun')
+  await expect(page.getByRole('button', { name: 'Select Sun', exact: true })).toBeVisible()
+})
+
 test('keeps faint dots pickable and retains the last visibility base', async ({ page }) => {
   await openViewer(page)
+  await showMotionArrows(page)
   await openFilter(page)
   await page.locator('#filter-lock').click()
   const faint = page.locator('.map-anchor[data-star-id=\"barnards-star\"]')
@@ -960,6 +982,7 @@ test('renders temperature-colored objects, measurements, and a responsive interf
 
 test('switches between real and exaggerated star colors and remembers the preference', async ({ page }) => {
   await openViewer(page)
+  await showMotionArrows(page)
   await openPreferences(page)
   const exaggerated = page.getByRole('radio', { name: 'Exaggerated', exact: true })
   const real = page.getByRole('radio', { name: 'Real', exact: true })
@@ -1313,6 +1336,7 @@ test('keeps bright and selected halos strongly temperature-tinted without clippi
 
 test('toggles the grid without moving stars and preserves its state across reset', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
+  await showMotionArrows(page)
   await hideMilkyWay(page)
   await openPreferences(page)
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
@@ -1485,6 +1509,7 @@ test('fades grid pixels toward the edge without fading the scene', { tag: '@mobi
 
 test('overlapping stars follow camera depth and keep their motion arrows', async ({ page }, testInfo) => {
   await openViewer(page)
+  await showMotionArrows(page)
   await openFilter(page)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
   const stars = parseStarCatalog(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8'))
@@ -1849,6 +1874,7 @@ test('hands active focus to pointer input, deselection and reduced motion', { ta
 
 test('scrubs and plays the physical stellar-motion timeline in both directions', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
+  await showMotionArrows(page)
   const timeline = page.locator('#motion-panel')
   const slider = page.getByRole('slider', { name: 'Simulation time' })
   const faster = page.getByRole('button', { name: 'Increase playback speed' })
@@ -1990,7 +2016,8 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
   const horizon = page.getByLabel('Arrow length', { exact: true })
   const motionArrowsToggle = page.getByRole('switch', { name: 'Motion arrows' })
   const motionFrame = page.getByRole('group', { name: 'Motion frame' })
-  await expect(motionArrowsToggle).toBeChecked()
+  await expect(motionArrowsToggle).not.toBeChecked()
+  await motionArrowsToggle.check()
   await expect(motionFrame.getByRole('radio', { name: 'Galactic' })).toBeChecked()
   await expect(motionFrame.getByRole('radio', { name: 'Solar' })).not.toBeChecked()
   await expect(horizon).toHaveValue('1000')
@@ -2085,6 +2112,7 @@ test('shows attached travel-length motion arrows with selectable horizons', { ta
 
 test('draws dashed transverse and solid full-motion shafts with a zoom-stable stroke', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
+  await showMotionArrows(page)
   await selectCatalog(page, 'nearest-100')
   await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${shippedObjectCount('nearest-100')}$`))
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
@@ -2276,6 +2304,7 @@ test('keeps observer drags screen-relative after rolling the view', { tag: '@mob
 
 test('clears selection on empty-sky clicks and taps without moving the camera', { tag: '@mobile' }, async ({ page, isMobile }) => {
   await openViewer(page)
+  await showMotionArrows(page)
   const before = await starPoint(page, 'sirius-a')
   const bounds = (await page.locator('#scene canvas').boundingBox())!
   const empty = { x: bounds.x + bounds.width * 0.25, y: bounds.y + bounds.height * 0.85 }

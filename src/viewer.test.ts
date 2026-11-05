@@ -4,7 +4,7 @@ import { apparentVisualMagnitude, LIGHT_YEARS_PER_PARSEC } from './astronomy'
 import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-layout'
 import {
   GUIDE_DASH_PX, GUIDE_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
-  ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress, isObjectMapVisible, maxOrbitDistancePc,
+  ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress, isObjectMapVisible, mapVisibilityTier, maxOrbitDistancePc,
   guideDashScale, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
   projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
   shouldRunOrdinaryLabelLayout, starCoreShape, starCoreViewScale, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
@@ -212,6 +212,14 @@ describe('object map filtering', () => {
   it('controls the Sun independently from the star object type', () => {
     expect(isObjectMapVisible(sun, new Set(['sun']), null, 'target')).toBe(true)
     expect(isObjectMapVisible(sun, new Set(['star']), 'sun', 'sun', 0, Infinity)).toBe(false)
+  })
+
+  it('keeps the origin eligible past the magnitude limit', () => {
+    const position = { x_pc: 1, y_pc: 0, z_pc: 0 }
+    const faint = { id: 'target', type: 'star', ...position } as Parameters<typeof mapVisibilityTier>[0]
+    const observer = { ...faint, id: 'observer', x_pc: 2 }
+    expect(mapVisibilityTier(faint, observer, null, 'sun', 9, 4)).toBe('background')
+    expect(mapVisibilityTier(faint, observer, null, 'target', 9, 4)).toBe('eligible')
   })
 })
 

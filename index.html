@@ -160,6 +160,7 @@
               <div id="comparison-system-name" class="comparison-system-name"></div>
               <div id="comparison-system-members" class="comparison-system-members"></div>
             </div>
+            <div class="dock-card object-type-card card-swipe-title" aria-hidden="true" hidden><div class="panel-heading"><h2></h2></div></div>
             <section id="object-type-card" class="dock-card object-type-card" aria-labelledby="object-type-heading" data-scene-obstacle hidden>
               <div class="panel-heading">
                 <h2 id="object-type-heading"></h2>
@@ -1074,8 +1075,8 @@
                     <div class="catalog-toggles">
                       <label class="filter-toggle" for="motion-arrows-visible">
                         <span class="mass-metric-help">Motion arrows</span>
-                        <span class="switch-control"><input id="motion-arrows-visible" type="checkbox" role="switch" aria-describedby="motion-arrows-visible-tooltip" checked><span class="switch-track" aria-hidden="true"></span></span>
-                      </label><span id="motion-arrows-visible-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Arrows show which way objects move and how far they travel in the time set by Arrow length. A dashed line means only the motion across the sky is known.</span>
+                        <span class="switch-control"><input id="motion-arrows-visible" type="checkbox" role="switch" aria-describedby="motion-arrows-visible-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
+                      </label><span id="motion-arrows-visible-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Arrows show which way objects move and how far they travel in the time set by Arrow length. A dashed line means only the motion across the sky is known. Off by default because they use a lot of processing power when many objects are visible.</span>
                       <div class="catalog-choice"><label for="motion-years">Arrow length</label><select id="motion-years"><option value="1000" selected>1k years</option><option value="5000">5k years</option><option value="10000">10k years</option><option value="25000">25k years</option><option value="50000">50k years</option></select></div>
                       <div id="motion-frame" class="segmented-choice" role="group" aria-labelledby="motion-frame-label"><button id="motion-frame-label" type="button" class="mass-metric-help">Motion frame</button><span id="motion-frame-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">What motion is measured against. Galactic shows how objects move relative to the Galaxy, including the Sun’s own motion. Solar shows how they move relative to the Sun, which then stands still.</span><div class="unit-options"><label><input id="motion-frame-galactic" type="radio" name="motion-frame" value="galactic" checked><span>Galactic</span></label><label><input id="motion-frame-solar" type="radio" name="motion-frame" value="solar"><span>Solar</span></label></div></div>
                     </div>

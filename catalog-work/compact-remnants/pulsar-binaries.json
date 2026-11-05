@@ -2,6 +2,17 @@
   "reviewed": "2026-11-05",
   "policy": "Only individually measured pulsar and neutron-star companion masses from relativistic timing or optical spectroscopy, keyed by exact ATNF PSRJ name. Total-mass-only systems and model-dependent X-ray mass fits are not split into component masses.",
   "adoptedDistances": {
+    "J0212+5321": {
+      "distance_pc": 1160,
+      "distance_method": "Parallax",
+      "source_label": "Perez et al. 2023",
+      "source_url": "https://arxiv.org/abs/2306.04951",
+      "parallax_mas": 0.858,
+      "parallax_error_mas": 0.023,
+      "parallax_ref": "Gaia DR3",
+      "atnf_rejected": "ATNF 2.9.0 lists PX 1.16(3) mas from pbhg23, and so DIST 0.862 kpc. That paper's 1.16(3) is the distance in kpc; ATNF entered it as a parallax. The Gaia DR3 source matching the ATNF position and proper motion has 0.858(23) mas, whose inverse is the paper's distance.",
+      "note": "Gaia DR3 parallax 0.858(23) mas (source 455282205716288384), which Perez et al. give as 1.16(3) kpc; the dispersion-measure distances are 1.15 kpc (NE2001) and 1.27 kpc (YMW16)."
+    },
     "J0418+5732": {
       "distance_pc": 2000,
       "distance_method": "Assumed distance",
@@ -36,6 +47,13 @@
       "source_label": "Ding et al. 2023",
       "source_url": "https://arxiv.org/abs/2212.06351",
       "note": "Replaces ATNF's 0.70 kpc (Verbiest et al. 2012); MSPSRpi Table 6 gives 0.877(35) kpc."
+    },
+    "J1023+0038": {
+      "distance_pc": 1368,
+      "distance_method": "VLBI parallax",
+      "source_label": "Deller et al. 2012",
+      "source_url": "https://arxiv.org/abs/1207.5670",
+      "note": "Parallax 0.731(22) mas, 1368 +42/-39 pc; Gaia DR3 agrees at 0.686(71) mas. Replaces ATNF's 1.19 kpc, the distance from one light-curve model of Stringer et al. 2021 (their other models give 1.26-1.30 kpc), which used this parallax as a prior and describes its fitted distances as underestimates."
     },
     "J1024-0719": {
       "distance_pc": 1080,

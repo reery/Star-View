@@ -856,13 +856,13 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .load-state > :not(.load-recovery) { display: none !important; }
 .load-recovery { display: grid; grid-column: 1 / -1; gap: 8px; margin: 0; padding: 12px; color: var(--muted); font-size: var(--property-text-size); line-height: 1.5; }
 .load-recovery-actions { display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink); }
-/* While visible content loads, a faint highlight runs along the frame from left to right every 1.5 s. */
+/* While visible content loads, a faint highlight runs along the frame from left to right every 1.8 s, taking 0.7 s to cross. */
 @media (prefers-reduced-motion: no-preference) {
   :is(.selected-object, .object-type-card, .glossary-card):is([aria-busy="true"], :has([aria-busy="true"]:not([hidden], [hidden] *, details:not([open]) *)))::after, .tutorial-tile.is-appearing::after {
     content: ''; position: absolute; inset: 0; z-index: 4; border: 1px solid transparent; border-radius: calc(var(--card-radius) - 1px); pointer-events: none;
     background: linear-gradient(90deg, transparent, var(--border-active), transparent) -66.7% 0 / 40% 100% no-repeat border-box;
     mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0); mask-composite: exclude;
-    animation: load-sweep 1.5s ease-in-out 150ms infinite;
+    animation: load-sweep 1.8s ease-in-out 150ms infinite;
   }
   /* The scene status shows while startup blocks the main thread, so its sweep moves by a compositor-driven transform beneath an inner cover. */
   .scene-status.is-loading { overflow: hidden; }
@@ -870,11 +870,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .scene-status.is-loading::after {
     content: ''; position: absolute; inset: 0 auto 0 0; z-index: -2; width: 40%; transform: translateX(-100%);
     background: linear-gradient(90deg, transparent, var(--border-active), transparent);
-    animation: scene-load-sweep 1.5s ease-in-out infinite;
+    animation: scene-load-sweep 1.8s ease-in-out infinite;
   }
 }
-@keyframes load-sweep { 26.7%, to { background-position-x: 166.7%; } }
-@keyframes scene-load-sweep { 26.7%, to { transform: translateX(250%); } }
+@keyframes load-sweep { 38.9%, to { background-position-x: 166.7%; } }
+@keyframes scene-load-sweep { 38.9%, to { transform: translateX(250%); } }
 /* Opening cards paint at once; their content fades in, or streams in via content-stream.ts once loaded. */
 @media (prefers-reduced-motion: no-preference) {
   .object-type-card > :not(.panel-heading) { animation: card-fade 200ms ease-out; }
@@ -1922,3 +1922,12 @@ button.graph-bar-row:hover, .graph-bar-row[aria-pressed="true"] { background: va
   .constellations-card .constellation-visibility-charts { grid-template-columns: minmax(0, 1fr); }
   .constellations-card .constellation-visibility-stats > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
 }
+
+/* Touch swipes: a promoted layer exists only for the length of a swipe; past the commit point the card dims and the title lights up. Cards stay nearly opaque because they pass over other text. */
+.is-swiping { will-change: transform; transition: opacity 120ms ease; }
+.is-swiping[data-armed] { opacity: 0.82; }
+.object-card-body.is-swiping[data-armed] { opacity: 0.45; }
+.dock-card.card-swipe-title { z-index: 2; width: max-content; max-width: calc(var(--ui-width) - 24px); overflow: hidden; pointer-events: none; will-change: transform; }
+.card-swipe-title > .panel-heading { position: static; padding-right: 14px; border-bottom: 0; white-space: nowrap; }
+.card-swipe-title h2 { transform-origin: left center; transition: color 120ms ease; }
+.card-swipe-title[data-armed] h2 { color: var(--accent-vibrant); }

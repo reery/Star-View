@@ -437,7 +437,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
   let visibility: boolean[] = clouds.map(() => false)
   let fraction = 1
   let sourceDepthCapture = true
-  let samples = 4
+  let samples = 2
   let packedKey = ''
 
   function repack(): void {
@@ -475,7 +475,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       sourceDepthCapture = enabled
     },
     setMultisampling(enabled) {
-      const next = enabled ? 4 : 0
+      const next = enabled ? 2 : 0
       if (next === samples) return
       samples = next
       // Sample count is fixed per target; the next render recreates them.

@@ -195,6 +195,7 @@ test('records high-density nearest-1000 rotation evidence', { tag: '@mobile' }, 
   await selectCatalog(page, 'nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
   await openPreferences(page)
+  await page.getByRole('switch', { name: 'Motion arrows' }).check()
   await page.getByLabel('Arrow length', { exact: true }).selectOption('50000')
   await page.getByRole('button', { name: 'Preferences', exact: true }).click()
   await expectIdle(page)
@@ -482,14 +483,71 @@ test('caps sustained power-saving animation draws at 30 FPS', async ({ page }) =
   await page.getByRole('switch', { name: 'Power saving mode' }).check()
   await expectIdle(page)
   const before = (await stats(page)).drawTimes.length
-  await page.locator('[data-star="sun"]').evaluate((button: HTMLButtonElement) => button.click())
-  await expect.poll(async () => (await stats(page)).drawTimes.length - before).toBeGreaterThanOrEqual(6)
+  const bounds = (await page.locator('#scene canvas').boundingBox())!
+  const start = { x: bounds.x + bounds.width * 0.4, y: bounds.y + bounds.height * 0.6 }
+  await page.mouse.move(start.x, start.y)
+  await page.mouse.down()
+  const started = Date.now()
+  while (Date.now() - started < 1000) {
+    await page.mouse.move(start.x + (Date.now() - started) / 10, start.y)
+    await page.waitForTimeout(8)
+  }
+  await page.mouse.up()
   await expectIdle(page)
   const drawTimes = (await stats(page)).drawTimes.slice(before)
-  const sustainedDrawTimes = drawTimes.slice(-6)
-  const sustainedIntervals = sustainedDrawTimes.slice(1).map((time, index) => time - sustainedDrawTimes[index]!)
-  expect(sustainedIntervals.length).toBeGreaterThanOrEqual(4)
-  for (const interval of sustainedIntervals) expect(interval).toBeGreaterThanOrEqual(28)
+  expect(drawTimes.length).toBeGreaterThanOrEqual(10)
+  // Deadlines keep their phase, so a late frame under load shortens the next interval without raising the
+  // rate; the mean over a long drag shows the cap where a single short interval would not.
+  expect((drawTimes.at(-1)! - drawTimes[0]!) / (drawTimes.length - 1)).toBeGreaterThanOrEqual(28)
+})
+
+test('keeps power-saving playback and slider updates at 30 FPS on a 120 Hz display', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  // A fixed 120 Hz tick stands in for the display's refresh.
+  await page.addInitScript(() => {
+    const callbacks = new Map<number, FrameRequestCallback>()
+    let handle = 0
+    window.requestAnimationFrame = (callback) => {
+      callbacks.set(++handle, callback)
+      return handle
+    }
+    window.cancelAnimationFrame = (id) => { callbacks.delete(id) }
+    setInterval(() => {
+      const due = [...callbacks.values()]
+      callbacks.clear()
+      const now = performance.now()
+      due.forEach((callback) => callback(now))
+    }, 1000 / 120)
+  })
+  await trackRendering(page)
+  await openPreferences(page)
+  await page.getByRole('switch', { name: 'Power saving mode' }).check()
+  await expectIdle(page)
+  const expectCappedDraws = async (update: () => Promise<void>) => {
+    const before = (await stats(page)).drawTimes.length
+    await update()
+    const drawTimes = (await stats(page)).drawTimes.slice(before)
+    expect(drawTimes.length).toBeGreaterThanOrEqual(8)
+    const fps = (drawTimes.length - 1) * 1000 / (drawTimes.at(-1)! - drawTimes[0]!)
+    expect(fps).toBeLessThanOrEqual(33)
+  }
+  const play = () => page.locator('#time-play').evaluate((button: HTMLButtonElement) => button.click())
+  await expectCappedDraws(async () => {
+    await play()
+    await page.waitForTimeout(1000)
+    await play()
+  })
+  await expectCappedDraws(() => page.locator('#time-slider').evaluate((input: HTMLInputElement) => new Promise<void>((resolve) => {
+    const started = performance.now()
+    const step = () => {
+      const elapsed = performance.now() - started
+      if (elapsed > 1000) return resolve()
+      input.value = String(Number(input.min) * 0.2 + elapsed)
+      input.dispatchEvent(new Event('input', { bubbles: true }))
+      setTimeout(step, 4)
+    }
+    step()
+  })))
 })
 
 test('resumes rendering after graphics context restoration', async ({ page }) => {

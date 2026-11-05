@@ -4672,6 +4672,38 @@
       "expectedPrevious": "4.802811",
       "expectedCurrent": "",
       "reason": "mass_solar: the previous 4.802811 of 64 Ori was the Gaia DR3 FLAME mass (source 3374718330328109440), which assumes solar-metallicity BaSTI tracks (Gaia DR3 documentation 11.3.6). Gaia's own GSP-Phot [M/H] for this star is -0.94, beyond 0.3 dex, so flame_withheld no longer adopts it (2023A&A...674A..27A). The original value remains in the frozen Gaia snapshot and catalog provenance; no replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/notable-distant-stars/stars.csv",
+      "id": "psr-j0212p5321-b",
+      "field": "parallax_mas",
+      "expectedPrevious": "1.16",
+      "expectedCurrent": "0.858",
+      "reason": "ATNF 2.9.0 lists PX 1.16(3) mas for PSR J0212+5321 (pbhg23), and so a 0.862 kpc distance. Perez et al. 2023 report 1.16(3) as the distance in kpc; the matching Gaia DR3 source 455282205716288384 has parallax 0.858(23) mas, whose inverse is that distance. Replaced with the Gaia DR3 parallax and 1160 pc; the system's position vector moved with it."
+    },
+    {
+      "path": "src/data/catalogs/notable-distant-stars/stars.csv",
+      "id": "psr-j0212p5321-b",
+      "field": "parallax_error_mas",
+      "expectedPrevious": "0.03",
+      "expectedCurrent": "0.023",
+      "reason": "ATNF 2.9.0 lists PX 1.16(3) mas for PSR J0212+5321 (pbhg23), and so a 0.862 kpc distance. Perez et al. 2023 report 1.16(3) as the distance in kpc; the matching Gaia DR3 source 455282205716288384 has parallax 0.858(23) mas, whose inverse is that distance. Replaced with the Gaia DR3 parallax and 1160 pc; the system's position vector moved with it."
+    },
+    {
+      "path": "src/data/overlays/compact-remnants/objects.json",
+      "id": "psr-j0212p5321",
+      "field": "raw_astrometry.parallax_mas",
+      "expectedPrevious": 1.16,
+      "expectedCurrent": 0.858,
+      "reason": "ATNF 2.9.0 lists PX 1.16(3) mas for PSR J0212+5321 (pbhg23), and so a 0.862 kpc distance. Perez et al. 2023 report 1.16(3) as the distance in kpc; the matching Gaia DR3 source 455282205716288384 has parallax 0.858(23) mas, whose inverse is that distance. Replaced with the Gaia DR3 parallax and 1160 pc; the system's position vector moved with it."
+    },
+    {
+      "path": "src/data/overlays/compact-remnants/objects.json",
+      "id": "psr-j0212p5321",
+      "field": "raw_astrometry.parallax_error_mas",
+      "expectedPrevious": 0.03,
+      "expectedCurrent": 0.023,
+      "reason": "ATNF 2.9.0 lists PX 1.16(3) mas for PSR J0212+5321 (pbhg23), and so a 0.862 kpc distance. Perez et al. 2023 report 1.16(3) as the distance in kpc; the matching Gaia DR3 source 455282205716288384 has parallax 0.858(23) mas, whose inverse is that distance. Replaced with the Gaia DR3 parallax and 1160 pc; the system's position vector moved with it."
     }
   ],
   "recordRetirements": [

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { motionArrows, openFilter, openSpecs, openViewer, selectCatalog, openMotion } from './support'
+import { motionArrows, openFilter, openSpecs, openViewer, selectCatalog, openMotion, showMotionArrows } from './support'
 
 test('shows reviewed bulk motion for all nine compact-system components', async ({ page }, testInfo) => {
   await openViewer(page)
@@ -32,6 +32,7 @@ test('shows reviewed bulk motion for all nine compact-system components', async 
 
 test('shows EZ Aquarii systemic radial velocity and system bulk motion for each component', async ({ page }, testInfo) => {
   await openViewer(page)
+  await showMotionArrows(page)
   await openFilter(page)
   await page.getByLabel('V magnitude limit', { exact: true }).fill('16')
   await page.getByRole('button', { name: 'Objects', exact: true }).click()

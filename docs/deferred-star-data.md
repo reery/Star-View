@@ -2,7 +2,9 @@
 
 `npm run catalog:generate` keeps the reviewed source files intact and writes separate browser payloads:
 
-- `generated/catalogs/`: schema 3 map records, without `notes` or `catalog_sources`.
+- `generated/catalogs/`: schema 4 map records, without `notes`, `catalog_sources` or `designations`. `raw_astrometry` stays only on rows the map reads it from: those without a stored velocity, whose motion arrows are derived from it, and those on a shared systemic velocity, whose Objects database label comes from its reference. Other rows carry `raw_astrometry: null` with `sky_position` for merging and sky charts, and `hip_numbers` for constellation figures and top lists.
+- `generated/catalog-records/`: the same rows with their `designations` and `raw_astrometry`, for audits and tests. Never shipped.
+- `generated/catalog-designations/`: one file per catalog of designations, keyed like the detail entries, for object search.
 - `generated/catalog-details/`: one content-keyed notes/source snapshot per distinct effective record. Shared IDs with different catalog source records retain separate snapshots. Each key ends in the first 16 hex digits of the snapshot's SHA-256. Objects with identical snapshots share one entry, and the build rejects any file whose content does not match its key.
 - `generated/star-articles/`: one article per reviewed article identity, including its review date and section sources.
 - `generated/stellar-orbits/`: one orbit array per reviewed stellar system, including systems with no adopted orbit.
@@ -16,6 +18,8 @@ The map loads only the selected catalog and enabled overlays. Small system-ident
 Info loads the selected article, sharing its cached content across reviewed component aliases. System loads the selected stellar system and the exact selected planet host. Specs loads the selected star's notes and retained source measurements, including scoped fallback values and tooltips. Constellation charts continue loading one chart and its companions at a time.
 
 Map records retain compact flags for withheld fields, explicit barycenter matching and retained source radial velocities. These preserve merge rules and motion labels before full source notes arrive. When a catalog layer supplements physical values, its source-note references follow the merged record. Details hydrate only scene-owned copies, leaving memoized map payloads unchanged.
+
+Object search matches names, IDs and spectral types at once. Focusing the search box loads the designations of the catalogs in the scene, so aliases join the results once they arrive; merged rows record their sources in `catalog_designation_parts`, in merge order, so hydration and search rebuild the same list a loaded merge would. The Distance card loads its object's details itself, for uncertainties and radial velocities.
 
 Concurrent requests share a promise. Successful loads are reused, and failures clear their pending entries so the existing Retry control can fetch again. JSON requests avoid retaining failed payloads in the browser's JavaScript module cache. Selection and closed-card guards prevent delayed results from replacing another object's content.
 

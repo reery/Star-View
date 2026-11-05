@@ -39,9 +39,9 @@ export interface FrameDeadline {
   next: number
 }
 
-export function advanceFrameDeadline(now: number, next: number, fps: number, force = false): FrameDeadline {
+export function advanceFrameDeadline(now: number, next: number, fps: number): FrameDeadline {
   const interval = 1000 / fps
-  if (!Number.isFinite(now) || !Number.isFinite(next) || next <= 0 || force) {
+  if (!Number.isFinite(now) || !Number.isFinite(next) || next <= 0) {
     return { due: true, next: now + interval }
   }
   if (now + 0.5 < next) return { due: false, next }

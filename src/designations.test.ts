@@ -18,7 +18,7 @@ describe('object designations', () => {
   it('ships the same preferred names and searchable source labels after companion completion', () => {
     const names = new Map<string, string>()
     for (const catalog of ['nearest-neighbors', 'nearest-100', 'nearest-1000', 'western-constellation-stars']) {
-      const { stars } = JSON.parse(readFileSync(new URL(`./data/generated/catalogs/${catalog}.json`, import.meta.url), 'utf8'))
+      const { stars } = JSON.parse(readFileSync(new URL(`./data/generated/catalog-records/${catalog}.json`, import.meta.url), 'utf8'))
       for (const star of stars) {
         if (names.has(star.id)) expect(star.name, star.id).toBe(names.get(star.id))
         names.set(star.id, star.name)

@@ -28,7 +28,7 @@ def read(path):
 
 def hydrated_catalogs():
     catalogs = {}
-    for path in sorted((ROOT / "src/data/generated/catalogs").glob("*.json")):
+    for path in sorted((ROOT / "src/data/generated/catalog-records").glob("*.json")):
         rows = []
         for star in read(path)["stars"]:
             detail = ROOT / f"src/data/generated/catalog-details/catalog-detail-{star['catalog_detail_key']}.json"

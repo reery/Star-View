@@ -1,4 +1,5 @@
 import { ICRS_TO_GALACTIC_ROWS, type Star } from './catalog-model'
+import { objectHipNumbers } from './designations'
 import { starComponentIdentity } from './star-systems'
 import { completeLoadedCompanions as completeCatalogCompanions, loadConstellationCompanions } from './constellation-companions'
 import { constellationCharts } from './data/constellations'
@@ -27,10 +28,7 @@ function resolveFigureObjects(figures: readonly ConstellationStar[], objects: re
     if (wantedIds.has(id) && !canonical.has(id)) canonical.set(id, object)
     if (canonical.size === wantedIds.size) break
     if (identity) continue
-    for (const designation of object.designations ?? []) {
-      const match = /^HIP(\d+)$/.exec(designation.replace(/\s+/g, ''))
-      if (!match) continue
-      const hip = Number(match[1])
+    for (const hip of objectHipNumbers(object)) {
       if (wantedHips.has(hip) && !aliases.has(hip)) aliases.set(hip, object)
     }
   }
@@ -84,7 +82,7 @@ export async function loadConstellationByName(name: string): Promise<Constellati
 
 /** Catalogue sky position as seen from the Sun, independent of the 3D-map origin. */
 export function objectSkyPosition(object: Star): SkyPosition | null {
-  const astrometry = object.raw_astrometry ?? object.nebula ?? object.compact
+  const astrometry = object.raw_astrometry ?? object.sky_position ?? object.nebula ?? object.compact
   if (astrometry && Number.isFinite(astrometry.ra_deg) && Number.isFinite(astrometry.dec_deg)) {
     return { ra_deg: astrometry.ra_deg, dec_deg: astrometry.dec_deg }
   }

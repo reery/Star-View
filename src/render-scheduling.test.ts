@@ -49,7 +49,6 @@ describe('frame cadence', () => {
   it('allows an immediate first frame and waits for the next deadline', () => {
     expect(advanceFrameDeadline(10, 0, 30)).toEqual({ due: true, next: 10 + 1000 / 30 })
     expect(advanceFrameDeadline(20, 10 + 1000 / 30, 30)).toEqual({ due: false, next: 10 + 1000 / 30 })
-    expect(advanceFrameDeadline(20, 100, 30, true)).toEqual({ due: true, next: 20 + 1000 / 30 })
   })
 
   it('preserves phase after a late callback without catch-up frames', () => {

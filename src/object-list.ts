@@ -1,7 +1,7 @@
 import { createElement } from 'lucide'
 import { OriginIcon } from './origin-icon'
 import type { Star } from './catalog-model'
-import { objectDesignations } from './designations'
+import { searchableDesignations } from './catalog-designations'
 import { formatDistance, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type StarColorMode } from './astronomy'
 import { ObjectDatabase } from './object-database'
 import { companionIcon } from './companion-icon'
@@ -23,7 +23,7 @@ export function normalizeObjectSearch(value: string): string {
 }
 
 export function objectSearchText(star: Star): string {
-  return normalizeObjectSearch([star.name, star.id, star.spectral_type ?? '', ...(star.subtypes ?? []), ...objectDesignations(star), star.molecular_cloud?.complex_name ?? ''].join(' '))
+  return normalizeObjectSearch([star.name, star.id, star.spectral_type ?? '', ...(star.subtypes ?? []), ...searchableDesignations(star), star.molecular_cloud?.complex_name ?? ''].join(' '))
 }
 
 export function virtualRange(scrollTop: number, viewportHeight: number, count: number): { start: number; end: number } {
@@ -36,8 +36,8 @@ interface ObjectListItem {
   star: Star
   distancePc: number
   sunDistancePc: number
-  search: string
-  compactSearch: string
+  /** Built on the first search: normalizing every designation is the list's largest startup cost. */
+  search?: { text: string; compact: string }
   color: string
 }
 
@@ -83,17 +83,12 @@ export class ObjectList {
   setStars(stars: readonly Star[], unit: DistanceUnit, selectedId: string | null, referenceId = 'sun', filter?: ObjectListFilter): void {
     const sun = stars.find((star) => star.id === 'sun')!
     const reference = stars.find((star) => star.id === referenceId) ?? sun
-    this.items = sortObjectListItemsByDistance(stars.map((star) => {
-      const search = objectSearchText(star)
-      return {
-        star,
-        distancePc: sunRelativeMetrics(star, reference).distancePc,
-        sunDistancePc: sunRelativeMetrics(star, sun).distancePc,
-        search,
-        compactSearch: search.replace(/ /g, ''),
-        color: starDisplayColor(star, this.colorMode).getStyle(),
-      }
-    }))
+    this.items = sortObjectListItemsByDistance(stars.map((star) => ({
+      star,
+      distancePc: sunRelativeMetrics(star, reference).distancePc,
+      sunDistancePc: sunRelativeMetrics(star, sun).distancePc,
+      color: starDisplayColor(star, this.colorMode).getStyle(),
+    })))
     this.query = ''
     this.compactQuery = ''
     this.unit = unit
@@ -128,6 +123,12 @@ export class ObjectList {
     this.refresh()
   }
 
+  /** Designations arrived after the query was typed, so rows that did not match may match now. */
+  refreshSearch(): void {
+    for (const item of this.items) item.search = undefined
+    if (this.query) this.refresh()
+  }
+
   setFilter(filter: ObjectListFilter): void {
     this.filter = filter
     this.refresh()
@@ -149,8 +150,16 @@ export class ObjectList {
     this.database?.closeFilter()
   }
 
+  private matchesQuery(item: ObjectListItem): boolean {
+    if (!item.search) {
+      const text = objectSearchText(item.star)
+      item.search = { text, compact: text.replace(/ /g, '') }
+    }
+    return item.search.text.includes(this.query) || item.search.compact.includes(this.compactQuery)
+  }
+
   private refresh(force = false): void {
-    const matching = this.items.filter((item) => this.filter(item.star, item.distancePc) && (!this.query || item.search.includes(this.query) || item.compactSearch.includes(this.compactQuery)))
+    const matching = this.items.filter((item) => this.filter(item.star, item.distancePc) && (!this.query || this.matchesQuery(item)))
     const filtered = this.expanded ? this.database!.filterAndSort(matching) : matching
     if (filtered.length !== this.countedShown || this.items.length !== this.countedTotal) {
       this.countedShown = filtered.length

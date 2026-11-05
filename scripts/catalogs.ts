@@ -35,7 +35,7 @@ import type { ConstellationChart } from '../src/constellations.ts'
 import { describeObject, objectTypeLabel, type Star } from '../src/catalog-model.ts'
 import type { ObjectPage, ObjectPageAlias } from '../src/object-page.ts'
 import { mergeCatalogStarLayers } from '../src/catalog-merge.ts'
-import { splitCatalogDetails } from '../src/catalog-detail-model.ts'
+import { catalogDetails, splitCatalogDetails } from '../src/catalog-detail-model.ts'
 import stellarOrbits from '../src/data/stellar-orbits.json' with { type: 'json' }
 import compactOrbits from '../src/data/compact-system-orbits.json' with { type: 'json' }
 
@@ -261,21 +261,24 @@ function generate(): void {
   const catalogs = loadCatalogPackages()
   requireConsistentCatalogs(catalogs)
   const detailFiles: Record<string, string> = {}
-  const mapRecords = (stars: Parameters<typeof splitCatalogDetails>[0][]) => stars.map((star) => {
-    const content = JSON.stringify({ notes: star.notes, ...(star.catalog_sources ? { catalog_sources: star.catalog_sources } : {}) })
-    const key = `${star.id}-${createHash('sha256').update(content).digest('hex').slice(0, 16)}`
-    const { mapStar, details } = splitCatalogDetails(star, key)
-    const { catalog_detail_key: _key, catalog_flags: _flags, ...record } = mapStar
-    if (!isDeepStrictEqual({ ...record, ...details }, star)) throw new Error(`Catalog detail split lost data: ${star.id}`)
+  type MapRecord = ReturnType<typeof splitCatalogDetails>['mapStar']
+  const splitRecords = (stars: Parameters<typeof splitCatalogDetails>[0][]) => new Map(stars.map((star) => {
+    const content = JSON.stringify(catalogDetails(star))
+    const hash = createHash('sha256').update(content).digest('hex').slice(0, 16)
+    const key = `${star.id}-${hash}`
+    const { mapStar, record, details } = splitCatalogDetails(star, key)
+    const { catalog_detail_key: _key, catalog_flags: _flags, sky_position: _sky, hip_numbers: _hip, ...mapFields } = mapStar
+    if (!isDeepStrictEqual({ ...mapFields, ...details }, star)) throw new Error(`Catalog detail split lost data: ${star.id}`)
     const file = `catalog-detail-${key}.json`
     if (detailFiles[file] && detailFiles[file] !== content + '\n') throw new Error(`Catalog detail key collision: ${key}`)
     detailFiles[file] = content + '\n'
-    return mapStar
-  })
-  const effective = new Map(catalogs.map(({ id, stars }) =>
-    [id, mapRecords(supplementObjectIdentities(shipped(stars), identities, { preserveAuthoredNames: true }))]))
+    return [star.id, { mapStar, record, hash, designations: details.designations }] as const
+  }))
+  const split = new Map(catalogs.map(({ id, stars }) =>
+    [id, splitRecords(supplementObjectIdentities(shipped(stars), identities, { preserveAuthoredNames: true }))]))
+  const effective = new Map([...split].map(([id, rows]) => [id, [...rows.values()].map(({ mapStar }) => mapStar)]))
   // An extending payload ships only records that its base payload lacks or differs in.
-  const extensionRecords = (id: string, base: ReturnType<typeof mapRecords>, records: ReturnType<typeof mapRecords>) => {
+  const extensionRecords = (id: string, base: MapRecord[], records: MapRecord[]) => {
     const baseById = new Map(base.map((record) => [record.id, record]))
     const delta = records.filter((record) => !isDeepStrictEqual(baseById.get(record.id), record))
     const composed = new Map(composeCatalog(base, delta).map((record) => [record.id, record]))
@@ -284,9 +287,21 @@ function generate(): void {
     }
     return delta
   }
+  const payloadRows = new Map(catalogs.map(({ id, extends: baseId }) =>
+    [id, baseId ? extensionRecords(id, effective.get(baseId)!, effective.get(id)!) : effective.get(id)!]))
+  const payload = (id: string, baseId: string | undefined, count: number, schemaVersion: number, rows: object[]) => JSON.stringify(
+    { schemaVersion, catalogId: id, ...(baseId ? { extends: baseId } : {}), sourceObjectCount: count, stars: rows }) + '\n'
   const files = Object.fromEntries(catalogs.map(({ id, extends: baseId, stars }) =>
-    [`${id}.json`, JSON.stringify({ schemaVersion: 3, catalogId: id, ...(baseId ? { extends: baseId } : {}), sourceObjectCount: stars.length,
-      stars: baseId ? extensionRecords(id, effective.get(baseId)!, effective.get(id)!) : effective.get(id)! }) + '\n']))
+    [`${id}.json`, payload(id, baseId, stars.length, 4, payloadRows.get(id)!)]))
+  // Rows with their designations and astrometry, for audits and tests; never shipped.
+  writeGeneratedData('catalog-records', Object.fromEntries(catalogs.map(({ id, extends: baseId, stars }) =>
+    [`${id}.json`, payload(id, baseId, stars.length, 3, payloadRows.get(id)!.map((row) => split.get(id)!.get(row.id)!.record))])))
+  // Loaded when object search is first used; keyed like the detail entries, so merged rows can find theirs.
+  writeGeneratedData('catalog-designations', Object.fromEntries(catalogs.map(({ id }) =>
+    [`designations-${id}.json`, JSON.stringify(Object.fromEntries(payloadRows.get(id)!.flatMap((row) => {
+      const { hash, designations } = split.get(id)!.get(row.id)!
+      return designations ? [[hash, designations]] : []
+    }))) + '\n'])))
   writeGeneratedData('catalog-details', detailFiles)
   const references = buildCatalogClassReferences(catalogs.map((catalog) => ({ ...catalog, stars: shipped(catalog.stars) })), (id) => components.get(id))
   requireWhiteDwarfReferences(catalogs)

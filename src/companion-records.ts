@@ -1,5 +1,5 @@
 import type { Star } from './catalog-model.ts'
-import { uniqueDesignations } from './designations.ts'
+import { uniqueDesignations, combinedDesignations } from './designations.ts'
 import { reviewedStarSystems, starComponentIdentity } from './star-systems.ts'
 import { missingCatalogMeasurements } from './catalog-source.ts'
 
@@ -30,7 +30,7 @@ export function completeCompanionRecords(stars: readonly Star[], records: Readon
       ...component,
       id: star.id,
       ...(catalogSources.length ? { catalog_sources: catalogSources } : {}),
-      designations: uniqueDesignations([...component.designations ?? [], star.name, ...star.designations ?? []], component.name),
+      ...combinedDesignations(component, star.name, star, component.name),
     }
   })
   for (const star of stars) {
@@ -40,7 +40,8 @@ export function completeCompanionRecords(stars: readonly Star[], records: Readon
       if (present.has(starId)) continue
       const companion = records.get(starId)
       if (!companion) throw new Error(`Missing reviewed stellar component: ${starId}`)
-      result.push({ ...companion, designations: uniqueDesignations(companion.designations ?? [], companion.name) })
+      result.push(companion.designations === undefined && companion.catalog_detail_key ? companion
+        : { ...companion, designations: uniqueDesignations(companion.designations ?? [], companion.name) })
       present.add(starId)
     }
   }
