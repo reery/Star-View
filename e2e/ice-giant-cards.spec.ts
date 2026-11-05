@@ -2,9 +2,9 @@ import { expect, test } from '@playwright/test'
 
 for (const planet of [
   { id: 'uranus', temperature: '76 K', moons: ['Miranda', 'Ariel', 'Umbriel', 'Titania', 'Oberon'], imageWidth: 1080 },
-  { id: 'neptune', temperature: '72 K', moons: ['Proteus', 'Triton', 'Nereid'], imageWidth: 1080 },
+  { id: 'neptune', temperature: '72 K', moons: ['Naiad', 'Thalassa', 'Despina', 'Galatea', 'Larissa', 'Hippocamp', 'Proteus', 'Triton', 'Nereid'], imageWidth: 1080 },
 ]) {
-  test(`${planet.id} card supports globe comparison, Info and only major moons`, { tag: '@mobile' }, async ({ page }, testInfo) => {
+  test(`${planet.id} card supports globe comparison, Info and major moons`, { tag: '@mobile' }, async ({ page }, testInfo) => {
     const errors: string[] = []
     page.on('pageerror', (error) => errors.push(error.message))
     page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()) })
@@ -46,8 +46,11 @@ for (const planet of [
     await expect(page.locator('#planet-info')).toContainText('Voyager 2')
     await card.screenshot({ path: testInfo.outputPath(`${planet.id}-info.png`) })
     await page.locator('#planet-moons-toggle').click()
-    await expect(page.locator('#planet-moons h3')).toHaveText(planet.moons)
-    if (planet.id === 'neptune') await expect(page.locator('[data-planet-spec="moon-triton-sidereal-orbit"]')).toContainText('retrograde')
+    await expect(page.locator('#planet-moons .moon-row dt')).toHaveText(planet.moons)
+    if (planet.id === 'neptune') {
+      await page.locator('.moon-row[data-moon-id="triton"] button').click()
+      await expect(page.locator('[data-planet-spec="moon-triton-sidereal-orbit"]')).toContainText('retrograde')
+    }
     await expect(card).not.toContainText(/NaN|undefined/)
     await card.screenshot({ path: testInfo.outputPath(`${planet.id}-moons.png`) })
     // A zero-moon planet must reset the tab, comparison and moon content.

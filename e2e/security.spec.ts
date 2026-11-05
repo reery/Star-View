@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { openViewer } from './support'
+import { openViewer, openMotion } from './support'
 
 test.use({ bypassCSP: false })
 
@@ -19,7 +19,7 @@ test('runs under the strict production content security policy without violation
   await page.locator('#mass-toggle').click()
   await expect(page.locator('#mass-card')).toBeVisible()
   await page.locator('#mass-close').click()
-  await page.getByRole('button', { name: 'Stellar motion', exact: true }).click()
+  await openMotion(page)
   await expect(page.locator('.time-markers i').last()).toHaveCSS('left', /px$/)
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByLabel('Search objects').fill('Sun')

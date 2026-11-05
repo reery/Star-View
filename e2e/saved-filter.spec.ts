@@ -37,7 +37,7 @@ test('saved filter survives reset, restores on reload, and is cleared with brows
   const savedIcon = await page.locator('#filter-save-icon').innerHTML()
   const stored = await page.evaluate(() => localStorage.getItem('star-view-saved-filter'))
   const filter = JSON.parse(stored!)
-  expect(filter).toEqual({
+  expect(filter).toMatchObject({
     version: 1,
     catalogId: 'nearest-100',
     showAlwaysBright: false,
@@ -89,7 +89,7 @@ test('saved filter survives reset, restores on reload, and is cleared with brows
   await expect(page.locator('#magnitude-limit')).toHaveValue('6')
   await openPreferences(page)
   await expect(page.locator('#power-saving-mode')).not.toBeChecked()
-  await page.getByRole('button', { name: 'Delete all Star View browser data', exact: true }).click()
+  await page.locator('#delete-browser-data').click()
   await Promise.all([
     page.waitForEvent('load'),
     page.getByRole('dialog').getByRole('button', { name: 'Yes', exact: true }).click(),

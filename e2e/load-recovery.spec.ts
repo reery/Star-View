@@ -165,10 +165,11 @@ test('planet bootstrap failure keeps the System list usable and offers reload', 
   await page.locator('#object-system-toggle').click()
   await page.locator('.planet-row[data-planet-id="mars"] button').click()
   const system = page.locator('#object-system')
-  await expect(system.locator('[role="alert"]')).toContainText('Could not load planet details.')
-  await expect(system.getByRole('button', { name: 'Reload app', exact: true })).toBeVisible()
+  // The card opens at once and offers recovery in place, while the System list stays usable.
+  const card = page.locator('#planet-card')
+  await expect(card.locator('[role="alert"]')).toContainText('Could not load planet details.')
+  await expect(card.getByRole('button', { name: 'Reload app', exact: true })).toBeVisible()
   await expect(system.locator('.planet-row[data-planet-id="earth"]')).toBeVisible()
-  await expect(page.locator('#planet-card')).toBeHidden()
   expect(errors).toEqual([])
 })
 

@@ -150,7 +150,7 @@ test('dims retained system measurements and opens their scoped metallicity scale
   await expect(page.locator('#radius-toggle')).toBeDisabled()
   await expect(page.locator('#metallicity-toggle')).toBeEnabled()
   await page.locator('#metallicity-toggle').click()
-  await expect(page.locator('#metallicity-heading')).toHaveText('Metallicity [M/H] · system')
+  await expect(page.locator('#metallicity-heading')).toHaveText('Metallicity [Fe/H] · system')
   await expect(page.locator('#metallicity-scale')).toHaveAttribute('aria-label', /unresolved system measurement/)
   await expect(page.locator('#metallicity-description')).toContainText('individual metallicity is unavailable')
   await page.screenshot({ path: testInfo.outputPath('antinous-system-values.png') })

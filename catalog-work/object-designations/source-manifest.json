@@ -8,9 +8,9 @@
     "simbad.csv": "d2f31fe2362ae8b8b56b672e93ab48e144457ed5795e3b90fb905ffc78bdea12",
     "components.adql": "060f2470f9a4f0aedbca9c9393a7e33e1b4e154328ab4af6bb8e4ade02d4e07b",
     "components.csv": "4e0c1bec3a3089dc6acc19a250b460c7a2876fcc0cfdf0b2595afe44f4166291",
-    "extended.adql": "b71ac6c178582f6b728c0b51dcab0dbef3aae550dfeaaa720b07797dc1bffbea",
-    "extended.csv": "37942bc9c0fa7d3862b4b9c435a35f14eb6d49735b1654fa8bdbbe35d9e5c707",
-    "preferred-names.json": "e5e52cc050193d73b813b090ba75149481325c3a261ccdf6b2c72b830194eca7",
+    "extended.adql": "7f4ac3a5e516f412e6f6323c0827bc960d2d1c9bddb160bbc2f1ce5bde58fac8",
+    "extended.csv": "4cb52031bad4da09363a4f97da5a43269df1d6ee92a42e51642079245191a1e0",
+    "preferred-names.json": "7635421bbdfc1d465fd5e7d92856d55d3361cb6d42d2d57a854a5af8a1c1b247",
     "iau-names.csv": "ad39e5c1a6ec5d47f1da6f4595647ed2f5f663408d3d6500124ddf04cac188c9"
   },
   "iauSource": "https://iauarchive.eso.org/public/themes/naming_stars/",
@@ -43,5 +43,10 @@
       ],
       "note": "Fourth extended.adql query appended for nebula batch 3; vdB, vdBH, DG 174 and LBN 472 identifiers are omitted because SIMBAD attaches them to the illuminating stars. Earlier rows are unchanged."
     }
-  ]
+  ],
+  "compactExpansion": {
+    "retrieved": "2026-11-05",
+    "source": "https://simbad.harvard.edu/simbad/sim-tap/sync",
+    "note": "Rows for the 10000 light-year compact-object expansion, queried through SIMBAD's Harvard mirror because the CDS host was unreachable."
+  }
 }

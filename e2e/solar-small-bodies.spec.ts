@@ -24,8 +24,8 @@ test('Sun disclosures cover all small bodies and only the selected extra orbit',
   await page.locator('#selected-object-card').screenshot({ path: testInfo.outputPath('sun-system-groups.png') })
   await asteroids.locator('summary').click()
   await dwarfs.locator('summary').click()
-  await expect(asteroids.locator('.planet-row dt')).toHaveText(['Ceres', 'Vesta', 'Pallas', 'Hygiea'])
-  await expect(dwarfs.locator('.planet-row dt')).toHaveText(['Pluto', 'Eris', 'Haumea', 'Makemake', 'Gonggong', 'Quaoar', 'Orcus', 'Sedna', 'Salacia', 'Máni', 'Aya', 'Varda', 'Chiminigagua', 'Achlys'])
+  await expect(asteroids.locator('.planet-row dt')).toHaveText(['Vesta', 'Ceres', 'Pallas', 'Hygiea'])
+  await expect(dwarfs.locator('.planet-row dt')).toHaveText(['Orcus', 'Pluto', 'Achlys', 'Máni', 'Salacia', 'Haumea', 'Quaoar', 'Varda', 'Makemake', 'Aya', 'Chiminigagua', 'Gonggong', 'Eris', 'Sedna'])
   const ids = ['ceres','vesta','pallas','hygiea','pluto','eris','haumea','makemake','gonggong','quaoar','orcus','sedna','salacia','mani','aya','varda','chiminigagua','achlys']
   const moonless = new Set(['ceres','vesta','pallas','hygiea','sedna','aya'])
   for (const id of ids) {

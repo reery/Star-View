@@ -9,23 +9,23 @@
       "downloadUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/downloads/psrcat_pkg.tar.gz",
       "downloaded": "2026-10-26",
       "archiveSha256": "55daa29f71f344c8de4064969b5812d6cb3a9b851efae0bef004ac9d5f6740c0",
-      "subsetSha256": "b7d890737e6e975b19e015279cb7167d52c3c49a94c9f39640b901b2fd2cc9c8",
-      "glitchSubsetSha256": "5b45ffbd87d3ba834a128fe8daa23cba45345e9b6cff21add925bc81aa6a636d",
-      "selection": "Derived DIST > 0 && DIST <= 0.9198041814 kpc; no CAND or INTERIM type; verbatim psrcat.db records and their glitch.db rows",
-      "rows": 272,
+      "subsetSha256": "00b6d440bd282249e87c97afdebe84d43c7a4b6754446ce4603deed8257a7013",
+      "glitchSubsetSha256": "30066c806c1dc5d0fd436b4b0effaac8609d827bbf7a2db33aebb984462215a6",
+      "selection": "Reviewed or ATNF DIST <= 3.0660139380 kpc (10000 ly), and <= 0.9198041814 kpc when only a dispersion-measure model distance exists; no CAND or INTERIM type; verbatim psrcat.db records and their glitch.db rows",
+      "rows": 420,
       "previous": {
-        "catalogVersion": "2.8.1",
-        "downloaded": "2026-09-30",
-        "archiveSha256": "2ea143fc2c9a01184f5a94715422351c49ecf97cae26004ea4897e56421d4cbd",
-        "rows": 266,
-        "change": "All 266 pulsars remain selected. v2.9.0 adds J0657-4657, J0927-7641, J1207-45, J1752-2849_P, J1810-0623 and J2029-4239, and revises the distances of J0317+1328, J1231-1411 and J1455-3330."
+        "catalogVersion": "2.9.0",
+        "downloaded": "2026-10-26",
+        "archiveSha256": "55daa29f71f344c8de4064969b5812d6cb3a9b851efae0bef004ac9d5f6740c0",
+        "rows": 272,
+        "change": "Selection widened on 2026-11-05 from 3000 to 10000 light-years, requiring a distance independent of the dispersion-measure model beyond 3000 light-years. All 272 earlier pulsars remain selected."
       }
     },
     "blackcat": {
       "catalogVersion": "2025",
-      "reviewed": "2026-09-30",
-      "url": "https://www.sc.eso.org/~jcorral/BlackCAT/transients.php",
-      "result": "No catalogued black-hole X-ray transient lies within 3000 light-years; the nearest listed system, A0620-00, is at 1.06 kpc."
+      "reviewed": "2026-11-05",
+      "url": "https://arxiv.org/abs/1510.08869",
+      "result": "The live catalogue page was unreachable on 2026-11-05, so the catalogue paper and newer primary literature were reviewed; GRS 1716-249 was excluded after its distance was revised to 6.9 kpc."
     }
   },
   "curatedObjects": [
@@ -133,12 +133,696 @@
         "astrometry_ref": "El-Badry et al. 2024, Table 3 Gaia + RV joint fit, https://arxiv.org/abs/2402.06722",
         "radial_velocity_ref": "El-Badry et al. 2024, Table 3 systemic velocity, https://arxiv.org/abs/2402.06722"
       }
+    },
+    {
+      "type": "black_hole",
+      "id": "gaia-bh2",
+      "name": "Gaia BH2",
+      "ra_deg": 207.56978233,
+      "dec_deg": -59.23898075,
+      "distance_pc": 1160,
+      "constellation": "Centaurus",
+      "mass_solar": 8.9,
+      "mass_error_solar": 0.3,
+      "orbital_period_days": 1276.7,
+      "orbital_period_error_days": null,
+      "companion": "Red giant",
+      "confidence": "confirmed",
+      "detection_method": "Astrometric and spectroscopic binary orbit",
+      "distance_method": "Gaia DR3 orbital solution",
+      "source_label": "El-Badry et al. 2023",
+      "source_url": "https://arxiv.org/abs/2302.07880",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object.",
+      "eccentricity": 0.518,
+      "subtypes": [
+        "Spectroscopic binary"
+      ]
+    },
+    {
+      "type": "black_hole",
+      "id": "a0620-00",
+      "name": "A0620-00",
+      "ra_deg": 95.685593273,
+      "dec_deg": -0.345636239,
+      "distance_pc": 1435,
+      "constellation": "Monoceros",
+      "mass_solar": 5.86,
+      "mass_error_solar": 0.24,
+      "orbital_period_days": 0.323014,
+      "orbital_period_error_days": 1e-06,
+      "companion": "K-type main-sequence star",
+      "confidence": "confirmed",
+      "detection_method": "Dynamical mass of an X-ray binary",
+      "distance_method": "Gaia DR3 parallax (0.6969 +/- 0.1168 mas)",
+      "source_label": "van Grunsven et al. 2017",
+      "source_url": "https://arxiv.org/abs/1708.08209",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object. The Gaia distance replaces the older 1.06 kpc photometric estimate of Cantrell et al. 2010; the mass is the 2017 revision of their 6.6 M_sun.",
+      "distance_source": "Gaia DR3",
+      "position_source": "Gaia DR3 via SIMBAD",
+      "astrometry": {
+        "epoch": 2000.0,
+        "parallax_mas": 0.6969,
+        "parallax_error_mas": 0.1168,
+        "pm_ra_cosdec_masyr": -0.439,
+        "pm_ra_error_masyr": 0.108,
+        "pm_dec_masyr": -5.138,
+        "pm_dec_error_masyr": 0.096,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Gaia DR3 via SIMBAD, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": null
+      },
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ]
+    },
+    {
+      "type": "black_hole",
+      "id": "ogle-2011-blg-0462",
+      "name": "OGLE-2011-BLG-0462",
+      "ra_deg": 267.91729166,
+      "dec_deg": -29.89059722,
+      "distance_pc": 1520,
+      "constellation": "Sagittarius",
+      "mass_solar": 7.15,
+      "mass_error_solar": 0.83,
+      "orbital_period_days": null,
+      "orbital_period_error_days": null,
+      "companion": null,
+      "confidence": "confirmed",
+      "detection_method": "Astrometric microlensing",
+      "distance_method": "Microlensing parallax and astrometry (1.52 +/- 0.15 kpc)",
+      "source_label": "Sahu et al. 2025",
+      "source_url": "https://arxiv.org/abs/2503.07820",
+      "notes": "An isolated black hole. The sky position is that of the 2011 microlensing event, not of the black hole today.",
+      "subtypes": []
+    },
+    {
+      "type": "black_hole",
+      "id": "xte-j1118p480",
+      "name": "XTE J1118+480",
+      "ra_deg": 169.544971,
+      "dec_deg": 48.036754091,
+      "distance_pc": 1700,
+      "constellation": "Ursa Major",
+      "mass_solar": 7.55,
+      "mass_error_solar": 0.65,
+      "orbital_period_days": 0.17,
+      "orbital_period_error_days": null,
+      "companion": "K7–M1 dwarf",
+      "confidence": "confirmed",
+      "detection_method": "Dynamical mass of an X-ray binary",
+      "distance_method": "Photometric distance (1.7 +/- 0.1 kpc)",
+      "source_label": "Khargharia et al. 2013",
+      "source_url": "https://arxiv.org/abs/1211.2786",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object. Mass is the midpoint of the published 6.9-8.2 M_sun range; the distance is Gelino et al. 2006 as listed in BlackCAT (https://arxiv.org/abs/1510.08869).",
+      "distance_source": "Gelino et al. 2006",
+      "position_source": "SIMBAD",
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ]
+    },
+    {
+      "type": "black_hole",
+      "id": "cygnus-x-1",
+      "name": "Cygnus X-1",
+      "ra_deg": 299.59031556,
+      "dec_deg": 35.201606809,
+      "distance_pc": 2220,
+      "constellation": "Cygnus",
+      "mass_solar": 21.2,
+      "mass_error_solar": 2.2,
+      "orbital_period_days": 5.6,
+      "orbital_period_error_days": null,
+      "companion": "O9.7 Iab supergiant HDE 226868",
+      "confidence": "confirmed",
+      "detection_method": "Dynamical mass of an X-ray binary",
+      "distance_method": "VLBA radio parallax (2.22 +0.18/-0.17 kpc)",
+      "source_label": "Miller-Jones et al. 2021",
+      "source_url": "https://arxiv.org/abs/2102.09091",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object.",
+      "position_source": "Gaia DR3 via SIMBAD",
+      "astrometry": {
+        "epoch": 2000.0,
+        "parallax_mas": 0.4439,
+        "parallax_error_mas": 0.0149,
+        "pm_ra_cosdec_masyr": -3.812,
+        "pm_ra_error_masyr": 0.015,
+        "pm_dec_masyr": -6.31,
+        "pm_dec_error_masyr": 0.017,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Gaia DR3 via SIMBAD, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": null
+      },
+      "subtypes": [
+        "High-mass X-ray binary"
+      ]
+    },
+    {
+      "type": "black_hole",
+      "id": "v404-cygni",
+      "name": "V404 Cygni",
+      "ra_deg": 306.01593626,
+      "dec_deg": 33.867211431,
+      "distance_pc": 2390,
+      "constellation": "Cygnus",
+      "mass_solar": 9.0,
+      "mass_error_solar": 0.6,
+      "orbital_period_days": 6.47129,
+      "orbital_period_error_days": 7e-05,
+      "companion": "Early K giant; a wider third star orbits both",
+      "confidence": "confirmed",
+      "detection_method": "Dynamical mass of an X-ray binary",
+      "distance_method": "VLBI radio parallax (0.418 +/- 0.024 mas)",
+      "source_label": "Khargharia et al. 2010",
+      "source_url": "https://arxiv.org/abs/1004.5358",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object. The published mass interval is +0.2/-0.6 M_sun; the larger side is stored. The distance is Miller-Jones et al. 2009 (https://arxiv.org/abs/0910.5253).",
+      "distance_source": "Miller-Jones et al. 2009",
+      "position_source": "Gaia DR3 via SIMBAD",
+      "astrometry": {
+        "epoch": 2000.0,
+        "parallax_mas": 0.418,
+        "parallax_error_mas": 0.024,
+        "pm_ra_cosdec_masyr": -5.177,
+        "pm_ra_error_masyr": 0.079,
+        "pm_dec_masyr": -7.778,
+        "pm_dec_error_masyr": 0.092,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Parallax Miller-Jones et al. 2009, https://arxiv.org/abs/0910.5253; proper motion Gaia DR3 via SIMBAD",
+        "radial_velocity_ref": null
+      },
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ]
+    },
+    {
+      "type": "black_hole",
+      "id": "gro-j0422p32",
+      "name": "GRO J0422+32",
+      "ra_deg": 65.428011447,
+      "dec_deg": 32.907483098,
+      "distance_pc": 2490,
+      "constellation": "Perseus",
+      "mass_solar": 2.7,
+      "mass_error_solar": 0.7,
+      "orbital_period_days": 0.212,
+      "orbital_period_error_days": null,
+      "companion": "M-type dwarf",
+      "confidence": "confirmed",
+      "detection_method": "Dynamical mass of an X-ray binary",
+      "distance_method": "Photometric distance (2.49 +/- 0.30 kpc)",
+      "source_label": "Casares et al. 2022",
+      "source_url": "https://arxiv.org/abs/2207.01628",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object. The published mass interval is +0.7/-0.5 M_sun; the larger side is stored. It supersedes the 3.97 M_sun of Gelino & Harrison 2003, whose distance is kept (https://arxiv.org/abs/astro-ph/0308490).",
+      "distance_source": "Gelino & Harrison 2003",
+      "position_source": "SIMBAD",
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ]
+    },
+    {
+      "type": "black_hole",
+      "id": "gs-2000p25",
+      "name": "GS 2000+25",
+      "ra_deg": 300.70634183,
+      "dec_deg": 25.236286574,
+      "distance_pc": 2700,
+      "constellation": "Vulpecula",
+      "mass_solar": 7.15,
+      "mass_error_solar": 1.65,
+      "orbital_period_days": 0.3440873,
+      "orbital_period_error_days": 2e-07,
+      "companion": "K3–K7 dwarf",
+      "confidence": "confirmed",
+      "detection_method": "Dynamical mass of an X-ray binary",
+      "distance_method": "Photometric distance (2.7 +/- 0.7 kpc)",
+      "source_label": "Casares & Jonker 2014",
+      "source_url": "https://arxiv.org/abs/1311.5118",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object. Mass is the midpoint of the 5.5-8.8 M_sun range they list; the distance is Jonker & Nelemans 2004 as listed in BlackCAT (https://arxiv.org/abs/1510.08869).",
+      "distance_source": "Jonker & Nelemans 2004",
+      "position_source": "SIMBAD",
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ]
+    },
+    {
+      "type": "black_hole",
+      "id": "maxi-j1820p070",
+      "name": "MAXI J1820+070",
+      "ra_deg": 275.09142659,
+      "dec_deg": 7.1853569054,
+      "distance_pc": 2960,
+      "constellation": "Ophiuchus",
+      "mass_solar": 8.48,
+      "mass_error_solar": 0.79,
+      "orbital_period_days": 0.68549,
+      "orbital_period_error_days": 1e-05,
+      "companion": "K-type subgiant",
+      "confidence": "confirmed",
+      "detection_method": "Dynamical mass of an X-ray binary",
+      "distance_method": "VLBI radio parallax (0.348 +/- 0.033 mas)",
+      "source_label": "Torres et al. 2020",
+      "source_url": "https://arxiv.org/abs/2003.02360",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object. Mass assumes the binary shares its radio jet's 63 degree inclination; the published interval is +0.79/-0.72 M_sun and the larger side is stored. The distance is Atri et al. 2020 (https://arxiv.org/abs/1912.04525).",
+      "distance_source": "Atri et al. 2020",
+      "position_source": "Gaia DR3 via SIMBAD",
+      "astrometry": {
+        "epoch": 2000.0,
+        "parallax_mas": 0.348,
+        "parallax_error_mas": 0.033,
+        "pm_ra_cosdec_masyr": -3.093,
+        "pm_ra_error_masyr": 0.091,
+        "pm_dec_masyr": -6.286,
+        "pm_dec_error_masyr": 0.094,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Parallax Atri et al. 2020, https://arxiv.org/abs/1912.04525; proper motion Gaia DR3 via SIMBAD",
+        "radial_velocity_ref": null
+      },
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ]
+    },
+    {
+      "type": "neutron_star",
+      "id": "xmmu-j173203",
+      "name": "XMMU J173203.3-344518",
+      "ra_deg": 263.01375,
+      "dec_deg": -34.755,
+      "distance_pc": 2500,
+      "constellation": "Scorpius",
+      "mass_solar": null,
+      "mass_error_solar": null,
+      "orbital_period_days": null,
+      "orbital_period_error_days": null,
+      "companion": null,
+      "confidence": "confirmed",
+      "detection_method": "X-ray source at the centre of supernova remnant HESS J1731-347",
+      "distance_method": "Gaia distance of a related star",
+      "source_label": "Doroshenko et al. 2022",
+      "source_url": "https://www.nature.com/articles/s41550-022-01800-1",
+      "notes": "Modelled, unmeasured mass 0.77 +0.20/-0.17 M_sun from an X-ray atmosphere fit.",
+      "position_source": "SIMBAD",
+      "mass_model": {
+        "value_solar": 0.77,
+        "reference": "Doroshenko et al. 2022",
+        "source_url": "https://www.nature.com/articles/s41550-022-01800-1",
+        "scope": "Doroshenko et al. 2022 fitted this mass, with a range of 0.60 to 0.97 M☉, using a model of its X-ray spectrum. A lone neutron star has no companion to weigh it against."
+      },
+      "subtypes": []
+    },
+    {
+      "type": "neutron_star",
+      "id": "cxou-j085201",
+      "name": "CXOU J085201.4-461753",
+      "ra_deg": 133.00583333,
+      "dec_deg": -46.29805555,
+      "distance_pc": 900,
+      "constellation": "Vela",
+      "mass_solar": null,
+      "mass_error_solar": null,
+      "orbital_period_days": null,
+      "orbital_period_error_days": null,
+      "companion": null,
+      "confidence": "confirmed",
+      "detection_method": "X-ray source at the centre of supernova remnant Vela Jr",
+      "distance_method": "Supernova remnant distance estimate; published estimates span about 0.2-1 kpc",
+      "source_label": "Camilloni et al. 2023",
+      "source_url": "https://arxiv.org/abs/2303.12686",
+      "notes": "Plotted at the 900 pc upper estimate used by Ming et al. 2024 (https://arxiv.org/abs/2408.14573); no pulsations are known.",
+      "position_source": "SIMBAD",
+      "subtypes": []
+    },
+    {
+      "type": "neutron_star",
+      "id": "rx-j1605",
+      "name": "RX J1605.3+3249",
+      "ra_deg": 241.32874999,
+      "dec_deg": 32.818611111,
+      "distance_pc": 390,
+      "constellation": "Corona Borealis",
+      "mass_solar": null,
+      "mass_error_solar": null,
+      "orbital_period_days": null,
+      "orbital_period_error_days": null,
+      "companion": null,
+      "confidence": "confirmed",
+      "detection_method": "Thermal X-ray emission",
+      "distance_method": "Interstellar absorption estimate",
+      "source_label": "Posselt et al. 2007",
+      "source_url": "https://arxiv.org/abs/astro-ph/0609275",
+      "notes": "ATNF lists an unconfirmed 6.88 s period that later observations did not support, so no spin is shown; a 3.39 s candidate also awaits confirmation (Malacaria et al. 2019).",
+      "position_source": "SIMBAD",
+      "subtypes": []
+    },
+    {
+      "type": "neutron_star",
+      "id": "scorpius-x-1",
+      "name": "Scorpius X-1",
+      "ra_deg": 244.97945527,
+      "dec_deg": -15.64028268,
+      "distance_pc": 2327,
+      "constellation": "Scorpius",
+      "mass_solar": null,
+      "mass_error_solar": null,
+      "orbital_period_days": 0.7875,
+      "orbital_period_error_days": null,
+      "companion": "Low-mass star",
+      "confidence": "confirmed",
+      "detection_method": "X-ray binary",
+      "distance_method": "Gaia DR3 parallax (0.4297 +/- 0.022 mas)",
+      "source_label": "Steeghs & Casares 2002",
+      "source_url": "https://arxiv.org/abs/astro-ph/0107343",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object. The 18.9-hour period is Gottlieb et al. 1975, as cited.",
+      "distance_source": "Gaia DR3",
+      "position_source": "Gaia DR3 via SIMBAD",
+      "astrometry": {
+        "epoch": 2000.0,
+        "parallax_mas": 0.4297,
+        "parallax_error_mas": 0.022,
+        "pm_ra_cosdec_masyr": -7.185,
+        "pm_ra_error_masyr": 0.027,
+        "pm_dec_masyr": -12.332,
+        "pm_dec_error_masyr": 0.019,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Gaia DR3 via SIMBAD, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": null
+      },
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ]
+    },
+    {
+      "type": "neutron_star",
+      "id": "centaurus-x-4",
+      "name": "Centaurus X-4",
+      "ra_deg": 224.59139493,
+      "dec_deg": -31.66875428,
+      "distance_pc": 1897,
+      "constellation": "Centaurus",
+      "mass_solar": 1.51,
+      "mass_error_solar": 0.55,
+      "orbital_period_days": 0.6290522,
+      "orbital_period_error_days": 4e-07,
+      "companion": "K-type dwarf",
+      "confidence": "confirmed",
+      "detection_method": "Dynamical mass of an X-ray binary",
+      "distance_method": "Gaia DR3 parallax (0.5272 +/- 0.1259 mas)",
+      "source_label": "Hammerstein et al. 2018",
+      "source_url": "https://arxiv.org/abs/1806.00414",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object. The published mass interval is +0.40/-0.55 M_sun; the larger side is stored. The orbital period is cited by Shahbaz et al. 2014 (https://arxiv.org/abs/1402.1639).",
+      "distance_source": "Gaia DR3",
+      "position_source": "Gaia DR3 via SIMBAD",
+      "astrometry": {
+        "epoch": 2000.0,
+        "parallax_mas": 0.5272,
+        "parallax_error_mas": 0.1259,
+        "pm_ra_cosdec_masyr": 0.844,
+        "pm_ra_error_masyr": 0.154,
+        "pm_dec_masyr": -55.682,
+        "pm_dec_error_masyr": 0.127,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Gaia DR3 via SIMBAD, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": null
+      },
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ]
+    },
+    {
+      "type": "neutron_star",
+      "id": "vela-x-1",
+      "name": "Vela X-1",
+      "ra_deg": 135.528587,
+      "dec_deg": -40.55469421,
+      "distance_pc": 2015,
+      "constellation": "Vela",
+      "mass_solar": null,
+      "mass_error_solar": null,
+      "orbital_period_days": 8.964,
+      "orbital_period_error_days": null,
+      "companion": "B0.5 Ia supergiant HD 77581",
+      "confidence": "confirmed",
+      "detection_method": "Pulsed X-ray emission",
+      "distance_method": "Gaia DR3 parallax (0.4962 +/- 0.0152 mas)",
+      "source_label": "Kretschmar et al. 2021",
+      "source_url": "https://arxiv.org/abs/2104.13148",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object. Its mass remains uncertain because the orbit's tilt is poorly known.",
+      "distance_source": "Gaia DR3",
+      "position_source": "Gaia DR3 via SIMBAD",
+      "rotation_period_s": 283.0,
+      "astrometry": {
+        "epoch": 2000.0,
+        "parallax_mas": 0.4962,
+        "parallax_error_mas": 0.0152,
+        "pm_ra_cosdec_masyr": -4.822,
+        "pm_ra_error_masyr": 0.015,
+        "pm_dec_masyr": 9.282,
+        "pm_dec_error_masyr": 0.016,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Gaia DR3 via SIMBAD, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": null
+      },
+      "subtypes": [
+        "High-mass X-ray binary"
+      ]
+    },
+    {
+      "type": "neutron_star",
+      "id": "x-persei",
+      "name": "X Persei",
+      "ra_deg": 58.846157273,
+      "dec_deg": 31.045844398,
+      "distance_pc": 614,
+      "constellation": "Perseus",
+      "mass_solar": null,
+      "mass_error_solar": null,
+      "orbital_period_days": 250.5,
+      "orbital_period_error_days": 0.6,
+      "companion": "O9.5 III–B0 V Be star",
+      "confidence": "confirmed",
+      "detection_method": "Pulsed X-ray emission",
+      "distance_method": "Gaia DR3 parallax (1.6274 +/- 0.0375 mas)",
+      "source_label": "Sanjurjo-Ferrín et al. 2026",
+      "source_url": "https://arxiv.org/abs/2606.09579",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object.",
+      "distance_source": "Gaia DR3",
+      "position_source": "Gaia DR3 via SIMBAD",
+      "rotation_period_s": 837.6713,
+      "eccentricity": 0.11,
+      "astrometry": {
+        "epoch": 2000.0,
+        "parallax_mas": 1.6274,
+        "parallax_error_mas": 0.0375,
+        "pm_ra_cosdec_masyr": -1.282,
+        "pm_ra_error_masyr": 0.053,
+        "pm_dec_masyr": -1.869,
+        "pm_dec_error_masyr": 0.03,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Gaia DR3 via SIMBAD, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": null
+      },
+      "subtypes": [
+        "High-mass X-ray binary"
+      ],
+      "rotation_period_error_s": 0.0003
+    },
+    {
+      "type": "neutron_star",
+      "id": "ls-i-61-303",
+      "name": "LS I +61 303",
+      "ra_deg": 40.131935174,
+      "dec_deg": 61.229331644,
+      "distance_pc": 2648,
+      "constellation": "Cassiopeia",
+      "mass_solar": null,
+      "mass_error_solar": null,
+      "orbital_period_days": 26.5,
+      "orbital_period_error_days": null,
+      "companion": "B0 Ve star",
+      "confidence": "confirmed",
+      "detection_method": "Transient radio pulses",
+      "distance_method": "Gaia DR3 parallax (0.3776 +/- 0.013 mas)",
+      "source_label": "Weng et al. 2022",
+      "source_url": "https://arxiv.org/abs/2203.09423",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object.",
+      "distance_source": "Gaia DR3",
+      "position_source": "Gaia DR3 via SIMBAD",
+      "rotation_period_s": 0.26915508,
+      "rotation_period_error_s": 1.6e-07,
+      "astrometry": {
+        "epoch": 2000.0,
+        "parallax_mas": 0.3776,
+        "parallax_error_mas": 0.013,
+        "pm_ra_cosdec_masyr": -0.423,
+        "pm_ra_error_masyr": 0.011,
+        "pm_dec_masyr": -0.256,
+        "pm_dec_error_masyr": 0.012,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Gaia DR3 via SIMBAD, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": null
+      },
+      "subtypes": [
+        "High-mass X-ray binary"
+      ]
+    },
+    {
+      "type": "neutron_star",
+      "id": "a0535p26",
+      "name": "A0535+26",
+      "ra_deg": 84.727395382,
+      "dec_deg": 26.315788042,
+      "distance_pc": 1907,
+      "constellation": "Taurus",
+      "mass_solar": null,
+      "mass_error_solar": null,
+      "orbital_period_days": 111.0,
+      "orbital_period_error_days": null,
+      "companion": "Be star HDE 245770",
+      "confidence": "confirmed",
+      "detection_method": "X-ray binary outbursts",
+      "distance_method": "Gaia DR3 parallax (0.5245 +/- 0.0233 mas)",
+      "source_label": "Caballero et al. 2011",
+      "source_url": "https://arxiv.org/abs/1107.3417",
+      "notes": "The plotted position represents the unresolved binary-system location; mass refers to the compact object.",
+      "distance_source": "Gaia DR3",
+      "position_source": "Gaia DR3 via SIMBAD",
+      "astrometry": {
+        "epoch": 2000.0,
+        "parallax_mas": 0.5245,
+        "parallax_error_mas": 0.0233,
+        "pm_ra_cosdec_masyr": -0.59,
+        "pm_ra_error_masyr": 0.031,
+        "pm_dec_masyr": -2.88,
+        "pm_dec_error_masyr": 0.016,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Gaia DR3 via SIMBAD, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": null
+      },
+      "subtypes": [
+        "High-mass X-ray binary"
+      ]
     }
   ],
   "reviewedBinaries": {
-    "reviewed": "2026-10-26",
+    "reviewed": "2026-11-05",
     "policy": "Only individually measured pulsar and neutron-star companion masses from relativistic timing or optical spectroscopy, keyed by exact ATNF PSRJ name. Total-mass-only systems and model-dependent X-ray mass fits are not split into component masses.",
+    "adoptedDistances": {
+      "J0418+5732": {
+        "distance_pc": 2000,
+        "distance_method": "Assumed distance",
+        "source_label": "Durant et al. 2011",
+        "source_url": "https://arxiv.org/abs/1108.3340",
+        "note": "ATNF lists no distance. The commonly assumed 2 kpc is not a measurement."
+      },
+      "J0420-5022": {
+        "distance_pc": 345,
+        "distance_method": "Interstellar absorption estimate",
+        "source_label": "Posselt et al. 2007",
+        "source_url": "https://arxiv.org/abs/astro-ph/0609275",
+        "note": "ATNF lists no distance. An absorption estimate, not a parallax."
+      },
+      "J0613-0200": {
+        "distance_pc": 1000,
+        "distance_method": "Timing parallax",
+        "source_label": "Agazie et al. 2023",
+        "source_url": "https://arxiv.org/abs/2306.16217",
+        "note": "Replaces ATNF's 0.78 kpc (Desvignes et al. 2016) with the inverse of the 1.00(5) mas NANOGrav 15-year parallax as listed by ATNF; inside the 0.95-1.27 kpc range of Reardon et al. 2016."
+      },
+      "J0806-4123": {
+        "distance_pc": 240,
+        "distance_method": "Interstellar absorption estimate",
+        "source_label": "Posselt et al. 2007",
+        "source_url": "https://arxiv.org/abs/astro-ph/0609275",
+        "note": "ATNF lists no distance. 240 +/- 25 pc from sodium absorption, not a parallax."
+      },
+      "J1012+5307": {
+        "distance_pc": 877,
+        "distance_method": "VLBI parallax",
+        "source_label": "Ding et al. 2023",
+        "source_url": "https://arxiv.org/abs/2212.06351",
+        "note": "Replaces ATNF's 0.70 kpc (Verbiest et al. 2012); MSPSRpi Table 6 gives 0.877(35) kpc."
+      },
+      "J1024-0719": {
+        "distance_pc": 1080,
+        "distance_method": "VLBI parallax",
+        "source_label": "Ding et al. 2023",
+        "source_url": "https://arxiv.org/abs/2212.06351",
+        "note": "Replaces ATNF's 1.22 kpc (Bassa et al. 2016); MSPSRpi Table 6 gives 1.08(6) kpc."
+      },
+      "J1643-1224": {
+        "distance_pc": 950,
+        "distance_method": "VLBI parallax",
+        "source_label": "Ding et al. 2023",
+        "source_url": "https://arxiv.org/abs/2212.06351",
+        "note": "Replaces ATNF's 0.74 kpc (Reardon et al. 2016); MSPSRpi Table 6 gives 0.95 +0.15/-0.11 kpc."
+      },
+      "J1730-2304": {
+        "distance_pc": 510,
+        "distance_method": "VLBI parallax",
+        "source_label": "Ding et al. 2023",
+        "source_url": "https://arxiv.org/abs/2212.06351",
+        "note": "Replaces ATNF's 0.62 kpc (Reardon et al. 2016); MSPSRpi Table 6 gives 0.51(3) kpc."
+      },
+      "J1809-1943": {
+        "distance_pc": 2500,
+        "distance_method": "VLBI parallax",
+        "source_label": "Ding et al. 2020",
+        "source_url": "https://arxiv.org/abs/2008.06438",
+        "note": "First magnetar parallax, 0.40(5) mas, 2.5 +0.4/-0.3 kpc; replaces ATNF's 3.6 kpc (Verbiest et al. 2012)."
+      },
+      "J1856-3754": {
+        "distance_pc": 123,
+        "distance_method": "Parallax",
+        "source_label": "Walter et al. 2010",
+        "source_url": "https://arxiv.org/abs/1008.1709",
+        "note": "ATNF's 0.16 kpc (Verbiest et al. 2012) rests on the 6.2 mas parallax of van Kerkwijk & Kaplan 2007; Walter et al. 2010 redetermined it at 8.16 mas, 123 +11/-15 pc, adopted by Mignani et al. 2013."
+      },
+      "J1939+2134": {
+        "distance_pc": 2900,
+        "distance_method": "VLBI parallax",
+        "source_label": "Ding et al. 2023",
+        "source_url": "https://arxiv.org/abs/2212.06351",
+        "note": "Replaces ATNF's 3.5 kpc (Desvignes et al. 2016); MSPSRpi Table 6 gives 2.9 +0.3/-0.2 kpc."
+      },
+      "J2322-2650": {
+        "distance_pc": 800,
+        "distance_method": "Timing parallax",
+        "source_label": "Shamohammadi et al. 2024",
+        "source_url": "https://arxiv.org/abs/2401.06963",
+        "note": "Parallax 1.3(2) mas, 0.80 +0.18/-0.12 kpc, close to the 0.76 kpc model distance. Replaces ATNF's 2.0 kpc and supersedes the 4.4(12) mas, 230 pc of Spiewak et al. 2018, whose uncertainty is 6 times larger."
+      }
+    },
+    "modelledMasses": {
+      "J1856-3754": {
+        "value_solar": 1.4,
+        "reference": "Ho et al. 2007",
+        "source_url": "https://arxiv.org/abs/astro-ph/0612145",
+        "scope": "Ho et al. 2007 assumed this mass in the atmosphere model that fits its spectrum. A lone neutron star has no companion to weigh it against."
+      }
+    },
     "pulsarMasses": {
+      "J0337+1715": {
+        "mass_solar": 1.4359,
+        "mass_error_solar": 0.0003,
+        "source_label": "Archibald et al. 2018",
+        "source_url": "https://arxiv.org/abs/1807.02059"
+      },
+      "J0348+0432": {
+        "mass_solar": 1.806,
+        "mass_error_solar": 0.037,
+        "source_label": "Saffer et al. 2024",
+        "source_url": "https://arxiv.org/abs/2412.02850",
+        "note": "Supersedes the 2.01(4) M_sun of Antoniadis et al. 2013, which rested on a white-dwarf model."
+      },
       "J0437-4715": {
         "mass_solar": 1.418,
         "mass_error_solar": 0.044,
@@ -151,11 +835,37 @@
         "source_label": "Martinez et al. 2015",
         "source_url": "https://arxiv.org/abs/1509.08805"
       },
+      "J0737-3039A": {
+        "mass_solar": 1.338185,
+        "mass_error_solar": 1.4e-05,
+        "source_label": "Kramer et al. 2021",
+        "source_url": "https://arxiv.org/abs/2112.06795",
+        "note": "The published interval is +0.000012/-0.000014 M_sun; the larger side is stored."
+      },
+      "J0737-3039B": {
+        "mass_solar": 1.248868,
+        "mass_error_solar": 1.3e-05,
+        "source_label": "Kramer et al. 2021",
+        "source_url": "https://arxiv.org/abs/2112.06795",
+        "note": "The published interval is +0.000013/-0.000011 M_sun; the larger side is stored."
+      },
+      "J0740+6620": {
+        "mass_solar": 2.08,
+        "mass_error_solar": 0.07,
+        "source_label": "Fonseca et al. 2021",
+        "source_url": "https://arxiv.org/abs/2104.00880"
+      },
       "J1012+5307": {
         "mass_solar": 1.72,
         "mass_error_solar": 0.16,
         "source_label": "Mata Sánchez et al. 2020",
         "source_url": "https://arxiv.org/abs/2004.02901"
+      },
+      "J1537+1155": {
+        "mass_solar": 1.333,
+        "mass_error_solar": 0.0002,
+        "source_label": "Fonseca et al. 2014",
+        "source_url": "https://arxiv.org/abs/1402.4836"
       },
       "J1614-2230": {
         "mass_solar": 1.937,
@@ -193,6 +903,13 @@
         "source_url": "https://arxiv.org/abs/1509.08805"
       },
       {
+        "pulsar": "J1537+1155",
+        "mass_solar": 1.3455,
+        "mass_error_solar": 0.0002,
+        "source_label": "Fonseca et al. 2014",
+        "source_url": "https://arxiv.org/abs/1402.4836"
+      },
+      {
         "pulsar": "J1756-2251",
         "mass_solar": 1.23,
         "mass_error_solar": 0.007,
@@ -213,9 +930,12 @@
     "ATNF DIST is the catalogue-adopted distance: DIST_A, else a parallax above 3 sigma, else the YMW16 dispersion-measure distance bounded by DIST_AMN/DIST_AMX.",
     "Derived spin quantities follow psrcat v1.54 with a 10^45 g cm^2 moment of inertia; companion minimum and median masses assume a 1.35 M_sun pulsar at 90 and 60 degrees inclination.",
     "ATNF companion mass limits are not stored as pulsar masses; measured pulsar masses come only from the reviewed binary list.",
+    "A reviewed distance replaces the ATNF DIST only where ATNF rests on a measurement newer work supersedes; the ATNF value stays in the record's notes.",
+    "Modelled masses are kept apart from mass_solar in compact.mass_model and are never used as measurements.",
     "An ATNF uncertainty of 0 means no uncertainty was reported and is stored as null.",
     "Millisecond marks spin periods below 30 ms; Radio marks pulsars without the ATNF NRAD or XINS radio-quiet codes; other classes come from ATNF TYPE codes.",
     "Gaia NS1 remains explicitly marked as a candidate because a close double-white-dwarf alternative is disfavored but not fully excluded.",
-    "BlackCAT was checked for accreting black-hole transients; its nearest listed system is beyond the 3000-light-year boundary."
+    "Black-hole X-ray transients were reviewed from the BlackCAT catalogue paper and newer primary literature; the live BlackCAT page was unreachable on 2026-11-05.",
+    "A published mass range or asymmetric interval is stored as its midpoint or the larger side, as each record's notes state."
   ]
 }

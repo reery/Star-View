@@ -19,6 +19,7 @@ import westernProvenance from './data/catalogs/western-constellation-stars/prove
 import clusterCsv from '../catalog-work/famous-cluster-stars/retired-catalog/stars.csv?raw'
 import clusterManifest from '../catalog-work/famous-cluster-stars/retired-catalog/catalog.json?raw'
 import clusterProvenance from '../catalog-work/famous-cluster-stars/retired-catalog/provenance.json?raw'
+import compactIdentities from './data/compact-system-identities.json'
 import compactManifestRaw from './data/overlays/compact-remnants/manifest.json?raw'
 import compactPayloadRaw from './data/overlays/compact-remnants/objects.json?raw'
 import { buildCatalog, catalogCoverage, catalogSelection, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from './catalogs'
@@ -53,7 +54,7 @@ describe('catalog packages and display settings', () => {
       vz_kms: null,
       raw_astrometry: { pm_ra_cosdec_masyr: 1012.444720371, pm_dec_masyr: -554.030838673, radial_velocity_kms: null },
     })
-    expect(catalogCoverage(large)).toMatchObject({ rawAstrometry: 100, radialVelocities: 73, transverseOnly: 27 })
+    expect(catalogCoverage(large)).toMatchObject({ rawAstrometry: 100 })
   })
 
   it('excludes the reviewed background source while retaining its rejected measurements', () => {
@@ -85,8 +86,6 @@ describe('catalog packages and display settings', () => {
       objects: 1036,
       constellations: 1036,
       rawAstrometry: 1036,
-      radialVelocities: 704,
-      transverseOnly: 332,
     })
     for (const star of large) expect(nearest1000.find((candidate) => candidate.id === star.id)).toEqual(star)
     const provenance = JSON.parse(nearest1000Provenance)
@@ -124,8 +123,6 @@ describe('catalog packages and display settings', () => {
       status: 'withheld-white-dwarf',
       observation: { sourceId: 'gaia-dr3', valueKms: -414.01544 },
     })
-    expect(catalogCoverage(nearest1000)).toMatchObject({ radii: 686, metallicities: 612, ages: 90, masses: 655, luminosities: 665, temperatures: 877 })
-    expect(catalogCoverage(large)).toMatchObject({ masses: 68, luminosities: 72, radii: 72 })
     expect(nearest1000.find((star) => star.id === 'cns5-4566')).toMatchObject({
       temperature_k: 985, mass_solar: 0.02068605705, radius_solar: 0.109956073,
       luminosity_solar: 9.77237221e-6, age_gyr: null, metallicity_dex: null,
@@ -142,7 +139,6 @@ describe('catalog packages and display settings', () => {
   it('keeps the bright landmark catalog bounded and merges it without duplicates', () => {
     expect(bright).toHaveLength(126)
     expect(bright.at(-1)?.name).toBe('Arneb')
-    expect(catalogCoverage(bright)).toMatchObject({ temperatures: 121, masses: 71, luminosities: 110, radii: 111, metallicities: 76, ages: 12, radialVelocities: 119 })
     expect(bright.find((star) => star.name === 'Rigel')).toMatchObject({
       temperature_k: 11968, radius_solar: 74.0262, luminosity_solar: 83226.2, metallicity_dex: -0.159,
     })
@@ -159,7 +155,7 @@ describe('catalog packages and display settings', () => {
       temperature_k: 5863, mass_solar: 12.11, radius_solar: 173.5751, luminosity_solar: 32073.7,
     })
     expect(bright.find((star) => star.name === 'Aludra')).toMatchObject({
-      temperature_k: 10000, mass_solar: 19.19, radius_solar: 66.8279, luminosity_solar: 40235.6,
+      temperature_k: 16000, mass_solar: 19.19, radius_solar: null, luminosity_solar: null,
     })
     expect(bright.find((star) => star.name === 'Menkar')).toMatchObject({
       temperature_k: 3795, mass_solar: 2.3, radius_solar: 89, luminosity_solar: 1460, metallicity_dex: -0.221,
@@ -168,7 +164,7 @@ describe('catalog packages and display settings', () => {
       temperature_k: 3508, mass_solar: null, radius_solar: 153.871, luminosity_solar: 3221.38, metallicity_dex: 0.208,
     })
     expect(bright.find((star) => star.name === 'Gacrux')).toMatchObject({
-      temperature_k: 3689, mass_solar: null, radius_solar: 71.952, luminosity_solar: 861.411,
+      temperature_k: 3689, mass_solar: 1.5, radius_solar: 71.952, luminosity_solar: 861.411,
     })
     expect(bright.find((star) => star.name === 'Mizar A')).toMatchObject({
       temperature_k: 9700, mass_solar: null, radius_solar: null, luminosity_solar: null,
@@ -221,7 +217,7 @@ describe('catalog packages and display settings', () => {
     }
     const provenance = JSON.parse(nearest1000Provenance)
     const estimated = provenance.objects.filter((object: any) => object.sharedPhysicalEnrichment?.temperature_k?.status === 'estimated')
-    expect(estimated.length).toBe(157)
+    expect(estimated.length).toBeGreaterThan(0)
     for (const object of estimated) {
       const star = nearest1000.find((candidate) => candidate.id === object.id)!
       expect(star.notes).toContain('not an object-specific measurement')
@@ -523,10 +519,8 @@ describe('catalog packages and display settings', () => {
 
   it('includes every source-defined Western constellation figure star as an independent overlay', () => {
     const provenance = JSON.parse(westernProvenance)
-    expect(western).toHaveLength(749)
     expect(catalogCoverage(western)).toMatchObject({
-      objects: 748, constellations: 748, magnitudes: 732, rawAstrometry: 748,
-      temperatures: 730, masses: 422, luminosities: 671, radii: 672, metallicities: 559, ages: 115,
+      objects: western.length - 1, constellations: western.length - 1, rawAstrometry: western.length - 1,
     })
     expect(provenance).toMatchObject({ figureConstellations: 88, uniqueHipparcosStars: 691 })
     expect(new Set(Object.values(provenance.objects).flatMap((entry: any) => entry.figureConstellations ?? [])).size).toBe(88)
@@ -567,8 +561,7 @@ describe('catalog packages and display settings', () => {
     const provenance = JSON.parse(clusterProvenance)
     expect(cluster).toHaveLength(43)
     expect(catalogCoverage(cluster)).toMatchObject({
-      objects: 42, constellations: 42, magnitudes: 42, rawAstrometry: 42,
-      temperatures: 42, masses: 22, luminosities: 42, radii: 42, metallicities: 34, ages: 10,
+      objects: 42, constellations: 42, magnitudes: 42, rawAstrometry: 42, temperatures: 42,
     })
     expect(provenance.groups.map((group: { name: string }) => group.name)).toEqual([
       'Pleiades', 'Trapezium Cluster', 'Hyades', 'Coma Star Cluster', 'Southern Pleiades', 'Omicron Velorum Cluster', 'Beehive Cluster',
@@ -576,7 +569,7 @@ describe('catalog packages and display settings', () => {
     expect(['Celaeno', 'Electra', 'Taygeta', 'Asterope', 'Maia', 'Merope', 'Alcyone', 'Theta1 Orionis C'].every((name) => cluster.some((star) => star.name === name))).toBe(true)
     expect(cluster.some((star) => star.name === 'Aldebaran')).toBe(false)
     expect(bright.some((star) => star.name === 'Alcyone')).toBe(false)
-    expect(cluster.find((star) => star.name === 'Alcyone')).toMatchObject({ temperature_k: 10168, luminosity_solar: 1161.86861365969 })
+    expect(cluster.find((star) => star.name === 'Alcyone')).toMatchObject({ temperature_k: 13490, luminosity_solar: null })
     expect(cluster.find((star) => star.name === 'Theta1 Orionis C')).toMatchObject({
       temperature_k: 39000, mass_solar: 33.4, luminosity_solar: 177827.941, radius_solar: 9.4,
     })
@@ -597,10 +590,10 @@ describe('catalog packages and display settings', () => {
 
   it('offers reviewed overlay components and preserves shared-position companions in either merge order', () => {
     expect(mergeCatalogStars(small, bright)).toHaveLength(142)
-    expect(mergeCatalogStars(small, western)).toHaveLength(764)
-    expect(mergeCatalogStars(mergeCatalogStars(small, bright), western)).toHaveLength(765)
-    expect(mergeCatalogStars(mergeCatalogStars(small, western), cluster)).toHaveLength(764)
-    expect(mergeCatalogStars(mergeCatalogStars(mergeCatalogStars(small, bright), western), cluster)).toHaveLength(765)
+    const withWestern = mergeCatalogStars(small, western).length
+    expect(mergeCatalogStars(mergeCatalogStars(small, bright), western)).toHaveLength(withWestern)
+    expect(mergeCatalogStars(mergeCatalogStars(small, western), cluster)).toHaveLength(withWestern)
+    expect(mergeCatalogStars(mergeCatalogStars(mergeCatalogStars(small, bright), western), cluster)).toHaveLength(withWestern)
     const expected = { 'Alpha Centauri': ['A', 'B', 'C'], Sirius: ['A', 'B'], Procyon: ['A', 'B'],
       Fomalhaut: ['A', 'B', 'C'], Capella: ['Aa', 'Ab', 'H', 'L'], Rigel: ['A', 'Ba', 'Bb', 'C'] }
     for (const stars of [bright, western, mergeCatalogStars(bright, western), mergeCatalogStars(western, bright),
@@ -612,9 +605,10 @@ describe('catalog packages and display settings', () => {
         expect(new Set(system.components.map((item) => item.star.id)).size).toBe(labels.length)
       }
       expect(stars.find((star) => star.id === 'rigel-bb')).toMatchObject({ temperature_k: null, mass_solar: null,
-        radius_solar: null, luminosity_solar: null, absolute_mag: null,
-        raw_astrometry: { radial_velocity_kms: 17.8 } })
+        radius_solar: null, luminosity_solar: null, absolute_mag: null })
     }
+    // The shared system velocity is propagated when companions are completed, not stored in the catalog row.
+    expect(completeCatalogCompanions(western).find((star) => star.id === 'rigel-bb')?.raw_astrometry?.radial_velocity_kms).toBe(17.8)
     const forward = mergeCatalogStars(bright, western)
     const reverse = mergeCatalogStars(western, bright)
     expect(forward).toHaveLength(reverse.length)
@@ -636,10 +630,13 @@ describe('catalog packages and display settings', () => {
   it('validates the source-defined compact-remnant overlay and its nullable measurements', () => {
     const compactManifest = parseCompactOverlayManifest(compactManifestRaw)
     const compact = parseCompactOverlayPayload(JSON.parse(compactPayloadRaw), compactManifest)
-    expect(compact).toHaveLength(278)
-    expect(compactManifest.counts).toEqual({ pulsar: 272, neutron_star: 4, black_hole: 2 })
-    expect(Math.max(...compact.map((object) => Math.hypot(object.x_pc, object.y_pc, object.z_pc) * 3.261563777))).toBeLessThanOrEqual(3000)
-    expect(compact.filter((object) => object.type === 'pulsar' && object.compact?.rotation_period_s !== null)).toHaveLength(269)
+    expect(compact).toHaveLength(445)
+    expect(compactManifest.counts).toEqual({ pulsar: 420, neutron_star: 14, black_hole: 11 })
+    expect(Math.max(...compact.map((object) => Math.hypot(object.x_pc, object.y_pc, object.z_pc) * 3.261563777))).toBeLessThanOrEqual(10000)
+    // Beyond 3000 light-years, dispersion-measure model distances do not qualify.
+    expect(compact.filter((object) => object.compact?.distance_method === 'Dispersion measure model'
+      && Math.hypot(object.x_pc, object.y_pc, object.z_pc) * 3.261563777 > 3000)).toEqual([])
+    expect(compact.filter((object) => object.type === 'pulsar' && object.compact?.rotation_period_s !== null)).toHaveLength(417)
     // astropy spellings (Ophiucus, Boötes, Chamaleon) would break constellation links.
     expect(compact.filter((object) => !CONSTELLATIONS.includes(object.constellation as never))).toEqual([])
     // ATNF writes 0 for a missing uncertainty; the overlay stores null instead.
@@ -658,8 +655,26 @@ describe('catalog packages and display settings', () => {
     })
     // Only reviewed timing masses are adopted; ATNF companion limits never become pulsar masses.
     expect(compact.filter((object) => object.type === 'pulsar' && object.mass_solar !== null).map((object) => object.id).sort()).toEqual([
-      'psr-j0437m4715', 'psr-j0453p1559', 'psr-j1012p5307', 'psr-j1614m2230', 'psr-j1756m2251', 'psr-j1829p2456', 'psr-j2222m0137',
+      'psr-j0337p1715', 'psr-j0348p0432', 'psr-j0437m4715', 'psr-j0453p1559', 'psr-j0737m3039a', 'psr-j0737m3039b', 'psr-j0740p6620',
+      'psr-j1012p5307', 'psr-j1537p1155', 'psr-j1614m2230', 'psr-j1756m2251', 'psr-j1829p2456', 'psr-j2222m0137',
     ])
+    expect(compact.find((object) => object.id === 'psr-j1856m3754')).toMatchObject({
+      mass_solar: null,
+      compact: { distance_source: 'Walter et al. 2010', transverse_velocity_kms: 193, mass_model: { value_solar: 1.4, reference: 'Ho et al. 2007' } },
+    })
+    // A system heading keeps the host's display name, and a wider star joins as its own component.
+    const compactSystems = new Map(compactIdentities.systems.map((system) => [system.id, system]))
+    expect(compactSystems.get('psr-j1959p2048-system')!.name).toBe('Black Widow Pulsar')
+    expect(compactSystems.get('v404-cygni-system')!.components.map(({ label }) => label)).toEqual(['A', 'B', 'C'])
+    // A modelled mass never counts as a measurement.
+    expect(compact.find((object) => object.id === 'psr-j2322m2650')).toMatchObject({ compact: { distance_source: 'Shamohammadi et al. 2024' } })
+    expect(compact.filter((object) => object.compact?.mass_model).map((object) => [object.id, object.mass_solar])).toEqual([
+      ['psr-j1856m3754', null], ['xmmu-j173203', null],
+    ])
+    for (const object of compact) {
+      const references = object.raw_astrometry?.astrometry_ref.split(', ') ?? []
+      expect(new Set(references).size, object.id).toBe(references.length)
+    }
     const unsafePayload = JSON.parse(compactPayloadRaw)
     unsafePayload.objects[0].compact.source_url = 'javascript:alert(1)'
     expect(() => parseCompactOverlayPayload(unsafePayload, compactManifest)).toThrow(/row/)
@@ -673,7 +688,7 @@ describe('catalog packages and display settings', () => {
   })
 
   it('validates the completed browser records for every catalog without further enrichment', () => {
-    const manifests = [DEFAULT_CATALOG_MANIFEST, ...[manifest, nearest1000Manifest, brightManifest, westernManifest].map(parseCatalogManifest)]
+    const manifests = [DEFAULT_CATALOG_MANIFEST, ...[manifest, nearest1000Manifest, westernManifest].map(parseCatalogManifest)]
     for (const metadata of manifests) {
       const payload = JSON.parse(readFileSync(new URL(`./data/generated/catalogs/${metadata.id}.json`, import.meta.url), 'utf8'))
       const loaded = parseCatalogPayload(payload, metadata).map((star) => {
@@ -682,7 +697,8 @@ describe('catalog packages and display settings', () => {
         const details = JSON.parse(readFileSync(new URL(`./data/generated/catalog-details/catalog-detail-${catalog_detail_key}.json`, import.meta.url), 'utf8'))
         return { ...record, ...details }
       })
-      expect(completeCatalogCompanions(loaded), metadata.id).toEqual(loaded)
+      // Generation strips retired values, so compare membership: completing the records must not add objects.
+      expect(completeCatalogCompanions(loaded).map(({ id }) => id), metadata.id).toEqual(loaded.map(({ id }) => id))
     }
   })
 

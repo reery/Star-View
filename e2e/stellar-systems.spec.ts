@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { motionArrows, openViewer, selectCatalog, selectObject } from './support'
+import { motionArrows, openViewer, selectCatalog, selectObject, openMotion } from './support'
 
 test('star selections retain the exact system component through controls and history', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
@@ -120,7 +120,7 @@ test('orbit coverage audit restores nearby systems and nested pair controls', as
   await system.getByRole('button', { name: 'Show AC–B orbit', exact: true }).click()
   await expect(system.locator('[data-stellar-component]')).toHaveCount(3)
   await page.locator('#selected-object-card').screenshot({ path: testInfo.outputPath('gj-1245-outer-orbit.png') })
-  await selectObject(page, 'eps Ind A', { keepListOpen: true })
+  await selectObject(page, 'Epsilon Indi A', { keepListOpen: true })
   await expect(page.locator('#star-components button')).toHaveCount(3)
   await expect(system.getByRole('button', { name: 'Show Ba–Bb orbit', exact: true })).toBeVisible()
   await page.locator('#star-components [data-component-id="10pc-0043"]').click()
@@ -135,7 +135,7 @@ test('empty System tabs are disabled and the Sun planet view remains available',
   await selectObject(page, 'Sun', { keepListOpen: true })
   await expect(page.locator('#object-system-toggle')).toBeEnabled()
   await page.locator('#object-system-toggle').click()
-  await expect(page.locator('#object-system .planet-row')).toHaveCount(8)
+  await expect(page.locator('#object-system [data-orbit-id]')).toHaveCount(8)
 })
 
 
@@ -162,7 +162,7 @@ test('close systems draw the brightest star plus explicitly selected companions'
   await expect(label('10pc-0089')).toHaveCount(0)
   await page.screenshot({ path: testInfo.outputPath('gj1245-selected-companion.png'), fullPage: true })
   // Linear simulation retains the explicitly selected companion.
-  await page.getByRole('button', { name: 'Stellar motion', exact: true }).click()
+  await openMotion(page)
   await page.locator('#time-slider').fill('50000')
   await expect(label('10pc-0088')).toHaveAttribute('data-core-visible', 'true')
   await page.locator('#time-slider').fill('0')

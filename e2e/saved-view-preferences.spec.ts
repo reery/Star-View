@@ -10,9 +10,9 @@ async function openViewer(page: Page) {
 for (const legacy of [false, true]) {
   test(`loading ${legacy ? 'an older' : 'a new'} saved view preserves current preferences @mobile`, async ({ page }) => {
     await openViewer(page)
-    const rail = page.locator('#control-dock .panel-button')
+    const rail = page.locator('#control-dock .panel-button:not(#discover-options *)')
     expect(await rail.evaluateAll((buttons) => buttons.map((button) => button.getAttribute('aria-label'))))
-      .toEqual(['Stellar motion', 'Filter', 'Objects', 'Glossary', 'Preferences', 'Info'])
+      .toEqual(['Filter', 'Objects', 'Glossary', 'Preferences', 'Info'])
     const glossary = await page.locator('#glossary-toggle').boundingBox()
     const preferences = await page.locator('#preferences-toggle').boundingBox()
     expect(preferences!.y).toBeGreaterThan(glossary!.y + glossary!.height)

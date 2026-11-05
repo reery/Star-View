@@ -18,12 +18,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/notable-distant-stars"
-COMPANION_FILES = [WORK / "pulsar-companions.json", WORK / "gaia-companions.json"]
+COMPANION_FILES = [WORK / "pulsar-companions.json", WORK / "gaia-companions.json", WORK / "binary-companions.json"]
 NEUTRON_STARS = ROOT / "catalog-work/compact-remnants/pulsar-binaries.json"
 COMPACT = ROOT / "src/data/overlays/compact-remnants/objects.json"
 WESTERN = ROOT / "src/data/catalogs/western-constellation-stars/stars.csv"
 OUTPUT = ROOT / "src/data/catalogs/notable-distant-stars"
 IDENTITIES = ROOT / "src/data/compact-system-identities.json"
+PREFERRED_NAMES = ROOT / "catalog-work/object-designations/preferred-names.json"
 ORBITS = ROOT / "src/data/compact-system-orbits.json"
 DAYS_PER_YEAR = 365.25
 SOLAR_TEMPERATURE_K = 5772
@@ -36,35 +37,42 @@ def number(value):
 
 def companion_row(source, host, header):
     astrometry = host["raw_astrometry"] or {}
-    mass = source["mass_source"]
-    notes = [
-        f"Companion of {host['name']} in its {host['compact']['orbital_period_days']:.4g}-day orbit. {source['note']}",
-        f"Mass {source['mass_solar']} ± {source['mass_error_solar']} M_sun: {mass['label']}, {mass['url']}.",
-    ]
+    mass = source.get("mass_source")
+    component = source.get("component", "B")
+    period = host["compact"]["orbital_period_days"]
+    # A wider outer star or an unmeasured orbit has no inner-binary period to quote.
+    in_orbit = f" in its {period:.4g}-day orbit" if period is not None and component == "B" else ""
+    notes = [f"Companion of {host['name']}{in_orbit}. {source['note']}"]
+    if mass:
+        uncertainty = f"{source['mass_solar']} ± {source['mass_error_solar']}" if source.get("mass_error_solar") is not None else f"about {source['mass_solar']}"
+        notes.append(f"Mass {uncertainty} M_sun: {mass['label']}, {mass['url']}.")
     luminosity = source.get("luminosity_solar")
     atmosphere = source.get("atmosphere_source")
     if source.get("temperature_k") is not None:
         temperature = source.get("temperature_source", atmosphere)
-        notes.append(f"Effective temperature {source['temperature_k']} ± {source['temperature_error_k']} K: {temperature['label']}, {temperature['url']}.")
+        uncertainty = f" ± {source['temperature_error_k']}" if source.get("temperature_error_k") is not None else ""
+        notes.append(f"Effective temperature {source['temperature_k']}{uncertainty} K: {temperature['label']}, {temperature['url']}.")
     if source.get("radius_solar") is not None:
         notes.append(f"Radius {source['radius_note']}: {atmosphere['label']}, {atmosphere['url']}.")
     if luminosity is not None:
         notes.append(f"Luminosity {source['luminosity_note']}: {atmosphere['label']}, {atmosphere['url']}.")
-    elif source.get("radius_solar") is not None:
+    elif source.get("radius_solar") is not None and source.get("temperature_k") is not None:
         # Stefan-Boltzmann luminosity from the companion's own radius and temperature.
         luminosity = float(f"{source['radius_solar'] ** 2 * (source['temperature_k'] / SOLAR_TEMPERATURE_K) ** 4:.3g}")
         notes.append("Luminosity is derived from that radius and temperature.")
     for field in ("metallicity", "age"):
         if source.get(f"{field}_note"):
             notes.append(f"{field.capitalize()} {source[f'{field}_note']}: {atmosphere['label']}, {atmosphere['url']}.")
-    if astrometry.get("radial_velocity_kms") is None:
+    if host["type"] != "pulsar" and astrometry.get("radial_velocity_kms") is None:
+        notes.append(f"Position{' and motion are' if astrometry else ' is'} the unresolved system's: {astrometry.get('astrometry_ref') or host['compact']['position_source']}. No radial velocity is adopted.")
+    elif astrometry.get("radial_velocity_kms") is None:
         notes.append(f"Position, parallax and proper motion are the pulsar system's: {host['notes'].split(' Mass ')[0]} No radial velocity is adopted.")
     else:
         notes.append(f"Position and motion are the unresolved system's: {astrometry['astrometry_ref']}; {astrometry['radial_velocity_ref']}.")
     values = {
         "type": source["type"],
-        "id": f"{host['id']}-b",
-        "name": f"{host['name']} B",
+        "id": f"{host['id']}-{component.lower()}",
+        "name": f"{host['name']} {component}",
         "designations": "|".join(source.get("designations", [])),
         "spectral_type": source["spectral_type"] or "",
         "x_pc": number(host["x_pc"]),
@@ -74,7 +82,7 @@ def companion_row(source, host, header):
         "metallicity_dex": number(source.get("metallicity_dex")),
         "metallicity_kind": "[Fe/H]" if source.get("metallicity_dex") is not None else "",
         "age_gyr": number(source.get("age_gyr")),
-        "mass_solar": number(source["mass_solar"]),
+        "mass_solar": number(source.get("mass_solar")),
         "luminosity_solar": number(luminosity),
         "radius_solar": number(source.get("radius_solar")),
         "epoch": "2000.0",
@@ -97,11 +105,15 @@ def companion_row(source, host, header):
     return [values.get(field, "") for field in header]
 
 
-def orbit(pulsar, companion_mass):
+def orbit(pulsar, companion_mass, range_years=None):
     """Pulsar timing or published binary orbit; Kepler's law with both measured masses gives the relative axis."""
     details = pulsar["compact"]
     timing = pulsar["type"] == "pulsar"
-    period_years = details["orbital_period_days"] / DAYS_PER_YEAR
+    # A published range with no timing orbit is stored at its midpoint, and the scope says so.
+    period_years = sum(range_years) / 2 if range_years else details["orbital_period_days"] / DAYS_PER_YEAR
+    measured = pulsar["mass_solar"] is not None and companion_mass is not None
+    axis = float(f"{((pulsar['mass_solar'] + companion_mass) * period_years ** 2) ** (1 / 3):.4g}") if measured else None
+    derivation = "the relative semi-major axis follows from Kepler's third law with both measured masses." if measured else "the semi-major axis is not adopted because a component mass is unmeasured."
     return {"systemId": f"{pulsar['id']}-system", "name": pulsar["name"], "orbits": [{
         "id": f"{pulsar['id']}-system-0",
         "primary": "A",
@@ -109,7 +121,7 @@ def orbit(pulsar, companion_mass):
         "primaryIds": [pulsar["id"]],
         "secondaryIds": [f"{pulsar['id']}-b"],
         "periodYears": period_years,
-        "semiMajorAxisAu": float(f"{((pulsar['mass_solar'] + companion_mass) * period_years ** 2) ** (1 / 3):.4g}"),
+        "semiMajorAxisAu": axis,
         "eccentricity": details["eccentricity"],
         "inclinationDeg": None,
         "nodeDeg": None,
@@ -122,7 +134,7 @@ def orbit(pulsar, companion_mass):
         "sourceUrl": ATNF_URL if timing else details["source_url"],
         "nodeAmbiguous": True,
         "argumentComponent": None,
-        "scope": f"Period and eccentricity from {'pulsar timing' if timing else 'the published orbit'}; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+        "scope": f"{f'Period is the midpoint of the published {range_years[0]:,}-{range_years[1]:,} year range; ' if range_years else ''}Period and eccentricity from {'pulsar timing' if timing and not range_years else 'the published orbit'}; {derivation} The orbit's orientation on the sky is not adopted.",
         "axisDerivation": None,
     }]}
 
@@ -141,7 +153,7 @@ def build():
     writer = csv.writer(buffer, lineterminator="\n")
     writer.writerow(header)
     writer.writerows(rows)
-    sources = {(source["mass_source"]["label"], source["mass_source"]["url"]) for source in companions}
+    sources = {(source["mass_source"]["label"], source["mass_source"]["url"]) for source in companions if "mass_source" in source}
     sources |= {(source[key]["label"], source[key]["url"]) for source in companions for key in ("temperature_source", "atmosphere_source") if key in source}
     manifest = {
         "schemaVersion": 1,
@@ -154,24 +166,29 @@ def build():
                     *({"name": f"{host['compact']['source_label']}; system orbit and astrometry", "url": host["compact"]["source_url"]}
                       for host in (compact[source["host"]] for source in companions) if host["type"] != "pulsar"),
                     *({"name": label, "url": url} for label, url in sorted(sources))],
-        "cutoffPolicy": "Explicitly reviewed members of notable systems only; no magnitude or distance cutoff. Companions of compact objects need an individually measured mass. Sun is included only as the map origin.",
+        "cutoffPolicy": "Explicitly reviewed members of notable systems only; no magnitude or distance cutoff. Luminous companions of compact objects are included with whichever individual values are published. Sun is included only as the map origin.",
         "snapshot": f"J2000 map positions from the compact-remnant overlay; companion measurements reviewed {max(reviewed['reviewed'] for reviewed in reviewed_files)}.",
     }
     provenance = {
         "schemaVersion": 1,
         "catalogId": "notable-distant-stars",
         "policy": " ".join(reviewed["policy"] for reviewed in reviewed_files),
-        "objects": {f"{source['host']}-b": {"hostId": source["host"], **source} for source in companions},
+        "objects": {f"{source['host']}-{source.get('component', 'B').lower()}": {"hostId": source["host"], **source} for source in companions},
     }
     # Runtime system identities: each compact object is component A, its measured companion B.
-    pairs = sorted([*(source["host"] for source in companions), *(f"psr-{source['pulsar'].lower().replace('+', 'p').replace('-', 'm')}" for source in neutron_stars)])
+    inner = [source for source in companions if source.get("component", "B") == "B"]
+    pairs = sorted([*(source["host"] for source in inner), *(f"psr-{source['pulsar'].lower().replace('+', 'p').replace('-', 'm')}" for source in neutron_stars)])
+    outer = {source["host"]: source["component"] for source in companions if source.get("component", "B") != "B"}
+    preferred = json.loads(PREFERRED_NAMES.read_text())
     identities = {"systems": [
-        {"id": f"{pulsar}-system", "name": compact[pulsar]["name"], "components": [
-            {"starId": pulsar, "label": "A"}, {"starId": f"{pulsar}-b", "label": "B"}]}
+        {"id": f"{pulsar}-system", "name": preferred.get(pulsar, {}).get("name", compact[pulsar]["name"]), "components": [
+            {"starId": pulsar, "label": "A"}, {"starId": f"{pulsar}-b", "label": "B"},
+            *([{"starId": f"{pulsar}-{outer[pulsar].lower()}", "label": outer[pulsar]}] if pulsar in outer else [])]}
         for pulsar in pairs]}
-    companion_masses = {source["host"]: source["mass_solar"] for source in companions}
+    companion_masses = {source["host"]: source.get("mass_solar") for source in inner}
+    period_ranges = {source["host"]: source["orbit_period_range_years"] for source in inner if "orbit_period_range_years" in source}
     companion_masses.update({f"psr-{source['pulsar'].lower().replace('+', 'p').replace('-', 'm')}": source["mass_solar"] for source in neutron_stars})
-    orbits = {"schemaVersion": 1, "systems": [orbit(compact[pulsar], companion_masses[pulsar]) for pulsar in pairs]}
+    orbits = {"schemaVersion": 1, "systems": [orbit(compact[pulsar], companion_masses[pulsar], period_ranges.get(pulsar)) for pulsar in pairs]}
     return {
         OUTPUT / "stars.csv": buffer.getvalue(),
         ORBITS: json.dumps(orbits, indent=2) + "\n",

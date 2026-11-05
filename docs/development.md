@@ -84,11 +84,24 @@ PLAYWRIGHT_CHANNEL=chrome npm run test:e2e
 
 Set `PLAYWRIGHT_PORT=4174` (or another unused port) if 4173 is occupied. Tests create and stop a preview server; they will not take over an existing server.
 
+### Before a release
+
+Day-to-day development runs only the focused tests for a change. The full suite is the checkpoint for each version bump, and nothing runs it automatically: this repository has no CI or git hooks.
+
+```sh
+npm version <new-version> --no-git-tag-version
+npm test
+npm run test:e2e
+npm run catalog:preservation
+```
+
+The browser suite takes about 15 minutes (about 400 tests on two workers), and a run with many failures takes longer because failing tests wait for their timeouts. Read a failure before changing its test: it may be a stale expectation, or a real regression that updating the test would hide. To rerun only the failures from the previous run, use `npx playwright test --last-failed`.
+
 `npm run test:e2e` rebuilds before launching the preview server. The browser suite checks exact-black canvas background pixels, actual temperature-colored object pixels, near/far pixel occlusion after rotating overlapping stars, selected-object centering, all-catalog reset, pixel changes after orbit/pinch, fixed name offsets during damped orbit, foreground selected names through collisions and clipping, selectable travel horizons with fixed arrowheads and strokes, dashed transverse and solid full-motion shaft pixels, arrow visibility through overlaps, dot attachment and camera-dependent headings, known/unknown motion readouts, independent keyboard-operated disclosures, click/tap/keyboard selection and empty-sky deselection, clipped labels, layout boundaries, local assets, and usable catalog details when WebGL is unavailable. Screenshots are written under `test-results` and failure traces are retained. Generated test artifacts are ignored by Git.
 
 The initial implementation was verified with installed Chrome on macOS, using desktop and touch-emulated mobile tests. The managed Chromium download timed out. Safari/WebKit, a physical mobile device, and packaged desktop behavior have not been verified.
 
-Visual-polish regressions additionally sample the gap-free core-to-halo falloff, stronger unselected Sirius glow than Barnard's, reversible selection gain without changing core pixels, grid fade toward the edge, selected-name/ring styling, and arrow opacity. Sidebar tests verify that the height summary is absent while map measurements remain. Normal-motion tests record intermediate focus frames, reconstruct the expected camera position, and interrupt focus with reset, zoom, reselection, mouse/touch input, deselection, and a live reduced-motion change. Tooltip tests distinguish mouse hover, touch taps, and keyboard focus. Existing reduced-motion tests retain instantaneous selection expectations.
+Visual-polish regressions additionally sample the gap-free core-to-halo falloff, stronger unselected Sirius glow than Barnard's, reversible selection gain that brightens every selected object's halo, and with it any unsaturated core, grid fade toward the edge, selected-name/ring styling, and arrow opacity. Sidebar tests verify that the height summary is absent while map measurements remain. Normal-motion tests record intermediate focus frames, reconstruct the expected camera position, and interrupt focus with reset, zoom, reselection, mouse/touch input, deselection, and a live reduced-motion change. Tooltip tests distinguish mouse hover, touch taps, and keyboard focus. Existing reduced-motion tests retain instantaneous selection expectations.
 
 ## Project Structure
 

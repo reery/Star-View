@@ -4,6 +4,7 @@ export const FILTER_CATEGORIES = [
   {
     id: 'compact_objects',
     label: 'Compact objects',
+    description: 'The Sun, stars, brown dwarfs, white dwarfs, neutron stars, pulsars and black holes. Object type below chooses which of them appear.',
     subtypes: [
       { key: 'sun', label: 'Sun' },
       { key: 'star', label: 'Stars' },
@@ -17,6 +18,7 @@ export const FILTER_CATEGORIES = [
   {
     id: 'interstellar_medium',
     label: 'Interstellar medium',
+    description: 'The gas and dust between the stars: molecular clouds, dark nebulae, reflection nebulae and H II regions. Object type below chooses which of them appear.',
     subtypes: [
       { key: 'molecular_cloud', label: 'Molecular clouds' },
       { key: 'dark_nebula', label: 'Dark nebulae' },
@@ -27,6 +29,7 @@ export const FILTER_CATEGORIES = [
   {
     id: 'stellar_remnants',
     label: 'Stellar remnants',
+    description: 'The clouds that dying stars leave behind: planetary nebulae, supernova remnants and pulsar-wind nebulae. Object type below chooses which of them appear. Neutron stars, pulsars and black holes are under Compact objects.',
     subtypes: [
       { key: 'planetary_nebula', label: 'Planetary nebulae' },
       { key: 'supernova_remnant', label: 'Supernova remnants' },
@@ -36,6 +39,7 @@ export const FILTER_CATEGORIES = [
   {
     id: 'large_scale_structures',
     label: 'Large-scale structures',
+    description: 'Bubbles and superbubbles, vast cavities in the gas between the stars, and dust sheets. Object type below chooses which of them appear.',
     subtypes: [
       { key: 'bubble', label: 'Bubbles' },
       { key: 'superbubble', label: 'Superbubbles' },

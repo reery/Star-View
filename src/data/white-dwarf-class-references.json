@@ -202,6 +202,72 @@
         }
       }
     },
+    "mixed:6000": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            111373,
+            20974100
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1854.36,
+            10968.6
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            25804.9,
+            26157900
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            0.0000152643,
+            0.0028747
+          ]
+        }
+      }
+    },
+    "mixed:6300": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            108664,
+            20967400
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1842.99,
+            10967.7
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            24869.4,
+            26145400
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            0.0000185601,
+            0.0035813
+          ]
+        }
+      }
+    },
     "mixed:6310": {
       "benchmark": false,
       "metrics": {
@@ -334,6 +400,39 @@
         }
       }
     },
+    "mixed:8077": {
+      "benchmark": false,
+      "metrics": {
+        "gravity": {
+          "value": null,
+          "range": [
+            94860.2,
+            20935800
+          ]
+        },
+        "escapeKms": {
+          "value": null,
+          "range": [
+            1781.44,
+            10963.5
+          ]
+        },
+        "density": {
+          "value": null,
+          "range": [
+            20284.4,
+            26086200
+          ]
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": [
+            0.0000502158,
+            0.0110832
+          ]
+        }
+      }
+    },
     "mixed:none": {
       "benchmark": false,
       "metrics": {
@@ -429,6 +528,39 @@
           "range": [
             0.000309669,
             0.0885689
+          ]
+        }
+      }
+    },
+    "thick:15800": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 943175,
+          "range": [
+            61282.5,
+            19626900
+          ]
+        },
+        "escapeKms": {
+          "value": 4163.21,
+          "range": [
+            1597.11,
+            10788
+          ]
+        },
+        "density": {
+          "value": 367166,
+          "range": [
+            10532.7,
+            23678600
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.0163229,
+          "range": [
+            0.000784358,
+            0.250155
           ]
         }
       }
@@ -561,6 +693,39 @@
           "range": [
             0.00529847,
             1.21858
+          ]
+        }
+      }
+    },
+    "thick:3000": {
+      "benchmark": true,
+      "metrics": {
+        "gravity": {
+          "value": 1095610,
+          "range": [
+            142297,
+            19981900
+          ]
+        },
+        "escapeKms": {
+          "value": 4322.1,
+          "range": [
+            1971.51,
+            10836.5
+          ]
+        },
+        "density": {
+          "value": 459684,
+          "range": [
+            37267.2,
+            24323800
+          ]
+        },
+        "luminosityPerMass": {
+          "value": 0.0000182639,
+          "range": [
+            0.00000100113,
+            0.000140611
           ]
         }
       }

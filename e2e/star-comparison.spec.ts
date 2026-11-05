@@ -50,7 +50,7 @@ test('arms a comparison without changing the card and cancels it @mobile', async
 
 test('previews the hovered comparison star with its icon and resets over empty space', async ({ page }, testInfo) => {
   await page.locator('#object-compare-toggle').click()
-  const point = await page.locator('[data-star-id="sun"]').evaluate((anchor) => {
+  const point = await page.locator('.map-anchor[data-star-id=\"sun\"]').evaluate((anchor) => {
     const rect = anchor.getBoundingClientRect()
     return { x: rect.x, y: rect.y }
   })
@@ -255,7 +255,7 @@ test('allows substellar comparison and disables comparison for nebulae', async (
 
 test('consumes scene picks and component selections without moving the selected star @mobile', async ({ page, isMobile }) => {
   await page.locator('#object-compare-toggle').click()
-  const point = await page.locator('[data-star-id="sun"]').evaluate((anchor) => {
+  const point = await page.locator('.map-anchor[data-star-id=\"sun\"]').evaluate((anchor) => {
     const rect = anchor.getBoundingClientRect()
     return { x: rect.x, y: rect.y }
   })
@@ -690,7 +690,7 @@ test('pairs temperature, appearance and reciprocal ratios in stable left and rig
       return {
         overflow: card.scrollWidth > card.clientWidth + 1,
         entries: tiles.map((tile) => ({ id: tile.dataset.objectId, metric: tile.dataset.metric, bounds: tile.getBoundingClientRect(), name: tile.querySelector('dt > span:not(.sr-only)')!.textContent,
-          heading: tile.querySelector('dt')!.getBoundingClientRect(), icon: tile.querySelector('.star-swatch')!.getBoundingClientRect(), value: tile.querySelector('dd')!.getBoundingClientRect(), overflow: tile.scrollWidth > tile.clientWidth + 1 })),
+          heading: tile.querySelector('dt')!.getBoundingClientRect(), icon: tile.querySelector('.temperature-tile-metric-icon')!.getBoundingClientRect(), value: tile.querySelector('dd')!.getBoundingClientRect(), overflow: tile.scrollWidth > tile.clientWidth + 1 })),
       }
     })
     expect(layout.overflow).toBe(false)

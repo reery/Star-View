@@ -42,10 +42,18 @@ function isSafeSourceUrl(value: unknown): value is string {
   }
 }
 
+function validMassModel(value: unknown): boolean {
+  if (value === undefined) return true
+  if (!value || typeof value !== 'object') return false
+  const model = value as Record<string, unknown>
+  return typeof model.value_solar === 'number' && Number.isFinite(model.value_solar)
+    && typeof model.reference === 'string' && typeof model.scope === 'string' && isSafeSourceUrl(model.source_url)
+}
+
 function validDetails(value: unknown): value is CompactObjectDetails {
   if (!value || typeof value !== 'object') return false
   const details = value as Record<string, unknown>
-  return (details.confidence === 'confirmed' || details.confidence === 'candidate')
+  return (details.confidence === 'confirmed' || details.confidence === 'candidate') && validMassModel(details.mass_model)
     && ['distance_method', 'distance_source', 'position_source', 'detection_method', 'source_label'].every((field) => typeof details[field] === 'string')
     && isSafeSourceUrl(details.source_url)
     && ['mass_error_solar', 'rotation_period_s', 'rotation_period_error_s', 'radio_luminosity_1400_mjy_kpc2', 'characteristic_age_yr', 'surface_magnetic_field_gauss', 'spin_down_power_erg_s', 'orbital_period_days', 'orbital_period_error_days',

@@ -66,10 +66,14 @@ describe('pulsar articles', () => {
       expect(info!.introduction.source?.url).toMatch(/^https:\/\//)
       expect(info!.sections.every((section) => section.source?.url.startsWith('https://'))).toBe(true)
     }
-    for (const pulsar of ['psr-j0437m4715', 'psr-j0453p1559', 'psr-j1614m2230', 'psr-j2222m0137', 'gaia-bh1', 'gaia-bh3', 'gaia-ns1']) {
+    for (const pulsar of ['psr-j0437m4715', 'psr-j0453p1559', 'psr-j1537p1155', 'psr-j1614m2230', 'psr-j2222m0137', 'gaia-bh1', 'gaia-bh2', 'gaia-bh3', 'gaia-ns1', 'cygnus-x-1', 'a0535p26']) {
       expect(starInfoForId(pulsar)).toBeDefined()
       expect(starInfoForId(`${pulsar}-b`)).toBe(starInfoForId(pulsar))
     }
+    expect(starInfoForId('v404-cygni-c')).toBe(starInfoForId('v404-cygni'))
+    expect(starInfoForId('psr-j1959p2048-b')).toBe(starInfoForId('psr-j1959p2048'))
+    // The Double Pulsar's two ATNF records share one article.
+    expect(starInfoForId('psr-j0737m3039b')).toBe(starInfoForId('psr-j0737m3039a'))
   })
 })
 
@@ -193,7 +197,7 @@ describe('single-star catalog aliases', () => {
     expect(Object.fromEntries(aliased.map(([, alias]) => [alias, starInfoForId(alias)?.introduction.label]))).toEqual({
       'hip-16537': 'Epsilon Eridani', 'hip-8102': 'Tau Ceti', 'hip-97649': 'Altair',
       'hip-91262': 'Vega', 'hip-37826': 'Pollux', 'hip-69673': 'Arcturus', 'hip-67927': 'Muphrid',
-      'cns5-2899': 'Denebola', 'cns5-0125': 'Beta Hydri', 'cns5-5370': 'Deneb Algedi', 'cns5-3915': 'Beta Trianguli Australis',
+      'cns5-2899': 'Denebola', 'cns5-0125': 'Beta Hydri', 'cns5-3915': 'Beta Trianguli Australis',
       'cns5-2366': 'Theta Ursae Majoris', 'cns5-1208': 'Tabit', 'cns5-0938': 'Rana', 'cns5-4994': 'Delta Pavonis',
       'cns5-3922': 'Gamma Serpentis', 'cns5-5836': 'Iota Piscium', 'cns5-5277': 'Gamma Pavonis', 'cns5-0102': 'Zeta Tucanae',
       'cns5-3247': 'Beta Comae Berenices', 'cns5-0843': 'e Eridani',

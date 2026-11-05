@@ -5,8 +5,8 @@
     "planets": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
   },
   "checksumsSha256": {
-    "simbad.csv": "dbd51c4fbea3e31193cbfc01f4e546677189bb5b313b81d37c06b05b8b4b1f33",
-    "simbad.adql": "10d1f0eee49e02a7cd927b21e209e6bf257d13147ae72031767657da56134295",
+    "simbad.csv": "acd8150a06f138d62a992ba7bb469ff6530e771402dcc1d0464a78f203b223b1",
+    "simbad.adql": "445304cd3fb90958e459a6a76651ecefd06b41179cd1d4a122ed2ffc0e412f4b",
     "types.csv": "78f2745a265e2ec34115ef02072a13ad3b007d8028beeff3b64eef54042372bc",
     "types.adql": "70661c7e93361cd294a039794f4739d98c8d172aa97668bab0a38833a5685ead",
     "planet-hosts.csv": "4e0b982a1c38b8bfae606608ed6c003c1ed3872b5a460f215d4f6965bbe21323",
@@ -40,5 +40,10 @@
       ],
       "note": "Classifications of nebula batch 3 appended through the ident index; earlier rows are unchanged."
     }
-  ]
+  ],
+  "compactExpansion": {
+    "retrieved": "2026-11-05",
+    "source": "https://simbad.harvard.edu/simbad/sim-tap/sync",
+    "note": "Classifications of the 10000 light-year compact-object expansion, through SIMBAD's Harvard mirror."
+  }
 }

@@ -9,7 +9,7 @@
     "naked-eye-stars",
     "notable-distant-stars"
   ],
-  "uniqueObjects": 13813,
+  "uniqueObjects": 13854,
   "classes": [
     {
       "spectral": "A0.5V",
@@ -3275,7 +3275,7 @@
       "letter": "B",
       "subtype": 0.5,
       "stage": "I",
-      "count": 4,
+      "count": 5,
       "metrics": {
         "mass": {
           "value": 15.5,
@@ -3757,7 +3757,7 @@
       "letter": "B",
       "subtype": 0,
       "stage": "V",
-      "count": 5,
+      "count": 6,
       "metrics": {
         "mass": {
           "value": 13.55,
@@ -16842,15 +16842,15 @@
       "letter": "K",
       "subtype": 3,
       "stage": "III",
-      "count": 236,
+      "count": 237,
       "metrics": {
         "mass": {
-          "value": 2.30357,
+          "value": 2.08286,
           "range": [
-            1.25,
+            1.2,
             5.1943
           ],
-          "count": 4
+          "count": 5
         },
         "gravity": {
           "value": 0.869284,
@@ -17514,7 +17514,7 @@
       "letter": "K",
       "subtype": 4,
       "stage": "V",
-      "count": 45,
+      "count": 46,
       "metrics": {
         "mass": {
           "value": 0.728092,
@@ -22978,12 +22978,15 @@
       "letter": "O",
       "subtype": 9.5,
       "stage": "III",
-      "count": 1,
+      "count": 2,
       "metrics": {
         "mass": {
-          "value": null,
-          "range": null,
-          "count": 0
+          "value": 16.5,
+          "range": [
+            16.5,
+            16.5
+          ],
+          "count": 1
         },
         "gravity": {
           "value": null,
@@ -23126,12 +23129,15 @@
       "letter": "O",
       "subtype": 9.7,
       "stage": "I",
-      "count": 2,
+      "count": 3,
       "metrics": {
         "mass": {
-          "value": null,
-          "range": null,
-          "count": 0
+          "value": 40.6,
+          "range": [
+            40.6,
+            40.6
+          ],
+          "count": 1
         },
         "gravity": {
           "value": null,
@@ -23630,12 +23636,12 @@
     {
       "key": "DA",
       "label": "DA white dwarf",
-      "low": 0.0000835528,
+      "low": 0.000035,
       "high": 0.0520404,
-      "count": 21,
-      "median": 0.000242541,
-      "p10": 0.0000988875,
-      "p90": 0.01349
+      "count": 22,
+      "median": 0.000214826,
+      "p10": 0.0000863494,
+      "p90": 0.013201
     },
     {
       "key": "DB",

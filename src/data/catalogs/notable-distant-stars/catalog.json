@@ -4,7 +4,7 @@
   "label": "Notable distant stars",
   "description": "Reviewed stars beyond the nearby catalogs that belong to notable systems: measured stellar companions of pulsars and the luminous stars of dormant black-hole and neutron-star systems, plus the Sun.",
   "epoch": 2000,
-  "objectCount": 8,
+  "objectCount": 50,
   "sources": [
     {
       "name": "ATNF Pulsar Catalogue v2.9.0; host pulsar positions and system astrometry",
@@ -23,6 +23,86 @@
       "url": "https://arxiv.org/abs/2402.06722"
     },
     {
+      "name": "El-Badry et al. 2023; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/2302.07880"
+    },
+    {
+      "name": "van Grunsven et al. 2017; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/1708.08209"
+    },
+    {
+      "name": "Khargharia et al. 2013; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/1211.2786"
+    },
+    {
+      "name": "Miller-Jones et al. 2021; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/2102.09091"
+    },
+    {
+      "name": "Khargharia et al. 2010; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/1004.5358"
+    },
+    {
+      "name": "Casares et al. 2022; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/2207.01628"
+    },
+    {
+      "name": "Casares & Jonker 2014; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/1311.5118"
+    },
+    {
+      "name": "Torres et al. 2020; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/2003.02360"
+    },
+    {
+      "name": "Steeghs & Casares 2002; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/astro-ph/0107343"
+    },
+    {
+      "name": "Hammerstein et al. 2018; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/1806.00414"
+    },
+    {
+      "name": "Kretschmar et al. 2021; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/2104.13148"
+    },
+    {
+      "name": "Sanjurjo-Ferrín et al. 2026; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/2606.09579"
+    },
+    {
+      "name": "Caballero et al. 2011; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/1107.3417"
+    },
+    {
+      "name": "Weng et al. 2022; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/2203.09423"
+    },
+    {
+      "name": "Khargharia et al. 2010; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/1004.5358"
+    },
+    {
+      "name": "Antoniadis et al. 2012",
+      "url": "https://arxiv.org/abs/1204.3948"
+    },
+    {
+      "name": "Archibald et al. 2018",
+      "url": "https://arxiv.org/abs/1807.02059"
+    },
+    {
+      "name": "Burdge et al. 2024",
+      "url": "https://arxiv.org/abs/2404.03719"
+    },
+    {
+      "name": "Crawford et al. 2013",
+      "url": "https://arxiv.org/abs/1308.4956"
+    },
+    {
+      "name": "Dai et al. 2017",
+      "url": "https://arxiv.org/abs/1705.02593"
+    },
+    {
       "name": "Demorest et al. 2010",
       "url": "https://arxiv.org/abs/1010.5788"
     },
@@ -33,6 +113,10 @@
     {
       "name": "El-Badry et al. 2023",
       "url": "https://arxiv.org/abs/2209.06833"
+    },
+    {
+      "name": "El-Badry et al. 2023",
+      "url": "https://arxiv.org/abs/2302.07880"
     },
     {
       "name": "El-Badry et al. 2024",
@@ -47,18 +131,90 @@
       "url": "https://arxiv.org/abs/2107.09474"
     },
     {
+      "name": "Hey et al. 2025",
+      "url": "https://arxiv.org/abs/2503.09690"
+    },
+    {
+      "name": "Kaplan et al. 2014",
+      "url": "https://arxiv.org/abs/1402.0407"
+    },
+    {
+      "name": "Kaplan et al. 2016",
+      "url": "https://arxiv.org/abs/1604.00131"
+    },
+    {
+      "name": "Kirichenko et al. 2018",
+      "url": "https://arxiv.org/abs/1807.09442"
+    },
+    {
+      "name": "Lyne et al. 2015",
+      "url": "https://arxiv.org/abs/1502.01465"
+    },
+    {
       "name": "Mata Sánchez et al. 2020",
       "url": "https://arxiv.org/abs/2004.02901"
+    },
+    {
+      "name": "Mikolajewska et al. 2022",
+      "url": "https://arxiv.org/abs/2201.13201"
+    },
+    {
+      "name": "Miller-Jones et al. 2021",
+      "url": "https://arxiv.org/abs/2102.09091"
+    },
+    {
+      "name": "Negueruela et al. 2011",
+      "url": "https://arxiv.org/abs/1103.4636"
+    },
+    {
+      "name": "Orosz & van Kerkwijk 2003",
+      "url": "https://arxiv.org/abs/astro-ph/0210009"
+    },
+    {
+      "name": "Pallanca et al. 2012",
+      "url": "https://arxiv.org/abs/1206.6515"
     },
     {
       "name": "Reardon et al. 2024",
       "url": "https://arxiv.org/abs/2407.07132"
     },
     {
+      "name": "Saffer et al. 2024",
+      "url": "https://arxiv.org/abs/2412.02850"
+    },
+    {
+      "name": "Sanjurjo-Ferrín et al. 2026",
+      "url": "https://arxiv.org/abs/2606.09579"
+    },
+    {
+      "name": "Shahbaz et al. 2014",
+      "url": "https://arxiv.org/abs/1402.1639"
+    },
+    {
+      "name": "Shahbaz et al. 2017",
+      "url": "https://arxiv.org/abs/1708.07355"
+    },
+    {
+      "name": "Swiggum et al. 2017",
+      "url": "https://arxiv.org/abs/1708.09386"
+    },
+    {
+      "name": "Zhang et al. 2025",
+      "url": "https://arxiv.org/abs/2511.17900"
+    },
+    {
+      "name": "Zyuzin et al. 2019",
+      "url": "https://arxiv.org/abs/1904.00331"
+    },
+    {
+      "name": "van Grunsven et al. 2017",
+      "url": "https://arxiv.org/abs/1708.08209"
+    },
+    {
       "name": "van Kerkwijk et al. 1996",
       "url": "https://arxiv.org/abs/astro-ph/9606045"
     }
   ],
-  "cutoffPolicy": "Explicitly reviewed members of notable systems only; no magnitude or distance cutoff. Companions of compact objects need an individually measured mass. Sun is included only as the map origin.",
-  "snapshot": "J2000 map positions from the compact-remnant overlay; companion measurements reviewed 2026-10-26."
+  "cutoffPolicy": "Explicitly reviewed members of notable systems only; no magnitude or distance cutoff. Luminous companions of compact objects are included with whichever individual values are published. Sun is included only as the map origin.",
+  "snapshot": "J2000 map positions from the compact-remnant overlay; companion measurements reviewed 2026-11-05."
 }

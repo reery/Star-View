@@ -266,7 +266,7 @@ test('closing System during its first load leaves the closed section unrendered'
 
 test('Milky Way keeps its full-resolution background and reuses it after catalog changes', async ({ page }, testInfo) => {
   const requests = trackRequests(page)
-  const backgroundResponse = page.waitForResponse(/\/milky-way-[^/]+\.jpg$/)
+  const backgroundResponse = page.waitForResponse(/\/milky-way-[^/]+\.(avif|jpg)$/)
   await page.goto('/')
   expect((await backgroundResponse).headers()['cache-control']).toBe('public, max-age=31536000, immutable')
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
@@ -275,7 +275,7 @@ test('Milky Way keeps its full-resolution background and reuses it after catalog
   const resources = await page.evaluate(() => performance.getEntriesByType('resource').map((entry) => entry.toJSON()))
   writeFileSync(testInfo.outputPath('startup-resources.json'), JSON.stringify(resources, null, 2))
   await page.locator('#scene canvas').screenshot({ path: testInfo.outputPath('full-background.png') })
-  expect(requests.filter((url) => /milky-way.*\.jpg$/.test(url))).toHaveLength(1)
+  expect(requests.filter((url) => /milky-way.*\.(avif|jpg)$/.test(url))).toHaveLength(1)
   expect(requests.some((url) => url.includes('milky-way-preview'))).toBe(false)
   await page.locator('#filter-toggle').click()
   const catalogLoaded = page.waitForResponse(/nearest-100-.*\.json$/)
@@ -283,7 +283,7 @@ test('Milky Way keeps its full-resolution background and reuses it after catalog
   await catalogLoaded
   await expect(page.locator('#scene-status')).toBeHidden()
   await expect(page.locator('#scene')).toHaveAttribute('data-milky-way-ready', 'true')
-  expect(requests.filter((url) => /milky-way.*\.jpg$/.test(url))).toHaveLength(1)
+  expect(requests.filter((url) => /milky-way.*\.(avif|jpg)$/.test(url))).toHaveLength(1)
 })
 
 test('closed diagram and magnitude cards ignore their delayed first module load', async ({ page }) => {

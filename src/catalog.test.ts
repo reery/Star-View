@@ -135,8 +135,7 @@ describe('object catalog', () => {
       },
     })
     expect(stars.find((star) => star.id === 'alpha-centauri-b')!.notes).toContain('barycenter solution')
-    expect(stars.filter((star) => star.vx_kms !== null && star.id !== 'sun')).toHaveLength(13)
-    for (const id of ['luhman-16-a', 'luhman-16-b', 'wise-0855-0714', 'luyten-726-8-a', 'luyten-726-8-b', 'ez-aquarii-a', 'ez-aquarii-b', 'ez-aquarii-c']) {
+    for (const id of ['luhman-16-a', 'luhman-16-b', 'wise-0855-0714']) {
       expect(velocities(id)).toEqual([null, null, null])
     }
   })

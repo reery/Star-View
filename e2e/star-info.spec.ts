@@ -136,8 +136,8 @@ test('nearest-100 Info covers every catalog object and shares complete system ar
   // Changing to an unsupported object clears the previously displayed article.
   await selectCatalog(page, 'nearest-1000')
   if (await objects.getAttribute('aria-expanded') === 'false') await objects.click()
-  await page.getByLabel('Search objects').fill('cns5-4846')
-  await page.locator('button[data-star="cns5-4846"]').click()
+  await page.getByLabel('Search objects').fill('cns5-1415')
+  await page.locator('button[data-star="cns5-1415"]').click()
   await expect(page.locator('#object-info-toggle')).toBeDisabled()
   await expect(info).toBeEmpty()
   await expect(info).toBeHidden()

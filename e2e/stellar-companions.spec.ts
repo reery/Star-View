@@ -55,7 +55,7 @@ test('selects Dubhe components with separate spectra and companion marks in both
   await expect(page.locator('#star-components [data-component-id="msc-11037+6145-b"]')).toHaveAttribute('aria-pressed', 'true')
   await openSpecs(page)
   await expect(page.locator('#spectral-type')).toHaveText('A7.5')
-  await expect(page.locator('#mass')).toHaveText('Not available')
+  await expect(page.locator('#mass')).toHaveText('—')
   await page.locator('#spectral-toggle').click()
   await page.locator('#spectral-mk').click()
   await expect(page.locator('#mk-missing')).toContainText('luminosity class is not recorded for A7.5')

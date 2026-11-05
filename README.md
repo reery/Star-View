@@ -18,7 +18,7 @@ This project is still in active development and there are a lot of features to c
 ## Features
 
 - Three bundled stellar catalogs: **Nearest neighbors** (21 objects plus the Sun, default), **Nearest 100** and **Nearest 1000**, plus the optional **Western constellation stars** overlay with all constellation figure stars, cluster landmarks and the former bright-star landmarks
-- Optional, separately loaded compact-remnant overlay: 266 ATNF pulsars, Gaia NS1, Gaia BH1 and Gaia BH3 within 3000 light-years; all three type filters start off
+- Optional, separately loaded compact-remnant overlay within 10,000 light-years: 420 ATNF pulsars, 14 neutron stars and 11 black holes; all three type filters start off
 - Optional extended-object overlays for 65 voxel-mapped nearby molecular clouds, nearby nebulae and a translucent Local Bubble shell downsampled from a published 3D dust surface
 - Orbit, zoom and pan with mouse or touch; selecting an object centers it
 - Type-aware inspector with stellar, compact-object, molecular-cloud, nebula or interstellar-bubble properties and source notes

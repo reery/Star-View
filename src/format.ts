@@ -1,3 +1,5 @@
+import { scientificPlanetValue } from './planet-value'
+
 export const MISSING_VALUE = '—'
 
 /** Fixed decimals, falling back to significant digits so tiny nonzero values never display as 0. */
@@ -19,20 +21,16 @@ export function measurement(value: number | null, error: number | null, unit: st
   return `${formatNumber(value, maximumFractionDigits)}${uncertainty} ${unit}`
 }
 
-function significant(value: number, digits: number): string {
-  const absolute = Math.abs(value)
-  return absolute > 0 && (absolute < 1e-6 || absolute >= 1e9)
-    ? value.toExponential(digits - 1).replace('e+', 'e')
-    : value.toLocaleString('en-US', { maximumSignificantDigits: digits })
-}
-
-export function preciseMeasurement(value: number | null, error: number | null, unit: string): string {
+export function preciseMeasurement(value: number | null, unit: string): string {
   if (value === null) return MISSING_VALUE
-  const uncertainty = error === null ? '' : ` ± ${significant(error, 3)}`
-  return `${significant(value, 8)}${uncertainty} ${unit}`
+  const absolute = Math.abs(value)
+  const formatted = absolute > 0 && (absolute < 1e-6 || absolute >= 1e9)
+    ? scientificPlanetValue(value, 8)
+    : value.toLocaleString('en-US', { maximumSignificantDigits: 8 })
+  return `${formatted} ${unit}`
 }
 
 export function scientificQuantity(value: number | null, unit: string): string {
   if (value === null) return MISSING_VALUE
-  return `${value.toExponential(3).replace('e+', 'e')} ${unit}`
+  return `${scientificPlanetValue(value)} ${unit}`
 }

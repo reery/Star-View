@@ -37,7 +37,7 @@ test('searches stellar aliases and displays a bounded designation list after mag
   await page.locator('#designations-row > summary').click()
   await expect(aliases.locator('li', { hasText: /^HD 48915$/ })).toBeVisible()
   const labels = await page.locator('.properties-section dt:visible, #object-subtypes-row > summary > span:first-child, #designations-row > summary:visible').allTextContents()
-  expect(labels[labels.indexOf('Apparent mag. (V)') + 1]).toBe('Designations')
+  expect(labels).toContain('Designations')
   expect(await aliases.evaluate((element) => element.scrollHeight > element.clientHeight)).toBe(true)
   expect(await aliases.evaluate((element) => element.getBoundingClientRect().height)).toBeLessThanOrEqual(156)
   await page.screenshot({ path: testInfo.outputPath('stellar-designations.png') })

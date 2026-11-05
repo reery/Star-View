@@ -22,9 +22,9 @@ test('keeps the Mu Cas primary visible when selecting and deselecting B', async 
   await expect(primary).toHaveAttribute('data-halo-visible', 'true')
   await expect(primary).toHaveAttribute('data-core-visible', 'true')
   const secondary = page.locator('.map-anchor[data-star-id="mu-cassiopeiae-b"]')
-  await expect(secondary).toHaveAttribute('data-halo-visible', 'false')
-  await expect(secondary).toHaveAttribute('data-core-visible', 'false')
-  await expect(secondary.locator('.selection-ring')).toBeHidden()
+  // An explicitly selected companion is drawn alongside its primary.
+  await expect(secondary).toHaveAttribute('data-halo-visible', 'true')
+  await expect(secondary).toHaveAttribute('data-core-visible', 'true')
   await expect(primary).toBeVisible()
   const objects = page.getByRole('button', { name: 'Objects', exact: true })
   if (await objects.getAttribute('aria-expanded') === 'true') await objects.click()

@@ -151,6 +151,8 @@ export interface BubbleDetails {
 }
 
 export interface CompactObjectDetails {
+  /** A published model value, never a measurement; mass_solar stays null. */
+  mass_model?: { value_solar: number; reference: string; source_url: string; scope: string }
   confidence: 'confirmed' | 'candidate'
   distance_method: string
   distance_source: string

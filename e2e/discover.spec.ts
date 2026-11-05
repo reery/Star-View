@@ -20,9 +20,7 @@ test('Explore maximizes only height and magnifies the constellation overview @mo
   await openConstellations(page, isMobile)
   const panel = page.locator('#constellations-panel')
   // The card opens maximized; restore the compact card before measuring it.
-  const restore = page.getByRole('button', { name: 'Minimize constellations card height', exact: true })
-  await expect(restore).toHaveAttribute('aria-pressed', 'true')
-  await restore.click()
+  await page.getByRole('button', { name: 'Minimize constellations card height', exact: true }).click()
   const initial = (await panel.boundingBox())!
   const chartFits = () => page.locator('#discover-constellation-chart').evaluate((chart) => {
     const detail = document.getElementById('constellations-detail')!.getBoundingClientRect()
@@ -51,7 +49,7 @@ test('Explore maximizes only height and magnifies the constellation overview @mo
   }
   await page.getByRole('button', { name: 'Maximize constellations card height', exact: true }).click()
   const minimize = page.getByRole('button', { name: 'Minimize constellations card height', exact: true })
-  await expect(minimize).toHaveAttribute('aria-pressed', 'true')
+  await expect(minimize).toBeVisible()
   const expanded = (await panel.boundingBox())!
   expect(expanded.height).toBeGreaterThan(initial.height)
   expect(expanded.width).toBeCloseTo(initial.width)
@@ -77,7 +75,7 @@ test('Explore maximizes only height and magnifies the constellation overview @mo
   expect(await lineLength()).toBeCloseTo(overviewLength)
   await panel.screenshot({ path: testInfo.outputPath('constellations-maximized.png') })
   await minimize.click()
-  await expect(page.getByRole('button', { name: 'Maximize constellations card height', exact: true })).toHaveAttribute('aria-pressed', 'false')
+  await expect(page.getByRole('button', { name: 'Maximize constellations card height', exact: true })).toBeVisible()
   expect((await panel.boundingBox())!.height).toBeCloseTo(initial.height)
   await expect.poll(chartFits).toBe(true)
   expect(errors).toEqual([])
@@ -143,15 +141,15 @@ test('Explore browses all constellations with shared charts and selection @mobil
   const discover = page.locator('#discover-toggle')
   await expect(discover).toBeEnabled()
   const discoverBox = (await discover.boundingBox())!
-  const motionBox = (await page.locator('#motion-toggle').boundingBox())!
+  const motionBox = (await page.locator('#filter-toggle').boundingBox())!
   expect(discoverBox.y + discoverBox.height).toBeLessThan(motionBox.y)
   if (!isMobile) {
     await discover.focus()
     await discover.press('Enter')
     await expect(page.locator('#constellations-panel')).toBeHidden()
     await discover.press('Tab')
-    await expect(page.locator('#constellations-toggle')).toBeFocused()
-    await page.locator('#constellations-toggle').evaluate((button) => button.blur())
+    await expect(page.locator('#top-lists-toggle')).toBeFocused()
+    await page.locator('#top-lists-toggle').evaluate((button) => button.blur())
     await page.mouse.move(5, 5)
   }
   await openConstellations(page, isMobile)

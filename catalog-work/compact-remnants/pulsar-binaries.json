@@ -1,7 +1,114 @@
 {
-  "reviewed": "2026-10-26",
+  "reviewed": "2026-11-05",
   "policy": "Only individually measured pulsar and neutron-star companion masses from relativistic timing or optical spectroscopy, keyed by exact ATNF PSRJ name. Total-mass-only systems and model-dependent X-ray mass fits are not split into component masses.",
+  "adoptedDistances": {
+    "J0418+5732": {
+      "distance_pc": 2000,
+      "distance_method": "Assumed distance",
+      "source_label": "Durant et al. 2011",
+      "source_url": "https://arxiv.org/abs/1108.3340",
+      "note": "ATNF lists no distance. The commonly assumed 2 kpc is not a measurement."
+    },
+    "J0420-5022": {
+      "distance_pc": 345,
+      "distance_method": "Interstellar absorption estimate",
+      "source_label": "Posselt et al. 2007",
+      "source_url": "https://arxiv.org/abs/astro-ph/0609275",
+      "note": "ATNF lists no distance. An absorption estimate, not a parallax."
+    },
+    "J0613-0200": {
+      "distance_pc": 1000,
+      "distance_method": "Timing parallax",
+      "source_label": "Agazie et al. 2023",
+      "source_url": "https://arxiv.org/abs/2306.16217",
+      "note": "Replaces ATNF's 0.78 kpc (Desvignes et al. 2016) with the inverse of the 1.00(5) mas NANOGrav 15-year parallax as listed by ATNF; inside the 0.95-1.27 kpc range of Reardon et al. 2016."
+    },
+    "J0806-4123": {
+      "distance_pc": 240,
+      "distance_method": "Interstellar absorption estimate",
+      "source_label": "Posselt et al. 2007",
+      "source_url": "https://arxiv.org/abs/astro-ph/0609275",
+      "note": "ATNF lists no distance. 240 +/- 25 pc from sodium absorption, not a parallax."
+    },
+    "J1012+5307": {
+      "distance_pc": 877,
+      "distance_method": "VLBI parallax",
+      "source_label": "Ding et al. 2023",
+      "source_url": "https://arxiv.org/abs/2212.06351",
+      "note": "Replaces ATNF's 0.70 kpc (Verbiest et al. 2012); MSPSRpi Table 6 gives 0.877(35) kpc."
+    },
+    "J1024-0719": {
+      "distance_pc": 1080,
+      "distance_method": "VLBI parallax",
+      "source_label": "Ding et al. 2023",
+      "source_url": "https://arxiv.org/abs/2212.06351",
+      "note": "Replaces ATNF's 1.22 kpc (Bassa et al. 2016); MSPSRpi Table 6 gives 1.08(6) kpc."
+    },
+    "J1643-1224": {
+      "distance_pc": 950,
+      "distance_method": "VLBI parallax",
+      "source_label": "Ding et al. 2023",
+      "source_url": "https://arxiv.org/abs/2212.06351",
+      "note": "Replaces ATNF's 0.74 kpc (Reardon et al. 2016); MSPSRpi Table 6 gives 0.95 +0.15/-0.11 kpc."
+    },
+    "J1730-2304": {
+      "distance_pc": 510,
+      "distance_method": "VLBI parallax",
+      "source_label": "Ding et al. 2023",
+      "source_url": "https://arxiv.org/abs/2212.06351",
+      "note": "Replaces ATNF's 0.62 kpc (Reardon et al. 2016); MSPSRpi Table 6 gives 0.51(3) kpc."
+    },
+    "J1809-1943": {
+      "distance_pc": 2500,
+      "distance_method": "VLBI parallax",
+      "source_label": "Ding et al. 2020",
+      "source_url": "https://arxiv.org/abs/2008.06438",
+      "note": "First magnetar parallax, 0.40(5) mas, 2.5 +0.4/-0.3 kpc; replaces ATNF's 3.6 kpc (Verbiest et al. 2012)."
+    },
+    "J1856-3754": {
+      "distance_pc": 123,
+      "distance_method": "Parallax",
+      "source_label": "Walter et al. 2010",
+      "source_url": "https://arxiv.org/abs/1008.1709",
+      "note": "ATNF's 0.16 kpc (Verbiest et al. 2012) rests on the 6.2 mas parallax of van Kerkwijk & Kaplan 2007; Walter et al. 2010 redetermined it at 8.16 mas, 123 +11/-15 pc, adopted by Mignani et al. 2013."
+    },
+    "J1939+2134": {
+      "distance_pc": 2900,
+      "distance_method": "VLBI parallax",
+      "source_label": "Ding et al. 2023",
+      "source_url": "https://arxiv.org/abs/2212.06351",
+      "note": "Replaces ATNF's 3.5 kpc (Desvignes et al. 2016); MSPSRpi Table 6 gives 2.9 +0.3/-0.2 kpc."
+    },
+    "J2322-2650": {
+      "distance_pc": 800,
+      "distance_method": "Timing parallax",
+      "source_label": "Shamohammadi et al. 2024",
+      "source_url": "https://arxiv.org/abs/2401.06963",
+      "note": "Parallax 1.3(2) mas, 0.80 +0.18/-0.12 kpc, close to the 0.76 kpc model distance. Replaces ATNF's 2.0 kpc and supersedes the 4.4(12) mas, 230 pc of Spiewak et al. 2018, whose uncertainty is 6 times larger."
+    }
+  },
+  "modelledMasses": {
+    "J1856-3754": {
+      "value_solar": 1.4,
+      "reference": "Ho et al. 2007",
+      "source_url": "https://arxiv.org/abs/astro-ph/0612145",
+      "scope": "Ho et al. 2007 assumed this mass in the atmosphere model that fits its spectrum. A lone neutron star has no companion to weigh it against."
+    }
+  },
   "pulsarMasses": {
+    "J0337+1715": {
+      "mass_solar": 1.4359,
+      "mass_error_solar": 0.0003,
+      "source_label": "Archibald et al. 2018",
+      "source_url": "https://arxiv.org/abs/1807.02059"
+    },
+    "J0348+0432": {
+      "mass_solar": 1.806,
+      "mass_error_solar": 0.037,
+      "source_label": "Saffer et al. 2024",
+      "source_url": "https://arxiv.org/abs/2412.02850",
+      "note": "Supersedes the 2.01(4) M_sun of Antoniadis et al. 2013, which rested on a white-dwarf model."
+    },
     "J0437-4715": {
       "mass_solar": 1.418,
       "mass_error_solar": 0.044,
@@ -14,11 +121,37 @@
       "source_label": "Martinez et al. 2015",
       "source_url": "https://arxiv.org/abs/1509.08805"
     },
+    "J0737-3039A": {
+      "mass_solar": 1.338185,
+      "mass_error_solar": 1.4e-05,
+      "source_label": "Kramer et al. 2021",
+      "source_url": "https://arxiv.org/abs/2112.06795",
+      "note": "The published interval is +0.000012/-0.000014 M_sun; the larger side is stored."
+    },
+    "J0737-3039B": {
+      "mass_solar": 1.248868,
+      "mass_error_solar": 1.3e-05,
+      "source_label": "Kramer et al. 2021",
+      "source_url": "https://arxiv.org/abs/2112.06795",
+      "note": "The published interval is +0.000013/-0.000011 M_sun; the larger side is stored."
+    },
+    "J0740+6620": {
+      "mass_solar": 2.08,
+      "mass_error_solar": 0.07,
+      "source_label": "Fonseca et al. 2021",
+      "source_url": "https://arxiv.org/abs/2104.00880"
+    },
     "J1012+5307": {
       "mass_solar": 1.72,
       "mass_error_solar": 0.16,
-      "source_label": "Mata Sánchez et al. 2020",
+      "source_label": "Mata S\u00e1nchez et al. 2020",
       "source_url": "https://arxiv.org/abs/2004.02901"
+    },
+    "J1537+1155": {
+      "mass_solar": 1.333,
+      "mass_error_solar": 0.0002,
+      "source_label": "Fonseca et al. 2014",
+      "source_url": "https://arxiv.org/abs/1402.4836"
     },
     "J1614-2230": {
       "mass_solar": 1.937,
@@ -54,6 +187,13 @@
       "mass_error_solar": 0.004,
       "source_label": "Martinez et al. 2015",
       "source_url": "https://arxiv.org/abs/1509.08805"
+    },
+    {
+      "pulsar": "J1537+1155",
+      "mass_solar": 1.3455,
+      "mass_error_solar": 0.0002,
+      "source_label": "Fonseca et al. 2014",
+      "source_url": "https://arxiv.org/abs/1402.4836"
     },
     {
       "pulsar": "J1756-2251",

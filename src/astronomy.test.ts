@@ -202,7 +202,7 @@ describe('star display color', () => {
   }
 
   it('keeps measured temperature colors and uses stellar class only as a display fallback', () => {
-    const ordinary = stars.filter((star) => star.type === 'star' || star.type === 'white_dwarf')
+    const ordinary = stars.filter((star) => (star.type === 'star' || star.type === 'white_dwarf') && star.temperature_k !== null)
     expect(ordinary.length).toBeGreaterThan(10)
     for (const star of ordinary) expect(starDisplayColor(star).equals(temperatureToColor(star.temperature_k))).toBe(true)
     expect(starDisplayColor({ type: 'star', temperature_k: null, spectral_type: 'M9' }).equals(temperatureToColor(3500))).toBe(true)

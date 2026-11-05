@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-10-26",
+  "reviewedAt": "2026-11-05",
   "articles": {
     "psr-j0835m4510": {
       "name": "Vela Pulsar",
@@ -136,22 +136,40 @@
     "psr-j1856m3754": {
       "name": "RX J1856.5-3754",
       "wikipedia": "https://en.wikipedia.org/wiki/RX_J1856.5%E2%88%923754",
-      "introduction": "is a lone neutron star in Corona Australis, roughly 400–500 light-years away and one of the nearest known. It sends out no radio pulses; it was found in 1992 by its X-rays, from a surface at about 434,000 °C. It is also known as PSR J1856-3754.",
+      "introduction": "is a lone neutron star in Corona Australis, about 400 light-years away and one of the nearest known. It sends out no radio pulses; it was found in 1992 by its X-rays, from a surface at roughly 500,000 K. It is also known as PSR J1856-3754.",
       "sections": [
         {
           "id": "1",
           "title": "One of the Magnificent Seven",
-          "text": "It belongs to the “Magnificent Seven”, a group of young, isolated neutron stars 130–500 parsecs from Earth. It probably formed about a million years ago and now moves at 108 km/s."
+          "text": "It belongs to the “Magnificent Seven”, a group of young, isolated neutron stars 130–500 parsecs from Earth."
         },
         {
           "id": "2",
+          "title": "Younger than its spin suggests",
+          "text": "Its slowing spin makes it look about 3.8 million years old, but tracing its path back through the Galaxy tells a different story. It leads to the Upper Scorpius association, where the star was probably born about 420,000 years ago. Today it crosses the sky at about 190 km/s.",
+          "source": {
+            "title": "Mignani et al. 2013",
+            "url": "https://arxiv.org/abs/1212.3141"
+          }
+        },
+        {
+          "id": "3",
           "title": "Not a quark star after all",
           "text": "Early estimates gave it a diameter of only 4–8 km, small enough to suggest a quark star, made of free quarks rather than neutrons. Later Chandra and Hubble data pushed the distance out and removed it from the quark-star candidates. Its radius is now put at about 12 km."
         },
         {
-          "id": "3",
+          "id": "4",
           "title": "Light bent by empty space",
           "text": "In 2016, astronomers using ESO’s Very Large Telescope found its visible light to be about 16% polarized. That is evidence, though not proof, of vacuum birefringence: a quantum effect in which an extreme magnetic field makes empty space itself change the light passing through it."
+        },
+        {
+          "id": "5",
+          "title": "A pulse almost too faint to find",
+          "text": "Searches for a pulse came up empty for years. In 2007, XMM-Newton data finally showed one: the star turns once every 7.055 seconds, and its X-rays rise and fall by only about 1.2%, the weakest pulsing then seen from a lone X-ray pulsar. So it is both at once: a neutron star, and a pulsar that stays silent in radio.",
+          "source": {
+            "title": "Tiengo & Mereghetti 2007",
+            "url": "https://arxiv.org/abs/astro-ph/0612501"
+          }
         }
       ]
     },
@@ -350,6 +368,531 @@
           "id": "2",
           "title": "An ancient, lithium-rich star",
           "text": "The star is a visitor from the Galactic halo near the end of its main-sequence life, at least 12 billion years old. It has about 1/17 of the Sun’s share of iron and an unusually high amount of lithium."
+        }
+      ]
+    },
+    "gaia-bh2-system": {
+      "name": "Gaia BH2",
+      "wikipedia": "https://en.wikipedia.org/wiki/Gaia_BH2",
+      "introduction": "is a black hole about 3,800 light-years away in Centaurus, the third nearest known. It has about 8.9 times the Sun’s mass and gives itself away only by the pull it exerts on a red giant, which takes 1,277 days to circle it.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "An orbit too wide to explain",
+          "text": "When it was reported in 2023, its orbit was much longer than that of any black-hole binary studied before. It also seems too wide to have formed the textbook way, with the two stars sharing a common envelope of gas. The black hole barely feeds, which fits models in which little of the gas it could capture ever reaches it.",
+          "source": {
+            "title": "El-Badry et al. 2023",
+            "url": "https://arxiv.org/abs/2302.07880"
+          }
+        }
+      ]
+    },
+    "a0620-00-system": {
+      "name": "A0620-00",
+      "wikipedia": "https://en.wikipedia.org/wiki/A0620-00",
+      "introduction": "is a black hole about 4,700 light-years away in Monoceros, with a K-type star circling it every 7.75 hours. In 1975 it flared into the brightest X-ray point source in the sky; it had already erupted once, in 1917.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "A mass revised downward",
+          "text": "Its mass depends on how steeply the orbit tilts toward us. One careful study found a tilt of 51.0° and 6.6 solar masses. A 2017 revisit of the same kind of light curves found 54.1° and 5.86 solar masses, and warned that hidden errors may still exceed the quoted uncertainty.",
+          "source": {
+            "title": "van Grunsven et al. 2017",
+            "url": "https://arxiv.org/abs/1708.08209"
+          }
+        }
+      ]
+    },
+    "ogle-2011-blg-0462": {
+      "name": "OGLE-2011-BLG-0462",
+      "wikipedia": "https://en.wikipedia.org/wiki/OGLE-2011-BLG-0462",
+      "introduction": "is a lone black hole about 5,000 light-years away in Sagittarius, the first isolated black hole ever confirmed. It has no companion to give it away; it was found in 2011 because its gravity bent the light of a star far behind it.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Eleven years with Hubble",
+          "text": "Hubble tracked the tiny shift of that background star for 11 years. The latest analysis gives a mass of 7.15 ± 0.83 solar masses and finds no light from the object itself, which settles that it is a black hole. It moves at about 51 km/s relative to the stars around it.",
+          "source": {
+            "title": "Sahu et al. 2025",
+            "url": "https://arxiv.org/abs/2503.07820"
+          }
+        }
+      ]
+    },
+    "xte-j1118p480-system": {
+      "name": "XTE J1118+480",
+      "source": {
+        "title": "Khargharia et al. 2013",
+        "url": "https://arxiv.org/abs/1211.2786"
+      },
+      "introduction": "is a black hole about 5,500 light-years away in Ursa Major, circled by a small, cool star about every 4 hours. It has between 6.9 and 8.2 times the Sun’s mass.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Far from the crowd",
+          "text": "Nearly all known black-hole X-ray transients lie in the Milky Way’s bulge and disk. This is one of only two at high Galactic latitude: seen from Earth, it sits 62° from the plane of the Galaxy.",
+          "source": {
+            "title": "Corral-Santana et al. 2016",
+            "url": "https://arxiv.org/abs/1510.08869"
+          }
+        }
+      ]
+    },
+    "cygnus-x-1-system": {
+      "name": "Cygnus X-1",
+      "wikipedia": "https://en.wikipedia.org/wiki/Cygnus_X-1",
+      "introduction": "is a black hole about 7,200 light-years away in Cygnus, circled every 5.6 days by a supergiant star. Discovered on a rocket flight in 1964, it was the first X-ray source widely accepted to be a black hole, and it is still one of the strongest in the sky.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Heavier than anyone expected",
+          "text": "A new radio parallax in 2021 moved it farther away than thought, and that raised its mass to 21.2 ± 2.2 solar masses. Finding so heavy a black hole in a metal-rich system puts a firm limit on how much mass massive stars can lose to their winds.",
+          "source": {
+            "title": "Miller-Jones et al. 2021",
+            "url": "https://arxiv.org/abs/2102.09091"
+          }
+        }
+      ]
+    },
+    "v404-cygni-system": {
+      "name": "V404 Cygni",
+      "wikipedia": "https://en.wikipedia.org/wiki/V404_Cygni",
+      "introduction": "is a black hole of about 9 solar masses, roughly 7,800 light-years away in Cygnus. A giant star circles it every 6.47 days and feeds it, setting off outbursts first noted as a nova in 1938.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "A third star changes the story",
+          "text": "In 2024 astronomers found a third star at least 3,500 astronomical units away, still bound to the pair. Had the black hole been kicked hard at birth, that star would have been lost. Its kick must have been under about 5 km/s, so at least some black holes form with almost no kick at all.",
+          "source": {
+            "title": "Burdge et al. 2024",
+            "url": "https://arxiv.org/abs/2404.03719"
+          }
+        },
+        {
+          "id": "2",
+          "title": "The first black hole with a parallax",
+          "text": "In 2009 radio astronomers measured its distance directly from its yearly shift against distant sources, 2.39 ± 0.14 kiloparsecs. It was the first accurate parallax distance to a black hole, and it came out significantly closer than the accepted value.",
+          "source": {
+            "title": "Miller-Jones et al. 2009",
+            "url": "https://arxiv.org/abs/0910.5253"
+          }
+        }
+      ]
+    },
+    "gro-j0422p32-system": {
+      "name": "GRO J0422+32",
+      "source": {
+        "title": "Gelino & Harrison 2003",
+        "url": "https://arxiv.org/abs/astro-ph/0308490"
+      },
+      "introduction": "is a black hole about 8,100 light-years away in Perseus, with a small red star circling it about every 5 hours. At roughly 2.7 solar masses it may be among the lightest black holes known.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Inside the mass gap",
+          "text": "Few compact objects are known between the heaviest neutron stars and the lightest black holes. A 2022 study measured the orbit’s tilt from the shape of the gas disk’s glow, which put this one at 2.7 solar masses, inside that gap. It suggests the gap may largely reflect how few of these systems have been measured. An older estimate gave 3.97 solar masses.",
+          "source": {
+            "title": "Casares et al. 2022",
+            "url": "https://arxiv.org/abs/2207.01628"
+          }
+        }
+      ]
+    },
+    "gs-2000p25-system": {
+      "name": "GS 2000+25",
+      "source": {
+        "title": "Casares & Jonker 2014",
+        "url": "https://arxiv.org/abs/1311.5118"
+      },
+      "introduction": "is a black hole about 8,800 light-years away in Vulpecula, circled by a K-type star every 8.26 hours. It is the faintest quiescent black-hole X-ray binary yet measured.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Almost perfectly quiet",
+          "text": "Deep Chandra observations caught it at about a billionth of the maximum brightness a black hole of its mass can sustain, the lowest X-ray luminosity seen in such a system. Fifteen hours with the Very Large Array found no radio emission at all.",
+          "source": {
+            "title": "Rodriguez et al. 2019",
+            "url": "https://arxiv.org/abs/1912.01029"
+          }
+        }
+      ]
+    },
+    "maxi-j1820p070-system": {
+      "name": "MAXI J1820+070",
+      "source": {
+        "title": "Torres et al. 2020",
+        "url": "https://arxiv.org/abs/2003.02360"
+      },
+      "introduction": "is a black hole about 9,700 light-years away in Ophiuchus, circled by a small star every 16.5 hours. If the orbit shares the tilt of its radio jets, the black hole has about 8.5 solar masses.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Jets at nearly light speed",
+          "text": "Its parallax of 0.348 ± 0.033 milliarcseconds gives a distance of 2.96 ± 0.33 kiloparsecs, with no model involved. That also pins down its jets, moving at about 0.89 times the speed of light, and shows its outburst peaked at only 15% of the theoretical limit.",
+          "source": {
+            "title": "Atri et al. 2020",
+            "url": "https://arxiv.org/abs/1912.04525"
+          }
+        }
+      ]
+    },
+    "xmmu-j173203": {
+      "name": "XMMU J173203.3-344518",
+      "source": {
+        "title": "Doroshenko et al. 2022",
+        "url": "https://www.nature.com/articles/s41550-022-01800-1"
+      },
+      "introduction": "is a neutron star about 8,000 light-years away in Scorpius, at the centre of the supernova remnant HESS J1731-347. Models of its X-rays give it only about 0.77 solar masses, which would make it the lightest neutron star known.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Too light for a neutron star?",
+          "text": "That is about half the mass of a typical neutron star, and less than standard theory predicts a supernova can leave behind. Its discoverers call it a promising candidate for a star of strange quark matter, though its properties still fit an ordinary neutron star. The mass comes from a model of its spectrum, not from weighing.",
+          "source": {
+            "title": "University of Tübingen 2022",
+            "url": "https://uni-tuebingen.de/en/news-default/article/lightest-ever-neutron-star-or-strange-quark-matter"
+          }
+        }
+      ]
+    },
+    "cxou-j085201": {
+      "name": "CXOU J085201.4-461753",
+      "source": {
+        "title": "Camilloni et al. 2023",
+        "url": "https://arxiv.org/abs/2303.12686"
+      },
+      "introduction": "is a neutron star at the centre of the supernova remnant Vela Jr, in Vela. Its distance is uncertain: estimates run from about 650 to 3,000 light-years, and no pulses have ever been seen.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Listening for gravitational waves",
+          "text": "A spinning neutron star that is not perfectly round should hum in gravitational waves. Thousands of volunteers lent their computers to Einstein@Home to search LIGO data for this star’s signal, testing more than 10¹⁸ possible waveforms. None was found, which limits how lopsided the star can be.",
+          "source": {
+            "title": "Ming et al. 2024",
+            "url": "https://arxiv.org/abs/2408.14573"
+          }
+        }
+      ]
+    },
+    "rx-j1605": {
+      "name": "RX J1605.3+3249",
+      "source": {
+        "title": "Posselt et al. 2007",
+        "url": "https://arxiv.org/abs/astro-ph/0609275"
+      },
+      "introduction": "is a lone neutron star about 1,300 light-years away in Corona Borealis, one of the “Magnificent Seven” that shine softly in X-rays as they cool. Its distance is estimated from how much gas absorbs its light.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "The one that will not show its spin",
+          "text": "It is the only one of the seven whose rotation is still unconfirmed. An early 6.9-second signal did not hold up in later observations, and a 3.39-second candidate has yet to be confirmed.",
+          "source": {
+            "title": "Malacaria et al. 2019",
+            "url": "https://ntrs.nasa.gov/api/citations/20210010234/downloads/Arzoumanian_A%20Joint%20NICER%20and%20XMM-Newton%20view_paper.pdf"
+          }
+        }
+      ]
+    },
+    "psr-j0420m5022": {
+      "name": "RX J0420.0-5022",
+      "source": {
+        "title": "Haberl 2007",
+        "url": "https://arxiv.org/abs/astro-ph/0609066"
+      },
+      "introduction": "is a lone neutron star about 1,100 light-years away in Dorado, one of the “Magnificent Seven”. It is the coolest of the group, and at one turn every 3.45 seconds it has the fastest confirmed spin of the seven.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Measured by the gas in the way",
+          "text": "No parallax exists for it. Its distance comes from how much interstellar gas dims its X-rays, compared with a three-dimensional map of the gas around the Sun.",
+          "source": {
+            "title": "Posselt et al. 2007",
+            "url": "https://arxiv.org/abs/astro-ph/0609275"
+          }
+        }
+      ]
+    },
+    "psr-j0806m4123": {
+      "name": "RX J0806.4-4123",
+      "source": {
+        "title": "Haberl 2007",
+        "url": "https://arxiv.org/abs/astro-ph/0609066"
+      },
+      "introduction": "is a lone neutron star about 780 light-years away in Puppis, one of the “Magnificent Seven”. It turns once every 11.37 seconds, the slowest spin of the group.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Dimmed by local gas",
+          "text": "Its distance, about 240 parsecs, comes from comparing the gas that absorbs its X-rays with maps of sodium gas around the Sun. The method is good to about 25 parsecs here, close to the edge of those maps.",
+          "source": {
+            "title": "Posselt et al. 2007",
+            "url": "https://arxiv.org/abs/astro-ph/0609275"
+          }
+        }
+      ]
+    },
+    "psr-j1809m1943": {
+      "name": "XTE J1810-197",
+      "source": {
+        "title": "Ding et al. 2020",
+        "url": "https://arxiv.org/abs/2008.06438"
+      },
+      "introduction": "is a magnetar about 8,200 light-years away in Sagittarius, a neutron star with an enormous magnetic field that turns every 5.54 seconds. It is the first magnetar with a measured parallax.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "A magnetar pinned down",
+          "text": "Radio observations from 2019 and 2020, combined with two from 2006, gave a parallax of 0.40 ± 0.05 milliarcseconds. That places it about 2.5 kiloparsecs away, closer than earlier estimates. Its speed across the sky, about 200 km/s, turned out to be ordinary for a pulsar."
+        }
+      ]
+    },
+    "psr-j0418p5732": {
+      "name": "SGR 0418+5729",
+      "source": {
+        "title": "Durant et al. 2011",
+        "url": "https://arxiv.org/abs/1108.3340"
+      },
+      "introduction": "is a magnetar in Camelopardalis that turns once every 9.08 seconds. Its distance is not measured; astronomers usually assume about 6,500 light-years.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Nothing to see in visible light",
+          "text": "Hubble imaged the field in 2011 and found no counterpart in visible or near-infrared light at the star’s position, which sets a strict limit on anything bright around it."
+        }
+      ]
+    },
+    "scorpius-x-1-system": {
+      "name": "Scorpius X-1",
+      "wikipedia": "https://en.wikipedia.org/wiki/Scorpius_X-1",
+      "introduction": "is a neutron star about 7,600 light-years away in Scorpius, pulling gas from a low-mass companion that orbits every 18.9 hours. Found in 1962, it was the first X-ray source discovered beyond the Solar System and, apart from the Sun, it is the strongest steady X-ray source in the sky.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Unmasking the companion",
+          "text": "The companion is lost in the glare of the hot gas around the neutron star. In 2002 astronomers finally caught its motion, using narrow emission lines from the side of the star lit by X-rays.",
+          "source": {
+            "title": "Steeghs & Casares 2002",
+            "url": "https://arxiv.org/abs/astro-ph/0107343"
+          }
+        }
+      ]
+    },
+    "centaurus-x-4-system": {
+      "name": "Centaurus X-4",
+      "source": {
+        "title": "van den Eijnden et al. 2022",
+        "url": "https://arxiv.org/abs/2207.03962"
+      },
+      "introduction": "is a neutron star about 6,200 light-years away in Centaurus, feeding from a K-type star that circles it every 15.1 hours. It flared in 1969 and 1979 and has not had a full outburst since.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "A spotted companion",
+          "text": "High-resolution spectra allowed astronomers to weigh the system and to map the companion’s surface, the first such map of a star in an X-ray binary. It turned out to be covered in starspots.",
+          "source": {
+            "title": "Shahbaz et al. 2014",
+            "url": "https://arxiv.org/abs/1402.1639"
+          }
+        }
+      ]
+    },
+    "vela-x-1-system": {
+      "name": "Vela X-1",
+      "wikipedia": "https://en.wikipedia.org/wiki/Vela_X-1",
+      "introduction": "is a neutron star about 6,600 light-years away in Vela, circling the blue supergiant HD 77581 every 8.964 days and turning once every 283 seconds. It is the textbook example of a neutron star feeding on a giant star’s wind.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Eclipsed every orbit",
+          "text": "The neutron star disappears behind its companion for about two days of every orbit. The supergiant itself varies around magnitude 7, just too faint for the naked eye."
+        }
+      ]
+    },
+    "x-persei-system": {
+      "name": "X Persei",
+      "source": {
+        "title": "Sanjurjo-Ferrín et al. 2026",
+        "url": "https://arxiv.org/abs/2606.09579"
+      },
+      "introduction": "is a neutron star about 2,000 light-years away in Perseus, orbiting a Be star every 250 days. It is an unusually slow pulsar, turning only once every 837 seconds, yet its X-rays are exceptionally energetic, reaching beyond 100 keV.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Among the most magnetized",
+          "text": "Its magnetic field is not known precisely, but indirect signs put it above 10¹³ gauss. That would make it one of the most strongly magnetized X-ray pulsars known.",
+          "source": {
+            "title": "Mushtukov et al. 2023",
+            "url": "https://arxiv.org/abs/2303.17325"
+          }
+        }
+      ]
+    },
+    "a0535p26-system": {
+      "name": "A0535+26",
+      "source": {
+        "title": "Caballero et al. 2011",
+        "url": "https://arxiv.org/abs/1107.3417"
+      },
+      "introduction": "is a neutron star about 6,200 light-years away in Taurus, on a stretched 111-day orbit around the Be star HDE 245770. Each close pass can set off a burst of X-rays.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "A giant outburst in 2009",
+          "text": "In December 2009 it erupted to about 5 times the brightness of the Crab in hard X-rays. One orbit later came another, unexpectedly bright flare."
+        }
+      ]
+    },
+    "ls-i-61-303-system": {
+      "name": "LS I +61 303",
+      "source": {
+        "title": "Weng et al. 2022",
+        "url": "https://arxiv.org/abs/2203.09423"
+      },
+      "introduction": "is a neutron star about 8,600 light-years away in Cassiopeia, on a 26.5-day orbit around a hot B-type star. It belongs to the rare gamma-ray binaries, which emit most of their power as gamma rays.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Pulses at last",
+          "text": "For decades nobody could say what the compact object was. In 2020 China’s FAST radio telescope caught radio pulses every 269 milliseconds, the first pulses seen from it at any wavelength. They soon vanished again, but they strongly argue for a spinning neutron star."
+        }
+      ]
+    },
+    "psr-j0534p2200": {
+      "name": "Crab Pulsar",
+      "wikipedia": "https://en.wikipedia.org/wiki/Crab_Pulsar",
+      "introduction": "is the young neutron star at the heart of the Crab Nebula, about 6,500 light-years away in Taurus, left by the supernova seen from Earth in 1054. It spins about 30 times a second, and its wind powers most of the nebula’s glow.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "The pulsar that sealed the case",
+          "text": "Found in 1968, it was the first pulsar connected with a supernova remnant. It is also one of very few pulsars seen flashing in visible light, and it emits from radio waves up to gamma rays."
+        }
+      ]
+    },
+    "psr-j0737m3039a": {
+      "name": "PSR J0737-3039",
+      "wikipedia": "https://en.wikipedia.org/wiki/PSR_J0737%E2%88%923039",
+      "aliases": [
+        "psr-j0737m3039b"
+      ],
+      "introduction": "is the first known double pulsar: two neutron stars about 3,600 light-years away in Puppis, both seen as radio pulsars, circling each other every 2.45 hours. Found in 2003 at Parkes, it is known as A and B.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "A precision test of gravity",
+          "text": "Sixteen years of timing weighed the pair at 1.338185 and 1.248868 solar masses and made it one of the sharpest tests of general relativity for strong gravity. It also revealed relativistic effects never measured before.",
+          "source": {
+            "title": "Kramer et al. 2021",
+            "url": "https://arxiv.org/abs/2112.06795"
+          }
+        }
+      ]
+    },
+    "psr-j1959p2048-system": {
+      "name": "Black Widow Pulsar",
+      "wikipedia": "https://en.wikipedia.org/wiki/Black_Widow_pulsar",
+      "introduction": "is a millisecond pulsar about 4,600 light-years away in Sagitta, spinning once every 1.6 milliseconds. Discovered in 1988, it was the first pulsar found to be destroying its companion.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Eating its partner",
+          "text": "A tiny companion circles it every 9.2 hours and blocks the pulses for about 20 minutes per orbit. Winds of energetic particles from the pulsar are thought to be stripping it away, which inspired the name. Around 41 such “black widows” were known by 2023."
+        }
+      ]
+    },
+    "psr-j1939p2134": {
+      "name": "PSR B1937+21",
+      "wikipedia": "https://en.wikipedia.org/wiki/PSR_B1937%2B21",
+      "introduction": "is the first millisecond pulsar discovered, about 9,500 light-years away in Vulpecula. Found in 1982, it spins 642 times a second.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "A spin nobody expected",
+          "text": "Astronomers did not think pulsars could turn so fast. The discovery led to the idea that an old pulsar can be spun up by gas taken from a companion."
+        },
+        {
+          "id": "2",
+          "title": "Closer than it seemed",
+          "text": "A 2023 radio parallax places it at about 2.9 kiloparsecs, nearer than the 3.5 kiloparsecs adopted before.",
+          "source": {
+            "title": "Ding et al. 2023",
+            "url": "https://arxiv.org/abs/2212.06351"
+          }
+        }
+      ]
+    },
+    "psr-j0740p6620": {
+      "name": "PSR J0740+6620",
+      "wikipedia": "https://en.wikipedia.org/wiki/PSR_J0740%2B6620",
+      "introduction": "is one of the most massive neutron stars with a precise mass, about 3,750 light-years away in Camelopardalis. It spins once every 2.9 milliseconds in orbit with a white dwarf.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Near the limit",
+          "text": "Timing measures how its companion’s gravity delays the pulses, which gives a mass of 2.08 ± 0.07 solar masses. That is close to the theoretical maximum, so it strongly constrains what matter does at the highest densities.",
+          "source": {
+            "title": "Fonseca et al. 2021",
+            "url": "https://arxiv.org/abs/2104.00880"
+          }
+        }
+      ]
+    },
+    "psr-j0348p0432-system": {
+      "name": "PSR J0348+0432",
+      "wikipedia": "https://en.wikipedia.org/wiki/PSR_J0348%2B0432",
+      "introduction": "is a pulsar about 6,800 light-years away in Taurus, in a tight orbit with a white dwarf. It was once counted among the heaviest neutron stars known.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Two solar masses no more",
+          "text": "A 2013 study gave it 2.01 solar masses, relying on a model of the white dwarf’s light. Timing with the CHIME telescope gave 1.806 ± 0.037 in 2024, about 10% lower. For the first time for this pulsar, timing alone significantly constrains the mass.",
+          "source": {
+            "title": "Saffer et al. 2024",
+            "url": "https://arxiv.org/abs/2412.02850"
+          }
+        }
+      ]
+    },
+    "psr-j0337p1715-system": {
+      "name": "PSR J0337+1715",
+      "wikipedia": "https://en.wikipedia.org/wiki/PSR_J0337%2B1715",
+      "introduction": "is a millisecond pulsar about 4,200 light-years away in Taurus and the first found in a triple system. A white dwarf circles it closely, and a second one orbits both about every 11 months.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Einstein’s falling test",
+          "text": "The outer star’s pull acts on both the dense pulsar and the light inner white dwarf. If gravity treated them differently, the timing would show it. In 2018 they were found to fall alike to better than a few parts per million, while the pulsar’s mass came out at 1.4359 solar masses.",
+          "source": {
+            "title": "Archibald et al. 2018",
+            "url": "https://arxiv.org/abs/1807.02059"
+          }
+        }
+      ]
+    },
+    "psr-j0821m4300": {
+      "name": "PSR J0821-4300",
+      "wikipedia": "https://en.wikipedia.org/wiki/Puppis_A",
+      "introduction": "is the “Cosmic Cannonball”, a fast-moving neutron star about 7,200 light-years away in Puppis, flung from the explosion that made the Puppis A supernova remnant.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Thrown from its birthplace",
+          "text": "The remnant’s light first reached Earth about 3,700 years ago, and the star has been racing away from the blast ever since."
+        }
+      ]
+    },
+    "psr-j1537p1155-system": {
+      "name": "PSR J1537+1155",
+      "source": {
+        "title": "Fonseca et al. 2014",
+        "url": "https://arxiv.org/abs/1402.4836"
+      },
+      "introduction": "is a pair of neutron stars about 3,000 light-years away in Serpens, also known as PSR B1534+12. One is seen as a pulsar with a 37.9-millisecond spin.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Two near-twins",
+          "text": "Twenty-two years of timing measured five relativistic effects in the orbit and weighed the pair at 1.3330 and 1.3455 solar masses, offering a clean test of gravity."
         }
       ]
     }
