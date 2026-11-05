@@ -1642,7 +1642,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   /* Stacked over the object card, so the shadow also rises above the top edge. */
   .dock-card.object-type-card { z-index: 1; top: var(--object-detail-top, 90px); left: var(--object-detail-left, 12px); width: min(380px, calc(var(--ui-width) - 78px)); max-height: calc(var(--ui-height) - var(--object-detail-top, 90px) - 24px); box-shadow: 0 -6px 18px #0000008c, 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; }
   .dock-card.object-type-card.distance-card { width: min(560px, calc(var(--ui-width) - 78px)); }
-  .dock-card.object-type-card.constellation-card { width: min(420px, calc(var(--ui-width) - 90px)); }
+  .dock-card.object-type-card.constellation-card { width: min(420px, calc(var(--ui-width) - 78px)); }
   .dock-card.object-type-card.planet-card { width: min(420px, calc(var(--ui-width) - 78px)); }
   /* The two spectral diagram buttons and a lone distance reference fit beside the title. */
   .object-type-card > .panel-heading:not(.spectral-heading, .distance-heading:has(> [role="group"] > [hidden])):has(> [role="group"]) { flex-wrap: wrap; gap: 0; padding: 0; }
@@ -1923,11 +1923,16 @@ button.graph-bar-row:hover, .graph-bar-row[aria-pressed="true"] { background: va
   .constellations-card .constellation-visibility-stats > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
 }
 
-/* Touch swipes: a promoted layer exists only for the length of a swipe; past the commit point the card dims and the title lights up. Cards stay nearly opaque because they pass over other text. */
+/* Touch swipes: a promoted layer exists only for the length of a swipe; past the commit point the card dims. Cards stay nearly opaque because they pass over other text. */
 .is-swiping { will-change: transform; transition: opacity 120ms ease; }
 .is-swiping[data-armed] { opacity: 0.82; }
 .object-card-body.is-swiping[data-armed] { opacity: 0.45; }
-.dock-card.card-swipe-title { z-index: 2; width: max-content; max-width: calc(var(--ui-width) - 24px); overflow: hidden; pointer-events: none; will-change: transform; }
-.card-swipe-title > .panel-heading { position: static; padding-right: 14px; border-bottom: 0; white-space: nowrap; }
-.card-swipe-title h2 { transform-origin: left center; transition: color 120ms ease; }
-.card-swipe-title[data-armed] h2 { color: var(--accent-vibrant); }
+/* Precedes the cards, so a card opening after a sideways step draws over it. */
+.dock-card.card-swipe-frame { overflow: hidden; pointer-events: none; }
+/* A sideways step: the frame and heading row stay while what they hold is exchanged. The neighbouring card shows just its heading contents over the row, and stays `hidden` to the app until the step commits. */
+.is-step-part { will-change: transform, opacity; }
+.dock-card.object-type-card.is-stepping { overflow: hidden; }
+.dock-card.object-type-card.is-step-peek { z-index: 2; display: block !important; max-height: none; overflow: hidden; pointer-events: none; background: none; border-color: transparent; box-shadow: none; }
+.is-step-peek > :not(.panel-heading) { display: none !important; }
+.dock-card.is-step-peek > .panel-heading { background: none; border-bottom-color: transparent; }
+.dock-card.is-step-peek > .panel-heading::after { content: none !important; }

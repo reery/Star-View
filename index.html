@@ -160,7 +160,7 @@
               <div id="comparison-system-name" class="comparison-system-name"></div>
               <div id="comparison-system-members" class="comparison-system-members"></div>
             </div>
-            <div class="dock-card object-type-card card-swipe-title" aria-hidden="true" hidden><div class="panel-heading"><h2></h2></div></div>
+            <div class="dock-card object-type-card card-swipe-frame" aria-hidden="true" hidden></div>
             <section id="object-type-card" class="dock-card object-type-card" aria-labelledby="object-type-heading" data-scene-obstacle hidden>
               <div class="panel-heading">
                 <h2 id="object-type-heading"></h2>
@@ -1053,7 +1053,7 @@
                       <span id="earth-orbit-mode-description" class="sr-only">Stops are Off, Now, January, February, March, April, May, June, July, August, September, October, November, and December.</span>
                     </div>
                     <div class="range-filter">
-                      <div class="range-heading"><label for="visibility-cone-mode"><span class="mass-metric-help">Show visibility cone</span></label><span id="visibility-cone-mode-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">A faint blue cone from Earth over the sky that stays above the horizon through the chosen two hours, for the latitude chosen in the constellation card and Earth’s position on the date set by Earth’s orbit. The equatorial grid turns blue inside it. Now uses your clock.</span><output id="visibility-cone-mode-value" for="visibility-cone-mode">Off</output></div>
+                      <div class="range-heading"><label for="visibility-cone-mode"><span class="mass-metric-help">Show visibility cone</span></label><span id="visibility-cone-mode-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">A blue circle around the sky that stays above the horizon through the chosen two hours, for the latitude chosen in the constellation card and Earth’s position on the date set by Earth’s orbit. A faint gradient along its edge points into the visible side, and the equatorial and galactic grids turn blue inside it. While Earth’s orbit shows, a short fading cone from Earth marks the same directions. Now uses your clock.</span><output id="visibility-cone-mode-value" for="visibility-cone-mode">Off</output></div>
                       <input id="visibility-cone-mode" type="range" min="0" max="8" step="1" value="0" list="visibility-cone-mode-stops" aria-valuetext="Off" aria-describedby="visibility-cone-mode-description visibility-cone-mode-tooltip">
                       <datalist id="visibility-cone-mode-stops"><option value="0" label="Off"></option><option value="1" label="Now"></option><option value="2" label="18–20"></option><option value="3" label="20–22"></option><option value="4" label="22–24"></option><option value="5" label="0–2"></option><option value="6" label="2–4"></option><option value="7" label="4–6"></option><option value="8" label="6–8"></option></datalist>
                       <div class="range-bounds" aria-hidden="true"><span>Off</span><span>6–8</span></div>

@@ -3,6 +3,12 @@ const STREAM_KEYFRAMES: Keyframe[] = [{ ...mask, maskPosition: '0 100%' }, { ...
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 const waits = new WeakMap<HTMLElement, { stream: Animation; start: CSSNumberish | null }>()
 
+export const STREAM_MS = 400
+export const STREAM_EASING = 'ease-in-out'
+
+/** Draws content in from top to bottom. */
+export const streamIn = (target: HTMLElement) => target.animate(STREAM_KEYFRAMES, { duration: STREAM_MS, easing: STREAM_EASING })
+
 /**
  * Keep content masked while its data loads, then stream it in top to bottom.
  * Data that arrives before the next frame shows at once; the latest load on a target decides when it streams.
@@ -10,7 +16,7 @@ const waits = new WeakMap<HTMLElement, { stream: Animation; start: CSSNumberish 
 export function streamWhenLoaded<T>(target: HTMLElement, loading: Promise<T>): Promise<T> {
   if (reducedMotion.matches) return loading
   const previous = waits.get(target)
-  const wait = previous ? { ...previous } : { stream: target.animate(STREAM_KEYFRAMES, { duration: 400, easing: 'ease-in-out' }), start: document.timeline.currentTime }
+  const wait = previous ? { ...previous } : { stream: streamIn(target), start: document.timeline.currentTime }
   wait.stream.pause()
   waits.set(target, wait)
   return loading.finally(() => {

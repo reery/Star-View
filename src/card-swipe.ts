@@ -1,7 +1,10 @@
+import { STREAM_EASING, STREAM_MS, streamIn } from './content-stream'
 import { hideTouchTooltip } from './touch-tooltips'
 
 const SETTLE_MS = 160
-const REVEAL_MS = 220
+const HEADING_SHIFT_PX = 48
+const HEADING_FADE_SPAN = 0.6 // Share of the way to arming each heading fades over; the two overlap only briefly.
+const BODY_FADE = 0.6 // How much of the old content has faded when a step arms.
 const EASING = 'cubic-bezier(0.2, 0, 0, 1)'
 const COMMIT_DISTANCE_PX = 96
 const FLICK_DISTANCE_PX = 24
@@ -29,13 +32,15 @@ type Swipe = {
   radius: string
   /** Distance a retract covers. */
   extent: number
-  left: number
   previous?: HTMLButtonElement
   next?: HTMLButtonElement
   peeked?: HTMLButtonElement
-  peekWidth: number
-  peekHeight: number
-  peekStart: number
+  /** The neighbouring card, showing only its heading while a step is under way. */
+  incoming?: HTMLElement
+  incomingWidth: number
+  incomingHeading: HTMLElement[]
+  outgoingHeading: HTMLElement[]
+  outgoingBody: HTMLElement[]
 }
 
 /** Their headings still describe the last render, so the row's value names what will open. */
@@ -51,49 +56,76 @@ function anyUpTo(card: HTMLElement, from: Element, matches: (element: Element) =
 
 const scrollable = (overflow: string) => overflow === 'auto' || overflow === 'scroll'
 
+const headingParts = (card: HTMLElement) => [...card.querySelector(':scope > .panel-heading')!.children] as HTMLElement[]
+const bodyParts = (card: HTMLElement) => ([...card.children] as HTMLElement[]).filter((child) => !child.matches('.panel-heading'))
+const toggledCard = (toggle: HTMLButtonElement) => document.getElementById(toggle.getAttribute('aria-controls')!)!
+const isLoading = (card: HTMLElement) => card.matches('[aria-busy="true"], :has([aria-busy="true"]:not([hidden], [hidden] *, details:not([open]) *))')
+
 /**
  * Touch swipes on the object cards: sideways steps through the detail cards, down closes one, and up
- * retracts the selected object card. A card follows the finger by transform alone and nothing renders
- * until a swipe commits, so a cancelled swipe costs no work and an idle card holds no extra layer.
+ * retracts the selected object card. A step keeps the card's frame and heading row in place, exchanges
+ * what the row holds and moves the content out under it. Everything follows the finger by transform and
+ * opacity alone and nothing renders until a swipe commits, so a cancelled swipe costs no work and an idle
+ * card holds no extra layer.
  */
 export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTMLDetailsElement, touchInput: MediaQueryList, signal: AbortSignal): void {
-  const peek = inspector.querySelector<HTMLElement>('.card-swipe-title')!
-  const peekTitle = peek.querySelector('h2')!
+  const blankFrame = inspector.querySelector<HTMLElement>('.card-swipe-frame')!
   const objectSummary = objectDetails.querySelector('summary')!
   const objectBody = objectDetails.querySelector<HTMLElement>('.object-card-body')!
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   let swipe: Swipe | undefined
   let settling = false
-  let reveal: Animation | undefined
+  let reveal: Animation[] = []
+  let endDrawIn: (() => void) | undefined
 
   // A lone keyframe animates from the inline value the finger left behind, on the compositor where it can.
   const settle = (element: Element, to: PropertyIndexedKeyframes) => element.animate(to, {
     duration: reducedMotion.matches ? 0 : SETTLE_MS, easing: EASING, fill: 'forwards',
   })
   const release = (element: HTMLElement) => {
-    element.getAnimations().forEach((animation) => animation.cancel())
+    // Only what settle() left behind: content may still be held by a stream waiting for its data.
+    element.getAnimations().forEach((animation) => {
+      if (animation.effect?.getTiming().fill === 'forwards') animation.cancel()
+    })
     element.style.removeProperty('transform')
+    element.style.removeProperty('opacity')
+    element.style.removeProperty('width')
     element.style.removeProperty('clip-path')
-    element.style.removeProperty('z-index')
-    element.classList.remove('is-swiping')
+    element.classList.remove('is-swiping', 'is-step-part', 'is-stepping', 'is-step-peek')
     element.removeAttribute('data-armed')
   }
-  const hidePeek = () => {
-    release(peek)
-    peek.hidden = true
+  const dropIncoming = (active: Swipe) => {
+    active.incomingHeading.forEach(release)
+    active.incomingHeading = []
+    if (active.incoming) release(active.incoming)
+    active.incoming = undefined
   }
-  const showPeek = (active: Swipe, title: string) => {
-    peekTitle.textContent = title
-    peek.hidden = false
-    active.peekWidth = peek.offsetWidth
-    active.peekHeight = peek.offsetHeight
+  /** Leaves `hidden` set, so that to the app the neighbouring card stays closed until a step commits. */
+  const showIncoming = (active: Swipe, toggle: HTMLButtonElement) => {
+    const card = toggledCard(toggle)
+    if (titleInRow.has(toggle.id)) card.querySelector('h2')!.textContent = toggle.textContent!.trim()
+    card.classList.add('is-step-peek')
+    // Cards differ slightly in width; the heading stays inside the frame it is drawn over.
+    active.incomingWidth = card.offsetWidth
+    card.style.width = `${active.card.offsetWidth}px`
+    active.incoming = card
+    active.incomingHeading = headingParts(card)
+    active.incomingHeading.forEach((part) => part.classList.add('is-step-part'))
   }
+  const endStep = (active: Swipe) => {
+    dropIncoming(active)
+    active.outgoingHeading.forEach(release)
+    active.outgoingBody.forEach(release)
+  }
+  const shift = (x: number) => `translate3d(${x}px,0,0)`
+  /** `shown` runs from 0, displaced towards `side`, to 1 at the part's own place. */
+  const poseHeading = (parts: HTMLElement[], side: number, shown: number) => parts.forEach((part) => {
+    part.style.transform = shift(side * (1 - shown) * HEADING_SHIFT_PX)
+    part.style.opacity = String(shown)
+  })
 
   const steppableToggles = () => [...document.querySelectorAll<HTMLButtonElement>('#object-specs .object-type-toggle[aria-controls$="-card"]')]
     .filter((toggle) => !toggle.disabled && !toggle.closest('[hidden]'))
-  const stepTitle = (toggle: HTMLButtonElement) => titleInRow.has(toggle.id)
-    ? toggle.textContent!.trim()
-    : document.getElementById(toggle.getAttribute('aria-controls')!)!.querySelector('h2')!.textContent!.trim()
 
   /** Claims the gesture from its first movement, the only one a browser still lets a page cancel. */
   function kindOf(active: Swipe, dx: number, dy: number): SwipeKind | undefined {
@@ -125,9 +157,6 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
       active.commitAt = Math.min(COMMIT_DISTANCE_PX, active.extent / 2)
     } else if (kind === 'close') {
       active.commitAt = Math.min(COMMIT_DISTANCE_PX, height / 2)
-      // The word waits underneath, uncovered as the card leaves.
-      active.card.style.zIndex = '3'
-      showPeek(active, 'Close')
     } else {
       const toggles = steppableToggles()
       const index = toggles.findIndex((toggle) => toggle.getAttribute('aria-controls') === active.card.id)
@@ -135,8 +164,12 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
         active.previous = toggles[index - 1]
         active.next = toggles[index + 1]
       }
-      active.left = active.card.getBoundingClientRect().left
       active.commitAt = Math.min(COMMIT_DISTANCE_PX, active.card.offsetWidth * 0.4)
+      active.outgoingHeading = headingParts(active.card)
+      active.outgoingBody = bodyParts(active.card)
+      active.card.classList.add('is-stepping')
+      for (const part of [...active.outgoingHeading, ...active.outgoingBody]) part.classList.add('is-step-part')
+      return
     }
     active.moved.classList.add('is-swiping')
   }
@@ -154,15 +187,21 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
       const neighbour = raw < 0 ? active.next : active.previous
       if (neighbour !== active.peeked) {
         active.peeked = neighbour
-        if (neighbour) {
-          showPeek(active, stepTitle(neighbour))
-          active.peekStart = raw < 0 ? window.innerWidth - active.left : -active.left - active.peekWidth
-        } else peek.hidden = true
+        dropIncoming(active)
+        if (neighbour) showIncoming(active, neighbour)
+        else poseHeading(active.outgoingHeading, 0, 1)
       }
-      active.card.style.transform = `translate3d(${neighbour ? raw : raw * END_RESISTANCE}px,0,0)`
+      // The exchange completes exactly as the swipe arms.
+      const progress = neighbour ? Math.min(1, Math.abs(raw) / active.commitAt) : 0
+      if (neighbour) {
+        poseHeading(active.outgoingHeading, Math.sign(raw), Math.max(0, 1 - progress / HEADING_FADE_SPAN))
+        poseHeading(active.incomingHeading, -Math.sign(raw), Math.max(0, (progress - 1 + HEADING_FADE_SPAN) / HEADING_FADE_SPAN))
+      }
+      for (const part of active.outgoingBody) {
+        part.style.transform = shift(neighbour ? raw : raw * END_RESISTANCE)
+        part.style.opacity = String(1 - progress * BODY_FADE)
+      }
       armed = Boolean(neighbour) && Math.abs(raw) >= active.commitAt
-      // The title reaches its final place exactly as the swipe arms.
-      if (neighbour) peek.style.transform = `translate3d(${active.peekStart * Math.max(0, 1 - Math.abs(raw) / active.commitAt)}px,0,0)`
     } else if (active.kind === 'close') {
       active.position = Math.max(0, raw)
       active.card.style.transform = `translate3d(0,${active.position}px,0)`
@@ -176,7 +215,6 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
     if (armed !== active.armed) {
       active.armed = armed
       active.moved.toggleAttribute('data-armed', armed)
-      peek.toggleAttribute('data-armed', armed)
     }
   }
 
@@ -190,22 +228,66 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
 
   async function commitStep(active: Swipe): Promise<void> {
     const toggle = active.peeked!
+    const opened = active.incoming!
+    const { card, radius, incomingWidth } = active
     const direction = Math.sign(active.position)
-    const { peekWidth, peekHeight, radius } = active
-    peek.removeAttribute('data-armed')
-    settle(peek, { transform: 'none' })
-    if (!reducedMotion.matches) peekTitle.animate({ transform: ['scale(1.08)', 'none'] }, { duration: SETTLE_MS, easing: EASING })
-    // Rendering waits until the old card is gone, so even a heavy card cannot stutter its way out.
-    await settle(active.card, { transform: `translate3d(${direction * window.innerWidth}px,0,0)`, opacity: 0 }).finished
-    if (!active.card.hidden) toggle.click()
-    const opened = document.getElementById(toggle.getAttribute('aria-controls')!)!
-    hidePeek()
-    release(active.card)
-    if (opened.hidden || reducedMotion.matches) return
-    // The card unrolls from the very rectangle the title occupied.
-    reveal = opened.animate({
-      clipPath: [`inset(0 calc(100% - ${peekWidth}px) calc(100% - ${peekHeight}px) 0 round ${radius})`, `inset(0 0 0 0 round ${radius})`],
-    }, { duration: REVEAL_MS, easing: EASING })
+    // With only its heading laid out, this is the height the new card draws from.
+    const headingHeight = opened.offsetHeight
+    const { offsetWidth: oldWidth, offsetHeight: oldHeight } = card
+    if (incomingWidth !== card.offsetWidth) settle(opened, { width: `${incomingWidth}px` })
+    active.incomingHeading.forEach((part) => settle(part, { transform: 'none', opacity: 1 }))
+    active.outgoingHeading.forEach((part) => settle(part, { transform: shift(direction * HEADING_SHIFT_PX), opacity: 0 }))
+    // Rendering waits until the old content is gone, so even a heavy card cannot stutter its way out.
+    await Promise.all(active.outgoingBody.map((part) => settle(part, { transform: shift(direction * oldWidth), opacity: 0 }).finished))
+    if (!card.hidden) toggle.click()
+    endStep(active)
+    if (!opened.hidden && !reducedMotion.matches) drawIn(opened, oldWidth, oldHeight, `inset(0 0 calc(100% - ${headingHeight}px) 0 round ${radius})`, `inset(0 0 0 0 round ${radius})`)
+  }
+
+  /** A blank frame keeps the old card's size until the new card has its content, then eases to the new size as the card draws in over it. */
+  function drawIn(opened: HTMLElement, oldWidth: number, oldHeight: number, closed: string, open: string): void {
+    const startWidth = `${Math.max(oldWidth, opened.offsetWidth)}px`
+    const startHeight = `${oldHeight}px`
+    blankFrame.style.width = startWidth
+    blankFrame.style.height = startHeight
+    blankFrame.setAttribute('aria-busy', 'true')
+    blankFrame.hidden = false
+    opened.style.clipPath = closed
+    const clear = () => {
+      blankFrame.hidden = true
+      blankFrame.removeAttribute('style')
+      blankFrame.removeAttribute('aria-busy')
+      opened.style.removeProperty('clip-path')
+      endDrawIn = undefined
+    }
+    let frameRequest = 0
+    // A touch does not wait for a slow card: it shows as a tapped card would.
+    endDrawIn = () => {
+      cancelAnimationFrame(frameRequest)
+      clear()
+    }
+    const draw = () => {
+      if (opened.hidden) return clear()
+      if (isLoading(opened)) {
+        frameRequest = requestAnimationFrame(draw)
+        return
+      }
+      const timing = { duration: STREAM_MS, easing: STREAM_EASING }
+      const frame = blankFrame.animate({
+        width: [startWidth, `${opened.offsetWidth}px`],
+        height: [startHeight, `${opened.offsetHeight}px`],
+      }, timing)
+      frame.onfinish = clear
+      endDrawIn = undefined
+      blankFrame.removeAttribute('aria-busy')
+      opened.style.removeProperty('clip-path')
+      reveal = [frame, opened.animate({ clipPath: [closed, open] }, timing)]
+      // Content that waited for its data is already streaming in.
+      for (const part of bodyParts(opened)) {
+        if (!part.getAnimations().some((animation) => !(animation instanceof CSSAnimation))) reveal.push(streamIn(part))
+      }
+    }
+    frameRequest = requestAnimationFrame(draw)
   }
 
   async function finish(active: Swipe, commit: boolean): Promise<void> {
@@ -215,14 +297,15 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
     try {
       if (!commit) {
         moved.removeAttribute('data-armed')
-        peek.removeAttribute('data-armed')
-        if (kind === 'step' && active.peeked) settle(peek, { transform: `translate3d(${active.peekStart}px,0,0)` })
         if (kind === 'retract') settle(card, { clipPath: `inset(0 0 0 0 round ${radius})` })
-        await settle(moved, { transform: 'translate3d(0,0,0)' }).finished
+        if (kind === 'step') {
+          active.incomingHeading.forEach((part) => settle(part, { transform: shift(-Math.sign(position) * HEADING_SHIFT_PX), opacity: 0 }))
+          active.outgoingHeading.forEach((part) => settle(part, { transform: 'none', opacity: 1 }))
+          await Promise.all(active.outgoingBody.map((part) => settle(part, { transform: 'none', opacity: 1 }).finished))
+        } else await settle(moved, { transform: 'translate3d(0,0,0)' }).finished
       } else if (kind === 'step') {
         await commitStep(active)
       } else if (kind === 'close') {
-        peek.hidden = true
         await settle(card, { transform: `translate3d(0,${position + 120}px,0)`, opacity: 0 }).finished
         card.querySelector<HTMLButtonElement>('[id$="-close"]')!.click()
       } else {
@@ -231,7 +314,7 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
         objectDetails.open = false
       }
     } finally {
-      hidePeek()
+      endStep(active)
       release(moved)
       release(card)
       settling = false
@@ -249,12 +332,14 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
     const card = event.target.closest<HTMLElement>('.object-type-card, .selected-object')
     if (!card) return
     // A quick next swipe does not wait for the previous card to finish arriving.
-    reveal?.finish()
+    endDrawIn?.()
+    reveal.forEach((animation) => animation.finish())
+    reveal = []
     const touch = event.touches[0]!
     swipe = {
       card, target: event.target, startX: touch.clientX, startY: touch.clientY, moved: card,
       position: 0, lastRaw: 0, lastTime: event.timeStamp, speed: 0, commitAt: COMMIT_DISTANCE_PX,
-      armed: false, radius: '0', extent: 0, left: 0, peekWidth: 0, peekHeight: 0, peekStart: 0,
+      armed: false, radius: '0', extent: 0, incomingWidth: 0, incomingHeading: [], outgoingHeading: [], outgoingBody: [],
     }
   }, options)
 

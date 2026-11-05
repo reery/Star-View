@@ -9,6 +9,7 @@ import { JUPITER_MASS_SOLAR, massFuel, massProperties } from './mass-properties'
 import { renderPlotMarkers, type PlotPoint } from './plot-markers'
 
 const number = (value: number, digits = 3) => value.toLocaleString('en-US', { maximumSignificantDigits: digits })
+const rangeEnd = (value: number) => number(Math.round(value * 100) / 100)
 const superscript = (value: string) => value.replace(/[-\d]/g, (digit) => '⁻⁰¹²³⁴⁵⁶⁷⁸⁹'['-0123456789'.indexOf(digit)]!)
 const scientific = (value: number) => {
   const [mantissa, exponent] = value.toExponential(2).split('e')
@@ -32,7 +33,7 @@ function massFact(star: Star, typical: TypicalMassClass | null, comparing: boole
     title: 'Mass', icon: Weight, value: mass === null ? MISSING_VALUE : number(mass), unit: mass === null ? '' : 'M☉',
     bar: placement ? {
       from: placement.rangeLowPosition, to: placement.rangeHighPosition, marker: placement.position,
-      caption: `Typical ${typical!.label.replace(/^[A-Z](?=[a-z])/, (letter) => letter.toLowerCase())}`, ends: [number(range![0]), `${number(range![1])}\u00a0M☉`],
+      caption: `Typical ${typical!.label.replace(/^[A-Z](?=[a-z])/, (letter) => letter.toLowerCase())}`, ends: [rangeEnd(range![0]), `${rangeEnd(range![1])}\u00a0M☉`],
     } : undefined,
     notes: mass === null ? ['Catalog mass unavailable.'] : [
       ...error,
