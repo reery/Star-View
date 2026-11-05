@@ -475,23 +475,19 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const skyGridOpacity = { value: skyGridOpacityForDisplay(window.devicePixelRatio) }
   const skyGrid = createSkyGridLayer(container, skyGridOpacity)
   scene.add(skyGrid.lines)
-  const visibilityCone = createVisibilityConeLayer(earthOrbitGroup.position)
+  const visibilityCone = createVisibilityConeLayer(skyGridOpacity)
   let visibilityConeView: VisibilityConeView | null = null
   // With the orbit switched off, the cone falls back to today.
   let visibilityConeDate = initialEarthOrbitDate ?? new Date()
-  scene.add(visibilityCone.mesh)
-  // The grid highlight stays in Observer view from the Sun, where the cone would surround the camera.
-  function updateVisibilityConeVisibility(): void {
-    visibilityCone.mesh.visible = visibilityConeView !== null && sunShown()
-    visibilityCone.followSun()
-    setData(container, 'visibilityConeVisible', String(visibilityCone.mesh.visible))
-  }
+  scene.add(visibilityCone.rim)
+  earthOrbitGroup.add(visibilityCone.wall)
   function setVisibilityCone(view: VisibilityConeView | null): void {
     visibilityConeView = view
     const cone = view && skyWindowCone(view.latitude, visibilityConeDate, view.hours)
     skyGrid.setVisibleCone(cone)
     if (cone) visibilityCone.setCone(cone, visibilityConeDate)
-    updateVisibilityConeVisibility()
+    visibilityCone.rim.visible = visibilityCone.wall.visible = cone !== null
+    setData(container, 'visibilityConeVisible', String(cone !== null))
   }
   // The galactic sky-grid globe, built on first use and scaled around the center object.
   const neighborhoodSphere = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xe7a05b, transparent: true, opacity: 0.3, depthWrite: false }))
@@ -2309,7 +2305,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (updateCameraNearPlane(camera, depthPositions, extendedDepthBounds)) invalidateProjection()
     if (earthOrbitEnabled) updateEarthOrbitVisibility()
     if (oortCloudEnabled) updateOortCloudVisibility()
-    if (visibilityConeView) updateVisibilityConeVisibility()
     milkyWay.setSunDistance(camera.position.distanceTo(pickable[sunIndex]!.position))
     if (faintClouds.update(camera.position)) updatePresentation()
     // Looking at a distant object from the origin is still a close sky view.

@@ -7,7 +7,7 @@ import { overlaps, type LabelRect, type LayoutViewport } from './label-layout'
 export type SkyGridMode = 'off' | 'equatorial' | 'galactic'
 type SkyGridFrame = Exclude<SkyGridMode, 'off'>
 
-/** The Earth orbit marker's blue, shared by the visible-sky highlight and cone. */
+/** The Earth orbit marker's blue, shared by the visible-sky highlight and circle. */
 export const VISIBLE_SKY_COLOR = 0x51c8ff
 
 /** Unit sky directions, using the same fixed ICRS/Galactic axes as the catalog. */
@@ -154,27 +154,22 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
   let mode: SkyGridMode = 'off'
   let labels: Array<SkyGridLabelSlot & { direction: Vector3; anchor: HTMLDivElement; text: HTMLDivElement }> = []
   let layoutDirty = true
-  let highlightEnabled = false
   const clip = new Vector4()
   container.dataset.skyGrid = mode
-  // Only the equatorial grid's declinations mean anything for an observer's latitude.
-  const syncHighlight = () => { material.uniforms.highlight!.value = highlightEnabled && mode === 'equatorial' ? 1 : 0 }
 
   return {
     lines,
     layer,
     setVisibleCone(cone: SkyCone | null) {
-      highlightEnabled = cone !== null
+      material.uniforms.highlight!.value = cone ? 1 : 0
       if (cone) {
         material.uniforms.visibleAxis!.value.copy(cone.axis)
         material.uniforms.visibleCos!.value = Math.cos(cone.halfAngleDeg * Math.PI / 180)
       }
-      syncHighlight()
     },
     setMode(next: SkyGridMode) {
       if (next === mode) return
       mode = next
-      syncHighlight()
       container.dataset.skyGrid = next
       lines.visible = next !== 'off'
       layer.hidden = next === 'off'
