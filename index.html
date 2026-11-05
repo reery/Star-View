@@ -76,7 +76,7 @@
                             <div class="stellar-property spectral-row"><dt>Spectral type</dt><dd><button id="spectral-toggle" class="object-type-toggle" type="button" aria-controls="spectral-card" aria-expanded="false" aria-describedby="spectral-type"><span id="spectral-type"></span></button></dd></div>
                             <div id="temperature-row" class="stellar-property temperature-row"><dt>Temperature</dt><dd><button id="temperature-toggle" class="object-type-toggle" type="button" aria-controls="temperature-card" aria-expanded="false" aria-describedby="temperature"><span id="temperature"></span></button><span id="temperature-source-tooltip" class="tooltip mass-metric-tooltip" role="tooltip" hidden></span></dd></div>
                             <div id="luminosity-row" class="stellar-property luminosity-row"><dt>Bolometric luminosity</dt><dd><button id="luminosity-toggle" class="object-type-toggle" type="button" aria-controls="luminosity-card" aria-expanded="false" aria-describedby="luminosity"><span id="luminosity"></span></button><span id="luminosity-source-tooltip" class="tooltip mass-metric-tooltip" role="tooltip" hidden></span></dd></div>
-                            <div id="mass-row" class="mass-row"><dt id="mass-label">Mass</dt><dd><button id="mass-toggle" class="object-type-toggle" type="button" aria-controls="mass-card" aria-expanded="false" aria-describedby="mass"><span id="mass"></span></button></dd></div>
+                            <div id="mass-row" class="mass-row"><dt id="mass-label">Mass</dt><dd><button id="mass-toggle" class="object-type-toggle" type="button" aria-controls="mass-card" aria-expanded="false" aria-describedby="mass"><span id="mass"></span></button><span id="mass-source-tooltip" class="tooltip mass-metric-tooltip" role="tooltip" data-model-range hidden></span></dd></div>
                             <div id="radius-row" class="stellar-property radius-row"><dt>Radius</dt><dd><button id="radius-toggle" class="object-type-toggle" type="button" aria-controls="radius-card" aria-expanded="false" aria-describedby="radius"><span id="radius"></span></button><span id="radius-source-tooltip" class="tooltip mass-metric-tooltip" role="tooltip" hidden></span></dd></div>
                             <div class="stellar-property metallicity-row"><dt id="metallicity-label">Metallicity</dt><dd><button id="metallicity-toggle" class="object-type-toggle" type="button" aria-controls="metallicity-card" aria-expanded="false" aria-describedby="metallicity"><span id="metallicity"></span></button></dd></div>
                             <div class="stellar-property"><dt>Age</dt><dd id="age"></dd></div>
@@ -413,7 +413,7 @@
                   </table>
                   <details class="radius-method spectral-method">
                     <summary>About this diagram</summary>
-                    <p>The P–Ṗ diagram is the pulsar counterpart of the H–R diagram. Each dot is a catalog pulsar within 3000 light-years, placed by its spin period and how fast that period grows. Both axes are logarithmic.</p>
+                    <p>The P–Ṗ diagram is the pulsar counterpart of the H–R diagram. Each dot is a catalog pulsar within 10,000 light-years, placed by its spin period and how fast that period grows. Both axes are logarithmic.</p>
                     <p>Young pulsars spin down fast and sit high on the diagram, then drift down and to the right over millions of years. Millisecond pulsars, spun up by matter from a companion, sit at the lower left. Below the death line, most pulsars no longer emit radio pulses.</p>
                     <p>Dashed lines mark constant characteristic age, P/2Ṗ; dotted lines constant surface magnetic field, 3.2 × 10¹⁹ √(PṖ) G. Both assume the standard magnetic-braking model, as the catalog’s derived values do.</p>
                     <a href="https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html" target="_blank" rel="noreferrer">Pulsar data: ATNF Pulsar Catalogue ↗</a><br>
@@ -836,43 +836,43 @@
                 </div>
                 <div class="filter-controls card-scroll-content">
                   <div class="range-filter">
-                    <div class="range-heading"><label for="catalog-range">Nearest objects</label></div>
-                    <input id="catalog-range" type="range" min="0" max="0" step="1" value="0">
+                    <div class="range-heading"><label for="catalog-range"><span class="mass-metric-help">Nearest objects</span></label><span id="catalog-range-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">How many of the objects closest to the Sun to load: stars, brown dwarfs and white dwarfs, from the nearest neighbors to the nearest 5000. Larger sets reach farther out.</span></div>
+                    <input id="catalog-range" type="range" min="0" max="0" step="1" value="0" aria-describedby="catalog-range-tooltip">
                     <div id="catalog-range-markers" class="range-markers" aria-hidden="true"></div>
                   </div>
                   <p id="catalog-error" class="catalog-error" role="alert" hidden></p>
                   <div class="catalog-toggles" role="group" aria-label="Additional catalogs">
                     <label class="filter-toggle" for="show-western-constellation-stars">
-                      <span>Western constellation stars</span>
-                      <span class="switch-control"><input id="show-western-constellation-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
-                    </label>
-                    <label class="filter-toggle" for="show-naked-eye-stars" title="Every star brighter than magnitude 6.5, visible without a telescope from a dark site.">
-                      <span>Naked-eye stars</span>
-                      <span class="switch-control"><input id="show-naked-eye-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
-                    </label>
-                    <label class="filter-toggle" for="show-notable-distant-stars" title="Distant stars in notable systems, such as the companions of pulsars. They also appear whenever pulsars are shown.">
-                      <span>Notable distant stars</span>
-                      <span class="switch-control"><input id="show-notable-distant-stars" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
-                    </label>
+                      <span class="mass-metric-help">Western constellation stars</span>
+                      <span class="switch-control"><input id="show-western-constellation-stars" type="checkbox" role="switch" aria-describedby="show-western-constellation-stars-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
+                    </label><span id="show-western-constellation-stars-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">The stars that draw the Western constellation figures, landmark stars in seven famous star groups and other bright landmarks, with their companions. Raise Object visibility distance to see the distant ones.</span>
+                    <label class="filter-toggle" for="show-naked-eye-stars">
+                      <span class="mass-metric-help">Naked-eye stars</span>
+                      <span class="switch-control"><input id="show-naked-eye-stars" type="checkbox" role="switch" aria-describedby="show-naked-eye-stars-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
+                    </label><span id="show-naked-eye-stars-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Every star brighter than magnitude 6.5, visible without a telescope from a dark site. Raise Object visibility distance to see the distant ones.</span>
+                    <label class="filter-toggle" for="show-notable-distant-stars">
+                      <span class="mass-metric-help">Notable distant stars</span>
+                      <span class="switch-control"><input id="show-notable-distant-stars" type="checkbox" role="switch" aria-describedby="show-notable-distant-stars-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
+                    </label><span id="show-notable-distant-stars-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Distant stars in notable systems, such as the companions of pulsars. They also load whenever pulsars, neutron stars or black holes are shown. Raise Object visibility distance to see them.</span>
                   </div>
                   <div id="object-categories" class="category-toggles" role="group" aria-label="Object categories"></div>
                   <div class="range-filter">
-                    <div class="range-heading"><label for="object-distance-limit">Object visibility distance</label><output id="object-distance-limit-value" for="object-distance-limit">100 ly</output></div>
-                    <input id="object-distance-limit" type="range" min="0" max="25" step="1" value="14" aria-valuetext="100 light-years" aria-describedby="object-distance-steps">
+                    <div class="range-heading"><label for="object-distance-limit"><span class="mass-metric-help">Object visibility distance</span></label><span id="object-distance-limit-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Hides objects farther than this from the origin, which is the Sun unless you set another object. This limit never hides the Sun or the selected object.</span><output id="object-distance-limit-value" for="object-distance-limit">100 ly</output></div>
+                    <input id="object-distance-limit" type="range" min="0" max="25" step="1" value="14" aria-valuetext="100 light-years" aria-describedby="object-distance-steps object-distance-limit-tooltip">
                     <div class="range-bounds" aria-hidden="true"><span>5 ly</span><span>20000 ly</span></div>
                     <span id="object-distance-steps" class="sr-only">Distance steps above 100 light-years are 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000, and 20000 light-years.</span>
                   </div>
                   <div class="range-filter">
-                    <div class="range-heading"><label for="magnitude-limit">V magnitude limit</label><output id="magnitude-limit-value" for="magnitude-limit">7</output></div>
-                    <input id="magnitude-limit" type="range" min="0" max="25" step="0.5" value="7" aria-describedby="magnitude-limit-guides">
+                    <div class="range-heading"><label for="magnitude-limit"><span class="mass-metric-help">V magnitude limit</span></label><span id="magnitude-limit-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">The faintest brightness in visible light, as seen from the “Visibility from” object. Lower numbers are brighter, and fainter objects are dimmed. Nebulae, molecular clouds and bubbles have no single magnitude, so the limit leaves them alone.</span><output id="magnitude-limit-value" for="magnitude-limit">7</output></div>
+                    <input id="magnitude-limit" type="range" min="0" max="25" step="0.5" value="7" aria-describedby="magnitude-limit-guides magnitude-limit-tooltip">
                     <div id="magnitude-limit-markers" class="range-markers magnitude-limit-markers" aria-hidden="true"></div>
                     <span id="magnitude-limit-guides" class="sr-only"></span>
                     <div class="range-bounds" aria-hidden="true"><span>0</span><span>25</span></div>
                   </div>
                   <label class="filter-toggle" for="hide-fainter-objects">
-                    <span>Hide fainter objects</span>
-                    <span class="switch-control"><input id="hide-fainter-objects" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
-                  </label>
+                    <span class="mass-metric-help">Hide fainter objects</span>
+                    <span class="switch-control"><input id="hide-fainter-objects" type="checkbox" role="switch" aria-describedby="hide-fainter-objects-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
+                  </label><span id="hide-fainter-objects-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Removes objects fainter than the V magnitude limit from the map and the Objects list, instead of dimming them.</span>
                   <details class="filter-dropdown">
                     <summary><span>Object type</span><span id="object-type-filter-summary">All</span></summary>
                     <fieldset id="object-type-filter" class="type-filter">
@@ -1101,7 +1101,7 @@
                     <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                     <div><dt>License</dt><dd>MIT</dd></div>
                     <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
-                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-04">4 November 2026</time></dd></div>
+                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-05">5 November 2026</time></dd></div>
                     <div><dt>Build date</dt><dd><time datetime="%BUILD_DATE_ISO%">%BUILD_DATE%</time></dd></div>
                     <div><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="catalog-epoch-tooltip">Position reference epoch</button><span id="catalog-epoch-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog positions use the year 2000 as their reference time.</span></dt><dd id="catalog-epoch">J2000.0</dd></div>
                     <div><dt>Version</dt><dd>%APP_VERSION%</dd></div>

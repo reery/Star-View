@@ -1,13 +1,14 @@
 import { expect, test, type Locator } from '@playwright/test'
 import { openSpecs, openViewer, selectObject } from './support'
 
-test('aligns close and lock controls on every selected-object detail card', { tag: '@mobile' }, async ({ page }, testInfo) => {
+test('aligns close and lock controls on every selected-object detail card', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   test.setTimeout(90_000)
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
   await openViewer(page)
   await openSpecs(page)
 
+  const expandObjectCard = () => page.locator('#object-card-details').evaluate((details) => { (details as HTMLDetailsElement).open = true })
   const interactWithScene = async () => {
     const { width, height } = page.viewportSize()!
     await page.mouse.move(width - 4, height / 2)
@@ -17,6 +18,7 @@ test('aligns close and lock controls on every selected-object detail card', { ta
   }
 
   const checkCard = async (name: string, toggle: Locator) => {
+    if (isMobile) await expandObjectCard()
     await toggle.click()
     const card = page.locator(`#${name}-card`)
     const lock = page.locator(`#${name}-lock`)
@@ -70,7 +72,9 @@ test('aligns close and lock controls on every selected-object detail card', { ta
     await expect(card).toBeVisible()
     await close.click()
     await expect(card).toBeHidden()
-    await expect(toggle).toBeFocused()
+    // Touching the scene collapses the object card on phones, so focus cannot return to a hidden toggle.
+    if (isMobile) await expandObjectCard()
+    else await expect(toggle).toBeFocused()
     await toggle.press('Enter')
     await expect(card).toBeVisible()
     await expect(lock).toHaveAttribute('aria-pressed', 'true')

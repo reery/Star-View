@@ -27,9 +27,11 @@ CURATED = WORK / "curated.json"
 BINARIES = WORK / "pulsar-binaries.json"
 SOURCE_MANIFEST = WORK / "source-manifest.json"
 OUTPUT = ROOT / "src/data/overlays/compact-remnants"
-RADIUS_LY = 3000
+RADIUS_LY = 10000
 LY_PER_PC = 3.261563777
-MAX_DISTANCE_KPC = 0.9198041814
+MAX_DISTANCE_KPC = RADIUS_LY / LY_PER_PC / 1000
+# Beyond 3000 light-years a pulsar needs a distance independent of the dispersion-measure model.
+MODEL_DISTANCE_LIMIT_KPC = 0.9198041814
 ATNF_URL = "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html"
 PSR_INERTIA = 1e45
 PSR_MASS = 1.35
@@ -291,7 +293,8 @@ ASTROPY_CONSTELLATIONS = {"Boötes": "Bootes", "Chamaleon": "Chamaeleon", "Ophiu
 
 
 def constellation(ra, dec):
-    name = SkyCoord(ra=ra * units.deg, dec=dec * units.deg, frame="icrs").get_constellation(short_name=False)
+    # astropy pads some names, such as "Crux ".
+    name = SkyCoord(ra=ra * units.deg, dec=dec * units.deg, frame="icrs").get_constellation(short_name=False).strip()
     return ASTROPY_CONSTELLATIONS.get(name, name)
 
 
@@ -342,10 +345,12 @@ def empty_pulsar_details():
     }
 
 
-def pulsar_object(record, glitch_count, measured):
+def pulsar_object(record, glitch_count, measured, adopted=None, modelled=None):
     psrj = record["PSRJ"][0]
     ra, dec, position_source = position(record)
-    distance_kpc, distance_method, distance_source = distance(record)
+    atnf_kpc, atnf_method, atnf_source = distance(record)
+    distance_kpc, distance_method, distance_source = (
+        (adopted["distance_pc"] / 1000, adopted["distance_method"], adopted["source_label"]) if adopted else (atnf_kpc, atnf_method, atnf_source))
     period, period_error, derivative, derivative_error = spin(record)
     age, field, power = spin_down(period, derivative)
     flux = value(record, "S1400")
@@ -368,7 +373,7 @@ def pulsar_object(record, glitch_count, measured):
             "pm_dec_error_masyr": significant(motion[3]),
             "radial_velocity_kms": None,
             "radial_velocity_error_kms": None,
-            "astrometry_ref": ", ".join(filter(None, (reference(record, "PX"), motion[4]))),
+            "astrometry_ref": ", ".join(dict.fromkeys(filter(None, (reference(record, "PX"), *motion[4].split(", "))))),
             "radial_velocity_ref": None,
         }
     transverse = None
@@ -408,7 +413,14 @@ def pulsar_object(record, glitch_count, measured):
         "companion_min_mass_solar": minimum,
         "companion_median_mass_solar": median,
     }
-    note = f"ATNF adopted distance {distance_kpc:.3f} kpc ({distance_method.lower()}; reference {distance_source})."
+    if modelled:
+        details["mass_model"] = {key: modelled[key] for key in ("value_solar", "reference", "source_url", "scope")}
+    note = f"ATNF adopted distance {atnf_kpc:.3f} kpc ({atnf_method.lower()}; reference {atnf_source})." if atnf_kpc else "ATNF lists no distance."
+    if adopted:
+        note = (f"Distance {adopted['distance_pc']} pc ({distance_method.lower()}): {adopted['source_label']}, {adopted['source_url']}. "
+                f"Superseded: {note} {adopted['note']}")
+    if modelled:
+        note += f" Modelled, unmeasured mass {modelled['value_solar']} M_sun: {modelled['reference']}, {modelled['source_url']}."
     if measured:
         note += f" Mass {measured['mass_solar']} ± {measured['mass_error_solar']} M_sun: {measured['source_label']}, {measured['source_url']}."
         if measured.get("note"):
@@ -464,11 +476,11 @@ def curated_object(source):
     details = {
         "confidence": source["confidence"],
         "distance_method": source["distance_method"],
-        "distance_source": source["source_label"],
-        "position_source": source["source_label"],
+        "distance_source": source.get("distance_source", source["source_label"]),
+        "position_source": source.get("position_source", source["source_label"]),
         "mass_error_solar": source["mass_error_solar"],
-        "rotation_period_s": None,
-        "rotation_period_error_s": None,
+        "rotation_period_s": source.get("rotation_period_s"),
+        "rotation_period_error_s": source.get("rotation_period_error_s"),
         "radio_luminosity_1400_mjy_kpc2": None,
         "characteristic_age_yr": None,
         "surface_magnetic_field_gauss": None,
@@ -484,6 +496,8 @@ def curated_object(source):
         **empty_pulsar_details(),
         "eccentricity": source.get("eccentricity"),
     }
+    if source.get("mass_model"):
+        details["mass_model"] = source["mass_model"]
     return empty_scene_object(
         source["type"], source["id"], source["name"], source["constellation"],
         (galactic.x.value, galactic.y.value, galactic.z.value), source["notes"], details,
@@ -500,17 +514,21 @@ def glitch_counts(text):
     return counts
 
 
-def selected(record):
+def selected(record, adopted):
     types = " ".join(record.get("TYPE", []))
-    kpc = distance(record)[0]
-    return kpc is not None and 0 < kpc <= MAX_DISTANCE_KPC and "CAND" not in types and "INTERIM" not in types and "INTERIM" not in record
+    reviewed = adopted.get(record["PSRJ"][0])
+    kpc, method, _ = (reviewed["distance_pc"] / 1000, reviewed["distance_method"], None) if reviewed else distance(record)
+    if kpc is None or not 0 < kpc <= MAX_DISTANCE_KPC or (method == "Dispersion measure model" and kpc > MODEL_DISTANCE_LIMIT_KPC):
+        return False
+    return "CAND" not in types and "INTERIM" not in types and "INTERIM" not in record
 
 
 def freeze(catalogue_path, glitch_path):
     """Store the selected verbatim records and their glitch rows."""
     catalogue = Path(catalogue_path).read_text(encoding="latin-1")
     version = re.search(r"^#CATALOGUE\s+(\S+)", catalogue, re.M)[1]
-    records = [(text, record) for text, record in parse_records(catalogue) if selected(record)]
+    adopted = json.loads(BINARIES.read_text())["adoptedDistances"]
+    records = [(text, record) for text, record in parse_records(catalogue) if selected(record, adopted)]
     names = {record["PSRJ"][0] for _, record in records}
     ATNF.write_text(f"#CATALOGUE {version}\n# Verbatim ATNF records selected by scripts/author-compact-remnants.py --freeze.\n"
                     + "".join(text + "@" + "-" * 65 + "\n" for text, _ in records))
@@ -527,17 +545,22 @@ def render():
         if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
             raise ValueError(f"Frozen {path.name} checksum does not match source-manifest.json")
     records = [record for _, record in parse_records(ATNF.read_text(encoding="latin-1"))]
-    if len(records) != atnf["rows"] or not all(selected(record) for record in records):
+    reviewed = json.loads(BINARIES.read_text())
+    if len(records) != atnf["rows"] or not all(selected(record, reviewed["adoptedDistances"]) for record in records):
         raise ValueError("Frozen ATNF subset does not match its selection or row count")
     glitches = glitch_counts(GLITCHES.read_text(encoding="latin-1"))
-    reviewed = json.loads(BINARIES.read_text())
     masses = reviewed["pulsarMasses"]
-    pulsars = {record["PSRJ"][0]: pulsar_object(record, glitches.get(record["PSRJ"][0]), masses.get(record["PSRJ"][0])) for record in records}
-    if set(masses) - set(pulsars):
-        raise ValueError("Reviewed pulsar masses name pulsars outside the overlay")
+    distances, modelled_masses = reviewed["adoptedDistances"], reviewed["modelledMasses"]
+    pulsars = {record["PSRJ"][0]: pulsar_object(record, glitches.get(record["PSRJ"][0]), masses.get(record["PSRJ"][0]),
+                                                distances.get(record["PSRJ"][0]), modelled_masses.get(record["PSRJ"][0])) for record in records}
+    if (set(masses) | set(distances) | set(modelled_masses)) - set(pulsars):
+        raise ValueError("Reviewed pulsar masses and distances name pulsars outside the overlay")
+    if set(masses) & set(modelled_masses):
+        raise ValueError("A measured pulsar mass must replace its modelled mass")
     objects = list(pulsars.values())
     objects.extend(neutron_star_companion(source, pulsars[source["pulsar"]]) for source in reviewed["neutronStarCompanions"])
-    objects.extend(curated_object(source) for source in json.loads(CURATED.read_text()))
+    curated = json.loads(CURATED.read_text())
+    objects.extend(curated_object(source) for source in curated)
     if len({item["id"] for item in objects}) != len(objects):
         raise ValueError("Compact-object IDs must be unique")
     for item in objects:
@@ -549,7 +572,7 @@ def render():
         "schemaVersion": 1,
         "id": "compact-remnants",
         "label": "Compact remnants",
-        "description": "A separately loaded, source-defined overlay of catalogued pulsars, their measured neutron-star companions and curated dormant compact-object systems within 3000 light-years.",
+        "description": "A separately loaded, source-defined overlay of catalogued pulsars, their measured neutron-star companions and reviewed black holes and neutron stars within 10000 light-years.",
         "epoch": 2000,
         "objectCount": len(objects),
         "radiusLy": RADIUS_LY,
@@ -557,29 +580,32 @@ def render():
         "sources": [
             {"name": f"ATNF Pulsar Catalogue v{atnf['catalogVersion']}", "url": ATNF_URL},
             *({"name": name, "url": url} for name, url in sorted({(entry["source_label"], entry["source_url"]) for entry in [*masses.values(), *reviewed["neutronStarCompanions"]]})),
-            {"name": "BlackCAT Galactic black-hole transients", "url": "https://www.sc.eso.org/~jcorral/BlackCAT/transients.php"},
-            {"name": "Gaia BH1 high-precision orbit", "url": "https://arxiv.org/abs/2312.05313"},
-            {"name": "Gaia BH3 discovery", "url": "https://arxiv.org/abs/2404.10486"},
-            {"name": "Gaia NS1 characterization", "url": "https://arxiv.org/abs/2402.06722"},
+            *({"name": name, "url": url} for name, url in sorted({(entry["source_label"], entry["source_url"]) for entry in curated})),
+            *({"name": name, "url": url} for name, url in sorted({(entry["source_label"], entry["source_url"]) for entry in distances.values()})),
+            *({"name": entry["reference"], "url": entry["source_url"]} for entry in modelled_masses.values()),
+            {"name": "BlackCAT catalogue of black-hole X-ray transients", "url": "https://arxiv.org/abs/1510.08869"},
         ],
-        "cutoffPolicy": f"ATNF v{atnf['catalogVersion']} non-candidate, non-interim pulsars with positive adopted DIST <= {MAX_DISTANCE_KPC} kpc, their reviewed neutron-star companions with measured masses, plus reviewed dormant black-hole and non-pulsar neutron-star systems no farther than 3000 light-years. Candidate status is explicit.",
-        "snapshot": f"J2000 map positions; ATNF package downloaded {atnf['downloaded']}; binary masses reviewed {reviewed['reviewed']}; curated literature reviewed 2026-09-30.",
+        "cutoffPolicy": f"ATNF v{atnf['catalogVersion']} non-candidate, non-interim pulsars within 10000 light-years; beyond 3000 light-years ({MODEL_DISTANCE_LIMIT_KPC} kpc) only those with a distance independent of the dispersion-measure model. Reviewed distances replace superseded ATNF values. Their reviewed neutron-star companions with measured masses, plus reviewed black-hole and non-pulsar neutron-star systems within 10000 light-years. Candidate status is explicit.",
+        "snapshot": f"J2000 map positions; ATNF package downloaded {atnf['downloaded']}; binary masses reviewed {reviewed['reviewed']}; curated literature reviewed 2026-11-05.",
     }
     payload = {"schemaVersion": 1, "overlayId": "compact-remnants", "objects": objects}
     provenance = {
         "schemaVersion": 1,
         "overlayId": "compact-remnants",
         "sourceManifest": source_manifest,
-        "curatedObjects": json.loads(CURATED.read_text()),
+        "curatedObjects": curated,
         "reviewedBinaries": reviewed,
         "notes": [
             "ATNF DIST is the catalogue-adopted distance: DIST_A, else a parallax above 3 sigma, else the YMW16 dispersion-measure distance bounded by DIST_AMN/DIST_AMX.",
             "Derived spin quantities follow psrcat v1.54 with a 10^45 g cm^2 moment of inertia; companion minimum and median masses assume a 1.35 M_sun pulsar at 90 and 60 degrees inclination.",
             "ATNF companion mass limits are not stored as pulsar masses; measured pulsar masses come only from the reviewed binary list.",
+            "A reviewed distance replaces the ATNF DIST only where ATNF rests on a measurement newer work supersedes; the ATNF value stays in the record's notes.",
+            "Modelled masses are kept apart from mass_solar in compact.mass_model and are never used as measurements.",
             "An ATNF uncertainty of 0 means no uncertainty was reported and is stored as null.",
             "Millisecond marks spin periods below 30 ms; Radio marks pulsars without the ATNF NRAD or XINS radio-quiet codes; other classes come from ATNF TYPE codes.",
             "Gaia NS1 remains explicitly marked as a candidate because a close double-white-dwarf alternative is disfavored but not fully excluded.",
-            "BlackCAT was checked for accreting black-hole transients; its nearest listed system is beyond the 3000-light-year boundary.",
+            "Black-hole X-ray transients were reviewed from the BlackCAT catalogue paper and newer primary literature; the live BlackCAT page was unreachable on 2026-11-05.",
+            "A published mass range or asymmetric interval is stored as its midpoint or the larger side, as each record's notes state.",
         ],
     }
     return {

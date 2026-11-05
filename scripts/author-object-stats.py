@@ -42,6 +42,11 @@ CANDIDATES = {
 }
 
 
+# SIMBAD's types often describe a compact object's visible companion, or misfile an X-ray
+# transient, so pulsars keep only system classes and reviewed curated rows state theirs.
+COMPACT_SYSTEM_SUBTYPES = {"Eclipsing binary", "Spectroscopic binary", "X-ray binary", "Low-mass X-ray binary", "High-mass X-ray binary"}
+
+
 def key(value):
     return re.sub(r"\s+", "", re.sub(r"^(?:NAME|V\*|\*\*|\*)\s+", "", value)).casefold()
 
@@ -98,6 +103,8 @@ def build():
             continue
         hosts[main].add(host["pl_name"])
         host_matches[main].append(host["hostname"])
+    compact_subtypes = {row["id"]: row["subtypes"] for row in json.loads((ROOT / "catalog-work/compact-remnants/curated.json").read_text())
+                        if "subtypes" in row}
     objects = {}
     for identifier, row in sorted(inventory.items()):
         main = identities[identifier].get("simbadId")
@@ -108,8 +115,10 @@ def build():
         labels.extend(LABELS[code] + " candidate" for code in candidates if code in LABELS)
         labels.extend(spectral_labels(row))
         labels = prune_subtypes(list(dict.fromkeys(labels)))
-        if row["type"] == "pulsar":
-            labels = [label for label in labels if label.removesuffix(" candidate") not in {"Pulsar", "Neutron star"}]
+        if identifier in compact_subtypes:
+            labels = compact_subtypes[identifier]
+        elif row["type"] == "pulsar":
+            labels = [label for label in labels if label in COMPACT_SYSTEM_SUBTYPES]
         elif row["type"] == "neutron_star":
             labels = [label for label in labels if label.removesuffix(" candidate") != "Neutron star"]
         if "Wolf–Rayet" in labels:

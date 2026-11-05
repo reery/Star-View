@@ -1,4 +1,5 @@
 import { expect, test, type Locator } from '@playwright/test'
+import { PNG } from 'pngjs'
 import { openFilter, openPreferences, openSpecs, openViewer, selectObject, zoomViewer } from './support'
 
 test('persists constellation latitude across reloads and ignores unsupported stored values', async ({ page }) => {
@@ -47,9 +48,16 @@ test('resets planet and moon rotation when reopened while preserving comparison 
   await expect.poll(async () => (await snapshot(globe)).equals(initial)).toBe(false)
   await page.keyboard.press('Escape')
   await planet.click()
-  await expect.poll(async () => (await snapshot(globe)).equals(initial)).toBe(true)
+  // A reopened globe is a fresh renderer, so a few edge pixels may differ; a rotation changes nearly all of them.
+  const nearly = (first: Buffer, second: Buffer) => {
+    const [a, b] = [PNG.sync.read(first).data, PNG.sync.read(second).data]
+    return a.reduce((changed, value, index) => changed + Number(value !== b[index]), 0) / a.length < 0.02
+  }
+  await expect.poll(async () => nearly(await snapshot(globe), initial)).toBe(true)
 
   await page.locator('#planet-moons-toggle').click()
+  // Lists start at the innermost moon, which may have no globe map.
+  await page.locator('.moon-row[data-moon-id="io"] button').click()
   const moon = page.locator('#planet-moon-globe')
   await expect(moon).toHaveAttribute('data-planet-id', 'io')
   await expect(moon).toHaveAttribute('data-texture-ready', 'true')
@@ -70,7 +78,7 @@ test('resets planet and moon rotation when reopened while preserving comparison 
 test('spends a small label budget on stars and nebulae before molecular clouds', async ({ page }) => {
   await openViewer(page)
   await openPreferences(page)
-  await page.getByLabel('Labels', { exact: true }).fill('20')
+  await page.locator('#label-limit').fill('20')
   await openFilter(page)
   await page.getByRole('switch', { name: 'Western constellation stars', exact: true }).check()
   await page.getByRole('switch', { name: 'Interstellar medium', exact: true }).check()
@@ -133,8 +141,63 @@ test('explains settings in tooltips while their labels keep working', async ({ p
   await expect(page.getByLabel('Earth’s orbit', { exact: true })).toBeVisible()
 })
 
+test('explains filter settings in tooltips while their labels keep working', async ({ page }) => {
+  await openViewer(page)
+  await openFilter(page)
+  const open = (locator: Locator) => locator.evaluate((element) => element.matches(':popover-open'))
+  const tips = [
+    ['catalog-range', 'closest to the Sun'],
+    ['show-western-constellation-stars', 'constellation figures'],
+    ['show-naked-eye-stars', 'magnitude 6.5'],
+    ['show-notable-distant-stars', 'companions of pulsars'],
+    ['category-compact_objects', 'black holes'],
+    ['category-interstellar_medium', 'H II regions'],
+    ['category-stellar_remnants', 'planetary nebulae'],
+    ['category-large_scale_structures', 'dust sheets'],
+    ['object-distance-limit', 'from the origin'],
+    ['magnitude-limit', 'Visibility from'],
+    ['hide-fainter-objects', 'instead of dimming'],
+  ]
+  await expect(page.locator('#filter-panel .mass-metric-tooltip')).toHaveCount(tips.length)
+  for (const [id, text] of tips) {
+    const tooltip = page.locator(`#${id}-tooltip`)
+    await page.locator(`label[for="${id}"] .mass-metric-help`).hover()
+    expect(await open(tooltip), id).toBe(true)
+    await expect(tooltip).toContainText(text!)
+    const box = (await tooltip.boundingBox())!, card = (await page.locator('#filter-panel').boundingBox())!
+    expect(box.x, id).toBeGreaterThanOrEqual(card.x)
+    expect(box.x + box.width, id).toBeLessThanOrEqual(card.x + card.width)
+    await expect(page.locator(`#${id}`)).toHaveAccessibleDescription(new RegExp(text!))
+  }
+  await page.mouse.move(0, 0)
+  const toggle = page.locator('#category-stellar_remnants')
+  await expect(toggle).not.toBeChecked()
+  await page.locator('label[for="category-stellar_remnants"] .mass-metric-help').click()
+  await expect(toggle).toBeChecked()
+  await page.mouse.move(0, 0)
+  // Generated category labels open their tooltip from the keyboard like the static ones.
+  await page.locator('#category-interstellar_medium').focus()
+  await page.keyboard.press('Tab')
+  await expect(toggle).toBeFocused()
+  expect(await open(page.locator('#category-stellar_remnants-tooltip'))).toBe(true)
+  await expect(page.getByLabel('Nearest objects', { exact: true })).toBeVisible()
+})
+
 test.describe('on touch', () => {
   test.use({ hasTouch: true })
+
+  test('explains a filter category on the first tap and toggles it on the second', async ({ page }) => {
+    await openViewer(page)
+    await openFilter(page)
+    const tooltip = page.locator('#category-stellar_remnants-tooltip')
+    const toggle = page.locator('#category-stellar_remnants')
+    const label = page.locator('label[for="category-stellar_remnants"] .mass-metric-help')
+    await label.tap()
+    expect(await tooltip.evaluate((element) => element.matches(':popover-open'))).toBe(true)
+    await expect(toggle).not.toBeChecked()
+    await label.tap()
+    await expect(toggle).toBeChecked()
+  })
 
   test('explains a setting on the first tap and toggles it on the second', async ({ page }) => {
     await openViewer(page)

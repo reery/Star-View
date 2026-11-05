@@ -116763,6 +116763,40 @@
       "decision": "covered-reviewed-system"
     },
     {
+      "sb9": "203",
+      "component": "A",
+      "spectra": [
+        "Ope",
+        ""
+      ],
+      "doubleLined": false,
+      "orbits": [
+        {
+          "orbit": "1",
+          "periodDays": "580.7",
+          "k1Kms": "59.",
+          "k2Kms": null,
+          "eccentricity": "0.0",
+          "grade": "1.0",
+          "bibcode": "1975MNRAS.170..313H"
+        },
+        {
+          "orbit": "2",
+          "periodDays": "249.9",
+          "k1Kms": "2.3",
+          "k2Kms": null,
+          "eccentricity": "0.111",
+          "grade": "2",
+          "bibcode": "2007ApJ...660.1398G"
+        }
+      ],
+      "catalogIds": [
+        "x-persei-b"
+      ],
+      "uniqueIdentity": true,
+      "decision": "pending-companion-classification"
+    },
+    {
       "sb9": "211",
       "component": "Aa",
       "spectra": [
@@ -117341,6 +117375,31 @@
       "decision": "pending-companion-classification"
     },
     {
+      "sb9": "347",
+      "component": "",
+      "spectra": [
+        "B0Ve",
+        ""
+      ],
+      "doubleLined": false,
+      "orbits": [
+        {
+          "orbit": "1",
+          "periodDays": "111.",
+          "k1Kms": "15.",
+          "k2Kms": null,
+          "eccentricity": "0.3",
+          "grade": "1.0",
+          "bibcode": "1984PASP...96..312H"
+        }
+      ],
+      "catalogIds": [
+        "a0535p26-b"
+      ],
+      "uniqueIdentity": true,
+      "decision": "pending-companion-classification"
+    },
+    {
       "sb9": "366",
       "component": "A",
       "spectra": [
@@ -117687,6 +117746,32 @@
       ],
       "uniqueIdentity": true,
       "decision": "covered-reviewed-system"
+    },
+    {
+      "sb9": "396",
+      "component": "",
+      "spectra": [
+        "em",
+        "K5V"
+      ],
+      "doubleLined": true,
+      "orbits": [
+        {
+          "orbit": "1",
+          "periodDays": "0.3230",
+          "k1Kms": "70.:",
+          "k2Kms": "457.",
+          "eccentricity": "0.0",
+          "grade": "2.0",
+          "bibcode": "1986ApJ...308..110M"
+        }
+      ],
+      "catalogIds": [
+        "a0620-00-b"
+      ],
+      "uniqueIdentity": true,
+      "decision": "withheld-reviewed-exclusion",
+      "evidence": "The SB9 orbit is the A0620-00 black-hole binary. Its visible star is component B of the reviewed compact system a0620-00-system; the unseen component is the black hole already in the compact overlay."
     },
     {
       "sb9": "399",
@@ -118187,6 +118272,41 @@
       ],
       "uniqueIdentity": true,
       "decision": "covered-reviewed-system"
+    },
+    {
+      "sb9": "552",
+      "component": "",
+      "spectra": [
+        "B0.5Ib",
+        ""
+      ],
+      "doubleLined": true,
+      "orbits": [
+        {
+          "orbit": "1",
+          "periodDays": "8.9644",
+          "k1Kms": "274.3",
+          "k2Kms": "21.8",
+          "eccentricity": "0.09",
+          "grade": "4.0",
+          "bibcode": "1987ApJ...314..634D"
+        },
+        {
+          "orbit": "2",
+          "periodDays": "8.96302",
+          "k1Kms": "17.8",
+          "k2Kms": "274.3",
+          "eccentricity": "0.107",
+          "grade": null,
+          "bibcode": "1997MNRAS.286L..21S"
+        }
+      ],
+      "catalogIds": [
+        "vela-x-1-b"
+      ],
+      "uniqueIdentity": true,
+      "decision": "withheld-reviewed-exclusion",
+      "evidence": "The SB9 orbit is the Vela X-1 binary. Its visible star HD 77581 is component B of the reviewed compact system vela-x-1-system; the unseen component is the neutron star already in the compact overlay."
     },
     {
       "sb9": "558",
@@ -119492,6 +119612,31 @@
       "decision": "covered-reviewed-system"
     },
     {
+      "sb9": "895",
+      "component": "",
+      "spectra": [
+        "sdBe",
+        ""
+      ],
+      "doubleLined": false,
+      "orbits": [
+        {
+          "orbit": "1",
+          "periodDays": "0.7874",
+          "k1Kms": "58.2",
+          "k2Kms": null,
+          "eccentricity": "0.0",
+          "grade": "2.0",
+          "bibcode": "1975ApJ...201L..65C"
+        }
+      ],
+      "catalogIds": [
+        "scorpius-x-1-b"
+      ],
+      "uniqueIdentity": true,
+      "decision": "pending-companion-classification"
+    },
+    {
       "sb9": "902",
       "component": "A",
       "spectra": [
@@ -120569,6 +120714,31 @@
       ],
       "catalogIds": [
         "hip-98412"
+      ],
+      "uniqueIdentity": true,
+      "decision": "pending-companion-classification"
+    },
+    {
+      "sb9": "1193",
+      "component": "",
+      "spectra": [
+        "O9.7Iab",
+        ""
+      ],
+      "doubleLined": false,
+      "orbits": [
+        {
+          "orbit": "1",
+          "periodDays": "5.5996",
+          "k1Kms": "74.9",
+          "k2Kms": null,
+          "eccentricity": "0.0",
+          "grade": "4.0",
+          "bibcode": "1982ApJ...260..240G"
+        }
+      ],
+      "catalogIds": [
+        "cygnus-x-1-b"
       ],
       "uniqueIdentity": true,
       "decision": "pending-companion-classification"
@@ -144283,14 +144453,14 @@
   },
   "inputSha256": {
     "src/data/star-systems.json": "ccb8b300d861fec42a9b95bfeafa8e30f3b4c53298c8c03e3f1743bf4c28fddf",
-    "src/data/object-designations.json": "86d2b17412c6d8e09e7215ef48243adbce408da2d674d4892ccfe652bffb03fe",
-    "src/data/object-stats.json": "32fcce5dfc74511d00e53ffcc159b15e8335c351885401f01553f218c43fe708",
+    "src/data/object-designations.json": "5805b70baaf38b17153449bd02d802609e7abb8e08a789efc59fc35133ede55f",
+    "src/data/object-stats.json": "ce9b0e93faaf15925722df689df9eb4155eab7fe5c6c7b0bdd030b6882b67f88",
     "catalog-work/bright-stars/retired-catalog/stars.csv": "7323a7558aa7af710cdd3829a865fe1c207629a47252fdcde4eef833dbab0cb1",
     "catalog-work/famous-cluster-stars/retired-catalog/stars.csv": "c1b5eda40973ba39c5623132a3b9df54ab1d1b649793e159ed6323e9a8922c5e",
     "src/data/catalogs/nearest-100/stars.csv": "1c23ef44a6c1713e62314f24c4c2b47c12f159b759605c9a592aca5b3312acc7",
     "src/data/catalogs/nearest-1000/stars.csv": "ecc5cadd6ff035ba5e5a96017fe1b12a67ae4e01493ff6db1351331c02202147",
     "src/data/catalogs/nearest-5000/stars.csv": "493dfe59da5b244575ef41f8db223fdeacbad92b122fdd5441fd0b49e2543823",
-    "src/data/catalogs/notable-distant-stars/stars.csv": "508f43af59c39819025853369c7a1f9d11605203989886021120833fa31016ae",
+    "src/data/catalogs/notable-distant-stars/stars.csv": "d6110b2a12f9c1df9cd458de64919777d509a9772a1e9d6b23483de44a740148",
     "src/data/catalogs/western-constellation-stars/stars.csv": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d",
     "src/data/stars.csv": "2a4b067f5205f531b830f5b7b81c02883e6028bdaf2223890ddf65e363dd6d64",
     "catalog-work/star-systems/catalog-companions-msc.json": "b81210724ff9914c3c286c5971155df5bf20613252baaa9472eee085f0cd0f41",
@@ -144315,7 +144485,7 @@
     "catalog-work/star-systems/sb9-20240621/Orbits.dta": "3c2b7817032b07f9511e3d9c2871c1c3c6a249f80aa43d7e90e3842f70188ef5",
     "catalog-work/star-systems/sb9-20240621/Alias.dta": "6b79ca197a62b48459b2d6cb5558ee8d62436cec58be46255e5af3d3f7f3c2d2",
     "catalog-work/star-systems/sb9-20240621/ReadMe.txt": "ed3b9eb4a962132f3037a83dd105d754a219fe737b8264bc46342b8bcb6ebaba",
-    "catalog-work/star-systems/spectroscopic-binaries-review.json": "b46cb2402b63fe3aa421629c1ca8a4114a4cb43157bd7bbd89d0c1745876a2f5",
+    "catalog-work/star-systems/spectroscopic-binaries-review.json": "c3a2f2403a446f631d35959e987c12eaa917b5e91b9f3cb5bebc6fab32b839a7",
     "catalog-work/star-systems/reviewed-constellation-hierarchies.json": "1c595ad68e82e5f58a291e3792bf7ee8793d99d33c86d219678398432f93c859",
     "catalog-work/star-systems/literature-components/constellation-20261019-selected.json": "afc8cdc55981eabcf43557bb77aa94355c79c9ecd10ce84201bcd39b75344e2d",
     "catalog-work/star-systems/reviewed-component-splits.json": "d44a31bec7893b29cc4f5dc8b3d9c57b6d149488af1e72e7dc046095412ed8e4",

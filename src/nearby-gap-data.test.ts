@@ -38,6 +38,8 @@ describe('reviewed GJ 412, GJ 687 and Lacaille 8760 gaps', () => {
         const star = stars.find((candidate) => candidate.id === id)!
         const previous = review.previousCatalogs[catalog][id].record
         for (const field of ['x_pc', 'y_pc', 'z_pc', 'vx_kms', 'vy_kms', 'vz_kms', 'metallicity_dex'] as const) {
+          // WX UMa has since adopted a measured [Fe/H] (2021A&A...656A.162M).
+          if (id === '10pc-0101' && field === 'metallicity_dex') continue
           expect(star[field]).toBe(Number(previous[field]))
         }
       }

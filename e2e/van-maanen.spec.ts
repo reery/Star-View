@@ -17,7 +17,7 @@ test('Van Maanen specs and both white dwarf articles stay consistent across near
     await openSpecs(page)
     await expect(page.locator('#temperature')).toHaveText('6,215 K')
     await expect(page.locator('#mass')).toHaveText('0.7 M☉')
-    await expect(page.locator('#radius')).toHaveText('0.011 R☉')
+    await expect(page.locator('#radius')).toHaveText('0.0112 R☉')
     const sourceDetails = page.locator('#object-specs .source-details')
     if (await sourceDetails.getAttribute('open') === null) await sourceDetails.locator('summary').click()
     await expect(page.locator('#radial-velocity')).toBeVisible()

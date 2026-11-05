@@ -18,8 +18,8 @@ test('70 Ophiuchi components retain separate physical specs across nearby catalo
     await selectCatalog(page, catalog)
     await expect(page.locator('#scene-status')).toBeHidden()
     for (const [id, spectrum, temperature, mass, radius, luminosity, age] of [
-      ['10pc-0116', 'K4V', '4,465 K', '0.732 M☉', '0.67 R☉', '0.15 L☉', '2.99 Gyr'],
-      ['10pc-0115', 'K0V', '5,301 K', '0.883 M☉', '0.831 R☉', '0.53 L☉', '2.81 Gyr'],
+      ['10pc-0116', 'K4V', '4,465 K', '0.7 M☉', '0.7 R☉', '0.2 L☉', '2.99 Gyr'],
+      ['10pc-0115', 'K0V', '5,301 K', '0.9 M☉', '0.8 R☉', '0.5 L☉', '2.81 Gyr'],
     ] as const) {
       await page.locator(`#star-components [data-component-id="${id}"]`).click()
       await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', id)

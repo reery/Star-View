@@ -32,6 +32,7 @@ test.beforeAll(async () => {
     build: {
       write: false, minify: false,
       lib: { entry: fileURLToPath(new URL('./fixtures/molecular-cloud-rendering.ts', import.meta.url)), formats: ['es'] },
+      rollupOptions: { output: { inlineDynamicImports: true } },
     },
   })
   const output = Array.isArray(result) ? result[0] : result

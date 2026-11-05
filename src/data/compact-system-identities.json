@@ -1,6 +1,62 @@
 {
   "systems": [
     {
+      "id": "a0535p26-system",
+      "name": "A0535+26",
+      "components": [
+        {
+          "starId": "a0535p26",
+          "label": "A"
+        },
+        {
+          "starId": "a0535p26-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "a0620-00-system",
+      "name": "A0620-00",
+      "components": [
+        {
+          "starId": "a0620-00",
+          "label": "A"
+        },
+        {
+          "starId": "a0620-00-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "centaurus-x-4-system",
+      "name": "Centaurus X-4",
+      "components": [
+        {
+          "starId": "centaurus-x-4",
+          "label": "A"
+        },
+        {
+          "starId": "centaurus-x-4-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "cygnus-x-1-system",
+      "name": "Cygnus X-1",
+      "components": [
+        {
+          "starId": "cygnus-x-1",
+          "label": "A"
+        },
+        {
+          "starId": "cygnus-x-1-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
       "id": "gaia-bh1-system",
       "name": "Gaia BH1",
       "components": [
@@ -10,6 +66,20 @@
         },
         {
           "starId": "gaia-bh1-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "gaia-bh2-system",
+      "name": "Gaia BH2",
+      "components": [
+        {
+          "starId": "gaia-bh2",
+          "label": "A"
+        },
+        {
+          "starId": "gaia-bh2-b",
           "label": "B"
         }
       ]
@@ -43,6 +113,118 @@
       ]
     },
     {
+      "id": "gro-j0422p32-system",
+      "name": "GRO J0422+32",
+      "components": [
+        {
+          "starId": "gro-j0422p32",
+          "label": "A"
+        },
+        {
+          "starId": "gro-j0422p32-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "gs-2000p25-system",
+      "name": "GS 2000+25",
+      "components": [
+        {
+          "starId": "gs-2000p25",
+          "label": "A"
+        },
+        {
+          "starId": "gs-2000p25-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "ls-i-61-303-system",
+      "name": "LS I +61 303",
+      "components": [
+        {
+          "starId": "ls-i-61-303",
+          "label": "A"
+        },
+        {
+          "starId": "ls-i-61-303-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "maxi-j1820p070-system",
+      "name": "MAXI J1820+070",
+      "components": [
+        {
+          "starId": "maxi-j1820p070",
+          "label": "A"
+        },
+        {
+          "starId": "maxi-j1820p070-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j0023p0923-system",
+      "name": "PSR J0023+0923",
+      "components": [
+        {
+          "starId": "psr-j0023p0923",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j0023p0923-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j0212p5321-system",
+      "name": "PSR J0212+5321",
+      "components": [
+        {
+          "starId": "psr-j0212p5321",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j0212p5321-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j0337p1715-system",
+      "name": "PSR J0337+1715",
+      "components": [
+        {
+          "starId": "psr-j0337p1715",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j0337p1715-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j0348p0432-system",
+      "name": "PSR J0348+0432",
+      "components": [
+        {
+          "starId": "psr-j0348p0432",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j0348p0432-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
       "id": "psr-j0437m4715-system",
       "name": "PSR J0437-4715",
       "components": [
@@ -71,6 +253,34 @@
       ]
     },
     {
+      "id": "psr-j0610m2100-system",
+      "name": "PSR J0610-2100",
+      "components": [
+        {
+          "starId": "psr-j0610m2100",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j0610m2100-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j0838m2827-system",
+      "name": "PSR J0838-2827",
+      "components": [
+        {
+          "starId": "psr-j0838m2827",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j0838m2827-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
       "id": "psr-j1012p5307-system",
       "name": "PSR J1012+5307",
       "components": [
@@ -85,6 +295,118 @@
       ]
     },
     {
+      "id": "psr-j1023p0038-system",
+      "name": "PSR J1023+0038",
+      "components": [
+        {
+          "starId": "psr-j1023p0038",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1023p0038-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j1024m0719-system",
+      "name": "PSR J1024-0719",
+      "components": [
+        {
+          "starId": "psr-j1024m0719",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1024m0719-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j1036m4353-system",
+      "name": "PSR J1036-4353",
+      "components": [
+        {
+          "starId": "psr-j1036m4353",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1036m4353-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j1227m4853-system",
+      "name": "PSR J1227-4853",
+      "components": [
+        {
+          "starId": "psr-j1227m4853",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1227m4853-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j1302m6350-system",
+      "name": "PSR B1259-63",
+      "components": [
+        {
+          "starId": "psr-j1302m6350",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1302m6350-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j1400m1431-system",
+      "name": "PSR J1400-1431",
+      "components": [
+        {
+          "starId": "psr-j1400m1431",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1400m1431-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j1431m4715-system",
+      "name": "PSR J1431-4715",
+      "components": [
+        {
+          "starId": "psr-j1431m4715",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1431m4715-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j1537p1155-system",
+      "name": "PSR J1537+1155",
+      "components": [
+        {
+          "starId": "psr-j1537p1155",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1537p1155-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
       "id": "psr-j1614m2230-system",
       "name": "PSR J1614-2230",
       "components": [
@@ -94,6 +416,76 @@
         },
         {
           "starId": "psr-j1614m2230-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j1723m2837-system",
+      "name": "PSR J1723-2837",
+      "components": [
+        {
+          "starId": "psr-j1723m2837",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1723m2837-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j1738p0333-system",
+      "name": "PSR J1738+0333",
+      "components": [
+        {
+          "starId": "psr-j1738p0333",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1738p0333-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j1740m5340a-system",
+      "name": "PSR J1740-5340A",
+      "components": [
+        {
+          "starId": "psr-j1740m5340a",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1740m5340a-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j1740m5340b-system",
+      "name": "PSR J1740-5340B",
+      "components": [
+        {
+          "starId": "psr-j1740m5340b",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1740m5340b-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j1741p1351-system",
+      "name": "PSR J1741+1351",
+      "components": [
+        {
+          "starId": "psr-j1741p1351",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1741p1351-b",
           "label": "B"
         }
       ]
@@ -127,6 +519,76 @@
       ]
     },
     {
+      "id": "psr-j1959p2048-system",
+      "name": "Black Widow Pulsar",
+      "components": [
+        {
+          "starId": "psr-j1959p2048",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j1959p2048-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j2032p4127-system",
+      "name": "PSR J2032+4127",
+      "components": [
+        {
+          "starId": "psr-j2032p4127",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j2032p4127-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j2039m5617-system",
+      "name": "PSR J2039-5617",
+      "components": [
+        {
+          "starId": "psr-j2039m5617",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j2039m5617-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j2129m0429-system",
+      "name": "PSR J2129-0429",
+      "components": [
+        {
+          "starId": "psr-j2129m0429",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j2129m0429-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j2214p3000-system",
+      "name": "PSR J2214+3000",
+      "components": [
+        {
+          "starId": "psr-j2214p3000",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j2214p3000-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
       "id": "psr-j2222m0137-system",
       "name": "PSR J2222-0137",
       "components": [
@@ -136,6 +598,136 @@
         },
         {
           "starId": "psr-j2222m0137-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j2256m1024-system",
+      "name": "PSR J2256-1024",
+      "components": [
+        {
+          "starId": "psr-j2256m1024",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j2256m1024-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j2302p4442-system",
+      "name": "PSR J2302+4442",
+      "components": [
+        {
+          "starId": "psr-j2302p4442",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j2302p4442-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j2317p1439-system",
+      "name": "PSR J2317+1439",
+      "components": [
+        {
+          "starId": "psr-j2317p1439",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j2317p1439-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "psr-j2339m0533-system",
+      "name": "PSR J2339-0533",
+      "components": [
+        {
+          "starId": "psr-j2339m0533",
+          "label": "A"
+        },
+        {
+          "starId": "psr-j2339m0533-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "scorpius-x-1-system",
+      "name": "Scorpius X-1",
+      "components": [
+        {
+          "starId": "scorpius-x-1",
+          "label": "A"
+        },
+        {
+          "starId": "scorpius-x-1-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "v404-cygni-system",
+      "name": "V404 Cygni",
+      "components": [
+        {
+          "starId": "v404-cygni",
+          "label": "A"
+        },
+        {
+          "starId": "v404-cygni-b",
+          "label": "B"
+        },
+        {
+          "starId": "v404-cygni-c",
+          "label": "C"
+        }
+      ]
+    },
+    {
+      "id": "vela-x-1-system",
+      "name": "Vela X-1",
+      "components": [
+        {
+          "starId": "vela-x-1",
+          "label": "A"
+        },
+        {
+          "starId": "vela-x-1-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "x-persei-system",
+      "name": "X Persei",
+      "components": [
+        {
+          "starId": "x-persei",
+          "label": "A"
+        },
+        {
+          "starId": "x-persei-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
+      "id": "xte-j1118p480-system",
+      "name": "XTE J1118+480",
+      "components": [
+        {
+          "starId": "xte-j1118p480",
+          "label": "A"
+        },
+        {
+          "starId": "xte-j1118p480-b",
           "label": "B"
         }
       ]

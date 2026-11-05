@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "id": "compact-remnants",
   "label": "Compact remnants",
-  "description": "A separately loaded, source-defined overlay of catalogued pulsars, their measured neutron-star companions and curated dormant compact-object systems within 3000 light-years.",
+  "description": "A separately loaded, source-defined overlay of catalogued pulsars, their measured neutron-star companions and reviewed black holes and neutron stars within 10000 light-years.",
   "epoch": 2000,
-  "objectCount": 278,
-  "radiusLy": 3000,
+  "objectCount": 445,
+  "radiusLy": 10000,
   "counts": {
-    "pulsar": 272,
-    "neutron_star": 4,
-    "black_hole": 2
+    "pulsar": 420,
+    "neutron_star": 14,
+    "black_hole": 11
   },
   "sources": [
     {
@@ -17,8 +17,20 @@
       "url": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html"
     },
     {
+      "name": "Archibald et al. 2018",
+      "url": "https://arxiv.org/abs/1807.02059"
+    },
+    {
       "name": "Ferdman et al. 2014",
       "url": "https://arxiv.org/abs/1406.5507"
+    },
+    {
+      "name": "Fonseca et al. 2014",
+      "url": "https://arxiv.org/abs/1402.4836"
+    },
+    {
+      "name": "Fonseca et al. 2021",
+      "url": "https://arxiv.org/abs/2104.00880"
     },
     {
       "name": "Guo et al. 2021",
@@ -27,6 +39,10 @@
     {
       "name": "Haniewicz et al. 2021",
       "url": "https://arxiv.org/abs/2007.07565"
+    },
+    {
+      "name": "Kramer et al. 2021",
+      "url": "https://arxiv.org/abs/2112.06795"
     },
     {
       "name": "Martinez et al. 2015",
@@ -45,22 +61,130 @@
       "url": "https://arxiv.org/abs/2407.07132"
     },
     {
-      "name": "BlackCAT Galactic black-hole transients",
-      "url": "https://www.sc.eso.org/~jcorral/BlackCAT/transients.php"
+      "name": "Saffer et al. 2024",
+      "url": "https://arxiv.org/abs/2412.02850"
     },
     {
-      "name": "Gaia BH1 high-precision orbit",
-      "url": "https://arxiv.org/abs/2312.05313"
+      "name": "Caballero et al. 2011",
+      "url": "https://arxiv.org/abs/1107.3417"
     },
     {
-      "name": "Gaia BH3 discovery",
+      "name": "Camilloni et al. 2023",
+      "url": "https://arxiv.org/abs/2303.12686"
+    },
+    {
+      "name": "Casares & Jonker 2014",
+      "url": "https://arxiv.org/abs/1311.5118"
+    },
+    {
+      "name": "Casares et al. 2022",
+      "url": "https://arxiv.org/abs/2207.01628"
+    },
+    {
+      "name": "Doroshenko et al. 2022",
+      "url": "https://www.nature.com/articles/s41550-022-01800-1"
+    },
+    {
+      "name": "El-Badry et al. 2023",
+      "url": "https://arxiv.org/abs/2302.07880"
+    },
+    {
+      "name": "El-Badry et al. 2024",
+      "url": "https://arxiv.org/abs/2402.06722"
+    },
+    {
+      "name": "Gaia Collaboration et al. 2024",
       "url": "https://arxiv.org/abs/2404.10486"
     },
     {
-      "name": "Gaia NS1 characterization",
-      "url": "https://arxiv.org/abs/2402.06722"
+      "name": "Hammerstein et al. 2018",
+      "url": "https://arxiv.org/abs/1806.00414"
+    },
+    {
+      "name": "Khargharia et al. 2010",
+      "url": "https://arxiv.org/abs/1004.5358"
+    },
+    {
+      "name": "Khargharia et al. 2013",
+      "url": "https://arxiv.org/abs/1211.2786"
+    },
+    {
+      "name": "Kretschmar et al. 2021",
+      "url": "https://arxiv.org/abs/2104.13148"
+    },
+    {
+      "name": "Miller-Jones et al. 2021",
+      "url": "https://arxiv.org/abs/2102.09091"
+    },
+    {
+      "name": "Nagarajan et al. 2024",
+      "url": "https://arxiv.org/abs/2312.05313"
+    },
+    {
+      "name": "Posselt et al. 2007",
+      "url": "https://arxiv.org/abs/astro-ph/0609275"
+    },
+    {
+      "name": "Sahu et al. 2025",
+      "url": "https://arxiv.org/abs/2503.07820"
+    },
+    {
+      "name": "Sanjurjo-Ferr\u00edn et al. 2026",
+      "url": "https://arxiv.org/abs/2606.09579"
+    },
+    {
+      "name": "Steeghs & Casares 2002",
+      "url": "https://arxiv.org/abs/astro-ph/0107343"
+    },
+    {
+      "name": "Torres et al. 2020",
+      "url": "https://arxiv.org/abs/2003.02360"
+    },
+    {
+      "name": "Weng et al. 2022",
+      "url": "https://arxiv.org/abs/2203.09423"
+    },
+    {
+      "name": "van Grunsven et al. 2017",
+      "url": "https://arxiv.org/abs/1708.08209"
+    },
+    {
+      "name": "Agazie et al. 2023",
+      "url": "https://arxiv.org/abs/2306.16217"
+    },
+    {
+      "name": "Ding et al. 2020",
+      "url": "https://arxiv.org/abs/2008.06438"
+    },
+    {
+      "name": "Ding et al. 2023",
+      "url": "https://arxiv.org/abs/2212.06351"
+    },
+    {
+      "name": "Durant et al. 2011",
+      "url": "https://arxiv.org/abs/1108.3340"
+    },
+    {
+      "name": "Posselt et al. 2007",
+      "url": "https://arxiv.org/abs/astro-ph/0609275"
+    },
+    {
+      "name": "Shamohammadi et al. 2024",
+      "url": "https://arxiv.org/abs/2401.06963"
+    },
+    {
+      "name": "Walter et al. 2010",
+      "url": "https://arxiv.org/abs/1008.1709"
+    },
+    {
+      "name": "Ho et al. 2007",
+      "url": "https://arxiv.org/abs/astro-ph/0612145"
+    },
+    {
+      "name": "BlackCAT catalogue of black-hole X-ray transients",
+      "url": "https://arxiv.org/abs/1510.08869"
     }
   ],
-  "cutoffPolicy": "ATNF v2.9.0 non-candidate, non-interim pulsars with positive adopted DIST <= 0.9198041814 kpc, their reviewed neutron-star companions with measured masses, plus reviewed dormant black-hole and non-pulsar neutron-star systems no farther than 3000 light-years. Candidate status is explicit.",
-  "snapshot": "J2000 map positions; ATNF package downloaded 2026-10-26; binary masses reviewed 2026-10-26; curated literature reviewed 2026-09-30."
+  "cutoffPolicy": "ATNF v2.9.0 non-candidate, non-interim pulsars within 10000 light-years; beyond 3000 light-years (0.9198041814 kpc) only those with a distance independent of the dispersion-measure model. Reviewed distances replace superseded ATNF values. Their reviewed neutron-star companions with measured masses, plus reviewed black-hole and non-pulsar neutron-star systems within 10000 light-years. Candidate status is explicit.",
+  "snapshot": "J2000 map positions; ATNF package downloaded 2026-10-26; binary masses reviewed 2026-11-05; curated literature reviewed 2026-11-05."
 }

@@ -50,6 +50,6 @@ Only exact identifiers are used; there is no positional or fuzzy matching.
   titled after the object come first, then a release’s main image, then press
   releases.
 
-The 2026-11-01 build links 1,725 objects: 1,447 Wikipedia articles, 659 Kaler
-pages, 272 ATNF entries and 17 Hubble images, plus Aladin Lite for objects with
+The 2026-11-05 build links 4,408 objects: 3,991 Wikipedia articles, 937 Kaler
+pages, 420 ATNF entries and 26 Hubble images, plus Aladin Lite for objects with
 a sky position.

@@ -24,6 +24,36 @@ function expectCamera(actual: ViewerViewState, expected: ViewerViewState) {
   expect(actual.observerTelescope).toBe(expected.observerTelescope)
 }
 
+for (const name of ['paint', 'preferences', 'filter'] as const) {
+  test(`locking the ${name} card moves the view center left without moving the camera`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await openViewer(page)
+    if (name === 'paint') {
+      await page.locator('#discover-toggle').click()
+      await page.locator('#paint-toggle').click()
+    } else await page.locator(`#${name}-toggle`).click()
+    await expect(page.locator(`#${name}-panel`)).toBeVisible()
+    const labels = () => page.evaluate(async () => {
+      await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())))
+      return Object.fromEntries([...document.querySelectorAll<HTMLElement>('.star-label')]
+        .filter((label) => label.checkVisibility() && label.textContent)
+        .map((label) => [label.textContent, label.getBoundingClientRect().x]))
+    })
+    const medianShift = (from: Record<string, number>, to: Record<string, number>) => {
+      const shifts = Object.keys(from).filter((key) => key in to).map((key) => to[key]! - from[key]!).sort((a, b) => a - b)
+      expect(shifts.length).toBeGreaterThan(2)
+      return shifts[shifts.length >> 1]!
+    }
+    const before = await labels()
+    const camera = await cameraState(page)
+    await page.locator(`#${name}-lock`).click()
+    await expect.poll(async () => medianShift(before, await labels())).toBeLessThan(-20)
+    expectCamera(await cameraState(page), camera)
+    await page.locator(`#${name}-lock`).click()
+    await expect.poll(async () => Math.abs(medianShift(before, await labels()))).toBeLessThan(2)
+  })
+}
+
 for (const mode of ['overview', 'manual', 'observer'] as const) {
   test(`filter changes preserve the ${mode} camera @mobile`, async ({ page }) => {
     await openViewer(page)

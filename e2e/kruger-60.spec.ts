@@ -18,8 +18,8 @@ test('Kruger 60 A and B show their reviewed individual specs in both nearby cata
     await selectCatalog(page, catalog)
     await expect(page.locator('#scene-status')).toBeHidden()
     for (const [id, spectrum, temperature, mass, radius, luminosity] of [
-      ['10pc-0062', 'M4V', '3,097 K', '0.172 M☉', '0.209 R☉', '0.00393 L☉'],
-      ['10pc-0061', 'M3V', '3,342 K', '0.268 M☉', '0.309 R☉', '0.00983 L☉'],
+      ['10pc-0062', 'M4V', '3,097 K', '0.2 M☉', '0.2 R☉', '0.00393 L☉'],
+      ['10pc-0061', 'M3V', '3,342 K', '0.3 M☉', '0.3 R☉', '0.00983 L☉'],
     ] as const) {
       await page.locator(`#star-components [data-component-id="${id}"]`).click()
       await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', id)

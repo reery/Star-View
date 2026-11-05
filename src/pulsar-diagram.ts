@@ -24,8 +24,8 @@ export function renderPulsarDiagram(card: HTMLElement, star: Star, reference: St
   const compared = reference && reference.id !== star.id && spinPoint(reference) ? reference : null
   const row = (object: Star | null, prefix: string) => {
     get(`pulsar-${prefix}-name`).textContent = object?.name ?? ''
-    get(`pulsar-${prefix}-period`).textContent = object ? preciseMeasurement(object.compact?.rotation_period_s ?? null, null, 's') : ''
-    get(`pulsar-${prefix}-derivative`).textContent = object ? preciseMeasurement(object.compact?.period_derivative ?? null, null, 's/s') : ''
+    get(`pulsar-${prefix}-period`).textContent = object ? preciseMeasurement(object.compact?.rotation_period_s ?? null, 's') : ''
+    get(`pulsar-${prefix}-derivative`).textContent = object ? preciseMeasurement(object.compact?.period_derivative ?? null, 's/s') : ''
     get(`pulsar-${prefix}-age`).textContent = object ? quantity(object.compact?.characteristic_age_yr ?? null, 'yr', 0) : ''
     get(`pulsar-${prefix}-field`).textContent = object ? scientificQuantity(object.compact?.surface_magnetic_field_gauss ?? null, 'G') : ''
   }

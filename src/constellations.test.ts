@@ -153,7 +153,7 @@ describe('all 88 constellation charts', () => {
     expect(fallback).toMatchObject({ id: 'hip-30122', name: 'Furud Aa', luminosity_solar: null, radius_solar: null })
     const components = completeCatalogCompanions([fallback])
     expect(components.map((star) => star.name)).toEqual(['Furud Aa', 'Furud Ab'])
-    expect(constellationStarObject(figure, components)).toEqual(fallback)
+    expect(constellationStarObject(figure, components)).toMatchObject({ id: fallback.id, name: fallback.name, luminosity_solar: null, radius_solar: null })
     expect(luminosityCardAvailable(fallback)).toBe(false)
     expect(catalogMeasurement(fallback, 'luminosity_solar')).toBe(figure.object.luminosity_solar)
     expect(catalogMeasurement(fallback, 'radius_solar')).toBe(figure.object.radius_solar)

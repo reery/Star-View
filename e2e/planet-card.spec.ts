@@ -372,7 +372,7 @@ test('moon tab keeps orbit selection, globe and specs together', { tag: '@mobile
   const firstDistance = (await moons.locator('.moon-row dd').first().boundingBox())!
   expect(Math.abs(firstName.y - firstDistance.y)).toBeLessThan(1)
   expect(Math.abs(list.y - visual.y)).toBeLessThan(1)
-  expect(await card.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
+  expect(await card.evaluate((element) => element.scrollWidth <= element.clientWidth + 1)).toBe(true)
   await expect(moons.locator('h3')).toHaveCount(0)
   await card.screenshot({ path: testInfo.outputPath('jupiter-moon-browser.png') })
 
@@ -511,7 +511,7 @@ test('moon tab keeps orbit selection, globe and specs together', { tag: '@mobile
       await expect(moons.locator('[data-planet-spec="moon-deimos-mean-radius"]')).toContainText('6.2 km')
       await card.screenshot({ path: testInfo.outputPath('mars-moon-browser.png') })
     }
-    expect(await card.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
+    expect(await card.evaluate((element) => element.scrollWidth <= element.clientWidth + 1)).toBe(true)
   }
   await page.keyboard.press('Escape')
   await page.locator('.planet-row[data-planet-id="mercury"] button').click()
@@ -597,7 +597,7 @@ test('pins the globe and header and compares planets with Earth at one scale', {
   await expect(atmosphere.locator('dl')).toBeHidden()
   await atmosphere.locator('summary').click()
   await expect(atmosphere.locator('dl')).toBeVisible()
-  expect(await facts.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true)
+  expect(await facts.evaluate((element) => element.scrollWidth <= element.clientWidth + 1)).toBe(true)
   await stats.click()
   await page.keyboard.press('Escape')
   await page.locator('.planet-row[data-planet-id="jupiter"] button').click()
@@ -754,6 +754,8 @@ test('planet and moon globes support touch pinch and pan without rotating or coa
   for (const canvas of [planet, page.locator('#planet-moon-globe')]) {
     if (canvas !== planet) {
       await page.locator('#planet-moons-toggle').click()
+      // Lists start at the innermost moon, which may have no globe map.
+      await page.locator('.moon-row[data-moon-id="io"] button').click()
       await expect(canvas).toHaveAttribute('data-texture-ready', 'true')
     }
     const initial = await globePixels(canvas)

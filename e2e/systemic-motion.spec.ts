@@ -1,12 +1,12 @@
 import { expect, test } from '@playwright/test'
-import { motionArrows, openFilter, openSpecs, openViewer, selectCatalog } from './support'
+import { motionArrows, openFilter, openSpecs, openViewer, selectCatalog, openMotion } from './support'
 
 test('shows reviewed bulk motion for all nine compact-system components', async ({ page }, testInfo) => {
   await openViewer(page)
   await selectCatalog(page, 'nearest-100')
   await expect(page.locator('#scene-status')).toBeHidden()
   await page.getByLabel('V magnitude limit', { exact: true }).fill('20')
-  await page.getByRole('button', { name: 'Stellar motion', exact: true }).click()
+  await openMotion(page)
   for (const [query, name, ids, velocity] of [
     ['Luyten 726-8', 'Luyten 726-8 A', ['luyten-726-8-a', 'luyten-726-8-b'], '39.04'],
     ['V577 Mon', 'V577 Mon A', ['10pc-0066', '10pc-0067'], '16.18'],
@@ -37,7 +37,7 @@ test('shows EZ Aquarii systemic radial velocity and system bulk motion for each 
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   await page.getByLabel('Search objects').fill('EZ Aquarii')
   await page.getByRole('button', { name: 'Select EZ Aquarii A', exact: true }).click()
-  await page.getByRole('button', { name: 'Stellar motion', exact: true }).click()
+  await openMotion(page)
   await openSpecs(page)
   await page.getByText('Coordinates & source', { exact: true }).click()
   for (const [id, magnitude, mass] of [

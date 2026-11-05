@@ -6,22 +6,22 @@
     "downloadUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/downloads/psrcat_pkg.tar.gz",
     "downloaded": "2026-10-26",
     "archiveSha256": "55daa29f71f344c8de4064969b5812d6cb3a9b851efae0bef004ac9d5f6740c0",
-    "subsetSha256": "b7d890737e6e975b19e015279cb7167d52c3c49a94c9f39640b901b2fd2cc9c8",
-    "glitchSubsetSha256": "5b45ffbd87d3ba834a128fe8daa23cba45345e9b6cff21add925bc81aa6a636d",
-    "selection": "Derived DIST > 0 && DIST <= 0.9198041814 kpc; no CAND or INTERIM type; verbatim psrcat.db records and their glitch.db rows",
-    "rows": 272,
+    "subsetSha256": "00b6d440bd282249e87c97afdebe84d43c7a4b6754446ce4603deed8257a7013",
+    "glitchSubsetSha256": "30066c806c1dc5d0fd436b4b0effaac8609d827bbf7a2db33aebb984462215a6",
+    "selection": "Reviewed or ATNF DIST <= 3.0660139380 kpc (10000 ly), and <= 0.9198041814 kpc when only a dispersion-measure model distance exists; no CAND or INTERIM type; verbatim psrcat.db records and their glitch.db rows",
+    "rows": 420,
     "previous": {
-      "catalogVersion": "2.8.1",
-      "downloaded": "2026-09-30",
-      "archiveSha256": "2ea143fc2c9a01184f5a94715422351c49ecf97cae26004ea4897e56421d4cbd",
-      "rows": 266,
-      "change": "All 266 pulsars remain selected. v2.9.0 adds J0657-4657, J0927-7641, J1207-45, J1752-2849_P, J1810-0623 and J2029-4239, and revises the distances of J0317+1328, J1231-1411 and J1455-3330."
+      "catalogVersion": "2.9.0",
+      "downloaded": "2026-10-26",
+      "archiveSha256": "55daa29f71f344c8de4064969b5812d6cb3a9b851efae0bef004ac9d5f6740c0",
+      "rows": 272,
+      "change": "Selection widened on 2026-11-05 from 3000 to 10000 light-years, requiring a distance independent of the dispersion-measure model beyond 3000 light-years. All 272 earlier pulsars remain selected."
     }
   },
   "blackcat": {
     "catalogVersion": "2025",
-    "reviewed": "2026-09-30",
-    "url": "https://www.sc.eso.org/~jcorral/BlackCAT/transients.php",
-    "result": "No catalogued black-hole X-ray transient lies within 3000 light-years; the nearest listed system, A0620-00, is at 1.06 kpc."
+    "reviewed": "2026-11-05",
+    "url": "https://arxiv.org/abs/1510.08869",
+    "result": "The live catalogue page was unreachable on 2026-11-05, so the catalogue paper and newer primary literature were reviewed; GRS 1716-249 was excluded after its distance was revised to 6.9 kpc."
   }
 }

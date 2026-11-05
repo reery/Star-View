@@ -77,7 +77,7 @@ test('shows selected Dschubba component names from the Sun without individual vi
     await expect(page.locator('#visibility-base')).toHaveText('Sun')
   }
   await openPreferences(page)
-  await page.getByLabel('Labels', { exact: true }).fill('140')
+  await page.locator('#label-limit').fill('140')
   await page.getByRole('button', { name: 'Preferences', exact: true }).click()
   const offscreenLabel = page.locator('[data-star-id="orb6-16003-2237-a-b-b"].is-clipped .star-label')
   await expect(offscreenLabel).toBeVisible()
@@ -94,7 +94,7 @@ test('shows selected Dschubba component names from the Sun without individual vi
 
   // The explicit zero-label preference still hides the selected name.
   await openPreferences(page)
-  await page.getByLabel('Labels', { exact: true }).fill('0')
+  await page.locator('#label-limit').fill('0')
   await expect(page.locator('[data-star-id="orb6-16003-2237-a-b-b"] .star-label')).toBeHidden()
 })
 
@@ -138,7 +138,7 @@ test('keeps the selected name in front even at collisions and scene edges', { ta
   await page.mouse.down({ button: 'right' })
   await page.mouse.move(bounds.x + bounds.width * 2, bounds.y + bounds.height * 0.7, { steps: 12 })
   await page.mouse.up({ button: 'right' })
-  await expect(page.locator('[data-star-id="sun"]')).toHaveClass(/is-clipped/)
+  await expect(page.locator('.map-anchor[data-star-id=\"sun\"]')).toHaveClass(/is-clipped/)
   await expect(label).toBeVisible()
   await expect(page.locator('[data-star-id="sun"] .selection-ring')).toBeHidden()
   const textBounds = (await label.boundingBox())!
@@ -153,7 +153,7 @@ test('keeps the selected name in front even at collisions and scene edges', { ta
 test('keeps front-camera names stable when the selected star leaves the camera view', { tag: '@mobile' }, async ({ page, isMobile }, testInfo) => {
   await openViewer(page)
   await openPreferences(page)
-  await page.getByLabel('Labels', { exact: true }).fill(isMobile ? '80' : '140')
+  await page.locator('#label-limit').fill(isMobile ? '80' : '140')
   await openFilter(page)
   await selectCatalog(page, 'nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
@@ -183,7 +183,7 @@ test('keeps front-camera names stable when the selected star leaves the camera v
   }
   await page.mouse.up()
 
-  const selectedAnchor = page.locator('[data-star-id="sun"]')
+  const selectedAnchor = page.locator('.map-anchor[data-star-id=\"sun\"]')
   const selectedName = selectedAnchor.locator('.star-label')
   if (!await selectedAnchor.evaluate((element) => element.classList.contains('is-clipped'))) {
     await page.mouse.move(start.x, start.y)
@@ -215,7 +215,7 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
   test.skip(isMobile, 'The supplied clear-space composition is a desktop viewport regression.')
   await openViewer(page)
   await openPreferences(page)
-  await page.getByLabel('Labels', { exact: true }).fill('140')
+  await page.locator('#label-limit').fill('140')
   await openFilter(page)
   await selectCatalog(page, 'nearest-1000')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('25')
@@ -223,7 +223,7 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
   await page.getByRole('button', { name: 'Select Sun', exact: true }).evaluate((button: HTMLButtonElement) => button.click())
   await page.getByRole('button', { name: 'Objects', exact: true }).click()
   // The nearest-1000 home view also frames distant overlay objects; zoom in to the local composition.
-  await zoomViewer(page, 'in', 8)
+  await zoomViewer(page, 'in', 4)
 
   const canvas = page.locator('#scene canvas')
   const bounds = (await canvas.boundingBox())!
@@ -233,7 +233,7 @@ test('keeps the Sirius name visible behind the Sun in the nearest-1000 view', as
   await page.mouse.move(start.x - 100, start.y, { steps: 8 })
   await page.mouse.up()
 
-  const siriusAnchor = page.locator('[data-star-id="sirius-a"]')
+  const siriusAnchor = page.locator('.map-anchor[data-star-id=\"sirius-a\"]')
   const siriusName = siriusAnchor.locator('.star-label')
   await expect(siriusAnchor).toBeVisible()
   await expect(siriusName).toBeVisible()

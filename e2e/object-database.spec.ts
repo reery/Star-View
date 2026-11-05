@@ -60,10 +60,7 @@ test('expands Objects horizontally and combines database filters and origin dist
   expect(expanded.x).toBeGreaterThanOrEqual(8)
   await expect(panel.locator('.objects-heading #object-search')).toBeVisible()
   await expect(page.locator('#star-list')).toBeHidden()
-  await expect(page.locator('.object-column-label')).toHaveText([
-    'Name', 'Object type', 'Distance from Sun', 'Sub-type', 'Planets', 'Spectral type',
-    'Temperature', 'Bol. luminosity', 'Mass', 'Radius', 'Metallicity', 'Age', 'Abs. mag', 'App. mag', 'Space motion',
-  ])
+  await expect(page.locator('.object-column-label')).toHaveText(['Name', 'Object type', 'Distance from Sun', 'Sub-type', 'Info', 'Planets', 'Spectral type', 'Temperature', 'Bol. luminosity', 'Mass', 'Radius', 'Metallicity', 'Age', 'Abs. mag', 'App. mag', 'Space motion'])
 
   await page.locator('#object-search').fill('Centauri')
   const rows = page.locator('#object-database tbody tr[data-star]')
@@ -107,7 +104,7 @@ test('expands Objects horizontally and combines database filters and origin dist
   await page.getByRole('button', { name: 'Select Proxima Centauri', exact: true }).click()
   await expect(page.getByRole('button', { name: 'Select Proxima Centauri', exact: true })).toHaveAttribute('aria-pressed', 'true')
   await page.locator('#origin-controls').hover()
-  await page.getByRole('button', { name: 'Set selected object as origin', exact: true }).click()
+  await page.locator('#set-origin').click()
   await page.getByRole('button', { name: 'Switch to distance from Proxima Centauri', exact: true }).click()
   await expect(page.locator('th[data-column="distance"] .object-column-label')).toHaveText('Distance from Proxima Centauri')
   await expect(page.locator('tr[data-star="proxima-centauri"] td[data-column="distance"]')).toHaveText('0.00')

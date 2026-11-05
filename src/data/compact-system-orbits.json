@@ -2,6 +2,138 @@
   "schemaVersion": 1,
   "systems": [
     {
+      "systemId": "a0535p26-system",
+      "name": "A0535+26",
+      "orbits": [
+        {
+          "id": "a0535p26-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "a0535p26"
+          ],
+          "secondaryIds": [
+            "a0535p26-b"
+          ],
+          "periodYears": 0.30390143737166325,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Caballero et al. 2011",
+          "sourceUrl": "https://arxiv.org/abs/1107.3417",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "a0620-00-system",
+      "name": "A0620-00",
+      "orbits": [
+        {
+          "id": "a0620-00-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "a0620-00"
+          ],
+          "secondaryIds": [
+            "a0620-00-b"
+          ],
+          "periodYears": 0.0008843641341546887,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "van Grunsven et al. 2017",
+          "sourceUrl": "https://arxiv.org/abs/1708.08209",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "centaurus-x-4-system",
+      "name": "Centaurus X-4",
+      "orbits": [
+        {
+          "id": "centaurus-x-4-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "centaurus-x-4"
+          ],
+          "secondaryIds": [
+            "centaurus-x-4-b"
+          ],
+          "periodYears": 0.0017222510609171799,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Hammerstein et al. 2018",
+          "sourceUrl": "https://arxiv.org/abs/1806.00414",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "cygnus-x-1-system",
+      "name": "Cygnus X-1",
+      "orbits": [
+        {
+          "id": "cygnus-x-1-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "cygnus-x-1"
+          ],
+          "secondaryIds": [
+            "cygnus-x-1-b"
+          ],
+          "periodYears": 0.015331964407939767,
+          "semiMajorAxisAu": 0.244,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Miller-Jones et al. 2021",
+          "sourceUrl": "https://arxiv.org/abs/2102.09091",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
       "systemId": "gaia-bh1-system",
       "name": "Gaia BH1",
       "orbits": [
@@ -27,6 +159,39 @@
           "catalog": "Reviewed literature",
           "reference": "Nagarajan et al. 2024",
           "sourceUrl": "https://arxiv.org/abs/2312.05313",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "gaia-bh2-system",
+      "name": "Gaia BH2",
+      "orbits": [
+        {
+          "id": "gaia-bh2-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "gaia-bh2"
+          ],
+          "secondaryIds": [
+            "gaia-bh2-b"
+          ],
+          "periodYears": 3.495414099931554,
+          "semiMajorAxisAu": 4.977,
+          "eccentricity": 0.518,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "El-Badry et al. 2023",
+          "sourceUrl": "https://arxiv.org/abs/2302.07880",
           "nodeAmbiguous": true,
           "argumentComponent": null,
           "scope": "Period and eccentricity from the published orbit; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
@@ -101,6 +266,270 @@
       ]
     },
     {
+      "systemId": "gro-j0422p32-system",
+      "name": "GRO J0422+32",
+      "orbits": [
+        {
+          "id": "gro-j0422p32-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "gro-j0422p32"
+          ],
+          "secondaryIds": [
+            "gro-j0422p32-b"
+          ],
+          "periodYears": 0.0005804243668720055,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Casares et al. 2022",
+          "sourceUrl": "https://arxiv.org/abs/2207.01628",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "gs-2000p25-system",
+      "name": "GS 2000+25",
+      "orbits": [
+        {
+          "id": "gs-2000p25-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "gs-2000p25"
+          ],
+          "secondaryIds": [
+            "gs-2000p25-b"
+          ],
+          "periodYears": 0.0009420596851471595,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Casares & Jonker 2014",
+          "sourceUrl": "https://arxiv.org/abs/1311.5118",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "ls-i-61-303-system",
+      "name": "LS I +61 303",
+      "orbits": [
+        {
+          "id": "ls-i-61-303-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "ls-i-61-303"
+          ],
+          "secondaryIds": [
+            "ls-i-61-303-b"
+          ],
+          "periodYears": 0.07255304585900069,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Weng et al. 2022",
+          "sourceUrl": "https://arxiv.org/abs/2203.09423",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "maxi-j1820p070-system",
+      "name": "MAXI J1820+070",
+      "orbits": [
+        {
+          "id": "maxi-j1820p070-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "maxi-j1820p070"
+          ],
+          "secondaryIds": [
+            "maxi-j1820p070-b"
+          ],
+          "periodYears": 0.0018767693360711843,
+          "semiMajorAxisAu": 0.03161,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Torres et al. 2020",
+          "sourceUrl": "https://arxiv.org/abs/2003.02360",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j0023p0923-system",
+      "name": "PSR J0023+0923",
+      "orbits": [
+        {
+          "id": "psr-j0023p0923-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j0023p0923"
+          ],
+          "secondaryIds": [
+            "psr-j0023p0923-b"
+          ],
+          "periodYears": 0.00038001134313483915,
+          "semiMajorAxisAu": null,
+          "eccentricity": 7.068e-06,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j0212p5321-system",
+      "name": "PSR J0212+5321",
+      "orbits": [
+        {
+          "id": "psr-j0212p5321-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j0212p5321"
+          ],
+          "secondaryIds": [
+            "psr-j0212p5321-b"
+          ],
+          "periodYears": 0.002380769062286105,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j0337p1715-system",
+      "name": "PSR J0337+1715",
+      "orbits": [
+        {
+          "id": "psr-j0337p1715-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j0337p1715"
+          ],
+          "secondaryIds": [
+            "psr-j0337p1715-b"
+          ],
+          "periodYears": 0.004461058967830253,
+          "semiMajorAxisAu": 0.03191,
+          "eccentricity": 0.0006918,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j0348p0432-system",
+      "name": "PSR J0348+0432",
+      "orbits": [
+        {
+          "id": "psr-j0348p0432-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j0348p0432"
+          ],
+          "secondaryIds": [
+            "psr-j0348p0432-b"
+          ],
+          "periodYears": 0.0002804217932922656,
+          "semiMajorAxisAu": 0.005362,
+          "eccentricity": 9.487e-05,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
       "systemId": "psr-j0437m4715-system",
       "name": "PSR J0437-4715",
       "orbits": [
@@ -167,6 +596,72 @@
       ]
     },
     {
+      "systemId": "psr-j0610m2100-system",
+      "name": "PSR J0610-2100",
+      "orbits": [
+        {
+          "id": "psr-j0610m2100-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j0610m2100"
+          ],
+          "secondaryIds": [
+            "psr-j0610m2100-b"
+          ],
+          "periodYears": 0.0007830691480629706,
+          "semiMajorAxisAu": null,
+          "eccentricity": 2.335e-05,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j0838m2827-system",
+      "name": "PSR J0838-2827",
+      "orbits": [
+        {
+          "id": "psr-j0838m2827-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j0838m2827"
+          ],
+          "secondaryIds": [
+            "psr-j0838m2827-b"
+          ],
+          "periodYears": 0.0005873314524298426,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
       "systemId": "psr-j1012p5307-system",
       "name": "PSR J1012+5307",
       "orbits": [
@@ -183,6 +678,270 @@
           "periodYears": 0.0016555036655879535,
           "semiMajorAxisAu": 0.01729,
           "eccentricity": 1.183e-06,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1023p0038-system",
+      "name": "PSR J1023+0038",
+      "orbits": [
+        {
+          "id": "psr-j1023p0038-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1023p0038"
+          ],
+          "secondaryIds": [
+            "psr-j1023p0038-b"
+          ],
+          "periodYears": 0.0005423582666666667,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1024m0719-system",
+      "name": "PSR J1024-0719",
+      "orbits": [
+        {
+          "id": "psr-j1024m0719-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1024m0719"
+          ],
+          "secondaryIds": [
+            "psr-j1024m0719-b"
+          ],
+          "periodYears": 11000.0,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period is the midpoint of the published 2,000-20,000 year range; Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1036m4353-system",
+      "name": "PSR J1036-4353",
+      "orbits": [
+        {
+          "id": "psr-j1036m4353-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1036m4353"
+          ],
+          "secondaryIds": [
+            "psr-j1036m4353-b"
+          ],
+          "periodYears": 0.0007108042628336755,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1227m4853-system",
+      "name": "PSR J1227-4853",
+      "orbits": [
+        {
+          "id": "psr-j1227m4853-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1227m4853"
+          ],
+          "secondaryIds": [
+            "psr-j1227m4853-b"
+          ],
+          "periodYears": 0.0007881930704996577,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1302m6350-system",
+      "name": "PSR J1302-6350",
+      "orbits": [
+        {
+          "id": "psr-j1302m6350-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1302m6350"
+          ],
+          "secondaryIds": [
+            "psr-j1302m6350-b"
+          ],
+          "periodYears": 3.3859672169746746,
+          "semiMajorAxisAu": null,
+          "eccentricity": 0.8699,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1400m1431-system",
+      "name": "PSR J1400-1431",
+      "orbits": [
+        {
+          "id": "psr-j1400m1431-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1400m1431"
+          ],
+          "secondaryIds": [
+            "psr-j1400m1431-b"
+          ],
+          "periodYears": 0.026139541887200548,
+          "semiMajorAxisAu": null,
+          "eccentricity": 5.557e-07,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1431m4715-system",
+      "name": "PSR J1431-4715",
+      "orbits": [
+        {
+          "id": "psr-j1431m4715-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1431m4715"
+          ],
+          "secondaryIds": [
+            "psr-j1431m4715-b"
+          ],
+          "periodYears": 0.0012313186521560576,
+          "semiMajorAxisAu": null,
+          "eccentricity": 2.319e-05,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1537p1155-system",
+      "name": "PSR J1537+1155",
+      "orbits": [
+        {
+          "id": "psr-j1537p1155-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1537p1155"
+          ],
+          "secondaryIds": [
+            "psr-j1537p1155-b"
+          ],
+          "periodYears": 0.0011519159449117043,
+          "semiMajorAxisAu": 0.01526,
+          "eccentricity": 0.2737,
           "inclinationDeg": null,
           "nodeDeg": null,
           "argumentDeg": null,
@@ -228,6 +987,171 @@
           "nodeAmbiguous": true,
           "argumentComponent": null,
           "scope": "Period and eccentricity from pulsar timing; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1723m2837-system",
+      "name": "PSR J1723-2837",
+      "orbits": [
+        {
+          "id": "psr-j1723m2837-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1723m2837"
+          ],
+          "secondaryIds": [
+            "psr-j1723m2837-b"
+          ],
+          "periodYears": 0.0016849732320328543,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1738p0333-system",
+      "name": "PSR J1738+0333",
+      "orbits": [
+        {
+          "id": "psr-j1738p0333-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1738p0333"
+          ],
+          "secondaryIds": [
+            "psr-j1738p0333-b"
+          ],
+          "periodYears": 0.000971364106426831,
+          "semiMajorAxisAu": null,
+          "eccentricity": 3.401e-07,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1740m5340a-system",
+      "name": "PSR J1740-5340A",
+      "orbits": [
+        {
+          "id": "psr-j1740m5340a-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1740m5340a"
+          ],
+          "secondaryIds": [
+            "psr-j1740m5340a-b"
+          ],
+          "periodYears": 0.003707212566735113,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1740m5340b-system",
+      "name": "PSR J1740-5340B",
+      "orbits": [
+        {
+          "id": "psr-j1740m5340b-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1740m5340b"
+          ],
+          "secondaryIds": [
+            "psr-j1740m5340b-b"
+          ],
+          "periodYears": 0.005413429328963723,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j1741p1351-system",
+      "name": "PSR J1741+1351",
+      "orbits": [
+        {
+          "id": "psr-j1741p1351-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1741p1351"
+          ],
+          "secondaryIds": [
+            "psr-j1741p1351-b"
+          ],
+          "periodYears": 0.044723744909787824,
+          "semiMajorAxisAu": null,
+          "eccentricity": 9.984e-06,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
           "axisDerivation": null
         }
       ]
@@ -299,6 +1223,171 @@
       ]
     },
     {
+      "systemId": "psr-j1959p2048-system",
+      "name": "PSR J1959+2048",
+      "orbits": [
+        {
+          "id": "psr-j1959p2048-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j1959p2048"
+          ],
+          "secondaryIds": [
+            "psr-j1959p2048-b"
+          ],
+          "periodYears": 0.001045767575359343,
+          "semiMajorAxisAu": null,
+          "eccentricity": 0.0,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j2032p4127-system",
+      "name": "PSR J2032+4127",
+      "orbits": [
+        {
+          "id": "psr-j2032p4127-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j2032p4127"
+          ],
+          "secondaryIds": [
+            "psr-j2032p4127-b"
+          ],
+          "periodYears": 45.9958932238193,
+          "semiMajorAxisAu": null,
+          "eccentricity": 0.96,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j2039m5617-system",
+      "name": "PSR J2039-5617",
+      "orbits": [
+        {
+          "id": "psr-j2039m5617-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j2039m5617"
+          ],
+          "secondaryIds": [
+            "psr-j2039m5617-b"
+          ],
+          "periodYears": 0.0006241746885694729,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j2129m0429-system",
+      "name": "PSR J2129-0429",
+      "orbits": [
+        {
+          "id": "psr-j2129m0429-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j2129m0429"
+          ],
+          "secondaryIds": [
+            "psr-j2129m0429-b"
+          ],
+          "periodYears": 0.0017391578729637233,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j2214p3000-system",
+      "name": "PSR J2214+3000",
+      "orbits": [
+        {
+          "id": "psr-j2214p3000-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j2214p3000"
+          ],
+          "secondaryIds": [
+            "psr-j2214p3000-b"
+          ],
+          "periodYears": 0.001140678838911978,
+          "semiMajorAxisAu": null,
+          "eccentricity": 1.618e-05,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
       "systemId": "psr-j2222m0137-system",
       "name": "PSR J2222-0137",
       "orbits": [
@@ -327,6 +1416,303 @@
           "nodeAmbiguous": true,
           "argumentComponent": null,
           "scope": "Period and eccentricity from pulsar timing; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j2256m1024-system",
+      "name": "PSR J2256-1024",
+      "orbits": [
+        {
+          "id": "psr-j2256m1024-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j2256m1024"
+          ],
+          "secondaryIds": [
+            "psr-j2256m1024-b"
+          ],
+          "periodYears": 0.000582840877471321,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j2302p4442-system",
+      "name": "PSR J2302+4442",
+      "orbits": [
+        {
+          "id": "psr-j2302p4442-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j2302p4442"
+          ],
+          "secondaryIds": [
+            "psr-j2302p4442-b"
+          ],
+          "periodYears": 0.34479205181930184,
+          "semiMajorAxisAu": null,
+          "eccentricity": 0.000503,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j2317p1439-system",
+      "name": "PSR J2317+1439",
+      "orbits": [
+        {
+          "id": "psr-j2317p1439-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j2317p1439"
+          ],
+          "secondaryIds": [
+            "psr-j2317p1439-b"
+          ],
+          "periodYears": 0.00673328258770705,
+          "semiMajorAxisAu": null,
+          "eccentricity": 5.404e-07,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "psr-j2339m0533-system",
+      "name": "PSR J2339-0533",
+      "orbits": [
+        {
+          "id": "psr-j2339m0533-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "psr-j2339m0533"
+          ],
+          "secondaryIds": [
+            "psr-j2339m0533-b"
+          ],
+          "periodYears": 0.0005286746113908282,
+          "semiMajorAxisAu": null,
+          "eccentricity": 0.0002102,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "ATNF Pulsar Catalogue v2.9.0",
+          "reference": "Pulsar timing orbit",
+          "sourceUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from pulsar timing; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "scorpius-x-1-system",
+      "name": "Scorpius X-1",
+      "orbits": [
+        {
+          "id": "scorpius-x-1-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "scorpius-x-1"
+          ],
+          "secondaryIds": [
+            "scorpius-x-1-b"
+          ],
+          "periodYears": 0.0021560574948665296,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Steeghs & Casares 2002",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0107343",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "v404-cygni-system",
+      "name": "V404 Cygni",
+      "orbits": [
+        {
+          "id": "v404-cygni-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "v404-cygni"
+          ],
+          "secondaryIds": [
+            "v404-cygni-b"
+          ],
+          "periodYears": 0.017717426420260095,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Khargharia et al. 2010",
+          "sourceUrl": "https://arxiv.org/abs/1004.5358",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "vela-x-1-system",
+      "name": "Vela X-1",
+      "orbits": [
+        {
+          "id": "vela-x-1-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "vela-x-1"
+          ],
+          "secondaryIds": [
+            "vela-x-1-b"
+          ],
+          "periodYears": 0.02454209445585216,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Kretschmar et al. 2021",
+          "sourceUrl": "https://arxiv.org/abs/2104.13148",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "x-persei-system",
+      "name": "X Persei",
+      "orbits": [
+        {
+          "id": "x-persei-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "x-persei"
+          ],
+          "secondaryIds": [
+            "x-persei-b"
+          ],
+          "periodYears": 0.6858316221765913,
+          "semiMajorAxisAu": null,
+          "eccentricity": 0.11,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Sanjurjo-Ferr\u00edn et al. 2026",
+          "sourceUrl": "https://arxiv.org/abs/2606.09579",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "xte-j1118p480-system",
+      "name": "XTE J1118+480",
+      "orbits": [
+        {
+          "id": "xte-j1118p480-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "xte-j1118p480"
+          ],
+          "secondaryIds": [
+            "xte-j1118p480-b"
+          ],
+          "periodYears": 0.00046543463381245725,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Khargharia et al. 2013",
+          "sourceUrl": "https://arxiv.org/abs/1211.2786",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
           "axisDerivation": null
         }
       ]

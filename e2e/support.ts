@@ -5,6 +5,15 @@ import { MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_
 import { readFileSync } from 'node:fs'
 import legacyStarIds from '../src/data/legacy-star-ids.json' with { type: 'json' }
 
+/** Objects a catalog ships: its authored rows plus the reviewed companions generation adds. */
+export function shippedObjectCount(catalogId: string): number {
+  return JSON.parse(readFileSync(new URL('../src/data/generated/startup-index.json', import.meta.url), 'utf8')).catalogObjectCounts[catalogId]
+}
+
+export function shippedOverlayCount(overlayId: string): number {
+  return JSON.parse(readFileSync(new URL(`../src/data/generated/overlays/${overlayId}.json`, import.meta.url), 'utf8')).objects.length
+}
+
 const defaultCatalogIds = new Set(readFileSync(new URL('../src/data/stars.csv', import.meta.url), 'utf8').split('\n').slice(1).map((line) => line.split(',')[1]))
 /** Runtime ID of a retired bright-stars record with the default catalog and the constellation overlay loaded. */
 export function landmarkStarId(id: string): string {
@@ -193,6 +202,12 @@ export async function zoomViewer(page: Page, direction: 'in' | 'out', steps = 1)
     await page.mouse.wheel(0, (direction === 'in' ? -512 : 512) * steps)
   }
   await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
+}
+
+/** Stellar motion opens from the Explore menu. */
+export async function openMotion(page: Page) {
+  await page.locator('#discover-toggle').click()
+  await page.locator('#motion-toggle').click()
 }
 
 export async function openPreferences(page: Page) {

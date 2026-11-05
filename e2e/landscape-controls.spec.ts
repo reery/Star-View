@@ -80,7 +80,8 @@ test('landscape search and detail cards leave room for scrollable content @mobil
   expect(detail.x).toBeGreaterThan(selected.x + selected.width)
   expect(detail.y).toBe(12)
   expect(detail.y + detail.height).toBeLessThanOrEqual(288)
-  expect((await card.locator('> .panel-heading').boundingBox())!.height).toBeLessThanOrEqual(47)
+  // The title row and the tab row.
+  expect((await card.locator('> .panel-heading').boundingBox())!.height).toBeLessThanOrEqual(90)
   const content = card.locator('> .card-scroll-content')
   expect(await content.evaluate((element) => element.scrollHeight > element.clientHeight)).toBe(true)
   await content.evaluate((element) => { element.scrollTop = element.scrollHeight })

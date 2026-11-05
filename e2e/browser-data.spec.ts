@@ -30,8 +30,8 @@ test('browser data confirmation cancels safely and deletes only app data @mobile
     }
     return `${(bytes / 1024).toFixed(2)} KB`
   })
-  const remove = page.getByRole('button', { name: 'Delete all Star View browser data', exact: true })
-  await expect(page.locator('#browser-data-size')).toHaveText(size)
+  const remove = page.locator('#delete-browser-data')
+  await expect(remove).toContainText(size)
   await expect(remove).toHaveCSS('color', 'rgb(240, 128, 128)')
   const dialog = page.getByRole('dialog')
   await remove.click()
@@ -67,7 +67,7 @@ test('browser data confirmation cancels safely and deletes only app data @mobile
   ])
   await openPreferences(page)
   await expect(page.locator('#unit-ly')).toBeChecked()
-  await expect(page.locator('#browser-data-size')).toHaveText('0.00 KB')
+  await expect(page.locator('#delete-browser-data')).toContainText('0.00 KB')
   await page.getByRole('button', { name: 'Saved views', exact: true }).click()
   await expect(page.locator('#saved-views-list tr')).toHaveCount(0)
 })

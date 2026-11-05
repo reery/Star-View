@@ -21,6 +21,8 @@ describe('constellation data and common system motion', () => {
       const primary = pool.get(review.primaryStarId)!
       for (const id of Object.keys(review.expectedInputs)) {
         members++
+        // The Izar review withholds a radial velocity from the candidate brown dwarf D.
+        if (id === 'msc-14450+2704-d') continue
         const star = pool.get(id)!
         expect(velocityFields.map((field) => star[field]), id).toEqual(velocityFields.map((field) => primary[field]))
         for (const frame of ['galactic', 'solar'] as const) {
@@ -30,7 +32,8 @@ describe('constellation data and common system motion', () => {
           expect(motion.velocity.toArray(), id).toEqual(primaryMotion.velocity.toArray())
         }
         expect(spaceMotionForStar(star).label, id).toBe('System bulk motion')
-        expect(spaceMotionForStar(star).title, id).toContain(review.radialVelocity.status.includes('proxy') ? 'as a proxy' : 'center-of-mass')
+        // Atlas now uses a published systemic velocity from the famous-cluster review.
+        expect(spaceMotionForStar(star).title, id).toContain(review.radialVelocity.status.includes('proxy') && !review.primaryStarId.startsWith('hip-17847') ? 'as a proxy' : 'center-of-mass')
       }
     }
     expect(members).toBe(519)
@@ -42,7 +45,8 @@ describe('constellation data and common system motion', () => {
       expect(star.catalog_sources?.some(({ record }) =>
         JSON.stringify(record.raw_astrometry) === JSON.stringify(original.raw_astrometry)
         && velocityFields.every((field) => record[field] === original[field])), id).toBe(true)
-      if (original.raw_astrometry) {
+      // The famous-cluster and Izar reviews adopted newer astrometry; the check above keeps the originals as sources.
+      if (original.raw_astrometry && !['hip-17847', 'msc-03492+2403-aa2', 'bright-izar', 'msc-14450+2704-b', 'msc-14450+2704-d'].includes(id)) {
         for (const field of ['ra_deg', 'dec_deg', 'parallax_mas', 'parallax_error_mas',
           'pm_ra_cosdec_masyr', 'pm_ra_error_masyr', 'pm_dec_masyr', 'pm_dec_error_masyr', 'epoch'] as const) {
           expect(star.raw_astrometry?.[field], `${id}:${field}`).toBe(original.raw_astrometry[field])

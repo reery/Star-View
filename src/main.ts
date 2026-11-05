@@ -53,6 +53,7 @@ import { appendConstellationContent } from './constellation-card-content'
 import { initializeToolbarTouch } from './toolbar-touch'
 import { initializeTouchTooltips } from './touch-tooltips'
 import { attachPopoverTooltip } from './popover-tooltips'
+import startupIndex from './data/generated/startup-index.json'
 import { objectSubtypeDescription } from './object-subtype-info'
 import { MISSING_VALUE, preciseMeasurement, quantity, scientificQuantity } from './format'
 import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
@@ -90,6 +91,15 @@ function text(id: string, value: string): void {
   const target = element(id)
   target.textContent = value
   target.classList.toggle('missing-value', value === MISSING_VALUE)
+}
+
+/** Timing values are long, so the uncertainty sits on its own quieter line below the measurement. */
+function timingText(id: string, value: number | null, error: number | null, unit: string, suffix = ''): void {
+  text(id, `${preciseMeasurement(value, unit)}${suffix}`)
+  if (value === null || error === null) return
+  const uncertainty = document.createElement('small')
+  uncertainty.textContent = ` ± ${preciseMeasurement(error, unit)}`
+  element(id).append(uncertainty)
 }
 
 // Values with selection-specific markup stay in renderSelection; Specs owns the rest.
@@ -270,7 +280,7 @@ const events = new AbortController()
 initializeTouchTooltips(events.signal)
 initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, events.signal)
 for (const help of document.querySelectorAll<HTMLButtonElement>('.compact-property .mass-metric-help')) attachPopoverTooltip(help, help.nextElementSibling as HTMLElement)
-for (const help of document.querySelectorAll<HTMLElement>('.preferences .mass-metric-help')) {
+for (const help of document.querySelectorAll<HTMLElement>(':is(.preferences, .filter-section) .mass-metric-help')) {
   // Tooltips sit outside labels so their text stays out of the control's accessible name.
   const label = help.closest('label')
   attachPopoverTooltip(help, (label ?? help).nextElementSibling as HTMLElement, undefined, label?.control ?? undefined)
@@ -393,6 +403,8 @@ let colorBlindPalette = false
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
 const NAKED_EYE_CATALOG_ID = 'naked-eye-stars'
 const NOTABLE_DISTANT_CATALOG_ID = 'notable-distant-stars'
+/** Compact objects' stellar companions live in the notable distant catalog, so showing one brings the other. */
+const compactObjectsVisible = (keys: ReadonlySet<string>) => keys.has('pulsar') || keys.has('neutron_star') || keys.has('black_hole')
 // Retired catalog IDs (bright-stars) restore saved selections on their surviving records.
 const legacyStarId = (id: string) => (legacyStarIds.ids as Record<string, string>)[id] ?? id
 
@@ -470,7 +482,7 @@ const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constell
 const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 // On desktop, these cards move the 3D view center left while locked, so the scene stays visible beside them.
-const viewCenteringPanels: readonly typeof lockablePanelNames[number][] = ['paint', 'graphs']
+const viewCenteringPanels: readonly typeof lockablePanelNames[number][] = ['paint', 'graphs', 'preferences', 'filter']
 
 function selectedStarAvailable(id: string): boolean {
   return starIndex.has(id)
@@ -2306,6 +2318,12 @@ function renderSelection(): void {
   const massRange = star.mass_solar === null ? star.stellar_observations?.mass_range : undefined
   if (massRange) element('mass').setAttribute('aria-label', `Model mass: ${massRange.min_jupiter} to ${massRange.max_jupiter} Jupiter masses, assuming an age of ${massRange.assumed_age_min_gyr} to ${massRange.assumed_age_max_gyr} billion years.`)
   else element('mass').removeAttribute('aria-label')
+  const massModel = star.mass_solar === null ? star.compact?.mass_model : undefined
+  element('mass-source-tooltip').hidden = !massModel
+  text('mass-source-tooltip', massModel ? `Modelled, not measured. ${massModel.scope}` : '')
+  element('mass-row').tabIndex = massModel ? 0 : -1
+  if (massModel) element('mass-row').setAttribute('aria-describedby', 'mass-source-tooltip')
+  else element('mass-row').removeAttribute('aria-describedby')
   element<HTMLButtonElement>('mass-toggle').disabled = star.mass_solar === null || !massCardAvailable(star)
   element('mass-toggle').setAttribute('aria-label', `Explore mass of ${star.name}`)
   if (element<HTMLButtonElement>('mass-toggle').disabled) closeMassCard()
@@ -2332,24 +2350,25 @@ function renderSelection(): void {
   else if (!element('pulsar-card').hidden) void renderPulsarCard(star)
   if (compact) {
     text('compact-status', compact.confidence === 'confirmed' ? 'Confirmed' : 'Candidate')
-    const rotation = preciseMeasurement(compact.rotation_period_s, compact.rotation_period_error_s, 's')
-    text('rotation-period', compact.rotation_period_s === null ? rotation : `${rotation} (${(1 / compact.rotation_period_s).toLocaleString('en-US', { maximumSignificantDigits: 6 })} Hz)`)
+    timingText('rotation-period', compact.rotation_period_s, compact.rotation_period_error_s, 's',
+      compact.rotation_period_s === null ? '' : ` (${(1 / compact.rotation_period_s).toLocaleString('en-US', { maximumSignificantDigits: 6 })}\u00a0Hz)`)
     element<HTMLButtonElement>('pulsar-toggle').disabled = !pulsarDiagramAvailable(star)
     element('pulsar-toggle').setAttribute('aria-label', `Explore spin and slowdown of ${star.name}`)
     text('pulsar-classes', compact.pulsar_classes.join(' · ') || MISSING_VALUE)
-    text('period-derivative', preciseMeasurement(compact.period_derivative, compact.period_derivative_error, 's/s'))
+    timingText('period-derivative', compact.period_derivative, compact.period_derivative_error, 's/s')
     text('radio-luminosity', quantity(compact.radio_luminosity_1400_mjy_kpc2, 'mJy kpc²'))
     text('dispersion-measure', quantity(compact.dispersion_measure_pc_cm3, 'pc cm⁻³'))
     text('transverse-speed', quantity(compact.transverse_velocity_kms, 'km/s', 0))
     text('glitch-count', compact.glitch_count === null ? MISSING_VALUE : String(compact.glitch_count))
-    text('pulsar-associations', compact.associations.join('; ') || MISSING_VALUE)
+    // One association per line, with designations such as RX J1856.5-3754 kept whole below their kind.
+    text('pulsar-associations', compact.associations.join('\n').replaceAll(': ', ':\n') || MISSING_VALUE)
     text('orbital-eccentricity', quantity(compact.eccentricity, '', 6))
     text('companion-mass-limit', compact.companion_min_mass_solar === null ? MISSING_VALUE
       : `≥ ${companionMass(compact.companion_min_mass_solar)} · median ${companionMass(compact.companion_median_mass_solar!)}`)
     text('characteristic-age', quantity(compact.characteristic_age_yr, 'yr', 0))
     text('surface-field', scientificQuantity(compact.surface_magnetic_field_gauss, 'G'))
     text('spin-down-power', scientificQuantity(compact.spin_down_power_erg_s, 'erg/s'))
-    text('orbital-period', preciseMeasurement(compact.orbital_period_days, compact.orbital_period_error_days, 'days'))
+    timingText('orbital-period', compact.orbital_period_days, compact.orbital_period_error_days, 'days')
     text('compact-companion', compact.companion ?? MISSING_VALUE)
     text('detection-method', compact.detection_method)
     const source = element<HTMLAnchorElement>('compact-source')
@@ -2804,7 +2823,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       loadAdditive(WESTERN_CONSTELLATION_CATALOG_ID, showWesternConstellationStars),
       loadAdditive(NAKED_EYE_CATALOG_ID, showNakedEyeStars),
       // Pulsar companions live here, so visible pulsars bring their systems along.
-      loadAdditive(NOTABLE_DISTANT_CATALOG_ID, showNotableDistantStars || visibleKeys.has('pulsar')),
+      loadAdditive(NOTABLE_DISTANT_CATALOG_ID, showNotableDistantStars || compactObjectsVisible(visibleKeys)),
       loadOverlay(COMPACT_OBJECT_TYPES, loadCompactRemnants),
       loadOverlay(NEBULA_OBJECT_TYPES, loadNebulae),
       loadOverlay(MOLECULAR_CLOUD_OBJECT_TYPES, loadMolecularClouds),
@@ -2944,9 +2963,16 @@ for (const category of FILTER_CATEGORIES) {
   const toggleText = document.createElement('span')
   toggleText.className = 'toggle-text'
   const toggleName = document.createElement('span')
+  toggleName.className = 'mass-metric-help'
   toggleName.textContent = category.label
   toggleText.append(toggleName)
   if (!available) toggleText.append(noDataHint(`${input.id}-hint`, input))
+  const tooltip = document.createElement('span')
+  tooltip.id = `${input.id}-tooltip`
+  tooltip.className = 'tooltip mass-metric-tooltip'
+  tooltip.setAttribute('role', 'tooltip')
+  tooltip.textContent = category.description
+  input.setAttribute('aria-describedby', available ? tooltip.id : `${input.id}-hint ${tooltip.id}`)
   const control = document.createElement('span')
   control.className = 'switch-control'
   const track = document.createElement('span')
@@ -2954,7 +2980,8 @@ for (const category of FILTER_CATEGORIES) {
   track.setAttribute('aria-hidden', 'true')
   control.append(input, track)
   toggle.append(toggleText, control)
-  categoryOptions.append(toggle)
+  categoryOptions.append(toggle, tooltip)
+  attachPopoverTooltip(toggleName, tooltip, undefined, input)
 
   const group = document.createElement('div')
   group.className = 'type-group'
@@ -3013,7 +3040,7 @@ function applyObjectFilter(): void {
   const overlayChanged = [COMPACT_OBJECT_TYPES, NEBULA_OBJECT_TYPES, MOLECULAR_CLOUD_OBJECT_TYPES, BUBBLE_OBJECT_TYPES].some((types) =>
     types.some((type) => previous.has(type)) !== types.some((type) => visibleKeys.has(type)))
     // Pulsars also load their companions from the notable distant catalog.
-    || (!showNotableDistantStars && previous.has('pulsar') !== visibleKeys.has('pulsar'))
+    || (!showNotableDistantStars && compactObjectsVisible(previous) !== compactObjectsVisible(visibleKeys))
   if (overlayChanged) {
     void switchCatalog(activeCatalogId, true)
     return
@@ -3028,7 +3055,7 @@ const catalogRange = element<HTMLInputElement>('catalog-range')
 catalogRange.max = String(Math.max(0, sliderCatalogs.length - 1))
 element('catalog-range-markers').replaceChildren(...sliderCatalogs.map((catalog, index) => {
   const marker = document.createElement('span')
-  marker.textContent = String(catalog.manifest.objectCount)
+  marker.textContent = String((startupIndex.catalogObjectCounts as Record<string, number>)[catalog.manifest.id])
   marker.style.left = `${index / Math.max(1, sliderCatalogs.length - 1) * 100}%`
   return marker
 }))
@@ -4097,7 +4124,7 @@ element('show-naked-eye-stars').addEventListener('change', () => {
 element('show-notable-distant-stars').addEventListener('change', () => {
   showNotableDistantStars = element<HTMLInputElement>('show-notable-distant-stars').checked
   // Visible pulsars already load these companions.
-  if (!visibleKeys.has('pulsar')) void switchCatalog(activeCatalogId, true)
+  if (!compactObjectsVisible(visibleKeys)) void switchCatalog(activeCatalogId, true)
 }, { signal: events.signal })
 element('distance-units').addEventListener('change', () => {
   distanceUnit = element<HTMLInputElement>('unit-ly').checked ? 'ly' : 'pc'

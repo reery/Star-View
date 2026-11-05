@@ -7,8 +7,8 @@
     "planets": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
   },
   "sourceChecksumsSha256": {
-    "simbad.csv": "dbd51c4fbea3e31193cbfc01f4e546677189bb5b313b81d37c06b05b8b4b1f33",
-    "simbad.adql": "10d1f0eee49e02a7cd927b21e209e6bf257d13147ae72031767657da56134295",
+    "simbad.csv": "acd8150a06f138d62a992ba7bb469ff6530e771402dcc1d0464a78f203b223b1",
+    "simbad.adql": "445304cd3fb90958e459a6a76651ecefd06b41179cd1d4a122ed2ffc0e412f4b",
     "types.csv": "78f2745a265e2ec34115ef02072a13ad3b007d8028beeff3b64eef54042372bc",
     "types.adql": "70661c7e93361cd294a039794f4739d98c8d172aa97668bab0a38833a5685ead",
     "planet-hosts.csv": "4e0b982a1c38b8bfae606608ed6c003c1ed3872b5a460f215d4f6965bbe21323",
@@ -5912,6 +5912,66 @@
       "sourceTypes": [],
       "planetHosts": []
     },
+    "a0535p26": {
+      "subtypes": [
+        "High-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "HD 245770",
+      "sourceTypes": [
+        "*",
+        "Be*",
+        "Em*",
+        "Er*",
+        "HXB",
+        "N*",
+        "NIR",
+        "Psr",
+        "Rad",
+        "SB*",
+        "V*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "a0535p26-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "a0620-00": {
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "1A 0620-00",
+      "sourceTypes": [
+        "*",
+        "HXB",
+        "MIR",
+        "NIR",
+        "No*",
+        "Opt",
+        "Rad",
+        "SB*",
+        "V*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "a0620-00-b": {
+      "subtypes": [
+        "Main-sequence"
+      ],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "abell-31": {
       "subtypes": [
         "Hot subdwarf"
@@ -7297,6 +7357,34 @@
         "ISM",
         "RNe"
       ],
+      "planetHosts": []
+    },
+    "centaurus-x-4": {
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "V* V822 Cen",
+      "sourceTypes": [
+        "*",
+        "LXB",
+        "N*",
+        "NIR",
+        "No*",
+        "PM*",
+        "V*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "centaurus-x-4-b": {
+      "subtypes": [
+        "Main-sequence"
+      ],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "chi-draconis-b": {
@@ -53827,6 +53915,47 @@
       "sourceTypes": [],
       "planetHosts": []
     },
+    "cxou-j085201": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "2XMM J085201.4-461753",
+      "sourceTypes": [
+        "N*?",
+        "SR?",
+        "X"
+      ],
+      "planetHosts": []
+    },
+    "cygnus-x-1": {
+      "subtypes": [
+        "High-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "HD 226868",
+      "sourceTypes": [
+        "*",
+        "Ae*",
+        "BL?",
+        "El*",
+        "HXB",
+        "NIR",
+        "SB*",
+        "V*",
+        "X",
+        "gam",
+        "s*b"
+      ],
+      "planetHosts": []
+    },
+    "cygnus-x-1-b": {
+      "subtypes": [
+        "Supergiant"
+      ],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "dumbbell-nebula": {
       "subtypes": [
         "Hot subdwarf candidate"
@@ -53956,6 +54085,34 @@
       ],
       "planetHosts": []
     },
+    "gaia-bh1-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "gaia-bh2": {
+      "subtypes": [
+        "Spectroscopic binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "UCAC4 154-126202",
+      "sourceTypes": [
+        "*",
+        "MIR",
+        "NIR",
+        "SB*"
+      ],
+      "planetHosts": []
+    },
+    "gaia-bh2-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "gaia-bh3": {
       "subtypes": [
         "Spectroscopic binary candidate"
@@ -53970,6 +54127,13 @@
       ],
       "planetHosts": []
     },
+    "gaia-bh3-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "gaia-ns1": {
       "subtypes": [],
       "known_planets": 0,
@@ -53981,6 +54145,13 @@
         "PM*",
         "UV"
       ],
+      "planetHosts": []
+    },
+    "gaia-ns1-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "gamma-cephei-b": {
@@ -54083,6 +54254,56 @@
       "planetHosts": []
     },
     "gj-867-c": {
+      "subtypes": [
+        "Main-sequence"
+      ],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "gro-j0422p32": {
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "V* V518 Per",
+      "sourceTypes": [
+        "*",
+        "HXB",
+        "No*",
+        "V*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "gro-j0422p32-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "gs-2000p25": {
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "V* QZ Vul",
+      "sourceTypes": [
+        "*",
+        "HXB",
+        "NIR",
+        "No*",
+        "Opt",
+        "V*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "gs-2000p25-b": {
       "subtypes": [
         "Main-sequence"
       ],
@@ -67109,6 +67330,34 @@
       ],
       "planetHosts": []
     },
+    "ls-i-61-303": {
+      "subtypes": [
+        "High-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "LS   I +61  303",
+      "sourceTypes": [
+        "*",
+        "Em*",
+        "HXB",
+        "NIR",
+        "Psr",
+        "Rad",
+        "V*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "ls-i-61-303-b": {
+      "subtypes": [
+        "Main-sequence"
+      ],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "luhman-16-a": {
       "subtypes": [
         "L-type"
@@ -67169,6 +67418,30 @@
         "PM*",
         "V*"
       ],
+      "planetHosts": []
+    },
+    "maxi-j1820p070": {
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "MAXI J1820+070",
+      "sourceTypes": [
+        "*",
+        "LXB",
+        "MIR",
+        "NIR",
+        "Opt",
+        "X",
+        "ev"
+      ],
+      "planetHosts": []
+    },
+    "maxi-j1820p070-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "medusa-nebula": {
@@ -67296,6 +67569,16 @@
       ],
       "planetHosts": []
     },
+    "ogle-2011-blg-0462": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "OGLE-2011-BLG-0462",
+      "sourceTypes": [
+        "*",
+        "Lev"
+      ],
+      "planetHosts": []
+    },
     "orion-nebula": {
       "subtypes": [],
       "known_planets": null,
@@ -67359,6 +67642,34 @@
       ],
       "planetHosts": []
     },
+    "psr-j0007p7303": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0007+7303",
+      "sourceTypes": [
+        "Psr",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0023p0923": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0023+0923",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0023p0923-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j0030p0451": {
       "subtypes": [],
       "known_planets": 0,
@@ -67369,6 +67680,16 @@
         "Rad",
         "X",
         "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0034m0721": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0031-07",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
       ],
       "planetHosts": []
     },
@@ -67399,12 +67720,88 @@
       ],
       "planetHosts": []
     },
+    "psr-j0055p5117": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0052+51",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0102p6537": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0059+65",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
     "psr-j0108m1431": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J0108-1431",
       "sourceTypes": [
         "N*",
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0108p6608": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0105+65",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0125m2327": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0125-23",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0139p5814": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0136+57",
+      "sourceTypes": [
+        "Psr",
+        "Rad",
+        "Ro*"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0141p6009": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0138+59",
+      "sourceTypes": [
+        "Psr",
+        "Ro*"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0147p5922": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0144+59",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0157p6212": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0154+61",
+      "sourceTypes": [
         "Psr"
       ],
       "planetHosts": []
@@ -67428,12 +67825,29 @@
       ],
       "planetHosts": []
     },
+    "psr-j0212p5321-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j0242p62": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J0242+62",
       "sourceTypes": [
         "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0248p6021": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0248+6021",
+      "sourceTypes": [
+        "Psr",
+        "gam"
       ],
       "planetHosts": []
     },
@@ -67476,6 +67890,75 @@
       ],
       "planetHosts": []
     },
+    "psr-j0323p3944": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0320+39",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0332p5434": {
+      "subtypes": [],
+      "known_planets": 1,
+      "simbadId": "PSR B0329+54",
+      "sourceTypes": [
+        "*",
+        "NIR",
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": [
+        "PSR B0329+54"
+      ]
+    },
+    "psr-j0335p4555": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0331+45",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0337p1715": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0337+1715",
+      "sourceTypes": [
+        "*",
+        "Opt",
+        "Psr",
+        "blu"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0337p1715-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j0348p0432": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0348+0432",
+      "sourceTypes": [
+        "*",
+        "Opt",
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0348p0432-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j0357p3205": {
       "subtypes": [],
       "known_planets": 0,
@@ -67486,12 +67969,54 @@
       ],
       "planetHosts": []
     },
+    "psr-j0357p5236": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0353+52",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0358p5413": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0355+54",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
     "psr-j0410m31": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J0410-31",
       "sourceTypes": [
         "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0418p5732": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "NAME Sgr J0418+5729",
+      "sourceTypes": [
+        "Psr",
+        "Rad",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0420m5022": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0420-5022",
+      "sourceTypes": [
+        "N*",
+        "Psr",
+        "X"
       ],
       "planetHosts": []
     },
@@ -67508,6 +68033,13 @@
         "X",
         "gam"
       ],
+      "planetHosts": []
+    },
+    "psr-j0437m4715-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "psr-j0447m04": {
@@ -67536,6 +68068,13 @@
       ],
       "planetHosts": []
     },
+    "psr-j0453p1559-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j0454p4529": {
       "subtypes": [],
       "known_planets": 0,
@@ -67545,10 +68084,40 @@
       ],
       "planetHosts": []
     },
+    "psr-j0454p5543": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0450+55",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
     "psr-j0459m0210": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J0459-0210",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0501p4516": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0501+4516",
+      "sourceTypes": [
+        "Psr",
+        "Rad",
+        "X"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0502p4654": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0458+46",
       "sourceTypes": [
         "Psr"
       ],
@@ -67581,6 +68150,22 @@
       ],
       "planetHosts": []
     },
+    "psr-j0534p2200": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "V* CM Tau",
+      "sourceTypes": [
+        "*",
+        "NIR",
+        "No*",
+        "Psr",
+        "SN*",
+        "V*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
     "psr-j0534p34": {
       "subtypes": [],
       "known_planets": null,
@@ -67597,6 +68182,16 @@
       ],
       "planetHosts": []
     },
+    "psr-j0538p2817": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0538+2813",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
     "psr-j0540m7125": {
       "subtypes": [],
       "known_planets": 0,
@@ -67606,10 +68201,30 @@
       ],
       "planetHosts": []
     },
+    "psr-j0554p3107": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0554+3107",
+      "sourceTypes": [
+        "Psr",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
     "psr-j0600m5756": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR B0559-57",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0601m0527": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0559-05",
       "sourceTypes": [
         "Psr"
       ],
@@ -67632,6 +68247,23 @@
       "sourceTypes": [
         "Psr"
       ],
+      "planetHosts": []
+    },
+    "psr-j0610m2100": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0610-2100",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0610m2100-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "psr-j0611p1436": {
@@ -67690,11 +68322,40 @@
       ],
       "planetHosts": []
     },
+    "psr-j0621p1002": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0621+10",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0621p2514": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0621+2514",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
     "psr-j0623p0220_p": {
       "subtypes": [],
       "known_planets": null,
       "simbadId": null,
       "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j0629p2415": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0626+24",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
       "planetHosts": []
     },
     "psr-j0630m2834": {
@@ -67705,6 +68366,16 @@
         "Psr",
         "Rad",
         "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0633p0632": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0633+0632",
+      "sourceTypes": [
+        "Psr",
         "gam"
       ],
       "planetHosts": []
@@ -67745,6 +68416,15 @@
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J0636+5129",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0645p5158": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0645+5158",
       "sourceTypes": [
         "Psr"
       ],
@@ -67792,6 +68472,15 @@
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J0656-5449",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0657m4657": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0657-4657",
       "sourceTypes": [
         "Psr"
       ],
@@ -67866,12 +68555,70 @@
       ],
       "planetHosts": []
     },
+    "psr-j0729m1836": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0727-18",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
     "psr-j0736m6304": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J0735-62",
       "sourceTypes": [
         "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0737m3039a": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0737-3039A",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0737m3039b": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0737-3039B",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0738m4042": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0736-40",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0740p6620": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0740+6620",
+      "sourceTypes": [
+        "BL?",
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0742m2822": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0740-28",
+      "sourceTypes": [
+        "Psr",
+        "Rad",
+        "gam"
       ],
       "planetHosts": []
     },
@@ -67930,6 +68677,16 @@
       ],
       "planetHosts": []
     },
+    "psr-j0751p1807": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0751+1807",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
     "psr-j0758m30": {
       "subtypes": [],
       "known_planets": null,
@@ -67952,6 +68709,17 @@
       "simbadId": "PSR J0803-0942",
       "sourceTypes": [
         "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0806m4123": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0806-4123",
+      "sourceTypes": [
+        "N*",
+        "Psr",
+        "X"
       ],
       "planetHosts": []
     },
@@ -68003,12 +68771,48 @@
       ],
       "planetHosts": []
     },
+    "psr-j0820m1350": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0818-13",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
     "psr-j0820m4114": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR B0818-41",
       "sourceTypes": [
         "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0821m4300": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J0821-4300",
+      "sourceTypes": [
+        "*",
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0823p0159": {
+      "subtypes": [
+        "Spectroscopic binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "PSR J0823+0159",
+      "sourceTypes": [
+        "*",
+        "G",
+        "Opt",
+        "Psr",
+        "SB*",
+        "WD*"
       ],
       "planetHosts": []
     },
@@ -68051,9 +68855,7 @@
       "planetHosts": []
     },
     "psr-j0835m4510": {
-      "subtypes": [
-        "Rotating variable"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "NAME Vela Pulsar",
       "sourceTypes": [
@@ -68064,6 +68866,16 @@
         "V*",
         "X",
         "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j0837m4135": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0835-41",
+      "sourceTypes": [
+        "Psr",
+        "Ro*"
       ],
       "planetHosts": []
     },
@@ -68086,6 +68898,13 @@
         "Rad",
         "gam"
       ],
+      "planetHosts": []
+    },
+    "psr-j0838m2827-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "psr-j0839m66": {
@@ -68206,6 +69025,17 @@
       ],
       "planetHosts": []
     },
+    "psr-j0908m4913": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0906-49",
+      "sourceTypes": [
+        "ISM",
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
     "psr-j0909m7212": {
       "subtypes": [],
       "known_planets": 0,
@@ -68278,6 +69108,18 @@
       ],
       "planetHosts": []
     },
+    "psr-j0922p0638": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B0919+06",
+      "sourceTypes": [
+        "Psr",
+        "Rad",
+        "ev",
+        "gam"
+      ],
+      "planetHosts": []
+    },
     "psr-j0923m31": {
       "subtypes": [],
       "known_planets": 0,
@@ -68303,6 +69145,13 @@
       "sourceTypes": [
         "Psr"
       ],
+      "planetHosts": []
+    },
+    "psr-j0927m7641": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "psr-j0932m3217": {
@@ -68479,7 +69328,6 @@
     },
     "psr-j0955m3947": {
       "subtypes": [
-        "Cataclysmic variable",
         "Eclipsing binary"
       ],
       "known_planets": 0,
@@ -68582,9 +69430,7 @@
       "planetHosts": []
     },
     "psr-j1012p5307": {
-      "subtypes": [
-        "Hot subdwarf candidate"
-      ],
+      "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J1012+5307",
       "sourceTypes": [
@@ -68598,6 +69444,13 @@
         "WD?",
         "ev"
       ],
+      "planetHosts": []
+    },
+    "psr-j1012p5307-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "psr-j1014m48": {
@@ -68638,6 +69491,70 @@
       ],
       "planetHosts": []
     },
+    "psr-j1023m5746": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1023-5746",
+      "sourceTypes": [
+        "Psr",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1023p0038": {
+      "subtypes": [
+        "Eclipsing binary",
+        "Low-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "PSR J1023+0038",
+      "sourceTypes": [
+        "*",
+        "EB*",
+        "LXB",
+        "N*",
+        "NIR",
+        "Opt",
+        "Psr",
+        "Q?",
+        "Rad",
+        "UV",
+        "V*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1023p0038-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j1024m0719": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1025-07",
+      "sourceTypes": [
+        "*",
+        "NIR",
+        "PM*",
+        "Psr",
+        "Rad",
+        "ev",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1024m0719-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j1036m4353": {
       "subtypes": [],
       "known_planets": 0,
@@ -68647,12 +69564,29 @@
       ],
       "planetHosts": []
     },
+    "psr-j1036m4353-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j1038m5831": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR B1036-58",
       "sourceTypes": [
         "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1044m5737": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1044-5737",
+      "sourceTypes": [
+        "Psr",
+        "gam"
       ],
       "planetHosts": []
     },
@@ -68669,6 +69603,26 @@
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J1045-45",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1048m5832": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1046-58",
+      "sourceTypes": [
+        "Psr",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1056m6258": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1054-62",
       "sourceTypes": [
         "Psr"
       ],
@@ -68808,6 +69762,51 @@
       ],
       "planetHosts": []
     },
+    "psr-j1207m45": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j1210m5226": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1210-5226",
+      "sourceTypes": [
+        "Psr",
+        "X"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1227m4853": {
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "XSS J12270-4859",
+      "sourceTypes": [
+        "*",
+        "BL?",
+        "CV*",
+        "CV?",
+        "LXB",
+        "NIR",
+        "Psr",
+        "Q?",
+        "X",
+        "ev",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1227m4853-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j1231m1411": {
       "subtypes": [],
       "known_planets": 0,
@@ -68838,6 +69837,17 @@
       ],
       "planetHosts": []
     },
+    "psr-j1243m6423": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1240-64",
+      "sourceTypes": [
+        "*",
+        "NIR",
+        "Psr"
+      ],
+      "planetHosts": []
+    },
     "psr-j1243p17": {
       "subtypes": [],
       "known_planets": null,
@@ -68856,6 +69866,36 @@
         "PSR B1257+12"
       ]
     },
+    "psr-j1302m6350": {
+      "subtypes": [
+        "High-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "CPD-63  2495",
+      "sourceTypes": [
+        "*",
+        "Be*",
+        "Em*",
+        "HXB",
+        "MIR",
+        "NIR",
+        "Psr",
+        "Q?",
+        "Rad",
+        "UV",
+        "V*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1302m6350-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j1320m3512": {
       "subtypes": [],
       "known_planets": 0,
@@ -68863,6 +69903,24 @@
       "sourceTypes": [
         "Psr",
         "Rad"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1321p8323": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1322+83",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1326m5859": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1323-58",
+      "sourceTypes": [
+        "Psr"
       ],
       "planetHosts": []
     },
@@ -68909,6 +69967,22 @@
       ],
       "planetHosts": []
     },
+    "psr-j1400m1431-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j1401m6357": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1358-63",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
     "psr-j1402p1306": {
       "subtypes": [],
       "known_planets": 0,
@@ -68927,10 +70001,81 @@
       ],
       "planetHosts": []
     },
+    "psr-j1413m6205": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1413-6205",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1418m6058": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1418-6058",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1429m5911": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1429-5911",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1431m4715": {
+      "subtypes": [
+        "Eclipsing binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "PSR J1431-4715",
+      "sourceTypes": [
+        "*",
+        "EB*",
+        "Psr",
+        "Q?",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1431m4715-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j1439m5501": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J1439-5501",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1446m4701": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1446-4701",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1453m6413": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1449-64",
       "sourceTypes": [
         "Psr"
       ],
@@ -68958,6 +70103,17 @@
       ],
       "planetHosts": []
     },
+    "psr-j1459m6053": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1459-60",
+      "sourceTypes": [
+        "*",
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
     "psr-j1503p2111": {
       "subtypes": [],
       "known_planets": 0,
@@ -68967,12 +70123,34 @@
       ],
       "planetHosts": []
     },
+    "psr-j1509p5531": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1508+55",
+      "sourceTypes": [
+        "Psr",
+        "Rad",
+        "ev"
+      ],
+      "planetHosts": []
+    },
     "psr-j1510m5254": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J1510-5254",
       "sourceTypes": [
         "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1513m2550": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1513-2550",
+      "sourceTypes": [
+        "Psr",
+        "X",
+        "gam"
       ],
       "planetHosts": []
     },
@@ -69026,6 +70204,15 @@
       ],
       "planetHosts": []
     },
+    "psr-j1532p2745": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1530+27",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
     "psr-j1534m5334": {
       "subtypes": [],
       "known_planets": 0,
@@ -69037,12 +70224,76 @@
       ],
       "planetHosts": []
     },
+    "psr-j1537p1155": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1534+11",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1537p1155-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j1543m0620": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1540-06",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1545m4550": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1545-4550",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
     "psr-j1549m57": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J1549-57",
       "sourceTypes": [
         "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1559m4438": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1556-44",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1600m3053": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1600-3053",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1607m0032": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1604-00",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
       ],
       "planetHosts": []
     },
@@ -69057,6 +70308,33 @@
       ],
       "planetHosts": []
     },
+    "psr-j1614m2230-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j1623m0908": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1620-09",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1623m2631": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": "PSR B1620-26",
+      "sourceTypes": [
+        "*",
+        "Psr",
+        "X"
+      ],
+      "planetHosts": []
+    },
     "psr-j1628p4406": {
       "subtypes": [],
       "known_planets": 0,
@@ -69067,12 +70345,31 @@
       ],
       "planetHosts": []
     },
+    "psr-j1629m6902": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1629-6902",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
     "psr-j1631m1612": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J1631-1612",
       "sourceTypes": [
         "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1640p2224": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1640+2224",
+      "sourceTypes": [
+        "Psr",
+        "gam"
       ],
       "planetHosts": []
     },
@@ -69156,6 +70453,15 @@
       ],
       "planetHosts": []
     },
+    "psr-j1703m1846": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1700-18",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
     "psr-j1705m04": {
       "subtypes": [],
       "known_planets": 0,
@@ -69203,12 +70509,34 @@
       ],
       "planetHosts": []
     },
+    "psr-j1709m4429": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1706-44",
+      "sourceTypes": [
+        "Psr",
+        "Ro*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
     "psr-j1710p4923": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J1710+4923",
       "sourceTypes": [
         "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1713p0747": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1713+0747",
+      "sourceTypes": [
+        "Psr",
+        "gam"
       ],
       "planetHosts": []
     },
@@ -69248,6 +70576,26 @@
       "sourceTypes": [
         "Psr"
       ],
+      "planetHosts": []
+    },
+    "psr-j1723m2837": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1723-2837",
+      "sourceTypes": [
+        "*",
+        "NIR",
+        "Psr",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1723m2837-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "psr-j1725m0732": {
@@ -69305,6 +70653,22 @@
       ],
       "planetHosts": []
     },
+    "psr-j1738p0333": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1738+0333",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1738p0333-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j1739m1313": {
       "subtypes": [],
       "known_planets": 0,
@@ -69332,6 +70696,43 @@
       ],
       "planetHosts": []
     },
+    "psr-j1740m5340a": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1740-5340",
+      "sourceTypes": [
+        "Psr",
+        "X"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1740m5340a-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j1740m5340b": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "Cl* NGC 6397    SAW V31",
+      "sourceTypes": [
+        "*",
+        "El?",
+        "Psr",
+        "V*",
+        "X"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1740m5340b-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j1741m2054": {
       "subtypes": [],
       "known_planets": 0,
@@ -69341,6 +70742,23 @@
         "X",
         "gam"
       ],
+      "planetHosts": []
+    },
+    "psr-j1741p1351": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1741+1351",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1741p1351-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "psr-j1743m0339": {
@@ -69410,6 +70828,13 @@
       ],
       "planetHosts": []
     },
+    "psr-j1752m2849_p": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j1753m28": {
       "subtypes": [],
       "known_planets": 0,
@@ -69435,6 +70860,13 @@
       "sourceTypes": [
         "Psr"
       ],
+      "planetHosts": []
+    },
+    "psr-j1756m2251-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "psr-j1757m5322": {
@@ -69475,6 +70907,46 @@
       ],
       "planetHosts": []
     },
+    "psr-j1807m0847": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1804-08",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1807m2459a": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1807-2459A",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1807m2459b": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1807-2459",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1809m1943": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "AX J1809.8-1943",
+      "sourceTypes": [
+        "IR",
+        "Psr",
+        "Rad",
+        "X"
+      ],
+      "planetHosts": []
+    },
     "psr-j1809m2332": {
       "subtypes": [
         "X-ray binary"
@@ -69485,6 +70957,35 @@
         "Psr",
         "X",
         "XB*",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1810m0623": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j1811m2405": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1811-2405",
+      "sourceTypes": [
+        "Psr",
+        "Q?",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1813m1246": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1813-1246",
+      "sourceTypes": [
+        "Psr",
+        "X",
         "gam"
       ],
       "planetHosts": []
@@ -69507,6 +71008,25 @@
       ],
       "planetHosts": []
     },
+    "psr-j1820m0427": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1818-04",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1823p0550": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1821+05",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
     "psr-j1825m0935": {
       "subtypes": [],
       "known_planets": 0,
@@ -69517,10 +71037,46 @@
       ],
       "planetHosts": []
     },
+    "psr-j1826m1256": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1826-1256",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
     "psr-j1829p2456": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J1829+2456",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1829p2456-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j1832m0836": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1832-0836",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1833m0338": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1831-03",
       "sourceTypes": [
         "Psr"
       ],
@@ -69546,6 +71102,36 @@
       ],
       "planetHosts": []
     },
+    "psr-j1840p5640": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1839+56",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1843m1113": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1843-1113",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1846p0919": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1846+0919",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
     "psr-j1847p01": {
       "subtypes": [],
       "known_planets": 0,
@@ -69559,6 +71145,15 @@
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR B1845-19",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1853p1303": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1853+1303",
       "sourceTypes": [
         "Psr"
       ],
@@ -69584,6 +71179,18 @@
       ],
       "planetHosts": []
     },
+    "psr-j1857p0943": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1855+09",
+      "sourceTypes": [
+        "Psr",
+        "Rad",
+        "WD*",
+        "X"
+      ],
+      "planetHosts": []
+    },
     "psr-j1900m2600": {
       "subtypes": [],
       "known_planets": 0,
@@ -69591,6 +71198,15 @@
       "sourceTypes": [
         "Psr",
         "Rad"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1901m0906": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1901-0906",
+      "sourceTypes": [
+        "Psr"
       ],
       "planetHosts": []
     },
@@ -69602,6 +71218,16 @@
         "*",
         "NIR",
         "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1907p0602": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1907+06",
+      "sourceTypes": [
+        "Psr",
+        "gam"
       ],
       "planetHosts": []
     },
@@ -69626,6 +71252,42 @@
       "known_planets": null,
       "simbadId": null,
       "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j1909m3744": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1909-3744",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1910p1256": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1910+1256",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1911p1347": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1911+1347",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1918m0642": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1918-0642",
+      "sourceTypes": [
+        "Psr"
+      ],
       "planetHosts": []
     },
     "psr-j1918p1541": {
@@ -69669,6 +71331,37 @@
       ],
       "planetHosts": []
     },
+    "psr-j1933m6211": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1933-6210",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1939p2134": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1937+21.4",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1946m5403": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1946-5403",
+      "sourceTypes": [
+        "MIR",
+        "Psr",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
     "psr-j1946p1805": {
       "subtypes": [],
       "known_planets": 0,
@@ -69679,6 +71372,27 @@
       ],
       "planetHosts": []
     },
+    "psr-j1952p3252": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B1951+32",
+      "sourceTypes": [
+        "Psr",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1954p2836": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1954+2836",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
     "psr-j1954p2923": {
       "subtypes": [],
       "known_planets": 0,
@@ -69686,6 +71400,56 @@
       "sourceTypes": [
         "Psr",
         "Rad"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1957p5033": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1957+5033",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1958p2846": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1958+2846",
+      "sourceTypes": [
+        "*",
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1959p2048": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J1959+2048",
+      "sourceTypes": [
+        "*",
+        "Pl?",
+        "Psr",
+        "V*",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j1959p2048-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j2006m0807": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2003-08",
+      "sourceTypes": [
+        "Psr"
       ],
       "planetHosts": []
     },
@@ -69705,10 +71469,85 @@
       ],
       "planetHosts": []
     },
+    "psr-j2017m1614": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J2017-1614",
+      "sourceTypes": [
+        "BL?",
+        "Psr",
+        "Rad",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2018p2839": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2016+28",
+      "sourceTypes": [
+        "*",
+        "NIR",
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2021p3651": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J2021+3651",
+      "sourceTypes": [
+        "Psr",
+        "SNR",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2021p4026": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J2021+4026",
+      "sourceTypes": [
+        "Psr",
+        "Rad",
+        "SNR",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2022p2854": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2020+28",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2022p5154": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2021+51",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
     "psr-j2027p7502": {
       "subtypes": [],
       "known_planets": 0,
       "simbadId": "PSR J2027+7502",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2029m4239": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J2029-4239",
       "sourceTypes": [
         "Psr"
       ],
@@ -69724,6 +71563,47 @@
       ],
       "planetHosts": []
     },
+    "psr-j2032p4127": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "[MT91] 213",
+      "sourceTypes": [
+        "*",
+        "Be*",
+        "NIR",
+        "Psr",
+        "Rad",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2032p4127-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j2039m5617": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J2039-5617",
+      "sourceTypes": [
+        "*",
+        "Psr",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2039m5617-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j2042p0246": {
       "subtypes": [],
       "known_planets": 0,
@@ -69734,6 +71614,26 @@
       ],
       "planetHosts": []
     },
+    "psr-j2043p1711": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J2043+1711",
+      "sourceTypes": [
+        "Psr",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2048m1616": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2045-16",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
     "psr-j2055p2539": {
       "subtypes": [],
       "known_planets": 0,
@@ -69741,6 +71641,25 @@
       "sourceTypes": [
         "Psr",
         "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2113p2754": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2110+27",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2113p4644": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2111+46",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
       ],
       "planetHosts": []
     },
@@ -69766,6 +71685,30 @@
       ],
       "planetHosts": []
     },
+    "psr-j2129m0429": {
+      "subtypes": [
+        "Eclipsing binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "PSR J2129-04",
+      "sourceTypes": [
+        "*",
+        "EB*",
+        "Opt",
+        "Psr",
+        "V*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2129m0429-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j2144m3933": {
       "subtypes": [],
       "known_planets": 0,
@@ -69782,6 +71725,25 @@
       "simbadId": "PSR B2145-07.8",
       "sourceTypes": [
         "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2149p6329": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2148+63",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2157p4017": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2154+40",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
       ],
       "planetHosts": []
     },
@@ -69807,6 +71769,13 @@
       ],
       "planetHosts": []
     },
+    "psr-j2214p3000-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j2222m0137": {
       "subtypes": [],
       "known_planets": 0,
@@ -69814,6 +71783,13 @@
       "sourceTypes": [
         "Psr"
       ],
+      "planetHosts": []
+    },
+    "psr-j2222m0137-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "psr-j2225p6535": {
@@ -69827,6 +71803,26 @@
       ],
       "planetHosts": []
     },
+    "psr-j2229p6114": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J2229+6114",
+      "sourceTypes": [
+        "Psr",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2234p0611": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J2234+06",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": []
+    },
     "psr-j2234p0944": {
       "subtypes": [],
       "known_planets": 0,
@@ -69834,6 +71830,55 @@
       "sourceTypes": [
         "Psr",
         "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2238p5903": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J2238+5903",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2241m5236": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J2241-5236",
+      "sourceTypes": [
+        "Psr",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2256m1024": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J2256-1024",
+      "sourceTypes": [
+        "Opt",
+        "Psr",
+        "Rad",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2256m1024-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j2257p5909": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2255+58",
+      "sourceTypes": [
+        "Psr",
+        "Ro*"
       ],
       "planetHosts": []
     },
@@ -69848,6 +71893,13 @@
       ],
       "planetHosts": []
     },
+    "psr-j2302p4442-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "psr-j2307p2225": {
       "subtypes": [],
       "known_planets": 0,
@@ -69856,6 +71908,68 @@
         "Psr"
       ],
       "planetHosts": []
+    },
+    "psr-j2313p4253": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2310+42",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2317p1439": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR J2317+1439",
+      "sourceTypes": [
+        "**",
+        "Opt",
+        "Psr",
+        "Rad",
+        "WD?",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2317p1439-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j2317p2149": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2315+21",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2321p6024": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2319+60",
+      "sourceTypes": [
+        "Psr",
+        "Ro*"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2322m2650": {
+      "subtypes": [],
+      "known_planets": 1,
+      "simbadId": "PSR J2322-2650",
+      "sourceTypes": [
+        "Psr"
+      ],
+      "planetHosts": [
+        "PSR J2322-2650"
+      ]
     },
     "psr-j2322p2057": {
       "subtypes": [],
@@ -69891,6 +72005,40 @@
       "simbadId": "PSR B2334+61",
       "sourceTypes": [
         "Psr"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2339m0533": {
+      "subtypes": [
+        "Eclipsing binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "PSR J2339-0533",
+      "sourceTypes": [
+        "*",
+        "EB*",
+        "Opt",
+        "Psr",
+        "Rad",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "psr-j2339m0533-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "psr-j2354p6155": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "PSR B2351+61",
+      "sourceTypes": [
+        "Psr",
+        "Rad"
       ],
       "planetHosts": []
     },
@@ -70018,6 +72166,48 @@
         "OpC",
         "SFR"
       ],
+      "planetHosts": []
+    },
+    "rx-j1605": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "RBS  1556",
+      "sourceTypes": [
+        "*",
+        "N*",
+        "N*?",
+        "X",
+        "blu"
+      ],
+      "planetHosts": []
+    },
+    "scorpius-x-1": {
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "V* V818 Sco",
+      "sourceTypes": [
+        "*",
+        "LXB",
+        "N*",
+        "N*?",
+        "NIR",
+        "Ro*",
+        "SB*",
+        "UV",
+        "V*",
+        "X",
+        "blu",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "scorpius-x-1-b": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
       "planetHosts": []
     },
     "sh-2-1": {
@@ -70289,6 +72479,40 @@
       ],
       "planetHosts": []
     },
+    "v404-cygni": {
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "V* V404 Cyg",
+      "sourceTypes": [
+        "*",
+        "CV*",
+        "HXB",
+        "NIR",
+        "No*",
+        "V*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "v404-cygni-b": {
+      "subtypes": [
+        "Giant"
+      ],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "v404-cygni-c": {
+      "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "vdb-1": {
       "subtypes": [],
       "known_planets": null,
@@ -70525,6 +72749,35 @@
       "sourceTypes": [],
       "planetHosts": []
     },
+    "vela-x-1": {
+      "subtypes": [
+        "High-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "V* GP Vel",
+      "sourceTypes": [
+        "*",
+        "HXB",
+        "NIR",
+        "Psr",
+        "SB*",
+        "UV",
+        "V*",
+        "X",
+        "gam",
+        "s*b"
+      ],
+      "planetHosts": []
+    },
+    "vela-x-1-b": {
+      "subtypes": [
+        "Supergiant"
+      ],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
     "wede-1": {
       "subtypes": [],
       "known_planets": null,
@@ -70585,6 +72838,78 @@
     },
     "wt-766-close-companion": {
       "subtypes": [],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "x-persei": {
+      "subtypes": [
+        "High-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "V* X Per",
+      "sourceTypes": [
+        "*",
+        "**",
+        "Ae*",
+        "Be*",
+        "Em*",
+        "HXB",
+        "IR",
+        "N*",
+        "NIR",
+        "Psr",
+        "Pu*",
+        "SB*",
+        "UV",
+        "V*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "x-persei-b": {
+      "subtypes": [
+        "Giant"
+      ],
+      "known_planets": null,
+      "simbadId": null,
+      "sourceTypes": [],
+      "planetHosts": []
+    },
+    "xmmu-j173203": {
+      "subtypes": [],
+      "known_planets": 0,
+      "simbadId": "XMMU J173203.3-344518",
+      "sourceTypes": [
+        "X"
+      ],
+      "planetHosts": []
+    },
+    "xte-j1118p480": {
+      "subtypes": [
+        "Low-mass X-ray binary"
+      ],
+      "known_planets": 0,
+      "simbadId": "V* KV UMa",
+      "sourceTypes": [
+        "*",
+        "CV*",
+        "HXB",
+        "LXB",
+        "NIR",
+        "Opt",
+        "V*",
+        "X",
+        "gam"
+      ],
+      "planetHosts": []
+    },
+    "xte-j1118p480-b": {
+      "subtypes": [
+        "Main-sequence"
+      ],
       "known_planets": null,
       "simbadId": null,
       "sourceTypes": [],
