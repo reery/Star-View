@@ -243,6 +243,13 @@ export interface StellarObservations {
     source_url: string
     scope: string
   }
+  /** Scalars that charts and cards need, but which come from models rather than measurement. */
+  modelled_values?: Partial<Record<'temperature_k' | 'radius_solar', {
+    status: 'model-derived'
+    reference: string
+    source_url: string
+    scope: string
+  }>>
   infrared_photometry?: {
     band: string
     instrument: string

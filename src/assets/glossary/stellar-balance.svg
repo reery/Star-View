@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" role="img" aria-labelledby="title desc">
+  <title id="title">The balance inside a star</title>
+  <desc id="desc">Cross-section of a star. Arrows pointing inward show gravity and arrows pointing outward show pressure from hot gas heated by fusion in the core. The two balance.</desc>
+  <defs><radialGradient id="star"><stop stop-color="#fff0c6"/><stop offset=".35" stop-color="#ffc979"/><stop offset="1" stop-color="#d9834f"/></radialGradient><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#ded8ce"/></marker><marker id="b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#7fa5e8"/></marker></defs>
+  <rect width="840" height="360" fill="#101112"/>
+  <circle cx="300" cy="180" r="150" fill="url(#star)"/><circle cx="300" cy="180" r="40" fill="#fff6d8"/>
+  <g stroke="#7fa5e8" stroke-width="6" marker-end="url(#b)"><path d="M300 12V62"/><path d="M300 348V298"/><path d="M132 180H182"/><path d="M468 180H418"/></g>
+  <g stroke="#ded8ce" stroke-width="6" marker-end="url(#a)"><path d="M300 136V86"/><path d="M300 224V274"/><path d="M256 180H206"/><path d="M344 180H394"/></g>
+  <g font-family="system-ui, sans-serif" font-size="25"><text x="520" y="120" fill="#7fa5e8">Gravity pulls inward</text><text x="520" y="180" fill="#ded8ce">Hot gas pushes outward</text><text x="520" y="240" fill="#ffc979">Fusion in the core</text><text x="520" y="270" fill="#ffc979">keeps the gas hot</text></g>
+</svg>

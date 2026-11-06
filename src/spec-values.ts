@@ -44,6 +44,10 @@ export function specValues(star: Star, sun: Star, unit: DistanceUnit): Record<st
   }
   const metrics = sunRelativeMetrics(star, sun)
   const observations = star.stellar_observations
+  const markModelled = (id: string, field: 'temperature_k' | 'radius_solar', label: string) => {
+    const modelled = star[field] === null ? undefined : observations?.modelled_values?.[field]
+    if (modelled) values[id] = { ...values[id]!, unresolved: true, title: `Modelled, not measured. ${modelled.scope}`, label }
+  }
   const compact = star.compact
   const raw = star.raw_astrometry
 
@@ -59,6 +63,7 @@ export function specValues(star: Star, sun: Star, unit: DistanceUnit): Record<st
   if (temperatureRange) set('temperature', `${quantity(temperatureRange.min_k, '', 0)}–${quantity(temperatureRange.max_k, 'K', 0)}`, temperatureRange.summary, 'Temperature (model)')
   else if (atmosphere) set('temperature', `${atmosphere.value_k.toLocaleString('en-US')} ± ${quantity(atmosphere.error_k, 'K', 0)}`, atmosphere.scope, 'Temperature T*')
   else source('temperature', 'temperature_k', (value) => quantity(value, 'K', 0), 'Temperature')
+  markModelled('temperature', 'temperature_k', 'Temperature (model)')
 
   source('luminosity', 'luminosity_solar', (value) => quantity(value, 'L☉', 1))
   const massRange = star.mass_solar === null ? observations?.mass_range : undefined
@@ -69,6 +74,7 @@ export function specValues(star: Star, sun: Star, unit: DistanceUnit): Record<st
   const radiusRange = star.radius_solar === null ? observations?.radius_range : undefined
   if (radiusRange) set('radius', modelRange(radiusRange.min_jupiter, radiusRange.max_jupiter, 'R♃'), radiusRange.summary, 'Radius (model)')
   else source('radius', 'radius_solar', (value) => quantity(value, 'R☉', 1), 'Radius')
+  markModelled('radius', 'radius_solar', 'Radius (model)')
   const metallicitySource = source('metallicity', 'metallicity_dex', (value) => quantity(value, 'dex'))
   values.metallicity!.label = `Metallicity ${(metallicitySource ? metallicitySource.record.metallicity_kind : star.metallicity_kind) ?? ''}`.trim()
   source('age', 'age_gyr', (value) => quantity(value, 'Gyr'))

@@ -37,6 +37,20 @@
           "reference": "Rowland et al. 2024, Appendix B, Figure 7",
           "source_url": "https://arxiv.org/html/2411.14541v2",
           "reason": "JWST/NIRSpec atmospheric retrievals fit radial velocity, but the authors attribute the discrepant results from the two datasets to wavelength-calibration differences. No calibrated bulk radial velocity is adopted from these fits. Proper-motion-derived tangential speed cannot substitute for radial velocity; space motion remains transverse only."
+        },
+        "modelled_values": {
+          "temperature_k": {
+            "status": "model-derived",
+            "reference": "Leggett 2026, Table 1",
+            "source_url": "https://arxiv.org/abs/2603.24740",
+            "scope": "Derived from the measured luminosity using evolutionary models for ages of 0.5–10 Gyr. Published estimates range from about 250 to 297 K, depending on the model."
+          },
+          "radius_solar": {
+            "status": "model-derived",
+            "reference": "Stefan-Boltzmann scaling from Leggett 2026, Table 1; compared with Luhman et al. 2024, Section 4.5",
+            "source_url": "https://arxiv.org/abs/2603.24740",
+            "scope": "Calculated from the luminosity and modelled temperature with the Stefan-Boltzmann law. Evolutionary models predict 0.10–0.11 R☉."
+          }
         }
       }
     },

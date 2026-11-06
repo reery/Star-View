@@ -95,6 +95,35 @@ test('sideways swipes exchange the heading in place and open the neighbouring ca
   await expect(page.locator('#radius-card')).toBeHidden()
 })
 
+test('stepping back to an already loaded card lays it out in full, so its content still swipes @mobile', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'Real touch input')
+  await openViewer(page)
+  await page.locator('#object-specs-toggle').tap()
+  await page.locator('#luminosity-toggle').tap()
+  const labels = page.locator('#luminosity-scale .luminosity-plot-label')
+  await expect(labels.first()).toBeVisible()
+  await page.locator('#luminosity-close').tap()
+  await page.locator('#mass-toggle').tap()
+  await expect(page.locator('#mass-facts')).not.toBeEmpty()
+  const touch = await touchSession(page)
+  const massStart = await headerPoint(page, 'mass-card')
+  await touch.swipe(massStart, { x: massStart.x + 130, y: massStart.y })
+  await expect(page.locator('#luminosity-card')).toBeVisible()
+
+  const body = page.locator('#luminosity-card > .card-scroll-content')
+  await expect(page.locator('#luminosity-scale')).not.toHaveCSS('--luminosity-label-max', '0px')
+  expect(await body.evaluate((element) => element.scrollWidth - element.clientWidth)).toBeLessThanOrEqual(1)
+
+  const box = (await body.boundingBox())!
+  const inside = { x: box.x + box.width / 2, y: box.y + 30 }
+  await touch.swipe(inside, { x: inside.x - 130, y: inside.y })
+  await expect(page.locator('#mass-card')).toBeVisible()
+  await touch.swipe(massStart, { x: massStart.x + 130, y: massStart.y })
+  await expect(page.locator('#luminosity-card')).toBeVisible()
+  await touch.swipe(inside, { x: inside.x, y: inside.y + 150 })
+  await expect(page.locator('#luminosity-card')).toBeHidden()
+})
+
 test('a step draws the new card over a blank frame that eases from the old size to the new one @mobile', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'Real touch input')
   await page.emulateMedia({ reducedMotion: 'no-preference' })

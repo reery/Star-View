@@ -38,8 +38,10 @@ test('startup defers closed features and fetches catalog JSON directly', async (
   expect(requests.filter((url) => /nearest-neighbors.*\.json$/.test(url))).toHaveLength(1)
 
   await page.locator('#glossary-toggle').click()
-  await expect(page.locator('[data-glossary-id]')).toHaveCount(115)
-  await expect(page.locator('#glossary-image')).toHaveJSProperty('naturalWidth', 1080)
+  await expect(page.locator('[data-glossary-id]')).toHaveCount(167)
+  // Opening starts on a text overview: no image until a term asks for one.
+  await expect(page.locator('#glossary-article img')).toHaveCount(0)
+  expect(requests.filter((url) => /glossary-articles|\.(jpg|svg)$/.test(url))).toEqual([])
   await page.locator('#glossary-toggle').click()
 
   await page.locator('#object-specs-toggle').click()

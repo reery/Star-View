@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" role="img" aria-labelledby="title desc">
+  <title id="title">Two stars orbiting their barycenter</title>
+  <desc id="desc">A heavy star on a small orbit and a light star on a large orbit circle one shared point. The balance point lies closer to the heavier star, like the pivot of a see-saw.</desc>
+  <rect width="840" height="360" fill="#101112"/>
+  <g fill="none" stroke="#77736e" stroke-width="2" stroke-dasharray="9 8"><circle cx="340" cy="180" r="60"/><circle cx="340" cy="180" r="240"/></g>
+  <path d="M280 180H580" stroke="#a5a29e" stroke-width="3"/>
+  <circle cx="280" cy="180" r="48" fill="#ffc979"/><circle cx="580" cy="180" r="22" fill="#8da9d6"/>
+  <path d="M340 164L352 192H328Z" fill="#ffba68"/>
+  <g font-family="system-ui, sans-serif" font-size="25" fill="#ded8ce" text-anchor="middle"><text x="280" y="262">Heavy star</text><text x="620" y="232">Light star</text><text x="340" y="132">Barycenter</text></g>
+</svg>

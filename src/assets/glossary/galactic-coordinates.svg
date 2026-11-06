@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" role="img" aria-labelledby="title desc">
+  <title id="title">Galactic coordinates</title>
+  <desc id="desc">The Milky Way seen edge-on, with the Sun offset from the center. Galactic longitude is measured around the disk starting from the direction of the center, and galactic latitude above or below the plane.</desc>
+  <defs><radialGradient id="disk"><stop stop-color="#ffdf9e"/><stop offset=".3" stop-color="#b98a58"/><stop offset="1" stop-color="#3a3029"/></radialGradient></defs>
+  <rect width="840" height="360" fill="#101112"/>
+  <ellipse cx="300" cy="190" rx="270" ry="30" fill="url(#disk)"/><ellipse cx="300" cy="190" rx="56" ry="40" fill="#ffdf9e" opacity=".85"/>
+  <circle cx="560" cy="190" r="9" fill="#8da9d6"/>
+  <path d="M551 190H360" stroke="#ffba68" stroke-width="4"/><path d="M360 190l16-8v16z" fill="#ffba68"/>
+  <path d="M560 181L650 74" stroke="#ded8ce" stroke-width="3" stroke-dasharray="8 7"/><path d="M640 190A82 82 0 0 0 612 128" fill="none" stroke="#ded8ce" stroke-width="3"/><path d="M560 190H680" stroke="#77736e" stroke-width="2" stroke-dasharray="8 7"/>
+  <g font-family="system-ui, sans-serif" font-size="25" fill="#ded8ce" text-anchor="middle"><text x="300" y="272">Galactic center</text><text x="450" y="176">Longitude 0°</text><text x="560" y="228">Sun</text><text x="735" y="160" >Latitude</text><text x="665" y="62">Star</text></g>
+</svg>

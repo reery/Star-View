@@ -282,20 +282,39 @@
     {
       "starViewId": "wise-0855-0714",
       "gaiaDr3Id": null,
-      "note": "WISE 0855-0714 reviewed bolometric luminosity. Zapatero Osorio et al. (2016) fit the 0.89-22.09 micron spectral energy distribution with solar-metallicity atmosphere models. Their broad 2-10 Jupiter-mass and 1-12 Gyr ranges are retained in provenance rather than collapsed into misleading scalar mass or age values.",
+      "note": "WISE 0855-0714 reviewed 2026-11-06. Temperature 276 +/- 9 K and log(L/Lsun) = -7.22 +/- 0.02 from Leggett (2026), Table 1: bolometric flux integrated over JWST NIRSpec and MIRI spectra, with a Rayleigh-Jeans extension beyond 22 microns supplying 16% of the total. The temperature is luminosity-based, using evolutionary models for ages of 0.5-10 Gyr. Other luminosities: log(L/Lsun) = -7.305 +/- 0.020 (Luhman et al. 2024), -7.297 +/- 0.042 (Rowland et al. 2024) and -7.291 +/- 0.008 (Kuhnle et al. 2025). Temperature estimates span about 250-297 K depending on the model. Superseded: 250 K, the value assigned by Kirkpatrick et al. (2021), and log(L/Lsun) = -8.57 +/- 0.06 from Zapatero Osorio et al. (2016), who integrated a model spectrum normalized to the W2 band. They fit the 0.89-22.09 micron spectral energy distribution with solar-metallicity atmosphere models. Their broad 2-10 Jupiter-mass and 1-12 Gyr ranges are retained in provenance rather than collapsed into misleading scalar mass or age values. J2000 position: Kirkpatrick et al. (2021) astrometry propagated from epoch 2016.7. Earlier rows used the WISE-designation coordinates from about epoch 2010.5, 86 arcsec away.",
       "physical": [
         {
-          "field": "luminosity_solar",
-          "value": 2.69153e-09,
-          "uncertainty": null,
+          "field": "temperature_k",
+          "value": 276,
+          "uncertainty": 9,
           "status": "model-derived",
-          "reference": "2016A&A...592A..80Z",
+          "reference": "arXiv:2603.24740",
           "qualityFlags": [
-            "converted from log(L/Lsun) = -8.57",
-            "best-fit atmosphere has acknowledged surface-gravity tension"
+            "Leggett 2026 Table 1",
+            "luminosity-based using evolutionary models for ages of 0.5-10 Gyr"
+          ]
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 6.0256e-08,
+          "uncertainty": 2.8e-09,
+          "status": "measured",
+          "reference": "arXiv:2603.24740",
+          "qualityFlags": [
+            "Leggett 2026 Table 1",
+            "converted from log(L/Lsun) = -7.22 +/- 0.02",
+            "84% observed JWST spectra, 16% Rayleigh-Jeans extension"
           ]
         }
-      ]
+      ],
+      "position": {
+        "x_pc": "-1.199206",
+        "y_pc": "-1.712994",
+        "z_pc": "0.903552",
+        "reference": "2021ApJS..253....7K",
+        "method": "Kirkpatrick et al. (2021) position and proper motion propagated from epoch 2016.7 to J2000 with Astropy, placed at the 439.0 mas parallax; replaces coordinates from about epoch 2010.5."
+      }
     },
     {
       "starViewId": "sirius-a",

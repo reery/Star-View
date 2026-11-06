@@ -4704,6 +4704,30 @@
       "expectedPrevious": 0.03,
       "expectedCurrent": 0.023,
       "reason": "ATNF 2.9.0 lists PX 1.16(3) mas for PSR J0212+5321 (pbhg23), and so a 0.862 kpc distance. Perez et al. 2023 report 1.16(3) as the distance in kpc; the matching Gaia DR3 source 455282205716288384 has parallax 0.858(23) mas, whose inverse is that distance. Replaced with the Gaia DR3 parallax and 1160 pc; the system's position vector moved with it."
+    },
+    {
+      "path": "src/data/stars.csv",
+      "id": "wise-0855-0714",
+      "field": "radius_solar",
+      "expectedPrevious": "0.02765490939",
+      "expectedCurrent": "0.1073580538",
+      "reason": "radius_solar: the previous 0.02765490939 (0.27 Jupiter radii) of WISE 0855-0714 was derived by Stefan-Boltzmann scaling from log(L/Lsun) = -8.57 and 250 K. JWST luminosities are about 18-22 times higher (Luhman et al. 2024; Kuhnle et al. 2025; Leggett 2026), and evolutionary models predict 0.10-0.11 Rsun (Luhman et al. 2024). The same scaling from Leggett's log(L/Lsun) = -7.22 and 276 K gives 0.1073580538 Rsun. Retired as wrong; it is not a published measurement."
+    },
+    {
+      "path": "src/data/catalogs/nearest-100/stars.csv",
+      "id": "wise-0855-0714",
+      "field": "radius_solar",
+      "expectedPrevious": "0.02765490939",
+      "expectedCurrent": "0.1073580538",
+      "reason": "radius_solar: the previous 0.02765490939 (0.27 Jupiter radii) of WISE 0855-0714 was derived by Stefan-Boltzmann scaling from log(L/Lsun) = -8.57 and 250 K. JWST luminosities are about 18-22 times higher (Luhman et al. 2024; Kuhnle et al. 2025; Leggett 2026), and evolutionary models predict 0.10-0.11 Rsun (Luhman et al. 2024). The same scaling from Leggett's log(L/Lsun) = -7.22 and 276 K gives 0.1073580538 Rsun. Retired as wrong; it is not a published measurement."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "wise-0855-0714",
+      "field": "radius_solar",
+      "expectedPrevious": "0.02765490939",
+      "expectedCurrent": "0.1073580538",
+      "reason": "radius_solar: the previous 0.02765490939 (0.27 Jupiter radii) of WISE 0855-0714 was derived by Stefan-Boltzmann scaling from log(L/Lsun) = -8.57 and 250 K. JWST luminosities are about 18-22 times higher (Luhman et al. 2024; Kuhnle et al. 2025; Leggett 2026), and evolutionary models predict 0.10-0.11 Rsun (Luhman et al. 2024). The same scaling from Leggett's log(L/Lsun) = -7.22 and 276 K gives 0.1073580538 Rsun. Retired as wrong; it is not a published measurement."
     }
   ],
   "recordRetirements": [

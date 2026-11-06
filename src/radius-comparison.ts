@@ -1,4 +1,4 @@
-import { starDisplayColor } from './astronomy'
+import { brownDwarfAppearanceKelvin, brownDwarfSurfaceColor, starDisplayColor } from './astronomy'
 import { MISSING_VALUE } from './format'
 import { isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, type Star } from './catalog-model'
 import { SOLAR_RADIUS_METERS } from './luminosity-properties'
@@ -26,6 +26,8 @@ export interface RadiusBody {
   equatorialVelocityKms: number | null
   color: string
   kind: 'star' | 'dwarf' | 'jupiter' | 'earth'
+  /** Brown dwarfs only: drives the disk's look and may be a class stand-in, so it is never displayed. */
+  appearanceKelvin?: number
 }
 
 export interface RadiusComparison {
@@ -44,14 +46,16 @@ function stellarBody(star: Star): RadiusBody {
   const radiusKm = available ? radius * SOLAR_RADIUS_KM : null
   const rotation = star.stellar_observations?.rotation
   const solarPeriod = star.id === 'sun' ? SOLAR_EQUATORIAL_ROTATION_DAYS : null
+  const appearanceKelvin = star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf' ? brownDwarfAppearanceKelvin(star) : undefined
   return {
     name: star.name, radiusKm,
     // The catalog radius is drawn as the equatorial radius of a measured rapid rotator.
     polarRadiusKm: radiusKm === null ? null : radiusKm * (rotation?.polar_to_equatorial_radius ?? 1),
     rotationPeriodDays: rotation?.period_days ?? solarPeriod,
     equatorialVelocityKms: rotation?.equatorial_velocity_kms ?? (solarPeriod && equatorialVelocity(SOLAR_RADIUS_KM, solarPeriod)),
-    color: `#${starDisplayColor(star, 'real').getHexString()}`,
-    kind: star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf' ? 'dwarf' : 'star',
+    color: `#${(appearanceKelvin === undefined ? starDisplayColor(star, 'real') : brownDwarfSurfaceColor(appearanceKelvin)).getHexString()}`,
+    kind: appearanceKelvin === undefined ? 'star' : 'dwarf',
+    ...appearanceKelvin === undefined ? {} : { appearanceKelvin },
   }
 }
 
@@ -131,6 +135,28 @@ export function radiusSummary(comparison: RadiusComparison): string {
   return `${selected.name} is ${dimensionNumber(ratio)}× the diameter of ${reference.name}, with ${dimensionNumber(volumeRatio)}× its volume.`
 }
 
+// A disk colder than this is too dark to read as a size against the sky without a hairline.
+const OUTLINE_BELOW_KELVIN = 900
+const hasOutline = (body: RadiusBody, kmPerPixel: number) =>
+  body.appearanceKelvin !== undefined && body.appearanceKelvin < OUTLINE_BELOW_KELVIN && body.radiusKm! / kmPerPixel >= 2
+
+function radiusDrawingNote(comparison: RadiusComparison, kmPerPixel: number): string {
+  const bodies = [comparison.selected, comparison.reference]
+  const outlined = bodies.filter((body) => hasOutline(body, kmPerPixel)).map(({ name }) => ` ${name} is nearly invisible at this temperature; a hairline marks its edge.`)
+  return `${outlined.join('')}${bodies.some(({ kind }) => kind === 'dwarf') ? ' Brown dwarf colors and cloud bands are illustrative.' : ''}`
+}
+
+/** Banded, patchy cloud deck in latitude and longitude, seeded per object. Returns a relative brightness near 1. */
+function dwarfClouds(dx: number, dy: number, mu: number, seed: number, contrast: number): number {
+  const tilt = (seed / (2 * Math.PI) - 0.5) * 0.5
+  const longitude = Math.atan2(dx * Math.cos(tilt) + dy * Math.sin(tilt), mu)
+  const latitude = Math.asin(Math.max(-1, Math.min(1, dy * Math.cos(tilt) - dx * Math.sin(tilt))))
+  const warped = latitude + 0.05 * Math.sin(3 * longitude + seed) + 0.025 * Math.sin(8 * longitude + 5 * latitude + 2 * seed)
+  const bands = 0.55 * Math.sin(7 * warped + seed) + 0.3 * Math.sin(15 * warped + 2.3 * seed) + 0.15 * Math.sin(29 * warped + 3.1 * seed)
+  const patches = Math.sin(5 * longitude + 9 * latitude + seed) * Math.sin(11 * longitude - 14 * latitude + 1.7 * seed)
+  return 1 + contrast * (0.75 * bands + 0.25 * patches)
+}
+
 let renderedComparisons = new WeakMap<HTMLCanvasElement, string>()
 const WIDTH = 340
 const HEIGHT = 172
@@ -195,7 +221,7 @@ export function renderRadiusComparison(canvas: HTMLCanvasElement, comparison: Ra
   const unresolved = !missing && Math.min(...radii) / kmPerPixel * 2 * displayScale < 1
   const note = missing ? 'No sizes are inferred from spectral type, luminosity, or temperature.'
     : `Both objects use the same linear scale.${[selected, reference].filter(({ kind, radiusKm, polarRadiusKm }) => kind === 'star' && polarRadiusKm !== radiusKm)
-      .map(({ name, radiusKm, polarRadiusKm }) => ` ${name} is drawn flattened by its rotation: the polar radius is ${dimensionNumber(polarRadiusKm! / radiusKm!)}× the equatorial radius.`).join('')}${cropped ? ` The larger object extends beyond the frame; its ${selected.radiusKm! >= reference.radiusKm! ? 'upper-right' : 'upper-left'} limb is shown.` : ''}${unresolved ? ' The smaller disk is below one display pixel; a guide marks its location without enlarging it.' : ''} Glow is outside the measured radius.`
+      .map(({ name, radiusKm, polarRadiusKm }) => ` ${name} is drawn flattened by its rotation: the polar radius is ${dimensionNumber(polarRadiusKm! / radiusKm!)}× the equatorial radius.`).join('')}${cropped ? ` The larger object extends beyond the frame; its ${selected.radiusKm! >= reference.radiusKm! ? 'upper-right' : 'upper-left'} limb is shown.` : ''}${unresolved ? ' The smaller disk is below one display pixel; a guide marks its location without enlarging it.' : ''}${radiusDrawingNote(comparison, kmPerPixel)} Glow is outside the measured radius.`
   canvas.setAttribute('aria-label', `${radiusSummary(comparison)} ${note}`)
   if (renderedComparisons.get(canvas) === key) return note
   if (!missing && (reference.kind === 'jupiter' || reference.kind === 'earth')) {
@@ -242,6 +268,7 @@ function drawBody(context: CanvasRenderingContext2D, body: RadiusBody, paneX: nu
   context.rect(paneX, 0, WIDTH / 2, HEIGHT)
   context.clip()
   const stellar = body.kind === 'star' || body.kind === 'dwarf'
+  const kelvin = body.appearanceKelvin
   if (!stellar && radius >= 2) {
     // Thin atmospheric light outside the geometric limb; the disk keeps its
     // measured equatorial and polar dimensions. Earth has a blue scattering rim.
@@ -269,6 +296,8 @@ function drawBody(context: CanvasRenderingContext2D, body: RadiusBody, paneX: nu
     context.save()
     context.translate(x, y)
     context.scale(1, flattening)
+    // A dim object blooms less: the coldest dwarfs keep only a trace of dark glow.
+    if (kelvin !== undefined) context.globalAlpha = 0.25 + 0.4 * Math.min(1, kelvin / 2400)
     const halo = context.createRadialGradient(0, 0, radius - innerWidth, 0, 0, radius + haloWidth)
     halo.addColorStop(0, `${body.color}${cropped ? 'b0' : '90'}`)
     halo.addColorStop(0.28, `${body.color}${cropped ? '80' : '60'}`)
@@ -277,10 +306,13 @@ function drawBody(context: CanvasRenderingContext2D, body: RadiusBody, paneX: nu
     context.fillStyle = halo
     context.fillRect(paneX - x, -y / flattening, WIDTH / 2, HEIGHT / flattening)
     context.restore()
-    context.fillStyle = body.color
-    context.beginPath()
-    context.ellipse(x, y, radius, polarRadius, 0, 0, Math.PI * 2)
-    context.fill()
+    // A dwarf's limb darkens well below this flat color, which would show as a bright rim.
+    if (body.kind === 'star') {
+      context.fillStyle = body.color
+      context.beginPath()
+      context.ellipse(x, y, radius, polarRadius, 0, 0, Math.PI * 2)
+      context.fill()
+    }
   }
 
   // Rasterize only the visible pane, including for spheres many frame-widths
@@ -290,6 +322,12 @@ function drawBody(context: CanvasRenderingContext2D, body: RadiusBody, paneX: nu
   const rgb = [1, 3, 5].map((offset) => parseInt(body.color.slice(offset, offset + 2), 16))
   const texture = body.kind === 'jupiter' || body.kind === 'earth' ? planetTextures.get(body.kind)?.pixels : undefined
   const clouds = body.kind === 'earth' ? planetTextures.get('earth-clouds')?.pixels : undefined
+  const cloudSeed = [...body.name].reduce((hash, character) => (hash * 31 + character.charCodeAt(0)) % 997, 7) / 997 * 2 * Math.PI
+  // Zonal bands and spots follow Apai et al. 2017 (https://doi.org/10.1126/science.aam9848). The contrast is
+  // illustrative, set strongest at the patchy L/T transition near 1,300 K.
+  // Dust cannot condense in the hottest atmospheres, so bands fade out approaching M-dwarf temperatures.
+  const cloudContrast = kelvin === undefined ? 0
+    : (0.07 + 0.13 * Math.exp(-(((kelvin - 1300) / 500) ** 2))) * Math.max(0, Math.min(1, (2800 - kelvin) / 800))
   for (let py = 0; py < image.height; py++) {
     const dy = (py / resolution + 0.5 / resolution - y) / polarRadius
     for (let px = 0; px < image.width; px++) {
@@ -336,12 +374,15 @@ function drawBody(context: CanvasRenderingContext2D, body: RadiusBody, paneX: nu
         let grain = Math.imul(px + py * 8191, 1597334677)
         grain = Math.imul(grain ^ grain >>> 16, 2246822519)
         const granulation = (grain >>> 0) / 0xffffffff * 2 - 1
-        const brightness = (stellar ? 0.72 + 0.28 * mu ** 0.55 : 0.48 + 0.52 * mu ** 0.6)
-          * (1 + granulation * 0.004)
-        const shine = stellar ? (body.kind === 'dwarf' ? 0.08 : 0.68) * mu ** 2.4 : 0
+        const shading = body.kind === 'dwarf' ? (0.42 + 0.58 * mu ** 0.9) * dwarfClouds(dx, dy, mu, cloudSeed, cloudContrast)
+          : stellar ? 0.72 + 0.28 * mu ** 0.55 : 0.48 + 0.52 * mu ** 0.6
+        const brightness = shading * (1 + granulation * 0.004)
+        const shine = body.kind === 'star' ? 0.68 * mu ** 2.4 : 0
+        // Near-black shades have so few 8-bit levels that they need absolute dither to avoid contours.
+        const dither = body.kind === 'dwarf' ? granulation * 0.7 : 0
         for (let channel = 0; channel < 3; channel++) {
           const luminousColor = rgb[channel]! + (255 - rgb[channel]!) * shine
-          image.data[offset + channel] = Math.min(255, luminousColor * brightness)
+          image.data[offset + channel] = Math.min(255, luminousColor * brightness + dither)
         }
       }
       const limbPixels = (1 - Math.sqrt(distanceSquared)) * Math.min(radius, polarRadius)
@@ -369,7 +410,18 @@ function drawBody(context: CanvasRenderingContext2D, body: RadiusBody, paneX: nu
     context.restore()
   }
   context.drawImage(surface, paneX, 0, WIDTH / 2, HEIGHT)
-  if (stellar && !cropped && radius >= 3) {
+  if (hasOutline(body, kmPerPixel)) {
+    // A chart mark like the locator below, not light: it keeps the measured size readable.
+    context.save()
+    context.globalAlpha = 0.32 * Math.min(1, (OUTLINE_BELOW_KELVIN - kelvin!) / 300)
+    context.strokeStyle = '#747c8a'
+    context.lineWidth = 0.5
+    context.beginPath()
+    context.ellipse(x, y, radius, polarRadius, 0, 0, Math.PI * 2)
+    context.stroke()
+    context.restore()
+  }
+  if (body.kind === 'star' && !cropped && radius >= 3) {
     // Restrained optical flare: fine rays and a luminous central sheen retain
     // the disk's temperature color and do not alter its physical edge.
     context.save()
@@ -390,8 +442,8 @@ function drawBody(context: CanvasRenderingContext2D, body: RadiusBody, paneX: nu
       context.restore()
     }
     const sheen = context.createRadialGradient(0, 0, 0, 0, 0, radius * 0.7)
-    sheen.addColorStop(0, body.kind === 'dwarf' ? '#ffffff24' : '#ffffff75')
-    sheen.addColorStop(0.4, body.kind === 'dwarf' ? '#ffffff0a' : '#ffffff2a')
+    sheen.addColorStop(0, '#ffffff75')
+    sheen.addColorStop(0.4, '#ffffff2a')
     sheen.addColorStop(1, '#ffffff00')
     context.fillStyle = sheen
     context.fillRect(-radius, -radius, radius * 2, radius * 2)

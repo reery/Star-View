@@ -314,8 +314,12 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .glossary-body { display: grid; grid-template-columns: 184px minmax(0, 1fr); flex: 1; min-height: 0; }
 .glossary-terms, .glossary-detail { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
 .glossary-terms { padding: 8px 0 12px; border-right: 1px solid var(--line); background: #17181955; }
-.glossary-group + .glossary-group { margin-top: 14px; }
-.glossary-group-heading { padding: 9px 14px 6px; color: var(--muted); background: var(--surface-heading); font-size: 10px; line-height: 1.4; font-weight: 500; letter-spacing: 0.04em; }
+#glossary-terms { padding-top: 0; }
+.glossary-group-heading { position: sticky; z-index: 1; top: 0; display: flex; align-items: center; gap: 8px; min-height: 34px; padding: 8px 14px; color: var(--ink); background: var(--surface-heading); border-bottom: 1px solid var(--line); font-size: 12px; line-height: 1.4; font-weight: 500; list-style: none; cursor: pointer; }
+.glossary-group-heading::-webkit-details-marker { display: none; }
+.glossary-group-heading > svg { flex: none; }
+.glossary-group:not([open]) > .glossary-group-heading > svg { transform: rotate(180deg); }
+.glossary-group-count { margin-left: auto; color: var(--muted); font-weight: 400; font-variant-numeric: tabular-nums; }
 .glossary-term { display: block; position: relative; width: 100%; min-height: 34px; padding: 8px 14px; border: 0; border-radius: 0; color: var(--muted); background: transparent; text-align: left; font-size: 12px; line-height: 1.4; }
 .glossary-term[aria-current="true"] { color: var(--accent-strong); background: var(--panel-selected); }
 .glossary-term[aria-current="true"]::before { position: absolute; inset: 0 auto 0 0; width: 2px; background: var(--accent); content: ''; }
@@ -323,24 +327,85 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 /* Like a browser sidebar, the list collapses to icons that name their entry in a tooltip. */
 .constellations-detail-heading > .sidebar-toggle { right: auto; left: -1px; border-color: transparent var(--line) var(--line) transparent; }
 .glossary-card .glossary-body[data-sidebar-collapsed] { grid-template-columns: 44px minmax(0, 1fr); }
+#glossary-panel .glossary-body[data-sidebar-collapsed] { grid-template-columns: minmax(0, 1fr); }
+#glossary-panel [data-sidebar-collapsed] > .glossary-terms { display: none; }
 .glossary-term-icon { display: none; }
 [data-sidebar-collapsed] .glossary-term { padding: 0; }
 [data-sidebar-collapsed] .glossary-term-icon { display: grid; place-items: center; min-height: 34px; font-size: 11px; }
 .glossary-term-icon svg { width: 16px; height: 16px; }
-.glossary-detail { min-width: 0; padding: 16px 22px 20px; }
-.glossary-detail h3 { margin-bottom: 17px; color: var(--ink); font-size: 24px; line-height: 1.2; font-weight: 500; }
+.glossary-detail { flex: 1; min-height: 0; padding: 16px 22px 20px; }
+#glossary-back { display: none; }
+.glossary-body[data-term-history] #glossary-back { display: grid; left: 43px; }
+.glossary-body[data-term-history] #glossary-detail > .panel-heading { padding-left: 104px; }
+#glossary-term-heading:focus { outline: none; }
 .glossary-figure { margin: 0 0 18px; }
 .glossary-figure img { display: block; width: 100%; height: 178px; object-fit: cover; border: 1px solid var(--line); border-radius: 6px; background: #101112; }
 .glossary-figure figcaption { margin-top: 7px; color: var(--muted); font-size: 10px; line-height: 1.5; }
 .glossary-description { color: var(--muted); font-size: 14px; line-height: 1.7; }
+.glossary-lead { margin-bottom: 18px; color: var(--ink); }
+.glossary-lead:last-child { margin-bottom: 0; }
+.glossary-detail section { margin-top: 20px; }
+.glossary-detail section .glossary-figure { margin: 14px 0 0; }
+.glossary-detail .card-subgroup-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 -22px 12px; padding-inline: 22px; }
+#glossary-article > .glossary-description { margin-top: 12px; }
+.glossary-deeper { margin-top: 20px; }
+.glossary-deeper > summary { color: var(--accent-strong); font-size: 13px; }
+.glossary-widget { display: grid; gap: 12px; margin-top: 18px; padding: 12px; background: #18191a80; border: 1px solid var(--line); border-radius: 8px; font-size: 12px; }
+.glossary-widget > svg { display: block; width: 100%; height: auto; }
+.glossary-widget svg [hidden] { display: none; }
+.glossary-widget-readouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 8px 12px; margin: 0; }
+.glossary-widget-readouts dt { color: var(--muted); font-size: 11px; }
+.glossary-widget-readouts dd { margin: 2px 0 0; color: var(--ink); font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.glossary-widget-note { color: var(--muted); font-size: 11px; line-height: 1.5; }
+.glossary-widget-detail { color: var(--muted); font-size: 13px; line-height: 1.6; }
+.glossary-widget-path { color: var(--ink); }
+.glossary-widget-choices { display: flex; flex-wrap: wrap; gap: 6px; }
+:is(.glossary-widget-choices > button, .glossary-widget-play) { min-height: 32px; padding: 4px 10px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; }
+.glossary-widget-choices > button[aria-pressed="true"] { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); border-color: var(--border-vibrant-pressed); }
+.glossary-widget-play { justify-self: start; min-width: 64px; }
+.gw-text { fill: var(--muted); font-size: 13px; }
+.gw-small { font-size: 11px; }
+.gw-strong { fill: var(--ink); }
+.gw-axis, .gw-guide { stroke: var(--muted); stroke-width: 1; }
+.gw-guide { stroke-dasharray: 3 3; }
+.gw-band { fill: #ffe29122; }
+.gw-curve, .gw-orbit-path { fill: none; stroke: var(--accent); stroke-width: 2; }
+.gw-reference, .gw-orbit { fill: none; stroke: var(--muted); stroke-dasharray: 3 3; }
+.gw-sun { fill: #ffc979; }
+.gw-companion { fill: #8da9d6; stroke: #18191a; }
+.gw-earth { fill: #7fa5e8; }
+.gw-star { fill: var(--accent-vibrant); }
+.gw-hollow { fill: none; stroke: var(--ink); stroke-width: 2; }
+.gw-faint { fill: var(--muted); }
+.gw-marker { fill: none; stroke: var(--accent-vibrant); stroke-width: 2; }
+.gw-marker-solid { fill: var(--accent-vibrant); }
+.gw-spot { fill: #7a4a26; }
+.gw-point { fill: var(--ink); }
+.gw-region { fill: none; stroke: var(--muted); stroke-opacity: 0.28; stroke-linecap: round; stroke-linejoin: round; cursor: default; }
+.gw-region.is-active { stroke: var(--accent); stroke-opacity: 0.55; }
+.gw-zone { fill: #5fbf7a44; stroke: #5fbf7a; }
+.gw-vector { stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; }
+.gw-vector-radial { stroke: var(--accent-vibrant); }
+.gw-vector-across { stroke: #7fa5e8; }
+.gw-line { stroke: #101112; stroke-width: 2.5; }
+.gw-sphere { fill: #ffffff08; stroke: var(--muted); }
+.gw-equator, .gw-ecliptic, .gw-guide-curve { fill: none; stroke-width: 1.5; }
+.gw-equator { stroke: var(--ink); }
+.gw-ecliptic { stroke: #7fa5e8; stroke-dasharray: 5 4; }
+.gw-equator-key { fill: var(--ink); }
+.gw-ecliptic-key { fill: #7fa5e8; }
+.gw-guide-curve { stroke: var(--accent-vibrant); stroke-opacity: 0.8; }
+.gw-back { opacity: 0.3; }
+.glossary-related { margin-top: 18px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.glossary-lead + .glossary-related { margin-top: 0; }
 /* Links in cards; plain selectors keep each container's specificity for the credit lines that inherit their color. */
 .glossary-detail a, .info-meta a, .object-type-body a, .properties a, :is(#planet-info, #object-info, .constellation-info) a, #planet-moons a, .constellation-source-links a, .constellation-visibility-sources a, .mass-method a, .radius-method a, .constellation-info-link { color: var(--accent-strong); text-underline-offset: 3px; }
 :is(.glossary-detail, .info-meta, .object-type-body, .properties, #planet-info, #object-info, .constellation-info, #planet-moons, .constellation-source-links, .constellation-visibility-sources, .mass-method, .radius-method) a:focus-visible, .constellation-info-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-.glossary-source { display: inline-block; margin-top: 18px; font-size: 12px; }
-.glossary-attribution, .glossary-image-credit { color: var(--muted); font-size: 10px; line-height: 1.6; }
+.glossary-source { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 18px; font-size: 12px; }
+.glossary-attribution { color: var(--muted); font-size: 10px; line-height: 1.6; }
+.glossary-also { margin-top: 8px; color: var(--muted); font-size: 11px; line-height: 1.6; }
 .glossary-attribution { margin-top: 22px; padding-top: 12px; border-top: 1px solid var(--line); }
-.glossary-image-credit { margin-top: 8px; }
-.glossary-attribution a, .glossary-image-credit a { color: inherit; }
+.glossary-attribution a, .glossary-figure figcaption a { color: inherit; }
 .glossary-empty { align-self: center; padding: 22px; color: var(--muted); font-size: 13px; line-height: 1.6; }
 .control-dock[data-motion-open]:is([data-open="glossary"], [data-open="constellations"], [data-open="top-lists"], [data-open="graphs"]) .glossary-card { height: min(520px, calc(var(--ui-height) - var(--motion-panel-clearance, 150px) - 40px)); margin-bottom: var(--motion-panel-clearance, 150px); }
 @media (hover: hover) and (pointer: fine) {
@@ -392,6 +457,9 @@ button, p, h2, dd { overflow-wrap: anywhere; }
   .selection-controls:hover:has(.icon-button:not(:disabled)) .selection-options,
   .info-controls:hover .info-options,
   .observer-view-controls:hover:has(.observer-view-button:not(:disabled)) .observer-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
+}
+@media (max-width: 720px) and (prefers-reduced-motion: no-preference) {
+  #glossary-panel .glossary-body > :is(.glossary-terms, #glossary-detail) { transition: transform 280ms cubic-bezier(0.2, 0, 0, 1), opacity 280ms ease; }
 }
 @media (prefers-reduced-motion: reduce) {
   [data-toolbar-options] { transition: none; transform: none; }
@@ -1633,8 +1701,18 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .catalog.is-expanded .objects-heading #objects-maximize { right: 43px; }
   .catalog.is-expanded .objects-heading #objects-shrink { right: 87px; }
   .glossary-body { grid-template-columns: minmax(100px, 30%) minmax(0, 1fr); }
+  /* One card: the wide list pushes the full-width article past the right border, and slides away while reading. */
+  #glossary-panel .glossary-body, #glossary-panel .glossary-body[data-sidebar-collapsed] { --glossary-list-width: 76%; grid-template-columns: var(--glossary-list-width) 100%; overflow: hidden; }
+  #glossary-panel [data-sidebar-collapsed] > .glossary-terms { display: block; }
+  #glossary-panel .glossary-term { padding: 8px 14px; }
+  #glossary-panel .glossary-body:not([data-reading]) > #glossary-detail { opacity: 0.55; }
+  #glossary-panel .glossary-body[data-reading] > .glossary-terms { transform: translateX(-100%); }
+  #glossary-panel .glossary-body[data-reading] > #glossary-detail { transform: translateX(calc(var(--glossary-list-width) * -1)); }
+  #glossary-sidebar { display: none; }
+  #glossary-back, .glossary-body[data-term-history] #glossary-back { display: grid; left: -1px; }
+  .glossary-body[data-term-history] #glossary-detail > .panel-heading { padding-left: 60px; }
   .glossary-detail { padding: 12px 16px 16px; }
-  .glossary-detail h3 { font-size: 21px; }
+  .glossary-detail .card-subgroup-heading { margin-inline: -16px; padding-inline: 16px; }
   .glossary-figure img { height: 150px; }
   .scene-legend { left: calc(18px + var(--safe-left)); bottom: calc(16px + var(--safe-bottom)); font-size: 10px; }
   .visibility-observer { right: calc(66px + var(--safe-right)); bottom: calc(16px + var(--safe-bottom)); max-width: 42%; font-size: 10px; }
