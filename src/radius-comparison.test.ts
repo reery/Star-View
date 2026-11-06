@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest'
+import { Color } from 'three'
+import { starDisplayColor } from './astronomy'
 import type { Star } from './catalog-model'
 import { EARTH_RADIUS_KM, JUPITER_RADIUS_KM, SOLAR_RADIUS_KM, radiusComparison, radiusStats, radiusSummary } from './radius-comparison'
 
@@ -80,6 +82,23 @@ describe('radius comparison', () => {
       expect(radiusStats(comparison).every((row) => row.values[0]!.value === '—')).toBe(true)
       expect(radiusSummary(comparison)).toContain('No catalog radius is available for Unknown')
     }
+  })
+
+  it('draws brown dwarfs by temperature, darkest when coldest, without changing their map color', () => {
+    const dwarfBody = (temperature: number | null, spectralType: string | null = null) =>
+      radiusComparison({ ...star('Dwarf', 0.1, 'brown_dwarf'), temperature_k: temperature, spectral_type: spectralType }, sun).selected
+    const luminance = (color: string) => new Color(color).getHSL({ h: 0, s: 0, l: 0 }).l
+    const colors = [500, 800, 1300, 1800, 2400].map((temperature) => dwarfBody(temperature).color)
+    for (let index = 1; index < colors.length; index++) expect(luminance(colors[index]!)).toBeGreaterThan(luminance(colors[index - 1]!))
+    const [red, green, blue] = [1, 3, 5].map((offset) => parseInt(colors[0]!.slice(offset, offset + 2), 16))
+    expect(Math.max(red!, green!, blue!)).toBeLessThan(40)
+    expect(red!).toBeGreaterThan(blue!)
+    expect(blue!).toBeGreaterThan(green!)
+    expect(`#${starDisplayColor({ type: 'brown_dwarf', temperature_k: 500, spectral_type: null }).getHexString()}`).not.toBe(colors[0])
+    // A blank temperature uses the class stand-in for its shade only.
+    expect(dwarfBody(null, 'T6').color).toBe(dwarfBody(1000).color)
+    expect(dwarfBody(null, 'T6').appearanceKelvin).toBe(1000)
+    expect(radiusComparison(star('Star', 1), sun).selected.appearanceKelvin).toBeUndefined()
   })
 
   it('retains the selected radius when the origin has no comparable stellar radius', () => {

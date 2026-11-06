@@ -102,6 +102,7 @@ GAIA_PHYSICAL_SOURCES = [
 REVIEWED_PHYSICAL_SOURCES = [
     {"name": "Boffin et al. 2014, Table 2, resolved Luhman 16 A/B Johnson V photometry", "url": "https://arxiv.org/pdf/1312.1303"},
     {"name": "Ishikawa et al. 2025, Table 2, resolved Luhman 16 A/B spectroscopic radial velocities from April-June 2018; separate from systemic motion", "url": "https://doi.org/10.1093/mnras/staf487"},
+    {"name": "Leggett 2026, Table 1, WISE 0855-0714 bolometric luminosity and luminosity-based effective temperature", "url": "https://arxiv.org/abs/2603.24740"},
     {"name": "Kervella et al. 2017, Alpha Centauri AB interferometric radii and effective temperatures", "url": "https://doi.org/10.1051/0004-6361/201629505"},
     {"name": "Morel 2018, Alpha Centauri AB differential spectroscopic abundances", "url": "https://doi.org/10.1051/0004-6361/201833125"},
     {"name": "Joyce & Chaboyer 2018, Alpha Centauri AB asteroseismic stellar-model age", "url": "https://doi.org/10.3847/1538-4357/aad464"},
@@ -278,6 +279,11 @@ def apply_reviewed_and_gaia_physical(row, reviewed, gaia, fields=None):
         note = (reviewed.raw or {}).get("note")
         if note:
             row["notes"] = (row["notes"] + " " + note).strip()
+        position = (reviewed.raw or {}).get("position")
+        if position:
+            row.update({key: position[key] for key in ("x_pc", "y_pc", "z_pc")})
+            if fields is not None:
+                fields.update({key: field_source("derived", position["reference"], position["method"]) for key in ("x_pc", "y_pc", "z_pc")})
         photometry = (reviewed.raw or {}).get("photometry")
         if photometry:
             distance = math.sqrt(sum(float(row[key]) ** 2 for key in ("x_pc", "y_pc", "z_pc")))
@@ -467,6 +473,8 @@ def adopt_object(source, frozen, system_counts, supplements, gaia_records, revie
     reviewed = reviewed_records.get(identifier)
     gaia = gaia_records.get(source.get("GaiaEDR3"))
     reviewed_adopted, gaia_eligible, gaia_adopted = apply_reviewed_and_gaia_physical(row, reviewed, gaia, fields)
+    if reviewed and reviewed.raw.get("position"):
+        direction, mode = direction_from_row(row), reviewed.raw["position"]["method"]
     supplemented, supplement_audit = enrich_curated_row(row, supplements, gaia_adopted)
     finalize_gaia_note(row, gaia_adopted, supplemented)
     shared_enrichment = enrich_from_frozen(row)

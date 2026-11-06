@@ -67,7 +67,7 @@ export function initializeTouchTooltips(signal: AbortSignal): void {
       .find((element) => element?.matches('.mass-metric-tooltip[role="tooltip"]:not([hidden], .constellation-tooltip)'))
     if (tooltip) {
       showTouchTooltip(button, tooltip)
-      if (button.matches('a[href], label .mass-metric-help')) openedLink = button
+      if (button.matches('a[href], label .mass-metric-help, [data-glossary-term]')) openedLink = button
     }
   }, { capture: true, passive: true, signal })
 

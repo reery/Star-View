@@ -132,6 +132,18 @@ function sourceCardTooltip(metric: 'luminosity' | 'radius' | 'temperature', star
   } else row.removeAttribute('aria-describedby')
 }
 
+function modelledValueTooltip(metric: 'radius' | 'temperature', star: Star, propertiesHidden: boolean): void {
+  const field = metric === 'temperature' ? 'temperature_k' : 'radius_solar'
+  const modelled = star[field] === null ? undefined : star.stellar_observations?.modelled_values?.[field]
+  if (!modelled || propertiesHidden) return
+  element(metric).removeAttribute('title')
+  element(`${metric}-source-tooltip`).hidden = false
+  element(`${metric}-source-tooltip`).setAttribute('data-model-range', '')
+  text(`${metric}-source-tooltip`, `Modelled, not measured. ${modelled.scope}`)
+  element(`${metric}-row`).tabIndex = 0
+  element(`${metric}-row`).setAttribute('aria-describedby', `${metric}-source-tooltip`)
+}
+
 function icon(id: string, shape: IconNode): void {
   element(id).replaceChildren(createElement(shape, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
 }
@@ -214,6 +226,7 @@ icon('glossary-icon', BookOpen)
 icon('glossary-search-icon', Search)
 icon('glossary-lock-icon', Lock)
 icon('glossary-close-icon', X)
+icon('glossary-back-icon', ArrowLeft)
 icon('info-icon', CircleHelp)
 icon('info-brand-icon', Orbit)
 icon('welcome-icon', Orbit)
@@ -314,7 +327,8 @@ let neighborhoodFilter: ObjectListFilter | null = null
 const neighborhoodMotions = { galactic: new WeakMap<Star, ReturnType<typeof galacticToWorld> | null>(), solar: new WeakMap<Star, ReturnType<typeof galacticToWorld> | null>() }
 /** Farthest object of the chosen catalog from the Sun, so the Neighborhood can say where its coverage ends. */
 let catalogReachLy = Infinity
-let glossaryInitialized = false
+let glossary: import('./glossary').GlossaryBrowser | undefined
+let pendingGlossaryTerm: string | undefined
 const paintSettings = new Map<PaintSettingId, number>()
 /** Visible objects the paint is fitted to; null while nothing is painted. */
 let paintStars: Star[] | null = null
@@ -607,7 +621,10 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
   element<HTMLButtonElement>(`${name}-toggle`).setAttribute('aria-expanded', String(open))
   element(`${name}-panel`).hidden = !open
   if (name === 'preferences' && open) updateBrowserDataSize()
-  if (name === 'glossary' && open && !glossaryInitialized) void loadGlossaryPanel()
+  if (name === 'glossary' && open) {
+    if (glossary) glossary.open()
+    else void loadGlossaryPanel()
+  }
   if (name === 'constellations') {
     if (!open) constellationBrowser?.close()
     else if (constellationBrowser) constellationBrowser.open()
@@ -641,9 +658,23 @@ async function loadGlossaryPanel(): Promise<void> {
       isCurrent: () => !events.signal.aborted && panelIsOpen('glossary'),
       focusTarget: element('glossary-close'), onChange: syncPanelLayout,
     })
-  if (!result || glossaryInitialized) return
-  result.value.initializeGlossary(events.signal)
-  glossaryInitialized = true
+  if (!result || glossary) return
+  glossary = result.value.initializeGlossary(events.signal)
+  if (pendingGlossaryTerm) glossary.show(pendingGlossaryTerm)
+  pendingGlossaryTerm = undefined
+}
+
+function openGlossaryTerm(id: string): void {
+  if (!panelIsOpen('glossary')) togglePanel('glossary')
+  // A detail card can cover the glossary, so the term would open out of sight.
+  const panel = element('glossary-panel')
+  for (const name of detailCardNames) {
+    const card = element(`${name}-card`)
+    if (!card.hidden && !cardsHaveClearance(card, panel)) detailCardClosers[name]()
+  }
+  syncPanelLayout()
+  if (glossary) glossary.show(id)
+  else pendingGlossaryTerm = id
 }
 
 async function loadConstellationsPanel(): Promise<void> {
@@ -1478,7 +1509,7 @@ function renderMetallicityCard(star: Star): void {
   const otherSource = other ? catalogSourceFor(other, 'metallicity_dex') : undefined
   const otherValue = other ? catalogMeasurement(other, 'metallicity_dex') : null
   const otherKind = other ? otherSource?.record.metallicity_kind ?? other.metallicity_kind : undefined
-  text('metallicity-heading', `Metallicity ${other && kind !== otherKind ? '' : kind ?? ''}${source ? ' · system' : ''}`.trim())
+  text('metallicity-heading-term', `Metallicity ${other && kind !== otherKind ? '' : kind ?? ''}${source ? ' · system' : ''}`.trim())
   const limit = 2
   const outsideScale = value !== null && Math.abs(value) > limit
   const scalePosition = (dex: number | null) => dex === null ? 50 : Math.max(0, Math.min(100, (dex + limit) / (2 * limit) * 100))
@@ -2319,6 +2350,7 @@ function renderSelection(): void {
   if (element<HTMLButtonElement>('spectral-toggle').disabled) closeSpectralCard()
   else if (!element('spectral-card').hidden) renderSpectralCard(star)
   sourceCardTooltip('temperature', star, stellarPropertiesHidden)
+  modelledValueTooltip('temperature', star, stellarPropertiesHidden)
   const temperatureRange = star.temperature_k === null ? star.stellar_observations?.temperature_range : undefined
   const atmosphereTemperature = star.temperature_k === null ? star.stellar_observations?.atmosphere_temperature : undefined
   if ((temperatureRange || atmosphereTemperature) && !stellarPropertiesHidden) {
@@ -2353,6 +2385,7 @@ function renderSelection(): void {
   if (element<HTMLButtonElement>('mass-toggle').disabled) closeMassCard()
   else if (!element('mass-card').hidden) renderMassCard(star)
   sourceCardTooltip('radius', star, stellarPropertiesHidden)
+  modelledValueTooltip('radius', star, stellarPropertiesHidden)
   const radiusRange = star.radius_solar === null ? star.stellar_observations?.radius_range : undefined
   if (radiusRange && !stellarPropertiesHidden) {
     element('radius').removeAttribute('title')
@@ -2460,7 +2493,7 @@ function renderSelection(): void {
   const rvSource = radialVelocitySource(star)
   if (rvSource) sourceNotes.add(rvSource)
   const observations = star.stellar_observations
-  const observationNotes = new Set([observations?.mass_range, observations?.temperature_range, observations?.radius_range, observations?.infrared_photometry, observations?.radial_velocity_review, observations?.atmosphere_temperature]
+  const observationNotes = new Set([observations?.mass_range, observations?.temperature_range, observations?.radius_range, observations?.infrared_photometry, observations?.radial_velocity_review, observations?.atmosphere_temperature, observations?.modelled_values?.temperature_k, observations?.modelled_values?.radius_solar]
     .filter((observation) => observation !== undefined)
     .map((observation) => `${'scope' in observation ? observation.scope : observation.reason} ${observation.reference}: ${observation.source_url}`))
   text('star-notes', starDetailsLoaded(star) ? [star.notes, ...observationNotes, ...[...sourceNotes].map((source) => `${source.scope} ${source.record.notes}`)]
@@ -3880,10 +3913,10 @@ function setSidebarCollapsed(id: string, collapsed: boolean): void {
   button.title = label
   icon(`${id}-icon`, collapsed ? PanelLeftOpen : PanelLeftClose)
 }
-for (const id of ['constellations-sidebar', 'top-lists-sidebar', 'graphs-sidebar']) {
-  // Without a saved choice, Top lists and Graphs open with the sidebar retracted; Constellations keeps its names visible.
+for (const id of ['constellations-sidebar', 'glossary-sidebar', 'top-lists-sidebar', 'graphs-sidebar']) {
+  // Without a saved choice, Top lists and Graphs open with the sidebar retracted; Constellations and Glossary keep their names visible.
   const storedCollapsed = storedLayout(`${id}-collapsed`)
-  setSidebarCollapsed(id, storedCollapsed === null ? id !== 'constellations-sidebar' : storedCollapsed === 'true')
+  setSidebarCollapsed(id, storedCollapsed === null ? id !== 'constellations-sidebar' && id !== 'glossary-sidebar' : storedCollapsed === 'true')
   element(id).addEventListener('click', () => {
     const collapsed = element(id).getAttribute('aria-expanded') === 'true'
     setSidebarCollapsed(id, collapsed)
@@ -4408,6 +4441,14 @@ for (const name of panelNames) {
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
 }
+// Property and graph labels anywhere in the app open their glossary term.
+document.addEventListener('click', (event) => {
+  const term = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-glossary-term]')?.dataset.glossaryTerm : undefined
+  if (!term) return
+  // A graph section's label sits in its summary, which must not toggle as well.
+  event.preventDefault()
+  openGlossaryTerm(term)
+}, { signal: events.signal })
 for (const name of ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'spaceship', 'rotation'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)

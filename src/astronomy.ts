@@ -210,6 +210,21 @@ const BROWN_DWARF_COLORS = [
 const BROWN_DWARF_CLASS_KELVIN = { M: 2400, L: 1800, T: 1000, Y: 350 } as const
 const STAR_CLASS_KELVIN = { O: 30000, B: 15000, A: 8500, F: 6500, G: 5500, K: 4500, M: 3500 } as const
 
+// A resolved disk's visible-light impression, unlike the legible locator ramp above. M and L dwarfs
+// are red; alkali absorption of green light pushes T dwarfs toward dim magenta (Burrows et al. 2001,
+// https://arxiv.org/abs/astro-ph/0103383). Below about 600 K a blackbody is under the eye's detection
+// threshold, so the coldest stops are the darkest shades a display can still separate from the sky.
+const BROWN_DWARF_SURFACE_COLORS = [
+  { kelvin: 250, color: 0x100a11 },
+  { kelvin: 500, color: 0x1e0b16 },
+  { kelvin: 800, color: 0x3a0f21 },
+  { kelvin: 1000, color: 0x581429 },
+  { kelvin: 1300, color: 0x85202a },
+  { kelvin: 1800, color: 0xbc3a1f },
+  { kelvin: 2400, color: 0xee6a2a },
+  { kelvin: 3000, color: 0xffac63 },
+] as const
+
 function interpolateColor(stops: readonly { kelvin: number; color: number }[], kelvin: number): Color {
   if (kelvin <= stops[0]!.kelvin) return new Color(stops[0]!.color)
   for (let index = 1; index < stops.length; index++) {
@@ -251,8 +266,17 @@ export function starDisplayColor(
     const spectralClass = star.type === 'star' ? star.spectral_type?.match(/([OBAFGKM])/)?.[1] as keyof typeof STAR_CLASS_KELVIN | undefined : undefined
     return temperatureToColor(star.temperature_k ?? (spectralClass ? STAR_CLASS_KELVIN[spectralClass] : null), mode)
   }
+  return interpolateColor(BROWN_DWARF_COLORS, brownDwarfAppearanceKelvin(star))
+}
+
+/** The measured temperature, or a class stand-in for choosing a shade only; never show or store the result as a temperature. */
+export function brownDwarfAppearanceKelvin(star: Pick<Star, 'temperature_k' | 'spectral_type'>): number {
   const temperature = star.temperature_k
-  if (temperature !== null && Number.isFinite(temperature) && temperature > 0) return interpolateColor(BROWN_DWARF_COLORS, temperature)
+  if (temperature !== null && Number.isFinite(temperature) && temperature > 0) return temperature
   const spectralClass = star.spectral_type?.match(/([MLTY])\d/)?.[1] as keyof typeof BROWN_DWARF_CLASS_KELVIN | undefined
-  return interpolateColor(BROWN_DWARF_COLORS, spectralClass ? BROWN_DWARF_CLASS_KELVIN[spectralClass] : 1300)
+  return spectralClass ? BROWN_DWARF_CLASS_KELVIN[spectralClass] : 1300
+}
+
+export function brownDwarfSurfaceColor(kelvin: number): Color {
+  return interpolateColor(BROWN_DWARF_SURFACE_COLORS, kelvin)
 }

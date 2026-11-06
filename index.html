@@ -79,28 +79,28 @@
                             <div id="mass-row" class="mass-row"><dt id="mass-label">Mass</dt><dd><button id="mass-toggle" class="object-type-toggle" type="button" aria-controls="mass-card" aria-expanded="false" aria-describedby="mass"><span id="mass"></span></button><span id="mass-source-tooltip" class="tooltip mass-metric-tooltip" role="tooltip" data-model-range hidden></span></dd></div>
                             <div id="radius-row" class="stellar-property radius-row"><dt>Radius</dt><dd><button id="radius-toggle" class="object-type-toggle" type="button" aria-controls="radius-card" aria-expanded="false" aria-describedby="radius"><span id="radius"></span></button><span id="radius-source-tooltip" class="tooltip mass-metric-tooltip" role="tooltip" hidden></span></dd></div>
                             <div class="stellar-property metallicity-row"><dt id="metallicity-label">Metallicity</dt><dd><button id="metallicity-toggle" class="object-type-toggle" type="button" aria-controls="metallicity-card" aria-expanded="false" aria-describedby="metallicity"><span id="metallicity"></span></button></dd></div>
-                            <div class="stellar-property"><dt>Age</dt><dd id="age"></dd></div>
+                            <div class="stellar-property"><dt><button type="button" class="mass-metric-help" data-glossary-term="age">Age</button></dt><dd id="age"></dd></div>
                             <div id="magnitude-row" class="stellar-property magnitude-row"><dt><span>Absolute mag. (V)</span><span id="apparent-mag-label">Apparent mag. (V)</span></dt><dd><button id="magnitude-toggle" class="object-type-toggle" type="button" aria-controls="magnitude-card" aria-expanded="false" aria-describedby="absolute-mag apparent-mag"><span id="absolute-mag"></span><span id="apparent-mag" title="Earth-view catalog V magnitude; a snapshot, not current variable-star photometry."></span></button></dd></div>
                             <div id="infrared-magnitude-row" class="stellar-property" hidden><dt id="infrared-magnitude-label"></dt><dd id="infrared-magnitude"></dd></div>
                             <div class="compact-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Status</button><span id="compact-status-term" class="tooltip mass-metric-tooltip" role="tooltip">Confirmed means astronomers agree on what the object is. A candidate is a strong suspect that still needs more evidence.</span></dt><dd id="compact-status"></dd></div>
                             <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Pulsar type</button><span id="pulsar-classes-term" class="tooltip mass-metric-tooltip" role="tooltip">Groups pulsars by how fast they spin and what light they send out. Millisecond pulsars spin hundreds of times a second; some pulse in X-rays or gamma rays instead of radio waves, and rotating radio transients flash only now and then.</span></dt><dd id="pulsar-classes"></dd></div>
-                            <div id="rotation-row" class="compact-property rotation-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Rotation</button><span id="rotation-period-term" class="tooltip mass-metric-tooltip" role="tooltip">The time for one full spin. The value in brackets is the number of spins per second (Hz).</span></dt><dd><button id="pulsar-toggle" class="object-type-toggle" type="button" aria-controls="pulsar-card" aria-expanded="false" aria-describedby="rotation-period"><span id="rotation-period"></span></button></dd></div>
+                            <div id="rotation-row" class="compact-property rotation-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="rotation">Rotation</button><span id="rotation-period-term" class="tooltip mass-metric-tooltip" role="tooltip">The time for one full spin. The value in brackets is the number of spins per second (Hz).</span></dt><dd><button id="pulsar-toggle" class="object-type-toggle" type="button" aria-controls="pulsar-card" aria-expanded="false" aria-describedby="rotation-period"><span id="rotation-period"></span></button></dd></div>
                             <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Spin-down rate</button><span id="period-derivative-term" class="tooltip mass-metric-tooltip" role="tooltip">How much longer each spin gets with every second that passes. The pulsar slowly brakes as it gives away energy.</span></dt><dd id="period-derivative"></dd></div>
-                            <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Characteristic age</button><span id="characteristic-age-term" class="tooltip mass-metric-tooltip" role="tooltip">An age estimate from how fast the pulsar spins and how quickly it slows down. It is a rough guide, not a measured birth date.</span></dt><dd id="characteristic-age"></dd></div>
-                            <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Surface magnetic field</button><span id="surface-field-term" class="tooltip mass-metric-tooltip" role="tooltip">The strength of the magnetic field at the surface, estimated from the spin and its slowdown. A fridge magnet is about 100 gauss (G); Earth’s field is about 0.5 G.</span></dt><dd id="surface-field"></dd></div>
-                            <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Spin-down power</button><span id="spin-down-power-term" class="tooltip mass-metric-tooltip" role="tooltip">The energy the pulsar loses every second as its spin slows. It powers the pulsar’s beams and winds. For comparison, the Sun gives off about 4 × 10³³ erg/s.</span></dt><dd id="spin-down-power"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="characteristic-age">Characteristic age</button><span id="characteristic-age-term" class="tooltip mass-metric-tooltip" role="tooltip">An age estimate from how fast the pulsar spins and how quickly it slows down. It is a rough guide, not a measured birth date.</span></dt><dd id="characteristic-age"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="magnetic-field">Surface magnetic field</button><span id="surface-field-term" class="tooltip mass-metric-tooltip" role="tooltip">The strength of the magnetic field at the surface, estimated from the spin and its slowdown. A fridge magnet is about 100 gauss (G); Earth’s field is about 0.5 G.</span></dt><dd id="surface-field"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="spin-down-power">Spin-down power</button><span id="spin-down-power-term" class="tooltip mass-metric-tooltip" role="tooltip">The energy the pulsar loses every second as its spin slows. It powers the pulsar’s beams and winds. For comparison, the Sun gives off about 4 × 10³³ erg/s.</span></dt><dd id="spin-down-power"></dd></div>
                             <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Radio luminosity (1400 MHz)</button><span id="radio-luminosity-term" class="tooltip mass-metric-tooltip" role="tooltip">How bright the pulsar is in radio waves at 1400 MHz, corrected for distance so that pulsars can be compared fairly.</span></dt><dd id="radio-luminosity"></dd></div>
-                            <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Dispersion measure</button><span id="dispersion-measure-term" class="tooltip mass-metric-tooltip" role="tooltip">How much the gas between us and the pulsar delays its radio pulses. Larger values mean more gas along the way, which usually means a greater distance.</span></dt><dd id="dispersion-measure"></dd></div>
-                            <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Transverse speed</button><span id="transverse-speed-term" class="tooltip mass-metric-tooltip" role="tooltip">How fast the object moves across the sky relative to the Sun. Motion toward or away from us is not included.</span></dt><dd id="transverse-speed"></dd></div>
-                            <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Glitches</button><span id="glitch-count-term" class="tooltip mass-metric-tooltip" role="tooltip">The number of recorded glitches: sudden small speed-ups in the spin, thought to happen when the star’s inside suddenly drags its crust along.</span></dt><dd id="glitch-count"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="dispersion-measure">Dispersion measure</button><span id="dispersion-measure-term" class="tooltip mass-metric-tooltip" role="tooltip">How much the gas between us and the pulsar delays its radio pulses. Larger values mean more gas along the way, which usually means a greater distance.</span></dt><dd id="dispersion-measure"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="transverse-velocity">Transverse speed</button><span id="transverse-speed-term" class="tooltip mass-metric-tooltip" role="tooltip">How fast the object moves across the sky relative to the Sun. Motion toward or away from us is not included.</span></dt><dd id="transverse-speed"></dd></div>
+                            <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="pulsar-glitch">Glitches</button><span id="glitch-count-term" class="tooltip mass-metric-tooltip" role="tooltip">The number of recorded glitches: sudden small speed-ups in the spin, thought to happen when the star’s inside suddenly drags its crust along.</span></dt><dd id="glitch-count"></dd></div>
                             <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Associations</button><span id="pulsar-associations-term" class="tooltip mass-metric-tooltip" role="tooltip">Objects linked with the pulsar, such as the remains of the supernova that created it, a glowing cloud blown by its wind, a star cluster, or the same source seen in X-rays, gamma rays or visible light.</span></dt><dd id="pulsar-associations"></dd></div>
-                            <div class="compact-property orbit-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Orbital period</button><span id="orbital-period-term" class="tooltip mass-metric-tooltip" role="tooltip">The time the object takes to circle once around its companion.</span></dt><dd id="orbital-period"></dd></div>
-                            <div class="compact-property orbit-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Eccentricity</button><span id="orbital-eccentricity-term" class="tooltip mass-metric-tooltip" role="tooltip">How stretched the orbit is. 0 is a perfect circle; values closer to 1 mean a longer, thinner oval.</span></dt><dd id="orbital-eccentricity"></dd></div>
+                            <div class="compact-property orbit-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="orbital-period">Orbital period</button><span id="orbital-period-term" class="tooltip mass-metric-tooltip" role="tooltip">The time the object takes to circle once around its companion.</span></dt><dd id="orbital-period"></dd></div>
+                            <div class="compact-property orbit-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="eccentricity">Eccentricity</button><span id="orbital-eccentricity-term" class="tooltip mass-metric-tooltip" role="tooltip">How stretched the orbit is. 0 is a perfect circle; values closer to 1 mean a longer, thinner oval.</span></dt><dd id="orbital-eccentricity"></dd></div>
                             <div class="compact-property orbit-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Companion</button><span id="compact-companion-term" class="tooltip mass-metric-tooltip" role="tooltip">The other object in the orbit, such as an ordinary star, a white dwarf or another neutron star.</span></dt><dd id="compact-companion"></dd></div>
-                            <div class="compact-property orbit-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Companion mass</button><span id="companion-mass-limit-term" class="tooltip mass-metric-tooltip" role="tooltip">Worked out from the pulsar’s orbit. The orbit’s tilt is unknown, so the companion has at least the first value; the median is its most likely mass.</span></dt><dd id="companion-mass-limit"></dd></div>
+                            <div class="compact-property orbit-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="mass">Companion mass</button><span id="companion-mass-limit-term" class="tooltip mass-metric-tooltip" role="tooltip">Worked out from the pulsar’s orbit. The orbit’s tilt is unknown, so the companion has at least the first value; the median is its most likely mass.</span></dt><dd id="companion-mass-limit"></dd></div>
                             <div class="compact-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Detection</button><span id="detection-method-term" class="tooltip mass-metric-tooltip" role="tooltip">How astronomers found the object or worked out what it is.</span></dt><dd id="detection-method"></dd></div>
                             <div class="compact-property" hidden><dt>Source</dt><dd><a id="compact-source" target="_blank" rel="noreferrer"></a></dd></div>
-                            <div class="nebula-property" hidden><dt>Apparent size</dt><dd id="nebula-angular-size"></dd></div>
+                            <div class="nebula-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="apparent-size">Apparent size</button></dt><dd id="nebula-angular-size"></dd></div>
                             <div class="nebula-property" hidden><dt>Modeled extent</dt><dd id="nebula-extent"></dd></div>
                             <div class="nebula-property" hidden><dt>Illuminated by</dt><dd id="nebula-illumination"></dd></div>
                             <div class="nebula-property" hidden><dt>Distance source</dt><dd id="nebula-distance-source"></dd></div>
@@ -131,18 +131,18 @@
                             <div><dt>Y</dt><dd id="coordinate-y"></dd></div>
                             <div><dt>Z</dt><dd id="coordinate-z"></dd></div>
                             <div><dt>In-plane distance</dt><dd id="plane-distance"></dd></div>
-                            <div><dt>Epoch</dt><dd id="epoch"></dd></div>
-                            <div><dt>Velocity X</dt><dd id="velocity-x"></dd></div>
-                            <div><dt>Velocity Y</dt><dd id="velocity-y"></dd></div>
-                            <div><dt>Velocity Z</dt><dd id="velocity-z"></dd></div>
+                            <div><dt><button type="button" class="mass-metric-help" data-glossary-term="epoch">Epoch</button></dt><dd id="epoch"></dd></div>
+                            <div><dt><button type="button" class="mass-metric-help" data-glossary-term="space-velocity">Velocity X</button></dt><dd id="velocity-x"></dd></div>
+                            <div><dt><button type="button" class="mass-metric-help" data-glossary-term="space-velocity">Velocity Y</button></dt><dd id="velocity-y"></dd></div>
+                            <div><dt><button type="button" class="mass-metric-help" data-glossary-term="space-velocity">Velocity Z</button></dt><dd id="velocity-z"></dd></div>
                             <div><dt>Motion data</dt><dd id="motion-data"></dd></div>
-                            <div><dt>Right ascension</dt><dd id="right-ascension"></dd></div>
-                            <div><dt>Declination</dt><dd id="declination"></dd></div>
-                            <div><dt>Astrometry epoch</dt><dd id="astrometry-epoch"></dd></div>
-                            <div><dt>Parallax</dt><dd id="parallax"></dd></div>
-                            <div><dt>RA proper motion</dt><dd id="proper-motion-ra"></dd></div>
-                            <div><dt>Dec proper motion</dt><dd id="proper-motion-dec"></dd></div>
-                            <div><dt>Radial velocity</dt><dd id="radial-velocity"></dd></div>
+                            <div><dt><button type="button" class="mass-metric-help" data-glossary-term="right-ascension">Right ascension</button></dt><dd id="right-ascension"></dd></div>
+                            <div><dt><button type="button" class="mass-metric-help" data-glossary-term="declination">Declination</button></dt><dd id="declination"></dd></div>
+                            <div><dt><button type="button" class="mass-metric-help" data-glossary-term="epoch">Astrometry epoch</button></dt><dd id="astrometry-epoch"></dd></div>
+                            <div><dt><button type="button" class="mass-metric-help" data-glossary-term="parallax">Parallax</button></dt><dd id="parallax"></dd></div>
+                            <div><dt><button type="button" class="mass-metric-help" data-glossary-term="proper-motion">RA proper motion</button></dt><dd id="proper-motion-ra"></dd></div>
+                            <div><dt><button type="button" class="mass-metric-help" data-glossary-term="proper-motion">Dec proper motion</button></dt><dd id="proper-motion-dec"></dd></div>
+                            <div><dt><button type="button" class="mass-metric-help" data-glossary-term="radial-velocity">Radial velocity</button></dt><dd id="radial-velocity"></dd></div>
                             <div><dt>Astrometry source</dt><dd id="astrometry-source"></dd></div>
                           </dl>
                           <p id="star-notes" class="star-notes"></p>
@@ -180,7 +180,7 @@
             </section>
             <section id="metallicity-card" class="dock-card object-type-card metallicity-card" aria-labelledby="metallicity-heading" data-scene-obstacle hidden>
               <div class="panel-heading">
-                <h2 id="metallicity-heading">Metallicity</h2>
+                <h2 id="metallicity-heading"><button id="metallicity-heading-term" type="button" class="mass-metric-help" data-glossary-term="metallicity">Metallicity</button></h2>
                 <button id="metallicity-lock" class="panel-lock" type="button" aria-label="Keep Metallicity open" aria-pressed="false"><span id="metallicity-lock-icon"></span></button>
                 <button id="metallicity-close" class="panel-lock" type="button" aria-label="Close metallicity card"><span id="metallicity-close-icon"></span></button>
               </div>
@@ -243,7 +243,7 @@
             </section>
             <section id="mass-card" class="dock-card object-type-card mass-card" aria-labelledby="mass-heading" data-scene-obstacle hidden>
               <div class="panel-heading">
-                <h2 id="mass-heading">Mass</h2>
+                <h2 id="mass-heading"><button type="button" class="mass-metric-help" data-glossary-term="mass">Mass</button></h2>
                 <button id="mass-lock" class="panel-lock" type="button" aria-label="Keep Mass open" aria-pressed="false"><span id="mass-lock-icon"></span></button>
                 <button id="mass-close" class="panel-lock" type="button" aria-label="Close mass card"><span id="mass-close-icon"></span></button>
               </div>
@@ -259,7 +259,7 @@
               </div>
             </section>
             <section id="temperature-card" class="dock-card object-type-card temperature-card" aria-labelledby="temperature-heading" data-scene-obstacle hidden>
-              <div class="panel-heading temperature-heading"><h2 id="temperature-heading">Temperature</h2><button id="temperature-lock" class="panel-lock" type="button" aria-label="Keep Temperature open" aria-pressed="false"><span id="temperature-lock-icon"></span></button><button id="temperature-close" class="panel-lock" type="button" aria-label="Close temperature card"><span id="temperature-close-icon"></span></button></div>
+              <div class="panel-heading temperature-heading"><h2 id="temperature-heading"><button type="button" class="mass-metric-help" data-glossary-term="temperature">Temperature</button></h2><button id="temperature-lock" class="panel-lock" type="button" aria-label="Keep Temperature open" aria-pressed="false"><span id="temperature-lock-icon"></span></button><button id="temperature-close" class="panel-lock" type="button" aria-label="Close temperature card"><span id="temperature-close-icon"></span></button></div>
               <div class="card-scroll-content mass-body temperature-body">
                 <div class="temperature-overview">
                   <span id="temperature-value-icon" aria-hidden="true"></span>
@@ -293,7 +293,7 @@
             </section>
             <section id="luminosity-card" class="dock-card object-type-card luminosity-card" aria-labelledby="luminosity-heading" data-scene-obstacle hidden>
               <div class="panel-heading">
-                <h2 id="luminosity-heading">Bolometric luminosity</h2>
+                <h2 id="luminosity-heading"><button type="button" class="mass-metric-help" data-glossary-term="bolometric-luminosity">Bolometric luminosity</button></h2>
                 <button id="luminosity-lock" class="panel-lock" type="button" aria-label="Keep Bolometric luminosity open" aria-pressed="false"><span id="luminosity-lock-icon"></span></button>
                 <button id="luminosity-close" class="panel-lock" type="button" aria-label="Close bolometric luminosity card"><span id="luminosity-close-icon"></span></button>
               </div>
@@ -357,7 +357,7 @@
               </div>
             </section>
             <section id="magnitude-card" class="dock-card object-type-card magnitude-card" aria-labelledby="magnitude-heading" data-scene-obstacle hidden>
-              <div class="panel-heading magnitude-heading"><h2 id="magnitude-heading">Magnitude</h2><button id="magnitude-lock" class="panel-lock" type="button" aria-label="Keep Magnitude open" aria-pressed="false"><span id="magnitude-lock-icon"></span></button><button id="magnitude-close" class="panel-lock" type="button" aria-label="Close magnitude card"><span id="magnitude-close-icon"></span></button></div>
+              <div class="panel-heading magnitude-heading"><h2 id="magnitude-heading"><button type="button" class="mass-metric-help" data-glossary-term="apparent-magnitude">Magnitude</button></h2><button id="magnitude-lock" class="panel-lock" type="button" aria-label="Keep Magnitude open" aria-pressed="false"><span id="magnitude-lock-icon"></span></button><button id="magnitude-close" class="panel-lock" type="button" aria-label="Close magnitude card"><span id="magnitude-close-icon"></span></button></div>
               <div class="card-scroll-content mass-body magnitude-body">
                 <section class="magnitude-section" aria-labelledby="magnitude-absolute-heading">
                   <div class="magnitude-value-heading">
@@ -425,7 +425,7 @@
             </section>
             <section id="spectral-card" class="dock-card object-type-card spectral-card" aria-labelledby="spectral-heading" data-scene-obstacle hidden>
               <div class="panel-heading spectral-heading">
-                <h2 id="spectral-heading">Spectral type</h2>
+                <h2 id="spectral-heading"><button type="button" class="mass-metric-help" data-glossary-term="spectral-type">Spectral type</button></h2>
                 <div class="distance-reference-buttons" role="group" aria-label="Spectral type diagram">
                   <span class="mass-reference-option" data-tooltip-always><button id="spectral-hr" class="object-section-button distance-reference-button" type="button" aria-pressed="true" aria-controls="spectral-hr-content" aria-describedby="spectral-hr-tooltip">H-R</button><span id="spectral-hr-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Hertzsprung–Russell diagram. Shows how a star’s temperature relates to its intrinsic brightness.</span></span>
                   <span class="mass-reference-option" data-tooltip-always><button id="spectral-mk" class="object-section-button distance-reference-button" type="button" aria-pressed="false" aria-controls="spectral-mk-content" aria-describedby="spectral-mk-tooltip">M-K</button><span id="spectral-mk-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Morgan–Keenan classification. Groups stars by the patterns in their spectra: spectral type indicates temperature, and luminosity class distinguishes dwarfs, giants, and supergiants. White dwarfs and brown dwarfs use separate schemes.</span></span>
@@ -574,7 +574,7 @@
             </section>
             <section id="radius-card" class="dock-card object-type-card radius-card" aria-labelledby="radius-heading" data-scene-obstacle hidden>
               <div class="panel-heading">
-                <h2 id="radius-heading">Radius</h2>
+                <h2 id="radius-heading"><button type="button" class="mass-metric-help" data-glossary-term="radius">Radius</button></h2>
                 <button id="radius-lock" class="panel-lock" type="button" aria-label="Keep Radius open" aria-pressed="false"><span id="radius-lock-icon"></span></button>
                 <button id="radius-close" class="panel-lock" type="button" aria-label="Close radius card"><span id="radius-close-icon"></span></button>
               </div>
@@ -912,16 +912,20 @@
                 </div>
                 <div class="glossary-body">
                   <nav id="glossary-terms" class="glossary-terms" aria-label="Glossary terms"></nav>
-                  <article id="glossary-detail" class="glossary-detail" aria-labelledby="glossary-term-heading">
-                    <h3 id="glossary-term-heading"></h3>
-                    <figure id="glossary-figure" class="glossary-figure" hidden>
-                      <img id="glossary-image" alt="" decoding="async" />
-                      <figcaption id="glossary-caption"></figcaption>
-                    </figure>
-                    <p id="glossary-description" class="glossary-description"></p>
-                    <a id="glossary-source" class="glossary-source" target="_blank" rel="noreferrer">Read more on Wikipedia <span aria-hidden="true">↗</span></a>
-                    <p id="glossary-attribution" class="glossary-attribution">Summarized from Wikipedia · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a></p>
-                    <p id="glossary-image-credit" class="glossary-image-credit" hidden></p>
+                  <article id="glossary-detail" class="constellations-detail" aria-labelledby="glossary-term-heading">
+                    <div class="panel-heading constellations-detail-heading top-lists-detail-heading">
+                      <button id="glossary-sidebar" class="panel-lock sidebar-toggle" type="button" aria-label="Collapse sidebar" aria-expanded="true" aria-controls="glossary-terms" title="Collapse sidebar"><span id="glossary-sidebar-icon"></span></button>
+                      <button id="glossary-back" class="panel-lock sidebar-toggle" type="button" aria-label="Back to term list" title="Back to term list"><span id="glossary-back-icon"></span></button>
+                      <h3 id="glossary-term-heading" tabindex="-1"></h3>
+                    </div>
+                    <div id="glossary-content" class="glossary-detail">
+                      <p id="glossary-lead" class="glossary-description glossary-lead"></p>
+                      <div id="glossary-article"></div>
+                      <p id="glossary-related" class="glossary-related" hidden></p>
+                      <p class="glossary-source"><a id="glossary-source" target="_blank" rel="noreferrer" hidden></a><a id="glossary-reference" target="_blank" rel="noreferrer" hidden></a></p>
+                      <p id="glossary-also" class="glossary-also" hidden></p>
+                      <p id="glossary-attribution" class="glossary-attribution" hidden>Summarized from Wikipedia · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a></p>
+                    </div>
                   </article>
                   <p id="glossary-empty" class="glossary-empty" role="status" hidden>No matching terms. Try another search.</p>
                 </div>

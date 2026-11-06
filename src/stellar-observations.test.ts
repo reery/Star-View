@@ -4,6 +4,7 @@ import { parseStarCatalog } from './catalog'
 import { parseObjectIdentities, supplementObjectIdentities } from './designations'
 import { parseObjectStats, supplementObjectStats } from './object-stats'
 import { supplementStellarObservations, supplementSurfaceGravity } from './stellar-observations'
+import { specValues } from './spec-values'
 import { completeCatalogCompanions } from './stellar-companions'
 import { mergeCatalogStars, parseCatalogPayload } from './catalog-runtime'
 import { DEFAULT_CATALOG_MANIFEST } from './catalog-manifest'
@@ -49,6 +50,22 @@ describe('scoped WISE 0855-0714 observations', () => {
     expect(completed).toHaveLength(completeCatalogCompanions(stars).length)
     const reviewedIds = new Set(Object.keys(observationData.objects))
     expect(completed.filter((star) => !reviewedIds.has(star.id))).toEqual(completeCatalogCompanions(stars).filter((star) => !reviewedIds.has(star.id)))
+  })
+
+  it.each(catalogs)('adopts the reviewed JWST-era physical values and marks modelled ones in $path', ({ stars }) => {
+    const wise = supplementStellarObservations(stars).find((star) => star.id === 'wise-0855-0714')!
+    expect(wise).toMatchObject({ temperature_k: 276, luminosity_solar: 6.0256e-8, constellation: 'Hydra' })
+    // Stefan-Boltzmann scaling from the adopted inputs lands inside the 0.10-0.11 R☉ evolutionary prediction.
+    expect(wise.radius_solar).toBeCloseTo(Math.sqrt(6.0256e-8) * (5772 / 276) ** 2, 8)
+    expect(wise.radius_solar).toBeGreaterThan(0.1)
+    expect(wise.radius_solar).toBeLessThan(0.11)
+    expect(Math.hypot(wise.x_pc, wise.y_pc, wise.z_pc)).toBeCloseTo(1000 / 439, 5)
+    expect(wise.notes).toContain('log(L/Lsun) = -8.57 +/- 0.06')
+    const values = specValues(wise, stars.find((star) => star.id === 'sun')!, 'ly')
+    expect(values.temperature).toMatchObject({ text: '276 K', unresolved: true, label: 'Temperature (model)' })
+    expect(values.temperature!.title).toContain('Modelled, not measured.')
+    expect(values.radius).toMatchObject({ text: '0.1 R☉', unresolved: true, label: 'Radius (model)' })
+    expect(values.luminosity!.unresolved).toBeFalsy()
   })
 
   it('rejects a mismatched object identity and preserves the observations across payload loading and catalog merging', () => {

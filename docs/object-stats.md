@@ -44,9 +44,9 @@ with a description-unavailable message. Descriptions use the
 [NASA stellar overview](https://science.nasa.gov/universe/stars/types/), and
 [IPAC L/T dwarf classification overview](https://www.ipac.caltech.edu/2mass/overview/dwarfs.html).
 
-The glossary reuses these descriptions for all 61 supported subtype terms.
-Its Object sub-types group adds 59 articles; Pulsar and Neutron star keep their
-existing Object types articles. Candidate labels are searchable under the base
+The glossary reuses these descriptions for all 63 supported subtype terms.
+It adds 61 articles across its groups; Pulsar and Neutron star keep their
+existing articles. Candidate labels are searchable under the base
 term. Eight
 original SVG schematics illustrate physical mechanisms where a drawing helps;
 captions identify them as schematics, and text alternatives describe each image.

@@ -6,9 +6,9 @@
   "inputSha256": "ab8a3ab6e0b0edb1372f7c58cdf4f121fe1d5d204a9a0541e6d302a5ac18c84a",
   "supplementManifestSha256": "92cb2daae1b7319401890f4e1de7f904d1d1b0375b3ac2dc93c8c41c5ecd0073",
   "gaiaSourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
-  "physicalOverridesSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+  "physicalOverridesSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
   "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
-  "sharedEnrichmentManifestSha256": "c0769f98edd40132a0d9958d183a5d70de14b73d1a0e9455d85cc71bad7d539f",
+  "sharedEnrichmentManifestSha256": "1dc0ebebded5dd31900d29a91e7f3ebd972f1e1fdce753c0a8fe3511c2c53d47",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -49,6 +49,10 @@
     {
       "name": "Ishikawa et al. 2025, Table 2, resolved Luhman 16 A/B spectroscopic radial velocities from April-June 2018; separate from systemic motion",
       "url": "https://doi.org/10.1093/mnras/staf487"
+    },
+    {
+      "name": "Leggett 2026, Table 1, WISE 0855-0714 bolometric luminosity and luminosity-based effective temperature",
+      "url": "https://arxiv.org/abs/2603.24740"
     },
     {
       "name": "Kervella et al. 2017, Alpha Centauri AB interferometric radii and effective temperatures",
@@ -886,7 +890,7 @@
         "eligible": true,
         "exclusionReason": null,
         "preservedDefaultException": false,
-        "distancePc": 2.277904360768026,
+        "distancePc": 2.2779046712222155,
         "sourceParallaxMas": 439.0,
         "sourceParallaxErrorMas": 2.4,
         "distanceSigmaPcLinearized": 0.012453235506249967,
@@ -6100,7 +6104,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -6450,7 +6454,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -7373,7 +7377,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -7734,7 +7738,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -7858,10 +7862,10 @@
       },
       "adoptedJ2000": {
         "frame": "ICRS",
-        "raDeg": 133.79500397779984,
-        "decDeg": -7.245262628566933,
-        "distancePc": 2.277904360768026,
-        "method": "Preserved existing J2000 Galactic Cartesian snapshot; inverse transform for constellation only."
+        "raDeg": 133.8189605829109,
+        "decDeg": -7.24705287840458,
+        "distancePc": 2.2779046712222155,
+        "method": "Kirkpatrick et al. (2021) position and proper motion propagated from epoch 2016.7 to J2000 with Astropy, placed at the 439.0 mas parallax; replaces coordinates from about epoch 2010.5."
       },
       "fields": {
         "type": {
@@ -7889,22 +7893,25 @@
           ]
         },
         "x_pc": {
-          "status": "adopted-existing",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:wise-0855-0714"
-          ]
+            "2021ApJS..253....7K"
+          ],
+          "detail": "Kirkpatrick et al. (2021) position and proper motion propagated from epoch 2016.7 to J2000 with Astropy, placed at the 439.0 mas parallax; replaces coordinates from about epoch 2010.5."
         },
         "y_pc": {
-          "status": "adopted-existing",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:wise-0855-0714"
-          ]
+            "2021ApJS..253....7K"
+          ],
+          "detail": "Kirkpatrick et al. (2021) position and proper motion propagated from epoch 2016.7 to J2000 with Astropy, placed at the 439.0 mas parallax; replaces coordinates from about epoch 2010.5."
         },
         "z_pc": {
-          "status": "adopted-existing",
+          "status": "derived",
           "sourceRefs": [
-            "legacy-neighbors:wise-0855-0714"
-          ]
+            "2021ApJS..253....7K"
+          ],
+          "detail": "Kirkpatrick et al. (2021) position and proper motion propagated from epoch 2016.7 to J2000 with Astropy, placed at the 439.0 mas parallax; replaces coordinates from about epoch 2010.5."
         },
         "vx_kms": {
           "status": "unknown",
@@ -7925,10 +7932,11 @@
           ]
         },
         "temperature_k": {
-          "status": "adopted-existing",
+          "status": "model-derived",
           "sourceRefs": [
-            "legacy-neighbors:wise-0855-0714"
-          ]
+            "arXiv:2603.24740:wise-0855-0714"
+          ],
+          "detail": "primary-paper; uncertainty 9.0; Leggett 2026 Table 1, luminosity-based using evolutionary models for ages of 0.5-10 Gyr"
         },
         "mass_solar": {
           "status": "unknown",
@@ -7937,11 +7945,11 @@
           ]
         },
         "luminosity_solar": {
-          "status": "model-derived",
+          "status": "measured",
           "sourceRefs": [
-            "2016A&A...592A..80Z:wise-0855-0714"
+            "arXiv:2603.24740:wise-0855-0714"
           ],
-          "detail": "primary-paper; uncertainty None; converted from log(L/Lsun) = -8.57, best-fit atmosphere has acknowledged surface-gravity tension"
+          "detail": "primary-paper; uncertainty 2.8e-09; Leggett 2026 Table 1, converted from log(L/Lsun) = -7.22 +/- 0.02, 84% observed JWST spectra, 16% Rayleigh-Jeans extension"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -8051,7 +8059,7 @@
           "sourceRefs": [
             "Stefan-Boltzmann scaling"
           ],
-          "detail": "{\"field\": \"radius_solar\", \"inputs\": {\"luminosity_solar\": 2.69153e-09, \"temperature_k\": 250.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 0.02765490939}"
+          "detail": "{\"field\": \"radius_solar\", \"inputs\": {\"luminosity_solar\": 6.0256e-08, \"temperature_k\": 276.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 0.1073580538}"
         },
         "metallicity_dex": {
           "status": "unknown",
@@ -8080,34 +8088,49 @@
       "sharedPhysicalEnrichment": {
         "radius_solar": {
           "field": "radius_solar",
-          "value": 0.02765490939,
+          "value": 0.1073580538,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
-            "temperature_k": 250.0,
-            "luminosity_solar": 2.69153e-09
+            "temperature_k": 276.0,
+            "luminosity_solar": 6.0256e-08
           }
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
             "source_record_id": "wise-0855-0714",
-            "field": "luminosity_solar",
-            "value": 2.69153e-09,
-            "uncertainty": null,
+            "field": "temperature_k",
+            "value": 276.0,
+            "uncertainty": 9.0,
             "status": "model-derived",
-            "reference": "2016A&A...592A..80Z",
+            "reference": "arXiv:2603.24740",
             "quality_flags": [
-              "converted from log(L/Lsun) = -8.57",
-              "best-fit atmosphere has acknowledged surface-gravity tension"
+              "Leggett 2026 Table 1",
+              "luminosity-based using evolutionary models for ages of 0.5-10 Gyr"
+            ]
+          },
+          {
+            "source_id": "primary-paper",
+            "source_record_id": "wise-0855-0714",
+            "field": "luminosity_solar",
+            "value": 6.0256e-08,
+            "uncertainty": 2.8e-09,
+            "status": "measured",
+            "reference": "arXiv:2603.24740",
+            "quality_flags": [
+              "Leggett 2026 Table 1",
+              "converted from log(L/Lsun) = -7.22 +/- 0.02",
+              "84% observed JWST spectra, 16% Rayleigh-Jeans extension"
             ]
           }
         ],
         "adopted": {
-          "luminosity_solar": "2016A&A...592A..80Z:wise-0855-0714"
+          "temperature_k": "arXiv:2603.24740:wise-0855-0714",
+          "luminosity_solar": "arXiv:2603.24740:wise-0855-0714"
         }
       }
     },
@@ -9017,7 +9040,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -9579,7 +9602,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -9983,7 +10006,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -10414,7 +10437,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -11464,7 +11487,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -14903,7 +14926,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -15234,7 +15257,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -17924,7 +17947,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -18822,7 +18845,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -19146,7 +19169,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -21146,7 +21169,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -22055,7 +22078,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -23559,7 +23582,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -24180,7 +24203,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -26758,7 +26781,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -27398,7 +27421,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -33901,7 +33924,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -34225,7 +34248,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -34571,7 +34594,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -35600,7 +35623,7 @@
         }
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",
@@ -38462,7 +38485,7 @@
         "eligibility": "Not a parsed K5-M9.5 dwarf spectral type (no subdwarf, giant, composite or peculiar class); supplements not applied."
       },
       "reviewedPhysical": {
-        "inputSha256": "c6f9910034b011f1d5be205bd0eb485eacac0980c9a78a989d8c2635a03be9e1",
+        "inputSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
         "observations": [
           {
             "source_id": "primary-paper",

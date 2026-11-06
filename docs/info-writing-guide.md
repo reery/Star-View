@@ -49,3 +49,16 @@ Read this before adding or editing Info text for a star, system or other object 
 - `reviewedAt` is updated when an article file’s content is reviewed.
 - Run `npm run catalog:generate` and the focused tests in `src/star-info.test.ts`.
 - Keep data-provenance sections that document catalog values (adopted or alternative measurements, model estimates with their assumptions) unchanged unless the catalog data changes; tests check some of their wording.
+
+## Glossary articles
+
+Glossary text lives in `src/glossary-index.ts` (the one-line summary) and `src/glossary-articles-*.ts` (everything else, one file per group). Write for someone who has never heard the term, while leaving something for a keen hobbyist. The style rules above apply; these differ because a term is an idea, not an object.
+
+- `summary` is one plain sentence defining the term. It appears first in the article and is what search reads, so avoid jargon and do not start with a lowercase verb.
+- `details` gives a picture or comparison that makes the idea click. Short terms can stop here. Do not pad.
+- `sections` tell the stories, or explain how something works, for terms that deserve it: one theme each, with a hook for a title. A section whose facts come from another page needs its own `source`.
+- `deeper` is the one collapsed part: notation, formulas, exact values and caveats for hobbyists. Everything needed to understand the term must be above it.
+- `figure` adds a picture, and each section can have its own. Add a schematic when a drawing explains a mechanism better than words, and describe it in `alt`. Schematics are listed in `src/assets/glossary/README.md`.
+- `interactive` adds a diagram when playing with a value teaches what text cannot. Keep it to a few controls, say in its note whether values are simplified, and start it on a meaningful default, such as the Sun. Diagrams never animate until the reader presses play.
+- `related` lists three to five terms worth reading next. Mentions of other terms in the text link themselves.
+- Keep every fact supported by the cited sources, and check each number against them before committing. When a fact comes from another page, such as a specific star’s, add that page to `also` (or give a section its own `source`). `reference` can add a page beside the main source, such as a class definition.

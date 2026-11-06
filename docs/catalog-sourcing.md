@@ -1,5 +1,22 @@
 # Offline Catalog Sourcing
 
+## WISE 0855-0714 physical review (2026-11-06)
+
+Reviewed values live in `catalog-work/nearest-100/physical-overrides.json`, which
+also corrects the position.
+
+- **Luminosity:** log(L/L☉) = −7.22 ± 0.02 from [Leggett (2026), Table 1](https://arxiv.org/abs/2603.24740),
+  integrated over JWST NIRSpec and MIRI spectra plus a Rayleigh–Jeans tail (16% of
+  the total). It replaces −8.57 ± 0.06 from Zapatero Osorio et al. (2016), a
+  model scaled to the W2 band, which stays in the notes as superseded.
+- **Temperature:** 276 ± 9 K from the same table, based on luminosity and evolutionary
+  models. It replaces the assigned 250 K. The inspector labels it
+  “Temperature (model)”, because published estimates span about 250–297 K.
+- **Radius:** 0.1074 R☉ (1.045 R♃) by Stefan-Boltzmann scaling from those inputs,
+  labelled “Radius (model)”. The previous 0.0277 R☉ is retired as wrong.
+- **Position:** Kirkpatrick et al. (2021) astrometry propagated to J2000. Earlier
+  rows used coordinates from about epoch 2010.5, 86″ away.
+
 ## WISE 0855-0714 scoped observations (2026-10-15)
 
 The reviewed supplement in `src/data/stellar-observations.json` is applied after

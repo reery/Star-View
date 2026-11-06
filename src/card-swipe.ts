@@ -239,6 +239,8 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
     active.outgoingHeading.forEach((part) => settle(part, { transform: shift(direction * HEADING_SHIFT_PX), opacity: 0 }))
     // Rendering waits until the old content is gone, so even a heavy card cannot stutter its way out.
     await Promise.all(active.outgoingBody.map((part) => settle(part, { transform: shift(direction * oldWidth), opacity: 0 }).finished))
+    // A card whose module is loaded renders during the click, and its charts measure themselves: the peek must be over.
+    dropIncoming(active)
     if (!card.hidden) toggle.click()
     endStep(active)
     if (!opened.hidden && !reducedMotion.matches) drawIn(opened, oldWidth, oldHeight, `inset(0 0 calc(100% - ${headingHeight}px) 0 round ${radius})`, `inset(0 0 0 0 round ${radius})`)

@@ -96,6 +96,8 @@ function stellarDiagram(system: StarSystem, orbit: StellarOrbit | undefined, col
   return diagram
 }
 
+const ORBIT_TERMS: Record<string, string> = { period: 'orbital-period', axis: 'semi-major-axis', eccentricity: 'eccentricity', inclination: 'inclination', node: 'periastron', epoch: 'periastron', argument: 'periastron' }
+
 const terms = [
   ['primary', 'Primary', 'The reference star, or inner pair’s center of mass, used for this relative orbit.'],
   ['period', 'Period', 'Time for the two members to complete one orbit relative to each other.'],
@@ -131,6 +133,7 @@ function orbitDetails(orbit: StellarOrbit | undefined): HTMLElement {
     help.type = 'button'
     help.className = 'mass-metric-help'
     help.textContent = label
+    if (id in ORBIT_TERMS) help.dataset.glossaryTerm = ORBIT_TERMS[id]
     const tooltip = document.createElement('span')
     tooltip.id = `stellar-orbit-${id}-tooltip`
     tooltip.className = 'tooltip mass-metric-tooltip stellar-orbit-tooltip'

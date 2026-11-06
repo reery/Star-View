@@ -31,7 +31,7 @@ interface GraphContext extends GraphOptions, GraphView { full: GraphView | null;
  * A collapsible graph inside a topic; topics can hold several. `scalable` graphs switch between log and linear axes, `binned` graphs change their bin count.
  * `boxed` graphs select drawn boxes, which their heading zooms into and clears. `short` names the graph in the filter bar when its title changes or carries units.
  */
-interface GraphSection { id: string; title: string | ((context: GraphContext) => string); short?: string; icon: IconNode; scalable?: boolean; binned?: boolean; boxed?: boolean; render(context: GraphContext): Node[] }
+interface GraphSection { id: string; glossaryTerm?: string; title: string | ((context: GraphContext) => string); short?: string; icon: IconNode; scalable?: boolean; binned?: boolean; boxed?: boolean; render(context: GraphContext): Node[] }
 interface GraphTopic { id: string; title: string; icon: IconNode; sections: GraphSection[] }
 /** A clickable bar, column or box that narrows the view to the objects it counts; ranges hold low and high ends, per axis. */
 interface Selection { key: string; label: string; test: ObjectTest; range?: readonly number[] }
@@ -639,25 +639,25 @@ function luminosityClassBars(context: GraphContext): Node[] {
 const topics: GraphTopic[] = [
   { id: 'star-distribution', title: 'Star distribution', icon: ChartPie, sections: [
     { id: 'object-types', title: 'Object types', icon: ChartBar, render: objectTypeBars },
-    { id: 'spectral-classes', title: 'Spectral classes', icon: ChartBar, render: spectralClassBars },
+    { id: 'spectral-classes', glossaryTerm: 'spectral-type', title: 'Spectral classes', icon: ChartBar, render: spectralClassBars },
     { id: 'distance', title: ({ distanceUnit, referenceName }) => `Distance from ${referenceName} (${distanceUnit})`, short: 'Distance', icon: ChartColumn, scalable: true, binned: true, render: distanceHistogram },
     { id: 'motion', title: ({ referenceName }) => `Motion relative to ${referenceName}`, short: 'Motion', icon: ChartBar, render: motionBars },
-    { id: 'multiplicity', title: 'Multiplicity', icon: ChartBar, render: multiplicityBars },
+    { id: 'multiplicity', glossaryTerm: 'binary', title: 'Multiplicity', icon: ChartBar, render: multiplicityBars },
     { id: 'planet-hosts', title: 'Known planet hosts', icon: ChartBar, render: planetHostBars },
   ] },
   { id: 'physical-properties', title: 'Physical properties', icon: Gauge, sections: [
-    { id: 'hr-diagram', title: 'HR diagram', icon: ChartScatter, boxed: true, render: hrScatter },
-    { id: 'mass', title: 'Mass (M☉)', icon: ChartColumn, binned: true, render: solarHistogram('mass_solar', 'M☉', 'a mass') },
-    { id: 'radius', title: 'Radius (R☉)', icon: ChartColumn, binned: true, render: solarHistogram('radius_solar', 'R☉', 'a radius') },
-    { id: 'luminosity', title: 'Luminosity (L☉)', icon: ChartColumn, binned: true, render: solarHistogram('luminosity_solar', 'L☉', 'a luminosity') },
-    { id: 'temperature', title: 'Temperature (K)', icon: ChartColumn, binned: true, render: temperatureHistogram },
-    { id: 'metallicity', title: 'Metallicity (dex)', icon: ChartColumn, binned: true, render: metallicityHistogram },
-    { id: 'apparent-magnitude', title: 'Apparent magnitude', icon: ChartColumn, binned: true, render: apparentMagnitudeHistogram },
-    { id: 'absolute-magnitude', title: 'Absolute magnitude', icon: ChartColumn, binned: true, render: absoluteMagnitudeHistogram },
+    { id: 'hr-diagram', glossaryTerm: 'hr-diagram', title: 'HR diagram', icon: ChartScatter, boxed: true, render: hrScatter },
+    { id: 'mass', glossaryTerm: 'mass', title: 'Mass (M☉)', icon: ChartColumn, binned: true, render: solarHistogram('mass_solar', 'M☉', 'a mass') },
+    { id: 'radius', glossaryTerm: 'radius', title: 'Radius (R☉)', icon: ChartColumn, binned: true, render: solarHistogram('radius_solar', 'R☉', 'a radius') },
+    { id: 'luminosity', glossaryTerm: 'solar-luminosity', title: 'Luminosity (L☉)', icon: ChartColumn, binned: true, render: solarHistogram('luminosity_solar', 'L☉', 'a luminosity') },
+    { id: 'temperature', glossaryTerm: 'temperature', title: 'Temperature (K)', icon: ChartColumn, binned: true, render: temperatureHistogram },
+    { id: 'metallicity', glossaryTerm: 'metallicity', title: 'Metallicity (dex)', icon: ChartColumn, binned: true, render: metallicityHistogram },
+    { id: 'apparent-magnitude', glossaryTerm: 'apparent-magnitude', title: 'Apparent magnitude', icon: ChartColumn, binned: true, render: apparentMagnitudeHistogram },
+    { id: 'absolute-magnitude', glossaryTerm: 'absolute-magnitude', title: 'Absolute magnitude', icon: ChartColumn, binned: true, render: absoluteMagnitudeHistogram },
   ] },
   { id: 'subtypes', title: 'Subtypes', icon: Layers, sections: [
     { id: 'white-dwarf-classes', title: 'White dwarf classes', icon: ChartBar, render: whiteDwarfClassBars },
-    { id: 'luminosity-classes', title: 'Luminosity classes', icon: ChartBar, render: luminosityClassBars },
+    { id: 'luminosity-classes', glossaryTerm: 'luminosity-class', title: 'Luminosity classes', icon: ChartBar, render: luminosityClassBars },
   ] },
 ]
 
@@ -801,6 +801,11 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
       const title = document.createElement('span')
       title.className = 'graph-section-title'
       title.textContent = title.title = typeof section.title === 'string' ? section.title : section.title(context)
+      if (section.glossaryTerm) {
+        const term = Object.assign(document.createElement('button'), { type: 'button', className: 'mass-metric-help', textContent: title.textContent })
+        term.dataset.glossaryTerm = section.glossaryTerm
+        title.replaceChildren(term)
+      }
       const chevron = svg(ChevronUp)
       chevron.classList.add('graph-section-chevron')
       // The selection follows the title, or wraps below it when space runs out.
