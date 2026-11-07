@@ -36,7 +36,9 @@ GENITIVES = dict(re.findall(r"([A-Za-z]{3}):(.+?)(?= [A-Za-z]{3}:|$)", (
 
 
 def key(value):
-    return " ".join(value.split()).casefold()
+    value = " ".join(value.split())
+    # Single-letter Bayer and Lacaille names differ by case: E Pup and e Pup are different stars.
+    return value if re.fullmatch(r"(?:\* )?[A-Za-z]\d{0,2} [A-Z][A-Za-z]{2}", value) else value.casefold()
 
 
 def display(value):

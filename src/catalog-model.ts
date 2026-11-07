@@ -243,6 +243,8 @@ export interface StellarObservations {
     source_url: string
     scope: string
   }
+  /** A published model mass, never a measurement; mass_solar stays null. */
+  mass_model?: { value_solar: number; status: 'model-derived'; reference: string; source_url: string; scope: string }
   /** Scalars that charts and cards need, but which come from models rather than measurement. */
   modelled_values?: Partial<Record<'temperature_k' | 'radius_solar', {
     status: 'model-derived'

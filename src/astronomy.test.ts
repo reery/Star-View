@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import csv from './data/stars.csv?raw'
 import { parseStarCatalog } from './catalog'
 import type { ObjectType } from './catalog-model'
-import { displayMotionForStar, galacticToWorld, galacticVelocityToWorld, galactocentricVelocityToWorld, gridScaleForViewDistance, rawAstrometryVelocityToWorld, SOLAR_GALACTIC_VELOCITY_KMS, starDisplayColor, sunRelativeMetrics, temperatureToColor } from './astronomy'
+import { mapAbsoluteMagnitude, displayMotionForStar, galacticToWorld, galacticVelocityToWorld, galactocentricVelocityToWorld, gridScaleForViewDistance, rawAstrometryVelocityToWorld, SOLAR_GALACTIC_VELOCITY_KMS, starDisplayColor, sunRelativeMetrics, temperatureToColor } from './astronomy'
 
 const stars = parseStarCatalog(csv)
 const sun = stars.find((star) => star.id === 'sun')!
@@ -247,5 +247,14 @@ describe('star display color', () => {
       expect(starDisplayColor(star).equals(temperatureToColor(star.temperature_k))).toBe(false)
     }
     expect(brownDwarf(null, 'T6', 'sub_brown_dwarf').equals(brownDwarf(null, 'T6'))).toBe(true)
+  })
+})
+
+describe('map brightness of unresolved parents', () => {
+  const position = { x_pc: 10, y_pc: 0, z_pc: 0 }
+  it('keeps an individual magnitude and otherwise shows the blended light', () => {
+    expect(mapAbsoluteMagnitude({ ...position, absolute_mag: 1.5, unresolved_photometry: { magnitude_v: 9 } })).toBe(1.5)
+    expect(mapAbsoluteMagnitude({ ...position, absolute_mag: null, unresolved_photometry: { magnitude_v: 2 } })).toBeCloseTo(2)
+    expect(mapAbsoluteMagnitude({ ...position, absolute_mag: null })).toBeNull()
   })
 })

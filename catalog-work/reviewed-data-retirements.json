@@ -4728,6 +4728,176 @@
       "expectedPrevious": "0.02765490939",
       "expectedCurrent": "0.1073580538",
       "reason": "radius_solar: the previous 0.02765490939 (0.27 Jupiter radii) of WISE 0855-0714 was derived by Stefan-Boltzmann scaling from log(L/Lsun) = -8.57 and 250 K. JWST luminosities are about 18-22 times higher (Luhman et al. 2024; Kuhnle et al. 2025; Leggett 2026), and evolutionary models predict 0.10-0.11 Rsun (Luhman et al. 2024). The same scaling from Leggett's log(L/Lsun) = -7.22 and 276 K gives 0.1073580538 Rsun. Retired as wrong; it is not a published measurement."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-0111",
+      "field": "age_gyr",
+      "expectedPrevious": "9.949624",
+      "expectedCurrent": "0.85",
+      "reason": "age_gyr: the previous 9.949624 (Gyr) of 9 Cet is rejected by the literature-conflict review (record * 9 Cet). This Gaia DR3 FLAME age contradicts the star's high chromospheric activity (log R'HK = -4.49) and BY Draconis spot modulation (BE Cet, P = 7.3 d). Replaced by the 0.85 Gyr isochrone age of Ram\u00edrez, Mel\u00e9ndez & Asplund 2014 (2014A&A...561A...7R, Table 6). The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "cns5-0111",
+      "field": "age_gyr",
+      "expectedPrevious": "9.949624",
+      "expectedCurrent": "0.85",
+      "reason": "age_gyr: the previous 9.949624 (Gyr) of 9 Cet is rejected by the literature-conflict review (record * 9 Cet). This Gaia DR3 FLAME age contradicts the star's high chromospheric activity (log R'HK = -4.49) and BY Draconis spot modulation (BE Cet, P = 7.3 d). Replaced by the 0.85 Gyr isochrone age of Ram\u00edrez, Mel\u00e9ndez & Asplund 2014 (2014A&A...561A...7R, Table 6). The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-0026",
+      "field": "age_gyr",
+      "expectedPrevious": "9.598317",
+      "expectedCurrent": "0.2",
+      "reason": "age_gyr: the previous 9.598317 (Gyr) of HD 166 is rejected by the literature-conflict review (record HD 166). Gaia DR3 FLAME age of 9.6 Gyr contradicts the star's BY Draconis spot modulation (V439 And, BY Draconis variable, period 6.23 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). Replaced by about 200 Myr from chromospheric activity, Mamajek & Hillenbrand (2008). The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "cns5-0026",
+      "field": "age_gyr",
+      "expectedPrevious": "9.598317",
+      "expectedCurrent": "0.2",
+      "reason": "age_gyr: the previous 9.598317 (Gyr) of HD 166 is rejected by the literature-conflict review (record HD 166). Gaia DR3 FLAME age of 9.6 Gyr contradicts the star's BY Draconis spot modulation (V439 And, BY Draconis variable, period 6.23 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). Replaced by about 200 Myr from chromospheric activity, Mamajek & Hillenbrand (2008). The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-3667",
+      "field": "age_gyr",
+      "expectedPrevious": "5.2895403",
+      "expectedCurrent": "0.79",
+      "reason": "age_gyr: the previous 5.2895403 (Gyr) of HD 130948 A is rejected by the literature-conflict review (record HD 130948). Gaia DR3 FLAME age of 5.3 Gyr contradicts the star's BY Draconis spot modulation (HP Boo, BY Draconis variable, period 7.85 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). Replaced by 0.79 Gyr from gyrochronology, Dupuy, Liu & Ireland (2009). The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "cns5-3667",
+      "field": "age_gyr",
+      "expectedPrevious": "5.2895403",
+      "expectedCurrent": "0.79",
+      "reason": "age_gyr: the previous 5.2895403 (Gyr) of HD 130948 A is rejected by the literature-conflict review (record HD 130948). Gaia DR3 FLAME age of 5.3 Gyr contradicts the star's BY Draconis spot modulation (HP Boo, BY Draconis variable, period 7.85 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). Replaced by 0.79 Gyr from gyrochronology, Dupuy, Liu & Ireland (2009). The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4763",
+      "field": "age_gyr",
+      "expectedPrevious": "4.446168",
+      "expectedCurrent": "0.69",
+      "reason": "age_gyr: the previous 4.446168 (Gyr) of HD 180161 is rejected by the literature-conflict review (record HD 180161). Gaia DR3 FLAME age of 4.4 Gyr contradicts the star's BY Draconis spot modulation (MV Dra, BY Draconis variable, period 5.49 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). Replaced by 0.69 Gyr from chromospheric activity, Vican (2012). The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-3307",
+      "field": "age_gyr",
+      "expectedPrevious": "3.3994987",
+      "expectedCurrent": "0.597",
+      "reason": "age_gyr: the previous 3.3994987 (Gyr) of HD 116956 is rejected by the literature-conflict review (record HD 116956). Gaia DR3 FLAME age of 3.4 Gyr contradicts the star's BY Draconis spot modulation (NQ UMa, BY Draconis variable, period 4.27 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). Replaced by about 600 Myr from chromospheric activity, Stanford-Moore et al. (2020). The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-3168",
+      "field": "age_gyr",
+      "expectedPrevious": "8.777065",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 8.777065 (Gyr) of HD 111395 is rejected by the literature-conflict review (record HD 111395). Gaia DR3 FLAME age of 8.8 Gyr contradicts the star's BY Draconis spot modulation (LW Com, BY Draconis variable, period 15.8 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). No replacement: published activity ages disagree between 0.37 Gyr (Maldonado et al. 2012) and 1.2 Gyr (Wright et al. 2004), so none is adopted. The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-2675",
+      "field": "age_gyr",
+      "expectedPrevious": "11.58994",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 11.58994 (Gyr) of HD 94765 is rejected by the literature-conflict review (record HD 94765). Gaia DR3 FLAME age of 11.6 Gyr contradicts the star's BY Draconis spot modulation (GY Leo, BY Draconis variable, period 11.43 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). No replacement: no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues. The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4150",
+      "field": "age_gyr",
+      "expectedPrevious": "10.960114",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 10.960114 (Gyr) of HD 153525 is rejected by the literature-conflict review (record HD 153525). Gaia DR3 FLAME age of 11.0 Gyr contradicts the star's BY Draconis spot modulation (V1089 Her, BY Draconis variable, period 15.39 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). No replacement: no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues. The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-2364",
+      "field": "age_gyr",
+      "expectedPrevious": "5.91449",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 5.91449 (Gyr) of HD 82443 is rejected by the literature-conflict review (record HD 82443). Gaia DR3 FLAME age of 5.9 Gyr contradicts the star's BY Draconis spot modulation (DX Leo, BY Draconis variable) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). No replacement: no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues. The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-5755",
+      "field": "age_gyr",
+      "expectedPrevious": "11.684176",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 11.684176 (Gyr) of HD 220182 is rejected by the literature-conflict review (record HD 220182). Gaia DR3 FLAME age of 11.7 Gyr contradicts the star's BY Draconis spot modulation (V453 And, BY Draconis variable, period 7.489 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). No replacement: no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues. The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-5503",
+      "field": "age_gyr",
+      "expectedPrevious": "11.987797",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 11.987797 (Gyr) of HD 211472 is rejected by the literature-conflict review (record HD 211472). Gaia DR3 FLAME age of 12.0 Gyr contradicts the star's BY Draconis spot modulation (V447 Lac, BY Draconis variable, period 4.4266 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). No replacement: no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues. The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-2364",
+      "field": "age_gyr",
+      "expectedPrevious": 5.91449,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 5.91449 (Gyr) of HD 82443 is rejected by the literature-conflict review (record HD 82443). Gaia DR3 FLAME age of 5.9 Gyr contradicts the star's BY Draconis spot modulation (DX Leo, BY Draconis variable) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). No replacement: no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues. The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-5503",
+      "field": "age_gyr",
+      "expectedPrevious": 11.987797,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 11.987797 (Gyr) of HD 211472 is rejected by the literature-conflict review (record HD 211472). Gaia DR3 FLAME age of 12.0 Gyr contradicts the star's BY Draconis spot modulation (V447 Lac, BY Draconis variable, period 4.4266 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). No replacement: no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues. The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-4150",
+      "field": "age_gyr",
+      "expectedPrevious": 10.960114,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 10.960114 (Gyr) of HD 153525 is rejected by the literature-conflict review (record HD 153525). Gaia DR3 FLAME age of 11.0 Gyr contradicts the star's BY Draconis spot modulation (V1089 Her, BY Draconis variable, period 15.39 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). No replacement: no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues. The rejected value stays only in the review ledger."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-1322",
+      "field": "catalog_sources.nearest-1000.subtypes",
+      "expectedPrevious": [
+        "Carbon star",
+        "Eruptive variable",
+        "Low-mass star",
+        "Rotating variable",
+        "Spectroscopic binary"
+      ],
+      "expectedCurrent": [
+        "Eruptive variable",
+        "Low-mass star",
+        "Rotating variable",
+        "Spectroscopic binary"
+      ],
+      "reason": "catalog_sources.nearest-1000.subtypes: SIMBAD secondary class(es) Carbon star withheld by the object-stats contradiction rule (scripts/catalog_sources/classification.py contradicted): a brown dwarf cannot be a carbon star, and a mid-M dwarf is not a chemically peculiar star. The raw SIMBAD codes remain in src/data/object-stats.json sourceTypes."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-3515",
+      "field": "catalog_sources.nearest-1000.subtypes",
+      "expectedPrevious": [
+        "Chemically peculiar",
+        "Spectroscopic binary",
+        "Main-sequence"
+      ],
+      "expectedCurrent": [
+        "Spectroscopic binary",
+        "Main-sequence"
+      ],
+      "reason": "catalog_sources.nearest-1000.subtypes: SIMBAD secondary class(es) Chemically peculiar withheld by the object-stats contradiction rule (scripts/catalog_sources/classification.py contradicted): a brown dwarf cannot be a carbon star, and a mid-M dwarf is not a chemically peculiar star. The raw SIMBAD codes remain in src/data/object-stats.json sourceTypes."
     }
   ],
   "recordRetirements": [

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync, readdirSync } from 'node:fs'
+import type { Star } from './catalog-model'
 import { parseStarCatalog } from './catalog'
 import { completeCatalogCompanions } from './stellar-companions'
 import { indexStarSystems, reviewedStarSystems, starComponentIdentity } from './star-systems'
@@ -425,5 +426,37 @@ describe('component coverage shared by every catalog', () => {
     expect(a.components.map((member) => member.label)).toEqual(['Aa1', 'Aa2', 'Ab'])
     expect(d.components.map((member) => member.label)).toEqual(['Da1', 'Da2'])
     expect(a).not.toBe(d)
+  })
+})
+
+describe('reviewed naked-eye binaries', () => {
+  const pool = JSON.parse(readFileSync(new URL('./data/stellar-companions.json', import.meta.url), 'utf8')) as { stars: Star[] }
+  const star = (id: string) => pool.stars.find((candidate) => candidate.id === id)!
+
+  it('shows 49 Lib masses as models, never as measurements', () => {
+    for (const [id, mass] of [['hip-78400', 1.55], ['sb9-3221-ab', 0.5]] as const) {
+      expect(star(id).mass_solar).toBeNull()
+      expect(star(id).stellar_observations?.mass_model?.value_solar).toBe(mass)
+    }
+    expect(star('sb9-3221-ab').type).toBe('white_dwarf')
+  })
+
+  it('applies a long-baseline proper motion to every member sharing one velocity', () => {
+    const adopted = JSON.parse(readFileSync(new URL('./data/long-baseline-motion.json', import.meta.url), 'utf8')) as { objects: Record<string, { pm_ra_cosdec_masyr: number }> }
+    const shared = pool.stars.filter((candidate) => adopted.objects[candidate.id] && candidate.raw_astrometry?.astrometry_ref?.includes('2021ApJS..254...42B'))
+    expect(shared.length).toBeGreaterThan(0)
+    for (const candidate of shared) expect(candidate.raw_astrometry!.pm_ra_cosdec_masyr).toBe(adopted.objects[candidate.id]!.pm_ra_cosdec_masyr)
+  })
+
+  it('adds reviewed Gaia double-lined companions and keeps the held orbits out', () => {
+    const review = JSON.parse(readFileSync(new URL('../catalog-work/star-systems/gaia-double-lined-review.json', import.meta.url), 'utf8')) as { adopted: Record<string, unknown>; held: Record<string, unknown> }
+    // A better orbit catalog can author the same pair, so test membership, not the system ID.
+    for (const id of Object.keys(review.adopted)) expect(reviewedStarSystems.find((system) => system.components.some((component) => component.starId === id))?.components.length).toBeGreaterThan(1)
+    for (const id of Object.keys(review.held)) expect(star(id)?.notes ?? '').not.toContain('Gaia DR3 double-lined')
+  })
+
+  it('keeps a moving system together and holds back the HD 27483 hierarchy', () => {
+    expect(star('hip-78400').vx_kms).toBe(star('sb9-3221-ab').vx_kms)
+    expect(star('hip-20284')).toBeUndefined()
   })
 })

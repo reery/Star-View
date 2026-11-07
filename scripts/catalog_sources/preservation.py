@@ -49,10 +49,19 @@ def lost_fields(previous, current, retained=(), prefix=""):
     return missing
 
 
+def field_value(record, field):
+    """A record field, or a "catalog_sources.<catalog>.<field>" value of that retained source record."""
+    if field.startswith("catalog_sources."):
+        _, catalog, name = field.split(".", 2)
+        sources = [source["record"] for source in record.get("catalog_sources", []) if source["catalog_id"] == catalog]
+        return sources[0].get(name) if sources else None
+    return record.get(field)
+
+
 def reviewed_fields(path, identifier, old, new, missing, retirements):
     return [field for field in missing if not any(entry["path"] == path and entry["id"] == identifier
-        and entry["field"] == field and entry["expectedPrevious"] == old.get(field)
-        and entry["expectedCurrent"] == new.get(field) and entry.get("reason") for entry in retirements)]
+        and entry["field"] == field and entry["expectedPrevious"] == field_value(old, field)
+        and entry["expectedCurrent"] == field_value(new, field) and entry.get("reason") for entry in retirements)]
 
 
 def reviewed_record_removal(path, previous, retirements, load_review):

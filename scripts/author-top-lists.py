@@ -73,7 +73,7 @@ LARGEST_STARS = [
 # Supernova candidate notes give the expected time of the explosion where the source states one.
 NOTES = {"Gamma Velorum (WR)": "Star View’s reviewed source gives the WR star T* = 57,100 K (Schmutz et al. 2026), an inner-boundary wind temperature.",
          "Wolf 1130": "Supernova expected in over 6.2 billion years (Mace et al. 2018).",
-         "49 Librae": "Supernova expected in over 500 million years, after the binary pair merges (Fuhrmann & Chini 2017).",
+         "49 Librae": "Possible supernova after its F-type star also becomes a white dwarf, in about 500 million years (Fuhrmann & Chini 2017).",
          "NLTT 12758": "Supernova expected in about 140 billion years (Kawka et al. 2016).",
          "IK Pegasi": "Supernova expected in about 1.9 billion years (Beech 2011).",
          "WD J181058.67+311940.94": "Supernova expected in about 23 billion years (Munday et al. 2025).",

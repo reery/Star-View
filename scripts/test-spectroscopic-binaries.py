@@ -1,7 +1,7 @@
 """Focused identity and scope regressions for the SB9 spectroscopic-binary import."""
 import unittest
 from pathlib import Path
-from catalog_sources.spectroscopic_binaries import sb9_systems
+from catalog_sources.spectroscopic_binaries import best_orbit, sb9_systems
 
 
 SB9 = Path(__file__).resolve().parents[1] / 'catalog-work/star-systems/sb9-20240621'
@@ -24,6 +24,11 @@ class SpectroscopicBinaryScopes(unittest.TestCase):
 
     def test_misc_gliese_alias_matches_the_gj_designation(self):
         self.assertIn('3808', self.systems({'GJ 220': {'ross-59'}}))
+
+    def test_best_orbit_prefers_grade_then_period_precision(self):
+        orbit = lambda name, grade, error: {'orbit': name, 'grade': grade, 'periodDays': '100', 'periodErrorDays': error, 'bibcode': '2000AJ'}
+        self.assertEqual(best_orbit([orbit('new', None, '0.001'), orbit('graded', '5', '1')])['orbit'], 'graded')
+        self.assertEqual(best_orbit([orbit('rough', None, '1'), orbit('precise', None, '0.01')])['orbit'], 'precise')
 
     def test_one_object_in_two_sb9_scopes_is_ambiguous(self):
         systems = self.systems({'HIP 76267': {'shared'}, 'HD 153751': {'shared'}})

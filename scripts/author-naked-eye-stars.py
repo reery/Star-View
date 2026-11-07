@@ -80,7 +80,9 @@ def aliases(source):
 
 
 def identity_key(value):
-    return normalized_id(value).casefold()
+    value = normalized_id(value)
+    # Single-letter Bayer and Lacaille names differ by case: E Pup and e Pup are different stars.
+    return value if re.fullmatch(r"(?:\* )?[A-Za-z]\d{0,2} [A-Z][A-Za-z]{2}", value) else value.casefold()
 
 
 def separation_arcsec(first, second):

@@ -60,7 +60,7 @@ Network: the CDS main sites were unavailable during batches 1–3. Use the SIMBA
    - Run `python3 scripts/author-object-designations.py`. Compare `object-designations.json` with HEAD: only new IDs may appear. Add a `preferred-names.json` entry when SIMBAD offers an obscure name (as with IC 348's "Gingrich 1").
 5. **Object stats (append-only).**
    - Query the classifications of the new `simbadId`s with the same statement shape and append them to `catalog-work/object-stats/simbad.csv`/`.adql`, updating checksums and an `extensions` entry.
-   - `src/data/object-stats.json` was already stale at HEAD on 2026-11-03: a full `author-object-stats.py` run adds about 7,800 unrelated entries. Run it, copy only the new nebula entries into the previous file, and update the `simbad.csv`/`simbad.adql` checksums.
+   - Run `author-object-stats.py`. Since 2026-11-07 the supplement reproduces exactly (`--check`), so a full run changes only the new entries; update the `simbad.csv`/`simbad.adql` checksums.
 6. **Links.** `python3 scripts/author-object-links.py --extend --retrieved <date>` fetches Wikidata and Wikipedia records only for new identifiers.
 7. **Checksum followers.** `python3 scripts/author-surface-gravity.py` and `python3 scripts/author-stellar-companions.py --write`. These record checksums of the identity and stat files, so only those checksum lines may change.
 8. **Verify.**

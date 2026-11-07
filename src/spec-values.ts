@@ -67,7 +67,7 @@ export function specValues(star: Star, sun: Star, unit: DistanceUnit): Record<st
 
   source('luminosity', 'luminosity_solar', (value) => quantity(value, 'L☉', 1))
   const massRange = star.mass_solar === null ? observations?.mass_range : undefined
-  const massModel = star.mass_solar === null ? compact?.mass_model : undefined
+  const massModel = star.mass_solar === null ? compact?.mass_model ?? observations?.mass_model : undefined
   if (massRange) set('mass', modelRange(massRange.min_jupiter, massRange.max_jupiter, 'M♃'), `${massRange.reference}. ${massRange.scope}`, 'Mass (model)')
   else if (massModel) values.mass = { text: quantity(massModel.value_solar, 'M☉', 2), unresolved: true, label: 'Mass (model)' }
   else source('mass', 'mass_solar', (value) => compact ? measurement(value, compact.mass_error_solar, 'M☉', compactMassDigits(compact.mass_error_solar)) : quantity(value, 'M☉', 1), 'Mass')

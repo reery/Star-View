@@ -20,7 +20,7 @@
     },
     {
       "url": "https://arxiv.org/html/2603.17011",
-      "sha256": "85324ad75f8eb25783c8c908957eb5069a6be89a6f52d1563b29474cdc896177",
+      "sha256": "8738f5b0b27407e63e5cfa8dbac0d7399a547a50a17df3b1b83c66128d840176",
       "frozenInput": "catalog-work/star-systems/reviewed-constellation-orbits.json",
       "retrievedOn": "2026-10-19"
     }
@@ -33,16 +33,16 @@
     },
     {
       "frozenInput": "src/data/stellar-companions.json",
-      "sha256": "88bb4078cd3bcb611fccf3bec6c7cfa655974a70c0eaad0a8210b745b128c450"
+      "sha256": "cbf7efa483da471eab529abc41387d29eb18acd63e574ef5e20afbc983a4084f"
     },
     {
       "frozenInput": "src/data/object-designations.json",
-      "sha256": "c2156eb3471da9e87c495280870902eb01771dc9885178825d84f6af36594312"
+      "sha256": "ef136a3011057e8faf9c216b093cafdd8907569b846ab40e43409656f9f845b7"
     }
   ],
-  "systemsReviewed": 866,
-  "systemsWithSolutions": 363,
-  "orbitCount": 427,
+  "systemsReviewed": 1093,
+  "systemsWithSolutions": 618,
+  "orbitCount": 682,
   "reconciled": [
     {
       "systemId": "msc-00084+2905",
@@ -441,6 +441,11 @@
       "reference": "Tok2019c"
     },
     {
+      "systemId": "orb6-07277+2127-aa-ab",
+      "pair": "Aa",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
       "systemId": "msc-07292-4318",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
@@ -469,10 +474,21 @@
       "reference": "Tok2021c"
     },
     {
+      "systemId": "sb9-564",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
       "systemId": "cns5-gj-11386",
       "pair": "A,B",
       "reason": "Unresolved or overlapping component scope",
       "reference": "Tok2020e"
+    },
+    {
+      "systemId": "spectroscopic-hip-47508",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "GaA2023"
     },
     {
       "systemId": "spectroscopic-hip-50583",
@@ -492,6 +508,17 @@
     },
     {
       "systemId": "msc-10429-6423",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "spectroscopic-hip-57565",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "MkT1995"
+    },
+    {
+      "systemId": "sb9-693",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
     },
@@ -545,6 +572,11 @@
       "reference": "Gln2007"
     },
     {
+      "systemId": "sb9-892",
+      "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
       "systemId": "cns5-gj-615.2",
       "pair": "Ea,Eb",
       "reason": "Unresolved or overlapping component scope",
@@ -563,6 +595,12 @@
       "reference": "Rag2009"
     },
     {
+      "systemId": "sb9-2596",
+      "pair": "Fa,Fb",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "LeB2017"
+    },
+    {
       "systemId": "gj-666",
       "pair": "Ba,Bb",
       "reason": "Unresolved or overlapping component scope",
@@ -575,8 +613,19 @@
       "reference": "Duq1996"
     },
     {
+      "systemId": "orb6-18002+8000-aa-ab",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Kis1996"
+    },
+    {
       "systemId": "cns5-gj-719",
       "pair": "",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "sb9-1072",
+      "pair": "6",
       "reason": "Ambiguous ORB6 pair label"
     },
     {
@@ -601,6 +650,17 @@
       "pair": "Aa,Ab",
       "reason": "Unresolved or overlapping component scope",
       "reference": "GaA2023"
+    },
+    {
+      "systemId": "spectroscopic-hip-99675",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Msn2013a"
+    },
+    {
+      "systemId": "spectroscopic-hip-99848",
+      "pair": "yg",
+      "reason": "Ambiguous ORB6 pair label"
     },
     {
       "systemId": "msc-20375+1436",
@@ -631,6 +691,12 @@
       "pair": "Ab1,Ab2",
       "reason": "Unresolved or overlapping component scope",
       "reference": "CIA2021d"
+    },
+    {
+      "systemId": "spectroscopic-hip-102431",
+      "pair": "Aa,Ab",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "CIA2010"
     },
     {
       "systemId": "gj-810",
@@ -666,9 +732,20 @@
       "reference": "Sod1999"
     },
     {
+      "systemId": "sb9-3603",
+      "pair": "nd",
+      "reason": "Ambiguous ORB6 pair label"
+    },
+    {
       "systemId": "cns5-gj-4242",
       "pair": "",
       "reason": "Ambiguous ORB6 pair label"
+    },
+    {
+      "systemId": "orb6-22038+6438-aa-ab",
+      "pair": "A,B",
+      "reason": "Unresolved or overlapping component scope",
+      "reference": "Izm2019"
     },
     {
       "systemId": "wolf-1561",
@@ -968,6 +1045,45 @@
           "parallaxStarId": "bright-menkalinan",
           "distanceScope": "Shared catalog parent distance; approximate for unresolved components"
         }
+      }
+    },
+    {
+      "systemId": "sb9-3221",
+      "adoptedReference": "Willmarth et al. 2016 Tables 2\u20133; axis Fuhrmann & Chini 2017",
+      "retainedSolution": {
+        "periodYears": 3.132608158795346,
+        "semiMajorAxisAu": null,
+        "eccentricity": 0.1054,
+        "inclinationDeg": null,
+        "nodeDeg": null,
+        "argumentDeg": 61.5,
+        "periastronEpoch": 53576.217,
+        "epochKind": "JD \u2212 2400000",
+        "grade": null,
+        "catalog": "SB9",
+        "reference": "SB9 system 3221, orbit 1; 2013AJ....145...41K",
+        "sourceUrl": "https://sb9.astro.ulb.ac.be/DisplayFull.cgi?3221",
+        "nodeAmbiguous": false,
+        "argumentComponent": "Aa",
+        "uncertainties": {
+          "periodDays": 0.42605,
+          "eccentricity": 0.0025,
+          "argumentDeg": 1.63
+        },
+        "sb9Grade": null,
+        "velocitySemiAmplitudesKms": [
+          3.805,
+          null
+        ],
+        "primaryIds": [
+          "hip-78400"
+        ],
+        "secondaryIds": [
+          "sb9-3221-ab"
+        ],
+        "primary": "Aa",
+        "secondary": "Ab",
+        "axisDerivation": null
       }
     }
   ],
@@ -2827,10 +2943,6 @@
       "name": "BD+36 2322"
     },
     {
-      "systemId": "spectroscopic-cns5-0035",
-      "name": "PM J00081+4757"
-    },
-    {
       "systemId": "spectroscopic-cns5-0455",
       "name": "WISE J014656.66+423410.0"
     },
@@ -2867,10 +2979,6 @@
       "name": "WISE J171104.60+350036.8"
     },
     {
-      "systemId": "spectroscopic-cns5-1993",
-      "name": "2MASS J08053189+4812330"
-    },
-    {
       "systemId": "spectroscopic-hip-45336",
       "name": "Theta Hya"
     },
@@ -2901,110 +3009,6 @@
     {
       "systemId": "spectroscopic-hip-111022",
       "name": "5 Lac"
-    },
-    {
-      "systemId": "sb9-47",
-      "name": "Nu And"
-    },
-    {
-      "systemId": "sb9-130",
-      "name": "CC Eri"
-    },
-    {
-      "systemId": "sb9-141",
-      "name": "Zeta Hor"
-    },
-    {
-      "systemId": "sb9-178",
-      "name": "Tau5 Eri"
-    },
-    {
-      "systemId": "sb9-567",
-      "name": "Markeb"
-    },
-    {
-      "systemId": "sb9-782",
-      "name": "Heng"
-    },
-    {
-      "systemId": "sb9-793",
-      "name": "Leepwal"
-    },
-    {
-      "systemId": "sb9-882",
-      "name": "Theta Dra"
-    },
-    {
-      "systemId": "sb9-940",
-      "name": "Epsilon UMi"
-    },
-    {
-      "systemId": "sb9-1106",
-      "name": "Epsilon CrA"
-    },
-    {
-      "systemId": "sb9-1306",
-      "name": "Zeta Cap"
-    },
-    {
-      "systemId": "sb9-1331",
-      "name": "Deneb Algedi"
-    },
-    {
-      "systemId": "sb9-1546",
-      "name": "Xi1 Cet"
-    },
-    {
-      "systemId": "sb9-1692",
-      "name": "HD 106516"
-    },
-    {
-      "systemId": "sb9-1873",
-      "name": "EO Psc"
-    },
-    {
-      "systemId": "sb9-2179",
-      "name": "HD 64606"
-    },
-    {
-      "systemId": "sb9-2446",
-      "name": "Mimosa"
-    },
-    {
-      "systemId": "sb9-3013",
-      "name": "2MASS J03202839-0446358"
-    },
-    {
-      "systemId": "sb9-3622",
-      "name": "BF Lyn"
-    },
-    {
-      "systemId": "sb9-3633",
-      "name": "BD+12 4499"
-    },
-    {
-      "systemId": "sb9-3716",
-      "name": "HD 11507"
-    },
-    {
-      "systemId": "sb9-3807",
-      "name": "G 69-47"
-    },
-    {
-      "systemId": "sb9-3808",
-      "name": "Ross 59"
-    },
-    {
-      "systemId": "sb9-3810",
-      "name": "G 236-34"
-    },
-    {
-      "systemId": "sb9-3811",
-      "name": "G 65-39"
-    },
-    {
-      "systemId": "sb9-3812",
-      "name": "Ross 1057"
     }
   ]
 }

@@ -21,17 +21,18 @@ from urllib.parse import urlencode
 from catalog_sources.adapters import eligible_gaia_physical, read_gaia_tap
 from catalog_sources.enrichment import GAIA_REPUBLICATIONS, estimate_temperature, derive_physical, flame_withheld
 from catalog_sources.ordinary_binaries import orbit_pairs, matching_members
-from catalog_sources.spectroscopic_binaries import FILES as SB9_FILES, sb9_systems
+from catalog_sources.spectroscopic_binaries import FILES as SB9_FILES, best_orbit, sb9_systems
 from catalog_sources.companion_properties import apply_literature, property_coverage
 from catalog_sources.classification import prune_subtypes, spectral_labels
 from catalog_sources.preservation import pool_losses, retain_frozen_source
 from catalog_sources.shared_objects import REVIEW as SHARED_OBJECT_REVIEW, reviewed_objects
-from catalog_sources.bright_system_motion import apply_bright_system_motion
+from catalog_sources.bright_system_motion import apply_bright_system_motion, bulk_vector
 from catalog_sources.constellation_motion import apply_constellation_motion
 from catalog_sources.hierarchy_splits import apply_hierarchy_splits
 from catalog_sources.cluster_astrometry import apply_cluster_astrometry, apply_related_astrometry
 from catalog_sources.precision import calculated_float
 from catalog_sources.izar_review import apply_izar_review
+from catalog_sources.long_baseline_motion import apply_long_baseline_motion
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/star-systems"
@@ -145,6 +146,22 @@ def retain_unresolved_photometry(star, parent, identities, evidence):
         "policy": "Observed catalog-source photometry only; no individual component flux inferred."}
 
 
+def sb9_system_motion(parent, orbit):
+    """A naked-eye parent keeps moving: its astrometry with the orbit's systemic velocity when one was fitted."""
+    raw = parent.get("raw_astrometry") or {}
+    if any(raw.get(field) is None for field in ("ra_deg", "dec_deg", "parallax_mas", "pm_ra_cosdec_masyr", "pm_dec_masyr")) or raw["parallax_mas"] <= 0:
+        return None
+    # SB9 marks a velocity that was held fixed instead of fitted with the text "Fixed".
+    error = float(orbit["systemicErrorKms"]) if orbit and re.fullmatch(r"[\d.]+", orbit["systemicErrorKms"] or "") else None
+    fitted = number(orbit["systemicKms"]) if error is not None else None
+    velocity = fitted if fitted is not None else raw.get("radial_velocity_kms")
+    if velocity is None:
+        return None
+    adopted = {**raw, **({"radial_velocity_kms": fitted, "radial_velocity_error_kms": error,
+                          "radial_velocity_ref": f"{orbit['bibcode']}; SB9 systemic velocity"} if fitted is not None else {})}
+    return adopted, bulk_vector(raw, velocity)
+
+
 def build():
     inputs = [ROOT / "src/data/star-systems.json", ROOT / "src/data/object-designations.json", ROOT / "src/data/object-stats.json"]
     original = read_json(inputs[0])
@@ -153,14 +170,17 @@ def build():
     aliases = {identifier: c["starId"] for s in definitions for c in s["components"] for identifier in [c["starId"], *c.get("alternateStarIds", [])]}
     stars = {}
     catalog_sources = []
-    # Naked-eye stars copies curated rows and adds unresolved single records; its systems are not authored here yet.
-    sources = [*sorted(path for path in (ROOT / "src/data/catalogs").glob("*/stars.csv") if path.parent.name != "naked-eye-stars"),
+    # Naked-eye stars copies curated rows and adds unresolved single records; only reviewed SB9 parents are authored here.
+    naked_eye_parents = set(read_json(WORK / "spectroscopic-binaries-review.json")["nakedEyeParents"]) | set(read_json(WORK / "gaia-double-lined-review.json")["adopted"])
+    sources = [*sorted((ROOT / "src/data/catalogs").glob("*/stars.csv")),
                ROOT / "catalog-work/famous-cluster-stars/retired-catalog/stars.csv",
                ROOT / "catalog-work/bright-stars/retired-catalog/stars.csv"]
     for path in [*sorted(sources, key=lambda p: read_json(p.parent / "catalog.json")["id"]), ROOT / "src/data/stars.csv"]:
         inputs.append(path)
         catalog_id = read_json(path.parent / "catalog.json")["id"] if path.parent != ROOT / "src/data" else "nearest-neighbors"
         for row in read_csv(path):
+            if catalog_id == "naked-eye-stars" and row["id"] not in naked_eye_parents:
+                continue
             star = csv_star(row, identities, stats)
             catalog_sources.append({"catalog_id": catalog_id, "record": copy.deepcopy(star)})
             canonical = aliases.get(star["id"], star["id"])
@@ -591,8 +611,18 @@ def build():
     sb9_review_path = WORK / 'spectroscopic-binaries-review.json'
     inputs += [*(sb9_path / name for name in SB9_FILES), sb9_review_path]
     sb9_review = read_json(sb9_review_path)
+    reviewed_motion = {review['systemId'] for review in read_json(WORK / 'reviewed-constellation-motion.json')['systems']}
     audit['spectroscopicBinaryCoverage'] = []
-    for binary in sb9_systems(sb9_path, identity_ids, identities):
+    sb9_binaries = sb9_systems(sb9_path, identity_ids, identities)
+    # A reviewed Gaia double-lined orbit proves a stellar companion in the same way.
+    gaia_review_path = WORK / 'gaia-double-lined-review.json'
+    inputs.append(gaia_review_path)
+    gaia_binaries = [{'sb9': None, 'systemId': f"gaia-{entry['sourceId']}", 'sourceRef': 'catalog-companions-gaia-nss', 'sourceUrl': 'https://gea.esac.esa.int/archive/',
+                      'component': '', 'spectra': [entry['spectralType'] if '+' not in (entry['spectralType'] or '') else '', ''], 'doubleLined': True, 'uniqueIdentity': True, 'catalogIds': [identifier],
+                      'orbits': [{'orbit': '1', 'periodDays': entry['periodDays'], 'periodErrorDays': entry['periodErrorDays'], 'grade': None, 'bibcode': 'Gaia DR3',
+                                  'systemicKms': entry['systemicKms'], 'systemicErrorKms': None if entry['systemicErrorKms'] is None else f"{entry['systemicErrorKms']:.6f}"}]}
+                     for identifier, entry in read_json(gaia_review_path)['adopted'].items()]
+    for binary in [*sb9_binaries, *gaia_binaries]:
         review = copy.deepcopy(binary)
         sb9_number = binary['sb9']
         classification = sb9_review['componentClassifications'].get(sb9_number)
@@ -614,7 +644,8 @@ def build():
             visual = binary['component'] or ('A' if any(n.startswith('WDS J') for n in parent['designations']) else '')
             labels = [visual + 'a', visual + 'b'] if visual else ['A', 'B']
             system = dict(id=f'sb9-{sb9_number}', name=name, sb9Id=sb9_number, sourceRef='catalog-companions-sb9',
-                sourceUrl=f'https://sb9.astro.ulb.ac.be/DisplayFull.cgi?{sb9_number}', components=[])
+                sourceUrl=f'https://sb9.astro.ulb.ac.be/DisplayFull.cgi?{sb9_number}', components=[]) if sb9_number else dict(
+                id=binary['systemId'], name=name, sourceRef=binary['sourceRef'], sourceUrl=binary['sourceUrl'], components=[])
             if parent.get('raw_astrometry'):
                 system['adoptedDistance'] = {'parallaxMas': parent['raw_astrometry']['parallax_mas'],
                     'sourceStarId': parent['id'], 'scope': 'Shared catalog parent distance; approximate for unresolved components'}
@@ -635,7 +666,7 @@ def build():
                 if classification and label in classification['components']:
                     star.update(classification['components'][label])
                     evidence['reviewedSpectroscopicClassification'] = classification
-                star['notes'] = (f"SB9 {'double' if binary['doubleLined'] else 'single'}-lined spectroscopic binary {sb9_number}, component {label}. "
+                star['notes'] = (f"{'SB9' if sb9_number else 'Gaia DR3'} {'double' if binary['doubleLined'] else 'single'}-lined spectroscopic binary {sb9_number or binary['systemId'][5:]}, component {label}. "
                     "Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate; "
                     "no orbital phase or individual radial velocity inferred.")
                 enrich(star, None, evidence)
@@ -647,6 +678,24 @@ def build():
             reviewed_ids.update(binary['catalogIds'])
             review.update(decision='authored-spectroscopic-pair', systemId=system['id'])
         audit['spectroscopicBinaryCoverage'].append(review)
+
+    # An admitted naked-eye parent must keep moving, whichever rule authored its system.
+    parent_binaries = {identifier: binary for binary in [*sb9_binaries, *gaia_binaries] for identifier in binary['catalogIds']}
+    moving_parents = naked_eye_parents | {binary['catalogIds'][0] for binary in gaia_binaries}
+    for system in definitions:
+        parent_id = next((c['starId'] for c in system['components'] if c['starId'] in moving_parents), None)
+        if parent_id is None or system['id'] in reviewed_motion:
+            continue
+        binary = parent_binaries.get(parent_id)
+        if binary and binary['sb9']:
+            system.setdefault('sb9Id', binary['sb9'])
+        motion = sb9_system_motion(stars[parent_id], best_orbit(binary['orbits']) if binary else None)
+        for component in system['components'] if motion else ():
+            star = pool[component['starId']]
+            if star['vx_kms'] is None:
+                star['raw_astrometry'] = star['raw_astrometry'] or copy.deepcopy(motion[0])
+                star['vx_kms'], star['vy_kms'], star['vz_kms'] = motion[1]
+                star['notes'] = star['notes'].replace('physical parameters and space motion withheld', 'physical parameters withheld') + ' Shared system motion from the parent astrometry; orbital motion of the components is not modeled.'
 
     # Fill remaining blanks on previously reviewed individuals too, using their
     # own exact source identities; do not borrow a parent's Gaia/atmosphere row.
@@ -684,6 +733,7 @@ def build():
         "catalog-work/famous-cluster-stars/motion-review.json", "clusterMotion")
     apply_related_astrometry(read_json(ROOT / "catalog-work/famous-cluster-stars/astrometry-review.json"), definitions, pool, audit)
     inputs += apply_izar_review(ROOT, definitions, pool, audit)
+    inputs += apply_long_baseline_motion(ROOT, definitions, pool, audit)
     # Reviewed duplicates retire into the same object's record with full provenance.
     merges_path = WORK / "duplicate-component-merges.json"
     inputs.append(merges_path)

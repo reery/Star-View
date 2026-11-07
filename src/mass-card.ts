@@ -2,6 +2,7 @@ import { ArrowDownToLine, Atom, CircleDashed, Flame, Hourglass, Weight } from 'l
 import type { StarColorMode } from './astronomy'
 import { isCompactObject, type Star } from './catalog-model'
 import { renderFact, type Fact } from './comparison-tiles'
+import { catalogSourceFor } from './catalog-source'
 import { MISSING_VALUE } from './format'
 import { classRangePlacement } from './mass-classification'
 import { typicalMassClass, type TypicalMassClass } from './mass-comparison'
@@ -21,7 +22,7 @@ const duration = (gyr: number): [string, string] => gyr >= 1000 ? [number(gyr / 
   : gyr >= 1 ? [number(gyr, 2), 'billion years'] : [number(gyr * 1000, 2), 'million years']
 const teaspoon = (grams: number) => grams >= 1e6 ? `${factor(grams / 1e6)}\u00a0t` : grams >= 1000 ? `${number(grams / 1000)}\u00a0kg` : `${number(grams)}\u00a0g`
 
-function massFact(star: Star, typical: TypicalMassClass | null, comparing: boolean): Fact {
+function massFact(star: Star, typical: TypicalMassClass | null, comparing: boolean, retainedScope: string | undefined): Fact {
   const { mass, kilograms } = massProperties(star)
   const uncertainty = star.compact?.mass_error_solar
   const substellar = mass !== null && (mass < 0.08 || star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf')
@@ -31,6 +32,8 @@ function massFact(star: Star, typical: TypicalMassClass | null, comparing: boole
   const error = uncertainty !== null && uncertainty !== undefined && Number.isFinite(uncertainty) && uncertainty >= 0 ? [`± ${number(uncertainty)} M☉`] : []
   return {
     title: 'Mass', icon: Weight, value: mass === null ? MISSING_VALUE : number(mass), unit: mass === null ? '' : 'M☉',
+    // The same note Specs shows for a retained value that is not this object's own measurement.
+    ...(retainedScope ? { unresolved: retainedScope } : {}),
     bar: placement ? {
       from: placement.rangeLowPosition, to: placement.rangeHighPosition, marker: placement.position,
       caption: `Typical ${typical!.label.replace(/^[A-Z](?=[a-z])/, (letter) => letter.toLowerCase())}`, ends: [rangeEnd(range![0]), `${rangeEnd(range![1])}\u00a0M☉`],
@@ -94,14 +97,23 @@ const REMNANT_SPECTRUM = {
   limits: [[1.4, 'Chandrasekhar limit: the heaviest a white dwarf can be'], [2.3, 'Approximate neutron-star maximum (about 2.2–2.5 M☉)']] as const,
 }
 
-export function renderMassCardContent(card: HTMLElement, star: Star, origin: Star, sun: Star, colorMode: StarColorMode, other?: Star): void {
+/** An object without its own mass shows the retained source value that Specs shows, greyed. */
+export function massCardStar(star: Star): Star {
+  const retained = catalogSourceFor(star, 'mass_solar')
+  return retained ? { ...star, mass_solar: retained.record.mass_solar } : star
+}
+
+export function renderMassCardContent(card: HTMLElement, selected: Star, origin: Star, sun: Star, colorMode: StarColorMode, compared?: Star): void {
+  const star = massCardStar(selected)
+  const other = compared && massCardStar(compared)
   const get = (id: string) => card.querySelector<HTMLElement>(`#${id}`)!
   const set = (id: string, content: string) => { get(id).textContent = content }
   const comparing = other !== undefined
   const shown = comparing ? [star, other] : [star]
+  const retainedScopes = (compared ? [selected, compared] : [selected]).map((object) => catalogSourceFor(object, 'mass_solar')?.scope)
   card.classList.toggle('has-comparison', comparing)
   const typical = shown.map((object) => typicalMassClass(object))
-  const facts = shown.map((object, index) => [massFact(object, typical[index] ?? null, comparing), gravityFact(object), fuelFact(object)])
+  const facts = shown.map((object, index) => [massFact(object, typical[index] ?? null, comparing, retainedScopes[index]), gravityFact(object), fuelFact(object)])
   get('mass-facts').replaceChildren(...facts[0]!.map((_, row) => renderFact(facts.map((entry) => entry[row]!), shown, colorMode, row === 0)))
 
   const isRemnant = (object: Star) => object.type === 'white_dwarf' || isCompactObject(object)

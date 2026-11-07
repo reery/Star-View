@@ -18,7 +18,7 @@ import { auditCatalogConsistency } from '../src/catalog-consistency.ts'
 import { completeCatalogCompanions } from '../src/stellar-companions.ts'
 import { missingCatalogMeasurements, withoutRetiredValues, type ReviewedRetirement } from '../src/catalog-source.ts'
 import { reviewedStarSystems } from '../src/star-systems.ts'
-import { supplementStellarObservations, supplementSurfaceGravity } from '../src/stellar-observations.ts'
+import { supplementLongBaselineMotion, supplementStellarObservations, supplementSurfaceGravity } from '../src/stellar-observations.ts'
 import companionData from '../src/data/stellar-companions.json' with { type: 'json' }
 import planetarySystems from '../src/data/planetary-systems.json' with { type: 'json' }
 import nearbyPlanets from '../src/data/nearby-planets.json' with { type: 'json' }
@@ -53,7 +53,7 @@ const identities = Object.fromEntries(Object.entries(parseObjectIdentities(JSON.
     const canonical = components.get(id)?.canonicalStarId
     return [id, canonical ? { ...identity, designations: identity.designations.filter((name) => aliasOwners.get(name)?.has(canonical) ?? true) } : identity]
   }))
-const supplement = (stars: Parameters<typeof supplementObjectIdentities>[0]) => supplementStellarObservations(supplementObjectStats(supplementObjectIdentities(stars, identities), objectStats))
+const supplement = (stars: Parameters<typeof supplementObjectIdentities>[0]) => supplementLongBaselineMotion(supplementStellarObservations(supplementObjectStats(supplementObjectIdentities(stars, identities), objectStats)))
 const [command, ...args] = process.argv.slice(2)
 const compactOverlayDirectory = join(root, 'src/data/overlays/compact-remnants')
 const nebulaOverlayDirectory = join(root, 'src/data/overlays/nebulae')

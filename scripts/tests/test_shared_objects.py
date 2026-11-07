@@ -63,7 +63,7 @@ class SharedObjectTests(unittest.TestCase):
 
     def test_literature_conflicts_adopt_verified_values_and_withhold_the_rest(self):
         review = json.loads((Path(__file__).resolve().parents[2] / "catalog-work/shared-enrichment/literature-conflict-review.json").read_text())
-        self.assertEqual(len(review["objects"]), 13)
+        self.assertEqual(len(review["objects"]), 25)
         for key, record in review["objects"].items():
             for identifier in record["starIds"]:
                 with self.subTest(identity=key, identifier=identifier):

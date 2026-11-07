@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
@@ -19,7 +19,7 @@ import { loadMolecularClouds, molecularCloudOverlayManifest } from './molecular-
 import { bubbleOverlayManifest, loadBubbles } from './bubble-overlay'
 import { catalogs, catalogErrors } from './registry'
 import legacyStarIds from './data/legacy-star-ids.json'
-import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
+import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, formatDistance, galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { isVisibilityConeMode, LATITUDE_STORAGE_KEY, observerLatitude, VISIBILITY_CONE_MODES, visibilityConeHours, visibilityConeModeLabel, type VisibilityConeMode } from './constellation-visibility'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
@@ -59,7 +59,7 @@ import { attachPopoverTooltip } from './popover-tooltips'
 import startupIndex from './data/generated/startup-index.json'
 import { objectSubtypeDescription } from './object-subtype-info'
 import { MISSING_VALUE, preciseMeasurement, quantity, scientificQuantity } from './format'
-import { OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
+import { decodeSavedViewLink, encodeSavedViewLink, OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
 import type { SkyGridMode } from './sky-grid'
 import { browserDataSize, deleteBrowserData, exportBrowserData, importBrowserData } from './browser-data'
 import { readSavedFilter, SAVED_FILTER_STORAGE_KEY, type SavedFilter } from './saved-filter'
@@ -207,7 +207,9 @@ icon('grid-icon', Grid2X2)
 icon('equatorial-grid-icon', Globe)
 icon('galactic-grid-icon', Galaxy)
 icon('views-icon', Save)
+icon('copy-view-link-icon', Copy)
 icon('save-view-icon', Save)
+icon('views-close-icon', X)
 icon('selection-back-icon', ArrowLeft)
 icon('selection-forward-icon', ArrowRight)
 icon('set-origin-icon', OriginIcon)
@@ -492,7 +494,7 @@ labelLimitInput.setAttribute('aria-valuetext', labelLimit === 0 ? 'Off' : `${lab
 text('label-limit-value', labelLimit === 0 ? 'Off' : String(labelLimit))
 const cameraViews = ['top', 'side', 'front'] as const
 const cameraViewButtonIds = ['reset-view', ...cameraViews.map((view) => `${view}-view`)]
-const viewButtons = [...cameraViewButtonIds, 'toggle-grid', 'toggle-equatorial-grid', 'toggle-galactic-grid', 'views-toggle'].map((id) => element<HTMLButtonElement>(id))
+const viewButtons = [...cameraViewButtonIds, 'toggle-grid', 'toggle-equatorial-grid', 'toggle-galactic-grid', 'views-toggle', 'copy-view-link'].map((id) => element<HTMLButtonElement>(id))
 const timelineButtons = ['time-play', 'time-now', 'time-follow'].map((id) => element<HTMLButtonElement>(id))
 const timeSlider = element<HTMLInputElement>('time-slider')
 // The distance card has its own timeline, which moves only its two views.
@@ -2374,13 +2376,13 @@ function renderSelection(): void {
   const massRange = star.mass_solar === null ? star.stellar_observations?.mass_range : undefined
   if (massRange) element('mass').setAttribute('aria-label', `Model mass: ${massRange.min_jupiter} to ${massRange.max_jupiter} Jupiter masses, assuming an age of ${massRange.assumed_age_min_gyr} to ${massRange.assumed_age_max_gyr} billion years.`)
   else element('mass').removeAttribute('aria-label')
-  const massModel = star.mass_solar === null ? star.compact?.mass_model : undefined
+  const massModel = star.mass_solar === null ? star.compact?.mass_model ?? star.stellar_observations?.mass_model : undefined
   element('mass-source-tooltip').hidden = !massModel
   text('mass-source-tooltip', massModel ? `Modelled, not measured. ${massModel.scope}` : '')
   element('mass-row').tabIndex = massModel ? 0 : -1
   if (massModel) element('mass-row').setAttribute('aria-describedby', 'mass-source-tooltip')
   else element('mass-row').removeAttribute('aria-describedby')
-  element<HTMLButtonElement>('mass-toggle').disabled = star.mass_solar === null || !massCardAvailable(star)
+  element<HTMLButtonElement>('mass-toggle').disabled = catalogMeasurement(star, 'mass_solar') === null || !massCardAvailable(star)
   element('mass-toggle').setAttribute('aria-label', `Explore mass of ${star.name}`)
   if (element<HTMLButtonElement>('mass-toggle').disabled) closeMassCard()
   else if (!element('mass-card').hidden) renderMassCard(star)
@@ -2493,7 +2495,7 @@ function renderSelection(): void {
   const rvSource = radialVelocitySource(star)
   if (rvSource) sourceNotes.add(rvSource)
   const observations = star.stellar_observations
-  const observationNotes = new Set([observations?.mass_range, observations?.temperature_range, observations?.radius_range, observations?.infrared_photometry, observations?.radial_velocity_review, observations?.atmosphere_temperature, observations?.modelled_values?.temperature_k, observations?.modelled_values?.radius_solar]
+  const observationNotes = new Set([observations?.mass_range, observations?.mass_model, observations?.temperature_range, observations?.radius_range, observations?.infrared_photometry, observations?.radial_velocity_review, observations?.atmosphere_temperature, observations?.modelled_values?.temperature_k, observations?.modelled_values?.radius_solar]
     .filter((observation) => observation !== undefined)
     .map((observation) => `${'scope' in observation ? observation.scope : observation.reason} ${observation.reference}: ${observation.source_url}`))
   text('star-notes', starDetailsLoaded(star) ? [star.notes, ...observationNotes, ...[...sourceNotes].map((source) => `${source.scope} ${source.record.notes}`)]
@@ -2508,7 +2510,7 @@ function renderSelection(): void {
 function baseObjectListFilter(selected = selectedId): ObjectListFilter {
   const observer = hideFainterObjects ? starById(observerId) : undefined
   // Brightness is seen from the observer, while list distances are from the reference.
-  const brightEnough = (star: Star) => !observer || mapVisibilityTier(star, observer, selected, referenceId, apparentVisualMagnitude(star.absolute_mag, Math.hypot(
+  const brightEnough = (star: Star) => !observer || mapVisibilityTier(star, observer, selected, referenceId, apparentVisualMagnitude(mapAbsoluteMagnitude(star), Math.hypot(
     star.x_pc - observer.x_pc,
     star.y_pc - observer.y_pc,
     star.z_pc - observer.z_pc,
@@ -3198,13 +3200,18 @@ function closeSavedViewContextMenu(restoreFocus = false): void {
   savedViewMenuRow = null
 }
 
-function openSavedViewContextMenu(row: HTMLTableRowElement, x: number, y: number): void {
+/** Opens the saved view menu; a primary click or Enter offers loading and copying a link, a context menu also offers deleting. */
+function openSavedViewContextMenu(row: HTMLTableRowElement, x: number, y: number, withDelete = true): void {
   const savedView = savedViews.find((candidate) => candidate.id === row.dataset.savedViewId)
   if (!savedView) return
   closeSavedViewContextMenu()
   const menu = element('saved-view-context-menu')
+  const load = element<HTMLButtonElement>('saved-view-context-load')
   const remove = element<HTMLButtonElement>('saved-view-context-delete')
+  load.textContent = `Load '${savedView.name}'`
+  element('saved-view-context-copy').textContent = `Copy '${savedView.name}' as link`
   remove.textContent = `Delete '${savedView.name}'`
+  remove.hidden = !withDelete
   menu.dataset.savedViewId = savedView.id
   savedViewMenuRow = row
   row.setAttribute('aria-expanded', 'true')
@@ -3217,7 +3224,7 @@ function openSavedViewContextMenu(row: HTMLTableRowElement, x: number, y: number
   const bounds = menu.getBoundingClientRect()
   menu.style.left = `${Math.max(8, Math.min(x, window.innerWidth - bounds.width - 8))}px`
   menu.style.top = `${Math.max(8, Math.min(y, window.innerHeight - bounds.height - 8))}px`
-  remove.focus({ preventScroll: true })
+  load.focus({ preventScroll: true })
 }
 
 function closeSceneContextMenu(): void {
@@ -3299,11 +3306,10 @@ function renderSavedViews(): void {
     const row = document.createElement('tr')
     row.dataset.savedViewId = savedView.id
     row.tabIndex = 0
-    row.setAttribute('aria-label', `Load saved view ${savedView.name}`)
+    row.setAttribute('aria-label', `Saved view ${savedView.name}`)
     row.setAttribute('aria-haspopup', 'menu')
     row.setAttribute('aria-controls', 'saved-view-context-menu')
     row.setAttribute('aria-expanded', 'false')
-    row.title = `Load ${savedView.name}`
     const name = document.createElement('td')
     name.textContent = savedView.name
     name.title = savedView.name
@@ -3485,8 +3491,9 @@ function syncSavedSettingsInputs(): void {
   renderFollowState()
 }
 
-async function loadSavedView(savedView: SavedView): Promise<void> {
-  const settings = savedView.settings
+/** A view from a link keeps the recipient's playback controls and leaves their stored layer preferences as they are. */
+async function loadSavedView(savedView: SavedView, linked = false): Promise<void> {
+  const settings = linked ? { ...savedView.settings, followSelection, simulationDirection, playbackSecondsPerThousandYears } : savedView.settings
   if (!catalogs.some((catalog) => catalog.manifest.id === settings.catalogId)) {
     setSavedViewsStatus(`The catalog for “${savedView.name}” is no longer available`)
     return
@@ -3567,7 +3574,7 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   updateSelectionHistoryControls()
   updateReferenceControl()
   updateObserverControl()
-  try {
+  if (!linked) try {
     localStorage.setItem('star-view-earth-orbit-mode', earthOrbitMode)
     localStorage.setItem('star-view-milky-way-visible', String(milkyWayVisible))
     localStorage.setItem('star-view-oort-cloud-visible', String(oortCloudVisible))
@@ -3579,6 +3586,33 @@ async function loadSavedView(savedView: SavedView): Promise<void> {
   setPanelOpen('views', false)
   syncPanelLayout()
   setSavedViewsStatus(`Loaded “${savedView.name}”`)
+}
+
+/** Opens the view in the address's link and offers its name for saving; the link then leaves the address. */
+async function openLinkedView(): Promise<void> {
+  const savedView = decodeSavedViewLink(location.hash)
+  if (!savedView) return
+  history.replaceState(history.state, '', `${location.pathname}${location.search}`)
+  await loadSavedView(savedView, true)
+  element<HTMLInputElement>('save-view-name').value = savedView.name
+}
+
+/** Copies a link that opens the view and confirms it in a notice that fades out; the clipboard is missing outside secure contexts. */
+function copyViewLink(view: Pick<SavedView, 'name' | 'settings'>, description: string): void {
+  const link = `${location.origin}${import.meta.env.BASE_URL}#${encodeSavedViewLink(view)}`
+  const notice = element('view-link-notice')
+  const show = (message: string, failed = false) => {
+    notice.textContent = message
+    notice.toggleAttribute('data-failed', failed)
+    notice.hidden = false
+    // A repeated copy restarts the fade.
+    for (const animation of notice.getAnimations()) {
+      animation.cancel()
+      animation.play()
+    }
+  }
+  Promise.resolve().then(() => navigator.clipboard.writeText(link))
+    .then(() => show(`Link to ${description} copied to the clipboard.`), () => show('Could not copy the link.', true))
 }
 
 function deleteSavedView(id: string): void {
@@ -3679,7 +3713,7 @@ window.addEventListener('storage', updateBrowserDataSize, { signal: events.signa
 window.addEventListener('resize', positionBrowserDataDialog, { signal: events.signal })
 syncFilterInputs()
 renderCatalogRange(initialCatalogId)
-void switchCatalog(initialCatalogId).then(openRoutedObject)
+void switchCatalog(initialCatalogId).then(openRoutedObject).then(openLinkedView)
 if (catalogErrors.length) catalogError(catalogErrors.join('\n'))
 
 element('object-search').addEventListener('focus', () => void prepareObjectSearch(), { signal: events.signal })
@@ -4449,7 +4483,7 @@ document.addEventListener('click', (event) => {
   event.preventDefault()
   openGlossaryTerm(term)
 }, { signal: events.signal })
-for (const name of ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'spaceship', 'rotation'] as const) {
+for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'spaceship', 'rotation'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()
@@ -4496,8 +4530,7 @@ element('saved-views-list').addEventListener('click', (event) => {
   const target = event.target
   if (!(target instanceof Element)) return
   const row = target.closest<HTMLTableRowElement>('tr[data-saved-view-id]')
-  const savedView = savedViews.find((candidate) => candidate.id === row?.dataset.savedViewId)
-  if (savedView) void loadSavedView(savedView)
+  if (row) openSavedViewContextMenu(row, event.clientX, event.clientY, false)
 }, { signal: events.signal })
 element('saved-views-list').addEventListener('contextmenu', (event) => {
   const target = event.target
@@ -4518,11 +4551,29 @@ element('saved-views-list').addEventListener('keydown', (event) => {
     return
   }
   if (event.key !== 'Enter' && event.key !== ' ') return
-  const savedView = savedViews.find((candidate) => candidate.id === target.dataset.savedViewId)
-  if (!savedView) return
   event.preventDefault()
-  void loadSavedView(savedView)
+  const bounds = target.getBoundingClientRect()
+  openSavedViewContextMenu(target, bounds.left + 12, bounds.bottom, false)
 }, { signal: events.signal })
+element('saved-view-context-load').addEventListener('click', () => {
+  const savedView = savedViews.find((candidate) => candidate.id === element('saved-view-context-menu').dataset.savedViewId)
+  closeSavedViewContextMenu(true)
+  if (savedView) void loadSavedView(savedView)
+}, { signal: events.signal })
+element('saved-view-context-copy').addEventListener('click', () => {
+  const savedView = savedViews.find((candidate) => candidate.id === element('saved-view-context-menu').dataset.savedViewId)
+  closeSavedViewContextMenu(true)
+  if (savedView) copyViewLink(savedView, `saved view “${savedView.name}”`)
+}, { signal: events.signal })
+// The toolbar shares the current view without saving it, named after the selection or else the origin.
+element('copy-view-link').addEventListener('click', () => {
+  const settings = currentSavedViewSettings()
+  const name = starById(selectedId)?.name ?? starById(referenceId)?.name
+  if (settings && name) copyViewLink({ name, settings }, 'the current view')
+}, { signal: events.signal })
+element('view-link-notice').addEventListener('animationend', (event) => { (event.currentTarget as HTMLElement).hidden = true }, { signal: events.signal })
+// A link pasted into an open tab changes only the fragment.
+window.addEventListener('hashchange', () => void openLinkedView(), { signal: events.signal })
 element('saved-view-context-delete').addEventListener('click', () => {
   const id = element('saved-view-context-menu').dataset.savedViewId
   if (!id) return

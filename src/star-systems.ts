@@ -50,6 +50,8 @@ function projectedSeparationAu(a: Star, b: Star): number {
     * (da + db) / 2 * AU_PER_PARSEC
 }
 
+const knownDifference = (a: number | null, b: number | null) => a === null || b === null ? 0 : a - b
+
 /** Draw the brightest close component plus any explicitly selected companion. */
 export function mapComponentVisibility(stars: readonly Star[], selectedId: string | null = null): Uint8Array {
   const indices = new Map(stars.map((star, index) => [star.id, index]))
@@ -68,9 +70,11 @@ export function mapComponentVisibility(stars: readonly Star[], selectedId: strin
         }
       }
       // A pulsar stays visible beside its fainter-looking companion; compact markers have no magnitude.
+      // A missing value (e.g. a primary whose catalog light is withheld as an unresolved blend)
+      // is unknown, not faint: compare a field only when both components have it.
       group.sort((a, b) => Number(isCompactObject(b.star)) - Number(isCompactObject(a.star))
-        || (a.star.absolute_mag ?? Infinity) - (b.star.absolute_mag ?? Infinity)
-        || (b.star.luminosity_solar ?? 0) - (a.star.luminosity_solar ?? 0)
+        || knownDifference(a.star.absolute_mag, b.star.absolute_mag)
+        || knownDifference(b.star.luminosity_solar, a.star.luminosity_solar)
         || a.label.localeCompare(b.label, 'en'))
       for (const { star } of group.slice(1)) visible[indices.get(star.id)!] = star.id === selectedId ? 1 : 0
     }

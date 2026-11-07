@@ -25,7 +25,8 @@
     "catalog-work/bright-stars/literature/algol-selected-tables.json": "cffb1740e2dee974b0ac32466c69d61e8491c52241c5012cc9b5e1b7eb8ef604",
     "catalog-work/bright-stars/literature/deneb-selected-tables.json": "7a062cc68c7a7ec883c9099677a0d7b1d518af489c430b01aa82625d6b58544b",
     "catalog-work/star-systems/literature-components/sb9-20261030-selected.json": "9a9b1612bdcecaba78babfc8db5cc02b728284e58cec7ef3081d2ffa691ba5f3",
-    "catalog-work/shared-enrichment/literature/spectroscopy.csv": "85da8f4ab1bef2d73d791b9a72a804fe69173ac3ac84772ddda926759a4afc0e"
+    "catalog-work/shared-enrichment/literature/spectroscopy.csv": "85da8f4ab1bef2d73d791b9a72a804fe69173ac3ac84772ddda926759a4afc0e",
+    "catalog-work/star-systems/literature-components/49-lib-20261106-selected.json": "9cc3d5902f04b0f680a35ba717b4605a4ff0cc4433c8b712f4c95122615c5acb"
   },
   "objects": {
     "cns5-4975": {
@@ -2970,6 +2971,111 @@
         }
       },
       "note": "Markeb B: interferometric-orbit mass of the main-sequence B companion using the revised parallax; the original-parallax solution is retained in the frozen snapshot only."
+    },
+    "hip-78400": {
+      "expectedName": "49 Lib Aa",
+      "systemId": "sb9-3221",
+      "component": "Aa",
+      "expectedType": "star",
+      "gaiaDr3Id": "6250364583302109312",
+      "fields": {
+        "temperature_k": {
+          "value": 6190,
+          "status": "measured",
+          "reference": "Fuhrmann & Chini 2017; 2017ApJ...834..114F",
+          "sourceUrl": "https://iopscience.iop.org/article/10.3847/1538-4357/834/2/114",
+          "section": "Table 1",
+          "uncertainty": 80,
+          "uncertaintyConvention": "2 sigma",
+          "quantity": "spectroscopic effective temperature",
+          "caveat": "Published spectroscopic values span 6190-6373 K; the catalog value 6321 K (2022A&A...663A...4S) stays in the retained source. Adopted with the same paper's abundance as one self-consistent component analysis.",
+          "replaces": {
+            "value": 6180.0,
+            "reason": "Generic F8V sequence estimate filled by the pipeline; superseded by this object-specific measurement."
+          }
+        },
+        "metallicity_dex": {
+          "value": -0.11,
+          "status": "measured",
+          "quantity": "[Fe/H]",
+          "reference": "Fuhrmann & Chini 2017; 2017ApJ...834..114F",
+          "sourceUrl": "https://iopscience.iop.org/article/10.3847/1538-4357/834/2/114",
+          "section": "Table 1",
+          "uncertainty": 0.08,
+          "uncertaintyConvention": "2 sigma",
+          "caveat": "[Fe/Mg] = -0.34 and [Mg/H] = +0.23 in the same analysis. The catalog value +0.1 (2022A&A...663A...4S) stays in the retained source."
+        },
+        "apparent_mag": {
+          "value": 5.467,
+          "status": "measured",
+          "reference": "Fuhrmann & Chini 2017; 2017ApJ...834..114F",
+          "sourceUrl": "https://iopscience.iop.org/article/10.3847/1538-4357/834/2/114",
+          "section": "Table 1",
+          "uncertainty": 0.005,
+          "uncertaintyConvention": "2 sigma",
+          "scope": "Listed for 49 Lib Aa. The unseen white dwarf adds no measurable light."
+        },
+        "luminosity_solar": {
+          "value": 4.476,
+          "status": "derived",
+          "reference": "Fuhrmann & Chini 2017; 2017ApJ...834..114F",
+          "sourceUrl": "https://iopscience.iop.org/article/10.3847/1538-4357/834/2/114",
+          "section": "Table 1, rescaled",
+          "uncertainty": null,
+          "method": "L = 10^(-0.4 (Mbol - 4.74)), with Mbol = V + BC_V - 5 log10(d / 10 pc) at the adopted Gaia DR3 distance",
+          "inputs": {
+            "V": 5.467,
+            "BC_V": -0.09,
+            "distance_pc": 28.368837
+          },
+          "caveat": "The published Mbol of 2.64 implies 35.3 pc, the Hipparcos scale, and about 6.9 Lsun. Both parallaxes come from single-star fits to an astrometric binary, so the distance and this luminosity remain uncertain."
+        },
+        "radius_solar": {
+          "value": 1.84,
+          "status": "derived",
+          "reference": "Fuhrmann & Chini 2017; 2017ApJ...834..114F",
+          "sourceUrl": "https://iopscience.iop.org/article/10.3847/1538-4357/834/2/114",
+          "section": "Table 1, rescaled",
+          "uncertainty": null,
+          "method": "Stefan-Boltzmann scaling, R = sqrt(L) (5772 K / Teff)^2",
+          "inputs": {
+            "luminosity_solar": 4.476,
+            "temperature_k": 6190
+          },
+          "caveat": "Replaces the published 2.24 +/- 0.13 Rsun, which rests on the Hipparcos-scale luminosity. The source value stays in this review."
+        },
+        "age_gyr": {
+          "value": 12,
+          "status": "model-derived",
+          "reference": "Fuhrmann & Chini 2017; 2017ApJ...834..114F",
+          "sourceUrl": "https://iopscience.iop.org/article/10.3847/1538-4357/834/2/114",
+          "section": "Table 1 (true age)",
+          "uncertainty": 1,
+          "uncertaintyConvention": "2 sigma",
+          "method": "Inferred from Population II abundances and kinematics, not from the star's position on evolutionary tracks",
+          "caveat": "Those tracks give a nominal 2.3 +0.7/-0.3 Gyr because mass transfer rejuvenated the star."
+        }
+      },
+      "note": "49 Lib Aa: blue straggler parameters from Fuhrmann & Chini (2017). Luminosity and radius are rescaled from the Hipparcos-scale values of that paper to the adopted Gaia DR3 distance. Model mass, 1.55 +0.07/-0.13 Msun, is held as a labelled observation. Published radius 2.24 +/- 0.13 Rsun and nominal age 2.3 Gyr remain in the review. Alternative Teff 6321 K and [Fe/H] +0.1 (2022A&A...663A...4S) stay in the retained source."
+    },
+    "sb9-3221-ab": {
+      "expectedName": "49 Lib Ab",
+      "systemId": "sb9-3221",
+      "component": "Ab",
+      "expectedType": "white_dwarf",
+      "fields": {
+        "age_gyr": {
+          "value": 12,
+          "status": "model-derived",
+          "reference": "Fuhrmann & Chini 2017; 2017ApJ...834..114F",
+          "sourceUrl": "https://iopscience.iop.org/article/10.3847/1538-4357/834/2/114",
+          "section": "Table 1 (true age of the binary)",
+          "uncertainty": 1,
+          "uncertaintyConvention": "2 sigma",
+          "scope": "Total binary age from the primary's abundances and kinematics, not a white dwarf cooling age."
+        }
+      },
+      "note": "49 Lib Ab: unseen white dwarf inferred from the orbit by Fuhrmann & Chini (2017); total binary age, not a cooling age."
     }
   },
   "sourceReviews": {
@@ -3235,6 +3341,18 @@
       "152751": "GJ 644 outer B is Ba+Bb; no subsystem total assigned to a leaf.",
       "MU_Cas": "DEBCat MU Cas is an uppercase variable-star name, not mu Cassiopeiae.",
       "YY_Gem": "DEBCat resolves two stars; existing Castor C scope is unresolved, so measurements cannot be assigned to it as one star."
+    },
+    "3221": {
+      "systemId": "sb9-3221",
+      "componentStarIds": [
+        "hip-78400",
+        "sb9-3221-ab"
+      ],
+      "distanceReview": "Hipparcos 28.40 +/- 1.23 mas, Gaia DR2 34.23 +/- 0.19 mas and Gaia DR3 35.27 +/- 0.60 mas (RUWE 4.33) are all single-star fits. The 21.0 mas photocentric orbit with a1 sin i = 60.06 Gm and i = 143 deg implies about 31.8 +/- 2.2 pc. The catalog Gaia DR3 distance is kept pending a solution that models the orbit.",
+      "rejected": {
+        "wikipediaInfobox": "Radius 1.86 and luminosity 4.74 use the older Gaia DR2 distance. [Fe/H] -0.02 and the swapped initial masses do not match the primary paper.",
+        "wdsB": "ENG 55 B shows no common proper motion."
+      }
     }
   }
 }

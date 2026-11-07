@@ -707,7 +707,12 @@
                 </div>
               </div>
               <span class="toolbar-divider"></span>
-              <button id="views-toggle" class="icon-button panel-button" type="button" aria-label="Saved views" aria-controls="views-panel" aria-expanded="false" disabled><span id="views-icon"></span><span class="tooltip">Saved views</span></button>
+              <div class="saved-view-controls" data-toolbar-flyout role="group" aria-label="Saved view controls">
+                <button id="views-toggle" class="icon-button panel-button" type="button" aria-label="Saved views" aria-controls="views-panel" aria-expanded="false" disabled><span id="views-icon"></span><span class="tooltip">Saved views</span></button>
+                <div class="saved-view-options" data-toolbar-options>
+                  <button id="copy-view-link" class="icon-button" type="button" aria-label="Copy view as link" disabled><span id="copy-view-link-icon"></span><span class="tooltip">Copy view as link</span></button>
+                </div>
+              </div>
               <span class="toolbar-divider"></span>
               <div id="selection-controls" class="selection-controls" data-toolbar-flyout role="group" aria-label="Selection history">
                 <button id="selection-back" class="icon-button" type="button" aria-label="Previous selection" disabled><span id="selection-back-icon"></span><span class="tooltip">Previous selection<span id="selection-back-object" class="selection-tooltip-object" hidden><span id="selection-back-swatch" class="star-swatch" aria-hidden="true"></span><span id="selection-back-name"></span></span></span></button>
@@ -735,9 +740,10 @@
                 <h2 id="views-heading">Saved views</h2>
                 <div class="save-view-name-field">
                   <label class="sr-only" for="save-view-name">View name</label>
-                  <input id="save-view-name" type="text" maxlength="80" placeholder="Name this view" autocomplete="off" required>
+                  <input id="save-view-name" type="search" maxlength="80" placeholder="Name this view" autocomplete="off" required>
+                  <button id="save-view" class="save-view-button" type="submit" aria-label="Save current view" title="Save current view"><span id="save-view-icon"></span></button>
                 </div>
-                <button id="save-view" class="save-view-button" type="submit" aria-label="Save current view" title="Save current view"><span id="save-view-icon"></span></button>
+                <button id="views-close" class="panel-lock" type="button" aria-label="Close saved views card"><span id="views-close-icon"></span></button>
               </form>
               <p id="saved-views-status" class="sr-only" role="status" aria-live="polite"></p>
               <p id="saved-views-empty" class="saved-views-empty">No saved views yet.</p>
@@ -1106,7 +1112,7 @@
                     <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                     <div><dt>License</dt><dd>MIT</dd></div>
                     <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
-                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-05">5 November 2026</time></dd></div>
+                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-07">7 November 2026</time></dd></div>
                     <div><dt>Build date</dt><dd><time datetime="%BUILD_DATE_ISO%">%BUILD_DATE%</time></dd></div>
                     <div><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="catalog-epoch-tooltip">Position reference epoch</button><span id="catalog-epoch-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog positions use the year 2000 as their reference time.</span></dt><dd id="catalog-epoch">J2000.0</dd></div>
                     <div><dt>Version</dt><dd>%APP_VERSION%</dd></div>
@@ -1200,8 +1206,11 @@
       </main>
       <p id="selection-announcement" class="sr-only" aria-live="polite" aria-atomic="true"></p>
     </div>
+    <p id="view-link-notice" class="view-link-notice" role="status" hidden></p>
     <div id="saved-view-context-backdrop" class="saved-view-context-backdrop" aria-hidden="true" hidden></div>
     <div id="saved-view-context-menu" class="saved-view-context-menu" role="menu" aria-label="Saved view actions" hidden>
+      <button id="saved-view-context-load" class="scene-context-item" type="button" role="menuitem" tabindex="-1"></button>
+      <button id="saved-view-context-copy" class="scene-context-item" type="button" role="menuitem" tabindex="-1"></button>
       <button id="saved-view-context-delete" class="saved-view-context-delete" type="button" role="menuitem" tabindex="-1"></button>
     </div>
     <div id="scene-context-backdrop" class="saved-view-context-backdrop" aria-hidden="true" hidden></div>

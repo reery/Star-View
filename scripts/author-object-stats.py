@@ -8,7 +8,7 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-from catalog_sources.classification import prune_subtypes, spectral_labels
+from catalog_sources.classification import contradicted, prune_subtypes, spectral_labels
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/object-stats"
@@ -113,6 +113,7 @@ def build():
         # Candidate classes stay explicitly tentative.
         candidates = (CANDIDATES.get(code, code[:-1] + "*") for code in codes if code.endswith("?"))
         labels.extend(LABELS[code] + " candidate" for code in candidates if code in LABELS)
+        labels = [label for label in labels if not contradicted(label, row)]
         labels.extend(spectral_labels(row))
         labels = prune_subtypes(list(dict.fromkeys(labels)))
         if identifier in compact_subtypes:
@@ -136,7 +137,7 @@ def build():
                                "simbadId": main, "sourceTypes": codes,
                                "planetHosts": sorted(set(host_matches.get(key(main), []))) if main else []}
     return {"schemaVersion": 1, "retrieved": manifest["retrieved"],
-            "policy": "Exact reviewed SIMBAD identities and unique exact NASA host identifiers. Count distinct confirmed pscomppars planet rows per host, never system sy_pnum on stellar companions; circumbinary counts withheld. Zero means no confirmed host match in this archive snapshot, not absence of planets. Unresolved identities remain null. Apparent Johnson V is generated per row from reviewed absolute V and adopted distance; no blended flux substitution. Sun: eight planets and apparent V -26.74 (NASA Sun fact sheet).",
+            "policy": "Exact reviewed SIMBAD identities and unique exact NASA host identifiers. SIMBAD classes contradicted by the record's own object type, single-star spectrum or luminosity are withheld from subtypes; sourceTypes keeps every SIMBAD code. Count distinct confirmed pscomppars planet rows per host, never system sy_pnum on stellar companions; circumbinary counts withheld. Zero means no confirmed host match in this archive snapshot, not absence of planets. Unresolved identities remain null. Apparent Johnson V is generated per row from reviewed absolute V and adopted distance; no blended flux substitution. Sun: eight planets and apparent V -26.74 (NASA Sun fact sheet).",
             "sources": manifest["sources"], "sourceChecksumsSha256": manifest["checksumsSha256"],
             "unmatchedArchiveHosts": sorted(set(unmatched)), "objects": objects}
 

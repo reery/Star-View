@@ -43,6 +43,16 @@ class CatalogPreservationTests(unittest.TestCase):
         self.assertEqual(preservation.pool_losses({"stars": [star]}, {"stars": [new]}, []),
                          ["a: catalog_sources.western.raw_astrometry.parallax_error_mas"])
 
+    def test_retained_source_retirement_must_state_exact_source_values(self):
+        source = lambda labels: {"id": "a", "catalog_sources": [{"catalog_id": "nearest", "record": {"id": "a", "subtypes": labels}}]}
+        old, new = source(["Carbon star", "Low-mass star"]), source(["Low-mass star"])
+        entry = {"path": "src/data/stellar-companions.json", "id": "a", "field": "catalog_sources.nearest.subtypes",
+                 "expectedPrevious": ["Carbon star", "Low-mass star"], "expectedCurrent": ["Low-mass star"], "reason": "reviewed"}
+        self.assertEqual(preservation.pool_losses({"stars": [old]}, {"stars": [new]}, [entry]), [])
+        vague = {**entry, "expectedPrevious": None, "expectedCurrent": None}
+        self.assertEqual(preservation.pool_losses({"stars": [old]}, {"stars": [new]}, [vague]),
+                         ["a: catalog_sources.nearest.subtypes"])
+
     def test_membership_removal_requires_exact_complete_archive_and_evidence(self):
         path = "src/data/catalogs/nearest-1000/stars.csv"
         old = {"id": "cns5-3707", "parallax_mas": "174.03640225187837", "parallax_error_mas": "1.8315082"}

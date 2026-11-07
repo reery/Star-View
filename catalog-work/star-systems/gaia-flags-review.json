@@ -1,0 +1,5080 @@
+{
+ "schemaVersion": 1,
+ "reviewedOn": "2026-11-07",
+ "sources": {
+  "hgca": {
+   "path": "catalog-work/downloads/brandt-2021-hgca/hgca.tsv",
+   "sha256": "5cd30f4ff68b496b6486fe4db469c138075c6ec0ec7b2d13016c4ce7d9af5e5b"
+  },
+  "kervella": {
+   "path": "catalog-work/downloads/kervella-2022-pma/tablea1.tsv",
+   "sha256": "5a3de8804d745cd1f7dd15a7666fe89aa00991e3a99c2fd6eb4080a271a191c1"
+  },
+  "gaia": {
+   "path": "catalog-work/downloads/gaia-dr3-flags/gaia_source.csv",
+   "sha256": "6e0f0c654bbff6525cb6e8829fef66709c1880fb2c5c602cf5ae1283c7c2d744"
+  },
+  "orbits": {
+   "path": "catalog-work/downloads/gaia-dr3-flags/nss_two_body_orbit.csv",
+   "sha256": "bf9f8cb2f2e1b9b7da17a3bb302a530ac53dd29185b09801a65fbd30440f2150"
+  }
+ },
+ "orbitPolicy": "Gaia DR3 orbits attach to a system only when its two components share one Gaia source or sit close enough for the orbit to describe them. Plain OrbitalTargetedSearch solutions are not adopted.",
+ "orbits": [
+  {
+   "systemId": "spectroscopic-hip-62561",
+   "name": "HD 112014",
+   "sourceId": "1726095477354219904",
+   "solution": "SB2",
+   "periodDays": 3.286615940621689,
+   "periodErrorDays": 2.6899095e-05,
+   "eccentricity": 0.017818836238341816,
+   "eccentricityError": 0.004599802,
+   "argumentDeg": 292.02510420653226,
+   "argumentErrorDeg": 12.56787,
+   "k1Kms": 123.72474383520205,
+   "k2Kms": 105.78797794549571,
+   "systemicKms": 0.5243081593353206,
+   "goodnessOfFit": 3.918424,
+   "significance": 235.11098
+  },
+  {
+   "systemId": "spectroscopic-cns5-0035",
+   "name": "PM J00081+4757",
+   "sourceId": "393155984814848128",
+   "solution": "SB2C",
+   "periodDays": 4.378171061026524,
+   "periodErrorDays": 0.00019655531,
+   "eccentricity": null,
+   "eccentricityError": null,
+   "argumentDeg": null,
+   "argumentErrorDeg": null,
+   "k1Kms": 46.467604505542916,
+   "k2Kms": 46.07278184822766,
+   "systemicKms": -29.549785761724664,
+   "goodnessOfFit": -0.80562514,
+   "significance": 50.547184
+  },
+  {
+   "systemId": "spectroscopic-cns5-1993",
+   "name": "2MASS J08053189+4812330",
+   "sourceId": "933054951834436352",
+   "solution": "OrbitalTargetedSearchValidated",
+   "periodDays": 735.9078666506588,
+   "periodErrorDays": 22.991716,
+   "eccentricity": 0.4203524474493615,
+   "eccentricityError": 0.23150757,
+   "argumentDeg": 151.622,
+   "argumentErrorDeg": null,
+   "k1Kms": null,
+   "k2Kms": null,
+   "systemicKms": null,
+   "goodnessOfFit": 1.2566577,
+   "significance": 6.891005,
+   "inclinationDeg": 124.164,
+   "nodeDeg": 175.091,
+   "photocenterAxisMas": 14.1784
+  },
+  {
+   "systemId": "gaia-5408648849826522112",
+   "name": "CD-45 5627",
+   "sourceId": "5408648849826522112",
+   "solution": "SB2C",
+   "periodDays": 1.8783770563129596,
+   "periodErrorDays": 2.382633e-05,
+   "eccentricity": null,
+   "eccentricityError": null,
+   "argumentDeg": null,
+   "argumentErrorDeg": null,
+   "k1Kms": 75.85091918780148,
+   "k2Kms": 76.98027960352302,
+   "systemicKms": 17.068974117089226,
+   "goodnessOfFit": 6.3999963,
+   "significance": 159.44484
+  },
+  {
+   "systemId": "gaia-4957304514934422400",
+   "name": "HD 13387",
+   "sourceId": "4957304514934422400",
+   "solution": "SB2",
+   "periodDays": 25.993627304814662,
+   "periodErrorDays": 0.00059889193,
+   "eccentricity": 0.444249544462755,
+   "eccentricityError": 0.0010051632,
+   "argumentDeg": 303.6860791543334,
+   "argumentErrorDeg": 0.16923197,
+   "k1Kms": 52.04273413638125,
+   "k2Kms": 49.11621276717705,
+   "systemicKms": 15.02780726324723,
+   "goodnessOfFit": 43.634865,
+   "significance": 710.74567
+  },
+  {
+   "systemId": "gaia-355656522274764288",
+   "name": "63 And",
+   "sourceId": "355656522274764288",
+   "solution": "SB2C",
+   "periodDays": 2.142539139498957,
+   "periodErrorDays": 0.00083591876,
+   "eccentricity": null,
+   "eccentricityError": null,
+   "argumentDeg": null,
+   "argumentErrorDeg": null,
+   "k1Kms": 111.26695600750256,
+   "k2Kms": 115.03424124985112,
+   "systemicKms": -60.49174856482411,
+   "goodnessOfFit": -0.13003226,
+   "significance": 11.350802
+  },
+  {
+   "systemId": "gaia-1882432630526896000",
+   "name": "GX Peg",
+   "sourceId": "1882432630526896000",
+   "solution": "SB2",
+   "periodDays": 2.3408946617074236,
+   "periodErrorDays": 1.3350467e-05,
+   "eccentricity": 0.03187841160386986,
+   "eccentricityError": 0.0039983955,
+   "argumentDeg": 9.724396956388112,
+   "argumentErrorDeg": 6.1624236,
+   "k1Kms": 124.63418594183811,
+   "k2Kms": 85.70813314890727,
+   "systemicKms": 3.3211119935699793,
+   "goodnessOfFit": 3.38364,
+   "significance": 260.18878
+  },
+  {
+   "systemId": "gaia-3394192948997407104",
+   "name": "110 Tau",
+   "sourceId": "3394192948997407104",
+   "solution": "SB2C",
+   "periodDays": 5.504675774562249,
+   "periodErrorDays": 0.00016779666,
+   "eccentricity": null,
+   "eccentricityError": null,
+   "argumentDeg": null,
+   "argumentErrorDeg": null,
+   "k1Kms": 48.62731641279941,
+   "k2Kms": 54.35890758420429,
+   "systemicKms": 15.113978061931213,
+   "goodnessOfFit": 2.5074117,
+   "significance": 202.95845
+  },
+  {
+   "systemId": "gaia-3005061455916537088",
+   "name": "HD 41547",
+   "sourceId": "3005061455916537088",
+   "solution": "SB2",
+   "periodDays": 5.393948106889482,
+   "periodErrorDays": 6.873145e-05,
+   "eccentricity": 0.013538120475625647,
+   "eccentricityError": 0.0018775113,
+   "argumentDeg": 285.25673708818874,
+   "argumentErrorDeg": 7.83262,
+   "k1Kms": 41.54309312767103,
+   "k2Kms": 46.82267462962617,
+   "systemicKms": 36.2763600231021,
+   "goodnessOfFit": 31.014174,
+   "significance": 445.64377
+  },
+  {
+   "systemId": "gaia-5284258831636637440",
+   "name": "Eta1 Dor",
+   "sourceId": "5284258831636637440",
+   "solution": "SB2",
+   "periodDays": 2.7820125725793683,
+   "periodErrorDays": 0.00015330884,
+   "eccentricity": 0.0860068928945298,
+   "eccentricityError": 0.027742857,
+   "argumentDeg": 13.098253670260751,
+   "argumentErrorDeg": 23.67664,
+   "k1Kms": 100.89562917149385,
+   "k2Kms": 109.9780815126499,
+   "systemicKms": 24.42509580108834,
+   "goodnessOfFit": 0.89215344,
+   "significance": 16.915901
+  },
+  {
+   "systemId": "gaia-5553178244538085888",
+   "name": "HD 42683",
+   "sourceId": "5553178244538085888",
+   "solution": "SB2",
+   "periodDays": 173.74105010748875,
+   "periodErrorDays": 0.05238695,
+   "eccentricity": 0.2432631013036328,
+   "eccentricityError": 0.0036559983,
+   "argumentDeg": 85.77092075494002,
+   "argumentErrorDeg": 0.6942226,
+   "k1Kms": 24.80411261058575,
+   "k2Kms": 23.708660385429894,
+   "systemicKms": 62.3561151239403,
+   "goodnessOfFit": 43.95858,
+   "significance": 208.85236
+  },
+  {
+   "systemId": "gaia-5482971089912992000",
+   "name": "HD 45450",
+   "sourceId": "5482971089912992000",
+   "solution": "SB2",
+   "periodDays": 1.7929680174079423,
+   "periodErrorDays": 5.1996644e-06,
+   "eccentricity": 0.06313248062344368,
+   "eccentricityError": 0.0028996568,
+   "argumentDeg": 63.111921646627835,
+   "argumentErrorDeg": 2.0259416,
+   "k1Kms": 61.673642895917496,
+   "k2Kms": 64.3445891395584,
+   "systemicKms": 21.78365532245188,
+   "goodnessOfFit": 43.135784,
+   "significance": 261.07407
+  },
+  {
+   "systemId": "gaia-5570303756616874624",
+   "name": "HD 45983",
+   "sourceId": "5570303756616874624",
+   "solution": "SB2",
+   "periodDays": 13.733886830131052,
+   "periodErrorDays": 0.0016375459,
+   "eccentricity": 0.4211218300280905,
+   "eccentricityError": 0.012451137,
+   "argumentDeg": 292.114615666799,
+   "argumentErrorDeg": 2.7280328,
+   "k1Kms": 18.514164934615067,
+   "k2Kms": 16.532454695044944,
+   "systemicKms": 18.101256979955984,
+   "goodnessOfFit": 16.41329,
+   "significance": 40.533493
+  },
+  {
+   "systemId": "gaia-5480618860881598336",
+   "name": "HD 51210",
+   "sourceId": "5480618860881598336",
+   "solution": "SB2",
+   "periodDays": 8.484272922857564,
+   "periodErrorDays": 0.0001026664,
+   "eccentricity": 0.013200336513951198,
+   "eccentricityError": 0.0034246247,
+   "argumentDeg": 9.495573821281063,
+   "argumentErrorDeg": 9.954016,
+   "k1Kms": 61.48155841744992,
+   "k2Kms": 62.63572189163576,
+   "systemicKms": 19.670693573487025,
+   "goodnessOfFit": 11.720833,
+   "significance": 293.27377
+  },
+  {
+   "systemId": "gaia-5557922121817018496",
+   "name": "HD 52362",
+   "sourceId": "5557922121817018496",
+   "solution": "SB2C",
+   "periodDays": 8.670558733434778,
+   "periodErrorDays": 0.00037933816,
+   "eccentricity": null,
+   "eccentricityError": null,
+   "argumentDeg": null,
+   "argumentErrorDeg": null,
+   "k1Kms": 50.201857266871635,
+   "k2Kms": 37.76086788960353,
+   "systemicKms": 29.555783154553946,
+   "goodnessOfFit": 7.178021,
+   "significance": 186.57703
+  },
+  {
+   "systemId": "gaia-5586717403640706304",
+   "name": "HD 62226",
+   "sourceId": "5586717403640706304",
+   "solution": "SB2",
+   "periodDays": 0.6357503390945157,
+   "periodErrorDays": 1.3426821e-06,
+   "eccentricity": 0.052746832179588976,
+   "eccentricityError": 0.0065185144,
+   "argumentDeg": 257.7264337245412,
+   "argumentErrorDeg": 8.033934,
+   "k1Kms": 105.20623404525669,
+   "k2Kms": 96.53039863766526,
+   "systemicKms": 23.19285116137179,
+   "goodnessOfFit": 30.29506,
+   "significance": 75.09893
+  },
+  {
+   "systemId": "gaia-5643129015942038144",
+   "name": "HD 71622",
+   "sourceId": "5643129015942038144",
+   "solution": "SB2",
+   "periodDays": 38.6117572569362,
+   "periodErrorDays": 0.0008724881,
+   "eccentricity": 0.005668757461031513,
+   "eccentricityError": 0.0009094611,
+   "argumentDeg": 268.97668120199404,
+   "argumentErrorDeg": 11.776876,
+   "k1Kms": 42.694473750000355,
+   "k2Kms": 42.02168904165691,
+   "systemicKms": -0.33762612992416546,
+   "goodnessOfFit": 27.150068,
+   "significance": 769.8584
+  },
+  {
+   "systemId": "gaia-709596324640717568",
+   "name": "4 LMi",
+   "sourceId": "709596324640717568",
+   "solution": "SB2",
+   "periodDays": 111.97127559102653,
+   "periodErrorDays": 0.042855352,
+   "eccentricity": 0.1861707080833935,
+   "eccentricityError": 0.0044339914,
+   "argumentDeg": 298.34742462172113,
+   "argumentErrorDeg": 0.94826525,
+   "k1Kms": 38.01955496457794,
+   "k2Kms": 36.62491233262732,
+   "systemicKms": 22.200655131546664,
+   "goodnessOfFit": 32.063225,
+   "significance": 215.7721
+  },
+  {
+   "systemId": "gaia-5310329351859038336",
+   "name": "HD 81157",
+   "sourceId": "5310329351859038336",
+   "solution": "SB2",
+   "periodDays": 1.8962291726051672,
+   "periodErrorDays": 7.1272816e-06,
+   "eccentricity": 0.07457694057208132,
+   "eccentricityError": 0.0027751592,
+   "argumentDeg": 17.244416295859235,
+   "argumentErrorDeg": 2.6817644,
+   "k1Kms": 90.83963683160208,
+   "k2Kms": 75.85799895488631,
+   "systemicKms": 7.380550888988733,
+   "goodnessOfFit": 31.112988,
+   "significance": 294.90103
+  },
+  {
+   "systemId": "gaia-5192580796186293504",
+   "name": "Mu Cha",
+   "sourceId": "5192580796186293504",
+   "solution": "SB2",
+   "periodDays": 3.5165279039647097,
+   "periodErrorDays": 3.0220444e-05,
+   "eccentricity": 0.012891657219637078,
+   "eccentricityError": 0.0034755466,
+   "argumentDeg": 356.4498723103836,
+   "argumentErrorDeg": 12.39088,
+   "k1Kms": 91.41215196627682,
+   "k2Kms": 100.12482438991059,
+   "systemicKms": 7.380130618596252,
+   "goodnessOfFit": 29.644047,
+   "significance": 241.23686
+  },
+  {
+   "systemId": "gaia-5254194507274022784",
+   "name": "HD 93502",
+   "sourceId": "5254194507274022784",
+   "solution": "SB2",
+   "periodDays": 11.13179767614915,
+   "periodErrorDays": 0.00030731392,
+   "eccentricity": 0.3866371400095439,
+   "eccentricityError": 0.0026897285,
+   "argumentDeg": 23.515369892968426,
+   "argumentErrorDeg": 0.41150162,
+   "k1Kms": 65.45272079316973,
+   "k2Kms": 65.10560912109614,
+   "systemicKms": -3.006699012720721,
+   "goodnessOfFit": 16.830408,
+   "significance": 302.93738
+  },
+  {
+   "systemId": "gaia-5388430720769436800",
+   "name": "HD 94724",
+   "sourceId": "5388430720769436800",
+   "solution": "SB2",
+   "periodDays": 44.29092797410134,
+   "periodErrorDays": 0.0062437505,
+   "eccentricity": 0.5902853284470215,
+   "eccentricityError": 0.0040992275,
+   "argumentDeg": 84.20056270196649,
+   "argumentErrorDeg": 0.5404509,
+   "k1Kms": 66.70701391632224,
+   "k2Kms": 47.13425876160005,
+   "systemicKms": 8.881965350157055,
+   "goodnessOfFit": 14.88726,
+   "significance": 85.75039
+  },
+  {
+   "systemId": "gaia-5237611398000522880",
+   "name": "HD 99453",
+   "sourceId": "5237611398000522880",
+   "solution": "SB2C",
+   "periodDays": 15.213910692933197,
+   "periodErrorDays": 0.00027941848,
+   "eccentricity": null,
+   "eccentricityError": null,
+   "argumentDeg": null,
+   "argumentErrorDeg": null,
+   "k1Kms": 47.11464023539727,
+   "k2Kms": 43.623780997699534,
+   "systemicKms": -1.0415725245086667,
+   "goodnessOfFit": 15.552142,
+   "significance": 664.54755
+  },
+  {
+   "systemId": "gaia-6144511953192701440",
+   "name": "V788 Cen",
+   "sourceId": "6144511953192701440",
+   "solution": "SB2",
+   "periodDays": 4.966887705740158,
+   "periodErrorDays": 3.0224457e-05,
+   "eccentricity": 0.018729480158750783,
+   "eccentricityError": 0.002754492,
+   "argumentDeg": 339.79936100894923,
+   "argumentErrorDeg": 5.6168704,
+   "k1Kms": 104.13342100806172,
+   "k2Kms": 82.20135348503537,
+   "systemicKms": -20.975736916624502,
+   "goodnessOfFit": 25.15104,
+   "significance": 441.63525
+  },
+  {
+   "systemId": "gaia-6085864655805669120",
+   "name": "HD 111775",
+   "sourceId": "6085864655805669120",
+   "solution": "SB2",
+   "periodDays": 47.62560695876484,
+   "periodErrorDays": 0.005038402,
+   "eccentricity": 0.5498461816894914,
+   "eccentricityError": 0.0047673304,
+   "argumentDeg": 349.0663216520597,
+   "argumentErrorDeg": 0.94065666,
+   "k1Kms": 38.43299066873981,
+   "k2Kms": 33.41169789651228,
+   "systemicKms": -3.575827856643792,
+   "goodnessOfFit": 12.749749,
+   "significance": 81.57951
+  },
+  {
+   "systemId": "gaia-5843943613492830720",
+   "name": "HD 114371",
+   "sourceId": "5843943613492830720",
+   "solution": "SB2",
+   "periodDays": 4.645713810788767,
+   "periodErrorDays": 3.308194e-05,
+   "eccentricity": 0.03868293396346235,
+   "eccentricityError": 0.0030506314,
+   "argumentDeg": 342.1792227228879,
+   "argumentErrorDeg": 4.1433325,
+   "k1Kms": 22.89006891205086,
+   "k2Kms": 23.10685288057415,
+   "systemicKms": 8.240233947814462,
+   "goodnessOfFit": 27.769848,
+   "significance": 247.01353
+  },
+  {
+   "systemId": "gaia-3939784018997099904",
+   "name": "HD 115365",
+   "sourceId": "3939784018997099904",
+   "solution": "SB2",
+   "periodDays": 7.383405031365689,
+   "periodErrorDays": 0.00039110082,
+   "eccentricity": 0.4702454038225077,
+   "eccentricityError": 0.005811998,
+   "argumentDeg": 45.855032035010126,
+   "argumentErrorDeg": 1.7642397,
+   "k1Kms": 104.50005772200203,
+   "k2Kms": 108.86924481961178,
+   "systemicKms": -21.869609341212065,
+   "goodnessOfFit": 33.400387,
+   "significance": 61.9548
+  },
+  {
+   "systemId": "gaia-6065011902400559872",
+   "name": "HD 119727",
+   "sourceId": "6065011902400559872",
+   "solution": "SB2",
+   "periodDays": 46.58152689917582,
+   "periodErrorDays": 0.0040321047,
+   "eccentricity": 0.27313598262886307,
+   "eccentricityError": 0.0033241853,
+   "argumentDeg": 324.3358830106844,
+   "argumentErrorDeg": 1.0031173,
+   "k1Kms": 39.615377947755455,
+   "k2Kms": 39.09084860599082,
+   "systemicKms": 7.645282087886753,
+   "goodnessOfFit": 47.728725,
+   "significance": 175.63402
+  },
+  {
+   "systemId": "gaia-5900079042218195840",
+   "name": "c Lup",
+   "sourceId": "5900079042218195840",
+   "solution": "SB2",
+   "periodDays": 116.75758774548903,
+   "periodErrorDays": 0.20250602,
+   "eccentricity": 0.40822967532188054,
+   "eccentricityError": 0.02144673,
+   "argumentDeg": 317.2156779148317,
+   "argumentErrorDeg": 2.7197266,
+   "k1Kms": 18.772155088187,
+   "k2Kms": 26.624571614661996,
+   "systemicKms": 6.9162883477237385,
+   "goodnessOfFit": -1.2174366,
+   "significance": 49.570786
+  },
+  {
+   "systemId": "gaia-5829223076947590656",
+   "name": "HD 144481",
+   "sourceId": "5829223076947590656",
+   "solution": "SB2",
+   "periodDays": 11.683842686793117,
+   "periodErrorDays": 0.00014802803,
+   "eccentricity": 0.44430338383285467,
+   "eccentricityError": 0.0018638205,
+   "argumentDeg": 336.1907264604497,
+   "argumentErrorDeg": 0.2704431,
+   "k1Kms": 72.9593856884109,
+   "k2Kms": 78.18951362749262,
+   "systemicKms": 1.8895205715646226,
+   "goodnessOfFit": 49.499725,
+   "significance": 310.1237
+  },
+  {
+   "systemId": "gaia-5828317422956035072",
+   "name": "Iota TrA",
+   "sourceId": "5828317422956035072",
+   "solution": "SB2",
+   "periodDays": 39.842931591052356,
+   "periodErrorDays": 0.00111102,
+   "eccentricity": 0.27365981954020824,
+   "eccentricityError": 0.003325388,
+   "argumentDeg": 91.05654994730462,
+   "argumentErrorDeg": 0.45619965,
+   "k1Kms": 38.26256858973417,
+   "k2Kms": 46.94680436286663,
+   "systemicKms": -2.93027114869852,
+   "goodnessOfFit": 38.79305,
+   "significance": 258.4975
+  },
+  {
+   "systemId": "gaia-5963704000561744768",
+   "name": "HD 153234",
+   "sourceId": "5963704000561744768",
+   "solution": "SB2",
+   "periodDays": 82.12480746874503,
+   "periodErrorDays": 0.07156074,
+   "eccentricity": 0.10545265767146463,
+   "eccentricityError": 0.017343663,
+   "argumentDeg": 4.707042100885375,
+   "argumentErrorDeg": 11.022539,
+   "k1Kms": 17.284301622910917,
+   "k2Kms": 14.207092861250388,
+   "systemicKms": -14.292754428480539,
+   "goodnessOfFit": 11.528707,
+   "significance": 37.209896
+  },
+  {
+   "systemId": "gaia-6656769472772280320",
+   "name": "Rho Tel",
+   "sourceId": "6656769472772280320",
+   "solution": "SB2C",
+   "periodDays": 3.1047550338082126,
+   "periodErrorDays": 7.868129e-06,
+   "eccentricity": null,
+   "eccentricityError": null,
+   "argumentDeg": null,
+   "argumentErrorDeg": null,
+   "k1Kms": 84.85888768995227,
+   "k2Kms": 85.80585183786349,
+   "systemicKms": 5.087949143377146,
+   "goodnessOfFit": 14.145089,
+   "significance": 1073.7397
+  },
+  {
+   "systemId": "gaia-2085956970179064576",
+   "name": "HD 190781",
+   "sourceId": "2085956970179064576",
+   "solution": "SB2",
+   "periodDays": 12.35005566244912,
+   "periodErrorDays": 0.00030902427,
+   "eccentricity": 0.15501729628299704,
+   "eccentricityError": 0.0027875123,
+   "argumentDeg": 74.71822225117285,
+   "argumentErrorDeg": 1.224188,
+   "k1Kms": 60.28024004502674,
+   "k2Kms": 58.606539674258876,
+   "systemicKms": -10.6802579039238,
+   "goodnessOfFit": 3.6232142,
+   "significance": 267.6536
+  }
+ ],
+ "heldOrbits": [
+  {
+   "systemId": "wt-766",
+   "name": "WT 766",
+   "solution": "Orbital",
+   "periodDays": 597.2107646748664,
+   "reason": "More than two components, so the orbit's pair is not identified."
+  },
+  {
+   "systemId": "gj-867",
+   "name": "GJ 867",
+   "solution": "SB2C",
+   "periodDays": 4.083196151485164,
+   "reason": "More than two components, so the orbit's pair is not identified."
+  },
+  {
+   "systemId": "cns5-gj-719",
+   "name": "BY Dra",
+   "solution": "SB2",
+   "periodDays": 5.977347348592222,
+   "reason": "The pair is 281 AU apart, far wider than this 6.0-day orbit, which points to a hidden inner companion."
+  },
+  {
+   "systemId": "cns5-gj-773",
+   "name": "HD 188807",
+   "solution": "Orbital",
+   "periodDays": 406.36266840329495,
+   "reason": "The pair is 1122 AU apart, far wider than this 406.4-day orbit, which points to a hidden inner companion."
+  },
+  {
+   "systemId": "cns5-gj-171.2",
+   "name": "HD 283750",
+   "solution": "SB1",
+   "periodDays": 1.7879334862291536,
+   "reason": "The pair is 2155 AU apart, far wider than this 1.8-day orbit, which points to a hidden inner companion."
+  },
+  {
+   "systemId": "cns5-gj-2033",
+   "name": "LP 714-58",
+   "reason": "Only unvalidated targeted-search solutions."
+  },
+  {
+   "systemId": "cns5-gj-3530",
+   "name": "G 114-33",
+   "reason": "Only unvalidated targeted-search solutions."
+  },
+  {
+   "systemId": "cns5-gj-392.1",
+   "name": "HD 90089",
+   "solution": "Orbital",
+   "periodDays": 2886.719914712987,
+   "reason": "The pair is 311 AU apart, far wider than this 2886.7-day orbit, which points to a hidden inner companion."
+  },
+  {
+   "systemId": "cns5-gj-4157",
+   "name": "HD 197214",
+   "solution": "SB1",
+   "periodDays": 164.2353466454602,
+   "reason": "The pair is 378 AU apart, far wider than this 164.2-day orbit, which points to a hidden inner companion."
+  },
+  {
+   "systemId": "cns5-gj-455.1",
+   "name": "HD 105065",
+   "solution": "SB1",
+   "periodDays": 9.501349701154705,
+   "reason": "The pair is 4327 AU apart, far wider than this 9.5-day orbit, which points to a hidden inner companion."
+  },
+  {
+   "systemId": "cns5-gj-630.1",
+   "name": "CM Dra",
+   "solution": "SB2C",
+   "periodDays": 1.268383053136199,
+   "reason": "The pair is 397 AU apart, far wider than this 1.3-day orbit, which points to a hidden inner companion."
+  },
+  {
+   "systemId": "cns5-gj-654.3",
+   "name": "HD 154590",
+   "solution": "SB2",
+   "periodDays": 5.069804820838919,
+   "reason": "The pair is 94 AU apart, far wider than this 5.1-day orbit, which points to a hidden inner companion."
+  },
+  {
+   "systemId": "cns5-gj-660.1",
+   "name": "G 19-16",
+   "reason": "Only unvalidated targeted-search solutions."
+  },
+  {
+   "systemId": "cns5-gj-692.1",
+   "name": "HD 161198",
+   "reason": "Only unvalidated targeted-search solutions."
+  },
+  {
+   "systemId": "cns5-gj-10675",
+   "name": "CD-28 1745",
+   "solution": "SB2",
+   "periodDays": 6.426707555473356,
+   "reason": "The pair is 139 AU apart, far wider than this 6.4-day orbit, which points to a hidden inner companion."
+  },
+  {
+   "systemId": "cns5-gj-12556",
+   "name": "G 259-20",
+   "solution": "Orbital",
+   "periodDays": 670.2882966032424,
+   "reason": "The pair is 657 AU apart, far wider than this 670.3-day orbit, which points to a hidden inner companion."
+  },
+  {
+   "systemId": "cns5-gj-12802",
+   "name": "L 274-89",
+   "solution": "Orbital",
+   "periodDays": 523.3032336515487,
+   "reason": "More than two components, so the orbit's pair is not identified."
+  },
+  {
+   "systemId": "cns5-gj-12930",
+   "name": "LP 574-21",
+   "solution": "SB2C",
+   "periodDays": 1.120924899670085,
+   "reason": "The pair is 2308 AU apart, far wider than this 1.1-day orbit, which points to a hidden inner companion."
+  },
+  {
+   "systemId": "cns5-gj-13330",
+   "name": "HD 218868",
+   "solution": "Orbital",
+   "periodDays": 1469.1190208842002,
+   "reason": "The pair is 1186 AU apart, far wider than this 1469.1-day orbit, which points to a hidden inner companion."
+  }
+ ],
+ "singleStarOrbits": {
+  "astrometric": [
+   {
+    "id": "10pc-0091",
+    "name": "IL Aqr",
+    "solution": "OrbitalTargetedSearchValidated",
+    "periodDays": 61.36053201535001,
+    "goodnessOfFit": -0.9973179
+   },
+   {
+    "id": "cns5-0873",
+    "name": "CD-43 1064",
+    "solution": "Orbital",
+    "periodDays": 90.19229925379574,
+    "goodnessOfFit": 10.148106
+   },
+   {
+    "id": "cns5-1068",
+    "name": "LEHPM 3719",
+    "solution": "Orbital",
+    "periodDays": 142.5181896221936,
+    "goodnessOfFit": 5.3330994
+   },
+   {
+    "id": "cns5-1140",
+    "name": "LP 775-31",
+    "solution": "Orbital",
+    "periodDays": 105.55593310843669,
+    "goodnessOfFit": 4.24196
+   },
+   {
+    "id": "cns5-1205",
+    "name": "LSPM J0448+3648",
+    "solution": "Orbital",
+    "periodDays": 301.5181079175184,
+    "goodnessOfFit": 4.924189
+   },
+   {
+    "id": "cns5-1423",
+    "name": "APMPM J0544-4108",
+    "solution": "Orbital",
+    "periodDays": 147.46727150198623,
+    "goodnessOfFit": 16.109243
+   },
+   {
+    "id": "cns5-1785",
+    "name": "G 87-28",
+    "solution": "Orbital",
+    "periodDays": 541.9441531702803,
+    "goodnessOfFit": 7.525964
+   },
+   {
+    "id": "cns5-2076",
+    "name": "DENIS J082303.1-491201",
+    "solution": "OrbitalTargetedSearchValidated",
+    "periodDays": 249.9551828466021,
+    "goodnessOfFit": 0.8246281
+   },
+   {
+    "id": "cns5-2139",
+    "name": "SCR J0840-4044",
+    "solution": "Orbital",
+    "periodDays": 83.38369868922128,
+    "goodnessOfFit": 2.720452
+   },
+   {
+    "id": "cns5-2633",
+    "name": "LP 168-21",
+    "solution": "Orbital",
+    "periodDays": 389.0861097838762,
+    "goodnessOfFit": 7.17038
+   },
+   {
+    "id": "cns5-2669",
+    "name": "UPM J1055-7356",
+    "solution": "Orbital",
+    "periodDays": 775.7164509256389,
+    "goodnessOfFit": 14.176867
+   },
+   {
+    "id": "cns5-3108",
+    "name": "LP 909-18",
+    "solution": "Orbital",
+    "periodDays": 36.91221893138369,
+    "goodnessOfFit": 10.403979
+   },
+   {
+    "id": "cns5-4445",
+    "name": "LP 44-162",
+    "solution": "Orbital",
+    "periodDays": 479.9890102079157,
+    "goodnessOfFit": 3.8688748
+   },
+   {
+    "id": "cns5-4767",
+    "name": "2MASS J19123926-5016173",
+    "solution": "Orbital",
+    "periodDays": 165.66556809692727,
+    "goodnessOfFit": 4.9605846
+   },
+   {
+    "id": "cns5-4841",
+    "name": "G 260-22",
+    "solution": "Orbital",
+    "periodDays": 125.45001484912628,
+    "goodnessOfFit": 10.21337
+   },
+   {
+    "id": "cns5-4851",
+    "name": "Ross 1063",
+    "solution": "Orbital",
+    "periodDays": 209.31568456899032,
+    "goodnessOfFit": 18.118383
+   },
+   {
+    "id": "cns5-4934",
+    "name": "LP 870-16",
+    "solution": "Orbital",
+    "periodDays": 416.472292463381,
+    "goodnessOfFit": 4.4664297
+   },
+   {
+    "id": "cns5-5628",
+    "name": "PM J22490+0459",
+    "solution": "Orbital",
+    "periodDays": 134.6672323731679,
+    "goodnessOfFit": 6.8551803
+   },
+   {
+    "id": "cns5-5637",
+    "name": "EGGR 283",
+    "solution": "Orbital",
+    "periodDays": 277.9701803413636,
+    "goodnessOfFit": 11.753487
+   },
+   {
+    "id": "cns5-5769",
+    "name": "LP 522-46",
+    "solution": "Orbital",
+    "periodDays": 249.35698793125206,
+    "goodnessOfFit": 3.9317892
+   },
+   {
+    "id": "gaia-bh1-b",
+    "name": "Gaia BH1 B",
+    "solution": "Orbital",
+    "periodDays": 185.7656578920495,
+    "goodnessOfFit": 0.31277087
+   },
+   {
+    "id": "gaia-bh2-b",
+    "name": "Gaia BH2 B",
+    "solution": "AstroSpectroSB1",
+    "periodDays": 1352.2889370485916,
+    "goodnessOfFit": 3.0688643
+   },
+   {
+    "id": "gaia-ns1-b",
+    "name": "Gaia NS1 B",
+    "solution": "Orbital",
+    "periodDays": 736.0178501588972,
+    "goodnessOfFit": 0.7381435
+   },
+   {
+    "id": "hip-101489",
+    "name": "HD 195909",
+    "solution": "Orbital",
+    "periodDays": 649.5041998131511,
+    "goodnessOfFit": 14.678313
+   },
+   {
+    "id": "hip-103519",
+    "name": "HD 199870",
+    "solution": "Orbital",
+    "periodDays": 635.4970906831084,
+    "goodnessOfFit": 17.599009
+   },
+   {
+    "id": "hip-105017",
+    "name": "HD 202710",
+    "solution": "Orbital",
+    "periodDays": 1614.956292811761,
+    "goodnessOfFit": 13.261047
+   },
+   {
+    "id": "hip-109190",
+    "name": "HD 210220",
+    "solution": "Orbital",
+    "periodDays": 735.6648503900383,
+    "goodnessOfFit": 6.799464
+   },
+   {
+    "id": "hip-110725",
+    "name": "HD 213022",
+    "solution": "Orbital",
+    "periodDays": 664.5847828926478,
+    "goodnessOfFit": 9.196091
+   },
+   {
+    "id": "hip-112127",
+    "name": "HD 214987",
+    "solution": "Orbital",
+    "periodDays": 657.0902739463866,
+    "goodnessOfFit": 11.472171
+   },
+   {
+    "id": "hip-11231",
+    "name": "HD 15064",
+    "solution": "Orbital",
+    "periodDays": 142.59753494705348,
+    "goodnessOfFit": 15.595575
+   },
+   {
+    "id": "hip-117105",
+    "name": "HD 222805",
+    "solution": "Orbital",
+    "periodDays": 215.66962063041115,
+    "goodnessOfFit": 9.535871
+   },
+   {
+    "id": "hip-1269",
+    "name": "HD 1142",
+    "solution": "Orbital",
+    "periodDays": 527.246745765425,
+    "goodnessOfFit": 8.388606
+   },
+   {
+    "id": "hip-16779",
+    "name": "HD 22379",
+    "solution": "Orbital",
+    "periodDays": 719.2914911377326,
+    "goodnessOfFit": 6.9172597
+   },
+   {
+    "id": "hip-19673",
+    "name": "HD 26101",
+    "solution": "Orbital",
+    "periodDays": 624.3533304154304,
+    "goodnessOfFit": 12.333229
+   },
+   {
+    "id": "hip-20614",
+    "name": "HD 27901",
+    "solution": "Orbital",
+    "periodDays": 201.226653868245,
+    "goodnessOfFit": 8.780966
+   },
+   {
+    "id": "hip-20982",
+    "name": "HD 26659",
+    "solution": "Orbital",
+    "periodDays": 697.8712475134398,
+    "goodnessOfFit": 9.889643
+   },
+   {
+    "id": "hip-21408",
+    "name": "HD 29104",
+    "solution": "Orbital",
+    "periodDays": 484.7672722291702,
+    "goodnessOfFit": 12.942822
+   },
+   {
+    "id": "hip-22176",
+    "name": "HD 30197",
+    "solution": "Orbital",
+    "periodDays": 108.01367491767819,
+    "goodnessOfFit": 8.118776
+   },
+   {
+    "id": "hip-2224",
+    "name": "48 Psc",
+    "solution": "Orbital",
+    "periodDays": 622.9549066654307,
+    "goodnessOfFit": 9.326078
+   },
+   {
+    "id": "hip-22531",
+    "name": "Iota Pic A",
+    "solution": "Orbital",
+    "periodDays": 1000.8225445507101,
+    "goodnessOfFit": 15.925077
+   },
+   {
+    "id": "hip-22534",
+    "name": "Iota Pic B",
+    "solution": "AstroSpectroSB1",
+    "periodDays": 207.59871449247518,
+    "goodnessOfFit": 3.5058625
+   },
+   {
+    "id": "hip-22565",
+    "name": "i Tau",
+    "solution": "Orbital",
+    "periodDays": 1551.8388735068736,
+    "goodnessOfFit": 21.768864
+   },
+   {
+    "id": "hip-23221",
+    "name": "63 Eri",
+    "solution": "Orbital",
+    "periodDays": 871.6552953656026,
+    "goodnessOfFit": 11.212108
+   },
+   {
+    "id": "hip-28957",
+    "name": "Pi1 Col",
+    "solution": "AstroSpectroSB1",
+    "periodDays": 851.5252974797817,
+    "goodnessOfFit": 22.19904
+   },
+   {
+    "id": "hip-29233",
+    "name": "HD 42486",
+    "solution": "Orbital",
+    "periodDays": 648.4039647531404,
+    "goodnessOfFit": 9.408571
+   },
+   {
+    "id": "hip-31072",
+    "name": "CD-35 2947",
+    "solution": "Orbital",
+    "periodDays": 1012.7346219259481,
+    "goodnessOfFit": 12.487216
+   },
+   {
+    "id": "hip-31564",
+    "name": "Nu1 CMa",
+    "solution": "Orbital",
+    "periodDays": 523.6671833058801,
+    "goodnessOfFit": 9.650114
+   },
+   {
+    "id": "hip-32809",
+    "name": "HD 49980",
+    "solution": "Orbital",
+    "periodDays": 754.9925788996725,
+    "goodnessOfFit": 9.621376
+   },
+   {
+    "id": "hip-33774",
+    "name": "HD 52703",
+    "solution": "Orbital",
+    "periodDays": 82.38343428478235,
+    "goodnessOfFit": 6.393226
+   },
+   {
+    "id": "hip-3750",
+    "name": "HD 4440",
+    "solution": "Orbital",
+    "periodDays": 2090.815964882649,
+    "goodnessOfFit": 12.551524
+   },
+   {
+    "id": "hip-38292",
+    "name": "HD 64181",
+    "solution": "Orbital",
+    "periodDays": 548.7143440168167,
+    "goodnessOfFit": 9.529134
+   },
+   {
+    "id": "hip-38794",
+    "name": "HD 64938",
+    "solution": "Orbital",
+    "periodDays": 559.4366722181186,
+    "goodnessOfFit": 6.978755
+   },
+   {
+    "id": "hip-39903",
+    "name": "B Car",
+    "solution": "Orbital",
+    "periodDays": 903.1413673468088,
+    "goodnessOfFit": 11.641466
+   },
+   {
+    "id": "hip-40231",
+    "name": "HD 68461",
+    "solution": "Orbital",
+    "periodDays": 989.6181356948241,
+    "goodnessOfFit": 9.367232
+   },
+   {
+    "id": "hip-43850",
+    "name": "HD 76478",
+    "solution": "Orbital",
+    "periodDays": 213.87533265827346,
+    "goodnessOfFit": 8.966948
+   },
+   {
+    "id": "hip-44010",
+    "name": "HD 76629",
+    "solution": "Orbital",
+    "periodDays": 912.2334688162656,
+    "goodnessOfFit": 10.1235695
+   },
+   {
+    "id": "hip-46247",
+    "name": "EZ UMa",
+    "solution": "Orbital",
+    "periodDays": 184.4644369104568,
+    "goodnessOfFit": 18.357225
+   },
+   {
+    "id": "hip-46893",
+    "name": "HD 82674",
+    "solution": "Orbital",
+    "periodDays": 846.3251971912064,
+    "goodnessOfFit": 9.762345
+   },
+   {
+    "id": "hip-47550",
+    "name": "13 Leo",
+    "solution": "Orbital",
+    "periodDays": 253.77721043225517,
+    "goodnessOfFit": 9.871472
+   },
+   {
+    "id": "hip-47594",
+    "name": "HD 83489",
+    "solution": "Orbital",
+    "periodDays": 838.8208544234977,
+    "goodnessOfFit": 20.028976
+   },
+   {
+    "id": "hip-48348",
+    "name": "HD 85563",
+    "solution": "Orbital",
+    "periodDays": 1002.1983926305717,
+    "goodnessOfFit": 10.373902
+   },
+   {
+    "id": "hip-49645",
+    "name": "HD 88013",
+    "solution": "Orbital",
+    "periodDays": 968.434433770249,
+    "goodnessOfFit": 12.22245
+   },
+   {
+    "id": "hip-50492",
+    "name": "HD 89442",
+    "solution": "Orbital",
+    "periodDays": 500.68253663743235,
+    "goodnessOfFit": 11.930519
+   },
+   {
+    "id": "hip-51835",
+    "name": "HD 92209",
+    "solution": "Orbital",
+    "periodDays": 292.5968669522656,
+    "goodnessOfFit": 6.181621
+   },
+   {
+    "id": "hip-56120",
+    "name": "HD 99913",
+    "solution": "Orbital",
+    "periodDays": 955.056159029874,
+    "goodnessOfFit": 8.875983
+   },
+   {
+    "id": "hip-56364",
+    "name": "HD 100418",
+    "solution": "Orbital",
+    "periodDays": 1048.5642400002018,
+    "goodnessOfFit": 6.794934
+   },
+   {
+    "id": "hip-56675",
+    "name": "Pi Cha",
+    "solution": "Orbital",
+    "periodDays": 225.76631201059507,
+    "goodnessOfFit": 6.1169496
+   },
+   {
+    "id": "hip-61496",
+    "name": "TU Crv",
+    "solution": "AstroSpectroSB1",
+    "periodDays": 490.45826274722464,
+    "goodnessOfFit": 5.386937
+   },
+   {
+    "id": "hip-62600",
+    "name": "HD 111572",
+    "solution": "Orbital",
+    "periodDays": 763.0312733007223,
+    "goodnessOfFit": 8.26848
+   },
+   {
+    "id": "hip-64790",
+    "name": "HD 115149",
+    "solution": "Orbital",
+    "periodDays": 146.06701267041126,
+    "goodnessOfFit": 7.416063
+   },
+   {
+    "id": "hip-6595",
+    "name": "HD 8681",
+    "solution": "Orbital",
+    "periodDays": 188.25396418880112,
+    "goodnessOfFit": 11.258224
+   },
+   {
+    "id": "hip-66907",
+    "name": "HD 119458",
+    "solution": "Orbital",
+    "periodDays": 149.02181729015314,
+    "goodnessOfFit": 12.3779
+   },
+   {
+    "id": "hip-67234",
+    "name": "M Cen",
+    "solution": "Orbital",
+    "periodDays": 434.9749918148073,
+    "goodnessOfFit": 11.317028
+   },
+   {
+    "id": "hip-69112",
+    "name": "4 UMi",
+    "solution": "Orbital",
+    "periodDays": 618.0854603010948,
+    "goodnessOfFit": 11.891122
+   },
+   {
+    "id": "hip-695",
+    "name": "HD 371",
+    "solution": "Orbital",
+    "periodDays": 1200.9446907533722,
+    "goodnessOfFit": 6.2566204
+   },
+   {
+    "id": "hip-70874",
+    "name": "HD 126209",
+    "solution": "Orbital",
+    "periodDays": 209.05245688013918,
+    "goodnessOfFit": 10.020466
+   },
+   {
+    "id": "hip-7213",
+    "name": "HD 9525",
+    "solution": "Orbital",
+    "periodDays": 582.378168028737,
+    "goodnessOfFit": 24.024921
+   },
+   {
+    "id": "hip-74006",
+    "name": "HD 133631",
+    "solution": "Orbital",
+    "periodDays": 223.44020231914755,
+    "goodnessOfFit": 6.903147
+   },
+   {
+    "id": "hip-74896",
+    "name": "HD 136138",
+    "solution": "Orbital",
+    "periodDays": 504.99700504036787,
+    "goodnessOfFit": 9.766056
+   },
+   {
+    "id": "hip-77678",
+    "name": "HD 141544",
+    "solution": "Orbital",
+    "periodDays": 136.56799902914875,
+    "goodnessOfFit": 10.126569
+   },
+   {
+    "id": "hip-78236",
+    "name": "HD 142889",
+    "solution": "Orbital",
+    "periodDays": 646.9929879205749,
+    "goodnessOfFit": 6.6511307
+   },
+   {
+    "id": "hip-79101",
+    "name": "Phi Her",
+    "solution": "Orbital",
+    "periodDays": 554.4002182924055,
+    "goodnessOfFit": 20.364761
+   },
+   {
+    "id": "hip-79834",
+    "name": "HD 146740",
+    "solution": "Orbital",
+    "periodDays": 458.8352738302804,
+    "goodnessOfFit": 10.006531
+   },
+   {
+    "id": "hip-80686",
+    "name": "Zeta TrA",
+    "solution": "OrbitalTargetedSearchValidated",
+    "periodDays": 12.977281993141812,
+    "goodnessOfFit": 0.52795106
+   },
+   {
+    "id": "hip-81840",
+    "name": "HD 151199",
+    "solution": "Orbital",
+    "periodDays": 410.3603223228087,
+    "goodnessOfFit": 7.9524546
+   },
+   {
+    "id": "hip-83138",
+    "name": "HD 153956",
+    "solution": "Orbital",
+    "periodDays": 1017.9648073696231,
+    "goodnessOfFit": 9.317246
+   },
+   {
+    "id": "hip-83575",
+    "name": "HD 154732",
+    "solution": "Orbital",
+    "periodDays": 785.1341527445867,
+    "goodnessOfFit": 6.6594253
+   },
+   {
+    "id": "hip-85749",
+    "name": "HD 158837",
+    "solution": "Orbital",
+    "periodDays": 418.9951896775452,
+    "goodnessOfFit": 17.512405
+   },
+   {
+    "id": "hip-89507",
+    "name": "HD 167096",
+    "solution": "Orbital",
+    "periodDays": 682.7107969847252,
+    "goodnessOfFit": 7.6325703
+   },
+   {
+    "id": "hip-90729",
+    "name": "HD 170829",
+    "solution": "OrbitalTargetedSearchValidated",
+    "periodDays": 26.375009435457795,
+    "goodnessOfFit": 0.10152486
+   },
+   {
+    "id": "hip-9095",
+    "name": "HD 12055",
+    "solution": "OrbitalTargetedSearchValidated",
+    "periodDays": 919.5674752595886,
+    "goodnessOfFit": 0.8590591
+   },
+   {
+    "id": "hip-93287",
+    "name": "HD 175401",
+    "solution": "Orbital",
+    "periodDays": 463.3522369199275,
+    "goodnessOfFit": 13.525892
+   },
+   {
+    "id": "hip-93733",
+    "name": "HD 178208",
+    "solution": "Orbital",
+    "periodDays": 677.2115024971552,
+    "goodnessOfFit": 7.7398405
+   },
+   {
+    "id": "hip-96428",
+    "name": "HD 184944",
+    "solution": "Orbital",
+    "periodDays": 498.071003941656,
+    "goodnessOfFit": 22.542793
+   },
+   {
+    "id": "hip-97783",
+    "name": "57 Sgr",
+    "solution": "Orbital",
+    "periodDays": 786.2890730501827,
+    "goodnessOfFit": 22.251709
+   }
+  ],
+  "unvalidatedTargetedSearch": [
+   {
+    "id": "cns5-0276",
+    "name": "CD-28 302",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 147.02828825974498,
+    "goodnessOfFit": 1.4208972
+   },
+   {
+    "id": "cns5-0440",
+    "name": "L 88-59",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 33.65128713366755,
+    "goodnessOfFit": -0.00040104138
+   },
+   {
+    "id": "cns5-0970",
+    "name": "Wolf 227",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 10.588494936474195,
+    "goodnessOfFit": 1.629151
+   },
+   {
+    "id": "cns5-3679",
+    "name": "DE Boo",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 124.95755721408841,
+    "goodnessOfFit": 0.94568145
+   },
+   {
+    "id": "cns5-3911",
+    "name": "39 Ser",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 138.4422320865838,
+    "goodnessOfFit": 0.3300686
+   },
+   {
+    "id": "cns5-4226",
+    "name": "V2367 Oph",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 564.018234004135,
+    "goodnessOfFit": 0.60942626
+   },
+   {
+    "id": "cns5-5351",
+    "name": "G 93-33",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 14.646202430458152,
+    "goodnessOfFit": -0.08600867
+   },
+   {
+    "id": "hip-10111",
+    "name": "HD 13423",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 898.8704799099224,
+    "goodnessOfFit": 0.029489752
+   },
+   {
+    "id": "hip-106711",
+    "name": "74 Cyg",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 596.658021532149,
+    "goodnessOfFit": 0.50571686
+   },
+   {
+    "id": "hip-109973",
+    "name": "Mu2 Gru",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 933.9135732197266,
+    "goodnessOfFit": 0.8147451
+   },
+   {
+    "id": "hip-112203",
+    "name": "Rho Gru",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 160.59571172306678,
+    "goodnessOfFit": 0.9308559
+   },
+   {
+    "id": "hip-113638",
+    "name": "Zeta Gru",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 361.8278792510683,
+    "goodnessOfFit": 0.8822241
+   },
+   {
+    "id": "hip-115953",
+    "name": "HD 221148",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 68.07043507915648,
+    "goodnessOfFit": 1.9666506
+   },
+   {
+    "id": "hip-118121",
+    "name": "Eta Tuc",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 413.0089370206262,
+    "goodnessOfFit": 0.74164546
+   },
+   {
+    "id": "hip-12653",
+    "name": "Iota Hor",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 331.74308641758046,
+    "goodnessOfFit": 0.13950597
+   },
+   {
+    "id": "hip-17846",
+    "name": "V376 Per",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 1110.1414539405102,
+    "goodnessOfFit": 0.6118683
+   },
+   {
+    "id": "hip-21029",
+    "name": "HD 28527",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 90.64492264247724,
+    "goodnessOfFit": 1.6492136
+   },
+   {
+    "id": "hip-21273",
+    "name": "Rho Tau",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 58.93758208407973,
+    "goodnessOfFit": 0.6920496
+   },
+   {
+    "id": "hip-22938",
+    "name": "HD 31423",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 1080.59898058409,
+    "goodnessOfFit": 0.50242674
+   },
+   {
+    "id": "hip-25282",
+    "name": "p Ori",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 1486.807397072741,
+    "goodnessOfFit": 1.0023723
+   },
+   {
+    "id": "hip-27280",
+    "name": "HD 38527",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 74.29898393497892,
+    "goodnessOfFit": 2.1594083
+   },
+   {
+    "id": "hip-27901",
+    "name": "HD 39891",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 1817.741311485924,
+    "goodnessOfFit": 0.3223115
+   },
+   {
+    "id": "hip-28010",
+    "name": "Xi Col",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 1313.1150105770132,
+    "goodnessOfFit": 1.328893
+   },
+   {
+    "id": "hip-30060",
+    "name": "2 Lyn",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 1221.642692129018,
+    "goodnessOfFit": 1.1569158
+   },
+   {
+    "id": "hip-33345",
+    "name": "Mu CMa A",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 118.6193812478405,
+    "goodnessOfFit": 0.619795
+   },
+   {
+    "id": "hip-36848",
+    "name": "HD 60666",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 29.07351889802344,
+    "goodnessOfFit": 0.26457155
+   },
+   {
+    "id": "hip-37606",
+    "name": "HD 62644",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 380.7475717323494,
+    "goodnessOfFit": 0.9588588
+   },
+   {
+    "id": "hip-41939",
+    "name": "VX Pyx",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 44.63107944905526,
+    "goodnessOfFit": 1.4403585
+   },
+   {
+    "id": "hip-44511",
+    "name": "c Vel",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 100.7814378430814,
+    "goodnessOfFit": 2.8869114
+   },
+   {
+    "id": "hip-45075",
+    "name": "Tau UMa",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 969.9845121501534,
+    "goodnessOfFit": 0.6108876
+   },
+   {
+    "id": "hip-46358",
+    "name": "HD 82350",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 480.5082049360309,
+    "goodnessOfFit": 1.6057988
+   },
+   {
+    "id": "hip-522",
+    "name": "HD 142",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 318.5760310439869,
+    "goodnessOfFit": 1.545099
+   },
+   {
+    "id": "hip-57497",
+    "name": "HD 102397",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 436.2979134487353,
+    "goodnessOfFit": 1.1052183
+   },
+   {
+    "id": "hip-58574",
+    "name": "HD 104307",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 644.9150380690645,
+    "goodnessOfFit": 0.8438082
+   },
+   {
+    "id": "hip-59774",
+    "name": "Megrez",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 53.130285914575914,
+    "goodnessOfFit": 0.49275312
+   },
+   {
+    "id": "hip-65372",
+    "name": "HD 116338",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 248.1194218103758,
+    "goodnessOfFit": -0.23316862
+   },
+   {
+    "id": "hip-6670",
+    "name": "46 Cet",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 809.1447685553927,
+    "goodnessOfFit": 1.7055618
+   },
+   {
+    "id": "hip-74946",
+    "name": "Gamma TrA",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 488.4291679390102,
+    "goodnessOfFit": 1.4451202
+   },
+   {
+    "id": "hip-7568",
+    "name": "HD 11025",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 848.395746324019,
+    "goodnessOfFit": 1.0897626
+   },
+   {
+    "id": "hip-79509",
+    "name": "Kappa Nor",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 133.67595935795597,
+    "goodnessOfFit": 1.2352729
+   },
+   {
+    "id": "hip-85727",
+    "name": "Delta Ara",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 901.0596582347606,
+    "goodnessOfFit": 0.74979424
+   },
+   {
+    "id": "hip-87428",
+    "name": "HD 162596",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 467.16811334885466,
+    "goodnessOfFit": 0.731043
+   },
+   {
+    "id": "hip-88048",
+    "name": "Nu Oph",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 48.259698052276114,
+    "goodnessOfFit": 0.85959005
+   },
+   {
+    "id": "hip-8882",
+    "name": "Phi Phe",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 1070.430294039159,
+    "goodnessOfFit": 0.33743778
+   },
+   {
+    "id": "hip-98353",
+    "name": "60 Sgr",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 466.95714457640605,
+    "goodnessOfFit": 1.0887963
+   },
+   {
+    "id": "hr-2813",
+    "name": "HD 57852",
+    "solution": "OrbitalTargetedSearch",
+    "periodDays": 271.4139411852677,
+    "goodnessOfFit": 1.4639535
+   }
+  ],
+  "singleLined": [
+   {
+    "id": "cns5-0596",
+    "name": "L 440-30",
+    "solution": "SB1",
+    "periodDays": 168.59866577241445,
+    "goodnessOfFit": -0.113586195
+   },
+   {
+    "id": "hd-44472a",
+    "name": "HD 44472A",
+    "solution": "SB1",
+    "periodDays": 801.5600694685941,
+    "goodnessOfFit": 2.207879
+   },
+   {
+    "id": "hip-102772",
+    "name": "HD 198174",
+    "solution": "SB1",
+    "periodDays": 1.3070990704987722,
+    "goodnessOfFit": 1.6121047
+   },
+   {
+    "id": "hip-128",
+    "name": "HD 224890",
+    "solution": "SB1",
+    "periodDays": 9.546374652934064,
+    "goodnessOfFit": -0.62417066
+   },
+   {
+    "id": "hip-16015",
+    "name": "HD 21473",
+    "solution": "SB1",
+    "periodDays": 0.6860481518157016,
+    "goodnessOfFit": 1.0110767
+   },
+   {
+    "id": "hip-16591",
+    "name": "IW Per",
+    "solution": "SB1",
+    "periodDays": 0.9171859806401852,
+    "goodnessOfFit": 0.15983033
+   },
+   {
+    "id": "hip-18217",
+    "name": "HD 24141",
+    "solution": "SB1",
+    "periodDays": 62.972949499240045,
+    "goodnessOfFit": -0.6755438
+   },
+   {
+    "id": "hip-18658",
+    "name": "HD 25102",
+    "solution": "SB1",
+    "periodDays": 576.289072264877,
+    "goodnessOfFit": -0.91605586
+   },
+   {
+    "id": "hip-21247",
+    "name": "HD 28204",
+    "solution": "SB1",
+    "periodDays": 4.194560286258334,
+    "goodnessOfFit": -1.1585399
+   },
+   {
+    "id": "hip-24925",
+    "name": "HD 34880",
+    "solution": "SB1",
+    "periodDays": 2.074334389572159,
+    "goodnessOfFit": 1.7344389
+   },
+   {
+    "id": "hip-32208",
+    "name": "HD 48797",
+    "solution": "SB1",
+    "periodDays": 918.7355505408015,
+    "goodnessOfFit": 0.64078885
+   },
+   {
+    "id": "hip-34617",
+    "name": "HD 54958",
+    "solution": "SB1",
+    "periodDays": 76.56548552576996,
+    "goodnessOfFit": -0.69497
+   },
+   {
+    "id": "hip-365",
+    "name": "HD 225218",
+    "solution": "SB1",
+    "periodDays": 53.877275536611485,
+    "goodnessOfFit": 0.3046679
+   },
+   {
+    "id": "hip-46529",
+    "name": "HD 82043",
+    "solution": "SB1",
+    "periodDays": 22.0627009741481,
+    "goodnessOfFit": 1.1432313
+   },
+   {
+    "id": "hip-56789",
+    "name": "60 UMa",
+    "solution": "SB1",
+    "periodDays": 353.2295293835202,
+    "goodnessOfFit": 0.5669909
+   },
+   {
+    "id": "hip-63414",
+    "name": "k Vir",
+    "solution": "SB1",
+    "periodDays": 308.86140057475063,
+    "goodnessOfFit": 0.89909697
+   },
+   {
+    "id": "hip-64822",
+    "name": "HD 115331",
+    "solution": "SB1",
+    "periodDays": 1064.8190986356826,
+    "goodnessOfFit": -0.94694597
+   },
+   {
+    "id": "hip-6669",
+    "name": "HD 8634",
+    "solution": "SB1",
+    "periodDays": 5.42933849762291,
+    "goodnessOfFit": 0.13805476
+   },
+   {
+    "id": "hip-67483",
+    "name": "HD 120600",
+    "solution": "SB1",
+    "periodDays": 492.63955159901803,
+    "goodnessOfFit": 1.263077
+   },
+   {
+    "id": "hip-68478",
+    "name": "11 Boo",
+    "solution": "SB1",
+    "periodDays": 142.54301866883694,
+    "goodnessOfFit": 1.3860966
+   },
+   {
+    "id": "hip-73507",
+    "name": "HD 133388",
+    "solution": "SB1",
+    "periodDays": 741.9662132780554,
+    "goodnessOfFit": 0.077339016
+   },
+   {
+    "id": "hip-75770",
+    "name": "HD 138213",
+    "solution": "SB1",
+    "periodDays": 116.47757574880944,
+    "goodnessOfFit": -0.5217265
+   },
+   {
+    "id": "hip-79757",
+    "name": "Upsilon CrB",
+    "solution": "SB1",
+    "periodDays": 47.008510389068725,
+    "goodnessOfFit": -1.7943118
+   },
+   {
+    "id": "hip-85019",
+    "name": "HD 157060",
+    "solution": "SB1",
+    "periodDays": 201.65214102465197,
+    "goodnessOfFit": 0.019419467
+   },
+   {
+    "id": "hip-8514",
+    "name": "HD 11262",
+    "solution": "SB1",
+    "periodDays": 976.8535105764737,
+    "goodnessOfFit": -3.6142893
+   },
+   {
+    "id": "hip-95239",
+    "name": "HD 181295",
+    "solution": "SB1",
+    "periodDays": 719.4281257745997,
+    "goodnessOfFit": 0.78749347
+   },
+   {
+    "id": "hr-2485",
+    "name": "HD 48767",
+    "solution": "SB1",
+    "periodDays": 4.257893531584657,
+    "goodnessOfFit": 1.8113889
+   },
+   {
+    "id": "hr-4764",
+    "name": "HD 108925",
+    "solution": "SB1",
+    "periodDays": 1009.6401687669533,
+    "goodnessOfFit": 0.47134918
+   }
+  ],
+  "doubleLined": [
+   {
+    "id": "hd-112486a",
+    "name": "HD 112486A",
+    "solution": "SB2",
+    "periodDays": 5.125616158814635,
+    "goodnessOfFit": 23.2285
+   },
+   {
+    "id": "hd-36408b",
+    "name": "HD 36408B",
+    "solution": "SB2",
+    "periodDays": 152.3900348721586,
+    "goodnessOfFit": 2.6130521
+   },
+   {
+    "id": "hip-103652",
+    "name": "HD 199942",
+    "solution": "SB2C",
+    "periodDays": 252.99462728371807,
+    "goodnessOfFit": 14.870197
+   },
+   {
+    "id": "hip-107380",
+    "name": "Iota PsA",
+    "solution": "SB2",
+    "periodDays": 0.6256483432613004,
+    "goodnessOfFit": 44.727173
+   },
+   {
+    "id": "hip-113327",
+    "name": "HD 217050",
+    "solution": "SB2",
+    "periodDays": 4.563952864846878,
+    "goodnessOfFit": 17.304405
+   },
+   {
+    "id": "hip-24732",
+    "name": "HD 33541",
+    "solution": "SB2",
+    "periodDays": 0.8674965812428878,
+    "goodnessOfFit": 45.504856
+   },
+   {
+    "id": "hip-32411",
+    "name": "HD 49048",
+    "solution": "SB2",
+    "periodDays": 0.49967115518790645,
+    "goodnessOfFit": -1.7566768
+   },
+   {
+    "id": "hip-34081",
+    "name": "C Pup",
+    "solution": "SB2",
+    "periodDays": 1.4275957844484573,
+    "goodnessOfFit": 41.043407
+   },
+   {
+    "id": "hip-41737",
+    "name": "HD 72350",
+    "solution": "SB2",
+    "periodDays": 0.7075588352569587,
+    "goodnessOfFit": 2.409733
+   },
+   {
+    "id": "hip-47479",
+    "name": "HD 84121",
+    "solution": "SB2",
+    "periodDays": 2.98178503209443,
+    "goodnessOfFit": 39.953426
+   },
+   {
+    "id": "hip-5081",
+    "name": "72 Psc",
+    "solution": "SB2",
+    "periodDays": 2.568444833062777,
+    "goodnessOfFit": 34.750923
+   },
+   {
+    "id": "hip-5743",
+    "name": "Zeta Psc B",
+    "solution": "SB2",
+    "periodDays": 9.076449811861124,
+    "goodnessOfFit": 12.699203
+   },
+   {
+    "id": "hip-62825",
+    "name": "HD 111893",
+    "solution": "SB2",
+    "periodDays": 0.6912514200388256,
+    "goodnessOfFit": 39.56597
+   },
+   {
+    "id": "hip-64478",
+    "name": "HD 114630",
+    "solution": "SB2",
+    "periodDays": 4.2334111936442165,
+    "goodnessOfFit": 20.692757
+   },
+   {
+    "id": "hip-69122",
+    "name": "V883 Cen",
+    "solution": "SB2",
+    "periodDays": 0.9162739651891066,
+    "goodnessOfFit": 18.073824
+   }
+  ],
+  "eclipsing": [
+   {
+    "id": "hip-13133",
+    "name": "RZ Cas",
+    "solution": "EclipsingBinary",
+    "periodDays": 1.1952641010284424,
+    "goodnessOfFit": 48.20445
+   },
+   {
+    "id": "hip-41361",
+    "name": "HD 71487",
+    "solution": "EclipsingBinary",
+    "periodDays": 1.2569077014923096,
+    "goodnessOfFit": 23.574276
+   },
+   {
+    "id": "hip-69491",
+    "name": "V716 Cen",
+    "solution": "EclipsingBinary",
+    "periodDays": 1.490086555480957,
+    "goodnessOfFit": 24.884033
+   }
+  ]
+ },
+ "distancesForGaiaDr4": [
+  {
+   "id": "hip-31579",
+   "name": "UU Aur",
+   "gaiaParallaxMas": 2.072,
+   "hipparcosParallaxMas": 0.38,
+   "ruwe": 3.1196902,
+   "distanceGapPercent": 445
+  },
+  {
+   "id": "hip-79045",
+   "name": "Kappa Her B",
+   "gaiaParallaxMas": 7.879,
+   "hipparcosParallaxMas": 1.55,
+   "ruwe": 2.0807095,
+   "distanceGapPercent": 408
+  },
+  {
+   "id": "hip-53260",
+   "name": "HD 94508",
+   "gaiaParallaxMas": 2.078,
+   "hipparcosParallaxMas": 0.79,
+   "ruwe": 2.7414768,
+   "distanceGapPercent": 163
+  },
+  {
+   "id": "hip-26197",
+   "name": "HD 36959",
+   "gaiaParallaxMas": 2.823,
+   "hipparcosParallaxMas": 1.21,
+   "ruwe": 1.4339211,
+   "distanceGapPercent": 133
+  },
+  {
+   "id": "hip-75501",
+   "name": "k Lup",
+   "gaiaParallaxMas": 17.867,
+   "hipparcosParallaxMas": 8.31,
+   "ruwe": 2.286009,
+   "distanceGapPercent": 115
+  },
+  {
+   "id": "hip-73571",
+   "name": "HD 132953",
+   "gaiaParallaxMas": 10.437,
+   "hipparcosParallaxMas": 4.91,
+   "ruwe": 13.741407,
+   "distanceGapPercent": 113
+  },
+  {
+   "id": "hip-27512",
+   "name": "HD 39312",
+   "gaiaParallaxMas": 1.878,
+   "hipparcosParallaxMas": 0.92,
+   "ruwe": 2.5712895,
+   "distanceGapPercent": 104
+  },
+  {
+   "id": "hip-102772",
+   "name": "HD 198174",
+   "gaiaParallaxMas": 6.707,
+   "hipparcosParallaxMas": 3.38,
+   "ruwe": 2.7207036,
+   "distanceGapPercent": 98
+  },
+  {
+   "id": "hip-55588",
+   "name": "HD 98993",
+   "gaiaParallaxMas": 6.117,
+   "hipparcosParallaxMas": 3.09,
+   "ruwe": 3.5115983,
+   "distanceGapPercent": 98
+  },
+  {
+   "id": "hip-113726",
+   "name": "Alfarasalkamil",
+   "gaiaParallaxMas": 9.336,
+   "hipparcosParallaxMas": 4.75,
+   "ruwe": 10.599465,
+   "distanceGapPercent": 97
+  },
+  {
+   "id": "hip-47943",
+   "name": "HD 84542",
+   "gaiaParallaxMas": 3.252,
+   "hipparcosParallaxMas": 1.66,
+   "ruwe": 1.4009172,
+   "distanceGapPercent": 96
+  },
+  {
+   "id": "hip-3504",
+   "name": "Omicron Cas",
+   "gaiaParallaxMas": 0.549,
+   "hipparcosParallaxMas": 4.64,
+   "ruwe": 3.1232088,
+   "distanceGapPercent": 88
+  },
+  {
+   "id": "hip-21515",
+   "name": "49 Eri",
+   "gaiaParallaxMas": 7.07,
+   "hipparcosParallaxMas": 3.83,
+   "ruwe": 2.1441307,
+   "distanceGapPercent": 85
+  },
+  {
+   "id": "hip-75141",
+   "name": "Delta Lup",
+   "gaiaParallaxMas": 6.766,
+   "hipparcosParallaxMas": 3.69,
+   "ruwe": 6.346968,
+   "distanceGapPercent": 83
+  },
+  {
+   "id": "hip-92390",
+   "name": "29 Sgr",
+   "gaiaParallaxMas": 6.271,
+   "hipparcosParallaxMas": 3.49,
+   "ruwe": 1.6444364,
+   "distanceGapPercent": 80
+  },
+  {
+   "id": "hip-1366",
+   "name": "Theta And",
+   "gaiaParallaxMas": 18.914,
+   "hipparcosParallaxMas": 10.56,
+   "ruwe": 2.844224,
+   "distanceGapPercent": 79
+  },
+  {
+   "id": "hip-59468",
+   "name": "4 Com",
+   "gaiaParallaxMas": 6.604,
+   "hipparcosParallaxMas": 3.68,
+   "ruwe": 4.8161836,
+   "distanceGapPercent": 79
+  },
+  {
+   "id": "hip-65381",
+   "name": "HD 116429",
+   "gaiaParallaxMas": 11.328,
+   "hipparcosParallaxMas": 6.41,
+   "ruwe": 13.131888,
+   "distanceGapPercent": 77
+  },
+  {
+   "id": "hip-26606",
+   "name": "HD 37367",
+   "gaiaParallaxMas": 0.804,
+   "hipparcosParallaxMas": 3.08,
+   "ruwe": 3.246512,
+   "distanceGapPercent": 74
+  },
+  {
+   "id": "hip-78265",
+   "name": "Fang",
+   "gaiaParallaxMas": 9.718,
+   "hipparcosParallaxMas": 5.57,
+   "ruwe": 2.436618,
+   "distanceGapPercent": 74
+  },
+  {
+   "id": "hip-99824",
+   "name": "HD 192685",
+   "gaiaParallaxMas": 5.727,
+   "hipparcosParallaxMas": 3.29,
+   "ruwe": 2.0725935,
+   "distanceGapPercent": 74
+  },
+  {
+   "id": "hip-37701",
+   "name": "50 Cam",
+   "gaiaParallaxMas": 7.613,
+   "hipparcosParallaxMas": 4.41,
+   "ruwe": 2.5432067,
+   "distanceGapPercent": 73
+  },
+  {
+   "id": "hip-602",
+   "name": "HD 256",
+   "gaiaParallaxMas": 9.754,
+   "hipparcosParallaxMas": 5.68,
+   "ruwe": 2.7462487,
+   "distanceGapPercent": 72
+  },
+  {
+   "id": "hip-82514",
+   "name": "Xamidimura",
+   "gaiaParallaxMas": 1.915,
+   "hipparcosParallaxMas": 6.51,
+   "ruwe": 2.0876832,
+   "distanceGapPercent": 71
+  },
+  {
+   "id": "hip-36284",
+   "name": "Gamma CMi",
+   "gaiaParallaxMas": 3.165,
+   "hipparcosParallaxMas": 10.25,
+   "ruwe": 1.7414002,
+   "distanceGapPercent": 69
+  },
+  {
+   "id": "hip-66236",
+   "name": "HD 117919",
+   "gaiaParallaxMas": 1.009,
+   "hipparcosParallaxMas": 3.29,
+   "ruwe": 9.112713,
+   "distanceGapPercent": 69
+  },
+  {
+   "id": "hip-23453",
+   "name": "Saclateni",
+   "gaiaParallaxMas": 1.464,
+   "hipparcosParallaxMas": 4.15,
+   "ruwe": 5.5812616,
+   "distanceGapPercent": 65
+  },
+  {
+   "id": "hip-4998",
+   "name": "HD 6211",
+   "gaiaParallaxMas": 5.064,
+   "hipparcosParallaxMas": 3.06,
+   "ruwe": 2.4807262,
+   "distanceGapPercent": 65
+  },
+  {
+   "id": "hip-116957",
+   "name": "HD 222643",
+   "gaiaParallaxMas": 4.419,
+   "hipparcosParallaxMas": 12.08,
+   "ruwe": 2.2902734,
+   "distanceGapPercent": 63
+  },
+  {
+   "id": "hip-112127",
+   "name": "HD 214987",
+   "gaiaParallaxMas": 3.914,
+   "hipparcosParallaxMas": 9.21,
+   "ruwe": 14.220214,
+   "distanceGapPercent": 58
+  },
+  {
+   "id": "hip-92689",
+   "name": "HD 175535",
+   "gaiaParallaxMas": 11.218,
+   "hipparcosParallaxMas": 7.15,
+   "ruwe": 6.759498,
+   "distanceGapPercent": 57
+  },
+  {
+   "id": "hip-24327",
+   "name": "Kappa Lep",
+   "gaiaParallaxMas": 7.01,
+   "hipparcosParallaxMas": 4.48,
+   "ruwe": 1.449523,
+   "distanceGapPercent": 56
+  },
+  {
+   "id": "hip-16340",
+   "name": "HD 21551",
+   "gaiaParallaxMas": 5.656,
+   "hipparcosParallaxMas": 3.65,
+   "ruwe": 1.8846321,
+   "distanceGapPercent": 55
+  },
+  {
+   "id": "hip-46247",
+   "name": "EZ UMa",
+   "gaiaParallaxMas": 4.247,
+   "hipparcosParallaxMas": 2.75,
+   "ruwe": 2.22772,
+   "distanceGapPercent": 54
+  },
+  {
+   "id": "hip-80079",
+   "name": "Omicron Sco",
+   "gaiaParallaxMas": 5.726,
+   "hipparcosParallaxMas": 3.71,
+   "ruwe": 6.4151125,
+   "distanceGapPercent": 54
+  },
+  {
+   "id": "hip-81904",
+   "name": "HD 150608",
+   "gaiaParallaxMas": 2.851,
+   "hipparcosParallaxMas": 6.17,
+   "ruwe": 2.668828,
+   "distanceGapPercent": 54
+  },
+  {
+   "id": "hip-52273",
+   "name": "HD 92589",
+   "gaiaParallaxMas": 5.521,
+   "hipparcosParallaxMas": 3.61,
+   "ruwe": 6.875326,
+   "distanceGapPercent": 53
+  },
+  {
+   "id": "hip-38794",
+   "name": "HD 64938",
+   "gaiaParallaxMas": 4.229,
+   "hipparcosParallaxMas": 2.78,
+   "ruwe": 4.0119476,
+   "distanceGapPercent": 52
+  },
+  {
+   "id": "hip-93860",
+   "name": "HD 177365",
+   "gaiaParallaxMas": 8.781,
+   "hipparcosParallaxMas": 5.77,
+   "ruwe": 2.2319546,
+   "distanceGapPercent": 52
+  },
+  {
+   "id": "hip-111104",
+   "name": "6 Lac",
+   "gaiaParallaxMas": 2.866,
+   "hipparcosParallaxMas": 1.9,
+   "ruwe": 1.645318,
+   "distanceGapPercent": 51
+  },
+  {
+   "id": "hip-32558",
+   "name": "HD 49331",
+   "gaiaParallaxMas": 1.122,
+   "hipparcosParallaxMas": 2.31,
+   "ruwe": 2.195146,
+   "distanceGapPercent": 51
+  },
+  {
+   "id": "hip-71746",
+   "name": "HD 128713",
+   "gaiaParallaxMas": 4.336,
+   "hipparcosParallaxMas": 2.87,
+   "ruwe": 1.9287915,
+   "distanceGapPercent": 51
+  },
+  {
+   "id": "hip-26126",
+   "name": "38 Ori",
+   "gaiaParallaxMas": 6.034,
+   "hipparcosParallaxMas": 11.82,
+   "ruwe": 1.8627574,
+   "distanceGapPercent": 49
+  },
+  {
+   "id": "hip-98954",
+   "name": "HD 190658",
+   "gaiaParallaxMas": 4.027,
+   "hipparcosParallaxMas": 7.92,
+   "ruwe": 2.0277479,
+   "distanceGapPercent": 49
+  },
+  {
+   "id": "hip-91974",
+   "name": "HD 173117",
+   "gaiaParallaxMas": 2.959,
+   "hipparcosParallaxMas": 5.64,
+   "ruwe": 1.597299,
+   "distanceGapPercent": 48
+  },
+  {
+   "id": "hip-31385",
+   "name": "14 Mon",
+   "gaiaParallaxMas": 4.601,
+   "hipparcosParallaxMas": 8.66,
+   "ruwe": 6.9281693,
+   "distanceGapPercent": 47
+  },
+  {
+   "id": "hip-40357",
+   "name": "HD 69302",
+   "gaiaParallaxMas": 4.051,
+   "hipparcosParallaxMas": 2.76,
+   "ruwe": 3.7082644,
+   "distanceGapPercent": 47
+  },
+  {
+   "id": "hip-13713",
+   "name": "HD 18155",
+   "gaiaParallaxMas": 1.692,
+   "hipparcosParallaxMas": 3.13,
+   "ruwe": 2.3934016,
+   "distanceGapPercent": 46
+  },
+  {
+   "id": "hip-48559",
+   "name": "HD 85859",
+   "gaiaParallaxMas": 13.943,
+   "hipparcosParallaxMas": 9.54,
+   "ruwe": 3.6721158,
+   "distanceGapPercent": 46
+  },
+  {
+   "id": "hip-114407",
+   "name": "DL Gru",
+   "gaiaParallaxMas": 5.16,
+   "hipparcosParallaxMas": 3.55,
+   "ruwe": 1.667819,
+   "distanceGapPercent": 45
+  },
+  {
+   "id": "hip-59449",
+   "name": "Rho Cen",
+   "gaiaParallaxMas": 12.496,
+   "hipparcosParallaxMas": 8.61,
+   "ruwe": 5.577677,
+   "distanceGapPercent": 45
+  },
+  {
+   "id": "hip-93437",
+   "name": "HD 177109",
+   "gaiaParallaxMas": 2.127,
+   "hipparcosParallaxMas": 3.84,
+   "ruwe": 2.2131257,
+   "distanceGapPercent": 45
+  },
+  {
+   "id": "hip-12719",
+   "name": "35 Ari",
+   "gaiaParallaxMas": 5.326,
+   "hipparcosParallaxMas": 9.51,
+   "ruwe": 3.8331854,
+   "distanceGapPercent": 44
+  },
+  {
+   "id": "hip-68673",
+   "name": "V828 Cen",
+   "gaiaParallaxMas": 6.564,
+   "hipparcosParallaxMas": 4.55,
+   "ruwe": 3.9210415,
+   "distanceGapPercent": 44
+  },
+  {
+   "id": "hip-24331",
+   "name": "Rho Ori",
+   "gaiaParallaxMas": 13.358,
+   "hipparcosParallaxMas": 9.32,
+   "ruwe": 4.314182,
+   "distanceGapPercent": 43
+  },
+  {
+   "id": "hip-53141",
+   "name": "HD 94180",
+   "gaiaParallaxMas": 5.225,
+   "hipparcosParallaxMas": 3.65,
+   "ruwe": 1.6316838,
+   "distanceGapPercent": 43
+  },
+  {
+   "id": "hip-53231",
+   "name": "HD 94491",
+   "gaiaParallaxMas": 1.64,
+   "hipparcosParallaxMas": 2.86,
+   "ruwe": 1.5606201,
+   "distanceGapPercent": 43
+  },
+  {
+   "id": "hip-5544",
+   "name": "g Psc",
+   "gaiaParallaxMas": 3.922,
+   "hipparcosParallaxMas": 6.79,
+   "ruwe": 1.5355047,
+   "distanceGapPercent": 42
+  },
+  {
+   "id": "hip-72983",
+   "name": "HD 130942",
+   "gaiaParallaxMas": 2.274,
+   "hipparcosParallaxMas": 3.9,
+   "ruwe": 1.8318508,
+   "distanceGapPercent": 42
+  },
+  {
+   "id": "hip-78142",
+   "name": "HD 142691",
+   "gaiaParallaxMas": 2.4,
+   "hipparcosParallaxMas": 4.12,
+   "ruwe": 3.3220615,
+   "distanceGapPercent": 42
+  },
+  {
+   "id": "hip-111123",
+   "name": "Sigma Aqr",
+   "gaiaParallaxMas": 15.867,
+   "hipparcosParallaxMas": 11.26,
+   "ruwe": 3.5703409,
+   "distanceGapPercent": 41
+  },
+  {
+   "id": "hip-87516",
+   "name": "HD 162496",
+   "gaiaParallaxMas": 3.118,
+   "hipparcosParallaxMas": 5.26,
+   "ruwe": 1.5156813,
+   "distanceGapPercent": 41
+  },
+  {
+   "id": "hip-38146",
+   "name": "188 Pup",
+   "gaiaParallaxMas": 16.206,
+   "hipparcosParallaxMas": 11.59,
+   "ruwe": 11.57735,
+   "distanceGapPercent": 40
+  },
+  {
+   "id": "hip-70663",
+   "name": "HD 126504",
+   "gaiaParallaxMas": 20.636,
+   "hipparcosParallaxMas": 14.74,
+   "ruwe": 7.3332524,
+   "distanceGapPercent": 40
+  },
+  {
+   "id": "hip-94598",
+   "name": "HD 180242",
+   "gaiaParallaxMas": 6.691,
+   "hipparcosParallaxMas": 4.79,
+   "ruwe": 5.091282,
+   "distanceGapPercent": 40
+  },
+  {
+   "id": "hip-96428",
+   "name": "HD 184944",
+   "gaiaParallaxMas": 5.064,
+   "hipparcosParallaxMas": 8.4,
+   "ruwe": 9.9848175,
+   "distanceGapPercent": 40
+  },
+  {
+   "id": "hip-104771",
+   "name": "HD 202128",
+   "gaiaParallaxMas": 6.948,
+   "hipparcosParallaxMas": 11.41,
+   "ruwe": 39.060177,
+   "distanceGapPercent": 39
+  },
+  {
+   "id": "hip-107173",
+   "name": "HD 206540",
+   "gaiaParallaxMas": 6.469,
+   "hipparcosParallaxMas": 4.66,
+   "ruwe": 1.637706,
+   "distanceGapPercent": 39
+  },
+  {
+   "id": "hip-50372",
+   "name": "Tania Borealis",
+   "gaiaParallaxMas": 14.494,
+   "hipparcosParallaxMas": 23.72,
+   "ruwe": 8.851105,
+   "distanceGapPercent": 39
+  },
+  {
+   "id": "hip-69112",
+   "name": "4 UMi",
+   "gaiaParallaxMas": 4.338,
+   "hipparcosParallaxMas": 7.14,
+   "ruwe": 4.794862,
+   "distanceGapPercent": 39
+  },
+  {
+   "id": "hip-73199",
+   "name": "RR UMi",
+   "gaiaParallaxMas": 9.869,
+   "hipparcosParallaxMas": 7.1,
+   "ruwe": 5.7455015,
+   "distanceGapPercent": 39
+  },
+  {
+   "id": "hip-85333",
+   "name": "HD 157978",
+   "gaiaParallaxMas": 3.006,
+   "hipparcosParallaxMas": 4.89,
+   "ruwe": 5.2618074,
+   "distanceGapPercent": 39
+  },
+  {
+   "id": "hip-29401",
+   "name": "HD 42657",
+   "gaiaParallaxMas": 3.508,
+   "hipparcosParallaxMas": 5.68,
+   "ruwe": 2.4881287,
+   "distanceGapPercent": 38
+  },
+  {
+   "id": "hip-31205",
+   "name": "HR CMa",
+   "gaiaParallaxMas": 5.046,
+   "hipparcosParallaxMas": 8.11,
+   "ruwe": 7.455789,
+   "distanceGapPercent": 38
+  },
+  {
+   "id": "hip-57696",
+   "name": "HD 102839",
+   "gaiaParallaxMas": 2.117,
+   "hipparcosParallaxMas": 3.44,
+   "ruwe": 2.0374885,
+   "distanceGapPercent": 38
+  },
+  {
+   "id": "hip-70038",
+   "name": "HD 125490",
+   "gaiaParallaxMas": 6.227,
+   "hipparcosParallaxMas": 9.84,
+   "ruwe": 7.991265,
+   "distanceGapPercent": 37
+  },
+  {
+   "id": "hip-40085",
+   "name": "HD 68099",
+   "gaiaParallaxMas": 5.067,
+   "hipparcosParallaxMas": 3.72,
+   "ruwe": 2.1239474,
+   "distanceGapPercent": 36
+  },
+  {
+   "id": "hip-57791",
+   "name": "HD 102928",
+   "gaiaParallaxMas": 14.893,
+   "hipparcosParallaxMas": 10.94,
+   "ruwe": 3.9304497,
+   "distanceGapPercent": 36
+  },
+  {
+   "id": "hip-60638",
+   "name": "HD 107739",
+   "gaiaParallaxMas": 2.866,
+   "hipparcosParallaxMas": 4.46,
+   "ruwe": 3.2624266,
+   "distanceGapPercent": 36
+  },
+  {
+   "id": "hip-730",
+   "name": "HD 469",
+   "gaiaParallaxMas": 4.967,
+   "hipparcosParallaxMas": 7.79,
+   "ruwe": 19.834929,
+   "distanceGapPercent": 36
+  },
+  {
+   "id": "hip-81754",
+   "name": "HD 150453",
+   "gaiaParallaxMas": 32.453,
+   "hipparcosParallaxMas": 23.78,
+   "ruwe": 5.8799567,
+   "distanceGapPercent": 36
+  },
+  {
+   "id": "hip-89605",
+   "name": "HD 167128",
+   "gaiaParallaxMas": 2.741,
+   "hipparcosParallaxMas": 4.29,
+   "ruwe": 1.4451547,
+   "distanceGapPercent": 36
+  },
+  {
+   "id": "hip-15900",
+   "name": "Omicron Tau",
+   "gaiaParallaxMas": 15.109,
+   "hipparcosParallaxMas": 11.21,
+   "ruwe": 6.2043886,
+   "distanceGapPercent": 35
+  },
+  {
+   "id": "hip-33372",
+   "name": "HD 51104",
+   "gaiaParallaxMas": 4.683,
+   "hipparcosParallaxMas": 7.18,
+   "ruwe": 1.6241503,
+   "distanceGapPercent": 35
+  },
+  {
+   "id": "hip-38901",
+   "name": "Chi Pup",
+   "gaiaParallaxMas": 1.738,
+   "hipparcosParallaxMas": 2.69,
+   "ruwe": 1.72619,
+   "distanceGapPercent": 35
+  },
+  {
+   "id": "hip-113638",
+   "name": "Zeta Gru",
+   "gaiaParallaxMas": 19.921,
+   "hipparcosParallaxMas": 29.96,
+   "ruwe": 5.053708,
+   "distanceGapPercent": 34
+  },
+  {
+   "id": "hip-22565",
+   "name": "i Tau",
+   "gaiaParallaxMas": 26.162,
+   "hipparcosParallaxMas": 19.51,
+   "ruwe": 6.7581897,
+   "distanceGapPercent": 34
+  },
+  {
+   "id": "hip-77678",
+   "name": "HD 141544",
+   "gaiaParallaxMas": 9.763,
+   "hipparcosParallaxMas": 7.26,
+   "ruwe": 3.8190067,
+   "distanceGapPercent": 34
+  },
+  {
+   "id": "hip-89507",
+   "name": "HD 167096",
+   "gaiaParallaxMas": 14.604,
+   "hipparcosParallaxMas": 10.86,
+   "ruwe": 8.784112,
+   "distanceGapPercent": 34
+  },
+  {
+   "id": "cns5-2108",
+   "name": "CU Cnc",
+   "gaiaParallaxMas": 60.117,
+   "hipparcosParallaxMas": 90.37,
+   "ruwe": 1.4624413,
+   "distanceGapPercent": 33
+  },
+  {
+   "id": "hip-10438",
+   "name": "55 Cas",
+   "gaiaParallaxMas": 3.084,
+   "hipparcosParallaxMas": 4.57,
+   "ruwe": 7.464672,
+   "distanceGapPercent": 33
+  },
+  {
+   "id": "hip-35202",
+   "name": "HD 56733",
+   "gaiaParallaxMas": 3.589,
+   "hipparcosParallaxMas": 5.34,
+   "ruwe": 5.2265654,
+   "distanceGapPercent": 33
+  },
+  {
+   "id": "hip-49641",
+   "name": "Alpha Sex",
+   "gaiaParallaxMas": 7.698,
+   "hipparcosParallaxMas": 11.51,
+   "ruwe": 4.1548142,
+   "distanceGapPercent": 33
+  },
+  {
+   "id": "hip-101483",
+   "name": "Eta Del",
+   "gaiaParallaxMas": 18.184,
+   "hipparcosParallaxMas": 13.81,
+   "ruwe": 5.084921,
+   "distanceGapPercent": 32
+  },
+  {
+   "id": "hip-17296",
+   "name": "BD Cam",
+   "gaiaParallaxMas": 4.293,
+   "hipparcosParallaxMas": 6.28,
+   "ruwe": 2.772141,
+   "distanceGapPercent": 32
+  },
+  {
+   "id": "hip-65621",
+   "name": "HD 116873",
+   "gaiaParallaxMas": 10.702,
+   "hipparcosParallaxMas": 8.08,
+   "ruwe": 13.223243,
+   "distanceGapPercent": 32
+  },
+  {
+   "id": "hip-70794",
+   "name": "106 Vir",
+   "gaiaParallaxMas": 6.869,
+   "hipparcosParallaxMas": 5.22,
+   "ruwe": 1.5357778,
+   "distanceGapPercent": 32
+  },
+  {
+   "id": "hip-97278",
+   "name": "Tarazed",
+   "gaiaParallaxMas": 5.622,
+   "hipparcosParallaxMas": 8.26,
+   "ruwe": 2.6228507,
+   "distanceGapPercent": 32
+  },
+  {
+   "id": "hip-101427",
+   "name": "HD 193721",
+   "gaiaParallaxMas": 4.289,
+   "hipparcosParallaxMas": 6.25,
+   "ruwe": 4.6996274,
+   "distanceGapPercent": 31
+  },
+  {
+   "id": "hip-108478",
+   "name": "Kappa1 Ind",
+   "gaiaParallaxMas": 19.461,
+   "hipparcosParallaxMas": 14.9,
+   "ruwe": 23.31609,
+   "distanceGapPercent": 31
+  },
+  {
+   "id": "hip-17203",
+   "name": "HD 22780",
+   "gaiaParallaxMas": 5.183,
+   "hipparcosParallaxMas": 3.97,
+   "ruwe": 1.7469753,
+   "distanceGapPercent": 31
+  },
+  {
+   "id": "hip-51905",
+   "name": "Phi2 Hya",
+   "gaiaParallaxMas": 2.957,
+   "hipparcosParallaxMas": 4.31,
+   "ruwe": 1.7771149,
+   "distanceGapPercent": 31
+  },
+  {
+   "id": "hip-53472",
+   "name": "GX Leo",
+   "gaiaParallaxMas": 2.996,
+   "hipparcosParallaxMas": 4.33,
+   "ruwe": 1.4557265,
+   "distanceGapPercent": 31
+  },
+  {
+   "id": "hip-72702",
+   "name": "10 Lib",
+   "gaiaParallaxMas": 3.098,
+   "hipparcosParallaxMas": 4.47,
+   "ruwe": 2.3534825,
+   "distanceGapPercent": 31
+  },
+  {
+   "id": "hip-82369",
+   "name": "20 Oph",
+   "gaiaParallaxMas": 21.485,
+   "hipparcosParallaxMas": 31.27,
+   "ruwe": 4.644869,
+   "distanceGapPercent": 31
+  },
+  {
+   "id": "hip-101867",
+   "name": "29 Vul",
+   "gaiaParallaxMas": 18.279,
+   "hipparcosParallaxMas": 14.01,
+   "ruwe": 6.616421,
+   "distanceGapPercent": 30
+  },
+  {
+   "id": "hip-110395",
+   "name": "Sadachbia",
+   "gaiaParallaxMas": 25.901,
+   "hipparcosParallaxMas": 19.92,
+   "ruwe": 2.7352023,
+   "distanceGapPercent": 30
+  },
+  {
+   "id": "hip-32040",
+   "name": "HD 47703",
+   "gaiaParallaxMas": 15.471,
+   "hipparcosParallaxMas": 11.93,
+   "ruwe": 9.167462,
+   "distanceGapPercent": 30
+  },
+  {
+   "id": "hip-34002",
+   "name": "HD 52913",
+   "gaiaParallaxMas": 12.724,
+   "hipparcosParallaxMas": 9.81,
+   "ruwe": 2.763492,
+   "distanceGapPercent": 30
+  },
+  {
+   "id": "hip-100027",
+   "name": "Prima Giedi",
+   "gaiaParallaxMas": 4.054,
+   "hipparcosParallaxMas": 5.73,
+   "ruwe": 1.8217707,
+   "distanceGapPercent": 29
+  },
+  {
+   "id": "hip-1269",
+   "name": "HD 1142",
+   "gaiaParallaxMas": 5.325,
+   "hipparcosParallaxMas": 7.52,
+   "ruwe": 9.5481615,
+   "distanceGapPercent": 29
+  },
+  {
+   "id": "hip-1706",
+   "name": "HD 1801",
+   "gaiaParallaxMas": 4.034,
+   "hipparcosParallaxMas": 5.72,
+   "ruwe": 3.3057826,
+   "distanceGapPercent": 29
+  },
+  {
+   "id": "hip-17932",
+   "name": "HD 23838",
+   "gaiaParallaxMas": 11.227,
+   "hipparcosParallaxMas": 8.72,
+   "ruwe": 2.3979113,
+   "distanceGapPercent": 29
+  },
+  {
+   "id": "hip-20063",
+   "name": "HD 27026",
+   "gaiaParallaxMas": 5.824,
+   "hipparcosParallaxMas": 8.24,
+   "ruwe": 1.8592461,
+   "distanceGapPercent": 29
+  },
+  {
+   "id": "hip-45527",
+   "name": "23 Hya",
+   "gaiaParallaxMas": 9.406,
+   "hipparcosParallaxMas": 13.29,
+   "ruwe": 6.685858,
+   "distanceGapPercent": 29
+  },
+  {
+   "id": "hip-77811",
+   "name": "Lambda Lib",
+   "gaiaParallaxMas": 7.431,
+   "hipparcosParallaxMas": 10.54,
+   "ruwe": 2.119278,
+   "distanceGapPercent": 29
+  },
+  {
+   "id": "hip-84573",
+   "name": "u Her",
+   "gaiaParallaxMas": 3.464,
+   "hipparcosParallaxMas": 4.9,
+   "ruwe": 1.4211377,
+   "distanceGapPercent": 29
+  },
+  {
+   "id": "hip-101076",
+   "name": "41 Cyg",
+   "gaiaParallaxMas": 3.074,
+   "hipparcosParallaxMas": 4.24,
+   "ruwe": 2.7743008,
+   "distanceGapPercent": 28
+  },
+  {
+   "id": "hip-39903",
+   "name": "B Car",
+   "gaiaParallaxMas": 36.252,
+   "hipparcosParallaxMas": 50.05,
+   "ruwe": 12.991809,
+   "distanceGapPercent": 28
+  },
+  {
+   "id": "hip-20771",
+   "name": "HD 28191",
+   "gaiaParallaxMas": 6.95,
+   "hipparcosParallaxMas": 9.49,
+   "ruwe": 3.3594182,
+   "distanceGapPercent": 27
+  },
+  {
+   "id": "hip-26408",
+   "name": "19 Cam",
+   "gaiaParallaxMas": 11.392,
+   "hipparcosParallaxMas": 8.99,
+   "ruwe": 3.3644962,
+   "distanceGapPercent": 27
+  },
+  {
+   "id": "hip-33357",
+   "name": "HD 51799",
+   "gaiaParallaxMas": 2.77,
+   "hipparcosParallaxMas": 3.79,
+   "ruwe": 1.6958528,
+   "distanceGapPercent": 27
+  },
+  {
+   "id": "hip-35253",
+   "name": "HD 56176",
+   "gaiaParallaxMas": 9.512,
+   "hipparcosParallaxMas": 12.95,
+   "ruwe": 24.197357,
+   "distanceGapPercent": 27
+  },
+  {
+   "id": "hip-60467",
+   "name": "4 CVn",
+   "gaiaParallaxMas": 7.64,
+   "hipparcosParallaxMas": 10.51,
+   "ruwe": 2.3153813,
+   "distanceGapPercent": 27
+  },
+  {
+   "id": "hip-74649",
+   "name": "3 Ser",
+   "gaiaParallaxMas": 6.343,
+   "hipparcosParallaxMas": 8.74,
+   "ruwe": 3.5304627,
+   "distanceGapPercent": 27
+  },
+  {
+   "id": "hip-93287",
+   "name": "HD 175401",
+   "gaiaParallaxMas": 9.312,
+   "hipparcosParallaxMas": 7.35,
+   "ruwe": 2.7386034,
+   "distanceGapPercent": 27
+  },
+  {
+   "id": "hip-104060",
+   "name": "Xi Cyg",
+   "gaiaParallaxMas": 2.859,
+   "hipparcosParallaxMas": 3.87,
+   "ruwe": 2.2931619,
+   "distanceGapPercent": 26
+  },
+  {
+   "id": "hip-38722",
+   "name": "85 Gem",
+   "gaiaParallaxMas": 6.444,
+   "hipparcosParallaxMas": 8.71,
+   "ruwe": 1.8655491,
+   "distanceGapPercent": 26
+  },
+  {
+   "id": "hip-50492",
+   "name": "HD 89442",
+   "gaiaParallaxMas": 4.486,
+   "hipparcosParallaxMas": 6.1,
+   "ruwe": 4.531193,
+   "distanceGapPercent": 26
+  },
+  {
+   "id": "hip-50801",
+   "name": "Tania Australis",
+   "gaiaParallaxMas": 17.833,
+   "hipparcosParallaxMas": 14.16,
+   "ruwe": 3.3351755,
+   "distanceGapPercent": 26
+  },
+  {
+   "id": "hip-57497",
+   "name": "HD 102397",
+   "gaiaParallaxMas": 9.418,
+   "hipparcosParallaxMas": 7.48,
+   "ruwe": 7.1899657,
+   "distanceGapPercent": 26
+  },
+  {
+   "id": "hip-7321",
+   "name": "KK And",
+   "gaiaParallaxMas": 5.176,
+   "hipparcosParallaxMas": 6.97,
+   "ruwe": 5.885156,
+   "distanceGapPercent": 26
+  },
+  {
+   "id": "hip-89943",
+   "name": "HD 169221",
+   "gaiaParallaxMas": 4.304,
+   "hipparcosParallaxMas": 5.85,
+   "ruwe": 9.755816,
+   "distanceGapPercent": 26
+  },
+  {
+   "id": "hip-95556",
+   "name": "4 Cyg",
+   "gaiaParallaxMas": 5.807,
+   "hipparcosParallaxMas": 4.61,
+   "ruwe": 1.415308,
+   "distanceGapPercent": 26
+  },
+  {
+   "id": "hip-98258",
+   "name": "g Sgr",
+   "gaiaParallaxMas": 15.518,
+   "hipparcosParallaxMas": 12.28,
+   "ruwe": 3.11189,
+   "distanceGapPercent": 26
+  },
+  {
+   "id": "hip-99473",
+   "name": "Antinous",
+   "gaiaParallaxMas": 14.312,
+   "hipparcosParallaxMas": 11.39,
+   "ruwe": 2.7475965,
+   "distanceGapPercent": 26
+  },
+  {
+   "id": "cns5-4195",
+   "name": "HD 154590",
+   "gaiaParallaxMas": 48.285,
+   "hipparcosParallaxMas": 38.56,
+   "ruwe": 25.210152,
+   "distanceGapPercent": 25
+  },
+  {
+   "id": "hip-183",
+   "name": "Zeta Scl",
+   "gaiaParallaxMas": 4.855,
+   "hipparcosParallaxMas": 6.49,
+   "ruwe": 1.599273,
+   "distanceGapPercent": 25
+  },
+  {
+   "id": "hip-29730",
+   "name": "40 Cam",
+   "gaiaParallaxMas": 4.945,
+   "hipparcosParallaxMas": 6.63,
+   "ruwe": 1.4925989,
+   "distanceGapPercent": 25
+  },
+  {
+   "id": "hip-79031",
+   "name": "HD 144661",
+   "gaiaParallaxMas": 6.299,
+   "hipparcosParallaxMas": 8.37,
+   "ruwe": 1.5314509,
+   "distanceGapPercent": 25
+  },
+  {
+   "id": "hip-95477",
+   "name": "Chi1 Sgr",
+   "gaiaParallaxMas": 9.686,
+   "hipparcosParallaxMas": 12.95,
+   "ruwe": 6.0006332,
+   "distanceGapPercent": 25
+  },
+  {
+   "id": "hip-73133",
+   "name": "Xi2 Lib",
+   "gaiaParallaxMas": 4.531,
+   "hipparcosParallaxMas": 5.94,
+   "ruwe": 1.6930864,
+   "distanceGapPercent": 24
+  },
+  {
+   "id": "hip-78400",
+   "name": "49 Lib",
+   "gaiaParallaxMas": 35.297,
+   "hipparcosParallaxMas": 28.4,
+   "ruwe": 4.3270583,
+   "distanceGapPercent": 24
+  },
+  {
+   "id": "hip-96693",
+   "name": "14 Cyg",
+   "gaiaParallaxMas": 6.198,
+   "hipparcosParallaxMas": 5.0,
+   "ruwe": 2.544902,
+   "distanceGapPercent": 24
+  },
+  {
+   "id": "hip-116768",
+   "name": "HD 222377",
+   "gaiaParallaxMas": 14.093,
+   "hipparcosParallaxMas": 18.38,
+   "ruwe": 6.268633,
+   "distanceGapPercent": 23
+  },
+  {
+   "id": "hip-17886",
+   "name": "n Per",
+   "gaiaParallaxMas": 9.321,
+   "hipparcosParallaxMas": 12.15,
+   "ruwe": 2.5024467,
+   "distanceGapPercent": 23
+  },
+  {
+   "id": "hip-19949",
+   "name": "HD 26764",
+   "gaiaParallaxMas": 12.284,
+   "hipparcosParallaxMas": 9.98,
+   "ruwe": 2.022324,
+   "distanceGapPercent": 23
+  },
+  {
+   "id": "hip-21673",
+   "name": "Sigma1 Tau",
+   "gaiaParallaxMas": 17.08,
+   "hipparcosParallaxMas": 22.18,
+   "ruwe": 3.8181534,
+   "distanceGapPercent": 23
+  },
+  {
+   "id": "hip-22176",
+   "name": "HD 30197",
+   "gaiaParallaxMas": 9.642,
+   "hipparcosParallaxMas": 12.47,
+   "ruwe": 5.6069193,
+   "distanceGapPercent": 23
+  },
+  {
+   "id": "hip-33015",
+   "name": "HD 50860",
+   "gaiaParallaxMas": 5.302,
+   "hipparcosParallaxMas": 6.87,
+   "ruwe": 3.8709767,
+   "distanceGapPercent": 23
+  },
+  {
+   "id": "hip-38538",
+   "name": "Phi Gem",
+   "gaiaParallaxMas": 18.081,
+   "hipparcosParallaxMas": 14.66,
+   "ruwe": 1.8973377,
+   "distanceGapPercent": 23
+  },
+  {
+   "id": "hip-51835",
+   "name": "HD 92209",
+   "gaiaParallaxMas": 5.435,
+   "hipparcosParallaxMas": 7.04,
+   "ruwe": 7.1462493,
+   "distanceGapPercent": 23
+  },
+  {
+   "id": "hip-52468",
+   "name": "w Car",
+   "gaiaParallaxMas": 2.205,
+   "hipparcosParallaxMas": 2.86,
+   "ruwe": 2.5404844,
+   "distanceGapPercent": 23
+  },
+  {
+   "id": "hip-80047",
+   "name": "Delta1 Aps",
+   "gaiaParallaxMas": 5.254,
+   "hipparcosParallaxMas": 4.28,
+   "ruwe": 2.5120275,
+   "distanceGapPercent": 23
+  },
+  {
+   "id": "hip-97260",
+   "name": "HD 186500",
+   "gaiaParallaxMas": 3.524,
+   "hipparcosParallaxMas": 4.59,
+   "ruwe": 2.3795512,
+   "distanceGapPercent": 23
+  },
+  {
+   "id": "hip-10559",
+   "name": "7 Tri",
+   "gaiaParallaxMas": 9.111,
+   "hipparcosParallaxMas": 11.62,
+   "ruwe": 1.7125249,
+   "distanceGapPercent": 22
+  },
+  {
+   "id": "hip-23068",
+   "name": "99 Tau",
+   "gaiaParallaxMas": 5.588,
+   "hipparcosParallaxMas": 7.16,
+   "ruwe": 6.2767973,
+   "distanceGapPercent": 22
+  },
+  {
+   "id": "hip-2920",
+   "name": "Fulu",
+   "gaiaParallaxMas": 6.699,
+   "hipparcosParallaxMas": 5.5,
+   "ruwe": 2.960602,
+   "distanceGapPercent": 22
+  },
+  {
+   "id": "hip-29651",
+   "name": "Gamma Mon",
+   "gaiaParallaxMas": 5.128,
+   "hipparcosParallaxMas": 6.55,
+   "ruwe": 2.452584,
+   "distanceGapPercent": 22
+  },
+  {
+   "id": "hip-40077",
+   "name": "HD 68657",
+   "gaiaParallaxMas": 4.733,
+   "hipparcosParallaxMas": 3.87,
+   "ruwe": 1.4786156,
+   "distanceGapPercent": 22
+  },
+  {
+   "id": "hip-81523",
+   "name": "HD 149886",
+   "gaiaParallaxMas": 6.921,
+   "hipparcosParallaxMas": 8.92,
+   "ruwe": 3.306554,
+   "distanceGapPercent": 22
+  },
+  {
+   "id": "hip-101475",
+   "name": "V2015 Cyg",
+   "gaiaParallaxMas": 5.976,
+   "hipparcosParallaxMas": 7.56,
+   "ruwe": 1.8436372,
+   "distanceGapPercent": 21
+  },
+  {
+   "id": "hip-109908",
+   "name": "Mu1 Gru",
+   "gaiaParallaxMas": 9.36,
+   "hipparcosParallaxMas": 11.87,
+   "ruwe": 4.4001226,
+   "distanceGapPercent": 21
+  },
+  {
+   "id": "hip-28957",
+   "name": "Pi1 Col",
+   "gaiaParallaxMas": 9.492,
+   "hipparcosParallaxMas": 11.99,
+   "ruwe": 12.167976,
+   "distanceGapPercent": 21
+  },
+  {
+   "id": "hip-62608",
+   "name": "HD 111315",
+   "gaiaParallaxMas": 5.498,
+   "hipparcosParallaxMas": 6.98,
+   "ruwe": 1.42939,
+   "distanceGapPercent": 21
+  },
+  {
+   "id": "hip-70248",
+   "name": "Epsilon Aps",
+   "gaiaParallaxMas": 6.102,
+   "hipparcosParallaxMas": 5.06,
+   "ruwe": 3.1259882,
+   "distanceGapPercent": 21
+  },
+  {
+   "id": "hip-74493",
+   "name": "Iota2 Lib",
+   "gaiaParallaxMas": 11.282,
+   "hipparcosParallaxMas": 14.31,
+   "ruwe": 4.21107,
+   "distanceGapPercent": 21
+  },
+  {
+   "id": "hip-74505",
+   "name": "HD 135263",
+   "gaiaParallaxMas": 9.084,
+   "hipparcosParallaxMas": 11.44,
+   "ruwe": 3.8467305,
+   "distanceGapPercent": 21
+  },
+  {
+   "id": "hip-77541",
+   "name": "HD 141194",
+   "gaiaParallaxMas": 13.337,
+   "hipparcosParallaxMas": 16.78,
+   "ruwe": 7.6979084,
+   "distanceGapPercent": 21
+  },
+  {
+   "id": "hip-17732",
+   "name": "HD 23626",
+   "gaiaParallaxMas": 16.701,
+   "hipparcosParallaxMas": 20.83,
+   "ruwe": 8.680784,
+   "distanceGapPercent": 20
+  },
+  {
+   "id": "hip-22913",
+   "name": "HD 31373",
+   "gaiaParallaxMas": 7.139,
+   "hipparcosParallaxMas": 8.97,
+   "ruwe": 1.6138893,
+   "distanceGapPercent": 20
+  },
+  {
+   "id": "hip-34",
+   "name": "HD 224758",
+   "gaiaParallaxMas": 16.087,
+   "hipparcosParallaxMas": 13.4,
+   "ruwe": 6.9721656,
+   "distanceGapPercent": 20
+  },
+  {
+   "id": "hip-52085",
+   "name": "Phi Hya",
+   "gaiaParallaxMas": 12.454,
+   "hipparcosParallaxMas": 15.49,
+   "ruwe": 2.2327273,
+   "distanceGapPercent": 20
+  },
+  {
+   "id": "hip-60771",
+   "name": "HD 108355",
+   "gaiaParallaxMas": 3.959,
+   "hipparcosParallaxMas": 4.92,
+   "ruwe": 1.4341187,
+   "distanceGapPercent": 20
+  },
+  {
+   "id": "hip-87936",
+   "name": "HD 163376",
+   "gaiaParallaxMas": 5.766,
+   "hipparcosParallaxMas": 7.22,
+   "ruwe": 1.401793,
+   "distanceGapPercent": 20
+  },
+  {
+   "id": "hip-91196",
+   "name": "HD 172569",
+   "gaiaParallaxMas": 12.037,
+   "hipparcosParallaxMas": 15.05,
+   "ruwe": 8.862706,
+   "distanceGapPercent": 20
+  },
+  {
+   "id": "hip-103956",
+   "name": "HD 200817",
+   "gaiaParallaxMas": 7.111,
+   "hipparcosParallaxMas": 8.75,
+   "ruwe": 2.2696822,
+   "distanceGapPercent": 19
+  },
+  {
+   "id": "hip-1982",
+   "name": "HD 2054",
+   "gaiaParallaxMas": 5.094,
+   "hipparcosParallaxMas": 6.32,
+   "ruwe": 2.499103,
+   "distanceGapPercent": 19
+  },
+  {
+   "id": "hip-3675",
+   "name": "58 Psc",
+   "gaiaParallaxMas": 13.664,
+   "hipparcosParallaxMas": 11.52,
+   "ruwe": 6.635868,
+   "distanceGapPercent": 19
+  },
+  {
+   "id": "hip-46774",
+   "name": "6 Leo",
+   "gaiaParallaxMas": 5.313,
+   "hipparcosParallaxMas": 6.53,
+   "ruwe": 1.4211854,
+   "distanceGapPercent": 19
+  },
+  {
+   "id": "hip-64838",
+   "name": "HD 115488",
+   "gaiaParallaxMas": 14.66,
+   "hipparcosParallaxMas": 12.28,
+   "ruwe": 6.003737,
+   "distanceGapPercent": 19
+  },
+  {
+   "id": "hip-104019",
+   "name": "Eta Cap",
+   "gaiaParallaxMas": 16.642,
+   "hipparcosParallaxMas": 20.2,
+   "ruwe": 3.2048297,
+   "distanceGapPercent": 18
+  },
+  {
+   "id": "hip-109973",
+   "name": "Mu2 Gru",
+   "gaiaParallaxMas": 14.534,
+   "hipparcosParallaxMas": 12.29,
+   "ruwe": 2.991841,
+   "distanceGapPercent": 18
+  },
+  {
+   "id": "hip-34693",
+   "name": "Tau Gem",
+   "gaiaParallaxMas": 8.364,
+   "hipparcosParallaxMas": 10.16,
+   "ruwe": 2.3492243,
+   "distanceGapPercent": 18
+  },
+  {
+   "id": "hip-35226",
+   "name": "HD 56779",
+   "gaiaParallaxMas": 3.54,
+   "hipparcosParallaxMas": 4.33,
+   "ruwe": 1.4879115,
+   "distanceGapPercent": 18
+  },
+  {
+   "id": "hip-36796",
+   "name": "HD 60275",
+   "gaiaParallaxMas": 8.717,
+   "hipparcosParallaxMas": 7.38,
+   "ruwe": 2.764424,
+   "distanceGapPercent": 18
+  },
+  {
+   "id": "hip-44923",
+   "name": "HD 78702",
+   "gaiaParallaxMas": 9.838,
+   "hipparcosParallaxMas": 11.95,
+   "ruwe": 1.4213972,
+   "distanceGapPercent": 18
+  },
+  {
+   "id": "hip-50335",
+   "name": "Adhafera",
+   "gaiaParallaxMas": 14.078,
+   "hipparcosParallaxMas": 11.9,
+   "ruwe": 1.685054,
+   "distanceGapPercent": 18
+  },
+  {
+   "id": "hip-73624",
+   "name": "HD 132955",
+   "gaiaParallaxMas": 6.855,
+   "hipparcosParallaxMas": 8.41,
+   "ruwe": 1.4716688,
+   "distanceGapPercent": 18
+  },
+  {
+   "id": "hip-115528",
+   "name": "HD 220465",
+   "gaiaParallaxMas": 8.596,
+   "hipparcosParallaxMas": 10.38,
+   "ruwe": 2.145376,
+   "distanceGapPercent": 17
+  },
+  {
+   "id": "hip-20070",
+   "name": "b Per",
+   "gaiaParallaxMas": 8.587,
+   "hipparcosParallaxMas": 10.4,
+   "ruwe": 2.7436318,
+   "distanceGapPercent": 17
+  },
+  {
+   "id": "hip-20885",
+   "name": "Theta1 Tau",
+   "gaiaParallaxMas": 24.798,
+   "hipparcosParallaxMas": 21.13,
+   "ruwe": 5.7443924,
+   "distanceGapPercent": 17
+  },
+  {
+   "id": "hip-2548",
+   "name": "51 Psc",
+   "gaiaParallaxMas": 10.198,
+   "hipparcosParallaxMas": 12.35,
+   "ruwe": 4.06548,
+   "distanceGapPercent": 17
+  },
+  {
+   "id": "hip-68756",
+   "name": "Thuban",
+   "gaiaParallaxMas": 12.54,
+   "hipparcosParallaxMas": 10.76,
+   "ruwe": 2.4141114,
+   "distanceGapPercent": 17
+  },
+  {
+   "id": "hip-74857",
+   "name": "f Lup",
+   "gaiaParallaxMas": 8.315,
+   "hipparcosParallaxMas": 10.01,
+   "ruwe": 2.0828516,
+   "distanceGapPercent": 17
+  },
+  {
+   "id": "hip-78914",
+   "name": "Delta Nor",
+   "gaiaParallaxMas": 31.095,
+   "hipparcosParallaxMas": 26.66,
+   "ruwe": 2.6024334,
+   "distanceGapPercent": 17
+  },
+  {
+   "id": "hip-80421",
+   "name": "HD 147614",
+   "gaiaParallaxMas": 9.231,
+   "hipparcosParallaxMas": 11.1,
+   "ruwe": 2.1252923,
+   "distanceGapPercent": 17
+  },
+  {
+   "id": "hip-82545",
+   "name": "Pipirima",
+   "gaiaParallaxMas": 5.705,
+   "hipparcosParallaxMas": 6.88,
+   "ruwe": 2.1646435,
+   "distanceGapPercent": 17
+  },
+  {
+   "id": "hip-11783",
+   "name": "Sigma Cet",
+   "gaiaParallaxMas": 43.406,
+   "hipparcosParallaxMas": 37.46,
+   "ruwe": 3.2824464,
+   "distanceGapPercent": 16
+  },
+  {
+   "id": "hip-16095",
+   "name": "HD 21379",
+   "gaiaParallaxMas": 9.582,
+   "hipparcosParallaxMas": 11.41,
+   "ruwe": 1.8069098,
+   "distanceGapPercent": 16
+  },
+  {
+   "id": "hip-17921",
+   "name": "HD 23950",
+   "gaiaParallaxMas": 7.457,
+   "hipparcosParallaxMas": 8.86,
+   "ruwe": 2.1035416,
+   "distanceGapPercent": 16
+  },
+  {
+   "id": "hip-29850",
+   "name": "l Ori",
+   "gaiaParallaxMas": 12.155,
+   "hipparcosParallaxMas": 14.47,
+   "ruwe": 4.0562835,
+   "distanceGapPercent": 16
+  },
+  {
+   "id": "hip-3801",
+   "name": "Nu Cas",
+   "gaiaParallaxMas": 9.19,
+   "hipparcosParallaxMas": 7.92,
+   "ruwe": 2.062282,
+   "distanceGapPercent": 16
+  },
+  {
+   "id": "hip-44331",
+   "name": "HD 77093",
+   "gaiaParallaxMas": 15.281,
+   "hipparcosParallaxMas": 13.13,
+   "ruwe": 2.881485,
+   "distanceGapPercent": 16
+  },
+  {
+   "id": "hip-70680",
+   "name": "104 Vir",
+   "gaiaParallaxMas": 14.67,
+   "hipparcosParallaxMas": 12.68,
+   "ruwe": 4.096932,
+   "distanceGapPercent": 16
+  },
+  {
+   "id": "hip-98842",
+   "name": "HD 190056",
+   "gaiaParallaxMas": 9.411,
+   "hipparcosParallaxMas": 11.22,
+   "ruwe": 1.4577303,
+   "distanceGapPercent": 16
+  },
+  {
+   "id": "hip-102618",
+   "name": "Albali",
+   "gaiaParallaxMas": 13.406,
+   "hipparcosParallaxMas": 15.7,
+   "ruwe": 3.3441424,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-103004",
+   "name": "31 Vul",
+   "gaiaParallaxMas": 14.737,
+   "hipparcosParallaxMas": 17.3,
+   "ruwe": 3.1694603,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-103519",
+   "name": "HD 199870",
+   "gaiaParallaxMas": 14.52,
+   "hipparcosParallaxMas": 12.61,
+   "ruwe": 10.231964,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-12093",
+   "name": "Nu Cet",
+   "gaiaParallaxMas": 8.124,
+   "hipparcosParallaxMas": 9.59,
+   "ruwe": 2.2604077,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-18216",
+   "name": "Tau8 Eri",
+   "gaiaParallaxMas": 9.977,
+   "hipparcosParallaxMas": 8.65,
+   "ruwe": 1.7994798,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-22545",
+   "name": "HD 30557",
+   "gaiaParallaxMas": 8.758,
+   "hipparcosParallaxMas": 10.29,
+   "ruwe": 2.4823956,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-34081",
+   "name": "C Pup",
+   "gaiaParallaxMas": 10.749,
+   "hipparcosParallaxMas": 9.36,
+   "ruwe": 3.7621837,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-4852",
+   "name": "Sigma Scl",
+   "gaiaParallaxMas": 16.214,
+   "hipparcosParallaxMas": 14.04,
+   "ruwe": 3.2367153,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-5310",
+   "name": "Psi2 Psc",
+   "gaiaParallaxMas": 18.001,
+   "hipparcosParallaxMas": 21.14,
+   "ruwe": 7.3283157,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-62327",
+   "name": "HD 110956",
+   "gaiaParallaxMas": 9.759,
+   "hipparcosParallaxMas": 8.48,
+   "ruwe": 1.6510359,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-63125",
+   "name": "Cor Caroli",
+   "gaiaParallaxMas": 32.754,
+   "hipparcosParallaxMas": 28.41,
+   "ruwe": 8.417524,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-79101",
+   "name": "Phi Her",
+   "gaiaParallaxMas": 13.604,
+   "hipparcosParallaxMas": 15.99,
+   "ruwe": 4.7503448,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-91461",
+   "name": "HD 171819",
+   "gaiaParallaxMas": 10.467,
+   "hipparcosParallaxMas": 9.14,
+   "ruwe": 2.4141095,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-95823",
+   "name": "HD 183007",
+   "gaiaParallaxMas": 18.464,
+   "hipparcosParallaxMas": 16.03,
+   "ruwe": 3.0868137,
+   "distanceGapPercent": 15
+  },
+  {
+   "id": "hip-2240",
+   "name": "HD 2490",
+   "gaiaParallaxMas": 7.437,
+   "hipparcosParallaxMas": 8.68,
+   "ruwe": 1.9192414,
+   "distanceGapPercent": 14
+  },
+  {
+   "id": "hip-42459",
+   "name": "HW Vel",
+   "gaiaParallaxMas": 6.284,
+   "hipparcosParallaxMas": 7.33,
+   "ruwe": 1.4445043,
+   "distanceGapPercent": 14
+  },
+  {
+   "id": "hip-43234",
+   "name": "Rho Hya",
+   "gaiaParallaxMas": 10.486,
+   "hipparcosParallaxMas": 9.21,
+   "ruwe": 1.8625971,
+   "distanceGapPercent": 14
+  },
+  {
+   "id": "hip-44248",
+   "name": "10 UMa",
+   "gaiaParallaxMas": 53.403,
+   "hipparcosParallaxMas": 62.23,
+   "ruwe": 8.007972,
+   "distanceGapPercent": 14
+  },
+  {
+   "id": "hip-61199",
+   "name": "Gamma Mus",
+   "gaiaParallaxMas": 8.619,
+   "hipparcosParallaxMas": 10.04,
+   "ruwe": 4.0302453,
+   "distanceGapPercent": 14
+  },
+  {
+   "id": "hip-66006",
+   "name": "Apamvatsa",
+   "gaiaParallaxMas": 6.982,
+   "hipparcosParallaxMas": 8.16,
+   "ruwe": 1.8091928,
+   "distanceGapPercent": 14
+  },
+  {
+   "id": "hip-77660",
+   "name": "b Ser",
+   "gaiaParallaxMas": 17.378,
+   "hipparcosParallaxMas": 20.1,
+   "ruwe": 5.073307,
+   "distanceGapPercent": 14
+  },
+  {
+   "id": "hip-78323",
+   "name": "HD 143009",
+   "gaiaParallaxMas": 8.516,
+   "hipparcosParallaxMas": 7.48,
+   "ruwe": 1.4444189,
+   "distanceGapPercent": 14
+  },
+  {
+   "id": "hip-79664",
+   "name": "Delta TrA",
+   "gaiaParallaxMas": 4.596,
+   "hipparcosParallaxMas": 5.37,
+   "ruwe": 2.5427444,
+   "distanceGapPercent": 14
+  },
+  {
+   "id": "hip-81840",
+   "name": "HD 151199",
+   "gaiaParallaxMas": 9.68,
+   "hipparcosParallaxMas": 11.29,
+   "ruwe": 3.536754,
+   "distanceGapPercent": 14
+  },
+  {
+   "id": "hip-83081",
+   "name": "Zeta Ara",
+   "gaiaParallaxMas": 5.793,
+   "hipparcosParallaxMas": 6.71,
+   "ruwe": 2.2396288,
+   "distanceGapPercent": 14
+  },
+  {
+   "id": "hip-87532",
+   "name": "HD 162517",
+   "gaiaParallaxMas": 13.552,
+   "hipparcosParallaxMas": 15.79,
+   "ruwe": 5.512925,
+   "distanceGapPercent": 14
+  },
+  {
+   "id": "cns5-0435",
+   "name": "HD 10307",
+   "gaiaParallaxMas": 68.063,
+   "hipparcosParallaxMas": 78.5,
+   "ruwe": 2.8920834,
+   "distanceGapPercent": 13
+  },
+  {
+   "id": "hip-11313",
+   "name": "65 And",
+   "gaiaParallaxMas": 7.661,
+   "hipparcosParallaxMas": 8.83,
+   "ruwe": 1.6634964,
+   "distanceGapPercent": 13
+  },
+  {
+   "id": "hip-20250",
+   "name": "Phi Tau",
+   "gaiaParallaxMas": 11.482,
+   "hipparcosParallaxMas": 10.16,
+   "ruwe": 1.5144532,
+   "distanceGapPercent": 13
+  },
+  {
+   "id": "hip-21683",
+   "name": "Sigma2 Tau",
+   "gaiaParallaxMas": 18.275,
+   "hipparcosParallaxMas": 20.97,
+   "ruwe": 1.8693871,
+   "distanceGapPercent": 13
+  },
+  {
+   "id": "hip-31665",
+   "name": "11 Lyn",
+   "gaiaParallaxMas": 8.533,
+   "hipparcosParallaxMas": 9.83,
+   "ruwe": 1.7315181,
+   "distanceGapPercent": 13
+  },
+  {
+   "id": "hip-50099",
+   "name": "Omega Car",
+   "gaiaParallaxMas": 8.314,
+   "hipparcosParallaxMas": 9.54,
+   "ruwe": 2.1115003,
+   "distanceGapPercent": 13
+  },
+  {
+   "id": "hip-50371",
+   "name": "q Car",
+   "gaiaParallaxMas": 4.311,
+   "hipparcosParallaxMas": 4.96,
+   "ruwe": 2.1064966,
+   "distanceGapPercent": 13
+  },
+  {
+   "id": "hip-76945",
+   "name": "Psi2 Lup",
+   "gaiaParallaxMas": 7.792,
+   "hipparcosParallaxMas": 8.97,
+   "ruwe": 1.6376226,
+   "distanceGapPercent": 13
+  },
+  {
+   "id": "hip-93244",
+   "name": "Epsilon Aql",
+   "gaiaParallaxMas": 18.214,
+   "hipparcosParallaxMas": 21.05,
+   "ruwe": 3.6316338,
+   "distanceGapPercent": 13
+  },
+  {
+   "id": "cns5-2728",
+   "name": "HD 97233",
+   "gaiaParallaxMas": 51.906,
+   "hipparcosParallaxMas": 46.36,
+   "ruwe": 26.688833,
+   "distanceGapPercent": 12
+  },
+  {
+   "id": "cns5-3478",
+   "name": "HD 122742",
+   "gaiaParallaxMas": 66.184,
+   "hipparcosParallaxMas": 58.88,
+   "ruwe": 10.335547,
+   "distanceGapPercent": 12
+  },
+  {
+   "id": "hip-106140",
+   "name": "2 Peg",
+   "gaiaParallaxMas": 7.31,
+   "hipparcosParallaxMas": 8.28,
+   "ruwe": 1.9028527,
+   "distanceGapPercent": 12
+  },
+  {
+   "id": "hip-115830",
+   "name": "Theta Psc",
+   "gaiaParallaxMas": 19.283,
+   "hipparcosParallaxMas": 21.96,
+   "ruwe": 2.59755,
+   "distanceGapPercent": 12
+  },
+  {
+   "id": "hip-14232",
+   "name": "HD 18928",
+   "gaiaParallaxMas": 19.073,
+   "hipparcosParallaxMas": 21.75,
+   "ruwe": 5.980635,
+   "distanceGapPercent": 12
+  },
+  {
+   "id": "hip-30342",
+   "name": "Nu Pic",
+   "gaiaParallaxMas": 18.227,
+   "hipparcosParallaxMas": 20.72,
+   "ruwe": 8.49575,
+   "distanceGapPercent": 12
+  },
+  {
+   "id": "hip-64022",
+   "name": "41 Com",
+   "gaiaParallaxMas": 8.629,
+   "hipparcosParallaxMas": 9.84,
+   "ruwe": 1.5016412,
+   "distanceGapPercent": 12
+  },
+  {
+   "id": "hip-65420",
+   "name": "66 Vir",
+   "gaiaParallaxMas": 37.523,
+   "hipparcosParallaxMas": 33.37,
+   "ruwe": 14.899589,
+   "distanceGapPercent": 12
+  },
+  {
+   "id": "hip-67627",
+   "name": "i Dra",
+   "gaiaParallaxMas": 7.735,
+   "hipparcosParallaxMas": 8.78,
+   "ruwe": 1.9714115,
+   "distanceGapPercent": 12
+  },
+  {
+   "id": "hip-2225",
+   "name": "HD 2421",
+   "gaiaParallaxMas": 12.776,
+   "hipparcosParallaxMas": 11.54,
+   "ruwe": 2.9332962,
+   "distanceGapPercent": 11
+  },
+  {
+   "id": "hip-23818",
+   "name": "HD 33095",
+   "gaiaParallaxMas": 28.999,
+   "hipparcosParallaxMas": 26.02,
+   "ruwe": 17.519033,
+   "distanceGapPercent": 11
+  },
+  {
+   "id": "hip-36046",
+   "name": "Iota Gem",
+   "gaiaParallaxMas": 24.057,
+   "hipparcosParallaxMas": 27.1,
+   "ruwe": 2.5581734,
+   "distanceGapPercent": 11
+  },
+  {
+   "id": "hip-4463",
+   "name": "Kui",
+   "gaiaParallaxMas": 12.603,
+   "hipparcosParallaxMas": 14.2,
+   "ruwe": 2.610508,
+   "distanceGapPercent": 11
+  },
+  {
+   "id": "hip-56211",
+   "name": "Giausar",
+   "gaiaParallaxMas": 8.668,
+   "hipparcosParallaxMas": 9.79,
+   "ruwe": 2.4780712,
+   "distanceGapPercent": 11
+  },
+  {
+   "id": "hip-57380",
+   "name": "Nu Vir",
+   "gaiaParallaxMas": 9.879,
+   "hipparcosParallaxMas": 11.1,
+   "ruwe": 3.0909705,
+   "distanceGapPercent": 11
+  },
+  {
+   "id": "hip-82621",
+   "name": "HD 152311",
+   "gaiaParallaxMas": 33.054,
+   "hipparcosParallaxMas": 37.12,
+   "ruwe": 4.5774126,
+   "distanceGapPercent": 11
+  },
+  {
+   "id": "cns5-0348",
+   "name": "Kappa Tuc",
+   "gaiaParallaxMas": 43.0,
+   "hipparcosParallaxMas": 47.72,
+   "ruwe": 10.409619,
+   "distanceGapPercent": 10
+  },
+  {
+   "id": "hip-103738",
+   "name": "Gamma Mic",
+   "gaiaParallaxMas": 12.862,
+   "hipparcosParallaxMas": 14.24,
+   "ruwe": 2.4167762,
+   "distanceGapPercent": 10
+  },
+  {
+   "id": "hip-12489",
+   "name": "33 Ari",
+   "gaiaParallaxMas": 12.689,
+   "hipparcosParallaxMas": 14.09,
+   "ruwe": 1.6641909,
+   "distanceGapPercent": 10
+  },
+  {
+   "id": "hip-41321",
+   "name": "HD 71863",
+   "gaiaParallaxMas": 7.987,
+   "hipparcosParallaxMas": 8.9,
+   "ruwe": 2.985185,
+   "distanceGapPercent": 10
+  },
+  {
+   "id": "hip-43783",
+   "name": "c Car",
+   "gaiaParallaxMas": 11.208,
+   "hipparcosParallaxMas": 10.2,
+   "ruwe": 3.7319086,
+   "distanceGapPercent": 10
+  },
+  {
+   "id": "hip-57581",
+   "name": "Mu Mus",
+   "gaiaParallaxMas": 6.858,
+   "hipparcosParallaxMas": 7.59,
+   "ruwe": 1.7854326,
+   "distanceGapPercent": 10
+  },
+  {
+   "id": "hip-68478",
+   "name": "11 Boo",
+   "gaiaParallaxMas": 9.869,
+   "hipparcosParallaxMas": 10.99,
+   "ruwe": 1.5290473,
+   "distanceGapPercent": 10
+  },
+  {
+   "id": "hip-72370",
+   "name": "Paradys",
+   "gaiaParallaxMas": 6.559,
+   "hipparcosParallaxMas": 7.3,
+   "ruwe": 2.4885406,
+   "distanceGapPercent": 10
+  },
+  {
+   "id": "hip-98337",
+   "name": "Gamma Sge",
+   "gaiaParallaxMas": 11.366,
+   "hipparcosParallaxMas": 12.62,
+   "ruwe": 8.185856,
+   "distanceGapPercent": 10
+  },
+  {
+   "id": "cns5-0589",
+   "name": "HD 14214",
+   "gaiaParallaxMas": 44.632,
+   "hipparcosParallaxMas": 41.06,
+   "ruwe": 6.4231925,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-103045",
+   "name": "Mu Aqr",
+   "gaiaParallaxMas": 22.649,
+   "hipparcosParallaxMas": 20.74,
+   "ruwe": 6.0526075,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-104139",
+   "name": "Theta Cap",
+   "gaiaParallaxMas": 21.95,
+   "hipparcosParallaxMas": 20.11,
+   "ruwe": 3.1658158,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-109410",
+   "name": "Pi Peg",
+   "gaiaParallaxMas": 11.233,
+   "hipparcosParallaxMas": 12.4,
+   "ruwe": 2.054357,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-113246",
+   "name": "Delta PsA",
+   "gaiaParallaxMas": 19.19,
+   "hipparcosParallaxMas": 21.16,
+   "ruwe": 3.3566666,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-17440",
+   "name": "Beta Ret",
+   "gaiaParallaxMas": 30.441,
+   "hipparcosParallaxMas": 33.49,
+   "ruwe": 3.1306763,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-21459",
+   "name": "V1116 Tau",
+   "gaiaParallaxMas": 22.988,
+   "hipparcosParallaxMas": 21.04,
+   "ruwe": 3.4349778,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-24372",
+   "name": "Theta Dor",
+   "gaiaParallaxMas": 6.017,
+   "hipparcosParallaxMas": 6.64,
+   "ruwe": 1.4112014,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-31850",
+   "name": "HD 47415",
+   "gaiaParallaxMas": 27.731,
+   "hipparcosParallaxMas": 30.51,
+   "ruwe": 1.4721686,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-3455",
+   "name": "Phi1 Cet",
+   "gaiaParallaxMas": 15.159,
+   "hipparcosParallaxMas": 13.96,
+   "ruwe": 1.7040517,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-38723",
+   "name": "DD Lyn",
+   "gaiaParallaxMas": 15.42,
+   "hipparcosParallaxMas": 16.95,
+   "ruwe": 2.716962,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-43338",
+   "name": "HD 75495",
+   "gaiaParallaxMas": 11.624,
+   "hipparcosParallaxMas": 12.74,
+   "ruwe": 2.56019,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-43813",
+   "name": "Zeta Hya",
+   "gaiaParallaxMas": 21.346,
+   "hipparcosParallaxMas": 19.51,
+   "ruwe": 3.3400834,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-55791",
+   "name": "80 Leo",
+   "gaiaParallaxMas": 16.235,
+   "hipparcosParallaxMas": 17.88,
+   "ruwe": 2.2516267,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-67459",
+   "name": "Upsilon Boo",
+   "gaiaParallaxMas": 13.457,
+   "hipparcosParallaxMas": 12.38,
+   "ruwe": 2.334076,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-69427",
+   "name": "Kang",
+   "gaiaParallaxMas": 11.624,
+   "hipparcosParallaxMas": 12.8,
+   "ruwe": 2.4285,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-73223",
+   "name": "R Aps",
+   "gaiaParallaxMas": 7.896,
+   "hipparcosParallaxMas": 8.71,
+   "ruwe": 1.8039491,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-81304",
+   "name": "H Sco",
+   "gaiaParallaxMas": 10.376,
+   "hipparcosParallaxMas": 9.52,
+   "ruwe": 2.3283021,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-8514",
+   "name": "HD 11262",
+   "gaiaParallaxMas": 39.737,
+   "hipparcosParallaxMas": 36.56,
+   "ruwe": 31.316929,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-98032",
+   "name": "Iota Sgr",
+   "gaiaParallaxMas": 16.237,
+   "hipparcosParallaxMas": 17.94,
+   "ruwe": 3.308771,
+   "distanceGapPercent": 9
+  },
+  {
+   "id": "hip-105140",
+   "name": "Epsilon Mic",
+   "gaiaParallaxMas": 19.33,
+   "hipparcosParallaxMas": 17.9,
+   "ruwe": 2.2406912,
+   "distanceGapPercent": 8
+  },
+  {
+   "id": "hip-106039",
+   "name": "b Cap",
+   "gaiaParallaxMas": 17.506,
+   "hipparcosParallaxMas": 19.06,
+   "ruwe": 2.0267982,
+   "distanceGapPercent": 8
+  },
+  {
+   "id": "hip-115669",
+   "name": "b02 Aqr",
+   "gaiaParallaxMas": 10.615,
+   "hipparcosParallaxMas": 11.51,
+   "ruwe": 2.5988464,
+   "distanceGapPercent": 8
+  },
+  {
+   "id": "hip-16611",
+   "name": "Tau5 Eri",
+   "gaiaParallaxMas": 10.221,
+   "hipparcosParallaxMas": 11.12,
+   "ruwe": 2.3963354,
+   "distanceGapPercent": 8
+  },
+  {
+   "id": "hip-20614",
+   "name": "HD 27901",
+   "gaiaParallaxMas": 21.378,
+   "hipparcosParallaxMas": 19.79,
+   "ruwe": 6.943238,
+   "distanceGapPercent": 8
+  },
+  {
+   "id": "hip-32249",
+   "name": "30 Gem",
+   "gaiaParallaxMas": 10.412,
+   "hipparcosParallaxMas": 11.29,
+   "ruwe": 2.0951881,
+   "distanceGapPercent": 8
+  },
+  {
+   "id": "hip-45860",
+   "name": "Alpha Lyn",
+   "gaiaParallaxMas": 14.74,
+   "hipparcosParallaxMas": 16.06,
+   "ruwe": 2.57108,
+   "distanceGapPercent": 8
+  },
+  {
+   "id": "hip-46328",
+   "name": "HD 82068",
+   "gaiaParallaxMas": 13.174,
+   "hipparcosParallaxMas": 14.33,
+   "ruwe": 5.144066,
+   "distanceGapPercent": 8
+  },
+  {
+   "id": "hip-55434",
+   "name": "Sigma Leo",
+   "gaiaParallaxMas": 13.6,
+   "hipparcosParallaxMas": 14.82,
+   "ruwe": 2.3775077,
+   "distanceGapPercent": 8
+  },
+  {
+   "id": "hip-62788",
+   "name": "MO Hya",
+   "gaiaParallaxMas": 16.127,
+   "hipparcosParallaxMas": 14.93,
+   "ruwe": 3.430648,
+   "distanceGapPercent": 8
+  },
+  {
+   "id": "hip-68707",
+   "name": "HD 122797",
+   "gaiaParallaxMas": 15.469,
+   "hipparcosParallaxMas": 16.75,
+   "ruwe": 3.6743498,
+   "distanceGapPercent": 8
+  },
+  {
+   "id": "hip-91117",
+   "name": "Alpha Sct",
+   "gaiaParallaxMas": 17.73,
+   "hipparcosParallaxMas": 16.38,
+   "ruwe": 2.351374,
+   "distanceGapPercent": 8
+  },
+  {
+   "id": "hip-9347",
+   "name": "Upsilon Cet",
+   "gaiaParallaxMas": 10.294,
+   "hipparcosParallaxMas": 11.14,
+   "ruwe": 2.2029834,
+   "distanceGapPercent": 8
+  },
+  {
+   "id": "hip-107095",
+   "name": "42 Cap",
+   "gaiaParallaxMas": 27.9,
+   "hipparcosParallaxMas": 30.09,
+   "ruwe": 1.4042691,
+   "distanceGapPercent": 7
+  },
+  {
+   "id": "hip-20205",
+   "name": "Prima Hyadum",
+   "gaiaParallaxMas": 21.698,
+   "hipparcosParallaxMas": 20.19,
+   "ruwe": 6.959422,
+   "distanceGapPercent": 7
+  },
+  {
+   "id": "hip-46701",
+   "name": "N Vel",
+   "gaiaParallaxMas": 14.63,
+   "hipparcosParallaxMas": 13.65,
+   "ruwe": 2.7200034,
+   "distanceGapPercent": 7
+  },
+  {
+   "id": "hip-5372",
+   "name": "2 UMi",
+   "gaiaParallaxMas": 10.824,
+   "hipparcosParallaxMas": 11.64,
+   "ruwe": 2.2089517,
+   "distanceGapPercent": 7
+  },
+  {
+   "id": "hip-57399",
+   "name": "Taiyangshou",
+   "gaiaParallaxMas": 16.466,
+   "hipparcosParallaxMas": 17.76,
+   "ruwe": 2.1468503,
+   "distanceGapPercent": 7
+  },
+  {
+   "id": "hip-63033",
+   "name": "HD 112164",
+   "gaiaParallaxMas": 26.654,
+   "hipparcosParallaxMas": 24.94,
+   "ruwe": 1.9149785,
+   "distanceGapPercent": 7
+  },
+  {
+   "id": "hip-72010",
+   "name": "c01 Cen",
+   "gaiaParallaxMas": 14.537,
+   "hipparcosParallaxMas": 15.57,
+   "ruwe": 1.6631575,
+   "distanceGapPercent": 7
+  },
+  {
+   "id": "hip-80000",
+   "name": "Gamma2 Nor",
+   "gaiaParallaxMas": 23.596,
+   "hipparcosParallaxMas": 25.33,
+   "ruwe": 1.9353389,
+   "distanceGapPercent": 7
+  },
+  {
+   "id": "hip-85365",
+   "name": "47 Oph",
+   "gaiaParallaxMas": 31.026,
+   "hipparcosParallaxMas": 33.25,
+   "ruwe": 1.4813275,
+   "distanceGapPercent": 7
+  },
+  {
+   "id": "hip-90344",
+   "name": "Fafnir",
+   "gaiaParallaxMas": 11.073,
+   "hipparcosParallaxMas": 10.36,
+   "ruwe": 1.831922,
+   "distanceGapPercent": 7
+  },
+  {
+   "id": "cns5-4840",
+   "name": "HD 184467",
+   "gaiaParallaxMas": 55.296,
+   "hipparcosParallaxMas": 58.96,
+   "ruwe": 24.661036,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-100587",
+   "name": "39 Cyg",
+   "gaiaParallaxMas": 12.261,
+   "hipparcosParallaxMas": 13.05,
+   "ruwe": 3.2430234,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-101773",
+   "name": "Rho Pav",
+   "gaiaParallaxMas": 16.083,
+   "hipparcosParallaxMas": 17.2,
+   "ruwe": 1.5884389,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-112748",
+   "name": "Sadalbari",
+   "gaiaParallaxMas": 28.967,
+   "hipparcosParallaxMas": 30.74,
+   "ruwe": 2.8882442,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-116602",
+   "name": "HD 222095",
+   "gaiaParallaxMas": 15.388,
+   "hipparcosParallaxMas": 16.29,
+   "ruwe": 1.770209,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-25247",
+   "name": "e Ori",
+   "gaiaParallaxMas": 19.473,
+   "hipparcosParallaxMas": 20.73,
+   "ruwe": 2.945432,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-37606",
+   "name": "HD 62644",
+   "gaiaParallaxMas": 42.828,
+   "hipparcosParallaxMas": 40.53,
+   "ruwe": 5.924759,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-70104",
+   "name": "HD 125442",
+   "gaiaParallaxMas": 21.489,
+   "hipparcosParallaxMas": 22.96,
+   "ruwe": 5.793254,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-76440",
+   "name": "Epsilon TrA",
+   "gaiaParallaxMas": 15.215,
+   "hipparcosParallaxMas": 16.17,
+   "ruwe": 2.1738584,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-78639",
+   "name": "Eta Nor",
+   "gaiaParallaxMas": 13.984,
+   "hipparcosParallaxMas": 14.86,
+   "ruwe": 1.8156686,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-83207",
+   "name": "Epsilon Her",
+   "gaiaParallaxMas": 19.794,
+   "hipparcosParallaxMas": 21.04,
+   "ruwe": 2.4729664,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-86263",
+   "name": "Xi Ser",
+   "gaiaParallaxMas": 32.925,
+   "hipparcosParallaxMas": 30.98,
+   "ruwe": 2.2654004,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-87108",
+   "name": "Bake-eo",
+   "gaiaParallaxMas": 33.657,
+   "hipparcosParallaxMas": 31.73,
+   "ruwe": 2.879308,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-88048",
+   "name": "Nu Oph",
+   "gaiaParallaxMas": 22.937,
+   "hipparcosParallaxMas": 21.64,
+   "ruwe": 2.6286478,
+   "distanceGapPercent": 6
+  },
+  {
+   "id": "hip-102453",
+   "name": "52 Cyg",
+   "gaiaParallaxMas": 15.41,
+   "hipparcosParallaxMas": 16.22,
+   "ruwe": 2.8472762,
+   "distanceGapPercent": 5
+  },
+  {
+   "id": "hip-17351",
+   "name": "h Eri",
+   "gaiaParallaxMas": 18.548,
+   "hipparcosParallaxMas": 17.7,
+   "ruwe": 1.8113608,
+   "distanceGapPercent": 5
+  },
+  {
+   "id": "hip-18907",
+   "name": "Nu Tau",
+   "gaiaParallaxMas": 26.468,
+   "hipparcosParallaxMas": 27.89,
+   "ruwe": 2.8923256,
+   "distanceGapPercent": 5
+  },
+  {
+   "id": "hip-27530",
+   "name": "Gamma Pic",
+   "gaiaParallaxMas": 17.581,
+   "hipparcosParallaxMas": 18.45,
+   "ruwe": 1.709561,
+   "distanceGapPercent": 5
+  },
+  {
+   "id": "hip-34622",
+   "name": "20 Mon",
+   "gaiaParallaxMas": 16.839,
+   "hipparcosParallaxMas": 16.08,
+   "ruwe": 1.441681,
+   "distanceGapPercent": 5
+  },
+  {
+   "id": "hip-38089",
+   "name": "Q Pup",
+   "gaiaParallaxMas": 14.778,
+   "hipparcosParallaxMas": 14.04,
+   "ruwe": 1.9003597,
+   "distanceGapPercent": 5
+  },
+  {
+   "id": "hip-41307",
+   "name": "30 Mon",
+   "gaiaParallaxMas": 25.383,
+   "hipparcosParallaxMas": 26.66,
+   "ruwe": 2.1550224,
+   "distanceGapPercent": 5
+  },
+  {
+   "id": "hip-52943",
+   "name": "Nu Hya",
+   "gaiaParallaxMas": 23.821,
+   "hipparcosParallaxMas": 22.69,
+   "ruwe": 3.4658573,
+   "distanceGapPercent": 5
+  },
+  {
+   "id": "hip-55705",
+   "name": "Gamma Crt",
+   "gaiaParallaxMas": 37.747,
+   "hipparcosParallaxMas": 39.62,
+   "ruwe": 2.2923107,
+   "distanceGapPercent": 5
+  },
+  {
+   "id": "hip-64962",
+   "name": "Gamma Hya",
+   "gaiaParallaxMas": 25.558,
+   "hipparcosParallaxMas": 24.37,
+   "ruwe": 7.5982537,
+   "distanceGapPercent": 5
+  },
+  {
+   "id": "hip-71957",
+   "name": "Mu Vir",
+   "gaiaParallaxMas": 52.227,
+   "hipparcosParallaxMas": 54.73,
+   "ruwe": 3.766522,
+   "distanceGapPercent": 5
+  },
+  {
+   "id": "hip-93429",
+   "name": "i Aql",
+   "gaiaParallaxMas": 21.602,
+   "hipparcosParallaxMas": 22.66,
+   "ruwe": 2.2849977,
+   "distanceGapPercent": 5
+  },
+  {
+   "id": "cns5-3431",
+   "name": "HD 120780",
+   "gaiaParallaxMas": 60.85,
+   "hipparcosParallaxMas": 58.55,
+   "ruwe": 6.657185,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "hip-13254",
+   "name": "16 Per",
+   "gaiaParallaxMas": 25.884,
+   "hipparcosParallaxMas": 27.01,
+   "ruwe": 3.6722465,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "hip-1473",
+   "name": "Sigma And",
+   "gaiaParallaxMas": 23.294,
+   "hipparcosParallaxMas": 24.2,
+   "ruwe": 1.9711162,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "hip-22845",
+   "name": "Pi1 Ori",
+   "gaiaParallaxMas": 27.05,
+   "hipparcosParallaxMas": 28.04,
+   "ruwe": 1.4771502,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "hip-37740",
+   "name": "Kappa Gem",
+   "gaiaParallaxMas": 22.129,
+   "hipparcosParallaxMas": 23.07,
+   "ruwe": 2.9867437,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "hip-42911",
+   "name": "Asellus Australis",
+   "gaiaParallaxMas": 23.863,
+   "hipparcosParallaxMas": 24.98,
+   "ruwe": 4.349736,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "hip-43908",
+   "name": "Zeta Oct",
+   "gaiaParallaxMas": 21.004,
+   "hipparcosParallaxMas": 20.1,
+   "ruwe": 1.5179721,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "hip-53229",
+   "name": "Praecipua",
+   "gaiaParallaxMas": 32.954,
+   "hipparcosParallaxMas": 34.38,
+   "ruwe": 2.167977,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "hip-62268",
+   "name": "Iota Cru",
+   "gaiaParallaxMas": 26.19,
+   "hipparcosParallaxMas": 27.17,
+   "ruwe": 1.8877742,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "hip-68895",
+   "name": "Pi Hya",
+   "gaiaParallaxMas": 30.92,
+   "hipparcosParallaxMas": 32.3,
+   "ruwe": 3.3763318,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "hip-74395",
+   "name": "Zeta Lup",
+   "gaiaParallaxMas": 28.787,
+   "hipparcosParallaxMas": 27.8,
+   "ruwe": 3.2280703,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "hip-83000",
+   "name": "Kappa Oph",
+   "gaiaParallaxMas": 37.145,
+   "hipparcosParallaxMas": 35.66,
+   "ruwe": 3.257183,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "hip-87261",
+   "name": "Fuyue",
+   "gaiaParallaxMas": 24.765,
+   "hipparcosParallaxMas": 25.92,
+   "ruwe": 1.6884975,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "hip-93683",
+   "name": "Omicron Sgr",
+   "gaiaParallaxMas": 23.85,
+   "hipparcosParallaxMas": 22.96,
+   "ruwe": 2.4758942,
+   "distanceGapPercent": 4
+  },
+  {
+   "id": "cns5-2294",
+   "name": "c UMa",
+   "gaiaParallaxMas": 49.447,
+   "hipparcosParallaxMas": 51.1,
+   "ruwe": 1.9982607,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "hip-100064",
+   "name": "Algedi",
+   "gaiaParallaxMas": 29.955,
+   "hipparcosParallaxMas": 30.82,
+   "ruwe": 2.4423943,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "hip-112724",
+   "name": "Iota Cep",
+   "gaiaParallaxMas": 27.309,
+   "hipparcosParallaxMas": 28.29,
+   "ruwe": 2.7361765,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "hip-118268",
+   "name": "Omega Psc",
+   "gaiaParallaxMas": 30.317,
+   "hipparcosParallaxMas": 31.26,
+   "ruwe": 2.940932,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "hip-27288",
+   "name": "Zeta Lep",
+   "gaiaParallaxMas": 44.818,
+   "hipparcosParallaxMas": 46.28,
+   "ruwe": 4.3171644,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "hip-31592",
+   "name": "Nu2 CMa",
+   "gaiaParallaxMas": 48.865,
+   "hipparcosParallaxMas": 50.63,
+   "ruwe": 2.3701963,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "hip-36795",
+   "name": "HD 60532",
+   "gaiaParallaxMas": 38.16,
+   "hipparcosParallaxMas": 39.53,
+   "ruwe": 2.1229422,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "hip-37504",
+   "name": "Zeta Vol",
+   "gaiaParallaxMas": 22.44,
+   "hipparcosParallaxMas": 23.13,
+   "ruwe": 1.9807122,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "hip-5364",
+   "name": "Eta Cet",
+   "gaiaParallaxMas": 27.091,
+   "hipparcosParallaxMas": 26.32,
+   "ruwe": 2.5660274,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "hip-74824",
+   "name": "Beta Cir",
+   "gaiaParallaxMas": 33.85,
+   "hipparcosParallaxMas": 32.73,
+   "ruwe": 1.9102323,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "hip-89962",
+   "name": "Eta Ser",
+   "gaiaParallaxMas": 52.478,
+   "hipparcosParallaxMas": 53.93,
+   "ruwe": 3.7133043,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "hip-90496",
+   "name": "Kaus Borealis",
+   "gaiaParallaxMas": 42.955,
+   "hipparcosParallaxMas": 41.72,
+   "ruwe": 1.6835047,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "hip-90568",
+   "name": "Zeta Tel",
+   "gaiaParallaxMas": 26.727,
+   "hipparcosParallaxMas": 25.84,
+   "ruwe": 2.6179588,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "hip-92549",
+   "name": "HD 175225",
+   "gaiaParallaxMas": 37.708,
+   "hipparcosParallaxMas": 38.96,
+   "ruwe": 1.4523096,
+   "distanceGapPercent": 3
+  },
+  {
+   "id": "cns5-5370",
+   "name": "Deneb Algedi",
+   "gaiaParallaxMas": 85.977,
+   "hipparcosParallaxMas": 84.27,
+   "ruwe": 3.917951,
+   "distanceGapPercent": 2
+  },
+  {
+   "id": "cns5-5833",
+   "name": "Gamma Cephei A",
+   "gaiaParallaxMas": 72.538,
+   "hipparcosParallaxMas": 70.91,
+   "ruwe": 3.2124221,
+   "distanceGapPercent": 2
+  },
+  {
+   "id": "hip-107556",
+   "name": "Deneb Algedi",
+   "gaiaParallaxMas": 85.977,
+   "hipparcosParallaxMas": 84.27,
+   "ruwe": 3.917951,
+   "distanceGapPercent": 2
+  },
+  {
+   "id": "hip-116727",
+   "name": "Gamma Cephei A",
+   "gaiaParallaxMas": 72.538,
+   "hipparcosParallaxMas": 70.91,
+   "ruwe": 3.2124221,
+   "distanceGapPercent": 2
+  },
+  {
+   "id": "hip-19747",
+   "name": "Alpha Hor",
+   "gaiaParallaxMas": 27.729,
+   "hipparcosParallaxMas": 28.36,
+   "ruwe": 2.5281353,
+   "distanceGapPercent": 2
+  },
+  {
+   "id": "hip-32362",
+   "name": "Alzirr",
+   "gaiaParallaxMas": 54.233,
+   "hipparcosParallaxMas": 55.56,
+   "ruwe": 1.849533,
+   "distanceGapPercent": 2
+  },
+  {
+   "id": "hip-53253",
+   "name": "u Car",
+   "gaiaParallaxMas": 33.533,
+   "hipparcosParallaxMas": 34.33,
+   "ruwe": 2.0664442,
+   "distanceGapPercent": 2
+  },
+  {
+   "id": "hip-78527",
+   "name": "Theta Dra",
+   "gaiaParallaxMas": 46.487,
+   "hipparcosParallaxMas": 47.54,
+   "ruwe": 2.1835399,
+   "distanceGapPercent": 2
+  },
+  {
+   "id": "hip-81833",
+   "name": "Eta Her",
+   "gaiaParallaxMas": 29.282,
+   "hipparcosParallaxMas": 30.02,
+   "ruwe": 3.435432,
+   "distanceGapPercent": 2
+  },
+  {
+   "id": "hip-84379",
+   "name": "Sarin",
+   "gaiaParallaxMas": 42.513,
+   "hipparcosParallaxMas": 43.41,
+   "ruwe": 3.0741808,
+   "distanceGapPercent": 2
+  },
+  {
+   "id": "hip-98110",
+   "name": "Eta Cyg",
+   "gaiaParallaxMas": 23.572,
+   "hipparcosParallaxMas": 24.17,
+   "ruwe": 2.5870304,
+   "distanceGapPercent": 2
+  },
+  {
+   "id": "cns5-3247",
+   "name": "Beta Com",
+   "gaiaParallaxMas": 108.76,
+   "hipparcosParallaxMas": 109.54,
+   "ruwe": 2.4609523,
+   "distanceGapPercent": 1
+  },
+  {
+   "id": "hip-19921",
+   "name": "Epsilon Ret",
+   "gaiaParallaxMas": 54.231,
+   "hipparcosParallaxMas": 54.83,
+   "ruwe": 2.7827828,
+   "distanceGapPercent": 1
+  },
+  {
+   "id": "hip-64394",
+   "name": "Beta Com",
+   "gaiaParallaxMas": 108.76,
+   "hipparcosParallaxMas": 109.54,
+   "ruwe": 2.4609523,
+   "distanceGapPercent": 1
+  },
+  {
+   "id": "10pc-0109",
+   "name": "Keid",
+   "gaiaParallaxMas": 199.636,
+   "hipparcosParallaxMas": 200.62,
+   "ruwe": 1.9449321,
+   "distanceGapPercent": 0
+  }
+ ]
+}

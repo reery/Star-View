@@ -14,8 +14,8 @@ const pool = new Map(data.stars.map((star) => [star.id, star]))
 const velocityFields = ['vx_kms', 'vy_kms', 'vz_kms'] as const
 
 describe('constellation data and common system motion', () => {
-  it('propagates all 197 reviewed systems together in both motion frames', () => {
-    expect(motionReview.systems).toHaveLength(197)
+  it('propagates all 198 reviewed systems together in both motion frames', () => {
+    expect(motionReview.systems).toHaveLength(198)
     let members = 0
     for (const review of motionReview.systems) {
       const primary = pool.get(review.primaryStarId)!
@@ -36,7 +36,7 @@ describe('constellation data and common system motion', () => {
         expect(spaceMotionForStar(star).title, id).toContain(review.radialVelocity.status.includes('proxy') && !review.primaryStarId.startsWith('hip-17847') ? 'as a proxy' : 'center-of-mass')
       }
     }
-    expect(members).toBe(519)
+    expect(members).toBe(521)
   })
 
   it('preserves every native component motion bundle and its uncertainties as source data', () => {

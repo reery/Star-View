@@ -65,8 +65,8 @@ const svg = (icon: IconNode, size = 20) => createElement(icon, { width: size, he
 const number = (value: number) => value.toLocaleString('en-US', { maximumSignificantDigits: 3 }).replace('-', '−')
 const isStellar = (star: Star) => STELLAR_OBJECT_TYPES.includes(star.type as never)
 const selections = new WeakMap<Element, Selection>()
-// Histogram columns and scatter plots rebuild a saved range, whose bins may differ once restored.
-const rangeTests = new WeakMap<Element, (...ends: number[]) => ObjectTest>()
+// Histogram columns and scatter plots rebuild a saved range, whose bins may differ once restored, with its key and label.
+const rangeSelections = new WeakMap<Element, (...ends: number[]) => Selection>()
 // Scatter plots turn a dragged box, in fractions of the plot from its top left, into a selection.
 const brushes = new WeakMap<Element, (x0: number, y0: number, x1: number, y1: number) => Selection>()
 
@@ -263,7 +263,13 @@ function histogram({ values, full, label, ticks, tickLabels, floor = -Infinity, 
   chart.className = 'graph-histogram'
   const columns = document.createElement('div')
   columns.className = 'graph-columns'
-  if (select) rangeTests.set(columns, linearRanges ? (low, high) => select(...[low, high].map((end) => end > 0 ? Math.log10(end) : -Infinity) as [number, number]) : select)
+  // A range open below is the first bin, keyed and labeled like it.
+  if (select) rangeSelections.set(columns, (low, high) => {
+    const [start, end] = linearRanges ? [low, high].map((value) => value! > 0 ? Math.log10(value!) : -Infinity) as [number, number] : [low!, high!]
+    const binLow = Number.isFinite(start) ? start : min
+    const rangeLabel = label(Number.isFinite(start) || !belowFloor ? binLow : -Infinity, Number.isFinite(end) ? end : binLow + step)
+    return { key: binLow.toPrecision(12), label: rangeLabel, test: select(start, end), range: [low!, high!] }
+  })
   columns.append(...counts.map((count, index) => {
     const binLow = min + index * step
     const range = label(index === 0 && belowFloor ? -Infinity : binLow, binLow + step)
@@ -500,7 +506,7 @@ function hrScatter({ items, stellar, full, chosen, sun, colorMode, zoom }: Graph
   const plot = document.createElement('div')
   plot.className = zoom ? 'graph-plot is-zoomed' : 'graph-plot'
   plot.title = 'Drag to select a region'
-  rangeTests.set(plot, hrTest)
+  rangeSelections.set(plot, (t0, t1, l0, l1) => hrSelection(t0!, t1!, l0!, l1!))
   const temperatureAt = (fraction: number) => 10 ** (hot - fraction * (hot - cool)), luminosityAt = (fraction: number) => 10 ** (bright - fraction * (bright - faint))
   brushes.set(plot, (x0, y0, x1, y1) => hrSelection(temperatureAt(Math.max(x0, x1)), temperatureAt(Math.min(x0, x1)), luminosityAt(Math.max(y0, y1)), luminosityAt(Math.min(y0, y1))))
   plot.append(chart)
@@ -1042,13 +1048,14 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
         rendered.set(id, body)
       }
       const columns = range && body.querySelector('.graph-columns, .graph-plot')
-      const build = columns ? rangeTests.get(columns) : undefined
+      const build = columns ? rangeSelections.get(columns) : undefined
       const ends = range?.map((end, index) => end ?? (index % 2 ? Infinity : -Infinity))
-      const select = build && ends ? { key, label, test: build(...ends), range: ends }
+      // Views saved in this browser keep a range's key and label; view links leave them to the graph.
+      const select = build && ends ? { ...build(...ends), ...key && { key, label } }
         : [...body.querySelectorAll('[data-select]')].map((element) => selections.get(element)).find((candidate) => candidate?.key === key)
       if (!select) continue
       if (!filters.has(id)) filters.set(id, new Map())
-      filters.get(id)!.set(key, select)
+      filters.get(id)!.set(select.key, select)
     }
     applyFilters()
   }

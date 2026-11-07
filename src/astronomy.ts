@@ -1,6 +1,6 @@
 import { Color, Matrix3, Vector3 } from 'three'
 import { apparentVisualMagnitude } from './photometry.ts'
-export { apparentVisualMagnitude } from './photometry.ts'
+export { apparentVisualMagnitude, mapAbsoluteMagnitude } from './photometry.ts'
 import { ICRS_TO_GALACTIC_ROWS, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, type RawAstrometry, type Star } from './catalog-model'
 
 export const LIGHT_YEARS_PER_PARSEC = 3.261563777

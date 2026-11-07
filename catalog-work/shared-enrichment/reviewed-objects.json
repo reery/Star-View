@@ -18242,6 +18242,412 @@
           }
         }
       }
+    },
+    "* 9 Cet": {
+      "label": "9 Cet",
+      "starIds": [
+        "cns5-0111"
+      ],
+      "scope": "Exact named catalog object * 9 Cet / HIP 1803 / HD 1835 / BE Cet; the 214-arcsecond optical companion is excluded.",
+      "values": {
+        "mass_solar": "1.09",
+        "age_gyr": "0.85"
+      },
+      "notes": "Corrected CNS5 111; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2025A&A...698A..93J; metallicity_dex: 2025A&A...698A..93J). Reviewed literature age and mass: 0.85 Gyr and 1.09 solar masses from isochrone fits to high-precision spectroscopic parameters, Ram\u00edrez, Mel\u00e9ndez & Asplund (2014), replace the Gaia DR3 FLAME age of 9.9 Gyr and mass of 0.94; the young age agrees with the star's chromospheric activity and BY Draconis variability.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "* 9 Cet",
+          "fields": [
+            "mass_solar",
+            "age_gyr"
+          ],
+          "decision": "Adopt the published isochrone age and mass; reject the FLAME age, which contradicts the star's activity and rotation.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": 0.85,
+              "uncertainty": null,
+              "status": "model-derived",
+              "reference": "2014A&A...561A...7R",
+              "url": "https://arxiv.org/abs/1310.8581",
+              "section": "Table 6 (HIP 1803) and section 2.5",
+              "method": "Peak of the Yonsei-Yale isochrone probability distribution fitted to the paper's differential UVES Teff, log g and [Fe/H] (sections 2.4-2.5).",
+              "inputs": {
+                "age_lower_2sigma_gyr": 0.06,
+                "age_upper_2sigma_gyr": 1.97,
+                "log_rhk": -4.49
+              },
+              "caveat": "The tabulated bounds are a 95 percent interval (0.06-1.97 Gyr), not a 1-sigma error, so no symmetric uncertainty is adopted. The paper calls main-sequence isochrone ages model-dependent. The young age agrees with the star's high chromospheric activity (log R'HK = -4.49, same table) and its BY Draconis spot modulation."
+            },
+            "mass_solar": {
+              "value": 1.09,
+              "uncertainty": null,
+              "status": "model-derived",
+              "reference": "2014A&A...561A...7R",
+              "url": "https://arxiv.org/abs/1310.8581",
+              "section": "Table 6 (HIP 1803) and section 2.4",
+              "method": "Peak of the Yonsei-Yale isochrone probability distribution fitted to the paper's differential UVES Teff, log g and [Fe/H] (sections 2.4-2.5).",
+              "inputs": {
+                "mass_lower_2sigma_solar": 1.08,
+                "mass_upper_2sigma_solar": 1.11
+              },
+              "caveat": "The tabulated bounds are a 95 percent interval (1.08-1.11 solar masses). Replaces the FLAME mass from the same solution as the rejected 9.9 Gyr age, which used solar-metallicity tracks for a star with [Fe/H] = +0.18 to +0.23."
+            }
+          }
+        }
+      }
+    },
+    "HD 166": {
+      "label": "HD 166",
+      "starIds": [
+        "cns5-0026"
+      ],
+      "scope": "Exact named catalog object HD 166 / HIP 544 / HD 166; distinct companions are excluded.",
+      "values": {
+        "age_gyr": "0.2"
+      },
+      "notes": "Corrected CNS5 26; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2024A&A...682A.145S; metallicity_dex: 2024A&A...682A.145S). Reviewed literature age: about 200 Myr from chromospheric activity, Mamajek & Hillenbrand (2008), replaces the Gaia DR3 FLAME age of 9.6 Gyr, which contradicts the star's activity and BY Draconis variability.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "HD 166",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Adopt the published activity or rotation age; reject the FLAME age.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": 0.2,
+              "uncertainty": null,
+              "status": "model-derived",
+              "reference": "2008ApJ...687.1264M",
+              "url": "https://arxiv.org/abs/0807.1686",
+              "section": "Table 13, activity ages for solar-type dwarfs within 16 pc (VizieR J/ApJ/687/1264/table13)",
+              "method": "Revised chromospheric activity-age relation (tau1) from log R'HK = -4.328; the activity-Rossby-gyrochronology route (tau2) gives the same 0.2 Gyr.",
+              "inputs": {
+                "log_rhk": -4.328,
+                "tau2_gyr": 0.2
+              },
+              "caveat": "Activity ages scatter with magnetic cycles. Gaspar et al. 2013 compile 0.24 Gyr; Maldonado et al. 2012 list log age 9.16, an outlier. Montes et al. 2001 place the star kinematically in the young Local Association."
+            }
+          }
+        }
+      }
+    },
+    "HD 130948": {
+      "label": "HD 130948 A",
+      "starIds": [
+        "cns5-3667"
+      ],
+      "scope": "Exact named catalog object HD 130948 / HIP 72567 / HD 130948; distinct companions are excluded.",
+      "values": {
+        "age_gyr": "0.79"
+      },
+      "notes": "Corrected CNS5 3667; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2024A&A...682A.145S; metallicity_dex: 2024A&A...682A.145S). Reviewed literature age: 0.79 Gyr from gyrochronology, Dupuy, Liu & Ireland (2009), replaces the Gaia DR3 FLAME age of 5.3 Gyr, which contradicts the star's activity and BY Draconis variability.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "HD 130948",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Adopt the published activity or rotation age; reject the FLAME age.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": 0.79,
+              "uncertainty": null,
+              "status": "model-derived",
+              "reference": "2009ApJ...692..729D",
+              "url": "https://arxiv.org/abs/0807.2450",
+              "section": "Abstract",
+              "method": "Gyrochronology of the G2V primary HD 130948A, described as the most precise of the available age indicators, which suggest a Hyades-like age.",
+              "caveat": "Independent indicators agree within a factor of two: Vican 2012 give 0.61 Gyr (chromospheric) and 0.47 Gyr (X-ray); Stanford-Moore et al. 2020 give a 0.47 Gyr posterior median (68 percent 0.23-1.03 Gyr). No symmetric uncertainty is adopted."
+            }
+          }
+        }
+      }
+    },
+    "HD 180161": {
+      "label": "HD 180161",
+      "starIds": [
+        "cns5-4763"
+      ],
+      "scope": "Exact named catalog object HD 180161 / HIP 94346 / HD 180161; distinct companions are excluded.",
+      "values": {
+        "age_gyr": "0.69"
+      },
+      "notes": "Corrected CNS5 4763; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2022ApJS..259...45T; metallicity_dex: 2022A&A...663A...4S). Reviewed literature age: 0.69 Gyr from chromospheric activity, Vican (2012), replaces the Gaia DR3 FLAME age of 4.4 Gyr, which contradicts the star's activity and BY Draconis variability.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "HD 180161",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Adopt the published activity or rotation age; reject the FLAME age.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": 0.69,
+              "uncertainty": null,
+              "status": "model-derived",
+              "reference": "2012AJ....143..135V",
+              "url": "https://doi.org/10.1088/0004-6256/143/6/135",
+              "section": "Table 2, DEBRIS stars with activity ages (VizieR J/AJ/143/135/table2), HIP 94346",
+              "method": "Chromospheric-activity age from log R'HK = -4.52 (Wright et al. 2004); the table flags the gyrochronology-based value as preferred.",
+              "inputs": {
+                "log_rhk": -4.52
+              },
+              "caveat": "Maldonado et al. 2012 give the same log age 8.84 and Gaspar et al. 2013 compile 0.60 Gyr; Wright et al. 2004 give 0.95 Gyr with an older calibration. No symmetric uncertainty is adopted."
+            }
+          }
+        }
+      }
+    },
+    "HD 116956": {
+      "label": "HD 116956",
+      "starIds": [
+        "cns5-3307"
+      ],
+      "scope": "Exact named catalog object HD 116956 / HIP 65515 / HD 116956; distinct companions are excluded.",
+      "values": {
+        "age_gyr": "0.597"
+      },
+      "notes": "Corrected CNS5 3307; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2022A&A...663A...4S; metallicity_dex: 2022A&A...663A...4S). Reviewed literature age: about 600 Myr from chromospheric activity, Stanford-Moore et al. (2020), replaces the Gaia DR3 FLAME age of 3.4 Gyr, which contradicts the star's activity and BY Draconis variability.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "HD 116956",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Adopt the published activity or rotation age; reject the FLAME age.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": 0.597,
+              "uncertainty": null,
+              "status": "model-derived",
+              "reference": "2020ApJ...898...27S",
+              "url": "https://ui.adsabs.harvard.edu/abs/2020ApJ...898...27S",
+              "section": "Table 2, BAFFLES ages (VizieR J/ApJ/898/27/table2), HD 116956",
+              "method": "Posterior median of the BAFFLES Bayesian age from chromospheric activity, log R'HK = -4.393.",
+              "inputs": {
+                "log_rhk": -4.393,
+                "age_16_percent_gyr": 0.251,
+                "age_84_percent_gyr": 2.02,
+                "age_2_5_percent_gyr": 0.0869,
+                "age_97_5_percent_gyr": 7.33
+              },
+              "caveat": "The posterior is broad and asymmetric (68 percent 0.25-2.0 Gyr), so no symmetric uncertainty is adopted. The 4.27 d spot-modulation period supports a young age."
+            }
+          }
+        }
+      }
+    },
+    "HD 111395": {
+      "label": "HD 111395",
+      "starIds": [
+        "cns5-3168"
+      ],
+      "scope": "Exact named catalog object HD 111395 / HIP 62523 / HD 111395; distinct companions are excluded.",
+      "values": {
+        "age_gyr": ""
+      },
+      "notes": "Corrected CNS5 3168; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2022A&A...663A...4S; metallicity_dex: 2022A&A...663A...4S). Reviewed literature conflict: the Gaia DR3 FLAME age of 8.8 Gyr is withheld because it contradicts the star's activity and BY Draconis variability; published activity ages disagree between 0.37 Gyr (Maldonado et al. 2012) and 1.2 Gyr (Wright et al. 2004), so none is adopted.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "HD 111395",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Withhold the contradicted Gaia DR3 model age; adopt no unverified replacement.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Gaia DR3 FLAME age of 8.8 Gyr contradicts the star's BY Draconis spot modulation (LW Com, BY Draconis variable, period 15.8 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; published activity ages disagree between 0.37 Gyr (Maldonado et al. 2012) and 1.2 Gyr (Wright et al. 2004), so none is adopted."
+            }
+          }
+        }
+      }
+    },
+    "HD 94765": {
+      "label": "HD 94765",
+      "starIds": [
+        "cns5-2675"
+      ],
+      "scope": "Exact named catalog object HD 94765 / HIP 53486 / HD 94765; distinct companions are excluded.",
+      "values": {
+        "age_gyr": ""
+      },
+      "notes": "Corrected CNS5 2675; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2024A&A...683A.125P; metallicity_dex: 2024A&A...683A.125P). Reviewed literature conflict: the Gaia DR3 FLAME age of 11.6 Gyr is withheld because it contradicts the star's activity and BY Draconis variability; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "HD 94765",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Withhold the contradicted Gaia DR3 model age; adopt no unverified replacement.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Gaia DR3 FLAME age of 11.6 Gyr contradicts the star's BY Draconis spot modulation (GY Leo, BY Draconis variable, period 11.43 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues."
+            }
+          }
+        }
+      }
+    },
+    "HD 153525": {
+      "label": "HD 153525",
+      "starIds": [
+        "cns5-4150"
+      ],
+      "scope": "Exact named catalog object HD 153525 / HIP 83006 / HD 153525; distinct companions are excluded.",
+      "values": {
+        "age_gyr": ""
+      },
+      "notes": "Corrected CNS5 4150; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2022ApJS..259...45T; metallicity_dex: 2022A&A...663A...4S). Systemic space velocity of HD 153557 adopted from HD 153557 (cns5-4151); individual orbital motion is not modelled. Reviewed literature conflict: the Gaia DR3 FLAME age of 11.0 Gyr is withheld because it contradicts the star's activity and BY Draconis variability; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "HD 153525",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Withhold the contradicted Gaia DR3 model age; adopt no unverified replacement.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Gaia DR3 FLAME age of 11.0 Gyr contradicts the star's BY Draconis spot modulation (V1089 Her, BY Draconis variable, period 15.39 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues."
+            }
+          }
+        }
+      }
+    },
+    "HD 82443": {
+      "label": "HD 82443",
+      "starIds": [
+        "cns5-2364"
+      ],
+      "scope": "Exact named catalog object HD 82443 / HIP 46843 / HD 82443; distinct companions are excluded.",
+      "values": {
+        "age_gyr": ""
+      },
+      "notes": "Corrected CNS5 2364; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2022AJ....164..174H; metallicity_dex: 2022AJ....164..174H). Reviewed literature conflict: the Gaia DR3 FLAME age of 5.9 Gyr is withheld because it contradicts the star's activity and BY Draconis variability; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "HD 82443",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Withhold the contradicted Gaia DR3 model age; adopt no unverified replacement.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Gaia DR3 FLAME age of 5.9 Gyr contradicts the star's BY Draconis spot modulation (DX Leo, BY Draconis variable) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues."
+            }
+          }
+        }
+      }
+    },
+    "HD 220182": {
+      "label": "HD 220182",
+      "starIds": [
+        "cns5-5755"
+      ],
+      "scope": "Exact named catalog object HD 220182 / HIP 115331 / HD 220182; distinct companions are excluded.",
+      "values": {
+        "age_gyr": ""
+      },
+      "notes": "Corrected CNS5 5755; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2023MNRAS.519.5472M; metallicity_dex: 2022A&A...663A...4S). Reviewed literature conflict: the Gaia DR3 FLAME age of 11.7 Gyr is withheld because it contradicts the star's activity and BY Draconis variability; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "HD 220182",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Withhold the contradicted Gaia DR3 model age; adopt no unverified replacement.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Gaia DR3 FLAME age of 11.7 Gyr contradicts the star's BY Draconis spot modulation (V453 And, BY Draconis variable, period 7.489 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues."
+            }
+          }
+        }
+      }
+    },
+    "HD 211472": {
+      "label": "HD 211472",
+      "starIds": [
+        "cns5-5503"
+      ],
+      "scope": "Exact named catalog object HD 211472 / HIP 109926 / HD 211472; distinct companions are excluded.",
+      "values": {
+        "age_gyr": ""
+      },
+      "notes": "Corrected CNS5 5503; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2023MNRAS.519.5472M; metallicity_dex: 2022A&A...663A...4S). Reviewed literature conflict: the Gaia DR3 FLAME age of 12.0 Gyr is withheld because it contradicts the star's activity and BY Draconis variability; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "HD 211472",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Withhold the contradicted Gaia DR3 model age; adopt no unverified replacement.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": null,
+              "status": "withheld",
+              "reason": "Gaia DR3 FLAME age of 12.0 Gyr contradicts the star's BY Draconis spot modulation (V447 Lac, BY Draconis variable, period 4.4266 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues."
+            }
+          }
+        }
+      }
+    },
+    "HD 1461": {
+      "label": "HD 1461",
+      "starIds": [
+        "cns5-0092"
+      ],
+      "scope": "Exact named catalog object HD 1461 / HIP 1499; planets and distinct companions are excluded.",
+      "values": {
+        "age_gyr": "6.07"
+      },
+      "notes": "Corrected CNS5 92; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion. Shared exact-identity physical supplements (temperature_k: 2024A&A...691A..53S; metallicity_dex: 2024A&A...691A..53S; mass_solar: 1999A&A...352..555A; radius_solar: 1999A&A...352..555A). Reviewed literature age: 6.07 Gyr from isochrone fits to high-precision spectroscopic parameters, Ram\u00edrez, Mel\u00e9ndez & Asplund (2014); it agrees with the star's low chromospheric activity and lies within the 3.7-7.1 Gyr range of published isochrone ages.",
+      "sourceSelections": {
+        "physicalLiteratureReview": {
+          "source": "catalog-work/shared-enrichment/literature-conflict-review.json",
+          "recordId": "HD 1461",
+          "fields": [
+            "age_gyr"
+          ],
+          "decision": "Fill the missing age with the most precise differential isochrone age, which agrees with the activity age; reject the 2.0 Gyr outlier quoted by Wikipedia.",
+          "adoptedFields": {
+            "age_gyr": {
+              "value": 6.07,
+              "uncertainty": null,
+              "status": "model-derived",
+              "reference": "2014A&A...561A...7R",
+              "url": "https://arxiv.org/abs/1310.8581",
+              "section": "Table 6 (HIP 1499) and section 2.5",
+              "method": "Peak of the Yonsei-Yale isochrone probability distribution fitted to the paper's differential UVES Teff, log g and [Fe/H] (sections 2.4-2.5).",
+              "inputs": {
+                "age_lower_2sigma_gyr": 4.62,
+                "age_upper_2sigma_gyr": 7.05,
+                "log_rhk": -5.04
+              },
+              "caveat": "The tabulated bounds are a 95 percent interval (4.62-7.05 Gyr), not a 1-sigma error. Published isochrone ages range from 3.7 to 7.1 Gyr; the 6.3 Gyr chromospheric age (Wright et al. 2004) and the Sun-like inactivity (log R'HK -5.04, same table) agree. The 2.0 +/- 1.1 Gyr of Tsantaki et al. 2013 is the lowest of ten determinations and is not adopted."
+            }
+          }
+        }
+      }
     }
   },
   "sourceRecords": {
