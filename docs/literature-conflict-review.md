@@ -28,6 +28,13 @@ The ledger is [literature-conflict-review.json](../catalog-work/shared-enrichmen
 | Chi Her | hip-77760 | Teff 6,310 → 5,820 K ([2022A&A...663A...4S](https://ui.adsabs.harvard.edu/abs/2022A%26A...663A...4S)); replaces an Allende Prieto & Lambert 1999 model value |
 | 41 Ara | cns5-4255 | Teff 4,759 → 5,242 K ([2024A&A...683A.125P](https://ui.adsabs.harvard.edu/abs/2024A%26A...683A.125P)); radius rescaled from the retained luminosity, 0.997 → 0.822 R☉ |
 | HD 36003 | cns5-1361 | Teff 4,971 → 4,565 K ([2022A&A...663A...4S](https://ui.adsabs.harvard.edu/abs/2022A%26A...663A...4S)) |
+| 9 Cet (BE Cet) | cns5-0111 | Added 2026-11-07. Age 9.95 → 0.85 Gyr (95 % interval 0.06–1.97) and mass 0.94 → 1.09 M☉, isochrone fit, Table 6 ([2014A&A...561A...7R](https://arxiv.org/abs/1310.8581)); the FLAME age contradicts the star's activity (log R′HK −4.49) and BY Draconis variability, so it is retired |
+| HD 166 (V439 And) | cns5-0026 | Added 2026-11-07. Age 9.60 → 0.2 Gyr, activity age, Table 13 ([2008ApJ...687.1264M](https://arxiv.org/abs/0807.1686)) |
+| HD 130948 A (HP Boo) | cns5-3667 | Added 2026-11-07. Age 5.29 → 0.79 Gyr, gyrochronology ([2009ApJ...692..729D](https://arxiv.org/abs/0807.2450)) |
+| HD 180161 (MV Dra) | cns5-4763 | Added 2026-11-07. Age 4.45 → 0.69 Gyr, activity age, Table 2 ([2012AJ....143..135V](https://doi.org/10.1088/0004-6256/143/6/135)) |
+| HD 116956 (NQ UMa) | cns5-3307 | Added 2026-11-07. Age 3.40 → 0.597 Gyr, Bayesian activity age (68 % 0.25–2.0 Gyr), Table 2 ([2020ApJ...898...27S](https://ui.adsabs.harvard.edu/abs/2020ApJ...898...27S)) |
+| HD 111395, HD 94765, HD 153525, HD 82443, HD 220182, HD 211472 | cns5-3168, cns5-2675, cns5-4150, cns5-2364, cns5-5755, cns5-5503 | Added 2026-11-07. FLAME ages of 5.9–12.0 Gyr withheld. HD 111395's published activity ages disagree (0.37 and 1.2 Gyr); no dedicated age was found for the others |
+| HD 1461 | cns5-0092 | Added 2026-11-07. Missing age filled with 6.07 Gyr (95 % 4.62–7.05), Table 6 ([2014A&A...561A...7R](https://arxiv.org/abs/1310.8581)) |
 
 The withheld ages conflict with published values that could not be verified on 2026-10-28, because VizieR was unreachable: Strömgren ages of about 76, 117 and 133 Myr from David & Hillenbrand (2015) for Zeta CrA, Theta Crt and Epsilon Hyi, and 1.3 Gyr from the Geneva-Copenhagen survey for Tau PsA. The 155 Myr often quoted for e Her is attributed to a 2012 review of rapid rotators that gives no age for this star. These values can be adopted once their primary tables are checked.
 
@@ -39,6 +46,9 @@ For 41 Ara and HD 36003, the automatic rule (newest value within 10 percent of t
 - g Lup: the Gaia age (1.85 Gyr) is consistent with the only individual estimate found (1.11 ± 1.40 Gyr, 2018AJ....155..111L); Hercules–Lyra membership alone does not fix its age.
 - Alpha Vol: the Gaia age (0.78 Gyr) fits an unresolved near-equal binary, as does the 427 Myr Strömgren age; neither describes one star.
 - Naos [Fe/H] +0.49: a single catalogued value, kept.
+- HD 1461 (cns5-0092), checked 2026-11-07: it stays a main-sequence star. Wikipedia's "subgiant" comes only from the Gaia DR3 evolutionary stage. That stage belongs to the FLAME solution the catalog already withholds (12.3 Gyr, from a GSP-Phot temperature 2.9 % below the adopted 5,812 K). The MK type G3VFe0.5 (1989ApJS...71..245K), the catalog's log g of 4.5 and Ramírez et al. 2014 (log g 4.365, Table 3) all indicate a dwarf. Wikipedia's 2.0 ± 1.1 Gyr (Tsantaki et al. 2013) is the lowest of ten published ages. The others range from 3.7 to 7.1 Gyr, and the star's Sun-like inactivity (log R′HK −5.0) gives 6.3 Gyr (Wright et al. 2004). The adopted 6.07 Gyr is the most precise differential isochrone age.
+
+The ten ages added on 2026-11-07 were found by listing BY Draconis, RS CVn and UV Ceti variables (GCVS) whose adopted age exceeded 3 Gyr. Their 4–16 day spot-modulation periods and log R′HK of −4.26 to −4.58 mark them as young, active dwarfs. Replacements come only from methods suited to such stars: chromospheric activity, gyrochronology or Bayesian activity ages, checked in the primary VizieR tables. Isochrone ages from the Geneva-Copenhagen survey (as tabulated by Pace et al. 2013) share FLAME's weakness for these stars and were not used. The ten stars keep their FLAME masses, because only the ages are contradicted.
 
 ## Pipeline rule
 

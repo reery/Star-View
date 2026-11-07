@@ -312,7 +312,7 @@ test('centers the distance label on the midpoint of the Sun line', async ({ page
 test('depth-tests the midpoint distance label against either endpoint star', { tag: '@mobile' }, async ({ page }, testInfo) => {
   await openViewer(page)
   await page.getByRole('button', { name: 'Saved views', exact: true }).click()
-  await page.getByRole('textbox', { name: 'View name' }).fill('Depth test')
+  await page.getByRole('searchbox', { name: 'View name' }).fill('Depth test')
   await page.getByRole('button', { name: 'Save current view', exact: true }).click()
   const stars = parseStarCatalog(readFileSync('src/data/stars.csv', 'utf8'))
   const sun = galacticToWorld(stars.find((star) => star.id === 'sun')!)
@@ -345,7 +345,8 @@ test('depth-tests the midpoint distance label against either endpoint star', { t
   for (const view of views) {
     const toggle = page.getByRole('button', { name: 'Saved views', exact: true })
     if (await toggle.getAttribute('aria-expanded') === 'false') await toggle.click()
-    await page.getByRole('row', { name: `Load saved view ${view.name}`, exact: true }).click()
+    await page.getByRole('row', { name: `Saved view ${view.name}`, exact: true }).click()
+    await page.getByRole('menuitem', { name: `Load '${view.name}'`, exact: true }).click()
     await expect(page.locator('#saved-views-status')).toHaveText(`Loaded “${view.name}”`)
     if (await toggle.getAttribute('aria-expanded') === 'true') await toggle.click()
     await page.evaluate(() => new Promise(requestAnimationFrame))

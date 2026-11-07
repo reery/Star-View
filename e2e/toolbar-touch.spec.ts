@@ -39,8 +39,11 @@ test('touch reveals toolbar options without firing the main action @mobile', asy
   await equatorial.tap()
   await expect(page.locator('#scene')).toHaveAttribute('data-sky-grid', 'equatorial')
   await page.screenshot({ path: testInfo.outputPath('touch-grid-expanded.png') })
+  // The first touch reveals Copy view as link; the second opens the card.
   await page.locator('#views-toggle').tap()
   await expect(equatorial).toBeHidden()
+  await expect(page.locator('#copy-view-link')).toBeVisible()
+  await page.locator('#views-toggle').tap()
   await expect(page.locator('#views-panel')).toBeVisible()
   await page.locator('#views-toggle').tap()
 

@@ -3,7 +3,10 @@ import { describe, expect, it } from 'vitest'
 import { parseStarCatalog } from './catalog'
 import { parseObjectIdentities, supplementObjectIdentities } from './designations'
 import { parseObjectStats, supplementObjectStats } from './object-stats'
-import { supplementStellarObservations, supplementSurfaceGravity } from './stellar-observations'
+import { supplementLongBaselineMotion, supplementStellarObservations, supplementSurfaceGravity } from './stellar-observations'
+import longBaselineData from './data/long-baseline-motion.json'
+import type { Star } from './catalog-model'
+import { starComponentIdentity } from './star-systems'
 import { specValues } from './spec-values'
 import { completeCatalogCompanions } from './stellar-companions'
 import { mergeCatalogStars, parseCatalogPayload } from './catalog-runtime'
@@ -149,5 +152,22 @@ describe('measured surface gravity', () => {
     const after = supplementSurfaceGravity(stars).find((star) => star.id === before.id)!
     expect(after.stellar_observations?.surface_gravity).toEqual({ log_g: 4.63, reference: '2025A&A...698A..93J', measurements: 27, scatter_dex: 0.105 })
     expect({ ...after, stellar_observations: undefined }).toEqual({ ...before, stellar_observations: undefined })
+  })
+})
+
+describe('long-baseline proper motions', () => {
+  const star = (pm: [number, number]) => ({ id: 'hip-test', name: 'Test', notes: 'Note.', vx_kms: 1, vy_kms: 2, vz_kms: 3,
+    raw_astrometry: { pm_ra_cosdec_masyr: pm[0], pm_dec_masyr: pm[1], astrometry_ref: 'Gaia' } }) as unknown as Star
+  it('leaves stars without a reviewed entry unchanged', () => {
+    const input = star([1, 2])
+    expect(supplementLongBaselineMotion([input])[0]).toBe(input)
+  })
+  it('replaces the motion of an adopted star and refuses a drifted input', () => {
+    const [id, entry] = Object.entries(longBaselineData.objects).find(([candidate]) => !starComponentIdentity(candidate))! as [string, { previous: number[]; pm_ra_cosdec_masyr: number; delta_velocity_kms: number[] }]
+    const [result] = supplementLongBaselineMotion([{ ...star([entry.previous[0]!, entry.previous[1]!]), id }])
+    expect(result!.raw_astrometry!.pm_ra_cosdec_masyr).toBe(entry.pm_ra_cosdec_masyr)
+    expect(result!.vx_kms).toBeCloseTo(1 + entry.delta_velocity_kms[0]!, 5)
+    expect(result!.notes).toContain(String(entry.previous[0]))
+    expect(() => supplementLongBaselineMotion([{ ...star([entry.previous[0]! + 1, entry.previous[1]!]), id }])).toThrow(/drifted/)
   })
 })

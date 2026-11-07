@@ -40,6 +40,12 @@ describe('close system map representatives', () => {
     expect(visibleIds([{ ...b, luminosity_solar: .2 }, { ...a, luminosity_solar: .1 }])).toEqual(['test-B'])
   })
 
+  it('does not treat a primary without its own magnitude as faint', () => {
+    const b = component('B', 20, { absolute_mag: -1 })
+    expect(visibleIds([b, component('A', 0, { luminosity_solar: 75000 })])).toEqual(['test-A'])
+    expect(visibleIds([b, component('A', 0)])).toEqual(['test-A'])
+  })
+
   it('collapses close hierarchies while preserving a separate wide subgroup', () => {
     expect(visibleIds([component('Aa', 0), component('Ab', 20), component('Ba', 4000), component('Bb', 4020)]))
       .toEqual(['test-Aa', 'test-Ba'])
@@ -61,6 +67,7 @@ describe('close system map representatives', () => {
         ['sirius-a', true], ['sirius-b', false], ['alpha-centauri-a', true], ['alpha-centauri-b', false],
         ['proxima-centauri', true], ['10pc-0087', true], ['10pc-0088', false], ['10pc-0089', false],
         ['cns5-5665', true], ['cns5-5660', true], ['cns5-5623', true],
+        ['bright-antares', true], ['hip-80763', true], ['bright-antares-component-b', false],
       ] as const) {
         if (stars.some((star) => star.id === id)) expect(shown.has(id), id).toBe(expected)
       }

@@ -3,15 +3,15 @@
   "policy": "Values come from the frozen SIMBAD mesFe_h snapshots through exact SIMBAD identities in object-designations.json; no positional matching. A SIMBAD record shared by objects listed together in one catalog, such as unresolved components, cannot be assigned to one of them and is withheld. Each value is one paper's measurement, selected as the newest within 0.3 dex of a strict-majority median, never an average. SIMBAD's log_g column also holds grid points, mis-ingested quantities such as negative values for nearby dwarfs, and constants that abundance analyses assumed. Measurements outside the range plausible for the object's type and luminosity class, and papers that report one value for nearly every star, are therefore not candidates.",
   "sourceChecksumsSha256": {
     "src/data/stars.csv": "44288f83123f36b349c58a72e4ae23608ec242e5ff25850fabf6a42ca2ae616a",
-    "src/data/catalogs/naked-eye-stars/stars.csv": "337db05f44a07ed899287bf8641f18dd2192069b29d03589e1b7c742c309c391",
+    "src/data/catalogs/naked-eye-stars/stars.csv": "75949f11269d871865ba7e7f023ae82836c3185dbd22130589280108758f6db9",
     "src/data/catalogs/nearest-100/stars.csv": "1c0c4328f493832e2f817492d4811ca964c5f00bfadf3ad597f05d752bf570e8",
-    "src/data/catalogs/nearest-1000/stars.csv": "e80ab480d0665df8552a55da83845cf9d79678d0d2fd6a0a18dda65d3d4b4f15",
-    "src/data/catalogs/nearest-5000/stars.csv": "493dfe59da5b244575ef41f8db223fdeacbad92b122fdd5441fd0b49e2543823",
+    "src/data/catalogs/nearest-1000/stars.csv": "a51135a802ace201e2b2b1b821118794b748131fec726556abd63e9e9ed8db55",
+    "src/data/catalogs/nearest-5000/stars.csv": "aecd1e069a50c92093aa2529de8600b375c3379f09ca9a0f27b61978f4314627",
     "src/data/catalogs/notable-distant-stars/stars.csv": "afed253f44340a6d0a4057b91ab1554fba16f1c106e76e54a8660b016bfdbd36",
     "src/data/catalogs/western-constellation-stars/stars.csv": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d",
-    "src/data/stellar-companions.json": "88bb4078cd3bcb611fccf3bec6c7cfa655974a70c0eaad0a8210b745b128c450",
-    "src/data/object-designations.json": "e9f4fe39e0544902257f6cc02029367645eeda45b92ad288d9770484ceca108b",
-    "catalog-work/reviewed-data-retirements.json": "af3d102697838de6de98176116ae4b1e84f2dc9efca75d8ab30e7eba50775396",
+    "src/data/stellar-companions.json": "fae689ce992738645b032e6259501038853674a2f3b991cdf50755e576342b7b",
+    "src/data/object-designations.json": "ef136a3011057e8faf9c216b093cafdd8907569b846ab40e43409656f9f845b7",
+    "catalog-work/reviewed-data-retirements.json": "1beadb9ece5bc3b9e10fd7ff0822a04f542ec17763ec1b1283f7b457cb4ae526",
     "catalog-work/nearest-1000/simbad.csv": "0d1ab9881afdfbbac62ea7d05d31cb0d8ca4c4235a4b14eb3d0e5b789a932dbd",
     "catalog-work/nearest-5000/simbad.csv": "d9810d3115ecb453f3566eb0c97afbace55f19b9b1efd942e4d51ef2766b4935",
     "catalog-work/bright-stars/simbad.csv": "8d1e328df0d1601b94f9d1cc6e051f6e78ebea3cd65b4ce5a1cfd8dad2f0eede",
@@ -27113,6 +27113,13 @@
       "measurements": 2,
       "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
     },
+    "hip-32765": {
+      "log_g": 4.1,
+      "reference": "2022A&A...663A...4S",
+      "source_record_id": "* X Pup:mesFe_h:1",
+      "measurements": 6,
+      "scatter_dex": 0.075
+    },
     "hip-32768": {
       "log_g": 2.296,
       "reference": "2024A&A...683A.125P",
@@ -28215,6 +28222,12 @@
       "source_record_id": "HD 61227:mesFe_h:4",
       "measurements": 1
     },
+    "hip-37173": {
+      "log_g": 3.1506,
+      "reference": "2023ApJS..266...11B",
+      "source_record_id": "* m Pup:mesFe_h:1",
+      "measurements": 1
+    },
     "hip-37202": {
       "log_g": 2.65,
       "reference": "2022A&A...663A...4S",
@@ -28339,6 +28352,13 @@
       "source_record_id": "* 1 Pup:mesFe_h:1",
       "measurements": 2
     },
+    "hip-37664": {
+      "log_g": 2.504,
+      "reference": "2024A&A...683A.125P",
+      "source_record_id": "* W Pup:mesFe_h:1",
+      "measurements": 3,
+      "scatter_dex": 0.157
+    },
     "hip-37677": {
       "log_g": 1.48,
       "reference": "2023ApJS..266...11B",
@@ -28438,6 +28458,13 @@
       "source_record_id": "* omi Pup:mesFe_h:1",
       "measurements": 1
     },
+    "hip-38089": {
+      "log_g": 2.66,
+      "reference": "2022A&A...663A...4S",
+      "source_record_id": "* Q Pup:mesFe_h:1",
+      "measurements": 3,
+      "scatter_dex": 0.066
+    },
     "hip-38106": {
       "log_g": 2.49,
       "reference": "2014ApJ...791...58A",
@@ -28449,6 +28476,13 @@
       "log_g": 4.07,
       "reference": "2003AJ....125.1598L",
       "source_record_id": "HD 64185:mesFe_h:1",
+      "measurements": 1,
+      "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+    },
+    "hip-38164": {
+      "log_g": 3.64,
+      "reference": "2024A&A...687A.228D",
+      "source_record_id": "* P Pup:mesFe_h:1",
       "measurements": 1,
       "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
     },
@@ -28550,6 +28584,13 @@
       "source_record_id": "HD 64740:mesFe_h:1",
       "measurements": 1
     },
+    "hip-38518": {
+      "log_g": 2.5,
+      "reference": "2024ApJ...971..166M",
+      "source_record_id": "* J Pup:mesFe_h:2",
+      "measurements": 1,
+      "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+    },
     "hip-38712": {
       "log_g": 4.08,
       "reference": "2016A&A...587A...2B",
@@ -28576,6 +28617,13 @@
       "reference": "2000A&A...364..674C",
       "source_record_id": "V* V341 Car:mesFe_h:2",
       "measurements": 1
+    },
+    "hip-38835": {
+      "log_g": 1.95,
+      "reference": "2022A&A...663A...4S",
+      "source_record_id": "* j Pup:mesFe_h:3",
+      "measurements": 5,
+      "scatter_dex": 0.107
     },
     "hip-38848": {
       "log_g": 2.123,
@@ -28636,6 +28684,12 @@
       "source_record_id": "* 27 Mon:mesFe_h:1",
       "measurements": 7,
       "scatter_dex": 0.11
+    },
+    "hip-39138": {
+      "log_g": 4.14,
+      "reference": "2022A&A...665A..36G",
+      "source_record_id": "* D01 Car:mesFe_h:1",
+      "measurements": 1
     },
     "hip-39177": {
       "log_g": 1.845,
@@ -29001,6 +29055,12 @@
       "source_record_id": "* alf Cha:mesFe_h:1",
       "measurements": 1
     },
+    "hip-40706": {
+      "log_g": 4.11,
+      "reference": "2003AJ....125.1598L",
+      "source_record_id": "* q Pup:mesFe_h:1",
+      "measurements": 1
+    },
     "hip-40766": {
       "log_g": 3.8,
       "reference": "1991A&A...249..205B",
@@ -29060,6 +29120,12 @@
       "reference": "2024A&A...687A.228D",
       "source_record_id": "HD 70839:mesFe_h:1",
       "measurements": 1
+    },
+    "hip-40945": {
+      "log_g": 1.67,
+      "reference": "2022A&A...663A...4S",
+      "source_record_id": "* w Pup:mesFe_h:1",
+      "measurements": 2
     },
     "hip-40990": {
       "log_g": 2.29,
@@ -29516,6 +29582,12 @@
       "measurements": 3,
       "scatter_dex": 0.025
     },
+    "hip-42624": {
+      "log_g": 2.037,
+      "reference": "2023ApJS..266...11B",
+      "source_record_id": "* n Vel:mesFe_h:1",
+      "measurements": 1
+    },
     "hip-42637": {
       "log_g": 3.75,
       "reference": "2018MNRAS.480..488I",
@@ -29595,6 +29667,13 @@
       "reference": "2010ApJ...722..605H",
       "source_record_id": "HD 74393:mesFe_h:4",
       "measurements": 1
+    },
+    "hip-42884": {
+      "log_g": 2.867,
+      "reference": "2024A&A...683A.125P",
+      "source_record_id": "* d Vel:mesFe_h:1",
+      "measurements": 5,
+      "scatter_dex": 0.16
     },
     "hip-42911": {
       "log_g": 2.53,
@@ -29788,6 +29867,12 @@
       "log_g": 1.67,
       "reference": "1990ApJS...74.1075M",
       "source_record_id": "* phi03 Cet:mesFe_h:3",
+      "measurements": 1
+    },
+    "hip-43783": {
+      "log_g": 3.8,
+      "reference": "2021MNRAS.502.3670G",
+      "source_record_id": "* c Car:mesFe_h:1",
       "measurements": 1
     },
     "hip-43797": {
@@ -29989,6 +30074,19 @@
       "source_record_id": "HD 77907:mesFe_h:1",
       "measurements": 1
     },
+    "hip-44511": {
+      "log_g": 2.553,
+      "reference": "2024A&A...683A.125P",
+      "source_record_id": "* c Vel:mesFe_h:1",
+      "measurements": 1
+    },
+    "hip-44599": {
+      "log_g": 2.51,
+      "reference": "2022A&A...663A...4S",
+      "source_record_id": "* G Car:mesFe_h:2",
+      "measurements": 2,
+      "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+    },
     "hip-44626": {
       "log_g": 3.8,
       "reference": "2018MNRAS.474.5287A",
@@ -30126,6 +30224,12 @@
       "source_record_id": "* h Psc:mesFe_h:6",
       "measurements": 1
     },
+    "hip-45101": {
+      "log_g": 3.5,
+      "reference": "2006MNRAS.371..252L",
+      "source_record_id": "* i Car:mesFe_h:1",
+      "measurements": 1
+    },
     "hip-45158": {
       "log_g": 2.569,
       "reference": "2024A&A...691A..53S",
@@ -30164,6 +30268,12 @@
       "source_record_id": "* tet Hya:mesFe_h:1",
       "measurements": 2,
       "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+    },
+    "hip-45439": {
+      "log_g": 2.633,
+      "reference": "2024A&A...683A.125P",
+      "source_record_id": "* l Vel:mesFe_h:1",
+      "measurements": 1
     },
     "hip-45481": {
       "log_g": 1.75,
@@ -30257,6 +30367,13 @@
       "source_record_id": "* 27 Hya:mesFe_h:1",
       "measurements": 3,
       "scatter_dex": 0.07
+    },
+    "hip-45856": {
+      "log_g": 2.689,
+      "reference": "2024A&A...683A.125P",
+      "source_record_id": "* k Car:mesFe_h:1",
+      "measurements": 4,
+      "scatter_dex": 0.095
     },
     "hip-45860": {
       "log_g": 1.5,
@@ -30491,6 +30608,12 @@
       "measurements": 3,
       "scatter_dex": 0.052
     },
+    "hip-47175": {
+      "log_g": 3.98,
+      "reference": "2003AJ....125.1598L",
+      "source_record_id": "* M Vel:mesFe_h:1",
+      "measurements": 2
+    },
     "hip-47189": {
       "log_g": 2.05,
       "reference": "2022A&A...663A...4S",
@@ -30546,6 +30669,13 @@
       "source_record_id": "* 34 Hya:mesFe_h:1",
       "measurements": 3,
       "scatter_dex": 0.12
+    },
+    "hip-47267": {
+      "log_g": 2.0,
+      "reference": "2022A&A...663A...4S",
+      "source_record_id": "* y Vel:mesFe_h:2",
+      "measurements": 3,
+      "scatter_dex": 0.0
     },
     "hip-47310": {
       "log_g": 2.0,
@@ -31346,6 +31476,12 @@
       "source_record_id": "* 35 UMa:mesFe_h:2",
       "measurements": 8,
       "scatter_dex": 0.095
+    },
+    "hip-51438": {
+      "log_g": 3.633,
+      "reference": "2024A&A...683A.125P",
+      "source_record_id": "* K Car:mesFe_h:1",
+      "measurements": 2
     },
     "hip-51491": {
       "log_g": 3.6,
@@ -32325,6 +32461,12 @@
       "log_g": 2.6,
       "reference": "2014ApJ...785...94L",
       "source_record_id": "HD 100615:mesFe_h:2",
+      "measurements": 1
+    },
+    "hip-56518": {
+      "log_g": 0.67,
+      "reference": "2019A&A...627A.138A",
+      "source_record_id": "* C01 Cen:mesFe_h:1",
       "measurements": 1
     },
     "hip-56561": {
@@ -34089,6 +34231,13 @@
       "measurements": 1,
       "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
     },
+    "hip-65387": {
+      "log_g": 2.8,
+      "reference": "2022A&A...663A...4S",
+      "source_record_id": "* m Cen:mesFe_h:1",
+      "measurements": 3,
+      "scatter_dex": 0.094
+    },
     "hip-6539": {
       "log_g": 3.76,
       "reference": "2020AJ....160...83S",
@@ -34504,6 +34653,13 @@
       "reference": "2022A&A...663A...4S",
       "source_record_id": "HD 120048:mesFe_h:1",
       "measurements": 2
+    },
+    "hip-67234": {
+      "log_g": 2.793,
+      "reference": "2022A&A...657A..87O",
+      "source_record_id": "* M Cen:mesFe_h:1",
+      "measurements": 1,
+      "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
     },
     "hip-67239": {
       "log_g": 3.52,
@@ -35125,6 +35281,12 @@
       "reference": "2018MNRAS.474.5287A",
       "source_record_id": "* eps Aps:mesFe_h:1",
       "measurements": 1
+    },
+    "hip-70300": {
+      "log_g": 4.117,
+      "reference": "2023ApJS..266...11B",
+      "source_record_id": "* a Cen:mesFe_h:1",
+      "measurements": 2
     },
     "hip-70306": {
       "log_g": 2.25,

@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-11-06",
+  "object": {
+    "name": "49 Lib",
+    "identifiers": [
+      "HD 143333",
+      "HIP 78400",
+      "HR 5954",
+      "Gaia DR3 6250364583302109312"
+    ]
+  },
+  "sources": {
+    "fuhrmann-2017": {
+      "reference": "Fuhrmann & Chini 2017, ApJ 834, 114",
+      "bibcode": "2017ApJ...834..114F",
+      "sourceUrl": "https://iopscience.iop.org/article/10.3847/1538-4357/834/2/114",
+      "retrievedOn": "2026-11-06",
+      "documentSha256": "f362318084fe61c0865537db7067d6d028b6f2160b604bd99c9eb2329b1f401a",
+      "table1": {
+        "component": "49 Lib Aa",
+        "uncertaintyConvention": "All given uncertainties represent 2 sigma errors (table note).",
+        "Teff_K": "6190 +/- 80",
+        "log_g": "3.93 +/- 0.10",
+        "Fe_H": "-0.11 +/- 0.08",
+        "Fe_Mg": "-0.34 +/- 0.05",
+        "vsini_kms": "9.2 +/- 0.4",
+        "V_mag": "5.467 +/- 0.005",
+        "Mbol_mag": "2.64 +/- 0.11",
+        "BC_V_mag": "-0.09 +/- 0.05",
+        "radius_Rsun": "2.24 +/- 0.13",
+        "mass_Msun": "1.55 +0.07/-0.13",
+        "nominal_age_Gyr": "2.3 +0.7/-0.3",
+        "true_age_Gyr": "12 +/- 1"
+      },
+      "section4": {
+        "whiteDwarfMass_Msun": "0.50 +0.03/-0.04",
+        "rappaportRelationMass_Msun": 0.48,
+        "inclinationFromMassFunction_deg": "141.3 +2.0/-1.0",
+        "evidence": "unseen companion; no direct detection"
+      },
+      "section5": {
+        "initialMasses_Msun": {
+          "whiteDwarfProgenitor": "1.06 +/- 0.02",
+          "blueStraggler": "1.00 +/- 0.03"
+        },
+        "massLost_Msun": 0.56,
+        "massReceived_Msun": 0.55,
+        "initialOrbit": {
+          "periodDays": 468,
+          "axisRsun": 323
+        },
+        "presentOrbit": {
+          "periodDays": 1144,
+          "axisRsun": 585
+        },
+        "future": "In about 0.5 Gyr the blue straggler turns into a white dwarf; possible type Ia progenitor if transfer stays conservative."
+      },
+      "distanceNote": "The paper states no parallax. V, BC_V and Mbol imply 35.3 pc, matching the Hipparcos parallax of 28.40 mas, not Gaia."
+    },
+    "willmarth-2016": {
+      "reference": "Willmarth et al. 2016, AJ 152, 46",
+      "bibcode": "2016AJ....152...46W",
+      "sourceUrl": "https://doi.org/10.3847/0004-6256/152/2/46",
+      "retrievedOn": "2026-11-06",
+      "documentSha256": "2e65badb41886409f4bd17f7af2c609697dfae6a6025cd30b1e6bd73d4f27794",
+      "table1": {
+        "spectralType": "F7V",
+        "V_mag": 5.47,
+        "parallax_mas": 28.4,
+        "parallaxSource": "van Leeuwen 2007",
+        "Mv_mag": 2.74,
+        "vsini_kms": "9.6 +/- 1.0"
+      },
+      "table2": {
+        "P_days": "1142.4 +/- 1.1",
+        "T_reducedHjd": "57025 +/- 22",
+        "e": "0.110 +/- 0.012",
+        "omega_deg": "69.4 +/- 7.4",
+        "K_kms": "3.847 +/- 0.051",
+        "gamma_kms": "-20.111 +/- 0.036",
+        "rms_kms": 0.14,
+        "a1sini_Gm": "60.06 +/- 0.80",
+        "fm_Msun": "0.00661 +/- 0.00026",
+        "epochConvention": "HJD = heliocentric Julian date - 2400000"
+      },
+      "table2KatohRow": {
+        "reference": "Katoh et al. 2013, AJ 145, 41",
+        "P_days": "1144.18 +/- 0.64",
+        "T_reducedHjd": "53576.22 +/- 8.49",
+        "e": "0.1054 +/- 0.0038",
+        "omega_deg": "61.50 +/- 2.44",
+        "K_kms": "3.805 +/- 0.012",
+        "a1sini_Gm": "59.53 +/- 0.244",
+        "fm_Msun": "0.00642 +/- 0.00008",
+        "errorScale": "Errors increased by 1.5 by Willmarth et al."
+      },
+      "table3": {
+        "a0_mas": "21.0 +/- 1.1",
+        "i_deg": "143.0 +/- 2.0",
+        "Omega_deg": "163.5 +/- 2.8",
+        "m1_Msun": 1.4,
+        "m2_Msun": 0.45,
+        "orbitKind": "Photocentric orbit from Hipparcos data with P, T, e and omega fixed to the spectroscopic solution"
+      },
+      "section4_9": {
+        "history": "Adams et al. 1924: variable velocity (-36 to -11 km/s). Abt & Levy 1976: spurious 3100 +/- 9.3 d period. Morbey & Griffin 1987 questioned it."
+      }
+    },
+    "brandt-2021-hgca": {
+      "reference": "Brandt 2021, ApJS 254, 42 (Hipparcos-Gaia Catalog of Accelerations, EDR3)",
+      "bibcode": "2021ApJS..254...42B",
+      "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=J/ApJS/254/42",
+      "retrievedOn": "2026-11-06",
+      "row": {
+        "HIP": 78400,
+        "Gaia": "6250364583302109312",
+        "parallax_mas": "35.2665 +/- 0.6001",
+        "pmRA_gaia": "-667.446 +/- 1.105",
+        "pmDE_gaia": "-378.224 +/- 0.870",
+        "pmRA_hipparcosGaia": "-630.554 +/- 0.055",
+        "pmDE_hipparcosGaia": "-394.931 +/- 0.028",
+        "pmRA_hipparcos": "-633.900 +/- 2.138",
+        "pmDE_hipparcos": "-409.789 +/- 1.159",
+        "chi2": 1134
+      }
+    },
+    "kervella-2022": {
+      "reference": "Kervella et al. 2022, A&A 657, A7",
+      "bibcode": "2022A&A...657A...7K",
+      "sourceUrl": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=J/A%2BA/657/A7",
+      "retrievedOn": "2026-11-06",
+      "row": {
+        "HIP": 78400,
+        "parallaxHip2_mas": "28.40 +/- 1.23",
+        "parallaxGaiaEdr3_mas": "35.297 +/- 0.687",
+        "RUWE": 4.327,
+        "astrometricExcessNoise_mas": 3.863
+      }
+    },
+    "tycho-2": {
+      "reference": "Hog et al. 2000, Tycho-2",
+      "row": {
+        "TYC": "6200-1429-1",
+        "pmRA": "-629.8 +/- 0.6",
+        "pmDE": "-395.5 +/- 0.6"
+      }
+    },
+    "wds": {
+      "reference": "Washington Double Star Catalog (VizieR B/wds)",
+      "row": {
+        "WDS": "16003-1632",
+        "Disc": "ENG 55",
+        "sep_arcsec": "162.7 (1886) to 145.90 (2016)",
+        "mag2": 11.52,
+        "pm1": [
+          -631,
+          -417
+        ],
+        "pm2": [
+          0,
+          2
+        ]
+      },
+      "finding": "Component B has no common proper motion with 49 Lib, so it is an unrelated background star and not a system member."
+    }
+  }
+}

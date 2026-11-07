@@ -149,3 +149,136 @@ export function readSavedViews(): SavedView[] {
     return []
   }
 }
+
+// View links carry a view in the URL fragment, which never reaches the server. Each setting has a one-letter key
+// and is left out at its link default. Links depend on these defaults, so they never change, even when the app's do.
+const LINK_VALUES = {
+  m: ['magnitudeLimit', 7], d: ['objectDistanceLimitLy', 100], e: ['earthOrbitMode', 'now'],
+  k: ['visibilityConeMode', 'off'], y: ['motionYears', 1_000], r: ['motionFrame', 'galactic'], g: ['skyGridMode', 'off'],
+  t: ['simulationYears', 0], s: ['selectedId', 'sirius-a'], o: ['referenceId', 'sun'],
+} as const satisfies Record<string, readonly [keyof SavedViewSettings, string | number]>
+const LINK_FILTERS = new Set<string>(['compact_objects', 'sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'bubble'])
+/** Bit order of the `b` flags; append only. Each bit marks a flag that differs from its link default. */
+const LINK_FLAGS = ['showWesternConstellationStars', 'showNakedEyeStars', 'showNotableDistantStars', 'hideFainterObjects', 'milkyWayVisible', 'oortCloudVisible',
+  'motionArrowsVisible', 'gridVisible', 'observerView', 'home', 'observerTelescope'] as const
+const LINK_FLAGS_ON: readonly string[] = ['milkyWayVisible', 'oortCloudVisible', 'gridVisible']
+/** Camera offsets keep five significant digits of the viewing distance. */
+const LINK_CAMERA_DIGITS = 5
+
+// `~` and `,` separate parts of a value, so encoded text never contains them.
+const encodeLinkText = (text: string) => encodeURIComponent(text).replaceAll('%20', '+').replaceAll('~', '%7E')
+const decodeLinkText = (text: string) => decodeURIComponent(text.replaceAll('+', ' '))
+
+/** The URL fragment, without `#`, that restores a view; it leaves out the sender's object search and playback controls, including follow. */
+export function encodeSavedViewLink({ name, settings }: Pick<SavedView, 'name' | 'settings'>): string {
+  // Nearest-N catalogs keep only their size.
+  const params: [string, string | number][] = settings.catalogId === 'nearest-neighbors' ? [] : [['c', encodeLinkText(settings.catalogId.replace(/^nearest-(?=\d+$)/, ''))]]
+  const linked = { ...settings, simulationYears: Math.round(settings.simulationYears) }
+  for (const [key, [field, fallback]] of Object.entries(LINK_VALUES)) {
+    // Views saved before an option existed lack it; a null selection is empty.
+    const value = linked[field] === undefined ? fallback : linked[field] ?? ''
+    if (value !== fallback) params.push([key, encodeLinkText(String(value))])
+  }
+  // Views saved before the Oort cloud option existed show it; the retired catalog flags map to the constellation catalog, as on load.
+  const flags: Partial<Record<typeof LINK_FLAGS[number], unknown>> = {
+    ...settings, ...settings.viewState, oortCloudVisible: settings.oortCloudVisible ?? true,
+    showWesternConstellationStars: settings.showWesternConstellationStars || settings.showFamousClusterStars || settings.showAlwaysBright,
+  }
+  const bits = LINK_FLAGS.reduce((sum, flag, bit) => sum | Number(Boolean(flags[flag]) !== LINK_FLAGS_ON.includes(flag)) << bit, 0)
+  if (bits) params.push(['b', bits.toString(36)])
+  const chosen = new Set<string>([...settings.filterCategories, ...settings.filterSubtypes])
+  const toggled = [...new Set([...LINK_FILTERS, ...chosen])].filter((key) => chosen.has(key) !== LINK_FILTERS.has(key))
+  if (toggled.length) params.push(['f', toggled.join(',')])
+  // The camera is an offset from its target in steps of the viewing distance; the observer view re-centers on its anchor, so it needs only the offset.
+  const { position, target, observerRollRadians } = settings.viewState
+  const offset = position.map((value, index) => value - target[index]!)
+  const exponent = Math.floor(Math.log10(Math.hypot(...offset) || 1)) - LINK_CAMERA_DIGITS + 1
+  const camera = settings.observerView ? offset : [...offset, ...target]
+  params.push(['v', [exponent, ...camera.map((value) => Math.round(value / 10 ** exponent).toString(36))].join(',')])
+  const roll = Math.round(observerRollRadians * 1000)
+  if (settings.observerView && roll) params.push(['w', roll])
+  if (settings.observerView && settings.observerViewAnchorId !== settings.selectedId) params.push(['l', settings.observerViewAnchorId ?? ''])
+  if (!settings.observerView && settings.observerId !== settings.selectedId) params.push(['i', settings.observerId])
+  for (const [id, level, channels] of settings.paint ?? []) {
+    params.push(['p', [id, level, ...(channels && channels.length < PAINT_CHANNELS.length ? channels : [])].join('~')])
+  }
+  // Graphs rebuild a picked group from its key and a range's key and label from its ends.
+  for (const { section, key, range } of settings.graphFilter ?? []) {
+    params.push(['h', [section, ...range?.map((end) => end ?? '') ?? [key]].map((part) => encodeLinkText(String(part))).join('~')])
+  }
+  const { neighborhood } = settings
+  if (neighborhood) params.push(['a', neighborhood.centerId === settings.selectedId ? neighborhood.radiusLy : `${neighborhood.radiusLy}~${neighborhood.centerId}`])
+  // The name comes last: a link ending in punctuation that a chat app trims loses only that.
+  params.push(['n', encodeLinkText(name)])
+  return params.map(([key, value]) => `${key}=${value}`).join('&')
+}
+
+/** The view a link fragment restores, or null when the fragment holds none. */
+export function decodeSavedViewLink(fragment: string): SavedView | null {
+  const params = new Map<string, string[]>()
+  for (const pair of fragment.replace(/^#/, '').split('&')) {
+    const at = pair.indexOf('=')
+    if (at > 0) params.set(pair.slice(0, at), [...params.get(pair.slice(0, at)) ?? [], pair.slice(at + 1)])
+  }
+  const one = (key: string) => params.get(key)?.[0]
+  const camera = one('v')?.split(',')
+  const name = one('n')
+  if (!camera || name === undefined) return null
+  try {
+    const values = Object.fromEntries(Object.values(LINK_VALUES).map(([field, fallback], index) => {
+      const raw = one(Object.keys(LINK_VALUES)[index]!)
+      return [field, raw === undefined ? fallback : typeof fallback === 'number' ? Number(raw) : decodeLinkText(raw)]
+    })) as Pick<SavedViewSettings, typeof LINK_VALUES[keyof typeof LINK_VALUES][0]>
+    const bits = parseInt(one('b') ?? '0', 36)
+    const flag = (name: typeof LINK_FLAGS[number]) => Boolean(bits >> LINK_FLAGS.indexOf(name) & 1) !== LINK_FLAGS_ON.includes(name)
+    const filters = new Set(LINK_FILTERS)
+    for (const key of one('f')?.split(',') ?? []) filters.delete(key) || filters.add(key)
+    const [exponent, ...steps] = camera.map((part, index) => index ? parseInt(part, 36) : Number(part))
+    const offset = steps.slice(0, 3).map((step) => step * 10 ** exponent!)
+    const target = steps.length === 6 ? steps.slice(3).map((step) => step * 10 ** exponent!) : [0, 0, 0]
+    const selectedId = values.selectedId || null
+    const observerView = flag('observerView')
+    const anchor = one('l')
+    const observerViewAnchorId = observerView ? (anchor === undefined ? selectedId : anchor || null) : null
+    const neighborhood = one('a')?.split('~')
+    const catalog = one('c')
+    const view = {
+      version: 1, id: '', name: decodeLinkText(name), originName: values.referenceId, savedAt: new Date().toISOString(),
+      settings: {
+        ...values,
+        catalogId: catalog === undefined ? 'nearest-neighbors' : /^\d+$/.test(catalog) ? `nearest-${catalog}` : decodeLinkText(catalog),
+        selectedId,
+        showAlwaysBright: false,
+        showFamousClusterStars: false,
+        // The search only narrows the sender's object list, so links leave it out.
+        objectSearch: '',
+        ...Object.fromEntries(LINK_FLAGS.slice(0, 9).map((name) => [name, flag(name)])),
+        // Playback stays under the recipient's control: the view opens paused, and these are placeholders for their own follow, speed and direction.
+        simulationPlaying: false,
+        followSelection: false,
+        simulationDirection: 1,
+        playbackSecondsPerThousandYears: 1,
+        filterCategories: [...filters].filter(isFilterCategoryId),
+        filterSubtypes: [...filters].filter(isFilterKey),
+        observerId: observerView ? observerViewAnchorId ?? '' : one('i') ?? selectedId ?? '',
+        observerViewAnchorId,
+        viewState: {
+          position: offset.map((value, index) => value + target[index]!), target, home: flag('home'),
+          observerRollRadians: Number(one('w') ?? 0) / 1000, observerTelescope: flag('observerTelescope'),
+        },
+        paint: (params.get('p') ?? []).map((entry) => {
+          const [id, level, ...channels] = entry.split('~')
+          return channels.length ? [id, Number(level), channels] : [id, Number(level)]
+        }),
+        graphFilter: (params.get('h') ?? []).map((entry) => {
+          const [section, ...parts] = entry.split('~').map(decodeLinkText)
+          return parts.length === 1 ? { section, key: parts[0], label: parts[0] } : { section, key: '', label: '', range: parts.map((end) => end === '' ? null : Number(end)) }
+        }),
+        ...neighborhood && { neighborhood: { radiusLy: Number(neighborhood[0]), centerId: neighborhood[1] ?? selectedId ?? '' } },
+      },
+    }
+    return isSavedView(view) ? view : null
+  } catch {
+    return null
+  }
+}

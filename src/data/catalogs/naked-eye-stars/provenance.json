@@ -5,16 +5,16 @@
   "physicalPolicy": "New records use the shared exact-identity enrichment without Gaia DR3 GSP-Phot [M/H]. Gaia DR3 GSP-Phot and FLAME values are withheld for O, B0-B4 and M spectral types, FLAME values for parallax signal-to-noise below 10, and any temperature more than 35% from the Pecaut-Mamajek temperature of its spectral class is withheld before selection, with the FLAME values derived from it.",
   "sourceManifestSha256": "f5ec763b2398d23b3499a6aae0011864eb3ce99adc6d6ba559a1410933cb4ada",
   "coverage": {
-    "constellation": 7742,
-    "spectral_type": 7586,
-    "temperature_k": 6189,
+    "constellation": 7748,
+    "spectral_type": 7592,
+    "temperature_k": 6193,
     "mass_solar": 238,
-    "luminosity_solar": 3607,
-    "radius_solar": 3607,
-    "metallicity_dex": 3174,
+    "luminosity_solar": 3608,
+    "radius_solar": 3608,
+    "metallicity_dex": 3176,
     "age_gyr": 198,
-    "radial_velocity_kms": 7601,
-    "vx_kms": 7601
+    "radial_velocity_kms": 7607,
+    "vx_kms": 7607
   },
   "audit": [
     {
@@ -191,6 +191,13 @@
       "v": "6.1",
       "status": "represented",
       "reason": "component of * B Vel; no parallax of its own"
+    },
+    {
+      "simbadId": "* D Cen",
+      "otype": "**",
+      "v": "5.31",
+      "status": "represented",
+      "reason": "aggregate of * D Cen A"
     },
     {
       "simbadId": "* G Pup",
@@ -71663,6 +71670,55 @@
         }
       }
     },
+    "hip-70300": {
+      "simbadId": "* a Cen",
+      "simbadType": "*",
+      "gaiaDr3Id": "6116497702589633152",
+      "visualMagnitude": {
+        "value": 4.42,
+        "uncertainty": null,
+        "bibcode": "2002yCat.2237....0D"
+      },
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 119.80983,
+        "lowerPc": 117.79807,
+        "upperPc": 122.13385,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "6116497702589633152"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "bibcode": "2018A&A...616A...7S"
+      },
+      "physicalObservations": {
+        "temperature_k": {
+          "field": "temperature_k",
+          "value": 19872.0,
+          "status": "measured",
+          "reference": "2023ApJS..266...11B",
+          "uncertainty": null,
+          "identity": "* a Cen",
+          "sourceRecordId": "* a Cen:mesFe_h:1",
+          "quantity": "spectroscopic effective temperature",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        },
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.2565,
+          "status": "measured",
+          "reference": "2023ApJS..266...11B",
+          "uncertainty": null,
+          "identity": "* a Cen",
+          "sourceRecordId": "* a Cen:mesFe_h:1",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
+      "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
+    },
     "hip-42509": {
       "simbadId": "* a Hya",
       "simbadType": "PM*",
@@ -77871,6 +77927,43 @@
           "scope": "catalogued stellar object"
         }
       }
+    },
+    "hip-39138": {
+      "simbadId": "* D01 Car",
+      "simbadType": "Pu*",
+      "gaiaDr3Id": "5275962500997316864",
+      "visualMagnitude": {
+        "value": 4.806,
+        "uncertainty": 0.009,
+        "bibcode": "2000A&A...355L..27H"
+      },
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 142.8079,
+        "lowerPc": 141.2258,
+        "upperPc": 144.18803,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5275962500997316864"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "bibcode": "1979IAUS...30...57E"
+      },
+      "physicalObservations": {
+        "temperature_k": {
+          "field": "temperature_k",
+          "value": 17034.0,
+          "status": "measured",
+          "reference": "2022A&A...665A..36G",
+          "uncertainty": null,
+          "identity": "* D01 Car",
+          "sourceRecordId": "* D01 Car:mesFe_h:1",
+          "quantity": "spectroscopic effective temperature",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
+      "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
     },
     "hip-41117": {
       "simbadId": "* d01 Cnc",
@@ -331706,6 +331799,43 @@
       },
       "physicalObservations": {}
     },
+    "hip-45101": {
+      "simbadId": "* i Car",
+      "simbadType": "*",
+      "gaiaDr3Id": "5297336148056940544",
+      "visualMagnitude": {
+        "value": 3.943,
+        "uncertainty": 0.009,
+        "bibcode": "2000A&A...355L..27H"
+      },
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 153.44104,
+        "lowerPc": 149.94632,
+        "upperPc": 158.0074,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5297336148056940544"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "bibcode": "1979IAUS...30...57E"
+      },
+      "physicalObservations": {
+        "temperature_k": {
+          "field": "temperature_k",
+          "value": 17250.0,
+          "status": "measured",
+          "reference": "2009A&A...501..297Z",
+          "uncertainty": null,
+          "identity": "* i Car",
+          "sourceRecordId": "* i Car:mesFe_h:2",
+          "quantity": "spectroscopic effective temperature",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        }
+      },
+      "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
+    },
     "hip-67627": {
       "simbadId": "* i Dra",
       "simbadType": "LP?",
@@ -359133,6 +359263,29 @@
         }
       }
     },
+    "hip-36942": {
+      "simbadId": "* Q Car",
+      "simbadType": "*",
+      "gaiaDr3Id": "5492385009689408640",
+      "visualMagnitude": {
+        "value": 4.92,
+        "uncertainty": 0.009,
+        "bibcode": "2000A&A...355L..27H"
+      },
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 128.18129,
+        "lowerPc": 126.796005,
+        "upperPc": 129.51263,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5492385009689408640"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "bibcode": "1953GCRV..C......0W"
+      },
+      "physicalObservations": {}
+    },
     "hd-118991a": {
       "simbadId": "* Q Cen A",
       "simbadType": "PM*",
@@ -359432,6 +359585,30 @@
           "scope": "catalogued stellar object"
         }
       }
+    },
+    "hip-49712": {
+      "simbadId": "* Q Vel",
+      "simbadType": "Pu*",
+      "gaiaDr3Id": "5356991663260068480",
+      "visualMagnitude": {
+        "value": 4.845,
+        "uncertainty": 0.009,
+        "bibcode": "2000A&A...355L..27H"
+      },
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 483.73224,
+        "lowerPc": 464.8271,
+        "upperPc": 498.71045,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5356991663260068480"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "bibcode": "2006AstL...32..759G"
+      },
+      "physicalObservations": {},
+      "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
     },
     "hip-61318": {
       "simbadId": "* q Vir",
@@ -390393,6 +390570,77 @@
       },
       "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
     },
+    "hip-47267": {
+      "simbadId": "* y Vel",
+      "simbadType": "Pe*",
+      "gaiaDr3Id": "5424835172813227776",
+      "visualMagnitude": {
+        "value": 5.5,
+        "uncertainty": null,
+        "bibcode": "2002yCat.2237....0D"
+      },
+      "adoptedDistance": {
+        "method": "Bailer-Jones EDR3 geometric posterior median",
+        "distancePc": 153.11287,
+        "lowerPc": 151.7083,
+        "upperPc": 154.54494,
+        "source": "Bailer-Jones et al. 2021",
+        "sourceId": "5424835172813227776"
+      },
+      "radialVelocity": {
+        "status": "simbad-compiled",
+        "bibcode": "2018yCat.1345....0G"
+      },
+      "physicalObservations": {
+        "temperature_k": {
+          "field": "temperature_k",
+          "value": 5195.0,
+          "status": "measured",
+          "reference": "2024A&A...683A.125P",
+          "uncertainty": null,
+          "identity": "* y Vel",
+          "sourceRecordId": "* y Vel:mesFe_h:1",
+          "quantity": "spectroscopic effective temperature",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        },
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "value": -0.33,
+          "status": "measured",
+          "reference": "2022A&A...663A...4S",
+          "uncertainty": null,
+          "identity": "* y Vel",
+          "sourceRecordId": "* y Vel:mesFe_h:2",
+          "quantity": "photospheric [Fe/H]",
+          "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
+          "scope": "catalogued stellar object"
+        },
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 151.03058,
+          "status": "model-derived",
+          "reference": "Gaia DR3 astrophysical_parameters",
+          "uncertainty": 2.499270000000024,
+          "identity": "* y Vel",
+          "sourceRecordId": "5424835172813227776",
+          "qualityFlags": [
+            "10"
+          ],
+          "quantity": null
+        },
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 15.17099224,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 5195.0,
+            "luminosity_solar": 151.03058
+          }
+        }
+      }
+    },
     "hip-66247": {
       "simbadId": "* y Vir",
       "simbadType": "**",
@@ -393325,7 +393573,6 @@
     "hip-56480": {
       "sharedFrom": "western-constellation-stars",
       "simbadIds": [
-        "* a Cen",
         "* A Cen"
       ],
       "matchedBy": "exact identifier"
@@ -394910,7 +395157,6 @@
     "hip-42568": {
       "sharedFrom": "western-constellation-stars",
       "simbadIds": [
-        "* D01 Car",
         "* d Car"
       ],
       "matchedBy": "exact identifier"
@@ -394918,8 +395164,7 @@
     "hip-65936": {
       "sharedFrom": "western-constellation-stars",
       "simbadIds": [
-        "* d Cen",
-        "* D Cen"
+        "* d Cen"
       ],
       "matchedBy": "exact identifier"
     },
@@ -397596,7 +397841,6 @@
     "cns5-2551": {
       "sharedFrom": "nearest-5000",
       "simbadIds": [
-        "* i Car",
         "* I Car"
       ],
       "matchedBy": "exact identifier"
@@ -399064,8 +399308,7 @@
     "hip-50371": {
       "sharedFrom": "western-constellation-stars",
       "simbadIds": [
-        "* q Car",
-        "* Q Car"
+        "* q Car"
       ],
       "matchedBy": "exact identifier"
     },
@@ -399079,8 +399322,7 @@
     "hip-50191": {
       "sharedFrom": "western-constellation-stars",
       "simbadIds": [
-        "* q Vel",
-        "* Q Vel"
+        "* q Vel"
       ],
       "matchedBy": "exact identifier"
     },
@@ -399886,7 +400128,6 @@
     "cns5-2578": {
       "sharedFrom": "nearest-5000",
       "simbadIds": [
-        "* y Vel",
         "* Y Vel"
       ],
       "matchedBy": "exact identifier"

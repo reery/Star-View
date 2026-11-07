@@ -3,7 +3,8 @@
   "reviewedOn": "2026-10-19",
   "sourceUrl": "https://arxiv.org/html/2603.17011",
   "inputSha256": {
-    "catalog-work/star-systems/literature-components/constellation-20261019-selected.json": "afc8cdc55981eabcf43557bb77aa94355c79c9ecd10ce84201bcd39b75344e2d"
+    "catalog-work/star-systems/literature-components/constellation-20261019-selected.json": "afc8cdc55981eabcf43557bb77aa94355c79c9ecd10ce84201bcd39b75344e2d",
+    "catalog-work/star-systems/literature-components/49-lib-20261106-selected.json": "9cc3d5902f04b0f680a35ba717b4605a4ff0cc4433c8b712f4c95122615c5acb"
   },
   "orbits": [
     {
@@ -155,6 +156,41 @@
         "sourceConvention": "Equation 5; combined fit dates are HJD minus 2400000, not MJD."
       },
       "orientationValidation": "Relative secondary offsets reproduce the signed Table 3 positions at MJD 60232.4493, 60234.5388 and 60259.3951 when observation times are converted to HJD. No 180-degree primary-argument conversion is applied to the published combined sky solution."
+    },
+    {
+      "systemId": "sb9-3221",
+      "primary": "Aa",
+      "secondary": "Ab",
+      "primaryIds": [
+        "hip-78400"
+      ],
+      "secondaryIds": [
+        "sb9-3221-ab"
+      ],
+      "periodYears": 3.1277207392197126,
+      "semiMajorAxisAu": 2.72,
+      "eccentricity": 0.11,
+      "inclinationDeg": 143.0,
+      "nodeDeg": 163.5,
+      "argumentDeg": 69.4,
+      "periastronEpoch": 57025,
+      "epochKind": "JD − 2400000",
+      "grade": null,
+      "catalog": "Reviewed literature",
+      "reference": "Willmarth et al. 2016 Tables 2–3; axis Fuhrmann & Chini 2017",
+      "sourceUrl": "https://doi.org/10.3847/0004-6256/152/2/46",
+      "nodeAmbiguous": false,
+      "argumentComponent": "Aa",
+      "scope": "Spectroscopic elements of the visible star with inclination and node from its Hipparcos photocentric orbit (a0 = 21.0 +/- 1.1 mas). Total axis 585 Rsun from Fuhrmann & Chini (2017), which assumes 1.55 + 0.50 Msun. Epoch is reduced HJD. Katoh et al. (2013) give P = 1144.18 d and e = 0.1054 without a systemic velocity.",
+      "uncertainties": {
+        "periodDays": 1.1,
+        "eccentricity": 0.012,
+        "inclinationDeg": 2.0,
+        "nodeDeg": 2.8,
+        "argumentDeg": 7.4,
+        "periastronEpochDays": 22
+      },
+      "uncertaintyConvention": "Published standard errors"
     }
   ]
 }

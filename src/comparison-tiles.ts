@@ -17,7 +17,7 @@ export function renderComparisonName(target: HTMLElement, star: Star, mode: Star
 // A bar segment from `from` to `to` (percent), or a gradient track with the marker in the object's color,
 // with an optional marker for the object itself, a caption above it and end labels beside it.
 interface FactBar { from?: number; to?: number; gradient?: string; marker?: number; caption?: string; ends?: readonly [string, string] }
-export interface Fact { title: string; icon: IconNode; value: string; unit: string; notes: string[]; bar?: FactBar }
+export interface Fact { title: string; icon: IconNode; value: string; unit: string; notes: string[]; bar?: FactBar; unresolved?: string }
 
 /** One horizontal row per quantity, with a value cell for each shown object. */
 export function renderFact(facts: Fact[], objects: Star[], colorMode: StarColorMode, glow: boolean): HTMLElement {
@@ -52,6 +52,9 @@ export function renderFact(facts: Fact[], objects: Star[], colorMode: StarColorM
     }
     const quantity = document.createElement('div')
     quantity.className = 'luminosity-factor-quantity'
+    // A greyed value is not this object's own measurement; the tooltip says why.
+    quantity.classList.toggle('unresolved-measurement', Boolean(fact.unresolved))
+    if (fact.unresolved) quantity.title = fact.unresolved
     const value = document.createElement('strong')
     value.textContent = fact.value
     value.classList.toggle('luminosity-long-value', long)

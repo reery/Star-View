@@ -5,8 +5,8 @@
     "planets": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
   },
   "checksumsSha256": {
-    "simbad.csv": "acd8150a06f138d62a992ba7bb469ff6530e771402dcc1d0464a78f203b223b1",
-    "simbad.adql": "445304cd3fb90958e459a6a76651ecefd06b41179cd1d4a122ed2ffc0e412f4b",
+    "simbad.csv": "48f74f724f4a07e8c48c9f00de48acb2d2d8d6bc781618f5b9eb11c360d56473",
+    "simbad.adql": "f706054feeca009a40a405c79871a08c68f27798f35a3e8df8b42937ff4dc9eb",
     "types.csv": "78f2745a265e2ec34115ef02072a13ad3b007d8028beeff3b64eef54042372bc",
     "types.adql": "70661c7e93361cd294a039794f4739d98c8d172aa97668bab0a38833a5685ead",
     "planet-hosts.csv": "4e0b982a1c38b8bfae606608ed6c003c1ed3872b5a460f215d4f6965bbe21323",
@@ -39,6 +39,24 @@
         "simbad.csv"
       ],
       "note": "Classifications of nebula batch 3 appended through the ident index; earlier rows are unchanged."
+    },
+    {
+      "retrieved": "2026-11-07",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "simbad.adql",
+        "simbad.csv"
+      ],
+      "note": "Classifications of the 3,936 CNS5 nearest-5000 identities that predated this snapshot, appended through the ident index (50 batches of up to 80 exact SIMBAD main identifiers, alltypes split one row per type); every identity returned exactly one object. Earlier rows are unchanged."
+    },
+    {
+      "retrieved": "2026-11-07",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "simbad.adql",
+        "simbad.csv"
+      ],
+      "note": "Classifications of the 7741 naked-eye-star identities without an earlier snapshot row, appended through the ident index (97 batches of up to 80 exact SIMBAD main identifiers, alltypes split one row per type); every identity returned exactly one object. Earlier rows are unchanged."
     }
   ],
   "compactExpansion": {

@@ -1,5 +1,111 @@
 # Offline Catalog Sourcing
 
+## Gaia flags and long-baseline proper motions (2026-11-07)
+
+`scripts/author-gaia-flags-review.py` reads three downloads in `catalog-work/downloads/`,
+which is not committed: Gaia DR3 flags and non-single-star orbits for our exact source
+IDs, the Hipparcos-Gaia catalog (Brandt 2021) and Kervella et al. (2022). Their hashes
+are recorded in the outputs, `src/data/long-baseline-motion.json` and
+`catalog-work/star-systems/gaia-flags-review.json`.
+
+- **Proper motion:** a Gaia fit or a catalog value can be shifted by an unseen orbit.
+  The long-baseline value replaces it when the same Gaia source shows significant
+  acceleration (χ² > 11.8), the shift exceeds 1 mas/yr, the value lies closer to the
+  independent Hipparcos proper motion than the catalog value does, the row's parallax
+  is within 30% of Gaia, and the star does not become implausibly fast. The velocity
+  changes only by the proper-motion term. The old value stays in the notes. Single
+  stars change through `supplementLongBaselineMotion`, system members through the
+  companion pool. Members with reviewed common motion keep it.
+- **Held:** `held` in the motion file gives each star's reason. Reviewed cluster members
+  keep their frozen astrometry. Very long orbits are corrected less well.
+- **Merged identities, fixed:** identity keys compared single-letter Bayer and Lacaille
+  names without case, so 36 pairs such as `E Pup` and `e Pup` shared one record with both
+  stars' HIP and Gaia numbers. The keys in `author-object-designations.py` and
+  `author-naked-eye-stars.py` now keep case for those names only. This restored six
+  naked-eye stars that had been treated as duplicates (Q Car, D01 Car, i Car, y Vel,
+  Q Vel and a Cen) and removed 32 Wikipedia links that pointed to the lowercase twin.
+  SIMBAD itself lists both cases for some stars, such as `* G Her` and `* g Her` for 30 Her;
+  those aliases stay.
+- **Gaia orbits:** plain `OrbitalTargetedSearch` solutions are not adopted, because only
+  6 of 12 agreed with known periods. An orbit attaches only when the two components
+  share one Gaia source or sit close enough for it to describe them. Otherwise it
+  usually marks a hidden inner pair, as for CM Dra and BY Dra. `heldOrbits` lists these.
+- **Double-lined Gaia orbits:** `gaia-double-lined-review.json` adds a stellar companion
+  to an otherwise single star through the SB9 authoring path. A star is held when it
+  lists several Gaia sources or SB9 orbits, SB9 gives a different period, it is already
+  a component of a wider pair, tides should have circularized its orbit, or its velocities
+  imply a total mass its spectral class cannot have. Where SB9 also has the orbit, the
+  periods agree (GX Peg, HD 112014, Iota TrA), except 72 Psc, which is held.
+- **Review lists:** `singleStarOrbits` sorts single stars with a Gaia orbit, and
+  `distancesForGaiaDr4` lists Hipparcos and Gaia parallax conflicts for Gaia DR4.
+  Neither changes any catalog value.
+
+## Naked-eye double-lined SB9 systems (2026-11-07)
+
+`nakedEyeParents` also admits every double-lined SB9 system whose exact identity
+matches one otherwise single naked-eye row, when the SB9 entry is the whole star or
+its A component. Of 233 candidates, 192 are authored; 25 have several SB9 entries or
+identities, 14 are entries for a B or sub-component, one matches two catalog rows,
+and HD 27483 is held in `nakedEyeHeld` because its composite spectrum would make the
+primary a white dwarf. Existing ORB6 and composite-spectrum rules author 69 of the
+192 systems; the rest use the SB9 path.
+
+- **Motion:** admitted parents keep their motion. All components share the parent's
+  proper motion with the orbit's fitted systemic velocity, or the parent's own radial
+  velocity when SB9 held the velocity fixed or gives none.
+- **Orbits:** every SB9 system now gets orbital elements unless a better solution
+  exists. `best_orbit` picks the highest SB9 grade, then the smallest fractional
+  period error. SB9 gives no inclination, node or size, so no orbit is drawn.
+- **Map:** an unresolved parent shows its blended V on the map through
+  `mapAbsoluteMagnitude`. Before this, such parents, including Rasalhague A and
+  Porrima A, were drawn as faint background points. The blended light is display-only.
+- **Spectral class differs from the parent, for hand review:** HD 18894, 31 Men,
+  17 Lep, 19 Lyn, b Gem, S Ant, Zeta Sct and HD 70442.
+
+A component without its own mass opens the Mass card with the retained source value
+that Specs shows, greyed, with the same tooltip. 49 Lib Aa keeps its model mass and no card.
+
+Run `npm run catalog:regenerate` after changing reviewed companion data. It repeats
+the dependent authoring steps until their outputs stop changing, then generates and
+validates the catalogs.
+
+## 49 Lib binary review (2026-11-06)
+
+49 Lib was a single naked-eye row although SB9 lists it as system 3221. It is now
+the reviewed system `sb9-3221`, with components 49 Lib Aa (`hip-78400`) and the
+unseen white dwarf 49 Lib Ab (`sb9-3221-ab`). `nakedEyeParents` in
+`catalog-work/star-systems/spectroscopic-binaries-review.json` admits this one
+naked-eye row to the companion pool. Other naked-eye rows stay out. Source values
+are frozen in `literature-components/49-lib-20261106-selected.json`.
+
+- **Physical values:** temperature, [Fe/H], V and the 12 ± 1 Gyr age come from
+  [Fuhrmann & Chini (2017), Table 1](https://iopscience.iop.org/article/10.3847/1538-4357/834/2/114);
+  errors are 2σ. The earlier 6321 K and [Fe/H] +0.1 (Soubiran et al. 2022) stay in
+  the retained naked-eye source.
+- **Luminosity and radius:** 4.48 L☉ and 1.84 R☉ are rescaled to the adopted Gaia
+  DR3 distance. The paper's M_bol of 2.64 and radius of 2.24 ± 0.13 R☉ imply
+  35.3 pc, the Hipparcos scale.
+- **Masses:** both ship as greyed `mass_model` values and `mass_solar` stays null.
+  Aa's 1.55 +0.07/−0.13 M☉ is a track mass on the same Hipparcos scale. Ab's
+  0.50 +0.03/−0.04 M☉ follows from the mass function and scales with that primary
+  mass; Willmarth et al. (2016) obtain 0.45 M☉ for 1.4 M☉.
+- **Orbit:** [Willmarth et al. (2016), Tables 2–3](https://doi.org/10.3847/0004-6256/152/2/46)
+  give the spectroscopic elements and the Hipparcos inclination and node. The total
+  axis of 2.72 AU is from Fuhrmann & Chini.
+- **Motion:** the systemic velocity is −20.111 ± 0.036 km/s (Willmarth). Proper
+  motion is the Hipparcos–Gaia long-baseline value from Brandt (2021), −630.554,
+  −394.931 mas/yr, which agrees with Tycho-2. Gaia DR3's −667.446, −378.224 is a
+  short-baseline fit shifted by the orbit and stays in the retained source.
+- **Distance is unresolved:** Hipparcos (28.40 ± 1.23 mas), Gaia DR2 (34.23 ± 0.19)
+  and Gaia DR3 (35.27 ± 0.60, RUWE 4.33) are all single-star fits to an astrometric
+  binary. The photocentric orbit implies about 31.8 ± 2.2 pc. The Gaia DR3 distance
+  stays until a solution that models the orbit is available.
+- **Not a member:** WDS ENG 55 B shares no proper motion with 49 Lib.
+
+`scripts/author-stellar-orbits.py` now skips the naked-eye catalog, as the companion
+pool does, and counts compact systems as reviewed. A full run otherwise reports 44
+naked-eye name pairs and V404 Cygni as unreviewed. Those 44 pairs have no system yet.
+
 ## WISE 0855-0714 physical review (2026-11-06)
 
 Reviewed values live in `catalog-work/nearest-100/physical-overrides.json`, which

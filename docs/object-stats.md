@@ -30,6 +30,35 @@ least as certain, following the SIMBAD hierarchy and VSX variability classes
 star). `sourceTypes` keeps every original SIMBAD code. These are recorded catalog
 classifications, rather than a new assessment of conflicting literature.
 
+On **2026-11-07** classifications were appended for the 3,936 CNS5 identities
+added with Nearest 5000 and the 7,741 naked-eye-star identities that had none,
+matched exactly through the SIMBAD ident index. Before then the CNS5 objects had
+only spectrum-derived labels, and 7,748 naked-eye stars had no object-stats entry
+at all. The supplement now covers every stable ID, and `author-object-stats.py
+--check` reproduces it. Secondary SIMBAD types also
+repeat literature misclassifications, so a class is withheld when the record's own
+data rule it out (`contradicted` in `scripts/catalog_sources/classification.py`):
+
+- White dwarfs and brown dwarfs never get evolved, pre-main-sequence,
+  interacting-binary, chemically peculiar or spectral-range classes.
+- A dwarf never gets an evolved class such as Red giant, Carbon star, S-type
+  star or Long-period variable. A star counts as a dwarf by an sd/d prefix, by
+  luminosity class V or VI (IV-V included, IV alone excluded), by M_V fainter
+  than +5, or by luminosity below 0.1 L☉. A G–M "dwarf" brighter than M_V = +4
+  has a doubtful class and is not judged.
+- Hot subdwarf requires an M_V fainter than +2.
+- Herbig Ae/Be, Delta Scuti, Beta Cephei and Alpha² CVn require their B–F, A–F,
+  O–B and B–F spectral classes.
+- K and M dwarfs never get Chemically peculiar.
+- F, G and K stars of luminosity class V never get T Tauri or other
+  pre-main-sequence classes.
+
+Composite spectra are not judged. The rule withholds 50 labels in total, for
+example Carbon star on the L dwarfs Kelu 1 and DENIS 0255-4700, Red giant on w Her
+(G0V) and Alzirr (F5IV-V), and Cepheid classes on B-type dwarfs.
+Young-star classes on M dwarfs are kept, because such stars can still be
+contracting toward the main sequence.
+
 Unambiguous luminosity classes in the adopted spectral string also provide
 Main-sequence, Subgiant, Giant or Supergiant labels. Brown-dwarf spectra can
 provide L-, T- or Y-type labels. Composite spectra can describe more than one

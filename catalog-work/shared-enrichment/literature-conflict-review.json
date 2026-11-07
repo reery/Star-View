@@ -553,6 +553,533 @@
           "method": "Newest frozen SIMBAD mesFe_h value within 2 percent of the pool median (Gaia DR3 republications excluded). The automatic 10 percent rule had selected an edge value from a single recent survey."
         }
       }
+    },
+    "* 9 Cet": {
+      "label": "9 Cet",
+      "starIds": [
+        "cns5-0111"
+      ],
+      "identity": {
+        "simbadId": "* 9 Cet",
+        "hip": 1803,
+        "hd": 1835
+      },
+      "previousValues": {
+        "cns5-0111": {
+          "mass_solar": "0.9415072",
+          "age_gyr": "9.949624"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 9.949624,
+            "sourceRecordId": "2423493369021649920"
+          },
+          "mass_solar": {
+            "value": 0.9415072,
+            "sourceRecordId": "2423493369021649920"
+          },
+          "temperature_k": {
+            "value": 5667.4966,
+            "sourceRecordId": "2423493369021649920"
+          },
+          "metallicity_dex": {
+            "value": -0.0243,
+            "sourceRecordId": "2423493369021649920"
+          }
+        },
+        "literature": {
+          "2014A&A...561A...7R": "Table 6, HIP 1803: mass 1.09 (1.08-1.11) solar masses, age 0.85 (0.06-1.97) Gyr at 95 percent, log R'HK -4.49; Table 3: Teff 5837 K, log g 4.516, [Fe/H] 0.178.",
+          "GCVS 5.1": "BE Cet, BY Draconis variable, V 6.35-6.44, period 7.3362 d (already in src/data/stellar-observations.json)."
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": 0.85,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2014A&A...561A...7R",
+          "url": "https://arxiv.org/abs/1310.8581",
+          "section": "Table 6 (HIP 1803) and section 2.5",
+          "method": "Peak of the Yonsei-Yale isochrone probability distribution fitted to the paper's differential UVES Teff, log g and [Fe/H] (sections 2.4-2.5).",
+          "inputs": {
+            "age_lower_2sigma_gyr": 0.06,
+            "age_upper_2sigma_gyr": 1.97,
+            "log_rhk": -4.49
+          },
+          "caveat": "The tabulated bounds are a 95 percent interval (0.06-1.97 Gyr), not a 1-sigma error, so no symmetric uncertainty is adopted. The paper calls main-sequence isochrone ages model-dependent. The young age agrees with the star's high chromospheric activity (log R'HK = -4.49, same table) and its BY Draconis spot modulation."
+        },
+        "mass_solar": {
+          "value": 1.09,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2014A&A...561A...7R",
+          "url": "https://arxiv.org/abs/1310.8581",
+          "section": "Table 6 (HIP 1803) and section 2.4",
+          "method": "Peak of the Yonsei-Yale isochrone probability distribution fitted to the paper's differential UVES Teff, log g and [Fe/H] (sections 2.4-2.5).",
+          "inputs": {
+            "mass_lower_2sigma_solar": 1.08,
+            "mass_upper_2sigma_solar": 1.11
+          },
+          "caveat": "The tabulated bounds are a 95 percent interval (1.08-1.11 solar masses). Replaces the FLAME mass from the same solution as the rejected 9.9 Gyr age, which used solar-metallicity tracks for a star with [Fe/H] = +0.18 to +0.23."
+        }
+      }
+    },
+    "HD 166": {
+      "label": "HD 166",
+      "starIds": [
+        "cns5-0026"
+      ],
+      "identity": {
+        "simbadId": "HD 166",
+        "hip": 544,
+        "hd": 166
+      },
+      "previousValues": {
+        "cns5-0026": {
+          "age_gyr": "9.598317"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 9.598317,
+            "sourceRecordId": "2860924621205256704"
+          }
+        },
+        "gcvs": "V439 And, BY Draconis variable, period 6.23 d",
+        "literature": {
+          "2008ApJ...687.1264M": "Table 13: log R'HK -4.328, tau1 0.2 Gyr, tau2 0.2 Gyr.",
+          "2013ApJ...768...25G": "Compiled age 0.24 Gyr.",
+          "2012A&A...541A..40M": "log age 9.16.",
+          "2001MNRAS.328...45M": "Local Association kinematic member."
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": 0.2,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2008ApJ...687.1264M",
+          "url": "https://arxiv.org/abs/0807.1686",
+          "section": "Table 13, activity ages for solar-type dwarfs within 16 pc (VizieR J/ApJ/687/1264/table13)",
+          "method": "Revised chromospheric activity-age relation (tau1) from log R'HK = -4.328; the activity-Rossby-gyrochronology route (tau2) gives the same 0.2 Gyr.",
+          "inputs": {
+            "log_rhk": -4.328,
+            "tau2_gyr": 0.2
+          },
+          "caveat": "Activity ages scatter with magnetic cycles. Gaspar et al. 2013 compile 0.24 Gyr; Maldonado et al. 2012 list log age 9.16, an outlier. Montes et al. 2001 place the star kinematically in the young Local Association."
+        }
+      }
+    },
+    "HD 130948": {
+      "label": "HD 130948 A",
+      "starIds": [
+        "cns5-3667"
+      ],
+      "identity": {
+        "simbadId": "HD 130948",
+        "hip": 72567,
+        "hd": 130948
+      },
+      "previousValues": {
+        "cns5-3667": {
+          "age_gyr": "5.2895403"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 5.2895403,
+            "sourceRecordId": "1265976524286377856"
+          }
+        },
+        "gcvs": "HP Boo, BY Draconis variable, period 7.85 d",
+        "literature": {
+          "2009ApJ...692..729D": "Abstract: most precise age 0.79 Gyr from gyrochronology.",
+          "2012AJ....143..135V": "Table 2: Age.R 0.61, Age.X 0.47, Age.v 0.71 Gyr.",
+          "2020ApJ...898...27S": "Table 2: final age median 474 Myr (16-84 percent 234-1030 Myr).",
+          "2012A&A...541A..40M": "log age 8.28."
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": 0.79,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2009ApJ...692..729D",
+          "url": "https://arxiv.org/abs/0807.2450",
+          "section": "Abstract",
+          "method": "Gyrochronology of the G2V primary HD 130948A, described as the most precise of the available age indicators, which suggest a Hyades-like age.",
+          "caveat": "Independent indicators agree within a factor of two: Vican 2012 give 0.61 Gyr (chromospheric) and 0.47 Gyr (X-ray); Stanford-Moore et al. 2020 give a 0.47 Gyr posterior median (68 percent 0.23-1.03 Gyr). No symmetric uncertainty is adopted."
+        }
+      }
+    },
+    "HD 180161": {
+      "label": "HD 180161",
+      "starIds": [
+        "cns5-4763"
+      ],
+      "identity": {
+        "simbadId": "HD 180161",
+        "hip": 94346,
+        "hd": 180161
+      },
+      "previousValues": {
+        "cns5-4763": {
+          "age_gyr": "4.446168"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 4.446168,
+            "sourceRecordId": "2143016302194287488"
+          }
+        },
+        "gcvs": "MV Dra, BY Draconis variable, period 5.49 d",
+        "literature": {
+          "2012AJ....143..135V": "Table 2: Age.R 0.690 Gyr, flag b.",
+          "2012A&A...541A..40M": "log age 8.84.",
+          "2013ApJ...768...25G": "Compiled age 0.60 Gyr.",
+          "2004ApJS..152..261W": "log R'HK -4.52, log age 8.98."
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": 0.69,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2012AJ....143..135V",
+          "url": "https://doi.org/10.1088/0004-6256/143/6/135",
+          "section": "Table 2, DEBRIS stars with activity ages (VizieR J/AJ/143/135/table2), HIP 94346",
+          "method": "Chromospheric-activity age from log R'HK = -4.52 (Wright et al. 2004); the table flags the gyrochronology-based value as preferred.",
+          "inputs": {
+            "log_rhk": -4.52
+          },
+          "caveat": "Maldonado et al. 2012 give the same log age 8.84 and Gaspar et al. 2013 compile 0.60 Gyr; Wright et al. 2004 give 0.95 Gyr with an older calibration. No symmetric uncertainty is adopted."
+        }
+      }
+    },
+    "HD 116956": {
+      "label": "HD 116956",
+      "starIds": [
+        "cns5-3307"
+      ],
+      "identity": {
+        "simbadId": "HD 116956",
+        "hip": 65515,
+        "hd": 116956
+      },
+      "previousValues": {
+        "cns5-3307": {
+          "age_gyr": "3.3994987"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 3.3994987,
+            "sourceRecordId": "1565867461768654208"
+          }
+        },
+        "gcvs": "NQ UMa, BY Draconis variable, period 4.27 d",
+        "literature": {
+          "2020ApJ...898...27S": "Table 2: final age median 597 Myr (16-84 percent 251-2020 Myr)."
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": 0.597,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2020ApJ...898...27S",
+          "url": "https://ui.adsabs.harvard.edu/abs/2020ApJ...898...27S",
+          "section": "Table 2, BAFFLES ages (VizieR J/ApJ/898/27/table2), HD 116956",
+          "method": "Posterior median of the BAFFLES Bayesian age from chromospheric activity, log R'HK = -4.393.",
+          "inputs": {
+            "log_rhk": -4.393,
+            "age_16_percent_gyr": 0.251,
+            "age_84_percent_gyr": 2.02,
+            "age_2_5_percent_gyr": 0.0869,
+            "age_97_5_percent_gyr": 7.33
+          },
+          "caveat": "The posterior is broad and asymmetric (68 percent 0.25-2.0 Gyr), so no symmetric uncertainty is adopted. The 4.27 d spot-modulation period supports a young age."
+        }
+      }
+    },
+    "HD 111395": {
+      "label": "HD 111395",
+      "starIds": [
+        "cns5-3168"
+      ],
+      "identity": {
+        "simbadId": "HD 111395",
+        "hip": 62523,
+        "hd": 111395
+      },
+      "previousValues": {
+        "cns5-3168": {
+          "age_gyr": "8.777065"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 8.777065,
+            "sourceRecordId": "3957887649746830976"
+          }
+        },
+        "gcvs": "LW Com, BY Draconis variable, period 15.8 d",
+        "literature": {
+          "2004ApJS..152..261W": "log R'HK -4.58, log age 9.09.",
+          "2012A&A...541A..40M": "log age 8.57.",
+          "2003AJ....126.2048G": "log R'HK -4.733.",
+          "2013ApJ...768...25G": "Compiled age 1.00 Gyr."
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Gaia DR3 FLAME age of 8.8 Gyr contradicts the star's BY Draconis spot modulation (LW Com, BY Draconis variable, period 15.8 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; published activity ages disagree between 0.37 Gyr (Maldonado et al. 2012) and 1.2 Gyr (Wright et al. 2004), so none is adopted."
+        }
+      }
+    },
+    "HD 94765": {
+      "label": "HD 94765",
+      "starIds": [
+        "cns5-2675"
+      ],
+      "identity": {
+        "simbadId": "HD 94765",
+        "hip": 53486,
+        "hd": 94765
+      },
+      "previousValues": {
+        "cns5-2675": {
+          "age_gyr": "11.58994"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 11.58994,
+            "sourceRecordId": "3865002247461685248"
+          }
+        },
+        "gcvs": "GY Leo, BY Draconis variable, period 11.43 d",
+        "literature": {
+          "2003AJ....126.2048G": "log R'HK -4.546.",
+          "2001MNRAS.328...45M": "Castor moving-group kinematic candidate."
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Gaia DR3 FLAME age of 11.6 Gyr contradicts the star's BY Draconis spot modulation (GY Leo, BY Draconis variable, period 11.43 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues."
+        }
+      }
+    },
+    "HD 153525": {
+      "label": "HD 153525",
+      "starIds": [
+        "cns5-4150"
+      ],
+      "identity": {
+        "simbadId": "HD 153525",
+        "hip": 83006,
+        "hd": 153525
+      },
+      "previousValues": {
+        "cns5-4150": {
+          "age_gyr": "10.960114"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 10.960114,
+            "sourceRecordId": "1408029436569383296"
+          }
+        },
+        "gcvs": "V1089 Her, BY Draconis variable, period 15.39 d",
+        "literature": {
+          "2003AJ....126.2048G": "log R'HK -4.570.",
+          "2001MNRAS.328...45M": "Young-disk kinematic candidate."
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Gaia DR3 FLAME age of 11.0 Gyr contradicts the star's BY Draconis spot modulation (V1089 Her, BY Draconis variable, period 15.39 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues."
+        }
+      }
+    },
+    "HD 82443": {
+      "label": "HD 82443",
+      "starIds": [
+        "cns5-2364"
+      ],
+      "identity": {
+        "simbadId": "HD 82443",
+        "hip": 46843,
+        "hd": 82443
+      },
+      "previousValues": {
+        "cns5-2364": {
+          "age_gyr": "5.91449"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 5.91449,
+            "sourceRecordId": "646255212109355136"
+          }
+        },
+        "gcvs": "DX Leo, BY Draconis variable",
+        "literature": {
+          "2003AJ....126.2048G": "log R'HK -4.264.",
+          "2001MNRAS.328...45M": "Local Association kinematic member.",
+          "2010A&A...520A..79M": "Classified active."
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Gaia DR3 FLAME age of 5.9 Gyr contradicts the star's BY Draconis spot modulation (DX Leo, BY Draconis variable) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues."
+        }
+      }
+    },
+    "HD 220182": {
+      "label": "HD 220182",
+      "starIds": [
+        "cns5-5755"
+      ],
+      "identity": {
+        "simbadId": "HD 220182",
+        "hip": 115331,
+        "hd": 220182
+      },
+      "previousValues": {
+        "cns5-5755": {
+          "age_gyr": "11.684176"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 11.684176,
+            "sourceRecordId": "1937003729077791616"
+          }
+        },
+        "gcvs": "V453 And, BY Draconis variable, period 7.489 d",
+        "literature": {
+          "2003AJ....126.2048G": "log R'HK -4.503."
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Gaia DR3 FLAME age of 11.7 Gyr contradicts the star's BY Draconis spot modulation (V453 And, BY Draconis variable, period 7.489 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues."
+        }
+      }
+    },
+    "HD 211472": {
+      "label": "HD 211472",
+      "starIds": [
+        "cns5-5503"
+      ],
+      "identity": {
+        "simbadId": "HD 211472",
+        "hip": 109926,
+        "hd": 211472
+      },
+      "previousValues": {
+        "cns5-5503": {
+          "age_gyr": "11.987797"
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 11.987797,
+            "sourceRecordId": "2005798350576886144"
+          }
+        },
+        "gcvs": "V447 Lac, BY Draconis variable, period 4.4266 d",
+        "literature": {
+          "2013A&A...551L...8P": "log R'HK range -4.540 to -4.448 from compiled S values."
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": null,
+          "status": "withheld",
+          "reason": "Gaia DR3 FLAME age of 12.0 Gyr contradicts the star's BY Draconis spot modulation (V447 Lac, BY Draconis variable, period 4.4266 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues."
+        }
+      }
+    },
+    "HD 1461": {
+      "label": "HD 1461",
+      "starIds": [
+        "cns5-0092"
+      ],
+      "identity": {
+        "simbadId": "HD 1461",
+        "hip": 1499,
+        "hd": 1461
+      },
+      "previousValues": {
+        "cns5-0092": {
+          "age_gyr": ""
+        }
+      },
+      "evidence": {
+        "gaiaDr3": {
+          "age_gyr": {
+            "value": 12.280667,
+            "sourceRecordId": "2430102808294101760",
+            "status": "already withheld: GSP-Phot temperature 2.9 percent below the adopted 5812 K"
+          }
+        },
+        "evolutionaryStage": "Main sequence: G3VFe0.5 (1989ApJS...71..245K), log g 4.365 (2014A&A...561A...7R). Wikipedia's subgiant stage comes only from the withheld Gaia DR3 FLAME solution.",
+        "literature": {
+          "2014A&A...561A...7R": "Table 6: 6.07 (4.62-7.05) Gyr at 95 percent, log R'HK -5.04; Table 3: log g 4.365.",
+          "2013A&A...555A.150T": "1.967 +/- 1.153 Gyr (the Wikipedia value).",
+          "2016A&A...585A...5B": "4.00 +/- 0.70 Gyr.",
+          "2019A&A...624A..78D": "3.730 +/- 2.203 Gyr.",
+          "2016ApJS..225...32B": "4.1 Gyr.",
+          "2005ApJS..159..141V": "4.2 Gyr (bounds 2.1-5.9).",
+          "2011A&A...530A.138C": "4.70 Gyr (most likely).",
+          "2018A&A...614A..55A": "5.60 +1.92/-1.05 Gyr (isochrones).",
+          "2004ApJS..152..261W": "log R'HK -5.03, chromospheric log age 9.80.",
+          "2007ApJS..168..297T": "7.12 Gyr."
+        }
+      },
+      "adoptedFields": {
+        "age_gyr": {
+          "value": 6.07,
+          "uncertainty": null,
+          "status": "model-derived",
+          "reference": "2014A&A...561A...7R",
+          "url": "https://arxiv.org/abs/1310.8581",
+          "section": "Table 6 (HIP 1499) and section 2.5",
+          "method": "Peak of the Yonsei-Yale isochrone probability distribution fitted to the paper's differential UVES Teff, log g and [Fe/H] (sections 2.4-2.5).",
+          "inputs": {
+            "age_lower_2sigma_gyr": 4.62,
+            "age_upper_2sigma_gyr": 7.05,
+            "log_rhk": -5.04
+          },
+          "caveat": "The tabulated bounds are a 95 percent interval (4.62-7.05 Gyr), not a 1-sigma error. Published isochrone ages range from 3.7 to 7.1 Gyr; the 6.3 Gyr chromospheric age (Wright et al. 2004) and the Sun-like inactivity (log R'HK -5.04, same table) agree. The 2.0 +/- 1.1 Gyr of Tsantaki et al. 2013 is the lowest of ten determinations and is not adopted."
+        }
+      }
     }
   }
 }

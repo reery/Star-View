@@ -127,6 +127,8 @@ def apply_literature(root, path, systems, pool, audit):
                 if previous is not None:
                     replaced[field] = {"value": star[field], "sourceEvidence": copy.deepcopy(
                         (previous_review or {}).get("adopted", {}).get(field) or evidence.get(field))}
+                    if field == "temperature_k":
+                        star["notes"] = re.sub(r"\s*Estimated temperature from Pecaut-Mamajek 2022\.04\.16 .*?not an object-specific measurement\.", "", star["notes"])
             elif star.get(field) is not None:
                 retained[field] = {"value": star[field], "unusedLiterature": observation}
                 continue

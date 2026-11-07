@@ -6,7 +6,8 @@
     "catalog-work/star-systems/literature-components/constellation-20261019-motion-selected.json": "a1a95aba0ce31aef48807a80a068a31f06b1e46e782557b002d232c83b1d0d2b",
     "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede",
     "catalog-work/bright-stars/gap-motion-review.json": "30b852b317927f0a2ed13cb82d28f3de17ea67569d44f26637bb2f9b128b1685",
-    "catalog-work/star-systems/literature-components/constellation-20261019-intermediate-adoptions.json": "c5adccca31712f1e7fcbf19a3093109bbf814383529eb2f4dccae4b5b871bbbb"
+    "catalog-work/star-systems/literature-components/constellation-20261019-intermediate-adoptions.json": "c5adccca31712f1e7fcbf19a3093109bbf814383529eb2f4dccae4b5b871bbbb",
+    "catalog-work/star-systems/literature-components/49-lib-20261106-selected.json": "9cc3d5902f04b0f680a35ba717b4605a4ff0cc4433c8b712f4c95122615c5acb"
   },
   "systems": [
     {
@@ -16641,6 +16642,56 @@
         "scope": "Compiled primary/source radial velocity used as a system bulk-motion proxy. It may contain orbital, pulsation, wind, gravitational or instrumental shifts; a measurement error does not bound those systematics."
       },
       "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
+    },
+    {
+      "systemId": "sb9-3221",
+      "expectedName": "49 Lib",
+      "primaryStarId": "hip-78400",
+      "expectedComponents": {
+        "hip-78400": "Aa",
+        "sb9-3221-ab": "Ab"
+      },
+      "excludedComponents": {},
+      "motionInputs": {
+        "ra_deg": 240.08181506569753,
+        "dec_deg": -16.53341207649778,
+        "parallax_mas": 35.2665,
+        "parallax_error_mas": 0.6001,
+        "pm_ra_cosdec_masyr": -630.554,
+        "pm_ra_error_masyr": 0.055,
+        "pm_dec_masyr": -394.931,
+        "pm_dec_error_masyr": 0.028,
+        "radial_velocity_kms": -20.111,
+        "radial_velocity_error_kms": 0.036,
+        "epoch": 2000.0,
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03 position; parallax 2020yCat.1350....0G; proper motion 2021ApJS..254...42B (Hipparcos-Gaia long baseline)",
+        "radial_velocity_ref": "2016AJ....152...46W"
+      },
+      "radialVelocity": {
+        "valueKms": -20.111,
+        "uncertaintyKms": 0.036,
+        "uncertaintyKind": "1-sigma",
+        "reference": "Willmarth et al. 2016 Table 2",
+        "sourceUrl": "https://doi.org/10.3847/0004-6256/152/2/46",
+        "section": "Table 2 (gamma)",
+        "status": "published-systemic",
+        "scope": "Center-of-mass velocity of the spectroscopic orbit, replacing the Gaia DR3 value of -19.65 +/- 0.67 km/s, which samples one orbital phase."
+      },
+      "expectedInputs": {
+        "hip-78400": {
+          "raw_astrometry": null,
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        },
+        "sb9-3221-ab": {
+          "raw_astrometry": null,
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        }
+      },
+      "scope": "Proper motion is the Hipparcos-Gaia long-baseline value (-630.554 +/- 0.055, -394.931 +/- 0.028 mas/yr; Brandt 2021), which averages over the 3.13-year orbit and agrees with Tycho-2. The Gaia DR3 value (-667.446, -378.224) is a short-baseline single-star fit shifted by the orbit (chi2 1134 in the same catalog) and stays in the retained source."
     }
   ],
   "unavailableSystems": [],

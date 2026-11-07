@@ -5182,11 +5182,11 @@
       "selected": false
     }
   ],
-  "baseStarsSha256": "ecc5cadd6ff035ba5e5a96017fe1b12a67ae4e01493ff6db1351331c02202147",
+  "baseStarsSha256": "a51135a802ace201e2b2b1b821118794b748131fec726556abd63e9e9ed8db55",
   "catalogId": "nearest-5000",
   "coverage": {
     "absolute_mag": 1875,
-    "age_gyr": 101,
+    "age_gyr": 96,
     "constellation": 4000,
     "luminosity_solar": 2353,
     "mass_solar": 2004,
@@ -116342,7 +116342,7 @@
       "cns5Id": "3168",
       "fieldStatus": {
         "absolute_mag": "unknown",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -116444,6 +116444,32 @@
           "valueKms": -9.122763633728027
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "age_gyr"
+        ],
+        "recordId": "HD 111395",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
+        "scope": "Exact named catalog object HD 111395 / HIP 62523 / HD 111395; distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "age_gyr": {
+                "reason": "Gaia DR3 FLAME age of 8.8 Gyr contradicts the star's BY Draconis spot modulation (LW Com, BY Draconis variable, period 15.8 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; published activity ages disagree between 0.37 Gyr (Maldonado et al. 2012) and 1.2 Gyr (Wright et al. 2004), so none is adopted.",
+                "status": "withheld",
+                "value": null
+              }
+            },
+            "decision": "Withhold the contradicted Gaia DR3 model age; adopt no unverified replacement.",
+            "fields": [
+              "age_gyr"
+            ],
+            "recordId": "HD 111395",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -124389,7 +124415,7 @@
       "cns5Id": "2675",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -124491,6 +124517,32 @@
           "valueKms": 5.338566780090332
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "age_gyr"
+        ],
+        "recordId": "HD 94765",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
+        "scope": "Exact named catalog object HD 94765 / HIP 53486 / HD 94765; distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "age_gyr": {
+                "reason": "Gaia DR3 FLAME age of 11.6 Gyr contradicts the star's BY Draconis spot modulation (GY Leo, BY Draconis variable, period 11.43 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues.",
+                "status": "withheld",
+                "value": null
+              }
+            },
+            "decision": "Withhold the contradicted Gaia DR3 model age; adopt no unverified replacement.",
+            "fields": [
+              "age_gyr"
+            ],
+            "recordId": "HD 94765",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -153140,7 +153192,7 @@
           "spectral_type"
         ],
         "recordId": "UPM J0901-6526",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact CNS5 2243 / UPM J0901-6526 / Gaia DR3 5296347755815266816 / 2MASS J09013172-6526402.",
         "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
         "sourceSelections": {
@@ -154544,7 +154596,7 @@
       "cns5Id": "4150",
       "fieldStatus": {
         "absolute_mag": "unknown",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -154646,6 +154698,32 @@
           "valueKms": -7.401957035064697
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "age_gyr"
+        ],
+        "recordId": "HD 153525",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
+        "scope": "Exact named catalog object HD 153525 / HIP 83006 / HD 153525; distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "age_gyr": {
+                "reason": "Gaia DR3 FLAME age of 11.0 Gyr contradicts the star's BY Draconis spot modulation (V1089 Her, BY Draconis variable, period 15.39 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues.",
+                "status": "withheld",
+                "value": null
+              }
+            },
+            "decision": "Withhold the contradicted Gaia DR3 model age; adopt no unverified replacement.",
+            "fields": [
+              "age_gyr"
+            ],
+            "recordId": "HD 153525",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -158397,7 +158475,7 @@
       "cns5Id": "2364",
       "fieldStatus": {
         "absolute_mag": "unknown",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -158499,6 +158577,32 @@
           "valueKms": 7.935826301574707
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "age_gyr"
+        ],
+        "recordId": "HD 82443",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
+        "scope": "Exact named catalog object HD 82443 / HIP 46843 / HD 82443; distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "age_gyr": {
+                "reason": "Gaia DR3 FLAME age of 5.9 Gyr contradicts the star's BY Draconis spot modulation (DX Leo, BY Draconis variable) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues.",
+                "status": "withheld",
+                "value": null
+              }
+            },
+            "decision": "Withhold the contradicted Gaia DR3 model age; adopt no unverified replacement.",
+            "fields": [
+              "age_gyr"
+            ],
+            "recordId": "HD 82443",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -165128,7 +165232,7 @@
       "cns5Id": "3667",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -165230,6 +165334,37 @@
           "valueKms": -2.507864475250244
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "age_gyr"
+        ],
+        "recordId": "HD 130948",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
+        "scope": "Exact named catalog object HD 130948 / HIP 72567 / HD 130948; distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "age_gyr": {
+                "caveat": "Independent indicators agree within a factor of two: Vican 2012 give 0.61 Gyr (chromospheric) and 0.47 Gyr (X-ray); Stanford-Moore et al. 2020 give a 0.47 Gyr posterior median (68 percent 0.23-1.03 Gyr). No symmetric uncertainty is adopted.",
+                "method": "Gyrochronology of the G2V primary HD 130948A, described as the most precise of the available age indicators, which suggest a Hyades-like age.",
+                "reference": "2009ApJ...692..729D",
+                "section": "Abstract",
+                "status": "model-derived",
+                "uncertainty": null,
+                "url": "https://arxiv.org/abs/0807.2450",
+                "value": 0.79
+              }
+            },
+            "decision": "Adopt the published activity or rotation age; reject the FLAME age.",
+            "fields": [
+              "age_gyr"
+            ],
+            "recordId": "HD 130948",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -260802,7 +260937,7 @@
       "cns5Id": "4763",
       "fieldStatus": {
         "absolute_mag": "unknown",
-        "age_gyr": "model-derived",
+        "age_gyr": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -260904,6 +261039,40 @@
           "valueKms": -27.262165069580078
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "age_gyr"
+        ],
+        "recordId": "HD 180161",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
+        "scope": "Exact named catalog object HD 180161 / HIP 94346 / HD 180161; distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "age_gyr": {
+                "caveat": "Maldonado et al. 2012 give the same log age 8.84 and Gaspar et al. 2013 compile 0.60 Gyr; Wright et al. 2004 give 0.95 Gyr with an older calibration. No symmetric uncertainty is adopted.",
+                "inputs": {
+                  "log_rhk": -4.52
+                },
+                "method": "Chromospheric-activity age from log R'HK = -4.52 (Wright et al. 2004); the table flags the gyrochronology-based value as preferred.",
+                "reference": "2012AJ....143..135V",
+                "section": "Table 2, DEBRIS stars with activity ages (VizieR J/AJ/143/135/table2), HIP 94346",
+                "status": "model-derived",
+                "uncertainty": null,
+                "url": "https://doi.org/10.1088/0004-6256/143/6/135",
+                "value": 0.69
+              }
+            },
+            "decision": "Adopt the published activity or rotation age; reject the FLAME age.",
+            "fields": [
+              "age_gyr"
+            ],
+            "recordId": "HD 180161",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -327687,9 +327856,9 @@
       "cns5Id": "111",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "model-derived",
+        "age_gyr": "adopted",
         "luminosity_solar": "model-derived",
-        "mass_solar": "model-derived",
+        "mass_solar": "adopted",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
         "radius_solar": "model-derived",
@@ -327789,6 +327958,58 @@
           "valueKms": -2.337938070297241
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "mass_solar",
+          "age_gyr"
+        ],
+        "recordId": "* 9 Cet",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
+        "scope": "Exact named catalog object * 9 Cet / HIP 1803 / HD 1835 / BE Cet; the 214-arcsecond optical companion is excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "age_gyr": {
+                "caveat": "The tabulated bounds are a 95 percent interval (0.06-1.97 Gyr), not a 1-sigma error, so no symmetric uncertainty is adopted. The paper calls main-sequence isochrone ages model-dependent. The young age agrees with the star's high chromospheric activity (log R'HK = -4.49, same table) and its BY Draconis spot modulation.",
+                "inputs": {
+                  "age_lower_2sigma_gyr": 0.06,
+                  "age_upper_2sigma_gyr": 1.97,
+                  "log_rhk": -4.49
+                },
+                "method": "Peak of the Yonsei-Yale isochrone probability distribution fitted to the paper's differential UVES Teff, log g and [Fe/H] (sections 2.4-2.5).",
+                "reference": "2014A&A...561A...7R",
+                "section": "Table 6 (HIP 1803) and section 2.5",
+                "status": "model-derived",
+                "uncertainty": null,
+                "url": "https://arxiv.org/abs/1310.8581",
+                "value": 0.85
+              },
+              "mass_solar": {
+                "caveat": "The tabulated bounds are a 95 percent interval (1.08-1.11 solar masses). Replaces the FLAME mass from the same solution as the rejected 9.9 Gyr age, which used solar-metallicity tracks for a star with [Fe/H] = +0.18 to +0.23.",
+                "inputs": {
+                  "mass_lower_2sigma_solar": 1.08,
+                  "mass_upper_2sigma_solar": 1.11
+                },
+                "method": "Peak of the Yonsei-Yale isochrone probability distribution fitted to the paper's differential UVES Teff, log g and [Fe/H] (sections 2.4-2.5).",
+                "reference": "2014A&A...561A...7R",
+                "section": "Table 6 (HIP 1803) and section 2.4",
+                "status": "model-derived",
+                "uncertainty": null,
+                "url": "https://arxiv.org/abs/1310.8581",
+                "value": 1.09
+              }
+            },
+            "decision": "Adopt the published isochrone age and mass; reject the FLAME age, which contradicts the star's activity and rotation.",
+            "fields": [
+              "mass_solar",
+              "age_gyr"
+            ],
+            "recordId": "* 9 Cet",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -333734,7 +333955,7 @@
       "cns5Id": "5755",
       "fieldStatus": {
         "absolute_mag": "unknown",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -333836,6 +334057,32 @@
           "valueKms": 3.0584516525268555
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "age_gyr"
+        ],
+        "recordId": "HD 220182",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
+        "scope": "Exact named catalog object HD 220182 / HIP 115331 / HD 220182; distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "age_gyr": {
+                "reason": "Gaia DR3 FLAME age of 11.7 Gyr contradicts the star's BY Draconis spot modulation (V453 And, BY Draconis variable, period 7.489 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues.",
+                "status": "withheld",
+                "value": null
+              }
+            },
+            "decision": "Withhold the contradicted Gaia DR3 model age; adopt no unverified replacement.",
+            "fields": [
+              "age_gyr"
+            ],
+            "recordId": "HD 220182",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -344546,7 +344793,7 @@
       "cns5Id": "3307",
       "fieldStatus": {
         "absolute_mag": "unknown",
-        "age_gyr": "model-derived",
+        "age_gyr": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -344648,6 +344895,44 @@
           "valueKms": -12.491433143615723
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "age_gyr"
+        ],
+        "recordId": "HD 116956",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
+        "scope": "Exact named catalog object HD 116956 / HIP 65515 / HD 116956; distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "age_gyr": {
+                "caveat": "The posterior is broad and asymmetric (68 percent 0.25-2.0 Gyr), so no symmetric uncertainty is adopted. The 4.27 d spot-modulation period supports a young age.",
+                "inputs": {
+                  "age_16_percent_gyr": 0.251,
+                  "age_2_5_percent_gyr": 0.0869,
+                  "age_84_percent_gyr": 2.02,
+                  "age_97_5_percent_gyr": 7.33,
+                  "log_rhk": -4.393
+                },
+                "method": "Posterior median of the BAFFLES Bayesian age from chromospheric activity, log R'HK = -4.393.",
+                "reference": "2020ApJ...898...27S",
+                "section": "Table 2, BAFFLES ages (VizieR J/ApJ/898/27/table2), HD 116956",
+                "status": "model-derived",
+                "uncertainty": null,
+                "url": "https://ui.adsabs.harvard.edu/abs/2020ApJ...898...27S",
+                "value": 0.597
+              }
+            },
+            "decision": "Adopt the published activity or rotation age; reject the FLAME age.",
+            "fields": [
+              "age_gyr"
+            ],
+            "recordId": "HD 116956",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -359785,7 +360070,7 @@
       "cns5Id": "5503",
       "fieldStatus": {
         "absolute_mag": "unknown",
-        "age_gyr": "model-derived",
+        "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -359887,6 +360172,32 @@
           "valueKms": -7.862965106964111
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "age_gyr"
+        ],
+        "recordId": "HD 211472",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
+        "scope": "Exact named catalog object HD 211472 / HIP 109926 / HD 211472; distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "age_gyr": {
+                "reason": "Gaia DR3 FLAME age of 12.0 Gyr contradicts the star's BY Draconis spot modulation (V447 Lac, BY Draconis variable, period 4.4266 d) and chromospheric activity. Gaia DR3 FLAME age assumes solar-metallicity BaSTI tracks and is imprecise on the main sequence (Gaia DR3 documentation 11.3.6). The FLAME age is withheld; no dedicated age was found in the reviewed activity, gyrochronology and young-star catalogues.",
+                "status": "withheld",
+                "value": null
+              }
+            },
+            "decision": "Withhold the contradicted Gaia DR3 model age; adopt no unverified replacement.",
+            "fields": [
+              "age_gyr"
+            ],
+            "recordId": "HD 211472",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "metallicity_dex": {
@@ -459023,7 +459334,7 @@
       "cns5Id": "92",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "unknown",
+        "age_gyr": "adopted",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -459125,6 +459436,42 @@
           "valueKms": -10.158802032470703
         },
         "status": "compiled-cns5"
+      },
+      "sharedObjectAdoption": {
+        "fields": [
+          "age_gyr"
+        ],
+        "recordId": "HD 1461",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
+        "scope": "Exact named catalog object HD 1461 / HIP 1499; planets and distinct companions are excluded.",
+        "sourceEvidence": "Original measurements and catalog-specific provenance are retained; the shared adopted record supersedes them for these fields.",
+        "sourceSelections": {
+          "physicalLiteratureReview": {
+            "adoptedFields": {
+              "age_gyr": {
+                "caveat": "The tabulated bounds are a 95 percent interval (4.62-7.05 Gyr), not a 1-sigma error. Published isochrone ages range from 3.7 to 7.1 Gyr; the 6.3 Gyr chromospheric age (Wright et al. 2004) and the Sun-like inactivity (log R'HK -5.04, same table) agree. The 2.0 +/- 1.1 Gyr of Tsantaki et al. 2013 is the lowest of ten determinations and is not adopted.",
+                "inputs": {
+                  "age_lower_2sigma_gyr": 4.62,
+                  "age_upper_2sigma_gyr": 7.05,
+                  "log_rhk": -5.04
+                },
+                "method": "Peak of the Yonsei-Yale isochrone probability distribution fitted to the paper's differential UVES Teff, log g and [Fe/H] (sections 2.4-2.5).",
+                "reference": "2014A&A...561A...7R",
+                "section": "Table 6 (HIP 1499) and section 2.5",
+                "status": "model-derived",
+                "uncertainty": null,
+                "url": "https://arxiv.org/abs/1310.8581",
+                "value": 6.07
+              }
+            },
+            "decision": "Fill the missing age with the most precise differential isochrone age, which agrees with the activity age; reject the 2.0 Gyr outlier quoted by Wikipedia.",
+            "fields": [
+              "age_gyr"
+            ],
+            "recordId": "HD 1461",
+            "source": "catalog-work/shared-enrichment/literature-conflict-review.json"
+          }
+        }
       },
       "sharedPhysicalEnrichment": {
         "mass_solar": {

@@ -8,6 +8,8 @@ from pathlib import Path
 import re
 import argparse
 
+from catalog_sources.spectroscopic_binaries import best_orbit, sb9_orbits
+
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / 'catalog-work/star-systems'
 
@@ -31,7 +33,10 @@ def main():
     systems = {s['id']: s for file in ['src/data/star-systems.json', 'src/data/stellar-companions.json']
                for s in read(file)['systems']}
     stars = {}
+    # Naked-eye systems are authored only through reviewed members of the companion pool below.
     for path in sorted((ROOT / 'src/data/catalogs').glob('*/stars.csv')):
+        if path.parent.name == 'naked-eye-stars':
+            continue
         for row in csv.DictReader(path.open()):
             stars.setdefault(row['id'], row)
     stars.update({s['id']: s for s in read('src/data/stellar-companions.json')['stars']})
@@ -303,6 +308,43 @@ def main():
             'nodeAmbiguous': True, 'argumentComponent': first if row[12] == 'A' else second if row[12] == 'B' else None,
         }, (1 if angular else 2, 0))
 
+    # SB9 elements give the period and shape, without the orbit's size or orientation.
+    sb9 = sb9_orbits(WORK / 'sb9-20240621')
+    for sid, system in systems.items():
+        best = best_orbit(sb9.get(system.get('sb9Id'), []))
+        period = number(best['periodDays']) if best else None
+        if not period:
+            continue
+        first, second = (component['label'] for component in system['components'][:2])
+        eccentricity = number(best['eccentricity'])
+        # A circular orbit has no periastron, so its time marks another phase.
+        epoch = number(best['periastron']) if eccentricity and best['periastronFlag'] == '0' else None
+        add(sid, first, second, {
+            'periodYears': period / 365.25, 'semiMajorAxisAu': None, 'eccentricity': eccentricity, 'inclinationDeg': None, 'nodeDeg': None,
+            'argumentDeg': number(best['argumentDeg']) if eccentricity else None, 'periastronEpoch': epoch,
+            'epochKind': ('MJD' if best['timeReference'] == 'MJD' else 'JD − 2400000') if epoch is not None else None,
+            'grade': None, 'catalog': 'SB9', 'reference': f"SB9 system {system['sb9Id']}, orbit {best['orbit']}; {best['bibcode']}", 'sourceUrl': f"https://sb9.astro.ulb.ac.be/DisplayFull.cgi?{system['sb9Id']}",
+            'nodeAmbiguous': False, 'argumentComponent': first,
+            'uncertainties': {'periodDays': number(best['periodErrorDays']), 'eccentricity': number(best['eccentricityError']), 'argumentDeg': number(best['argumentErrorDeg'])},
+            'sb9Grade': number(best['grade']), 'velocitySemiAmplitudesKms': [number(best['k1Kms']), number(best['k2Kms'])],
+        }, (9, 0))
+
+    # Gaia solutions fill only systems without another orbit; their axis is the center of light.
+    for gaia in read('catalog-work/star-systems/gaia-flags-review.json')['orbits']:
+        system = systems[gaia['systemId']]
+        first, second = (component['label'] for component in system['components'][:2])
+        astrometric = 'inclinationDeg' in gaia
+        add(system['id'], first, second, {
+            'periodYears': gaia['periodDays'] / 365.25, 'semiMajorAxisAu': None, 'eccentricity': gaia['eccentricity'],
+            'inclinationDeg': gaia.get('inclinationDeg'), 'nodeDeg': gaia.get('nodeDeg'), 'argumentDeg': gaia.get('argumentDeg') if astrometric else gaia['argumentDeg'],
+            'periastronEpoch': None, 'epochKind': None, 'grade': 9 if astrometric else None, 'catalog': 'Gaia DR3 NSS',
+            'reference': f"Gaia DR3 nss_two_body_orbit, {gaia['solution']}, source {gaia['sourceId']}",
+            'sourceUrl': 'https://gea.esac.esa.int/archive/', 'nodeAmbiguous': astrometric, 'argumentComponent': first,
+            'uncertainties': {'periodDays': gaia['periodErrorDays'], 'eccentricity': gaia['eccentricityError'], 'argumentDeg': gaia['argumentErrorDeg']},
+            'velocitySemiAmplitudesKms': [gaia['k1Kms'], gaia['k2Kms']], 'goodnessOfFit': gaia['goodnessOfFit'],
+            **({'photocenterAxisMas': gaia['photocenterAxisMas']} if astrometric else {}),
+        }, (10, 0))
+
     # Reviewed relative solutions may supply their own physical axis/distance.
     # Do not rescale them with a different catalog parallax or lose the older
     # compiled solution when adopting a newer, explicitly scoped publication.
@@ -341,7 +383,8 @@ def main():
     (ROOT / 'src/data/stellar-orbits.json').write_text(json.dumps(payload, indent=2) + '\n')
     # Audit the UI's fallback name groups too: these were previously invisible
     # to the source-coverage report and caused the EZ Aquarii omission.
-    reviewed_ids = {identifier for system in systems.values() for component in system['components']
+    reviewed_ids = {identifier for system in [*systems.values(), *read('src/data/compact-system-identities.json')['systems']]
+                    for component in system['components']
                     for identifier in [component['starId'], *component.get('alternateStarIds', [])]}
     name_groups = collections.defaultdict(dict)
     for identifier, star in stars.items():

@@ -16,7 +16,7 @@ test('browser data confirmation cancels safely and deletes only app data @mobile
   await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await expect(page.locator('#scene-status')).toBeHidden()
   await page.getByRole('button', { name: 'Saved views', exact: true }).click()
-  await page.getByRole('textbox', { name: 'View name' }).fill('Browser data test')
+  await page.getByRole('searchbox', { name: 'View name' }).fill('Browser data test')
   await page.getByRole('button', { name: 'Save current view', exact: true }).click()
   await expect(page.locator('#saved-views-status')).toHaveText('Saved “Browser data test”')
   await openPreferences(page)

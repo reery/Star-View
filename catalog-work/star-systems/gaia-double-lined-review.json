@@ -1,0 +1,493 @@
+{
+ "schemaVersion": 1,
+ "reviewedOn": "2026-11-07",
+ "policy": "A Gaia DR3 double-lined orbit adds a stellar companion to an otherwise single star when it has one exact Gaia source, is not a component of a wider pair, has a plausible eccentricity for its period, and implies a total mass its spectral class allows.",
+ "adopted": {
+  "cns5-2451": {
+   "name": "CD-45 5627",
+   "sourceId": "5408648849826522112",
+   "solution": "SB2C",
+   "periodDays": 1.8783770563129596,
+   "periodErrorDays": 2.382633e-05,
+   "eccentricity": null,
+   "systemicKms": 17.068974117089226,
+   "systemicErrorKms": 0.4019597,
+   "minimumTotalMassSolar": 0.695,
+   "spectralType": "M3Ve"
+  },
+  "hip-10096": {
+   "name": "HD 13387",
+   "sourceId": "4957304514934422400",
+   "solution": "SB2",
+   "periodDays": 25.993627304814662,
+   "periodErrorDays": 0.00059889193,
+   "eccentricity": 0.444249544462755,
+   "systemicKms": 15.02780726324723,
+   "systemicErrorKms": 0.04145641,
+   "minimumTotalMassSolar": 2.005,
+   "spectralType": "F3V"
+  },
+  "hip-10944": {
+   "name": "63 And",
+   "sourceId": "355656522274764288",
+   "solution": "SB2C",
+   "periodDays": 2.142539139498957,
+   "periodErrorDays": 0.00083591876,
+   "eccentricity": null,
+   "systemicKms": -60.49174856482411,
+   "systemicErrorKms": 8.981989,
+   "minimumTotalMassSolar": 2.572,
+   "spectralType": "B9VpSi"
+  },
+  "hip-111191": {
+   "name": "GX Peg",
+   "sourceId": "1882432630526896000",
+   "solution": "SB2",
+   "periodDays": 2.3408946617074236,
+   "periodErrorDays": 1.3350467e-05,
+   "eccentricity": 0.03187841160386986,
+   "systemicKms": 3.3211119935699793,
+   "systemicErrorKms": 0.29828754,
+   "minimumTotalMassSolar": 2.254,
+   "spectralType": "kA6hA8mA8"
+  },
+  "hip-20873": {
+   "name": "76 Tau",
+   "sourceId": "3310919202484088832",
+   "solution": "SB2",
+   "periodDays": 632.2997656967855,
+   "periodErrorDays": 11.239234,
+   "eccentricity": 0.26944891770457213,
+   "systemicKms": 39.19874209877995,
+   "systemicErrorKms": 0.14000276,
+   "minimumTotalMassSolar": 1.727,
+   "spectralType": "F0IV"
+  },
+  "hip-24902": {
+   "name": "HD 34557",
+   "sourceId": "194864182347584512",
+   "solution": "SB2",
+   "periodDays": 6.412003639100013,
+   "periodErrorDays": 0.001594383,
+   "eccentricity": 0.13420840317743837,
+   "systemicKms": 37.10384988877168,
+   "systemicErrorKms": 0.88087547,
+   "minimumTotalMassSolar": 0.153,
+   "spectralType": "A3V"
+  },
+  "hip-25216": {
+   "name": "110 Tau",
+   "sourceId": "3394192948997407104",
+   "solution": "SB2C",
+   "periodDays": 5.504675774562249,
+   "periodErrorDays": 0.00016779666,
+   "eccentricity": null,
+   "systemicKms": 15.113978061931213,
+   "systemicErrorKms": 0.18038973,
+   "minimumTotalMassSolar": 0.623,
+   "spectralType": "A2IV"
+  },
+  "hip-27341": {
+   "name": "HD 38735",
+   "sourceId": "3011007889677269888",
+   "solution": "SB2",
+   "periodDays": 3.40543992647821,
+   "periodErrorDays": 1.761805e-05,
+   "eccentricity": 0.04049627473178624,
+   "systemicKms": -0.4102247436674551,
+   "systemicErrorKms": 0.23189656,
+   "minimumTotalMassSolar": 4.428,
+   "spectralType": "A2IV"
+  },
+  "hip-28854": {
+   "name": "HD 41547",
+   "sourceId": "3005061455916537088",
+   "solution": "SB2",
+   "periodDays": 5.393948106889482,
+   "periodErrorDays": 6.873145e-05,
+   "eccentricity": 0.013538120475625647,
+   "systemicKms": 36.2763600231021,
+   "systemicErrorKms": 0.052808437,
+   "minimumTotalMassSolar": 0.385,
+   "spectralType": "F3V"
+  },
+  "hip-28909": {
+   "name": "Eta1 Dor",
+   "sourceId": "5284258831636637440",
+   "solution": "SB2",
+   "periodDays": 2.7820125725793683,
+   "periodErrorDays": 0.00015330884,
+   "eccentricity": 0.0860068928945298,
+   "systemicKms": 24.42509580108834,
+   "systemicErrorKms": 0.88306004,
+   "minimumTotalMassSolar": 2.673,
+   "spectralType": "A0V"
+  },
+  "hip-29185": {
+   "name": "HD 42683",
+   "sourceId": "5553178244538085888",
+   "solution": "SB2",
+   "periodDays": 173.74105010748875,
+   "periodErrorDays": 0.05238695,
+   "eccentricity": 0.2432631013036328,
+   "systemicKms": 62.3561151239403,
+   "systemicErrorKms": 0.050777666,
+   "minimumTotalMassSolar": 1.875,
+   "spectralType": "F7V"
+  },
+  "hip-30423": {
+   "name": "HD 45450",
+   "sourceId": "5482971089912992000",
+   "solution": "SB2",
+   "periodDays": 1.7929680174079423,
+   "periodErrorDays": 5.1996644e-06,
+   "eccentricity": 0.06313248062344368,
+   "systemicKms": 21.78365532245188,
+   "systemicErrorKms": 0.09891897,
+   "minimumTotalMassSolar": 0.37,
+   "spectralType": "A3V"
+  },
+  "hip-30849": {
+   "name": "HD 45983",
+   "sourceId": "5570303756616874624",
+   "solution": "SB2",
+   "periodDays": 13.733886830131052,
+   "periodErrorDays": 0.0016375459,
+   "eccentricity": 0.4211218300280905,
+   "systemicKms": 18.101256979955984,
+   "systemicErrorKms": 0.11846908,
+   "minimumTotalMassSolar": 0.046,
+   "spectralType": "F2/3V"
+  },
+  "hip-33012": {
+   "name": "HD 51210",
+   "sourceId": "5480618860881598336",
+   "solution": "SB2",
+   "periodDays": 8.484272922857564,
+   "periodErrorDays": 0.0001026664,
+   "eccentricity": 0.013200336513951198,
+   "systemicKms": 19.670693573487025,
+   "systemicErrorKms": 0.10275498,
+   "minimumTotalMassSolar": 1.68,
+   "spectralType": "A3mA3-A8"
+  },
+  "hip-33590": {
+   "name": "HD 52362",
+   "sourceId": "5557922121817018496",
+   "solution": "SB2C",
+   "periodDays": 8.670558733434778,
+   "periodErrorDays": 0.00037933816,
+   "eccentricity": null,
+   "systemicKms": 29.555783154553946,
+   "systemicErrorKms": 0.26352912,
+   "minimumTotalMassSolar": 0.611,
+   "spectralType": "A0V"
+  },
+  "hip-37450": {
+   "name": "HD 62226",
+   "sourceId": "5586717403640706304",
+   "solution": "SB2",
+   "periodDays": 0.6357503390945157,
+   "periodErrorDays": 1.3426821e-06,
+   "eccentricity": 0.052746832179588976,
+   "systemicKms": 23.19285116137179,
+   "systemicErrorKms": 0.49301806,
+   "minimumTotalMassSolar": 0.538,
+   "spectralType": "B3V"
+  },
+  "hip-41449": {
+   "name": "HD 71622",
+   "sourceId": "5643129015942038144",
+   "solution": "SB2",
+   "periodDays": 38.6117572569362,
+   "periodErrorDays": 0.0008724881,
+   "eccentricity": 0.005668757461031513,
+   "systemicKms": -0.33762612992416546,
+   "systemicErrorKms": 0.028206445,
+   "minimumTotalMassSolar": 2.432,
+   "spectralType": "G8III"
+  },
+  "hip-42538": {
+   "name": "4 LMi",
+   "sourceId": "709596324640717568",
+   "solution": "SB2",
+   "periodDays": 111.97127559102653,
+   "periodErrorDays": 0.042855352,
+   "eccentricity": 0.1861707080833935,
+   "systemicKms": 22.200655131546664,
+   "systemicErrorKms": 0.080757745,
+   "minimumTotalMassSolar": 4.576,
+   "spectralType": "F5III"
+  },
+  "hip-45920": {
+   "name": "HD 81157",
+   "sourceId": "5310329351859038336",
+   "solution": "SB2",
+   "periodDays": 1.8962291726051672,
+   "periodErrorDays": 7.1272816e-06,
+   "eccentricity": 0.07457694057208132,
+   "systemicKms": 7.380550888988733,
+   "systemicErrorKms": 0.15929198,
+   "minimumTotalMassSolar": 0.902,
+   "spectralType": "A3IV(s)"
+  },
+  "hip-49065": {
+   "name": "Mu Cha",
+   "sourceId": "5192580796186293504",
+   "solution": "SB2",
+   "periodDays": 3.5165279039647097,
+   "periodErrorDays": 3.0220444e-05,
+   "eccentricity": 0.012891657219637078,
+   "systemicKms": 7.380130618596252,
+   "systemicErrorKms": 0.20614019,
+   "minimumTotalMassSolar": 2.559,
+   "spectralType": "A0IV"
+  },
+  "hip-52679": {
+   "name": "HD 93502",
+   "sourceId": "5254194507274022784",
+   "solution": "SB2",
+   "periodDays": 11.13179767614915,
+   "periodErrorDays": 0.00030731392,
+   "eccentricity": 0.3866371400095439,
+   "systemicKms": -3.006699012720721,
+   "systemicErrorKms": 0.110574216,
+   "minimumTotalMassSolar": 2.013,
+   "spectralType": "A0IV"
+  },
+  "hip-53411": {
+   "name": "HD 94724",
+   "sourceId": "5388430720769436800",
+   "solution": "SB2",
+   "periodDays": 44.29092797410134,
+   "periodErrorDays": 0.0062437505,
+   "eccentricity": 0.5902853284470215,
+   "systemicKms": 8.881965350157055,
+   "systemicErrorKms": 0.11931335,
+   "minimumTotalMassSolar": 3.56,
+   "spectralType": "A0V"
+  },
+  "hip-55779": {
+   "name": "HD 99453",
+   "sourceId": "5237611398000522880",
+   "solution": "SB2C",
+   "periodDays": 15.213910692933197,
+   "periodErrorDays": 0.00027941848,
+   "eccentricity": null,
+   "systemicKms": -1.0415725245086667,
+   "systemicErrorKms": 0.062963545,
+   "minimumTotalMassSolar": 1.178,
+   "spectralType": "F7V"
+  },
+  "hip-59229": {
+   "name": "V788 Cen",
+   "sourceId": "6144511953192701440",
+   "solution": "SB2",
+   "periodDays": 4.966887705740158,
+   "periodErrorDays": 3.0224457e-05,
+   "eccentricity": 0.018729480158750783,
+   "systemicKms": -20.975736916624502,
+   "systemicErrorKms": 0.11782963,
+   "minimumTotalMassSolar": 3.327,
+   "spectralType": "A2mA5-F2"
+  },
+  "hip-62561": {
+   "name": "HD 112014",
+   "sourceId": "1726095477354219904",
+   "solution": "SB2",
+   "periodDays": 3.286615940621689,
+   "periodErrorDays": 2.6899095e-05,
+   "eccentricity": 0.017818836238341816,
+   "systemicKms": 0.5243081593353206,
+   "systemicErrorKms": 0.2790728,
+   "minimumTotalMassSolar": 4.115,
+   "spectralType": "A0V+A2V"
+  },
+  "hip-62799": {
+   "name": "HD 111775",
+   "sourceId": "6085864655805669120",
+   "solution": "SB2",
+   "periodDays": 47.62560695876484,
+   "periodErrorDays": 0.005038402,
+   "eccentricity": 0.5498461816894914,
+   "systemicKms": -3.575827856643792,
+   "systemicErrorKms": 0.11576101,
+   "minimumTotalMassSolar": 1.066,
+   "spectralType": "A0V"
+  },
+  "hip-64390": {
+   "name": "HD 114371",
+   "sourceId": "5843943613492830720",
+   "solution": "SB2",
+   "periodDays": 4.645713810788767,
+   "periodErrorDays": 3.308194e-05,
+   "eccentricity": 0.03868293396346235,
+   "systemicKms": 8.240233947814462,
+   "systemicErrorKms": 0.051071428,
+   "minimumTotalMassSolar": 0.047,
+   "spectralType": "F3IV/V"
+  },
+  "hip-64779": {
+   "name": "HD 115365",
+   "sourceId": "3939784018997099904",
+   "solution": "SB2",
+   "periodDays": 7.383405031365689,
+   "periodErrorDays": 0.00039110082,
+   "eccentricity": 0.4702454038225077,
+   "systemicKms": -21.869609341212065,
+   "systemicErrorKms": 0.3056861,
+   "minimumTotalMassSolar": 5.108,
+   "spectralType": "F0V"
+  },
+  "hip-67199": {
+   "name": "HD 119727",
+   "sourceId": "6065011902400559872",
+   "solution": "SB2",
+   "periodDays": 46.58152689917582,
+   "periodErrorDays": 0.0040321047,
+   "eccentricity": 0.27313598262886307,
+   "systemicKms": 7.645282087886753,
+   "systemicErrorKms": 0.088357635,
+   "minimumTotalMassSolar": 2.095,
+   "spectralType": "A1V"
+  },
+  "hip-73095": {
+   "name": "c Lup",
+   "sourceId": "5900079042218195840",
+   "solution": "SB2",
+   "periodDays": 116.75758774548903,
+   "periodErrorDays": 0.20250602,
+   "eccentricity": 0.40822967532188054,
+   "systemicKms": 6.9162883477237385,
+   "systemicErrorKms": 0.30911046,
+   "minimumTotalMassSolar": 0.861,
+   "spectralType": "A1IV/V"
+  },
+  "hip-79208": {
+   "name": "HD 144481",
+   "sourceId": "5829223076947590656",
+   "solution": "SB2",
+   "periodDays": 11.683842686793117,
+   "periodErrorDays": 0.00014802803,
+   "eccentricity": 0.44430338383285467,
+   "systemicKms": 1.8895205715646226,
+   "systemicErrorKms": 0.08770082,
+   "minimumTotalMassSolar": 3.005,
+   "spectralType": "A3mA7-F2"
+  },
+  "hip-80645": {
+   "name": "Iota TrA",
+   "sourceId": "5828317422956035072",
+   "solution": "SB2",
+   "periodDays": 39.842931591052356,
+   "periodErrorDays": 0.00111102,
+   "eccentricity": 0.27365981954020824,
+   "systemicKms": -2.93027114869852,
+   "systemicErrorKms": 0.056970745,
+   "minimumTotalMassSolar": 2.272,
+   "spectralType": "F0IV"
+  },
+  "hip-83202": {
+   "name": "HD 153234",
+   "sourceId": "5963704000561744768",
+   "solution": "SB2",
+   "periodDays": 82.12480746874503,
+   "periodErrorDays": 0.07156074,
+   "eccentricity": 0.10545265767146463,
+   "systemicKms": -14.292754428480539,
+   "systemicErrorKms": 0.1466295,
+   "minimumTotalMassSolar": 0.261,
+   "spectralType": "F3V"
+  },
+  "hip-93815": {
+   "name": "Rho Tel",
+   "sourceId": "6656769472772280320",
+   "solution": "SB2C",
+   "periodDays": 3.1047550338082126,
+   "periodErrorDays": 7.868129e-06,
+   "eccentricity": null,
+   "systemicKms": 5.087949143377146,
+   "systemicErrorKms": 0.08483739,
+   "minimumTotalMassSolar": 1.599,
+   "spectralType": "F6V"
+  },
+  "hip-98858": {
+   "name": "HD 190781",
+   "sourceId": "2085956970179064576",
+   "solution": "SB2",
+   "periodDays": 12.35005566244912,
+   "periodErrorDays": 0.00030902427,
+   "eccentricity": 0.15501729628299704,
+   "systemicKms": -10.6802579039238,
+   "systemicErrorKms": 0.10534498,
+   "minimumTotalMassSolar": 2.073,
+   "spectralType": "A2IV"
+  }
+ },
+ "held": {
+  "hd-112486a": {
+   "name": "HD 112486A",
+   "reason": "It is already a component of a wider pair, so this orbit needs a reviewed hierarchy."
+  },
+  "hd-36408b": {
+   "name": "HD 36408B",
+   "reason": "It is already a component of a wider pair, so this orbit needs a reviewed hierarchy."
+  },
+  "hip-103652": {
+   "name": "HD 199942",
+   "reason": "The velocities imply at least 59 solar masses, more than class F stars can have."
+  },
+  "hip-107380": {
+   "name": "Iota PsA",
+   "reason": "An eccentricity of 0.40 is implausible for a 0.63-day orbit, which tides should have circularized."
+  },
+  "hip-113327": {
+   "name": "HD 217050",
+   "reason": "The velocities imply at least 61 solar masses, more than class B stars can have."
+  },
+  "hip-24732": {
+   "name": "HD 33541",
+   "reason": "An eccentricity of 0.24 is implausible for a 0.87-day orbit, which tides should have circularized."
+  },
+  "hip-32411": {
+   "name": "HD 49048",
+   "reason": "An eccentricity of 0.23 is implausible for a 0.50-day orbit, which tides should have circularized."
+  },
+  "hip-34081": {
+   "name": "C Pup",
+   "reason": "Another catalog star lists the same Gaia source."
+  },
+  "hip-37819": {
+   "name": "c Pup",
+   "reason": "Another catalog star lists the same Gaia source."
+  },
+  "hip-41737": {
+   "name": "HD 72350",
+   "reason": "An eccentricity of 0.31 is implausible for a 0.71-day orbit, which tides should have circularized."
+  },
+  "hip-47479": {
+   "name": "HD 84121",
+   "reason": "An eccentricity of 0.59 is implausible for a 2.98-day orbit, which tides should have circularized."
+  },
+  "hip-5081": {
+   "name": "72 Psc",
+   "reason": "SB9 gives a different period, so this may be another pair or a spurious solution."
+  },
+  "hip-5743": {
+   "name": "Zeta Psc B",
+   "reason": "It is already a component of a wider pair, so this orbit needs a reviewed hierarchy."
+  },
+  "hip-62825": {
+   "name": "HD 111893",
+   "reason": "An eccentricity of 0.14 is implausible for a 0.69-day orbit, which tides should have circularized."
+  },
+  "hip-64478": {
+   "name": "HD 114630",
+   "reason": "SB9 lists several orbits for this star, so the pair is not identified."
+  },
+  "hip-69122": {
+   "name": "V883 Cen",
+   "reason": "An eccentricity of 0.45 is implausible for a 0.92-day orbit, which tides should have circularized."
+  }
+ }
+}

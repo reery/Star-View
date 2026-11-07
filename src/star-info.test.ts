@@ -128,12 +128,12 @@ describe('bright-star articles', () => {
 
   it('adds sourced articles without duplicating or replacing existing content', () => {
     const existingKeys = new Set([...Object.keys(definitions.articles), ...Object.keys(nearest100Definitions.articles)])
-    expect(Object.keys(constellationDefinitions.articles)).toHaveLength(785)
+    expect(Object.keys(constellationDefinitions.articles)).toHaveLength(786)
     for (const [id, definition] of Object.entries(constellationDefinitions.articles)) {
       expect(existingKeys.has(id), id).toBe(false)
       const article = starInfoForId(surviving(id))!
       expect(article.introduction.label, id).toBe(definition.name)
-      expect(article.introduction.source?.title, id).toMatch(/reviewed 2026-11-01$/)
+      expect(article.introduction.source?.title, id).toMatch(/reviewed 2026-11-06$/)
       expect(article.introduction.source?.url, id).toMatch(/^https:\/\//)
       expect(article.sections.length, id).toBeGreaterThan(0)
       expect(new Set(article.sections.map(({ id }) => id)).size, id).toBe(article.sections.length)

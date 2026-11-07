@@ -17,7 +17,7 @@ import { createMotionArrowMesh } from './motion-arrow-layer'
 import { createMapGrid, gridOpacityForDisplay, makeGridGeometry, skyGridOpacityForDisplay } from './map-grid'
 import { createSkyGridLayer, makeSkyGridGeometry, skyWindowCone, type SkyGridMode } from './sky-grid'
 import type { SkyHours } from './constellation-visibility'
-import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
+import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC } from './earth-orbit'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderMultisampling, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
@@ -708,6 +708,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let contextLost = false
   let pendingFrame: number | null = null
   let sceneDirty = false
+  let milkyWayFading = false
   let lastViewerDistanceReport = 0
   let nextRenderDeadline = 0
   let lastRenderTime = 0
@@ -1227,6 +1228,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (pendingFrame !== null) cancelAnimationFrame(pendingFrame)
     pendingFrame = null
     sceneDirty = false
+    milkyWayFading = false
     nextRenderDeadline = 0
     lastRenderTime = 0
     previousRafTime = 0
@@ -1257,8 +1259,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         // A shared-position component has no usable viewing distance. Its
         // intrinsic display magnitude also keeps its name in the label budget.
         apparentMagnitudes[index] = (distancePc === 0
-          ? star.absolute_mag
-          : apparentVisualMagnitude(star.absolute_mag, distancePc)) ?? Infinity
+          ? mapAbsoluteMagnitude(star)
+          : apparentVisualMagnitude(mapAbsoluteMagnitude(star), distancePc)) ?? Infinity
       })
     }
     if (rankingChanged) {
@@ -1286,7 +1288,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       mapVisible[index] = visible && !(hideFainterObjects && tier === 'background') ? 1 : 0
       // Painted magnitudes size every object, independent of distance.
       const paintedMagnitude = starPaints?.[index]!.magnitude
-      const haloMagnitude = paintedMagnitude !== undefined ? paintedMagnitude : tier === 'base' ? star.absolute_mag : magnitude
+      const haloMagnitude = paintedMagnitude !== undefined ? paintedMagnitude : tier === 'base' ? mapAbsoluteMagnitude(star) : magnitude
       const background = tier === 'background' && paintedMagnitude === undefined
       const haloEmphasis = starHaloEmphasis(haloMagnitude)
       const diameter = starApparentDiameter(haloMagnitude)
@@ -2225,7 +2227,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     previousRafTime = time
     const sceneNeedsFrame = sceneDirty || focusTransition !== null || observerZoomTransition !== null || viewCenterTransition !== null || controlsInteracting || controlsSettling
       || spaceshipFlight !== null || spaceshipFlying
-    if (!sceneNeedsFrame) {
+    if (!sceneNeedsFrame && !milkyWayFading) {
       if (refreshSamplesRemaining > 0) requestRender(false)
       else {
         previousRafTime = 0
@@ -2233,7 +2235,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
       return
     }
-    const fps = targetRenderFps(powerSavingMode, measuredRefreshRate)
+    // A fade alone changes only opacity, so it draws at half the frame rate.
+    const fps = targetRenderFps(powerSavingMode, measuredRefreshRate) / (sceneNeedsFrame ? 1 : 2)
     const deadline = advanceFrameDeadline(time, nextRenderDeadline, fps)
     nextRenderDeadline = deadline.next
     if (!deadline.due) {
@@ -2334,12 +2337,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const ordinaryLabelsLaidOut = updateLabels(time)
     skyGrid.updateLabels(camera, projectionViewport!, (bounds) => blocked.queryAny(bounds, (other) => overlaps(bounds, other)), ordinaryLabelsLaidOut)
     // The fade alone does not move labels, so it keeps frames coming without setLabelsMoving().
-    const milkyWayFading = milkyWay.updateFade(time)
+    milkyWayFading = milkyWay.updateFade(time)
     nebulaLayer?.renderOffscreen(renderer, camera)
     if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
     else renderer.render(scene, camera)
     setData(labelLayer, 'drawCalls', String(renderer.info.render.calls))
-    if (continueRendering || milkyWayFading || refreshSamplesRemaining > 0) requestRender(milkyWayFading)
+    if (continueRendering || milkyWayFading || refreshSamplesRemaining > 0) requestRender(false)
     else {
       previousRafTime = 0
       lastRenderTime = 0
