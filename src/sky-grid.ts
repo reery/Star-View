@@ -33,6 +33,21 @@ export function skyWindowCone(latitude: number, date: Date, hours: SkyHours): Sk
   return { axis: first.clone().add(last).normalize(), halfAngleDeg: 90 - first.angleTo(last) * 90 / Math.PI }
 }
 
+// Compass letters sit just outside the rim, clear of its inner band.
+const CARDINAL_OFFSET_DEG = 1
+
+/** N, E, S and W horizon directions around a sky cone's rim. */
+export function skyConeCardinals(cone: SkyCone): Vector3[] {
+  // East is square to the zenith and the celestial pole; at a pole any horizon direction serves.
+  const east = skyGridDirection('equatorial', 0, 90).cross(cone.axis)
+  if (east.lengthSq() < 1e-12) east.copy(skyGridDirection('equatorial', 90, 0))
+  east.normalize()
+  const north = cone.axis.clone().cross(east)
+  const angle = (cone.halfAngleDeg + CARDINAL_OFFSET_DEG) * Math.PI / 180
+  const around = (side: Vector3, sign: number) => cone.axis.clone().multiplyScalar(Math.cos(angle)).addScaledVector(side, sign * Math.sin(angle))
+  return [around(north, 1), around(east, 1), around(north, -1), around(east, -1)]
+}
+
 export function makeSkyGridGeometry(frame: SkyGridFrame): BufferGeometry {
   const positions: number[] = []
   const emphasis: number[] = []
@@ -142,10 +157,26 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
       varying vec3 lineDirection;
       void main() {
         float visible = highlight * step(visibleCos, dot(normalize(lineDirection), visibleAxis));
-        gl_FragColor = vec4(mix(color, visibleColor, visible), min(1.0, opacity * lineEmphasis * (1.0 + 1.6 * visible)));
+        gl_FragColor = vec4(mix(color, visibleColor, visible), min(1.0, opacity * lineEmphasis * (1.0 + 1.1 * visible)));
         #include <colorspace_fragment>
       }
     `,
+  })
+  const cardinalLayer = document.createElement('div')
+  cardinalLayer.className = 'projected-axes'
+  cardinalLayer.setAttribute('aria-hidden', 'true')
+  cardinalLayer.hidden = true
+  container.append(cardinalLayer)
+  const cardinals = ['N', 'E', 'S', 'W'].map((content) => {
+    const anchor = document.createElement('div')
+    anchor.className = 'map-anchor'
+    const text = document.createElement('div')
+    text.className = 'map-label visibility-cone-label'
+    text.style.color = `#${VISIBLE_SKY_COLOR.toString(16).padStart(6, '0')}`
+    text.textContent = content
+    anchor.append(text)
+    cardinalLayer.append(anchor)
+    return { anchor, direction: new Vector3() }
   })
   const lines = new LineSegments(new BufferGeometry(), material)
   lines.frustumCulled = false
@@ -160,11 +191,14 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
   return {
     lines,
     layer,
+    cardinalLayer,
     setVisibleCone(cone: SkyCone | null) {
       material.uniforms.highlight!.value = cone ? 1 : 0
+      cardinalLayer.hidden = !cone
       if (cone) {
         material.uniforms.visibleAxis!.value.copy(cone.axis)
         material.uniforms.visibleCos!.value = Math.cos(cone.halfAngleDeg * Math.PI / 180)
+        skyConeCardinals(cone).forEach((direction, index) => cardinals[index]!.direction.copy(direction))
       }
     },
     setMode(next: SkyGridMode) {
@@ -194,6 +228,15 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
     },
     /** `relayout` should be true on frames where ordinary star names were laid out. */
     updateLabels(camera: PerspectiveCamera, viewport: LayoutViewport, isBlocked: (bounds: LabelRect) => boolean, relayout = true) {
+      // Compass letters always show with the cone, so they skip collision checks.
+      if (!cardinalLayer.hidden) {
+        for (const { anchor, direction } of cardinals) {
+          clip.set(direction.x, direction.y, direction.z, 0).applyMatrix4(camera.matrixWorldInverse).applyMatrix4(camera.projectionMatrix)
+          const visible = clip.w > 0 && Math.abs(clip.x) < clip.w && Math.abs(clip.y) < clip.w
+          if (anchor.hidden === visible) anchor.hidden = !visible
+          if (visible) anchor.style.transform = `translate(${(clip.x / clip.w + 1) * viewport.width / 2}px, ${(1 - clip.y / clip.w) * viewport.height / 2}px)`
+        }
+      }
       if (mode === 'off') return
       relayout ||= layoutDirty
       layoutDirty = false
@@ -233,6 +276,7 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
       lines.geometry.dispose()
       material.dispose()
       layer.remove()
+      cardinalLayer.remove()
       delete container.dataset.skyGrid
     },
   }

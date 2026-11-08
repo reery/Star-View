@@ -18,7 +18,7 @@ import { createMapGrid, gridOpacityForDisplay, makeGridGeometry, skyGridOpacityF
 import { createSkyGridLayer, makeSkyGridGeometry, skyGridDirection, skyWindowCone, type SkyGridMode } from './sky-grid'
 import type { SkyHours } from './constellation-visibility'
 import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
-import { EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC } from './earth-orbit'
+import { EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC, EARTH_ORBIT_SHRINK_DISTANCE_PC } from './earth-orbit'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderMultisampling, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
 import { createNebulaLayer } from './nebula-layer'
@@ -348,10 +348,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function updateEarthOrbitVisibility(): void {
-    earthOrbitGroup.visible = earthOrbitEnabled
-      && sunShown()
-      && camera.position.distanceTo(earthOrbitGroup.position) <= EARTH_ORBIT_MAX_VIEW_DISTANCE_PC
+    const distance = camera.position.distanceTo(earthOrbitGroup.position)
+    earthOrbitGroup.visible = earthOrbitEnabled && sunShown() && distance <= EARTH_ORBIT_MAX_VIEW_DISTANCE_PC
     setData(container, 'earthOrbitVisible', String(earthOrbitGroup.visible))
+    // Inside 10 ly the ring shrinks with distance, holding its on-screen size; the cone wall keeps its length.
+    const scale = Math.min(1, Math.max(1e-4, distance / EARTH_ORBIT_SHRINK_DISTANCE_PC))
+    earthOrbit.scaled.scale.setScalar(scale)
+    visibilityCone.wall.scale.setScalar(1 / scale)
+    setData(container, 'earthOrbitRadiusPc', String(Number((EARTH_ORBIT_DISPLAY_RADIUS_PC * scale).toPrecision(3))))
   }
 
   // Fade the cloud out as its on-screen radius shrinks into the Sun's own dot and halo.
@@ -470,7 +474,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   // With the orbit switched off, the cone falls back to today.
   let visibilityConeDate = initialEarthOrbitDate ?? new Date()
   scene.add(visibilityCone.rim)
-  earthOrbitGroup.add(visibilityCone.wall)
+  earthOrbit.scaled.add(visibilityCone.wall)
   function setVisibilityCone(view: VisibilityConeView | null): void {
     visibilityConeView = view
     const cone = view && skyWindowCone(view.latitude, visibilityConeDate, view.hours)
@@ -1135,7 +1139,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function setLabelsMoving(moving: boolean): void {
     if (moving === labelsMoving) return
     labelsMoving = moving
-    for (const layer of [labelLayer, axisLayer, skyGrid.layer]) layer.classList.toggle('is-moving', moving)
+    for (const layer of [labelLayer, axisLayer, skyGrid.layer, skyGrid.cardinalLayer]) layer.classList.toggle('is-moving', moving)
   }
 
   function invalidateViewport(): void {
@@ -2443,7 +2447,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   updateOortCloudVisibility()
   setVisibilityCone(options.visibilityCone ?? null)
   if (initialEarthOrbitDate) positionEarthMarker(initialEarthOrbitDate)
-  container.dataset.earthOrbitRadiusPc = String(EARTH_ORBIT_DISPLAY_RADIUS_PC)
   container.dataset.milkyWayVisible = String(milkyWayVisible)
   container.dataset.simulationYears = '0'
   milkyWay.setVisible(milkyWayVisible)

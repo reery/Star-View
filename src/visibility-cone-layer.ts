@@ -5,10 +5,10 @@ import { VISIBLE_SKY_COLOR, type SkyCone } from './sky-grid'
 
 // Two-degree steps, like the sky grid's own circles.
 const SEGMENTS = 180
-const RIM_EMPHASIS = 2
-const BAND_EMPHASIS = 0.3
+const RIM_EMPHASIS = 1.5
+const BAND_EMPHASIS = 0.22
 const BAND_WIDTH_DEG = 2.5
-const WALL_OPACITY = 0.3
+const WALL_OPACITY = 0.22
 const WALL_LENGTH_PC = 7 / LIGHT_YEARS_PER_PARSEC
 const UP = new Vector3(0, 1, 0)
 
