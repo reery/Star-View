@@ -3,6 +3,8 @@ import { EARTH_AXIS_DISPLAY_HALF_LENGTH_PC, earthOrbitMarker, earthOrbitPoints }
 
 export interface EarthOrbitLayer {
   group: Group
+  /** Holds the ring, Earth marker and axis; scaled with view distance near the Sun. */
+  scaled: Group
   setDate(date: Date): ReturnType<typeof earthOrbitMarker>
   dispose(): void
 }
@@ -63,12 +65,15 @@ export function createEarthOrbitLayer(sunPosition: Vector3): EarthOrbitLayer {
   axisLine.name = 'earth-axis-line'
   axisLine.frustumCulled = false
   axisLine.renderOrder = 6
-  group.add(orbitLine, axisLine, point)
+  const scaled = new Group()
+  scaled.add(orbitLine, axisLine, point)
+  group.add(scaled)
   const axisStart = new Vector3()
   const axisEnd = new Vector3()
 
   return {
     group,
+    scaled,
     setDate(date) {
       const marker = earthOrbitMarker(date)
       pointGeometry.getAttribute('position').setXYZ(0, marker.earthPosition.x, marker.earthPosition.y, marker.earthPosition.z)

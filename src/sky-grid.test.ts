@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Vector3 } from 'three'
-import { makeSkyGridGeometry, placeSkyGridLabels, skyGridDirection, skyGridMarkers, skyWindowCone, type SkyGridLabelSlot } from './sky-grid'
+import { makeSkyGridGeometry, placeSkyGridLabels, skyConeCardinals, skyGridDirection, skyGridMarkers, skyWindowCone, type SkyGridLabelSlot } from './sky-grid'
 import { skyAltitude, sunEquatorialPosition, visibilityConeHours } from './constellation-visibility'
 import { earthOrbitMarker } from './earth-orbit'
 
@@ -60,6 +60,19 @@ describe('sky window cone', () => {
         }
       }
     }
+  })
+
+  it.each([-60, -20, 0, 40])('puts the compass letters on the matching horizon sides at %d°', (latitude) => {
+    const localSiderealDeg = sunEquatorialPosition(december).ra + (22 - 12) * 15
+    const cone = skyWindowCone(latitude, december, { start: 22, end: 22 })
+    const [north, east, south, west] = skyConeCardinals(cone)
+    const pole = skyGridDirection('equatorial', 0, 90)
+    // The pole stands at the latitude's altitude over the north point, and the letters sit 1° below the horizon.
+    expect(angleDeg(north!, pole)).toBeCloseTo(Math.abs(latitude + 1), 3)
+    expect(angleDeg(south!, pole.clone().negate())).toBeCloseTo(Math.abs(latitude - 1), 3)
+    expect(angleDeg(east!, skyGridDirection('equatorial', localSiderealDeg + 90, 0))).toBeCloseTo(1, 3)
+    expect(angleDeg(west!, skyGridDirection('equatorial', localSiderealDeg - 90, 0))).toBeCloseTo(1, 3)
+    for (const direction of [north, east, south, west]) expect(angleDeg(cone.axis, direction!)).toBeCloseTo(cone.halfAngleDeg + 1, 3)
   })
 })
 

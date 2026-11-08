@@ -1,7 +1,7 @@
 {
   "name": "star-view",
   "private": true,
-  "version": "0.8.9",
+  "version": "0.8.10",
   "type": "module",
   "scripts": {
     "dev": "npm run catalog:generate && vite",
@@ -24,6 +24,8 @@
     "catalog:regenerate": "python3 scripts/regenerate-companions.py && npm run catalog:generate && npm run catalog:sitemap && npm run catalog:validate",
     "catalog:build": "node scripts/catalogs.ts build",
     "preview": "vite preview",
+    "bump": "npm version patch --no-git-tag-version",
+    "bump:minor": "npm version minor --no-git-tag-version",
     "catalog:white-dwarf-references": "python3 scripts/extract-white-dwarf-references.py && node scripts/catalogs.ts white-dwarf-references"
   },
   "devDependencies": {

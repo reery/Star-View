@@ -121,7 +121,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .scene-context-item:not([hidden]) ~ .scene-context-distance { margin-top: 4px; border-top: var(--mass-metric-divider); }
 .observer-direction-object { display: inline-flex; align-items: center; gap: 6px; min-width: 0; padding: 0; color: var(--ink); background: transparent; border: 0; font: inherit; cursor: pointer; }
 .observer-direction-object:focus-visible { outline-color: var(--accent-strong); outline-offset: 3px; }
-#observer-object-name { min-width: 0; max-width: 112px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#observer-object-name { min-width: 0; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 #observer-object-swatch { box-shadow: 0 0 6px color-mix(in srgb, var(--observer-star-color, var(--accent)) 55%, transparent); }
 @media (hover: hover) and (pointer: fine) {
   .saved-views-table tbody tr:hover { background: var(--panel-hover); }
@@ -146,8 +146,12 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .rotation-transport { display: flex; }
 #rotation-left-icon svg { transform: scaleX(-1); }
 /* Observing from: the Automatic rotation header, with its sky and roll groups set apart. */
-.observer-heading h2 { gap: 8px; }
+.observer-heading h2 { flex-direction: column; align-items: flex-start; justify-content: center; gap: 1px; }
+/* The small label sits above the object's name, both within the 44px header row. */
+.observer-heading-label { color: var(--muted); font-size: 11px; font-weight: 400; line-height: 1.2; }
+.observer-heading .observer-direction-object { max-width: 100%; }
 .observer-heading :is(.observer-sky, .observer-roll) { margin-left: 16px; }
+.panel-heading.observer-heading #observer-exit { margin-left: 16px; }
 .observer-sky > select { flex: 0 0 auto; width: auto; min-height: 44px; margin: -1px 0; padding: 0 6px; background: var(--surface-raised); border-width: 1px 1px 1px 0; border-top-color: transparent; border-radius: 0; font-size: 13px; }
 .observer-sky > select:disabled { opacity: 0.4; }
 .observer-sky > select + .distance-reference-button { border-left: 0; }
@@ -524,6 +528,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .dimension-label { background: #000000; padding: 3px 5px; color: var(--accent-strong); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .axis-label, .sky-grid-label { color: var(--muted); font-size: 10px; text-shadow: 0 0 3px #000000; }
 .sky-grid-label { transform: translate(7px, 5px); font-variant-numeric: tabular-nums; }
+.visibility-cone-label { font-size: 14px; font-weight: 600; opacity: 0.8; text-shadow: 0 0 3px #000000; transform: translate(-50%, -50%); }
 .is-moving .map-label { text-shadow: none; }
 
 .display-settings, .filter-controls { font-size: 14px; line-height: 1.35; color: var(--ink); }
@@ -1681,6 +1686,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   /* The title fills the first row beside the three 44px buttons, so the groups always start the second. */
   .observer-heading h2 { flex: 1 1 calc(100% - 132px); min-height: 44px; margin-right: 0; padding: 0 14px; overflow: hidden; }
   .panel-heading.observer-heading .time-lock { order: 1; height: 45px; margin-bottom: 0; }
+  .panel-heading.observer-heading #observer-exit { margin-left: 0; }
   .observer-heading :is(.observer-sky, .observer-roll) { order: 2; margin-left: 0; border-top: 1px solid var(--line); }
   .observer-heading .observer-roll { flex: 1; }
   .observer-heading .observer-roll > .time-button { flex: 1 0 44px; }
