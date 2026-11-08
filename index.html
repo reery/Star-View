@@ -784,6 +784,7 @@
                   <button id="paint-active" class="icon-button" type="button" aria-label="Paint active" aria-pressed="true" aria-controls="paint-panel" hidden><span id="paint-active-icon"></span><span class="tooltip">Paint active</span></button>
                   <button id="neighborhood-active" class="icon-button" type="button" aria-label="Neighborhood active" aria-pressed="true" aria-controls="neighborhood-panel" hidden><span id="neighborhood-active-icon"></span><span class="tooltip">Neighborhood active</span></button>
                   <button id="spaceship-active" class="icon-button" type="button" aria-label="Spaceship active" aria-pressed="true" aria-controls="spaceship-panel" hidden><span id="spaceship-active-icon"></span><span class="tooltip">Spaceship active</span></button>
+                  <button id="observer-active" class="icon-button" type="button" aria-label="Observer view active" aria-pressed="true" aria-controls="observer-panel" hidden><span id="observer-active-icon"></span><span class="tooltip">Observer view active</span></button>
                   <button id="rotation-active" class="icon-button" type="button" aria-label="Automatic rotation active" aria-pressed="true" aria-controls="rotation-panel" hidden><span id="rotation-active-icon"></span><span class="tooltip">Automatic rotation active</span></button>
                   <button id="graph-filter-active" class="icon-button" type="button" aria-label="Graph filter active" aria-pressed="true" aria-controls="graphs-panel" hidden><span id="graph-filter-active-icon"></span><span class="tooltip">Graph filter active</span></button>
                 </div>
@@ -831,6 +832,29 @@
                   </div>
                   <button id="rotation-lock" class="panel-lock time-lock" type="button" aria-label="Keep Automatic rotation open" aria-pressed="false"><span id="rotation-lock-icon"></span></button>
                   <button id="rotation-close" class="panel-lock time-lock" type="button" aria-label="Close automatic rotation card"><span id="rotation-close-icon"></span></button>
+                </div>
+              </section>
+              <section id="observer-panel" class="dock-card rotation-card" aria-labelledby="observer-heading" data-scene-obstacle hidden>
+                <div class="panel-heading rotation-heading observer-heading">
+                  <h2 id="observer-heading"><span class="observer-heading-label">Observing from</span> <button id="observer-object" class="observer-direction-object" type="button"><span id="observer-object-swatch" class="star-swatch" aria-hidden="true"></span><span id="observer-object-name"></span></button></h2>
+                  <div class="rotation-transport observer-sky" role="group" aria-label="Observer sky">
+                    <button id="observer-axial-tilt" class="object-section-button distance-reference-button time-button" type="button" aria-label="Stand on Earth" aria-pressed="false" title="Stand on Earth at the chosen latitude, with Earth’s axial tilt and a level horizon" disabled><span id="observer-axial-tilt-icon"></span></button>
+                    <label class="sr-only" for="observer-latitude">Latitude</label>
+                    <select id="observer-latitude" title="Latitude on Earth" disabled><option value="80">80° N</option><option value="70">70° N</option><option value="60">60° N</option><option value="50">50° N</option><option value="40" selected>40° N</option><option value="30">30° N</option><option value="20">20° N</option><option value="10">10° N</option><option value="0">0°</option><option value="-10">10° S</option><option value="-20">20° S</option><option value="-30">30° S</option><option value="-40">40° S</option><option value="-50">50° S</option><option value="-60">60° S</option><option value="-70">70° S</option><option value="-80">80° S</option></select>
+                    <button id="observer-cone" class="object-section-button distance-reference-button time-button" type="button" aria-label="Show visibility cone" aria-pressed="false" title="Show visibility cone" disabled><span id="observer-cone-icon"></span></button>
+                    <label class="sr-only" for="observer-cone-time">Visibility cone time</label>
+                    <select id="observer-cone-time" title="Visibility cone time" disabled><option value="now" selected>Now</option><option value="18-20">18–20</option><option value="20-22">20–22</option><option value="22-24">22–24</option><option value="0-2">0–2</option><option value="2-4">2–4</option><option value="4-6">4–6</option><option value="6-8">6–8</option></select>
+                    <button id="observer-telescope" class="object-section-button distance-reference-button time-button" type="button" aria-label="Telescope zoom" aria-pressed="false" aria-controls="scene" title="Telescope zoom (1.6×)" disabled><span id="observer-telescope-icon"></span></button>
+                    <button id="observer-observatory" class="object-section-button distance-reference-button time-button" type="button" aria-label="Observatory zoom" aria-pressed="false" aria-controls="scene" title="Observatory zoom (4×)" disabled><span id="observer-observatory-icon"></span></button>
+                  </div>
+                  <div class="rotation-transport observer-roll" role="group" aria-label="Observer roll">
+                    <button id="observer-roll-counterclockwise" class="object-section-button distance-reference-button time-button" type="button" aria-label="Roll view counterclockwise" title="Roll counterclockwise" disabled><span id="observer-roll-counterclockwise-icon"></span></button>
+                    <button id="observer-roll-reset" class="object-section-button distance-reference-button time-button" type="button" aria-label="Reset view roll" title="Reset view roll" disabled><span id="observer-roll-reset-icon"></span></button>
+                    <button id="observer-roll-clockwise" class="object-section-button distance-reference-button time-button" type="button" aria-label="Roll view clockwise" title="Roll clockwise" disabled><span id="observer-roll-clockwise-icon"></span></button>
+                  </div>
+                  <button id="observer-exit" class="panel-lock time-lock" type="button" aria-label="Exit observer view" title="Exit observer view"><span id="observer-exit-icon"></span></button>
+                  <button id="observer-lock" class="panel-lock time-lock" type="button" aria-label="Keep Observing from open" aria-pressed="false"><span id="observer-lock-icon"></span></button>
+                  <button id="observer-close" class="panel-lock time-lock" type="button" aria-label="Close observer card"><span id="observer-close-icon"></span></button>
                 </div>
               </section>
               <section id="filter-panel" class="dock-card filter-section" aria-labelledby="filter-heading" hidden>
@@ -1192,15 +1216,6 @@
               </section>
             </div>
             <div id="spaceship-throttle" class="spaceship-throttle" role="slider" aria-label="Throttle: hold and slide up to fly forward, down to fly backward" aria-orientation="vertical" aria-valuemin="-1" aria-valuemax="1" aria-valuenow="0" data-scene-obstacle hidden><span id="spaceship-throttle-up-icon"></span><span class="spaceship-throttle-knob"></span><span id="spaceship-throttle-down-icon"></span></div>
-            <section id="observer-direction-card" class="observer-direction-card" aria-labelledby="observer-direction-title" data-scene-obstacle hidden>
-              <h2 id="observer-direction-title" class="observer-direction-title"><span>Observing from</span><button id="observer-object" class="observer-direction-object" type="button"><span id="observer-object-swatch" class="star-swatch" aria-hidden="true"></span><span id="observer-object-name"></span></button></h2>
-              <div class="observer-direction-buttons" role="group" aria-label="Observer camera controls">
-                <button id="observer-telescope" class="observer-direction-button" type="button" aria-label="Telescope zoom" aria-pressed="false" aria-controls="scene" title="Telescope zoom (1.6×)" disabled><span id="observer-telescope-icon"></span></button>
-                <button id="observer-roll-counterclockwise" class="observer-direction-button" type="button" aria-label="Roll view counterclockwise" title="Roll counterclockwise" disabled><span id="observer-roll-counterclockwise-icon"></span></button>
-                <button id="observer-roll-reset" class="observer-direction-button" type="button" aria-label="Reset view roll" title="Reset view roll" disabled><span id="observer-roll-reset-icon"></span></button>
-                <button id="observer-roll-clockwise" class="observer-direction-button" type="button" aria-label="Roll view clockwise" title="Roll clockwise" disabled><span id="observer-roll-clockwise-icon"></span></button>
-              </div>
-            </section>
           </aside>
         </section>
       </main>
@@ -1210,6 +1225,7 @@
     <div id="saved-view-context-backdrop" class="saved-view-context-backdrop" aria-hidden="true" hidden></div>
     <div id="saved-view-context-menu" class="saved-view-context-menu" role="menu" aria-label="Saved view actions" hidden>
       <button id="saved-view-context-load" class="scene-context-item" type="button" role="menuitem" tabindex="-1"></button>
+      <button id="saved-view-context-overwrite" class="scene-context-item" type="button" role="menuitem" tabindex="-1"></button>
       <button id="saved-view-context-copy" class="scene-context-item" type="button" role="menuitem" tabindex="-1"></button>
       <button id="saved-view-context-delete" class="saved-view-context-delete" type="button" role="menuitem" tabindex="-1"></button>
     </div>

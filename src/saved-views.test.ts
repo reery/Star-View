@@ -9,7 +9,7 @@ const defaults: SavedViewSettings = {
   visibilityConeMode: 'off', motionArrowsVisible: false, motionYears: 1_000, motionFrame: 'galactic', gridVisible: true, skyGridMode: 'off',
   simulationYears: 0, simulationPlaying: false, simulationDirection: 1, playbackSecondsPerThousandYears: 1, followSelection: false,
   selectedId: 'sirius-a', observerId: 'sirius-a', referenceId: 'sun', observerView: false, observerViewAnchorId: null, objectSearch: '',
-  viewState: { position: [3.4128765123, -1.98234123, 2.76523412], target: [-0.4938271234, 2.47712345, -0.7591234], home: false, observerRollRadians: 0, observerTelescope: false },
+  viewState: { position: [3.4128765123, -1.98234123, 2.76523412], target: [-0.4938271234, 2.47712345, -0.7591234], home: false, observerRollRadians: 0, observerTelescope: false, observerObservatory: false },
   graphFilter: [], paint: [],
 }
 
@@ -17,14 +17,14 @@ const observer: SavedViewSettings = {
   ...defaults, catalogId: 'nearest-1000', showWesternConstellationStars: true, filterSubtypes: [...defaults.filterSubtypes, 'neutron_star', 'pulsar'],
   magnitudeLimit: 6.5, objectDistanceLimitLy: 150, skyGridMode: 'equatorial', motionArrowsVisible: true, motionYears: 10_000, simulationYears: -12_345,
   selectedId: 'aldebaran-a', observerId: 'aldebaran-a', observerView: true, observerViewAnchorId: 'aldebaran-a',
-  viewState: { position: [12.345678901234, -3.2109876543, 45.678901234], target: [12.345679901234, -3.2109866543, 45.678902234], home: false, observerRollRadians: 0.123, observerTelescope: true },
+  viewState: { position: [12.345678901234, -3.2109876543, 45.678901234], target: [12.345679901234, -3.2109866543, 45.678902234], home: false, observerRollRadians: 0.123, observerTelescope: true, observerObservatory: false },
 }
 
 const graphs: SavedViewSettings = {
   ...defaults, catalogId: 'nearest-5000', showNakedEyeStars: true, milkyWayVisible: false, selectedId: null, observerId: 'sun',
   graphFilter: [{ section: 'hr', key: '4000 9000 10.00 1000', label: '4,000 to 9,000 K, 10 to 1,000 L☉', range: [4000, 9000, 10, null] }, { section: 'spectral', key: 'G', label: 'G' }],
   paint: [['temperature', 0.75, ['color']], ['distance', 0.5]], neighborhood: { centerId: 'vega', radiusLy: 20 },
-  viewState: { position: [48.12345678, -120.98765432, 33.33333333], target: [0, 0, 0], home: true, observerRollRadians: 0, observerTelescope: false },
+  viewState: { position: [48.12345678, -120.98765432, 33.33333333], target: [0, 0, 0], home: true, observerRollRadians: 0, observerTelescope: false, observerObservatory: false },
 }
 
 function expectRoundTrip(settings: SavedViewSettings, name = 'A view'): string {
