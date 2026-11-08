@@ -126,6 +126,18 @@ test('the toolbar copies the current view as a link without saving it', async ({
   await expect(notice).toHaveCSS('color', danger)
 })
 
+test('closing the saved views card returns focus without expanding its flyout', async ({ page }) => {
+  await openViewer(page)
+  await page.getByRole('button', { name: 'Saved views', exact: true }).click()
+  await page.locator('#views-close').click()
+  await expect(page.locator('#views-toggle')).toBeFocused()
+  await expect(page.locator('#copy-view-link')).toBeHidden()
+  // Keyboard navigation expands it again.
+  await page.keyboard.press('Tab')
+  await expect(page.locator('#copy-view-link')).toBeFocused()
+  await expect(page.locator('#copy-view-link')).toBeVisible()
+})
+
 test('overwriting a saved view keeps its name and stores the current view', async ({ page }) => {
   await openViewer(page)
   await openFilter(page)

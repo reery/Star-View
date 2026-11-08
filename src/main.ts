@@ -3841,12 +3841,21 @@ const discoverControls = element('discover-toggle').parentElement!
 element('discover-options').addEventListener('click', (event) => {
   if (event.target instanceof Element && event.target.closest('button')) discoverControls.setAttribute('data-dismissed', '')
 }, { signal: events.signal })
-element('discover-toggle').addEventListener('pointerenter', (event) => { if (event.pointerType !== 'touch') discoverControls.removeAttribute('data-dismissed') }, { signal: events.signal })
-document.addEventListener('keydown', (event) => { if (event.key === 'Tab') discoverControls.removeAttribute('data-dismissed') }, { signal: events.signal })
-/** Returns focus to Explore after closing one of its cards, without reopening the flyout. */
-function focusDiscoverToggle(): void {
-  discoverControls.setAttribute('data-dismissed', '')
-  element('discover-toggle').focus()
+// Any retracted flyout reopens when the pointer returns to its button or keyboard navigation resumes.
+const toolbarFlyouts = document.querySelectorAll<HTMLElement>('[data-toolbar-flyout]')
+for (const flyout of toolbarFlyouts) {
+  for (const button of flyout.querySelectorAll<HTMLButtonElement>(':scope > button')) {
+    button.addEventListener('pointerenter', (event) => { if (event.pointerType !== 'touch') flyout.removeAttribute('data-dismissed') }, { signal: events.signal })
+  }
+}
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Tab') for (const flyout of toolbarFlyouts) flyout.removeAttribute('data-dismissed')
+}, { signal: events.signal })
+/** Returns focus to a toolbar button after closing its card, without expanding the button's flyout. */
+function focusToolbarButton(id: string): void {
+  const button = element(id)
+  button.closest('[data-toolbar-flyout]')?.setAttribute('data-dismissed', '')
+  button.focus()
 }
 element('graph-filter-active').addEventListener('click', () => togglePanel('graphs'), { signal: events.signal })
 element('paint-active').addEventListener('click', () => togglePanel('paint'), { signal: events.signal })
@@ -3867,7 +3876,7 @@ element('spaceship-clear').addEventListener('click', () => {
   renderSelection()
   setPanelOpen('spaceship', false)
   syncPanelLayout()
-  focusDiscoverToggle()
+  focusToolbarButton('discover-toggle')
 }, { signal: events.signal })
 for (const [id, fromShip] of [['spaceship-visibility-selected', false], ['spaceship-visibility-ship', true]] as const) {
   element(id).addEventListener('click', () => {
@@ -4552,9 +4561,7 @@ for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constel
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()
-    const toggle = panelToggleId(name)
-    if (toggle === 'discover-toggle') focusDiscoverToggle()
-    else element(toggle).focus()
+    focusToolbarButton(panelToggleId(name))
   }, { signal: events.signal })
 }
 const welcomeTile = element('welcome-tile')
@@ -4817,7 +4824,7 @@ document.addEventListener('keydown', (event) => {
     ?? (panelIsOpen('motion') ? 'motion' : undefined)
   if (!open) return
   togglePanel(open)
-  element(panelToggleId(open)).focus()
+  focusToolbarButton(panelToggleId(open))
 }, { signal: events.signal })
 for (const name of detailCardNames) {
   element(`${name}-close`).addEventListener('click', () => detailCardClosers[name](true), { signal: events.signal })
@@ -4975,7 +4982,7 @@ element('observer-cone-time').addEventListener('change', () => {
 }, { signal: events.signal })
 element('observer-exit').addEventListener('click', () => {
   setObserverViewAnchor(null)
-  element('observer-view').focus()
+  focusToolbarButton('observer-view')
 }, { signal: events.signal })
 element('observer-roll-reset').addEventListener('click', () => viewer?.rollObserverView('center'), { signal: events.signal })
 element('observer-roll-clockwise').addEventListener('click', () => viewer?.rollObserverView('clockwise'), { signal: events.signal })
