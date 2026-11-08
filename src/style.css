@@ -260,7 +260,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .dock-rail { position: relative; }
 .dock-indicators { position: absolute; right: calc(100% + 4px); bottom: 0; display: flex; gap: 4px; transition: transform 160ms ease; }
 /* Clears the Tutorial button with a gap wide enough to read as a separate group. */
-.control-dock .info-controls:is(:focus-within, [data-touch-open]) ~ .dock-indicators { transform: translateX(-64px); }
+.control-dock .info-controls:not([data-dismissed]):is(:focus-within, [data-touch-open]) ~ .dock-indicators { transform: translateX(-64px); }
 @media (hover: hover) and (pointer: fine) {
   .control-dock .info-controls:hover ~ .dock-indicators { transform: translateX(-64px); }
 }
@@ -439,13 +439,13 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 [data-toolbar-flyout]:has([data-toolbar-options] button:not(:disabled)) > button:disabled { pointer-events: none; }
 .discover-controls:not([data-dismissed]):focus-within .discover-options,
 [data-toolbar-flyout][data-touch-open]:not([data-dismissed]):has(button:not(:disabled)) > [data-toolbar-options],
-.camera-view-controls:focus-within:has(#reset-view:not(:disabled)) .camera-view-options,
-.origin-controls:focus-within:has(#go-to-origin:not(:disabled)) .origin-options,
-.grid-controls:focus-within:has(#toggle-grid:not(:disabled)) .grid-options,
-.saved-view-controls:focus-within:has(#views-toggle:not(:disabled)) .saved-view-options,
-.selection-controls:focus-within:has(.icon-button:not(:disabled)) .selection-options,
-.info-controls:focus-within .info-options,
-.observer-view-controls:focus-within:has(.observer-view-button:not(:disabled)) .observer-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
+.camera-view-controls:not([data-dismissed]):focus-within:has(#reset-view:not(:disabled)) .camera-view-options,
+.origin-controls:not([data-dismissed]):focus-within:has(#go-to-origin:not(:disabled)) .origin-options,
+.grid-controls:not([data-dismissed]):focus-within:has(#toggle-grid:not(:disabled)) .grid-options,
+.saved-view-controls:not([data-dismissed]):focus-within:has(#views-toggle:not(:disabled)) .saved-view-options,
+.selection-controls:not([data-dismissed]):focus-within:has(.icon-button:not(:disabled)) .selection-options,
+.info-controls:not([data-dismissed]):focus-within .info-options,
+.observer-view-controls:not([data-dismissed]):focus-within:has(.observer-view-button:not(:disabled)) .observer-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
 /* A first touch names the previous object while revealing Next; the second touch selects it. */
 .selection-controls[data-touch-open] > .icon-button:not(:disabled) .tooltip { display: block; }
 .camera-view-controls :is(#reset-view, #rotation-toggle) .tooltip, .origin-controls #set-origin .tooltip, .observer-view-controls #observer-view .tooltip, .grid-controls .tooltip, .saved-view-controls .tooltip, .selection-controls .tooltip, .discover-controls .tooltip { top: calc(100% + 8px); right: 0; }
