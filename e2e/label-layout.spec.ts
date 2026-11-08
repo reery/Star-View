@@ -82,6 +82,9 @@ test('shows selected Dschubba component names from the Sun without individual vi
   const offscreenLabel = page.locator('[data-star-id="orb6-16003-2237-a-b-b"].is-clipped .star-label')
   await expect(offscreenLabel).toBeVisible()
   await page.evaluate(() => new Promise(requestAnimationFrame))
+  // Preferences replaced the observer card; its indicator brings it back.
+  await page.locator('#observer-active').click()
+  await page.evaluate(() => new Promise(requestAnimationFrame))
   const steadyBounds = await offscreenLabel.boundingBox()
   for (let frame = 0; frame < 8; frame++) {
     // Queue a fresh ordinary layout without changing the camera direction.

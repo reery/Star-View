@@ -77,7 +77,7 @@ test('sky grids draw in map and rolled observer views without WebGL errors @mobi
   const beforeRoll = await labels()
   await page.locator('#observer-roll-counterclockwise').click()
   await expect(page.locator('#scene')).toHaveAttribute('data-observer-roll-degrees', '15')
-  expect(await labels()).not.toEqual(beforeRoll)
+  await expect.poll(labels).not.toEqual(beforeRoll)
   await page.locator('#observer-telescope').click()
   await expect(page.locator('#scene')).toHaveAttribute('data-sky-grid', 'galactic')
   await page.screenshot({ path: testInfo.outputPath('galactic-observer-grid.png') })

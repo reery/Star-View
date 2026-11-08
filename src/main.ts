@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Crosshair, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
@@ -22,7 +22,7 @@ import legacyStarIds from './data/legacy-star-ids.json'
 import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, formatDistance, galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { isVisibilityConeMode, LATITUDE_STORAGE_KEY, observerLatitude, VISIBILITY_CONE_MODES, visibilityConeHours, visibilityConeModeLabel, type VisibilityConeMode } from './constellation-visibility'
-import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type StarViewer, type ViewerViewState } from './viewer'
+import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type ObserverFrame, type StarViewer, type ViewerViewState } from './viewer'
 import { CONTEXT_MENU_HOLD_MS, isObjectMapVisible, mapVisibilityTier, motionTravelDistancePc } from './viewer-primitives'
 import { targetRenderFps } from './render-scheduling'
 import { renderSelectedStarPreview } from './selected-star-preview'
@@ -217,7 +217,14 @@ icon('set-sun-origin-icon', Sun)
 icon('go-to-origin-icon', Crosshair)
 icon('observer-view-icon', Eye)
 icon('observer-view-origin-icon', ObserverOriginIcon)
+icon('observer-axial-tilt-icon', Earth)
+icon('observer-cone-icon', Cone)
 icon('observer-telescope-icon', Telescope)
+icon('observer-observatory-icon', Dome)
+icon('observer-lock-icon', Lock)
+icon('observer-exit-icon', LogOut)
+icon('observer-close-icon', X)
+icon('observer-active-icon', Eye)
 icon('observer-roll-counterclockwise-icon', RotateCcw)
 icon('observer-roll-reset-icon', Crosshair)
 icon('observer-roll-clockwise-icon', RotateCw)
@@ -381,9 +388,22 @@ let milkyWayVisible = true
 let oortCloudVisible = true
 let visibilityConeMode: VisibilityConeMode = 'off'
 let visibilityLatitude = observerLatitude(null)
+// The observer card keeps its own choices: Earth's tilt, latitude, cone and cone time persist apart from the
+// constellation card and the preferences.
+let observerAxialTilt = false
+let observerCardLatitude: number | null = null
+let observerConeMode: Exclude<VisibilityConeMode, 'off'> = 'now'
+let observerConeVisible = false
+// The observer view that the card was last opened for, so it opens once per entry.
+let observerCardShown = false
+const observerLatitudeDegrees = () => observerCardLatitude ?? visibilityLatitude
 function visibilityConeView() {
-  const hours = visibilityConeHours(visibilityConeMode)
-  return hours && { latitude: visibilityLatitude, hours }
+  const hours = observerView ? observerConeVisible ? visibilityConeHours(observerConeMode) : null : visibilityConeHours(visibilityConeMode)
+  return hours && { latitude: observerView ? observerLatitudeDegrees() : visibilityLatitude, hours }
+}
+// Earth's tilt stands on the card's latitude at its cone hours, the same sky the observer cone shows.
+function observerFrame(): ObserverFrame {
+  return observerAxialTilt ? { latitude: observerLatitudeDegrees(), hours: visibilityConeHours(observerConeMode)! } : null
 }
 function syncVisibilityConeControl(): void {
   const input = element<HTMLInputElement>('visibility-cone-mode')
@@ -456,6 +476,8 @@ if (savedFilter) {
 }
 let savedViews = readSavedViews()
 let savedViewMenuRow: HTMLTableRowElement | null = null
+// A tap opens the whole saved view menu, since touch has no context menu.
+let savedViewTouch = false
 let sceneMenuTargetId: string | null = null
 /** The pointer that opened the scene menu while still pressed; releasing it over an item chooses that item. */
 let sceneMenuPointerId: number | null = null
@@ -478,6 +500,12 @@ try {
   const storedVisibilityConeMode = localStorage.getItem('star-view-visibility-cone-mode')
   if (isVisibilityConeMode(storedVisibilityConeMode)) visibilityConeMode = storedVisibilityConeMode
   visibilityLatitude = observerLatitude(localStorage.getItem(LATITUDE_STORAGE_KEY))
+  observerAxialTilt = localStorage.getItem('star-view-observer-axial-tilt') === 'true'
+  const storedObserverLatitude = localStorage.getItem('star-view-observer-latitude')
+  if (storedObserverLatitude !== null) observerCardLatitude = observerLatitude(storedObserverLatitude)
+  const storedObserverConeMode = localStorage.getItem('star-view-observer-cone-mode')
+  if (isVisibilityConeMode(storedObserverConeMode) && storedObserverConeMode !== 'off') observerConeMode = storedObserverConeMode
+  observerConeVisible = localStorage.getItem('star-view-observer-cone') === 'true'
   const storedLabelLimit = localStorage.getItem('star-view-label-limit')
   const parsedLabelLimit = Number(storedLabelLimit)
   if (storedLabelLimit !== null && parsedLabelLimit >= 0 && parsedLabelLimit <= 140 && parsedLabelLimit % 20 === 0) labelLimit = parsedLabelLimit
@@ -506,10 +534,11 @@ document.querySelectorAll('.time-markers').forEach((markers) => {
 })
 const selectionHistory = new SelectionHistory(selectedId)
 // The Spaceship card floats at the bottom center: it opens beside other cards and only its own controls close it.
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation'] as const
-const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'rotation'] as const
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation', 'observer'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'rotation', 'observer'] as const
 // Explore panels open from the flyout, so focus returns to its toggle.
-const panelToggleId = (name: typeof panelNames[number]) => name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
+// The observer card opens with observer view and has no toggle of its own; closed, its indicator reopens it.
+const panelToggleId = (name: typeof panelNames[number]) => name === 'observer' ? 'observer-active' : name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 // On desktop, these cards move the 3D view center left while locked, so the scene stays visible beside them.
 const viewCenteringPanels: readonly typeof lockablePanelNames[number][] = ['paint', 'graphs', 'preferences', 'filter']
@@ -580,7 +609,12 @@ function updateObserverControl(): void {
   element('observer-view-origin-swatch').hidden = !origin
   element('observer-view-origin-swatch').style.background = origin ? starDisplayColor(origin, starColorMode).getStyle() : ''
   element('observer-view-controls').tabIndex = button.disabled && !originButton.disabled ? 0 : -1
-  element('observer-direction-card').hidden = !observerView
+  if (observerCardShown !== observerView) {
+    observerCardShown = observerView
+    viewer?.setVisibilityCone(visibilityConeView())
+    if (observerView !== panelIsOpen('observer')) togglePanel('observer')
+    else setActiveIndicator('observer-active', false)
+  }
   const observerObject = element<HTMLButtonElement>('observer-object')
   observerObject.hidden = !observer
   observerObject.disabled = sceneBusy || !observer
@@ -589,12 +623,21 @@ function updateObserverControl(): void {
     text('observer-object-name', observer.name)
     observerObject.setAttribute('aria-label', `Select observing object ${observer.name}`)
     element('observer-object-swatch').style.background = color
-    element('observer-direction-card').style.setProperty('--observer-star-color', color)
+    element('observer-panel').style.setProperty('--observer-star-color', color)
   }
-  element('observer-telescope').setAttribute('aria-pressed', String(observerView && Boolean(viewer?.getViewState().observerTelescope)))
-  for (const id of ['observer-telescope', 'observer-roll-counterclockwise', 'observer-roll-reset', 'observer-roll-clockwise']) {
-    element<HTMLButtonElement>(id).disabled = sceneBusy || !observerView
+  const viewState = viewer?.getViewState()
+  element('observer-telescope').setAttribute('aria-pressed', String(observerView && Boolean(viewState?.observerTelescope)))
+  element('observer-observatory').setAttribute('aria-pressed', String(observerView && Boolean(viewState?.observerObservatory)))
+  element('observer-axial-tilt').setAttribute('aria-pressed', String(observerAxialTilt))
+  element('observer-cone').setAttribute('aria-pressed', String(observerConeVisible))
+  element<HTMLSelectElement>('observer-latitude').value = String(observerLatitudeDegrees())
+  element<HTMLSelectElement>('observer-cone-time').value = observerConeMode
+  const observerControlsDisabled = sceneBusy || !observerView
+  for (const id of ['observer-axial-tilt', 'observer-cone', 'observer-telescope', 'observer-observatory', 'observer-roll-counterclockwise', 'observer-roll-reset', 'observer-roll-clockwise']) {
+    element<HTMLButtonElement>(id).disabled = observerControlsDisabled
   }
+  element<HTMLSelectElement>('observer-latitude').disabled = observerControlsDisabled || !observerAxialTilt
+  element<HTMLSelectElement>('observer-cone-time').disabled = observerControlsDisabled || !observerConeVisible
   for (const id of cameraViewButtonIds) {
     element<HTMLButtonElement>(id).disabled = sceneBusy || observerView || piloting
   }
@@ -613,6 +656,7 @@ function cardsHaveClearance(first: HTMLElement, second: HTMLElement, gap = 10): 
 }
 
 function panelIsOpen(name: typeof panelNames[number]): boolean {
+  if (name === 'observer') return !element('observer-panel').hidden
   return element<HTMLButtonElement>(`${name}-toggle`).getAttribute('aria-expanded') === 'true'
 }
 
@@ -620,8 +664,9 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
   if (name === 'filter' && !open) setFilterSaveIndicator(false)
   if (name === 'views' && !open) closeSavedViewContextMenu()
   if (name === 'objects' && !open) objectList.closeColumnFilter()
-  element<HTMLButtonElement>(`${name}-toggle`).setAttribute('aria-expanded', String(open))
+  if (name !== 'observer') element<HTMLButtonElement>(`${name}-toggle`).setAttribute('aria-expanded', String(open))
   element(`${name}-panel`).hidden = !open
+  if (name === 'observer') setActiveIndicator('observer-active', observerView && !open)
   if (name === 'preferences' && open) updateBrowserDataSize()
   if (name === 'glossary' && open) {
     if (glossary) glossary.open()
@@ -1746,7 +1791,7 @@ function syncSelectedObjectLayout(): void {
   selectedCard.style.maxHeight = `${Math.max(68, availableHeight)}px`
 }
 
-function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active', active: boolean): void {
+function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active', active: boolean): void {
   const indicator = element(id)
   if (indicator.hidden !== active) return
   indicator.hidden = !active
@@ -2852,9 +2897,8 @@ function toggleVisibilityLock(): void {
   renderSelection()
 }
 
-function rollObserverView(direction: 'counterclockwise' | 'center' | 'clockwise'): void {
-  viewer?.rollObserverView(direction)
-}
+const observerZoomOf = (state?: ViewerViewState | null) => state?.observerObservatory ? 'observatory' as const : state?.observerTelescope ? 'telescope' as const : null
+
 
 function renderDistances(): void {
   element<HTMLInputElement>(`unit-${distanceUnit}`).checked = true
@@ -3014,8 +3058,9 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   if (retainedView) {
     viewer.setViewState({ ...retainedView, home: false })
   }
+  viewer.setObserverFrame(observerFrame())
   observerView = viewer.setObserverView(observerView, observerViewAnchorId ?? undefined, retainedView?.observerRollRadians)
-  viewer.setObserverTelescope(Boolean(retainedView?.observerTelescope), false)
+  viewer.setObserverZoom(observerZoomOf(retainedView), false)
   if (!observerView) observerViewAnchorId = null
   if (spaceship) applySpaceship()
   sceneStatus(null)
@@ -3200,7 +3245,7 @@ function closeSavedViewContextMenu(restoreFocus = false): void {
   savedViewMenuRow = null
 }
 
-/** Opens the saved view menu; a primary click or Enter offers loading and copying a link, a context menu also offers deleting. */
+/** Opens the saved view menu; a mouse click or Enter leaves deleting to the context menu, which touch cannot summon. */
 function openSavedViewContextMenu(row: HTMLTableRowElement, x: number, y: number, withDelete = true): void {
   const savedView = savedViews.find((candidate) => candidate.id === row.dataset.savedViewId)
   if (!savedView) return
@@ -3209,6 +3254,7 @@ function openSavedViewContextMenu(row: HTMLTableRowElement, x: number, y: number
   const load = element<HTMLButtonElement>('saved-view-context-load')
   const remove = element<HTMLButtonElement>('saved-view-context-delete')
   load.textContent = `Load '${savedView.name}'`
+  element('saved-view-context-overwrite').textContent = `Overwrite '${savedView.name}' with this view`
   element('saved-view-context-copy').textContent = `Copy '${savedView.name}' as link`
   remove.textContent = `Delete '${savedView.name}'`
   remove.hidden = !withDelete
@@ -3551,7 +3597,7 @@ async function loadSavedView(savedView: SavedView, linked = false): Promise<void
     observerId = savedObserverAnchorId
     viewer.setVisibility(observerId, magnitudeLimit, hideFainterObjects)
     observerView = viewer.setObserverView(true, savedObserverAnchorId, settings.viewState.observerRollRadians)
-    viewer.setObserverTelescope(Boolean(settings.viewState.observerTelescope), false)
+    viewer.setObserverZoom(observerZoomOf(settings.viewState), false)
     if (!observerView) observerViewAnchorId = null
   }
   selectionHistory.record(selectedId)
@@ -3613,6 +3659,21 @@ function copyViewLink(view: Pick<SavedView, 'name' | 'settings'>, description: s
   }
   Promise.resolve().then(() => navigator.clipboard.writeText(link))
     .then(() => show(`Link to ${description} copied to the clipboard.`), () => show('Could not copy the link.', true))
+}
+
+function overwriteSavedView(id: string): void {
+  const savedView = savedViews.find((candidate) => candidate.id === id)
+  const settings = currentSavedViewSettings()
+  if (!savedView) return
+  if (!settings) {
+    setSavedViewsStatus('Wait for the scene to finish loading before saving')
+    return
+  }
+  // The newest view comes first.
+  const overwritten: SavedView = { ...savedView, originName: starById(referenceId)?.name ?? referenceId, savedAt: new Date().toISOString(), settings }
+  if (!writeSavedViews([overwritten, ...savedViews.filter((candidate) => candidate !== savedView)])) return
+  setSavedViewsStatus(`Overwrote “${savedView.name}”`)
+  renderSavedViews()
 }
 
 function deleteSavedView(id: string): void {
@@ -4359,6 +4420,10 @@ document.addEventListener('change', (event) => {
   if (!(target instanceof HTMLSelectElement) || target.dataset.constellationPart !== 'constellation-latitude') return
   visibilityLatitude = Number(target.value)
   viewer?.setVisibilityCone(visibilityConeView())
+  if (!observerView) return
+  // Until the card has a latitude of its own, it follows the constellation card's.
+  if (observerAxialTilt && observerCardLatitude === null) viewer?.setObserverFrame(observerFrame())
+  updateObserverControl()
 }, { signal: events.signal })
 element('milky-way-visible').addEventListener('change', () => {
   milkyWayVisible = element<HTMLInputElement>('milky-way-visible').checked
@@ -4470,7 +4535,7 @@ element('object-type-filter').addEventListener('change', (event) => {
   applyObjectFilter()
 }, { signal: events.signal })
 for (const name of panelNames) {
-  element(`${name}-toggle`).addEventListener('click', () => togglePanel(name), { signal: events.signal })
+  element(name === 'observer' ? 'observer-active' : `${name}-toggle`).addEventListener('click', () => togglePanel(name), { signal: events.signal })
 }
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
@@ -4483,7 +4548,7 @@ document.addEventListener('click', (event) => {
   event.preventDefault()
   openGlossaryTerm(term)
 }, { signal: events.signal })
-for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'spaceship', 'rotation'] as const) {
+for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'spaceship', 'rotation', 'observer'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()
@@ -4530,8 +4595,9 @@ element('saved-views-list').addEventListener('click', (event) => {
   const target = event.target
   if (!(target instanceof Element)) return
   const row = target.closest<HTMLTableRowElement>('tr[data-saved-view-id]')
-  if (row) openSavedViewContextMenu(row, event.clientX, event.clientY, false)
+  if (row) openSavedViewContextMenu(row, event.clientX, event.clientY, savedViewTouch)
 }, { signal: events.signal })
+element('saved-views-list').addEventListener('pointerdown', (event) => { savedViewTouch = event.pointerType === 'touch' }, { passive: true, signal: events.signal })
 element('saved-views-list').addEventListener('contextmenu', (event) => {
   const target = event.target
   if (!(target instanceof Element)) return
@@ -4559,6 +4625,13 @@ element('saved-view-context-load').addEventListener('click', () => {
   const savedView = savedViews.find((candidate) => candidate.id === element('saved-view-context-menu').dataset.savedViewId)
   closeSavedViewContextMenu(true)
   if (savedView) void loadSavedView(savedView)
+}, { signal: events.signal })
+element('saved-view-context-overwrite').addEventListener('click', () => {
+  const id = element('saved-view-context-menu').dataset.savedViewId
+  closeSavedViewContextMenu()
+  if (!id) return
+  overwriteSavedView(id)
+  element('saved-views-list').querySelector<HTMLElement>(`tr[data-saved-view-id="${CSS.escape(id)}"]`)?.focus({ preventScroll: true })
 }, { signal: events.signal })
 element('saved-view-context-copy').addEventListener('click', () => {
   const savedView = savedViews.find((candidate) => candidate.id === element('saved-view-context-menu').dataset.savedViewId)
@@ -4862,38 +4935,57 @@ element('observer-view-origin').addEventListener('click', () => setObserverViewA
 element('observer-object').addEventListener('click', () => {
   if (observerViewAnchorId !== null) selectStar(observerViewAnchorId)
 }, { signal: events.signal })
-element('observer-roll-counterclockwise').addEventListener('click', () => rollObserverView('counterclockwise'), { signal: events.signal })
-element('observer-telescope').addEventListener('click', () => {
+element('observer-roll-counterclockwise').addEventListener('click', () => viewer?.rollObserverView('counterclockwise'), { signal: events.signal })
+for (const zoom of ['telescope', 'observatory'] as const) {
+  element(`observer-${zoom}`).addEventListener('click', () => {
+    if (!viewer || sceneBusy || !observerView) return
+    viewer.setObserverZoom(observerZoomOf(viewer.getViewState()) === zoom ? null : zoom)
+    updateObserverControl()
+  }, { signal: events.signal })
+}
+element('observer-axial-tilt').addEventListener('click', () => {
   if (!viewer || sceneBusy || !observerView) return
-  viewer.setObserverTelescope(!viewer.getViewState().observerTelescope)
+  observerAxialTilt = !observerAxialTilt
+  try { localStorage.setItem('star-view-observer-axial-tilt', String(observerAxialTilt)) } catch {}
+  viewer.setObserverFrame(observerFrame())
   updateObserverControl()
 }, { signal: events.signal })
-element('observer-roll-reset').addEventListener('click', () => rollObserverView('center'), { signal: events.signal })
-element('observer-roll-clockwise').addEventListener('click', () => rollObserverView('clockwise'), { signal: events.signal })
+element('observer-latitude').addEventListener('change', () => {
+  const latitude = element<HTMLSelectElement>('observer-latitude').value
+  observerCardLatitude = Number(latitude)
+  try { localStorage.setItem('star-view-observer-latitude', latitude) } catch {}
+  viewer?.setObserverFrame(observerFrame())
+  viewer?.setVisibilityCone(visibilityConeView())
+}, { signal: events.signal })
+element('observer-cone').addEventListener('click', () => {
+  if (sceneBusy || !observerView) return
+  observerConeVisible = !observerConeVisible
+  try { localStorage.setItem('star-view-observer-cone', String(observerConeVisible)) } catch {}
+  viewer?.setVisibilityCone(visibilityConeView())
+  updateObserverControl()
+}, { signal: events.signal })
+element('observer-cone-time').addEventListener('change', () => {
+  const mode = element<HTMLSelectElement>('observer-cone-time').value
+  if (!isVisibilityConeMode(mode) || mode === 'off') return
+  observerConeMode = mode
+  try { localStorage.setItem('star-view-observer-cone-mode', mode) } catch {}
+  // The zenith moves with the hour, so the horizon turns with it.
+  if (observerAxialTilt) viewer?.setObserverFrame(observerFrame())
+  viewer?.setVisibilityCone(visibilityConeView())
+}, { signal: events.signal })
+element('observer-exit').addEventListener('click', () => {
+  setObserverViewAnchor(null)
+  element('observer-view').focus()
+}, { signal: events.signal })
+element('observer-roll-reset').addEventListener('click', () => viewer?.rollObserverView('center'), { signal: events.signal })
+element('observer-roll-clockwise').addEventListener('click', () => viewer?.rollObserverView('clockwise'), { signal: events.signal })
 
 const selectedObjectLayout = new ResizeObserver(syncObjectTypeLayout)
 selectedObjectLayout.observe(element('selected-object-card'))
 
-const observerDirectionLayout = new ResizeObserver(() => {
-  const card = element('observer-direction-card')
-  const objectsPanel = element('objects-panel')
-  if (card.hidden || objectsPanel.hidden) return
-  const inspector = element('inspector')
-  const height = `${card.offsetHeight}px`
-  if (inspector.style.getPropertyValue('--observer-direction-height') !== height) {
-    inspector.style.setProperty('--observer-direction-height', height)
-  }
-  const clearance = `${Math.ceil(inspector.getBoundingClientRect().bottom - objectsPanel.getBoundingClientRect().top + 10)}px`
-  if (inspector.style.getPropertyValue('--objects-panel-clearance') !== clearance) {
-    inspector.style.setProperty('--objects-panel-clearance', clearance)
-  }
-})
-for (const id of ['inspector', 'objects-panel', 'observer-direction-card']) observerDirectionLayout.observe(element(id))
-
 import.meta.hot?.dispose(() => {
   events.abort()
   selectedObjectLayout.disconnect()
-  observerDirectionLayout.disconnect()
   if (playbackFrameRequest !== null) cancelAnimationFrame(playbackFrameRequest)
   viewer?.dispose()
   distanceCardModule?.disposeDistanceComparison()

@@ -2248,8 +2248,7 @@ test('keeps a rolled observer view stable when dragging over the zenith', async 
     await page.mouse.up()
     await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
     const frame = await observerFrame()
-    // Roll stays fixed, the view never crosses the pole, and the screen up never flips.
-    expect(frame.roll).toBe('45')
+    // Drags turn around the rolled axis, so the view never crosses its pole and the screen up never flips.
     expect(Math.abs(frame.direction[1]!)).toBeLessThan(0.9995)
     const upTurn = Math.acos(Math.min(1, frame.up.reduce((sum, value, index) => sum + value * previous.up[index]!, 0)))
     expect(upTurn).toBeLessThan(Math.PI / 3)
@@ -2298,7 +2297,6 @@ test('keeps observer drags screen-relative after rolling the view', { tag: '@mob
   const dot = (first: number[], second: number[]) => first.reduce((sum, value, index) => sum + value * second[index]!, 0)
   expect(Math.hypot(...delta)).toBeGreaterThan(0.05)
   expect(Math.abs(dot(delta, before.up))).toBeGreaterThan(Math.abs(dot(delta, right)) * 2)
-  await expect(page.locator('#scene')).toHaveAttribute('data-observer-roll-degrees', '90')
   await expect(page.locator('#star-name')).toHaveText('Sirius')
 })
 

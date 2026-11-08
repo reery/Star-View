@@ -32,7 +32,7 @@ test('telescope gently animates the current observer center and reverses cleanly
   expect(samples.some((zoom) => zoom > 1 && zoom < 1.6)).toBe(true)
   expect(await frame()).toEqual(before)
   expect(await page.locator('#scene canvas').screenshot()).not.toEqual(beforeImage)
-  await page.locator('#observer-direction-card').screenshot({ path: testInfo.outputPath('observer-telescope.png') })
+  await page.locator('#observer-panel').screenshot({ path: testInfo.outputPath('observer-telescope.png') })
 
   // Reversing midway starts from the current zoom instead of jumping.
   await telescope.click()
@@ -46,23 +46,22 @@ test('telescope gently animates the current observer center and reverses cleanly
   await telescope.click()
   await page.locator('#observer-view').click()
   await expect(scene).toHaveAttribute('data-observer-zoom', '1')
-  await expect(page.locator('#observer-direction-card')).toBeHidden()
+  await expect(page.locator('#observer-panel')).toBeHidden()
   await page.locator('#observer-view').click()
   await expect(telescope).toHaveAttribute('aria-pressed', 'false')
   await expect(scene).toHaveAttribute('data-observer-zoom', '1')
 })
 
-test('telescope respects reduced motion and fits beside the roll controls', { tag: '@mobile' }, async ({ page }) => {
+test('telescope respects reduced motion and every observer control fits on screen', { tag: '@mobile' }, async ({ page }) => {
   await openViewer(page)
   await page.locator('#observer-view').click()
   const telescope = page.locator('#observer-telescope')
   const leftRoll = page.locator('#observer-roll-counterclockwise')
-  const telescopeBounds = (await telescope.boundingBox())!
-  const rollBounds = (await leftRoll.boundingBox())!
-  expect(telescopeBounds.x + telescopeBounds.width).toBeLessThan(rollBounds.x)
-  expect(Math.abs(telescopeBounds.y - rollBounds.y)).toBeLessThan(1)
-  expect(telescopeBounds.x).toBeGreaterThanOrEqual(0)
-  expect(rollBounds.x + rollBounds.width).toBeLessThan(page.viewportSize()!.width)
+  for (const control of await page.locator('#observer-panel').locator('button, select').all()) {
+    const bounds = (await control.boundingBox())!
+    expect(bounds.x).toBeGreaterThanOrEqual(0)
+    expect(bounds.x + bounds.width).toBeLessThanOrEqual(page.viewportSize()!.width)
+  }
 
   const immediateZoom = await telescope.evaluate((button: HTMLButtonElement) => {
     button.click()
@@ -99,14 +98,149 @@ test('saved observer views restore telescope zoom', async ({ page }) => {
   await expect(page.locator('#scene')).toHaveAttribute('data-observer-zoom', '1.6')
 })
 
-test('the observer card clears the open info card', async ({ page, isMobile }) => {
-  test.skip(isMobile, 'Phones stack these cards differently.')
+test('the observer card closes to an indicator and exits observer view', async ({ page }) => {
+  await openViewer(page)
+  const card = page.locator('#observer-panel')
+  const indicator = page.locator('#observer-active')
+  await page.locator('#observer-view').click()
+  await expect(card).toBeVisible()
+  await expect(indicator).toBeHidden()
+  // Another card takes the observer card's place, as with every dock card.
+  await page.locator('#info-toggle').click()
+  await expect(card).toBeHidden()
+  await page.locator('#info-toggle').click()
+  // Hovering or focusing Info slides the indicators aside, so leave it before aiming at one.
+  await page.locator('#info-toggle').blur()
+  await page.mouse.move(700, 450)
+  await expect(indicator).toBeVisible()
+  await indicator.click()
+  await expect(card).toBeVisible()
+  await page.locator('#observer-close').click()
+  await expect(card).toBeHidden()
+  await expect(indicator).toBeFocused()
+  await expect(page.locator('#scene')).toHaveAttribute('data-observer-view', 'true')
+  await indicator.click()
+  await page.locator('#observer-exit').click()
+  await expect(page.locator('#scene')).toHaveAttribute('data-observer-view', 'false')
+  await expect(card).toBeHidden()
+  await expect(indicator).toBeHidden()
+})
+
+test('observatory zooms deeper than the telescope, and only one zoom applies', async ({ page }) => {
   await openViewer(page)
   await page.locator('#observer-view').click()
-  await page.locator('#info-toggle').click()
-  await expect(page.locator('#info-panel')).toBeVisible()
-  await expect.poll(async () => {
-    const [observer, info] = await Promise.all([page.locator('#observer-direction-card').boundingBox(), page.locator('#info-panel').boundingBox()])
-    return info!.x - (observer!.x + observer!.width)
-  }).toBe(12)
+  const scene = page.locator('#scene')
+  await page.locator('#observer-telescope').click()
+  await expect(scene).toHaveAttribute('data-observer-zoom', '1.6')
+  await page.locator('#observer-observatory').click()
+  await expect(scene).toHaveAttribute('data-observer-zoom', '4')
+  await expect(page.locator('#observer-telescope')).toHaveAttribute('aria-pressed', 'false')
+  await expect(page.locator('#observer-observatory')).toHaveAttribute('aria-pressed', 'true')
+  await page.locator('#observer-observatory').click()
+  await expect(scene).toHaveAttribute('data-observer-zoom', '1')
+})
+
+test('standing on Earth turns the view around the zenith, so the cone rim stays level', async ({ page }) => {
+  await openViewer(page)
+  await page.locator('#observer-view').click()
+  await page.locator('#observer-lock').click()
+  const latitude = page.locator('#observer-latitude')
+  await expect(latitude).toBeDisabled()
+  await expect(latitude).toHaveValue('40')
+  const scene = page.locator('#scene')
+  const vector = async (name: string) => (await scene.getAttribute(name))!.split(',').map(Number)
+  const dot = (a: number[], b: number[]) => a.reduce((sum, value, index) => sum + value * b[index]!, 0)
+  const cross = (a: number[], b: number[]) => [a[1]! * b[2]! - a[2]! * b[1]!, a[2]! * b[0]! - a[0]! * b[2]!, a[0]! * b[1]! - a[1]! * b[0]!]
+  const galacticUp = await vector('data-observer-screen-up')
+  await page.locator('#observer-cone').click()
+  await page.locator('#observer-axial-tilt').click()
+  await expect(page.locator('#observer-axial-tilt')).toHaveAttribute('aria-pressed', 'true')
+  await expect(latitude).toBeEnabled()
+  expect(await vector('data-observer-screen-up')).not.toEqual(galacticUp)
+  expect(await page.evaluate(() => localStorage.getItem('star-view-observer-axial-tilt'))).toBe('true')
+
+  const before = { direction: await vector('data-observer-view-direction'), up: await vector('data-observer-screen-up') }
+  await page.mouse.move(700, 450)
+  await page.mouse.down()
+  await page.mouse.move(400, 450, { steps: 10 })
+  await page.mouse.up()
+  await expect.poll(async () => (await scene.getAttribute('data-observer-view-direction')) !== before.direction.join(',')).toBe(true)
+  const after = { direction: await vector('data-observer-view-direction'), up: await vector('data-observer-screen-up') }
+  // With no roll, the zenith lies in each view's plane of direction and screen up, so it is where the two planes meet.
+  const raw = cross(cross(before.direction, before.up), cross(after.direction, after.up))
+  const length = Math.hypot(...raw)
+  const zenith = raw.map((value) => value / length * Math.sign(dot(raw, before.up)))
+  expect(dot(after.direction, zenith)).toBeCloseTo(dot(before.direction, zenith), 2)
+  // At 40° N the cone's axis, the zenith across two hours, sits about a degree poleward of 40°.
+  const b = 27.12825 * Math.PI / 180, l = 122.93192 * Math.PI / 180
+  const pole = [Math.cos(b) * Math.cos(l), Math.sin(b), -Math.cos(b) * Math.sin(l)]
+  expect(Math.asin(dot(zenith, pole)) * 180 / Math.PI).toBeCloseTo(41, 0)
+
+  const turned = await vector('data-observer-view-direction')
+  await latitude.selectOption('50')
+  expect(await page.evaluate(() => localStorage.getItem('star-view-observer-latitude'))).toBe('50')
+  await expect(scene).toHaveAttribute('data-observer-roll-degrees', '0')
+  expect(await vector('data-observer-view-direction')).not.toEqual(turned)
+})
+
+test('rolling tilts the axis that drags turn the sky around', async ({ page }) => {
+  await openViewer(page)
+  await page.locator('#observer-view').click()
+  await page.locator('#observer-lock').click()
+  const scene = page.locator('#scene')
+  const vector = async (name: string) => (await scene.getAttribute(name))!.split(',').map(Number)
+  const dot = (a: number[], b: number[]) => a.reduce((sum, value, index) => sum + value * b[index]!, 0)
+  const cross = (a: number[], b: number[]) => [a[1]! * b[2]! - a[2]! * b[1]!, a[2]! * b[0]! - a[0]! * b[2]!, a[0]! * b[1]! - a[1]! * b[0]!]
+  // A horizontal drag turns around the axis where the vertical planes before and after it meet.
+  const dragAxis = async () => {
+    const before = cross(await vector('data-observer-view-direction'), await vector('data-observer-screen-up'))
+    await page.mouse.move(700, 450)
+    await page.mouse.down()
+    await page.mouse.move(500, 450, { steps: 8 })
+    await page.mouse.up()
+    await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
+    const raw = cross(before, cross(await vector('data-observer-view-direction'), await vector('data-observer-screen-up')))
+    return raw.map((value) => value / Math.hypot(...raw))
+  }
+  const galacticNorth = [0, 1, 0]
+  expect(Math.abs(dot(await dragAxis(), galacticNorth))).toBeCloseTo(1, 3)
+  const rollCounterclockwise = page.getByRole('button', { name: 'Roll view counterclockwise', exact: true })
+  for (let step = 0; step < 4; step++) await rollCounterclockwise.click()
+  await expect(scene).toHaveAttribute('data-observer-roll-degrees', '60')
+  // Dragging now turns around the rolled axis, which no drag could reach.
+  expect(Math.abs(dot(await dragAxis(), galacticNorth))).toBeLessThan(0.95)
+  await page.getByRole('button', { name: 'Reset view roll', exact: true }).click()
+  await expect(scene).toHaveAttribute('data-observer-roll-degrees', '0')
+  expect(Math.abs(dot(await dragAxis(), galacticNorth))).toBeCloseTo(1, 3)
+})
+
+test('the observer cone follows its own toggle and time', async ({ page }) => {
+  await openViewer(page)
+  await page.locator('#observer-view').click()
+  await page.locator('#observer-lock').click()
+  const cone = page.locator('#observer-cone')
+  const time = page.locator('#observer-cone-time')
+  await expect(cone).toHaveAttribute('aria-pressed', 'false')
+  await expect(time).toBeDisabled()
+  await expect(time).toHaveValue('now')
+  await cone.click()
+  await expect(page.locator('#scene')).toHaveAttribute('data-visibility-cone-visible', 'true')
+  await time.selectOption('20-22')
+  expect(await page.evaluate(() => localStorage.getItem('star-view-observer-cone-mode'))).toBe('20-22')
+  expect(await page.evaluate(() => localStorage.getItem('star-view-visibility-cone-mode'))).toBeNull()
+  expect(await page.evaluate(() => localStorage.getItem('star-view-observer-cone'))).toBe('true')
+  // The preference stays off, so leaving observer view hides the cone again.
+  await page.locator('#observer-exit').click()
+  await expect(page.locator('#scene')).toHaveAttribute('data-visibility-cone-visible', 'false')
+  // The preference neither switches the card's cone nor its time.
+  await page.getByRole('button', { name: 'Preferences', exact: true }).click()
+  await page.locator('#visibility-cone-mode').fill('3')
+  await page.locator('#visibility-cone-mode').fill('0')
+  await page.reload()
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await expect(page.locator('#scene-status')).toBeHidden()
+  await page.locator('#observer-view').click()
+  await expect(cone).toHaveAttribute('aria-pressed', 'true')
+  await expect(time).toHaveValue('20-22')
+  await expect(page.locator('#scene')).toHaveAttribute('data-visibility-cone-visible', 'true')
 })

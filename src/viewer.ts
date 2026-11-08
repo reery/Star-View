@@ -15,7 +15,7 @@ import { createOortCloudLayer, OORT_CLOUD_RADIUS_PC } from './oort-cloud-layer'
 import { createVisibilityConeLayer } from './visibility-cone-layer'
 import { createMotionArrowMesh } from './motion-arrow-layer'
 import { createMapGrid, gridOpacityForDisplay, makeGridGeometry, skyGridOpacityForDisplay } from './map-grid'
-import { createSkyGridLayer, makeSkyGridGeometry, skyWindowCone, type SkyGridMode } from './sky-grid'
+import { createSkyGridLayer, makeSkyGridGeometry, skyGridDirection, skyWindowCone, type SkyGridMode } from './sky-grid'
 import type { SkyHours } from './constellation-visibility'
 import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC } from './earth-orbit'
@@ -45,8 +45,11 @@ export interface StarViewer {
   select(id: string | null, focus?: boolean): void
   setReference(referenceId: string): void
   setObserverView(enabled: boolean, anchorId?: string, rollRadians?: number): boolean
+  /** Tilts the axis that drags turn the sky around, in steps around the view direction; center restores galactic north or the zenith. */
   rollObserverView(direction: 'counterclockwise' | 'center' | 'clockwise'): void
-  setObserverTelescope(enabled: boolean, animate?: boolean): void
+  setObserverZoom(zoom: ObserverZoom | null, animate?: boolean): void
+  /** Galactic north up, or standing on Earth at a latitude: up is the zenith, the view faces the celestial equator, and the roll resets. */
+  setObserverFrame(frame: ObserverFrame): void
   reset(): void
   setCameraView(view: 'top' | 'side' | 'front'): void
   /** Orbits the camera horizontally around its target; speed is in OrbitControls units (2 = one turn in 30 s), negative turns the camera right, 0 stops. */
@@ -107,7 +110,12 @@ export interface ViewerViewState {
   home: boolean
   observerRollRadians: number
   observerTelescope?: boolean
+  observerObservatory?: boolean
 }
+
+export type ObserverZoom = 'telescope' | 'observatory'
+/** Galactic north up (null), or the zenith of a latitude across its local solar hours. */
+export type ObserverFrame = null | { latitude: number; hours: SkyHours }
 
 interface ViewerOptions {
   onInteraction(): void
@@ -266,32 +274,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   controls.rotateSpeed = 0.65
   controls.screenSpacePanning = true
 
-  // OrbitControls captures camera.up only once. Observer view keeps its spherical
-  // frame on world up (so the pole clamp prevents flips) and rolls only the image.
-  const orbitFrame = controls as unknown as {
-    _quat: Quaternion
-    _quatInverse: Quaternion
-    _rotateLeft(angle: number): void
-    _rotateUp(angle: number): void
-  }
+  // OrbitControls captures camera.up only once. Observer view sets its spherical frame on the observer's up,
+  // so drags turn the sky around that axis and the pole clamp prevents flips.
+  const orbitFrame = controls as unknown as { _quat: Quaternion; _quatInverse: Quaternion }
   const worldUp = new Vector3(0, 1, 0)
   function setOrbitUp(up: Vector3): void {
     camera.up.copy(up).normalize()
     orbitFrame._quat.setFromUnitVectors(camera.up, worldUp)
     orbitFrame._quatInverse.copy(orbitFrame._quat).invert()
-  }
-  // Rotate pointer/keyboard rotation by the observer roll so drags follow the rolled screen.
-  const rotateLeft = orbitFrame._rotateLeft.bind(controls)
-  const rotateUp = orbitFrame._rotateUp.bind(controls)
-  orbitFrame._rotateLeft = (angle) => {
-    if (!observerViewEnabled || observerRollRadians === 0) return rotateLeft(angle)
-    rotateLeft(Math.cos(observerRollRadians) * angle)
-    rotateUp(-Math.sin(observerRollRadians) * angle)
-  }
-  orbitFrame._rotateUp = (angle) => {
-    if (!observerViewEnabled || observerRollRadians === 0) return rotateUp(angle)
-    rotateLeft(Math.sin(observerRollRadians) * angle)
-    rotateUp(Math.cos(observerRollRadians) * angle)
   }
 
   const pickable = stars.map((star) => ({ id: star.id, position: galacticToWorld(star) }))
@@ -631,13 +621,18 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const observerScreenUp = new Vector3()
   const observerZeroRollUp = new Vector3()
   const observerViewBackward = new Vector3()
+  const observerRollAxis = new Vector3()
   const OBSERVER_ORBIT_RADIUS_PC = 1e-6
   const OBSERVER_ROLL_STEP = Math.PI / 12
   const OBSERVER_POLE_MARGIN = 0.05
-  let observerRollRadians = 0
-  const OBSERVER_TELESCOPE_ZOOM = 1.6
+  const OBSERVER_ZOOMS: Record<ObserverZoom, number> = { telescope: 1.6, observatory: 4 }
   const OBSERVER_ZOOM_DURATION_MS = 360
-  let observerTelescope = false
+  let observerZoom: ObserverZoom | null = null
+  // The frame's up (galactic north or the zenith), and the observer's up: the axis drags turn the sky around,
+  // which rolling tilts around the view direction.
+  const observerFrameUp = new Vector3(0, 1, 0)
+  const observerUp = new Vector3(0, 1, 0)
+  let observerFrame: ObserverFrame = null
   let observerZoomTransition: { from: number; to: number; started: number } | null = null
   let spaceship: Spaceship | null = null
   let spaceshipLabels: SpaceshipLabels = 'all'
@@ -833,20 +828,29 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     savedOrbitSettings = null
   }
 
+  /** The angle from the frame's up to the observer's up around the view direction; leaves the projected observer up in observerScreenUp. */
+  function observerRoll(): number {
+    observerViewBackward.subVectors(camera.position, controls.target).normalize()
+    observerZeroRollUp.copy(observerFrameUp).addScaledVector(observerViewBackward, -observerFrameUp.dot(observerViewBackward))
+    observerScreenUp.copy(observerUp).addScaledVector(observerViewBackward, -observerUp.dot(observerViewBackward))
+    return Math.atan2(observerRollAxis.crossVectors(observerZeroRollUp, observerScreenUp).dot(observerViewBackward), observerZeroRollUp.dot(observerScreenUp))
+  }
+
+  function rollObserverUp(radians: number): void {
+    observerViewBackward.subVectors(camera.position, controls.target).normalize()
+    observerUp.applyAxisAngle(observerViewBackward, radians)
+    setOrbitUp(observerUp)
+  }
+
   function applyObserverRollFrame(): void {
     if (!observerViewEnabled || observerViewAnchorIndex === null) return
-    observerViewBackward.subVectors(camera.position, controls.target).normalize()
-    observerZeroRollUp.copy(worldUp).addScaledVector(observerViewBackward, -worldUp.dot(observerViewBackward))
-    if (observerZeroRollUp.lengthSq() < 1e-12) {
-      observerZeroRollUp.set(0, 1, 0).applyQuaternion(camera.quaternion)
-        .applyAxisAngle(observerViewBackward, -observerRollRadians)
-    }
-    observerZeroRollUp.normalize()
-    observerScreenUp.copy(observerZeroRollUp).applyAxisAngle(observerViewBackward, observerRollRadians)
-    // OrbitControls' own lookAt then reproduces the roll; its orbit frame stays on world up.
+    const roll = observerRoll()
+    // Looking along up leaves the current screen up.
+    if (observerScreenUp.lengthSq() < 1e-12) observerScreenUp.set(0, 1, 0).applyQuaternion(camera.quaternion)
+    observerScreenUp.normalize()
     camera.up.copy(observerScreenUp)
     camera.lookAt(controls.target)
-    container.dataset.observerRollDegrees = String(Math.round(observerRollRadians * 180 / Math.PI))
+    container.dataset.observerRollDegrees = String(Math.round(roll * 180 / Math.PI))
     container.dataset.observerViewDirection = `${-observerViewBackward.x},${-observerViewBackward.y},${-observerViewBackward.z}`
     container.dataset.observerScreenUp = `${observerScreenUp.x},${observerScreenUp.y},${observerScreenUp.z}`
   }
@@ -1938,15 +1942,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (enabled && !anchor) return observerViewEnabled
     if (enabled === observerViewEnabled && (!enabled || anchor?.index === observerViewAnchorIndex)) return observerViewEnabled
     const modeChanged = enabled !== observerViewEnabled
-    observerRollRadians = 0
+    observerUp.copy(observerFrameUp)
     observerViewEnabled = enabled
     if (!enabled) {
-      observerTelescope = false
+      observerZoom = null
       observerZoomTransition = null
       applyObserverZoom(1)
     }
     observerViewAnchorIndex = anchor?.index ?? null
-    setOrbitUp(worldUp)
+    setOrbitUp(enabled ? observerUp : worldUp)
     if (modeChanged) configureObserverControls(enabled)
     container.dataset.observerView = String(enabled)
     canvas.classList.toggle('is-observer-view', enabled)
@@ -1957,7 +1961,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     select(selectedId, false)
     if (anchor) {
       placeObserverCamera(anchor.index)
-      if (Number.isFinite(rollRadians)) observerRollRadians = Math.atan2(Math.sin(rollRadians), Math.cos(rollRadians))
+      if (Number.isFinite(rollRadians) && rollRadians !== 0) rollObserverUp(rollRadians)
       applyObserverRollFrame()
     }
     else reset()
@@ -1975,11 +1979,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     focusTransition = null
     controlsInteracting = false
     controlsSettling = false
-    if (direction === 'center') observerRollRadians = 0
-    else {
-      observerRollRadians += direction === 'clockwise' ? -OBSERVER_ROLL_STEP : OBSERVER_ROLL_STEP
-      observerRollRadians = Math.atan2(Math.sin(observerRollRadians), Math.cos(observerRollRadians))
-    }
+    if (direction === 'center') {
+      observerUp.copy(observerFrameUp)
+      setOrbitUp(observerUp)
+    } else rollObserverUp(direction === 'clockwise' ? -OBSERVER_ROLL_STEP : OBSERVER_ROLL_STEP)
     applyObserverRollFrame()
     invalidateProjection()
     obstacleBoundsDirty = true
@@ -1995,10 +1998,34 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     ordinaryLayoutDirty = true
   }
 
-  function setObserverTelescope(enabled: boolean, animate = true): void {
-    enabled = observerViewEnabled && enabled
-    observerTelescope = enabled
-    const to = enabled ? OBSERVER_TELESCOPE_ZOOM : 1
+  function setObserverFrame(frame: ObserverFrame): void {
+    observerFrame = frame
+    // The visibility cone's axis is the zenith across its hours, so its rim stays level as the view turns.
+    observerFrameUp.copy(frame ? skyWindowCone(frame.latitude, visibilityConeDate, frame.hours).axis : worldUp)
+    observerUp.copy(observerFrameUp)
+    if (!observerViewEnabled || observerViewAnchorIndex === null) return
+    focusTransition = null
+    controlsInteracting = false
+    controlsSettling = false
+    setOrbitUp(observerUp)
+    if (frame) {
+      // Face the celestial equator, south of a northern latitude, with the horizon along the bottom edge.
+      const pole = skyGridDirection('equatorial', 0, 90)
+      const north = pole.addScaledVector(observerUp, -pole.dot(observerUp)).normalize()
+      const altitude = Math.atan(Math.tan(camera.fov * Math.PI / 360) / camera.zoom)
+      observerDirection.copy(north).multiplyScalar((frame.latitude < 0 ? 1 : -1) * Math.cos(altitude)).addScaledVector(observerUp, Math.sin(altitude))
+      applyObserverDirection(observerDirection)
+    }
+    applyObserverRollFrame()
+    invalidateProjection()
+    obstacleBoundsDirty = true
+    ordinaryLayoutDirty = true
+    requestRender()
+  }
+
+  function setObserverZoom(zoom: ObserverZoom | null, animate = true): void {
+    observerZoom = observerViewEnabled ? zoom : null
+    const to = observerZoom ? OBSERVER_ZOOMS[observerZoom] : 1
     observerZoomTransition = null
     if (animate && !reducedMotion.matches && camera.zoom !== to) {
       observerZoomTransition = { from: camera.zoom, to, started: performance.now() }
@@ -2430,8 +2457,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         position: camera.position.toArray() as [number, number, number],
         target: controls.target.toArray() as [number, number, number],
         home,
-        observerRollRadians,
-        observerTelescope,
+        observerRollRadians: observerViewEnabled && observerViewAnchorIndex !== null ? observerRoll() : 0,
+        observerTelescope: observerZoom === 'telescope',
+        observerObservatory: observerZoom === 'observatory',
       }
     },
     select,
@@ -2456,7 +2484,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     },
     setObserverView,
     rollObserverView,
-    setObserverTelescope,
+    setObserverZoom,
+    setObserverFrame,
     reset,
     setCameraView,
     setAutoRotation(speed) {
@@ -2512,6 +2541,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
       visibilityConeDate = date ?? new Date()
       if (visibilityConeView) setVisibilityCone(visibilityConeView)
+      // The zenith moves with the date, like the cone.
+      if (observerFrame) setObserverFrame(observerFrame)
       requestRender()
     },
     setMilkyWayVisible(visible) {

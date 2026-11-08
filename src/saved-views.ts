@@ -132,6 +132,7 @@ function isSavedView(value: unknown): value is SavedView {
     && isRecord(viewState) && isFiniteTuple3(viewState.position) && isFiniteTuple3(viewState.target)
     && typeof viewState.home === 'boolean' && typeof viewState.observerRollRadians === 'number' && Number.isFinite(viewState.observerRollRadians)
     && (viewState.observerTelescope === undefined || typeof viewState.observerTelescope === 'boolean')
+    && (viewState.observerObservatory === undefined || typeof viewState.observerObservatory === 'boolean')
     && (settings.graphFilter === undefined || (Array.isArray(settings.graphFilter) && settings.graphFilter.every(isGraphSelection)))
     && (settings.paint === undefined || (Array.isArray(settings.paint) && settings.paint.every(isPaintEntry)))
     && (settings.neighborhood === undefined || (isRecord(settings.neighborhood) && typeof settings.neighborhood.centerId === 'string'
@@ -160,7 +161,7 @@ const LINK_VALUES = {
 const LINK_FILTERS = new Set<string>(['compact_objects', 'sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'bubble'])
 /** Bit order of the `b` flags; append only. Each bit marks a flag that differs from its link default. */
 const LINK_FLAGS = ['showWesternConstellationStars', 'showNakedEyeStars', 'showNotableDistantStars', 'hideFainterObjects', 'milkyWayVisible', 'oortCloudVisible',
-  'motionArrowsVisible', 'gridVisible', 'observerView', 'home', 'observerTelescope'] as const
+  'motionArrowsVisible', 'gridVisible', 'observerView', 'home', 'observerTelescope', 'observerObservatory'] as const
 const LINK_FLAGS_ON: readonly string[] = ['milkyWayVisible', 'oortCloudVisible', 'gridVisible']
 /** Camera offsets keep five significant digits of the viewing distance. */
 const LINK_CAMERA_DIGITS = 5
@@ -265,6 +266,7 @@ export function decodeSavedViewLink(fragment: string): SavedView | null {
         viewState: {
           position: offset.map((value, index) => value + target[index]!), target, home: flag('home'),
           observerRollRadians: Number(one('w') ?? 0) / 1000, observerTelescope: flag('observerTelescope'),
+          observerObservatory: flag('observerObservatory'),
         },
         paint: (params.get('p') ?? []).map((entry) => {
           const [id, level, ...channels] = entry.split('~')
