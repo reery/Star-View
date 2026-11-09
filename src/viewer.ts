@@ -6,7 +6,7 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import type { Star } from './catalog-model'
-import { createStarAppearance } from './star-appearance'
+import { createStarAppearance, STAR_BRIGHTNESSES, STAR_STYLES, type StarBrightness, type StarStyle } from './star-appearance'
 import { createDepthLabel } from './depth-label'
 import { updateCameraNearPlane } from './camera-depth'
 import { createMilkyWayLayer } from './milky-way-layer'
@@ -83,6 +83,8 @@ export interface StarViewer {
   setSimulationYears(years: number): void
   setPowerSavingMode(enabled: boolean): void
   setStarColorMode(mode: StarColorMode): void
+  setStarStyle(style: StarStyle): void
+  setStarBrightness(brightness: StarBrightness): void
   setStarPaint(painter: StarPainter | null): void
   /** Lets painted stars shrink and fade when zooming out, like unpainted ones. */
   setStarPaintZoomShrink(enabled: boolean): void
@@ -130,6 +132,8 @@ interface ViewerOptions {
   onSpaceship?(telemetry: SpaceshipTelemetry): void
   onStatus(message: string | null): void
   colorMode: StarColorMode
+  starStyle?: StarStyle
+  starBrightness?: StarBrightness
   earthOrbitDate?: Date | null
   milkyWayVisible?: boolean
   oortCloudVisible?: boolean
@@ -295,6 +299,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     referenceDistancesLy[index] = basePositions[index]!.distanceTo(basePositions[referenceIndex]!) * LIGHT_YEARS_PER_PARSEC
   }
   let starColorMode = options.colorMode
+  let starStyle = options.starStyle ?? 'exaggerated'
+  let starBrightness = options.starBrightness ?? 'normal'
   let starPaints: StarPaint[] | null = null
   /** Whether the paint sizes objects, rather than only coloring them. */
   let starPaintSized = false
@@ -331,7 +337,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   scene.add(milkyWay.group)
 
   const starViewDistance = { value: camera.position.distanceTo(controls.target) }
-  const { dotTexture, haloTexture, starMaterial, haloMaterial } = createStarAppearance(starViewDistance, true)
+  const { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle: setStarAppearanceStyle, pixelRatio: starPixelRatio } = createStarAppearance(starViewDistance, true)
+  setStarAppearanceStyle(starStyle)
+  starPixelRatio.value = renderer.getPixelRatio()
+  milkyWay.setStarStyle(starStyle)
 
   const initialEarthOrbitDate = options.earthOrbitDate === undefined ? new Date() : options.earthOrbitDate
   const earthOrbit = createEarthOrbitLayer(galacticToWorld(sun))
@@ -387,6 +396,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const selectionEmphases = new Float32BufferAttribute(stars.map(() => 0), 1)
   starGeometry.setAttribute('selectionEmphasis', selectionEmphases)
   starGeometry.setAttribute('coreDiameter', coreDiameters)
+  // Linear flux relative to magnitude 0, for realistic stars.
+  const starFluxes = new Float32BufferAttribute(stars.map(() => 0), 1)
+  starGeometry.setAttribute('starFlux', starFluxes)
   starGeometry.setAttribute('coreEmphasis', coreEmphases)
   const coreWhiteStrengths = new Float32BufferAttribute(stars.map(starCoreWhiteStrength), 1)
   starGeometry.setAttribute('coreWhiteStrength', coreWhiteStrengths)
@@ -1296,11 +1308,17 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       mapVisible[index] = visible && !(hideFainterObjects && tier === 'background') ? 1 : 0
       // Painted magnitudes size every object, independent of distance.
       const paintedMagnitude = starPaints?.[index]!.magnitude
-      const haloMagnitude = paintedMagnitude !== undefined ? paintedMagnitude : tier === 'base' ? mapAbsoluteMagnitude(star) : magnitude
+      const lightMagnitude = paintedMagnitude !== undefined ? paintedMagnitude : tier === 'base' ? mapAbsoluteMagnitude(star) : magnitude
+      // High brightness shows every star's own light one magnitude brighter; painted sizes encode data and stay.
+      const haloMagnitude = starBrightness === 'high' && paintedMagnitude === undefined && lightMagnitude !== null ? lightMagnitude - 1 : lightMagnitude
       const background = tier === 'background' && paintedMagnitude === undefined
       const haloEmphasis = starHaloEmphasis(haloMagnitude)
       const diameter = starApparentDiameter(haloMagnitude)
       coreDiameters.setX(index, background ? 3 : diameter)
+      // A star is not seen in its own sky: the selected visibility base takes the selection glow,
+      // not its absolute magnitude, which would make Canopus blinding and Sirius dimmer than from Earth.
+      const ownLight = !background && !(tier === 'base' && paintedMagnitude === undefined && star.id === selectedId)
+      starFluxes.setX(index, ownLight && haloMagnitude !== null && Number.isFinite(haloMagnitude) ? 10 ** (-0.4 * haloMagnitude) : 0)
       coreEmphases.setX(index, haloEmphasis)
       selectionEmphases.setX(index, star.id === selectedId ? 1 : 0)
       haloOpacities.setX(index, background ? 0 : starHaloOpacity(haloMagnitude, star.id === selectedId))
@@ -1332,6 +1350,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     faintClouds.setShown(faintShown)
     setData(labelLayer, 'faintCloudHiddenCount', String(faintHiddenCount))
     coreDiameters.needsUpdate = true
+    starFluxes.needsUpdate = true
     coreEmphases.needsUpdate = true
     selectionEmphases.needsUpdate = true
     haloOpacities.needsUpdate = true
@@ -1372,7 +1391,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         && !isNebula[index] && !isMolecularCloud[index] && !isBubble[index] ? 1 : 0
     }
     for (let index = 0; index < stars.length; index++) {
-      nextHaloEnabled[index] = nextCoreEnabled[index] && (tiers[index] !== 'background' || starPaints?.[index]!.magnitude !== undefined) ? 1 : 0
+      nextHaloEnabled[index] = starStyle === 'exaggerated' && nextCoreEnabled[index] && (tiers[index] !== 'background' || starPaints?.[index]!.magnitude !== undefined) ? 1 : 0
     }
     // Keep the index buffers on the GPU until drawable membership changes.
     if (!pointVisibilityInitialized || nextCoreEnabled.some((enabled, index) => enabled !== coreEnabled[index])) {
@@ -2085,6 +2104,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     renderHeight = height
     displayPixelRatio = nextDisplayPixelRatio
     renderer.setPixelRatio(pixelRatio)
+    starPixelRatio.value = pixelRatio
     renderer.setSize(width, height)
     nebulaLayer?.setViewportHeight(height * pixelRatio)
     milkyWay.setViewportHeight(height * pixelRatio)
@@ -2624,6 +2644,20 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       molecularCloudLayer?.setColorMode(mode)
       bubbleLayer?.setColorMode(mode)
       faintClouds.setColorMode(mode)
+      requestRender()
+    },
+    setStarStyle(style) {
+      if (!STAR_STYLES.includes(style) || style === starStyle) return
+      starStyle = style
+      setStarAppearanceStyle(style)
+      milkyWay.setStarStyle(style)
+      updatePointVisibility()
+      requestRender()
+    },
+    setStarBrightness(brightness) {
+      if (!STAR_BRIGHTNESSES.includes(brightness) || brightness === starBrightness) return
+      starBrightness = brightness
+      updatePresentation()
       requestRender()
     },
     setStarPaint(painter) {

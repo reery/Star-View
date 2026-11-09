@@ -1161,6 +1161,8 @@ test('shrinks distant star cores while retaining bright glare around a 1,000-lig
 })
 
 test('keeps the magnitude-7 all-catalog overview from washing out at roughly 1,000 light-years', async ({ page }, testInfo) => {
+  // Halos are drawn only by Exaggerated stars, the style most prone to washing out.
+  await page.addInitScript(() => localStorage.setItem('star-view-star-style', 'exaggerated'))
   await openViewer(page)
   await hideMilkyWay(page)
   await openFilter(page)
