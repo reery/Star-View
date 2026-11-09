@@ -36,7 +36,7 @@ export function readSavedFilter(catalogIds: readonly string[]): SavedFilter | nu
       || (filter.showNotableDistantStars !== undefined && typeof filter.showNotableDistantStars !== 'boolean')
       || !Array.isArray(filter.filterCategories) || !filter.filterCategories.every(isFilterCategoryId)
       || !Array.isArray(filter.filterSubtypes) || !filter.filterSubtypes.every(isFilterKey)
-      || typeof filter.magnitudeLimit !== 'number' || !Number.isFinite(filter.magnitudeLimit) || filter.magnitudeLimit < 0 || filter.magnitudeLimit > 25
+      || typeof filter.magnitudeLimit !== 'number' || !Number.isFinite(filter.magnitudeLimit) || filter.magnitudeLimit < 0 || filter.magnitudeLimit > 30
       || (filter.hideFainterObjects !== undefined && typeof filter.hideFainterObjects !== 'boolean')
       || typeof filter.objectDistanceLimitLy !== 'number' || !OBJECT_DISTANCE_STEPS_LY.includes(filter.objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])) return null
     return filter as unknown as SavedFilter
