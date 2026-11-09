@@ -4,7 +4,7 @@ import { svgNode as svgElement } from './spectral-chart'
 import type { StarColorMode } from './astronomy'
 import type { StarSystem } from './star-systems'
 import { renderStellarSystem } from './stellar-system-card'
-import { Leaf, createElement } from 'lucide'
+import { Earth, Leaf, createElement } from 'lucide'
 import type { Star } from './catalog-model'
 import { habitableZoneForStar, type HabitableZone } from './habitable-zone'
 
@@ -134,6 +134,7 @@ export function renderSystemCard(container: HTMLElement, planets: PlanetarySyste
     heading.className = 'card-subgroup-heading stellar-system-heading'
     heading.id = 'system-planets-heading'
     heading.textContent = `${planets.planets.length} known ${planets.planets.length === 1 ? 'planet' : 'planets'}`
+    heading.prepend(createElement(Earth, { class: 'system-heading-icon', width: 18, height: 18, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
     section.setAttribute('aria-labelledby', heading.id)
     const figure = document.createElement('figure')
     figure.id = 'planet-system-figure'

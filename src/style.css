@@ -443,7 +443,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 [data-toolbar-flyout]:has([data-toolbar-options] button:not(:disabled)) > button:disabled { pointer-events: none; }
 .discover-controls:not([data-dismissed]):focus-within .discover-options,
 [data-toolbar-flyout][data-touch-open]:not([data-dismissed]):has(button:not(:disabled)) > [data-toolbar-options],
-.camera-view-controls:not([data-dismissed]):focus-within:has(#reset-view:not(:disabled)) .camera-view-options,
+.camera-view-controls:not([data-dismissed]):focus-within:has(:is(#reset-view, #hide-ui):not(:disabled)) .camera-view-options,
 .origin-controls:not([data-dismissed]):focus-within:has(#go-to-origin:not(:disabled)) .origin-options,
 .grid-controls:not([data-dismissed]):focus-within:has(#toggle-grid:not(:disabled)) .grid-options,
 .saved-view-controls:not([data-dismissed]):focus-within:has(#views-toggle:not(:disabled)) .saved-view-options,
@@ -452,10 +452,10 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .observer-view-controls:not([data-dismissed]):focus-within:has(.observer-view-button:not(:disabled)) .observer-view-options { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
 /* A first touch names the previous object while revealing Next; the second touch selects it. */
 .selection-controls[data-touch-open] > .icon-button:not(:disabled) .tooltip { display: block; }
-.camera-view-controls :is(#reset-view, #rotation-toggle) .tooltip, .origin-controls #set-origin .tooltip, .observer-view-controls #observer-view .tooltip, .grid-controls .tooltip, .saved-view-controls .tooltip, .selection-controls .tooltip, .discover-controls .tooltip { top: calc(100% + 8px); right: 0; }
+.camera-view-controls :is(#reset-view, #rotation-toggle, #hide-ui) .tooltip, .origin-controls #set-origin .tooltip, .observer-view-controls #observer-view .tooltip, .grid-controls .tooltip, .saved-view-controls .tooltip, .selection-controls .tooltip, .discover-controls .tooltip { top: calc(100% + 8px); right: 0; }
 @media (hover: hover) and (pointer: fine) {
   .discover-controls:not([data-dismissed]):hover .discover-options,
-  .camera-view-controls:hover:has(#reset-view:not(:disabled)) .camera-view-options,
+  .camera-view-controls:hover:has(:is(#reset-view, #hide-ui):not(:disabled)) .camera-view-options,
   .origin-controls:hover:has(#go-to-origin:not(:disabled)) .origin-options,
   .grid-controls:hover:has(#toggle-grid:not(:disabled)) .grid-options,
   .saved-view-controls:hover:has(#views-toggle:not(:disabled)) .saved-view-options,
@@ -469,12 +469,18 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 @media (prefers-reduced-motion: reduce) {
   [data-toolbar-options] { transition: none; transform: none; }
   .dock-indicators { transition: none; }
+  :root[data-ui-hidden] :is(.scene-toolbar > :not(.dock-rail), .dock-rail > :not(.dock-indicators)) { transition: none; }
 }
 /* Confirms a copied view link beside the toolbar, then fades out. */
 .view-link-notice { position: fixed; top: calc(20px + var(--safe-top)); right: calc(72px + var(--safe-right)); z-index: 10; max-width: calc(var(--ui-width) - 96px); margin: 0; font-size: 12px; background: var(--panel); border: 1px solid var(--line); color: var(--ink); padding: 7px 10px; border-radius: 5px; box-shadow: var(--popover-shadow); pointer-events: none; animation: view-link-notice 5s ease forwards; }
 .view-link-notice[data-failed] { color: var(--danger); }
 @keyframes view-link-notice { from { opacity: 0; } 5%, 85% { opacity: 1; } to { opacity: 0; } }
 .toolbar-divider { width: 20px; height: 1px; background: var(--line); margin: 4px 12px; }
+/* Hide UI slides the button rails off the right edge; the active-change buttons and the captions stay. */
+:root[data-ui-hidden] :is(.scene-toolbar > :not(.dock-rail), .dock-rail > :not(.dock-indicators)) { transition: translate 220ms ease, opacity 220ms ease, background 120ms ease, border-color 120ms ease; }
+:root[data-ui-hidden]:not([data-ui-revealed]) :is(.scene-toolbar > :not(.dock-rail), .dock-rail > :not(.dock-indicators)) { translate: calc(100% + 24px + var(--safe-right)) 0; opacity: 0; }
+:root[data-ui-hidden]:not([data-ui-revealed]) :is(.scene-toolbar, .dock-rail) { pointer-events: none; }
+:root[data-ui-hidden]:not([data-ui-revealed]) .dock-indicators { pointer-events: auto; }
 /* Touch visibility is explicit so emulated hover/focus cannot leave a tooltip stuck open. */
 :root[data-tooltip-input="touch"] .mass-metric-tooltip:not([data-touch-tooltip-open]) { visibility: hidden !important; }
 .mass-metric-tooltip[data-touch-tooltip-open]:not([hidden]) { display: block; }
@@ -758,6 +764,12 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .identity-heading .star-name { display: block; min-width: 0; }
 .identity .star-name { font-size: 24px; font-weight: 500; line-height: 1.15; }
 .star-distance { display: block; flex-shrink: 0; font-size: 11px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+/* With the UI hidden, the closed card shows only the object's icon, name and distance. */
+:root[data-ui-hidden] .selected-object:has(#object-card-details:not([open])) { width: max-content; max-width: min(292px, calc(var(--ui-width) - 78px)); }
+:root[data-ui-hidden] #object-card-details:not([open]) :is(.object-card-footer, .star-components) { display: none; }
+:root[data-ui-hidden] #object-card-details:not([open]) .identity { min-height: 0; padding: 6px 12px 6px 8px; }
+:root[data-ui-hidden] #object-card-details:not([open]) #selected-swatch { width: 28px; height: 28px; flex-basis: 28px; }
+:root[data-ui-hidden] #object-card-details:not([open]) .star-name { font-size: 14px; }
 .properties > .object-links-row { align-items: center; padding: 1px 0; }
 .object-links-row:not(:has(.object-link)) { display: none; }
 .is-comparing .object-links { flex-wrap: wrap; }
@@ -809,7 +821,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .planet-row:has([aria-pressed="true"]) dt, .planet-row .object-type-toggle[aria-pressed="true"] { color: var(--accent-strong); }
 .stellar-system-section:not(:first-child) { margin-top: 12px; }
 .stellar-system-section > .planet-system-figure { margin-bottom: 0; }
-.stellar-system-heading { position: relative; padding-right: 56px; }
+.stellar-system-heading { position: relative; display: flex; align-items: center; gap: 8px; padding-right: 56px; }
+.system-heading-icon { flex: 0 0 18px; color: var(--accent-strong); }
 .stellar-header-control { width: 40px; height: auto; border-left: 1px solid var(--line); border-radius: 0; }
 .stellar-orbit-view-toggle { position: absolute; top: 0; right: 0; height: 100%; }
 .habitable-zone-toggle[aria-pressed="true"] { color: #8cbd9b; background: #8cbd9b14; border-color: #8cbd9b70; }

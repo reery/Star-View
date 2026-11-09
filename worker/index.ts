@@ -6,7 +6,7 @@ interface Env {
   ASSETS: { fetch(input: Request | string): Promise<Response> }
 }
 
-// wrangler.jsonc routes only /objects/* here; every other request is a static asset.
+// The Worker receives /objects/* plus every request that matches no static asset.
 // A deployment's assets never change, so each isolate keeps the shard list it first reads.
 let pageShards: Promise<readonly string[]> | undefined
 
@@ -28,7 +28,9 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } })
     const url = new URL(request.url)
-    const id = objectIdFromPath(url.pathname)
+    // Probes and missing chunks get a bare 404 instead of the app shell.
+    if (!url.pathname.startsWith('/objects/')) return new Response('Not found', { status: 404, headers: { ...SECURITY_HEADERS, 'Content-Type': 'text/plain; charset=utf-8' } })
+    const id =objectIdFromPath(url.pathname)
     const page = id === null ? undefined : await objectPage(env, url.origin, id)
     if (page && 'canonical' in page) return Response.redirect(new URL(objectPath(page.canonical), url.origin).href, 301)
     // `/` serves index.html; `/index.html` would redirect.

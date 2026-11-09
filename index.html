@@ -697,6 +697,7 @@
                   <button id="side-view" class="icon-button camera-view-button" type="button" aria-label="Side view" aria-controls="scene" disabled>Side</button>
                   <button id="front-view" class="icon-button camera-view-button" type="button" aria-label="Back view" aria-controls="scene" disabled>Back</button>
                   <button id="rotation-toggle" class="icon-button panel-button" type="button" aria-label="Automatic rotation" aria-controls="rotation-panel" aria-expanded="false" disabled><span id="rotation-icon"></span><span class="tooltip">Automatic rotation</span></button>
+                  <button id="hide-ui" class="icon-button" type="button" aria-label="Hide UI" aria-pressed="false"><span id="hide-ui-icon"></span><span class="tooltip">Hide UI</span></button>
                 </div>
               </div>
               <div class="grid-controls" data-toolbar-flyout role="group" aria-label="Grid controls">
@@ -844,6 +845,7 @@
                     <button id="observer-cone" class="object-section-button distance-reference-button time-button" type="button" aria-label="Show visibility cone" aria-pressed="false" title="Show visibility cone" disabled><span id="observer-cone-icon"></span></button>
                     <label class="sr-only" for="observer-cone-time">Visibility cone time</label>
                     <select id="observer-cone-time" title="Visibility cone time" disabled><option value="now" selected>Now</option><option value="18-20">18–20</option><option value="20-22">20–22</option><option value="22-24">22–24</option><option value="0-2">0–2</option><option value="2-4">2–4</option><option value="4-6">4–6</option><option value="6-8">6–8</option></select>
+                    <button id="observer-naked-eye" class="object-section-button distance-reference-button time-button" type="button" aria-label="Naked-eye visibility" aria-pressed="false" aria-controls="scene" title="Visibility as seen with the human eye under dark skies" disabled><span id="observer-naked-eye-icon"></span></button>
                     <button id="observer-telescope" class="object-section-button distance-reference-button time-button" type="button" aria-label="Telescope zoom" aria-pressed="false" aria-controls="scene" title="Telescope zoom (1.6×)" disabled><span id="observer-telescope-icon"></span></button>
                     <button id="observer-observatory" class="object-section-button distance-reference-button time-button" type="button" aria-label="Observatory zoom" aria-pressed="false" aria-controls="scene" title="Observatory zoom (4×)" disabled><span id="observer-observatory-icon"></span></button>
                   </div>

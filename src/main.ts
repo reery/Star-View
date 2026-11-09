@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
@@ -53,6 +53,7 @@ import { objectIdFromPath, objectPageTitle, objectPath, type ObjectPage, type Ob
 import { loadDataShardEntry } from './data-shards'
 import { appendConstellationContent } from './constellation-card-content'
 import { initializeToolbarTouch } from './toolbar-touch'
+import { initializeHideUi } from './hide-ui'
 import { initializeCardSwipes } from './card-swipe'
 import { initializeTouchTooltips } from './touch-tooltips'
 import { attachPopoverTooltip } from './popover-tooltips'
@@ -196,6 +197,7 @@ icon('discover-constellation-grid-icon', Globe)
 icon('discover-constellation-info-icon', BookOpen)
 icon('reset-icon', Focus)
 icon('rotation-icon', Rotate3d)
+icon('hide-ui-icon', PanelRightClose)
 icon('rotation-left-icon', Play)
 icon('rotation-right-icon', Play)
 icon('rotation-reset-icon', RotateCcw)
@@ -219,6 +221,7 @@ icon('observer-view-icon', Eye)
 icon('observer-view-origin-icon', ObserverOriginIcon)
 icon('observer-axial-tilt-icon', Earth)
 icon('observer-cone-icon', Cone)
+icon('observer-naked-eye-icon', Eye)
 icon('observer-telescope-icon', Telescope)
 icon('observer-observatory-icon', Dome)
 icon('observer-lock-icon', Lock)
@@ -303,7 +306,13 @@ icon('visibility-lock-icon', Lock)
 
 const events = new AbortController()
 initializeTouchTooltips(events.signal)
-initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, events.signal)
+const closeToolbarFlyout = initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, events.signal)
+// Hidden UI shrinks the selected object card to its name and distance until it is opened.
+initializeHideUi(element<HTMLButtonElement>('hide-ui'), closeToolbarFlyout, (hidden) => {
+  icon('hide-ui-icon', hidden ? PanelRightOpen : PanelRightClose)
+  if (hidden) element<HTMLDetailsElement>('object-card-details').open = false
+  syncObjectTypeLayout()
+}, events.signal)
 for (const help of document.querySelectorAll<HTMLButtonElement>('.compact-property .mass-metric-help')) attachPopoverTooltip(help, help.nextElementSibling as HTMLElement)
 for (const help of document.querySelectorAll<HTMLElement>(':is(.preferences, .filter-section) .mass-metric-help')) {
   // Tooltips sit outside labels so their text stays out of the control's accessible name.
@@ -316,6 +325,10 @@ let constellationBrowser: ReturnType<typeof import('./constellation-browser').in
 let topLists: ReturnType<typeof import('./top-lists').initializeTopLists> | undefined
 let graphs: ReturnType<typeof import('./graphs').initializeGraphs> | undefined
 let graphFilter: ObjectListFilter | null = null
+/** The filter the naked-eye view replaced, restored when it ends; null while the view is off. */
+let nakedEyeRestoreFilter: SavedFilter | null = null
+// Nebulae have no single magnitude, so the naked-eye view lists the ones a dark sky shows. The Pleiades come with the star catalogs.
+const NAKED_EYE_NEBULA_IDS: ReadonlySet<string> = new Set(['orion-nebula'])
 /** The Neighborhood keeps its center while active, so selecting a neighbor does not move it. */
 let neighborhoodCenter: Star | null = null
 /** Session-only: the ship survives catalog changes but is never saved in a view. */
@@ -460,18 +473,20 @@ const sliderCatalogs = catalogs.filter((catalog) => !ADDITIVE_CATALOG_IDS.includ
   .sort((first, second) => first.manifest.objectCount - second.manifest.objectCount)
 const savedFilter = readSavedFilter(sliderCatalogs.map((catalog) => catalog.manifest.id))
 const initialCatalogId = savedFilter?.catalogId ?? 'nearest-neighbors'
-if (savedFilter) {
+if (savedFilter) setFilterState(savedFilter)
+
+function setFilterState(filter: SavedFilter): void {
   // The retired bright-star switch now maps to the constellation catalog that contains its stars.
-  showWesternConstellationStars = savedFilter.showWesternConstellationStars || savedFilter.showAlwaysBright
-  showNakedEyeStars = savedFilter.showNakedEyeStars ?? false
-  showNotableDistantStars = savedFilter.showNotableDistantStars ?? false
+  showWesternConstellationStars = filter.showWesternConstellationStars || filter.showAlwaysBright
+  showNakedEyeStars = filter.showNakedEyeStars ?? false
+  showNotableDistantStars = filter.showNotableDistantStars ?? false
   filterCategories.clear()
-  savedFilter.filterCategories.forEach((category) => filterCategories.add(category))
+  filter.filterCategories.forEach((category) => filterCategories.add(category))
   filterSubtypes.clear()
-  savedFilter.filterSubtypes.forEach((subtype) => filterSubtypes.add(subtype))
-  magnitudeLimit = savedFilter.magnitudeLimit
-  hideFainterObjects = savedFilter.hideFainterObjects ?? false
-  objectDistanceLimitLy = savedFilter.objectDistanceLimitLy
+  filter.filterSubtypes.forEach((subtype) => filterSubtypes.add(subtype))
+  magnitudeLimit = filter.magnitudeLimit
+  hideFainterObjects = filter.hideFainterObjects ?? false
+  objectDistanceLimitLy = filter.objectDistanceLimitLy
   visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
 }
 let savedViews = readSavedViews()
@@ -626,6 +641,7 @@ function updateObserverControl(): void {
     element('observer-panel').style.setProperty('--observer-star-color', color)
   }
   const viewState = viewer?.getViewState()
+  element('observer-naked-eye').setAttribute('aria-pressed', String(nakedEyeRestoreFilter !== null))
   element('observer-telescope').setAttribute('aria-pressed', String(observerView && Boolean(viewState?.observerTelescope)))
   element('observer-observatory').setAttribute('aria-pressed', String(observerView && Boolean(viewState?.observerObservatory)))
   element('observer-axial-tilt').setAttribute('aria-pressed', String(observerAxialTilt))
@@ -636,6 +652,8 @@ function updateObserverControl(): void {
   for (const id of ['observer-axial-tilt', 'observer-cone', 'observer-telescope', 'observer-observatory', 'observer-roll-counterclockwise', 'observer-roll-reset', 'observer-roll-clockwise']) {
     element<HTMLButtonElement>(id).disabled = observerControlsDisabled
   }
+  // An active naked-eye view stays switchable, so its filter can always be restored.
+  element<HTMLButtonElement>('observer-naked-eye').disabled = observerControlsDisabled && (sceneBusy || nakedEyeRestoreFilter === null)
   element<HTMLSelectElement>('observer-latitude').disabled = observerControlsDisabled || !observerAxialTilt
   element<HTMLSelectElement>('observer-cone-time').disabled = observerControlsDisabled || !observerConeVisible
   for (const id of cameraViewButtonIds) {
@@ -2562,7 +2580,18 @@ function baseObjectListFilter(selected = selectedId): ObjectListFilter {
   )) ?? Infinity, magnitudeLimit) !== 'background'
   const neighborhood = neighborhoodFilter
   return (star, distancePc) => isObjectMapVisible(star, visibleKeys, selected, observerId, distancePc * LIGHT_YEARS_PER_PARSEC, objectDistanceLimitLy) && brightEnough(star)
-    && (!neighborhood || neighborhood(star, distancePc))
+    && nakedEyeVisible(star) && (!neighborhood || neighborhood(star, distancePc))
+}
+
+function nakedEyeVisible(star: Star): boolean {
+  return !nakedEyeRestoreFilter || !star.nebula || NAKED_EYE_NEBULA_IDS.has(star.id)
+}
+
+/** The 3D view's narrowing beyond its own type, distance and brightness tests. */
+function mapObjectPredicate(): ObjectListFilter | null {
+  const graph = graphFilter
+  if (!nakedEyeRestoreFilter) return graph
+  return (star, distancePc) => nakedEyeVisible(star) && (!graph || graph(star, distancePc))
 }
 
 function currentNeighborhoodBounds() {
@@ -2770,7 +2799,7 @@ function objectListFilter(selected = selectedId): ObjectListFilter {
 
 function setGraphFilter(filter: ObjectListFilter | null): void {
   graphFilter = filter
-  viewer?.setObjectPredicate(filter)
+  viewer?.setObjectPredicate(mapObjectPredicate())
   setActiveIndicator('graph-filter-active', !!filter)
   updateObjectListFilter()
 }
@@ -2878,6 +2907,7 @@ function setObserverViewAnchor(anchorId: string | null): void {
     const restoredId = visibilityLockId ?? selectedId
     if (restoredId !== null) observerId = restoredId
     viewer.setVisibility(observerId, magnitudeLimit, hideFainterObjects)
+    setNakedEyeView(false)
   }
   updateObjectListFilter()
   renderSelection()
@@ -3039,7 +3069,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setVisibility(observerId, magnitudeLimit, hideFainterObjects)
   viewer.setObjectDistanceLimit(objectDistanceLimitLy)
   viewer.setObjectFilter([...visibleKeys])
-  viewer.setObjectPredicate(graphFilter)
+  viewer.setObjectPredicate(mapObjectPredicate())
   viewer.setNeighborhood(viewerNeighborhood())
   viewer.setLabelLimit(labelLimit)
   viewer.setMotionArrowsVisible(motionArrowsVisible)
@@ -3469,6 +3499,8 @@ function syncSceneAndMotionInputs(): void {
 }
 
 function resetAllFilters(): void {
+  nakedEyeRestoreFilter = null
+  updateObserverControl()
   showWesternConstellationStars = false
   showNakedEyeStars = false
   showNotableDistantStars = false
@@ -3490,9 +3522,8 @@ function setFilterSaveIndicator(saved: boolean): void {
   element('filter-save').title = saved ? 'Current filter saved as default' : 'Save filter as default'
 }
 
-function saveCurrentFilter(): void {
-  if (!viewer || sceneBusy) return
-  const filter: SavedFilter = {
+function currentFilterSettings(): SavedFilter {
+  return {
     version: 1,
     catalogId: activeCatalogId,
     showAlwaysBright: false,
@@ -3505,6 +3536,38 @@ function saveCurrentFilter(): void {
     hideFainterObjects,
     objectDistanceLimitLy,
   }
+}
+
+/** The naked-eye view's V limit follows the observer zoom; the observatory takes the slider's faintest. */
+function nakedEyeMagnitudeLimit(): number {
+  const guideId = observerZoomOf(viewer?.getViewState()) ?? 'eye'
+  return Math.min(MAGNITUDE_VISIBILITY_GUIDES.find(({ id }) => id === guideId)!.limit, Number(magnitudeLimitInput.max))
+}
+
+/** Shows what a dark sky offers the eye: stars to the V limit at any distance, and the nebulae in NAKED_EYE_NEBULA_IDS. */
+function setNakedEyeView(enabled: boolean): void {
+  if (sceneBusy || enabled === (nakedEyeRestoreFilter !== null)) return
+  const restore = nakedEyeRestoreFilter
+  nakedEyeRestoreFilter = enabled ? currentFilterSettings() : null
+  setFilterState(restore ?? {
+    ...nakedEyeRestoreFilter!,
+    showWesternConstellationStars: true,
+    showNakedEyeStars: true,
+    showNotableDistantStars: false,
+    filterCategories: ['compact_objects', 'interstellar_medium'],
+    filterSubtypes: ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'hii_region'],
+    magnitudeLimit: nakedEyeMagnitudeLimit(),
+    hideFainterObjects: true,
+    objectDistanceLimitLy: OBJECT_DISTANCE_STEPS_LY.at(-1)!,
+  })
+  syncFilterInputs()
+  updateObserverControl()
+  void switchCatalog(restore?.catalogId ?? activeCatalogId, true)
+}
+
+function saveCurrentFilter(): void {
+  if (!viewer || sceneBusy) return
+  const filter = currentFilterSettings()
   try {
     localStorage.setItem(SAVED_FILTER_STORAGE_KEY, JSON.stringify(filter))
     setFilterSaveIndicator(true)
@@ -3552,6 +3615,7 @@ async function loadSavedView(savedView: SavedView, linked = false): Promise<void
   observerView = false
   observerViewAnchorId = null
   visibilityLockId = null
+  nakedEyeRestoreFilter = null
   showWesternConstellationStars = settings.showWesternConstellationStars || settings.showFamousClusterStars || settings.showAlwaysBright
   showNakedEyeStars = settings.showNakedEyeStars ?? false
   showNotableDistantStars = settings.showNotableDistantStars ?? false
@@ -4947,9 +5011,16 @@ for (const zoom of ['telescope', 'observatory'] as const) {
   element(`observer-${zoom}`).addEventListener('click', () => {
     if (!viewer || sceneBusy || !observerView) return
     viewer.setObserverZoom(observerZoomOf(viewer.getViewState()) === zoom ? null : zoom)
+    if (nakedEyeRestoreFilter) {
+      magnitudeLimit = nakedEyeMagnitudeLimit()
+      syncFilterInputs()
+      viewer.setVisibility(observerId, magnitudeLimit, hideFainterObjects)
+      updateObjectListFilter()
+    }
     updateObserverControl()
   }, { signal: events.signal })
 }
+element('observer-naked-eye').addEventListener('click', () => setNakedEyeView(nakedEyeRestoreFilter === null), { signal: events.signal })
 element('observer-axial-tilt').addEventListener('click', () => {
   if (!viewer || sceneBusy || !observerView) return
   observerAxialTilt = !observerAxialTilt

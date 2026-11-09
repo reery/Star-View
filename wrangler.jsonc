@@ -10,7 +10,7 @@
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
-    // Only object pages invoke the Worker; all other requests are served as static assets.
+    // Object pages invoke the Worker first; other paths reach it only when no asset matches.
     "run_worker_first": ["/objects/*"],
     // Missing chunks must return 404 instead of index.html under an asset URL.
     "not_found_handling": "none"

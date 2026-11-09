@@ -143,7 +143,6 @@ test('observatory zooms deeper than the telescope, and only one zoom applies', a
 test('standing on Earth turns the view around the zenith, so the cone rim stays level', async ({ page }) => {
   await openViewer(page)
   await page.locator('#observer-view').click()
-  await page.locator('#observer-lock').click()
   const latitude = page.locator('#observer-latitude')
   await expect(latitude).toBeDisabled()
   await expect(latitude).toHaveValue('40')
@@ -186,7 +185,6 @@ test('standing on Earth turns the view around the zenith, so the cone rim stays 
 test('rolling tilts the axis that drags turn the sky around', async ({ page }) => {
   await openViewer(page)
   await page.locator('#observer-view').click()
-  await page.locator('#observer-lock').click()
   const scene = page.locator('#scene')
   const vector = async (name: string) => (await scene.getAttribute(name))!.split(',').map(Number)
   const dot = (a: number[], b: number[]) => a.reduce((sum, value, index) => sum + value * b[index]!, 0)
@@ -217,7 +215,6 @@ test('rolling tilts the axis that drags turn the sky around', async ({ page }) =
 test('the observer cone follows its own toggle and time', async ({ page }) => {
   await openViewer(page)
   await page.locator('#observer-view').click()
-  await page.locator('#observer-lock').click()
   const cone = page.locator('#observer-cone')
   const time = page.locator('#observer-cone-time')
   await expect(cone).toHaveAttribute('aria-pressed', 'false')
@@ -243,4 +240,54 @@ test('the observer cone follows its own toggle and time', async ({ page }) => {
   await expect(cone).toHaveAttribute('aria-pressed', 'true')
   await expect(time).toHaveValue('20-22')
   await expect(page.locator('#scene')).toHaveAttribute('data-visibility-cone-visible', 'true')
+})
+
+test('naked-eye view applies a dark-sky filter, follows the zoom and restores the previous filter', async ({ page }) => {
+  await openViewer(page)
+  await page.locator('#observer-view').click()
+  const eye = page.getByRole('button', { name: 'Naked-eye visibility', exact: true })
+  const magnitude = page.locator('#magnitude-limit')
+  const distance = page.locator('#object-distance-limit-value')
+  const before = { magnitude: await magnitude.inputValue(), distance: await distance.textContent() }
+  await eye.click()
+  await expect(eye).toHaveAttribute('aria-pressed', 'true')
+  await expect(magnitude).toHaveValue('6')
+  await expect(distance).toHaveText('20000 ly')
+  for (const id of ['hide-fainter-objects', 'show-western-constellation-stars', 'show-naked-eye-stars']) await expect(page.locator(`#${id}`)).toBeChecked()
+  await page.locator('#objects-toggle').click()
+  await page.locator('#object-search').fill('Nebula')
+  await expect(page.locator('#star-list button[data-star="orion-nebula"]')).toBeVisible()
+  await expect(page.locator('#star-list button[data-star="pleiades-nebula"]')).toHaveCount(0)
+  await page.locator('#object-search').fill('Alcyone')
+  await expect(page.locator('#star-list button[data-star]').first()).toBeVisible()
+  await page.locator('#object-search').fill('')
+  // Objects took the observer card's place; close it and leave the toolbar before reopening the card.
+  await page.locator('#objects-toggle').click()
+  await page.locator('#objects-toggle').blur()
+  await page.mouse.move(700, 450)
+  await page.locator('#observer-active').click()
+
+  await page.locator('#observer-telescope').click()
+  await expect(magnitude).toHaveValue('13')
+  await page.locator('#observer-observatory').click()
+  await expect(magnitude).toHaveValue('25')
+  await page.locator('#observer-observatory').click()
+  await expect(magnitude).toHaveValue('6')
+
+  await eye.click()
+  await expect(eye).toHaveAttribute('aria-pressed', 'false')
+  await expect(magnitude).toHaveValue(before.magnitude)
+  await expect(distance).toHaveText(before.distance!)
+  // Without the naked-eye view, zoom leaves the filter alone.
+  await page.locator('#observer-telescope').click()
+  await expect(magnitude).toHaveValue(before.magnitude)
+  await page.locator('#observer-telescope').click()
+
+  // Leaving the observer view ends the naked-eye view too.
+  await eye.click()
+  await expect(magnitude).toHaveValue('6')
+  await page.locator('#observer-exit').click()
+  await expect(magnitude).toHaveValue(before.magnitude)
+  await expect(page.locator('#observer-naked-eye')).toHaveAttribute('aria-pressed', 'false')
+  await expect(page.locator('#observer-naked-eye')).toBeDisabled()
 })
