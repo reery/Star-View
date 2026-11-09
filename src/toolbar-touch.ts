@@ -1,5 +1,5 @@
 /** Give touch input an explicit equivalent of the toolbar's hover flyouts. */
-export function initializeToolbarTouch(toolbar: HTMLElement, signal: AbortSignal): void {
+export function initializeToolbarTouch(toolbar: HTMLElement, signal: AbortSignal): () => void {
   let openGroup: HTMLElement | null = null
   let openingTouch: HTMLElement | null = null
   const dockRail = document.querySelector<HTMLElement>('.dock-rail')!
@@ -103,4 +103,5 @@ export function initializeToolbarTouch(toolbar: HTMLElement, signal: AbortSignal
     if (event.key === 'Escape') close()
     if (event.key === 'Tab') close(false)
   }, { signal })
+  return close
 }

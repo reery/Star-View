@@ -1,5 +1,5 @@
 import { starDisplayColor, type StarColorMode } from './astronomy'
-import { Orbit, createElement } from 'lucide'
+import { Orbit, Sparkles, createElement } from 'lucide'
 import { svgNode as svg } from './spectral-chart'
 import { starComponentIdentity, type StarSystem, type StarSystemComponent } from './star-systems'
 import { orbitalPlanePoint, orbitBarycenterVisible, orbitHasGeometry, orbitMassFraction, projectedOrbitPoint, stellarOrbitsForSystem, type StellarOrbit } from './stellar-orbits'
@@ -175,6 +175,7 @@ export function renderStellarSystem(system: StarSystem, selectedId: string, colo
   const heading = document.createElement('h3')
   heading.className = 'card-subgroup-heading stellar-system-heading'
   heading.textContent = `${system.components.length} stars system`
+  heading.prepend(createElement(Sparkles, { class: 'system-heading-icon', width: 18, height: 18, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
   const viewToggle = document.createElement('button')
   viewToggle.id = 'stellar-orbit-view-toggle'
   viewToggle.type = 'button'

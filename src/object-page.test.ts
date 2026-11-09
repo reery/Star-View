@@ -78,5 +78,8 @@ it('serves listed, unlisted, merged and unknown object pages from the Worker', a
   expect(unknown.status).toBe(404)
   expect(unknown.headers.get('X-Robots-Tag')).toBe('noindex')
   expect(await unknown.text()).toBe(html)
+  const probe = await get('https://starview-app.com/wp-admin/setup.php')
+  expect(probe.status).toBe(404)
+  expect(await probe.text()).toBe('Not found')
   expect((await get('https://star-view.example.workers.dev/objects/sirius-a')).headers.get('X-Robots-Tag')).toBe('noindex')
 })
