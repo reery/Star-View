@@ -1,4 +1,4 @@
-<img src="starview_v12.png" alt="Star View v0.8.0 screenshot" width="800">
+<img src="starview_v13.png" alt="Star View v0.8.0 screenshot" width="800">
 
 # Star View
 
@@ -17,8 +17,7 @@ This project is still in active development and there are a lot of features to c
 
 ## Features
 
-- Three bundled stellar catalogs: **Nearest neighbors** (21 objects plus the Sun, default), **Nearest 100** and **Nearest 1000**, plus the optional **Western constellation stars** overlay with all constellation figure stars, cluster landmarks and the former bright-star landmarks
-- Optional, separately loaded compact-remnant overlay within 10,000 light-years: 420 ATNF pulsars, 14 neutron stars and 11 black holes; all three type filters start off
+- Five bundled stellar catalogs: **Nearest neighbors** (21 objects plus the Sun, default), **Nearest 100**, **Nearest 1000**, **Nearest 5000** plus the optional **Western constellation stars** overlay with all constellation figure stars, cluster landmarks and the former bright-star landmarks and **Naked-eye stars**. Optional, separately loaded compact-remnant overlay within 10,000 light-years: 420 ATNF pulsars, 14 neutron stars and 11 black holes; all three type filters start off
 - Optional extended-object overlays for 65 voxel-mapped nearby molecular clouds, nearby nebulae and a translucent Local Bubble shell downsampled from a published 3D dust surface
 - Orbit, zoom and pan with mouse or touch; selecting an object centers it
 - Type-aware inspector with stellar, compact-object, molecular-cloud, nebula or interstellar-bubble properties and source notes
@@ -27,7 +26,6 @@ This project is still in active development and there are a lot of features to c
 - Real or exaggerated temperature colors, magnitude-based glow, motion arrows, a seasonal Earth-orbit reference and an optional Galactic-aligned 360° Milky Way backdrop that gives way to the whole Galaxy when zoomed far out
 - Distance and height guides relative to the active origin
 - Rotation-only **Observer view** from any selected object, with the observing object hidden and other stars still selectable
-- Light-year or parsec units, grid toggle and an optional power-saving mode
 - Desktop and mobile layouts
 
 ## Getting Started

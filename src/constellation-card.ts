@@ -1,7 +1,7 @@
 import type { Star } from './catalog-model'
 import { LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type StarColorMode } from './astronomy'
 import { constellationStarObjects, objectSkyPosition, projectConstellationPosition, type ConstellationChart } from './constellations'
-import { constellationStarDiameter, disposeConstellationStars, renderConstellationStars, type ConstellationMarker } from './constellation-star-appearance'
+import { constellationStarDiameter, disposeConstellationStars, renderConstellationStars, type ConstellationMarker, type StarLook } from './constellation-star-appearance'
 import { renderConstellationVisibility } from './constellation-visibility-card'
 import { constellationGrid } from './constellation-grid'
 import { constellationInfoAvailable, constellationInfoLinks, loadConstellationInfo } from './constellation-info'
@@ -16,7 +16,7 @@ import { hideTouchTooltip, registerTouchTooltip, showTouchTooltip, touchTooltipO
 type Point = { x: number; y: number }
 type Box = { left: number; top: number; right: number; bottom: number }
 const intersects = (a: Box, b: Box) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top
-interface CardOptions { objects: readonly Star[]; colorMode: StarColorMode; distanceUnit: DistanceUnit; magnified: boolean; equatorialGrid: boolean; onSelect: (object: Star) => void }
+interface CardOptions { objects: readonly Star[]; colorMode: StarColorMode; starLook: StarLook; distanceUnit: DistanceUnit; magnified: boolean; equatorialGrid: boolean; onSelect: (object: Star) => void }
 const MAGNIFICATION = 3
 interface CardState {
   object: Star | null; chart: ConstellationChart; options: CardOptions; observer: ResizeObserver; width: number; height: number
@@ -291,7 +291,7 @@ function drawChart(root: HTMLElement, object: Star | null, chart: ConstellationC
     lineMask.append(svg('circle', { cx: x, cy: y, r: constellationStarDiameter(magnitude) / 2, fill: 'black' }))
   }
   container.replaceChildren(canvas, diagram, ...tooltips)
-  renderConstellationStars(canvas, marks, width, height, options.colorMode)
+  renderConstellationStars(canvas, marks, width, height, options.colorMode, false, options.starLook)
   placeLabels(diagram, width, height)
   if (focused) diagram.querySelector<SVGGElement>(`[data-hip="${focused}"]`)?.focus({ preventScroll: true })
   const note = part(root, 'missing')

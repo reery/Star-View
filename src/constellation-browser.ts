@@ -1,4 +1,5 @@
 import type { DistanceUnit, StarColorMode } from './astronomy'
+import type { StarLook } from './constellation-star-appearance'
 import type { Star } from './catalog-model'
 import { appendConstellationContent } from './constellation-card-content'
 import { disposeConstellationCard, renderConstellationCard, resetConstellationInfo } from './constellation-card'
@@ -10,6 +11,7 @@ import { streamWhenLoaded } from './content-stream'
 interface BrowserOptions {
   objects: readonly Star[]
   colorMode: StarColorMode
+  starLook: StarLook
   distanceUnit: DistanceUnit
   onSelect(object: Star): void
 }

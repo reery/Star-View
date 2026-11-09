@@ -760,7 +760,7 @@ async function loadConstellationsPanel(): Promise<void> {
   }))
   if (!result || constellationBrowser) return
   constellationBrowser = result.value.initializeConstellationBrowser(events.signal,
-    () => ({ objects: stars, colorMode: starColorMode, distanceUnit, onSelect: (object) => { void selectConstellationStar(object) } }),
+    () => ({ objects: stars, colorMode: starColorMode, starLook: { style: starStyle, brightness: starBrightness }, distanceUnit, onSelect: (object) => { void selectConstellationStar(object) } }),
     starById(selectedId)?.constellation ?? undefined)
   constellationBrowser.open()
 }
@@ -935,10 +935,17 @@ function renderConstellationCard(star: Star): void {
     return
   }
   constellationCardModule.renderConstellationCard(element('constellation-card'), star, activeConstellationChart, {
-    objects: stars, colorMode: starColorMode, distanceUnit, magnified: constellationMagnified, equatorialGrid: constellationEquatorialGrid,
+    objects: stars, colorMode: starColorMode, starLook: { style: starStyle, brightness: starBrightness }, distanceUnit, magnified: constellationMagnified, equatorialGrid: constellationEquatorialGrid,
     onSelect: (object) => { void selectConstellationStar(object) },
   })
   syncObjectTypeLayout()
+}
+
+/** Redraws open constellation charts after a star look preference changes. */
+function refreshConstellationCharts(): void {
+  const target = sideDetailStar(constellationStarId)
+  if (target && !element('constellation-card').hidden) renderConstellationCard(target)
+  constellationBrowser?.refresh()
 }
 
 /** Companions complete from the loaded chart records unless the caller supplies its source payload. */
@@ -2679,7 +2686,11 @@ function renderNeighborhood(): void {
   }
   const sun = center?.id === 'sun'
   const birthYear = sun ? neighborhoodBirthYear : null
-  const { outerLy, sphereLy } = currentNeighborhoodBounds()
+  const { innerLy, outerLy, sphereLy } = currentNeighborhoodBounds()
+  // The filter always keeps the center, which lies inside only a sphere, not a birth-year shell.
+  const filter = neighborhoodFilter
+  element('neighborhood-stars').hidden = !filter
+  if (filter) text('neighborhood-star-count', stars.filter((star) => star.type === 'star' && (star.id !== center!.id || innerLy === 0) && filter(star, 0)).length.toLocaleString('en-US'))
   const radius = element<HTMLInputElement>('neighborhood-radius')
   radius.disabled = birthYear !== null
   radius.value = String(Math.min(NEIGHBORHOOD_RADIUS_LY.max, birthYear === null ? neighborhoodRadiusLy : sphereLy))
@@ -4421,11 +4432,13 @@ element('star-style').addEventListener('change', () => {
   starStyle = element<HTMLInputElement>('star-style-realistic').checked ? 'realistic' : 'exaggerated'
   try { localStorage.setItem('star-view-star-style', starStyle) } catch {}
   viewer?.setStarStyle(starStyle)
+  refreshConstellationCharts()
 }, { signal: events.signal })
 element('star-brightness').addEventListener('change', () => {
   starBrightness = element<HTMLInputElement>('star-brightness-high').checked ? 'high' : 'normal'
   try { localStorage.setItem('star-view-star-brightness', starBrightness) } catch {}
   viewer?.setStarBrightness(starBrightness)
+  refreshConstellationCharts()
 }, { signal: events.signal })
 element('color-blind-palette').addEventListener('change', () => {
   colorBlindPalette = element<HTMLInputElement>('color-blind-palette').checked
