@@ -1,6 +1,7 @@
 import { BackSide, BoxGeometry, Group, LinearFilter, Mesh, RepeatWrapping, ShaderMaterial, SRGBColorSpace, Texture, Vector2 } from 'three'
 import { LIGHT_YEARS_PER_PARSEC, type StarColorMode } from './astronomy'
 import type { GalaxyLayer } from './galaxy-layer'
+import type { StarStyle } from './star-appearance'
 import milkyWayAvifUrl from './assets/milky-way.avif'
 import milkyWayJpegUrl from './assets/milky-way.jpg'
 
@@ -9,6 +10,8 @@ export interface MilkyWayLayer {
   group: Group
   setVisible(visible: boolean): void
   setColorMode(mode: StarColorMode): void
+  /** Realistic stars remove the panorama's own star peaks, which blur into blobs when magnified. */
+  setStarStyle(style: StarStyle): void
   /** Crossfades from the Sun's sky panorama to the Galaxy as the camera leaves the Sun. */
   setSunDistance(distancePc: number): void
   setViewportHeight(pixels: number): void
@@ -102,6 +105,7 @@ export function createMilkyWayLayer(
     texelSize: { value: new Vector2() },
     intensity: { value: 0.12 },
     saturation: { value: saturationForMode(mode) },
+    peakSuppression: { value: 0.25 },
     opacity: { value: 1 },
     distanceOpacity: { value: 1 },
   }
@@ -127,6 +131,7 @@ export function createMilkyWayLayer(
       uniform vec2 texelSize;
       uniform float intensity;
       uniform float saturation;
+      uniform float peakSuppression;
       uniform float opacity;
       uniform float distanceOpacity;
       varying vec3 worldDirection;
@@ -141,7 +146,7 @@ export function createMilkyWayLayer(
           texture2D(map, uv + vec2(0.0, texelSize.y)).rgb +
           texture2D(map, uv - vec2(0.0, texelSize.y)).rgb
         );
-        panorama -= 0.25 * max(panorama - nearby, vec3(0.0));
+        panorama -= peakSuppression * max(panorama - nearby, vec3(0.0));
         float luminance = dot(panorama, vec3(0.2126, 0.7152, 0.0722));
         vec3 skyColor = max(mix(vec3(luminance), panorama, saturation), vec3(0.0)) * intensity;
         // Keep empty sky transparent so the DOM axis captions behind the
@@ -245,6 +250,9 @@ export function createMilkyWayLayer(
       colorMode = next
       uniforms.saturation.value = saturationForMode(next)
       galaxy?.setColorMode(next)
+    },
+    setStarStyle(next) {
+      uniforms.peakSuppression.value = next === 'exaggerated' ? 0.25 : 1
     },
     setSunDistance(distance) {
       uniforms.distanceOpacity.value = 1 - distanceFade(distance, PANORAMA_FADE_PC)

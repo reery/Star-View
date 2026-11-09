@@ -23,6 +23,7 @@ import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, fo
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { isVisibilityConeMode, LATITUDE_STORAGE_KEY, observerLatitude, VISIBILITY_CONE_MODES, visibilityConeHours, visibilityConeModeLabel, type VisibilityConeMode } from './constellation-visibility'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type ObserverFrame, type StarViewer, type ViewerViewState } from './viewer'
+import { STAR_STYLES, type StarBrightness, type StarStyle } from './star-appearance'
 import { CONTEXT_MENU_HOLD_MS, isObjectMapVisible, mapVisibilityTier, motionTravelDistancePc } from './viewer-primitives'
 import { targetRenderFps } from './render-scheduling'
 import { renderSelectedStarPreview } from './selected-star-preview'
@@ -451,6 +452,8 @@ const availableKeys = availableFilterKeys(compactOverlayManifest.counts, nebulaO
 let visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
 let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
+let starStyle: StarStyle = 'realistic'
+let starBrightness: StarBrightness = 'normal'
 let colorBlindPalette = false
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
 const NAKED_EYE_CATALOG_ID = 'naked-eye-stars'
@@ -503,6 +506,9 @@ let objectHold: { pointerId: number; x: number; y: number; timer: number } | nul
 try {
   if (localStorage.getItem('star-view-distance-unit') === 'pc') distanceUnit = 'pc'
   if (localStorage.getItem('star-view-color-mode') === 'real') starColorMode = 'real'
+  const storedStarStyle = localStorage.getItem('star-view-star-style')
+  if (STAR_STYLES.includes(storedStarStyle as StarStyle)) starStyle = storedStarStyle as StarStyle
+  if (localStorage.getItem('star-view-star-brightness') === 'high') starBrightness = 'high'
   colorBlindPalette = localStorage.getItem('star-view-color-blind-palette') === 'true'
   const storedEarthOrbitMode = localStorage.getItem('star-view-earth-orbit-mode')
   if (isEarthOrbitMode(storedEarthOrbitMode)) earthOrbitMode = storedEarthOrbitMode
@@ -526,6 +532,8 @@ try {
   if (storedLabelLimit !== null && parsedLabelLimit >= 0 && parsedLabelLimit <= 140 && parsedLabelLimit % 20 === 0) labelLimit = parsedLabelLimit
 } catch {}
 element<HTMLInputElement>(`star-colors-${starColorMode}`).checked = true
+element<HTMLInputElement>(`star-style-${starStyle}`).checked = true
+element<HTMLInputElement>(`star-brightness-${starBrightness}`).checked = true
 element<HTMLInputElement>('color-blind-palette').checked = colorBlindPalette
 const earthOrbitModeInput = element<HTMLInputElement>('earth-orbit-mode')
 // Overrides any form state the browser restored on reload, so the inputs match the app's settings.
@@ -3051,6 +3059,8 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       },
       onStatus: sceneStatus,
       colorMode: starColorMode,
+      starStyle,
+      starBrightness,
       earthOrbitDate: earthOrbitDateForMode(earthOrbitMode),
       milkyWayVisible,
       oortCloudVisible,
@@ -4406,6 +4416,16 @@ element('star-colors').addEventListener('change', () => {
   updateSelectionHistoryControls()
   viewer?.setStarColorMode(starColorMode)
   graphs?.refresh()
+}, { signal: events.signal })
+element('star-style').addEventListener('change', () => {
+  starStyle = element<HTMLInputElement>('star-style-realistic').checked ? 'realistic' : 'exaggerated'
+  try { localStorage.setItem('star-view-star-style', starStyle) } catch {}
+  viewer?.setStarStyle(starStyle)
+}, { signal: events.signal })
+element('star-brightness').addEventListener('change', () => {
+  starBrightness = element<HTMLInputElement>('star-brightness-high').checked ? 'high' : 'normal'
+  try { localStorage.setItem('star-view-star-brightness', starBrightness) } catch {}
+  viewer?.setStarBrightness(starBrightness)
 }, { signal: events.signal })
 element('color-blind-palette').addEventListener('change', () => {
   colorBlindPalette = element<HTMLInputElement>('color-blind-palette').checked
