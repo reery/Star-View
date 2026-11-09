@@ -106,7 +106,7 @@ function isSavedView(value: unknown): value is SavedView {
     && typeof settings.showFamousClusterStars === 'boolean'
     && Array.isArray(settings.filterCategories) && settings.filterCategories.every(isFilterCategoryId)
     && Array.isArray(settings.filterSubtypes) && settings.filterSubtypes.every(isFilterKey)
-    && typeof settings.magnitudeLimit === 'number' && settings.magnitudeLimit >= 0 && settings.magnitudeLimit <= 25
+    && typeof settings.magnitudeLimit === 'number' && settings.magnitudeLimit >= 0 && settings.magnitudeLimit <= 30
     && (settings.hideFainterObjects === undefined || typeof settings.hideFainterObjects === 'boolean')
     && typeof settings.objectDistanceLimitLy === 'number' && OBJECT_DISTANCE_STEPS_LY.includes(settings.objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])
     && typeof settings.earthOrbitMode === 'string' && isEarthOrbitMode(settings.earthOrbitMode)

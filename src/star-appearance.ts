@@ -12,9 +12,14 @@ export const STAR_STYLES: readonly StarStyle[] = ['exaggerated', 'realistic']
 export type StarBrightness = 'normal' | 'high'
 export const STAR_BRIGHTNESSES: readonly StarBrightness[] = ['normal', 'high']
 
-/** High brightness shows a star's light one magnitude brighter; pulsar, neutron star and black hole icons are symbols and stay. */
+/** Stars show one magnitude brighter at normal brightness and two at high; pulsar, neutron star and black hole icons are symbols and stay. */
 export function displayMagnitude(magnitude: number | null, star: Pick<Star, 'type'>, brightness: StarBrightness): number | null {
-  return brightness === 'high' && magnitude !== null && starCoreShape(star) === 0 ? magnitude - 1 : magnitude
+  return magnitude !== null && starCoreShape(star) === 0 ? magnitude - (brightness === 'high' ? 2 : 1) : magnitude
+}
+
+/** How far overlapping realistic stars cover each other: 1 levels a crowd off at a glow, 0 adds all its light. */
+export function starCrowdCoverage(brightness: StarBrightness): number {
+  return brightness === 'high' ? 0.3 : 1
 }
 
 // Realistic stars are drawn like a photograph: a Moffat point spread function
@@ -44,7 +49,7 @@ export function createStarAppearance(starViewDistance: { value: number }, select
   const selectionAttribute = selectionEnabled ? 'attribute float selectionEmphasis;' : ''
   const selection = selectionEnabled ? 'selectionEmphasis' : '0.0'
   // Only the map switches to realistic stars; the distance card keeps the defaults.
-  const realism = { starRealism: { value: 0 }, starPixelRatio: { value: 1 } }
+  const realism = { starRealism: { value: 0 }, starCrowdCoverage: { value: 1 }, starPixelRatio: { value: 1 } }
   // Magnitude already includes the source's distance. Only zooming out of the
   // map adds display restraint; point depth must not attenuate the light again.
   const textureCanvas = document.createElement('canvas')
@@ -68,7 +73,7 @@ export function createStarAppearance(starViewDistance: { value: number }, select
   starMaterial.onBeforeCompile = (shader) => {
     shader.uniforms.starViewDistance = starViewDistance
     Object.assign(shader.uniforms, realism)
-    const psfVaryings = 'uniform float starRealism;\nuniform float starPixelRatio;\nvarying float vPsfPeak;\nvarying float vPsfSpike;\nvarying float vPsfRadius;'
+    const psfVaryings = 'uniform float starRealism;\nuniform float starCrowdCoverage;\nuniform float starPixelRatio;\nvarying float vPsfPeak;\nvarying float vPsfSpike;\nvarying float vPsfRadius;'
     shader.vertexShader = `${selectionAttribute}\n${psfVaryings}\nuniform float starViewDistance;\nattribute float starFlux;\nattribute float coreDiameter;\nattribute float coreEmphasis;\nattribute float coreWhiteStrength;\nattribute float coreShape;\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\nvarying float vCoreShape;\n${shader.vertexShader}`
       .replace('gl_PointSize = size;', `float coreOverviewRatio = pow(min(1.0, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC})), ${STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER});
       float coreViewScale = max(${STAR_CORE_MIN_VIEW_SCALE}, sqrt(coreOverviewRatio));
@@ -114,7 +119,7 @@ export function createStarAppearance(starViewDistance: { value: number }, select
         // Opacity follows the displayed (sRGB) brightness: alone on dark sky a star looks the same,
         // while a crowd seen from far away levels off at a bounded glow instead of clipping to white.
         float shown = pow(max(max(starLight.r, starLight.g), starLight.b), 1.0 / 2.2);
-        diffuseColor = vec4(starLight, min(1.0, shown * ${glsl(PSF.crowdOpacity)}));
+        diffuseColor = vec4(starLight, min(1.0, shown * ${glsl(PSF.crowdOpacity)}) * starCrowdCoverage);
       } else {
       float coreRadius = length(gl_PointCoord - vec2(0.5)) * 2.0;
       float compactCore = 1.0 - smoothstep(3.0, 4.0, vCoreDiameter);
@@ -197,5 +202,5 @@ export function createStarAppearance(starViewDistance: { value: number }, select
     starMaterial.depthWrite = !realistic
     starMaterial.alphaTest = realistic ? 0.002 : 0.2
   }
-  return { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle, pixelRatio: realism.starPixelRatio }
+  return { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle, pixelRatio: realism.starPixelRatio, crowdCoverage: realism.starCrowdCoverage }
 }

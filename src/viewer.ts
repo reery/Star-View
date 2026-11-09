@@ -6,7 +6,7 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import type { Star } from './catalog-model'
-import { createStarAppearance, displayMagnitude, STAR_BRIGHTNESSES, STAR_STYLES, type StarBrightness, type StarStyle } from './star-appearance'
+import { createStarAppearance, displayMagnitude, STAR_BRIGHTNESSES, starCrowdCoverage, STAR_STYLES, type StarBrightness, type StarStyle } from './star-appearance'
 import { createDepthLabel } from './depth-label'
 import { updateCameraNearPlane } from './camera-depth'
 import { createMilkyWayLayer } from './milky-way-layer'
@@ -337,9 +337,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   scene.add(milkyWay.group)
 
   const starViewDistance = { value: camera.position.distanceTo(controls.target) }
-  const { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle: setStarAppearanceStyle, pixelRatio: starPixelRatio } = createStarAppearance(starViewDistance, true)
+  const { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle: setStarAppearanceStyle, pixelRatio: starPixelRatio, crowdCoverage } = createStarAppearance(starViewDistance, true)
   setStarAppearanceStyle(starStyle)
   starPixelRatio.value = renderer.getPixelRatio()
+  crowdCoverage.value = starCrowdCoverage(starBrightness)
   milkyWay.setStarStyle(starStyle)
 
   const initialEarthOrbitDate = options.earthOrbitDate === undefined ? new Date() : options.earthOrbitDate
@@ -2669,6 +2670,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setStarBrightness(brightness) {
       if (!STAR_BRIGHTNESSES.includes(brightness) || brightness === starBrightness) return
       starBrightness = brightness
+      crowdCoverage.value = starCrowdCoverage(brightness)
       updatePresentation()
       requestRender()
     },

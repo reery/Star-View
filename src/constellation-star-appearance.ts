@@ -6,8 +6,9 @@ import { STAR_DIAMETER_PX, starApparentDiameter, starCoreWhiteStrength, starHalo
 
 export interface StarLook { style: StarStyle; brightness: StarBrightness }
 const ICON_LOOK: StarLook = { style: 'exaggerated', brightness: 'normal' }
-// Charts are small diagrams of naked-eye stars, so realistic stars get a longer exposure (2.5 magnitudes).
-const CHART_EXPOSURE = 10 ** (0.4 * 2.5)
+// Charts are small diagrams of naked-eye stars, so realistic stars get a longer exposure:
+// with the normal brightness boost, 2.5 magnitudes in all.
+const CHART_EXPOSURE = 10 ** (0.4 * 1.5)
 
 export interface ConstellationMarker { object: Star; x: number; y: number; magnitude: number | null }
 
