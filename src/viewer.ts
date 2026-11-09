@@ -6,7 +6,7 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import type { Star } from './catalog-model'
-import { createStarAppearance, STAR_BRIGHTNESSES, STAR_STYLES, type StarBrightness, type StarStyle } from './star-appearance'
+import { createStarAppearance, displayMagnitude, STAR_BRIGHTNESSES, STAR_STYLES, type StarBrightness, type StarStyle } from './star-appearance'
 import { createDepthLabel } from './depth-label'
 import { updateCameraNearPlane } from './camera-depth'
 import { createMilkyWayLayer } from './milky-way-layer'
@@ -423,6 +423,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const haloEnabled = new Uint8Array(stars.length)
   const nextHaloEnabled = new Uint8Array(stars.length)
   let pointVisibilityInitialized = false
+  // Realistic stars cover what they are drawn over, so they are drawn faintest first and selected last.
+  const coreDrawOrder = Uint32Array.from(stars, (_, index) => index)
+  const coreDrawBrightness = new Float32Array(stars.length)
+  let coreOrderDirty = false
   const haloOpacities = new Float32BufferAttribute(stars.map(() => 0), 1)
   const haloDiameters = new Float32BufferAttribute(stars.map(() => 30), 1)
   haloGeometry.setAttribute('haloOpacity', haloOpacities)
@@ -1309,8 +1313,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       // Painted magnitudes size every object, independent of distance.
       const paintedMagnitude = starPaints?.[index]!.magnitude
       const lightMagnitude = paintedMagnitude !== undefined ? paintedMagnitude : tier === 'base' ? mapAbsoluteMagnitude(star) : magnitude
-      // High brightness shows every star's own light one magnitude brighter; painted sizes encode data and stay.
-      const haloMagnitude = starBrightness === 'high' && paintedMagnitude === undefined && lightMagnitude !== null ? lightMagnitude - 1 : lightMagnitude
+      // Painted sizes encode data, so the brightness preference leaves them alone.
+      const haloMagnitude = paintedMagnitude === undefined ? displayMagnitude(lightMagnitude, star, starBrightness) : lightMagnitude
       const background = tier === 'background' && paintedMagnitude === undefined
       const haloEmphasis = starHaloEmphasis(haloMagnitude)
       const diameter = starApparentDiameter(haloMagnitude)
@@ -1351,6 +1355,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setData(labelLayer, 'faintCloudHiddenCount', String(faintHiddenCount))
     coreDiameters.needsUpdate = true
     starFluxes.needsUpdate = true
+    if (starStyle === 'realistic') {
+      for (let index = 0; index < stars.length; index++) {
+        coreDrawBrightness[index] = stars[index]!.id === selectedId ? Infinity : starFluxes.getX(index)
+      }
+      coreDrawOrder.sort((first, second) => coreDrawBrightness[first]! - coreDrawBrightness[second]! || first - second)
+      coreOrderDirty = true
+    }
     coreEmphases.needsUpdate = true
     selectionEmphases.needsUpdate = true
     haloOpacities.needsUpdate = true
@@ -1394,10 +1405,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       nextHaloEnabled[index] = starStyle === 'exaggerated' && nextCoreEnabled[index] && (tiers[index] !== 'background' || starPaints?.[index]!.magnitude !== undefined) ? 1 : 0
     }
     // Keep the index buffers on the GPU until drawable membership changes.
-    if (!pointVisibilityInitialized || nextCoreEnabled.some((enabled, index) => enabled !== coreEnabled[index])) {
+    if (!pointVisibilityInitialized || coreOrderDirty || nextCoreEnabled.some((enabled, index) => enabled !== coreEnabled[index])) {
       coreEnabled.set(nextCoreEnabled)
+      coreOrderDirty = false
       let count = 0
-      for (let index = 0; index < stars.length; index++) {
+      for (const index of coreDrawOrder) {
         if (coreEnabled[index]) coreIndices.setX(count++, index)
       }
       coreIndices.needsUpdate = true
@@ -2651,7 +2663,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       starStyle = style
       setStarAppearanceStyle(style)
       milkyWay.setStarStyle(style)
-      updatePointVisibility()
+      updatePresentation()
       requestRender()
     },
     setStarBrightness(brightness) {

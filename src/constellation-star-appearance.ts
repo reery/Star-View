@@ -1,8 +1,13 @@
 import { BufferGeometry, Float32BufferAttribute, OrthographicCamera, Points, Scene, WebGLRenderer } from 'three'
 import { starDisplayColor, type StarColorMode } from './astronomy'
 import type { Star } from './catalog-model'
-import { createStarAppearance } from './star-appearance'
+import { createStarAppearance, displayMagnitude, type StarBrightness, type StarStyle } from './star-appearance'
 import { STAR_DIAMETER_PX, starApparentDiameter, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity } from './viewer-primitives'
+
+export interface StarLook { style: StarStyle; brightness: StarBrightness }
+const ICON_LOOK: StarLook = { style: 'exaggerated', brightness: 'normal' }
+// Charts are small diagrams of naked-eye stars, so realistic stars get a longer exposure (2.5 magnitudes).
+const CHART_EXPOSURE = 10 ** (0.4 * 2.5)
 
 export interface ConstellationMarker { object: Star; x: number; y: number; magnitude: number | null }
 
@@ -25,11 +30,11 @@ function createRenderer() {
   cores.renderOrder = 1
   halos.renderOrder = 2
   scene.add(cores, halos)
-  return { renderer, appearance, scene, camera, geometry }
+  return { renderer, appearance, scene, camera, geometry, halos }
 }
 let points: ReturnType<typeof createRenderer> | undefined
 
-export function renderConstellationStars(canvas: HTMLCanvasElement, marks: readonly ConstellationMarker[], width: number, height: number, colorMode: StarColorMode, transparentBackground = false): void {
+export function renderConstellationStars(canvas: HTMLCanvasElement, marks: readonly ConstellationMarker[], width: number, height: number, colorMode: StarColorMode, transparentBackground = false, look = ICON_LOOK): void {
   const state = points ??= createRenderer()
   const ratio = Math.min(3, window.devicePixelRatio || 1)
   state.renderer.setPixelRatio(ratio)
@@ -37,14 +42,24 @@ export function renderConstellationStars(canvas: HTMLCanvasElement, marks: reado
   state.camera.right = width
   state.camera.bottom = -height
   state.camera.updateProjectionMatrix()
+  // The renderer is shared with icons, so every call sets its own look.
+  const realistic = look.style === 'realistic'
+  state.appearance.setStyle(look.style)
+  state.appearance.pixelRatio.value = ratio
+  state.halos.visible = !realistic
   const positions: number[] = [], colors: number[] = []
-  const attributes: Record<string, number[]> = { coreDiameter: [], coreEmphasis: [], coreWhiteStrength: [], haloDiameter: [], haloOpacity: [] }
-  for (const { object, x, y, magnitude } of marks) {
+  const attributes: Record<string, number[]> = { starFlux: [], coreDiameter: [], coreEmphasis: [], coreWhiteStrength: [], haloDiameter: [], haloOpacity: [] }
+  // Realistic stars cover what they are drawn over, so the faintest go first.
+  const faintness = (mark: ConstellationMarker) => mark.magnitude ?? Infinity
+  const ordered = realistic ? [...marks].sort((first, second) => faintness(second) - faintness(first) || 0) : marks
+  for (const { object, x, y, magnitude: sourceMagnitude } of ordered) {
+    const magnitude = displayMagnitude(sourceMagnitude, object, look.brightness)
     const color = starDisplayColor(object, colorMode)
     positions.push(x, -y, 0)
     colors.push(color.r, color.g, color.b)
     const emphasis = starHaloEmphasis(magnitude)
     const diameter = starApparentDiameter(magnitude)
+    attributes.starFlux!.push(magnitude === null ? 0 : CHART_EXPOSURE * 10 ** (-0.4 * magnitude))
     attributes.coreDiameter!.push(diameter)
     attributes.coreEmphasis!.push(emphasis)
     attributes.coreWhiteStrength!.push(starCoreWhiteStrength(object))

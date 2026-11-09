@@ -56,15 +56,17 @@ export function createEarthOrbitLayer(sunPosition: Vector3): EarthOrbitLayer {
   )
   point.name = 'earth-date-marker'
   point.frustumCulled = false
-  point.renderOrder = 5
+  // Drawn over the Oort cloud (1.9) but before the stars (2), with depth: behind the Sun its light covers Earth,
+  // in front Earth's depth keeps the light off. Realistic stars do not write depth themselves.
+  point.renderOrder = 1.92
   const axisGeometry = new BufferGeometry().setFromPoints([new Vector3(), new Vector3()])
   const axisLine = new Line(
     axisGeometry,
-    new LineBasicMaterial({ color: 0xe2f8ff, transparent: true, opacity: 0.95, depthTest: true, depthWrite: false, toneMapped: false }),
+    new LineBasicMaterial({ color: 0xe2f8ff, transparent: true, opacity: 0.95, depthTest: true, depthWrite: true, toneMapped: false }),
   )
   axisLine.name = 'earth-axis-line'
   axisLine.frustumCulled = false
-  axisLine.renderOrder = 6
+  axisLine.renderOrder = 1.95
   const scaled = new Group()
   scaled.add(orbitLine, axisLine, point)
   group.add(scaled)

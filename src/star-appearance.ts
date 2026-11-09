@@ -1,14 +1,21 @@
-import { AdditiveBlending, CanvasTexture, LessDepth, NoBlending, PointsMaterial, SRGBColorSpace } from 'three'
+import { AdditiveBlending, CanvasTexture, CustomBlending, LessDepth, NoBlending, OneFactor, OneMinusSrcAlphaFactor, PointsMaterial, SRGBColorSpace } from 'three'
 import {
   STAR_CORE_FULL_STRENGTH_DISTANCE_PC, STAR_CORE_MIN_DIAMETER_PX, STAR_CORE_MIN_VIEW_SCALE,
   STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER,
   STAR_HALO_FULL_STRENGTH_DISTANCE_PC, STAR_HALO_MIN_OPACITY_SCALE, STAR_HALO_MIN_VIEW_SCALE, STAR_REMNANT_MIN_DIAMETER_PX,
+  starCoreShape,
 } from './viewer-primitives'
+import type { Star } from './catalog-model'
 
 export type StarStyle = 'exaggerated' | 'realistic'
 export const STAR_STYLES: readonly StarStyle[] = ['exaggerated', 'realistic']
 export type StarBrightness = 'normal' | 'high'
 export const STAR_BRIGHTNESSES: readonly StarBrightness[] = ['normal', 'high']
+
+/** High brightness shows a star's light one magnitude brighter; pulsar, neutron star and black hole icons are symbols and stay. */
+export function displayMagnitude(magnitude: number | null, star: Pick<Star, 'type'>, brightness: StarBrightness): number | null {
+  return brightness === 'high' && magnitude !== null && starCoreShape(star) === 0 ? magnitude - 1 : magnitude
+}
 
 // Realistic stars are drawn like a photograph: a Moffat point spread function
 // (with a faint scattered-light wing and diffraction spikes) scaled by flux,
@@ -26,6 +33,8 @@ const PSF = {
   // Light beyond −1.5 mag compresses smoothly towards −3 mag, so a companion's glare seen
   // from its neighbor (Rigel A from Rigel Ba is about −22 mag) stays a star, not a clipped disc.
   brightFlux: 10 ** 0.6, brightRangeMagnitudes: 1.5,
+  // Overlapping stars converge to 1 / crowdOpacity of full brightness, a glow rather than white.
+  crowdOpacity: 1.35,
   spikeWeight: 0.0009, spikeWidth: 0.45, spikeLength: 7, cutoff: 0.004, maxRadius: 64,
 }
 const glsl = (value: number) => Number.isInteger(value) ? `${value}.0` : String(value)
@@ -101,7 +110,11 @@ export function createStarAppearance(starViewDistance: { value: number }, select
           + exp(-diagonal.x * diagonal.x / ${glsl(PSF.spikeWidth ** 2)}) * spikeFalloff.y);
         float edge = clamp((sqrt(distanceSquared) * starPixelRatio / vPsfRadius - 0.6) / 0.4, 0.0, 1.0);
         light *= 1.0 - edge * edge;
-        diffuseColor = vec4(vec3(1.0) - exp(-light * diffuseColor.rgb), 1.0);
+        vec3 starLight = vec3(1.0) - exp(-light * diffuseColor.rgb);
+        // Opacity follows the displayed (sRGB) brightness: alone on dark sky a star looks the same,
+        // while a crowd seen from far away levels off at a bounded glow instead of clipping to white.
+        float shown = pow(max(max(starLight.r, starLight.g), starLight.b), 1.0 / 2.2);
+        diffuseColor = vec4(starLight, min(1.0, shown * ${glsl(PSF.crowdOpacity)}));
       } else {
       float coreRadius = length(gl_PointCoord - vec2(0.5)) * 2.0;
       float compactCore = 1.0 - smoothstep(3.0, 4.0, vCoreDiameter);
@@ -173,12 +186,16 @@ export function createStarAppearance(starViewDistance: { value: number }, select
     shader.fragmentShader = `varying float vHaloOpacity;\n${shader.fragmentShader}`
       .replace('#include <map_particle_fragment>', '#include <map_particle_fragment>\ndiffuseColor.a *= vHaloOpacity;')
   }
-  // Realistic light adds up like a photograph; its sprites must not hide fainter stars behind them.
+  // Realistic stars composite their premultiplied light over what is behind them; their large,
+  // mostly dark sprites must neither hide fainter stars through depth nor be cut by the alpha test.
+  starMaterial.blendSrc = OneFactor
+  starMaterial.blendDst = OneMinusSrcAlphaFactor
   const setStyle = (style: StarStyle) => {
     const realistic = style === 'realistic'
     realism.starRealism.value = realistic ? 1 : 0
-    starMaterial.blending = realistic ? AdditiveBlending : NoBlending
+    starMaterial.blending = realistic ? CustomBlending : NoBlending
     starMaterial.depthWrite = !realistic
+    starMaterial.alphaTest = realistic ? 0.002 : 0.2
   }
   return { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle, pixelRatio: realism.starPixelRatio }
 }
