@@ -49,7 +49,8 @@ export function createStarAppearance(starViewDistance: { value: number }, select
   const selectionAttribute = selectionEnabled ? 'attribute float selectionEmphasis;' : ''
   const selection = selectionEnabled ? 'selectionEmphasis' : '0.0'
   // Only the map switches to realistic stars; the distance card keeps the defaults.
-  const realism = { starRealism: { value: 0 }, starCrowdCoverage: { value: 1 }, starPixelRatio: { value: 1 } }
+  // A magnifying view gathers light like an aperture: zoom² more flux per star, while the sky's surface brightness stays.
+  const realism = { starRealism: { value: 0 }, starCrowdCoverage: { value: 1 }, starPixelRatio: { value: 1 }, starZoomGain: { value: 1 } }
   // Magnitude already includes the source's distance. Only zooming out of the
   // map adds display restraint; point depth must not attenuate the light again.
   const textureCanvas = document.createElement('canvas')
@@ -73,7 +74,7 @@ export function createStarAppearance(starViewDistance: { value: number }, select
   starMaterial.onBeforeCompile = (shader) => {
     shader.uniforms.starViewDistance = starViewDistance
     Object.assign(shader.uniforms, realism)
-    const psfVaryings = 'uniform float starRealism;\nuniform float starCrowdCoverage;\nuniform float starPixelRatio;\nvarying float vPsfPeak;\nvarying float vPsfSpike;\nvarying float vPsfRadius;'
+    const psfVaryings = 'uniform float starRealism;\nuniform float starCrowdCoverage;\nuniform float starPixelRatio;\nuniform float starZoomGain;\nvarying float vPsfPeak;\nvarying float vPsfSpike;\nvarying float vPsfRadius;'
     shader.vertexShader = `${selectionAttribute}\n${psfVaryings}\nuniform float starViewDistance;\nattribute float starFlux;\nattribute float coreDiameter;\nattribute float coreEmphasis;\nattribute float coreWhiteStrength;\nattribute float coreShape;\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\nvarying float vCoreShape;\n${shader.vertexShader}`
       .replace('gl_PointSize = size;', `float coreOverviewRatio = pow(min(1.0, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC})), ${STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER});
       float coreViewScale = max(${STAR_CORE_MIN_VIEW_SCALE}, sqrt(coreOverviewRatio));
@@ -86,7 +87,7 @@ export function createStarAppearance(starViewDistance: { value: number }, select
       vPsfRadius = 0.0;
       if (starRealism > 0.5 && coreShape < 0.5) {
         // Zooming the map out dims stars the way the illustrative cores shrink.
-        float psfFlux = starFlux * coreViewScale * coreViewScale;
+        float psfFlux = starFlux * coreViewScale * coreViewScale * starZoomGain;
         if (psfFlux > ${glsl(PSF.brightFlux)}) {
           float excessMagnitudes = 1.0857362 * log(psfFlux / ${glsl(PSF.brightFlux)});
           psfFlux = ${glsl(PSF.brightFlux)} * pow(10.0, 0.4 * ${glsl(PSF.brightRangeMagnitudes)} * (1.0 - exp(-excessMagnitudes / ${glsl(PSF.brightRangeMagnitudes)})));
@@ -202,5 +203,5 @@ export function createStarAppearance(starViewDistance: { value: number }, select
     starMaterial.depthWrite = !realistic
     starMaterial.alphaTest = realistic ? 0.002 : 0.2
   }
-  return { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle, pixelRatio: realism.starPixelRatio, crowdCoverage: realism.starCrowdCoverage }
+  return { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle, pixelRatio: realism.starPixelRatio, crowdCoverage: realism.starCrowdCoverage, zoomGain: realism.starZoomGain }
 }

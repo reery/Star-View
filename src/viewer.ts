@@ -337,7 +337,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   scene.add(milkyWay.group)
 
   const starViewDistance = { value: camera.position.distanceTo(controls.target) }
-  const { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle: setStarAppearanceStyle, pixelRatio: starPixelRatio, crowdCoverage } = createStarAppearance(starViewDistance, true)
+  const { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle: setStarAppearanceStyle, pixelRatio: starPixelRatio, crowdCoverage, zoomGain: starZoomGain } = createStarAppearance(starViewDistance, true)
   setStarAppearanceStyle(starStyle)
   starPixelRatio.value = renderer.getPixelRatio()
   crowdCoverage.value = starCrowdCoverage(starBrightness)
@@ -2029,6 +2029,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function applyObserverZoom(zoom: number): void {
     camera.zoom = zoom
     camera.updateProjectionMatrix()
+    starZoomGain.value = zoom * zoom
+    milkyWay.setMagnification(zoom)
     setData(container, 'observerZoom', String(zoom))
     invalidateProjection()
     ordinaryLayoutDirty = true
@@ -2688,7 +2690,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     },
     setVisibility(observerId, limit, hideFainter) {
       const base = starsById.get(observerId)?.star
-      if (!base || !Number.isFinite(limit) || limit < 0 || limit > 25) return
+      if (!base || !Number.isFinite(limit) || limit < 0 || limit > 30) return
       if (base === visibilityBaseStar && limit === magnitudeLimit && hideFainter === hideFainterObjects) return
       visibilityBaseStar = base
       magnitudeLimit = limit

@@ -15,6 +15,8 @@ export interface MilkyWayLayer {
   /** Crossfades from the Sun's sky panorama to the Galaxy as the camera leaves the Sun. */
   setSunDistance(distancePc: number): void
   setViewportHeight(pixels: number): void
+  /** Fades the panorama under telescope magnification: to 63% at 1.6× and 25% at 4×, so its own stars do not swell into blobs. */
+  setMagnification(zoom: number): void
   /** Reload after a restored WebGL context: the decoded panorama is not retained after upload. */
   reload(): void
   /** Advances the fade-in; returns true while another frame is needed. */
@@ -23,6 +25,7 @@ export interface MilkyWayLayer {
 }
 
 const FADE_MS = 800
+const PANORAMA_INTENSITY = 0.12
 // The panorama is the Sun's sky: it fades out between 5,000 and 20,000 ly from the Sun,
 // while the Galaxy builds up from 3,000 ly to full strength at 40,000 ly.
 const PANORAMA_FADE_PC = [5_000, 20_000].map((ly) => ly / LIGHT_YEARS_PER_PARSEC) as [number, number]
@@ -103,7 +106,7 @@ export function createMilkyWayLayer(
   const uniforms = {
     map: { value: null as Texture | null },
     texelSize: { value: new Vector2() },
-    intensity: { value: 0.12 },
+    intensity: { value: PANORAMA_INTENSITY },
     saturation: { value: saturationForMode(mode) },
     peakSuppression: { value: 0.25 },
     opacity: { value: 1 },
@@ -263,6 +266,9 @@ export function createMilkyWayLayer(
     setViewportHeight(pixels) {
       viewportHeight = pixels
       galaxy?.setViewportHeight(pixels)
+    },
+    setMagnification(zoom) {
+      uniforms.intensity.value = PANORAMA_INTENSITY / zoom
     },
     reload() {
       release(true)

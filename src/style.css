@@ -455,7 +455,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .camera-view-controls :is(#reset-view, #rotation-toggle, #hide-ui) .tooltip, .origin-controls #set-origin .tooltip, .observer-view-controls #observer-view .tooltip, .grid-controls .tooltip, .saved-view-controls .tooltip, .selection-controls .tooltip, .discover-controls .tooltip { top: calc(100% + 8px); right: 0; }
 @media (hover: hover) and (pointer: fine) {
   .discover-controls:not([data-dismissed]):hover .discover-options,
-  .camera-view-controls:hover:has(:is(#reset-view, #hide-ui):not(:disabled)) .camera-view-options,
+  .camera-view-controls:not([data-dismissed]):hover:has(:is(#reset-view, #hide-ui):not(:disabled)) .camera-view-options,
   .origin-controls:hover:has(#go-to-origin:not(:disabled)) .origin-options,
   .grid-controls:hover:has(#toggle-grid:not(:disabled)) .grid-options,
   .saved-view-controls:hover:has(#views-toggle:not(:disabled)) .saved-view-options,
@@ -479,6 +479,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 /* Hide UI slides the button rails off the right edge; the active-change buttons and the captions stay. */
 :root[data-ui-hidden] :is(.scene-toolbar > :not(.dock-rail), .dock-rail > :not(.dock-indicators)) { transition: translate 220ms ease, opacity 220ms ease, background 120ms ease, border-color 120ms ease; }
 :root[data-ui-hidden]:not([data-ui-revealed]) :is(.scene-toolbar > :not(.dock-rail), .dock-rail > :not(.dock-indicators)) { translate: calc(100% + 24px + var(--safe-right)) 0; opacity: 0; }
+:root[data-ui-hidden][data-ui-hiding] :is(.scene-toolbar > :not(.dock-rail), .dock-rail > :not(.dock-indicators)) { transition-duration: 520ms; transition-delay: 160ms; }
 :root[data-ui-hidden]:not([data-ui-revealed]) :is(.scene-toolbar, .dock-rail) { pointer-events: none; }
 :root[data-ui-hidden]:not([data-ui-revealed]) .dock-indicators { pointer-events: auto; }
 /* Touch visibility is explicit so emulated hover/focus cannot leave a tooltip stuck open. */

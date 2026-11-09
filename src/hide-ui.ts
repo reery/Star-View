@@ -2,6 +2,8 @@ const REVEAL_MS = 3000
 const MOUSE_EDGE_PX = 96
 const TOUCH_EDGE_PX = 24
 const SWIPE_PX = 24
+// Matches the rail CSS: the flyout collapses (160ms) before the slower slide (520ms) starts.
+const HIDING_MS = 680
 
 /**
  * Hide UI slides the right-hand button rails off screen. Moving the pointer near the right edge, or
@@ -14,6 +16,7 @@ export function initializeHideUi(button: HTMLButtonElement, closeFlyout: () => v
   const tooltip = button.querySelector('.tooltip')!
   let timer: number | undefined
   let swipe: { id: number, x: number } | undefined
+  let hiding: number | undefined
 
   const hidden = () => root.hasAttribute('data-ui-hidden')
   const inRails = (target: EventTarget | null) => target instanceof Node && rails.some((rail) => rail.contains(target))
@@ -27,7 +30,7 @@ export function initializeHideUi(button: HTMLButtonElement, closeFlyout: () => v
     root.removeAttribute('data-ui-revealed')
   }
   const reveal = () => {
-    if (!hidden()) return
+    if (!hidden() || hiding !== undefined) return
     root.setAttribute('data-ui-revealed', '')
     clearTimeout(timer)
     timer = window.setTimeout(conceal, REVEAL_MS)
@@ -36,6 +39,17 @@ export function initializeHideUi(button: HTMLButtonElement, closeFlyout: () => v
   button.addEventListener('click', () => {
     const hide = !hidden()
     clearTimeout(timer)
+    clearTimeout(hiding)
+    hiding = undefined
+    // Pressing Hide UI first collapses its flyout, then slides the rails out more slowly than usual so the change reads clearly.
+    root.toggleAttribute('data-ui-hiding', hide)
+    if (hide) {
+      button.closest('[data-toolbar-flyout]')?.setAttribute('data-dismissed', '')
+      hiding = window.setTimeout(() => {
+        hiding = undefined
+        root.removeAttribute('data-ui-hiding')
+      }, HIDING_MS)
+    }
     root.toggleAttribute('data-ui-hidden', hide)
     root.removeAttribute('data-ui-revealed')
     button.setAttribute('aria-pressed', String(hide))
