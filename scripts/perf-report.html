@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Performance Results</title>
+<!-- Written by `npm run perf` and `npm run perf:report`; absent until the first run. -->
+<script src="../perf-results/results.js"></script>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #111213;
+    --panel: #202224;
+    --panel-hover: #2d2d2e;
+    --panel-selected: #3b322b;
+    --heading: #343638;
+    --ink: #edc69b;
+    --muted: #b29d87;
+    --line: #48423d;
+    --grid: #2e2c2a;
+    --accent: #e7a05b;
+    --border-active: #ac8059;
+    --worse: #f08080;
+    --better: #5cc46e;
+    --radius: 11px;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 'Helvetica Neue', Helvetica, system-ui, -apple-system, 'Segoe UI', Arial, sans-serif; font-variant-numeric: tabular-nums; }
+  main { max-width: 1240px; margin: 0 auto; padding: 24px 16px 48px; display: grid; gap: 20px; }
+  h1 { margin: 0; font-size: 22px; font-weight: 500; }
+  h2 { margin: 0; font-size: 15px; font-weight: 500; }
+  p { margin: 0; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--ink); background: var(--heading); padding: 1px 5px; border-radius: 4px; }
+  .muted { color: var(--muted); }
+  header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  button, .file-button { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+  button:hover, .file-button:hover { background: var(--panel-hover); }
+  .file-button input { display: none; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .card-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 12px 16px; background: var(--heading); }
+  .card-body { padding: 12px 16px 16px; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { padding: 7px 10px; text-align: right; white-space: nowrap; border-bottom: 1px dashed var(--line); }
+  th { color: var(--muted); font-weight: 400; font-size: 12px; }
+  th:first-child, td:first-child { text-align: left; padding-left: 0; }
+  tr:last-child > td { border-bottom: 0; }
+  .runs td, .runs th { text-align: left; }
+  .runs input { accent-color: var(--accent); margin: 0; }
+  .runs tr.is-current td { background: var(--panel-selected); }
+  .segmented { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .segmented button { border: 0; border-radius: 0; padding: 4px 12px; background: transparent; }
+  .segmented button[aria-pressed="true"] { background: var(--panel-selected); box-shadow: inset 0 0 0 1px var(--border-active); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; font-size: 13px; }
+  .flagged { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+  .flagged li { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+  .worse { color: var(--worse); }
+  .better { color: var(--better); }
+  .tag { font-size: 11px; border: 1px solid currentColor; border-radius: 4px; padding: 0 4px; margin-left: 6px; }
+  /* Fixed columns line the metric sections up with each other. */
+  .matrix { table-layout: fixed; min-width: 720px; }
+  .matrix th:first-child { width: 230px; }
+  .matrix td.cell { cursor: pointer; }
+  .matrix td.cell:hover { background: var(--panel-hover); }
+  .matrix td.cell.is-selected { background: var(--panel-selected); box-shadow: inset 0 0 0 1px var(--border-active); }
+  .value { display: block; }
+  .change { display: block; font-size: 12px; color: var(--muted); }
+  .section-title { margin: 18px 0 4px; font-size: 13px; color: var(--muted); font-weight: 500; }
+  .section-title:first-child { margin-top: 0; }
+  .chart { position: relative; }
+  .chart svg { display: block; width: 100%; height: 280px; overflow: visible; }
+  .tooltip { position: absolute; pointer-events: none; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 12px; box-shadow: 0 6px 18px #00000070; white-space: nowrap; transform: translate(-50%, calc(-100% - 12px)); }
+  details { margin-top: 12px; }
+  summary { cursor: pointer; color: var(--muted); }
+  .drop-hint { position: fixed; inset: 0; display: grid; place-items: center; background: #000000b0; font-size: 18px; pointer-events: none; }
+  @media (max-width: 600px) { main { padding-top: 16px; } h1 { font-size: 19px; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Performance results</h1>
+    <div class="actions">
+      <label class="file-button">Open files<input id="open-files" type="file" accept=".json" multiple></label>
+      <label class="file-button">Open folder<input id="open-folder" type="file" webkitdirectory></label>
+    </div>
+  </header>
+
+  <section id="empty" class="card" hidden>
+    <div class="card-body">
+      <p>No results loaded. Run <code>npm run perf</code>, then <code>npm run perf:report</code> to open this page with every result in <code>perf-results/</code>. You can also drop result files anywhere on this page.</p>
+    </div>
+  </section>
+
+  <section id="results" class="card" hidden>
+    <div class="card-head"><h2>Results</h2><span class="muted">Pick a baseline and the result to compare with it</span></div>
+    <div class="card-body scroll"><table class="runs"><thead><tr><th>Baseline</th><th>Compare</th><th>Date</th><th>Commit</th><th>Label</th><th>Settings</th><th>GPU</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section id="summary" class="card" hidden>
+    <div class="card-head"><h2 id="summary-title"></h2><div id="summary-chips" class="chips"></div></div>
+    <div class="card-body"><p id="summary-note" class="muted"></p><ul id="flagged" class="flagged"></ul></div>
+  </section>
+
+  <section id="compare" class="card" hidden>
+    <div class="card-head">
+      <h2>Metrics</h2>
+      <div class="segmented" role="group" aria-label="Metrics shown"><button id="show-key" type="button" aria-pressed="true">Key metrics</button><button id="show-all" type="button" aria-pressed="false">All metrics</button></div>
+    </div>
+    <div id="matrix" class="card-body"></div>
+  </section>
+
+  <section id="trend" class="card" hidden>
+    <div class="card-head"><h2 id="trend-title"></h2><span class="muted">Median per result; whiskers span the runs. Select any value above to chart it.</span></div>
+    <div class="card-body">
+      <div class="chart"><svg id="trend-chart" role="img"></svg><div id="trend-tooltip" class="tooltip" hidden></div></div>
+      <details><summary>Values</summary><div class="scroll"><table id="trend-table"></table></div></details>
+    </div>
+  </section>
+</main>
+<div id="drop-hint" class="drop-hint" hidden>Drop result files to add them</div>
+
+<script>
+const SECTIONS = { load: 'Loading', memory: 'Memory', idle: 'Idle', rotate: 'Auto-rotation', motion: 'Stellar motion' }
+// unit: display unit; floor: smallest absolute difference worth flagging; key: shown under Key metrics.
+const METRICS = {
+  ttfbMs: { name: 'First server response', unit: 'ms', floor: 5 },
+  fcpMs: { name: 'First paint', unit: 'ms', floor: 10 },
+  domContentLoadedMs: { name: 'DOM ready', unit: 'ms', floor: 10 },
+  sceneReadyMs: { name: 'Scene ready', unit: 'ms', floor: 10, key: true },
+  firstFrameMs: { name: 'First frame', unit: 'ms', floor: 10 },
+  milkyWayReadyMs: { name: 'Milky Way ready', unit: 'ms', floor: 20 },
+  settledMs: { name: 'Fully loaded', unit: 'ms', floor: 50, key: true },
+  totalBlockingTimeMs: { name: 'Blocking time', unit: 'ms', floor: 10, key: true },
+  longestTaskMs: { name: 'Longest task', unit: 'ms', floor: 10 },
+  requests: { name: 'Requests', unit: '', floor: 1 },
+  transferKB: { name: 'Downloaded', unit: 'KB', floor: 10, key: true },
+  decodedKB: { name: 'Decoded size', unit: 'KB', floor: 10 },
+  cpuRendererMs: { name: 'CPU: page', unit: 'ms', floor: 20 },
+  cpuGpuProcessMs: { name: 'CPU: GPU process', unit: 'ms', floor: 20 },
+  cpuBrowserMs: { name: 'CPU: browser', unit: 'ms', floor: 20 },
+  cpuTotalMs: { name: 'CPU: total', unit: 'ms', floor: 20, key: true },
+  jsHeapMB: { name: 'JavaScript memory', unit: 'MB', floor: 1, key: true },
+  fps: { name: 'Frame rate', unit: 'fps', floor: 1, key: true, higherIsBetter: true },
+  frameIntervalP95Ms: { name: 'Slow frames (95th pct interval)', unit: 'ms', floor: 1 },
+  frameCpuMedianMs: { name: 'Main thread per frame', unit: 'ms', floor: 0.2, key: true },
+  frameCpuP95Ms: { name: 'Main thread per frame (95th pct)', unit: 'ms', floor: 0.2 },
+  frameGpuMedianMs: { name: 'GPU per frame', unit: 'ms', floor: 0.2, key: true },
+  frameGpuP95Ms: { name: 'GPU per frame (95th pct)', unit: 'ms', floor: 0.2 },
+  gpuBusyPct: { name: 'GPU busy', unit: '%', floor: 2, key: true },
+  cpuRendererPct: { name: 'CPU: page', unit: '%', floor: 2 },
+  cpuGpuProcessPct: { name: 'CPU: GPU process', unit: '%', floor: 2 },
+  cpuBrowserPct: { name: 'CPU: browser', unit: '%', floor: 2 },
+  cpuTotalPct: { name: 'CPU: total', unit: '%', floor: 2, key: true },
+}
+
+const state = { results: new Map(), baseline: null, current: null, keyOnly: true, selected: null }
+const $ = (id) => document.getElementById(id)
+const el = (tag, props = {}, ...children) => { const node = Object.assign(document.createElement(tag), props); node.append(...children); return node }
+
+// Result files from before states and pixel densities were measured hold only the default state at 2×.
+function parseKey(key) {
+  const parts = key.split('.')
+  let group = 'default@2x'
+  if (!(parts[0] in SECTIONS)) { group = parts.shift(); if (!group.includes('@')) group += '@2x' }
+  return { group, section: parts[0], metric: parts.slice(1).join('.') }
+}
+
+function addResult(name, data) {
+  if (!data || typeof data !== 'object' || !data.meta || !data.median || !Array.isArray(data.runs)) throw new Error(`${name} is not a perf result`)
+  const metrics = new Map()
+  for (const [key, median] of Object.entries(data.median)) {
+    const id = parseKey(key)
+    const values = data.runs.map((run) => run[key]).filter((value) => typeof value === 'number')
+    metrics.set(`${id.group}|${id.section}|${id.metric}`, { ...id, median, values })
+  }
+  state.results.set(name, { name, meta: data.meta, metrics })
+}
+
+function sortedResults() { return [...state.results.values()].sort((a, b) => String(a.meta.date).localeCompare(String(b.meta.date))) }
+
+function format(value, unit) {
+  if (value === null || value === undefined) return '–'
+  if (unit === 'ms' && value >= 1000) return `${(value / 1000).toFixed(2)} s`
+  if (unit === 'KB' && value >= 1024) return `${(value / 1024).toFixed(2)} MB`
+  if (unit === 'fps' || unit === '') return `${Math.round(value)}${unit ? ` ${unit}` : ''}`
+  const digits = Math.abs(value) >= 100 ? 0 : Math.abs(value) >= 10 ? 1 : 2
+  return `${value.toFixed(digits)}${unit === '%' ? '%' : ` ${unit}`}`
+}
+
+// Flagged like the script: at least 10% and twice the run-to-run spread, plus a per-metric absolute floor.
+function compare(base, current, metric) {
+  const info = METRICS[metric] ?? { floor: 0 }
+  if (!base || !current || typeof base.median !== 'number' || typeof current.median !== 'number') return null
+  const difference = current.median - base.median
+  const percent = base.median === 0 ? (difference === 0 ? 0 : Infinity) : difference / Math.abs(base.median) * 100
+  const values = current.values
+  const spread = values.length > 1 && current.median ? (Math.max(...values) - Math.min(...values)) / 2 / Math.abs(current.median) * 100 : 0
+  const flagged = Math.abs(difference) >= info.floor && Math.abs(percent) >= Math.max(10, 2 * spread)
+  const worse = info.higherIsBetter ? difference < 0 : difference > 0
+  return { difference, percent, flagged, verdict: flagged ? (worse ? 'worse' : 'better') : null }
+}
+
+function changeText(change, unit) {
+  if (!change) return ''
+  if (!Number.isFinite(change.percent)) return `${change.difference > 0 ? '+' : ''}${format(change.difference, unit)}`
+  return `${change.percent > 0 ? '+' : ''}${change.percent.toFixed(1)}%`
+}
+
+function settingsText(meta) {
+  const parts = [`${meta.runs ?? '?'} runs × ${meta.seconds ?? '?'} s`]
+  if (meta.throttle) parts.push('throttled')
+  if (meta.scales) parts.push(`${meta.scales.join(', ')}× density`)
+  return parts.join(' · ')
+}
+
+function shortGpu(gpu) { return String(gpu ?? '').replace(/^ANGLE \(|\)$/g, '').replace(/, Unspecified Version/, '').replace(/ANGLE Metal Renderer: /, '') }
+function resultLabel(result) { return `${new Date(result.meta.date).toLocaleString()} · ${result.meta.commit || '?'}${result.meta.dirty ? '*' : ''}${result.meta.label ? ` · ${result.meta.label}` : ''}` }
+function groupLabel(group) { const [name, scale] = group.split('@'); return `${name} ${scale ? scale.replace('x', '×') : ''}` }
+const groupOrder = (group) => [['default', 'medium', 'full'].indexOf(group.split('@')[0]), group]
+
+function render() {
+  const results = sortedResults()
+  $('empty').hidden = results.length > 0
+  for (const id of ['results', 'summary', 'compare', 'trend']) $(id).hidden = results.length === 0
+  if (results.length === 0) return
+  if (!state.results.has(state.current)) state.current = results.at(-1).name
+  if (!state.results.has(state.baseline)) state.baseline = results.length > 1 ? results.at(-2).name : null
+  renderRuns(results)
+  renderComparison()
+  renderTrend(results)
+}
+
+function renderRuns(results) {
+  const body = document.querySelector('.runs tbody')
+  body.replaceChildren(...[...results].reverse().map((result) => {
+    const radio = (name, checked) => {
+      const input = el('input', { type: 'radio', name, checked })
+      input.addEventListener('change', () => { state[name] = result.name; render() })
+      return el('td', {}, input)
+    }
+    const row = el('tr', {},
+      radio('baseline', result.name === state.baseline),
+      radio('current', result.name === state.current),
+      el('td', { textContent: new Date(result.meta.date).toLocaleString() }),
+      el('td', { textContent: `${result.meta.commit || '?'}${result.meta.dirty ? ' (uncommitted)' : ''}` }),
+      el('td', { textContent: result.meta.label ?? '' }),
+      el('td', { textContent: settingsText(result.meta) }),
+      el('td', { className: 'muted', textContent: shortGpu(result.meta.gpu) }))
+    row.classList.toggle('is-current', result.name === state.current)
+    return row
+  }))
+}
+
+function renderComparison() {
+  const current = state.results.get(state.current)
+  const base = state.results.get(state.baseline)
+  const groups = [...new Set([...current.metrics.values()].map((entry) => entry.group))].sort((a, b) => { const [x, y] = [groupOrder(a), groupOrder(b)]; return x[0] - y[0] || x[1].localeCompare(y[1]) })
+
+  // Summary over every metric, not only the visible ones.
+  const changes = [...current.metrics.entries()].map(([key, entry]) => ({ key, entry, change: compare(base?.metrics.get(key), entry, entry.metric) })).filter((item) => item.change)
+  const worse = changes.filter((item) => item.change.verdict === 'worse')
+  const better = changes.filter((item) => item.change.verdict === 'better')
+  $('summary-title').textContent = base ? `${resultLabel(current)} compared with ${resultLabel(base)}` : resultLabel(current)
+  $('summary-chips').replaceChildren(...(base ? [
+    el('span', { className: 'chip worse', textContent: `${worse.length} worse` }),
+    el('span', { className: 'chip better', textContent: `${better.length} better` }),
+    el('span', { className: 'chip muted', textContent: `${changes.length - worse.length - better.length} within noise` }),
+  ] : []))
+  const settings = base ? ['seconds', 'throttle', 'gpu'].filter((key) => JSON.stringify(base.meta[key]) !== JSON.stringify(current.meta[key])) : []
+  $('summary-note').textContent = !base ? 'Load a second result to compare.'
+    : settings.length ? `Settings differ (${settings.join(', ')}), so the comparison is not like for like.`
+    : 'Changes count only when they exceed 10%, twice the spread between runs, and a small absolute floor per metric.'
+  $('flagged').replaceChildren(...[...worse, ...better].map(({ key, entry, change }) => {
+    const info = METRICS[entry.metric] ?? { name: entry.metric, unit: '' }
+    const item = el('li', {},
+      el('span', { className: change.verdict, textContent: change.verdict === 'worse' ? '▲ worse' : '▼ better' }),
+      el('span', { textContent: `${groupLabel(entry.group)} · ${SECTIONS[entry.section] ?? entry.section} · ${info.name}` }),
+      el('span', { className: 'muted', textContent: `${format(base.metrics.get(key).median, info.unit)} → ${format(entry.median, info.unit)} (${changeText(change, info.unit)})` }))
+    item.style.cursor = 'pointer'
+    item.addEventListener('click', () => { state.selected = key; render(); $('trend').scrollIntoView({ behavior: 'smooth' }) })
+    return item
+  }))
+
+  if (!state.selected || !current.metrics.has(state.selected)) state.selected = current.metrics.has('full@2x|rotate|frameGpuMedianMs') ? 'full@2x|rotate|frameGpuMedianMs' : current.metrics.keys().next().value
+  const tables = []
+  for (const [section, title] of Object.entries(SECTIONS)) {
+    const metrics = Object.keys(METRICS).filter((metric) => (!state.keyOnly || METRICS[metric].key)
+      && groups.some((group) => typeof current.metrics.get(`${group}|${section}|${metric}`)?.median === 'number'))
+    if (metrics.length === 0) continue
+    const head = el('tr', {}, el('th', { textContent: 'Metric' }), ...groups.map((group) => el('th', { textContent: groupLabel(group) })))
+    const rows = metrics.map((metric) => {
+      const info = METRICS[metric]
+      return el('tr', {}, el('td', { textContent: info.name }), ...groups.map((group) => {
+        const key = `${group}|${section}|${metric}`
+        const entry = current.metrics.get(key)
+        if (!entry) return el('td', { className: 'muted', textContent: '–' })
+        const baseEntry = base?.metrics.get(key)
+        const change = compare(baseEntry, entry, metric)
+        const changeLine = el('span', { className: `change ${change?.verdict ?? ''}`, textContent: changeText(change, info.unit) })
+        if (change?.verdict) changeLine.append(el('span', { className: 'tag', textContent: change.verdict }))
+        const cell = el('td', { className: `cell${key === state.selected ? ' is-selected' : ''}`, title: baseEntry ? `Baseline: ${format(baseEntry.median, info.unit)}` : '' },
+          el('span', { className: 'value', textContent: format(entry.median, info.unit) }), changeLine)
+        cell.addEventListener('click', () => { state.selected = key; render() })
+        return cell
+      }))
+    })
+    tables.push(el('h3', { className: 'section-title', textContent: title }), el('div', { className: 'scroll' }, el('table', { className: 'matrix' }, el('thead', {}, head), el('tbody', {}, ...rows))))
+  }
+  $('matrix').replaceChildren(...tables)
+}
+
+function renderTrend(results) {
+  const [group, section, metric] = state.selected.split('|')
+  const info = METRICS[metric] ?? { name: metric, unit: '' }
+  $('trend-title').textContent = `${info.name} · ${SECTIONS[section] ?? section} · ${groupLabel(group)}`
+  const points = results.map((result) => ({ result, entry: result.metrics.get(state.selected) })).filter(({ entry }) => typeof entry?.median === 'number')
+  const svg = $('trend-chart')
+  svg.setAttribute('aria-label', `${$('trend-title').textContent} across ${points.length} results`)
+  const width = svg.clientWidth || 800
+  const height = 280
+  const margin = { top: 24, right: 24, bottom: 44, left: 64 }
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`)
+  // Round tick steps (1, 2, 2.5 or 5 × a power of ten) up to the first tick above the highest run.
+  const highest = Math.max(...points.flatMap(({ entry }) => [entry.median, ...entry.values]), 0) || 1
+  const power = 10 ** Math.floor(Math.log10(highest / 4))
+  const step = [1, 2, 2.5, 5, 10].find((multiple) => multiple * power >= highest / 4) * power
+  const ticks = Math.ceil(highest / step)
+  const max = ticks * step
+  const x = (index) => points.length === 1 ? (margin.left + width - margin.right) / 2 : margin.left + index * (width - margin.left - margin.right) / (points.length - 1)
+  const y = (value) => height - margin.bottom - value / max * (height - margin.top - margin.bottom)
+  const ns = 'http://www.w3.org/2000/svg'
+  const shape = (tag, attributes, text) => { const node = document.createElementNS(ns, tag); for (const [name, value] of Object.entries(attributes)) node.setAttribute(name, value); if (text !== undefined) node.textContent = text; return node }
+  const nodes = []
+  for (let tick = 0; tick <= ticks; tick++) {
+    const value = tick * step
+    nodes.push(shape('line', { x1: margin.left, x2: width - margin.right, y1: y(value), y2: y(value), stroke: tick === 0 ? 'var(--line)' : 'var(--grid)', 'stroke-width': 1 }))
+    nodes.push(shape('text', { x: margin.left - 8, y: y(value) + 4, 'text-anchor': 'end', fill: 'var(--muted)', 'font-size': 11 }, format(value, info.unit).replace(/\.0+(?=\D|$)/, '')))
+  }
+  const labelEvery = Math.max(1, Math.ceil(points.length / Math.max(1, Math.floor((width - margin.left - margin.right) / 90))))
+  points.forEach(({ result, entry }, index) => {
+    if (entry.values.length > 1) nodes.push(shape('line', { x1: x(index), x2: x(index), y1: y(Math.min(...entry.values)), y2: y(Math.max(...entry.values)), stroke: 'var(--muted)', 'stroke-width': 1 }))
+    const marked = result.name === state.current || result.name === state.baseline
+    if (index % labelEvery === 0 || marked) nodes.push(shape('text', { x: x(index), y: height - margin.bottom + 18, 'text-anchor': 'middle', fill: marked ? 'var(--ink)' : 'var(--muted)', 'font-size': 11 }, `${result.meta.commit || '?'}${result.meta.dirty ? '*' : ''}`))
+    if (marked) nodes.push(shape('text', { x: x(index), y: height - margin.bottom + 33, 'text-anchor': 'middle', fill: 'var(--muted)', 'font-size': 10 }, result.name === state.current ? 'compare' : 'baseline'))
+  })
+  if (points.length > 1) nodes.push(shape('polyline', { points: points.map(({ entry }, index) => `${x(index)},${y(entry.median)}`).join(' '), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-linejoin': 'round' }))
+  points.forEach(({ entry }, index) => nodes.push(shape('circle', { cx: x(index), cy: y(entry.median), r: 4, fill: 'var(--accent)', stroke: 'var(--panel)', 'stroke-width': 2 })))
+  const hover = shape('rect', { x: 0, y: 0, width, height, fill: 'transparent' })
+  nodes.push(hover)
+  svg.replaceChildren(...nodes)
+
+  const tooltip = $('trend-tooltip')
+  hover.addEventListener('pointermove', (event) => {
+    if (points.length === 0) return
+    const bounds = svg.getBoundingClientRect()
+    const px = (event.clientX - bounds.left) * width / bounds.width
+    const index = points.reduce((best, _, candidate) => Math.abs(x(candidate) - px) < Math.abs(x(best) - px) ? candidate : best, 0)
+    const { result, entry } = points[index]
+    const range = entry.values.length > 1 ? `runs ${format(Math.min(...entry.values), info.unit)} – ${format(Math.max(...entry.values), info.unit)}` : ''
+    tooltip.replaceChildren(el('div', { textContent: resultLabel(result) }), el('strong', { textContent: format(entry.median, info.unit) }), ...(range ? [el('div', { className: 'muted', textContent: range })] : []))
+    tooltip.style.left = `${x(index) * bounds.width / width}px`
+    tooltip.style.top = `${y(entry.median) * bounds.height / height}px`
+    tooltip.hidden = false
+  })
+  hover.addEventListener('pointerleave', () => { tooltip.hidden = true })
+
+  $('trend-table').replaceChildren(
+    el('thead', {}, el('tr', {}, el('th', { textContent: 'Result' }), el('th', { textContent: 'Median' }), el('th', { textContent: 'Lowest run' }), el('th', { textContent: 'Highest run' }))),
+    el('tbody', {}, ...points.map(({ result, entry }) => el('tr', {},
+      el('td', { textContent: resultLabel(result) }),
+      el('td', { textContent: format(entry.median, info.unit) }),
+      el('td', { textContent: entry.values.length ? format(Math.min(...entry.values), info.unit) : '–' }),
+      el('td', { textContent: entry.values.length ? format(Math.max(...entry.values), info.unit) : '–' })))))
+}
+
+async function addFiles(files) {
+  const errors = []
+  for (const file of files) {
+    if (!file.name.endsWith('.json')) continue
+    try { addResult(file.name, JSON.parse(await file.text())) } catch (error) { errors.push(error.message) }
+  }
+  // A freshly added result becomes the one compared, against the result before it.
+  state.current = null
+  state.baseline = null
+  render()
+  if (errors.length) alert(`Skipped:\n${errors.join('\n')}`)
+}
+
+for (const result of window.PERF_RESULTS ?? []) { try { addResult(result.name, result) } catch {} }
+$('open-files').addEventListener('change', (event) => addFiles([...event.target.files]))
+$('open-folder').addEventListener('change', (event) => addFiles([...event.target.files]))
+for (const [id, keyOnly] of [['show-key', true], ['show-all', false]]) {
+  $(id).addEventListener('click', () => {
+    state.keyOnly = keyOnly
+    $('show-key').setAttribute('aria-pressed', String(keyOnly))
+    $('show-all').setAttribute('aria-pressed', String(!keyOnly))
+    render()
+  })
+}
+let dragDepth = 0
+addEventListener('dragenter', (event) => { event.preventDefault(); dragDepth++; $('drop-hint').hidden = false })
+addEventListener('dragleave', () => { if (--dragDepth === 0) $('drop-hint').hidden = true })
+addEventListener('dragover', (event) => event.preventDefault())
+addEventListener('drop', (event) => { event.preventDefault(); dragDepth = 0; $('drop-hint').hidden = true; addFiles([...event.dataTransfer.files]) })
+let resizeFrame = 0
+addEventListener('resize', () => { cancelAnimationFrame(resizeFrame); resizeFrame = requestAnimationFrame(() => state.results.size && renderTrend(sortedResults())) })
+render()
+</script>
+</body>
+</html>

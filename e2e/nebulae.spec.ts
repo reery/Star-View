@@ -150,7 +150,7 @@ test('draws all nebulae in one emission call that follows the color preference a
   const hideOverlays = '.projected-labels, .projected-axes { visibility: hidden !important; }'
   const vivid = PNG.sync.read(await canvas.screenshot({ scale: 'css', style: hideOverlays, path: testInfo.outputPath('orion-exaggerated.png') }))
   await openPreferences(page)
-  await page.getByRole('radio', { name: 'Real', exact: true }).check()
+  await page.locator('#star-colors').getByRole('radio', { name: 'Realistic', exact: true }).check()
   await page.getByRole('button', { name: 'Preferences', exact: true }).click()
   await nextFrames(page)
   const real = PNG.sync.read(await canvas.screenshot({ scale: 'css', style: hideOverlays, path: testInfo.outputPath('orion-real.png') }))

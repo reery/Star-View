@@ -22,8 +22,9 @@ import legacyStarIds from './data/legacy-star-ids.json'
 import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, formatDistance, galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { isVisibilityConeMode, LATITUDE_STORAGE_KEY, observerLatitude, VISIBILITY_CONE_MODES, visibilityConeHours, visibilityConeModeLabel, type VisibilityConeMode } from './constellation-visibility'
+import type { RenderStats } from './render-stats'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type ObserverFrame, type StarViewer, type ViewerViewState } from './viewer'
-import { STAR_STYLES, type StarBrightness, type StarStyle } from './star-appearance'
+import { STAR_STYLES, type FaintStars, type StarBrightness, type StarStyle } from './star-appearance'
 import { CONTEXT_MENU_HOLD_MS, isObjectMapVisible, mapVisibilityTier, motionTravelDistancePc } from './viewer-primitives'
 import { targetRenderFps } from './render-scheduling'
 import { renderSelectedStarPreview } from './selected-star-preview'
@@ -309,7 +310,8 @@ const events = new AbortController()
 initializeTouchTooltips(events.signal)
 const closeToolbarFlyout = initializeToolbarTouch(document.querySelector<HTMLElement>('.scene-toolbar')!, events.signal)
 // Hidden UI shrinks the selected object card to its name and distance until it is opened.
-initializeHideUi(element<HTMLButtonElement>('hide-ui'), closeToolbarFlyout, (hidden) => {
+initializeHideUi(element<HTMLButtonElement>('hide-ui'), storedLayout('ui-hidden') === 'true', closeToolbarFlyout, (hidden) => {
+  storeLayout('ui-hidden', String(hidden))
   icon('hide-ui-icon', hidden ? PanelRightOpen : PanelRightClose)
   if (hidden) element<HTMLDetailsElement>('object-card-details').open = false
   syncObjectTypeLayout()
@@ -392,6 +394,7 @@ let skyGridMode: SkyGridMode = 'off'
 let observerView = false
 let observerViewAnchorId: string | null = null
 let powerSavingMode = false
+let renderStatsVisible = false
 // Touch-first devices start with fewer labels; a stored preference overrides this below.
 const touchFirstInput = window.matchMedia('(hover: none) and (pointer: coarse)')
 const wideLayout = window.matchMedia('(min-width: 721px)')
@@ -454,6 +457,7 @@ let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
 let starStyle: StarStyle = 'realistic'
 let starBrightness: StarBrightness = 'normal'
+let faintStars: FaintStars = 'natural'
 let colorBlindPalette = false
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
 const NAKED_EYE_CATALOG_ID = 'naked-eye-stars'
@@ -509,7 +513,9 @@ try {
   const storedStarStyle = localStorage.getItem('star-view-star-style')
   if (STAR_STYLES.includes(storedStarStyle as StarStyle)) starStyle = storedStarStyle as StarStyle
   if (localStorage.getItem('star-view-star-brightness') === 'high') starBrightness = 'high'
+  if (localStorage.getItem('star-view-faint-stars') === 'lifted') faintStars = 'lifted'
   colorBlindPalette = localStorage.getItem('star-view-color-blind-palette') === 'true'
+  renderStatsVisible = localStorage.getItem('star-view-render-stats') === 'true'
   const storedEarthOrbitMode = localStorage.getItem('star-view-earth-orbit-mode')
   if (isEarthOrbitMode(storedEarthOrbitMode)) earthOrbitMode = storedEarthOrbitMode
   else if (localStorage.getItem('star-view-earth-orbit-visible') === 'false') earthOrbitMode = 'off'
@@ -534,7 +540,11 @@ try {
 element<HTMLInputElement>(`star-colors-${starColorMode}`).checked = true
 element<HTMLInputElement>(`star-style-${starStyle}`).checked = true
 element<HTMLInputElement>(`star-brightness-${starBrightness}`).checked = true
+element<HTMLInputElement>(`faint-stars-${faintStars}`).checked = true
+syncFaintStarsAvailability()
 element<HTMLInputElement>('color-blind-palette').checked = colorBlindPalette
+element<HTMLInputElement>('render-stats-visible').checked = renderStatsVisible
+element('render-stats').hidden = !renderStatsVisible
 const earthOrbitModeInput = element<HTMLInputElement>('earth-orbit-mode')
 // Overrides any form state the browser restored on reload, so the inputs match the app's settings.
 syncSceneAndMotionInputs()
@@ -3072,6 +3082,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       colorMode: starColorMode,
       starStyle,
       starBrightness,
+      faintStars,
       earthOrbitDate: earthOrbitDateForMode(earthOrbitMode),
       milkyWayVisible,
       oortCloudVisible,
@@ -3100,6 +3111,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setSimulationYears(simulationYears)
   viewer.setSimulationPlaying(simulationPlaying)
   viewer.setPowerSavingMode(powerSavingMode)
+  viewer.setRenderStatsListener(renderStatsVisible ? showRenderStats : null)
   applyAutoRotation()
   viewer.setGridVisible(gridVisible)
   viewer.setSkyGrid(skyGridMode)
@@ -3938,6 +3950,8 @@ document.addEventListener('keydown', (event) => {
 }, { signal: events.signal })
 /** Returns focus to a toolbar button after closing its card, without expanding the button's flyout. */
 function focusToolbarButton(id: string): void {
+  // Focusing a button in rails that Hide UI has slid away would bring them back as the card closes.
+  if (document.documentElement.matches('[data-ui-hidden]:not([data-ui-revealed])')) return
   const button = element(id)
   button.closest('[data-toolbar-flyout]')?.setAttribute('data-dismissed', '')
   button.focus()
@@ -4432,6 +4446,7 @@ element('star-style').addEventListener('change', () => {
   starStyle = element<HTMLInputElement>('star-style-realistic').checked ? 'realistic' : 'exaggerated'
   try { localStorage.setItem('star-view-star-style', starStyle) } catch {}
   viewer?.setStarStyle(starStyle)
+  syncFaintStarsAvailability()
   refreshConstellationCharts()
 }, { signal: events.signal })
 element('star-brightness').addEventListener('change', () => {
@@ -4440,6 +4455,15 @@ element('star-brightness').addEventListener('change', () => {
   viewer?.setStarBrightness(starBrightness)
   refreshConstellationCharts()
 }, { signal: events.signal })
+element('faint-stars').addEventListener('change', () => {
+  faintStars = element<HTMLInputElement>('faint-stars-lifted').checked ? 'lifted' : 'natural'
+  try { localStorage.setItem('star-view-faint-stars', faintStars) } catch {}
+  viewer?.setFaintStars(faintStars)
+}, { signal: events.signal })
+// Exaggerated stars already keep faint stars visible, so the lift only applies to realistic stars.
+function syncFaintStarsAvailability(): void {
+  for (const input of element('faint-stars').querySelectorAll('input')) input.disabled = starStyle !== 'realistic'
+}
 element('color-blind-palette').addEventListener('change', () => {
   colorBlindPalette = element<HTMLInputElement>('color-blind-palette').checked
   try { localStorage.setItem('star-view-color-blind-palette', String(colorBlindPalette)) } catch {}
@@ -4487,6 +4511,18 @@ element('object-distance-limit').addEventListener('input', () => {
 element('power-saving-mode').addEventListener('change', () => {
   powerSavingMode = element<HTMLInputElement>('power-saving-mode').checked
   viewer?.setPowerSavingMode(powerSavingMode)
+}, { signal: events.signal })
+const frameTime = (ms: number | null) => ms === null ? '–' : `${ms.toFixed(ms < 10 ? 2 : 1)} ms`
+function showRenderStats(stats: RenderStats): void {
+  text('render-stats-gpu', stats.gpuTimer ? frameTime(stats.gpuMs) : 'n/a')
+  text('render-stats-main-thread', frameTime(stats.mainThreadMs))
+  text('render-stats-fps', stats.framesPerSecond === 0 ? 'Idle' : `${Math.round(stats.framesPerSecond)} fps`)
+}
+element('render-stats-visible').addEventListener('change', () => {
+  renderStatsVisible = element<HTMLInputElement>('render-stats-visible').checked
+  try { localStorage.setItem('star-view-render-stats', String(renderStatsVisible)) } catch {}
+  element('render-stats').hidden = !renderStatsVisible
+  viewer?.setRenderStatsListener(renderStatsVisible ? showRenderStats : null)
 }, { signal: events.signal })
 element('label-limit').addEventListener('input', () => {
   const input = element<HTMLInputElement>('label-limit')

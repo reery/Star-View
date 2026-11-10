@@ -6,10 +6,11 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import type { Star } from './catalog-model'
-import { createStarAppearance, displayMagnitude, STAR_BRIGHTNESSES, starCrowdCoverage, STAR_STYLES, type StarBrightness, type StarStyle } from './star-appearance'
+import { createStarAppearance, displayMagnitude, STAR_BRIGHTNESSES, starCrowdCoverage, STAR_STYLES, type FaintStars, type StarBrightness, type StarStyle } from './star-appearance'
 import { createDepthLabel } from './depth-label'
 import { updateCameraNearPlane } from './camera-depth'
 import { createMilkyWayLayer } from './milky-way-layer'
+import { createRenderStats, type RenderStats } from './render-stats'
 import { createEarthOrbitLayer } from './earth-orbit-layer'
 import { createOortCloudLayer, OORT_CLOUD_RADIUS_PC } from './oort-cloud-layer'
 import { createVisibilityConeLayer } from './visibility-cone-layer'
@@ -82,9 +83,12 @@ export interface StarViewer {
   setSimulationPlaying(playing: boolean): void
   setSimulationYears(years: number): void
   setPowerSavingMode(enabled: boolean): void
+  /** Reports frame timings about twice a second while set; null stops measuring. */
+  setRenderStatsListener(listener: ((stats: RenderStats) => void) | null): void
   setStarColorMode(mode: StarColorMode): void
   setStarStyle(style: StarStyle): void
   setStarBrightness(brightness: StarBrightness): void
+  setFaintStars(mode: FaintStars): void
   setStarPaint(painter: StarPainter | null): void
   /** Lets painted stars shrink and fade when zooming out, like unpainted ones. */
   setStarPaintZoomShrink(enabled: boolean): void
@@ -134,6 +138,7 @@ interface ViewerOptions {
   colorMode: StarColorMode
   starStyle?: StarStyle
   starBrightness?: StarBrightness
+  faintStars?: FaintStars
   earthOrbitDate?: Date | null
   milkyWayVisible?: boolean
   oortCloudVisible?: boolean
@@ -183,10 +188,13 @@ function disposeGeometry(root: Object3D): void {
 
 function lineBetween(points: Vector3[], color: number, dashed = false): Line {
   const geometry = new BufferGeometry().setFromPoints(points)
+  // Transparent so renderOrder can place guides after the dust cloud bodies (1.8), which darken everything drawn
+  // before them; clouds in front still dim the guides through the source-absorption composite.
   const material = dashed
-    ? new LineDashedMaterial({ color, dashSize: GUIDE_DASH_PX, gapSize: GUIDE_GAP_PX, depthWrite: false })
-    : new LineBasicMaterial({ color, depthWrite: false })
+    ? new LineDashedMaterial({ color, dashSize: GUIDE_DASH_PX, gapSize: GUIDE_GAP_PX, transparent: true, depthWrite: false })
+    : new LineBasicMaterial({ color, transparent: true, depthWrite: false })
   const line = new Line(geometry, material)
+  line.renderOrder = 1.85
   if (dashed) {
     line.computeLineDistances()
     line.userData.dashWorldLength = points.slice(1).reduce(
@@ -337,10 +345,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   scene.add(milkyWay.group)
 
   const starViewDistance = { value: camera.position.distanceTo(controls.target) }
-  const { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle: setStarAppearanceStyle, pixelRatio: starPixelRatio, crowdCoverage, zoomGain: starZoomGain } = createStarAppearance(starViewDistance, true)
+  const { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle: setStarAppearanceStyle, pixelRatio: starPixelRatio, crowdCoverage, zoomGain: starZoomGain, faintLift } = createStarAppearance(starViewDistance, true)
   setStarAppearanceStyle(starStyle)
   starPixelRatio.value = renderer.getPixelRatio()
   crowdCoverage.value = starCrowdCoverage(starBrightness)
+  faintLift.value = options.faintStars === 'lifted' ? 1 : 0
   milkyWay.setStarStyle(starStyle)
 
   const initialEarthOrbitDate = options.earthOrbitDate === undefined ? new Date() : options.earthOrbitDate
@@ -736,6 +745,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let home = true
   let focusTransition: { from: Vector3; to: Vector3; position: Vector3; started: number } | null = null
   let powerSavingMode = false
+  let renderStats: ReturnType<typeof createRenderStats> | null = null
   let controlsInteracting = false
   let controlsSettling = false
   const focusTarget = new Vector3()
@@ -2309,6 +2319,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       requestRender(false)
       return
     }
+    renderStats?.begin()
     // Playback can outpace the render cadence; apply only the latest time on drawn frames.
     if (simulationPending) applySimulationYears()
     sceneDirty = false
@@ -2408,6 +2419,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
     else renderer.render(scene, camera)
     setData(labelLayer, 'drawCalls', String(renderer.info.render.calls))
+    renderStats?.end()
     if (continueRendering || milkyWayFading || refreshSamplesRemaining > 0) requestRender(false)
     else {
       previousRafTime = 0
@@ -2638,6 +2650,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       simulationPending = true
       requestRender()
     },
+    setRenderStatsListener(listener) {
+      renderStats?.dispose()
+      renderStats = listener ? createRenderStats(renderer.getContext() as WebGL2RenderingContext, listener) : null
+    },
     setPowerSavingMode(enabled) {
       if (enabled === powerSavingMode) return
       powerSavingMode = enabled
@@ -2674,6 +2690,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       starBrightness = brightness
       crowdCoverage.value = starCrowdCoverage(brightness)
       updatePresentation()
+      requestRender()
+    },
+    setFaintStars(mode) {
+      faintLift.value = mode === 'lifted' ? 1 : 0
       requestRender()
     },
     setStarPaint(painter) {
@@ -2812,6 +2832,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       disposed = true
       focusTransition = null
       cancelRender()
+      renderStats?.dispose()
+      renderStats = null
       if (hoverFrame !== null) cancelAnimationFrame(hoverFrame)
       events.abort()
       observer.disconnect()

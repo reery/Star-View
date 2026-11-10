@@ -10,7 +10,7 @@ const HIDING_MS = 680
  * swiping in from it, brings them back for a few seconds; hovering, keyboard focus or an open touch
  * flyout keeps them in view.
  */
-export function initializeHideUi(button: HTMLButtonElement, closeFlyout: () => void, onChange: (hidden: boolean) => void, signal: AbortSignal): void {
+export function initializeHideUi(button: HTMLButtonElement, initiallyHidden: boolean, closeFlyout: () => void, onChange: (hidden: boolean) => void, signal: AbortSignal): void {
   const root = document.documentElement
   const rails = [...document.querySelectorAll<HTMLElement>('.scene-toolbar, .dock-rail')]
   const tooltip = button.querySelector('.tooltip')!
@@ -36,14 +36,13 @@ export function initializeHideUi(button: HTMLButtonElement, closeFlyout: () => v
     timer = window.setTimeout(conceal, REVEAL_MS)
   }
 
-  button.addEventListener('click', () => {
-    const hide = !hidden()
+  const apply = (hide: boolean, animate: boolean) => {
     clearTimeout(timer)
     clearTimeout(hiding)
     hiding = undefined
     // Pressing Hide UI first collapses its flyout, then slides the rails out more slowly than usual so the change reads clearly.
-    root.toggleAttribute('data-ui-hiding', hide)
-    if (hide) {
+    root.toggleAttribute('data-ui-hiding', hide && animate)
+    if (hide && animate) {
       button.closest('[data-toolbar-flyout]')?.setAttribute('data-dismissed', '')
       hiding = window.setTimeout(() => {
         hiding = undefined
@@ -56,7 +55,10 @@ export function initializeHideUi(button: HTMLButtonElement, closeFlyout: () => v
     tooltip.textContent = hide ? 'Show UI' : 'Hide UI'
     if (hide) conceal()
     onChange(hide)
-  }, { signal })
+  }
+  // A restored hidden UI starts out of view instead of sliding away on load.
+  if (initiallyHidden) apply(true, false)
+  button.addEventListener('click', () => apply(!hidden(), true), { signal })
 
   document.addEventListener('pointermove', (event) => {
     if (!hidden()) return

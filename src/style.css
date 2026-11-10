@@ -505,6 +505,12 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .visibility-observer.is-avoiding-motion { bottom: var(--motion-panel-clearance, 150px); }
 .scene-legend { left: calc(28px + var(--safe-left)); font-variant-numeric: tabular-nums; }
 .grid-legend { display: inline-flex; align-items: center; gap: 9px; }
+/* Sits above the grid legend wherever that moves; fixed columns keep its size, so updates do not re-layout labels. */
+.render-stats { display: grid; grid-template-columns: auto 7ch; gap: 2px 12px; margin: 0 0 26px; padding: 6px 10px; background: var(--panel-glass); border: 1px solid var(--line); border-radius: var(--card-radius); }
+.render-stats dd { margin: 0; color: var(--ink); text-align: right; }
+/* The tile ignores the pointer like the legend; only its help label takes hover and taps. */
+.render-stats .mass-metric-help { pointer-events: auto; }
+.render-stats .mass-metric-tooltip { width: 220px; max-width: none; }
 .grid-symbol { width: 12px; height: 12px; background: repeating-linear-gradient(0deg, transparent 0 5px, #9c8976 5px 6px), repeating-linear-gradient(90deg, transparent 0 5px, #9c8976 5px 6px); border: 1px solid #9c8976; }
 .visibility-observer { right: calc(74px + var(--safe-right)); max-width: calc(50% - 74px); justify-content: flex-end; text-align: right; line-height: 1.4; }
 .visibility-observer strong { color: var(--ink); font-weight: 500; }
@@ -577,6 +583,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .unit-options :is(label:last-child span, button:last-child) { border-radius: 0 6px 6px 0; }
 .unit-options :is(input:checked + span, button[aria-pressed="true"]) { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
 .unit-options input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.unit-options label:has(input:disabled) { cursor: default; opacity: 0.4; }
+.unit-options input:disabled { cursor: default; }
 .power-saving-choice, .filter-toggle { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 40px; color: var(--ink); cursor: pointer; }
 .switch-control { position: relative; width: 44px; height: 24px; flex: 0 0 44px; }
 .switch-control input { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
@@ -1753,6 +1761,7 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .glossary-detail .card-subgroup-heading { margin-inline: -16px; padding-inline: 16px; }
   .glossary-figure img { height: 150px; }
   .scene-legend { left: calc(18px + var(--safe-left)); bottom: calc(16px + var(--safe-bottom)); font-size: 10px; }
+  .render-stats { margin-bottom: 24px; }
   .visibility-observer { right: calc(66px + var(--safe-right)); bottom: calc(16px + var(--safe-bottom)); max-width: 42%; font-size: 10px; }
   .identity .star-name { font-size: 22px; }
   /* Stacked over the object card, so the shadow also rises above the top edge. */
