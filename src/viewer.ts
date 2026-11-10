@@ -1326,7 +1326,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (rankingChanged) {
       rankedCandidates = stars.map((star, index) => ({
         index,
-        priority: star.id === selectedId ? 0 : isMolecularCloud[index] ? 3 : isNebula[index] || isBubble[index] ? 1 : 2,
+        // Extended objects have no point magnitude, so stars fill the budget before them.
+        priority: star.id === selectedId ? 0 : isMolecularCloud[index] ? 3 : isNebula[index] || isBubble[index] ? 2 : 1,
         magnitude: apparentMagnitudes[index]!,
       })).sort(compareMapLabelCandidates)
       rankedBaseId = visibilityBase.id

@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { expect, test, type Locator } from '@playwright/test'
 import { PNG } from 'pngjs'
 import { openFilter, openPreferences, openSpecs, openViewer, selectObject, zoomViewer } from './support'
@@ -75,7 +76,8 @@ test('resets planet and moon rotation when reopened while preserving comparison 
   await expect.poll(async () => (await snapshot(moon)).equals(initialMoon)).toBe(true)
 })
 
-test('spends a small label budget on stars and nebulae before molecular clouds', async ({ page }) => {
+test('spends a small label budget on stars before nebulae and molecular clouds', async ({ page }) => {
+  const nebulaIds = new Set<string>(JSON.parse(readFileSync(new URL('../src/data/overlays/nebulae/objects.json', import.meta.url), 'utf8')).objects.map(({ id }: { id: string }) => id))
   await openViewer(page)
   await openPreferences(page)
   await page.locator('#label-limit').fill('20')
@@ -91,6 +93,8 @@ test('spends a small label budget on stars and nebulae before molecular clouds',
   const labels = page.locator('.projected-labels [data-star-id]')
   await expect(labels).toHaveCount(20)
   await expect(page.locator('.projected-labels [data-star-id^="cahlon-cloud-"]')).toHaveCount(0)
+  const labelledIds = await labels.evaluateAll((anchors) => anchors.map((anchor) => anchor.getAttribute('data-star-id')))
+  expect(labelledIds.filter((id) => nebulaIds.has(id!))).toEqual([])
   await selectObject(page, 'Taurus Molecular Cloud')
   await expect(page.locator('[data-star-id="cahlon-cloud-22"] .star-label')).toBeVisible()
 })
