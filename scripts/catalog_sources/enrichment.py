@@ -105,6 +105,99 @@ def source_index(extended=False):
     return sources, identities, fundamental, sed, measured, diameters, gaia, bright_hips
 
 
+SUPPLEMENTS = ("catalog-work/shared-enrichment/gaia-supplement", "catalog-work/shared-enrichment/vizier-supplement")
+# Riello et al. 2021, Table C.2: G - V as a cubic in BP - RP. Checked against 3,458 SIMBAD V values:
+# robust scatter 0.028 mag, offsets within 0.03 mag below BP - RP = 3; redder M dwarfs come out 0.07-0.27 mag too bright.
+G_MINUS_V = (-0.02704, 0.01424, -0.2156, 0.01426)
+G_MINUS_V_COLOURS = (-0.5, 3.0)
+# Unblended BP/RP photometry: |C*| below 0.05 (corrected excess factor, Riello et al. 2021 eq. 6).
+MAX_CORRECTED_EXCESS = 0.05
+# Recio-Blanco et al. 2023, Table 3: field-star [M/H] calibration in uncalibrated log g. With all first 13 flags zero,
+# calibrated values lie within 0.08 dex (robust) of spectroscopic [Fe/H] for 4000-7000 K; outside that range they do not.
+GSP_SPEC_MH = (0.274, -0.1373, -0.0050, 0.0048)
+GSP_SPEC_TEFF = (4000, 7000)
+# Isochrone ages whose 68 percent half-width exceeds 30 percent of the median are too loose to adopt.
+AGE_MAX_RELATIVE_HALF_WIDTH = 0.3
+AU_SOLAR_RADII = 215.032
+
+
+def corrected_excess(bp_rp, excess):
+    """Riello et al. 2021 eq. 6, as published in the Gaia team's reference code."""
+    if bp_rp < 0.5:
+        return excess - (1.154360 + 0.033772 * bp_rp + 0.032277 * bp_rp ** 2)
+    if bp_rp < 4.0:
+        return excess - (1.162004 + 0.011464 * bp_rp + 0.049255 * bp_rp ** 2 - 0.005879 * bp_rp ** 3)
+    return excess - (1.057572 + 0.140537 * bp_rp)
+
+
+def _age_candidate(median_age, low, high, scale, reference, record_id, method):
+    values = [number(value) for value in (median_age, low, high)]
+    if None in values or values[0] <= 0:
+        return None
+    middle, lower, upper = (value * scale for value in values)
+    width = (upper - lower) / 2 / middle
+    return {"value": middle, "lower": lower, "upper": upper, "relativeHalfWidth": width, "reference": reference,
+            "sourceRecordId": record_id, "method": method} if width <= AGE_MAX_RELATIVE_HALF_WIDTH else None
+
+
+@cache
+def supplement_index():
+    """Gaia DR3 photometry and GSP-Spec rows by source ID, qualifying isochrone ages by HIP, JMDC diameters by space-free name."""
+    for directory in SUPPLEMENTS:
+        manifest = json.loads((ROOT / directory / "source-manifest.json").read_text())
+        for name, digest in manifest["checksumsSha256"].items():
+            verify_sha256(ROOT / directory / name, digest)
+    gaia_rows = {row["source_id"]: row for row in csv_rows(f"{SUPPLEMENTS[0]}/gaia.csv")}
+    ages = {}
+    for row in csv_rows(f"{SUPPLEMENTS[1]}/casagrande2011.csv"):
+        # Photometry that includes several components gives no single-star age.
+        candidate = None if row["m_Name"] else _age_candidate(row["ageMB"], row["age16B"], row["age84B"], 1, "2011A&A...530A.138C", f"HIP {row['HIP']}",
+                                                                "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)")
+        if candidate:
+            ages.setdefault(row["HIP"], []).append(candidate)
+    for row in csv_rows(f"{SUPPLEMENTS[1]}/david2015.csv"):
+        # Age68t below 68 marks a posterior cut off by the model grid.
+        candidate = _age_candidate(row["Agemed"], row["Age68lo"], row["Age68up"], 1e-3, "2015ApJ...804..146D", f"HIP {row['HIP']}",
+                                   "Strömgren-photometry isochrone median and 68 percent range") if row["Age68t"] == "68" else None
+        if candidate:
+            ages.setdefault(row["HIP"], []).append(candidate)
+    diameters = {}
+    for row in csv_rows(f"{SUPPLEMENTS[1]}/jmdc.csv"):
+        # A blank error marks a measurement in doubt; binarity notes mark blended or companion-affected fits. Keck nuller
+        # diameters (2014ApJ...797..119M) are exozodi-survey by-products with large systematics (Gamma Lep: 1.87 mas
+        # against about 1.25 mas); every kept value must be precise to 5 percent.
+        diameter, error, notes = number(row["LDdiam"]), number(row["e_LDdiam"]), row["Notes"].lower()
+        if diameter and error and error <= .05 * diameter and "kin (nuller)" not in notes and "binary" not in notes and "doubt" not in notes:
+            diameters.setdefault("".join(row["ID1"].split()), []).append(row)
+    return gaia_rows, ages, diameters
+
+
+def gaia_visual_magnitude(gaia_id):
+    """Johnson V from the exact Gaia DR3 source's G and BP - RP where the colour is validated and the photometry unblended."""
+    row = supplement_index()[0].get(gaia_id or "")
+    if not row or row["duplicated_source"] == "true" or not (row["phot_g_mean_mag"] and row["bp_rp"] and row["phot_bp_rp_excess_factor"]):
+        return None
+    colour = float(row["bp_rp"])
+    if not G_MINUS_V_COLOURS[0] <= colour < G_MINUS_V_COLOURS[1] or abs(corrected_excess(colour, float(row["phot_bp_rp_excess_factor"]))) >= MAX_CORRECTED_EXCESS:
+        return None
+    return float(row["phot_g_mean_mag"]) - sum(coefficient * colour ** power for power, coefficient in enumerate(G_MINUS_V)), {
+        "method": "Gaia DR3 G and BP-RP transformed to Johnson V (Riello et al. 2021, Table C.2; 0.03 mag scatter)",
+        "reference": "2021A&A...649A...3R", "sourceId": gaia_id, "G": float(row["phot_g_mean_mag"]), "BP-RP": colour}
+
+
+def gsp_spec_metallicity(gaia_id):
+    """Calibrated Gaia DR3 GSP-Spec [M/H] for best-quality RVS solutions of 4000-7000 K stars."""
+    row = supplement_index()[0].get(gaia_id or "")
+    if not row or not row["mh_gspspec"] or not row["flags_gspspec"].startswith("0" * 13):
+        return None
+    if not GSP_SPEC_TEFF[0] <= float(row["teff_gspspec"]) < GSP_SPEC_TEFF[1]:
+        return None
+    gravity = float(row["logg_gspspec"])
+    lower, upper = number(row["mh_gspspec_lower"]), number(row["mh_gspspec_upper"])
+    return {"value": float(row["mh_gspspec"]) + sum(coefficient * gravity ** power for power, coefficient in enumerate(GSP_SPEC_MH)),
+            "uncertainty": (upper - lower) / 2 if lower is not None and upper is not None else None}
+
+
 def manifest_sha256():
     source_index()
     return sha256(MANIFEST)
@@ -314,7 +407,8 @@ def contradicts_class(teff, spectral_type, tolerance):
     return expected is not None and abs(teff - expected) > tolerance * expected
 
 
-def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only=False, extended=False, gaia_fields=FIELDS, class_tolerance=None):
+def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only=False, extended=False, gaia_fields=FIELDS, class_tolerance=None, withheld=None):
+    """`withheld`, when given, collects the Gaia FLAME values that the adopted values invalidate."""
     sources, identities, fundamental, sed, measured, diameters, gaia, bright_hips = source_index(extended)
     key = normalized_id(main_id or identities.get(row["id"]))
     source = sources.get(key, {})
@@ -370,6 +464,7 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
         hips = {alias.removeprefix("HIP ") for alias in identifiers if re.fullmatch(r"HIP \d+", alias)}
         hip = next(iter(hips)) if len(hips) == 1 else None
         model = fundamental.get(hip, {})
+        sed_model = sed.get(hip, {})
         measurement = measured.get(key, {})
         system = source.get("otype") in SYSTEM_TYPES
         # Previously reviewed measurement choices retain priority over an
@@ -388,12 +483,58 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
                       quantity="photospheric [Fe/H]" if column == "fe_h" else "spectroscopic effective temperature",
                       selection="Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
                       scope="SIMBAD object as catalogued; unresolved spectra may be primary-dominated" if system else "catalogued stellar object")
+        gaia_ids = {alias.removeprefix("Gaia DR3 ") for alias in identifiers if re.fullmatch(r"Gaia DR3 \d+", alias)}
+        gaia_id = next(iter(gaia_ids)) if len(gaia_ids) == 1 else None
+        # RVS spectroscopy outranks the photometric GSP-Phot [M/H]; a published [Fe/H] consensus outranks both.
+        spectroscopic = gsp_spec_metallicity(gaia_id)
+        if spectroscopic:
+            adopt("metallicity_dex", spectroscopic["value"], "2023A&A...674A..29R", "measured", spectroscopic["uncertainty"], sourceRecordId=f"Gaia DR3 {gaia_id}",
+                  quantity="Gaia DR3 GSP-Spec RVS [M/H], field-star log g calibration",
+                  selection="All first 13 GSP-Spec flags zero; GSP-Spec Teff 4000-7000 K",
+                  scope="SIMBAD object as catalogued; unresolved spectra may be primary-dominated" if system else "catalogued stellar object")
         metallicity = number(row.get("metallicity_dex"))
         if metallicity is None:
             metallicity = number(measurement.get("fe_h"))
         diameter = diameters.get(key, {})
         if diameter:
             adopt("radius_solar", float(diameter["diameter_km"]) / 1391400, diameter["bibcode"], "derived")
+        # Direct angular diameters: the most precise limb-darkened value within 10 percent of the median, held by a strict majority.
+        names = {"".join(alias.removeprefix("* ").split()) for alias in identifiers}
+        measurements = [] if system else [item for name in sorted(names) for item in supplement_index()[2].get(name, [])]
+        if measurements:
+            center = median(float(item["LDdiam"]) for item in measurements)
+            consistent = [item for item in measurements if abs(float(item["LDdiam"]) - center) <= .1 * center]
+            if len(consistent) * 2 > len(measurements):
+                best = min(consistent, key=lambda item: float(item["e_LDdiam"]) / float(item["LDdiam"]))
+                distance = math.sqrt(sum(float(row[field]) ** 2 for field in ("x_pc", "y_pc", "z_pc")))
+                radius = float(best["LDdiam"]) / 2000 * distance * AU_SOLAR_RADII
+                adopt("radius_solar", radius, best["BibCode"], "derived", radius * float(best["e_LDdiam"]) / float(best["LDdiam"]),
+                      sourceRecordId=f"JMDC {best['ID1']}", angularDiameterMas=float(best["LDdiam"]), band=best["Band"], distancePc=distance,
+                      method="Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+                      selection="Most precise of the JMDC measurements within 10 percent of their median; strict majority required")
+        physical = eligible_gaia_physical(gaia.get(gaia_id)) if gaia_id else {}
+        # FLAME values follow from the GSP-Phot temperature, so a contradicted temperature withholds them all.
+        if class_tolerance and "temperature_k" in physical and contradicts_class(physical["temperature_k"].value, row.get("spectral_type"), class_tolerance):
+            physical = {}
+        if class_tolerance:
+            # Zero-reddening McDonald fits run systematically cool for O and B stars: in the naked-eye snapshot 129 of
+            # 130 fits beyond 20 percent of their class were too cool, and half of the rest that have spectra miss them
+            # by over 20 percent. Their temperature and luminosity are not used for these classes.
+            if re.match(r"[OB]\d", row.get("spectral_type") or ""):
+                sed_model = {}
+            # A model temperature that contradicts the spectral class, or lies over 20 percent from the adopted
+            # measurement (the hot-star review criterion), marks a failed solution; its mass, radius and luminosity go with it.
+            measured_temperature = number(row.get("temperature_k"))
+
+            def failed(teff):
+                return teff is not None and (contradicts_class(teff, row.get("spectral_type"), class_tolerance)
+                                             or measured_temperature is not None and abs(teff - measured_temperature) > .2 * measured_temperature)
+
+            log_temperature = number(model.get("logTeff"))
+            if log_temperature is not None and failed(10 ** log_temperature):
+                model = {}
+            if failed(number(sed_model.get("Teff"))):
+                sed_model = {}
         if model:
             log_temperature = number(model.get("logTeff"))
             if log_temperature is not None:
@@ -404,7 +545,6 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
                 log_radius = number(model.get("logRad"))
                 if log_radius is not None:
                     adopt("radius_solar", 10 ** log_radius, "1999A&A...352..555A", sourceRecordId=f"HIP {hip}")
-        sed_model = sed.get(hip, {})
         if sed_model:
             adopt("temperature_k", sed_model.get("Teff"), "2012MNRAS.427..343M", sourceRecordId=f"HIP {hip}")
             source_distance = number(sed_model.get("Dist"))
@@ -412,17 +552,25 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
             distance = math.sqrt(sum(float(row[field]) ** 2 for field in ("x_pc", "y_pc", "z_pc")))
             if source_distance and luminosity:
                 adopt("luminosity_solar", luminosity * (distance / source_distance) ** 2, "2012MNRAS.427..343M", sourceRecordId=f"HIP {hip}", sourceDistancePc=source_distance, adoptedDistancePc=distance)
-        gaia_ids = {alias.removeprefix("Gaia DR3 ") for alias in identifiers if re.fullmatch(r"Gaia DR3 \d+", alias)}
-        if len(gaia_ids) == 1:
-            physical = eligible_gaia_physical(gaia.get(next(iter(gaia_ids))))
-            # FLAME values follow from the GSP-Phot temperature, so a contradicted temperature withholds them all.
-            if class_tolerance and "temperature_k" in physical and contradicts_class(physical["temperature_k"].value, row.get("spectral_type"), class_tolerance):
-                physical = {}
+        # Individual isochrone ages outrank Gaia FLAME; the tightest qualifying one wins.
+        age = min(supplement_index()[1].get(hip, []), key=lambda item: item["relativeHalfWidth"], default=None)
+        if age:
+            adopt("age_gyr", age["value"], age["reference"], "model-derived", sourceRecordId=age["sourceRecordId"], method=age["method"],
+                  lowerGyr=age["lower"], upperGyr=age["upper"])
+        if physical:
             invalid = flame_withheld(physical["temperature_k"].value if "temperature_k" in physical else None, number(row.get("temperature_k")),
                                      number(row.get("metallicity_dex")) if row.get("metallicity_kind") == "[Fe/H]" else None,
                                      physical["metallicity_dex"].value if "metallicity_dex" in physical else None)
             for field, observation in physical.items():
-                if field in invalid or field not in gaia_fields:
+                if field not in gaia_fields:
+                    continue
+                if field in invalid:
+                    if withheld is not None:
+                        withheld[field] = {"value": observation.value, "reference": observation.reference, "sourceRecordId": observation.source_record_id,
+                                           "gspPhotTemperatureK": physical["temperature_k"].value if "temperature_k" in physical else None,
+                                           "adoptedTemperatureK": number(row.get("temperature_k")),
+                                           "reason": "FLAME assumes the GSP-Phot temperature and solar metallicity; the adopted, more accurate temperature differs "
+                                                     "by over 2 percent or the metallicity lies beyond 0.3 dex"}
                     continue
                 adopt(field, observation.value, observation.reference, observation.status, observation.uncertainty,
                       sourceRecordId=observation.source_record_id, qualityFlags=list(observation.quality_flags),

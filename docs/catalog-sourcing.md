@@ -1,5 +1,16 @@
 # Offline Catalog Sourcing
 
+## Shared supplements: ages, interferometric radii, RVS metallicity and Gaia V (2026-11-10)
+
+Two frozen snapshots extend the shared enrichment for every stellar catalog. Both select rows by identities already frozen elsewhere, never by position. `catalog-work/shared-enrichment/gaia-supplement` holds Gaia DR3 photometry, blending indicators and GSP-Spec parameters for the 13,423 exact Gaia DR3 sources of the landmark, naked-eye, nearest-1000 and nearest-5000 snapshots (`refresh-catalog-sources.py gaia-supplement`). `catalog-work/shared-enrichment/vizier-supplement` holds Casagrande et al. (2011), David & Hillenbrand (2015) and JMDC rows for exact HIP and SIMBAD identifiers (`refresh-catalog-sources.py vizier-supplement --vizier-url <mirror>`; frozen from the IDIA mirror while Strasbourg is down). Each rule was checked against the frozen measurements before adoption:
+
+- **Radius**: JMDC limb-darkened angular diameters from direct techniques, with the catalog's adopted distance. Only measurements precise to 5 percent are kept, with no binarity or doubt note. Keck Interferometer Nuller values (2014ApJ...797..119M) are excluded: they are exozodi-survey by-products, and Gamma Lep's 1.87 mas compares with about 1.25 mas. The most precise value within 10 percent of the star's median is adopted, provided a strict majority agrees. It ranks after reviewed linear diameters and before every model radius. Unresolved systems are skipped.
+- **Metallicity**: Gaia DR3 GSP-Spec [M/H] with the Recio-Blanco et al. (2023) field-star log g calibration, and only when all first 13 flags are zero and the GSP-Spec temperature is 4,000-7,000 K. Against SIMBAD spectroscopic [Fe/H], these values scatter by 0.08 dex (robust), with a -0.07 dex median offset expected for [M/H] against [Fe/H]. Medium-quality flags miss by more than 0.3 dex for half of the stars, so they are not used. GSP-Spec ranks after the spectroscopic [Fe/H] consensus and before GSP-Phot.
+- **Age**: Casagrande et al. (2011) BaSTI ages (not for blended multi-component photometry) and David & Hillenbrand (2015) ages with a complete 68 percent interval, when the interval's half-width is within 30 percent of the median. The tightest qualifying age wins and ranks ahead of Gaia FLAME. Hunt & Reffert (2023) cluster ages were evaluated and left out, because only 21 of 189 qualifying members had ages within 0.2 dex.
+- **Johnson V** (nearest-1000 and nearest-5000 stars without a compiled V): the exact Gaia DR3 source's G and BP-RP, using the Riello et al. (2021) Table C.2 cubic (constant term first). It is used only for BP-RP between -0.5 and 3.0, a corrected flux excess |C*| below 0.05 and non-duplicated sources. Against 3,458 SIMBAD V values the robust scatter is 0.028 mag. Redder M dwarfs come out 0.07-0.27 mag too bright, and white dwarfs and substellar objects are outside the fitted sample, so all of these stay blank.
+
+In the naked-eye catalog, McDonald et al. (2012) fits are no longer used for O and B stars. Of 130 such fits beyond 20 percent of their spectral class, 129 were too cool, and half of the others with spectra missed them by more than 20 percent.
+
 ## Gaia flags and long-baseline proper motions (2026-11-07)
 
 `scripts/author-gaia-flags-review.py` reads three downloads in `catalog-work/downloads/`,
@@ -330,11 +341,11 @@ The default catalog retains its 22 objects, IDs, positions, and curated physical
 - Runtime packages: [nearest-100](../src/data/catalogs/nearest-100/), and [nearest-1000](../src/data/catalogs/nearest-1000/).
 - Per-object field statuses, raw classifications/measurement references/errors, epoch assumptions, complete 160-candidate buffer audit, 155 eligible ranks, five explicit exclusions, two approved default exceptions and CNS5 crossmatches: [provenance.json](../src/data/catalogs/nearest-100/provenance.json). This is authoring metadata, not browser geometry input.
 - Frozen adopted source subset, default-row overrides and extracted temperature calibration: [source-input.json](../catalog-work/nearest-100/source-input.json), checked by [source-input.sha256](../catalog-work/nearest-100/source-input.sha256).
-- Executable authoring recipe: [author-nearest100.py](../scripts/author-nearest100.py); optional pinned environment: [catalog-requirements.txt](../scripts/catalog-requirements.txt).
+- Executable authoring recipe: [author-nearest100.py](../scripts/author-nearest100.py); environment: the project's [requirements.txt](../requirements.txt).
 - Nearest-1000 frozen CNS5/SIMBAD/Gaia inputs, ADQL, manifest, and checksums: [catalog-work/nearest-1000](../catalog-work/nearest-1000/); executable recipe: [author-nearest1000.py](../scripts/author-nearest1000.py).
 - Bright-stars frozen SIMBAD snapshot and selection query: [catalog-work/bright-stars](../catalog-work/bright-stars/); executable recipe: [author-bright-stars.py](../scripts/author-bright-stars.py).
 - Compact-remnant frozen ATNF v2.9.0 records and glitches, reviewed binary masses, dormant systems, manifest and checksums: [catalog-work/compact-remnants](../catalog-work/compact-remnants/); executable recipe: [author-compact-remnants.py](../scripts/author-compact-remnants.py) (`--freeze <psrcat.db> <glitch.db>` reselects from a new ATNF package); runtime provenance: [provenance.json](../src/data/overlays/compact-remnants/provenance.json).
-- Naked-eye stars (SIMBAD V <= 6.5 within 20,000 ly): frozen SIMBAD, hierarchy-parent, Gaia DR3, Bailer-Jones and mesFe_h snapshot in [catalog-work/naked-eye-stars](../catalog-work/naked-eye-stars/), refreshed with `python3 scripts/refresh-catalog-sources.py naked-eye-stars --simbad-url <mirror>`; executable recipe: [author-naked-eye-stars.py](../scripts/author-naked-eye-stars.py).
+- Naked-eye stars (SIMBAD V <= 6.5 within 20,000 ly): frozen SIMBAD, hierarchy-parent, Gaia DR3, Bailer-Jones and mesFe_h snapshot in [catalog-work/naked-eye-stars](../catalog-work/naked-eye-stars/), refreshed with `python3 scripts/refresh-catalog-sources.py naked-eye-stars --simbad-url <mirror>`; exact-HIP Allende Prieto & Lambert (1999) and McDonald et al. (2012) rows are added with `python3 scripts/refresh-catalog-sources.py hipparcos-models --output catalog-work/naked-eye-stars --retrieved <date> --vizier-url <mirror>`, which reads the complete VizieR tables over ASU (served by official mirrors such as vizier.idia.ac.za while TAPVizieR is unavailable) and keeps rows whose HIP equals a unique SIMBAD HIP alias; executable recipe: [author-naked-eye-stars.py](../scripts/author-naked-eye-stars.py).
 - Notable distant stars (measured pulsar companions): [catalog-work/notable-distant-stars](../catalog-work/notable-distant-stars/); executable recipe: [author-notable-distant-stars.py](../scripts/author-notable-distant-stars.py).
 - Pulsar planets: separately frozen [pulsar-planets.csv](../catalog-work/nearby-planets/pulsar-planets.csv) NASA Exoplanet Archive query; refresh only it with `python3 scripts/author-nearby-planets.py --refresh --pulsars --retrieved <date>`.
 - Hand-curated nebula overlay: [manifest.json](../src/data/overlays/nebulae/manifest.json) and [objects.json](../src/data/overlays/nebulae/objects.json); per-row sources and model notes are inline.
@@ -351,7 +362,7 @@ The default catalog retains its 22 objects, IDs, positions, and curated physical
 | [SIMBAD](https://simbad.cds.unistra.fr/simbad/) and [Bright Star Catalogue V/50](https://cdsarc.cds.unistra.fr/viz-bin/cat/V/50) | TAP baseline 25-Sep-2026 and V=2.42-2.69 expansion 30-Sep-2026; BSC5 combined V for Acrux | Bright-star identities, astrometry, spectra, Johnson V and radial velocities |
 | [Allende Prieto & Lambert](https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/352/555), [McDonald et al.](https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/427/343), and [Hohle et al.](https://cdsarc.cds.unistra.fr/viz-bin/cat/J/AN/331/349) | Exact-Hipparcos subsets frozen 1-Oct-2026; 54, 77 and 10 rows | Bright-star model masses, temperatures and radii; SED luminosities; massive-star model masses |
 | [McDonald et al. (2017)](https://cdsarc.cds.unistra.fr/viz-bin/cat/J/MNRAS/471/770) and [Wittkowski et al. (2006)](https://doi.org/10.1051/0004-6361:20066032) | Reviewed exact-Hipparcos rows and Menkar interferometry frozen 1-Oct-2026 | Temperature, luminosity and radius for Beta Gruis/Gacrux; temperature, mass, luminosity and radius for Menkar |
-| [Astropy get_constellation](https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html) | Astropy 7.1.1; Roman 1987 [VI/42](https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/42) | Offline IAU boundary assignment |
+| [Astropy get_constellation](https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html) | Astropy 8.0.2; Roman 1987 [VI/42](https://cdsarc.cds.unistra.fr/viz-bin/cat/VI/42) | Offline IAU boundary assignment |
 | [Cifuentes et al.](https://cdsarc.cds.unistra.fr/ftp/J/A+A/642/A115/ReadMe), 2020A&A...642A.115C | CDS 20-Jul-2020, 2479 records; frozen 2026-09-29 | M-dwarf SED luminosity, temperature, radius and mass |
 | [Mann et al. 2019](https://ui.adsabs.harvard.edu/abs/2019ApJ...871...63M/abstract) and [2015](https://ui.adsabs.harvard.edu/abs/2015ApJ...804...64M/abstract) | 2019 Table 6 (n=5, no [Fe/H]); 2015 Table 1 Eq. 4 | Masses and radii from absolute 2MASS Ks |
 | [2MASS PSC](https://cdsarc.cds.unistra.fr/viz-bin/cat/II/246), 2006AJ....131.1163S | VizieR TAP II/246/out, 937 exact designations; frozen 2026-09-29 | Ks photometry and quality flags for Mann relations |
@@ -417,32 +428,25 @@ Constellation means the object's **Earth-view IAU sky region at the adopted snap
 
 The helper calls Astropy `get_constellation(..., short_name=False, constellation_list='iau')` on the high-precision normalized direction before Cartesian rounding. Astropy transforms the coordinates to the B1875 boundary frame and applies Roman's Delporte-boundary table. It does **not** propagate physical stellar motion to 1875. The original default positions are inverted from Galactic to ICRS instead of being overwritten.
 
-Astropy 7.1.1's full-name table uses the spellings `Chamaleon`, `Ophiucus` and `Pisces Austrinus`; the helper normalizes these to canonical **Chamaeleon**, **Ophiuchus** and **Piscis Austrinus**, normalizes Bootes to ASCII, and trims name-table whitespace (including trailing whitespace after Crux). All **88 normalized names** were compared with the parent parser's canonical vocabulary, with no parser changes. This does not change boundary calculations. Every shipped assignment is checked again from its exported vector and at eight offsets one arcsecond away. Known landmarks include Sirius A/B in Canis Major, Proxima in Centaurus, Barnard's Star in Ophiuchus and GJ 229 A in Lepus. A synthetic two-arcsecond pair straddling the Cepheus/Ursa Minor boundary is also frozen in provenance and tested during reproduction. The Sun has no fixed constellation in this static origin-centered model; its cell stays blank. Custom unknown non-Sun values are distinct from this Sun exception.
+Astropy's full-name table (checked with 8.0.2) uses the spellings `Chamaleon`, `Ophiucus` and `Pisces Austrinus`; the helper normalizes these to canonical **Chamaeleon**, **Ophiuchus** and **Piscis Austrinus**, normalizes Bootes to ASCII, and trims name-table whitespace (including trailing whitespace after Crux). All **88 normalized names** were compared with the parent parser's canonical vocabulary, with no parser changes. This does not change boundary calculations. Every shipped assignment is checked again from its exported vector and at eight offsets one arcsecond away. Known landmarks include Sirius A/B in Canis Major, Proxima in Centaurus, Barnard's Star in Ophiuchus and GJ 229 A in Lepus. A synthetic two-arcsecond pair straddling the Cepheus/Ursa Minor boundary is also frozen in provenance and tested during reproduction. The Sun has no fixed constellation in this static origin-centered model; its cell stays blank. Custom unknown non-Sun values are distinct from this Sun exception.
 
 ## Reproduce Offline
 
 Normal application builds, tests and browsing use **Node/TypeScript and checked-in data only**. No Python, live catalog query or network request is needed to use the package. Python is optional authoring tooling. This recipe was executed with Python 3.11.9 on macOS; use Python 3.11 or newer compatible with the pinned packages. No sudo or application package changes are required.
 
-From the project root, install the optional isolated environment once:
+The recipes use the project environment from `requirements.txt`. With it installed, these commands are offline and make no changes:
 
 ```sh
-python3 -m venv /tmp/star-view-catalog-venv
-/tmp/star-view-catalog-venv/bin/python -m pip install -r scripts/catalog-requirements.txt
-```
-
-With dependencies already installed, these commands are offline and make no changes:
-
-```sh
-/tmp/star-view-catalog-venv/bin/python scripts/author-nearest100.py default
-/tmp/star-view-catalog-venv/bin/python scripts/author-nearest100.py build --check
-/tmp/star-view-catalog-venv/bin/python -m unittest scripts.tests.test_catalog_sources
-/tmp/star-view-catalog-venv/bin/python scripts/author-nearest1000.py build --check
+python3 scripts/author-nearest100.py default
+python3 scripts/author-nearest100.py build --check
+python3 -m unittest scripts.tests.test_catalog_sources
+python3 scripts/author-nearest1000.py build --check
 ```
 
 To generate the same three package files into a fresh authoring directory:
 
 ```sh
-/tmp/star-view-catalog-venv/bin/python scripts/author-nearest100.py build --output /tmp/star-view-rebuilt-catalog
+python3 scripts/author-nearest100.py build --output /tmp/star-view-rebuilt-catalog
 ```
 
 The build verifies the input checksum and policy revision, all 160 candidates' required astrometry, 155 eligible/five excluded records, two approved tentative-default exceptions, duplicate IDs/names, exact equality of all 22 frozen default rows plus M-dwarf supplements with the current default catalog, all constellation assignments, the boundary fixture and exact count/cutoff. It refuses to overwrite existing output without `--force`. The `--check` mode compares all three files, including provenance, byte for byte. IERS auto-download is disabled. The default helper's `--write` mode only appends missing constellation and physical columns and fills blank physical fields from the frozen M-dwarf supplements, after asserting that all existing field values are unchanged (notes may only gain a source sentence); the source-reviewed NASA Sun edit is not a generic runtime fallback.
@@ -450,9 +454,9 @@ The build verifies the input checksum and policy revision, all 160 candidates' r
 For this policy-only correction, the five original raw-download SHA-256 values were verified unchanged before regenerating decisions/checksum with the updated helper. All 160 raw candidate records, 141 CNS5 audit rows/matches, 22 default rows, calibration values and source metadata were then compared unchanged. With those same already-downloaded snapshots, the intentional regeneration commands are:
 
 ```sh
-/tmp/star-view-catalog-venv/bin/python scripts/author-nearest100.py freeze /tmp/star-view-nearest100-sources --force
-/tmp/star-view-catalog-venv/bin/python scripts/author-nearest100.py build --force
-/tmp/star-view-catalog-venv/bin/python scripts/author-nearest100.py build --check
+python3 scripts/author-nearest100.py freeze /tmp/star-view-nearest100-sources --force
+python3 scripts/author-nearest100.py build --force
+python3 scripts/author-nearest100.py build --check
 ```
 
 This revises input decisions and therefore the input checksum, not the upstream releases or raw classifications. Do not use newly downloaded or changed snapshots as a policy-only correction.
@@ -471,7 +475,7 @@ The reusable adapters under `scripts/catalog_sources/` normalize CNS5, Gaia DR3 
 Nearest-1000 source refresh is explicit and network-backed; normal builds remain offline:
 
 ```sh
-/tmp/star-view-catalog-venv/bin/python scripts/refresh-catalog-sources.py nearest-1000 \
+python3 scripts/refresh-catalog-sources.py nearest-1000 \
   --output /tmp/star-view-nearest1000-refresh --retrieved YYYY-MM-DD
 ```
 
@@ -480,7 +484,7 @@ The command writes corrected CNS5, exact SIMBAD/Gaia TAP exports, ordered ADQL t
 The M-dwarf supplements refresh separately. It downloads the Cifuentes ReadMe and table, rebuilds `crossmatch.csv` from the frozen nearest-1000 SIMBAD export and nearest-100 identities, and queries 2MASS by exact designation in chunks of 200:
 
 ```sh
-/tmp/star-view-catalog-venv/bin/python scripts/refresh-catalog-sources.py physical-supplements \
+python3 scripts/refresh-catalog-sources.py physical-supplements \
   --output /tmp/star-view-supplements-refresh --retrieved YYYY-MM-DD
 ```
 
@@ -496,7 +500,7 @@ gzip -dk /tmp/star-view-nearest100-sources/tablea1.dat.gz
 curl --fail --location 'https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe' -o /tmp/star-view-nearest100-sources/cns5.ReadMe
 curl --fail --location 'https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/cns5.dat' -o /tmp/star-view-nearest100-sources/cns5.dat
 curl --fail --location 'https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt' -o /tmp/star-view-nearest100-sources/mamajek.txt
-/tmp/star-view-catalog-venv/bin/python scripts/author-nearest100.py inspect /tmp/star-view-nearest100-sources
+python3 scripts/author-nearest100.py inspect /tmp/star-view-nearest100-sources
 ```
 
 Compare checksums and source versions before changing the frozen input. Review the full source, rank buffer, uncertain classifications, parallax outliers, system/component identities and V passbands. Modify the explicit source decisions only when the supporting evidence justifies it. Then an intentional `freeze /tmp/star-view-nearest100-sources --force` regenerates the adopted subset/checksum, and `build --force` regenerates the package. New releases with changed counts/schema require adapting and revalidating the helper, not disabling its guards. Raw downloads can be removed after the frozen source subset, checksums and decisions are verified; no automated tests depend on them.

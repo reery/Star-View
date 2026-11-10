@@ -17,6 +17,8 @@ export interface MilkyWayLayer {
   setViewportHeight(pixels: number): void
   /** Fades the panorama under telescope magnification: to 63% at 1.6× and 25% at 4×, so its own stars do not swell into blobs. */
   setMagnification(zoom: number): void
+  /** Dims the panorama like the stars while the eye adapts to a bright star. */
+  setExposure(exposure: number): void
   /** Reload after a restored WebGL context: the decoded panorama is not retained after upload. */
   reload(): void
   /** Advances the fade-in; returns true while another frame is needed. */
@@ -171,6 +173,8 @@ export function createMilkyWayLayer(
   const group = new Group()
   group.add(mesh)
   let visible = false
+  let magnification = 1
+  let exposure = 1
   let requested: Promise<Panorama> | undefined
   let disposed = false
   let fadeStarted: number | null = null
@@ -268,7 +272,12 @@ export function createMilkyWayLayer(
       galaxy?.setViewportHeight(pixels)
     },
     setMagnification(zoom) {
-      uniforms.intensity.value = PANORAMA_INTENSITY / zoom
+      magnification = zoom
+      uniforms.intensity.value = PANORAMA_INTENSITY * exposure / magnification
+    },
+    setExposure(next) {
+      exposure = next
+      uniforms.intensity.value = PANORAMA_INTENSITY * exposure / magnification
     },
     reload() {
       release(true)

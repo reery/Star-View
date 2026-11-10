@@ -271,7 +271,7 @@
         "luminosity_solar": 99.39864990877949,
         "radius_solar": 4.073802778041127,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.462,
         "absolute_mag": -0.220776,
         "epoch": 2000.0,
         "type": "star",
@@ -280,7 +280,7 @@
         "constellation": "Pisces",
         "spectral_type": "A3V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 6193; Stellarium Psc). SIMBAD identity * ups Psc; SIMBAD compiled Johnson V=4.748; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar.",
+        "notes": "Western constellation line-figure star (HIP 6193; Stellarium Psc). SIMBAD identity * ups Psc; SIMBAD compiled Johnson V=4.748; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 6193"
         ],
@@ -611,8 +611,8 @@
         "vz_kms": -39.676204,
         "temperature_k": 5012.0,
         "mass_solar": null,
-        "luminosity_solar": 51.84882986,
-        "radius_solar": 9.54992586,
+        "luminosity_solar": 68.83762369,
+        "radius_solar": 11.00381943,
         "metallicity_dex": -0.471,
         "age_gyr": null,
         "absolute_mag": 0.623657,
@@ -623,7 +623,7 @@
         "constellation": "Pisces",
         "spectral_type": "G9III:Fe-2",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 114971; Stellarium Psc). SIMBAD identity * gam Psc; SIMBAD compiled Johnson V=3.7; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...691A..53S; radius_solar: 1999A&A...352..555A). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
+        "notes": "Western constellation line-figure star (HIP 114971; Stellarium Psc). SIMBAD identity * gam Psc; SIMBAD compiled Johnson V=3.7; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...691A..53S; radius_solar: 2018AJ....155...30B). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
         "designations": [
           "HIP 114971"
         ],
@@ -810,7 +810,7 @@
         "luminosity_solar": 11.34052,
         "radius_solar": 1.7782794100389228,
         "metallicity_dex": -0.3,
-        "age_gyr": null,
+        "age_gyr": 0.782,
         "absolute_mag": 1.983986,
         "epoch": 2000.0,
         "type": "star",
@@ -819,7 +819,7 @@
         "constellation": "Pisces",
         "spectral_type": "A7V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 116928; Stellarium Psc). SIMBAD identity * lam Psc; SIMBAD compiled Johnson V=4.51; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
+        "notes": "Western constellation line-figure star (HIP 116928; Stellarium Psc). SIMBAD identity * lam Psc; SIMBAD compiled Johnson V=4.51; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G; age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 116928"
         ],
@@ -859,7 +859,7 @@
         "luminosity_solar": 21.455917,
         "radius_solar": 3.376015,
         "metallicity_dex": -0.25,
-        "age_gyr": null,
+        "age_gyr": 1.26,
         "absolute_mag": 1.440735,
         "epoch": 2000.0,
         "type": "star",
@@ -868,7 +868,7 @@
         "constellation": "Pisces",
         "spectral_type": "F4V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 118268; Stellarium Psc). SIMBAD identity * ome Psc; Hipparcos Johnson V=4.03 (SIMBAD V unavailable); Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k; Gaia DR3 model values for luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2018A&A...614A..55A).",
+        "notes": "Western constellation line-figure star (HIP 118268; Stellarium Psc). SIMBAD identity * ome Psc; Hipparcos Johnson V=4.03 (SIMBAD V unavailable); Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k; Gaia DR3 model values for luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2018A&A...614A..55A; age_gyr: 2011A&A...530A.138C).",
         "designations": [
           "HIP 118268"
         ],
@@ -2001,7 +2001,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

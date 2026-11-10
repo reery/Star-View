@@ -18,7 +18,7 @@ from astropy.time import Time
 from astropy.utils import iers
 
 from catalog_sources.adapters import eligible_gaia_physical, read_cns5, read_gaia_tap, read_simbad_tap
-from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, flame_withheld, manifest_sha256, normalized_id, select_spectroscopy, spectroscopy_index
+from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, flame_withheld, gaia_visual_magnitude, gsp_spec_metallicity, manifest_sha256, normalized_id, select_spectroscopy, spectroscopy_index
 from catalog_sources.ultracool_motion import enrich_reviewed_motion
 from catalog_sources.shared_objects import adopt_shared_object
 from catalog_sources.metallicity import metallicity_kind
@@ -295,8 +295,13 @@ def normalize(record, simbad, gaia, supplements, extended=False):
     if velocity is not None:
         row.update({key: f"{value:.6f}" for key, value in zip(("vx_kms", "vy_kms", "vz_kms"), velocity, strict=True)})
     v_magnitude = raw.get("V")
-    if v_magnitude:
-        row["absolute_mag"] = f"{float(v_magnitude) - 5 * math.log10(direction.distance.to_value(units.pc) / 10):.6f}"
+    # Without a compiled Johnson V, the exact Gaia DR3 source's own photometry gives V where the transformation is validated.
+    # The relation was fitted to ordinary stars; white-dwarf and substellar spectra are left to measured V.
+    gaia_v = None if v_magnitude or object_type != "star" else gaia_visual_magnitude(record.identity.gaia_dr3_id)
+    if v_magnitude or gaia_v:
+        row["absolute_mag"] = f"{(float(v_magnitude) if v_magnitude else gaia_v[0]) - 5 * math.log10(direction.distance.to_value(units.pc) / 10):.6f}"
+        if gaia_v:
+            row["notes"] += f" Johnson V={gaia_v[0]:.3f} from {gaia_v[1]['method']}; no compiled V."
     physical = []
     by_field = {}
     if gaia is not None and object_type == "star":
@@ -322,6 +327,8 @@ def normalize(record, simbad, gaia, supplements, extended=False):
     spectra = spectroscopy_index(extended).get(normalized_id(simbad.identity.simbad_id), [])
     measured = {field: float(selected[column]) for field, column in (("temperature_k", "teff"), ("metallicity_dex", "fe_h"))
                 if (selected := select_spectroscopy(spectra, column, row["spectral_type"]))}
+    if "metallicity_dex" not in measured and (spectroscopic := gsp_spec_metallicity(record.identity.gaia_dr3_id)):
+        measured["metallicity_dex"] = spectroscopic["value"]
     gaia_temperature = by_field["temperature_k"].value if "temperature_k" in by_field else None
     gaia_metallicity = by_field["metallicity_dex"].value if "metallicity_dex" in by_field else None
     for field in ("temperature_k", "metallicity_dex", *sorted(flame_withheld(gaia_temperature, measured.get("temperature_k"), measured.get("metallicity_dex"), gaia_metallicity))):
@@ -353,7 +360,7 @@ def normalize(record, simbad, gaia, supplements, extended=False):
             "radius_solar": status("radius_solar"),
             "metallicity_dex": "model-derived" if row["metallicity_dex"] else "unknown",
             "age_gyr": "model-derived" if row["age_gyr"] else "unknown",
-            "absolute_mag": "derived-from-compiled-Johnson-V" if row["absolute_mag"] else "unknown",
+            "absolute_mag": "unknown" if not row["absolute_mag"] else "derived-from-gaia-photometry" if gaia_v else "derived-from-compiled-Johnson-V",
             "radial_velocity_kms": radial_velocity_status,
         },
     }

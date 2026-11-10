@@ -2,6 +2,7 @@
 
 import csv
 import gzip
+import hashlib
 import io
 import json
 import shutil
@@ -13,7 +14,7 @@ from pathlib import Path
 
 from .adapters import read_cns5
 from .filesystem import atomic_binary_writer, atomic_write_text, managed_path, safe_output_directory, write_managed_files
-from .snapshots import sha256, write_canonical_json
+from .snapshots import canonical_json, sha256, verify_sha256, write_canonical_json
 
 CNS5_README_URL = "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/ReadMe"
 CNS5_DATA_URL = "https://cdsarc.cds.unistra.fr/ftp/J/A+A/670/A19/cns5.dat"
@@ -254,7 +255,7 @@ def acquire_naked_eye_stars(
 ) -> dict:
     """Freeze every SIMBAD object with Johnson V <= 6.5 and its exact Gaia DR3 enrichment.
 
-    VizieR-only Hipparcos model tables are not part of this snapshot.
+    Hipparcos model tables are added separately by `acquire_hipparcos_models`.
     """
     if not timeout > 0:
         raise ValueError("Network timeout must be positive")
@@ -305,6 +306,176 @@ def acquire_naked_eye_stars(
         }
         write_canonical_json(staging / "source-manifest.json", manifest)
         write_managed_files(output, {name: (staging / name).read_bytes() for name in managed}, True)
+    return manifest
+
+
+GAIA_SUPPLEMENT_INPUTS = ("landmark-stars", "naked-eye-stars", "nearest-1000", "nearest-5000")
+
+
+def acquire_gaia_supplement(
+    output: Path,
+    retrieved: str,
+    root: Path,
+    force: bool = False,
+    timeout: float = DEFAULT_NETWORK_TIMEOUT_SECONDS,
+) -> dict:
+    """Freeze Gaia DR3 photometry, blending indicators and GSP-Spec parameters for every exact Gaia DR3 source already frozen."""
+    if not timeout > 0:
+        raise ValueError("Network timeout must be positive")
+    output = safe_output_directory(output)
+    managed = ("gaia.adql", "gaia.csv", "source-manifest.json")
+    if any(managed_path(output, name).exists() for name in managed) and not force:
+        raise FileExistsError("Source snapshot exists; use --force only for an intentional refresh")
+    inputs = [root / f"catalog-work/{directory}/gaia.csv" for directory in GAIA_SUPPLEMENT_INPUTS]
+    ids = sorted({row["source_id"] for path in inputs for row in csv.DictReader(io.StringIO(path.read_text()))}, key=int)
+    if any(not identifier.isdigit() for identifier in ids):
+        raise ValueError("Gaia source identifiers must contain only digits")
+    queries = [
+        "SELECT s.source_id,s.phot_g_mean_mag,s.phot_bp_mean_mag,s.phot_rp_mean_mag,s.bp_rp,s.phot_bp_rp_excess_factor,"
+        "s.ruwe,s.ipd_frac_multi_peak,s.duplicated_source,ap.teff_gspspec,ap.logg_gspspec,ap.mh_gspspec,ap.mh_gspspec_lower,"
+        "ap.mh_gspspec_upper,ap.flags_gspspec FROM gaiadr3.gaia_source AS s LEFT OUTER JOIN gaiadr3.astrophysical_parameters AS ap "
+        f"ON s.source_id=ap.source_id WHERE s.source_id IN ({','.join(ids[start:start + 1000])}) ORDER BY s.source_id"
+        for start in range(0, len(ids), 1000)]
+    with tempfile.TemporaryDirectory(prefix=".catalog-acquire-", dir=output) as staging_name:
+        staging = Path(staging_name)
+        atomic_write_text(staging / "gaia.adql", "\n".join(queries) + "\n")
+        rows = _chunked_tap(GAIA_TAP_URL, queries, staging / "gaia.csv", timeout)
+        manifest = {
+            "schemaVersion": 1,
+            "retrieved": retrieved,
+            "identityPolicy": "Exact Gaia DR3 source identifiers already frozen in the listed catalog snapshots; no positional matching",
+            "inputChecksumsSha256": {str(path.relative_to(root)): sha256(path) for path in inputs},
+            "rowCounts": {"gaia": rows},
+            "sources": {"gaia": {"release": "DR3", "url": GAIA_TAP_URL, "queryFile": "gaia.adql"}},
+            "checksumsSha256": {name: sha256(staging / name) for name in managed[:-1]},
+        }
+        write_canonical_json(staging / "source-manifest.json", manifest)
+        write_managed_files(output, {name: (staging / name).read_bytes() for name in managed}, True)
+    return manifest
+
+
+VIZIER_URL = "https://vizier.cds.unistra.fr"
+# Table, columns, reference, and the identity column that selects rows: HIP or SIMBAD name.
+# Hunt & Reffert 2023 cluster ages were evaluated and left out: only 21 of 189 qualifying members had ages within 0.2 dex.
+VIZIER_SUPPLEMENT = {
+    "casagrande2011": ("J/A+A/530/A138/catalog", ("HIP", "m_Name", "ageMB", "age16B", "age84B"), "2011A&A...530A.138C", "hip"),
+    "david2015": ("J/ApJ/804/146/table5", ("HIP", "Agemed", "Age68lo", "Age68up", "Age68t"), "2015ApJ...804..146D", "hip"),
+    "jmdc": ("II/345/jmdc", ("ID1", "LDdiam", "e_LDdiam", "Band", "Method", "BibCode", "Notes"), "2016yCat.2345....0D", "name"),
+}
+
+
+def acquire_vizier_supplement(
+    output: Path,
+    retrieved: str,
+    root: Path,
+    force: bool = False,
+    timeout: float = DEFAULT_NETWORK_TIMEOUT_SECONDS,
+    vizier_url: str = VIZIER_URL,
+) -> dict:
+    """Freeze age and measured-diameter catalogs for every exact identity already frozen in the catalog snapshots."""
+    if not timeout > 0:
+        raise ValueError("Network timeout must be positive")
+    output = safe_output_directory(output)
+    managed = tuple(f"{name}.csv" for name in VIZIER_SUPPLEMENT) + ("source-manifest.json",)
+    if any(managed_path(output, name).exists() for name in managed) and not force:
+        raise FileExistsError("Source snapshot exists; use --force only for an intentional refresh")
+    simbad_inputs = sorted(path for path in (root / "catalog-work").glob("*/simbad.csv") if "ids" in path.open().readline().strip().split(","))
+    hips, names = set(), set()
+    for path in simbad_inputs:
+        for row in csv.DictReader(io.StringIO(path.read_text())):
+            aliases = {" ".join(alias.split()) for alias in [row["main_id"], *(row["ids"] or "").split("|")] if alias.strip()}
+            # JMDC writes names without spaces (HD206778); compare space-free identifiers.
+            names |= {"".join(alias.removeprefix("* ").split()) for alias in aliases}
+            hip = {alias.removeprefix("HIP ") for alias in aliases if alias.startswith("HIP ")}
+            hips |= hip if len(hip) == 1 else set()
+    files, counts, sources = {}, {}, {}
+    with tempfile.TemporaryDirectory(prefix=".catalog-acquire-", dir=output) as staging_name:
+        for name, (table, columns, reference, identity) in VIZIER_SUPPLEMENT.items():
+            url, rows = _vizier_table(vizier_url, table, columns, Path(staging_name) / f"{name}.tsv", timeout)
+            keep = {"hip": hips, "name": names}[identity]
+            selected = sorted(row for row in rows if ("".join(row[0].split()) if identity == "name" else row[0]) in keep)
+            files[f"{name}.csv"] = _csv_text(columns, selected)
+            counts[name] = len(selected)
+            sources[name] = {"url": url, "release": f"VizieR {table}", "reference": reference, "tableRows": len(rows),
+                             "selection": {"hip": "Unique SIMBAD HIP aliases", "name": "Exact SIMBAD identifiers, compared without spaces"}[identity]}
+    manifest = {
+        "schemaVersion": 1,
+        "retrieved": retrieved,
+        "identityPolicy": "Exact HIP and SIMBAD identifiers already frozen in the catalog snapshots; no positional matching",
+        "inputChecksumsSha256": {str(path.relative_to(root)): sha256(path) for path in simbad_inputs},
+        "rowCounts": counts,
+        "sources": sources,
+        "checksumsSha256": {name: hashlib.sha256(text.encode()).hexdigest() for name, text in files.items()},
+    }
+    write_managed_files(output, {**files, "source-manifest.json": canonical_json(manifest)}, True)
+    return manifest
+HIPPARCOS_MODELS = {
+    "fundamental": ("J/A+A/352/555/table1", ("HIP", "Mass", "e_Mass", "logRad", "e_logRad", "logTeff", "e_logTeff"), "1999A&A...352..555A"),
+    "sed": ("J/MNRAS/427/343/table2", ("HIP", "Dist", "eDist", "Teff", "Lum"), "2012MNRAS.427..343M"),
+}
+
+
+def _vizier_table(vizier_url: str, table: str, columns: tuple[str, ...], output: Path, timeout: float) -> tuple[str, list[list[str]]]:
+    """A complete VizieR table through ASU-TSV, which official mirrors also serve."""
+    url = f"{vizier_url}/viz-bin/asu-tsv?" + urllib.parse.urlencode({"-source": table, "-out": ",".join(columns), "-out.max": "unlimited"}, safe="/,")
+    _download(url, output, timeout)
+    # ASU-TSV: comment lines, then column names, units (possibly blank) and a dash rule before the data.
+    lines = [line for line in output.read_text().splitlines() if not line.startswith("#")]
+    start = next((index for index, line in enumerate(lines) if line.strip()), None)
+    if start is None:
+        raise RuntimeError(f"VizieR returned no table for {table}; some mirror nodes answer empty, so retry or use another mirror")
+    if lines[start].split("\t") != list(columns) or len(lines) < start + 3 or set(lines[start + 2]) - {"-", "\t"}:
+        raise RuntimeError(f"VizieR returned unexpected columns for {table}")
+    rows = [[value.strip() for value in line.split("\t")] for line in lines[start + 3:] if line.strip()]
+    if any(len(row) != len(columns) for row in rows):
+        raise RuntimeError(f"VizieR returned malformed rows for {table}")
+    return url, rows
+
+
+def _csv_text(columns, rows) -> str:
+    stream = io.StringIO(newline="")
+    writer = csv.writer(stream, lineterminator="\n")
+    writer.writerow(columns)
+    writer.writerows(rows)
+    return stream.getvalue()
+
+
+def acquire_hipparcos_models(
+    output: Path,
+    retrieved: str,
+    force: bool = False,
+    timeout: float = DEFAULT_NETWORK_TIMEOUT_SECONDS,
+    vizier_url: str = VIZIER_URL,
+) -> dict:
+    """Add exact-HIP Allende Prieto & Lambert 1999 and McDonald et al. 2012 rows to a frozen SIMBAD snapshot.
+
+    Complete tables come through VizieR's ASU interface, which official mirrors
+    also serve, and are filtered locally to each object's unique SIMBAD HIP alias.
+    """
+    if not timeout > 0:
+        raise ValueError("Network timeout must be positive")
+    output = safe_output_directory(output)
+    manifest = json.loads(managed_path(output, "source-manifest.json").read_text())
+    if any(name in manifest["sources"] for name in HIPPARCOS_MODELS) and not force:
+        raise FileExistsError("Hipparcos model snapshot exists; use --force only for an intentional refresh")
+    for name, digest in manifest["checksumsSha256"].items():
+        verify_sha256(managed_path(output, name), digest)
+    hips = set()
+    for row in csv.DictReader(io.StringIO(managed_path(output, "simbad.csv").read_text())):
+        values = {" ".join(alias.split()).removeprefix("HIP ") for alias in (row["ids"] or "").split("|") if " ".join(alias.split()).startswith("HIP ")}
+        hips |= values if len(values) == 1 else set()
+    files = {}
+    with tempfile.TemporaryDirectory(prefix=".catalog-acquire-", dir=output) as staging_name:
+        for name, (table, columns, reference) in HIPPARCOS_MODELS.items():
+            url, rows = _vizier_table(vizier_url, table, columns, Path(staging_name) / f"{name}.tsv", timeout)
+            selected = sorted((row for row in rows if row[0] in hips), key=lambda row: int(row[0]))
+            files[f"{name}.csv"] = _csv_text(columns, selected)
+            manifest["rowCounts"][name] = len(selected)
+            manifest["sources"][name] = {"url": url, "release": f"VizieR {table}", "reference": reference, "retrieved": retrieved, "tableRows": len(rows),
+                                         "selection": "Rows whose HIP equals the unique SIMBAD HIP alias of a snapshot object"}
+    for name, text in files.items():
+        manifest["checksumsSha256"][name] = hashlib.sha256(text.encode()).hexdigest()
+    write_managed_files(output, {**files, "source-manifest.json": canonical_json(manifest)}, True)
     return manifest
 
 

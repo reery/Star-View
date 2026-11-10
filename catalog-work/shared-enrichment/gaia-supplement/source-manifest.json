@@ -1,0 +1,25 @@
+{
+  "checksumsSha256": {
+    "gaia.adql": "a175e60d89aff48fa723c445e858e11b63282fda36eb05677d293ee93ee36b2d",
+    "gaia.csv": "b3b411d7adeacf6564b80d08976ff1697d70bbf2af970846e643ea126b74b514"
+  },
+  "identityPolicy": "Exact Gaia DR3 source identifiers already frozen in the listed catalog snapshots; no positional matching",
+  "inputChecksumsSha256": {
+    "catalog-work/landmark-stars/gaia.csv": "851bbf5865d45987d14cdda74691fd8b1b291e0af6353a8096bdb1524ef35d72",
+    "catalog-work/naked-eye-stars/gaia.csv": "6aeba274df81ef883da2587f519e2f85a2e091feedf7c99d2fc1028d98c2e6b7",
+    "catalog-work/nearest-1000/gaia.csv": "383bf1d50f69a6c6ec200e162661fa3ed4d0c012bdb6a05c3e0bd8276681e71e",
+    "catalog-work/nearest-5000/gaia.csv": "cce37753723808c2155fba1807ac178e22ca12126cabccd418b12165404a3bf5"
+  },
+  "retrieved": "2026-11-10",
+  "rowCounts": {
+    "gaia": 13423
+  },
+  "schemaVersion": 1,
+  "sources": {
+    "gaia": {
+      "queryFile": "gaia.adql",
+      "release": "DR3",
+      "url": "https://gea.esac.esa.int/tap-server/tap/sync"
+    }
+  }
+}

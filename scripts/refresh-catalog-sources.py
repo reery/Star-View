@@ -4,24 +4,32 @@ import argparse
 import json
 from pathlib import Path
 
-from catalog_sources.acquisition import DEFAULT_NETWORK_TIMEOUT_SECONDS, SIMBAD_TAP_URL, acquire_naked_eye_stars, acquire_nearest1000, acquire_nearest5000, acquire_physical_supplements
+from catalog_sources.acquisition import DEFAULT_NETWORK_TIMEOUT_SECONDS, SIMBAD_TAP_URL, VIZIER_URL, acquire_gaia_supplement, acquire_hipparcos_models, acquire_vizier_supplement, acquire_naked_eye_stars, acquire_nearest1000, acquire_nearest5000, acquire_physical_supplements
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("catalog", choices=("nearest-1000", "nearest-5000", "naked-eye-stars", "physical-supplements"))
+    parser.add_argument("catalog", choices=("nearest-1000", "nearest-5000", "naked-eye-stars", "hipparcos-models", "gaia-supplement", "vizier-supplement", "physical-supplements"),
+                        help="hipparcos-models adds exact-HIP model rows to the existing SIMBAD snapshot in --output")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--retrieved", required=True, help="Explicit ISO date recorded in the snapshot")
     parser.add_argument("--buffer-size", type=int, default=1100)
     parser.add_argument("--timeout", type=float, default=DEFAULT_NETWORK_TIMEOUT_SECONDS, help="Per-operation network timeout in seconds")
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--simbad-url", default=SIMBAD_TAP_URL, help="SIMBAD TAP endpoint or official mirror (naked-eye-stars)")
+    parser.add_argument("--vizier-url", default=VIZIER_URL, help="VizieR host or official mirror, e.g. https://vizier.cfa.harvard.edu (hipparcos-models)")
     arguments = parser.parse_args()
     if not arguments.timeout > 0:
         parser.error("--timeout must be positive")
-    if arguments.catalog == "naked-eye-stars":
+    if arguments.catalog == "gaia-supplement":
+        manifest = acquire_gaia_supplement(arguments.output, arguments.retrieved, ROOT, arguments.force, arguments.timeout)
+    elif arguments.catalog == "vizier-supplement":
+        manifest = acquire_vizier_supplement(arguments.output, arguments.retrieved, ROOT, arguments.force, arguments.timeout, arguments.vizier_url)
+    elif arguments.catalog == "hipparcos-models":
+        manifest = acquire_hipparcos_models(arguments.output, arguments.retrieved, arguments.force, arguments.timeout, arguments.vizier_url)
+    elif arguments.catalog == "naked-eye-stars":
         manifest = acquire_naked_eye_stars(arguments.output, arguments.retrieved, arguments.force, arguments.timeout, arguments.simbad_url)
     elif arguments.catalog == "physical-supplements":
         manifest = acquire_physical_supplements(arguments.output, arguments.retrieved, ROOT, arguments.force, arguments.timeout)

@@ -53,6 +53,16 @@ class CatalogPreservationTests(unittest.TestCase):
         self.assertEqual(preservation.pool_losses({"stars": [old]}, {"stars": [new]}, [vague]),
                          ["a: catalog_sources.nearest.subtypes"])
 
+    def test_withheld_source_value_must_match_and_state_a_reason(self):
+        source = lambda mass: {"id": "a", "catalog_sources": [{"catalog_id": "naked", "record": {"id": "a", "mass_solar": mass}}]}
+        old, new = source("2.3928595"), source("")
+        kept = {"naked": {"a": {"mass_solar": {"value": 2.3928595, "reason": "superseded temperature"}}}}
+        self.assertEqual(preservation.pool_losses({"stars": [old]}, {"stars": [new]}, [], kept), [])
+        for withheld in ({"naked": {"a": {"mass_solar": {"value": 2.4, "reason": "superseded temperature"}}}},
+                         {"naked": {"a": {"mass_solar": {"value": 2.3928595}}}}):
+            self.assertEqual(preservation.pool_losses({"stars": [old]}, {"stars": [new]}, [], withheld),
+                             ["a: catalog_sources.naked.mass_solar"])
+
     def test_membership_removal_requires_exact_complete_archive_and_evidence(self):
         path = "src/data/catalogs/nearest-1000/stars.csv"
         old = {"id": "cns5-3707", "parallax_mas": "174.03640225187837", "parallax_error_mas": "1.8315082"}

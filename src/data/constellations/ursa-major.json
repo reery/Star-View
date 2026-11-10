@@ -219,8 +219,8 @@
         "vz_kms": -24.851624,
         "temperature_k": 6217.0,
         "mass_solar": 1.53,
-        "luminosity_solar": 6.441962314,
-        "radius_solar": 2.187761624,
+        "luminosity_solar": 7.528594857,
+        "radius_solar": 2.365091098,
         "metallicity_dex": -0.17,
         "age_gyr": null,
         "absolute_mag": 2.523285,
@@ -271,7 +271,7 @@
         "luminosity_solar": 27.202479,
         "radius_solar": 3.311311214825911,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 1.302,
         "absolute_mag": 1.078054,
         "epoch": 2000.0,
         "type": "star",
@@ -280,7 +280,7 @@
         "constellation": "Ursa Major",
         "spectral_type": "F0",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 48319; Stellarium UMa). SIMBAD identity * ups UMa; SIMBAD compiled Johnson V=3.81; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar.",
+        "notes": "Western constellation line-figure star (HIP 48319; Stellarium UMa). SIMBAD identity * ups UMa; SIMBAD compiled Johnson V=3.81; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 48319"
         ],
@@ -467,7 +467,7 @@
         "luminosity_solar": 60.27,
         "radius_solar": 3.0903,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.384,
         "absolute_mag": 0.296333,
         "epoch": 2000.0,
         "type": "star",
@@ -859,7 +859,7 @@
         "luminosity_solar": 462.55,
         "radius_solar": 3.3995,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.048,
         "absolute_mag": -0.656735,
         "epoch": 2000.0,
         "type": "star",
@@ -2501,7 +2501,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

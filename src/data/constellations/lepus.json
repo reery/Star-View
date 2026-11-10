@@ -75,7 +75,7 @@
         "luminosity_solar": 87.32466346923493,
         "radius_solar": 2.255378,
         "metallicity_dex": -0.7264,
-        "age_gyr": null,
+        "age_gyr": 0.114,
         "absolute_mag": 0.199563,
         "epoch": 2000.0,
         "type": "star",
@@ -84,7 +84,7 @@
         "constellation": "Lepus",
         "spectral_type": "B7.5Vn",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 24244; Stellarium Lep). SIMBAD identity * iot Lep; SIMBAD compiled Johnson V=4.45; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 24244; Stellarium Lep). SIMBAD identity * iot Lep; SIMBAD compiled Johnson V=4.45; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 24244"
         ],
@@ -124,7 +124,7 @@
         "luminosity_solar": 132.9109653985768,
         "radius_solar": 3.3884415613920256,
         "metallicity_dex": 0.0,
-        "age_gyr": null,
+        "age_gyr": 0.143,
         "absolute_mag": -0.300504,
         "epoch": 2000.0,
         "type": "star",
@@ -133,7 +133,7 @@
         "constellation": "Lepus",
         "spectral_type": "B9IV:HgMn",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 24305; Stellarium Lep). SIMBAD identity * mu. Lep; SIMBAD compiled Johnson V=3.29; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P).",
+        "notes": "Western constellation line-figure star (HIP 24305; Stellarium Lep). SIMBAD identity * mu. Lep; SIMBAD compiled Johnson V=3.29; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P; age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 24305"
         ],
@@ -1110,7 +1110,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

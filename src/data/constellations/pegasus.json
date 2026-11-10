@@ -318,10 +318,10 @@
         "vz_kms": -13.249714,
         "temperature_k": 8511.0,
         "mass_solar": null,
-        "luminosity_solar": 25.97867951,
-        "radius_solar": 2.344228815,
+        "luminosity_solar": 30.03602878,
+        "radius_solar": 2.520651004,
         "metallicity_dex": -0.38,
-        "age_gyr": null,
+        "age_gyr": 0.497,
         "absolute_mag": 1.377338,
         "epoch": 2000.0,
         "type": "star",
@@ -330,7 +330,7 @@
         "constellation": "Pegasus",
         "spectral_type": "A1Va",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 109427; Stellarium Peg). SIMBAD identity * tet Peg; SIMBAD compiled Johnson V=3.55; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P; radius_solar: 1999A&A...352..555A). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
+        "notes": "Western constellation line-figure star (HIP 109427; Stellarium Peg). SIMBAD identity * tet Peg; SIMBAD compiled Johnson V=3.55; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2023ApJS..266...41P; radius_solar: 2012ApJ...746..101B; age_gyr: 2015ApJ...804..146D). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
         "designations": [
           "HIP 109427"
         ],
@@ -664,7 +664,7 @@
         "luminosity_solar": 184.26,
         "radius_solar": 5.0119,
         "metallicity_dex": 0.0,
-        "age_gyr": null,
+        "age_gyr": 0.317,
         "absolute_mag": -0.577718,
         "epoch": 2000.0,
         "type": "star",
@@ -1892,7 +1892,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

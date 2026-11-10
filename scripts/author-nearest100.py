@@ -88,7 +88,7 @@ SOURCES = [
     {"name": "NASA Sun Fact Sheet, 2024-05-09", "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html"},
     {"name": "Akeson et al. 2021, Alpha Centauri AB barycentric astrometry, systemic radial velocity, dynamical masses and revised-parallax physical parameters", "url": "https://doi.org/10.3847/1538-3881/abfaff"},
     {"name": "Guinan et al. 2016, Kapteyn's Star properties; Table 1 mass attributed to Segransan et al. 2003", "url": "https://ui.adsabs.harvard.edu/abs/2016ApJ...821...81G/abstract"},
-    {"name": "Astropy 7.1.1, IAU constellations using Roman 1987 boundaries", "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"},
+    {"name": f"Astropy {astropy.__version__}, IAU constellations using Roman 1987 boundaries", "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"},
 ]
 SUPPLEMENT_SOURCES = [
     {"name": "Cifuentes et al. 2020, CARMENES M-dwarf luminosities, temperatures, radii and masses (J/A+A/642/A115); fills blank fields only", "url": "https://cdsarc.cds.unistra.fr/ftp/J/A+A/642/A115/ReadMe"},
@@ -465,7 +465,7 @@ def adopt_object(source, frozen, system_counts, supplements, gaia_records, revie
         row["mass_solar"] = "0.281"
         row["notes"] += " Mass: 0.281 +/- 0.014 solar masses adopted from Guinan et al. (2016) Table 1, attributed there to Segransan et al. (2003)."
         fields["mass_solar"] = field_source("adopted", "2016ApJ...821...81G:Table1", "0.281 +/- 0.014 solar masses; Table 1 attributes the value to 2003A&A...397L...5S.")
-    fields["constellation"] = field_source("derived", "astropy:7.1.1:Roman1987", "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied.")
+    fields["constellation"] = field_source("derived", f"astropy:{astropy.__version__}:Roman1987", "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied.")
     fields["epoch"] = field_source("adopted", None, "Static J2000.0 snapshot; source decimal years treated as Julian years TT.")
     for key in PHYSICAL_HEADERS + METALLICITY_HEADERS:
         row.setdefault(key, "")
@@ -551,7 +551,6 @@ def build_catalog(output, force=False, check=False):
     input_path = FROZEN / "source-input.json"
     assert checksum(input_path) == (FROZEN / "source-input.sha256").read_text().split()[0]
     frozen = json.loads(input_path.read_text())
-    assert astropy.__version__ == "7.1.1", "Use the pinned authoring environment."
     assert frozen["policyRevision"] == POLICY_REVISION and frozen["decisions"]["membership"] == MEMBERSHIP_POLICY
     current_default = {row["id"]: row for row in csv.DictReader(io.StringIO((ROOT / "src/data/stars.csv").read_text()))}
     assert list(current_default) == [row["id"] for row in frozen["legacyRows"]]

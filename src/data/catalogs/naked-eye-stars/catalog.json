@@ -67,6 +67,22 @@
       "url": "https://gea.esac.esa.int/archive/"
     },
     {
+      "name": "Gaia DR3 GSP-Spec RVS [M/H] (Recio-Blanco et al. 2023), field-star log g calibration; best-quality flags and 4000-7000 K only; frozen 2026-11-10",
+      "url": "https://doi.org/10.1051/0004-6361/202243750"
+    },
+    {
+      "name": "Gaia DR3 G and BP-RP to Johnson V (Riello et al. 2021, Table C.2) for unblended sources with BP-RP below 3; frozen 2026-11-10",
+      "url": "https://doi.org/10.1051/0004-6361/202039587"
+    },
+    {
+      "name": "JMDC measured stellar diameters (Duvert 2016, VizieR II/345): direct limb-darkened diameters precise to 5 percent, Keck nuller values excluded; frozen 2026-11-10 from the IDIA VizieR mirror",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/345"
+    },
+    {
+      "name": "Isochrone ages with 68 percent half-widths within 30 percent: Casagrande et al. 2011 (Geneva-Copenhagen, BaSTI) and David & Hillenbrand 2015; frozen 2026-11-10 from the IDIA VizieR mirror",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/530/A138"
+    },
+    {
       "name": "SIMBAD mesFe_h: exact-object published spectroscopic temperatures and photospheric iron abundances, full measurement pool frozen 2026-10-05",
       "url": "https://simbad.cds.unistra.fr/simbad/sim-tap"
     },
@@ -517,5 +533,5 @@
     }
   ],
   "cutoffPolicy": "Every SIMBAD object with a compiled Johnson V <= 6.5, a positive parallax and an adopted distance within 20,000 light-years. Clusters, galaxies, supernovae and other non-stellar types are excluded, as are ** aggregates whose components are listed. Stars curated by the nearby or constellation catalogs, matched by exact identifier or within 20 arcsec at a consistent distance, keep that record and ID; their reviewed companions follow. A component without a parallax of its own uses the parallax and motion of its SIMBAD multiple-star record; other stars without a parallax are listed in the provenance audit, not placed. Sun is included only as the map origin.",
-  "snapshot": "SIMBAD, Gaia DR3 and Bailer-Jones snapshots frozen 2026-11-03; VizieR was unavailable, so Hipparcos-source model tables apply only where earlier snapshots hold them."
+  "snapshot": "SIMBAD, Gaia DR3 and Bailer-Jones snapshots frozen 2026-11-03; Allende Prieto & Lambert 1999 and McDonald et al. 2012 exact-HIP rows frozen 2026-11-10 from the vizier.idia.ac.za VizieR mirror."
 }

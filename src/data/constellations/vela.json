@@ -124,7 +124,7 @@
         "luminosity_solar": 82.76294995427727,
         "radius_solar": 3.995161,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.459,
         "absolute_mag": -0.033261,
         "epoch": 2000.0,
         "type": "star",
@@ -133,7 +133,7 @@
         "constellation": "Vela",
         "spectral_type": "A2IV+A4V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 42913; Stellarium Vel). SIMBAD identity * del01 Vel; Hipparcos Johnson V=1.93 (SIMBAD V unavailable); inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 42913; Stellarium Vel). SIMBAD identity * del01 Vel; Hipparcos Johnson V=1.93 (SIMBAD V unavailable); inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 42913"
         ],
@@ -369,7 +369,7 @@
         "luminosity_solar": 23.695947,
         "radius_solar": 1.9498445997580451,
         "metallicity_dex": 0.06,
-        "age_gyr": null,
+        "age_gyr": 0.453,
         "absolute_mag": 1.351084,
         "epoch": 2000.0,
         "type": "star",
@@ -378,7 +378,7 @@
         "constellation": "Vela",
         "spectral_type": "A2Va",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 50191; Stellarium Vel). SIMBAD identity * q Vel; SIMBAD compiled Johnson V=3.85; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
+        "notes": "Western constellation line-figure star (HIP 50191; Stellarium Vel). SIMBAD identity * q Vel; SIMBAD compiled Johnson V=3.85; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E; age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 50191"
         ],
@@ -1233,7 +1233,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

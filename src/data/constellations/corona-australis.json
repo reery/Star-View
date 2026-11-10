@@ -320,7 +320,7 @@
         "luminosity_solar": null,
         "radius_solar": null,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 3.81,
         "absolute_mag": 3.019263,
         "epoch": 2000.0,
         "type": "star",
@@ -329,7 +329,7 @@
         "constellation": "Corona Australis",
         "spectral_type": "F8V+F8V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 93825; Stellarium CrA). SIMBAD identity * gam CrA; SIMBAD compiled Johnson V=4.21; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k.",
+        "notes": "Western constellation line-figure star (HIP 93825; Stellarium CrA). SIMBAD identity * gam CrA; SIMBAD compiled Johnson V=4.21; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (age_gyr: 2011A&A...530A.138C).",
         "designations": [
           "HIP 93825"
         ],
@@ -418,7 +418,7 @@
         "luminosity_solar": 24.27133718728241,
         "radius_solar": 2.1877616239495525,
         "metallicity_dex": 0.26,
-        "age_gyr": null,
+        "age_gyr": 0.394,
         "absolute_mag": 1.257799,
         "epoch": 2000.0,
         "type": "star",
@@ -427,7 +427,7 @@
         "constellation": "Corona Australis",
         "spectral_type": "A2Va",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 94114; Stellarium CrA). SIMBAD identity * alf CrA; SIMBAD compiled Johnson V=4.087; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
+        "notes": "Western constellation line-figure star (HIP 94114; Stellarium CrA). SIMBAD identity * alf CrA; SIMBAD compiled Johnson V=4.087; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E; age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 94114"
         ],
@@ -835,7 +835,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

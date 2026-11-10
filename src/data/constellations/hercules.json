@@ -26,7 +26,7 @@
         "luminosity_solar": 3.2389646,
         "radius_solar": 1.8144901,
         "metallicity_dex": -0.47,
-        "age_gyr": null,
+        "age_gyr": 7.47,
         "absolute_mag": 3.613623,
         "epoch": 2000.0,
         "type": "star",
@@ -222,7 +222,7 @@
         "luminosity_solar": 137.9414404649447,
         "radius_solar": 4.9334946,
         "metallicity_dex": -0.6094,
-        "age_gyr": null,
+        "age_gyr": 0.41,
         "absolute_mag": -0.628675,
         "epoch": 2000.0,
         "type": "star",
@@ -231,7 +231,7 @@
         "constellation": "Hercules",
         "spectral_type": "B9V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 81126; Stellarium Her). SIMBAD identity * sig Her; SIMBAD compiled Johnson V=4.196; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 81126; Stellarium Her). SIMBAD identity * sig Her; SIMBAD compiled Johnson V=4.196; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex, radius_solar. Shared exact-identity physical supplements (age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 81126"
         ],
@@ -468,7 +468,7 @@
         "luminosity_solar": 25.634137848302366,
         "radius_solar": 2.223441,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.588,
         "absolute_mag": 1.27332,
         "epoch": 2000.0,
         "type": "star",
@@ -477,7 +477,7 @@
         "constellation": "Hercules",
         "spectral_type": "A1IVn",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 84379; Stellarium Her). SIMBAD identity * del Her; SIMBAD compiled Johnson V=3.13; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 84379; Stellarium Her). SIMBAD identity * del Her; SIMBAD compiled Johnson V=3.13; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 84379"
         ],
@@ -2234,7 +2234,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

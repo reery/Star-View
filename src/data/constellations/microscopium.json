@@ -124,7 +124,7 @@
         "luminosity_solar": 28.5323890118505,
         "radius_solar": 2.1877616239495525,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.537,
         "absolute_mag": 1.136607,
         "epoch": 2000.0,
         "type": "star",
@@ -133,7 +133,7 @@
         "constellation": "Microscopium",
         "spectral_type": "A0V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 105140; Stellarium Mic). SIMBAD identity * eps Mic; SIMBAD compiled Johnson V=4.708; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar.",
+        "notes": "Western constellation line-figure star (HIP 105140; Stellarium Mic). SIMBAD identity * eps Mic; SIMBAD compiled Johnson V=4.708; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 105140"
         ],
@@ -492,7 +492,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

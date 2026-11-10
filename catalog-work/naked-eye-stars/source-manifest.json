@@ -2,10 +2,12 @@
   "checksumsSha256": {
     "distance.adql": "ca67aacb8b8d78f5a1adb3054c9a07bc238ab77ad927a3090acbf2b2a4531c6a",
     "distance.csv": "2f48a19bbdb037272fdc1e53118dc8d68cd07c148508d1c320fbfb60a9675675",
+    "fundamental.csv": "6ab63283f195a087fe22732766b156192999dad63924cece1069aa51c5f9b508",
     "gaia.adql": "ad7d0e1dd595aebee8290ab73a3ba3a55cf583153f886768600867a67e640a3f",
     "gaia.csv": "6aeba274df81ef883da2587f519e2f85a2e091feedf7c99d2fc1028d98c2e6b7",
     "parents.adql": "5090fdcb02ca115ec2ce7a940b7b428b4eb70adfc7a22c5b6dbf3208d5861fb6",
     "parents.csv": "1450163f86b3507458192b3eae5dfa5bc1abe3c7ead954f02f0250543cc5e221",
+    "sed.csv": "da0e78dac44316ecdc71ba33b803ab33188493d0a0679d56e72bafdc1266b276",
     "simbad.adql": "8294b3cfae420c2ba3c0ca25ea07f28fdc9cf3e6397f3b98d40770b8b4ef4c24",
     "simbad.csv": "deec1fb922b1e9afc3ed20ea0c24f7905d6840af0b6df71a82f617948054b85c",
     "spectroscopy.adql": "d7b8e03e5c4dcc718a3b1ca514ae0343046ed74f1baa67b4f84cfce133c02959",
@@ -15,8 +17,10 @@
   "retrieved": "2026-11-03",
   "rowCounts": {
     "distance": 8181,
+    "fundamental": 2827,
     "gaia": 8447,
     "parents": 213,
+    "sed": 7549,
     "simbad": 9015,
     "spectroscopy": 40653
   },
@@ -29,6 +33,14 @@
       "release": "Bailer-Jones et al. 2021 Gaia EDR3 distances",
       "url": "https://gea.esac.esa.int/tap-server/tap/sync"
     },
+    "fundamental": {
+      "reference": "1999A&A...352..555A",
+      "release": "VizieR J/A+A/352/555/table1",
+      "retrieved": "2026-11-10",
+      "selection": "Rows whose HIP equals the unique SIMBAD HIP alias of a snapshot object",
+      "tableRows": 17219,
+      "url": "https://vizier.idia.ac.za/viz-bin/asu-tsv?-source=J/A%2BA/352/555/table1&-out=HIP,Mass,e_Mass,logRad,e_logRad,logTeff,e_logTeff&-out.max=unlimited"
+    },
     "gaia": {
       "queryFile": "gaia.adql",
       "release": "DR3",
@@ -38,6 +50,14 @@
       "queryFile": "parents.adql",
       "scope": "SIMBAD hierarchy parents of selected objects without a parallax",
       "url": "https://simbad.harvard.edu/simbad/sim-tap/sync"
+    },
+    "sed": {
+      "reference": "2012MNRAS.427..343M",
+      "release": "VizieR J/MNRAS/427/343/table2",
+      "retrieved": "2026-11-10",
+      "selection": "Rows whose HIP equals the unique SIMBAD HIP alias of a snapshot object",
+      "tableRows": 107619,
+      "url": "https://vizier.idia.ac.za/viz-bin/asu-tsv?-source=J/MNRAS/427/343/table2&-out=HIP,Dist,eDist,Teff,Lum&-out.max=unlimited"
     },
     "simbad": {
       "queryFile": "simbad.adql",

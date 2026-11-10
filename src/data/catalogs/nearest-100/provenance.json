@@ -8,7 +8,7 @@
   "gaiaSourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
   "physicalOverridesSha256": "8dccfa2f0a9b2a39cade2dd993c523b27b8103f3a8cf559893daf32d54db2f86",
   "physicalPolicyRevision": "nearest100-reviewed-gaia-shared-v2",
-  "sharedEnrichmentManifestSha256": "1dc0ebebded5dd31900d29a91e7f3ebd972f1e1fdce753c0a8fe3511c2c53d47",
+  "sharedEnrichmentManifestSha256": "0f43e507d374cd75d05b8f538c36e46976d98b55cc644335d42922001bf6fac6",
   "sources": [
     {
       "name": "10pc census, Reyle et al., tablea1 update 2023-08-25",
@@ -35,7 +35,7 @@
       "url": "https://ui.adsabs.harvard.edu/abs/2016ApJ...821...81G/abstract"
     },
     {
-      "name": "Astropy 7.1.1, IAU constellations using Roman 1987 boundaries",
+      "name": "Astropy 8.0.2, IAU constellations using Roman 1987 boundaries",
       "url": "https://docs.astropy.org/en/stable/api/astropy.coordinates.get_constellation.html"
     },
     {
@@ -153,6 +153,22 @@
     {
       "name": "Gaia DR3, exact-ID quality-filtered astrophysical parameters",
       "url": "https://gea.esac.esa.int/archive/"
+    },
+    {
+      "name": "Gaia DR3 GSP-Spec RVS [M/H] (Recio-Blanco et al. 2023), field-star log g calibration; best-quality flags and 4000-7000 K only; frozen 2026-11-10",
+      "url": "https://doi.org/10.1051/0004-6361/202243750"
+    },
+    {
+      "name": "Gaia DR3 G and BP-RP to Johnson V (Riello et al. 2021, Table C.2) for unblended sources with BP-RP below 3; frozen 2026-11-10",
+      "url": "https://doi.org/10.1051/0004-6361/202039587"
+    },
+    {
+      "name": "JMDC measured stellar diameters (Duvert 2016, VizieR II/345): direct limb-darkened diameters precise to 5 percent, Keck nuller values excluded; frozen 2026-11-10 from the IDIA VizieR mirror",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/345"
+    },
+    {
+      "name": "Isochrone ages with 68 percent half-widths within 30 percent: Casagrande et al. 2011 (Geneva-Copenhagen, BaSTI) and David & Hillenbrand 2015; frozen 2026-11-10 from the IDIA VizieR mirror",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/530/A138"
     },
     {
       "name": "SIMBAD mesFe_h: exact-object published spectroscopic temperatures and photospheric iron abundances, full measurement pool frozen 2026-10-05",
@@ -612,7 +628,7 @@
     "mamajek.txt": "1de2edeec17bb3346e0e4e70b999de5ee29947df38474e64cddb7cfacc164b7f"
   },
   "tools": {
-    "astropy": "7.1.1",
+    "astropy": "8.0.2",
     "boundary": "Roman 1987, VI/42 via Astropy",
     "constellationSpellingCorrections": {
       "Bo\u00f6tes": "Bootes",
@@ -645,8 +661,8 @@
     "spectral_type": 101,
     "temperature_k": 96,
     "mass_solar": 85,
-    "luminosity_solar": 87,
-    "radius_solar": 84,
+    "luminosity_solar": 88,
+    "radius_solar": 85,
     "metallicity_dex": 66,
     "age_gyr": 17,
     "absolute_mag": 64,
@@ -5627,7 +5643,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -5972,7 +5988,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -6541,7 +6557,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf Cen A",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Reviewed catalog object/component alpha-centauri-a; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -6750,7 +6766,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         }
@@ -6899,7 +6915,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -7249,7 +7265,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -7610,7 +7626,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -7972,7 +7988,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -8277,7 +8293,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -8578,7 +8594,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -9127,7 +9143,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf CMa",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Reviewed catalog object/component sirius-a; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -9297,7 +9313,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -9484,7 +9500,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -9820,7 +9836,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -10044,7 +10060,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:luyten-726-8-a",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact Luyten 726-8 A component. Shared gj65 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -10273,7 +10289,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -10491,7 +10507,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:luyten-726-8-b",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact Luyten 726-8 B component. Shared gj65 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -10718,7 +10734,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -11065,7 +11081,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -11659,7 +11675,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* eps Eri",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Reviewed catalog object/component epsilon-eridani; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -11868,7 +11884,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -12067,7 +12083,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -12396,7 +12412,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -12742,7 +12758,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -12864,7 +12880,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 866 A",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "EZ Aquarii A retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
         "fields": [
           "vx_kms",
@@ -13199,7 +13215,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -13312,7 +13328,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 866 B",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "EZ Aquarii B retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
         "fields": [
           "vx_kms",
@@ -13655,7 +13671,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -13768,7 +13784,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 866 C",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "EZ Aquarii C retains its exact component identity. Motion uses the shared EZ Aquarii ABC center-of-mass radial velocity; individual orbital velocities are not modeled.",
         "fields": [
           "vx_kms",
@@ -14112,7 +14128,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -14450,7 +14466,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -14801,7 +14817,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -15330,7 +15346,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf CMi",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Reviewed catalog object/component 10pc-0031; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -15541,7 +15557,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -15767,7 +15783,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -16110,7 +16126,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -16455,7 +16471,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -16804,7 +16820,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -17159,7 +17175,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -17469,7 +17485,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -18034,7 +18050,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* tau Cet",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Reviewed catalog object/component 10pc-0044; aliases only, distinct companions remain separate.",
         "fields": [
           "absolute_mag",
@@ -18230,7 +18246,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -18407,7 +18423,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -18716,7 +18732,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -19044,7 +19060,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -19368,7 +19384,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -19678,7 +19694,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -20033,7 +20049,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -20343,7 +20359,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -20667,7 +20683,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -20807,7 +20823,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 825 / AX Mic / HIP 105090 / Lacaille 8760",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact individual GJ 825 / AX Mic / HIP 105090 / Lacaille 8760, Gaia DR3 6583272171336048640; no companion or integrated-system quantities.",
         "fields": [
           "mass_solar",
@@ -21046,7 +21062,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -21398,7 +21414,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -21658,7 +21674,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -21951,7 +21967,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -22297,7 +22313,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -22583,7 +22599,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -22729,7 +22745,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0066",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact V577 Mon A component. Shared ross614 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -23019,7 +23035,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -23136,7 +23152,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0067",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact V577 Mon B component. Shared ross614 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -23429,7 +23445,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -23757,7 +23773,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -24067,7 +24083,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -24423,7 +24439,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -24542,7 +24558,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0074",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact FL Vir A component. Shared wolf424 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -24846,7 +24862,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -25183,7 +25199,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -25486,7 +25502,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -25605,7 +25621,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0075",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact FL Vir B component. Shared wolf424 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -25909,7 +25925,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -26102,7 +26118,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 687 / HIP 86162",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact individual GJ 687 / HIP 86162, Gaia DR3 1637645127018395776; no companion or integrated-system quantities.",
         "fields": [
           "absolute_mag",
@@ -26313,7 +26329,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -26657,7 +26673,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -26985,7 +27001,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -27295,7 +27311,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -27613,7 +27629,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -27761,7 +27777,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0089",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact GJ 1245 B component. Shared gj1245 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -28078,7 +28094,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -28341,7 +28357,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -28689,7 +28705,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -28817,7 +28833,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0087",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact GJ 1245 A component. Shared gj1245 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -29156,7 +29172,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -29275,7 +29291,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "compact-system:10pc-0088",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact GJ 1245 C component. Shared gj1245 bulk vector is an approximation; original positions and component proper-motion measurements are retained.",
         "fields": [
           "vx_kms",
@@ -29621,7 +29637,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -29913,7 +29929,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -30219,7 +30235,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -30483,7 +30499,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -30830,7 +30846,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -31033,7 +31049,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 412 A / BD+44 2051 A",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact individual GJ 412 A / BD+44 2051 A, Gaia DR3 778947814402602752; no companion or integrated-system quantities.",
         "fields": [
           "absolute_mag"
@@ -31227,7 +31243,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -31385,7 +31401,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "GJ 412 B / WX UMa",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Exact individual GJ 412 B / WX UMa, Gaia DR3 778947608243864320; no companion or integrated-system quantities.",
         "fields": [
           "absolute_mag"
@@ -31580,7 +31596,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -31932,7 +31948,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -32263,7 +32279,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -32527,7 +32543,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -32842,9 +32858,11 @@
           "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
         },
         "luminosity_solar": {
-          "status": "unknown",
-          "sourceRefs": [],
-          "detail": "No vetted component measurement adopted; mean-sequence values are not substituted."
+          "status": "derived",
+          "sourceRefs": [
+            "Stefan-Boltzmann scaling"
+          ],
+          "detail": "{\"field\": \"luminosity_solar\", \"inputs\": {\"radius_solar\": 0.8102200672, \"temperature_k\": 5220.0}, \"reference\": \"Stefan-Boltzmann scaling\", \"status\": \"derived\", \"value\": 0.4391194898}"
         },
         "absolute_mag": {
           "status": "unknown",
@@ -32867,7 +32885,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -32950,8 +32968,11 @@
           ]
         },
         "radius_solar": {
-          "status": "unknown",
-          "sourceRefs": []
+          "status": "derived",
+          "sourceRefs": [
+            "2012ApJ...757..112B"
+          ],
+          "detail": "{\"angularDiameterMas\": 1.504, \"band\": \"K\", \"distancePc\": 5.0105114685788825, \"field\": \"radius_solar\", \"identity\": \"* omi02 Eri\", \"method\": \"Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only\", \"reference\": \"2012ApJ...757..112B\", \"selection\": \"Most precise of the JMDC measurements within 10 percent of their median; strict majority required\", \"sourceRecordId\": \"JMDC HIP19849\", \"status\": \"derived\", \"uncertainty\": 0.0032322609063343624, \"value\": 0.8102200672}"
         },
         "metallicity_dex": {
           "status": "measured",
@@ -32992,6 +33013,30 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        "radius_solar": {
+          "field": "radius_solar",
+          "value": 0.8102200672,
+          "status": "derived",
+          "reference": "2012ApJ...757..112B",
+          "uncertainty": 0.0032322609063343624,
+          "identity": "* omi02 Eri",
+          "sourceRecordId": "JMDC HIP19849",
+          "angularDiameterMas": 1.504,
+          "band": "K",
+          "distancePc": 5.0105114685788825,
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required"
+        },
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "value": 0.4391194898,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 5220.0,
+            "radius_solar": 0.8102200672
+          }
         }
       }
     },
@@ -33148,7 +33193,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -33458,7 +33503,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -33768,7 +33813,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -34115,7 +34160,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -34475,7 +34520,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -35053,7 +35098,7 @@
       },
       "sharedObjectAdoption": {
         "recordId": "* alf Aql",
-        "reviewSha256": "399ed5cc910ed1644aec2e4128a270a5da07fa13ba1ef39c81cec32bb3feba69",
+        "reviewSha256": "ad22ec77f9544a9c6246309ffba9003913b5b38e5b9ea80bede629eb41b5f9dd",
         "scope": "Reviewed catalog object/component 10pc-0117; aliases only, distinct companions remain separate.",
         "fields": [
           "radial_velocity_error_kms",
@@ -35257,7 +35302,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -35474,7 +35519,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -35810,7 +35855,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -36074,7 +36119,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -36429,7 +36474,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -36799,7 +36844,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -37154,7 +37199,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -37444,7 +37489,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -37707,7 +37752,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -38017,7 +38062,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -38372,7 +38417,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -38693,7 +38738,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -38991,7 +39036,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -39362,7 +39407,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -39717,7 +39762,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -40068,7 +40113,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -40330,7 +40375,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -40669,7 +40714,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -40973,7 +41018,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },
@@ -41344,7 +41389,7 @@
         "constellation": {
           "status": "derived",
           "sourceRefs": [
-            "astropy:7.1.1:Roman1987"
+            "astropy:8.0.2:Roman1987"
           ],
           "detail": "ICRS snapshot direction transformed to B1875 boundary coordinates; no physical motion to 1875. Canonical spelling normalization applied."
         },

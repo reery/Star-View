@@ -271,7 +271,7 @@
         "luminosity_solar": 33.67563164674363,
         "radius_solar": 2.290867652767773,
         "metallicity_dex": 0.16,
-        "age_gyr": null,
+        "age_gyr": 0.509,
         "absolute_mag": 0.92348,
         "epoch": 2000.0,
         "type": "star",
@@ -280,7 +280,7 @@
         "constellation": "Taurus",
         "spectral_type": "A2IV-Vs",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 20648; Stellarium Tau). SIMBAD identity * del03 Tau; SIMBAD compiled Johnson V=4.298; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...676A.129H).",
+        "notes": "Western constellation line-figure star (HIP 20648; Stellarium Tau). SIMBAD identity * del03 Tau; SIMBAD compiled Johnson V=4.298; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2023A&A...676A.129H; age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 20648"
         ],
@@ -1577,7 +1577,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

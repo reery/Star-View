@@ -7,7 +7,10 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from catalog_sources.enrichment import FIELDS, derive_physical, enrich_from_frozen, estimate_temperature, flame_withheld, select_spectroscopy
+from unittest import mock
+
+from catalog_sources import enrichment
+from catalog_sources.enrichment import FIELDS, _age_candidate, corrected_excess, derive_physical, enrich_from_frozen, estimate_temperature, flame_withheld, select_spectroscopy
 
 
 def empty_row(**values):
@@ -202,6 +205,37 @@ class EnrichmentTests(unittest.TestCase):
         white = empty_row(type="white_dwarf", spectral_type="DA2")
         self.assertEqual(estimate_temperature(white), {})
 
+
+    def test_gaia_visual_magnitude_needs_validated_colour_and_unblended_photometry(self):
+        def gaia(colour, excess, duplicated="false"):
+            return {"1": {"phot_g_mean_mag": "10.0", "bp_rp": str(colour), "phot_bp_rp_excess_factor": str(excess), "duplicated_source": duplicated}}
+        nominal = lambda colour: 1.162004 + 0.011464 * colour + 0.049255 * colour ** 2 - 0.005879 * colour ** 3
+        self.assertAlmostEqual(corrected_excess(1.0, nominal(1.0)), 0)
+        with mock.patch.object(enrichment, "supplement_index", return_value=(gaia(0.82, nominal(0.82)), {}, {})):
+            value, detail = enrichment.gaia_visual_magnitude("1")
+            # Sun-like colour: V lies about 0.15 mag fainter than G.
+            self.assertAlmostEqual(value, 10.1525, places=3)
+            self.assertEqual(detail["reference"], "2021A&A...649A...3R")
+        for rows in (gaia(3.2, nominal(3.2)), gaia(1.0, nominal(1.0) + 0.06), gaia(1.0, nominal(1.0), "true")):
+            with mock.patch.object(enrichment, "supplement_index", return_value=(rows, {}, {})):
+                self.assertIsNone(enrichment.gaia_visual_magnitude("1"))
+
+    def test_gsp_spec_metallicity_needs_best_flags_and_validated_temperature(self):
+        row = {"mh_gspspec": "-0.2", "logg_gspspec": "4.5", "teff_gspspec": "5500", "mh_gspspec_lower": "-0.25", "mh_gspspec_upper": "-0.15",
+               "flags_gspspec": "0" * 13 + "9" * 28}
+        with mock.patch.object(enrichment, "supplement_index", return_value=({"1": row}, {}, {})):
+            result = enrichment.gsp_spec_metallicity("1")
+            self.assertAlmostEqual(result["value"], -0.2 + 0.274 - 0.1373 * 4.5 - 0.0050 * 4.5 ** 2 + 0.0048 * 4.5 ** 3)
+            self.assertAlmostEqual(result["uncertainty"], 0.05)
+        for change in ({"flags_gspspec": "0" * 12 + "1" + "9" * 28}, {"teff_gspspec": "7100"}, {"teff_gspspec": "3900"}):
+            with mock.patch.object(enrichment, "supplement_index", return_value=({"1": {**row, **change}}, {}, {})):
+                self.assertIsNone(enrichment.gsp_spec_metallicity("1"))
+
+    def test_isochrone_ages_need_a_tight_posterior(self):
+        self.assertAlmostEqual(_age_candidate("1866", "1403", "2380", 1e-3, "ref", "HIP 1", "m")["value"], 1.866)
+        self.assertIsNone(_age_candidate("556", "335", "1122", 1e-3, "ref", "HIP 1", "m"))
+        self.assertIsNotNone(_age_candidate("2.0", "1.5", "2.5", 1, "ref", "HIP 1", "m"))
+        self.assertIsNone(_age_candidate("2.0", "1.3", "2.6", 1, "ref", "HIP 1", "m"))
 
 if __name__ == "__main__":
     unittest.main()

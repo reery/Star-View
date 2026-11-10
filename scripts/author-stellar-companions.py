@@ -24,7 +24,7 @@ from catalog_sources.ordinary_binaries import orbit_pairs, matching_members
 from catalog_sources.spectroscopic_binaries import FILES as SB9_FILES, best_orbit, sb9_systems
 from catalog_sources.companion_properties import apply_literature, property_coverage
 from catalog_sources.classification import prune_subtypes, spectral_labels
-from catalog_sources.preservation import pool_losses, retain_frozen_source
+from catalog_sources.preservation import catalog_withheld, pool_losses, retain_frozen_source
 from catalog_sources.shared_objects import REVIEW as SHARED_OBJECT_REVIEW, reviewed_objects
 from catalog_sources.bright_system_motion import apply_bright_system_motion, bulk_vector
 from catalog_sources.constellation_motion import apply_constellation_motion
@@ -921,7 +921,7 @@ def main():
     if args.write:
         previous = read_json(OUTPUT)
         retirements = read_json(ROOT / "catalog-work/reviewed-data-retirements.json")["retirements"]
-        errors = pool_losses(previous, payload, retirements)
+        errors = pool_losses(previous, payload, retirements, catalog_withheld(ROOT))
         if errors:
             raise SystemExit("Refusing companion regeneration that loses existing data:\n" + "\n".join(errors))
         OUTPUT.write_text(json.dumps(payload, indent=2) + "\n")

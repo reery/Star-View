@@ -161,8 +161,8 @@
     "inputSha256": {
       "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
       "src/data/star-systems.json": "ccb8b300d861fec42a9b95bfeafa8e30f3b4c53298c8c03e3f1743bf4c28fddf",
-      "src/data/catalogs/nearest-1000/stars.csv": "a51135a802ace201e2b2b1b821118794b748131fec726556abd63e9e9ed8db55",
-      "src/data/catalogs/nearest-1000/provenance.json": "22611e88629ae2b3819139f6414c623ad10dab22d3aae2df4e60bbf1b232e535",
+      "src/data/catalogs/nearest-1000/stars.csv": "bfe66cbcd8288c51e2f17f4ffd12f3661605c2dee22f4f42cdc6d2d776ceb182",
+      "src/data/catalogs/nearest-1000/provenance.json": "612eb08c82b6ef469262c671ba5087f784cbf6aab13b24dfac7ff27eb9ab7cb9",
       "catalog-work/star-systems/overlay-individual-components.json": "b4fbcf92e682c639a11c5e488a378d43a0b43aaa10e0e8b16b2db70dc9a10741",
       "catalog-work/star-systems/msc-20260619-rigel.json": "0bc6740e8537705363c915a78b203822b46a9a31330f325f6b4a783091e40e97",
       "catalog-work/star-systems/msc-20260619.Readme": "d0906632b078a3b97b4e7247ad76830e2cc13bae6300ae145d69ce30a8e859b8"
@@ -666,12 +666,12 @@
   "physicalCoverage": {
     "temperature_k": 731,
     "mass_solar": 353,
-    "luminosity_solar": 628,
-    "radius_solar": 629,
-    "metallicity_dex": 556,
-    "age_gyr": 51
+    "luminosity_solar": 629,
+    "radius_solar": 631,
+    "metallicity_dex": 557,
+    "age_gyr": 132
   },
-  "sharedEnrichmentManifestSha256": "538af61b2ae9bd4f75dd2b240d2088b640b4458f06e39a62014883b990dc9eb3",
+  "sharedEnrichmentManifestSha256": "0f43e507d374cd75d05b8f538c36e46976d98b55cc644335d42922001bf6fac6",
   "objects": {
     "sun": {
       "id": "sun",
@@ -1837,7 +1837,8 @@
         "mass_solar": "nearest-1000:cns5-0125",
         "luminosity_solar": "nearest-1000:cns5-0125",
         "radius_solar": "nearest-1000:cns5-0125",
-        "metallicity_dex": "nearest-1000:cns5-0125"
+        "metallicity_dex": "nearest-1000:cns5-0125",
+        "age_gyr": "nearest-1000:cns5-0125"
       },
       "physicalObservations": [
         {
@@ -1871,6 +1872,13 @@
         {
           "field": "metallicity_dex",
           "value": -0.19,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-0125"
+        },
+        {
+          "field": "age_gyr",
+          "value": 5.94,
           "status": "inherited",
           "source": "nearest-1000",
           "sourceId": "cns5-0125"
@@ -3369,7 +3377,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-4436",
         "radius_solar": "published:1999A&A...352..555A:HIP-4436",
         "luminosity_solar": "gaia-dr3:364785939116867072",
-        "metallicity_dex": "shared:2016A&A...589A..83G"
+        "metallicity_dex": "shared:2016A&A...589A..83G",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -3437,6 +3446,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.733,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* mu. And",
+          "sourceRecordId": "HIP 4436",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.623,
+          "upperGyr": 0.911
         }
       ]
     },
@@ -4286,7 +4307,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-6193",
         "mass_solar": "published:1999A&A...352..555A:HIP-6193",
         "radius_solar": "published:1999A&A...352..555A:HIP-6193",
-        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-6193"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-6193",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -4324,6 +4346,18 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 6193",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.462,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* ups Psc",
+          "sourceRecordId": "HIP 6193",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.385,
+          "upperGyr": 0.559
         }
       ]
     },
@@ -4432,7 +4466,8 @@
       "gaiaDr3Id": "510204838759030144",
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-ruchbah",
-        "metallicity_dex": "bright-stars:bright-ruchbah"
+        "metallicity_dex": "bright-stars:bright-ruchbah",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -4448,6 +4483,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-ruchbah"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.812,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* del Cas",
+          "sourceRecordId": "HIP 6686",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.6940000000000001,
+          "upperGyr": 0.964
         }
       ],
       "sharedObjectAdoption": {
@@ -7048,8 +7095,25 @@
         "reference": "SIMBAD TAP snapshot 2026-10-01"
       },
       "gaiaDr3Id": "2493390319631956352",
-      "adoptedPhysicalFields": {},
-      "physicalObservations": []
+      "adoptedPhysicalFields": {
+        "radius_solar": "shared:1992AJ....104.2224R"
+      },
+      "physicalObservations": [
+        {
+          "field": "radius_solar",
+          "value": 426.7133639,
+          "status": "derived",
+          "reference": "1992AJ....104.2224R",
+          "uncertainty": 13.796736937976881,
+          "identity": "* omi Cet",
+          "sourceRecordId": "JMDC HD14386",
+          "angularDiameterMas": 43.3,
+          "band": "2.2",
+          "distancePc": 91.65902841023583,
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required"
+        }
+      ]
     },
     "hip-11001": {
       "hip": 11001,
@@ -7599,7 +7663,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-11783",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-11783",
         "radius_solar": "gaia-dr3:5145955421492456960",
-        "metallicity_dex": "shared:2022A&A...663A...4S"
+        "metallicity_dex": "shared:2022A&A...663A...4S",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -7667,6 +7732,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        },
+        {
+          "field": "age_gyr",
+          "value": 2.68,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* sig Cet",
+          "sourceRecordId": "HIP 11783",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.8,
+          "upperGyr": 2.87
         }
       ]
     },
@@ -7860,7 +7937,8 @@
       "gaiaDr3Id": "5171076479048181760",
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-12390",
-        "metallicity_dex": "shared:2022A&A...663A...4S"
+        "metallicity_dex": "shared:2022A&A...663A...4S",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -7883,6 +7961,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.81,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* eps Cet",
+          "sourceRecordId": "HIP 12390",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 1.372,
+          "upperGyr": 2.3040000000000003
         }
       ]
     },
@@ -8093,7 +8183,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-12484",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-12484",
         "metallicity_dex": "gaia-dr3:4741336551221258112",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -8155,6 +8246,18 @@
           "value": 3.012225705233951,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.35,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* zet Hor",
+          "sourceRecordId": "HIP 12484",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.07,
+          "upperGyr": 1.5
         }
       ]
     },
@@ -8185,7 +8288,7 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-12486",
         "metallicity_dex": "shared:2024A&A...683A.125P",
-        "radius_solar": "shared:1999A&A...352..555A",
+        "radius_solar": "shared:2019Natur.567..200P",
         "luminosity_solar": "shared:Stefan-Boltzmann scaling"
       },
       "physicalObservations": [
@@ -8212,21 +8315,26 @@
         },
         {
           "field": "radius_solar",
-          "value": 10.0,
-          "status": "model-derived",
-          "reference": "1999A&A...352..555A",
-          "uncertainty": null,
+          "value": 10.84175362,
+          "status": "derived",
+          "reference": "2019Natur.567..200P",
+          "uncertainty": 0.04340559723108708,
           "identity": "* iot Eri",
-          "sourceRecordId": "HIP 12486"
+          "sourceRecordId": "JMDC HD16815",
+          "angularDiameterMas": 2.248,
+          "band": "H",
+          "distancePc": 44.856989999511256,
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required"
         },
         {
           "field": "luminosity_solar",
-          "value": 47.2699875,
+          "value": 55.56285521,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 4786.0,
-            "radius_solar": 10.0
+            "radius_solar": 10.84175362
           }
         }
       ]
@@ -8255,7 +8363,8 @@
       },
       "gaiaDr3Id": null,
       "adoptedPhysicalFields": {
-        "temperature_k": "published:1999A&A...352..555A:HIP-12706"
+        "temperature_k": "published:1999A&A...352..555A:HIP-12706",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -8266,6 +8375,18 @@
           "source": "Allende Prieto & Lambert 1999",
           "sourceId": "HIP 12706",
           "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.668,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* gam Cet",
+          "sourceRecordId": "HIP 12706",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.555,
+          "upperGyr": 0.811
         }
       ]
     },
@@ -8550,7 +8671,7 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-13147",
         "metallicity_dex": "shared:2023A&A...670A..73A",
-        "radius_solar": "shared:1999A&A...352..555A",
+        "radius_solar": "shared:2019Natur.567..200P",
         "luminosity_solar": "shared:Stefan-Boltzmann scaling"
       },
       "physicalObservations": [
@@ -8577,21 +8698,26 @@
         },
         {
           "field": "radius_solar",
-          "value": 9.77237221,
-          "status": "model-derived",
-          "reference": "1999A&A...352..555A",
-          "uncertainty": null,
+          "value": 10.67655396,
+          "status": "derived",
+          "reference": "2019Natur.567..200P",
+          "uncertainty": 0.05818285538413074,
           "identity": "* bet For",
-          "sourceRecordId": "HIP 13147"
+          "sourceRecordId": "JMDC HD17652",
+          "angularDiameterMas": 1.835,
+          "band": "H",
+          "distancePc": 54.115531999079884,
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required"
         },
         {
           "field": "luminosity_solar",
-          "value": 49.51876827,
+          "value": 59.10606298,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 4898.0,
-            "radius_solar": 9.77237221
+            "radius_solar": 10.67655396
           }
         }
       ]
@@ -9316,7 +9442,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-14240",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-14240",
         "radius_solar": "gaia-dr3:4726572858838693248",
-        "metallicity_dex": "shared:2018A&A...614A..55A"
+        "metallicity_dex": "shared:2018A&A...614A..55A",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -9384,6 +9511,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.31,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* mu. Hor",
+          "sourceRecordId": "HIP 14240",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.2,
+          "upperGyr": 1.71
         }
       ]
     },
@@ -9596,7 +9735,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-algol",
         "luminosity_solar": "bright-stars:bright-algol",
-        "radius_solar": "bright-stars:bright-algol"
+        "radius_solar": "bright-stars:bright-algol",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -9619,6 +9759,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-algol"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.139,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* bet Per",
+          "sourceRecordId": "HIP 14576",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.125,
+          "upperGyr": 0.163
         }
       ],
       "sharedObjectAdoption": {
@@ -10504,7 +10656,7 @@
         "luminosity_solar": "gaia-dr3:5164707970261890560",
         "temperature_k": "shared:2025A&A...698A..93J",
         "metallicity_dex": "shared:2025A&A...698A..93J",
-        "radius_solar": "shared:Stefan-Boltzmann scaling"
+        "radius_solar": "shared:2007A&A...475..243D"
       },
       "physicalObservations": [
         {
@@ -10587,13 +10739,17 @@
         },
         {
           "field": "radius_solar",
-          "value": 0.7378532967,
+          "value": 0.7359734585,
           "status": "derived",
-          "reference": "Stefan-Boltzmann scaling",
-          "inputs": {
-            "temperature_k": 5130.0,
-            "luminosity_solar": 0.33970678
-          }
+          "reference": "2007A&A...475..243D",
+          "uncertainty": 0.004846485615492106,
+          "identity": "* eps Eri",
+          "sourceRecordId": "JMDC HD22049",
+          "angularDiameterMas": 2.126,
+          "band": "K'",
+          "distancePc": 3.2197770002950428,
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required"
         }
       ],
       "sharedObjectAdoption": {
@@ -10711,7 +10867,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-16611",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-16611",
         "metallicity_dex": "gaia-dr3:5100353485969674880",
-        "radius_solar": "gaia-dr3:5100353485969674880"
+        "radius_solar": "gaia-dr3:5100353485969674880",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -10758,6 +10915,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5100353485969674880",
           "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.157,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* tau05 Eri",
+          "sourceRecordId": "HIP 16611",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.135,
+          "upperGyr": 0.193
         }
       ]
     },
@@ -10930,14 +11099,14 @@
         },
         {
           "field": "luminosity_solar",
-          "value": 3.344333685,
+          "value": 2.985436882,
           "status": "inherited",
           "source": "nearest-1000",
           "sourceId": "cns5-0938"
         },
         {
           "field": "radius_solar",
-          "value": 2.454708916,
+          "value": 2.319258438,
           "status": "inherited",
           "source": "nearest-1000",
           "sourceId": "cns5-0938"
@@ -11200,7 +11369,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-17651",
         "radius_solar": "published:1999A&A...352..555A:HIP-17651",
         "luminosity_solar": "gaia-dr3:5087043657197267200",
-        "metallicity_dex": "shared:2020AJ....160...83S"
+        "metallicity_dex": "shared:2020AJ....160...83S",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -11268,6 +11438,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.41,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* tau06 Eri",
+          "sourceRecordId": "HIP 17651",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.11,
+          "upperGyr": 1.51
         }
       ]
     },
@@ -11353,7 +11535,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-17797",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-17797",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -11379,6 +11562,18 @@
           "value": 3.6713781144357336,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.255,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* f Eri",
+          "sourceRecordId": "HIP 17797",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.224,
+          "upperGyr": 0.299
         }
       ]
     },
@@ -12695,7 +12890,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-20042",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20042",
         "metallicity_dex": "gaia-dr3:4870527586937201408",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -12757,6 +12953,18 @@
           "value": 2.616506958047694,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.148,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* ups04 Eri",
+          "sourceRecordId": "HIP 20042",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.134,
+          "upperGyr": 0.166
         }
       ]
     },
@@ -13240,7 +13448,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-20648",
         "radius_solar": "published:1999A&A...352..555A:HIP-20648",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-20648",
-        "metallicity_dex": "shared:2023A&A...676A.129H"
+        "metallicity_dex": "shared:2023A&A...676A.129H",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -13290,6 +13499,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.509,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* del03 Tau",
+          "sourceRecordId": "HIP 20648",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.447,
+          "upperGyr": 0.594
         }
       ]
     },
@@ -14533,7 +14754,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-21861",
         "radius_solar": "published:1999A&A...352..555A:HIP-21861",
         "metallicity_dex": "gaia-dr3:4866371879660471808",
-        "luminosity_solar": "gaia-dr3:4866371879660471808"
+        "luminosity_solar": "gaia-dr3:4866371879660471808",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -14589,6 +14811,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "4866371879660471808",
           "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.32,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* bet Cae",
+          "sourceRecordId": "HIP 21861",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.26,
+          "upperGyr": 1.41
         }
       ]
     },
@@ -14904,7 +15138,7 @@
         },
         {
           "field": "radius_solar",
-          "value": 1.318256739,
+          "value": 1.323716241,
           "status": "inherited",
           "source": "nearest-1000",
           "sourceId": "cns5-1208"
@@ -16004,7 +16238,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-23875",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-23875",
         "radius_solar": "derived:stefan-boltzmann",
-        "metallicity_dex": "shared:2016A&A...589A..83G"
+        "metallicity_dex": "shared:2016A&A...589A..83G",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -16042,6 +16277,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.688,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* bet Eri",
+          "sourceRecordId": "HIP 23875",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.516,
+          "upperGyr": 0.917
         }
       ]
     },
@@ -16194,7 +16441,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-24244",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-24244",
         "metallicity_dex": "gaia-dr3:2989514155341556224",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -16247,6 +16495,18 @@
           "value": 2.2553777805680064,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.114,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* iot Lep",
+          "sourceRecordId": "HIP 24244",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.10300000000000001,
+          "upperGyr": 0.131
         }
       ]
     },
@@ -16279,7 +16539,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-24305",
         "radius_solar": "published:1999A&A...352..555A:HIP-24305",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-24305",
-        "metallicity_dex": "shared:2024A&A...683A.125P"
+        "metallicity_dex": "shared:2024A&A...683A.125P",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -16329,6 +16590,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.143,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* mu. Lep",
+          "sourceRecordId": "HIP 24305",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.122,
+          "upperGyr": 0.17300000000000001
         }
       ]
     },
@@ -19748,7 +20021,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-27100",
         "radius_solar": "published:1999A&A...352..555A:HIP-27100",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-27100",
-        "metallicity_dex": "gaia-dr3:4660016396371388672"
+        "metallicity_dex": "gaia-dr3:4660016396371388672",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -19804,6 +20078,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "4660016396371388672",
           "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.964,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* del Dor",
+          "sourceRecordId": "HIP 27100",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.835,
+          "upperGyr": 1.135
         }
       ]
     },
@@ -21679,7 +21965,8 @@
         "temperature_k": "bright-stars:bright-menkalinan",
         "luminosity_solar": "bright-stars:bright-menkalinan",
         "radius_solar": "bright-stars:bright-menkalinan",
-        "metallicity_dex": "bright-stars:bright-menkalinan"
+        "metallicity_dex": "bright-stars:bright-menkalinan",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -21709,6 +21996,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-menkalinan"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.496,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* bet Aur",
+          "sourceRecordId": "HIP 28360",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.441,
+          "upperGyr": 0.5690000000000001
         }
       ],
       "sharedObjectAdoption": {
@@ -21863,7 +22162,8 @@
         "temperature_k": "bright-stars:bright-mahasim",
         "mass_solar": "bright-stars:bright-mahasim",
         "luminosity_solar": "bright-stars:bright-mahasim",
-        "radius_solar": "bright-stars:bright-mahasim"
+        "radius_solar": "bright-stars:bright-mahasim",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -21893,6 +22193,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-mahasim"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.262,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* tet Aur",
+          "sourceRecordId": "HIP 28380",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.228,
+          "upperGyr": 0.316
         }
       ],
       "sharedObjectAdoption": {
@@ -23952,7 +24264,8 @@
         "temperature_k": "bright-stars:bright-alhena",
         "luminosity_solar": "bright-stars:bright-alhena",
         "radius_solar": "bright-stars:bright-alhena",
-        "metallicity_dex": "bright-stars:bright-alhena"
+        "metallicity_dex": "bright-stars:bright-alhena",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -23982,6 +24295,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-alhena"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.463,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* gam Gem",
+          "sourceRecordId": "HIP 31681",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.403,
+          "upperGyr": 0.5640000000000001
         }
       ],
       "sharedObjectAdoption": {
@@ -24510,7 +24835,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-32362",
         "radius_solar": "published:1999A&A...352..555A:HIP-32362",
         "luminosity_solar": "derived:stefan-boltzmann",
-        "metallicity_dex": "shared:2024A&A...682A.145S"
+        "metallicity_dex": "shared:2024A&A...682A.145S",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -24557,6 +24883,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.32,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* ksi Gem",
+          "sourceRecordId": "HIP 32362",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.27,
+          "upperGyr": 1.74
         }
       ]
     },
@@ -26975,7 +27313,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-36188",
         "mass_solar": "published:1999A&A...352..555A:HIP-36188",
         "radius_solar": "published:1999A&A...352..555A:HIP-36188",
-        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-36188"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-36188",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -27013,6 +27352,18 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 36188",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.147,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* bet CMi",
+          "sourceRecordId": "HIP 36188",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.135,
+          "upperGyr": 0.163
         }
       ]
     },
@@ -29144,7 +29495,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-40702",
         "radius_solar": "published:1999A&A...352..555A:HIP-40702",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-40702",
-        "metallicity_dex": "gaia-dr3:5210240327318434304"
+        "metallicity_dex": "gaia-dr3:5210240327318434304",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -29200,6 +29552,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5210240327318434304",
           "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.39,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* alf Cha",
+          "sourceRecordId": "HIP 40702",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.31,
+          "upperGyr": 1.43
         }
       ]
     },
@@ -29768,7 +30132,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-42313",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42313",
         "radius_solar": "derived:stefan-boltzmann",
-        "metallicity_dex": "shared:2016A&A...589A..83G"
+        "metallicity_dex": "shared:2016A&A...589A..83G",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -29806,6 +30171,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.26,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* del Hya",
+          "sourceRecordId": "HIP 42313",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.234,
+          "upperGyr": 0.301
         }
       ]
     },
@@ -30676,7 +31053,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-42913",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-42913",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -30702,6 +31080,18 @@
           "value": 3.9951612787711026,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.459,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* del01 Vel",
+          "sourceRecordId": "HIP 42913",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.41000000000000003,
+          "upperGyr": 0.531
         }
       ]
     },
@@ -33164,14 +33554,14 @@
         },
         {
           "field": "luminosity_solar",
-          "value": 6.441962314,
+          "value": 7.528594857,
           "status": "inherited",
           "source": "nearest-1000",
           "sourceId": "cns5-2366"
         },
         {
           "field": "radius_solar",
-          "value": 2.187761624,
+          "value": 2.365091098,
           "status": "inherited",
           "source": "nearest-1000",
           "sourceId": "cns5-2366"
@@ -33452,7 +33842,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-48319",
         "mass_solar": "published:1999A&A...352..555A:HIP-48319",
         "radius_solar": "published:1999A&A...352..555A:HIP-48319",
-        "luminosity_solar": "derived:stefan-boltzmann"
+        "luminosity_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -33487,6 +33878,18 @@
           "value": 27.20247857284258,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.302,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* ups UMa",
+          "sourceRecordId": "HIP 48319",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 1.085,
+          "upperGyr": 1.67
         }
       ]
     },
@@ -33822,7 +34225,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-48926",
         "radius_solar": "published:1999A&A...352..555A:HIP-48926",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-48926",
-        "metallicity_dex": "gaia-dr3:5434468784453279616"
+        "metallicity_dex": "gaia-dr3:5434468784453279616",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -33878,6 +34282,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5434468784453279616",
           "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.189,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* eta Ant",
+          "sourceRecordId": "HIP 48926",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.984,
+          "upperGyr": 1.428
         }
       ]
     },
@@ -33978,7 +34394,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-49593",
         "mass_solar": "published:1999A&A...352..555A:HIP-49593",
         "radius_solar": "published:1999A&A...352..555A:HIP-49593",
-        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-49593"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-49593",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -34016,6 +34433,18 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 49593",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.736,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* 21 LMi",
+          "sourceRecordId": "HIP 49593",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.596,
+          "upperGyr": 0.972
         }
       ]
     },
@@ -34116,7 +34545,8 @@
         "mass_solar": "bright-stars:bright-regulus",
         "luminosity_solar": "bright-stars:bright-regulus",
         "radius_solar": "bright-stars:bright-regulus",
-        "metallicity_dex": "bright-stars:bright-regulus"
+        "metallicity_dex": "bright-stars:bright-regulus",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -34153,6 +34583,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-regulus"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.107,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* alf Leo",
+          "sourceRecordId": "HIP 49669",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.092,
+          "upperGyr": 0.129
         }
       ],
       "sharedObjectAdoption": {
@@ -34507,7 +34949,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-50191",
         "radius_solar": "published:1999A&A...352..555A:HIP-50191",
         "luminosity_solar": "derived:stefan-boltzmann",
-        "metallicity_dex": "shared:2003A&A...398.1121E"
+        "metallicity_dex": "shared:2003A&A...398.1121E",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -34554,6 +34997,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.453,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* q Vel",
+          "sourceRecordId": "HIP 50191",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.387,
+          "upperGyr": 0.546
         }
       ]
     },
@@ -36342,7 +36797,8 @@
         "temperature_k": "bright-stars:bright-merak",
         "mass_solar": "bright-stars:bright-merak",
         "luminosity_solar": "bright-stars:bright-merak",
-        "radius_solar": "bright-stars:bright-merak"
+        "radius_solar": "bright-stars:bright-merak",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -36372,6 +36828,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-merak"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.384,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* bet UMa",
+          "sourceRecordId": "HIP 53910",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.338,
+          "upperGyr": 0.461
         }
       ],
       "sharedObjectAdoption": {
@@ -36934,7 +37402,8 @@
         "temperature_k": "bright-stars:bright-zosma",
         "mass_solar": "bright-stars:bright-zosma",
         "luminosity_solar": "bright-stars:bright-zosma",
-        "radius_solar": "bright-stars:bright-zosma"
+        "radius_solar": "bright-stars:bright-zosma",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -36964,6 +37433,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-zosma"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.692,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* del Leo",
+          "sourceRecordId": "HIP 54872",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.602,
+          "upperGyr": 0.843
         }
       ],
       "sharedObjectAdoption": {
@@ -37200,7 +37681,7 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-55282",
         "metallicity_dex": "shared:2024A&A...683A.125P",
-        "radius_solar": "shared:1999A&A...352..555A",
+        "radius_solar": "shared:2011A&A...535A..59B",
         "luminosity_solar": "shared:Stefan-Boltzmann scaling"
       },
       "physicalObservations": [
@@ -37227,21 +37708,26 @@
         },
         {
           "field": "radius_solar",
-          "value": 19.95262315,
-          "status": "model-derived",
-          "reference": "1999A&A...352..555A",
-          "uncertainty": null,
+          "value": 23.10972899,
+          "status": "derived",
+          "reference": "2011A&A...535A..59B",
+          "uncertainty": 0.1386457697798716,
           "identity": "* del Crt",
-          "sourceRecordId": "HIP 55282"
+          "sourceRecordId": "JMDC HD98430",
+          "angularDiameterMas": 3.667,
+          "band": "R",
+          "distancePc": 58.61528000055451,
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required"
         },
         {
           "field": "luminosity_solar",
-          "value": 156.5811922,
+          "value": 210.0531992,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 4571.0,
-            "radius_solar": 19.95262315
+            "radius_solar": 23.10972899
           }
         }
       ]
@@ -37344,7 +37830,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-55705",
         "radius_solar": "published:1999A&A...352..555A:HIP-55705",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-55705",
-        "metallicity_dex": "shared:2003A&A...398.1121E"
+        "metallicity_dex": "shared:2003A&A...398.1121E",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -37394,6 +37881,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.763,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* gam Crt",
+          "sourceRecordId": "HIP 55705",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.635,
+          "upperGyr": 0.907
         }
       ]
     },
@@ -37919,7 +38418,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-57363",
         "radius_solar": "published:1999A&A...352..555A:HIP-57363",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-57363",
-        "metallicity_dex": "gaia-dr3:5236306071562633344"
+        "metallicity_dex": "gaia-dr3:5236306071562633344",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -37975,6 +38475,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "5236306071562633344",
           "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.8,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* lam Mus",
+          "sourceRecordId": "HIP 57363",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.7030000000000001,
+          "upperGyr": 0.9570000000000001
         }
       ]
     },
@@ -40499,7 +41011,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-60965",
         "radius_solar": "published:1999A&A...352..555A:HIP-60965",
         "luminosity_solar": "gaia-dr3:3520586071217872896",
-        "metallicity_dex": "shared:2024A&A...683A.125P"
+        "metallicity_dex": "shared:2024A&A...683A.125P",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -40567,6 +41080,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.191,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* del Crv",
+          "sourceRecordId": "HIP 60965",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.168,
+          "upperGyr": 0.219
         }
       ]
     },
@@ -40802,7 +41327,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-61174",
         "radius_solar": "published:1999A&A...352..555A:HIP-61174",
         "metallicity_dex": "gaia-dr3:3526420114274019456",
-        "luminosity_solar": "gaia-dr3:3526420114274019456"
+        "luminosity_solar": "gaia-dr3:3526420114274019456",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -40858,6 +41384,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "3526420114274019456",
           "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.22,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* eta Crv",
+          "sourceRecordId": "HIP 61174",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.1,
+          "upperGyr": 1.31
         }
       ]
     },
@@ -41764,7 +42302,8 @@
         "mass_solar": "nearest-1000:cns5-3135",
         "luminosity_solar": "nearest-1000:cns5-3135",
         "radius_solar": "nearest-1000:cns5-3135",
-        "metallicity_dex": "nearest-1000:cns5-3135"
+        "metallicity_dex": "nearest-1000:cns5-3135",
+        "age_gyr": "nearest-1000:cns5-3135"
       },
       "physicalObservations": [
         {
@@ -41804,12 +42343,10 @@
         },
         {
           "field": "age_gyr",
-          "value": 1.703898,
-          "uncertainty": 0.37788469999999985,
-          "status": "superseded-by-spectroscopy",
-          "source": "Gaia DR3 astrophysical_parameters",
-          "sourceId": "3683687763520080384",
-          "qualityFlags": "00"
+          "value": 1.3,
+          "status": "inherited",
+          "source": "nearest-1000",
+          "sourceId": "cns5-3135"
         }
       ],
       "sharedObjectAdoption": {
@@ -42727,7 +43264,8 @@
       "gaiaDr3Id": "3937881211045638400",
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-64241",
-        "metallicity_dex": "shared:2022A&A...663A...4S"
+        "metallicity_dex": "shared:2022A&A...663A...4S",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -42750,6 +43288,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        },
+        {
+          "field": "age_gyr",
+          "value": 2.51,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* alf Com",
+          "sourceRecordId": "HIP 64241",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 2.18,
+          "upperGyr": 3.46
         }
       ]
     },
@@ -43409,7 +43959,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-66249",
         "radius_solar": "published:1999A&A...352..555A:HIP-66249",
         "luminosity_solar": "gaia-dr3:3662636823132300032",
-        "metallicity_dex": "shared:2003A&A...398.1121E"
+        "metallicity_dex": "shared:2003A&A...398.1121E",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -43477,6 +44028,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.649,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* zet Vir",
+          "sourceRecordId": "HIP 66249",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.521,
+          "upperGyr": 0.8170000000000001
         }
       ]
     },
@@ -43691,7 +44254,8 @@
         "temperature_k": "bright-stars:bright-alkaid",
         "mass_solar": "bright-stars:bright-alkaid",
         "luminosity_solar": "bright-stars:bright-alkaid",
-        "radius_solar": "bright-stars:bright-alkaid"
+        "radius_solar": "bright-stars:bright-alkaid",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -43721,6 +44285,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-alkaid"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.048,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* eta UMa",
+          "sourceRecordId": "HIP 67301",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.044,
+          "upperGyr": 0.054
         }
       ],
       "sharedObjectAdoption": {
@@ -44859,7 +45435,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-68520",
         "radius_solar": "published:1999A&A...352..555A:HIP-68520",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-68520",
-        "metallicity_dex": "shared:2003A&A...398.1121E"
+        "metallicity_dex": "shared:2003A&A...398.1121E",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -44909,6 +45486,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.724,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* tau Vir",
+          "sourceRecordId": "HIP 68520",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.625,
+          "upperGyr": 0.87
         }
       ]
     },
@@ -45123,7 +45712,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-68756",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-68756",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -45149,6 +45739,18 @@
           "value": 4.987347621809797,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.285,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* alf Dra",
+          "sourceRecordId": "HIP 68756",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.243,
+          "upperGyr": 0.328
         }
       ]
     },
@@ -45751,7 +46353,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-69701",
         "radius_solar": "published:1999A&A...352..555A:HIP-69701",
         "luminosity_solar": "derived:stefan-boltzmann",
-        "metallicity_dex": "shared:2024A&A...683A.125P"
+        "metallicity_dex": "shared:2024A&A...683A.125P",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -45798,6 +46401,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 2.24,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* iot Vir",
+          "sourceRecordId": "HIP 69701",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 2.1,
+          "upperGyr": 2.37
         }
       ]
     },
@@ -46033,7 +46648,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-71075",
         "radius_solar": "published:1999A&A...352..555A:HIP-71075",
         "luminosity_solar": "gaia-dr3:1487434040320076800",
-        "metallicity_dex": "shared:2003A&A...398.1121E"
+        "metallicity_dex": "shared:2003A&A...398.1121E",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -46101,6 +46717,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.866,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* gam Boo",
+          "sourceRecordId": "HIP 71075",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.677,
+          "upperGyr": 1.1280000000000001
         }
       ]
     },
@@ -47116,7 +47744,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-71957",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-71957",
         "radius_solar": "derived:stefan-boltzmann",
-        "metallicity_dex": "shared:2023ApJS..266...11B"
+        "metallicity_dex": "shared:2023ApJS..266...11B",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -47154,6 +47783,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.31,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* mu. Vir",
+          "sourceRecordId": "HIP 71957",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.26,
+          "upperGyr": 1.39
         }
       ]
     },
@@ -48644,7 +49285,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-74824",
         "radius_solar": "published:1999A&A...352..555A:HIP-74824",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-74824",
-        "metallicity_dex": "shared:2003A&A...398.1121E"
+        "metallicity_dex": "shared:2003A&A...398.1121E",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -48694,6 +49336,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.533,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* bet Cir",
+          "sourceRecordId": "HIP 74824",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.449,
+          "upperGyr": 0.677
         }
       ]
     },
@@ -49436,7 +50090,8 @@
         "temperature_k": "bright-stars:bright-alphecca",
         "luminosity_solar": "bright-stars:bright-alphecca",
         "radius_solar": "bright-stars:bright-alphecca",
-        "metallicity_dex": "bright-stars:bright-alphecca"
+        "metallicity_dex": "bright-stars:bright-alphecca",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -49466,6 +50121,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-alphecca"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.313,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* alf CrB",
+          "sourceRecordId": "HIP 76267",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.263,
+          "upperGyr": 0.399
         }
       ],
       "sharedObjectAdoption": {
@@ -50788,7 +51455,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-77760",
         "luminosity_solar": "gaia-dr3:1384195086792268800",
         "radius_solar": "gaia-dr3:1384195086792268800",
-        "metallicity_dex": "shared:2022A&A...663A...4S"
+        "metallicity_dex": "shared:2022A&A...663A...4S",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -50856,6 +51524,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 7.47,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* chi Her",
+          "sourceRecordId": "HIP 77760",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 6.99,
+          "upperGyr": 7.99
         }
       ],
       "sharedObjectAdoption": {
@@ -51879,8 +52559,8 @@
         "luminosity_solar": "gaia-dr3:1623289903206300928",
         "radius_solar": "derived:stefan-boltzmann",
         "metallicity_dex": "shared:2022A&A...663A...4S",
-        "mass_solar": "shared:Gaia DR3 astrophysical_parameters",
-        "age_gyr": "shared:Gaia DR3 astrophysical_parameters"
+        "age_gyr": "shared:2011A&A...530A.138C",
+        "mass_solar": "shared:Gaia DR3 astrophysical_parameters"
       },
       "physicalObservations": [
         {
@@ -51956,24 +52636,23 @@
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
         },
         {
+          "field": "age_gyr",
+          "value": 2.29,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* tet Dra",
+          "sourceRecordId": "HIP 78527",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.74,
+          "upperGyr": 2.46
+        },
+        {
           "field": "mass_solar",
           "value": 1.5533807,
           "status": "model-derived",
           "reference": "Gaia DR3 astrophysical_parameters",
           "uncertainty": 0.04096190000000011,
-          "identity": "* tet Dra",
-          "sourceRecordId": "1623289903206300928",
-          "qualityFlags": [
-            "00"
-          ],
-          "quantity": null
-        },
-        {
-          "field": "age_gyr",
-          "value": 2.4030058,
-          "status": "model-derived",
-          "reference": "Gaia DR3 astrophysical_parameters",
-          "uncertainty": 0.26806399999999986,
           "identity": "* tet Dra",
           "sourceRecordId": "1623289903206300928",
           "qualityFlags": [
@@ -53456,7 +54135,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-81126",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-81126",
         "metallicity_dex": "gaia-dr3:1357126587985743104",
-        "radius_solar": "gaia-dr3:1357126587985743104"
+        "radius_solar": "gaia-dr3:1357126587985743104",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -53512,6 +54192,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "1357126587985743104",
           "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.41,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* sig Her",
+          "sourceRecordId": "HIP 81126",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.372,
+          "upperGyr": 0.461
         }
       ]
     },
@@ -55690,7 +56382,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-84143",
         "radius_solar": "published:1999A&A...352..555A:HIP-84143",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-84143",
-        "metallicity_dex": "shared:2003A&A...398.1121E"
+        "metallicity_dex": "shared:2003A&A...398.1121E",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -55758,6 +56451,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.26,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* eta Sco",
+          "sourceRecordId": "HIP 84143",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 0.98,
+          "upperGyr": 1.32
         }
       ]
     },
@@ -55843,7 +56548,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-84379",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-84379",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -55869,6 +56575,18 @@
           "value": 2.2234414238892746,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.588,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* del Her",
+          "sourceRecordId": "HIP 84379",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.525,
+          "upperGyr": 0.669
         }
       ]
     },
@@ -56879,7 +57597,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-85822",
         "radius_solar": "published:1999A&A...352..555A:HIP-85822",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-85822",
-        "metallicity_dex": "gaia-dr3:1724851173788449536"
+        "metallicity_dex": "gaia-dr3:1724851173788449536",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -56935,6 +57654,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "1724851173788449536",
           "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.366,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* del UMi",
+          "sourceRecordId": "HIP 85822",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.29,
+          "upperGyr": 0.487
         }
       ]
     },
@@ -57821,7 +58552,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-86565",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-86565",
         "radius_solar": "derived:stefan-boltzmann",
-        "metallicity_dex": "shared:2003A&A...398.1121E"
+        "metallicity_dex": "shared:2003A&A...398.1121E",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -57859,6 +58591,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.559,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* omi Ser",
+          "sourceRecordId": "HIP 86565",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.496,
+          "upperGyr": 0.659
         }
       ]
     },
@@ -60447,7 +61191,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-90422",
         "mass_solar": "published:1999A&A...352..555A:HIP-90422",
         "radius_solar": "published:1999A&A...352..555A:HIP-90422",
-        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-90422"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-90422",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -60485,6 +61230,18 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 90422",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.056,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* alf Tel",
+          "sourceRecordId": "HIP 90422",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.052000000000000005,
+          "upperGyr": 0.062
         }
       ]
     },
@@ -60944,7 +61701,8 @@
         "mass_solar": "bright-stars:cns5-4607",
         "luminosity_solar": "bright-stars:cns5-4607",
         "radius_solar": "bright-stars:cns5-4607",
-        "metallicity_dex": "bright-stars:cns5-4607"
+        "metallicity_dex": "bright-stars:cns5-4607",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -60981,6 +61739,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "cns5-4607"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.416,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* alf Lyr",
+          "sourceRecordId": "HIP 91262",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.366,
+          "upperGyr": 0.5
         }
       ],
       "sharedObjectAdoption": {
@@ -61480,7 +62250,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-92041",
         "mass_solar": "published:1999A&A...352..555A:HIP-92041",
         "radius_solar": "published:1999A&A...352..555A:HIP-92041",
-        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-92041"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-92041",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -61518,6 +62289,18 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 92041",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.164,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* phi Sgr",
+          "sourceRecordId": "HIP 92041",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.149,
+          "upperGyr": 0.189
         }
       ]
     },
@@ -62170,7 +62953,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-nunki",
         "luminosity_solar": "bright-stars:bright-nunki",
-        "radius_solar": "bright-stars:bright-nunki"
+        "radius_solar": "bright-stars:bright-nunki",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -62193,6 +62977,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-nunki"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.029,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* sig Sgr",
+          "sourceRecordId": "HIP 92855",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.023,
+          "upperGyr": 0.038
         }
       ],
       "sharedObjectAdoption": {
@@ -63034,7 +63830,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "bright-stars:bright-ascella",
         "luminosity_solar": "bright-stars:bright-ascella",
-        "radius_solar": "bright-stars:bright-ascella"
+        "radius_solar": "bright-stars:bright-ascella",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -63057,6 +63854,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-ascella"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.518,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* zet Sgr",
+          "sourceRecordId": "HIP 93506",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.461,
+          "upperGyr": 0.611
         }
       ],
       "sharedObjectAdoption": {
@@ -63417,7 +64226,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-93747",
         "mass_solar": "published:1999A&A...352..555A:HIP-93747",
         "radius_solar": "published:1999A&A...352..555A:HIP-93747",
-        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-93747"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-93747",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -63455,6 +64265,18 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 93747",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.231,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* zet Aql",
+          "sourceRecordId": "HIP 93747",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.211,
+          "upperGyr": 0.259
         }
       ]
     },
@@ -63487,7 +64309,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-93805",
         "radius_solar": "published:1999A&A...352..555A:HIP-93805",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-93805",
-        "metallicity_dex": "gaia-dr3:4254395871029677952"
+        "metallicity_dex": "gaia-dr3:4254395871029677952",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -63543,6 +64366,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "4254395871029677952",
           "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.195,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* lam Aql",
+          "sourceRecordId": "HIP 93805",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.177,
+          "upperGyr": 0.218
         }
       ]
     },
@@ -63570,7 +64405,8 @@
       },
       "gaiaDr3Id": null,
       "adoptedPhysicalFields": {
-        "temperature_k": "published:1999A&A...352..555A:HIP-93825"
+        "temperature_k": "published:1999A&A...352..555A:HIP-93825",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -63581,6 +64417,18 @@
           "source": "Allende Prieto & Lambert 1999",
           "sourceId": "HIP 93825",
           "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "age_gyr",
+          "value": 3.81,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* gam CrA",
+          "sourceRecordId": "HIP 93825",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 3.59,
+          "upperGyr": 4.16
         }
       ]
     },
@@ -63783,7 +64631,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-94114",
         "radius_solar": "published:1999A&A...352..555A:HIP-94114",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-94114",
-        "metallicity_dex": "shared:2003A&A...398.1121E"
+        "metallicity_dex": "shared:2003A&A...398.1121E",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -63833,6 +64682,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.394,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* alf CrA",
+          "sourceRecordId": "HIP 94114",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.356,
+          "upperGyr": 0.446
         }
       ]
     },
@@ -64239,7 +65100,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-95168",
         "radius_solar": "published:1999A&A...352..555A:HIP-95168",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-95168",
-        "metallicity_dex": "gaia-dr3:4084474835781915392"
+        "metallicity_dex": "gaia-dr3:4084474835781915392",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -64295,6 +65157,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "4084474835781915392",
           "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.906,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* rho01 Sgr",
+          "sourceRecordId": "HIP 95168",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.783,
+          "upperGyr": 1.079
         }
       ]
     },
@@ -64326,7 +65200,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-95294",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-95294",
         "radius_solar": "derived:stefan-boltzmann",
-        "metallicity_dex": "shared:2003A&A...398.1121E"
+        "metallicity_dex": "shared:2003A&A...398.1121E",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -64364,6 +65239,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.08,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* bet02 Sgr",
+          "sourceRecordId": "HIP 95294",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.0,
+          "upperGyr": 1.14
         }
       ]
     },
@@ -65016,7 +65903,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-97165",
         "mass_solar": "published:1999A&A...352..555A:HIP-97165",
         "radius_solar": "published:1999A&A...352..555A:HIP-97165",
-        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-97165"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-97165",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -65054,6 +65942,18 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 97165",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.285,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* del Cyg",
+          "sourceRecordId": "HIP 97165",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.258,
+          "upperGyr": 0.321
         }
       ]
     },
@@ -65714,14 +66614,14 @@
         },
         {
           "field": "luminosity_solar",
-          "value": 6.281159346,
+          "value": 6.598334513,
           "status": "inherited",
           "source": "nearest-1000",
           "sourceId": "cns5-4929"
         },
         {
           "field": "radius_solar",
-          "value": 3.090295433,
+          "value": 3.167358769,
           "status": "inherited",
           "source": "nearest-1000",
           "sourceId": "cns5-4929"
@@ -65928,7 +66828,9 @@
       "gaiaDr3Id": "1823067317695766784",
       "adoptedPhysicalFields": {
         "temperature_k": "shared:2025A&A...698A..93J",
-        "metallicity_dex": "shared:2025A&A...698A..93J"
+        "metallicity_dex": "shared:2025A&A...698A..93J",
+        "radius_solar": "shared:2003AJ....126.2502M",
+        "luminosity_solar": "shared:Stefan-Boltzmann scaling"
       },
       "physicalObservations": [
         {
@@ -65954,6 +66856,30 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "radius_solar",
+          "value": 58.92635202,
+          "status": "derived",
+          "reference": "2003AJ....126.2502M",
+          "uncertainty": 0.5868970000339965,
+          "identity": "* gam Sge",
+          "sourceRecordId": "JMDC HD189319",
+          "angularDiameterMas": 6.225,
+          "band": "800nm",
+          "distancePc": 88.04346000325178,
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required"
+        },
+        {
+          "field": "luminosity_solar",
+          "value": 726.6964825,
+          "status": "derived",
+          "reference": "Stefan-Boltzmann scaling",
+          "inputs": {
+            "temperature_k": 3904.0,
+            "radius_solar": 58.92635202
+          }
         }
       ]
     },
@@ -66042,7 +66968,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-98495",
         "radius_solar": "published:1999A&A...352..555A:HIP-98495",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-98495",
-        "metallicity_dex": "gaia-dr3:6368016725517046144"
+        "metallicity_dex": "gaia-dr3:6368016725517046144",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -66089,6 +67016,18 @@
           "source": "Gaia DR3 astrophysical_parameters",
           "sourceId": "6368016725517046144",
           "qualityFlags": "00"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.292,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* eps Pav",
+          "sourceRecordId": "HIP 98495",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.244,
+          "upperGyr": 0.34500000000000003
         }
       ]
     },
@@ -67873,7 +68812,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-102485",
         "radius_solar": "published:1999A&A...352..555A:HIP-102485",
         "luminosity_solar": "derived:stefan-boltzmann",
-        "metallicity_dex": "shared:2018AJ....155..111L"
+        "metallicity_dex": "shared:2018AJ....155..111L",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -67920,6 +68860,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.29,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* psi Cap",
+          "sourceRecordId": "HIP 102485",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.04,
+          "upperGyr": 1.5
         }
       ]
     },
@@ -68224,7 +69176,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-102618",
         "radius_solar": "published:1999A&A...352..555A:HIP-102618",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-102618",
-        "metallicity_dex": "shared:2021MNRAS.505.4496G"
+        "metallicity_dex": "shared:2021MNRAS.505.4496G",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -68274,6 +69227,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.425,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* eps Aqr",
+          "sourceRecordId": "HIP 102618",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.374,
+          "upperGyr": 0.51
         }
       ]
     },
@@ -68980,7 +69945,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-105140",
         "mass_solar": "published:1999A&A...352..555A:HIP-105140",
         "radius_solar": "published:1999A&A...352..555A:HIP-105140",
-        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-105140"
+        "luminosity_solar": "published:2012MNRAS.427..343M:HIP-105140",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -69018,6 +69984,18 @@
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
           "sourceId": "HIP 105140",
           "bibcode": "2012MNRAS.427..343M"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.537,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* eps Mic",
+          "sourceRecordId": "HIP 105140",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.47700000000000004,
+          "upperGyr": 0.617
         }
       ]
     },
@@ -69049,7 +70027,8 @@
         "mass_solar": "bright-stars:bright-alderamin",
         "luminosity_solar": "bright-stars:bright-alderamin",
         "radius_solar": "bright-stars:bright-alderamin",
-        "metallicity_dex": "bright-stars:bright-alderamin"
+        "metallicity_dex": "bright-stars:bright-alderamin",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -69086,6 +70065,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-alderamin"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.939,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* alf Cep",
+          "sourceRecordId": "HIP 105199",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.8130000000000001,
+          "upperGyr": 1.1320000000000001
         }
       ],
       "sharedObjectAdoption": {
@@ -70219,7 +71210,8 @@
       },
       "gaiaDr3Id": null,
       "adoptedPhysicalFields": {
-        "temperature_k": "published:1999A&A...352..555A:HIP-107310"
+        "temperature_k": "published:1999A&A...352..555A:HIP-107310",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -70230,6 +71222,18 @@
           "source": "Allende Prieto & Lambert 1999",
           "sourceId": "HIP 107310",
           "bibcode": "1999A&A...352..555A"
+        },
+        {
+          "field": "age_gyr",
+          "value": 2.59,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* mu. Cyg",
+          "sourceRecordId": "HIP 107310",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.81,
+          "upperGyr": 3.19
         }
       ]
     },
@@ -70933,8 +71937,23 @@
         "reference": "SIMBAD TAP snapshot 2026-10-01"
       },
       "gaiaDr3Id": "6573503732074732288",
-      "adoptedPhysicalFields": {},
-      "physicalObservations": []
+      "adoptedPhysicalFields": {
+        "metallicity_dex": "shared:2023A&A...674A..29R"
+      },
+      "physicalObservations": [
+        {
+          "field": "metallicity_dex",
+          "value": 0.1706086784,
+          "status": "measured",
+          "reference": "2023A&A...674A..29R",
+          "uncertainty": 0.0050000000000000044,
+          "identity": "* lam Gru",
+          "sourceRecordId": "Gaia DR3 6573503732074732288",
+          "quantity": "Gaia DR3 GSP-Spec RVS [M/H], field-star log g calibration",
+          "selection": "All first 13 GSP-Spec flags zero; GSP-Spec Teff 4000-7000 K",
+          "scope": "catalogued stellar object"
+        }
+      ]
     },
     "hip-109139": {
       "hip": 109139,
@@ -72003,7 +73022,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-109427",
         "metallicity_dex": "shared:2023ApJS..266...41P",
-        "radius_solar": "shared:1999A&A...352..555A",
+        "radius_solar": "shared:2012ApJ...746..101B",
+        "age_gyr": "shared:2015ApJ...804..146D",
         "luminosity_solar": "shared:Stefan-Boltzmann scaling"
       },
       "physicalObservations": [
@@ -72030,21 +73050,38 @@
         },
         {
           "field": "radius_solar",
-          "value": 2.344228815,
+          "value": 2.520651004,
+          "status": "derived",
+          "reference": "2012ApJ...746..101B",
+          "uncertainty": 0.049711214705482044,
+          "identity": "* tet Peg",
+          "sourceRecordId": "JMDC HD210418",
+          "angularDiameterMas": 0.862,
+          "band": "K",
+          "distancePc": 27.19771104135638,
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.497,
           "status": "model-derived",
-          "reference": "1999A&A...352..555A",
+          "reference": "2015ApJ...804..146D",
           "uncertainty": null,
           "identity": "* tet Peg",
-          "sourceRecordId": "HIP 109427"
+          "sourceRecordId": "HIP 109427",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.41600000000000004,
+          "upperGyr": 0.639
         },
         {
           "field": "luminosity_solar",
-          "value": 25.97867951,
+          "value": 30.03602878,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 8511.0,
-            "radius_solar": 2.344228815
+            "radius_solar": 2.520651004
           }
         }
       ]
@@ -72611,7 +73648,8 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-110960",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-110960",
-        "radius_solar": "derived:stefan-boltzmann"
+        "radius_solar": "derived:stefan-boltzmann",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -72637,6 +73675,18 @@
           "value": 3.430839890226065,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.2,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* zet Aqr",
+          "sourceRecordId": "HIP 110960",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.1,
+          "upperGyr": 1.3
         }
       ]
     },
@@ -74189,7 +75239,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-113136",
         "radius_solar": "published:1999A&A...352..555A:HIP-113136",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-113136",
-        "metallicity_dex": "shared:1995A&A...294..536H"
+        "metallicity_dex": "shared:1995A&A...294..536H",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -74257,6 +75308,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.547,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* del Aqr",
+          "sourceRecordId": "HIP 113136",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.47600000000000003,
+          "upperGyr": 0.667
         }
       ]
     },
@@ -74379,7 +75442,8 @@
         "mass_solar": "bright-stars:cns5-5665",
         "luminosity_solar": "bright-stars:cns5-5665",
         "radius_solar": "bright-stars:cns5-5665",
-        "metallicity_dex": "bright-stars:cns5-5665"
+        "metallicity_dex": "bright-stars:cns5-5665",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -74416,6 +75480,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "cns5-5665"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.522,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* alf PsA",
+          "sourceRecordId": "HIP 113368",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.455,
+          "upperGyr": 0.616
         }
       ],
       "componentAssociation": {
@@ -74955,7 +76031,8 @@
         "mass_solar": "bright-stars:bright-markab",
         "luminosity_solar": "bright-stars:bright-markab",
         "radius_solar": "bright-stars:bright-markab",
-        "metallicity_dex": "bright-stars:bright-markab"
+        "metallicity_dex": "bright-stars:bright-markab",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -74992,6 +76069,18 @@
           "status": "inherited",
           "source": "bright-stars",
           "sourceId": "bright-markab"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.317,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* alf Peg",
+          "sourceRecordId": "HIP 113963",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.266,
+          "upperGyr": 0.398
         }
       ],
       "sharedObjectAdoption": {
@@ -75414,7 +76503,7 @@
       "adoptedPhysicalFields": {
         "temperature_k": "published:1999A&A...352..555A:HIP-114971",
         "metallicity_dex": "shared:2024A&A...691A..53S",
-        "radius_solar": "shared:1999A&A...352..555A",
+        "radius_solar": "shared:2018AJ....155...30B",
         "luminosity_solar": "shared:Stefan-Boltzmann scaling"
       },
       "physicalObservations": [
@@ -75441,21 +76530,26 @@
         },
         {
           "field": "radius_solar",
-          "value": 9.54992586,
-          "status": "model-derived",
-          "reference": "1999A&A...352..555A",
-          "uncertainty": null,
+          "value": 11.00381943,
+          "status": "derived",
+          "reference": "2018AJ....155...30B",
+          "uncertainty": 0.05320138321776984,
           "identity": "* gam Psc",
-          "sourceRecordId": "HIP 114971"
+          "sourceRecordId": "JMDC HD219615",
+          "angularDiameterMas": 2.482,
+          "band": "550..850nm",
+          "distancePc": 41.235245000565676,
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required"
         },
         {
           "field": "luminosity_solar",
-          "value": 51.84882986,
+          "value": 68.83762369,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 5012.0,
-            "radius_solar": 9.54992586
+            "radius_solar": 11.00381943
           }
         }
       ]
@@ -75489,7 +76583,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-114996",
         "radius_solar": "published:1999A&A...352..555A:HIP-114996",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-114996",
-        "metallicity_dex": "shared:2023ApJS..266...11B"
+        "metallicity_dex": "shared:2023ApJS..266...11B",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -75557,6 +76652,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.62,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* gam Tuc",
+          "sourceRecordId": "HIP 114996",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.29,
+          "upperGyr": 1.98
         }
       ]
     },
@@ -76465,7 +77572,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-116928",
         "radius_solar": "published:1999A&A...352..555A:HIP-116928",
         "luminosity_solar": "derived:stefan-boltzmann",
-        "metallicity_dex": "shared:2016A&A...589A..83G"
+        "metallicity_dex": "shared:2016A&A...589A..83G",
+        "age_gyr": "shared:2015ApJ...804..146D"
       },
       "physicalObservations": [
         {
@@ -76512,6 +77620,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.782,
+          "status": "model-derived",
+          "reference": "2015ApJ...804..146D",
+          "uncertainty": null,
+          "identity": "* lam Psc",
+          "sourceRecordId": "HIP 116928",
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "lowerGyr": 0.65,
+          "upperGyr": 1.012
         }
       ]
     },
@@ -76543,7 +77663,8 @@
         "temperature_k": "published:1999A&A...352..555A:HIP-118268",
         "luminosity_solar": "gaia-dr3:2745491430891511168",
         "radius_solar": "derived:stefan-boltzmann",
-        "metallicity_dex": "shared:2018A&A...614A..55A"
+        "metallicity_dex": "shared:2018A&A...614A..55A",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -76617,6 +77738,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
+        },
+        {
+          "field": "age_gyr",
+          "value": 1.26,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* ome Psc",
+          "sourceRecordId": "HIP 118268",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 1.19,
+          "upperGyr": 1.32
         }
       ]
     },
@@ -78799,7 +79932,7 @@
           },
           "cns5Id": "1323",
           "fieldStatus": {
-            "absolute_mag": "unknown",
+            "absolute_mag": "derived-from-gaia-photometry",
             "age_gyr": "unknown",
             "luminosity_solar": "model-derived",
             "mass_solar": "unknown",
@@ -81570,7 +82703,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-62763",
         "radius_solar": "published:1999A&A...352..555A:HIP-62763",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-62763",
-        "metallicity_dex": "shared:2022A&A...663A...4S"
+        "metallicity_dex": "shared:2022A&A...663A...4S",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -81638,6 +82772,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.4,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* 31 Com",
+          "sourceRecordId": "HIP 62763",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 0.37,
+          "upperGyr": 0.43
         }
       ]
     },

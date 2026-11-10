@@ -3,14 +3,14 @@
   "policy": "Values come from the frozen SIMBAD mesFe_h snapshots through exact SIMBAD identities in object-designations.json; no positional matching. A SIMBAD record shared by objects listed together in one catalog, such as unresolved components, cannot be assigned to one of them and is withheld. Each value is one paper's measurement, selected as the newest within 0.3 dex of a strict-majority median, never an average. SIMBAD's log_g column also holds grid points, mis-ingested quantities such as negative values for nearby dwarfs, and constants that abundance analyses assumed. Measurements outside the range plausible for the object's type and luminosity class, and papers that report one value for nearly every star, are therefore not candidates.",
   "sourceChecksumsSha256": {
     "src/data/stars.csv": "44288f83123f36b349c58a72e4ae23608ec242e5ff25850fabf6a42ca2ae616a",
-    "src/data/catalogs/naked-eye-stars/stars.csv": "75949f11269d871865ba7e7f023ae82836c3185dbd22130589280108758f6db9",
-    "src/data/catalogs/nearest-100/stars.csv": "1c0c4328f493832e2f817492d4811ca964c5f00bfadf3ad597f05d752bf570e8",
-    "src/data/catalogs/nearest-1000/stars.csv": "a51135a802ace201e2b2b1b821118794b748131fec726556abd63e9e9ed8db55",
-    "src/data/catalogs/nearest-5000/stars.csv": "aecd1e069a50c92093aa2529de8600b375c3379f09ca9a0f27b61978f4314627",
+    "src/data/catalogs/naked-eye-stars/stars.csv": "9212bdef36cf17336f7e03dec3e8df94fdcaa6d523c62a13d4fc071c53e630b3",
+    "src/data/catalogs/nearest-100/stars.csv": "d5a025666750b798e5ba991436b5a3656f6aea4a2ad7a50cb795aa752c0259f8",
+    "src/data/catalogs/nearest-1000/stars.csv": "bfe66cbcd8288c51e2f17f4ffd12f3661605c2dee22f4f42cdc6d2d776ceb182",
+    "src/data/catalogs/nearest-5000/stars.csv": "f911ed7c55e6c1d2a76174af123a9d324c300b849e72009fa80488f8d642aaa0",
     "src/data/catalogs/notable-distant-stars/stars.csv": "afed253f44340a6d0a4057b91ab1554fba16f1c106e76e54a8660b016bfdbd36",
-    "src/data/catalogs/western-constellation-stars/stars.csv": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d",
-    "src/data/stellar-companions.json": "fae689ce992738645b032e6259501038853674a2f3b991cdf50755e576342b7b",
-    "src/data/object-designations.json": "ef136a3011057e8faf9c216b093cafdd8907569b846ab40e43409656f9f845b7",
+    "src/data/catalogs/western-constellation-stars/stars.csv": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748",
+    "src/data/stellar-companions.json": "534fc8436d4c2014944197f576a021f32d83ba6032c686ad48d8ee7c7adf4a11",
+    "src/data/object-designations.json": "d40dce52f15c9edc735b738d6814c093d1b324749c2866fea5a933c55a1b6e34",
     "catalog-work/reviewed-data-retirements.json": "1beadb9ece5bc3b9e10fd7ff0822a04f542ec17763ec1b1283f7b457cb4ae526",
     "catalog-work/nearest-1000/simbad.csv": "0d1ab9881afdfbbac62ea7d05d31cb0d8ca4c4235a4b14eb3d0e5b789a932dbd",
     "catalog-work/nearest-5000/simbad.csv": "d9810d3115ecb453f3566eb0c97afbace55f19b9b1efd942e4d51ef2766b4935",
@@ -738,12 +738,6 @@
       "source_record_id": "CD-27 16:mesFe_h:1",
       "measurements": 3,
       "scatter_dex": 0.05
-    },
-    "cns5-0044": {
-      "log_g": 1.0,
-      "reference": "2020AJ....160...83S",
-      "source_record_id": "WT 1064:mesFe_h:1",
-      "measurements": 2
     },
     "cns5-0045": {
       "log_g": 4.412,

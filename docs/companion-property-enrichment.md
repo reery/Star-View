@@ -60,7 +60,7 @@ The [property coverage report](../catalog-work/star-systems/companion-property-c
 The review is applied by `scripts/catalog_sources/component_enrichment.py` after splitting and before catalog serialization. It guards stable names and exact Gaia identities, verifies frozen input hashes, fills blank fields, permits explicit corrections only when the expected previous value and abundance kind match, and records superseded values/sources and withholding decisions. Reproduce with:
 
 ```sh
-/tmp/star-view-catalog-venv311/bin/python scripts/author-nearest1000.py build --force
+python3 scripts/author-nearest1000.py build --force
 python3 scripts/author-bright-stars.py --write
 python3 scripts/author-landmark-stars.py --write
 python3 scripts/audit-star-systems.py

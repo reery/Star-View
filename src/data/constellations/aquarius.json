@@ -26,7 +26,7 @@
         "luminosity_solar": 146.56922191912264,
         "radius_solar": 4.677351412871983,
         "metallicity_dex": 0.25,
-        "age_gyr": null,
+        "age_gyr": 0.425,
         "absolute_mag": -0.58301,
         "epoch": 2000.0,
         "type": "star",
@@ -35,7 +35,7 @@
         "constellation": "Aquarius",
         "spectral_type": "B9.5V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 102618; Stellarium Aqr). SIMBAD identity * eps Aqr; SIMBAD compiled Johnson V=3.77; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2021MNRAS.505.4496G).",
+        "notes": "Western constellation line-figure star (HIP 102618; Stellarium Aqr). SIMBAD identity * eps Aqr; SIMBAD compiled Johnson V=3.77; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2021MNRAS.505.4496G; age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 102618"
         ],
@@ -320,7 +320,7 @@
         "luminosity_solar": 22.1584488814342,
         "radius_solar": 3.43084,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 1.2,
         "absolute_mag": 1.401142,
         "epoch": 2000.0,
         "type": "star",
@@ -329,7 +329,7 @@
         "constellation": "Aquarius",
         "spectral_type": "F2V++F2.5IV-V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 110960; Stellarium Aqr). SIMBAD identity * zet Aqr; SIMBAD compiled Johnson V=3.65; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar.",
+        "notes": "Western constellation line-figure star (HIP 110960; Stellarium Aqr). SIMBAD identity * zet Aqr; SIMBAD compiled Johnson V=3.65; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (age_gyr: 2011A&A...530A.138C).",
         "designations": [
           "HIP 110960"
         ],
@@ -565,7 +565,7 @@
         "luminosity_solar": 71.83649013706209,
         "radius_solar": 4.265795188015927,
         "metallicity_dex": -0.15,
-        "age_gyr": null,
+        "age_gyr": 0.547,
         "absolute_mag": 0.08796,
         "epoch": 2000.0,
         "type": "star",
@@ -574,7 +574,7 @@
         "constellation": "Aquarius",
         "spectral_type": "A3Vp",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 113136; Stellarium Aqr). SIMBAD identity * del Aqr; SIMBAD compiled Johnson V=3.28; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 1995A&A...294..536H).",
+        "notes": "Western constellation line-figure star (HIP 113136; Stellarium Aqr). SIMBAD identity * del Aqr; SIMBAD compiled Johnson V=3.28; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 1995A&A...294..536H; age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 113136"
         ],
@@ -1736,7 +1736,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",
