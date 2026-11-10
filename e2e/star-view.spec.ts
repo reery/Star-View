@@ -984,8 +984,8 @@ test('switches between real and exaggerated star colors and remembers the prefer
   await openViewer(page)
   await showMotionArrows(page)
   await openPreferences(page)
-  const exaggerated = page.getByRole('radio', { name: 'Exaggerated', exact: true })
-  const real = page.getByRole('radio', { name: 'Real', exact: true })
+  const exaggerated = page.locator('#star-colors').getByRole('radio', { name: 'Exaggerated', exact: true })
+  const real = page.locator('#star-colors').getByRole('radio', { name: 'Realistic', exact: true })
   // The selected swatch is a rendered preview; its color comes from the inspector variable.
   const selectedColor = () => page.locator('#inspector').evaluate((element) => element.style.getPropertyValue('--selected-star-color').replace(/\s/g, ''))
   await expect(exaggerated).toBeChecked()

@@ -11,6 +11,8 @@ export type StarStyle = 'exaggerated' | 'realistic'
 export const STAR_STYLES: readonly StarStyle[] = ['exaggerated', 'realistic']
 export type StarBrightness = 'normal' | 'high'
 export const STAR_BRIGHTNESSES: readonly StarBrightness[] = ['normal', 'high']
+/** Lifted faint stars stay visible on the realistic map once it is zoomed in. */
+export type FaintStars = 'natural' | 'lifted'
 
 /** Stars show one magnitude brighter at normal brightness and two at high; pulsar, neutron star and black hole icons are symbols and stay. */
 export function displayMagnitude(magnitude: number | null, star: Pick<Star, 'type'>, brightness: StarBrightness): number | null {
@@ -38,6 +40,8 @@ const PSF = {
   // Light beyond −1.5 mag compresses smoothly towards −3 mag, so a companion's glare seen
   // from its neighbor (Rigel A from Rigel Ba is about −22 mag) stays a star, not a clipped disc.
   brightFlux: 10 ** 0.6, brightRangeMagnitudes: 1.5,
+  // Lifted faint stars: magnitudes fainter than 4 compress to a fifth of their distance from it (11 mag shows as 5.4).
+  faintKneeFlux: 10 ** -1.6, faintSqueeze: 0.2,
   // Overlapping stars converge to 1 / crowdOpacity of full brightness, a glow rather than white.
   crowdOpacity: 1.35,
   spikeWeight: 0.0009, spikeWidth: 0.45, spikeLength: 7, cutoff: 0.004, maxRadius: 64,
@@ -50,7 +54,7 @@ export function createStarAppearance(starViewDistance: { value: number }, select
   const selection = selectionEnabled ? 'selectionEmphasis' : '0.0'
   // Only the map switches to realistic stars; the distance card keeps the defaults.
   // A magnifying view gathers light like an aperture: zoom² more flux per star, while the sky's surface brightness stays.
-  const realism = { starRealism: { value: 0 }, starCrowdCoverage: { value: 1 }, starPixelRatio: { value: 1 }, starZoomGain: { value: 1 } }
+  const realism = { starRealism: { value: 0 }, starCrowdCoverage: { value: 1 }, starPixelRatio: { value: 1 }, starZoomGain: { value: 1 }, starFaintLift: { value: 0 } }
   // Magnitude already includes the source's distance. Only zooming out of the
   // map adds display restraint; point depth must not attenuate the light again.
   const textureCanvas = document.createElement('canvas')
@@ -74,7 +78,7 @@ export function createStarAppearance(starViewDistance: { value: number }, select
   starMaterial.onBeforeCompile = (shader) => {
     shader.uniforms.starViewDistance = starViewDistance
     Object.assign(shader.uniforms, realism)
-    const psfVaryings = 'uniform float starRealism;\nuniform float starCrowdCoverage;\nuniform float starPixelRatio;\nuniform float starZoomGain;\nvarying float vPsfPeak;\nvarying float vPsfSpike;\nvarying float vPsfRadius;'
+    const psfVaryings = 'uniform float starRealism;\nuniform float starCrowdCoverage;\nuniform float starPixelRatio;\nuniform float starZoomGain;\nuniform float starFaintLift;\nvarying float vPsfPeak;\nvarying float vPsfSpike;\nvarying float vPsfRadius;'
     shader.vertexShader = `${selectionAttribute}\n${psfVaryings}\nuniform float starViewDistance;\nattribute float starFlux;\nattribute float coreDiameter;\nattribute float coreEmphasis;\nattribute float coreWhiteStrength;\nattribute float coreShape;\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\nvarying float vCoreShape;\n${shader.vertexShader}`
       .replace('gl_PointSize = size;', `float coreOverviewRatio = pow(min(1.0, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC})), ${STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER});
       float coreViewScale = max(${STAR_CORE_MIN_VIEW_SCALE}, sqrt(coreOverviewRatio));
@@ -91,6 +95,10 @@ export function createStarAppearance(starViewDistance: { value: number }, select
         if (psfFlux > ${glsl(PSF.brightFlux)}) {
           float excessMagnitudes = 1.0857362 * log(psfFlux / ${glsl(PSF.brightFlux)});
           psfFlux = ${glsl(PSF.brightFlux)} * pow(10.0, 0.4 * ${glsl(PSF.brightRangeMagnitudes)} * (1.0 - exp(-excessMagnitudes / ${glsl(PSF.brightRangeMagnitudes)})));
+        }
+        // The lift fades in as the map zooms in, so the overview keeps natural brightness; faint stars keep their order.
+        if (starFaintLift > 0.5 && psfFlux < ${glsl(PSF.faintKneeFlux)}) {
+          psfFlux = ${glsl(PSF.faintKneeFlux)} * pow(psfFlux / ${glsl(PSF.faintKneeFlux)}, mix(1.0, ${glsl(PSF.faintSqueeze)}, coreOverviewRatio));
         }
         psfFlux = max(psfFlux, ${glsl(PSF.selectedFlux)} * ${selection});
         vPsfPeak = max(psfFlux * ${glsl(PSF.peakPerFlux)}, ${glsl(PSF.minPeak)});
@@ -203,5 +211,5 @@ export function createStarAppearance(starViewDistance: { value: number }, select
     starMaterial.depthWrite = !realistic
     starMaterial.alphaTest = realistic ? 0.002 : 0.2
   }
-  return { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle, pixelRatio: realism.starPixelRatio, crowdCoverage: realism.starCrowdCoverage, zoomGain: realism.starZoomGain }
+  return { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle, pixelRatio: realism.starPixelRatio, crowdCoverage: realism.starCrowdCoverage, zoomGain: realism.starZoomGain, faintLift: realism.starFaintLift }
 }
