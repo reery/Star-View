@@ -13,7 +13,7 @@ import json
 import subprocess
 from pathlib import Path
 
-from catalog_sources.preservation import lost_fields, pool_losses, reviewed_fields, reviewed_record_removal
+from catalog_sources.preservation import catalog_withheld, lost_fields, pool_losses, reviewed_fields, reviewed_record_removal, unretained
 
 ROOT = Path(__file__).resolve().parents[1]
 POOL = "src/data/stellar-companions.json"
@@ -32,6 +32,7 @@ def audit(base):
     retirements = retirement_review["retirements"]
     reviewed = 0
     migrations = json.loads((ROOT / "catalog-work/catalog-migrations.json").read_text())["migrations"]
+    withheld = catalog_withheld(ROOT)
 
     for path in paths:
         old = list(csv.DictReader(io.StringIO(previous(path))))
@@ -45,6 +46,7 @@ def audit(base):
         # A migration may name the surviving ID of the same object in its target.
         id_map = {**(maps := json.loads((ROOT / migration["idMapPath"]).read_text()))["ids"], **maps["sharedIds"]} if migration and migration.get("idMapPath") else {}
         new = {row["id"]: row for row in csv.DictReader(io.StringIO(new_path.read_text()))} if new_path.exists() else {}
+        catalog_retained = withheld.get(new_path.parent.name, {})
         for record in old:
             rows += 1
             identifier = id_map.get(record["id"], record["id"])
@@ -56,6 +58,8 @@ def audit(base):
                 errors.append(f"{path}/{identifier}: missing record")
                 continue
             missing = lost_fields(record, new[identifier])
+            # A valid value superseded by a more accurate one may leave the record while provenance keeps it with its reason.
+            missing = unretained(missing, record, catalog_retained.get(identifier, {}))
             remaining = reviewed_fields(path, identifier, record, new[identifier], missing, retirements)
             reviewed += len(missing) - len(remaining)
             missing = remaining
@@ -64,8 +68,8 @@ def audit(base):
     old_pool = json.loads(previous(POOL))
     new_pool = json.loads((ROOT / POOL).read_text())
     rows += len(old_pool["stars"])
-    pool_errors = pool_losses(old_pool, new_pool, retirements)
-    reviewed += len(pool_losses(old_pool, new_pool, [])) - len(pool_errors)
+    pool_errors = pool_losses(old_pool, new_pool, retirements, withheld)
+    reviewed += len(pool_losses(old_pool, new_pool, [], withheld)) - len(pool_errors)
     errors.extend(f"{POOL}/{error}" for error in pool_errors)
     return rows, errors, reviewed
 

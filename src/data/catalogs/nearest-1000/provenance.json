@@ -10945,14 +10945,14 @@
   ],
   "catalogId": "nearest-1000",
   "coverage": {
-    "absolute_mag": 566,
-    "age_gyr": 36,
+    "absolute_mag": 657,
+    "age_gyr": 41,
     "constellation": 1036,
-    "luminosity_solar": 715,
+    "luminosity_solar": 718,
     "mass_solar": 669,
     "metallicity_dex": 606,
     "radial_velocity_kms": 712,
-    "radius_solar": 735,
+    "radius_solar": 738,
     "spectral_type": 977,
     "temperature_k": 911
   },
@@ -13749,14 +13749,18 @@
           "value": -0.21
         },
         "radius_solar": {
+          "angularDiameterMas": 1.254,
+          "band": "K",
+          "distancePc": 5.763456344432863,
           "field": "radius_solar",
-          "inputs": {
-            "luminosity_solar": 0.43389577,
-            "temperature_k": 5289.0
-          },
-          "reference": "Stefan-Boltzmann scaling",
+          "identity": "* sig Dra",
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2008ApJ...683..424B",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD185144",
           "status": "derived",
-          "value": 0.7845095215
+          "uncertainty": 0.006816301495608481,
+          "value": 0.7770583705
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -14261,14 +14265,18 @@
           "value": 0.01
         },
         "radius_solar": {
+          "angularDiameterMas": 1.23,
+          "band": "K",
+          "distancePc": 5.885921660638467,
           "field": "radius_solar",
-          "inputs": {
-            "luminosity_solar": 0.2294845,
-            "temperature_k": 4660.0
-          },
-          "reference": "Stefan-Boltzmann scaling",
+          "identity": "HD 131977",
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2004A&A...426..297K",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD131977",
           "status": "derived",
-          "value": 0.7349494855
+          "uncertainty": 0.01898492259795616,
+          "value": 0.7783818265
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -15862,7 +15870,7 @@
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "reviewed-literature-override",
-        "radius_solar": "model-derived",
+        "radius_solar": "derived",
         "temperature_k": "measured"
       },
       "gaiaDr3Id": "425040000962559616",
@@ -16050,13 +16058,18 @@
           "value": 0.9
         },
         "radius_solar": {
+          "angularDiameterMas": 1.623,
+          "band": "K",
+          "distancePc": 5.922904795008456,
           "field": "radius_solar",
           "identity": "* eta Cas",
-          "reference": "1999A&A...352..555A",
-          "sourceRecordId": "HIP 3821",
-          "status": "model-derived",
-          "uncertainty": null,
-          "value": 1.047128548
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2012ApJ...746..101B",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD4614A",
+          "status": "derived",
+          "uncertainty": 0.0025472281277605178,
+          "value": 1.033537813
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -18628,6 +18641,18 @@
         }
       },
       "sharedPhysicalEnrichment": {
+        "age_gyr": {
+          "field": "age_gyr",
+          "identity": "* del Pav",
+          "lowerGyr": 10.9,
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "reference": "2011A&A...530A.138C",
+          "sourceRecordId": "HIP 99240",
+          "status": "model-derived",
+          "uncertainty": null,
+          "upperGyr": 12.56,
+          "value": 12.19
+        },
         "mass_solar": {
           "field": "mass_solar",
           "identity": "* del Pav",
@@ -20579,7 +20604,7 @@
       },
       "cns5Id": "2293",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -20799,7 +20824,7 @@
       },
       "cns5Id": "2295",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -22633,11 +22658,11 @@
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
         "age_gyr": "unknown",
-        "luminosity_solar": "unknown",
+        "luminosity_solar": "derived",
         "mass_solar": "unknown",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
-        "radius_solar": "unknown",
+        "radius_solar": "derived",
         "temperature_k": "measured"
       },
       "gaiaDr3Id": "2009481748875806976",
@@ -22667,6 +22692,16 @@
         "status": "compiled-cns5"
       },
       "sharedPhysicalEnrichment": {
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "inputs": {
+            "radius_solar": 0.7779348984,
+            "temperature_k": 4907.0
+          },
+          "reference": "Stefan-Boltzmann scaling",
+          "status": "derived",
+          "value": 0.3161152527
+        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "identity": "HD 219134",
@@ -22678,6 +22713,20 @@
           "status": "measured",
           "uncertainty": null,
           "value": 0.24
+        },
+        "radius_solar": {
+          "angularDiameterMas": 1.106,
+          "band": "K",
+          "distancePc": 6.542067622661361,
+          "field": "radius_solar",
+          "identity": "HD 219134",
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2012ApJ...757..112B",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD219134",
+          "status": "derived",
+          "uncertainty": 0.004923638597626413,
+          "value": 0.7779348984
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -25684,7 +25733,7 @@
       },
       "cns5Id": "5164",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -25936,7 +25985,7 @@
       },
       "cns5Id": "5362",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -26758,7 +26807,7 @@
       },
       "cns5Id": "659",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -27010,13 +27059,13 @@
       },
       "cns5Id": "658",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
-        "luminosity_solar": "unknown",
+        "luminosity_solar": "derived",
         "mass_solar": "unknown",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
-        "radius_solar": "unknown",
+        "radius_solar": "derived",
         "temperature_k": "measured"
       },
       "gaiaDr3Id": "19316224572460416",
@@ -27046,6 +27095,16 @@
         "status": "compiled-cns5"
       },
       "sharedPhysicalEnrichment": {
+        "luminosity_solar": {
+          "field": "luminosity_solar",
+          "inputs": {
+            "radius_solar": 0.8004565274,
+            "temperature_k": 4583.0
+          },
+          "reference": "Stefan-Boltzmann scaling",
+          "status": "derived",
+          "value": 0.254665222
+        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "identity": "HD 16160",
@@ -27057,6 +27116,20 @@
           "status": "measured",
           "uncertainty": null,
           "value": -0.13
+        },
+        "radius_solar": {
+          "angularDiameterMas": 1.03,
+          "band": "K",
+          "distancePc": 7.228154504022924,
+          "field": "radius_solar",
+          "identity": "HD 16160",
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2012ApJ...757..112B",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD16160",
+          "status": "derived",
+          "uncertainty": 0.005439995817581701,
+          "value": 0.8004565274
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -28144,7 +28217,7 @@
       "cns5Id": "125",
       "fieldStatus": {
         "absolute_mag": "adopted",
-        "age_gyr": "unknown",
+        "age_gyr": "model-derived",
         "astrometry_epoch": "adopted",
         "astrometry_ref": "adopted",
         "constellation": "adopted",
@@ -28257,6 +28330,18 @@
         }
       },
       "sharedPhysicalEnrichment": {
+        "age_gyr": {
+          "field": "age_gyr",
+          "identity": "* bet Hyi",
+          "lowerGyr": 5.63,
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "reference": "2011A&A...530A.138C",
+          "sourceRecordId": "HIP 2021",
+          "status": "model-derived",
+          "uncertainty": null,
+          "upperGyr": 6.24,
+          "value": 5.94
+        },
         "luminosity_solar": {
           "field": "luminosity_solar",
           "inputs": {
@@ -29781,7 +29866,7 @@
       },
       "cns5Id": "5445",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "derived",
         "mass_solar": "empirical-relation",
@@ -30953,6 +31038,18 @@
         }
       },
       "sharedPhysicalEnrichment": {
+        "age_gyr": {
+          "field": "age_gyr",
+          "identity": "* alf Lyr",
+          "lowerGyr": 0.366,
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "reference": "2015ApJ...804..146D",
+          "sourceRecordId": "HIP 91262",
+          "status": "model-derived",
+          "uncertainty": null,
+          "upperGyr": 0.5,
+          "value": 0.416
+        },
         "luminosity_solar": {
           "field": "luminosity_solar",
           "inputs": {
@@ -31149,6 +31246,18 @@
         }
       },
       "sharedPhysicalEnrichment": {
+        "age_gyr": {
+          "field": "age_gyr",
+          "identity": "* alf PsA",
+          "lowerGyr": 0.455,
+          "method": "Str\u00f6mgren-photometry isochrone median and 68 percent range",
+          "reference": "2015ApJ...804..146D",
+          "sourceRecordId": "HIP 113368",
+          "status": "model-derived",
+          "uncertainty": null,
+          "upperGyr": 0.616,
+          "value": 0.522
+        },
         "luminosity_solar": {
           "field": "luminosity_solar",
           "inputs": {
@@ -31641,7 +31750,7 @@
       },
       "cns5Id": "1499",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -34085,7 +34194,7 @@
         "radial_velocity_error_kms": "adopted",
         "radial_velocity_kms": "adopted",
         "radial_velocity_ref": "adopted",
-        "radius_solar": "model-derived",
+        "radius_solar": "derived",
         "temperature_k": "measured",
         "vx_kms": "adopted",
         "vy_kms": "adopted",
@@ -34281,13 +34390,18 @@
           "value": 0.03
         },
         "radius_solar": {
+          "angularDiameterMas": 1.526,
+          "band": "K",
+          "distancePc": 8.068025553106859,
           "field": "radius_solar",
           "identity": "* pi.03 Ori",
-          "reference": "1999A&A...352..555A",
-          "sourceRecordId": "HIP 22449",
-          "status": "model-derived",
-          "uncertainty": null,
-          "value": 1.318256739
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2012ApJ...746..101B",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD30652",
+          "status": "derived",
+          "uncertainty": 0.0034697673414713485,
+          "value": 1.323716241
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -34641,7 +34755,7 @@
       },
       "cns5Id": "5067",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -36636,7 +36750,7 @@
       },
       "cns5Id": "288",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -38483,7 +38597,7 @@
       },
       "cns5Id": "1591",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -46402,7 +46516,7 @@
         "radial_velocity_error_kms": "unknown",
         "radial_velocity_kms": "adopted",
         "radial_velocity_ref": "adopted",
-        "radius_solar": "model-derived",
+        "radius_solar": "derived",
         "temperature_k": "measured",
         "vx_kms": "adopted",
         "vy_kms": "adopted",
@@ -46499,12 +46613,12 @@
         "luminosity_solar": {
           "field": "luminosity_solar",
           "inputs": {
-            "radius_solar": 2.454708916,
+            "radius_solar": 2.319258438,
             "temperature_k": 4982.0
           },
           "reference": "Stefan-Boltzmann scaling",
           "status": "derived",
-          "value": 3.344333685
+          "value": 2.985436882
         },
         "mass_solar": {
           "field": "mass_solar",
@@ -46528,13 +46642,18 @@
           "value": 0.016
         },
         "radius_solar": {
+          "angularDiameterMas": 2.386,
+          "band": "2.178",
+          "distancePc": 9.040773884422656,
           "field": "radius_solar",
           "identity": "* del Eri",
-          "reference": "1999A&A...352..555A",
-          "sourceRecordId": "HIP 17378",
-          "status": "model-derived",
-          "uncertainty": null,
-          "value": 2.454708916
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2005A&A...436..253T",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD23249",
+          "status": "derived",
+          "uncertainty": 0.018468529054194136,
+          "value": 2.319258438
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -47308,7 +47427,7 @@
       },
       "cns5Id": "5439",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -48451,14 +48570,18 @@
           "value": -1.33
         },
         "radius_solar": {
+          "angularDiameterMas": 0.597,
+          "band": "600..900nm",
+          "distancePc": 9.170571091224938,
           "field": "radius_solar",
-          "inputs": {
-            "luminosity_solar": 0.2274778,
-            "temperature_k": 5235.0
-          },
-          "reference": "Stefan-Boltzmann scaling",
+          "identity": "HD 103095",
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2020A&A...640A..25K",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD103095",
           "status": "derived",
-          "value": 0.5798141135
+          "uncertainty": 0.003943932485776561,
+          "value": 0.5886319235
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -49787,7 +49910,7 @@
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
-        "radius_solar": "model-derived",
+        "radius_solar": "derived",
         "temperature_k": "measured"
       },
       "gaiaDr3Id": "3269362645115584640",
@@ -49820,12 +49943,12 @@
         "luminosity_solar": {
           "field": "luminosity_solar",
           "inputs": {
-            "radius_solar": 0.9120108394,
+            "radius_solar": 0.9334821769,
             "temperature_k": 5645.0
           },
           "reference": "Stefan-Boltzmann scaling",
           "status": "derived",
-          "value": 0.7609401425
+          "value": 0.7971913102
         },
         "mass_solar": {
           "field": "mass_solar",
@@ -49849,13 +49972,18 @@
           "value": 0.08
         },
         "radius_solar": {
+          "angularDiameterMas": 0.936,
+          "band": "K",
+          "distancePc": 9.275921891462096,
           "field": "radius_solar",
           "identity": "* kap01 Cet",
-          "reference": "1999A&A...352..555A",
-          "sourceRecordId": "HIP 15457",
-          "status": "model-derived",
-          "uncertainty": null,
-          "value": 0.9120108394
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2012ApJ...746..101B",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD20630",
+          "status": "derived",
+          "uncertainty": 0.023935440433978532,
+          "value": 0.9334821769
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -50744,7 +50872,7 @@
       },
       "cns5Id": "3454",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -51777,7 +51905,7 @@
       },
       "cns5Id": "1527",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -55107,7 +55235,7 @@
       },
       "cns5Id": "4335",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "unknown",
@@ -57152,7 +57280,7 @@
       },
       "cns5Id": "289",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -58011,14 +58139,18 @@
           "value": 0.01
         },
         "radius_solar": {
+          "angularDiameterMas": 0.724,
+          "band": "K",
+          "distancePc": 9.894157813921543,
           "field": "radius_solar",
-          "inputs": {
-            "luminosity_solar": 0.46337712,
-            "temperature_k": 5248.0
-          },
-          "reference": "Stefan-Boltzmann scaling",
+          "identity": "* 12 Oph",
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2012ApJ...757..112B",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD149661",
           "status": "derived",
-          "value": 0.8234406168
+          "uncertainty": 0.011701582986737475,
+          "value": 0.7701769166
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -60503,7 +60635,7 @@
       },
       "cns5Id": "647",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -61519,7 +61651,7 @@
       },
       "cns5Id": "2509",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -61896,7 +62028,7 @@
       },
       "cns5Id": "2617",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -62148,7 +62280,7 @@
       },
       "cns5Id": "3451",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "unknown",
@@ -63953,7 +64085,7 @@
       "cns5Id": "1526",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "unknown",
+        "age_gyr": "model-derived",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -64045,6 +64177,18 @@
         "status": "compiled-cns5"
       },
       "sharedPhysicalEnrichment": {
+        "age_gyr": {
+          "field": "age_gyr",
+          "identity": "* alf Men",
+          "lowerGyr": 6.46,
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "reference": "2011A&A...530A.138C",
+          "sourceRecordId": "HIP 29271",
+          "status": "model-derived",
+          "uncertainty": null,
+          "upperGyr": 11.23,
+          "value": 8.86
+        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "identity": "* alf Men",
@@ -71242,7 +71386,7 @@
       },
       "cns5Id": "786",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "model-derived",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
@@ -72396,7 +72540,7 @@
       },
       "cns5Id": "1775",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -72567,7 +72711,7 @@
       },
       "cns5Id": "4808",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "unknown",
@@ -73112,7 +73256,7 @@
       },
       "cns5Id": "4898",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "estimated",
@@ -73688,7 +73832,7 @@
       },
       "cns5Id": "5135",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "derived",
         "mass_solar": "empirical-relation",
@@ -75309,7 +75453,7 @@
       },
       "cns5Id": "3994",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -75693,7 +75837,7 @@
       },
       "cns5Id": "3993",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -76156,7 +76300,7 @@
       },
       "cns5Id": "583",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "unknown",
         "mass_solar": "unknown",
@@ -79528,7 +79672,7 @@
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
-        "radius_solar": "model-derived",
+        "radius_solar": "derived",
         "temperature_k": "measured"
       },
       "gaiaDr3Id": "3796442680948579328",
@@ -79649,13 +79793,18 @@
           "value": 0.183
         },
         "radius_solar": {
+          "angularDiameterMas": 1.431,
+          "band": "K",
+          "distancePc": 10.928954699838828,
           "field": "radius_solar",
           "identity": "* bet Vir",
-          "reference": "1999A&A...352..555A",
-          "sourceRecordId": "HIP 57757",
-          "status": "model-derived",
-          "uncertainty": null,
-          "value": 1.445439771
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2012ApJ...746..101B",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD102870",
+          "status": "derived",
+          "uncertainty": 0.007050224961047229,
+          "value": 1.681478653
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -79916,7 +80065,7 @@
       },
       "cns5Id": "3360",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -81839,12 +81988,12 @@
         "luminosity_solar": {
           "field": "luminosity_solar",
           "inputs": {
-            "radius_solar": 1.621810097,
+            "radius_solar": 1.583587263,
             "temperature_k": 8421.0
           },
           "reference": "Stefan-Boltzmann scaling",
           "status": "derived",
-          "value": 11.91651817
+          "value": 11.36144001
         },
         "mass_solar": {
           "field": "mass_solar",
@@ -81868,13 +82017,18 @@
           "value": 0.07
         },
         "radius_solar": {
+          "angularDiameterMas": 1.339,
+          "band": "K'",
+          "distancePc": 10.999889549993354,
           "field": "radius_solar",
           "identity": "* bet Leo",
-          "reference": "1999A&A...352..555A",
-          "sourceRecordId": "HIP 57632",
-          "status": "model-derived",
-          "uncertainty": null,
-          "value": 1.621810097
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2009ApJ...691.1896A",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD102647",
+          "status": "derived",
+          "uncertainty": 0.015374633623142111,
+          "value": 1.583587263
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -82504,7 +82658,7 @@
       },
       "cns5Id": "5510",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "unknown",
         "mass_solar": "unknown",
@@ -85078,7 +85232,7 @@
       },
       "cns5Id": "3474",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "estimated",
@@ -85265,7 +85419,7 @@
       },
       "cns5Id": "3475",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "estimated",
@@ -87199,7 +87353,7 @@
       },
       "cns5Id": "2140",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -88609,12 +88763,12 @@
         "luminosity_solar": {
           "field": "luminosity_solar",
           "inputs": {
-            "radius_solar": 22.90867653,
+            "radius_solar": 25.35697534,
             "temperature_k": 4236.0
           },
           "reference": "Stefan-Boltzmann scaling",
           "status": "derived",
-          "value": 152.2364037
+          "value": 186.5148488
         },
         "mass_solar": {
           "caveat": "Evolutionary-model conditional posterior; alternate stage and flags retained in frozen row",
@@ -88652,13 +88806,18 @@
           "value": -0.63
         },
         "radius_solar": {
+          "angularDiameterMas": 20.95,
+          "band": "2.2",
+          "distancePc": 11.257457665226626,
           "field": "radius_solar",
           "identity": "* alf Boo",
-          "reference": "1999A&A...352..555A",
-          "sourceRecordId": "HIP 69673",
-          "status": "model-derived",
-          "uncertainty": null,
-          "value": 22.90867653
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "1986A&A...166..204D",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD124897",
+          "status": "derived",
+          "uncertainty": 0.2420713636669012,
+          "value": 25.35697534
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -88693,7 +88852,7 @@
       },
       "cns5Id": "1860",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "unknown",
         "mass_solar": "unknown",
@@ -92220,7 +92379,7 @@
       },
       "cns5Id": "4768",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "unknown",
         "mass_solar": "unknown",
@@ -92849,7 +93008,7 @@
       },
       "cns5Id": "15",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -95174,7 +95333,7 @@
       },
       "cns5Id": "3453",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "unknown",
@@ -98031,7 +98190,7 @@
       },
       "cns5Id": "3710",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "estimated",
@@ -99641,7 +99800,7 @@
       },
       "cns5Id": "1878",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -101250,7 +101409,7 @@
       },
       "cns5Id": "2403",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -101421,7 +101580,7 @@
       },
       "cns5Id": "3252",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "derived",
         "mass_solar": "empirical-relation",
@@ -102186,7 +102345,7 @@
       },
       "cns5Id": "2724",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -102416,6 +102575,20 @@
           }
         }
       },
+      "sharedPhysicalEnrichment": {
+        "metallicity_dex": {
+          "field": "metallicity_dex",
+          "identity": "HD 97101",
+          "quantity": "Gaia DR3 GSP-Spec RVS [M/H], field-star log g calibration",
+          "reference": "2023A&A...674A..29R",
+          "scope": "catalogued stellar object",
+          "selection": "All first 13 GSP-Spec flags zero; GSP-Spec Teff 4000-7000 K",
+          "sourceRecordId": "Gaia DR3 732857558276385664",
+          "status": "measured",
+          "uncertainty": 0.010000000000000002,
+          "value": -0.1377
+        }
+      },
       "simbadId": "HD  97101",
       "sourceType": "PM*",
       "supersededGaiaPhysical": {
@@ -102443,6 +102616,16 @@
             "status": "model-derived",
             "uncertainty": 0.040000050000000065,
             "value": 0.664565
+          },
+          "metallicity_dex": {
+            "field": "metallicity_dex",
+            "quality_flags": [],
+            "reference": "Gaia DR3 astrophysical_parameters",
+            "source_id": "gaia-dr3",
+            "source_record_id": "732857558276385664",
+            "status": "model-derived",
+            "uncertainty": 0.07230000000000003,
+            "value": -0.7434
           },
           "radius_solar": {
             "field": "radius_solar",
@@ -103308,7 +103491,7 @@
       },
       "cns5Id": "1388",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -104073,7 +104256,7 @@
       },
       "cns5Id": "1805",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "unknown",
@@ -104260,7 +104443,7 @@
       "cns5Id": "3881",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "unknown",
+        "age_gyr": "model-derived",
         "luminosity_solar": "derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -104295,6 +104478,18 @@
         "status": "compiled-cns5"
       },
       "sharedPhysicalEnrichment": {
+        "age_gyr": {
+          "field": "age_gyr",
+          "identity": "* lam Ser",
+          "lowerGyr": 5.69,
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "reference": "2011A&A...530A.138C",
+          "sourceRecordId": "HIP 77257",
+          "status": "model-derived",
+          "uncertainty": null,
+          "upperGyr": 7.13,
+          "value": 6.5
+        },
         "luminosity_solar": {
           "field": "luminosity_solar",
           "inputs": {
@@ -105624,7 +105819,7 @@
       },
       "cns5Id": "606",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -106452,7 +106647,7 @@
       },
       "cns5Id": "4915",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -107217,7 +107412,7 @@
       "cns5Id": "3135",
       "fieldStatus": {
         "absolute_mag": "adopted",
-        "age_gyr": "unknown",
+        "age_gyr": "model-derived",
         "astrometry_epoch": "adopted",
         "astrometry_ref": "adopted",
         "constellation": "adopted",
@@ -107399,6 +107594,18 @@
         }
       },
       "sharedPhysicalEnrichment": {
+        "age_gyr": {
+          "field": "age_gyr",
+          "identity": "* gam Vir",
+          "lowerGyr": 1.21,
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "reference": "2011A&A...530A.138C",
+          "sourceRecordId": "HIP 61941",
+          "status": "model-derived",
+          "uncertainty": null,
+          "upperGyr": 1.44,
+          "value": 1.3
+        },
         "mass_solar": {
           "field": "mass_solar",
           "identity": "* gam Vir",
@@ -107721,7 +107928,7 @@
       },
       "cns5Id": "4211",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -111375,7 +111582,7 @@
       },
       "cns5Id": "4260",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -112374,7 +112581,7 @@
       },
       "cns5Id": "1413",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -113643,7 +113850,7 @@
       },
       "cns5Id": "971",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -116643,7 +116850,7 @@
       },
       "cns5Id": "4697",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "derived",
         "mass_solar": "empirical-relation",
@@ -116843,7 +117050,7 @@
       },
       "cns5Id": "1301",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "unknown",
         "mass_solar": "unknown",
@@ -117466,7 +117673,7 @@
       },
       "cns5Id": "4756",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -118097,7 +118304,7 @@
       },
       "cns5Id": "4628",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -119408,7 +119615,7 @@
       },
       "cns5Id": "3857",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "unknown",
         "mass_solar": "unknown",
@@ -119645,7 +119852,7 @@
       },
       "cns5Id": "2183",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -120515,7 +120722,7 @@
       },
       "cns5Id": "2182",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "unknown",
@@ -121491,7 +121698,7 @@
       },
       "cns5Id": "189",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -122125,7 +122332,7 @@
       },
       "cns5Id": "4960",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -122572,7 +122779,7 @@
       },
       "cns5Id": "2593",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "unknown",
         "mass_solar": "unknown",
@@ -124096,6 +124303,18 @@
         "reason": "Published spectroscopic consensus outranks Gaia DR3 GSP-Phot; FLAME radius, mass and age derived from a GSP-Phot temperature more than 2% off, or with solar-metallicity tracks for |[Fe/H]| > 0.3, are withheld."
       },
       "supersededSharedPhysicalEnrichment": {
+        "age_gyr": {
+          "field": "age_gyr",
+          "identity": "HD 104304",
+          "lowerGyr": 9.6,
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "reference": "2011A&A...530A.138C",
+          "sourceRecordId": "HIP 58576",
+          "status": "model-derived",
+          "uncertainty": null,
+          "upperGyr": 13.36,
+          "value": 11.92
+        },
         "metallicity_dex": {
           "field": "metallicity_dex",
           "identity": "HD 104304",
@@ -124206,7 +124425,7 @@
       },
       "cns5Id": "2817",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -125437,7 +125656,7 @@
       },
       "cns5Id": "4278",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "unknown",
@@ -126059,7 +126278,7 @@
       },
       "cns5Id": "316",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "derived",
         "mass_solar": "empirical-relation",
@@ -126695,7 +126914,7 @@
       },
       "cns5Id": "4967",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "derived",
         "mass_solar": "empirical-relation",
@@ -128116,7 +128335,7 @@
       },
       "cns5Id": "1557",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -129317,7 +129536,7 @@
       },
       "cns5Id": "2571",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -130076,13 +130295,13 @@
       },
       "cns5Id": "2572",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
-        "radius_solar": "model-derived",
+        "radius_solar": "derived",
         "temperature_k": "measured"
       },
       "gaiaDr3Id": "853819947756949120",
@@ -130203,13 +130422,18 @@
           "value": -0.12
         },
         "radius_solar": {
+          "angularDiameterMas": 0.794,
+          "band": "K",
+          "distancePc": 12.945094166025001,
           "field": "radius_solar",
           "identity": "* 36 UMa",
-          "reference": "1999A&A...352..555A",
-          "sourceRecordId": "HIP 51459",
-          "status": "model-derived",
-          "uncertainty": null,
-          "value": 1.096478196
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2012ApJ...746..101B",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD90839",
+          "status": "derived",
+          "uncertainty": 0.019485266420960816,
+          "value": 1.105092967
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -130894,7 +131118,7 @@
       },
       "cns5Id": "2126",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -132345,7 +132569,7 @@
       },
       "cns5Id": "1956",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -133605,7 +133829,7 @@
       },
       "cns5Id": "1969",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -135485,7 +135709,7 @@
       },
       "cns5Id": "2495",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -137834,7 +138058,7 @@
       },
       "cns5Id": "5767",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -138086,7 +138310,7 @@
       },
       "cns5Id": "3613",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "unknown",
@@ -138893,7 +139117,7 @@
       },
       "cns5Id": "3439",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -139498,7 +139722,7 @@
       },
       "cns5Id": "1753",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -140098,7 +140322,7 @@
       },
       "cns5Id": "4964",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -141215,7 +141439,7 @@
       },
       "cns5Id": "1323",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "unknown",
@@ -141579,7 +141803,7 @@
       },
       "cns5Id": "2731",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "unknown",
         "mass_solar": "unknown",
@@ -144054,7 +144278,7 @@
       },
       "cns5Id": "4908",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -145203,7 +145427,7 @@
       },
       "cns5Id": "1491",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -145668,7 +145892,7 @@
         "radial_velocity_error_kms": "unknown",
         "radial_velocity_kms": "adopted",
         "radial_velocity_ref": "adopted",
-        "radius_solar": "model-derived",
+        "radius_solar": "derived",
         "temperature_k": "measured",
         "vx_kms": "adopted",
         "vy_kms": "adopted",
@@ -145765,12 +145989,12 @@
         "luminosity_solar": {
           "field": "luminosity_solar",
           "inputs": {
-            "radius_solar": 2.187761624,
+            "radius_solar": 2.365091098,
             "temperature_k": 6217.0
           },
           "reference": "Stefan-Boltzmann scaling",
           "status": "derived",
-          "value": 6.441962314
+          "value": 7.528594857
         },
         "mass_solar": {
           "field": "mass_solar",
@@ -145794,13 +146018,18 @@
           "value": -0.17
         },
         "radius_solar": {
+          "angularDiameterMas": 1.632,
+          "band": "K",
+          "distancePc": 13.478905249647267,
           "field": "radius_solar",
           "identity": "* tet UMa",
-          "reference": "1999A&A...352..555A",
-          "sourceRecordId": "HIP 46853",
-          "status": "model-derived",
-          "uncertainty": null,
-          "value": 2.187761624
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2012ApJ...746..101B",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD82328",
+          "status": "derived",
+          "uncertainty": 0.007245989884105379,
+          "value": 2.365091098
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -146091,7 +146320,7 @@
       },
       "cns5Id": "1490",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -146405,7 +146634,7 @@
       },
       "cns5Id": "4061",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "empirical-relation",
@@ -146594,7 +146823,7 @@
       },
       "cns5Id": "1430",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "derived",
         "mass_solar": "empirical-relation",
@@ -146875,7 +147104,7 @@
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
         "radial_velocity_kms": "compiled-cns5",
-        "radius_solar": "model-derived",
+        "radius_solar": "derived",
         "temperature_k": "measured"
       },
       "gaiaDr3Id": "348020482735930112",
@@ -146996,13 +147225,18 @@
           "value": 0.12
         },
         "radius_solar": {
+          "angularDiameterMas": 1.114,
+          "band": "2.15",
+          "distancePc": 13.492099215964831,
           "field": "radius_solar",
           "identity": "* ups And",
-          "reference": "1999A&A...352..555A",
-          "sourceRecordId": "HIP 7513",
-          "status": "model-derived",
-          "uncertainty": null,
-          "value": 1.445439771
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2008ApJ...680..728B",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD9826",
+          "status": "derived",
+          "uncertainty": 0.013055548853733074,
+          "value": 1.615986825
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -148289,7 +148523,7 @@
       },
       "cns5Id": "3967",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -148793,7 +149027,7 @@
       },
       "cns5Id": "2362",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -149423,7 +149657,7 @@
       },
       "cns5Id": "822",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
@@ -150223,7 +150457,7 @@
         "radial_velocity_error_kms": "unknown",
         "radial_velocity_kms": "adopted",
         "radial_velocity_ref": "adopted",
-        "radius_solar": "model-derived",
+        "radius_solar": "derived",
         "temperature_k": "measured",
         "vx_kms": "adopted",
         "vy_kms": "adopted",
@@ -150320,12 +150554,12 @@
         "luminosity_solar": {
           "field": "luminosity_solar",
           "inputs": {
-            "radius_solar": 3.090295433,
+            "radius_solar": 3.167358769,
             "temperature_k": 5198.0
           },
           "reference": "Stefan-Boltzmann scaling",
           "status": "derived",
-          "value": 6.281159346
+          "value": 6.598334513
         },
         "mass_solar": {
           "field": "mass_solar",
@@ -150349,13 +150583,18 @@
           "value": -0.16
         },
         "radius_solar": {
+          "angularDiameterMas": 2.166,
+          "band": "550 to 850",
+          "distancePc": 13.60083926535655,
           "field": "radius_solar",
           "identity": "* bet Aql",
-          "reference": "1999A&A...352..555A",
-          "sourceRecordId": "HIP 98036",
-          "status": "model-derived",
-          "uncertainty": null,
-          "value": 3.090295433
+          "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
+          "reference": "2014ApJ...781...90B",
+          "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required",
+          "sourceRecordId": "JMDC HD188512",
+          "status": "derived",
+          "uncertainty": 0.013160770510086673,
+          "value": 3.167358769
         },
         "temperature_k": {
           "field": "temperature_k",
@@ -150490,7 +150729,7 @@
       },
       "cns5Id": "3519",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -151802,7 +152041,7 @@
       },
       "cns5Id": "3277",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "unknown",
         "mass_solar": "unknown",
@@ -153099,7 +153338,7 @@
       },
       "cns5Id": "3293",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -153672,7 +153911,7 @@
       },
       "cns5Id": "5548",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "unknown",
         "luminosity_solar": "measured",
         "mass_solar": "empirical-relation",
@@ -155624,7 +155863,7 @@
       },
       "cns5Id": "2685",
       "fieldStatus": {
-        "absolute_mag": "unknown",
+        "absolute_mag": "derived-from-gaia-photometry",
         "age_gyr": "model-derived",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
@@ -156586,7 +156825,7 @@
       "cns5Id": "923",
       "fieldStatus": {
         "absolute_mag": "derived-from-compiled-Johnson-V",
-        "age_gyr": "unknown",
+        "age_gyr": "model-derived",
         "luminosity_solar": "model-derived",
         "mass_solar": "model-derived",
         "metallicity_dex": "measured",
@@ -156690,6 +156929,18 @@
         "status": "gaia-dr3-fallback"
       },
       "sharedPhysicalEnrichment": {
+        "age_gyr": {
+          "field": "age_gyr",
+          "identity": "* 10 Tau",
+          "lowerGyr": 5.08,
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "reference": "2011A&A...530A.138C",
+          "sourceRecordId": "HIP 16852",
+          "status": "model-derived",
+          "uncertainty": null,
+          "upperGyr": 5.41,
+          "value": 5.27
+        },
         "mass_solar": {
           "field": "mass_solar",
           "identity": "* 10 Tau",
@@ -158190,10 +158441,10 @@
   ],
   "reviewedCompanionVicinityPc": 25,
   "reviewedCompanionsSha256": "3e45616a65aef9ba731644d2dc6ace421b9b26d53470bb289baf95f054bc8d96",
-  "reviewedComponentPropertiesSha256": "3dd8ee6dacb8b0d219e66d95fd0ebc65a9f6c845b0756eca6e5a8d8f8eab6f70",
+  "reviewedComponentPropertiesSha256": "31eecf2eca90f0d17c11254a4e37fb3d70e5a1e2a57ec5db12731e069d48a261",
   "reviewedMembershipExclusionsSha256": "90729a1d4bd511cd46b95012a5e9bae55da6d73682dfbf579da53caac6fa4327",
   "schemaVersion": 1,
-  "sharedEnrichmentManifestSha256": "538af61b2ae9bd4f75dd2b240d2088b640b4458f06e39a62014883b990dc9eb3",
+  "sharedEnrichmentManifestSha256": "0f43e507d374cd75d05b8f538c36e46976d98b55cc644335d42922001bf6fac6",
   "sourceManifestSha256": "5744f1665fe2700b5acaf88fd2cc46a4f2a0e2a75d75c03290b769b64c3cb315",
   "sources": [
     {
@@ -158399,6 +158650,22 @@
     {
       "name": "Gaia DR3, exact-ID quality-filtered astrophysical parameters",
       "url": "https://gea.esac.esa.int/archive/"
+    },
+    {
+      "name": "Gaia DR3 GSP-Spec RVS [M/H] (Recio-Blanco et al. 2023), field-star log g calibration; best-quality flags and 4000-7000 K only; frozen 2026-11-10",
+      "url": "https://doi.org/10.1051/0004-6361/202243750"
+    },
+    {
+      "name": "Gaia DR3 G and BP-RP to Johnson V (Riello et al. 2021, Table C.2) for unblended sources with BP-RP below 3; frozen 2026-11-10",
+      "url": "https://doi.org/10.1051/0004-6361/202039587"
+    },
+    {
+      "name": "JMDC measured stellar diameters (Duvert 2016, VizieR II/345): direct limb-darkened diameters precise to 5 percent, Keck nuller values excluded; frozen 2026-11-10 from the IDIA VizieR mirror",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/345"
+    },
+    {
+      "name": "Isochrone ages with 68 percent half-widths within 30 percent: Casagrande et al. 2011 (Geneva-Copenhagen, BaSTI) and David & Hillenbrand 2015; frozen 2026-11-10 from the IDIA VizieR mirror",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/530/A138"
     },
     {
       "name": "SIMBAD mesFe_h: exact-object published spectroscopic temperatures and photospheric iron abundances, full measurement pool frozen 2026-10-05",

@@ -222,7 +222,7 @@
         "luminosity_solar": 163.45,
         "radius_solar": 5.121,
         "metallicity_dex": -0.1,
-        "age_gyr": null,
+        "age_gyr": 0.463,
         "absolute_mag": -0.706006,
         "epoch": 2000.0,
         "type": "star",
@@ -320,7 +320,7 @@
         "luminosity_solar": 10.344558,
         "radius_solar": 2.4547089156850306,
         "metallicity_dex": 0.14,
-        "age_gyr": null,
+        "age_gyr": 1.32,
         "absolute_mag": 2.033944,
         "epoch": 2000.0,
         "type": "star",
@@ -329,7 +329,7 @@
         "constellation": "Gemini",
         "spectral_type": "F5IV-V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 32362; Stellarium Gem). SIMBAD identity * ksi Gem; SIMBAD compiled Johnson V=3.36; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...682A.145S).",
+        "notes": "Western constellation line-figure star (HIP 32362; Stellarium Gem). SIMBAD identity * ksi Gem; SIMBAD compiled Johnson V=3.36; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Stefan-Boltzmann scaling for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...682A.145S; age_gyr: 2011A&A...530A.138C).",
         "designations": [
           "HIP 32362"
         ],
@@ -1652,7 +1652,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

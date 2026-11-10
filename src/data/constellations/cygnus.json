@@ -173,7 +173,7 @@
         "luminosity_solar": 135.1818331625965,
         "radius_solar": 5.1286138399136485,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.285,
         "absolute_mag": -0.50052,
         "epoch": 2000.0,
         "type": "star",
@@ -182,7 +182,7 @@
         "constellation": "Cygnus",
         "spectral_type": "B9.5IV",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 97165; Stellarium Cyg). SIMBAD identity * del Cyg; SIMBAD compiled Johnson V=2.87; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar.",
+        "notes": "Western constellation line-figure star (HIP 97165; Stellarium Cyg). SIMBAD identity * del Cyg; SIMBAD compiled Johnson V=2.87; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 97165"
         ],
@@ -467,7 +467,7 @@
         "luminosity_solar": null,
         "radius_solar": null,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 2.59,
         "absolute_mag": 2.766686,
         "epoch": 2000.0,
         "type": "star",
@@ -476,7 +476,7 @@
         "constellation": "Cygnus",
         "spectral_type": "F6V+F3V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 107310; Stellarium Cyg). SIMBAD identity * mu. Cyg; Hipparcos Johnson V=4.49 (SIMBAD V unavailable); inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k.",
+        "notes": "Western constellation line-figure star (HIP 107310; Stellarium Cyg). SIMBAD identity * mu. Cyg; Hipparcos Johnson V=4.49 (SIMBAD V unavailable); inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (age_gyr: 2011A&A...530A.138C).",
         "designations": [
           "HIP 107310"
         ],
@@ -1575,7 +1575,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

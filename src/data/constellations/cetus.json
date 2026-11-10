@@ -367,7 +367,7 @@
         "temperature_k": null,
         "mass_solar": null,
         "luminosity_solar": null,
-        "radius_solar": null,
+        "radius_solar": 426.7133639,
         "metallicity_dex": null,
         "age_gyr": null,
         "absolute_mag": 1.719124,
@@ -378,7 +378,7 @@
         "constellation": "Cetus",
         "spectral_type": "M5/6IIIe",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 10826; Stellarium Cet). SIMBAD identity * omi Cet; SIMBAD compiled Johnson V=6.53; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction.",
+        "notes": "Western constellation line-figure star (HIP 10826; Stellarium Cet). SIMBAD identity * omi Cet; SIMBAD compiled Johnson V=6.53; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (radius_solar: 1992AJ....104.2224R).",
         "designations": [
           "HIP 10826"
         ],
@@ -516,7 +516,7 @@
         "luminosity_solar": 5.640469492340586,
         "radius_solar": 1.930175,
         "metallicity_dex": -0.27,
-        "age_gyr": null,
+        "age_gyr": 2.68,
         "absolute_mag": 2.93976,
         "epoch": 2000.0,
         "type": "star",
@@ -525,7 +525,7 @@
         "constellation": "Cetus",
         "spectral_type": "F5V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 11783; Stellarium Cet). SIMBAD identity * sig Cet; SIMBAD compiled Johnson V=4.75; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "notes": "Western constellation line-figure star (HIP 11783; Stellarium Cet). SIMBAD identity * sig Cet; SIMBAD compiled Johnson V=4.75; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S; age_gyr: 2011A&A...530A.138C).",
         "designations": [
           "HIP 11783"
         ],
@@ -663,7 +663,7 @@
         "luminosity_solar": null,
         "radius_solar": null,
         "metallicity_dex": -0.28,
-        "age_gyr": null,
+        "age_gyr": 1.81,
         "absolute_mag": 3.01125,
         "epoch": 2000.0,
         "type": "star",
@@ -672,7 +672,7 @@
         "constellation": "Cetus",
         "spectral_type": "F5V",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 12390; Stellarium Cet). SIMBAD identity * eps Cet; SIMBAD compiled Johnson V=4.87; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S).",
+        "notes": "Western constellation line-figure star (HIP 12390; Stellarium Cet). SIMBAD identity * eps Cet; SIMBAD compiled Johnson V=4.87; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2022A&A...663A...4S; age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 12390"
         ],
@@ -712,7 +712,7 @@
         "luminosity_solar": null,
         "radius_solar": null,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.668,
         "absolute_mag": 1.53233,
         "epoch": 2000.0,
         "type": "star",
@@ -721,7 +721,7 @@
         "constellation": "Cetus",
         "spectral_type": "A2Vn+F4V",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 12706; Stellarium Cet). SIMBAD identity * gam Cet; SIMBAD compiled Johnson V=3.47; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k.",
+        "notes": "Western constellation line-figure star (HIP 12706; Stellarium Cet). SIMBAD identity * gam Cet; SIMBAD compiled Johnson V=3.47; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 12706"
         ],
@@ -1890,7 +1890,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

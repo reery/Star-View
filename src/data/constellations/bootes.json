@@ -222,7 +222,7 @@
         "luminosity_solar": 31.762033,
         "radius_solar": 3.2359365692962827,
         "metallicity_dex": -0.2,
-        "age_gyr": null,
+        "age_gyr": 0.866,
         "absolute_mag": 0.914957,
         "epoch": 2000.0,
         "type": "star",
@@ -231,7 +231,7 @@
         "constellation": "Bootes",
         "spectral_type": "A7IV+(n)",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 71075; Stellarium Boo). SIMBAD identity * gam Boo; SIMBAD compiled Johnson V=3.02; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
+        "notes": "Western constellation line-figure star (HIP 71075; Stellarium Boo). SIMBAD identity * gam Boo; SIMBAD compiled Johnson V=3.02; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar; Gaia DR3 model values for luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E; age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 71075"
         ],
@@ -1376,7 +1376,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

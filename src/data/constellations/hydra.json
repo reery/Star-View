@@ -26,7 +26,7 @@
         "luminosity_solar": 51.86536808060017,
         "radius_solar": 2.754538,
         "metallicity_dex": 0.3,
-        "age_gyr": null,
+        "age_gyr": 0.26,
         "absolute_mag": 0.462833,
         "epoch": 2000.0,
         "type": "star",
@@ -35,7 +35,7 @@
         "constellation": "Hydra",
         "spectral_type": "A0Vnn",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 42313; Stellarium Hya). SIMBAD identity * del Hya; SIMBAD compiled Johnson V=4.131; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G).",
+        "notes": "Western constellation line-figure star (HIP 42313; Stellarium Hya). SIMBAD identity * del Hya; SIMBAD compiled Johnson V=4.131; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2016A&A...589A..83G; age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 42313"
         ],
@@ -2587,7 +2587,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

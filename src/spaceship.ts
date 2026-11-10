@@ -9,6 +9,8 @@ import { svgNode } from './spectral-chart'
 export const SPACESHIP_SPEEDS_LY_PER_S = [0.5, 5, 50] as const
 export const SPACESHIP_LABELS = ['none', 'selected', 'all'] as const
 export type SpaceshipLabels = typeof SPACESHIP_LABELS[number]
+/** Realistic lets close stars outshine the map's usual brightness cap; capped keeps it. */
+export type SpaceshipBrightness = 'realistic' | 'capped'
 /** Keys by event code, so the layout stays WASD on every keyboard. */
 export const SPACESHIP_KEYS = { KeyW: 'w', KeyA: 'a', KeyS: 's', KeyD: 'd', KeyQ: 'q', KeyE: 'e' } as const
 export type SpaceshipKey = typeof SPACESHIP_KEYS[keyof typeof SPACESHIP_KEYS]

@@ -198,9 +198,9 @@
     "luminosity_solar": 36,
     "radius_solar": 36,
     "metallicity_dex": 34,
-    "age_gyr": 6
+    "age_gyr": 7
   },
-  "sharedEnrichmentManifestSha256": "538af61b2ae9bd4f75dd2b240d2088b640b4458f06e39a62014883b990dc9eb3",
+  "sharedEnrichmentManifestSha256": "0f43e507d374cd75d05b8f538c36e46976d98b55cc644335d42922001bf6fac6",
   "objects": {
     "sun": {
       "id": "sun",
@@ -2405,7 +2405,8 @@
         "mass_solar": "published:1999A&A...352..555A:HIP-62763",
         "radius_solar": "published:1999A&A...352..555A:HIP-62763",
         "luminosity_solar": "published:2012MNRAS.427..343M:HIP-62763",
-        "metallicity_dex": "shared:2022A&A...663A...4S"
+        "metallicity_dex": "shared:2022A&A...663A...4S",
+        "age_gyr": "shared:2011A&A...530A.138C"
       },
       "physicalObservations": [
         {
@@ -2473,6 +2474,18 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
+        },
+        {
+          "field": "age_gyr",
+          "value": 0.4,
+          "status": "model-derived",
+          "reference": "2011A&A...530A.138C",
+          "uncertainty": null,
+          "identity": "* 31 Com",
+          "sourceRecordId": "HIP 62763",
+          "method": "BaSTI isochrone median and 16-84 percent range (Geneva-Copenhagen re-analysis)",
+          "lowerGyr": 0.37,
+          "upperGyr": 0.43
         }
       ]
     },

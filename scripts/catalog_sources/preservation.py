@@ -1,6 +1,8 @@
 """Additive-data guards shared by authoring and baseline review."""
 
 import copy
+import json
+import math
 
 from .classification import prune_subtypes
 from .precision import calculated_float
@@ -49,6 +51,23 @@ def lost_fields(previous, current, retained=(), prefix=""):
     return missing
 
 
+def catalog_withheld(root):
+    """Per catalog and record, valid source values a catalog withheld for a more accurate one, with their reasons."""
+    withheld = {}
+    for path in (root / "src/data/catalogs").glob("*/provenance.json"):
+        objects = json.loads(path.read_text()).get("objects")
+        if isinstance(objects, dict):
+            withheld[path.parent.name] = {identifier: entry["withheldSourceValues"] for identifier, entry in objects.items()
+                                          if isinstance(entry, dict) and entry.get("withheldSourceValues")}
+    return withheld
+
+
+def unretained(fields, previous, withheld):
+    """Lost fields whose previous value is not kept, with a reason, among the record's withheld source values."""
+    return [field for field in fields if not (field in withheld and withheld[field].get("reason")
+            and math.isclose(float(previous[field]), withheld[field]["value"], rel_tol=1e-9))]
+
+
 def field_value(record, field):
     """A record field, or a "catalog_sources.<catalog>.<field>" value of that retained source record."""
     if field.startswith("catalog_sources."):
@@ -78,7 +97,7 @@ def reviewed_record_removal(path, previous, retirements, load_review):
     return False
 
 
-def pool_losses(previous, proposed, retirements):
+def pool_losses(previous, proposed, retirements, withheld=None):
     path = "src/data/stellar-companions.json"
     current = {star["id"]: star for star in proposed["stars"]}
     errors = []
@@ -103,8 +122,9 @@ def pool_losses(previous, proposed, retirements):
         for source in star.get("catalog_sources", []):
             same_source = [entry["record"] for entry in adopted.get("catalog_sources", [])
                 if entry["catalog_id"] == source["catalog_id"] and entry["record"]["id"] == source["record"]["id"]]
-            missing += lost_fields(source["record"], same_source[0] if same_source else {}, same_source[1:],
-                f"catalog_sources.{source['catalog_id']}.")
+            lost = lost_fields(source["record"], same_source[0] if same_source else {}, same_source[1:])
+            lost = unretained(lost, source["record"], (withheld or {}).get(source["catalog_id"], {}).get(source["record"]["id"], {}))
+            missing += [f"catalog_sources.{source['catalog_id']}.{field}" for field in lost]
         missing = reviewed_fields(path, identifier, star, adopted, missing, retirements)
         if missing:
             errors.append(f"{identifier}: {', '.join(missing)}")

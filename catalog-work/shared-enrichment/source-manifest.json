@@ -51,7 +51,9 @@
     "catalog-work/shared-enrichment/white-dwarfs/source-manifest.json": "d453134bb9ddb9dbf3401d3f6eaf651ce09a4fd7fdac0b92a7de078180d1870f",
     "catalog-work/bright-western-enrichment-20261021/physical-review.json": "c23c2b4057e0c6e559acfb5230307719b75185ee272414026939d71aefe605cd",
     "catalog-work/bright-western-enrichment-20261021/source-manifest.json": "e4c8b0b4c42568e768167fc146e2ac45db4fa47cc781ebad2887e0da77127fdc",
-    "catalog-work/shared-enrichment/literature-conflict-review.json": "3dcd781089b10c20b57ba12ce6a6c85e0b0e9b77dac7d698cd27cde8b75f74d9"
+    "catalog-work/shared-enrichment/literature-conflict-review.json": "3dcd781089b10c20b57ba12ce6a6c85e0b0e9b77dac7d698cd27cde8b75f74d9",
+    "catalog-work/shared-enrichment/gaia-supplement/source-manifest.json": "8a1ed90751e8c74f49bdec76c182ab513f0acc3a2f477c2396eaf843147b689c",
+    "catalog-work/shared-enrichment/vizier-supplement/source-manifest.json": "943fdc77a06f6b2d848b17e36668c2fd4db1b83dda36766e935c1f52e51e0a48"
   },
   "sources": [
     {
@@ -97,6 +99,22 @@
     {
       "name": "Gaia DR3, exact-ID quality-filtered astrophysical parameters",
       "url": "https://gea.esac.esa.int/archive/"
+    },
+    {
+      "name": "Gaia DR3 GSP-Spec RVS [M/H] (Recio-Blanco et al. 2023), field-star log g calibration; best-quality flags and 4000-7000 K only; frozen 2026-11-10",
+      "url": "https://doi.org/10.1051/0004-6361/202243750"
+    },
+    {
+      "name": "Gaia DR3 G and BP-RP to Johnson V (Riello et al. 2021, Table C.2) for unblended sources with BP-RP below 3; frozen 2026-11-10",
+      "url": "https://doi.org/10.1051/0004-6361/202039587"
+    },
+    {
+      "name": "JMDC measured stellar diameters (Duvert 2016, VizieR II/345): direct limb-darkened diameters precise to 5 percent, Keck nuller values excluded; frozen 2026-11-10 from the IDIA VizieR mirror",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/II/345"
+    },
+    {
+      "name": "Isochrone ages with 68 percent half-widths within 30 percent: Casagrande et al. 2011 (Geneva-Copenhagen, BaSTI) and David & Hillenbrand 2015; frozen 2026-11-10 from the IDIA VizieR mirror",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/J/A+A/530/A138"
     },
     {
       "name": "SIMBAD mesFe_h: exact-object published spectroscopic temperatures and photospheric iron abundances, full measurement pool frozen 2026-10-05",

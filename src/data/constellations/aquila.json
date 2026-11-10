@@ -75,7 +75,7 @@
         "luminosity_solar": 34.98324499622822,
         "radius_solar": 2.290867652767773,
         "metallicity_dex": null,
-        "age_gyr": null,
+        "age_gyr": 0.231,
         "absolute_mag": 0.904557,
         "epoch": 2000.0,
         "type": "star",
@@ -84,7 +84,7 @@
         "constellation": "Aquila",
         "spectral_type": "A0IV-Vnn",
         "metallicity_kind": null,
-        "notes": "Western constellation line-figure star (HIP 93747; Stellarium Aql). SIMBAD identity * zet Aql; SIMBAD compiled Johnson V=2.99; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar.",
+        "notes": "Western constellation line-figure star (HIP 93747; Stellarium Aql). SIMBAD identity * zet Aql; SIMBAD compiled Johnson V=2.99; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 93747"
         ],
@@ -124,7 +124,7 @@
         "luminosity_solar": 58.11151035390524,
         "radius_solar": 2.2387211385683394,
         "metallicity_dex": 0.7472,
-        "age_gyr": null,
+        "age_gyr": 0.195,
         "absolute_mag": 0.477488,
         "epoch": 2000.0,
         "type": "star",
@@ -133,7 +133,7 @@
         "constellation": "Aquila",
         "spectral_type": "B8.5V",
         "metallicity_kind": "[M/H]",
-        "notes": "Western constellation line-figure star (HIP 93805; Stellarium Aql). SIMBAD identity * lam Aql; SIMBAD compiled Johnson V=3.43; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex.",
+        "notes": "Western constellation line-figure star (HIP 93805; Stellarium Aql). SIMBAD identity * lam Aql; SIMBAD compiled Johnson V=3.43; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar; Gaia DR3 model values for metallicity_dex. Shared exact-identity physical supplements (age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 93805"
         ],
@@ -366,8 +366,8 @@
         "vz_kms": -9.716191,
         "temperature_k": 5198.0,
         "mass_solar": 1.27,
-        "luminosity_solar": 6.281159346,
-        "radius_solar": 3.090295433,
+        "luminosity_solar": 6.598334513,
+        "radius_solar": 3.167358769,
         "metallicity_dex": -0.16,
         "age_gyr": null,
         "absolute_mag": 3.043063,
@@ -1284,7 +1284,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

@@ -4,7 +4,7 @@ import { streamWhenLoaded } from './content-stream'
 import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
-import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
+import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipBrightness, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
 import { FIRST_BIRTH_YEAR, NEIGHBORHOOD_RADIUS_LY, NeighborhoodIcon, neighborhoodBounds } from './neighborhood'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
@@ -339,7 +339,8 @@ let spaceship: Spaceship | null = null
 let spaceshipSpeedLevel = 1
 let spaceshipLabels: SpaceshipLabels = 'selected'
 /** Whether the map rates brightness from the ship rather than the selected object. */
-let spaceshipVisibility = false
+let spaceshipVisibility = true
+let spaceshipBrightness: SpaceshipBrightness = 'realistic'
 const spaceshipKeys = new Set<SpaceshipKey>()
 /** Touch throttle from -1 (backward) to 1 (forward); it overrides W and S while held. */
 let spaceshipThrottle = 0
@@ -566,7 +567,7 @@ document.querySelectorAll('.time-markers').forEach((markers) => {
   ticks.forEach((marker, index) => marker.style.setProperty('--marker-position', `${index / (ticks.length - 1) * 100}%`))
 })
 const selectionHistory = new SelectionHistory(selectedId)
-// The Spaceship card floats at the bottom center: it opens beside other cards and only its own controls close it.
+// The Spaceship card opens in the dock like other cards, but scene clicks leave it open for flying.
 const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation', 'observer'] as const
 const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'rotation', 'observer'] as const
 // Explore panels open from the flyout, so focus returns to its toggle.
@@ -818,7 +819,7 @@ async function selectTopListObject(object: import('./top-lists').TopListObject):
 function syncPanelLayout(): void {
   const dock = element('control-dock')
   const motionOpen = panelIsOpen('motion')
-  const dockPanel = panelNames.find((name) => name !== 'views' && name !== 'motion' && name !== 'spaceship' && panelIsOpen(name))
+  const dockPanel = panelNames.find((name) => name !== 'views' && name !== 'motion' && panelIsOpen(name))
   if (dockPanel) dock.dataset.open = dockPanel
   else if (motionOpen) dock.dataset.open = 'motion'
   else delete dock.dataset.open
@@ -1860,13 +1861,13 @@ function syncVisibilityObserverLayout(): void {
 
 function togglePanel(name: typeof panelNames[number]): void {
   const opening = !panelIsOpen(name)
-  if (!opening || name === 'spaceship') {
+  if (!opening) {
     setPanelOpen(name, opening)
     syncPanelLayout()
     return
   }
   for (const candidate of panelNames) {
-    if (candidate === name || candidate === 'spaceship') continue
+    if (candidate === name) continue
     if (candidate === 'motion' && name !== 'motion' && lockedPanels.has('motion')) continue
     setPanelOpen(candidate, false)
   }
@@ -2746,7 +2747,7 @@ function applySpaceship(): void {
     setPanelOpen('rotation', false)
     syncPanelLayout()
   }
-  viewer?.setSpaceship(spaceship, spaceship ? spaceshipLabels : 'all', spaceshipVisibility)
+  viewer?.setSpaceship(spaceship, spaceship ? spaceshipLabels : 'all', spaceshipVisibility, spaceshipBrightness)
   applySpaceshipInput()
   renderSpaceship()
   updateObserverControl()
@@ -2802,6 +2803,12 @@ function renderSpaceship(): void {
   text('spaceship-speed-level-value', formatSpeed(spaceshipTopSpeedPc()))
   element('spaceship-visibility-selected').setAttribute('aria-pressed', String(!spaceshipVisibility))
   element('spaceship-visibility-ship').setAttribute('aria-pressed', String(spaceshipVisibility))
+  // Brightness from the selected object is the map's own, so the choice applies only from the ship.
+  for (const [id, value] of [['spaceship-brightness-realistic', 'realistic'], ['spaceship-brightness-capped', 'capped']] as const) {
+    const button = element<HTMLButtonElement>(id)
+    button.setAttribute('aria-pressed', String(spaceshipBrightness === value))
+    button.disabled = !spaceshipVisibility
+  }
   renderSpaceshipTelemetry(true)
 }
 
@@ -3985,6 +3992,13 @@ for (const [id, fromShip] of [['spaceship-visibility-selected', false], ['spaces
     renderSelection()
   }, { signal: events.signal })
 }
+for (const [id, brightness] of [['spaceship-brightness-realistic', 'realistic'], ['spaceship-brightness-capped', 'capped']] as const) {
+  element(id).addEventListener('click', () => {
+    if (spaceshipBrightness === brightness) return
+    spaceshipBrightness = brightness
+    applySpaceship()
+  }, { signal: events.signal })
+}
 // The legal notice opens in German for German-language browsers.
 const legalLanguage = element('legal-language')
 function showLegalLanguage(lang: string): void {
@@ -4014,7 +4028,7 @@ element('spaceship-labels').addEventListener('input', () => {
   spaceshipLabels = SPACESHIP_LABELS[input.valueAsNumber] ?? spaceshipLabels
   input.setAttribute('aria-valuetext', { none: 'Off', selected: 'Selected object only', all: 'All' }[spaceshipLabels])
   text('spaceship-labels-value', { none: 'Off', selected: 'Selected', all: 'All' }[spaceshipLabels])
-  viewer?.setSpaceship(spaceship, spaceship ? spaceshipLabels : 'all', spaceshipVisibility)
+  viewer?.setSpaceship(spaceship, spaceship ? spaceshipLabels : 'all', spaceshipVisibility, spaceshipBrightness)
 }, { signal: events.signal })
 // Flight keys by position, ignored while typing; the on-screen keycaps work the same while held.
 function spaceshipKey(event: KeyboardEvent): SpaceshipKey | undefined {

@@ -303,8 +303,9 @@ def build():
         error = number(source["plx_err"])
         flame_suitable = bool(error) and float(source["plx_value"]) / error >= FLAME_MIN_PARALLAX_SNR
         gaia_fields = (GAIA_FIELDS if flame_suitable else GAIA_FIELDS[:1]) if gaia_suitable else ()
+        withheld = {}
         physical = enrich_from_frozen(row, source["main_id"], aliases(source), extended=EXTENSION,
-                                      gaia_fields=gaia_fields, class_tolerance=CLASS_TOLERANCE)
+                                      gaia_fields=gaia_fields, class_tolerance=CLASS_TOLERANCE, withheld=withheld)
         rows.append(row)
         provenance[identifier] = {
             "simbadId": source["main_id"], "simbadType": source["otype"], "gaiaDr3Id": item["gaiaId"],
@@ -312,6 +313,7 @@ def build():
             "adoptedDistance": item["distanceProvenance"],
             "radialVelocity": {"status": "simbad-compiled" if source["rvz_radvel"] else "unknown", "bibcode": source["rvz_bibcode"] or None},
             "physicalObservations": physical,
+            **({"withheldSourceValues": withheld} if withheld else {}),
             **({} if gaia_suitable else {"gaiaPhysical": GAIA_WITHHELD}),
             **({"gaiaFlame": f"withheld: parallax signal-to-noise below {FLAME_MIN_PARALLAX_SNR}"} if gaia_suitable and not flame_suitable else {}),
             **({"systemAstrometry": {"simbadId": item["system"]["parent_id"], "simbadType": item["system"]["otype"],
@@ -350,7 +352,8 @@ def build():
                         f"Stars curated by the nearby or constellation catalogs, matched by exact identifier or within {MATCH_ARCSEC} arcsec at a consistent distance, keep that record and ID; "
                         "their reviewed companions follow. A component without a parallax of its own uses the parallax and motion of its SIMBAD multiple-star record; "
                         "other stars without a parallax are listed in the provenance audit, not placed. Sun is included only as the map origin.",
-        "snapshot": f"SIMBAD, Gaia DR3 and Bailer-Jones snapshots frozen {retrieved}; VizieR was unavailable, so Hipparcos-source model tables apply only where earlier snapshots hold them.",
+        "snapshot": f"SIMBAD, Gaia DR3 and Bailer-Jones snapshots frozen {retrieved}; Allende Prieto & Lambert 1999 and McDonald et al. 2012 exact-HIP rows frozen "
+                    f"{manifest_input['sources']['fundamental']['retrieved']} from the {manifest_input['sources']['fundamental']['url'].split('/')[2]} VizieR mirror.",
     }
     payload = {
         "schemaVersion": 1,
@@ -358,7 +361,11 @@ def build():
         "policy": manifest["cutoffPolicy"],
         "physicalPolicy": "New records use the shared exact-identity enrichment without Gaia DR3 GSP-Phot [M/H]. Gaia DR3 GSP-Phot and FLAME values are withheld for O, B0-B4 and M spectral types, "
                           f"FLAME values for parallax signal-to-noise below {FLAME_MIN_PARALLAX_SNR}, "
-                          f"and any temperature more than {CLASS_TOLERANCE:.0%} from the Pecaut-Mamajek temperature of its spectral class is withheld before selection, with the FLAME values derived from it.",
+                          f"and any temperature more than {CLASS_TOLERANCE:.0%} from the Pecaut-Mamajek temperature of its spectral class is withheld before selection, with the values derived from the same solution: "
+                          "FLAME values, Allende Prieto & Lambert 1999 mass and radius, and McDonald et al. 2012 luminosity. "
+                          "These two Hipparcos model solutions are also withheld when their temperature lies more than 20% from an adopted spectroscopic temperature, "
+                          "and McDonald et al. 2012 fits are not used for O and B stars, whose zero-reddening fits run systematically cool. "
+                          "The more accurate temperature wins; FLAME values that assumed a different GSP-Phot temperature are not adopted and are kept with their reason under withheldSourceValues.",
         "sourceManifestSha256": sha256(WORK / "source-manifest.json"),
         "coverage": {field: sum(bool(row[field]) for row in rows if row["id"] not in copied) for field in
                      ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "radial_velocity_kms", "vx_kms")},

@@ -121,8 +121,8 @@
         "vz_kms": 22.161479,
         "temperature_k": 4571.0,
         "mass_solar": null,
-        "luminosity_solar": 156.5811922,
-        "radius_solar": 19.95262315,
+        "luminosity_solar": 210.0531992,
+        "radius_solar": 23.10972899,
         "metallicity_dex": -0.46,
         "age_gyr": null,
         "absolute_mag": -0.280054,
@@ -133,7 +133,7 @@
         "constellation": "Crater",
         "spectral_type": "G9IIICH0.5",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 55282; Stellarium Crt). SIMBAD identity * del Crt; SIMBAD compiled Johnson V=3.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P; radius_solar: 1999A&A...352..555A). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
+        "notes": "Western constellation line-figure star (HIP 55282; Stellarium Crt). SIMBAD identity * del Crt; SIMBAD compiled Johnson V=3.56; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...683A.125P; radius_solar: 2011A&A...535A..59B). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
         "designations": [
           "HIP 55282"
         ],
@@ -222,7 +222,7 @@
         "luminosity_solar": 13.045145245222445,
         "radius_solar": 1.7782794100389228,
         "metallicity_dex": -0.11,
-        "age_gyr": null,
+        "age_gyr": 0.763,
         "absolute_mag": 1.94431,
         "epoch": 2000.0,
         "type": "star",
@@ -231,7 +231,7 @@
         "constellation": "Crater",
         "spectral_type": "A7V(n)",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 55705; Stellarium Crt). SIMBAD identity * gam Crt; SIMBAD compiled Johnson V=4.06; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E).",
+        "notes": "Western constellation line-figure star (HIP 55705; Stellarium Crt). SIMBAD identity * gam Crt; SIMBAD compiled Johnson V=4.06; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, mass_solar, radius_solar, luminosity_solar. Shared exact-identity physical supplements (metallicity_dex: 2003A&A...398.1121E; age_gyr: 2015ApJ...804..146D).",
         "designations": [
           "HIP 55705"
         ],
@@ -829,7 +829,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

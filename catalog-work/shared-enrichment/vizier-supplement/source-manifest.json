@@ -1,0 +1,46 @@
+{
+  "checksumsSha256": {
+    "casagrande2011.csv": "2f0048c5ad8493fb7a290835a66d70431415df393aae6c63dc1abc917593bfc2",
+    "david2015.csv": "d718355513bd0add9cb8f9df72e7bb96d2de4b63ff0bdb4d94f93ad42b5f39e5",
+    "jmdc.csv": "4f5747bda920255f7094d03f0c3e47d4b6e87d94fa609c1e55f47e4610c0892b"
+  },
+  "identityPolicy": "Exact HIP and SIMBAD identifiers already frozen in the catalog snapshots; no positional matching",
+  "inputChecksumsSha256": {
+    "catalog-work/famous-cluster-stars/simbad.csv": "31f7d87d2f684fca025388ed409856ab5fbe0038de62d9a214c77b1f5a3c1c01",
+    "catalog-work/naked-eye-stars/simbad.csv": "deec1fb922b1e9afc3ed20ea0c24f7905d6840af0b6df71a82f617948054b85c",
+    "catalog-work/nearest-1000/simbad.csv": "0d1ab9881afdfbbac62ea7d05d31cb0d8ca4c4235a4b14eb3d0e5b789a932dbd",
+    "catalog-work/nearest-5000/simbad.csv": "d9810d3115ecb453f3566eb0c97afbace55f19b9b1efd942e4d51ef2766b4935",
+    "catalog-work/object-designations/simbad.csv": "d2f31fe2362ae8b8b56b672e93ab48e144457ed5795e3b90fb905ffc78bdea12",
+    "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede"
+  },
+  "retrieved": "2026-11-10",
+  "rowCounts": {
+    "casagrande2011": 1273,
+    "david2015": 1320,
+    "jmdc": 1614
+  },
+  "schemaVersion": 1,
+  "sources": {
+    "casagrande2011": {
+      "reference": "2011A&A...530A.138C",
+      "release": "VizieR J/A+A/530/A138/catalog",
+      "selection": "Unique SIMBAD HIP aliases",
+      "tableRows": 15330,
+      "url": "https://vizier.idia.ac.za/viz-bin/asu-tsv?-source=J/A%2BA/530/A138/catalog&-out=HIP,m_Name,ageMB,age16B,age84B&-out.max=unlimited"
+    },
+    "david2015": {
+      "reference": "2015ApJ...804..146D",
+      "release": "VizieR J/ApJ/804/146/table5",
+      "selection": "Unique SIMBAD HIP aliases",
+      "tableRows": 3493,
+      "url": "https://vizier.idia.ac.za/viz-bin/asu-tsv?-source=J/ApJ/804/146/table5&-out=HIP,Agemed,Age68lo,Age68up,Age68t&-out.max=unlimited"
+    },
+    "jmdc": {
+      "reference": "2016yCat.2345....0D",
+      "release": "VizieR II/345/jmdc",
+      "selection": "Exact SIMBAD identifiers, compared without spaces",
+      "tableRows": 2013,
+      "url": "https://vizier.idia.ac.za/viz-bin/asu-tsv?-source=II/345/jmdc&-out=ID1,LDdiam,e_LDdiam,Band,Method,BibCode,Notes&-out.max=unlimited"
+    }
+  }
+}

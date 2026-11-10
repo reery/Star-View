@@ -170,8 +170,8 @@
         "vz_kms": -15.17174,
         "temperature_k": 3904.0,
         "mass_solar": null,
-        "luminosity_solar": null,
-        "radius_solar": null,
+        "luminosity_solar": 726.6964825,
+        "radius_solar": 58.92635202,
         "metallicity_dex": -0.26,
         "age_gyr": null,
         "absolute_mag": -1.253486,
@@ -182,7 +182,7 @@
         "constellation": "Sagitta",
         "spectral_type": "M0-III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 98337; Stellarium Sge). SIMBAD identity * gam Sge; SIMBAD compiled Johnson V=3.47; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2025A&A...698A..93J; metallicity_dex: 2025A&A...698A..93J).",
+        "notes": "Western constellation line-figure star (HIP 98337; Stellarium Sge). SIMBAD identity * gam Sge; SIMBAD compiled Johnson V=3.47; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2025A&A...698A..93J; metallicity_dex: 2025A&A...698A..93J; radius_solar: 2003AJ....126.2502M). luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
         "designations": [
           "HIP 98337"
         ],
@@ -672,7 +672,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "00f41083acef4055b314ed9f5bfd0c9b8c4d2ea282cd8b4f370d9e1ca9ce3c3d"
+      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

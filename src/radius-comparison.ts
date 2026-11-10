@@ -146,15 +146,46 @@ function radiusDrawingNote(comparison: RadiusComparison, kmPerPixel: number): st
   return `${outlined.join('')}${bodies.some(({ kind }) => kind === 'dwarf') ? ' Brown dwarf colors and cloud bands are illustrative.' : ''}`
 }
 
-/** Banded, patchy cloud deck in latitude and longitude, seeded per object. Returns a relative brightness near 1. */
-function dwarfClouds(dx: number, dy: number, mu: number, seed: number, contrast: number): number {
-  const tilt = (seed / (2 * Math.PI) - 0.5) * 0.5
-  const longitude = Math.atan2(dx * Math.cos(tilt) + dy * Math.sin(tilt), mu)
-  const latitude = Math.asin(Math.max(-1, Math.min(1, dy * Math.cos(tilt) - dx * Math.sin(tilt))))
-  const warped = latitude + 0.05 * Math.sin(3 * longitude + seed) + 0.025 * Math.sin(8 * longitude + 5 * latitude + 2 * seed)
-  const bands = 0.55 * Math.sin(7 * warped + seed) + 0.3 * Math.sin(15 * warped + 2.3 * seed) + 0.15 * Math.sin(29 * warped + 3.1 * seed)
-  const patches = Math.sin(5 * longitude + 9 * latitude + seed) * Math.sin(11 * longitude - 14 * latitude + 1.7 * seed)
-  return 1 + contrast * (0.75 * bands + 0.25 * patches)
+/** Smooth lattice value noise in [-1, 1]; three octaves of it make the turbulent cloud deck below. */
+function cloudNoise(x: number, y: number, z: number): number {
+  let total = 0
+  for (let octave = 0, scale = 1, weight = 0.57; octave < 3; octave++, scale *= 2.1, weight *= 0.5) {
+    const sx = x * scale, sy = y * scale, sz = z * scale
+    const ix = Math.floor(sx), iy = Math.floor(sy), iz = Math.floor(sz)
+    const fx = sx - ix, fy = sy - iy, fz = sz - iz
+    const u = fx * fx * (3 - 2 * fx), v = fy * fy * (3 - 2 * fy), w = fz * fz * (3 - 2 * fz)
+    let value = 0
+    for (let corner = 0; corner < 8; corner++) {
+      const cx = corner & 1, cy = corner >> 1 & 1, cz = corner >> 2
+      let hash = Math.imul(ix + cx, 374761393) ^ Math.imul(iy + cy, 668265263) ^ Math.imul(iz + cz + octave * 101, 1274126177)
+      hash = Math.imul(hash ^ hash >>> 13, 1274126177)
+      value += ((hash ^ hash >>> 16) >>> 0) / 0x7fffffff * (cx ? u : 1 - u) * (cy ? v : 1 - v) * (cz ? w : 1 - w)
+    }
+    total += (value - 1) * weight
+  }
+  return total
+}
+
+/**
+ * Turbulent zonal bands, streaks and patchy spots on a sphere whose spin axis leans toward the viewer,
+ * seeded per object. Returns the local cloud clearing near [-1, 1]: positive where thinner cloud reveals
+ * deeper, hotter layers.
+ */
+function dwarfClouds(dx: number, dy: number, mu: number, seed: number): number {
+  const roll = (seed / Math.PI - 1) * 0.18
+  const lean = 0.2 + 0.25 * (seed * 7 % (2 * Math.PI)) / (2 * Math.PI)
+  const east = dx * Math.cos(roll) + dy * Math.sin(roll)
+  const south = dy * Math.cos(roll) - dx * Math.sin(roll)
+  const north = mu * Math.sin(lean) - south * Math.cos(lean)
+  const toward = mu * Math.cos(lean) + south * Math.sin(lean)
+  const longitude = Math.atan2(east, toward) + seed
+  const ring = Math.sqrt(Math.max(0, 1 - north * north))
+  const x = Math.cos(longitude) * ring, z = Math.sin(longitude) * ring
+  const latitude = Math.asin(Math.max(-1, Math.min(1, north))) + 0.16 * cloudNoise(2.2 * x + seed, 2.2 * north, 2.2 * z)
+  const bands = 0.6 * Math.sin(6.5 * latitude + seed) + 0.4 * Math.sin(13 * latitude + 2.3 * seed)
+  const streaks = cloudNoise(5 * x, 28 * latitude + seed, 5 * z)
+  const patches = cloudNoise(4 * x - seed, 4 * north, 4 * z)
+  return 0.55 * bands + 0.45 * streaks + 0.6 * patches
 }
 
 let renderedComparisons = new WeakMap<HTMLCanvasElement, string>()
@@ -297,7 +328,7 @@ function drawBody(context: CanvasRenderingContext2D, body: RadiusBody, paneX: nu
     context.translate(x, y)
     context.scale(1, flattening)
     // A dim object blooms less: the coldest dwarfs keep only a trace of dark glow.
-    if (kelvin !== undefined) context.globalAlpha = 0.25 + 0.4 * Math.min(1, kelvin / 2400)
+    if (kelvin !== undefined) context.globalAlpha = 0.1 + 0.55 * Math.min(1, kelvin / 2400) ** 2
     const halo = context.createRadialGradient(0, 0, radius - innerWidth, 0, 0, radius + haloWidth)
     halo.addColorStop(0, `${body.color}${cropped ? 'b0' : '90'}`)
     halo.addColorStop(0.28, `${body.color}${cropped ? '80' : '60'}`)
@@ -327,7 +358,14 @@ function drawBody(context: CanvasRenderingContext2D, body: RadiusBody, paneX: nu
   // illustrative, set strongest at the patchy L/T transition near 1,300 K.
   // Dust cannot condense in the hottest atmospheres, so bands fade out approaching M-dwarf temperatures.
   const cloudContrast = kelvin === undefined ? 0
-    : (0.07 + 0.13 * Math.exp(-(((kelvin - 1300) / 500) ** 2))) * Math.max(0, Math.min(1, (2800 - kelvin) / 800))
+    : (0.06 + 0.1 * Math.exp(-(((kelvin - 1300) / 500) ** 2))) * Math.max(0, Math.min(1, (2800 - kelvin) / 800))
+  // A self-luminous atmosphere: cloud gaps and the disk center show deeper, hotter layers, so they read
+  // brighter and more orange than thick cloud and the cooler limb. Shades come from the surface ramp.
+  const DWARF_SHADES = 96
+  const dwarfShades = kelvin === undefined ? [] : Array.from({ length: DWARF_SHADES }, (_, index) => {
+    const hex = brownDwarfSurfaceColor(kelvin * (0.6 + 0.75 * index / (DWARF_SHADES - 1))).getHexString()
+    return [0, 2, 4].map((offset) => parseInt(hex.slice(offset, offset + 2), 16))
+  })
   for (let py = 0; py < image.height; py++) {
     const dy = (py / resolution + 0.5 / resolution - y) / polarRadius
     for (let px = 0; px < image.width; px++) {
@@ -374,14 +412,16 @@ function drawBody(context: CanvasRenderingContext2D, body: RadiusBody, paneX: nu
         let grain = Math.imul(px + py * 8191, 1597334677)
         grain = Math.imul(grain ^ grain >>> 16, 2246822519)
         const granulation = (grain >>> 0) / 0xffffffff * 2 - 1
-        const shading = body.kind === 'dwarf' ? (0.42 + 0.58 * mu ** 0.9) * dwarfClouds(dx, dy, mu, cloudSeed, cloudContrast)
-          : stellar ? 0.72 + 0.28 * mu ** 0.55 : 0.48 + 0.52 * mu ** 0.6
+        const shading = body.kind === 'dwarf' ? 0.42 + 0.58 * mu ** 0.8 : stellar ? 0.72 + 0.28 * mu ** 0.55 : 0.48 + 0.52 * mu ** 0.6
         const brightness = shading * (1 + granulation * 0.004)
         const shine = body.kind === 'star' ? 0.68 * mu ** 2.4 : 0
         // Near-black shades have so few 8-bit levels that they need absolute dither to avoid contours.
         const dither = body.kind === 'dwarf' ? granulation * 0.7 : 0
+        const color = body.kind === 'dwarf'
+          ? dwarfShades[Math.round(Math.max(0, Math.min(1, ((0.84 + 0.16 * mu ** 0.5) * (1 + cloudContrast * dwarfClouds(dx, dy, mu, cloudSeed)) - 0.6) / 0.75)) * (DWARF_SHADES - 1))]!
+          : rgb
         for (let channel = 0; channel < 3; channel++) {
-          const luminousColor = rgb[channel]! + (255 - rgb[channel]!) * shine
+          const luminousColor = color[channel]! + (255 - color[channel]!) * shine
           image.data[offset + channel] = Math.min(255, luminousColor * brightness + dither)
         }
       }

@@ -178,11 +178,11 @@ button, p, h2, dd { overflow-wrap: anywhere; }
    opens to its right, above the caption at the bottom right. Both stay beneath every other card. */
 .spaceship-dock { position: fixed; z-index: -1; left: 50%; bottom: calc(20px + var(--safe-bottom)); width: 250px; translate: -50% 0; pointer-events: none; }
 .scene-wrap:has(.control-dock[data-motion-open]) .spaceship-dock { bottom: var(--motion-panel-clearance, 150px); }
-.dock-card.spaceship-card { position: absolute; left: calc(100% + 10px); bottom: 30px; width: max-content; }
+.dock-card.spaceship-card { width: max-content; max-width: calc(var(--ui-width) - var(--dock-gutter)); }
 .panel-heading.spaceship-heading { padding-right: 142px; }
 .panel-heading #spaceship-clear { right: 87px; border-radius: 0; }
 .panel-heading #spaceship-help { right: 43px; border-radius: 0; }
-.spaceship-body { display: grid; grid-template-columns: auto 128px; align-items: center; gap: 12px; padding: 10px 12px 12px; }
+.spaceship-body { display: grid; grid-template-columns: auto 128px; align-items: start; gap: 12px; padding: 10px 12px 12px; }
 .spaceship-help { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 6px 12px; }
 .spaceship-help .spaceship-keys { grid-row: span 2; }
 .spaceship-help p { margin: 0; }
@@ -206,14 +206,15 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .spaceship-reset svg { width: 12px; height: 12px; }
 .spaceship-reset:focus-visible { outline-offset: 1px; }
 .spaceship-actions { display: grid; gap: 6px; }
-:is(.spaceship-visibility, .legal-language).unit-options > button { height: 30px; color: var(--ink); background: transparent; white-space: nowrap; }
-:is(.spaceship-visibility, .legal-language).unit-options > button[aria-pressed="true"] { background: var(--panel-selected); color: var(--accent-strong); }
+:is(.spaceship-options, .legal-language).unit-options > button { height: 30px; color: var(--ink); background: transparent; white-space: nowrap; }
+:is(.spaceship-options, .legal-language).unit-options > button[aria-pressed="true"] { background: var(--panel-selected); color: var(--accent-strong); }
+.spaceship-options.unit-options > button:disabled { color: var(--muted); background: transparent; opacity: 0.6; }
 .spaceship-card .spaceship-exit { min-height: 30px; padding: 4px 8px; color: var(--ink); font-size: 12px; white-space: nowrap; }
 .spaceship-exit svg { width: 15px; height: 15px; }
 /* Three-level sliders stay short: stacked at the right, side by side below on narrow layouts. */
 .spaceship-settings { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px 20px; }
-.spaceship-settings .range-filter { gap: 3px; }
-.spaceship-settings .range-heading { font-size: 12px; }
+.spaceship-card .range-filter { gap: 3px; }
+.spaceship-card .range-heading { font-size: 12px; }
 .spaceship-gizmo { width: 100%; height: auto; overflow: visible; font-family: inherit; }
 .spaceship-gizmo-globe { fill: #ffffff08; stroke: var(--line); stroke-width: 1; }
 .spaceship-gizmo-circle { fill: none; stroke: #b29d8780; stroke-width: 1; }
@@ -241,11 +242,9 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 @media (hover: hover) {
   .spaceship-reset:hover { color: var(--accent-strong); background: var(--panel-hover); }
 }
-/* Without room beside the centered tile, tile and card share the bottom center. */
-@media (max-width: 1020px) {
-  .spaceship-dock { left: calc(20px + var(--safe-left)); right: calc(20px + var(--safe-right)); display: flex; justify-content: center; align-items: flex-end; gap: 10px; width: auto; translate: none; }
-  .spaceship-hud { flex: 0 1 250px; }
-  .dock-card.spaceship-card { position: static; width: auto; min-width: 0; }
+/* Without room beside an open card, the centered tile moves to the left. */
+@media (min-width: 721px) and (max-width: 1020px) {
+  .scene-wrap:has(.control-dock[data-open]:not([data-open="motion"])) .spaceship-dock { left: calc(20px + var(--safe-left)); translate: none; }
 }
 @media (max-width: 720px) {
   .spaceship-body { grid-template-columns: minmax(0, 1fr); }
@@ -1731,11 +1730,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .time-markers i.major:nth-child(even)::after { content: none; }
   .time-readout { min-width: 0; }
   .control-dock { right: 12px; bottom: 12px; }
-  /* The tile stacks above the card at the lower left, clear of the throttle and the controls. */
-  .spaceship-dock { right: auto; bottom: calc(12px + var(--safe-bottom)); left: calc(12px + var(--safe-left)); flex-direction: column; align-items: flex-start; width: min(500px, calc(var(--ui-width) - 140px)); }
-  .spaceship-dock:has(> .spaceship-card[hidden]) { bottom: calc(64px + var(--safe-bottom)); }
-  .spaceship-hud { flex: none; width: min(250px, 100%); }
-  .dock-card.spaceship-card { align-self: stretch; }
+  /* The tile sits at the lower left, clear of the throttle and the controls. */
+  .spaceship-dock { bottom: calc(64px + var(--safe-bottom)); left: calc(12px + var(--safe-left)); width: min(250px, calc(var(--ui-width) - 140px)); translate: none; }
   .spaceship-throttle { right: calc(66px + var(--safe-right)); bottom: calc(68px + var(--safe-bottom)); }
   .dock-card { max-height: calc(var(--ui-height) - 24px); }
   .dock-card.catalog.is-expanded { max-height: calc(var(--ui-height) - 36px); }
