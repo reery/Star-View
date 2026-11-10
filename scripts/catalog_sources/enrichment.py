@@ -506,7 +506,7 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
             consistent = [item for item in measurements if abs(float(item["LDdiam"]) - center) <= .1 * center]
             if len(consistent) * 2 > len(measurements):
                 best = min(consistent, key=lambda item: float(item["e_LDdiam"]) / float(item["LDdiam"]))
-                distance = math.sqrt(sum(float(row[field]) ** 2 for field in ("x_pc", "y_pc", "z_pc")))
+                distance = math.hypot(*(float(row[field]) for field in ("x_pc", "y_pc", "z_pc")))
                 radius = float(best["LDdiam"]) / 2000 * distance * AU_SOLAR_RADII
                 adopt("radius_solar", radius, best["BibCode"], "derived", radius * float(best["e_LDdiam"]) / float(best["LDdiam"]),
                       sourceRecordId=f"JMDC {best['ID1']}", angularDiameterMas=float(best["LDdiam"]), band=best["Band"], distancePc=distance,
@@ -549,7 +549,7 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
             adopt("temperature_k", sed_model.get("Teff"), "2012MNRAS.427..343M", sourceRecordId=f"HIP {hip}")
             source_distance = number(sed_model.get("Dist"))
             luminosity = number(sed_model.get("Lum"))
-            distance = math.sqrt(sum(float(row[field]) ** 2 for field in ("x_pc", "y_pc", "z_pc")))
+            distance = math.hypot(*(float(row[field]) for field in ("x_pc", "y_pc", "z_pc")))
             if source_distance and luminosity:
                 adopt("luminosity_solar", luminosity * (distance / source_distance) ** 2, "2012MNRAS.427..343M", sourceRecordId=f"HIP {hip}", sourceDistancePc=source_distance, adoptedDistancePc=distance)
         # Individual isochrone ages outrank Gaia FLAME; the tightest qualifying one wins.
