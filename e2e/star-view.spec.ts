@@ -716,7 +716,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(distance).toHaveValue('14')
   await expect(page.locator('#object-distance-limit-value')).toHaveText('100 ly')
   await expect(magnitude).toHaveAttribute('type', 'range')
-  await expect(magnitude).toHaveAttribute('max', '25')
+  await expect(magnitude).toHaveAttribute('max', '30')
   await selectCatalog(page, 'nearest-100')
   await expect(page.locator('#catalog-range')).toHaveAttribute('aria-valuetext', 'Nearest 100 objects')
   await magnitude.fill('25')
