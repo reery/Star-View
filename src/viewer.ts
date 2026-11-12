@@ -1120,17 +1120,23 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     home = false
   }
 
+  /** The selected distance is measured from the observed-from object in observer view, otherwise from the origin. */
+  function distanceReferenceIndex(): number {
+    return observerViewEnabled ? observerViewAnchorIndex ?? referenceIndex : referenceIndex
+  }
+
   function updateSelectionGuides(updateDistanceText = false): void {
     if (selectedId === null) {
       if (updateDistanceText) options.onSelectedDistance?.(null)
       return
     }
     const selectedIndex = starsById.get(selectedId)!.index
-    if (selectedIndex === referenceIndex) {
+    const measureIndex = distanceReferenceIndex()
+    if (selectedIndex === measureIndex) {
       if (updateDistanceText) options.onSelectedDistance?.(0)
       return
     }
-    const referencePosition = pickable[referenceIndex]!.position
+    const referencePosition = pickable[measureIndex]!.position
     const selectedPosition = pickable[selectedIndex]!.position
     setSelectionGuidePoints(referencePosition, selectedPosition)
     const distance = referencePosition.distanceTo(selectedPosition)
@@ -1917,8 +1923,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       return
     }
     const selectedIndex = starsById.get(star.id)!.index
-    if (selectedIndex !== referenceIndex) {
-      const referencePosition = pickable[referenceIndex]!.position
+    const measureIndex = distanceReferenceIndex()
+    if (selectedIndex !== measureIndex) {
+      const referencePosition = pickable[measureIndex]!.position
       const selectedPosition = pickable[selectedIndex]!.position
       setSelectionGuidePoints(referencePosition, selectedPosition)
       const distance = referencePosition.distanceTo(selectedPosition)
@@ -1948,18 +1955,20 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       resize()
       return
     }
-    if (focus) {
-      const position = camera.position.clone()
-      const from = controls.target.clone()
-      const to = pickable[starsById.get(star.id)!.index]!.position.clone()
-      applyFocusTarget(from, position)
-      if (reducedMotion.matches) applyFocusTarget(to, position)
-      else focusTransition = { from, to, position, started: performance.now() }
-      home = false
-    }
+    if (focus) focusFromCamera(pickable[starsById.get(star.id)!.index]!.position.clone())
     if (home && !focus) fitHome()
     else resize()
     captureFollowTarget(focus ? 'star' : undefined)
+  }
+
+  /** Turns the orbit towards a point, keeping the camera where it is. */
+  function focusFromCamera(to: Vector3): void {
+    const position = camera.position.clone()
+    const from = controls.target.clone()
+    applyFocusTarget(from, position)
+    if (reducedMotion.matches) applyFocusTarget(to, position)
+    else focusTransition = { from, to, position, started: performance.now() }
+    home = false
   }
 
   const homeBounds = new Box3()
@@ -2795,15 +2804,20 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       spaceshipVisibility = visibilityFromShip
       spaceshipBrightness = brightness
       const previous = spaceship
+      const wasCockpit = spaceshipCockpit
       if (next !== previous) {
         spaceshipFlight = null
-        if (spaceshipCockpit) {
-          leaveSpaceshipCockpit()
-          // Without a ship, orbit a point just ahead instead of the former cockpit.
-          if (!next) applyFocusTarget(spaceshipDirection.subVectors(controls.target, camera.position).normalize().multiplyScalar(0.3).add(camera.position), camera.position.clone())
-        }
+        if (spaceshipCockpit) leaveSpaceshipCockpit()
       }
       spaceship = next
+      if (previous && !next) {
+        // Without a ship, orbit the selected object again; with none, a point just ahead of the former cockpit.
+        const selected = selectedId === null ? undefined : starsById.get(selectedId)
+        if (selected) {
+          focusFromCamera(pickable[selected.index]!.position.clone())
+          captureFollowTarget('star')
+        } else if (wasCockpit) applyFocusTarget(spaceshipDirection.subVectors(controls.target, camera.position).normalize().multiplyScalar(0.3).add(camera.position), camera.position.clone())
+      }
       if (next?.piloting && !spaceshipCockpit && !spaceshipFlight?.boarding) {
         // A recreated viewer or a new ship starts in the cockpit; boarding a parked ship flies there.
         if (next === previous) startSpaceshipFlight(true)

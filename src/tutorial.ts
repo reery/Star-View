@@ -9,7 +9,7 @@ export interface TutorialHost {
   thousandLightYearsStep: number
 }
 
-interface Step {
+export interface Step {
   title: string
   body: string | (() => string)
   /** Existing icon element, name and description of each control the step lists. */
@@ -22,6 +22,8 @@ interface Step {
   side?: Side
   /** A toolbar flyout held open for the step. */
   flyout?: string
+  /** The trigger of the toolbar flyout that hides the step's control: it is shown first, then the control within. */
+  via?: string
   /** A dock or toolbar card shown during the step. */
   panel?: string
   /** The control the step itself presses, when it still needs pressing. */
@@ -35,6 +37,8 @@ const ARROW_ROOM = 76
 const ARROW_LENGTH = { min: 64, max: 190 }
 const MIN_TILE_HEIGHT = 200
 const PRESS_FLASH_MS = 700
+/** How long each control on the way through a flyout stays framed. */
+const VIA_MS = 1_500
 const SIDES = ['left', 'right', 'below', 'above'] as const
 type Side = typeof SIDES[number]
 const clamp = (value: number, low: number, high: number) => Math.max(low, Math.min(value, Math.max(low, high)))
@@ -95,8 +99,12 @@ function placeRing(ring: HTMLElement, target: DOMRect): { x: number; y: number; 
   return { x, y, width, height }
 }
 
-/** Runs the tour; each step drives the app's real controls, and going back or finishing undoes what it changed. */
-export function runTutorial(host: TutorialHost, signal: AbortSignal): void {
+/**
+ * Runs the tour; each step drives the app's real controls, and going back or finishing undoes what it changed.
+ * A tip's Show me runs its single step instead, and leaves the card it opened for the visitor to try;
+ * the tip formats its text, marking up features and terms as the tip itself does.
+ */
+export function runTutorial(host: TutorialHost, signal: AbortSignal, tip?: Step, format?: (text: string) => (Node | string)[]): void {
   const undo: { step: number; run(): void }[] = []
   let stopRotationOnLeave = false
   let closeDetailsOnLeave = false
@@ -128,7 +136,7 @@ export function runTutorial(host: TutorialHost, signal: AbortSignal): void {
     recordChange(() => apply(previous))
   }
 
-  const steps: readonly Step[] = [
+  const steps: readonly Step[] = tip ? [tip] : [
     {
       title: 'The origin',
       body: () => `Every distance here is measured from one point, the origin, and the grid is centered on it. Right now the origin is ${originName() === 'Sun' ? 'the Sun, so you see distances as they are from home' : originName()}.`,
@@ -315,6 +323,15 @@ export function runTutorial(host: TutorialHost, signal: AbortSignal): void {
   const next = Object.assign(document.createElement('button'), { type: 'button', className: 'tutorial-next' })
   actions.append(quit, back, next)
   tile.append(heading, content, actions)
+  // A tip's step keeps the tip's look: its bulb, text and actions, without the tour's heading bar.
+  if (tip) {
+    tile.classList.add('is-tip')
+    const icon = Object.assign(document.createElement('span'), { className: 'info-brand-icon' })
+    icon.setAttribute('aria-hidden', 'true')
+    const bulb = document.getElementById('tip-icon')?.firstElementChild?.cloneNode(true)
+    if (bulb) icon.append(bulb)
+    tile.prepend(icon)
+  }
   const ring = Object.assign(document.createElement('div'), { className: 'tutorial-ring', hidden: true })
   const arrow = Object.assign(document.createElement('div'), { className: 'tutorial-arrow', hidden: true })
   arrow.append(document.createElement('i'))
@@ -344,15 +361,39 @@ export function runTutorial(host: TutorialHost, signal: AbortSignal): void {
     const control = step.panel && !panelOpen(step.panel) ? `#${step.panel}-toggle` : step.press?.()
     // The flyout holding the control has only just started opening, so its visibility cannot be asked yet.
     const element = control ? query(control) : null
-    pressing = element?.checkVisibility() ? element : null
+    // A closed flyout hides its controls by visibility, which the plain check ignores.
+    const trigger = step.via && element && !element.checkVisibility({ visibilityProperty: true }) ? query(step.via) : null
+    const flyout = trigger?.closest<HTMLElement>('[data-toolbar-flyout]')
+    pressing = trigger?.checkVisibility() ? trigger : element?.checkVisibility() ? element : null
     if (!pressing) {
       presentStep(step)
       return
     }
     revealTarget(step, pressing)
     tile.style.visibility = 'hidden'
+    flashPressed()
+    if (pressing !== trigger || !flyout) {
+      pressTimer = window.setTimeout(() => presentStep(step), PRESS_FLASH_MS)
+      return
+    }
+    // The flyout's trigger first, then the control inside it, before the control is pressed.
+    pressTimer = window.setTimeout(() => {
+      flyout.removeAttribute('data-dismissed')
+      flyout.setAttribute('data-touch-open', '')
+      flyout.style.setProperty('--toolbar-options-top', `${flyout.getBoundingClientRect().top}px`)
+      pressing = element
+      flashPressed()
+      pressTimer = window.setTimeout(() => {
+        flyout.removeAttribute('data-touch-open')
+        presentStep(step)
+      }, VIA_MS)
+    }, VIA_MS)
+  }
+
+  function flashPressed(): void {
+    pressedRing.classList.remove('is-flashing')
+    void pressedRing.offsetWidth
     pressedRing.classList.add('is-flashing')
-    pressTimer = window.setTimeout(() => presentStep(step), PRESS_FLASH_MS)
   }
 
   function presentStep(step: Step): void {
@@ -363,9 +404,10 @@ export function runTutorial(host: TutorialHost, signal: AbortSignal): void {
     step.enter?.()
     revealTarget(step)
     title.textContent = step.title
-    progress.textContent = `${index + 1} / ${steps.length}`
+    progress.textContent = tip ? '' : `${index + 1} / ${steps.length}`
     const body = document.createElement('p')
-    body.textContent = typeof step.body === 'function' ? step.body() : step.body
+    const text = typeof step.body === 'function' ? step.body() : step.body
+    body.replaceChildren(...format?.(text) ?? [text])
     const list = document.createElement('ul')
     list.className = 'tutorial-items'
     for (const [iconId, name, description] of step.items ?? []) {
@@ -379,11 +421,12 @@ export function runTutorial(host: TutorialHost, signal: AbortSignal): void {
     content.replaceChildren(body, ...step.items ? [list] : [])
     content.scrollTop = 0
     const last = index === steps.length - 1
-    next.textContent = last ? 'Finish' : 'Next'
+    next.textContent = tip ? 'Okay' : last ? 'Finish' : 'Next'
     quit.hidden = last
     back.hidden = index === 0
     next.focus({ preventScroll: true })
-    // Restarts the sweep along the tile's edge.
+    // Restarts the sweep along the tile's edge; a tip's step appears without one.
+    if (tip) return
     tile.classList.remove('is-appearing')
     void tile.offsetWidth
     tile.classList.add('is-appearing')
@@ -447,15 +490,26 @@ export function runTutorial(host: TutorialHost, signal: AbortSignal): void {
     arrow.style.transform = `translate(${ringX - directionX * toRing - length}px, ${ringY - directionY * toRing - arrow.offsetHeight / 2}px) rotate(${Math.atan2(directionY, directionX)}rad)`
   }
 
+  // Hide UI would slide away the controls the tour points at, so the tour shows them and keeps the button off until it ends.
+  const hideUi = tip ? null : query<HTMLButtonElement>('#hide-ui')
+  const restoreHiddenUi = hideUi?.getAttribute('aria-pressed') === 'true'
+  if (restoreHiddenUi) hideUi!.click()
+  if (hideUi) hideUi.disabled = true
+
   const keys = new AbortController()
   function finish(): void {
+    if (hideUi) {
+      hideUi.disabled = false
+      if (restoreHiddenUi) hideUi.click()
+    }
     cancelAnimationFrame(frame)
     clearTimeout(pressTimer)
     keys.abort()
     const step = steps[index]
     step?.leave?.()
     if (step?.flyout) query(step.flyout)?.removeAttribute('data-touch-open')
-    if (step?.panel) setPanel(step.panel, false)
+    if (step?.via) query(step.via)?.closest('[data-toolbar-flyout]')?.removeAttribute('data-touch-open')
+    if (step?.panel && !tip) setPanel(step.panel, false)
     undoChangesFrom(0)
     tile.remove()
     ring.remove()
@@ -476,7 +530,7 @@ export function runTutorial(host: TutorialHost, signal: AbortSignal): void {
   signal.addEventListener('abort', finish, { once: true, signal: keys.signal })
 
   // The tour needs the toolbar's controls, and its own cards are the only ones it should show.
-  for (const toggle of document.querySelectorAll<HTMLElement>('.scene-toolbar .panel-button[aria-expanded="true"], .dock-rail .panel-button[aria-expanded="true"]')) toggle.click()
+  if (!tip) for (const toggle of document.querySelectorAll<HTMLElement>('.scene-toolbar .panel-button[aria-expanded="true"], .dock-rail .panel-button[aria-expanded="true"]')) toggle.click()
   showStep(0)
   layout()
 }

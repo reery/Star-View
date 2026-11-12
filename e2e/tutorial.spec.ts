@@ -57,16 +57,16 @@ test.describe('on a first visit', () => {
   })
 })
 
-test('Info carries the same motto and makes room beside its Tutorial button', async ({ page }) => {
+test('Info carries the same motto and makes room beside its Tips and Tutorial buttons', async ({ page }) => {
   await openViewer(page)
-  // Active-view buttons sit left of Info; hovering Info moves them clear of Tutorial.
+  // Active-view buttons sit left of Info; hovering Info moves them clear of Tips, the leftmost of its buttons.
   await page.locator('#paint-active').evaluate((button: HTMLElement) => { button.hidden = false })
   await page.locator('#info-toggle').hover()
   await expect(page.locator('#tutorial-toggle')).toBeVisible()
   await expect(async () => {
-    const tutorial = (await page.locator('#tutorial-toggle').boundingBox())!
+    const tips = (await page.locator('#tips-toggle').boundingBox())!
     const paint = (await page.locator('#paint-active').boundingBox())!
-    expect(tutorial.x - (paint.x + paint.width)).toBeGreaterThanOrEqual(16)
+    expect(tips.x - (paint.x + paint.width)).toBeGreaterThanOrEqual(16)
   }).toPass()
   await page.locator('#info-toggle').click()
   await expect(page.locator('#info-panel .info-brand p')).toHaveText('Explore · Ask · Investigate · Understand')
@@ -257,4 +257,18 @@ test('quits from any tile and undoes what the tour changed', async ({ page }) =>
   await expect(page.locator('.tutorial-tile')).toHaveCount(0)
   await expect(page.locator('#scene-context-menu')).toBeHidden()
   await expect(page.locator('#app')).not.toHaveJSProperty('inert', true)
+})
+
+test('shows a hidden UI for the tour and hides it again afterwards', async ({ page }) => {
+  await openViewer(page)
+  await openWelcome(page, false)
+  await page.locator('#hide-ui').evaluate((button: HTMLButtonElement) => button.click())
+  await expect(page.locator('html')).toHaveAttribute('data-ui-hidden', '')
+  await page.locator('#welcome-yes').click()
+  await expect(page.locator('#tutorial-title')).toHaveText('The origin')
+  await expect(page.locator('html')).not.toHaveAttribute('data-ui-hidden')
+  await expect(page.locator('#hide-ui')).toBeDisabled()
+  await page.locator('.tutorial-tile').getByRole('button', { name: 'Quit tutorial' }).click()
+  await expect(page.locator('#hide-ui')).toBeEnabled()
+  await expect(page.locator('html')).toHaveAttribute('data-ui-hidden', '')
 })

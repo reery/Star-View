@@ -129,7 +129,7 @@ export function initializeStarComparison(options: {
       y = bounds.top
       if (x + width > window.innerWidth - 12) {
         x = bounds.left
-        y = get('object-card-details').querySelector('summary')!.getBoundingClientRect().bottom + 8
+        y = get('object-card-header').getBoundingClientRect().bottom + 8
       }
     }
     popup.style.left = `${Math.max(12, Math.min(x, window.innerWidth - width - 12))}px`
@@ -461,10 +461,10 @@ export function initializeStarComparison(options: {
     get other() { return comparisonStar() },
     get waiting() { return waiting },
     abort(): boolean {
-      // Some browsers retain focus on the enclosing summary after a pointer click.
+      // Some browsers retain focus on a header button after a pointer click.
       // Clear that pointer focus without removing keyboard navigation cues.
-      const summary = get('object-card-details').querySelector('summary')!
-      if ((waiting || otherId !== null) && pointerInput && document.activeElement instanceof HTMLElement && summary.contains(document.activeElement)) document.activeElement.blur()
+      const header = get('object-card-header')
+      if ((waiting || otherId !== null) && pointerInput && document.activeElement instanceof HTMLElement && header.contains(document.activeElement)) document.activeElement.blur()
       if (!waiting) return false
       cancel()
       return true

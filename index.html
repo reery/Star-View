@@ -37,28 +37,38 @@
           <p class="visibility-observer" data-scene-obstacle><span>Origin: <strong id="reference-base">Sun</strong> <span aria-hidden="true">|</span> Visibility from: <strong id="visibility-base">Sirius A</strong><button id="visibility-lock" class="visibility-lock" type="button" aria-label="Lock visibility to this object" aria-pressed="false" title="Lock visibility to this object"><span id="visibility-lock-icon"></span></button> <span aria-hidden="true">|</span> Distance from viewer: <strong id="viewer-distance">—</strong></span></p>
           <div id="scene-status" class="scene-status is-loading" role="status">Loading…</div>
           <aside id="inspector" class="inspector" aria-label="Object controls">
+            <section id="tip-tile" class="tip-tile" aria-label="Tip" aria-live="polite" data-scene-obstacle hidden>
+              <span id="tip-icon" class="info-brand-icon" aria-hidden="true"></span>
+              <p id="tip-text" class="tip-text"></p>
+              <button id="tip-close" class="panel-lock" type="button" aria-label="Close tip" title="Close tip"><span id="tip-close-icon"></span></button>
+              <div class="browser-data-actions">
+                <button id="tips-off" type="button">Disable tips</button>
+                <button id="tip-show" type="button">Show me</button>
+              </div>
+            </section>
             <section id="selected-object-card" class="selected-object" aria-label="Selected object" data-scene-obstacle>
               <div class="selected-object-content">
                 <div id="star-details" hidden>
+                  <div id="object-card-header" class="selection-summary">
+                    <span class="identity">
+                      <canvas id="selected-swatch" width="168" height="168" aria-hidden="true"></canvas>
+                      <span class="identity-heading">
+                        <button id="object-card-toggle" class="identity-title" type="button" aria-controls="object-card-details" aria-expanded="false">
+                          <span id="star-name" class="star-name"></span>
+                          <span id="star-distance" class="star-distance"></span>
+                        </button>
+                        <span id="star-components" class="star-components" role="group" aria-label="System components" hidden></span>
+                      </span>
+                    </span>
+                    <span class="object-card-footer" role="group" aria-label="Object details">
+                      <button id="object-specs-toggle" class="object-section-button" type="button" aria-label="Specs" title="Specs" aria-controls="object-specs" aria-expanded="false"><span id="object-specs-icon"></span></button>
+                      <button id="object-info-toggle" class="object-section-button" type="button" aria-label="Info · No data yet" title="Info · No data yet" aria-controls="object-info" aria-expanded="false" disabled><span id="object-info-icon"></span></button>
+                      <button id="object-system-toggle" class="object-section-button" type="button" aria-label="System" title="System" aria-controls="object-system" aria-expanded="false"><span id="object-system-icon"></span></button>
+                      <button id="object-compare-toggle" class="object-section-button" type="button" aria-label="Compare with another star" title="Compare with another star" aria-pressed="false" disabled><span id="object-compare-icon"></span></button>
+                    </span>
+                  </div>
                   <details id="object-card-details">
-                    <summary class="selection-summary" aria-labelledby="star-name">
-                      <span class="identity">
-                        <canvas id="selected-swatch" width="168" height="168" aria-hidden="true"></canvas>
-                        <span class="identity-heading">
-                          <span class="identity-title">
-                            <span id="star-name" class="star-name"></span>
-                            <span id="star-distance" class="star-distance"></span>
-                          </span>
-                          <span id="star-components" class="star-components" role="group" aria-label="System components" hidden></span>
-                        </span>
-                      </span>
-                      <span class="object-card-footer" role="group" aria-label="Object details">
-                        <button id="object-specs-toggle" class="object-section-button" type="button" aria-label="Specs" title="Specs" aria-controls="object-specs" aria-expanded="false"><span id="object-specs-icon"></span></button>
-                        <button id="object-info-toggle" class="object-section-button" type="button" aria-label="Info · No data yet" title="Info · No data yet" aria-controls="object-info" aria-expanded="false" disabled><span id="object-info-icon"></span></button>
-                        <button id="object-system-toggle" class="object-section-button" type="button" aria-label="System" title="System" aria-controls="object-system" aria-expanded="false"><span id="object-system-icon"></span></button>
-                        <button id="object-compare-toggle" class="object-section-button" type="button" aria-label="Compare with another star" title="Compare with another star" aria-pressed="false" disabled><span id="object-compare-icon"></span></button>
-                      </span>
-                    </summary>
+                    <summary hidden></summary>
                     <div class="object-card-body">
                       <div id="object-specs">
                         <section class="properties-section" aria-label="Object properties">
@@ -782,6 +792,7 @@
                 <div class="info-controls" data-toolbar-flyout role="group" aria-label="Info and tutorial">
                   <button id="info-toggle" class="icon-button panel-button" type="button" aria-label="Info" aria-controls="info-panel" aria-expanded="false"><span id="info-icon"></span><span class="tooltip">Info</span></button>
                   <div class="info-options" data-toolbar-options>
+                    <button id="tips-toggle" class="icon-button" type="button" aria-label="Tips" aria-pressed="true" aria-controls="tip-tile"><span id="tips-icon"></span><span class="tooltip">Turn tips off</span></button>
                     <button id="tutorial-toggle" class="icon-button" type="button" aria-label="Tutorial" aria-controls="welcome-tile"><span id="tutorial-icon"></span><span class="tooltip">Tutorial</span></button>
                   </div>
                 </div>

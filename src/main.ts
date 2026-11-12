@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, Lightbulb, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipBrightness, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
@@ -56,6 +56,7 @@ import { loadDataShardEntry } from './data-shards'
 import { appendConstellationContent } from './constellation-card-content'
 import { initializeToolbarTouch } from './toolbar-touch'
 import { initializeHideUi } from './hide-ui'
+import { initializeTips, noteTipFeature } from './tips'
 import { initializeCardSwipes } from './card-swipe'
 import { initializeTouchTooltips } from './touch-tooltips'
 import { attachPopoverTooltip } from './popover-tooltips'
@@ -245,6 +246,9 @@ icon('info-icon', CircleHelp)
 icon('info-brand-icon', Orbit)
 icon('welcome-icon', Orbit)
 icon('tutorial-icon', GraduationCap)
+icon('tips-icon', Lightbulb)
+icon('tip-icon', Lightbulb)
+icon('tip-close-icon', X)
 icon('filter-lock-icon', Lock)
 icon('filter-close-icon', X)
 icon('filter-reset-icon', RotateCcw)
@@ -1800,9 +1804,9 @@ function syncObjectTypeLayout(): void {
       inspector.style.setProperty('--object-detail-max-width', `${remaining}px`)
       inspector.style.removeProperty('--object-detail-top')
     } else {
-      const summaryBounds = element('object-card-details').querySelector('summary')!.getBoundingClientRect()
+      const headerBounds = element('object-card-header').getBoundingClientRect()
       inspector.style.setProperty('--object-detail-left', `${selectedBounds.left - inspectorBounds.left}px`)
-      inspector.style.setProperty('--object-detail-top', `${summaryBounds.bottom - inspectorBounds.top + 12}px`)
+      inspector.style.setProperty('--object-detail-top', `${headerBounds.bottom - inspectorBounds.top + 12}px`)
     }
   } else {
     inspector.style.removeProperty('--object-detail-top')
@@ -1836,6 +1840,7 @@ function syncSelectedObjectLayout(): void {
 }
 
 function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active', active: boolean): void {
+  if (active) noteTipFeature(id)
   const indicator = element(id)
   if (indicator.hidden !== active) return
   indicator.hidden = !active
@@ -2166,6 +2171,7 @@ function syncObjectSections(): void {
     element(`object-${section}-toggle`).setAttribute('aria-expanded', String(details.open && active))
   }
   element('known-planets').setAttribute('aria-expanded', String(details.open && activeObjectSection === 'system'))
+  element('object-card-toggle').setAttribute('aria-expanded', String(details.open))
   syncSelectedObjectLayout()
   syncObjectTypeLayout()
   void renderActiveObjectSection()
@@ -2197,6 +2203,10 @@ for (const section of objectSections) {
   }, { signal: events.signal })
 }
 element('object-card-details').addEventListener('toggle', syncObjectSections, { signal: events.signal })
+element('object-card-toggle').addEventListener('click', () => {
+  const details = element<HTMLDetailsElement>('object-card-details')
+  details.open = !details.open
+}, { signal: events.signal })
 element('known-planets-row').addEventListener('click', () => {
   if (element<HTMLButtonElement>('known-planets').disabled) return
   activeObjectSection = 'system'
@@ -2283,8 +2293,6 @@ function renderSystemComponents(system: StarSystem | undefined, selectedComponen
 element('star-components').addEventListener('click', (event) => {
   const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-component-id]')
   if (!button?.dataset.componentId) return
-  // Component buttons live below the distance inside the expandable header.
-  event.preventDefault()
   event.stopPropagation()
   selectStar(button.dataset.componentId)
 }, { signal: events.signal })
@@ -2343,7 +2351,8 @@ function renderSelection(): void {
     return
   }
   const specs = specValues(star, sun, distanceUnit)
-  const displayedDistancePc = selectedDistancePc ?? sunRelativeMetrics(star, reference).distancePc
+  const distanceReference = (observerView ? starById(observerViewAnchorId) : undefined) ?? reference
+  const displayedDistancePc = selectedDistancePc ?? sunRelativeMetrics(star, distanceReference).distancePc
   const color = starDisplayColor(star, starColorMode).getStyle()
   element('inspector').dataset.selectedStar = star.id
   element('inspector').style.setProperty('--selected-star-color', color)
@@ -2591,7 +2600,7 @@ function renderSelection(): void {
     .filter(Boolean).join('\n\n') || 'No source notes available.' : 'Loading…')
   specsContentStar = starDetailsLoaded(star) ? star : undefined
   starComparison.render()
-  const referenceName = reference.id === 'sun' ? 'the Sun' : reference.name
+  const referenceName = distanceReference.id === 'sun' ? 'the Sun' : distanceReference.name
   text('selection-announcement', `${star.name}, ${formatDistance(displayedDistancePc, distanceUnit)} from ${referenceName}.`)
   void renderActiveObjectSection()
 }
@@ -2854,7 +2863,10 @@ function selectStar(id: string | null, recordHistory = true): void {
   selectedDistancePc = null
   selectedId = id
   syncObjectRoute()
-  if (id !== null) lastSelectedId = id
+  if (id !== null) {
+    lastSelectedId = id
+    noteTipFeature('select')
+  }
   if (id !== null && !observerView && visibilityLockId === null) observerId = id
   updateObjectListFilter()
   renderSelection()
@@ -3357,6 +3369,7 @@ function openSceneContextMenu(id: string, x: number, y: number, held: PointerEve
   // Without a selection the menu measures and compares against the origin.
   const selected = starById(selectedId) ?? starById(referenceId)
   if (!target || !selected) return false
+  noteTipFeature('object-menu')
   const distancePc = id === selected.id ? null : viewer?.distanceBetween(id, selected.id) ?? null
   const compare = element('scene-context-compare')
   const origin = element('scene-context-origin')
@@ -4729,17 +4742,29 @@ async function startTutorial(): Promise<void> {
   })
   if (!result) return
   answerWelcome()
-  result.value.runTutorial({
-    ensureSelection: () => { if (selectedId === null) selectStar(lastSelectedId ?? 'sirius-a') },
-    openObjectMenu: (id, x, y) => selectedId !== null && id !== selectedId && id !== referenceId
-      && starComparison.canCompare(id, selectedId) && openSceneContextMenu(id, x, y, null),
-    thousandLightYearsStep: OBJECT_DISTANCE_STEPS_LY.indexOf(1000),
-  }, events.signal)
+  result.value.runTutorial(tutorialHost, events.signal)
+}
+const tutorialHost: import('./tutorial').TutorialHost = {
+  ensureSelection: () => { if (selectedId === null) selectStar(lastSelectedId ?? 'sirius-a') },
+  openObjectMenu: (id, x, y) => selectedId !== null && id !== selectedId && id !== referenceId
+    && starComparison.canCompare(id, selectedId) && openSceneContextMenu(id, x, y, null),
+  thousandLightYearsStep: OBJECT_DISTANCE_STEPS_LY.indexOf(1000),
 }
 element('tutorial-toggle').addEventListener('click', showWelcome, { signal: events.signal })
 element('welcome-no').addEventListener('click', answerWelcome, { signal: events.signal })
 element('welcome-yes').addEventListener('click', () => { void startTutorial() }, { signal: events.signal })
 if (storedLayout('welcome-answered') === null) showWelcome()
+initializeTips({
+  tutorial: tutorialHost,
+  store: storeLayout,
+  stored: storedLayout,
+  selectedId: () => selectedId,
+  select: selectStar,
+  describe: (id) => {
+    const star = starById(id)
+    return star ? { name: star.name, color: starDisplayColor(star, starColorMode).getStyle() } : null
+  },
+}, events.signal)
 element<HTMLFormElement>('save-view-form').addEventListener('submit', (event) => {
   event.preventDefault()
   saveCurrentView()

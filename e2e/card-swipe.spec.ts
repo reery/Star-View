@@ -332,3 +332,98 @@ test('sliders inside a card keep their own touch handling @mobile', async ({ pag
   await touch.up()
   await expect(page.locator('#distance-card')).toBeVisible()
 })
+
+test('sideways swipes step through the selected object card sections, past greyed-out ones and never onto Compare @mobile', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'Real touch input')
+  await openViewer(page)
+  await page.locator('#object-specs-toggle').tap()
+  const expanded = page.locator('.object-section-button[aria-expanded="true"]')
+  await expect(expanded).toHaveId('object-specs-toggle')
+  await expect(page.locator('#object-system-toggle')).toBeEnabled()
+  const box = (await page.locator('.object-card-body').boundingBox())!
+  const start = { x: box.x + box.width / 2, y: box.y + 60 }
+  const left = { x: start.x - 130, y: start.y }
+  const right = { x: start.x + 130, y: start.y }
+  const touch = await touchSession(page)
+
+  // A swipe taken back stays on its section.
+  await touch.down(start)
+  await touch.move(start, left)
+  await touch.move(left, start)
+  await touch.up()
+  await expect(expanded).toHaveId('object-specs-toggle')
+
+  await page.locator('#object-info-toggle').evaluate((button: HTMLButtonElement) => { button.disabled = true })
+  await touch.swipe(start, left)
+  await expect(expanded).toHaveId('object-system-toggle')
+  await expect(page.locator('#object-system')).toBeVisible()
+  await expect(page.locator('.object-card-body')).not.toHaveAttribute('style', /transform/)
+
+  // The last section ends the sequence: Compare is not a section.
+  await touch.swipe(start, left)
+  await expect(expanded).toHaveId('object-system-toggle')
+  await expect(page.locator('#object-compare-toggle')).toHaveAttribute('aria-pressed', 'false')
+
+  await touch.swipe(start, right)
+  await expect(expanded).toHaveId('object-specs-toggle')
+  await expect(page.locator('#object-card-details')).toHaveAttribute('open')
+})
+
+test.describe('on a first touch visit', () => {
+  const origin = `http://127.0.0.1:${process.env.PLAYWRIGHT_PORT ?? 4173}`
+  test.use({ storageState: { cookies: [], origins: [{ origin, localStorage: [{ name: 'star-view-welcome-answered', value: 'true' }] }] } })
+
+  test('the selected object card and then a detail card each show their swipes once, until OK or a swipe down @mobile', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'Real touch input')
+    await openViewer(page)
+    const card = page.locator('#selected-object-card')
+    await page.locator('#object-specs-toggle').tap()
+    const objectHint = card.locator('.swipe-hint')
+    await expect(objectHint).toBeVisible()
+    await expect(objectHint.locator('.swipe-hint-arrow')).toHaveCount(3)
+    await expect(objectHint.locator('[data-direction="up"]')).toBeVisible()
+    await expect(objectHint.locator('p[data-gesture="sideways"]')).toHaveText('Swipe left or right to switch tabs')
+    // The up arrow and its line sit above OK.
+    const upBottom = (await objectHint.locator('p[data-gesture="up"]').boundingBox())!
+    expect(upBottom.y + upBottom.height).toBeLessThanOrEqual((await objectHint.getByRole('button', { name: 'OK' }).boundingBox())!.y)
+    await expect(page.locator('.selected-object-content')).toHaveCSS('filter', 'blur(3px)')
+    await expect(page.locator('.object-card-body')).toHaveCSS('visibility', 'hidden')
+    await test.info().attach('Selected object swipe hint', { body: await page.screenshot(), contentType: 'image/png' })
+
+    // The hint holds the card still until it is acknowledged.
+    const box = (await objectHint.boundingBox())!
+    const touch = await touchSession(page)
+    const start = { x: box.x + box.width / 2, y: box.y + box.height / 2 }
+    await touch.swipe(start, { x: start.x - 130, y: start.y })
+    await expect(page.locator('#object-specs-toggle')).toHaveAttribute('aria-expanded', 'true')
+    await objectHint.getByRole('button', { name: 'OK' }).tap()
+    await expect(objectHint).toHaveCount(0)
+    await expect(page.locator('.selected-object-content')).toHaveCSS('filter', 'none')
+    await expect(page.locator('.object-card-body')).toHaveCSS('visibility', 'visible')
+    expect(await page.evaluate(() => localStorage.getItem('star-view-swipe-hint-object-card'))).toBe('seen')
+
+    await page.locator('#mass-toggle').tap()
+    const detailHint = page.locator('#mass-card .swipe-hint')
+    await expect(detailHint).toBeVisible()
+    await expect(detailHint.locator('[data-direction="down"]')).toBeVisible()
+    await expect(detailHint.locator('[data-direction="up"]')).toHaveCount(0)
+    await test.info().attach('Detail card swipe hint', { body: await page.screenshot(), contentType: 'image/png' })
+    await expect(page.locator('#mass-card > .card-scroll-content')).toHaveCSS('visibility', 'hidden')
+    // A swipe down acknowledges the hint instead of closing the card.
+    const hintBox = (await detailHint.boundingBox())!
+    const top = { x: hintBox.x + hintBox.width / 2, y: hintBox.y + 40 }
+    await touch.swipe(top, { x: top.x, y: top.y + 150 })
+    await expect(page.locator('.swipe-hint')).toHaveCount(0)
+    await expect(page.locator('#mass-card')).toBeVisible()
+    await expect(page.locator('#mass-card > .card-scroll-content')).toHaveCSS('visibility', 'visible')
+    expect(await page.evaluate(() => localStorage.getItem('star-view-swipe-hint-detail-card'))).toBe('seen')
+
+    await page.reload()
+    await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+    await expect(page.locator('#star-name')).toHaveText('Sirius')
+    await page.locator('#object-specs-toggle').tap()
+    await page.locator('#mass-toggle').tap()
+    await expect(page.locator('#mass-card')).toBeVisible()
+    await expect(page.locator('.swipe-hint')).toHaveCount(0)
+  })
+})

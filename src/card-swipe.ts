@@ -13,6 +13,20 @@ const RETURN_SPEED = -0.2 // Moving back this fast cancels even past the commit 
 const IDLE_MS = 80 // A finger held this long before lifting has no speed left.
 const AXIS_BIAS = 1.2 // A diagonal start belongs to vertical scrolling.
 const END_RESISTANCE = 0.2
+const WIGGLE_PX = 8
+const WIGGLE_MS = 420
+const HINT_FADE_MS = 200
+
+/** Each line sits beside its arrows: sideways between the left and right ones, up or down under its own, above OK. */
+type SwipeHint = { key: string; lines: readonly (readonly ['sideways' | 'up' | 'down', string])[] }
+const OBJECT_HINT: SwipeHint = {
+  key: 'swipe-hint-object-card',
+  lines: [['sideways', 'Swipe left or right to switch tabs'], ['up', 'Swipe up to collapse the card']],
+}
+const DETAIL_HINT: SwipeHint = {
+  key: 'swipe-hint-detail-card',
+  lines: [['sideways', 'Swipe left or right for the previous or next detail'], ['down', 'Swipe down to close the card']],
+}
 
 type SwipeKind = 'step' | 'close' | 'retract'
 type Swipe = {
@@ -21,7 +35,7 @@ type Swipe = {
   startX: number
   startY: number
   kind?: SwipeKind
-  /** What follows the finger: the card, or for a retract the content sliding under the summary. */
+  /** What follows the finger: the card, or for a retract the content sliding under the header. */
   moved: HTMLElement
   position: number
   lastRaw: number
@@ -59,19 +73,25 @@ const scrollable = (overflow: string) => overflow === 'auto' || overflow === 'sc
 const headingParts = (card: HTMLElement) => [...card.querySelector(':scope > .panel-heading')!.children] as HTMLElement[]
 const bodyParts = (card: HTMLElement) => ([...card.children] as HTMLElement[]).filter((child) => !child.matches('.panel-heading'))
 const toggledCard = (toggle: HTMLButtonElement) => document.getElementById(toggle.getAttribute('aria-controls')!)!
+/** Streams in what is not already waiting for its data to stream in. */
+const streamInParts = (parts: HTMLElement[]) => parts
+  .filter((part) => !part.getAnimations().some((animation) => !(animation instanceof CSSAnimation)))
+  .map(streamIn)
 const isLoading = (card: HTMLElement) => card.matches('[aria-busy="true"], :has([aria-busy="true"]:not([hidden], [hidden] *, details:not([open]) *))')
 
 /**
- * Touch swipes on the object cards: sideways steps through the detail cards, down closes one, and up
- * retracts the selected object card. A step keeps the card's frame and heading row in place, exchanges
- * what the row holds and moves the content out under it. Everything follows the finger by transform and
+ * Touch swipes on the object cards: sideways steps through the detail cards or the selected object card's
+ * sections, down closes a detail card, and up retracts the selected object card. A step keeps the card's
+ * frame and heading row in place, exchanges what the row holds and moves the content out under it. Everything follows the finger by transform and
  * opacity alone and nothing renders until a swipe commits, so a cancelled swipe costs no work and an idle
  * card holds no extra layer.
  */
 export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTMLDetailsElement, touchInput: MediaQueryList, signal: AbortSignal): void {
   const blankFrame = inspector.querySelector<HTMLElement>('.card-swipe-frame')!
-  const objectSummary = objectDetails.querySelector('summary')!
+  const objectHeader = inspector.querySelector<HTMLElement>('#object-card-header')!
   const objectBody = objectDetails.querySelector<HTMLElement>('.object-card-body')!
+  const selectedCard = objectDetails.closest<HTMLElement>('.selected-object')!
+  const shownSection = () => [...objectBody.children].filter((child) => !(child as HTMLElement).hidden) as HTMLElement[]
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   let swipe: Swipe | undefined
   let settling = false
@@ -126,19 +146,23 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
 
   const steppableToggles = () => [...document.querySelectorAll<HTMLButtonElement>('#object-specs .object-type-toggle[aria-controls$="-card"]')]
     .filter((toggle) => !toggle.disabled && !toggle.closest('[hidden]'))
+  // Compare has no section of its own, so it is not among them.
+  const sectionToggles = () => [...objectHeader.querySelectorAll<HTMLButtonElement>('.object-section-button[aria-controls]')]
+    .filter((toggle) => !toggle.disabled)
 
   /** Claims the gesture from its first movement, the only one a browser still lets a page cancel. */
   function kindOf(active: Swipe, dx: number, dy: number): SwipeKind | undefined {
     const { target, card } = active
     if (target.closest('input, select, textarea') || getComputedStyle(target).touchAction === 'none') return undefined
     const sideways = Math.abs(dx) > Math.abs(dy) * AXIS_BIAS
-    if (card.matches('.selected-object')) {
-      if (sideways || dy >= 0 || !objectDetails.open) return undefined
+    if (card === selectedCard && !sideways) {
+      if (dy >= 0 || !objectDetails.open) return undefined
       const scrollsUp = anyUpTo(card, target, (element) =>
         element.scrollHeight - element.clientHeight - element.scrollTop > 1 && scrollable(getComputedStyle(element).overflowY))
       return scrollsUp ? undefined : 'retract'
     }
     if (sideways) {
+      if (card === selectedCard && !objectDetails.open) return undefined
       const scrollsSideways = anyUpTo(card, target, (element) =>
         element.scrollWidth - element.clientWidth > 1 && scrollable(getComputedStyle(element).overflowX))
       return scrollsSideways ? undefined : 'step'
@@ -153,18 +177,27 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
     const height = active.card.offsetHeight
     if (kind === 'retract') {
       active.moved = objectBody
-      active.extent = height - objectSummary.offsetHeight
+      active.extent = height - objectHeader.offsetHeight
       active.commitAt = Math.min(COMMIT_DISTANCE_PX, active.extent / 2)
     } else if (kind === 'close') {
       active.commitAt = Math.min(COMMIT_DISTANCE_PX, height / 2)
     } else {
-      const toggles = steppableToggles()
-      const index = toggles.findIndex((toggle) => toggle.getAttribute('aria-controls') === active.card.id)
+      const sections = active.card === selectedCard
+      const toggles = sections ? sectionToggles() : steppableToggles()
+      const index = toggles.findIndex((toggle) => sections
+        ? toggle.getAttribute('aria-expanded') === 'true'
+        : toggle.getAttribute('aria-controls') === active.card.id)
       if (index >= 0) {
         active.previous = toggles[index - 1]
         active.next = toggles[index + 1]
       }
       active.commitAt = Math.min(COMMIT_DISTANCE_PX, active.card.offsetWidth * 0.4)
+      // The header with the section buttons stays; only the section moves.
+      if (sections) {
+        active.outgoingBody = [objectBody]
+        objectBody.classList.add('is-step-part')
+        return
+      }
       active.outgoingHeading = headingParts(active.card)
       active.outgoingBody = bodyParts(active.card)
       active.card.classList.add('is-stepping')
@@ -188,7 +221,7 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
       if (neighbour !== active.peeked) {
         active.peeked = neighbour
         dropIncoming(active)
-        if (neighbour) showIncoming(active, neighbour)
+        if (neighbour && active.card !== selectedCard) showIncoming(active, neighbour)
         else poseHeading(active.outgoingHeading, 0, 1)
       }
       // The exchange completes exactly as the swipe arms.
@@ -246,6 +279,27 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
     if (!opened.hidden && !reducedMotion.matches) drawIn(opened, oldWidth, oldHeight, `inset(0 0 calc(100% - ${headingHeight}px) 0 round ${radius})`, `inset(0 0 0 0 round ${radius})`)
   }
 
+  /** The section slides out, and the next one draws in from the top as a stepped-to card does. */
+  async function commitSection(active: Swipe): Promise<void> {
+    const { card, radius } = active
+    const oldHeight = card.offsetHeight
+    await settle(objectBody, { transform: shift(Math.sign(active.position) * card.offsetWidth), opacity: 0 }).finished
+    endStep(active)
+    active.peeked!.click()
+    if (reducedMotion.matches) return
+    const timing = { duration: STREAM_MS, easing: STREAM_EASING }
+    reveal = [card.animate({ clipPath: [`inset(0 0 ${Math.max(0, card.offsetHeight - oldHeight)}px 0 round ${radius})`, `inset(0 0 0 0 round ${radius})`] }, timing)]
+    reveal.push(...streamInParts(shownSection()))
+  }
+
+  /** Nothing lies that way: the content springs back past its place and settles, so the swipe still answers. */
+  const wiggle = (element: HTMLElement, side: number) => element.animate([
+    { transform: shift(-side * WIGGLE_PX), opacity: 1, offset: 0.3 },
+    { transform: shift(side * WIGGLE_PX * 0.5), opacity: 1, offset: 0.55 },
+    { transform: shift(-side * WIGGLE_PX * 0.2), opacity: 1, offset: 0.8 },
+    { transform: 'none', opacity: 1 },
+  ], { duration: WIGGLE_MS, easing: 'ease-out', fill: 'forwards' })
+
   /** A blank frame keeps the old card's size until the new card has its content, then eases to the new size as the card draws in over it. */
   function drawIn(opened: HTMLElement, oldWidth: number, oldHeight: number, closed: string, open: string): void {
     const startWidth = `${Math.max(oldWidth, opened.offsetWidth)}px`
@@ -285,9 +339,7 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
       opened.style.removeProperty('clip-path')
       reveal = [frame, opened.animate({ clipPath: [closed, open] }, timing)]
       // Content that waited for its data is already streaming in.
-      for (const part of bodyParts(opened)) {
-        if (!part.getAnimations().some((animation) => !(animation instanceof CSSAnimation))) reveal.push(streamIn(part))
-      }
+      reveal.push(...streamInParts(bodyParts(opened)))
     }
     frameRequest = requestAnimationFrame(draw)
   }
@@ -303,10 +355,11 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
         if (kind === 'step') {
           active.incomingHeading.forEach((part) => settle(part, { transform: shift(-Math.sign(position) * HEADING_SHIFT_PX), opacity: 0 }))
           active.outgoingHeading.forEach((part) => settle(part, { transform: 'none', opacity: 1 }))
-          await Promise.all(active.outgoingBody.map((part) => settle(part, { transform: 'none', opacity: 1 }).finished))
+          const end = !active.peeked && Math.abs(position) >= FLICK_DISTANCE_PX && !reducedMotion.matches
+          await Promise.all(active.outgoingBody.map((part) => (end ? wiggle(part, Math.sign(position)) : settle(part, { transform: 'none', opacity: 1 })).finished))
         } else await settle(moved, { transform: 'translate3d(0,0,0)' }).finished
       } else if (kind === 'step') {
-        await commitStep(active)
+        await (card === selectedCard ? commitSection(active) : commitStep(active))
       } else if (kind === 'close') {
         await settle(card, { transform: `translate3d(0,${position + 120}px,0)`, opacity: 0 }).finished
         card.querySelector<HTMLButtonElement>('[id$="-close"]')!.click()
@@ -330,7 +383,7 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
       swipe = undefined
       return
     }
-    if (settling || !touchInput.matches || !(event.target instanceof Element)) return
+    if (settling || !touchInput.matches || !(event.target instanceof Element) || event.target.closest('.swipe-hint')) return
     const card = event.target.closest<HTMLElement>('.object-type-card, .selected-object')
     if (!card) return
     // A quick next swipe does not wait for the previous card to finish arriving.
@@ -373,4 +426,107 @@ export function initializeCardSwipes(inspector: HTMLElement, objectDetails: HTML
     if (swipe?.kind) void finish(swipe, false)
     swipe = undefined
   }, options)
+
+  initializeSwipeHints()
+
+  /**
+   * The first time a touch visitor opens the selected object card, and then a detail card, the card opens
+   * empty, blurs, and shows arrows naming its swipes. OK or a swipe down acknowledges them, and the content
+   * then streams in as usual. A card that closes first shows its hint again next time.
+   */
+  function initializeSwipeHints(): void {
+    const seen = new Set<string>()
+    const hintSeen = (hint: SwipeHint) => {
+      if (seen.has(hint.key)) return true
+      try { return localStorage.getItem(`star-view-${hint.key}`) !== null } catch { return false }
+    }
+    if (hintSeen(OBJECT_HINT) && hintSeen(DETAIL_HINT)) return
+    let shown: { card: HTMLElement; overlay: HTMLElement } | undefined
+    const dismiss = () => {
+      if (!shown) return
+      shown.overlay.remove()
+      shown.card.removeAttribute('data-swipe-hint')
+      shown = undefined
+    }
+    // Observer callbacks run before the next paint, so the content never shows ahead of its hint.
+    const observer = new MutationObserver((records) => {
+      for (const { target } of records) {
+        const card = target === objectDetails ? selectedCard : target as HTMLElement
+        if (target === objectDetails ? objectDetails.open : !card.hidden) show(card, card === selectedCard ? OBJECT_HINT : DETAIL_HINT)
+        else if (shown?.card === card) dismiss()
+      }
+    })
+    observer.observe(objectDetails, { attributeFilter: ['open'] })
+    for (const card of inspector.querySelectorAll('.dock-card.object-type-card:not(.card-swipe-frame)')) observer.observe(card, { attributeFilter: ['hidden'] })
+    signal.addEventListener('abort', () => observer.disconnect(), { once: true })
+
+    async function acknowledge(hint: SwipeHint): Promise<void> {
+      if (!shown) return
+      seen.add(hint.key)
+      try { localStorage.setItem(`star-view-${hint.key}`, 'seen') } catch {}
+      if (hintSeen(OBJECT_HINT) && hintSeen(DETAIL_HINT)) observer.disconnect()
+      const { card, overlay } = shown
+      overlay.inert = true
+      const blurred = ([...card.children] as HTMLElement[]).filter((child) => child !== overlay)
+      const timing = { duration: reducedMotion.matches ? 0 : HINT_FADE_MS, easing: EASING, fill: 'forwards' as const }
+      const fades = [overlay.animate({ opacity: 0 }, timing), ...blurred.map((child) => child.animate({ filter: 'none' }, timing))]
+      await Promise.all(fades.map((fade) => fade.finished))
+      if (shown?.overlay !== overlay) return
+      dismiss()
+      fades.forEach((fade) => fade.cancel())
+      if (!reducedMotion.matches) reveal.push(...streamInParts(card === selectedCard ? shownSection() : bodyParts(card)))
+    }
+
+    function show(card: HTMLElement, hint: SwipeHint): void {
+      if (shown || !touchInput.matches || hintSeen(hint) || document.querySelector('.tutorial-tile')) return
+      const overlay = document.createElement('div')
+      overlay.className = 'swipe-hint'
+      overlay.setAttribute('role', 'dialog')
+      overlay.setAttribute('aria-label', 'Swipe gestures')
+      for (const [gesture, line] of hint.lines) {
+        for (const direction of gesture === 'sideways' ? ['left', 'right'] : [gesture]) {
+          const arrow = Object.assign(document.createElement('span'), { className: 'swipe-hint-arrow' })
+          arrow.dataset.direction = direction
+          arrow.setAttribute('aria-hidden', 'true')
+          arrow.append(document.createElement('i'))
+          overlay.append(arrow)
+        }
+        const copy = Object.assign(document.createElement('p'), { textContent: line })
+        copy.dataset.gesture = gesture
+        overlay.append(copy)
+      }
+      const actions = Object.assign(document.createElement('div'), { className: 'browser-data-actions' })
+      const ok = Object.assign(document.createElement('button'), { type: 'button', textContent: 'OK' })
+      ok.addEventListener('click', () => { void acknowledge(hint) }, { signal })
+      actions.append(ok)
+      overlay.append(actions)
+
+      // A swipe down fades the hint with the finger and, far enough, acknowledges it.
+      let startY: number | undefined
+      let pulled = 0
+      const restore = () => {
+        startY = undefined
+        if (pulled) settle(overlay, { opacity: 1 }).finished.then(() => release(overlay), () => undefined)
+        pulled = 0
+      }
+      overlay.addEventListener('touchstart', (event) => {
+        startY = event.touches.length === 1 ? event.touches[0]!.clientY : undefined
+      }, { passive: true, signal })
+      overlay.addEventListener('touchmove', (event) => {
+        if (startY === undefined) return
+        pulled = Math.max(0, event.touches[0]!.clientY - startY)
+        overlay.style.opacity = String(1 - Math.min(1, pulled / COMMIT_DISTANCE_PX) * 0.7)
+      }, { passive: true, signal })
+      overlay.addEventListener('touchend', () => {
+        if (pulled >= COMMIT_DISTANCE_PX) void acknowledge(hint)
+        else restore()
+      }, { passive: true, signal })
+      overlay.addEventListener('touchcancel', restore, { passive: true, signal })
+
+      card.setAttribute('data-swipe-hint', '')
+      card.append(overlay)
+      shown = { card, overlay }
+      ok.focus({ preventScroll: true })
+    }
+  }
 }

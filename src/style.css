@@ -70,6 +70,27 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .inspector { position: absolute; z-index: 4; inset: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left); pointer-events: none; }
 .selected-object, .dock-card, .spaceship-hud { color: var(--ink); background: linear-gradient(145deg, #26282af7, var(--panel-glass)); border: 1px solid #5a5148; border-radius: var(--card-radius); box-shadow: 0 14px 38px #00000080, inset 0 1px #ffffff0a; }
 .selected-object, .dock-card { isolation: isolate; }
+/* A tip is a tile like the welcome, beside the toolbar: a large bulb, then its text and actions. Cards, which come later in the page, cover it, and it stays away from a tour, the welcome and a hidden interface. */
+.tip-tile { position: absolute; top: 20px; right: 74px; display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 12px; width: min(320px, calc(100% - 94px)); padding: 14px 14px 12px; font-size: var(--property-text-size); pointer-events: auto; }
+:root:is([data-ui-hidden], :has(.tutorial-tile, #welcome-tile:not([hidden]))) .tip-tile { display: none; }
+.tip-text { align-self: center; padding-right: 28px; line-height: 1.45; }
+.tip-object { white-space: nowrap; }
+.tip-object > .star-swatch { margin-right: 5px; vertical-align: middle; }
+.tip-object > strong { font-weight: 600; }
+/* Controls to look for stand out in the signature orange, astronomy terms in the reference blue. */
+.tip-feature { color: var(--accent-vibrant); font-weight: 600; }
+.tip-term { color: var(--stat-bar-reference); font-weight: 600; }
+.tip-tile > .panel-lock { position: absolute; top: 4px; right: 4px; width: 36px; height: 36px; }
+.tip-tile > .browser-data-actions { grid-column: 1 / -1; margin: 0; }
+.tip-tile > .browser-data-actions button { color: var(--accent); }
+#tips-off { margin-right: auto; }
+/* On a phone the selected object fills the top, so the tip waits above the caption at the bottom instead. */
+@media (max-width: 720px) {
+  .tip-tile { top: auto; bottom: 96px; left: 12px; width: auto; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tip-tile { animation: card-fade 300ms ease-out; }
+}
 .selected-object { position: absolute; top: 20px; left: 20px; width: 292px; max-height: calc(var(--ui-height) - 40px); display: flex; flex-direction: column; overflow: hidden; pointer-events: auto; }
 /* Like .card-scroll-content: the summary with the section buttons stays put and only the body scrolls. */
 :is(.selected-object-content, #star-details, #object-card-details) { display: flex; flex-direction: column; min-height: 0; }
@@ -262,10 +283,10 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 /* Active graph filter and paint sit left of the Info button, out of the rail's vertical space; an open card shows its own state. */
 .dock-rail { position: relative; }
 .dock-indicators { position: absolute; right: calc(100% + 4px); bottom: 0; display: flex; gap: 4px; transition: transform 160ms ease; }
-/* Clears the Tutorial button with a gap wide enough to read as a separate group. */
-.control-dock .info-controls:not([data-dismissed]):is(:focus-within, [data-touch-open]) ~ .dock-indicators { transform: translateX(-64px); }
+/* Clears the Tutorial and Tips buttons with a gap wide enough to read as a separate group. */
+.control-dock .info-controls:not([data-dismissed]):is(:focus-within, [data-touch-open]) ~ .dock-indicators { transform: translateX(-112px); }
 @media (hover: hover) and (pointer: fine) {
-  .control-dock .info-controls:hover ~ .dock-indicators { transform: translateX(-64px); }
+  .control-dock .info-controls:hover ~ .dock-indicators { transform: translateX(-112px); }
 }
 .dock-indicators .tooltip { right: 0; bottom: calc(100% + 8px); }
 .control-dock[data-open]:not([data-open="motion"]) .dock-indicators { display: none; }
@@ -424,6 +445,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 /* Fade the button's own paint rather than its opacity, so tooltips on greyed-out buttons stay legible. */
 .icon-button:disabled { opacity: 1; color: color-mix(in srgb, var(--ink) 40%, transparent); background: #1d1e2066; border-color: color-mix(in srgb, var(--line) 40%, transparent); box-shadow: 0 5px 16px #00000020; }
 .icon-button:is([aria-pressed="true"], [aria-expanded="true"]):disabled { color: color-mix(in srgb, var(--accent-strong) 40%, transparent); background: color-mix(in srgb, var(--panel-selected) 40%, transparent); border-color: color-mix(in srgb, var(--border-active) 40%, transparent); }
+/* Tips being on is a setting, not an open card, so it lights up like a pressed lock. */
+#tips-toggle[aria-pressed="true"] { color: var(--accent-vibrant); background: linear-gradient(var(--surface-vibrant-pressed) 0 0) var(--surface-raised); border-color: var(--border-vibrant-pressed); }
 .observer-view-button[aria-pressed="true"] { color: var(--accent-vibrant); background: #3a211b; border-color: #c55f3c; box-shadow: 0 5px 16px #00000050, 0 0 12px #ff6b3d26; }
 .observer-view-button[aria-pressed="true"]:focus-visible { outline-color: var(--accent-vibrant); }
 .panel-button { transition: background 120ms ease, border-color 120ms ease; }
@@ -738,7 +761,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .companion-icon { display: inline-block; flex-shrink: 0; color: var(--muted); vertical-align: middle; }
 .catalog-name > .companion-icon { margin-right: 4px; }
 .reference-target { display: inline-flex; flex-shrink: 0; color: var(--accent-vibrant); line-height: 1; }
-.info-brand { background: linear-gradient(125deg, #393029 0%, #2a2b32 55%, var(--panel) 100%); display: flex; align-items: center; gap: 12px; padding: 18px 16px; border-bottom: 1px solid var(--line); }
+/* The brand's warm glow starts behind its round icon; a tip and its Show me share it behind their bulb. */
+.info-brand, .tip-tile, .tutorial-tile.is-tip { background: linear-gradient(125deg, #393029 0%, #2a2b32 55%, var(--panel) 100%); }
+.info-brand { display: flex; align-items: center; gap: 12px; padding: 18px 16px; border-bottom: 1px solid var(--line); }
 .info-brand-icon { display: grid; place-items: center; width: 42px; height: 42px; flex: 0 0 42px; color: var(--accent-strong); background: #171819; border: 1px solid #73583e; border-radius: 50%; box-shadow: 0 0 18px #e7a05b24; }
 .info-brand h2 { font-size: 19px; line-height: 1.2; font-weight: 600; }
 .info-brand p { margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.4; }
@@ -748,12 +773,13 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .info-meta dd { text-align: right; font-weight: 500; }
 .attribution-note { color: var(--muted); font-size: 10px; font-weight: 400; }
 .dock-card.info-card { width: min(320px, calc(var(--ui-width) - var(--dock-gutter))); }
-.welcome-tile { position: fixed; top: 50%; left: 50%; z-index: 20; width: min(440px, calc(var(--ui-width) - 24px)); max-height: calc(var(--ui-height) - 24px); overflow: auto; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: var(--card-radius); box-shadow: 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; transform: translate(-50%, -50%); }
+.welcome-tile, .tip-tile { color: var(--ink); border: 1px solid var(--line); border-radius: var(--card-radius); box-shadow: 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; }
+.welcome-tile { position: fixed; top: 50%; left: 50%; z-index: 20; background: var(--panel); width: min(440px, calc(var(--ui-width) - 24px)); max-height: calc(var(--ui-height) - 24px); overflow: auto; transform: translate(-50%, -50%); }
 .welcome-tile .info-brand h2 { font-size: 26px; }
 .welcome-tile .info-brand p { margin-top: 5px; font-size: var(--property-text-size); }
 .welcome-body { padding: 16px; font-size: var(--property-text-size); line-height: 1.4; }
 .welcome-body button { color: var(--accent); }
-#welcome-yes { color: var(--accent-strong); background: var(--panel-selected); border-color: var(--border-active); }
+#welcome-yes, #tip-show { color: var(--accent-strong); background: var(--panel-selected); border-color: var(--border-active); }
 .legal-notice { margin-inline: 16px; margin-bottom: 16px; font-size: 12px; }
 .legal-notice > summary { padding-block: 5px; }
 .legal-language { width: max-content; margin-top: 10px; }
@@ -763,21 +789,25 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .star-swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 1px solid #ffffff40; flex-shrink: 0; }
 .catalog-name { font-size: 12px; font-weight: 500; min-width: 0; }
 .catalog-distance { color: var(--muted); font-size: 10px; white-space: nowrap; font-variant-numeric: tabular-nums; }
-#object-card-details > .selection-summary { flex-shrink: 0; position: relative; z-index: 3; background: var(--card-header-gradient); display: block; padding: 0; cursor: pointer; list-style: none; }
-#object-card-details > .selection-summary::-webkit-details-marker { display: none; }
-.identity { display: flex; align-items: center; gap: 8px; min-width: 0; width: 100%; min-height: 68px; padding: 8px 12px; }
+/* The header sits outside the body's <details>, whose summary stays hidden: a summary may not contain buttons. The name is the toggle, and its hit area spans the identity row under the component buttons. */
+.selection-summary { flex-shrink: 0; position: relative; z-index: 3; background: var(--card-header-gradient); }
+.identity { position: relative; display: flex; align-items: center; gap: 8px; min-width: 0; width: 100%; min-height: 68px; padding: 8px 12px; }
 #selected-swatch { display: block; width: 56px; height: 56px; flex: 0 0 56px; pointer-events: none; }
 .identity-heading { display: block; flex: 1; min-width: 0; overflow-wrap: anywhere; }
-.identity-title { display: flex; align-items: baseline; gap: 6px; }
+.identity-title { display: flex; align-items: baseline; gap: 6px; max-width: 100%; padding: 0; color: inherit; background: none; border: 0; text-align: start; }
+.identity-title::before { content: ''; position: absolute; inset: 0; }
+.identity-title:focus-visible { outline: none; }
+.identity-title:focus-visible::before { outline: 2px solid var(--accent); outline-offset: -3px; border-radius: var(--card-radius) var(--card-radius) 0 0; }
+.identity .star-components { position: relative; z-index: 1; }
 .identity-heading .star-name { display: block; min-width: 0; }
 .identity .star-name { font-size: 24px; font-weight: 500; line-height: 1.15; }
 .star-distance { display: block; flex-shrink: 0; font-size: 11px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 /* With the UI hidden, the closed card shows only the object's icon, name and distance. */
 :root[data-ui-hidden] .selected-object:has(#object-card-details:not([open])) { width: max-content; max-width: min(292px, calc(var(--ui-width) - 78px)); }
-:root[data-ui-hidden] #object-card-details:not([open]) :is(.object-card-footer, .star-components) { display: none; }
-:root[data-ui-hidden] #object-card-details:not([open]) .identity { min-height: 0; padding: 6px 12px 6px 8px; }
-:root[data-ui-hidden] #object-card-details:not([open]) #selected-swatch { width: 28px; height: 28px; flex-basis: 28px; }
-:root[data-ui-hidden] #object-card-details:not([open]) .star-name { font-size: 14px; }
+:root[data-ui-hidden] #star-details:has(> #object-card-details:not([open])) :is(.object-card-footer, .star-components) { display: none; }
+:root[data-ui-hidden] #star-details:has(> #object-card-details:not([open])) .identity { min-height: 0; padding: 6px 12px 6px 8px; }
+:root[data-ui-hidden] #star-details:has(> #object-card-details:not([open])) #selected-swatch { width: 28px; height: 28px; flex-basis: 28px; }
+:root[data-ui-hidden] #star-details:has(> #object-card-details:not([open])) .star-name { font-size: 14px; }
 .properties > .object-links-row { align-items: center; padding: 1px 0; }
 .object-links-row:not(:has(.object-link)) { display: none; }
 .is-comparing .object-links { flex-wrap: wrap; }
@@ -807,8 +837,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-section-button svg { width: 18px; height: 18px; }
 .object-section-button:first-child { border-bottom-left-radius: var(--card-radius); }
 .object-section-button:last-child { border-right: 0; border-bottom-right-radius: var(--card-radius); }
-#object-card-details[open] .object-card-footer { border-bottom: 1px solid var(--line); }
-#object-card-details[open] .object-section-button { border-radius: 0; }
+#star-details:has(> #object-card-details[open]) .object-card-footer { border-bottom: 1px solid var(--line); }
+#star-details:has(> #object-card-details[open]) .object-section-button { border-radius: 0; }
 #object-specs { padding-top: 8px; }
 #object-system, #object-info, .constellation-info { padding: 0 16px 12px; }
 :is(#object-info, .constellation-info) > p:first-child { padding-top: 10px; }
@@ -2057,3 +2087,32 @@ button.graph-bar-row:hover, .graph-bar-row[aria-pressed="true"] { background: va
 .is-step-peek > :not(.panel-heading) { display: none !important; }
 .dock-card.is-step-peek > .panel-heading { background: none; border-bottom-color: transparent; }
 .dock-card.is-step-peek > .panel-heading::after { content: none !important; }
+
+/* The tutorial's arrow, shared with the swipe hints; it nudges back and forth along the way it points. */
+:is(.tutorial-arrow, .swipe-hint-arrow) > i { display: block; height: 100%; background: var(--tutorial-yellow); clip-path: polygon(0 34%, calc(100% - var(--tutorial-head)) 34%, calc(100% - var(--tutorial-head)) 0, 100% 50%, calc(100% - var(--tutorial-head)) 100%, calc(100% - var(--tutorial-head)) 66%, 0 66%); animation: tutorial-nudge 1.3s ease-in-out infinite; }
+@keyframes tutorial-nudge { 50% { transform: translateX(-9px); } }
+/* A one-time swipe hint: the card opens empty, blurs, then shows arrows for its swipes until OK. Its content loads underneath and streams in afterwards. */
+[data-swipe-hint] > :not(.swipe-hint) { filter: blur(3px); }
+.selected-object[data-swipe-hint] .object-card-body, .object-type-card[data-swipe-hint] > :not(.panel-heading, .swipe-hint) { visibility: hidden; }
+:is(.selected-object, .object-type-card)[data-swipe-hint]::after { content: none !important; }
+.swipe-hint { position: absolute; inset: 0; z-index: 5; display: grid; grid-template: "left sideways right" auto "arrow arrow arrow" auto "vertical vertical vertical" auto "ok ok ok" auto / 52px minmax(0, 1fr) 52px; place-items: center; align-content: center; padding: 10px 4px; background: color-mix(in srgb, var(--panel) 55%, transparent); border-radius: inherit; font-size: var(--property-text-size); line-height: 1.4; text-align: center; touch-action: none; }
+.swipe-hint p { grid-area: sideways; margin: 0; text-wrap: balance; }
+.swipe-hint p:is([data-gesture="up"], [data-gesture="down"]) { grid-area: vertical; padding-inline: 12px; }
+.swipe-hint .browser-data-actions { grid-area: ok; margin: 14px 0 0; }
+.swipe-hint button { min-width: 128px; color: var(--accent-strong); background: var(--panel-selected); border-color: var(--border-active); }
+.swipe-hint-arrow { --tutorial-head: 20px; width: 44px; height: 26px; filter: drop-shadow(0 2px 6px #000000b3); }
+.swipe-hint-arrow[data-direction="left"] { grid-area: left; transform: rotate(180deg); }
+.swipe-hint-arrow[data-direction="right"] { grid-area: right; }
+/* Turned upright, an arrow is taller than its box; the extra room also clears its nudge. */
+.swipe-hint-arrow:is([data-direction="up"], [data-direction="down"]) { grid-area: arrow; margin: 36px 0 18px; }
+.swipe-hint-arrow[data-direction="up"] { transform: rotate(-90deg); }
+.swipe-hint-arrow[data-direction="down"] { transform: rotate(90deg); }
+@media (prefers-reduced-motion: no-preference) {
+  [data-swipe-hint] > :not(.swipe-hint) { animation: swipe-hint-blur 300ms ease-out 150ms backwards; }
+  [data-swipe-hint] > .swipe-hint { animation: card-fade 300ms ease-out 150ms backwards; }
+  .swipe-hint > * { animation: card-fade 250ms ease-out 450ms backwards; }
+}
+@keyframes swipe-hint-blur { from { filter: none; } }
+@media (prefers-reduced-motion: reduce) {
+  :is(.tutorial-arrow, .swipe-hint-arrow) > i { animation: none; }
+}

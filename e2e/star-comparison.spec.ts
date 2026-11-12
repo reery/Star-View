@@ -733,16 +733,16 @@ test('pairs temperature, appearance and reciprocal ratios in stable left and rig
 
 test('clears a retained header focus when cancelling pointer comparison with Escape @mobile', async ({ page }, testInfo) => {
   await openSpecs(page)
-  const summary = page.locator('#object-card-details > summary')
-  await page.locator('#object-compare-toggle').click()
-  // Some browsers leave focus on this enclosing summary after its button is clicked.
-  await summary.focus()
+  const compare = page.locator('#object-compare-toggle')
+  await compare.click()
+  // Some browsers leave focus on the header button after it is clicked.
+  await compare.focus()
   await page.keyboard.press('Escape')
-  await expect(page.locator('#object-compare-toggle')).toHaveAttribute('aria-pressed', 'false')
-  await expect(summary).not.toBeFocused()
+  await expect(compare).toHaveAttribute('aria-pressed', 'false')
+  await expect(compare).not.toBeFocused()
   await expect(page.locator('#selected-object-card :focus-visible')).toHaveCount(0)
   await expect(page.locator('#object-specs')).toBeVisible()
-  expect(await summary.evaluate((node) => getComputedStyle(node).outlineStyle)).toBe('none')
+  expect(await compare.evaluate((node) => getComputedStyle(node).outlineStyle)).toBe('none')
   await page.locator('#selected-object-card').screenshot({ path: testInfo.outputPath('escape-no-header-line.png') })
   await page.locator('#object-compare-toggle').focus()
   await page.keyboard.press('Enter')
