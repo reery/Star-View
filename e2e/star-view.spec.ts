@@ -4,7 +4,10 @@ import { readFileSync } from 'node:fs'
 import { Box3, PerspectiveCamera, Sphere, Spherical, Vector3 } from 'three'
 import { parseStarCatalog, type Star } from '../src/catalog'
 import { galacticToWorld, LIGHT_YEARS_PER_PARSEC } from '../src/astronomy'
-import { arrowPixelMask, hideEarthOrbit, hideMilkyWay, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openSpecs, openViewer, selectCatalog, starPoint, zoomViewer, type MotionArrowSnapshot, shippedObjectCount, shippedOverlayCount, openMotion, showMotionArrows } from './support'
+import { arrowPixelMask, hideEarthOrbit, hideMilkyWay, isolatedArrows, measureArrowShaft, motionArrows, openFilter, openPreferences, openSpecs, openViewer, selectCatalog, selectObject, starPoint, zoomViewer, type MotionArrowSnapshot, shippedObjectCount, shippedOverlayCount, openMotion, showMotionArrows } from './support'
+
+// The build stamps the Info card with the current package version, so the tests read it from the same place.
+const APP_VERSION = `v${(JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as { version: string }).version}`
 
 function resetCamera(stars: readonly Star[], bounds: { width: number; height: number }, selectedId: string | null, distanceScale = 1) {
   const sun = galacticToWorld(stars.find((star) => star.id === 'sun')!)
@@ -272,7 +275,8 @@ async function sceneFits(page: Page) {
     }
     for (const control of document.querySelectorAll<HTMLElement>('button, summary')) {
       if (!control.checkVisibility()) continue
-      const bounds = control.getBoundingClientRect()
+      // The selected object's name is its card toggle, with a hit area stretched over the whole identity row.
+      const bounds = (control.matches('.identity-title') ? control.closest('.identity')! : control).getBoundingClientRect()
       // Compact in-card selectors follow the WCAG 2.2 AA 24px target minimum; other controls keep 44px.
       // Spec value toggles span whole clickable rows and use the WCAG spacing exception instead.
       const minimum = control.matches('.object-type-toggle, .mass-metric-help, #object-subtypes-row > summary, #designations-row > summary') ? 0 : control.matches('.catalog-entry') ? 36 : control.matches('.star-component, .object-section-button, .visibility-lock, .legal-notice > summary') ? 24 : 44
@@ -559,7 +563,7 @@ test('opens an accessible project info card', { tag: '@mobile' }, async ({ page 
   await expect(page.locator('#info-panel')).toBeVisible()
   await expect(page.locator('#info-heading')).toHaveText('Star View')
   await expect(page.locator('.info-meta')).toContainText('MIT')
-  await expect(page.locator('.info-meta')).toContainText('v0.8')
+  await expect(page.locator('.info-meta')).toContainText(APP_VERSION)
   await expect(page.getByRole('link', { name: 'GitHub', exact: true })).toHaveAttribute('href', 'https://github.com/reery/Star-View')
   await sceneFits(page)
   await page.keyboard.press('Escape')
@@ -639,7 +643,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('#luminosity-row')).toBeVisible()
   await expect(page.locator('#luminosity')).toHaveText('24.7 L☉')
   await expect(page.locator('.properties-section .properties > div').first()).toHaveCSS('font-size', '14px')
-  await expect(page.locator('#object-card-details > .selection-summary')).toHaveCSS('border-bottom-width', '0px')
+  await expect(page.locator('#object-card-header')).toHaveCSS('border-bottom-width', '0px')
   await expect(page.locator('.properties-section')).toHaveCSS('border-bottom-width', '0px')
   expect(await page.locator('.source-details').evaluate((details) => details.closest('.selected-object') !== null)).toBe(true)
   expect(await page.locator('#catalog-range').evaluate((slider) => slider.closest('.filter-section') !== null)).toBe(true)
@@ -650,7 +654,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('#distance-units-label')).toHaveCSS('font-size', '14px')
   await expect(page.locator('#distance-units .unit-options span').first()).toHaveCSS('font-size', '12px')
   await expect(page.locator('#distance-units .unit-options span').first()).toHaveCSS('height', '34px')
-  await expect(page.locator('.power-saving-choice')).toHaveCSS('font-size', '14px')
+  for (const choice of await page.locator('.power-saving-choice').all()) await expect(choice).toHaveCSS('font-size', '14px')
   await expect(page.getByRole('switch', { name: 'Power saving mode' })).not.toBeChecked()
   await page.screenshot({ path: testInfo.outputPath('compact-preferences.png'), fullPage: true })
   const labels = page.locator('#label-limit')
@@ -736,7 +740,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 12')
   await expect(page.locator('.type-group-heading')).toHaveText(categoryNames)
   await expect(page.locator('.object-type-option > span:not(.filter-hint):not(:empty)')).toHaveText(typeGroups.flat())
-  const option = (name: string) => page.getByLabel(name, { exact: true })
+  const option = (name: string) => page.getByRole('checkbox', { name, exact: true })
   for (const name of ['Sun', 'Stars', 'Brown dwarfs', 'White dwarfs']) {
     await expect(option(name)).toBeChecked()
     await expect(option(name)).toBeEnabled()
@@ -777,7 +781,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(page.locator('#info-panel')).toBeVisible()
   await expect(page.locator('#info-heading')).toHaveText('Star View')
   await expect(page.locator('.info-meta')).toContainText('MIT')
-  await expect(page.locator('.info-meta')).toContainText('v0.8')
+  await expect(page.locator('.info-meta')).toContainText(APP_VERSION)
   await expect(page.getByRole('link', { name: 'GitHub', exact: true })).toHaveAttribute('href', 'https://github.com/reery/Star-View')
   await sceneFits(page)
   await page.screenshot({ path: testInfo.outputPath('compact-info.png'), fullPage: true })
@@ -2227,6 +2231,18 @@ test('orbit and pinch move the rendered scene without changing selection', { tag
   }
 })
 
+test('measures the selected distance from the observed-from object in observer view', async ({ page }) => {
+  await openViewer(page)
+  await selectObject(page, 'Proxima Centauri')
+  const fromSun = await page.locator('#star-distance').textContent()
+  await selectObject(page, 'Sirius A')
+  await page.locator('#observer-view').click()
+  await selectObject(page, 'Proxima Centauri')
+  await expect(page.locator('#star-distance')).not.toHaveText(fromSun!)
+  await page.locator('#observer-view').click()
+  await expect(page.locator('#star-distance')).toHaveText(fromSun!)
+})
+
 test('keeps a rolled observer view stable when dragging over the zenith', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await openViewer(page)
@@ -2419,4 +2435,33 @@ test('keeps the catalog usable if WebGL is unavailable', async ({ page }) => {
   await page.getByLabel('ly', { exact: true }).check()
   await expect(page.locator('#distance-unit')).toHaveText(' ly')
   await expect(page.locator('#scene canvas')).toHaveCount(0)
+})
+
+test('the selected object header toggles the card from its name, with no buttons inside a summary @mobile', async ({ page, isMobile }) => {
+  await openViewer(page)
+  const details = page.locator('#object-card-details')
+  const toggle = page.locator('#object-card-toggle')
+  const isOpen = async () => await details.getAttribute('open') !== null
+  expect(await page.locator('#selected-object-card summary').evaluateAll((summaries) =>
+    summaries.filter((summary) => summary.querySelector('button, a[href], input, select, textarea')).length)).toBe(0)
+  const initial = await isOpen()
+  await expect(toggle).toHaveAttribute('aria-expanded', String(initial))
+
+  // The swatch beside the name is part of the toggle's area.
+  const swatch = (await page.locator('#selected-swatch').boundingBox())!
+  if (isMobile) await page.touchscreen.tap(swatch.x + swatch.width / 2, swatch.y + swatch.height / 2)
+  else await page.mouse.click(swatch.x + swatch.width / 2, swatch.y + swatch.height / 2)
+  await expect.poll(isOpen).toBe(!initial)
+  await expect(toggle).toHaveAttribute('aria-expanded', String(!initial))
+
+  await toggle.focus()
+  await page.keyboard.press('Enter')
+  await expect.poll(isOpen).toBe(initial)
+  await expect(toggle).toHaveAttribute('aria-expanded', String(initial))
+
+  // A component button selects its star without toggling the card.
+  const component = page.locator('#star-components button[data-component-id]').last()
+  await component.click()
+  await expect(component).toHaveAttribute('aria-pressed', 'true')
+  await expect.poll(isOpen).toBe(initial)
 })

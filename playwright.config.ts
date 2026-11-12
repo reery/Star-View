@@ -15,8 +15,13 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     // Screenshot `style` masks inject inline CSS, which the production CSP forbids; security.spec.ts re-enables it.
     bypassCSP: true,
-    // A returning visitor by default: the first-visit welcome tile would sit over the app. tutorial.spec.ts starts fresh.
-    storageState: { cookies: [], origins: [{ origin: `http://127.0.0.1:${port}`, localStorage: [{ name: 'star-view-welcome-answered', value: 'true' }] }] },
+    // A returning visitor by default: the first-visit welcome tile, tips and swipe hints would sit over the app. tutorial.spec.ts and card-swipe.spec.ts start fresh where they test them.
+    storageState: { cookies: [], origins: [{ origin: `http://127.0.0.1:${port}`, localStorage: [
+      { name: 'star-view-welcome-answered', value: 'true' },
+      { name: 'star-view-tips', value: 'off' },
+      { name: 'star-view-swipe-hint-object-card', value: 'seen' },
+      { name: 'star-view-swipe-hint-detail-card', value: 'seen' },
+    ] }] },
   },
   projects: [
     { name: 'desktop', use: { browserName: 'chromium', viewport: { width: 1440, height: 900 } } },
