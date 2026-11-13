@@ -58,6 +58,22 @@ export const STAR_ADAPTATION_FLUX = 10 ** 1.6
 export function starEyeExposure(brightestFlux: number): number {
   return brightestFlux > STAR_ADAPTATION_FLUX ? Math.sqrt(STAR_ADAPTATION_FLUX / brightestFlux) : 1
 }
+/** The illustrative halo's round glow, without the diffraction spikes drawn over it for stars. */
+export function haloGlowCanvas(): HTMLCanvasElement {
+  const canvas = document.createElement('canvas')
+  canvas.width = canvas.height = 128
+  const context = canvas.getContext('2d')!
+  const gradient = context.createRadialGradient(64, 64, 0, 64, 64, 64)
+  gradient.addColorStop(0, '#ffffffff')
+  gradient.addColorStop(0.08, '#ffffffff')
+  gradient.addColorStop(0.20, '#ffffffc7')
+  gradient.addColorStop(0.40, '#ffffff69')
+  gradient.addColorStop(0.68, '#ffffff26')
+  gradient.addColorStop(1, '#ffffff00')
+  context.fillStyle = gradient
+  context.fillRect(0, 0, 128, 128)
+  return canvas
+}
 const glsl = (value: number) => Number.isInteger(value) ? `${value}.0` : String(value)
 
 // Shared by the map and distance card: identical textures, colors and shaders.
@@ -119,7 +135,8 @@ export function createStarAppearance(starViewDistance: { value: number }, select
         psfFlux = max(psfFlux, ${glsl(PSF.selectedFlux)} * ${selection});
         // The faintest stars fade too while the eye adapts to a bright one.
         vPsfPeak = max(psfFlux * ${glsl(PSF.peakPerFlux)}, ${glsl(PSF.minPeak)} * starExposure);
-        vPsfSpike = vPsfPeak * ${glsl(PSF.spikeWeight)};
+        // A negative shape marks a planet, whose disc scatters no diffraction spikes.
+        vPsfSpike = coreShape < -0.5 ? 0.0 : vPsfPeak * ${glsl(PSF.spikeWeight)};
         // Extent where each term falls below the cutoff, so the sprite holds all visible light.
         float coreReach = ${glsl(PSF.coreWidth)} * sqrt(max(pow(vPsfPeak / ${glsl(PSF.cutoff)}, ${glsl(1 / PSF.corePower)}) - 1.0, 0.0));
         float wingReach = ${glsl(PSF.wingWidth)} * sqrt(max(pow(vPsfPeak * ${glsl(PSF.wingWeight)} / ${glsl(PSF.cutoff)}, ${glsl(1 / PSF.wingPower)}) - 1.0, 0.0));
@@ -171,18 +188,8 @@ export function createStarAppearance(starViewDistance: { value: number }, select
       }`,
     )
   }
-  const haloCanvas = document.createElement('canvas')
-  haloCanvas.width = haloCanvas.height = 128
+  const haloCanvas = haloGlowCanvas()
   const haloContext = haloCanvas.getContext('2d')!
-  const haloGradient = haloContext.createRadialGradient(64, 64, 0, 64, 64, 64)
-  haloGradient.addColorStop(0, '#ffffffff')
-  haloGradient.addColorStop(0.08, '#ffffffff')
-  haloGradient.addColorStop(0.20, '#ffffffc7')
-  haloGradient.addColorStop(0.40, '#ffffff69')
-  haloGradient.addColorStop(0.68, '#ffffff26')
-  haloGradient.addColorStop(1, '#ffffff00')
-  haloContext.fillStyle = haloGradient
-  haloContext.fillRect(0, 0, 128, 128)
   haloContext.globalCompositeOperation = 'lighter'
   const drawSpike = (angle: number, length: number, width: number, alpha: string) => {
     haloContext.save()

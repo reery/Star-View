@@ -324,7 +324,7 @@ function generate(): void {
       .map((star) => starComponentIdentity(star.id)?.canonicalStarId ?? star.id))
     chartCompanions[`${chart.name}.json`] = JSON.stringify(supplementObjectIdentities(withoutRetiredValues(supplementSurfaceGravity((companionData.stars as Star[]).filter((star) => needed.has(star.id))), retirements), identities, { preserveAuthoredNames: true })) + '\n'
   }
-  writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated/constellation-companions')), chartCompanions, true)
+  writeGeneratedData('constellation-companions', chartCompanions)
   // Retired IDs serve their article from the surviving record; component IDs already resolve by identity.
   const legacyIds: Record<string, string> = legacyStarIds.ids
   const articleId = (id: string) => starComponentIdentity(id) ? id : legacyIds[id] ?? id
@@ -359,13 +359,12 @@ function generate(): void {
   const nebulae = loadNebulaOverlay()
   const molecularClouds = loadMolecularCloudOverlay()
   const bubbles = loadBubbleOverlay()
-  const overlayOutput = safeOutputDirectory(join(root, 'src/data/generated/overlays'))
-  writeManagedFiles(overlayOutput, {
+  writeGeneratedData('overlays', {
     [`${overlayManifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: overlayManifest.id, objects }) + '\n',
     [`${nebulae.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: nebulae.manifest.id, objects: nebulae.objects }) + '\n',
     [`${molecularClouds.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: molecularClouds.manifest.id, objects: molecularClouds.objects }) + '\n',
     [`${bubbles.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: bubbles.manifest.id, objects: bubbles.objects }) + '\n',
-  }, true)
+  })
   console.log(`Generated ${objects.length} compact-object, ${nebulae.objects.length} nebula, ${molecularClouds.objects.length} molecular-cloud and ${bubbles.objects.length} bubble overlay rows.`)
   // Same resolution as starInfoArticleId: system, canonical component, then reviewed alias.
   const articles = new Map(articleEntries.map(({ id, article }) => [id, article as ArticleSummary]))

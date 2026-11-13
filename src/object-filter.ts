@@ -39,10 +39,9 @@ export const FILTER_CATEGORIES = [
   {
     id: 'large_scale_structures',
     label: 'Large-scale structures',
-    description: 'Bubbles and superbubbles, vast cavities in the gas between the stars, and dust sheets. Object type below chooses which of them appear.',
+    description: 'Bubbles, vast cavities blown into the gas between the stars, and dust sheets. Object type below chooses which of them appear.',
     subtypes: [
       { key: 'bubble', label: 'Bubbles' },
-      { key: 'superbubble', label: 'Superbubbles' },
       { key: 'dust_sheet', label: 'Dust sheets' },
     ],
   },

@@ -730,7 +730,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
     ['Sun', 'Stars', 'Brown dwarfs', 'White dwarfs', 'Neutron stars', 'Pulsars', 'Black holes'],
     ['Molecular clouds', 'Dark nebulae', 'Reflection nebulae', 'H II regions'],
     ['Planetary nebulae', 'Supernova remnants', 'Pulsar-wind nebulae'],
-    ['Bubbles', 'Superbubbles', 'Dust sheets'],
+    ['Bubbles', 'Dust sheets'],
   ]
   const typeDropdown = page.locator('details.filter-dropdown')
   await expect(typeDropdown).not.toHaveAttribute('open')

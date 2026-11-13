@@ -18,7 +18,7 @@ function faintBluePixels(image: PNG) {
   return { count, strongCount, excess }
 }
 
-test('loads the Local Bubble on demand as one visible sourced shell under Bubbles', async ({ page }, testInfo) => {
+test('loads the bubble shells on demand as visible sourced shells under Bubbles', async ({ page }, testInfo) => {
   const bubbleRequests: string[] = []
   page.on('request', (request) => {
     const path = new URL(request.url()).pathname
@@ -40,9 +40,9 @@ test('loads the Local Bubble on demand as one visible sourced shell under Bubble
   await largeScale.check()
   await expect(bubbles).toBeEnabled()
 
-  await expect(page.locator('#catalog-count')).toHaveText(/\/23$/)
+  await expect(page.locator('#catalog-count')).toHaveText(/\/26$/)
   await expect.poll(() => bubbleRequests.length).toBe(1)
-  await expect(page.locator('.projected-labels')).toHaveAttribute('data-bubble-triangle-count', '5120')
+  await expect(page.locator('.projected-labels')).toHaveAttribute('data-bubble-triangle-count', '8060')
   await expect(page.locator('.projected-labels')).toHaveAttribute('data-bubble-visible-count', '1')
   await expect(page.locator('#object-type-filter-summary')).toHaveText('5 of 12')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()

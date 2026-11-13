@@ -528,8 +528,10 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .scene-legend { left: calc(28px + var(--safe-left)); font-variant-numeric: tabular-nums; }
 .grid-legend { display: inline-flex; align-items: center; gap: 9px; }
 /* Sits above the grid legend wherever that moves; fixed columns keep its size, so updates do not re-layout labels. */
-.render-stats { display: grid; grid-template-columns: auto 7ch; gap: 2px 12px; margin: 0 0 26px; padding: 6px 10px; background: var(--panel-glass); border: 1px solid var(--line); border-radius: var(--card-radius); }
-.render-stats dd { margin: 0; color: var(--ink); text-align: right; }
+.render-stats { display: grid; grid-template-columns: auto calc(11ch + 12px); gap: 2px 0; margin: 0 0 26px; padding: 6px 10px; background: var(--panel-glass); border: 1px solid var(--line); border-radius: var(--card-radius); }
+.render-stats dd { margin: 0; padding-left: 12px; color: var(--ink); text-align: right; }
+/* No column gap, so the divider runs unbroken across label and value. */
+.render-stats .render-stats-group { margin-top: 3px; padding-top: 4px; border-top: var(--mass-metric-divider); }
 /* The tile ignores the pointer like the legend; only its help label takes hover and taps. */
 .render-stats .mass-metric-help { pointer-events: auto; }
 .render-stats .mass-metric-tooltip { width: 220px; max-width: none; }
@@ -1745,6 +1747,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 }
 @media (max-width: 600px) {
   .observer-sky > select { flex: 1 1 auto; min-width: 0; }
+  /* The sky controls wrap instead of running past the card, each row filled like the roll row. */
+  .observer-heading .observer-sky { flex-wrap: wrap; min-width: 0; }
+  .observer-heading .observer-sky > .time-button { flex: 1 0 44px; }
   /* Phones keep the object's name beside lock, exit and close; the words stay for screen readers. */
   .observer-heading-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
 }
