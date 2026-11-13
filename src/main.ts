@@ -2765,7 +2765,7 @@ function spaceshipTopSpeedPc(): number {
 /** Starts a ship where the camera is, facing where it looks. */
 function launchSpaceship(): void {
   if (!viewer || sceneBusy) return
-  if (observerView) setObserverViewAnchor(null)
+  if (observerView) setObserverViewAnchor(null, false)
   const { position, target } = viewer.getViewState()
   spaceship = createSpaceship(position, target)
   applySpaceship()
@@ -2963,15 +2963,15 @@ function toggleObserverView(): void {
   setObserverViewAnchor(observerView ? null : selectedId)
 }
 
-function setObserverViewAnchor(anchorId: string | null): void {
+function setObserverViewAnchor(anchorId: string | null, animate = true): void {
   if (!viewer || sceneBusy) return
   if (anchorId !== null) {
     if (!starIndex.has(anchorId)) return
-    observerView = viewer.setObserverView(true, anchorId)
+    observerView = viewer.setObserverView(true, anchorId, undefined, animate)
     observerViewAnchorId = observerView ? anchorId : null
     if (observerView) observerId = anchorId
   } else {
-    observerView = viewer.setObserverView(false)
+    observerView = viewer.setObserverView(false, undefined, undefined, animate)
     observerViewAnchorId = null
     const restoredId = visibilityLockId ?? selectedId
     if (restoredId !== null) observerId = restoredId
