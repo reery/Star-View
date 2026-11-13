@@ -24,6 +24,8 @@ export interface SavedViewSettings {
   showFamousClusterStars: boolean
   filterCategories: FilterCategoryId[]
   filterSubtypes: FilterKey[]
+  /** Types with data when the view was saved; absent in views saved before it was recorded. */
+  knownFilterSubtypes?: FilterKey[]
   magnitudeLimit: number
   /** Absent in views saved before the option existed. */
   hideFainterObjects?: boolean
@@ -106,6 +108,7 @@ function isSavedView(value: unknown): value is SavedView {
     && typeof settings.showFamousClusterStars === 'boolean'
     && Array.isArray(settings.filterCategories) && settings.filterCategories.every(isFilterCategoryId)
     && Array.isArray(settings.filterSubtypes) && settings.filterSubtypes.every(isFilterKey)
+    && (settings.knownFilterSubtypes === undefined || (Array.isArray(settings.knownFilterSubtypes) && settings.knownFilterSubtypes.every(isFilterKey)))
     && typeof settings.magnitudeLimit === 'number' && settings.magnitudeLimit >= 0 && settings.magnitudeLimit <= 30
     && (settings.hideFainterObjects === undefined || typeof settings.hideFainterObjects === 'boolean')
     && typeof settings.objectDistanceLimitLy === 'number' && OBJECT_DISTANCE_STEPS_LY.includes(settings.objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])
@@ -158,7 +161,7 @@ const LINK_VALUES = {
   k: ['visibilityConeMode', 'off'], y: ['motionYears', 1_000], r: ['motionFrame', 'galactic'], g: ['skyGridMode', 'off'],
   t: ['simulationYears', 0], s: ['selectedId', 'sirius-a'], o: ['referenceId', 'sun'],
 } as const satisfies Record<string, readonly [keyof SavedViewSettings, string | number]>
-const LINK_FILTERS = new Set<string>(['compact_objects', 'sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'bubble'])
+const LINK_FILTERS = new Set<string>(['compact_objects', 'sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'supernova_remnant', 'bubble'])
 /** Bit order of the `b` flags; append only. Each bit marks a flag that differs from its link default. */
 const LINK_FLAGS = ['showWesternConstellationStars', 'showNakedEyeStars', 'showNotableDistantStars', 'hideFainterObjects', 'milkyWayVisible', 'oortCloudVisible',
   'motionArrowsVisible', 'gridVisible', 'observerView', 'home', 'observerTelescope', 'observerObservatory'] as const

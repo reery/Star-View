@@ -22,7 +22,9 @@ OUTPUT = ROOT / "src/data/top-lists.json"
 FROZEN = ROOT / "catalog-work/top-lists/simbad.json"
 CATALOGS = ROOT / "src/data/generated/catalog-records"
 # Earlier catalogs win, so links prefer the landmark records.
-CATALOG_ORDER = ["western-constellation-stars", "nearest-1000", "nearest-5000", "nearest-100", "naked-eye-stars"]
+CATALOG_ORDER = ["western-constellation-stars", "nearest-1000", "nearest-5000", "nearest-100", "naked-eye-stars",
+                 "nearest-neighbors", "notable-distant-stars"]
+COMPACT_REMNANTS = ROOT / "src/data/generated/overlays/compact-remnants.json"
 LY_PER_PC = 3.261563777
 
 LARGEST = "https://en.wikipedia.org/w/index.php?oldid=1381460615"
@@ -241,23 +243,23 @@ SOLAR_COLUMNS = ["Spectral class", "Temperature (K)", "Metallicity (dex)", "Age 
 
 PIONEER = "https://johnstonsarchive.net/astro/pulsarmap.html"
 ATNF = "ATNF Pulsar Catalogue v2.9.0 adopted distance"
-# name, overlay ID or None, J2000 name, period encoded on the plaque (s), distance (pc), constellation.
+# name, J2000 name, period encoded on the plaque (s), distance (pc), constellation.
 # Periods are the plaque's hydrogen-unit values as identified in Johnston's table.
 PIONEER_PULSARS = [
-    ("PSR B1727-47", "psr-j1731m4744", "J1731-4744", "0.8296830003", 700, "Ara"),
-    ("PSR B1451-68", "psr-j1456m6843", "J1456-6843", "0.2633767643", 430, "Circinus"),
-    ("PSR B1240-64", "psr-j1243m6423", "J1243-6423", "0.3880000002", 2000, "Crux"),
-    ("Vela Pulsar", "psr-j0835m4510", "J0835-4510", "0.0892187481", 280, "Vela"),
-    ("PSR B0950+08", "psr-j0953p0755", "J0953+0755", "0.2530650432", 261, "Leo"),
-    ("PSR B0823+26", "psr-j0826p2637", "J0826+2637", "0.5306595992", 500, "Cancer"),
-    ("Crab Pulsar", "psr-j0534p2200", "J0534+2200", "0.0331296448", 2000, "Taurus"),
-    ("PSR B0525+21", None, "J0528+2200", "3.7454907997", 1215, "Taurus"),
-    ("PSR B0329+54", "psr-j0332p5434", "J0332+5434", "0.7145186427", 1680, "Camelopardalis"),
-    ("PSR B2217+47", None, "J2219+4754", "0.5384673780", 2383, "Lacerta"),
-    ("PSR B2016+28", "psr-j2018p2839", "J2018+2839", "0.5579533903", 980, "Vulpecula"),
-    ("PSR B1933+16", None, "J1935+1616", "0.3587354200", 3700, "Aquila"),
-    ("PSR B1929+10", "psr-j1932p1059", "J1932+1059", "0.2265170382", 310, "Aquila"),
-    ("PSR B1642-03", None, "J1645-0317", "0.3876887792", 4000, "Ophiuchus"),
+    ("PSR B1727-47", "J1731-4744", "0.8296830003", 700, "Ara"),
+    ("PSR B1451-68", "J1456-6843", "0.2633767643", 430, "Circinus"),
+    ("PSR B1240-64", "J1243-6423", "0.3880000002", 2000, "Crux"),
+    ("Vela Pulsar", "J0835-4510", "0.0892187481", 280, "Vela"),
+    ("PSR B0950+08", "J0953+0755", "0.2530650432", 261, "Leo"),
+    ("PSR B0823+26", "J0826+2637", "0.5306595992", 500, "Cancer"),
+    ("Crab Pulsar", "J0534+2200", "0.0331296448", 2000, "Taurus"),
+    ("PSR B0525+21", "J0528+2200", "3.7454907997", 1215, "Taurus"),
+    ("PSR B0329+54", "J0332+5434", "0.7145186427", 1680, "Camelopardalis"),
+    ("PSR B2217+47", "J2219+4754", "0.5384673780", 2383, "Lacerta"),
+    ("PSR B2016+28", "J2018+2839", "0.5579533903", 980, "Vulpecula"),
+    ("PSR B1933+16", "J1935+1616", "0.3587354200", 3700, "Aquila"),
+    ("PSR B1929+10", "J1932+1059", "0.2265170382", 310, "Aquila"),
+    ("PSR B1642-03", "J1645-0317", "0.3876887792", 4000, "Ophiuchus"),
 ]
 PIONEER_NOTES = {"PSR B1240-64": "Its period was known to only three significant digits when the plaque was designed."}
 
@@ -338,16 +340,19 @@ def solar(index, frozen, name, identifier, ly, *fields):
     return {**entry(index, frozen, name, identifier, None, ly / LY_PER_PC), "fields": list(fields)}
 
 
-def pioneer(name, identifier, j_name, period, distance_pc, constellation):
+def pioneer(remnants, name, j_name, period, distance_pc, constellation):
+    # Overlay IDs encode the J2000 name, so pulsars added to the overlay link automatically.
+    identifier = "psr-" + j_name.lower().replace("+", "p").replace("-", "m")
     return {"name": name, "distance_pc": distance_pc, "distance_source": ATNF,
             **({"note": PIONEER_NOTES[name]} if name in PIONEER_NOTES else {}), "constellation": constellation,
-            "object": {"catalog": "compact-remnants", "id": identifier, "designation": None} if identifier else None,
+            "object": {"catalog": "compact-remnants", "id": identifier, "designation": None} if identifier in remnants else None,
             "fields": [period, j_name]}
 
 
 def build():
     frozen = json.loads(FROZEN.read_text())["objects"]
     index, records = catalog_index()
+    remnants = {o["id"] for o in json.loads(COMPACT_REMNANTS.read_text())["objects"]}
     return {"schemaVersion": 1, "lists": [
         {"id": "largest", "title": "Largest stars", "metric": "Radius", "unit": "R☉", "markers": "solar-orbits",
          "source": {"label": "Wikipedia · List of largest stars (Milky Way)", "url": LARGEST},
@@ -375,7 +380,7 @@ def build():
         # The 14 pulsars that locate the Sun on the Pioneer plaques and Voyager Golden Records.
         {"id": "pioneer-plaque", "title": "Pioneer plaque pulsars", "columns": ["Period on plaque (s)", "J2000 name"],
          "source": {"label": "Johnston · Pioneer plaque pulsar map identifications", "url": PIONEER},
-         "entries": sorted((pioneer(*row) for row in PIONEER_PULSARS), key=lambda row: row["distance_pc"])},
+         "entries": sorted((pioneer(remnants, *row) for row in PIONEER_PULSARS), key=lambda row: row["distance_pc"])},
     ]}
 
 

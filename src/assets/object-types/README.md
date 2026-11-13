@@ -16,6 +16,7 @@ Usage policies: [NASA](https://www.nasa.gov/nasa-brand-center/images-and-media/)
 | `reflection_nebula.jpg` | [Hubble Watches Super Star Create Holiday Light Show](https://images.nasa.gov/details/GSFC_20171208_Archive_e001283) | NASA, ESA, and the Hubble Heritage Team (STScI/AURA) |
 | `hii_region.jpg` | [Eagle Nebula — Pillars of Creation](https://science.nasa.gov/asset/hubble/eagle-nebula-pillars-of-creation/), the 2015 high-definition Hubble image | NASA, ESA, and the Hubble Heritage Team (STScI/AURA) |
 | `planetary_nebula.jpg` | [Looking Down a Barrel of Gas at a Doomed Star](https://images.nasa.gov/details/PIA14443) | NASA/JPL-Caltech/ESA, the Hubble Heritage Team STScI/AURA |
+| `supernova_remnant.jpg` | [Revisiting the Veil Nebula](https://esahubble.org/images/heic1520a/), part of the Veil Nebula (NGC 6960) in hydrogen-alpha, [O III] and [S II] filters ([CC BY 4.0](https://esahubble.org/copyright/)) | NASA, ESA, and the Hubble Heritage Team (STScI/AURA) |
 | `molecular_cloud.jpg` | [LH 95 — Large and small stars in harmonious coexistence](https://esahubble.org/images/heic0607a/) | NASA/ESA |
 | `bubble.jpg` | [Hubble Sees a Star ‘Inflating’ a Giant Bubble](https://images.nasa.gov/details/GSFC_20171208_Archive_e000383) | NASA, ESA, and the Hubble Heritage Team (STScI/AURA) |
 
@@ -40,3 +41,6 @@ Display photos are delivered at most 1080 px wide (2026-10-20). Measured photo s
 | `white_dwarf.jpg` | 1200 × 675 | 1080 × 608 | 85,423 | 33,534 |
 | `white_star.jpg` | 1280 × 1398 | 1080 × 1180 | 176,877 | 106,005 |
 | `molecular_cloud.jpg` | 1280 × 819 | 1080 × 691 | 387,918 | 235,082 |
+| `supernova_remnant.jpg` | 10681 × 7121 | 1080 × 720 | 85,125,250 | 158,528 |
+
+`supernova_remnant.jpg` (2026-11-13) was resized from ESA’s large JPEG with macOS `sips` at JPEG quality 60: at quality 88 the dense filament detail stayed near 300 KB.

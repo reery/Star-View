@@ -21,7 +21,7 @@ import { catalogs, catalogErrors } from './registry'
 import legacyStarIds from './data/legacy-star-ids.json'
 import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, formatDistance, galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
-import { isVisibilityConeMode, LATITUDE_STORAGE_KEY, observerLatitude, VISIBILITY_CONE_MODES, visibilityConeHours, visibilityConeModeLabel, type VisibilityConeMode } from './constellation-visibility'
+import { isVisibilityConeMode, LATITUDE_STORAGE_KEY, latitudeLabel, observerLatitude, VISIBILITY_CONE_MODES, visibilityConeHours, visibilityConeModeLabel, type VisibilityConeMode } from './constellation-visibility'
 import type { RenderSetup, RenderStats } from './render-stats'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type ObserverFrame, type StarViewer, type ViewerViewState } from './viewer'
 import { STAR_STYLES, type FaintStars, type StarBrightness, type StarStyle } from './star-appearance'
@@ -46,8 +46,8 @@ import { loadPlanetarySystem, planetCountForStar, planetarySystemForStar, planet
 import { loadStarDetails, starDetailsLoaded } from './selected-star-details'
 import { renderObjectLinks } from './object-links'
 import {
-  availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES,
-  filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey,
+  availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES, FILTER_KEYS,
+  filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, restoredFilterSubtypes, type FilterCategoryId, type FilterKey,
 } from './object-filter'
 import { ObjectList, type ObjectListFilter } from './object-list'
 import { SelectionHistory } from './selection-history'
@@ -415,20 +415,23 @@ let visibilityLatitude = observerLatitude(null)
 // constellation card and the preferences.
 let observerAxialTilt = false
 let observerCardLatitude: number | null = null
-let observerConeMode: Exclude<VisibilityConeMode, 'off'> = 'now'
+// The cone's two hours center on a chosen full hour, or on the clock while null.
+let observerConeHour: number | null = null
 let observerConeVisible = false
 // From the Sun, the planets and the Moon show unless switched off.
 let observerPlanetsVisible = true
 // The observer view that the card was last opened for, so it opens once per entry.
 let observerCardShown = false
 const observerLatitudeDegrees = () => observerCardLatitude ?? visibilityLatitude
+const observerConeHours = () => observerConeHour === null ? visibilityConeHours('now')! : { start: observerConeHour - 1, end: observerConeHour + 1 }
+const observerConeHourLabel = (hour: number | null) => hour === null ? 'Now' : `${hour}:00`
 function visibilityConeView() {
-  const hours = observerView ? observerConeVisible ? visibilityConeHours(observerConeMode) : null : visibilityConeHours(visibilityConeMode)
+  const hours = observerView ? observerConeVisible ? observerConeHours() : null : visibilityConeHours(visibilityConeMode)
   return hours && { latitude: observerView ? observerLatitudeDegrees() : visibilityLatitude, hours }
 }
 // Earth's tilt stands on the card's latitude at its cone hours, the same sky the observer cone shows.
 function observerFrame(): ObserverFrame {
-  return observerAxialTilt ? { latitude: observerLatitudeDegrees(), hours: visibilityConeHours(observerConeMode)! } : null
+  return observerAxialTilt ? { latitude: observerLatitudeDegrees(), hours: observerConeHours() } : null
 }
 function syncVisibilityConeControl(): void {
   const input = element<HTMLInputElement>('visibility-cone-mode')
@@ -498,7 +501,7 @@ function setFilterState(filter: SavedFilter): void {
   filterCategories.clear()
   filter.filterCategories.forEach((category) => filterCategories.add(category))
   filterSubtypes.clear()
-  filter.filterSubtypes.forEach((subtype) => filterSubtypes.add(subtype))
+  restoredFilterSubtypes(filter.filterSubtypes, filter.knownFilterSubtypes, availableKeys).forEach((subtype) => filterSubtypes.add(subtype))
   magnitudeLimit = filter.magnitudeLimit
   hideFainterObjects = filter.hideFainterObjects ?? false
   objectDistanceLimitLy = filter.objectDistanceLimitLy
@@ -538,8 +541,8 @@ try {
   observerAxialTilt = localStorage.getItem('star-view-observer-axial-tilt') === 'true'
   const storedObserverLatitude = localStorage.getItem('star-view-observer-latitude')
   if (storedObserverLatitude !== null) observerCardLatitude = observerLatitude(storedObserverLatitude)
-  const storedObserverConeMode = localStorage.getItem('star-view-observer-cone-mode')
-  if (isVisibilityConeMode(storedObserverConeMode) && storedObserverConeMode !== 'off') observerConeMode = storedObserverConeMode
+  const storedObserverConeHour = Number(localStorage.getItem('star-view-observer-cone-hour') ?? NaN)
+  if (Number.isInteger(storedObserverConeHour) && storedObserverConeHour >= 0 && storedObserverConeHour < 24) observerConeHour = storedObserverConeHour
   observerConeVisible = localStorage.getItem('star-view-observer-cone') === 'true'
   observerPlanetsVisible = localStorage.getItem('star-view-observer-planets') !== 'false'
   const storedLabelLimit = localStorage.getItem('star-view-label-limit')
@@ -582,6 +585,13 @@ const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constell
 // The observer card opens with observer view and has no toggle of its own; closed, its indicator reopens it.
 const panelToggleId = (name: typeof panelNames[number]) => name === 'observer' ? 'observer-active' : name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
+// Only the observer card remembers its lock between visits.
+try {
+  if (localStorage.getItem('star-view-observer-locked') === 'true') {
+    lockedPanels.add('observer')
+    element('observer-lock').setAttribute('aria-pressed', 'true')
+  }
+} catch {}
 // On desktop, these cards move the 3D view center left while locked, so the scene stays visible beside them.
 const viewCenteringPanels: readonly typeof lockablePanelNames[number][] = ['paint', 'graphs', 'preferences', 'filter']
 
@@ -653,6 +663,12 @@ function updateObserverControl(): void {
   element('observer-view-controls').tabIndex = button.disabled && !originButton.disabled ? 0 : -1
   if (observerCardShown !== observerView) {
     observerCardShown = observerView
+    // Leaving observer view returns the cone time to now, and Earth's frame with it, so the next entry starts there.
+    if (!observerView && observerConeHour !== null) {
+      observerConeHour = null
+      try { localStorage.removeItem('star-view-observer-cone-hour') } catch {}
+      if (observerAxialTilt) viewer?.setObserverFrame(observerFrame())
+    }
     viewer?.setVisibilityCone(visibilityConeView())
     if (observerView !== panelIsOpen('observer')) togglePanel('observer')
     else setActiveIndicator('observer-active', false)
@@ -674,16 +690,23 @@ function updateObserverControl(): void {
   element('observer-axial-tilt').setAttribute('aria-pressed', String(observerAxialTilt))
   element('observer-cone').setAttribute('aria-pressed', String(observerConeVisible))
   element('observer-planets').setAttribute('aria-pressed', String(observerPlanetsVisible))
-  element<HTMLSelectElement>('observer-latitude').value = String(observerLatitudeDegrees())
-  element<HTMLSelectElement>('observer-cone-time').value = observerConeMode
+  const latitudeButton = element<HTMLButtonElement>('observer-latitude')
+  latitudeButton.textContent = latitudeLabel(observerLatitudeDegrees())
+  latitudeButton.setAttribute('aria-label', `Latitude on Earth: ${latitudeButton.textContent}`)
+  const coneTime = element<HTMLButtonElement>('observer-cone-time')
+  coneTime.textContent = observerConeHourLabel(observerConeHour)
+  coneTime.setAttribute('aria-label', `Visibility cone time: ${coneTime.textContent}`)
   const observerControlsDisabled = sceneBusy || !observerView
   for (const id of ['observer-axial-tilt', 'observer-cone', 'observer-telescope', 'observer-observatory', 'observer-roll-counterclockwise', 'observer-roll-reset', 'observer-roll-clockwise']) {
     element<HTMLButtonElement>(id).disabled = observerControlsDisabled
   }
   // An active naked-eye view stays switchable, so its filter can always be restored.
   element<HTMLButtonElement>('observer-naked-eye').disabled = observerControlsDisabled && (sceneBusy || nakedEyeRestoreFilter === null)
-  element<HTMLSelectElement>('observer-latitude').disabled = observerControlsDisabled || !observerAxialTilt
-  element<HTMLSelectElement>('observer-cone-time').disabled = observerControlsDisabled || !observerConeVisible
+  latitudeButton.disabled = observerControlsDisabled || !observerAxialTilt
+  coneTime.disabled = observerControlsDisabled || !observerConeVisible
+  for (const [button, popup] of [[latitudeButton, 'observer-latitude-popup'], [coneTime, 'observer-cone-time-popup']] as const) {
+    if (button.disabled && element(popup).matches(':popover-open')) element(popup).hidePopover()
+  }
   // The planets and the Moon are placed as seen from Earth, so only the Sun's sky shows them.
   element<HTMLButtonElement>('observer-planets').disabled = observerControlsDisabled || observerViewAnchorId !== 'sun'
   for (const id of cameraViewButtonIds) {
@@ -817,6 +840,9 @@ function initializeGraphs(module: typeof import('./graphs')): NonNullable<typeof
 }
 
 /** Prefer the loaded record of a merged identity; otherwise add the listed catalog record. */
+// Boltzmann constant: 1 keV of thermal energy corresponds to 11.6 million kelvin.
+const KELVIN_PER_KEV = 1.160452e7
+
 async function selectTopListObject(object: import('./top-lists').TopListObject): Promise<void> {
   const hip = object.designation === null ? null : hipNumber(object.designation)
   const loaded = starById(object.id) ?? (hip === null ? undefined : stars.find((star) => objectHipNumbers(star).includes(hip)))
@@ -1238,7 +1264,8 @@ async function selectSystemPlanet(planetId: string): Promise<void> {
   const loading = loadWithRecovery(body, loadPlanetModules, {
     label: 'planet details', silent: true,
     retry: () => { closePlanetCard(); void selectSystemPlanet(planetId) },
-    isCurrent: () => request === planetOpenRequest && selectedId === hostId && element<HTMLDetailsElement>('object-card-details').open,
+    // Observer view opens sky bodies without expanding the object card, so the sky stays in view.
+    isCurrent: () => request === planetOpenRequest && selectedId === hostId && (observerView || element<HTMLDetailsElement>('object-card-details').open),
     focusTarget: element('planet-close'),
     onChange: syncObjectTypeLayout,
   })
@@ -1257,14 +1284,15 @@ async function selectSystemPlanet(planetId: string): Promise<void> {
   element('planet-specs-toggle').focus({ preventScroll: true })
 }
 
-/** A planet clicked in the Sun's sky opens its card from the Solar System; the Moon opens Earth's moons. */
+/** A planet clicked in the Sun's sky opens its card from the Solar System; the Moon opens Earth's moons.
+ * In observer view the Sun's card keeps its collapsed or expanded state. */
 async function openSkyBody(id: string): Promise<void> {
   const planetId = id === 'moon' ? 'earth' : id
   if (selectedId !== 'sun') selectStar('sun')
   // Until the planet modules load, the Sun's card cannot tell that it owns the open planet card, and closes it.
   await loadPlanetModules().catch(() => undefined)
   if (selectedId !== 'sun') return
-  element<HTMLDetailsElement>('object-card-details').open = true
+  if (!observerView) element<HTMLDetailsElement>('object-card-details').open = true
   if (element('planet-card').hidden || activePlanetId !== planetId) await selectSystemPlanet(planetId)
   if (id === 'moon' && activePlanetId === 'earth' && !element('planet-card').hidden) showPlanetSection('moons')
 }
@@ -1928,6 +1956,7 @@ function togglePanelLock(name: typeof lockablePanelNames[number]): void {
   if (locked) lockedPanels.add(name)
   else lockedPanels.delete(name)
   button.setAttribute('aria-pressed', String(locked))
+  if (name === 'observer') try { localStorage.setItem('star-view-observer-locked', String(locked)) } catch {}
   syncViewCenterInset()
 }
 
@@ -2226,6 +2255,10 @@ element('object-card-toggle').addEventListener('click', () => {
   const details = element<HTMLDetailsElement>('object-card-details')
   details.open = !details.open
 }, { signal: events.signal })
+element('remnant-neutron-star').addEventListener('click', () => {
+  const id = starById(selectedId)?.nebula?.remnant?.neutron_star?.id
+  if (id) void selectTopListObject({ catalog: compactOverlayManifest.id, id, designation: null })
+}, { signal: events.signal })
 element('known-planets-row').addEventListener('click', () => {
   if (element<HTMLButtonElement>('known-planets').disabled) return
   activeObjectSection = 'system'
@@ -2455,6 +2488,8 @@ function renderSelection(): void {
   for (const row of document.querySelectorAll<HTMLElement>('.stellar-property')) row.hidden = stellarPropertiesHidden
   for (const row of document.querySelectorAll<HTMLElement>('.compact-property')) row.hidden = !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.nebula-property')) row.hidden = !nebulaObject
+  for (const row of document.querySelectorAll<HTMLElement>('.remnant-property')) row.hidden = !nebula?.remnant
+  element('nebula-illumination-row').hidden = !nebulaObject || !!nebula?.remnant
   for (const row of document.querySelectorAll<HTMLElement>('.molecular-cloud-property')) row.hidden = !molecularCloudObject
   for (const row of document.querySelectorAll<HTMLElement>('.bubble-property')) row.hidden = !bubbleObject
   element('mass-row').hidden = nebulaObject || bubbleObject
@@ -2563,6 +2598,22 @@ function renderSelection(): void {
     const source = element<HTMLAnchorElement>('nebula-source')
     source.textContent = nebula.source_label
     source.href = nebula.source_url
+  }
+  const remnant = nebula?.remnant
+  if (remnant) {
+    const [youngest, oldest] = remnant.age_yr.map((years) => years.toLocaleString('en-US'))
+    text('remnant-age', `${youngest === oldest ? youngest : `${youngest}–${oldest}`} years`)
+    element('remnant-age').title = remnant.age_source
+    const neutronStar = remnant.neutron_star
+    element('remnant-neutron-star').hidden = !neutronStar
+    element('remnant-neutron-star-missing').hidden = !!neutronStar
+    text('remnant-neutron-star', neutronStar?.name ?? '')
+    text('remnant-neutron-star-missing', MISSING_VALUE)
+    element('remnant-neutron-star').setAttribute('aria-label', neutronStar ? `Select ${neutronStar.name}` : '')
+    element('remnant-hot-gas-row').hidden = remnant.hot_gas_kev === null
+    text('remnant-hot-gas', remnant.hot_gas_kev === null ? '' : `${(remnant.hot_gas_kev * KELVIN_PER_KEV / 1e6).toLocaleString('en-US', { maximumFractionDigits: 1 })} million K (${remnant.hot_gas_kev} keV)`)
+    element('remnant-hot-gas').title = remnant.hot_gas_source ?? ''
+    text('remnant-drawn-as', remnant.drawn_as)
   }
   if (molecularCloud) {
     const conversion = distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1
@@ -2971,6 +3022,8 @@ function setObserverViewAnchor(anchorId: string | null, animate = true): void {
     observerViewAnchorId = observerView ? anchorId : null
     if (observerView) observerId = anchorId
   } else {
+    // Without a selection, leaving selects the observed-from object, so the reset view frames it.
+    if (selectedId === null && observerViewAnchorId !== null) selectStar(observerViewAnchorId)
     observerView = viewer.setObserverView(false, undefined, undefined, animate)
     observerViewAnchorId = null
     const restoredId = visibilityLockId ?? selectedId
@@ -3486,6 +3539,7 @@ function currentSavedViewSettings(): SavedViewSettings | null {
     showFamousClusterStars: false,
     filterCategories: [...filterCategories],
     filterSubtypes: [...filterSubtypes],
+    knownFilterSubtypes: [...availableKeys],
     magnitudeLimit,
     hideFainterObjects,
     objectDistanceLimitLy,
@@ -3608,6 +3662,7 @@ function currentFilterSettings(): SavedFilter {
     showNotableDistantStars,
     filterCategories: [...filterCategories],
     filterSubtypes: [...filterSubtypes],
+    knownFilterSubtypes: [...availableKeys],
     magnitudeLimit,
     hideFainterObjects,
     objectDistanceLimitLy,
@@ -3698,7 +3753,8 @@ async function loadSavedView(savedView: SavedView, linked = false): Promise<void
   filterCategories.clear()
   settings.filterCategories.forEach((category) => filterCategories.add(category))
   filterSubtypes.clear()
-  settings.filterSubtypes.forEach((subtype) => filterSubtypes.add(subtype))
+  // Links record differences from the current defaults, so they already account for every type.
+  restoredFilterSubtypes(settings.filterSubtypes, linked ? FILTER_KEYS : settings.knownFilterSubtypes, availableKeys).forEach((subtype) => filterSubtypes.add(subtype))
   visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
   magnitudeLimit = settings.magnitudeLimit
   hideFainterObjects = settings.hideFainterObjects ?? false
@@ -5172,13 +5228,6 @@ element('observer-axial-tilt').addEventListener('click', () => {
   viewer.setObserverFrame(observerFrame())
   updateObserverControl()
 }, { signal: events.signal })
-element('observer-latitude').addEventListener('change', () => {
-  const latitude = element<HTMLSelectElement>('observer-latitude').value
-  observerCardLatitude = Number(latitude)
-  try { localStorage.setItem('star-view-observer-latitude', latitude) } catch {}
-  viewer?.setObserverFrame(observerFrame())
-  viewer?.setVisibilityCone(visibilityConeView())
-}, { signal: events.signal })
 element('observer-planets').addEventListener('click', () => {
   if (sceneBusy || !observerView) return
   observerPlanetsVisible = !observerPlanetsVisible
@@ -5193,14 +5242,137 @@ element('observer-cone').addEventListener('click', () => {
   viewer?.setVisibilityCone(visibilityConeView())
   updateObserverControl()
 }, { signal: events.signal })
-element('observer-cone-time').addEventListener('change', () => {
-  const mode = element<HTMLSelectElement>('observer-cone-time').value
-  if (!isVisibilityConeMode(mode) || mode === 'off') return
-  observerConeMode = mode
-  try { localStorage.setItem('star-view-observer-cone-mode', mode) } catch {}
+/** Opens an observer card popover like a tooltip, toward the larger side of the window with its arrow at the button. */
+function attachObserverPopover(buttonId: string, popup: HTMLElement, onOpen: () => void): void {
+  popup.addEventListener('beforetoggle', (event) => {
+    const opening = (event as ToggleEvent).newState === 'open'
+    element(buttonId).setAttribute('aria-expanded', String(opening))
+    if (!opening) return
+    onOpen()
+    const bounds = element(buttonId).getBoundingClientRect()
+    const above = bounds.top > window.innerHeight - bounds.bottom
+    const left = Math.max(8, Math.min(bounds.left, window.innerWidth - 258))
+    popup.style.left = `${left}px`
+    popup.style.top = above ? 'auto' : `${bounds.bottom + 8}px`
+    popup.style.bottom = above ? `${window.innerHeight - bounds.top + 8}px` : 'auto'
+    popup.dataset.placement = above ? 'above' : 'below'
+    popup.style.setProperty('--popover-tooltip-arrow', `${Math.max(10, Math.min((bounds.left + bounds.right) / 2 - left - 4, 232))}px`)
+  }, { signal: events.signal })
+}
+// The world map is the latitude slider, from 80° N at the top to 80° S. Dragging turns the sky through every
+// degree; releasing snaps to the nearest 10°, saves it and closes the popover. Keys step by 10° and keep it open.
+const observerLatitudePopup = element('observer-latitude-popup')
+const observerLatitudeMap = element('observer-latitude-map')
+let observerLatitudeSlider: ReturnType<typeof import('./constellation-visibility-card').drawLatitudeMap> | undefined
+function showObserverLatitude(latitude: number): void {
+  observerCardLatitude = Math.max(-80, Math.min(80, latitude))
+  viewer?.setObserverFrame(observerFrame())
+  viewer?.setVisibilityCone(visibilityConeView())
+  observerLatitudeSlider?.move(observerCardLatitude)
+  const snapped = Math.round(observerCardLatitude / 10) * 10
+  text('observer-latitude-value', latitudeLabel(snapped))
+  observerLatitudeMap.setAttribute('aria-valuenow', String(snapped))
+  observerLatitudeMap.setAttribute('aria-valuetext', latitudeLabel(snapped))
+}
+function setObserverLatitude(latitude: number): void {
+  showObserverLatitude(Math.round(Math.max(-80, Math.min(80, latitude)) / 10) * 10)
+  try { localStorage.setItem('star-view-observer-latitude', String(observerCardLatitude)) } catch {}
+  updateObserverControl()
+}
+attachObserverPopover('observer-latitude', observerLatitudePopup, () => showObserverLatitude(observerLatitudeDegrees()))
+// The map's size is known once the popover shows; the module that draws it loads on first use.
+observerLatitudePopup.addEventListener('toggle', () => {
+  if (!observerLatitudePopup.matches(':popover-open')) return
+  void import('./constellation-visibility-card').then(({ drawLatitudeMap }) => {
+    if (!observerLatitudePopup.matches(':popover-open')) return
+    observerLatitudeSlider = drawLatitudeMap(observerLatitudeMap, observerLatitudeDegrees(), 'World map with the observer’s latitude', null, true)
+  })
+}, { signal: events.signal })
+let observerLatitudeDragging = false
+observerLatitudeMap.addEventListener('pointerdown', (event) => {
+  if (!observerLatitudeSlider) return
+  observerLatitudeDragging = true
+  observerLatitudeMap.setPointerCapture(event.pointerId)
+  showObserverLatitude(observerLatitudeSlider.latitudeAt(event.clientY))
+}, { signal: events.signal })
+observerLatitudeMap.addEventListener('pointermove', (event) => {
+  if (observerLatitudeSlider && observerLatitudeDragging) showObserverLatitude(observerLatitudeSlider.latitudeAt(event.clientY))
+}, { signal: events.signal })
+for (const type of ['pointerup', 'pointercancel']) {
+  observerLatitudeMap.addEventListener(type, () => {
+    if (!observerLatitudeDragging) return
+    observerLatitudeDragging = false
+    setObserverLatitude(observerLatitudeDegrees())
+    observerLatitudePopup.hidePopover()
+  }, { signal: events.signal })
+}
+observerLatitudeMap.addEventListener('keydown', (event) => {
+  const latitude = observerLatitudeDegrees()
+  const next = { ArrowUp: latitude + 10, ArrowRight: latitude + 10, ArrowDown: latitude - 10, ArrowLeft: latitude - 10, Home: -80, End: 80 }[event.key]
+  if (next === undefined) return
+  event.preventDefault()
+  setObserverLatitude(next)
+}, { signal: events.signal })
+// The cone time bar runs through the next 23 full hours beside a Now button. Dragging moves the cone and camera
+// through every minute; releasing snaps to the nearest hour, saves it and closes the popover.
+const observerConeTimePopup = element('observer-cone-time-popup')
+const observerConeTimeSlider = element<HTMLInputElement>('observer-cone-time-slider')
+element('observer-cone-time-stops').append(...Array.from({ length: 23 }, (_, stop) => new Option('', String(stop + 1))))
+let observerConeTimeBase = 0
+const observerConeTimeStopHour = (stop: number) => (observerConeTimeBase + stop) % 24
+function showObserverConeHour(hour: number | null): void {
+  observerConeHour = hour
   // The zenith moves with the hour, so the horizon turns with it.
   if (observerAxialTilt) viewer?.setObserverFrame(observerFrame())
   viewer?.setVisibilityCone(visibilityConeView())
+}
+function renderObserverConeTimeSlider(): void {
+  const label = observerConeHourLabel(observerConeHour === null ? null : observerConeTimeStopHour(Math.round(Number(observerConeTimeSlider.value))))
+  text('observer-cone-time-value', label)
+  observerConeTimeSlider.setAttribute('aria-valuetext', label)
+  element('observer-cone-time-now').setAttribute('aria-pressed', String(observerConeHour === null))
+}
+function setObserverConeHour(hour: number | null): void {
+  showObserverConeHour(hour)
+  try {
+    if (hour === null) localStorage.removeItem('star-view-observer-cone-hour')
+    else localStorage.setItem('star-view-observer-cone-hour', String(hour))
+  } catch {}
+  renderObserverConeTimeSlider()
+  updateObserverControl()
+}
+function commitObserverConeTimeSlider(): void {
+  observerConeTimeSlider.step = '1'
+  observerConeTimeSlider.value = String(Math.round(Number(observerConeTimeSlider.value)))
+  setObserverConeHour(observerConeTimeStopHour(Number(observerConeTimeSlider.value)))
+}
+attachObserverPopover('observer-cone-time', observerConeTimePopup, () => {
+  observerConeTimeBase = new Date().getHours()
+  observerConeTimeSlider.value = String(observerConeHour === null ? 1 : (observerConeHour - observerConeTimeBase + 23) % 24 + 1)
+  text('observer-cone-time-first', observerConeHourLabel(observerConeTimeStopHour(1)))
+  text('observer-cone-time-last', observerConeHourLabel(observerConeTimeStopHour(23)))
+  renderObserverConeTimeSlider()
+})
+element('observer-cone-time-now').addEventListener('click', () => {
+  setObserverConeHour(null)
+  observerConeTimePopup.hidePopover()
+}, { signal: events.signal })
+observerConeTimeSlider.addEventListener('input', () => {
+  showObserverConeHour(observerConeTimeStopHour(Number(observerConeTimeSlider.value)))
+  renderObserverConeTimeSlider()
+}, { signal: events.signal })
+// Keys set each hour and keep the popover open.
+observerConeTimeSlider.addEventListener('change', commitObserverConeTimeSlider, { signal: events.signal })
+observerConeTimeSlider.addEventListener('pointerdown', () => {
+  observerConeTimeSlider.step = 'any'
+  const finish = () => {
+    document.removeEventListener('pointerup', finish)
+    document.removeEventListener('pointercancel', finish)
+    commitObserverConeTimeSlider()
+    if (observerConeTimePopup.matches(':popover-open')) observerConeTimePopup.hidePopover()
+  }
+  document.addEventListener('pointerup', finish)
+  document.addEventListener('pointercancel', finish)
 }, { signal: events.signal })
 element('observer-exit').addEventListener('click', () => {
   setObserverViewAnchor(null)

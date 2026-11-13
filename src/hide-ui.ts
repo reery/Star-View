@@ -23,11 +23,12 @@ export function initializeHideUi(button: HTMLButtonElement, initiallyHidden: boo
   const hidden = () => root.hasAttribute('data-ui-hidden')
   const inRails = (target: EventTarget | null) => target instanceof Node && rails.some((rail) => rail.contains(target))
   const inIndicators = (target: EventTarget | null) => target instanceof Node && indicators.contains(target)
-  // The active-change buttons stay in view, so pointing at them, or approaching them along their row, leaves the rails hidden.
+  // The active-change buttons stay in view, so pointing at them, or approaching them along their row or from above,
+  // leaves the rails hidden; only the rails' own strip at the screen edge brings them back.
   const nearIndicators = (event: PointerEvent) => {
     if (inIndicators(event.target)) return true
     const bounds = indicators.getBoundingClientRect()
-    return bounds.width > 0 && event.clientY >= bounds.top && event.clientX < dockRail.getBoundingClientRect().left
+    return bounds.width > 0 && event.clientX < dockRail.getBoundingClientRect().left && (event.clientX >= bounds.left || event.clientY >= bounds.top)
   }
   const conceal = () => {
     if (rails.some((rail) => rail.matches(':hover') || rail.querySelector('[data-touch-open], :focus-visible'))) {

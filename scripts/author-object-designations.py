@@ -235,7 +235,7 @@ def build():
             identifiers.append("HIP " + identifier.removeprefix("hip-"))
         if identifier in pulsars:
             identifiers.extend(pulsars[identifier])
-        nebula = row["type"] in ("reflection_nebula", "hii_region", "planetary_nebula")
+        nebula = row["type"] in ("reflection_nebula", "hii_region", "planetary_nebula", "supernova_remnant")
         if nebula and identifier != "pleiades-nebula":
             for value in row["nebula"]["designations"]:
                 query = re.sub(r"^M(?=\d)", "M ", value)

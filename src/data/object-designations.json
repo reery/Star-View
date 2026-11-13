@@ -30,9 +30,9 @@
     "src/data/catalogs/western-constellation-stars/stars.csv": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748",
     "src/data/legacy-star-ids.json": "1b3022e79a02fac18f035fd4323dc43c582730ec66b4dd5baa85a1d0873362a3",
     "src/data/overlays/bubbles/objects.json": "1fb673285045e35cb4caafa2a672d6d0ad2bc6c3218badd4861cb582a8429926",
-    "src/data/overlays/compact-remnants/objects.json": "fb56136f3d5019714c82e709ab4105282245ac4de66f73ecc63467c5e04d4368",
+    "src/data/overlays/compact-remnants/objects.json": "a9f95edd9421e54ddfdcc2ff51e572033c279e8883e5a8448c67b97c6f185742",
     "src/data/overlays/molecular-clouds/objects.json": "6f20f8fefbbeab700c05c1a0e6b9844f42998da9d810f073973cd99da50419b4",
-    "src/data/overlays/nebulae/objects.json": "7073f544a2495442b3b99f9801d3177eab9f11c6db59cbcb30d6389c72447d18",
+    "src/data/overlays/nebulae/objects.json": "36f03b0ac92eb531bc76b9ae2b5d61e660636167c91ec1ed12a67cbf54a0d8c2",
     "src/data/stars.csv": "44288f83123f36b349c58a72e4ae23608ec242e5ff25850fabf6a42ca2ae616a",
     "src/data/stellar-companions.json": "534fc8436d4c2014944197f576a021f32d83ba6032c686ad48d8ee7c7adf4a11"
   },
@@ -141128,6 +141128,19 @@
       ],
       "sourceName": "G 267-11",
       "simbadId": "G 267-11"
+    },
+    "crab-nebula": {
+      "name": "Crab Nebula",
+      "designations": [
+        "M1",
+        "NGC 1952",
+        "Sh 2-244",
+        "SNR G184.6-05.8",
+        "Taurus A"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
     },
     "cxou-j085201": {
       "name": "CXOU J085201.4-461753",
@@ -472031,6 +472044,16 @@
       ],
       "simbadId": "HD  13215"
     },
+    "hoinga": {
+      "name": "Hoinga",
+      "designations": [
+        "1eRASS J093153.47-170136.7",
+        "G249.5+24.5"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
     "hr-1704": {
       "name": "HD 33948",
       "designations": [
@@ -473420,6 +473443,15 @@
         "src/data/overlays/nebulae/objects.json"
       ],
       "simbadId": "M  78"
+    },
+    "monogem-ring": {
+      "name": "Monogem Ring",
+      "designations": [
+        "G203+12"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
     },
     "mu-cassiopeiae-b": {
       "name": "Mu Cassiopeiae B",
@@ -481075,6 +481107,18 @@
     "vdbh-7": {
       "name": "vdBH 7",
       "designations": [],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "vela-supernova-remnant": {
+      "name": "Vela Supernova Remnant",
+      "designations": [
+        "Gum 16",
+        "SNR G263.9-03.3",
+        "Vela SNR",
+        "Vela XYZ"
+      ],
       "sources": [
         "src/data/overlays/nebulae/objects.json"
       ]

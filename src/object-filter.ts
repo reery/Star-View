@@ -57,7 +57,17 @@ export const FILTER_CATEGORY_IDS: readonly FilterCategoryId[] = FILTER_CATEGORIE
 const CATALOG_FILTER_KEYS: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf']
 
 export const DEFAULT_FILTER_CATEGORIES: readonly FilterCategoryId[] = ['compact_objects']
-export const DEFAULT_FILTER_SUBTYPES: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'bubble']
+export const DEFAULT_FILTER_SUBTYPES: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'supernova_remnant', 'bubble']
+
+// Types with data before saved filters and views recorded which types they knew.
+const LEGACY_KNOWN_FILTER_KEYS: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'neutron_star', 'pulsar', 'black_hole',
+  'molecular_cloud', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'bubble']
+
+/** Restores saved subtypes; default types that gained data after the entry was saved start on, like in a fresh session. */
+export function restoredFilterSubtypes(saved: readonly FilterKey[], known: readonly FilterKey[] | undefined, available: ReadonlySet<FilterKey>): Set<FilterKey> {
+  const knownWhenSaved = new Set(known ?? LEGACY_KNOWN_FILTER_KEYS)
+  return new Set([...saved, ...DEFAULT_FILTER_SUBTYPES.filter((key) => available.has(key) && !knownWhenSaved.has(key))])
+}
 
 export function isFilterKey(value: unknown): value is FilterKey {
   return FILTER_KEYS.includes(value as FilterKey)

@@ -56,6 +56,32 @@ function validMask(shape: Record<string, unknown>): boolean {
   }
 }
 
+// Four bytes per measured puff; the remaining puffs of the count fill the body.
+function validPoints(shape: Record<string, unknown>, puffCount: unknown): boolean {
+  const points = shape.points as Record<string, unknown> | undefined
+  if (points === undefined) return shape.kind !== 'points'
+  if (shape.kind !== 'points' || !points || !finitePositive(points.radius_pc) || typeof points.values !== 'string') return false
+  try {
+    const bytes = decodeNebulaMask(points as { values: string }).length
+    return bytes > 0 && bytes % 4 === 0 && bytes / 4 <= (puffCount as number)
+  } catch {
+    return false
+  }
+}
+
+function validRemnant(value: unknown, type: unknown): boolean {
+  if (value === undefined) return type !== 'supernova_remnant'
+  if (!value || typeof value !== 'object' || type !== 'supernova_remnant') return false
+  const remnant = value as Record<string, unknown>
+  const age = remnant.age_yr
+  const star = remnant.neutron_star as Record<string, unknown> | null | undefined
+  const text = (field: unknown) => typeof field === 'string' && field.length > 0
+  return Array.isArray(age) && age.length === 2 && age.every(finitePositive) && age[0]! <= age[1]!
+    && text(remnant.age_source) && text(remnant.drawn_as)
+    && (star === null || (!!star && typeof star === 'object' && text(star.id) && text(star.name)))
+    && (remnant.hot_gas_kev === null ? remnant.hot_gas_source === null : finitePositive(remnant.hot_gas_kev) && text(remnant.hot_gas_source))
+}
+
 function validDetails(value: unknown): value is NebulaDetails {
   if (!value || typeof value !== 'object') return false
   const details = value as Record<string, unknown>
@@ -80,7 +106,8 @@ function validDetails(value: unknown): value is NebulaDetails {
     && validMask(shape)
     && !!palette && hexes(palette.real) && hexes(palette.exaggerated)
     && typeof details.brightness === 'number' && details.brightness > 0 && details.brightness <= 1
-    && Number.isInteger(details.puff_count) && (details.puff_count as number) >= 16 && (details.puff_count as number) <= 4096
+    && Number.isInteger(details.puff_count) && (details.puff_count as number) >= 16 && (details.puff_count as number) <= 8192
+    && validPoints(shape, details.puff_count)
     && Number.isInteger(details.seed)
 }
 
@@ -98,7 +125,8 @@ export function parseNebulaOverlayPayload(value: unknown, manifest: NebulaOverla
       || typeof object.name !== 'string' || !object.name || !validDesignations(object.designations)
       || typeof object.type !== 'string' || !NEBULA_OBJECT_TYPES.includes(object.type as never)
       || !['x_pc', 'y_pc', 'z_pc', 'epoch'].every((field) => typeof object[field] === 'number' && Number.isFinite(object[field]))
-      || object.epoch !== manifest.epoch || object.absolute_mag !== null || !validDetails(object.nebula)) {
+      || object.epoch !== manifest.epoch || object.absolute_mag !== null || !validDetails(object.nebula)
+      || !validRemnant(object.nebula.remnant, object.type)) {
       throw new Error(`Invalid nebula payload row: ${String(object?.id ?? 'unknown')}`)
     }
     const { ra_deg, dec_deg, distance_pc } = object.nebula

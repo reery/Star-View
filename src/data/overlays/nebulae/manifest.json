@@ -2,13 +2,14 @@
   "schemaVersion": 1,
   "id": "nebulae",
   "label": "Nebulae",
-  "description": "A separately loaded overlay of the catalogued nebulae within about 2000 ly, rendered as approximate 3D volumes. Large H II regions take their sky shape from an all-sky H-alpha map.",
+  "description": "A separately loaded overlay of the catalogued nebulae and supernova remnants within about 2000 ly, rendered as approximate 3D volumes. Large H II regions take their sky shape from an all-sky H-alpha map; supernova remnants are modeled shells, except the Crab Nebula, whose filaments come from a measured 3D map.",
   "epoch": 2000,
-  "objectCount": 89,
+  "objectCount": 93,
   "counts": {
     "reflection_nebula": 59,
     "hii_region": 14,
-    "planetary_nebula": 16
+    "planetary_nebula": 16,
+    "supernova_remnant": 4
   },
   "sources": [
     {
@@ -94,8 +95,44 @@
     {
       "name": "Comerón et al. (2022); The extended population associated with W40",
       "url": "https://arxiv.org/abs/2203.07634"
+    },
+    {
+      "name": "Green (2024); A catalogue of Galactic supernova remnants",
+      "url": "https://www.mrao.cam.ac.uk/surveys/snrs/"
+    },
+    {
+      "name": "Dodson et al. (2003); VLBI parallax of the Vela pulsar",
+      "url": "https://doi.org/10.1086/378089"
+    },
+    {
+      "name": "Sushch, Hnatyk & Neronov (2011); Vela supernova remnant size and age",
+      "url": "https://ui.adsabs.harvard.edu/abs/2011A%26A...525A.154S"
+    },
+    {
+      "name": "Plucinsky et al. (1996); ROSAT survey observations of the Monogem Ring",
+      "url": "https://ui.adsabs.harvard.edu/abs/1996ApJ...463..224P"
+    },
+    {
+      "name": "Knies et al. (2024); the Gemini-Monoceros X-ray enhancement with eROSITA",
+      "url": "https://arxiv.org/abs/2401.17289"
+    },
+    {
+      "name": "Fesen et al. (2026); optical imaging of the Monogem supernova remnant",
+      "url": "https://arxiv.org/abs/2608.26666"
+    },
+    {
+      "name": "Becker et al. (2021); Hoinga, a supernova remnant discovered in eRASS1",
+      "url": "https://doi.org/10.1051/0004-6361/202040156"
+    },
+    {
+      "name": "Martin, Milisavljevic & Drissen (2021); 3D mapping of the Crab Nebula with SITELLE",
+      "url": "https://doi.org/10.1093/mnras/staa4046"
+    },
+    {
+      "name": "Lin et al. (2023); VLBI parallax of the Crab pulsar",
+      "url": "https://arxiv.org/abs/2306.01617"
     }
   ],
-  "cutoffPolicy": "Every reflection nebula, H II region and planetary nebula that is listed in NGC/IC, van den Bergh, van den Bergh & Herbst, Sharpless, HASH, or in Lynds with a reflection-catalogue identification (Cederblad or Dorschner & Gürtler), spans at least 5 arcmin, and whose adopted distance is within 1 sigma of 2000 ly (distance - error <= 613.2 pc); the census is being added in reviewed batches, so it is not yet complete beyond 500 ly (153.3 pc). Distances come from the SIMBAD-adopted parallax (Gaia EDR3, else Hipparcos 2007) of the illuminating or central star; several stars use an inverse-variance mean, and Gaia DR2 cluster parallaxes or VLBA parallaxes of cluster members replace stars whose own parallax is unreliable or embedded. Sizes come from LBN for named NGC/IC nebulae, Sharpless for ionized nebulae, the SIMBAD-adopted angular diameter (or HASH radius) for planetary nebulae, twice the van den Bergh maximum radius in the north, and ESO/Uppsala or the van den Bergh & Herbst diameter south of the Lynds limit. H II regions larger than about 1 degree take their sky shape and relative brightness from the Finkbeiner (2003) H-alpha map. The Orion Nebula (about 1265 ly) was kept as a showcase beyond the earlier 500-ly cutoff. Excluded: dark nebulae and molecular clouds, nebulae under 5 arcmin, the possible planetary nebula FP J1912-0331, H-alpha-only ionized regions such as Spica's, and Barnard's Loop until its distance is settled (published estimates of about 170 and 440 pc disagree).",
-  "snapshot": "J2000 map positions; literature reviewed 2026-10-01 (500-ly census), 2026-11-03 (2000-ly batch 1) and 2026-11-04 (batches 2 and 3)."
+  "cutoffPolicy": "Every reflection nebula, H II region and planetary nebula that is listed in NGC/IC, van den Bergh, van den Bergh & Herbst, Sharpless, HASH, or in Lynds with a reflection-catalogue identification (Cederblad or Dorschner & Gürtler), spans at least 5 arcmin, and whose adopted distance is within 1 sigma of 2000 ly (distance - error <= 613.2 pc); the census is being added in reviewed batches, so it is not yet complete beyond 500 ly (153.3 pc). Distances come from the SIMBAD-adopted parallax (Gaia EDR3, else Hipparcos 2007) of the illuminating or central star; several stars use an inverse-variance mean, and Gaia DR2 cluster parallaxes or VLBA parallaxes of cluster members replace stars whose own parallax is unreliable or embedded. Sizes come from LBN for named NGC/IC nebulae, Sharpless for ionized nebulae, the SIMBAD-adopted angular diameter (or HASH radius) for planetary nebulae, twice the van den Bergh maximum radius in the north, and ESO/Uppsala or the van den Bergh & Herbst diameter south of the Lynds limit. H II regions larger than about 1 degree take their sky shape and relative brightness from the Finkbeiner (2003) H-alpha map. The Orion Nebula (about 1265 ly) was kept as a showcase beyond the earlier 500-ly cutoff. Excluded: dark nebulae and molecular clouds, nebulae under 5 arcmin, the possible planetary nebula FP J1912-0331, H-alpha-only ionized regions such as Spica's, and Barnard's Loop until its distance is settled (published estimates of about 170 and 440 pc disagree). Supernova remnants: those within 2000 ly whose distances are established (Vela, Monogem Ring, Hoinga), drawn as shells of their published size around their published centers; Antlia, the Gum Nebula and Vela Junior wait for settled distances or classifications. The Crab Nebula (about 6200 ly) is kept as a showcase beyond the cutoff, at the VLBI parallax distance of its pulsar.",
+  "snapshot": "J2000 map positions; literature reviewed 2026-10-01 (500-ly census), 2026-11-03 (2000-ly batch 1), 2026-11-04 (batches 2 and 3) and 2026-11-13 (supernova remnants, including the Crab Nebula)."
 }

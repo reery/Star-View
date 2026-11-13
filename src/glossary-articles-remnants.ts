@@ -46,7 +46,7 @@ export const glossaryArticles: Readonly<Record<string, GlossaryArticle>> = {
     related: ['event-horizon', 'accretion-disk', 'subtype-x-ray-binary', 'neutron_star', 'supernova'],
   },
   supernova_remnant: {
-    source: wiki('Supernova_remnant'),
+    source: wiki('Supernova_remnant'), figure: objectFigure('supernova_remnant'),
     details: 'A supernova remnant is the expanding debris of an exploded star, along with the surrounding gas it sweeps up. These shells keep racing outward at thousands of kilometers per second, and can glow for tens of thousands of years.',
     sections: [
       { title: 'Spreading the seeds of new stars', text: 'Shock waves heat the gas to millions of degrees and accelerate particles to very high energies, likely including many of the cosmic rays that reach Earth. The newly forged elements mix into interstellar space, where they can become part of later stars and planets. Cassiopeia A and the Crab Nebula are well-known examples.' },

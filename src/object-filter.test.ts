@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys,
-  FILTER_CATEGORIES, FILTER_KEYS, filterCategoryForKey, filterKeyForObject, filterSummary,
+  FILTER_CATEGORIES, FILTER_KEYS, filterCategoryForKey, filterKeyForObject, filterSummary, restoredFilterSubtypes,
 } from './object-filter'
 
 describe('object filter taxonomy', () => {
@@ -47,6 +47,16 @@ describe('object filter taxonomy', () => {
     expect([...effectiveFilterKeys(categories, subtypes, available)]).toEqual(['sun', 'star', 'brown_dwarf', 'white_dwarf', 'reflection_nebula', 'hii_region'])
     categories.delete('compact_objects')
     expect([...effectiveFilterKeys(categories, subtypes, available)]).toEqual(['reflection_nebula', 'hii_region'])
+  })
+
+  it('starts types that gained data after a filter was saved, but keeps types the user turned off', () => {
+    const available = availableFilterKeys({ pulsar: 1 }, { hii_region: 1, supernova_remnant: 3 })
+    // Saved before types were recorded: supernova remnants had no data yet.
+    expect(restoredFilterSubtypes(['star', 'hii_region'], undefined, available)).toEqual(new Set(['star', 'hii_region', 'supernova_remnant']))
+    // Saved knowing supernova remnants, with them switched off.
+    expect(restoredFilterSubtypes(['star', 'hii_region'], [...available], available)).toEqual(new Set(['star', 'hii_region']))
+    // Types without data stay off.
+    expect(restoredFilterSubtypes(['star'], undefined, availableFilterKeys({ hii_region: 1 }))).toEqual(new Set(['star']))
   })
 
   it('summarizes effective selections against available types', () => {

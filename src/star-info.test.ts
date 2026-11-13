@@ -93,7 +93,7 @@ describe('nebula articles', () => {
 
   it('resolve every local image with its dimensions and credit', () => {
     const illustrated = Object.keys(nebulaDefinitions.articles).filter((id) => 'image' in nebulaDefinitions.articles[id as keyof typeof nebulaDefinitions.articles])
-    expect(illustrated).toHaveLength(81)
+    expect(illustrated).toHaveLength(83)
     for (const id of illustrated) {
       const image = starInfoForId(id)?.image
       expect(image?.src, id).toContain(`${id}`)

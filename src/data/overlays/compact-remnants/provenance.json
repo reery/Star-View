@@ -740,6 +740,13 @@
         "source_url": "https://arxiv.org/abs/astro-ph/0609275",
         "note": "ATNF lists no distance. An absorption estimate, not a parallax."
       },
+      "J0534+2200": {
+        "distance_pc": 1900,
+        "distance_method": "VLBI parallax",
+        "source_label": "Lin et al. 2023",
+        "source_url": "https://arxiv.org/abs/2306.01617",
+        "note": "VLBI parallax 0.53(6) mas, calibrated with the pulsar's giant pulses: 1.90 +0.22/−0.18 kpc. ATNF's 2.0 kpc (1.5–2.5 kpc) is Trimble's estimate from the nebula's expansion."
+      },
       "J0613-0200": {
         "distance_pc": 1000,
         "distance_method": "Timing parallax",
