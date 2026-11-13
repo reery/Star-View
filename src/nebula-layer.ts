@@ -105,6 +105,103 @@ function maskSampler(details: NebulaDetails, { values, lit, peak }: MaskPixels, 
   }
 }
 
+// Supernova-remnant shocks: thin wavy arcs on the shell surface. Arcs seen edge-on crowd into
+// the limb. Each hydrogen-alpha thread (red, t ≤ 0.5) carries an [O III] sheath
+// (teal, t = 1) slightly outside it, where the faster, fresher shock lies.
+const FILAMENT_ARCS = 110
+const FILAMENT_WIDTH = 0.3
+const OXYGEN_SHARE = 0.32
+// Successive puffs of a thread step along it by the golden ratio, so every prefix
+// (a level of detail) spreads evenly instead of beading into random clumps and gaps.
+const GOLDEN = (Math.sqrt(5) - 1) / 2
+
+function filamentSampler(details: NebulaDetails, random: () => number): () => Sample {
+  const [depth, major, minor] = details.shape.semi_axes_pc
+  const unit = () => {
+    const z = random() * 2 - 1
+    const phi = 2 * Math.PI * random()
+    const s = Math.sqrt(1 - z * z)
+    return new Vector3(s * Math.cos(phi), s * Math.sin(phi), z)
+  }
+  const arcs = Array.from({ length: FILAMENT_ARCS }, () => {
+    const pole = unit()
+    const e1 = new Vector3(1, 0, 0).cross(pole)
+    if (e1.lengthSq() < 0.01) e1.set(0, 1, 0).cross(pole)
+    e1.normalize()
+    const angle = 0.3 + 0.9 * random()
+    const length = 0.25 + 0.85 * random()
+    return {
+      pole, e1, e2: pole.clone().cross(e1), angle, length, start: 2 * Math.PI * random(),
+      wiggle: 0.015 + 0.045 * random(), frequency: 3 + 5 * random(), phase: 2 * Math.PI * random(),
+      radius: 0.94 + 0.06 * random(), weight: length * Math.sin(angle), brightness: 0.35 + 0.65 * random(),
+      steps: [random(), random()],
+    }
+  })
+  const total = arcs.reduce((sum, arc) => sum + arc.weight, 0)
+  const point = new Vector3()
+  return () => {
+    let pick = random() * total
+    const arc = arcs.find((candidate) => (pick -= candidate.weight) <= 0) ?? arcs.at(-1)!
+    const oxygen = random() < OXYGEN_SHARE
+    const step = oxygen ? 1 : 0
+    const along = arc.steps[step] = (arc.steps[step]! + GOLDEN) % 1
+    const theta = arc.start + along * arc.length
+    const angle = arc.angle + arc.wiggle * Math.sin(arc.frequency * theta + arc.phase)
+    point.copy(arc.pole).multiplyScalar(Math.cos(angle))
+      .addScaledVector(arc.e1, Math.sin(angle) * Math.cos(theta)).addScaledVector(arc.e2, Math.sin(angle) * Math.sin(theta))
+    // Threads fade out toward their ends instead of stopping abruptly.
+    const taper = Math.sin(Math.PI * along)
+    const radius = arc.radius + (oxygen ? 0.02 : 0) + gaussian(random) * 0.004
+    return {
+      d: point.x * radius * depth, u: point.y * radius * major, v: point.z * radius * minor,
+      t: oxygen ? 1 : 0.5 * random(), size: FILAMENT_WIDTH,
+      alpha: (oxygen ? 3 : 2.6) * arc.brightness * taper,
+    }
+  }
+}
+
+// Measured 3D emission: thin puffs at reconstructed positions (palette t ≤ 1/3, brighter toward
+// the first stop), interleaved with a smooth body of wide, faint puffs (t ≥ 2/3) so every prefix
+// keeps both. Sizes are in pc.
+const POINT_ALPHA = 6
+const BODY_OVERLAP = 8
+const BODY_ALPHA = 0.9
+const BODY_EXTENT = 0.85
+
+function pointSampler(details: NebulaDetails, random: () => number): () => Sample {
+  const { semi_axes_pc: [depth, major, minor], points } = details.shape
+  const values = decodeNebulaMask(points!)
+  const measured = values.length / 4
+  const bodyShare = (details.puff_count - measured) / details.puff_count
+  const bodyRadius = Math.sqrt(BODY_OVERLAP * major * minor / Math.max(1, details.puff_count - measured))
+  const offset = (byte: number) => byte / 127.5 - 1
+  let index = 0
+  let next = 0
+  return () => {
+    const body = Math.floor((index + 1) * bodyShare) > Math.floor(index * bodyShare)
+    index++
+    if (body || next >= measured) {
+      for (;;) {
+        const d = random() * 2 - 1
+        const u = random() * 2 - 1
+        const v = random() * 2 - 1
+        const radius = Math.hypot(d, u, v)
+        if (radius > 1) continue
+        return {
+          d: d * depth * BODY_EXTENT, u: u * major * BODY_EXTENT, v: v * minor * BODY_EXTENT,
+          t: 2 / 3 + radius / 3, size: bodyRadius, alpha: BODY_ALPHA * (1 - radius * radius),
+        }
+      }
+    }
+    const at = 4 * next++
+    const brightness = values[at + 3]! / 255
+    return {
+      d: offset(values[at]!) * depth, u: offset(values[at + 1]!) * major, v: offset(values[at + 2]!) * minor,
+      t: (1 - brightness) / 3, size: points!.radius_pc, alpha: POINT_ALPHA * brightness,
+    }
+  }
+}
+
 function shapeSampler(details: NebulaDetails, random: () => number): () => Sample {
   const { kind, semi_axes_pc: [depth, major, minor], layer_offsets_pc: offsets } = details.shape
   const clumps = Array.from({ length: 7 }, () => ({ u: (random() * 2 - 1) * 0.7, v: (random() * 2 - 1) * 0.7, d: (random() * 2 - 1) * 0.5, weight: 0.5 + random() }))
@@ -154,6 +251,8 @@ function shapeSampler(details: NebulaDetails, random: () => number): () => Sampl
       }
     }
   }
+  if (kind === 'filaments') return filamentSampler(details, random)
+  if (kind === 'points') return pointSampler(details, random)
   if (kind === 'layers') {
     return () => {
       for (;;) {
@@ -192,7 +291,8 @@ export function generateNebulaPuffs(star: Star, observer: Vector3): NebulaPuffs 
   const center = galacticToWorld(star)
   const basis = nebulaBasis(center, observer, details.shape.position_angle_deg)
   const [, major, minor] = details.shape.semi_axes_pc
-  let baseRadius = Math.sqrt(PUFF_OVERLAP * major * minor / count)
+  // Point samples give their puff sizes in pc.
+  let baseRadius = details.shape.points ? 1 : Math.sqrt(PUFF_OVERLAP * major * minor / count)
   let alphaScale = 1
   if (mask && pixels) {
     // Kernels of a few map pixels blend neighbours smoothly; the brightest pixel

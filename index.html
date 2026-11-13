@@ -130,7 +130,11 @@
                             <div class="compact-property" hidden><dt>Source</dt><dd><a id="compact-source" target="_blank" rel="noreferrer"></a></dd></div>
                             <div class="nebula-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="apparent-size">Apparent size</button></dt><dd id="nebula-angular-size"></dd></div>
                             <div class="nebula-property" hidden><dt>Modeled extent</dt><dd id="nebula-extent"></dd></div>
-                            <div class="nebula-property" hidden><dt>Illuminated by</dt><dd id="nebula-illumination"></dd></div>
+                            <div id="nebula-illumination-row" class="nebula-property" hidden><dt>Illuminated by</dt><dd id="nebula-illumination"></dd></div>
+                            <div class="remnant-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="age">Age</button></dt><dd id="remnant-age"></dd></div>
+                            <div id="remnant-neutron-star-row" class="remnant-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="neutron_star">Neutron star</button></dt><dd><button id="remnant-neutron-star" class="object-type-toggle" type="button"></button><span id="remnant-neutron-star-missing" class="missing-value" hidden></span></dd></div>
+                            <div id="remnant-hot-gas-row" class="remnant-property" hidden><dt>Hot gas</dt><dd id="remnant-hot-gas"></dd></div>
+                            <div class="remnant-property" hidden><dt>Drawn as</dt><dd id="remnant-drawn-as"></dd></div>
                             <div class="nebula-property" hidden><dt>Distance source</dt><dd id="nebula-distance-source"></dd></div>
                             <div class="nebula-property" hidden><dt>Source</dt><dd><a id="nebula-source" target="_blank" rel="noreferrer"></a></dd></div>
                             <div class="molecular-cloud-property" hidden><dt>Cloud complex</dt><dd id="molecular-cloud-complex"></dd></div>
@@ -869,12 +873,10 @@
                   <h2 id="observer-heading"><span class="observer-heading-label">Observing from</span> <button id="observer-object" class="observer-direction-object" type="button"><span id="observer-object-swatch" class="star-swatch" aria-hidden="true"></span><span id="observer-object-name"></span></button></h2>
                   <div class="rotation-transport observer-sky" role="group" aria-label="Observer sky">
                     <button id="observer-axial-tilt" class="object-section-button distance-reference-button time-button" type="button" aria-label="Stand on Earth" aria-pressed="false" title="Stand on Earth at the chosen latitude, with Earth’s axial tilt and a level horizon" disabled><span id="observer-axial-tilt-icon"></span></button>
-                    <label class="sr-only" for="observer-latitude">Latitude</label>
-                    <select id="observer-latitude" title="Latitude on Earth" disabled><option value="80">80° N</option><option value="70">70° N</option><option value="60">60° N</option><option value="50">50° N</option><option value="40" selected>40° N</option><option value="30">30° N</option><option value="20">20° N</option><option value="10">10° N</option><option value="0">0°</option><option value="-10">10° S</option><option value="-20">20° S</option><option value="-30">30° S</option><option value="-40">40° S</option><option value="-50">50° S</option><option value="-60">60° S</option><option value="-70">70° S</option><option value="-80">80° S</option></select>
+                    <button id="observer-latitude" class="object-section-button distance-reference-button" type="button" aria-label="Latitude on Earth: 40° N" aria-expanded="false" popovertarget="observer-latitude-popup" title="Latitude on Earth" disabled>40° N</button>
                     <button id="observer-planets" class="object-section-button distance-reference-button time-button" type="button" aria-label="Show planets and Moon" aria-pressed="true" title="Show the planets and the Moon where they stand on the date set by Earth’s orbit" disabled><span id="observer-planets-icon"></span></button>
                     <button id="observer-cone" class="object-section-button distance-reference-button time-button" type="button" aria-label="Show visibility cone" aria-pressed="false" title="Show visibility cone" disabled><span id="observer-cone-icon"></span></button>
-                    <label class="sr-only" for="observer-cone-time">Visibility cone time</label>
-                    <select id="observer-cone-time" title="Visibility cone time" disabled><option value="now" selected>Now</option><option value="18-20">18–20</option><option value="20-22">20–22</option><option value="22-24">22–24</option><option value="0-2">0–2</option><option value="2-4">2–4</option><option value="4-6">4–6</option><option value="6-8">6–8</option></select>
+                    <button id="observer-cone-time" class="object-section-button distance-reference-button" type="button" aria-label="Visibility cone time: Now" aria-expanded="false" popovertarget="observer-cone-time-popup" title="Visibility cone time" disabled>Now</button>
                     <button id="observer-naked-eye" class="object-section-button distance-reference-button time-button" type="button" aria-label="Naked-eye visibility" aria-pressed="false" aria-controls="scene" title="Visibility as seen with the human eye under dark skies" disabled><span id="observer-naked-eye-icon"></span></button>
                     <button id="observer-telescope" class="object-section-button distance-reference-button time-button" type="button" aria-label="Telescope zoom" aria-pressed="false" aria-controls="scene" title="Telescope zoom (1.6×)" disabled><span id="observer-telescope-icon"></span></button>
                     <button id="observer-observatory" class="object-section-button distance-reference-button time-button" type="button" aria-label="Observatory zoom" aria-pressed="false" aria-controls="scene" title="Observatory zoom (4×)" disabled><span id="observer-observatory-icon"></span></button>
@@ -887,6 +889,21 @@
                   <button id="observer-exit" class="panel-lock time-lock" type="button" aria-label="Exit observer view" title="Exit observer view"><span id="observer-exit-icon"></span></button>
                   <button id="observer-lock" class="panel-lock time-lock" type="button" aria-label="Keep Observing from open" aria-pressed="false"><span id="observer-lock-icon"></span></button>
                   <button id="observer-close" class="panel-lock time-lock" type="button" aria-label="Close observer card"><span id="observer-close-icon"></span></button>
+                </div>
+                <div id="observer-latitude-popup" class="object-column-filter observer-popover" popover="auto">
+                  <div class="range-heading"><span id="observer-latitude-heading">Latitude on Earth</span><output id="observer-latitude-value">40° N</output></div>
+                  <div id="observer-latitude-map" class="constellation-visibility-map observer-latitude-map" role="slider" tabindex="0" aria-labelledby="observer-latitude-heading" aria-orientation="vertical" aria-valuemin="-80" aria-valuemax="80" aria-valuenow="40" aria-valuetext="40° N"></div>
+                </div>
+                <div id="observer-cone-time-popup" class="object-column-filter observer-popover" popover="auto">
+                  <div class="range-heading"><label for="observer-cone-time-slider">Visibility cone time</label><output id="observer-cone-time-value" for="observer-cone-time-slider">Now</output></div>
+                  <div class="observer-cone-time-row">
+                    <button id="observer-cone-time-now" type="button" aria-pressed="true">Now</button>
+                    <div class="range-filter">
+                      <input id="observer-cone-time-slider" type="range" min="1" max="23" step="1" value="1" list="observer-cone-time-stops" aria-valuetext="Now">
+                      <datalist id="observer-cone-time-stops"></datalist>
+                      <div class="range-bounds" aria-hidden="true"><span id="observer-cone-time-first"></span><span id="observer-cone-time-last"></span></div>
+                    </div>
+                  </div>
                 </div>
               </section>
               <section id="filter-panel" class="dock-card filter-section" aria-labelledby="filter-heading" hidden>

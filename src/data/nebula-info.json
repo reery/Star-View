@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-11-04",
+  "reviewedAt": "2026-11-13",
   "articles": {
     "pleiades-nebula": {
       "name": "Pleiades Nebula",
@@ -2583,6 +2583,178 @@
         }
       },
       "sections": []
+    },
+    "vela-supernova-remnant": {
+      "name": "Vela Supernova Remnant",
+      "wikipedia": "https://en.wikipedia.org/wiki/Vela_supernova_remnant",
+      "introduction": "is the glowing wreckage of a star that exploded about 11,000 years ago, some 940 light-years away in the southern constellation Vela. At about 8 degrees across, 16 times the width of the full Moon, it is one of the closest supernova remnants to Earth. It is also known as Vela XYZ and Gum 16.",
+      "image": {
+        "file": "vela-supernova-remnant.avif",
+        "width": 598,
+        "height": 600,
+        "alt": "A dense web of orange and red filaments, many edged in blue, filling the frame.",
+        "caption": "CTIO/NOIRLab/DOE/NSF/AURA · Dark Energy Camera, hydrogen-alpha, [O III] and [S II] filters · 2024",
+        "credit": "CTIO/NOIRLab/DOE/NSF/AURA; image processing: T.A. Rector (University of Alaska Anchorage/NSF’s NOIRLab), M. Zamani and D. de Martin (NSF’s NOIRLab). Dark Energy Camera narrowband image of part of the remnant, 2024. Resized to 598 × 600 and converted to AVIF; colors unchanged.",
+        "source": {
+          "title": "Wikimedia Commons: Vela Supernova Remnant (noirlab2406a)",
+          "url": "https://commons.wikimedia.org/wiki/File:Vela_Supernova_Remnant_-_Noirlab2406a.jpg"
+        },
+        "license": {
+          "title": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        }
+      },
+      "sections": [
+        {
+          "id": "1",
+          "title": "Proof of the neutron star",
+          "text": "In 1968, astronomers at the University of Sydney found a pulsar inside the remnant. Together with the pulsar in the Crab Nebula, it was among the first direct evidence that supernovae leave neutron stars behind."
+        },
+        {
+          "id": "2",
+          "title": "Glitches in the clockwork",
+          "text": "The Vela Pulsar spins 11.2 times a second and is the brightest pulsar in the radio sky. About every three years it suddenly speeds up, a jolt called a glitch. In December 2016, a radio telescope caught one live for the first time: it took less than five seconds. The pulsar is also the brightest steady object in the high-energy gamma-ray sky.",
+          "source": {
+            "title": "Wikipedia: Vela Pulsar",
+            "url": "https://en.wikipedia.org/wiki/Vela_Pulsar"
+          }
+        },
+        {
+          "id": "3",
+          "title": "An extraordinary narrow ray",
+          "text": "The brightest part of the remnant is a thin streak called the Pencil Nebula. John Herschel discovered it from the Cape of Good Hope on 1 March 1835 and described “an extraordinary long narrow ray of excessively feeble light”. Its gas moves at roughly 644,000 kilometers per hour.",
+          "source": {
+            "title": "Wikipedia: NGC 2736",
+            "url": "https://en.wikipedia.org/wiki/NGC_2736"
+          }
+        },
+        {
+          "id": "4",
+          "title": "A remnant hidden in a remnant",
+          "text": "A second, separate remnant, Vela Junior, sits in the south-eastern part of the Vela remnant. It was found only in 1998, because the brighter Vela remnant drowns it out at most wavelengths. Puppis A also overlaps Vela on the sky but lies four times farther away."
+        }
+      ]
+    },
+    "monogem-ring": {
+      "name": "Monogem Ring",
+      "wikipedia": "https://en.wikipedia.org/wiki/Monogem_Ring",
+      "introduction": "is the expanding shell of a star that exploded roughly 100,000 years ago, about 980 light-years away on the border of Gemini and Monoceros. It spans about 25 degrees, 50 times the width of the full Moon, but shines mainly in soft X-rays. It is also catalogued as G203+12.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Seen first in X-rays",
+          "text": "The ring was discovered in the early 1970s by its soft X-ray glow, and the ROSAT satellite later mapped it as a bright, smooth patch. It is an old remnant expanding into very thin gas, so it gives off almost no radio waves."
+        },
+        {
+          "id": "2",
+          "title": "Filaments at last",
+          "text": "In 2026, deep images in hydrogen-alpha and [O III] light revealed extensive glowing filaments around most of the ring’s X-ray edge, showing the old remnant in visible light.",
+          "source": {
+            "title": "Fesen et al. (2026), arXiv:2608.26666",
+            "url": "https://arxiv.org/abs/2608.26666"
+          }
+        },
+        {
+          "id": "3",
+          "title": "The pulsar inside",
+          "text": "The pulsar PSR B0656+14 lies within the ring, about 940 light-years away by its parallax, and its spin-down age of about 110,000 years matches the remnant. Its motion across the sky seems to argue against a link, but the ring’s distorted shape hides its true center, so the pulsar may well be the core of the star that exploded."
+        },
+        {
+          "id": "4",
+          "title": "A halo of gamma rays",
+          "text": "In 2017, the HAWC observatory in Mexico found a faint halo of very high-energy gamma rays around PSR B0656+14 and around the Geminga pulsar. The particles spread out from both pulsars so slowly that they are unlikely to explain the surplus of antimatter positrons measured near Earth.",
+          "source": {
+            "title": "Abeysekara et al. (2017), Science 358, 911",
+            "url": "https://arxiv.org/abs/1711.06223"
+          }
+        }
+      ]
+    },
+    "hoinga": {
+      "name": "Hoinga",
+      "source": {
+        "title": "Becker et al. (2021), A&A 648, A30",
+        "url": "https://doi.org/10.1051/0004-6361/202040156"
+      },
+      "introduction": "is a supernova remnant about 1,600 light-years away in Hydra, discovered in 2021 in the first all-sky survey of the eROSITA X-ray telescope. At 4.4 degrees across, nearly nine times the width of the full Moon, it is one of the largest remnants ever found at wavelengths other than radio. It is also catalogued as G249.5+24.5.",
+      "sections": [
+        {
+          "id": "1",
+          "title": "Named after a hometown",
+          "text": "The discovery team’s leader, Werner Becker, named the remnant after his hometown, Bad Hönningen on the Rhine: Hoinga was the town’s name in the Middle Ages."
+        },
+        {
+          "id": "2",
+          "title": "Hidden in plain sight",
+          "text": "Hoinga lies far from the crowded plane of the Milky Way, where remnants are easily missed by radio surveys. Once eROSITA had spotted it, astronomers found it in older radio maps too, and even a faint hint of it in the ROSAT survey of 1990–1991. About 1,200 remnants are expected in the Milky Way, but only about 300 are known."
+        },
+        {
+          "id": "3",
+          "title": "A soft, filled glow",
+          "text": "Hoinga’s X-rays come from gas at about 1.3 million degrees that fills its interior, and they are so soft that eROSITA saw almost nothing above 0.7 keV. Radio maps show two faint arcs at its edges. Its age is estimated at 21,000–150,000 years."
+        }
+      ]
+    },
+    "crab-nebula": {
+      "name": "Crab Nebula",
+      "wikipedia": "https://en.wikipedia.org/wiki/Crab_Nebula",
+      "introduction": "is the expanding wreckage of a star whose explosion Chinese astronomers recorded on 4 July 1054, about 6,200 light-years away in Taurus. At its heart spins the Crab Pulsar, whose energy keeps the whole cloud glowing almost a thousand years later. It is also known as M1, NGC 1952 and Taurus A.",
+      "image": {
+        "file": "crab-nebula.avif",
+        "width": 600,
+        "height": 600,
+        "alt": "A tangled web of orange, yellow and green filaments around a bluish glow, on a field of stars.",
+        "caption": "NASA, ESA, J. Hester and A. Loll · Hubble WFPC2, [O I], [S II] and [O III] filters · 2005",
+        "credit": "NASA, ESA and Allison Loll/Jeff Hester (Arizona State University). Acknowledgement: Davide De Martin (ESA/Hubble). Mosaic of 24 Hubble WFPC2 exposures in narrowband filters, released in 2005. Resized to 600 × 600 and converted to AVIF; colors unchanged.",
+        "source": {
+          "title": "ESA/Hubble: Most detailed image of the Crab Nebula",
+          "url": "https://esahubble.org/images/heic0515a/"
+        },
+        "license": {
+          "title": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        }
+      },
+      "sections": [
+        {
+          "id": "1",
+          "title": "A star bright enough for daylight",
+          "text": "On 4 July 1054, Chinese astronomers noted a new star in Taurus, bright enough to be seen in the daytime for 23 days. Japanese observers probably saw it too. It stayed visible at night for almost two years: one Chinese chronicle gives 642 days in all. The Crab Nebula is what that explosion left behind.",
+          "source": {
+            "title": "Wikipedia: SN 1054",
+            "url": "https://en.wikipedia.org/wiki/SN_1054"
+          }
+        },
+        {
+          "id": "2",
+          "title": "Lit by a spinning star",
+          "text": "The nebula shines because of the neutron star at its center, about 28–30 kilometers across and spinning 30.2 times a second. Thomas Gold showed that the energy it loses as it slows down is enough to power the whole nebula. Above 30 keV, the Crab is generally the brightest steady gamma-ray source in the sky."
+        },
+        {
+          "id": "3",
+          "title": "A honeycomb heart",
+          "text": "In 2021, astronomers measured the speed of the glowing gas toward or away from Earth across the whole nebula, using the SITELLE spectrometer on the Canada-France-Hawaii Telescope. That turned the flat picture into a 3D map. The filaments form a honeycomb-like network, and the cloud as a whole is heart-shaped, not the tidy ellipsoid long assumed.",
+          "source": {
+            "title": "Martin, Milisavljevic & Drissen (2021): 3D mapping of the Crab Nebula with SITELLE",
+            "url": "https://arxiv.org/abs/2101.02709"
+          }
+        },
+        {
+          "id": "4",
+          "title": "The object that is not a comet",
+          "text": "John Bevis found the nebula in 1731. Charles Messier came across it again in 1758 while observing a bright comet. He made it the first entry in his catalogue of fixed, cloudy objects, so that they would not be mistaken for comets. It is still known as M1."
+        },
+        {
+          "id": "5",
+          "title": "A crab with arms",
+          "text": "The name comes from a drawing by William Parsons, the 3rd Earl of Rosse, made in the early 1840s with a 36-inch telescope: the nebula looked somewhat like a crab with arms. Observations in 1848 could not confirm the resemblance, but the name stuck."
+        },
+        {
+          "id": "6",
+          "title": "A lamp behind the Sun’s corona",
+          "text": "The Crab lies just over one degree from the Sun’s yearly path across the sky, so the Sun passes close to it each June. In the 1950s and 1960s, astronomers mapped the Sun’s thin outer atmosphere, the corona, by watching the Crab’s radio waves shine through it."
+        }
+      ]
     },
     "local-bubble": {
       "name": "Local Bubble",

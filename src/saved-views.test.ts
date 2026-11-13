@@ -4,7 +4,7 @@ import { decodeSavedViewLink, encodeSavedViewLink, type SavedViewSettings } from
 const defaults: SavedViewSettings = {
   catalogId: 'nearest-neighbors', showAlwaysBright: false, showWesternConstellationStars: false, showNakedEyeStars: false, showNotableDistantStars: false,
   showFamousClusterStars: false, filterCategories: ['compact_objects'],
-  filterSubtypes: ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'bubble'],
+  filterSubtypes: ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'supernova_remnant', 'bubble'],
   magnitudeLimit: 7, hideFainterObjects: false, objectDistanceLimitLy: 100, earthOrbitMode: 'now', milkyWayVisible: true, oortCloudVisible: true,
   visibilityConeMode: 'off', motionArrowsVisible: false, motionYears: 1_000, motionFrame: 'galactic', gridVisible: true, skyGridMode: 'off',
   simulationYears: 0, simulationPlaying: false, simulationDirection: 1, playbackSecondsPerThousandYears: 1, followSelection: false,

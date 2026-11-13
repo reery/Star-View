@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest'
 import { Vector3 } from 'three'
 import manifestRaw from './data/overlays/nebulae/manifest.json?raw'
 import payloadRaw from './data/overlays/nebulae/objects.json?raw'
+import compactPayloadRaw from './data/overlays/compact-remnants/objects.json?raw'
+import compactInfo from './data/compact-object-info.json'
 import { equatorialToGalacticPc, type Star } from './catalog-model'
 import { galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor } from './astronomy'
 import { decodeNebulaMask, parseNebulaOverlayManifest, parseNebulaOverlayPayload } from './nebula-overlay-model'
@@ -24,14 +26,15 @@ describe('nebula overlay data', () => {
       ['pleiades-nebula', 'reflection_nebula'],
       ['orion-nebula', 'hii_region'],
     ])
-    expect(nebulae).toHaveLength(89)
-    expect(manifest.counts).toEqual({ reflection_nebula: 59, hii_region: 14, planetary_nebula: 16 })
+    expect(nebulae).toHaveLength(93)
+    expect(manifest.counts).toEqual({ reflection_nebula: 59, hii_region: 14, planetary_nebula: 16, supernova_remnant: 4 })
     expect(byId('sh-2-216').type).toBe('planetary_nebula')
   })
 
   it('keeps every census nebula within 1 sigma of 2000 ly and at least 5 arcmin across', () => {
     const cutoffPc = 2000 / LIGHT_YEARS_PER_PARSEC
-    for (const nebula of nebulae.filter((candidate) => candidate.id !== 'orion-nebula')) {
+    const showcases = ['orion-nebula', 'crab-nebula']
+    for (const nebula of nebulae.filter((candidate) => !showcases.includes(candidate.id))) {
       const { distance_pc, distance_error_pc, angular_size_arcmin } = nebula.nebula!
       expect(distance_pc - (distance_error_pc ?? 0), nebula.id).toBeLessThanOrEqual(cutoffPc)
       expect(Math.max(...angular_size_arcmin), nebula.id).toBeGreaterThanOrEqual(5)
@@ -137,6 +140,38 @@ describe('nebula puff volumes', () => {
     }
   })
 
+  it('links each supernova remnant to a neutron star in the compact-object overlay', () => {
+    // The app titles these pulsars by their Info article names.
+    const compact = new Map((JSON.parse(compactPayloadRaw).objects as Star[]).map((star) =>
+      [star.id, compactInfo.articles[star.id as keyof typeof compactInfo.articles]?.name ?? star.name]))
+    const remnants = nebulae.filter((nebula) => nebula.type === 'supernova_remnant')
+    expect(remnants.map(({ id }) => id)).toEqual(['vela-supernova-remnant', 'monogem-ring', 'hoinga', 'crab-nebula'])
+    for (const { id, nebula } of remnants) {
+      const star = nebula!.remnant!.neutron_star
+      if (star) expect(compact.get(star.id), id).toBe(star.name)
+    }
+    expect(() => parseNebulaOverlayPayload(payloadWith((object) => { object.nebula.remnant = remnants[0]!.nebula!.remnant }), manifest)).toThrow(/Invalid nebula payload row/)
+  })
+
+  it('draws remnant filaments as thin threads on the shell surface', () => {
+    const vela = byId('vela-supernova-remnant')
+    const [depth, major, minor] = vela.nebula!.shape.semi_axes_pc
+    const puffs = generateNebulaPuffs(vela, sun)
+    const planetary = byId('sh-2-216')
+    const shell = generateNebulaPuffs(planetary, sun)
+    let oxygen = 0
+    for (let index = 0; index < puffs.count; index++) {
+      const [d, u, v] = puffs.local.subarray(index * 3, index * 3 + 3)
+      expect(Math.hypot(d! / depth, u! / major, v! / minor)).toBeGreaterThan(0.9)
+      if (puffs.vividColors[index * 3 + 1]! > puffs.vividColors[index * 3]!) oxygen++
+    }
+    // A teal [O III] sheath accompanies the red hydrogen threads.
+    expect(oxygen / puffs.count).toBeGreaterThan(0.25)
+    expect(oxygen / puffs.count).toBeLessThan(0.4)
+    // Threads are much thinner than the soft puffs of a filled shell of the same puff budget.
+    expect(puffs.shapes[0]! / major).toBeLessThan(0.5 * shell.shapes[0]! / planetary.nebula!.shape.semi_axes_pc[1])
+  })
+
   it('samples the planetary nebula as a hollow shell', () => {
     const shell = byId('sh-2-216')
     expect(shell.nebula!.shape.kind).toBe('shell')
@@ -172,6 +207,33 @@ describe('nebula puff volumes', () => {
     const kernel = 2 * 2 * major / rows
     expect(puffs.shapes[0]).toBeGreaterThanOrEqual(0.9 * kernel)
     expect(puffs.shapes[0]).toBeLessThanOrEqual(1.1 * kernel)
+  })
+
+  it('places measured Crab filaments inside a smooth synchrotron body', () => {
+    const crab = byId('crab-nebula')
+    const { semi_axes_pc: [depth, major, minor], points } = crab.nebula!.shape
+    const measured = decodeNebulaMask(points!).length / 4
+    const puffs = generateNebulaPuffs(crab, sun)
+    expect(puffs.count).toBe(crab.nebula!.puff_count)
+    const body: number[] = []
+    for (let index = 0; index < puffs.count; index++) {
+      const [d, u, v] = puffs.local.subarray(index * 3, index * 3 + 3)
+      expect(Math.abs(d!)).toBeLessThanOrEqual(depth + 1e-6)
+      expect(Math.abs(u!)).toBeLessThanOrEqual(major + 1e-6)
+      expect(Math.abs(v!)).toBeLessThanOrEqual(minor + 1e-6)
+      if (puffs.shapes[index * 4]! > 2 * points!.radius_pc) body.push(index)
+    }
+    expect(body).toHaveLength(puffs.count - measured)
+    // Body puffs are spread through the order, so a level-of-detail prefix keeps the glow.
+    expect(body.filter((index) => index < puffs.count / 2).length).toBeCloseTo(body.length / 2, -1)
+    const withPoints = (change: (shape: Record<string, any>) => void) => {
+      const payload = JSON.parse(payloadRaw)
+      change(payload.objects.find((object: Record<string, any>) => object.id === 'crab-nebula').nebula.shape)
+      return payload
+    }
+    expect(parseNebulaOverlayPayload(withPoints(() => {}), manifest)).toHaveLength(nebulae.length)
+    expect(() => parseNebulaOverlayPayload(withPoints((shape) => { shape.kind = 'shell' }), manifest)).toThrow(/row/)
+    expect(() => parseNebulaOverlayPayload(withPoints((shape) => { shape.points.values = 'AAA=' }), manifest)).toThrow(/row/)
   })
 
   it('packs visible nebulae with level-of-detail prefixes', () => {

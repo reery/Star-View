@@ -12,6 +12,7 @@ import blackHoleImage from './assets/object-types/black_hole.jpg'
 import reflectionNebulaImage from './assets/object-types/reflection_nebula.jpg'
 import hiiRegionImage from './assets/object-types/hii_region.jpg'
 import planetaryNebulaImage from './assets/object-types/planetary_nebula.jpg'
+import supernovaRemnantImage from './assets/object-types/supernova_remnant.jpg'
 import molecularCloudImage from './assets/object-types/molecular_cloud.jpg'
 import bubbleImage from './assets/object-types/bubble.jpg'
 
@@ -63,6 +64,10 @@ const introductions: Record<ObjectType, TypeIntroduction> = {
   planetary_nebula: {
     description: 'A planetary nebula is an expanding shell of glowing gas expelled by an aging star. Ultraviolet radiation from the exposed hot core lights up the surrounding material, often creating striking rings, lobes, and filaments. Despite their name, these nebulae have nothing to do with planets; the central star eventually becomes a white dwarf.',
     article: 'Planetary_nebula', image: planetaryNebulaImage, caption: 'The Ring Nebula · Hubble',
+  },
+  supernova_remnant: {
+    description: 'A supernova remnant is the expanding cloud left after a star explodes. Its shock wave races outward at thousands of kilometers per second, sweeping up the surrounding gas and heating it to millions of degrees. The hot gas shines in X-rays, while thin filaments glow red with hydrogen and blue-green with oxygen. Over tens to hundreds of thousands of years, a remnant slows down and fades into the gas between the stars.',
+    article: 'Supernova_remnant', image: supernovaRemnantImage, caption: 'Filaments of the Veil Nebula · Hubble',
   },
   molecular_cloud: {
     description: 'A molecular cloud is a cold, dense region of interstellar gas and dust where atoms can join into molecules, especially molecular hydrogen. Dust shields its interior from starlight, allowing temperatures to remain low. The densest parts can collapse under gravity to form new stars, making these clouds the birthplaces of stellar systems.',

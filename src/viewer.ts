@@ -292,7 +292,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   controls.dampingFactor = 0.2
   controls.minPolarAngle = 0
   controls.maxPolarAngle = Math.PI - 0.08
-  controls.rotateSpeed = 0.65
+  const ROTATE_SPEED = 0.65
+  controls.rotateSpeed = ROTATE_SPEED
   controls.screenSpacePanning = true
 
   // OrbitControls captures camera.up only once. Observer view sets its spherical frame on the observer's up,
@@ -681,16 +682,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const observerFrameUp = new Vector3(0, 1, 0)
   const observerUp = new Vector3(0, 1, 0)
   let observerFrame: ObserverFrame = null
+  let observerFacingPending = false
   let observerZoomTransition: { from: number; to: number; started: number } | null = null
-  /** Entering or leaving observer view draws the camera flying from where it was to the pose the controls hold. */
-  let observerFlight: { position: Vector3; quaternion: Quaternion; started: number } | null = null
+  /**
+   * Entering or leaving observer view draws the camera flying from where it was to the pose the controls hold.
+   * With a focus, the drawn camera keeps turned to it; `aim` is the start's offset from it, fading out on the way.
+   */
+  let observerFlight: { position: Vector3; quaternion: Quaternion; focus: Vector3 | null; aim: Quaternion; started: number } | null = null
   const OBSERVER_FLIGHT_MS = 2000
   const observerFlightPosition = new Vector3()
   const observerFlightQuaternion = new Quaternion()
   const heldCameraPosition = new Vector3()
   const heldCameraQuaternion = new Quaternion()
-  /** The camera's distance from the object before entering its view; leaving backs out to it. */
-  let observerReturnDistance: number | null = null
+  const flightForward = new Vector3()
+  const flightFocusDirection = new Vector3()
+  const flightAim = new Quaternion()
   let spaceship: Spaceship | null = null
   let spaceshipLabels: SpaceshipLabels = 'all'
   let spaceshipInput: SpaceshipInput = { forward: 0, strafe: 0, yaw: 0, topSpeedPc: 1 }
@@ -930,8 +936,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     invalidateProjection()
   }
 
-  function placeObserverCamera(index: number): void {
-    observerDirection.subVectors(controls.target, camera.position)
+  /** Keeps the current view direction, or faces a point from the object. */
+  function placeObserverCamera(index: number, toward?: Vector3): void {
+    if (toward) observerDirection.subVectors(toward, pickable[index]!.position)
+    else observerDirection.subVectors(controls.target, camera.position)
     if (observerDirection.lengthSq() < 1e-18) observerDirection.copy(homeDirection).multiplyScalar(-1)
     else observerDirection.normalize()
     observerViewAnchorIndex = index
@@ -2036,7 +2044,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     invalidateProjection()
   }
 
-  const RESET_VIEW_DISTANCE_PC = 50 / LIGHT_YEARS_PER_PARSEC
   function fitResetView(): void {
     homeBounds.makeEmpty()
     homeBounds.expandByPoint(pickable[referenceIndex]!.position)
@@ -2047,7 +2054,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       expandBoxByBubbleBounds(homeBounds, selected.star)
     }
     homeBounds.getBoundingSphere(homeSphere)
-    let distance = RESET_VIEW_DISTANCE_PC
+    let distance = 50 / LIGHT_YEARS_PER_PARSEC
     if (selected && selected.index !== referenceIndex) {
       const verticalAngle = camera.fov * Math.PI / 360
       const fitAngle = Math.min(verticalAngle, Math.atan(Math.tan(verticalAngle) * camera.aspect))
@@ -2067,14 +2074,20 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (enabled && !anchor) return observerViewEnabled
     if (enabled === observerViewEnabled && (!enabled || anchor?.index === observerViewAnchorIndex)) return observerViewEnabled
     const modeChanged = enabled !== observerViewEnabled
-    const previousAnchorIndex = observerViewAnchorIndex
-    if (anchor && modeChanged) observerReturnDistance = camera.position.distanceTo(pickable[anchor.index]!.position)
-    // A flight starts where the camera is drawn, so toggling again mid-flight turns smoothly.
-    observerFlight = animate && !reducedMotion.matches ? {
-      position: (observerFlight ? observerFlightPosition : camera.position).clone(),
-      quaternion: (observerFlight ? observerFlightQuaternion : camera.quaternion).clone(),
-      started: performance.now(),
-    } : null
+    // Observing from another object than the selection turns to the selection.
+    const selected = selectedId === null ? undefined : starsById.get(selectedId)
+    const focus = animate && anchor && selected && selected.index !== anchor.index ? pickable[selected.index]!.position : null
+    // Standing on Earth faces the equator once per entry, unless turning to the selection; later hours, latitudes
+    // and dates keep the chosen direction. Restored views, which arrive without a flight, keep theirs from the start.
+    if (modeChanged) observerFacingPending = enabled && animate && !focus
+    if (animate && !reducedMotion.matches) {
+      // A flight starts where the camera is drawn, so toggling again mid-flight turns smoothly.
+      const position = (observerFlight ? observerFlightPosition : camera.position).clone()
+      const quaternion = (observerFlight ? observerFlightQuaternion : camera.quaternion).clone()
+      const aim = new Quaternion()
+      if (focus) aim.setFromUnitVectors(flightFocusDirection.subVectors(focus, position).normalize(), flightForward.set(0, 0, -1).applyQuaternion(quaternion))
+      observerFlight = { position, quaternion, focus, aim, started: performance.now() }
+    } else observerFlight = null
     observerUp.copy(observerFrameUp)
     observerViewEnabled = enabled
     if (!enabled) {
@@ -2093,19 +2106,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (anchor) visibilityBaseStar = anchor.star
     select(selectedId, false)
     if (anchor) {
-      placeObserverCamera(anchor.index)
+      placeObserverCamera(anchor.index, focus ?? undefined)
+      if (observerFrame && observerFacingPending) faceObserverEquator(observerFrame.latitude)
       if (Number.isFinite(rollRadians) && rollRadians !== 0) rollObserverUp(rollRadians)
       applyObserverRollFrame()
-    } else if (previousAnchorIndex !== null) {
-      // Back out along the line of sight to the distance held before, with the object ahead.
-      const position = pickable[previousAnchorIndex]!.position
-      const distance = Math.min(controls.maxDistance, Math.max(controls.minDistance, observerReturnDistance ?? RESET_VIEW_DISTANCE_PC))
-      observerDirection.subVectors(position, camera.position).normalize()
-      applyFocusTarget(position, observerDirection.multiplyScalar(-distance).add(position))
-      home = false
-      captureFollowTarget()
-      resize()
     }
+    else reset()
     if (!enabled) {
       container.dataset.observerRollDegrees = '0'
       delete container.dataset.observerViewDirection
@@ -2142,11 +2148,23 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   function applyObserverZoom(zoom: number): void {
     camera.zoom = zoom
     camera.updateProjectionMatrix()
+    // Drags turn by a fixed angle per pixel; magnifying would sweep the sky past faster by the same factor.
+    controls.rotateSpeed = ROTATE_SPEED / zoom
     starZoomGain.value = zoom * zoom
     milkyWay.setMagnification(zoom)
     setData(container, 'observerZoom', String(zoom))
     invalidateProjection()
     ordinaryLayoutDirty = true
+  }
+
+  /** Faces the celestial equator, south of a northern latitude, with the horizon a quarter up the view. */
+  function faceObserverEquator(latitude: number): void {
+    observerFacingPending = false
+    const pole = skyGridDirection('equatorial', 0, 90)
+    const north = pole.addScaledVector(observerUp, -pole.dot(observerUp)).normalize()
+    const altitude = Math.atan(Math.tan(camera.fov * Math.PI / 360) / camera.zoom / 2)
+    observerDirection.copy(north).multiplyScalar((latitude < 0 ? 1 : -1) * Math.cos(altitude)).addScaledVector(observerUp, Math.sin(altitude))
+    applyObserverDirection(observerDirection)
   }
 
   function setObserverFrame(frame: ObserverFrame): void {
@@ -2161,14 +2179,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     controlsInteracting = false
     controlsSettling = false
     setOrbitUp(observerUp)
-    if (frame) {
-      // Face the celestial equator, south of a northern latitude, with the horizon along the bottom edge.
-      const pole = skyGridDirection('equatorial', 0, 90)
-      const north = pole.addScaledVector(observerUp, -pole.dot(observerUp)).normalize()
-      const altitude = Math.atan(Math.tan(camera.fov * Math.PI / 360) / camera.zoom)
-      observerDirection.copy(north).multiplyScalar((frame.latitude < 0 ? 1 : -1) * Math.cos(altitude)).addScaledVector(observerUp, Math.sin(altitude))
-      applyObserverDirection(observerDirection)
-    }
+    if (frame && observerFacingPending) faceObserverEquator(frame.latitude)
     applyObserverRollFrame()
     invalidateProjection()
     obstacleBoundsDirty = true
@@ -2500,6 +2511,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       heldCameraQuaternion.copy(camera.quaternion)
       camera.position.lerpVectors(observerFlight.position, heldCameraPosition, eased)
       camera.quaternion.slerpQuaternions(observerFlight.quaternion, heldCameraQuaternion, eased)
+      if (observerFlight.focus && camera.position.distanceToSquared(observerFlight.focus) > 1e-18) {
+        // Turn onto the focus, offset by what remains of the start's aim, so a focus in view stays centered.
+        flightAim.identity().slerp(observerFlight.aim, 1 - eased)
+        flightFocusDirection.subVectors(observerFlight.focus, camera.position).normalize().applyQuaternion(flightAim)
+        flightForward.set(0, 0, -1).applyQuaternion(camera.quaternion)
+        camera.quaternion.premultiply(flightAim.setFromUnitVectors(flightForward, flightFocusDirection))
+      }
       observerFlightPosition.copy(camera.position)
       observerFlightQuaternion.copy(camera.quaternion)
       invalidateProjection()

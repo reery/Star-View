@@ -73,8 +73,8 @@ export function createVisibilityConeLayer(opacity: { value: number }): Visibilit
   const band = new Mesh(bandGeometry, bandMaterial)
   rim.name = 'visibility-cone'
   rim.add(band)
-  // Over the sky grid and Milky Way, behind clouds and stars.
-  rim.renderOrder = band.renderOrder = -0.4
+  // Over the sky grid, Milky Way and dust cloud bodies, behind stars.
+  rim.renderOrder = band.renderOrder = 1.82
   rim.frustumCulled = band.frustumCulled = false
   rim.visible = false
 

@@ -164,6 +164,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading:is(.time-heading, .rotation-heading) .time-lock:not(:last-child) { margin-right: 0; border-radius: 0; }
 /* Automatic rotation: only the Stellar motion header, sized to its controls. */
 .dock-card.rotation-card { width: max-content; max-width: calc(var(--ui-width) - var(--dock-gutter)); overflow: hidden; }
+/* Header-only cards: the card border closes the header, so its divider would double the bottom line. */
+.rotation-card > .panel-heading { border-bottom: 0; }
 .rotation-transport { display: flex; }
 #rotation-left-icon svg { transform: scaleX(-1); }
 /* Observing from: the Automatic rotation header, with its sky and roll groups set apart. */
@@ -173,9 +175,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .observer-heading .observer-direction-object { max-width: 100%; }
 .observer-heading :is(.observer-sky, .observer-roll) { margin-left: 16px; }
 .panel-heading.observer-heading #observer-exit { margin-left: 16px; }
-.observer-sky > select { flex: 0 0 auto; width: auto; min-height: 44px; margin: -1px 0; padding: 0 6px; background: var(--surface-raised); border-width: 1px 1px 1px 0; border-top-color: transparent; border-radius: 0; font-size: 13px; }
-.observer-sky > select:disabled { opacity: 0.4; }
-.observer-sky > select + .distance-reference-button { border-left: 0; }
+/* Latitude and cone time keep one width through all their values. */
+.observer-sky > :is(#observer-latitude, #observer-cone-time) { flex: 0 0 auto; min-width: 58px; font-variant-numeric: tabular-nums; }
 #observer-axial-tilt-icon svg { rotate: 23.4deg; }
 .time-range { display: grid; gap: 4px; min-width: 0; }
 .time-directions { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: 11px; line-height: 1; }
@@ -383,8 +384,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .glossary-widget-detail { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .glossary-widget-path { color: var(--ink); }
 .glossary-widget-choices { display: flex; flex-wrap: wrap; gap: 6px; }
-:is(.glossary-widget-choices > button, .glossary-widget-play) { min-height: 32px; padding: 4px 10px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; }
-.glossary-widget-choices > button[aria-pressed="true"] { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); border-color: var(--border-vibrant-pressed); }
+:is(.glossary-widget-choices > button, .glossary-widget-play, #observer-cone-time-now) { min-height: 32px; padding: 4px 10px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; }
+:is(.glossary-widget-choices > button, #observer-cone-time-now)[aria-pressed="true"] { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); border-color: var(--border-vibrant-pressed); }
 .glossary-widget-play { justify-self: start; min-width: 64px; }
 .gw-text { fill: var(--muted); font-size: 13px; }
 .gw-small { font-size: 11px; }
@@ -738,6 +739,14 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .object-column-filter { position: fixed; inset: auto; width: 250px; max-width: calc(var(--ui-width) - 16px); margin: 0; padding: 10px 12px 12px; overflow: auto; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; box-shadow: var(--popover-shadow); font-size: 12px; scrollbar-width: thin; }
 .object-column-filter fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
 .object-column-filter legend { padding: 0; font-weight: 600; }
+/* The observer card's popovers point at their buttons like tooltips; Now sits left of the hourly bar. */
+.object-column-filter.observer-popover { padding-bottom: 10px; overflow: visible; }
+/* The map is the latitude slider; its knob runs down the track at its right edge. */
+.observer-latitude-map { margin-top: 8px; cursor: ns-resize; touch-action: none; }
+.observer-latitude-map:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.observer-cone-time-row { display: flex; align-items: flex-start; gap: 10px; margin-top: 8px; }
+/* The bar's track lines up with the middle of the Now button. */
+.observer-cone-time-row > .range-filter { flex: 1; padding-top: 6px; }
 .object-filter-actions { display: flex; gap: 5px; margin: 8px 0; }
 .object-filter-actions button { padding: 3px 9px; background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 4px; font-size: 12px; }
 .object-filter-options { display: grid; gap: 2px; }
@@ -885,9 +894,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 }
 .properties > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 3px 0; font-size: var(--property-text-size); line-height: 1.2; }
 .properties dt { color: var(--muted); }
+/* Long remnant descriptions wrap beside their label instead of squeezing it. */
+.properties > .remnant-property { grid-template-columns: auto minmax(0, 1fr); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
 .properties .unresolved-measurement, .mass-fact .unresolved-measurement, .selected-object .missing-value { color: var(--muted); }
-.properties > :is(.object-type-row, .metallicity-row, .radius-row, .spectral-row, .temperature-row, .distance-row, .mass-row, .luminosity-row, .magnitude-row, .constellation-row, #known-planets-row, #rotation-row) { position: relative; isolation: isolate; }
+.properties > :is(.object-type-row, .metallicity-row, .radius-row, .spectral-row, .temperature-row, .distance-row, .mass-row, .luminosity-row, .magnitude-row, .constellation-row, #known-planets-row, #rotation-row, #remnant-neutron-star-row) { position: relative; isolation: isolate; }
 .magnitude-row dt, .magnitude-row .object-type-toggle { display: grid; gap: 6px; }
 .properties > div:has(.object-type-toggle:not(:disabled)) { cursor: pointer; }
 .object-type-toggle { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: right; }
@@ -1077,6 +1088,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .constellation-map-visible-land { fill: #000; }
 .constellation-map-latitude { stroke: #e8ddd0; stroke-width: 0.5; stroke-opacity: 0.65; }
 .constellation-map-observer { stroke: var(--accent-vibrant); stroke-width: 1.5; }
+.constellation-map-track { stroke: var(--line); stroke-width: 5; stroke-linecap: round; }
+.constellation-map-knob { fill: var(--accent-vibrant); stroke: var(--panel); stroke-width: 2; }
 .constellation-latitude-control { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; }
 .constellation-latitude-control select { flex: 1; min-height: 36px; padding: 6px 8px; font-size: 13px; }
 .constellation-visibility-time { margin: 10px 0 6px; color: var(--muted); font-size: 12px; }
@@ -1121,14 +1134,14 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .mass-metric-help { padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: help; text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
 .compact-property .mass-metric-help { overflow-wrap: normal; }
 .mass-metric-tooltip { bottom: calc(100% + 8px); right: auto; left: 0; width: max-content; max-width: 100%; white-space: normal; line-height: 1.4; text-align: left; font-variant-numeric: normal; }
-.mass-metric-tooltip::before { content: ""; position: absolute; bottom: -5px; left: 14px; width: 8px; height: 8px; background: var(--panel); border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); transform: rotate(45deg); }
+.mass-metric-tooltip::before, .observer-popover::before { content: ""; position: absolute; bottom: -5px; left: 14px; width: 8px; height: 8px; background: var(--panel); border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); transform: rotate(45deg); }
 .mass-metric-tooltip[data-model-range] { top: calc(100% + 8px); bottom: auto; }
 /* Tooltips placed below their trigger point the arrow up. */
-.mass-metric-tooltip[data-model-range]::before, .mass-metric-tooltip[popover][data-placement="below"]::before, .mass-reference-option .mass-metric-tooltip::before, .mass-scale-help .mass-metric-tooltip::before { top: -5px; bottom: auto; border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.mass-metric-tooltip[data-model-range]::before, .mass-metric-tooltip[popover][data-placement="below"]::before, .observer-popover[data-placement="below"]::before, .mass-reference-option .mass-metric-tooltip::before, .mass-scale-help .mass-metric-tooltip::before { top: -5px; bottom: auto; border: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .mass-metric-tooltip[popover] { position: fixed; inset: auto; margin: 0; max-width: none; overflow: visible; font-size: 12px; font-weight: 400; }
 .mass-metric-tooltip[popover]:not(:popover-open) { display: none !important; }
 .mass-metric-tooltip:popover-open { display: block; }
-.mass-metric-tooltip[popover]::before { left: var(--popover-tooltip-arrow); right: auto; }
+.mass-metric-tooltip[popover]::before, .observer-popover::before { left: var(--popover-tooltip-arrow); right: auto; }
 .properties > :is(.temperature-row, .radius-row, .mass-row):has(.mass-metric-tooltip[data-model-range]):is(:hover, :focus-within) { z-index: 6; }
 .mass-scale-help:focus-within, .mass-scale-help:hover { z-index: 6; }
 .mass-scale-help .mass-metric-tooltip { top: calc(100% + 8px); bottom: auto; left: var(--mass-tooltip-offset, 0px); width: var(--mass-tooltip-width, 220px); max-width: none; }
@@ -1746,10 +1759,16 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .observer-heading .observer-sky > .time-button:first-child { border-left: 0; }
 }
 @media (max-width: 600px) {
-  .observer-sky > select { flex: 1 1 auto; min-width: 0; }
-  /* The sky controls wrap instead of running past the card, each row filled like the roll row. */
-  .observer-heading .observer-sky { flex-wrap: wrap; min-width: 0; }
-  .observer-heading .observer-sky > .time-button { flex: 1 0 44px; }
+  /* A six-column grid so every row shares the same lines: the name beside exit, lock and close; the sky settings below; visibility, zoom and roll on the third row. */
+  .panel-heading.observer-heading { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 44px; }
+  .observer-heading :is(.observer-sky, .observer-roll) { display: contents; }
+  .observer-heading h2 { grid-column: span 3; }
+  .observer-heading .observer-sky > * { order: 3; }
+  .observer-heading .observer-sky > #observer-cone-time ~ *, .observer-heading .observer-roll > * { order: 5; }
+  /* Each cell rules its top and left edge; the first row and column tuck theirs under the card border. */
+  .panel-heading.observer-heading :is(.time-lock, .observer-sky > :not(label), .observer-roll > *) { width: auto; height: auto; margin: -1px 0 0 -1px; border: 0 solid var(--line); border-width: 1px 0 0 1px; border-radius: 0; }
+  /* The time spans two columns. */
+  .observer-heading .observer-sky > #observer-cone-time { grid-column: span 2; }
   /* Phones keep the object's name beside lock, exit and close; the words stay for screen readers. */
   .observer-heading-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
 }

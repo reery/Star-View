@@ -1,6 +1,6 @@
 export const STELLAR_OBJECT_TYPES = ['star', 'white_dwarf', 'brown_dwarf', 'sub_brown_dwarf'] as const
 export const COMPACT_OBJECT_TYPES = ['pulsar', 'neutron_star', 'black_hole'] as const
-export const NEBULA_OBJECT_TYPES = ['reflection_nebula', 'hii_region', 'planetary_nebula'] as const
+export const NEBULA_OBJECT_TYPES = ['reflection_nebula', 'hii_region', 'planetary_nebula', 'supernova_remnant'] as const
 export const MOLECULAR_CLOUD_OBJECT_TYPES = ['molecular_cloud'] as const
 export const BUBBLE_OBJECT_TYPES = ['bubble'] as const
 export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES, ...NEBULA_OBJECT_TYPES, ...MOLECULAR_CLOUD_OBJECT_TYPES, ...BUBBLE_OBJECT_TYPES] as const
@@ -26,7 +26,7 @@ export function equatorialToGalacticPc(raDeg: number, decDeg: number, distancePc
   return { x_pc: x!, y_pc: y!, z_pc: z! }
 }
 
-export const NEBULA_SHAPE_KINDS = ['ellipsoid', 'blister', 'layers', 'shell'] as const
+export const NEBULA_SHAPE_KINDS = ['ellipsoid', 'blister', 'layers', 'shell', 'filaments', 'points'] as const
 export type NebulaShapeKind = typeof NEBULA_SHAPE_KINDS[number]
 
 export interface NebulaShape {
@@ -40,6 +40,9 @@ export interface NebulaShape {
   // Observed sky brightness (8-bit, base64) on a tangent-plane grid spanning both semi-axes:
   // rows run toward Galactic north, columns toward increasing longitude (position angle 0 only).
   mask?: { size: [number, number]; values: string }
+  // Measured 3D emission (points only): per puff 8-bit line-of-sight, major and minor offsets
+  // spanning ±semi-axes and an opacity, base64. Puffs beyond them fill a smooth body.
+  points?: { radius_pc: number; values: string }
 }
 
 export interface NebulaDetails {
@@ -61,6 +64,19 @@ export interface NebulaDetails {
   source_label: string
   source_url: string
   model_note: string
+  remnant?: RemnantDetails
+}
+
+export interface RemnantDetails {
+  age_yr: [min: number, max: number]
+  age_source: string
+  // The neutron star the explosion left behind, when one is identified in the compact-object overlay.
+  neutron_star: { id: string; name: string } | null
+  // Temperature of the X-ray-emitting gas; null when not adopted.
+  hot_gas_kev: number | null
+  hot_gas_source: string | null
+  // What the drawn volume represents, such as modeled visible-light filaments or X-ray emission.
+  drawn_as: string
 }
 
 export interface MolecularCloudDetails {
@@ -437,6 +453,7 @@ export function objectTypeLabel(type: ObjectType): string {
     reflection_nebula: 'Reflection nebula',
     hii_region: 'H II region',
     planetary_nebula: 'Planetary nebula',
+    supernova_remnant: 'Supernova remnant',
     molecular_cloud: 'Molecular cloud',
     bubble: 'Bubble',
   }[type]

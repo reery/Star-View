@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "reviewed": "2026-11-04",
-  "policy": "Batches 1-3 of the 2000-ly nebula census. Reflection nebulae, H II regions and planetary nebulae at least 5 arcmin across whose adopted distance minus its error is within 613.2 pc (2000 ly). Distances prefer the SIMBAD-adopted parallax of the illuminating or central star; cluster parallaxes or VLBA parallaxes replace stars whose own parallax is unreliable or embedded. Positions and identifiers come from SIMBAD (CfA mirror, retrieved 2026-11-03). Sizes come from Sharpless (1959) for H II regions, Lynds (1965) for NGC/IC nebulae, twice the van den Bergh (1966) maximum radius otherwise, the SIMBAD-adopted angular diameter or HASH radius for planetary nebulae, and ESO/Uppsala or van den Bergh & Herbst (1975) south of the Lynds limit.",
+  "policy": "Batches 1-3 of the 2000-ly nebula census. Reflection nebulae, H II regions and planetary nebulae at least 5 arcmin across whose adopted distance minus its error is within 613.2 pc (2000 ly). Distances prefer the SIMBAD-adopted parallax of the illuminating or central star; cluster parallaxes or VLBA parallaxes replace stars whose own parallax is unreliable or embedded. Positions and identifiers come from SIMBAD (CfA mirror, retrieved 2026-11-03). Sizes come from Sharpless (1959) for H II regions, Lynds (1965) for NGC/IC nebulae, twice the van den Bergh (1966) maximum radius otherwise, the SIMBAD-adopted angular diameter or HASH radius for planetary nebulae, and ESO/Uppsala or van den Bergh & Herbst (1975) south of the Lynds limit. Batch 4 adds the supernova remnants within 2000 ly whose distances are established: the Vela Supernova Remnant, the Monogem Ring and Hoinga. Their shells are modeled from published centers, sizes and distances, because the H-alpha map cannot trace them. Batch 5 adds the Crab Nebula beyond the cutoff as a showcase, at the VLBI parallax distance of its pulsar, with its filaments from the published 3D map of Martin, Milisavljevic & Drissen (2021).",
   "deferred": {
     "barnards-loop": "Published distances disagree (about 170 pc against about 440 pc); a 10-degree arc needs a settled distance.",
     "ngc-1788": "Lynds (1965) lists 2 x 2 arcmin, below the 5-arcmin census limit.",
@@ -26,7 +26,10 @@
     "cederblad-foreground-stars": "Cederblad names stars that are foreground to the nebula, so their parallaxes do not place it: gamma Cyg (IC 1318), Deneb (IC 5068, IC 5070, NGC 7000), Bellatrix (Ced 45), d Ori (IC 430), HD 35956 (Ced 47) and HD 168276 (IC 4706).",
     "ced-106-ced-122-ced-145-ced-214": "Listed only by Cederblad (1946) and not retained by Magakian (2003), so the nebulae are unconfirmed.",
     "ced-125-dg-125-dg-141": "Reflection light around b Sco, 2 Sco and HD 147702, inside or next to Sh 2-1 and Sh 2-9 already drawn.",
-    "mu-tau-hd-75649": "Unnamed LBN patches tied to a star only by a positional match with Magakian (2003), not by a reflection-nebula catalogue."
+    "mu-tau-hd-75649": "Unnamed LBN patches tied to a star only by a positional match with Magakian (2003), not by a reflection-nebula catalogue.",
+    "antlia-snr": "Supernova remnant candidate whose published distance estimates disagree widely; not yet settled.",
+    "gum-nebula": "Whether the Gum Nebula is an old supernova remnant is disputed.",
+    "vela-junior": "Published distances of RX J0852.0-4622 range from well within to beyond 2000 ly; not yet settled."
   },
   "objects": [
     {
@@ -832,6 +835,142 @@
       "notes": "Large, faint, old planetary nebula around a hot white dwarf in Orion.",
       "source_label": "Chornay & Walton (2021); HASH PN radius", "source_url": "https://ui.adsabs.harvard.edu/abs/2021A%26A...656A.110C",
       "model_note": "Sky extent from the HASH PN radius listed by Chornay & Walton (2021), drawn as a hollow shell; clumping is illustrative."
+    },
+    {
+      "id": "vela-supernova-remnant",
+      "name": "Vela Supernova Remnant",
+      "type": "supernova_remnant",
+      "designations": ["Vela SNR", "Vela XYZ", "SNR G263.9-03.3", "Gum 16"],
+      "ra_deg": 128.5,
+      "dec_deg": -45.833333,
+      "position_source": "Green (2024), A catalogue of Galactic supernova remnants: G263.9−3.3",
+      "distance": {
+        "pc": 287,
+        "error_pc": 18,
+        "source": "VLBI parallax of the Vela pulsar, 3.5 ± 0.2 mas (287 +19/−17 pc); Dodson et al. 2003, ApJ 596, 1137"
+      },
+      "angular_size_arcmin": [480, 480],
+      "illuminating_stars": "The supernova’s blast wave",
+      "shape": "filaments",
+      "palette": "shock_filaments",
+      "brightness": 0.8,
+      "puff_count": 4096,
+      "notes": "The nearest well-studied supernova remnant: a web of glowing filaments about 8 degrees across, left by a star that exploded about 11,000 years ago. The Vela pulsar it left behind spins 11 times a second.",
+      "source_label": "Sushch, Hnatyk & Neronov (2011)",
+      "source_url": "https://ui.adsabs.harvard.edu/abs/2011A%26A...525A.154S",
+      "model_note": "A sphere about 8 degrees across (radius about 20 pc at 287 pc) centered on the Green (2024) position. The filaments are illustrative: thin wavy arcs on the shell, red for hydrogen-alpha with teal [O III] sheaths just outside them. The all-sky H-alpha map cannot separate the remnant from the Gum Nebula behind it.",
+      "remnant": {
+        "age_yr": [11000, 12300],
+        "age_source": "Vela pulsar spin-down age; Wikipedia: Vela Pulsar",
+        "neutron_star": {
+          "id": "psr-j0835m4510",
+          "name": "Vela Pulsar"
+        },
+        "hot_gas_kev": null,
+        "hot_gas_source": null,
+        "drawn_as": "Modeled red H-alpha and teal [O III] filaments"
+      }
+    },
+    {
+      "id": "monogem-ring",
+      "name": "Monogem Ring",
+      "type": "supernova_remnant",
+      "designations": ["G203+12"],
+      "ra_deg": 109.2617,
+      "dec_deg": 14.1791,
+      "position_source": "Galactic center (l, b) ≈ (203°, +12°) of the ROSAT X-ray ring; Plucinsky et al. 1996, ApJ 463, 224",
+      "distance": {
+        "pc": 300,
+        "error_pc": null,
+        "source": "Plucinsky et al. 1996, ApJ 463, 224: Sedov-model energetics favor about 300 pc. PSR B0656+14, probably born in the same explosion, has a VLBI parallax distance of 288 +33/−27 pc (Brisken et al. 2003, ApJ 593, L89)"
+      },
+      "angular_size_arcmin": [1500, 1500],
+      "illuminating_stars": "The supernova’s blast wave",
+      "shape": "filaments",
+      "palette": "shock_filaments",
+      "brightness": 0.18,
+      "puff_count": 4096,
+      "notes": "A huge, old supernova remnant about 25 degrees across in Gemini and Monoceros, found in 1971 by its soft X-ray glow. In 2026, deep images revealed faint hydrogen-alpha and [O III] filaments around most of its X-ray edge.",
+      "source_label": "Plucinsky et al. (1996)",
+      "source_url": "https://ui.adsabs.harvard.edu/abs/1996ApJ...463..224P",
+      "model_note": "A sphere 25 degrees across (radius about 66 pc at 300 pc) around the X-ray center. The faint filaments are illustrative, after the 2026 hydrogen-alpha and [O III] images of Fesen et al. (arXiv:2608.26666), which trace them around most of the X-ray boundary; their exact positions are not modelled.",
+      "remnant": {
+        "age_yr": [86000, 120000],
+        "age_source": "Plucinsky et al. 1996 (Sedov model at 300 pc); Knies et al. 2024, A&A 688, A90 (eROSITA)",
+        "neutron_star": {
+          "id": "psr-j0659p1414",
+          "name": "Monogem Pulsar"
+        },
+        "hot_gas_kev": 0.14,
+        "hot_gas_source": "Knies et al. 2024, A&A 688, A90 (eROSITA)",
+        "drawn_as": "Modeled faint red H-alpha and teal [O III] filaments"
+      }
+    },
+    {
+      "id": "hoinga",
+      "name": "Hoinga",
+      "type": "supernova_remnant",
+      "designations": ["G249.5+24.5", "1eRASS J093153.47-170136.7"],
+      "ra_deg": 142.972792,
+      "dec_deg": -17.026861,
+      "position_source": "Geometric center of the outer X-ray boundary; Becker et al. 2021, A&A 648, A30",
+      "distance": {
+        "pc": 500,
+        "error_pc": null,
+        "source": "Becker et al. 2021, A&A 648, A30: about twice the distance of the Vela remnant, from its size and its X-ray and radio properties"
+      },
+      "angular_size_arcmin": [264, 264],
+      "illuminating_stars": "The supernova’s blast wave",
+      "shape": "ellipsoid",
+      "palette": "soft_xray",
+      "brightness": 0.3,
+      "notes": "A supernova remnant 4.4 degrees across, discovered in 2021 in the first eROSITA all-sky X-ray survey, far from the crowded plane of the Milky Way.",
+      "source_label": "Becker et al. (2021)",
+      "source_url": "https://doi.org/10.1051/0004-6361/202040156",
+      "model_note": "A filled sphere 4.4 degrees across (radius about 19 pc at 500 pc), drawn in false color because the remnant is seen in soft X-rays, where its emission fills the interior; clumping is illustrative.",
+      "remnant": {
+        "age_yr": [21000, 150000],
+        "age_source": "Becker et al. 2021, A&A 648, A30",
+        "neutron_star": null,
+        "hot_gas_kev": 0.11,
+        "hot_gas_source": "Becker et al. 2021, A&A 648, A30 (eROSITA, APEC fit)",
+        "drawn_as": "Soft X-ray glow in false color"
+      }
+    },
+    {
+      "id": "crab-nebula",
+      "name": "Crab Nebula",
+      "type": "supernova_remnant",
+      "designations": ["M1", "NGC 1952", "Sh 2-244", "Taurus A", "SNR G184.6-05.8"],
+      "ra_deg": 83.632695,
+      "dec_deg": 22.014902,
+      "position_source": "Origin of the Martin, Milisavljevic & Drissen (2021) 3D map, registered to their SITELLE deep frame; 1.9 arcsec from the Crab Pulsar",
+      "distance": {
+        "pc": 1900,
+        "error_pc": 200,
+        "source": "VLBI parallax of the Crab Pulsar, 0.53 ± 0.06 mas (1.90 +0.22/−0.18 kpc); Lin et al. 2023, ApJ 952, arXiv:2306.01617"
+      },
+      "angular_size_arcmin": [7, 5],
+      "illuminating_stars": "The Crab Pulsar, whose wind powers the synchrotron glow",
+      "shape": "points",
+      "points": {"voxel_pc": 0.045, "measured_puffs": 7168, "body_puffs": 256},
+      "palette": "pulsar_wind_nebula",
+      "brightness": 1,
+      "notes": "The remnant of the supernova seen from Earth in 1054: a cage of glowing filaments around a bluish glow powered by the Crab Pulsar, about 6,200 light-years away in Taurus.",
+      "source_label": "Martin, Milisavljevic & Drissen (2021)",
+      "source_url": "https://doi.org/10.1093/mnras/staa4046",
+      "model_note": "The filaments are measured in 3D: their sky positions and line-of-sight velocities come from the SITELLE map of Martin, Milisavljevic & Drissen (2021), and velocity becomes depth under uniform expansion. The brightest 0.045-pc cells of the hydrogen-alpha, [N II] and [S II] emission are drawn. The bluish synchrotron glow inside is modeled as a smooth ellipsoid, because the map traces only the filaments.",
+      "remnant": {
+        "age_yr": [972, 972],
+        "age_source": "SN 1054, recorded by Chinese astronomers in July 1054",
+        "neutron_star": {
+          "id": "psr-j0534p2200",
+          "name": "Crab Pulsar"
+        },
+        "hot_gas_kev": null,
+        "hot_gas_source": null,
+        "drawn_as": "Measured 3D filaments (hydrogen-alpha, [N II] and [S II]) around a modeled synchrotron glow"
+      }
     }
   ]
 }

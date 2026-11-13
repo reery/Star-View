@@ -181,7 +181,8 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
   const lines = new LineSegments(new BufferGeometry(), material)
   lines.frustumCulled = false
   lines.visible = false
-  lines.renderOrder = -0.5
+  // After the dust cloud bodies (1.8), which darken everything drawn before them.
+  lines.renderOrder = 1.81
   let mode: SkyGridMode = 'off'
   let labels: Array<SkyGridLabelSlot & { direction: Vector3; anchor: HTMLDivElement; text: HTMLDivElement }> = []
   let layoutDirty = true
