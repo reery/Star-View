@@ -128,14 +128,28 @@ export interface BubbleDirectionalGridShape {
   surface_grid: BubbleSurfaceGrid
 }
 
-export type BubbleShape = BubbleAnalyticShape | BubbleDirectionalGridShape
+// Kompaneets (1960) blast wave in a medium whose density falls exponentially along the axis.
+export interface BubbleKompaneetsShape {
+  kind: 'kompaneets'
+  // The driving source in Galactic Cartesian coordinates.
+  origin_pc: [number, number, number]
+  // Galactic direction of falling density, toward which the bubble elongates.
+  axis_longitude_deg: number
+  axis_latitude_deg: number
+  scale_height_pc: number
+  // Dimensionless age y/H; the shell blows out at 2.
+  dimensionless_age: number
+}
+
+export type BubbleShape = BubbleAnalyticShape | BubbleDirectionalGridShape | BubbleKompaneetsShape
 
 export interface BubbleDetails {
   designations: string[]
   average_radius_pc: number
   surface_distance_range_pc: [number, number]
   surface_distance_max_open: boolean
-  shell_thickness_pc: number
+  // Null when the source models the shell as a thin surface.
+  shell_thickness_pc: number | null
   reported_bounds_pc: {
     x: [number, number]
     y: [number, number]

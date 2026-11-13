@@ -9,6 +9,7 @@ import constellationDefinitions from './data/constellation-star-info.json'
 import compactDefinitions from './data/compact-object-info.json'
 import nebulaDefinitions from './data/nebula-info.json'
 import nebulaObjects from './data/overlays/nebulae/objects.json'
+import bubbleObjects from './data/overlays/bubbles/objects.json'
 import legacyStarIds from './data/legacy-star-ids.json'
 import westernCsv from './data/catalogs/western-constellation-stars/stars.csv?raw'
 import nearest1000Csv from './data/catalogs/nearest-1000/stars.csv?raw'
@@ -78,9 +79,10 @@ describe('pulsar articles', () => {
 })
 
 describe('nebula articles', () => {
-  it('cover every nebula in the overlay, sourced', () => {
-    expect(Object.keys(nebulaDefinitions.articles).sort()).toEqual(nebulaObjects.objects.map(({ id }) => id).sort())
-    for (const { id } of nebulaObjects.objects) {
+  it('cover every nebula and bubble in the overlays, sourced', () => {
+    const objects = [...nebulaObjects.objects, ...bubbleObjects.objects]
+    expect(Object.keys(nebulaDefinitions.articles).sort()).toEqual(objects.map(({ id }) => id).sort())
+    for (const { id } of objects) {
       const info = starInfoForId(id)
       expect(starInfoAvailable(id), id).toBe(true)
       expect(info?.introduction.text, id).toMatch(/^[a-z]/)

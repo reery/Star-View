@@ -13,6 +13,8 @@ const HIDING_MS = 680
 export function initializeHideUi(button: HTMLButtonElement, initiallyHidden: boolean, closeFlyout: () => void, onChange: (hidden: boolean) => void, signal: AbortSignal): void {
   const root = document.documentElement
   const rails = [...document.querySelectorAll<HTMLElement>('.scene-toolbar, .dock-rail')]
+  const dockRail = document.querySelector<HTMLElement>('.dock-rail')!
+  const indicators = document.querySelector<HTMLElement>('.dock-indicators')!
   const tooltip = button.querySelector('.tooltip')!
   let timer: number | undefined
   let swipe: { id: number, x: number } | undefined
@@ -20,6 +22,13 @@ export function initializeHideUi(button: HTMLButtonElement, initiallyHidden: boo
 
   const hidden = () => root.hasAttribute('data-ui-hidden')
   const inRails = (target: EventTarget | null) => target instanceof Node && rails.some((rail) => rail.contains(target))
+  const inIndicators = (target: EventTarget | null) => target instanceof Node && indicators.contains(target)
+  // The active-change buttons stay in view, so pointing at them, or approaching them along their row, leaves the rails hidden.
+  const nearIndicators = (event: PointerEvent) => {
+    if (inIndicators(event.target)) return true
+    const bounds = indicators.getBoundingClientRect()
+    return bounds.width > 0 && event.clientY >= bounds.top && event.clientX < dockRail.getBoundingClientRect().left
+  }
   const conceal = () => {
     if (rails.some((rail) => rail.matches(':hover') || rail.querySelector('[data-touch-open], :focus-visible'))) {
       timer = window.setTimeout(conceal, REVEAL_MS)
@@ -70,13 +79,13 @@ export function initializeHideUi(button: HTMLButtonElement, initiallyHidden: boo
       }
       return
     }
-    if (event.pointerType !== 'touch' && event.buttons === 0 && (event.clientX >= window.innerWidth - MOUSE_EDGE_PX || inRails(event.target))) reveal()
+    if (event.pointerType !== 'touch' && event.buttons === 0 && (event.clientX >= window.innerWidth - MOUSE_EDGE_PX || inRails(event.target)) && !nearIndicators(event)) reveal()
   }, { capture: true, passive: true, signal })
 
   document.addEventListener('pointerdown', (event) => {
     if (!hidden()) return
     if (inRails(event.target)) {
-      reveal()
+      if (!inIndicators(event.target)) reveal()
       return
     }
     // A touch starting at the right edge of the map opens the rails instead of moving the camera.
@@ -94,5 +103,5 @@ export function initializeHideUi(button: HTMLButtonElement, initiallyHidden: boo
   document.addEventListener('pointerup', endSwipe, { capture: true, signal })
   document.addEventListener('pointercancel', endSwipe, { capture: true, signal })
 
-  for (const rail of rails) rail.addEventListener('focusin', reveal, { signal })
+  for (const rail of rails) rail.addEventListener('focusin', (event) => { if (!inIndicators(event.target)) reveal() }, { signal })
 }

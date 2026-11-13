@@ -72,6 +72,11 @@ function validShape(value: unknown, minimum: number, maximum: number): boolean {
   const shape = value as Record<string, unknown>
   if (!triple(shape.origin_pc)) return false
   if (shape.kind === 'directional_grid') return validSurfaceGrid(shape.surface_grid, minimum, maximum)
+  if (shape.kind === 'kompaneets') {
+    return finite(shape.axis_longitude_deg) && shape.axis_longitude_deg >= 0 && shape.axis_longitude_deg < 360
+      && finite(shape.axis_latitude_deg) && Math.abs(shape.axis_latitude_deg) <= 90
+      && finitePositive(shape.scale_height_pc) && finitePositive(shape.dimensionless_age) && shape.dimensionless_age < 2
+  }
   if (shape.kind !== 'analytic') return false
   const features = shape.features
   return finitePositive(shape.base_radius_pc) && triple(shape.axis_scale, true)
@@ -119,7 +124,7 @@ function validDetails(value: unknown): value is BubbleDetails {
     && finitePositive(details.average_radius_pc)
     && pair(distanceRange, true)
     && typeof details.surface_distance_max_open === 'boolean'
-    && finitePositive(details.shell_thickness_pc)
+    && (details.shell_thickness_pc === null || finitePositive(details.shell_thickness_pc))
     && !!bounds && pair(bounds.x) && pair(bounds.y) && pair(bounds.z)
     && validShape(shape, distanceRange[0], openMaximum)
     && !!palette && /^#[0-9a-f]{6}$/i.test(String(palette.real)) && /^#[0-9a-f]{6}$/i.test(String(palette.exaggerated))

@@ -10,10 +10,11 @@ import { createStarAppearance, displayMagnitude, STAR_ADAPTATION_FLUX, STAR_BRIG
 import { createDepthLabel } from './depth-label'
 import { updateCameraNearPlane } from './camera-depth'
 import { createMilkyWayLayer } from './milky-way-layer'
-import { createRenderStats, type RenderStats } from './render-stats'
+import { createRenderStats, type RenderSetup, type RenderStats } from './render-stats'
 import { createEarthOrbitLayer } from './earth-orbit-layer'
 import { createOortCloudLayer, OORT_CLOUD_RADIUS_PC } from './oort-cloud-layer'
 import { createVisibilityConeLayer } from './visibility-cone-layer'
+import { createSolarSystemSkyLayer } from './solar-system-sky-layer'
 import { createMotionArrowMesh } from './motion-arrow-layer'
 import { createMapGrid, gridOpacityForDisplay, makeGridGeometry, skyGridOpacityForDisplay } from './map-grid'
 import { createSkyGridLayer, makeSkyGridGeometry, skyGridDirection, skyWindowCone, type SkyGridMode } from './sky-grid'
@@ -45,7 +46,8 @@ export interface StarViewer {
   getViewState(): ViewerViewState
   select(id: string | null, focus?: boolean): void
   setReference(referenceId: string): void
-  setObserverView(enabled: boolean, anchorId?: string, rollRadians?: number): boolean
+  /** Animated, the camera flies into the object's view, or backs out of it along the line of sight. */
+  setObserverView(enabled: boolean, anchorId?: string, rollRadians?: number, animate?: boolean): boolean
   /** Tilts the axis that drags turn the sky around, in steps around the view direction; center restores galactic north or the zenith. */
   rollObserverView(direction: 'counterclockwise' | 'center' | 'clockwise'): void
   setObserverZoom(zoom: ObserverZoom | null, animate?: boolean): void
@@ -78,6 +80,8 @@ export interface StarViewer {
   setMilkyWayVisible(visible: boolean): void
   setOortCloudVisible(visible: boolean): void
   setVisibilityCone(view: VisibilityConeView | null): void
+  /** Shows the other major planets and the Moon where they stand on the Earth orbit's date, while observing from the Sun. */
+  setSolarSystemSkyVisible(visible: boolean): void
   setMotionFrame(frame: MotionFrame): void
   setMotionYears(years: MotionYears): void
   setFollowSelection(enabled: boolean): void
@@ -85,7 +89,7 @@ export interface StarViewer {
   setSimulationYears(years: number): void
   setPowerSavingMode(enabled: boolean): void
   /** Reports frame timings about twice a second while set; null stops measuring. */
-  setRenderStatsListener(listener: ((stats: RenderStats) => void) | null): void
+  setRenderStatsListener(listener: ((stats: RenderStats & RenderSetup) => void) | null): void
   setStarColorMode(mode: StarColorMode): void
   setStarStyle(style: StarStyle): void
   setStarBrightness(brightness: StarBrightness): void
@@ -127,6 +131,8 @@ export type ObserverFrame = null | { latitude: number; hours: SkyHours }
 interface ViewerOptions {
   onInteraction(): void
   onSelect(id: string | null): void
+  /** A click on a planet, by its ID in the Solar System card, or on the Moon (moon) in the Sun's sky. */
+  onSolarSystemBody?(id: string): void
   onHover?(id: string | null): void
   /** A right-click or touch hold on an object; held is the pointer still pressed, which stops orbiting the view when this returns true. */
   onContextMenu?(id: string, x: number, y: number, held: PointerEvent | null): boolean
@@ -271,6 +277,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   renderer.outputColorSpace = SRGBColorSpace
   renderer.setClearColor(0x000000, 0)
   renderer.setPixelRatio(renderPixelRatio(window.devicePixelRatio || 1, false))
+  // Each frame resets the counts once, so they cover the offscreen passes too.
+  renderer.info.autoReset = false
   const canvas = renderer.domElement
   canvas.setAttribute('aria-label', 'Sun-centered 3D nearby-object map')
   canvas.setAttribute('role', 'img')
@@ -513,6 +521,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     visibilityCone.rim.visible = visibilityCone.wall.visible = cone !== null
     setData(container, 'visibilityConeVisible', String(cone !== null))
   }
+  const solarSystemSky = createSolarSystemSkyLayer(container, starMaterial, haloMaterial, () => requestRender())
+  let solarSystemSkyEnabled = false
+  scene.add(solarSystemSky.group)
   // The galactic sky-grid globe, built on first use and scaled around the center object.
   const neighborhoodSphere = new LineSegments(new BufferGeometry(), new LineBasicMaterial({ color: 0xe7a05b, transparent: true, opacity: 0.3, depthWrite: false }))
   neighborhoodSphere.visible = false
@@ -536,6 +547,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const grid = createMapGrid(gridSpacing, gridHalfSize, { radius: gridRadius, opacity: gridOpacity })
   const origin = basePositions[referenceIndex]!.clone()
   grid.position.copy(origin)
+  // After the dust cloud bodies (1.8), like the guides; clouds in front still dim it through the source-absorption composite.
+  grid.renderOrder = 1.85
   scene.add(grid)
   container.dataset.gridSpacingPc = String(gridSpacing)
   container.dataset.gridHalfSizePc = String(gridHalfSize)
@@ -557,6 +570,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   })
   const axisLines = new LineSegments(axisGeometry, axisMaterial)
   axisLines.position.copy(origin)
+  axisLines.renderOrder = grid.renderOrder
   scene.add(axisLines)
 
   const axisLayer = document.createElement('div')
@@ -668,6 +682,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const observerUp = new Vector3(0, 1, 0)
   let observerFrame: ObserverFrame = null
   let observerZoomTransition: { from: number; to: number; started: number } | null = null
+  /** Entering or leaving observer view draws the camera flying from where it was to the pose the controls hold. */
+  let observerFlight: { position: Vector3; quaternion: Quaternion; started: number } | null = null
+  const OBSERVER_FLIGHT_MS = 2000
+  const observerFlightPosition = new Vector3()
+  const observerFlightQuaternion = new Quaternion()
+  const heldCameraPosition = new Vector3()
+  const heldCameraQuaternion = new Quaternion()
+  /** The camera's distance from the object before entering its view; leaving backs out to it. */
+  let observerReturnDistance: number | null = null
   let spaceship: Spaceship | null = null
   let spaceshipLabels: SpaceshipLabels = 'all'
   let spaceshipInput: SpaceshipInput = { forward: 0, strafe: 0, yaw: 0, topSpeedPc: 1 }
@@ -913,6 +936,18 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     else observerDirection.normalize()
     observerViewAnchorIndex = index
     applyObserverDirection(observerDirection)
+  }
+
+  /** The object observer view looks out from, hidden once the camera has arrived; -1 otherwise. */
+  function hiddenObserverIndex(): number {
+    return observerViewEnabled && !observerFlight ? observerViewAnchorIndex ?? -1 : -1
+  }
+
+  function finishObserverFlight(): void {
+    observerFlight = null
+    if (!observerViewEnabled) return
+    updatePresentation()
+    updateSolarSystemSky()
   }
 
   function syncObserverCamera(): void {
@@ -1339,7 +1374,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       rankedBaseId = visibilityBase.id
       rankedSelection = selectedId
     }
-    const observerIndex = observerViewEnabled ? observerViewAnchorIndex ?? -1 : -1
+    const observerIndex = hiddenObserverIndex()
     stars.forEach((star, index) => {
       const magnitude = apparentMagnitudes[index]!
       const tier = mapVisibilityTier(star, visibilityBase, selectedId, stars[referenceIndex]!.id, magnitude, magnitudeLimit)
@@ -1443,7 +1478,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }
 
   function updatePointVisibility(): void {
-    const observerIndex = observerViewEnabled ? observerViewAnchorIndex ?? -1 : -1
+    const observerIndex = hiddenObserverIndex()
     for (let index = 0; index < stars.length; index++) {
       nextCoreEnabled[index] = componentVisible[index] && mapVisible[index] && !faintHidden[index] && index !== observerIndex
         && !isNebula[index] && !isMolecularCloud[index] && !isBubble[index] ? 1 : 0
@@ -1513,7 +1548,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     projectedPickables.length = 0
     projectionGridDirty = true
     viewProjection.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)
-    const observerIndex = observerViewEnabled ? observerViewAnchorIndex ?? -1 : -1
+    const observerIndex = hiddenObserverIndex()
     for (const projected of projections) {
       projected.visible = false
       projected.motionVisible = false
@@ -1640,13 +1675,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (projectionDirty) refreshProjectionCache()
     const viewport = projectionViewport!
     const selectedIndex = selectedId ? starsById.get(selectedId)!.index : -1
-    const selectedLabelVisible = selectedIndex >= 0 && (!observerViewEnabled || selectedIndex !== observerViewAnchorIndex)
+    const selectedLabelVisible = selectedIndex >= 0 && selectedIndex !== hiddenObserverIndex()
     // A ship's label setting replaces the name budget: none, only the selection, or the usual limit.
     const nameLimit = spaceshipLabels === 'all' ? labelLimit : 0
     const namesShown = spaceshipLabels === 'all' ? labelLimit > 0 : spaceshipLabels === 'selected'
     const ordinaryBudget = Math.max(0, nameLimit - (selectedLabelVisible && nameLimit > 0 ? 1 : 0))
     const motionActive = controlsInteracting || controlsSettling || focusTransition !== null || observerZoomTransition !== null || viewCenterTransition !== null || simulationPlaying
-      || spaceshipFlight !== null || spaceshipFlying
+      || spaceshipFlight !== null || spaceshipFlying || observerFlight !== null
     // Membership follows the same 30 Hz cadence as ordinary placement while moving.
     const budgetStale = ordinaryGroupSource !== rankedNameGroups || budgetSelectedIndex !== selectedIndex ||
       budgetLimit !== ordinaryBudget || ordinaryLayoutDirty || labelSizesDirty || obstacleBoundsDirty
@@ -1725,6 +1760,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     )
     blocked.clear()
     for (const obstacle of obstacles) blocked.insert(obstacle.bounds, obstacle.bounds)
+    // The planets and the Moon are named before any star, and star names keep clear of them.
+    if (solarSystemSky.group.visible) {
+      solarSystemSky.group.position.copy(pickable[sunIndex]!.position)
+      for (const bounds of solarSystemSky.updateView(camera, viewProjection, viewport, renderHeight, renderer.getPixelRatio())) blocked.insert(bounds, bounds)
+    }
     measurementPlacements.clear()
     const measurementStart = projections[referenceIndex]!
     const measurementEnd = selectedIndex >= 0 ? projections[selectedIndex]! : undefined
@@ -1996,6 +2036,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     invalidateProjection()
   }
 
+  const RESET_VIEW_DISTANCE_PC = 50 / LIGHT_YEARS_PER_PARSEC
   function fitResetView(): void {
     homeBounds.makeEmpty()
     homeBounds.expandByPoint(pickable[referenceIndex]!.position)
@@ -2006,7 +2047,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       expandBoxByBubbleBounds(homeBounds, selected.star)
     }
     homeBounds.getBoundingSphere(homeSphere)
-    let distance = 50 / LIGHT_YEARS_PER_PARSEC
+    let distance = RESET_VIEW_DISTANCE_PC
     if (selected && selected.index !== referenceIndex) {
       const verticalAngle = camera.fov * Math.PI / 360
       const fitAngle = Math.min(verticalAngle, Math.atan(Math.tan(verticalAngle) * camera.aspect))
@@ -2021,11 +2062,19 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     invalidateProjection()
   }
 
-  function setObserverView(enabled: boolean, anchorId = selectedId ?? undefined, rollRadians = 0): boolean {
+  function setObserverView(enabled: boolean, anchorId = selectedId ?? undefined, rollRadians = 0, animate = false): boolean {
     const anchor = enabled && anchorId ? starsById.get(anchorId) : undefined
     if (enabled && !anchor) return observerViewEnabled
     if (enabled === observerViewEnabled && (!enabled || anchor?.index === observerViewAnchorIndex)) return observerViewEnabled
     const modeChanged = enabled !== observerViewEnabled
+    const previousAnchorIndex = observerViewAnchorIndex
+    if (anchor && modeChanged) observerReturnDistance = camera.position.distanceTo(pickable[anchor.index]!.position)
+    // A flight starts where the camera is drawn, so toggling again mid-flight turns smoothly.
+    observerFlight = animate && !reducedMotion.matches ? {
+      position: (observerFlight ? observerFlightPosition : camera.position).clone(),
+      quaternion: (observerFlight ? observerFlightQuaternion : camera.quaternion).clone(),
+      started: performance.now(),
+    } : null
     observerUp.copy(observerFrameUp)
     observerViewEnabled = enabled
     if (!enabled) {
@@ -2047,15 +2096,31 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       placeObserverCamera(anchor.index)
       if (Number.isFinite(rollRadians) && rollRadians !== 0) rollObserverUp(rollRadians)
       applyObserverRollFrame()
+    } else if (previousAnchorIndex !== null) {
+      // Back out along the line of sight to the distance held before, with the object ahead.
+      const position = pickable[previousAnchorIndex]!.position
+      const distance = Math.min(controls.maxDistance, Math.max(controls.minDistance, observerReturnDistance ?? RESET_VIEW_DISTANCE_PC))
+      observerDirection.subVectors(position, camera.position).normalize()
+      applyFocusTarget(position, observerDirection.multiplyScalar(-distance).add(position))
+      home = false
+      captureFollowTarget()
+      resize()
     }
-    else reset()
     if (!enabled) {
       container.dataset.observerRollDegrees = '0'
       delete container.dataset.observerViewDirection
       delete container.dataset.observerScreenUp
     }
+    updateSolarSystemSky()
     requestRender()
     return observerViewEnabled
+  }
+
+  /** From the Sun, the sky shows the planets and the Moon as seen from Earth. */
+  function updateSolarSystemSky(): void {
+    const visible = solarSystemSkyEnabled && hiddenObserverIndex() === sunIndex
+    solarSystemSky.setVisible(visible)
+    if (visible) solarSystemSky.setSky(visibilityConeDate, observerFrame ? observerFrameUp : null, starBrightness, starStyle)
   }
 
   function rollObserverView(direction: 'counterclockwise' | 'center' | 'clockwise'): void {
@@ -2089,6 +2154,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     // The visibility cone's axis is the zenith across its hours, so its rim stays level as the view turns.
     observerFrameUp.copy(frame ? skyWindowCone(frame.latitude, visibilityConeDate, frame.hours).axis : worldUp)
     observerUp.copy(observerFrameUp)
+    // Standing on Earth moves the Moon by its parallax.
+    updateSolarSystemSky()
     if (!observerViewEnabled || observerViewAnchorIndex === null) return
     focusTransition = null
     controlsInteracting = false
@@ -2261,8 +2328,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     hoverFrame = requestAnimationFrame(() => {
       hoverFrame = null
       if (hoverEvent) {
-        const id = pick(hoverEvent, false)
-        canvas.style.cursor = id ? 'pointer' : 'grab'
+        const body = solarSystemSky.pick(hoverEvent.clientX, hoverEvent.clientY, 16)
+        const id = body ? null : pick(hoverEvent, false)
+        canvas.style.cursor = body || id ? 'pointer' : 'grab'
         options.onHover?.(id)
       }
       hoverEvent = null
@@ -2276,7 +2344,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (!gesture.end(event)) return
     const bounds = canvas.getBoundingClientRect()
     if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) return
-    options.onSelect(pick(event, true))
+    // The planets and the Moon come before the stars they pass.
+    const body = solarSystemSky.pick(event.clientX, event.clientY, event.pointerType === 'touch' ? 24 : 16)
+    if (body) options.onSolarSystemBody?.(body)
+    else options.onSelect(pick(event, true))
   }, { signal: events.signal })
   canvas.addEventListener('pointercancel', (event) => gesture.cancel(event.pointerId), { signal: events.signal })
   canvas.addEventListener('lostpointercapture', (event) => gesture.cancel(event.pointerId), { signal: events.signal })
@@ -2309,6 +2380,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       applyObserverZoom(observerZoomTransition.to)
       observerZoomTransition = null
     }
+    if (reducedMotion.matches && observerFlight) finishObserverFlight()
     if (reducedMotion.matches && viewCenterTransition) {
       applyViewCenterOffset(viewCenterTransition.to)
       viewCenterTransition = null
@@ -2340,7 +2412,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     previousRafTime = time
     const sceneNeedsFrame = sceneDirty || focusTransition !== null || observerZoomTransition !== null || viewCenterTransition !== null || controlsInteracting || controlsSettling
-      || spaceshipFlight !== null || spaceshipFlying
+      || spaceshipFlight !== null || spaceshipFlying || observerFlight !== null
     if (!sceneNeedsFrame && !milkyWayFading) {
       if (refreshSamplesRemaining > 0) requestRender(false)
       else {
@@ -2419,6 +2491,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (progress === 1) viewCenterTransition = null
       else continueRendering = true
     }
+    // The controls keep the live pose, so drags, rolls and moving stars during the flight carry into where it lands.
+    const drawingObserverFlight = observerFlight !== null
+    if (observerFlight) {
+      const progress = Math.min(1, Math.max(0, (time - observerFlight.started) / OBSERVER_FLIGHT_MS))
+      const eased = progress * progress * (3 - 2 * progress)
+      heldCameraPosition.copy(camera.position)
+      heldCameraQuaternion.copy(camera.quaternion)
+      camera.position.lerpVectors(observerFlight.position, heldCameraPosition, eased)
+      camera.quaternion.slerpQuaternions(observerFlight.quaternion, heldCameraQuaternion, eased)
+      observerFlightPosition.copy(camera.position)
+      observerFlightQuaternion.copy(camera.quaternion)
+      invalidateProjection()
+      if (progress === 1) finishObserverFlight()
+      else continueRendering = true
+    }
     camera.updateMatrixWorld()
     // The ship flies up to stars, closer than the usual near plane; observer view keeps it, sitting on its own star.
     if (updateCameraNearPlane(camera, depthPositions, extendedDepthBounds, cameraIsShip() ? SPACESHIP_MIN_NEAR_PC : undefined)) invalidateProjection()
@@ -2429,7 +2516,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     // Looking at a distant object from the origin is still a close sky view.
     // Fade the overview only after retreating from both origin and orbit target.
     // Zooming out shrinks painted sizes and halos unless asked to keep them for comparison.
-    starViewDistance.value = observerViewEnabled || (starPaintSized && !starPaintZoomShrink) ? 0 : Math.min(
+    starViewDistance.value = (observerViewEnabled && !observerFlight) || (starPaintSized && !starPaintZoomShrink) ? 0 : Math.min(
       camera.position.distanceTo(controls.target),
       camera.position.distanceTo(pickable[referenceIndex]!.position),
     )
@@ -2455,10 +2542,17 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     skyGrid.updateLabels(camera, projectionViewport!, (bounds) => blocked.queryAny(bounds, (other) => overlaps(bounds, other)), ordinaryLabelsLaidOut)
     // The fade alone does not move labels, so it keeps frames coming without setLabelsMoving().
     milkyWayFading = milkyWay.updateFade(time)
+    renderer.info.reset()
     nebulaLayer?.renderOffscreen(renderer, camera)
+    const offscreenCalls = renderer.info.render.calls
     if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
     else renderer.render(scene, camera)
-    setData(labelLayer, 'drawCalls', String(renderer.info.render.calls))
+    setData(labelLayer, 'drawCalls', String(renderer.info.render.calls - offscreenCalls))
+    if (drawingObserverFlight) {
+      camera.position.copy(heldCameraPosition)
+      camera.quaternion.copy(heldCameraQuaternion)
+      camera.updateMatrixWorld()
+    }
     renderStats?.end()
     if (continueRendering || milkyWayFading || refreshSamplesRemaining > 0) requestRender(false)
     else {
@@ -2633,6 +2727,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (visibilityConeView) setVisibilityCone(visibilityConeView)
       // The zenith moves with the date, like the cone.
       if (observerFrame) setObserverFrame(observerFrame)
+      else updateSolarSystemSky()
       requestRender()
     },
     setMilkyWayVisible(visible) {
@@ -2650,6 +2745,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     },
     setVisibilityCone(view) {
       setVisibilityCone(view)
+      requestRender()
+    },
+    setSolarSystemSkyVisible(visible) {
+      if (visible === solarSystemSkyEnabled) return
+      solarSystemSkyEnabled = visible
+      updateSolarSystemSky()
       requestRender()
     },
     setMotionFrame(frame) {
@@ -2692,7 +2793,28 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     },
     setRenderStatsListener(listener) {
       renderStats?.dispose()
-      renderStats = listener ? createRenderStats(renderer.getContext() as WebGL2RenderingContext, listener) : null
+      const gl = renderer.getContext() as WebGL2RenderingContext
+      renderStats = listener ? createRenderStats(gl, (stats) => {
+        const { render, memory, programs } = renderer.info
+        listener({
+          ...stats,
+          targetFps: targetRenderFps(powerSavingMode, measuredRefreshRate),
+          refreshRate: measuredRefreshRate,
+          width: canvas.width,
+          height: canvas.height,
+          pixelRatio: renderer.getPixelRatio(),
+          // The canvas keeps the anti-aliasing its context was created with.
+          multisampling: gl.getContextAttributes()?.antialias ?? false,
+          powerSaving: powerSavingMode,
+          drawCalls: render.calls,
+          points: render.points,
+          lines: render.lines,
+          triangles: render.triangles,
+          programs: programs?.length ?? 0,
+          geometries: memory.geometries,
+          textures: memory.textures,
+        })
+      }) : null
     },
     setPowerSavingMode(enabled) {
       if (enabled === powerSavingMode) return
@@ -2722,6 +2844,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       starStyle = style
       setStarAppearanceStyle(style)
       milkyWay.setStarStyle(style)
+      updateSolarSystemSky()
       updatePresentation()
       requestRender()
     },
@@ -2729,6 +2852,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (!STAR_BRIGHTNESSES.includes(brightness) || brightness === starBrightness) return
       starBrightness = brightness
       crowdCoverage.value = starCrowdCoverage(brightness)
+      updateSolarSystemSky()
       updatePresentation()
       requestRender()
     },
@@ -2905,6 +3029,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       earthOrbit.dispose()
       oortCloud.dispose()
       visibilityCone.dispose()
+      solarSystemSky.dispose()
       haloTexture.dispose()
       milkyWay.dispose()
       renderer.renderLists.dispose()

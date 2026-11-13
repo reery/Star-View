@@ -29,7 +29,7 @@
     "src/data/catalogs/western-constellation-stars/provenance.json": "a7f3303ac01df51ac02ad43643c28414d2b1f7f6c0c04c006764f5e209fa6587",
     "src/data/catalogs/western-constellation-stars/stars.csv": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748",
     "src/data/legacy-star-ids.json": "1b3022e79a02fac18f035fd4323dc43c582730ec66b4dd5baa85a1d0873362a3",
-    "src/data/overlays/bubbles/objects.json": "d67197bf55a22ba6cfb78a5253eb924d8df1c82f3ac04e6523ed46f736ef6a90",
+    "src/data/overlays/bubbles/objects.json": "1fb673285045e35cb4caafa2a672d6d0ad2bc6c3218badd4861cb582a8429926",
     "src/data/overlays/compact-remnants/objects.json": "fb56136f3d5019714c82e709ab4105282245ac4de66f73ecc63467c5e04d4368",
     "src/data/overlays/molecular-clouds/objects.json": "6f20f8fefbbeab700c05c1a0e6b9844f42998da9d810f073973cd99da50419b4",
     "src/data/overlays/nebulae/objects.json": "7073f544a2495442b3b99f9801d3177eab9f11c6db59cbcb30d6389c72447d18",
@@ -473116,6 +473116,18 @@
         "src/data/overlays/bubbles/objects.json"
       ]
     },
+    "loop-i-superbubble": {
+      "name": "Loop I Superbubble",
+      "designations": [
+        "Loop I",
+        "Loop I Bubble",
+        "Loop I Supershell",
+        "North Polar Spur"
+      ],
+      "sources": [
+        "src/data/overlays/bubbles/objects.json"
+      ]
+    },
     "lotr-5": {
       "name": "LoTr 5",
       "designations": [
@@ -473555,6 +473567,17 @@
       ],
       "simbadId": "* ome Leo A"
     },
+    "orion-eridanus-superbubble": {
+      "name": "Orion–Eridanus Superbubble",
+      "designations": [
+        "Eridanus Soft X-ray Enhancement",
+        "Orion-Eridanus Superbubble",
+        "Orion–Eridanus Bubble"
+      ],
+      "sources": [
+        "src/data/overlays/bubbles/objects.json"
+      ]
+    },
     "orion-nebula": {
       "name": "Orion Nebula",
       "designations": [
@@ -473572,6 +473595,15 @@
         "src/data/overlays/nebulae/objects.json"
       ],
       "simbadId": "M  42"
+    },
+    "per-tau-shell": {
+      "name": "Per-Tau Shell",
+      "designations": [
+        "Perseus-Taurus Shell"
+      ],
+      "sources": [
+        "src/data/overlays/bubbles/objects.json"
+      ]
     },
     "pfp-1": {
       "name": "PFP 1",

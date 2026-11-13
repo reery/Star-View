@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { openViewer } from './support'
+import { solarSystemSky } from '../src/solar-system-sky'
 
 test('telescope gently animates the current observer center and reverses cleanly', async ({ page }, testInfo) => {
   await openViewer(page)
@@ -290,4 +291,42 @@ test('naked-eye view applies a dark-sky filter, follows the zoom and restores th
   await expect(magnitude).toHaveValue(before.magnitude)
   await expect(page.locator('#observer-naked-eye')).toHaveAttribute('aria-pressed', 'false')
   await expect(page.locator('#observer-naked-eye')).toBeDisabled()
+})
+
+test('the planets and the Moon show by default only when observing from the Sun', async ({ page }) => {
+  await openViewer(page)
+  const planets = page.locator('#observer-planets')
+  const scene = page.locator('#scene')
+  // Sirius is selected: its sky has no planets to show.
+  await page.locator('#observer-view').click()
+  await expect(planets).toBeDisabled()
+  await expect(planets).toHaveAttribute('aria-pressed', 'true')
+  await expect(scene).toHaveAttribute('data-solar-system-sky-visible', 'false')
+  await page.locator('#observer-exit').click()
+  await page.locator('#observer-view-origin').evaluate((button: HTMLButtonElement) => button.click())
+  await expect(page.locator('#observer-object-name')).toHaveText('Sun')
+  await expect(planets).toBeEnabled()
+  await expect(scene).toHaveAttribute('data-solar-system-sky-visible', 'true')
+  await planets.click()
+  await expect(planets).toHaveAttribute('aria-pressed', 'false')
+  await expect(scene).toHaveAttribute('data-solar-system-sky-visible', 'false')
+  expect(await page.evaluate(() => localStorage.getItem('star-view-observer-planets'))).toBe('false')
+  await planets.click()
+  await expect(scene).toHaveAttribute('data-solar-system-sky-visible', 'true')
+  await page.locator('#observer-exit').click()
+  await expect(scene).toHaveAttribute('data-solar-system-sky-visible', 'false')
+})
+
+test('clicking a planet in the Sun\'s sky opens its card', async ({ page }) => {
+  // A link observing from the Sun, looking straight at Jupiter's current position.
+  const { direction } = solarSystemSky(new Date()).planets.find(({ id }) => id === 'jupiter')!
+  await page.goto(`/#b=74&v=-9,${direction.toArray().map((value) => Math.round(-value * 1000).toString(36)).join(',')}&l=sun&n=Jupiter`)
+  const scene = page.locator('#scene')
+  await expect(scene).toHaveAttribute('data-ready', 'true')
+  await expect(scene).toHaveAttribute('data-solar-system-sky-visible', 'true')
+  const bounds = (await page.locator('#scene canvas').boundingBox())!
+  await page.mouse.click(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2)
+  await expect(page.locator('#planet-card')).toBeVisible()
+  await expect(page.locator('#planet-name')).toHaveText('Jupiter')
+  await expect(page.locator('#star-name')).toHaveText('Sun')
 })

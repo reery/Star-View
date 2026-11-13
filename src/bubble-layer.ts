@@ -1,13 +1,13 @@
 import {
   AdditiveBlending, BufferGeometry, Color, DoubleSide, DynamicDrawUsage, Float32BufferAttribute, Mesh, ShaderMaterial,
-  IcosahedronGeometry, SphereGeometry, Uint32BufferAttribute, Vector3,
+  IcosahedronGeometry, Uint32BufferAttribute, Vector3,
 } from 'three'
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
-import type { BubbleDetails, Star } from './catalog-model'
+import type { BubbleDetails, BubbleKompaneetsShape, Star } from './catalog-model'
 import type { StarColorMode } from './astronomy'
 
-const LONGITUDE_SEGMENTS = 48
-const LATITUDE_SEGMENTS = 24
+// Smooth model shells read well on an evenly tessellated 980-triangle icosphere.
+const MODEL_SURFACE_DETAIL = 6
 // The published grid is far denser and noisier than the shell needs to read well.
 // An evenly tessellated icosphere avoids pole slivers, and neighbor smoothing turns
 // single-cell radius jumps into continuous lobes. Smoothing a high power of the
@@ -73,9 +73,34 @@ function directionalGridRadius(details: BubbleDetails, direction: Vector3): numb
   return lower * (1 - latitudeMix) + upper * latitudeMix
 }
 
+// Distance from the driving source to the Kompaneets shell along a direction. The shell's
+// cylindrical radius at height z along the axis is
+// 2H arccos[e^(z/2H) (1 - y²/4 + e^(-z/H)) / 2] (Kompaneets 1960); the surface is star-shaped
+// around the source, so bisection finds the single crossing.
+function kompaneetsRadius(shape: BubbleKompaneetsShape, direction: Vector3): number {
+  const { scale_height_pc: height, dimensionless_age: age } = shape
+  const cosine = direction.dot(galacticDirection(shape.axis_longitude_deg, shape.axis_latitude_deg))
+  const sine = Math.sqrt(Math.max(0, 1 - cosine * cosine))
+  const inside = (distance: number) => {
+    const z = distance * cosine
+    const argument = 0.5 * Math.exp(z / (2 * height)) * (1 - age * age / 4 + Math.exp(-z / height))
+    return argument < 1 && distance * sine < 2 * height * Math.acos(argument)
+  }
+  // The top lies at -2H ln(1 - y/2), and the cylindrical radius never exceeds 2πH.
+  let low = 0
+  let high = -2 * height * Math.log(1 - age / 2) + 2 * Math.PI * height
+  for (let step = 0; step < 32; step++) {
+    const middle = (low + high) / 2
+    if (inside(middle)) low = middle
+    else high = middle
+  }
+  return low
+}
+
 export function bubbleRadiusPc(details: BubbleDetails, galacticUnitDirection: Vector3): number {
   const direction = galacticUnitDirection.clone().normalize()
   if (details.shape.kind === 'directional_grid') return directionalGridRadius(details, direction)
+  if (details.shape.kind === 'kompaneets') return kompaneetsRadius(details.shape, direction)
   const shape = details.shape
   const [scaleX, scaleY, scaleZ] = shape.axis_scale
   let radius = shape.base_radius_pc / Math.sqrt(
@@ -104,15 +129,11 @@ export function generateBubbleSurface(bubble: Star): BubbleSurface {
   if (!bubble.bubble) throw new Error(`Not a bubble: ${bubble.id}`)
   const shape = bubble.bubble.shape
   const grid = shape.kind === 'directional_grid'
-  let source: BufferGeometry
-  if (!grid) source = new SphereGeometry(1, LONGITUDE_SEGMENTS, LATITUDE_SEGMENTS)
-  else {
-    const icosphere = new IcosahedronGeometry(1, GRID_SURFACE_DETAIL)
-    icosphere.deleteAttribute('normal')
-    icosphere.deleteAttribute('uv')
-    source = mergeVertices(icosphere)
-    icosphere.dispose()
-  }
+  const icosphere = new IcosahedronGeometry(1, grid ? GRID_SURFACE_DETAIL : MODEL_SURFACE_DETAIL)
+  icosphere.deleteAttribute('normal')
+  icosphere.deleteAttribute('uv')
+  const source: BufferGeometry = mergeVertices(icosphere)
+  icosphere.dispose()
   const positions = source.getAttribute('position')
   const radii = new Float32Array(positions.count)
   const origin = new Vector3(

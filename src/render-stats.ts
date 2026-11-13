@@ -9,6 +9,29 @@ export interface RenderStats {
   gpuTimer: boolean
 }
 
+/** How the map draws and how much, sampled by the viewer with each report. */
+export interface RenderSetup {
+  /** Frame rate the map aims for while it moves. */
+  targetFps: number
+  /** Display refresh rate measured from animation frames; null until measured. */
+  refreshRate: number | null
+  /** Drawing-buffer size in device pixels. */
+  width: number
+  height: number
+  pixelRatio: number
+  multisampling: boolean
+  powerSaving: boolean
+  /** Work in the last drawn frame, across every pass. */
+  drawCalls: number
+  points: number
+  lines: number
+  triangles: number
+  /** GPU resources the renderer holds. */
+  programs: number
+  geometries: number
+  textures: number
+}
+
 export const RENDER_STATS_INTERVAL_MS = 500
 
 type TimerQueryExtension = { TIME_ELAPSED_EXT: number; GPU_DISJOINT_EXT: number }

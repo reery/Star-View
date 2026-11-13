@@ -22,7 +22,7 @@ import legacyStarIds from './data/legacy-star-ids.json'
 import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, formatDistance, galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { isVisibilityConeMode, LATITUDE_STORAGE_KEY, observerLatitude, VISIBILITY_CONE_MODES, visibilityConeHours, visibilityConeModeLabel, type VisibilityConeMode } from './constellation-visibility'
-import type { RenderStats } from './render-stats'
+import type { RenderSetup, RenderStats } from './render-stats'
 import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type ObserverFrame, type StarViewer, type ViewerViewState } from './viewer'
 import { STAR_STYLES, type FaintStars, type StarBrightness, type StarStyle } from './star-appearance'
 import { CONTEXT_MENU_HOLD_MS, isObjectMapVisible, mapVisibilityTier, motionTravelDistancePc } from './viewer-primitives'
@@ -62,7 +62,7 @@ import { initializeTouchTooltips } from './touch-tooltips'
 import { attachPopoverTooltip } from './popover-tooltips'
 import startupIndex from './data/generated/startup-index.json'
 import { objectSubtypeDescription } from './object-subtype-info'
-import { MISSING_VALUE, preciseMeasurement, quantity, scientificQuantity } from './format'
+import { formatNumber, MISSING_VALUE, preciseMeasurement, quantity, scientificQuantity } from './format'
 import { decodeSavedViewLink, encodeSavedViewLink, OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
 import type { SkyGridMode } from './sky-grid'
 import { browserDataSize, deleteBrowserData, exportBrowserData, importBrowserData } from './browser-data'
@@ -223,6 +223,7 @@ icon('go-to-origin-icon', Crosshair)
 icon('observer-view-icon', Eye)
 icon('observer-view-origin-icon', ObserverOriginIcon)
 icon('observer-axial-tilt-icon', Earth)
+icon('observer-planets-icon', Orbit)
 icon('observer-cone-icon', Cone)
 icon('observer-naked-eye-icon', Eye)
 icon('observer-telescope-icon', Telescope)
@@ -416,6 +417,8 @@ let observerAxialTilt = false
 let observerCardLatitude: number | null = null
 let observerConeMode: Exclude<VisibilityConeMode, 'off'> = 'now'
 let observerConeVisible = false
+// From the Sun, the planets and the Moon show unless switched off.
+let observerPlanetsVisible = true
 // The observer view that the card was last opened for, so it opens once per entry.
 let observerCardShown = false
 const observerLatitudeDegrees = () => observerCardLatitude ?? visibilityLatitude
@@ -538,6 +541,7 @@ try {
   const storedObserverConeMode = localStorage.getItem('star-view-observer-cone-mode')
   if (isVisibilityConeMode(storedObserverConeMode) && storedObserverConeMode !== 'off') observerConeMode = storedObserverConeMode
   observerConeVisible = localStorage.getItem('star-view-observer-cone') === 'true'
+  observerPlanetsVisible = localStorage.getItem('star-view-observer-planets') !== 'false'
   const storedLabelLimit = localStorage.getItem('star-view-label-limit')
   const parsedLabelLimit = Number(storedLabelLimit)
   if (storedLabelLimit !== null && parsedLabelLimit >= 0 && parsedLabelLimit <= 140 && parsedLabelLimit % 20 === 0) labelLimit = parsedLabelLimit
@@ -669,6 +673,7 @@ function updateObserverControl(): void {
   element('observer-observatory').setAttribute('aria-pressed', String(observerView && Boolean(viewState?.observerObservatory)))
   element('observer-axial-tilt').setAttribute('aria-pressed', String(observerAxialTilt))
   element('observer-cone').setAttribute('aria-pressed', String(observerConeVisible))
+  element('observer-planets').setAttribute('aria-pressed', String(observerPlanetsVisible))
   element<HTMLSelectElement>('observer-latitude').value = String(observerLatitudeDegrees())
   element<HTMLSelectElement>('observer-cone-time').value = observerConeMode
   const observerControlsDisabled = sceneBusy || !observerView
@@ -679,6 +684,8 @@ function updateObserverControl(): void {
   element<HTMLButtonElement>('observer-naked-eye').disabled = observerControlsDisabled && (sceneBusy || nakedEyeRestoreFilter === null)
   element<HTMLSelectElement>('observer-latitude').disabled = observerControlsDisabled || !observerAxialTilt
   element<HTMLSelectElement>('observer-cone-time').disabled = observerControlsDisabled || !observerConeVisible
+  // The planets and the Moon are placed as seen from Earth, so only the Sun's sky shows them.
+  element<HTMLButtonElement>('observer-planets').disabled = observerControlsDisabled || observerViewAnchorId !== 'sun'
   for (const id of cameraViewButtonIds) {
     element<HTMLButtonElement>(id).disabled = sceneBusy || observerView || piloting
   }
@@ -1248,6 +1255,18 @@ async function selectSystemPlanet(planetId: string): Promise<void> {
   renderPlanetCard(card, description)
   showPlanetSection('specs')
   element('planet-specs-toggle').focus({ preventScroll: true })
+}
+
+/** A planet clicked in the Sun's sky opens its card from the Solar System; the Moon opens Earth's moons. */
+async function openSkyBody(id: string): Promise<void> {
+  const planetId = id === 'moon' ? 'earth' : id
+  if (selectedId !== 'sun') selectStar('sun')
+  // Until the planet modules load, the Sun's card cannot tell that it owns the open planet card, and closes it.
+  await loadPlanetModules().catch(() => undefined)
+  if (selectedId !== 'sun') return
+  element<HTMLDetailsElement>('object-card-details').open = true
+  if (element('planet-card').hidden || activePlanetId !== planetId) await selectSystemPlanet(planetId)
+  if (id === 'moon' && activePlanetId === 'earth' && !element('planet-card').hidden) showPlanetSection('moons')
 }
 
 let luminosityCardModule: typeof import('./luminosity-card') | undefined
@@ -2564,7 +2583,9 @@ function renderSelection(): void {
     const [minimum, maximum] = bubble.surface_distance_range_pc
     text('bubble-average-radius', `${extent(bubble.average_radius_pc)} ${distanceUnit}`)
     text('bubble-surface-range', `${extent(minimum)}–${extent(maximum)}${bubble.surface_distance_max_open ? '+' : ''} ${distanceUnit}`)
-    text('bubble-shell-thickness', `${extent(bubble.shell_thickness_pc)} ${distanceUnit}`)
+    const thickness = bubble.shell_thickness_pc
+    element('bubble-shell-thickness').parentElement!.hidden = thickness === null
+    text('bubble-shell-thickness', thickness === null ? '' : `${extent(thickness)} ${distanceUnit}`)
     const source = element<HTMLAnchorElement>('bubble-source')
     source.textContent = bubble.source_label
     source.href = bubble.source_url
@@ -2744,7 +2765,7 @@ function spaceshipTopSpeedPc(): number {
 /** Starts a ship where the camera is, facing where it looks. */
 function launchSpaceship(): void {
   if (!viewer || sceneBusy) return
-  if (observerView) setObserverViewAnchor(null)
+  if (observerView) setObserverViewAnchor(null, false)
   const { position, target } = viewer.getViewState()
   spaceship = createSpaceship(position, target)
   applySpaceship()
@@ -2942,15 +2963,15 @@ function toggleObserverView(): void {
   setObserverViewAnchor(observerView ? null : selectedId)
 }
 
-function setObserverViewAnchor(anchorId: string | null): void {
+function setObserverViewAnchor(anchorId: string | null, animate = true): void {
   if (!viewer || sceneBusy) return
   if (anchorId !== null) {
     if (!starIndex.has(anchorId)) return
-    observerView = viewer.setObserverView(true, anchorId)
+    observerView = viewer.setObserverView(true, anchorId, undefined, animate)
     observerViewAnchorId = observerView ? anchorId : null
     if (observerView) observerId = anchorId
   } else {
-    observerView = viewer.setObserverView(false)
+    observerView = viewer.setObserverView(false, undefined, undefined, animate)
     observerViewAnchorId = null
     const restoredId = visibilityLockId ?? selectedId
     if (restoredId !== null) observerId = restoredId
@@ -3085,6 +3106,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     viewer = createStarViewer(element('scene'), stars, {
       onInteraction: onSceneInteraction,
       onSelect: selectStar,
+      onSolarSystemBody: (id) => void openSkyBody(id),
       onHover: (id) => starComparison.hover(id),
       onContextMenu: openSceneContextMenu,
       onSelectedDistance(distancePc) {
@@ -3131,6 +3153,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setSimulationPlaying(simulationPlaying)
   viewer.setPowerSavingMode(powerSavingMode)
   viewer.setRenderStatsListener(renderStatsVisible ? showRenderStats : null)
+  viewer.setSolarSystemSkyVisible(observerPlanetsVisible)
   applyAutoRotation()
   viewer.setGridVisible(gridVisible)
   viewer.setSkyGrid(skyGridMode)
@@ -4540,10 +4563,23 @@ element('power-saving-mode').addEventListener('change', () => {
   viewer?.setPowerSavingMode(powerSavingMode)
 }, { signal: events.signal })
 const frameTime = (ms: number | null) => ms === null ? '–' : `${ms.toFixed(ms < 10 ? 2 : 1)} ms`
-function showRenderStats(stats: RenderStats): void {
+function showRenderStats(stats: RenderStats & RenderSetup): void {
   text('render-stats-gpu', stats.gpuTimer ? frameTime(stats.gpuMs) : 'n/a')
   text('render-stats-main-thread', frameTime(stats.mainThreadMs))
   text('render-stats-fps', stats.framesPerSecond === 0 ? 'Idle' : `${Math.round(stats.framesPerSecond)} fps`)
+  text('render-stats-target', `${stats.targetFps} fps`)
+  text('render-stats-refresh', stats.refreshRate === null ? '–' : `${Math.round(stats.refreshRate)} Hz`)
+  text('render-stats-resolution', `${stats.width}×${stats.height}`)
+  text('render-stats-pixel-ratio', `${formatNumber(stats.pixelRatio, 2)}×`)
+  text('render-stats-msaa', stats.multisampling ? 'On' : 'Off')
+  text('render-stats-power-saving', stats.powerSaving ? 'On' : 'Off')
+  text('render-stats-draw-calls', formatNumber(stats.drawCalls, 0))
+  text('render-stats-points', formatNumber(stats.points, 0))
+  text('render-stats-lines', formatNumber(stats.lines, 0))
+  text('render-stats-triangles', formatNumber(stats.triangles, 0))
+  text('render-stats-programs', formatNumber(stats.programs, 0))
+  text('render-stats-geometries', formatNumber(stats.geometries, 0))
+  text('render-stats-textures', formatNumber(stats.textures, 0))
 }
 element('render-stats-visible').addEventListener('change', () => {
   renderStatsVisible = element<HTMLInputElement>('render-stats-visible').checked
@@ -5142,6 +5178,13 @@ element('observer-latitude').addEventListener('change', () => {
   try { localStorage.setItem('star-view-observer-latitude', latitude) } catch {}
   viewer?.setObserverFrame(observerFrame())
   viewer?.setVisibilityCone(visibilityConeView())
+}, { signal: events.signal })
+element('observer-planets').addEventListener('click', () => {
+  if (sceneBusy || !observerView) return
+  observerPlanetsVisible = !observerPlanetsVisible
+  try { localStorage.setItem('star-view-observer-planets', String(observerPlanetsVisible)) } catch {}
+  viewer?.setSolarSystemSkyVisible(observerPlanetsVisible)
+  updateObserverControl()
 }, { signal: events.signal })
 element('observer-cone').addEventListener('click', () => {
   if (sceneBusy || !observerView) return

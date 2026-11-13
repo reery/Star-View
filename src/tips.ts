@@ -77,6 +77,7 @@ export const TIP_FEATURES: readonly Feature[] = [
   deep('observer', 'observer-telescope', '#observer-telescope'),
   deep('observer', 'observer-roll', '#observer-roll-counterclockwise, #observer-roll-reset, #observer-roll-clockwise'),
   deep('observer', 'observer-latitude', '#observer-latitude, #observer-axial-tilt'),
+  deep('observer', 'observer-planets', '#observer-planets'),
   deep('observer', 'observer-cone', '#observer-cone, #observer-cone-time'),
   deep('observer', 'observer-naked-eye', '#observer-naked-eye'),
   open('filter', '#filter-toggle'),
@@ -181,7 +182,7 @@ const FIRST_TIP_MS = 90_000
 const TIP_INTERVAL_MS = [180_000, 300_000] as const
 /** A tip waits until the visitor has paused this long, so it never interrupts. */
 const QUIET_MS = 10_000
-/** How long a tip waits while a tour, the welcome, a hidden interface or an open card leaves no room for it. */
+/** How long a tip waits while a tour, the welcome, a loading scene or an open card leaves no room for it. */
 const BLOCKED_RETRY_MS = 30_000
 /** An unanswered tip leaves after this long and may come back later. */
 const UNANSWERED_MS = 45_000
@@ -214,7 +215,7 @@ const PAST_USE: Readonly<Record<string, string>> = {
   'top-lists-sidebar-collapsed': 'top-lists', 'magnitude-city': 'value-card:magnitude-toggle',
   'distance-unit': 'distance-units', 'color-mode': 'star-colors', 'color-blind-palette': 'star-colors',
   'star-style': 'star-style', 'star-brightness': 'star-style', 'faint-stars': 'star-style', 'label-limit': 'label-limit', 'render-stats': 'preferences',
-  'observer-latitude': 'observer-latitude', 'observer-axial-tilt': 'observer-latitude', 'observer-cone': 'observer-cone', 'observer-cone-mode': 'observer-cone',
+  'observer-latitude': 'observer-latitude', 'observer-axial-tilt': 'observer-latitude', 'observer-cone': 'observer-cone', 'observer-cone-mode': 'observer-cone', 'observer-planets': 'observer-planets',
 }
 
 /** Records the visitor's own use of a feature; the tour's and Show me's own clicks do not count. */
@@ -283,7 +284,9 @@ export function initializeTips(host: TipsHost, signal: AbortSignal): void {
   const level = (): TipLevel => APPLY_LEVEL ? tipLevel(seen) : 'novice'
   const interval = () => TIP_INTERVAL_MS[0] + Math.random() * (TIP_INTERVAL_MS[1] - TIP_INTERVAL_MS[0])
 
-  /** Counts only time the page is visible. */
+  const uiHidden = () => document.documentElement.hasAttribute('data-ui-hidden')
+
+  /** Counts only time the page is visible with its controls shown. */
   function schedule(ms: number): void {
     clearTimeout(timer)
     timer = 0
@@ -291,7 +294,7 @@ export function initializeTips(host: TipsHost, signal: AbortSignal): void {
     resume()
   }
   function resume(): void {
-    if (!enabled || timer || current || document.hidden) return
+    if (!enabled || timer || current || document.hidden || uiHidden()) return
     startedAt = performance.now()
     timer = window.setTimeout(fire, remaining)
   }
@@ -302,8 +305,7 @@ export function initializeTips(host: TipsHost, signal: AbortSignal): void {
     remaining = Math.max(0, remaining - (performance.now() - startedAt))
   }
 
-  const blocked = () => !!document.querySelector('.tutorial-tile') || !element('welcome-tile').hidden
-    || document.documentElement.hasAttribute('data-ui-hidden') || element('scene-status').hidden === false
+  const blocked = () => !!document.querySelector('.tutorial-tile') || !element('welcome-tile').hidden || element('scene-status').hidden === false
 
   function fire(): void {
     timer = 0
@@ -440,7 +442,11 @@ export function initializeTips(host: TipsHost, signal: AbortSignal): void {
     }
   }, { signal })
   addEventListener('pagehide', saveSeen, { signal })
+  // Hide UI pauses the timer like a hidden page does, and showing the controls again resumes it.
+  const hideUiObserver = new MutationObserver(() => uiHidden() ? pause() : resume())
+  hideUiObserver.observe(document.documentElement, { attributeFilter: ['data-ui-hidden'] })
   signal.addEventListener('abort', () => {
+    hideUiObserver.disconnect()
     clearTimeout(timer)
     clearTimeout(leaveTimer)
   }, { once: true })

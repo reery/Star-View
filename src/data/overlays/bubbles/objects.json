@@ -50,6 +50,164 @@
         "source_url": "https://doi.org/10.3847/1538-4357/ad61de",
         "model_note": "The shell is a 128 by 64 Galactic longitude-latitude sampling of the 786,392-sightline peak-extinction surface in the authors' published interactive Figure 3. Each angular cell uses its 95th-percentile published radius; duplicated pole vertices share a mean. This retains narrow chimney and tunnel extrema without turning individual parsec-scale source pixels into spikes, while reducing the point cloud to one efficient indexed mesh. The rendered shell smooths this grid on a 5,120-triangle mesh, so the narrowest extrema, including the top of the chimney, appear rounded and somewhat shorter."
       }
+    },
+    {
+      "type": "bubble",
+      "id": "loop-i-superbubble",
+      "name": "Loop I Superbubble",
+      "spectral_type": null,
+      "constellation": null,
+      "x_pc": 73.9,
+      "y_pc": -17.1,
+      "z_pc": 57.2,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "Loop I is the largest radio loop on the sky, and the North Polar Spur is its brightest arc. Supernovae and winds from the Scorpius–Centaurus association blew it out next to the Local Bubble. The shell shown is the S2 synchrotron shell fitted to polarized radio emission by Wolleben (2007), centered near the Upper Scorpius group.",
+      "raw_astrometry": null,
+      "bubble": {
+        "designations": ["Loop I", "Loop I Bubble", "Loop I Supershell", "North Polar Spur"],
+        "average_radius_pc": 75,
+        "surface_distance_range_pc": [63, 87],
+        "surface_distance_max_open": false,
+        "shell_thickness_pc": 24,
+        "reported_bounds_pc": {
+          "x": [-13.1, 160.9],
+          "y": [-104.1, 69.9],
+          "z": [-29.8, 144.2]
+        },
+        "shape": {
+          "kind": "analytic",
+          "origin_pc": [73.9, -17.1, 57.2],
+          "base_radius_pc": 75,
+          "axis_scale": [1, 1, 1],
+          "features": [],
+          "roughness_pc": 0,
+          "seed": 0
+        },
+        "palette": {
+          "real": "#c8b07a",
+          "exaggerated": "#ffc94d"
+        },
+        "opacity": 0.08,
+        "position_source": "Shell S2 center and radii from Wolleben (2007), ApJ 664, 349, Table 1",
+        "source_label": "Wolleben (2007)",
+        "source_url": "https://doi.org/10.1086/518711",
+        "model_note": "A sphere at the S2 shell's mid-radius of 75 pc, centered at l = 347°, b = +37°, 95 pc from the Sun. The published inner and outer radii are 63 and 87 pc, uncertain by 10–15 pc, and the center direction by 15°. Wolleben's older shell S1, which surrounds the Sun, is not shown. Rendered as a 980-triangle icosphere."
+      }
+    },
+    {
+      "type": "bubble",
+      "id": "orion-eridanus-superbubble",
+      "name": "Orion–Eridanus Superbubble",
+      "spectral_type": null,
+      "constellation": null,
+      "x_pc": -249.5,
+      "y_pc": -102.0,
+      "z_pc": -121.1,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The nearest superbubble beyond the Local Bubble, blown by the winds and supernovae of the Orion OB1 association. It reaches from the Orion clouds toward the Sun through Eridanus, and Barnard’s Loop and the Eridanus filaments glow in Hα along its walls. The shell shown is a published Kompaneets blast-wave fit to its outline, not a dust-traced surface.",
+      "raw_astrometry": null,
+      "bubble": {
+        "designations": ["Orion-Eridanus Superbubble", "Orion–Eridanus Bubble", "Eridanus Soft X-ray Enhancement"],
+        "average_radius_pc": 112,
+        "surface_distance_range_pc": [99, 139],
+        "surface_distance_max_open": false,
+        "shell_thickness_pc": null,
+        "reported_bounds_pc": {
+          "x": [-367, -132],
+          "y": [-225, 21],
+          "z": [-226, -16]
+        },
+        "shape": {
+          "kind": "kompaneets",
+          "origin_pc": [-302.3, -162.8, -93.9],
+          "axis_longitude_deg": 49.05,
+          "axis_latitude_deg": -18.64,
+          "scale_height_pc": 41,
+          "dimensionless_age": 1.87
+        },
+        "palette": {
+          "real": "#c98ba0",
+          "exaggerated": "#ff6fa3"
+        },
+        "opacity": 0.08,
+        "position_source": "Driving source, Orion end and model parameters from Pon et al. (2016), ApJ 827, 42, Tables 1–2 (θ = −35° model)",
+        "source_label": "Pon et al. (2016)",
+        "source_url": "https://doi.org/10.3847/0004-637X/827/1/42",
+        "model_note": "Kompaneets model fitted to the Hα outline by Pon et al. (2016): driving source at l = 208.3°, b = −15.3°, 356 pc; Orion end at l = 211°, b = −11°, 400 pc; scale height 41 pc; dimensionless age 1.87. Among the paper's fits, this θ = −35° model, with the Eridanus end nearer the Sun, matches absorption distances of about 180 pc to the near wall. The rendered shell reproduces its nearest and farthest walls at 179 and 417 pc. Fits with the Eridanus end farther away suit the outline with larger scale heights but place the near wall beyond 240 pc. Radii are measured from the volume centroid; the average is the volume-equivalent radius. Rendered as a 980-triangle icosphere."
+      }
+    },
+    {
+      "type": "bubble",
+      "id": "per-tau-shell",
+      "name": "Per-Tau Shell",
+      "spectral_type": null,
+      "constellation": null,
+      "x_pc": -190,
+      "y_pc": 65,
+      "z_pc": -84,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A near-spherical dust shell 156 pc across, found in 2021 in a 3D map of interstellar dust. The Taurus clouds sit on its near side and the Perseus clouds on its far side, so the two star-forming regions likely formed as old supernovae swept gas into the shell.",
+      "raw_astrometry": null,
+      "bubble": {
+        "designations": ["Perseus-Taurus Shell"],
+        "average_radius_pc": 78,
+        "surface_distance_range_pc": [68, 88],
+        "surface_distance_max_open": false,
+        "shell_thickness_pc": null,
+        "reported_bounds_pc": {
+          "x": [-268, -112],
+          "y": [-13, 143],
+          "z": [-162, -6]
+        },
+        "shape": {
+          "kind": "analytic",
+          "origin_pc": [-190, 65, -84],
+          "base_radius_pc": 78,
+          "axis_scale": [1, 1, 1],
+          "features": [],
+          "roughness_pc": 0,
+          "seed": 0
+        },
+        "palette": {
+          "real": "#a49ad8",
+          "exaggerated": "#a77dff"
+        },
+        "opacity": 0.08,
+        "position_source": "Center and radius from Bialy et al. (2021), ApJL 919, L5, Table 1",
+        "source_label": "Bialy et al. (2021)",
+        "source_url": "https://doi.org/10.3847/2041-8213/ac1f95",
+        "model_note": "A sphere of the published 78 pc radius centered at (x, y, z) = (−190, 65, −84) pc, the model Bialy et al. (2021) fitted to the Leike et al. (2020) 3D dust map. The real shell is a lumpy ovaloid: its radial dust profile peaks flat over about 20 pc, the basis of the 68–88 pc radius range. Rendered as a 980-triangle icosphere."
+      }
     }
   ]
 }
