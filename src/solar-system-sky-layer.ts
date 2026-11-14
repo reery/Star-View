@@ -181,7 +181,7 @@ export function createSolarSystemSkyLayer(container: HTMLElement, starMaterial: 
   group.add(moon, moonGlow, cores, halos)
 
   const labelLayer = document.createElement('div')
-  labelLayer.className = 'projected-axes'
+  labelLayer.className = 'projected-axes solar-system-labels'
   labelLayer.setAttribute('aria-hidden', 'true')
   labelLayer.hidden = true
   container.append(labelLayer)

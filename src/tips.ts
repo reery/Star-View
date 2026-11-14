@@ -103,6 +103,7 @@ export const TIP_FEATURES: readonly Feature[] = [
   deep('preferences', 'star-colors', '#star-colors, #color-blind-palette'),
   deep('preferences', 'star-style', '#star-style, #star-brightness, #faint-stars'),
   deep('preferences', 'label-limit', '#label-limit'),
+  deep('preferences', 'shader', '#shader'),
   deep('preferences', 'power-saving', '#power-saving-mode'),
   deep('preferences', 'earth-orbit', '#earth-orbit-mode'),
   deep('preferences', 'visibility-cone', '#visibility-cone-mode'),
@@ -111,6 +112,7 @@ export const TIP_FEATURES: readonly Feature[] = [
   deep('preferences', 'browser-data', '#export-browser-data, #import-browser-data'),
   open('info', '#info-toggle'),
   open('tutorial', '#tutorial-toggle, #welcome-yes'),
+  open('demo', '#demo-toggle, #demo-active'),
   // Taking the tour shows these features with a step of their own.
   open('tour', '#welcome-yes', { implies: ['tutorial', 'set-origin', 'object-menu', 'rotation', 'sky-grid', 'saved-views', 'filter', 'observer', 'explore', 'objects', 'objects-table', 'glossary'] }),
   open('explore', '#discover-toggle, #discover-options button'),
@@ -214,7 +216,7 @@ const PAST_USE: Readonly<Record<string, string>> = {
   'constellations-maximized': 'constellations', 'constellations-sidebar-collapsed': 'constellations', 'constellation-latitude': 'constellations',
   'top-lists-sidebar-collapsed': 'top-lists', 'magnitude-city': 'value-card:magnitude-toggle',
   'distance-unit': 'distance-units', 'color-mode': 'star-colors', 'color-blind-palette': 'star-colors',
-  'star-style': 'star-style', 'star-brightness': 'star-style', 'faint-stars': 'star-style', 'label-limit': 'label-limit', 'render-stats': 'preferences', 'shader': 'preferences',
+  'star-style': 'star-style', 'star-brightness': 'star-style', 'faint-stars': 'star-style', 'label-limit': 'label-limit', 'render-stats': 'preferences', 'shader': 'shader',
   'observer-latitude': 'observer-latitude', 'observer-axial-tilt': 'observer-latitude', 'observer-cone': 'observer-cone', 'observer-cone-mode': 'observer-cone', 'observer-planets': 'observer-planets',
 }
 

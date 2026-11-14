@@ -28,9 +28,9 @@ export interface MilkyWayLayer {
 
 const FADE_MS = 800
 const PANORAMA_INTENSITY = 0.12
-// The panorama is the Sun's sky: it fades out between 5,000 and 20,000 ly from the Sun,
+// The panorama is the Sun's sky: it fades out between 2,000 and 15,000 ly from the Sun,
 // while the Galaxy builds up from 3,000 ly to full strength at 40,000 ly.
-const PANORAMA_FADE_PC = [5_000, 20_000].map((ly) => ly / LIGHT_YEARS_PER_PARSEC) as [number, number]
+const PANORAMA_FADE_PC = [2_000, 15_000].map((ly) => ly / LIGHT_YEARS_PER_PARSEC) as [number, number]
 const GALAXY_FADE_PC = [3_000, 40_000].map((ly) => ly / LIGHT_YEARS_PER_PARSEC) as [number, number]
 
 /** Smoothstep over the logarithm of distance, so each zoom step changes the fade alike. */

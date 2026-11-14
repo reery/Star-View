@@ -239,12 +239,30 @@ export const TIPS: readonly Tip[] = [
     },
   },
   {
+    id: 'shader', feature: 'shader', level: 'novice',
+    text: 'Want a different look? A [Shader] in Preferences restyles the 3D map.',
+    step: {
+      title: 'Shader',
+      body: 'Pick a style such as [Concept art] or [Star atlas]. [None] shows the map as drawn.',
+      target: '#shader', panel: 'preferences',
+    },
+  },
+  {
     id: 'hide-ui', feature: 'hide-ui', level: 'novice',
     text: '[Hide UI] clears the controls away for an unobstructed view of the sky.',
     step: {
       title: 'Hide UI',
       body: 'The controls slide out of the way, for a clear view or a screenshot.',
       target: '#hide-ui', flyout: '.camera-view-controls',
+    },
+  },
+  {
+    id: 'demo', feature: 'demo', level: 'novice',
+    text: 'Sit back and watch: [Demo mode] tours the map on its own, from one object to the next.',
+    step: {
+      title: 'Demo mode',
+      body: 'The camera glides, orbits and flies between nearby objects. Its card turns [Labels] and [Show UI] on and sets the [Demo speed].',
+      target: '#demo-toggle', flyout: '.info-controls',
     },
   },
 ]

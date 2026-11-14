@@ -283,11 +283,11 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .dock-rail, .dock-card { pointer-events: auto; }
 /* Active graph filter and paint sit left of the Info button, out of the rail's vertical space; an open card shows its own state. */
 .dock-rail { position: relative; }
-.dock-indicators { position: absolute; right: calc(100% + 4px); bottom: 0; display: flex; gap: 4px; transition: transform 160ms ease; }
-/* Clears the Tutorial and Tips buttons with a gap wide enough to read as a separate group. */
-.control-dock .info-controls:not([data-dismissed]):is(:focus-within, [data-touch-open]) ~ .dock-indicators { transform: translateX(-112px); }
+.dock-indicators { position: absolute; right: calc(100% + 4px); bottom: 0; display: flex; gap: 4px; transition: transform 160ms ease, opacity 160ms ease; }
+/* Clears the Tips, Tutorial and Demo mode buttons with a gap wide enough to read as a separate group. */
+.control-dock .info-controls:not([data-dismissed]):is(:focus-within, [data-touch-open]) ~ .dock-indicators { transform: translateX(-160px); }
 @media (hover: hover) and (pointer: fine) {
-  .control-dock .info-controls:hover ~ .dock-indicators { transform: translateX(-112px); }
+  .control-dock .info-controls:hover ~ .dock-indicators { transform: translateX(-160px); }
 }
 .dock-indicators .tooltip { right: 0; bottom: calc(100% + 8px); }
 .control-dock[data-open]:not([data-open="motion"]) .dock-indicators { display: none; }
@@ -311,8 +311,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading.paint-heading { padding-right: 186px; }
 .panel-heading #paint-keep-size { right: 131px; border-radius: 0; }
 .panel-heading #paint-reset { right: 87px; border-radius: 0; }
-.panel-heading.neighborhood-heading { padding-right: 142px; }
-.panel-heading #neighborhood-clear { right: 87px; border-radius: 0; }
+.panel-heading:is(.neighborhood-heading, .demo-heading) { padding-right: 142px; }
+.panel-heading :is(#neighborhood-clear, #demo-run) { right: 87px; border-radius: 0; }
 .dock-card.glossary-card { position: relative; display: flex; flex-direction: column; width: min(640px, calc(var(--ui-width) - var(--dock-gutter))); height: min(520px, calc(var(--ui-height) - 100px)); overflow: hidden; }
 /* Wide enough for the supernova candidates table without horizontal scrolling. */
 .dock-card.top-lists-card { width: min(900px, calc(var(--ui-width) - var(--dock-gutter))); }
@@ -325,7 +325,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading.glossary-heading { flex: 0 0 45px; gap: 18px; padding-right: 98px; }
 /* These headings are 45px tall, 1px more than the others, so their buttons start at the top edge to share the bottom border. */
 :is(.glossary-heading, .constellations-detail-heading) > .panel-lock { top: 0; }
-.panel-heading:is(.objects-heading, .glossary-heading, .paint-heading, .neighborhood-heading, .filter-heading, .preferences-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
+.panel-heading:is(.objects-heading, .glossary-heading, .paint-heading, .neighborhood-heading, .demo-heading, .filter-heading, .preferences-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
 .glossary-heading h2 { flex: 0 0 auto; }
 .glossary-search { position: relative; flex: 1; min-width: 0; }
 .glossary-search > span { position: absolute; top: 50%; left: 9px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
@@ -505,6 +505,12 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 :root[data-ui-hidden][data-ui-hiding] :is(.scene-toolbar > :not(.dock-rail), .dock-rail > :not(.dock-indicators)) { transition-duration: 520ms; transition-delay: 160ms; }
 :root[data-ui-hidden]:not([data-ui-revealed]) :is(.scene-toolbar, .dock-rail) { pointer-events: none; }
 :root[data-ui-hidden]:not([data-ui-revealed]) .dock-indicators { pointer-events: auto; }
+/* A running demo can hide the map's names, and everything around the map except the active-change buttons and its own card. */
+:root[data-demo-labels-off] .projected-labels { visibility: hidden; }
+:root[data-demo-ui-off] :is(.scene-wrap > :not(#scene), .projected-axes) { visibility: hidden; }
+:root[data-demo-ui-off] :is(.dock-indicators, #demo-panel) { visibility: visible; }
+/* During a demo the active-change buttons recede, returning while pointed at or focused. */
+:root[data-demo] .dock-indicators:not(:hover, :focus-within) { opacity: 0.45; }
 /* Touch visibility is explicit so emulated hover/focus cannot leave a tooltip stuck open. */
 :root[data-tooltip-input="touch"] .mass-metric-tooltip:not([data-touch-tooltip-open]) { visibility: hidden !important; }
 .mass-metric-tooltip[data-touch-tooltip-open]:not([hidden]) { display: block; }
@@ -548,7 +554,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 
 .projected-axes, .projected-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; contain: strict; }
 .projected-axes { z-index: 0; }
-.projected-labels { z-index: 3; }
+.projected-labels, .solar-system-labels { z-index: 3; }
 .map-anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
 .map-label { position: absolute; top: 0; left: 0; width: max-content; max-width: 180px; line-height: 1.4; }
 .star-label { font-size: 14px; font-weight: 500; color: var(--ink); text-shadow: 0 1px 5px #000000, 0 0 4px #000000; transform-origin: top left; }
