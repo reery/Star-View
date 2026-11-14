@@ -7,7 +7,7 @@ import compactInfo from './data/compact-object-info.json'
 import { equatorialToGalacticPc, type Star } from './catalog-model'
 import { galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor } from './astronomy'
 import { decodeNebulaMask, parseNebulaOverlayManifest, parseNebulaOverlayPayload } from './nebula-overlay-model'
-import { detailPuffCount, generateNebulaPuffs, nebulaBasis, packNebulaInstances, puffSource, seededRandom } from './nebula-layer'
+import { detailPuffCount, generateNebulaPuffs, nebulaBasis, nebulaExposure, packNebulaInstances, puffSource, seededRandom } from './nebula-layer'
 
 const manifest = parseNebulaOverlayManifest(manifestRaw)
 const nebulae = parseNebulaOverlayPayload(JSON.parse(payloadRaw), manifest)
@@ -245,15 +245,41 @@ describe('nebula puff volumes', () => {
       realColors: new Float32Array(capacity * 3),
       vividColors: new Float32Array(capacity * 3),
     }
-    expect(packNebulaInstances(sources.map((puffs) => ({ puffs, count: puffs.count, radiusScale: 1 })), target)).toBe(capacity)
+    expect(packNebulaInstances(sources.map((puffs) => ({ puffs, count: puffs.count, radiusScale: 1, alphaScale: 1 })), target)).toBe(capacity)
     const [first, second] = sources as [typeof sources[0], typeof sources[0]]
     const half = Math.ceil(first.count / 2)
-    expect(packNebulaInstances([{ puffs: first, count: half, radiusScale: 2 }, { puffs: second, count: second.count, radiusScale: 1 }], target))
-      .toBe(half + second.count)
+    expect(packNebulaInstances([
+      { puffs: first, count: half, radiusScale: 2, alphaScale: 0.5 },
+      { puffs: second, count: second.count, radiusScale: 1, alphaScale: 1 },
+    ], target)).toBe(half + second.count)
     expect(target.shapes[0]).toBeCloseTo(2 * first.shapes[0]!)
-    expect(target.shapes.subarray(1, 4)).toEqual(first.shapes.subarray(1, 4))
+    expect(target.shapes[1]).toBeCloseTo(0.5 * first.shapes[1]!)
+    expect(target.shapes.subarray(2, 4)).toEqual(first.shapes.subarray(2, 4))
     expect(target.shapes.subarray(half * 4, half * 4 + 4)).toEqual(second.shapes.subarray(0, 4))
     expect(packNebulaInstances([], target)).toBe(0)
+  })
+
+  it('exposes every nebula by its surface brightness on one scale', () => {
+    const exposure = (id: string) => nebulaExposure(byId(id).nebula!.surface_brightness_mag_arcsec2)
+    expect(exposure('orion-nebula')).toBe(1)
+    // The Orion Nebula outshines the faint lambda Orionis ring per patch of sky by an order of magnitude.
+    expect(exposure('lambda-orionis-nebula')).toBeLessThan(exposure('orion-nebula') / 8)
+    expect(exposure('california-nebula')).toBeGreaterThan(exposure('lambda-orionis-nebula'))
+    // Each lift step (high brightness two, a telescope one) brightens fainter nebulae;
+    // the Orion Nebula is already at full weight.
+    const lifted = (id: string, lift: number) => nebulaExposure(byId(id).nebula!.surface_brightness_mag_arcsec2, lift)
+    for (const lift of [1, 2, 3]) {
+      expect(lifted('orion-nebula', lift)).toBe(1)
+      expect(lifted('lambda-orionis-nebula', lift)).toBeGreaterThan(lifted('lambda-orionis-nebula', lift - 1))
+      expect(lifted('vdb-27', lift)).toBeGreaterThan(lifted('vdb-27', lift - 1))
+    }
+    // Even the faintest stays faintly visible.
+    expect(Math.min(...nebulae.map((nebula) => nebulaExposure(nebula.nebula!.surface_brightness_mag_arcsec2)))).toBeGreaterThan(0)
+    // Measured values cite their catalogue; plate classes and hand estimates are flagged as estimated.
+    expect(byId('orion-nebula').nebula!.surface_brightness_estimated).toBe(false)
+    expect(byId('orion-nebula').nebula!.surface_brightness_source).toMatch(/Finkbeiner/)
+    expect(byId('dumbbell-nebula').nebula!.surface_brightness_source).toMatch(/Strasbourg-ESO/)
+    expect(byId('messier-78').nebula!.surface_brightness_estimated).toBe(true)
   })
 
   it('generates any prefix of a nebula identically', () => {

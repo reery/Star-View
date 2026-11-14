@@ -677,6 +677,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const OBSERVER_ZOOMS: Record<ObserverZoom, number> = { telescope: 1.6, observatory: 4 }
   const OBSERVER_ZOOM_DURATION_MS = 360
   let observerZoom: ObserverZoom | null = null
+  // Nebulae start at the preferred brightness.
+  updateNebulaExposure()
   // The frame's up (galactic north or the zenith), and the observer's up: the axis drags turn the sky around,
   // which rolling tilts around the view direction.
   const observerFrameUp = new Vector3(0, 1, 0)
@@ -2097,6 +2099,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       observerZoom = null
       observerZoomTransition = null
       applyObserverZoom(1)
+      updateNebulaExposure()
     }
     observerViewAnchorIndex = anchor?.index ?? null
     setOrbitUp(enabled ? observerUp : worldUp)
@@ -2201,8 +2204,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     requestRender()
   }
 
+  /** High brightness lifts nebulae two exposure steps, a telescope or observatory one more. */
+  function updateNebulaExposure(): void {
+    nebulaLayer?.setExposureLift((starBrightness === 'high' ? 2 : 0) + (observerZoom ? 1 : 0))
+  }
+
   function setObserverZoom(zoom: ObserverZoom | null, animate = true): void {
     observerZoom = observerViewEnabled ? zoom : null
+    updateNebulaExposure()
     const to = observerZoom ? OBSERVER_ZOOMS[observerZoom] : 1
     observerZoomTransition = null
     if (animate && !reducedMotion.matches && camera.zoom !== to) {
@@ -2888,6 +2897,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (!STAR_BRIGHTNESSES.includes(brightness) || brightness === starBrightness) return
       starBrightness = brightness
       crowdCoverage.value = starCrowdCoverage(brightness)
+      updateNebulaExposure()
       updateSolarSystemSky()
       updatePresentation()
       requestRender()

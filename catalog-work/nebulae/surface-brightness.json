@@ -1,0 +1,1041 @@
+{
+  "schemaVersion": 1,
+  "sources": {
+    "halpha": {
+      "label": "Finkbeiner (2003) H-alpha map",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F"
+    },
+    "acker": {
+      "label": "Acker et al. (1992) Strasbourg-ESO catalogue",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=V/84"
+    },
+    "lynds": {
+      "label": "Lynds (1965) bright nebulae",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/9"
+    },
+    "vdb": {
+      "label": "van den Bergh (1966) reflection nebulae",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21"
+    },
+    "vdbh": {
+      "label": "van den Bergh & Herbst (1975) southern reflection nebulae",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/218"
+    }
+  },
+  "method": "R-band mag/arcsec^2 (Vega). Planetary nebulae take the mean of their Strasbourg-ESO H-beta flux over the optical disk; emission nebulae at least 12 arcmin across take the peak H-alpha excess of the 6-arcmin Finkbeiner map within their catalogued extent (the frozen mask peak where a mask exists). Others are estimated from photographic plate classes: Lynds classes step one magnitude each from a zero point of 21.13 (the median offset of the measurements they overlap), and reflection-nebula classes map linearly onto the Lynds classes of the nebulae both catalogues list. The remaining few keep their hand estimate, shifted by 1.36 mag (the median offset of the measurements it overlaps); supernova remnants the map cannot isolate are capped at the H-alpha peak of their field.",
+  "calibration": {
+    "lynds_offset_mag": 21.13,
+    "reflection_lynds_class": {
+      "vBr": 1.41,
+      "Br": 2.39,
+      "mBr": 2.88,
+      "M": 3.36,
+      "F": 4.34,
+      "vF": 5.32
+    },
+    "hand_offset_mag": 1.36
+  },
+  "nebulae": {
+    "pleiades-nebula": {
+      "mag_arcsec2": 22.54,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class vBr, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "vBr",
+        "catalogue": "vdB",
+        "retired_brightness": 0.8
+      }
+    },
+    "orion-nebula": {
+      "mag_arcsec2": 20.26,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 4788.9 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 4788.89,
+        "retired_brightness": 1
+      }
+    },
+    "ic-4592": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "ic-4601": {
+      "mag_arcsec2": 23.52,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class Br, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "Br",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "ic-4603": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 0.85
+      }
+    },
+    "ic-4604": {
+      "mag_arcsec2": 23.52,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class Br, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "Br",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "ic-4605": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "ic-4606": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 1.0
+      }
+    },
+    "vdb-101": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "vdb-109": {
+      "mag_arcsec2": 26.45,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class vF, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "vF",
+        "catalogue": "vdB",
+        "retired_brightness": 0.4
+      }
+    },
+    "vdb-111": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "vdb-25": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "vdb-26": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "vdb-27": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "hinds-variable-nebula": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "vdb-7": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "vdb-129": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "vdb-156": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "sh-2-27": {
+      "mag_arcsec2": 23.78,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 186.5 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 186.51,
+        "retired_brightness": 0.3
+      }
+    },
+    "sh-2-7": {
+      "mag_arcsec2": 24.61,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 87.3 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 87.34,
+        "retired_brightness": 0.55
+      }
+    },
+    "abell-35": {
+      "mag_arcsec2": 25.58,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 35.6 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 35.64,
+        "retired_brightness": 0.55
+      }
+    },
+    "sh-2-216": {
+      "mag_arcsec2": 26.74,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 12.3 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 12.26,
+        "retired_brightness": 0.55
+      }
+    },
+    "lambda-orionis-nebula": {
+      "mag_arcsec2": 23.75,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 191.5 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 191.47,
+        "retired_brightness": 0.51
+      }
+    },
+    "sh-2-277": {
+      "mag_arcsec2": 22.81,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 455.6 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 455.55,
+        "retired_brightness": 0.58
+      }
+    },
+    "california-nebula": {
+      "mag_arcsec2": 23.37,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 271.6 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 271.63,
+        "retired_brightness": 0.54
+      }
+    },
+    "flaming-star-nebula": {
+      "mag_arcsec2": 24.37,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 108.7 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 108.72,
+        "retired_brightness": 0.46
+      }
+    },
+    "sh-2-1": {
+      "mag_arcsec2": 24.75,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 76.2 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 76.19,
+        "retired_brightness": 0.43
+      }
+    },
+    "sh-2-9": {
+      "mag_arcsec2": 23.5,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 241.0 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 241.02,
+        "retired_brightness": 0.53
+      }
+    },
+    "ic-63": {
+      "mag_arcsec2": 22.13,
+      "estimated": true,
+      "source": "Lynds (1965) bright nebulae: brightness class 1 of 6 (LBN 622), one magnitude per class calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/9",
+      "basis": {
+        "lbn": 622,
+        "lynds_class": 1,
+        "retired_brightness": 0.6
+      }
+    },
+    "running-man-nebula": {
+      "mag_arcsec2": 21.45,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "retired_brightness": 0.8
+      }
+    },
+    "messier-78": {
+      "mag_arcsec2": 22.54,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class vBr, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "vBr",
+        "catalogue": "vdB",
+        "retired_brightness": 0.85
+      }
+    },
+    "ngc-2071": {
+      "mag_arcsec2": 23.52,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class Br, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "Br",
+        "catalogue": "vdB",
+        "retired_brightness": 0.6
+      }
+    },
+    "ngc-2023": {
+      "mag_arcsec2": 22.54,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class vBr, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "vBr",
+        "catalogue": "vdB",
+        "retired_brightness": 0.75
+      }
+    },
+    "witch-head-nebula": {
+      "mag_arcsec2": 24.13,
+      "estimated": true,
+      "source": "Lynds (1965) bright nebulae: brightness class 3 of 6 (LBN 959), one magnitude per class calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/9",
+      "basis": {
+        "lbn": 959,
+        "lynds_class": 3,
+        "retired_brightness": 0.45
+      }
+    },
+    "ngc-1333": {
+      "mag_arcsec2": 23.52,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class Br, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "Br",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "ic-348": {
+      "mag_arcsec2": 23.52,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class Br, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "Br",
+        "catalogue": "vdB",
+        "retired_brightness": 0.6
+      }
+    },
+    "ic-59": {
+      "mag_arcsec2": 23.13,
+      "estimated": true,
+      "source": "Lynds (1965) bright nebulae: brightness class 2 of 6 (LBN 620), one magnitude per class calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/9",
+      "basis": {
+        "lbn": 620,
+        "lynds_class": 2,
+        "retired_brightness": 0.5
+      }
+    },
+    "iris-nebula": {
+      "mag_arcsec2": 22.54,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class vBr, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "vBr",
+        "catalogue": "vdB",
+        "retired_brightness": 0.8
+      }
+    },
+    "helix-nebula": {
+      "mag_arcsec2": 23.32,
+      "estimated": false,
+      "source": "Acker et al. (1992) Strasbourg-ESO catalogue: mean over the 980-arcsec disk of the observed H-beta flux 10^-9.37 erg/s/cm^2 (PN G036.1-57.1), as H-alpha at the case-B ratio 2.86",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=V/84",
+      "basis": {
+        "png": "036.1-57.1",
+        "log_hbeta_flux": -9.37,
+        "diameter_arcsec": 980.0,
+        "retired_brightness": 0.7
+      }
+    },
+    "dumbbell-nebula": {
+      "mag_arcsec2": 21.61,
+      "estimated": false,
+      "source": "Acker et al. (1992) Strasbourg-ESO catalogue: mean over the 402-arcsec disk of the observed H-beta flux 10^-9.46 erg/s/cm^2 (PN G060.8-03.6), as H-alpha at the case-B ratio 2.86",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=V/84",
+      "basis": {
+        "png": "060.8-03.6",
+        "log_hbeta_flux": -9.46,
+        "diameter_arcsec": 402.0,
+        "retired_brightness": 0.9
+      }
+    },
+    "ngc-1360": {
+      "mag_arcsec2": 23.37,
+      "estimated": false,
+      "source": "Acker et al. (1992) Strasbourg-ESO catalogue: mean over the 385-arcsec disk of the observed H-beta flux 10^-10.2 erg/s/cm^2 (PN G220.3-53.9), as H-alpha at the case-B ratio 2.86",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=V/84",
+      "basis": {
+        "png": "220.3-53.9",
+        "log_hbeta_flux": -10.2,
+        "diameter_arcsec": 385.0,
+        "retired_brightness": 0.6
+      }
+    },
+    "medusa-nebula": {
+      "mag_arcsec2": 24.88,
+      "estimated": false,
+      "source": "Acker et al. (1992) Strasbourg-ESO catalogue: mean over the 615-arcsec disk of the observed H-beta flux 10^-10.4 erg/s/cm^2 (PN G205.1+14.2), as H-alpha at the case-B ratio 2.86",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=V/84",
+      "basis": {
+        "png": "205.1+14.2",
+        "log_hbeta_flux": -10.4,
+        "diameter_arcsec": 615.0,
+        "retired_brightness": 0.4
+      }
+    },
+    "abell-31": {
+      "mag_arcsec2": 26.22,
+      "estimated": false,
+      "source": "Acker et al. (1992) Strasbourg-ESO catalogue: mean over the 970-arcsec disk of the observed H-beta flux 10^-10.54 erg/s/cm^2 (PN G219.1+31.2), as H-alpha at the case-B ratio 2.86",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=V/84",
+      "basis": {
+        "png": "219.1+31.2",
+        "log_hbeta_flux": -10.54,
+        "diameter_arcsec": 970.0,
+        "retired_brightness": 0.35
+      }
+    },
+    "abell-7": {
+      "mag_arcsec2": 26.47,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 15.8 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 15.75,
+        "retired_brightness": 0.35
+      }
+    },
+    "abell-36": {
+      "mag_arcsec2": 24.93,
+      "estimated": false,
+      "source": "Acker et al. (1992) Strasbourg-ESO catalogue: mean over the 370-arcsec disk of the observed H-beta flux 10^-10.86 erg/s/cm^2 (PN G318.4+41.4), as H-alpha at the case-B ratio 2.86",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=V/84",
+      "basis": {
+        "png": "318.4+41.4",
+        "log_hbeta_flux": -10.86,
+        "diameter_arcsec": 370.0,
+        "retired_brightness": 0.45
+      }
+    },
+    "puwe-1": {
+      "mag_arcsec2": 27.46,
+      "estimated": false,
+      "source": "Acker et al. (1992) Strasbourg-ESO catalogue: mean over the 1200-arcsec disk of the observed H-beta flux 10^-10.85 erg/s/cm^2 (PN G158.9+17.8), as H-alpha at the case-B ratio 2.86",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=V/84",
+      "basis": {
+        "png": "158.9+17.8",
+        "log_hbeta_flux": -10.85,
+        "diameter_arcsec": 1200.0,
+        "retired_brightness": 0.35
+      }
+    },
+    "vdb-1": {
+      "mag_arcsec2": 23.52,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class Br, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "Br",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "vdb-4": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "vdb-9": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "vdb-16": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "vdb-18": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "vdb-24": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "vdb-29": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "vdb-31": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "vdb-37": {
+      "mag_arcsec2": 23.52,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class Br, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "Br",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "vdb-38": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "vdb-42": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "ic-420": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "vdb-49": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "vdb-50": {
+      "mag_arcsec2": 23.52,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class Br, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "Br",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "ic-432": {
+      "mag_arcsec2": 22.54,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class vBr, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "vBr",
+        "catalogue": "vdB",
+        "retired_brightness": 0.85
+      }
+    },
+    "ic-435": {
+      "mag_arcsec2": 22.54,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class vBr, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "vBr",
+        "catalogue": "vdB",
+        "retired_brightness": 0.85
+      }
+    },
+    "ic-1287": {
+      "mag_arcsec2": 23.52,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class Br, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "Br",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "vdb-127": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "vdb-134": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "vdb-141": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "vdb-149": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "vdb-150": {
+      "mag_arcsec2": 24.49,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class M, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "M",
+        "catalogue": "vdB",
+        "retired_brightness": 0.7
+      }
+    },
+    "vdb-152": {
+      "mag_arcsec2": 22.54,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class vBr, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "vBr",
+        "catalogue": "vdB",
+        "retired_brightness": 0.85
+      }
+    },
+    "sh-2-68": {
+      "mag_arcsec2": 24.13,
+      "estimated": true,
+      "source": "Lynds (1965) bright nebulae: brightness class 3 of 6 (LBN 93), one magnitude per class calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/9",
+      "basis": {
+        "lbn": 93,
+        "lynds_class": 3,
+        "retired_brightness": 0.35
+      }
+    },
+    "pfp-1": {
+      "mag_arcsec2": 28.02,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 3.8 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 3.78,
+        "retired_brightness": 0.35
+      }
+    },
+    "vdb-138": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "vdb-151": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh (1966) reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdB",
+        "retired_brightness": 0.55
+      }
+    },
+    "ced-184": {
+      "mag_arcsec2": 26.13,
+      "estimated": true,
+      "source": "Lynds (1965) bright nebulae: brightness class 5 of 6 (LBN 422), one magnitude per class calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/9",
+      "basis": {
+        "lbn": 422,
+        "lynds_class": 5,
+        "retired_brightness": 0.55
+      }
+    },
+    "ic-4591": {
+      "mag_arcsec2": 27.13,
+      "estimated": true,
+      "source": "Lynds (1965) bright nebulae: brightness class 6 of 6 (LBN 1096), one magnitude per class calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/9",
+      "basis": {
+        "lbn": 1096,
+        "lynds_class": 6,
+        "retired_brightness": 0.4
+      }
+    },
+    "ic-426": {
+      "mag_arcsec2": 23.13,
+      "estimated": true,
+      "source": "Lynds (1965) bright nebulae: brightness class 2 of 6 (LBN 921), one magnitude per class calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/9",
+      "basis": {
+        "lbn": 921,
+        "lynds_class": 2,
+        "retired_brightness": 0.7
+      }
+    },
+    "lbn-472": {
+      "mag_arcsec2": 25.13,
+      "estimated": true,
+      "source": "Lynds (1965) bright nebulae: brightness class 4 of 6 (LBN 472), one magnitude per class calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/9",
+      "basis": {
+        "lbn": 472,
+        "lynds_class": 4,
+        "retired_brightness": 0.55
+      }
+    },
+    "ngc-6726": {
+      "mag_arcsec2": 24.57,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "retired_brightness": 0.55
+      }
+    },
+    "ic-4812": {
+      "mag_arcsec2": 24.57,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "retired_brightness": 0.55
+      }
+    },
+    "toby-jug-nebula": {
+      "mag_arcsec2": 24.57,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "retired_brightness": 0.55
+      }
+    },
+    "vdbh-7": {
+      "mag_arcsec2": 25.47,
+      "estimated": true,
+      "source": "van den Bergh & Herbst (1975) southern reflection nebulae: plate class F, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/218",
+      "basis": {
+        "plate_class": "F",
+        "catalogue": "vdBH",
+        "retired_brightness": 0.55
+      }
+    },
+    "sh-2-64": {
+      "mag_arcsec2": 26.53,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 14.9 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 14.89,
+        "retired_brightness": 0.7
+      }
+    },
+    "sh-2-126": {
+      "mag_arcsec2": 24.59,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 89.0 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 89.04,
+        "retired_brightness": 0.44
+      }
+    },
+    "sh-2-174": {
+      "mag_arcsec2": 26.13,
+      "estimated": true,
+      "source": "Lynds (1965) bright nebulae: brightness class 5 of 6 (LBN 598), one magnitude per class calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/9",
+      "basis": {
+        "lbn": 598,
+        "lynds_class": 5,
+        "retired_brightness": 0.35
+      }
+    },
+    "iswe-1": {
+      "mag_arcsec2": 28.78,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 1.9 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 1.86,
+        "retired_brightness": 0.35
+      }
+    },
+    "lotr-5": {
+      "mag_arcsec2": 28.79,
+      "estimated": false,
+      "source": "Acker et al. (1992) Strasbourg-ESO catalogue: mean over the 525-arcsec disk of the observed H-beta flux 10^-12.1 erg/s/cm^2 (PN G339.9+88.4), as H-alpha at the case-B ratio 2.86",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=V/84",
+      "basis": {
+        "png": "339.9+88.4",
+        "log_hbeta_flux": -12.1,
+        "diameter_arcsec": 525.0,
+        "retired_brightness": 0.35
+      }
+    },
+    "mwp-1": {
+      "mag_arcsec2": 27.93,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 4.1 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 4.1,
+        "retired_brightness": 0.35
+      }
+    },
+    "tk-1": {
+      "mag_arcsec2": 31.89,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 0.1 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 0.11,
+        "retired_brightness": 0.35
+      }
+    },
+    "wede-1": {
+      "mag_arcsec2": 27.07,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 9.0 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 9.02,
+        "retired_brightness": 0.35
+      }
+    },
+    "vela-supernova-remnant": {
+      "mag_arcsec2": 23.36,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, capped at the 274.3 R H-alpha peak of its field in the Finkbeiner (2003) map",
+      "url": null,
+      "basis": {
+        "halpha_field_peak_rayleigh": 274.33,
+        "retired_brightness": 0.8
+      }
+    },
+    "monogem-ring": {
+      "mag_arcsec2": 29.2,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "halpha_field_peak_rayleigh": 219.12,
+        "retired_brightness": 0.18
+      }
+    },
+    "hoinga": {
+      "mag_arcsec2": 27.7,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "halpha_field_peak_rayleigh": 5.52,
+        "retired_brightness": 0.3
+      }
+    },
+    "crab-nebula": {
+      "mag_arcsec2": 22.13,
+      "estimated": true,
+      "source": "Lynds (1965) bright nebulae: brightness class 1 of 6 (LBN 833), one magnitude per class calibrated against the measurements",
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/9",
+      "basis": {
+        "lbn": 833,
+        "lynds_class": 1,
+        "retired_brightness": 1
+      }
+    }
+  }
+}
