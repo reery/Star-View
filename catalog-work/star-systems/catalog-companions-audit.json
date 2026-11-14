@@ -1221,13 +1221,6 @@
           "vz_kms": -16.722586
         },
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
-      },
-      "spectralSubtypes": {
-        "spectralType": "B8IV-",
-        "labels": [
-          "Subgiant"
-        ],
-        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
     },
     "msc-00084+2905-b": {
@@ -3786,24 +3779,18 @@
         "distancePc": 118.343195262,
         "method": "Individual V and adopted component distance; no extinction correction"
       },
+      "temperature_k": {
+        "field": "temperature_k",
+        "value": 10400,
+        "status": "estimated",
+        "reference": "Pecaut-Mamajek 2022.04.16",
+        "spectralType": "B9.5V"
+      },
       "simbad": {
         "queryId": "HD   6118",
         "mainId": "* sig Psc",
         "oid": "1513426",
         "spectralBibcode": ""
-      },
-      "temperature_k": {
-        "method": "median of published individual-object measurements in SIMBAD",
-        "measurements": [
-          {
-            "oidref": "1513426",
-            "teff": "10740",
-            "log_g": "",
-            "fe_h": "",
-            "fe_h_prec": "",
-            "bibcode": "2012A&A...537A.120Z"
-          }
-        ]
       },
       "metallicity_dex": {
         "source_id": "gaia-dr3",
@@ -3828,16 +3815,14 @@
         ]
       },
       "radius_solar": {
-        "source_id": "gaia-dr3",
-        "source_record_id": "314142055583243904",
         "field": "radius_solar",
-        "value": 3.0400357,
-        "uncertainty": 0.07229269999999977,
-        "status": "model-derived",
-        "reference": "Gaia DR3 astrophysical_parameters",
-        "quality_flags": [
-          "00"
-        ]
+        "value": 3.199330692,
+        "status": "derived",
+        "reference": "Stefan-Boltzmann scaling",
+        "inputs": {
+          "temperature_k": 10400.0,
+          "luminosity_solar": 107.88134
+        }
       },
       "constellationSystemMotion": {
         "systemId": "msc-01028+3148",
@@ -7432,6 +7417,13 @@
           "Supergiant"
         ],
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      },
+      "gcvsSubtypes": {
+        "gcvs": "alf UMi: DCEPS",
+        "labels": [
+          "Classical Cepheid"
+        ],
+        "method": "GCVS pulsation class of the system assigned to its only evolved component"
       }
     },
     "msc-02318+8916-ab": {
@@ -15138,7 +15130,7 @@
         "scope": "MSC exact Ba,Bb spectroscopic solution (6091 d). Formal systemic uncertainty is absent from the frozen MSC row and remains null. Common Galactic vector is a linear propagation approximation; individual orbital velocities and phases remain unmodelled."
       },
       "spectralSubtypes": {
-        "spectralType": "G9III",
+        "spectralType": "G9IIIFe-0.5",
         "labels": [
           "Giant"
         ],
@@ -16711,18 +16703,40 @@
         "distancePc": 70.571630203,
         "method": "Individual V and adopted component distance; no extinction correction"
       },
-      "temperature_k": {
-        "field": "temperature_k",
-        "value": 13150,
-        "status": "estimated",
-        "reference": "Pecaut-Mamajek 2022.04.16",
-        "spectralType": "B7.5V"
-      },
       "simbad": {
         "queryId": "WDS J05123-1152A",
         "mainId": "* iot Lep",
         "oid": "772036",
         "spectralBibcode": "1994AJ....107.1556G"
+      },
+      "temperature_k": {
+        "method": "median of published individual-object measurements in SIMBAD",
+        "measurements": [
+          {
+            "oidref": "772036",
+            "teff": "12050",
+            "log_g": "",
+            "fe_h": "",
+            "fe_h_prec": "",
+            "bibcode": "1995A&AS..110..553S"
+          },
+          {
+            "oidref": "772036",
+            "teff": "12618",
+            "log_g": "",
+            "fe_h": "",
+            "fe_h_prec": "",
+            "bibcode": "2012A&A...537A.120Z"
+          },
+          {
+            "oidref": "772036",
+            "teff": "13280",
+            "log_g": "",
+            "fe_h": "",
+            "fe_h_prec": "",
+            "bibcode": "2009A&A...501..297Z"
+          }
+        ]
       },
       "metallicity_dex": {
         "source_id": "gaia-dr3",
@@ -16748,11 +16762,11 @@
       },
       "radius_solar": {
         "field": "radius_solar",
-        "value": 2.355711088,
+        "value": 2.558541617,
         "status": "derived",
         "reference": "Stefan-Boltzmann scaling",
         "inputs": {
-          "temperature_k": 13150.0,
+          "temperature_k": 12618.0,
           "luminosity_solar": 149.5002
         }
       },
@@ -18707,13 +18721,6 @@
         "V": 6.7,
         "reason": "Unresolved parent flux; secondary brightness unavailable"
       },
-      "temperature_k": {
-        "field": "temperature_k",
-        "value": 24500,
-        "status": "estimated",
-        "reference": "Pecaut-Mamajek 2022.04.16",
-        "spectralType": "B1.5V"
-      },
       "reviewedLiterature": {
         "expectedName": "Theta1 Orionis Da1",
         "systemId": "msc-05353-052D",
@@ -18742,7 +18749,7 @@
         "retained": {}
       },
       "spectralSubtypes": {
-        "spectralType": "B1.5V",
+        "spectralType": "B1.5Vp",
         "labels": [
           "Main-sequence"
         ],
@@ -20689,10 +20696,10 @@
       "astrometryScope": "Individual source direction when available; shared system distance/motion for unresolved close members; no orbital phase or individual radial velocity inferred.",
       "withheldIntegratedFields": {
         "temperature_k": 3580.0,
-        "luminosity_solar": 12513.755826651777,
-        "radius_solar": 290.790644,
+        "luminosity_solar": 3895.279151695026,
+        "radius_solar": 162.239233,
         "metallicity_dex": 0.04,
-        "absolute_mag": -3.345143
+        "absolute_mag": -2.078021
       },
       "unresolvedPhotometry": {
         "magnitude_v": 3.28,
@@ -20701,9 +20708,9 @@
         "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
         "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A+eta+Gem",
         "sourceStarId": "hip-29655",
-        "sourceAbsoluteMagnitude": -3.345143,
-        "sourceDistancePc": 211.362867763,
-        "sourceNotes": "Western constellation line-figure star (HIP 29655; Stellarium Gem). SIMBAD identity * eta Gem; SIMBAD compiled Johnson V=3.28; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 1998A&A...338..623M).",
+        "sourceAbsoluteMagnitude": -2.078021,
+        "sourceDistancePc": 117.924528297,
+        "sourceNotes": "Western constellation line-figure star (HIP 29655; Stellarium Gem). SIMBAD identity * eta Gem; SIMBAD compiled Johnson V=3.28; inverse Hipparcos 2007 parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 1998A&A...338..623M).",
         "policy": "Observed catalog-source photometry only; no individual component flux inferred."
       },
       "withheldPhotometry": {
@@ -20823,6 +20830,13 @@
           "Giant"
         ],
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      },
+      "gcvsSubtypes": {
+        "gcvs": "eta Gem: SRA+EA",
+        "labels": [
+          "Semiregular variable"
+        ],
+        "method": "GCVS pulsation class of the system assigned to its only evolved component"
       }
     },
     "msc-06149+2230-ab": {
@@ -42623,6 +42637,20 @@
         "V": 11.9,
         "distancePc": 9.708737864,
         "method": "Individual V and adopted component distance; no extinction correction"
+      },
+      "temperature_k": {
+        "field": "temperature_k",
+        "value": 3430,
+        "status": "estimated",
+        "reference": "Pecaut-Mamajek 2022.04.16",
+        "spectralType": "M3V"
+      },
+      "spectralSubtypes": {
+        "spectralType": "M3V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
     },
     "msc-12490+6607-ab": {
@@ -53203,10 +53231,10 @@
       "astrometryScope": "Individual source direction when available; shared system distance/motion for unresolved close members; no orbital phase or individual radial velocity inferred.",
       "withheldIntegratedFields": {
         "temperature_k": 15348.0,
-        "luminosity_solar": 212687.27505173496,
-        "radius_solar": 65.225861,
+        "luminosity_solar": 3505.1022887707236,
+        "radius_solar": 8.373353,
         "metallicity_dex": -0.3694,
-        "absolute_mag": -7.409697
+        "absolute_mag": -2.952095
       },
       "unresolvedPhotometry": {
         "magnitude_v": 2.98,
@@ -53215,9 +53243,9 @@
         "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
         "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A+mu.01+Sco",
         "sourceStarId": "hip-82514",
-        "sourceAbsoluteMagnitude": -7.409697,
-        "sourceDistancePc": 1196.57359992,
-        "sourceNotes": "Western constellation line-figure star (HIP 82514; Stellarium Sco). SIMBAD identity * mu.01 Sco; SIMBAD compiled Johnson V=2.98; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+        "sourceAbsoluteMagnitude": -2.952095,
+        "sourceDistancePc": 153.609831019,
+        "sourceNotes": "Western constellation line-figure star (HIP 82514; Stellarium Sco). SIMBAD identity * mu.01 Sco; SIMBAD compiled Johnson V=2.98; inverse Hipparcos 2007 parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
         "policy": "Observed catalog-source photometry only; no individual component flux inferred."
       },
       "withheldPhotometry": {
@@ -56413,10 +56441,10 @@
       "astrometryScope": "Individual source direction when available; shared system distance/motion for unresolved close members; no orbital phase or individual radial velocity inferred.",
       "withheldIntegratedFields": {
         "temperature_k": 4200.0,
-        "luminosity_solar": 2757.7113977499043,
-        "radius_solar": 99.180997,
+        "luminosity_solar": 738.2311011628585,
+        "radius_solar": 51.315697,
         "metallicity_dex": -0.5,
-        "absolute_mag": -2.850845
+        "absolute_mag": -1.419954
       },
       "unresolvedPhotometry": {
         "magnitude_v": 4.367,
@@ -56425,9 +56453,9 @@
         "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
         "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A+ksi+Pav",
         "sourceStarId": "hip-90098",
-        "sourceAbsoluteMagnitude": -2.850845,
-        "sourceDistancePc": 277.695599987,
-        "sourceNotes": "Western constellation line-figure star (HIP 90098; Stellarium Pav). SIMBAD identity * ksi Pav; SIMBAD compiled Johnson V=4.367; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2020A&A...633A..34C).",
+        "sourceAbsoluteMagnitude": -1.419954,
+        "sourceDistancePc": 143.678160913,
+        "sourceNotes": "Western constellation line-figure star (HIP 90098; Stellarium Pav). SIMBAD identity * ksi Pav; SIMBAD compiled Johnson V=4.367; inverse Hipparcos 2007 parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2020A&A...633A..34C).",
         "policy": "Observed catalog-source photometry only; no individual component flux inferred."
       },
       "withheldPhotometry": {
@@ -59123,9 +59151,9 @@
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
       },
       "spectralSubtypes": {
-        "spectralType": "B9.5I",
+        "spectralType": "B9.5III",
         "labels": [
-          "Supergiant"
+          "Giant"
         ],
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
@@ -61931,9 +61959,9 @@
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
       },
       "spectralSubtypes": {
-        "spectralType": "G8+II",
+        "spectralType": "G8+III-IIIaBa0.5",
         "labels": [
-          "Bright giant"
+          "Giant"
         ],
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
@@ -74673,6 +74701,151 @@
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
     },
+    "hip-23453": {
+      "membership": {
+        "source": "frozen SIMBAD composite spectral classification",
+        "mainId": "* zet Aur",
+        "originalSpectralType": "K5II+B7V",
+        "spectralBibcode": null
+      },
+      "withheldIntegratedFields": {
+        "temperature_k": 4343.0,
+        "luminosity_solar": 3888.764439466537,
+        "radius_solar": 110.148555,
+        "metallicity_dex": -0.04,
+        "absolute_mag": -3.15976
+      },
+      "unresolvedPhotometry": {
+        "magnitude_v": 3.75,
+        "error_mag": null,
+        "scope": "Saclateni catalog source; unresolved component contributions",
+        "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
+        "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A+zet+Aur",
+        "sourceStarId": "hip-23453",
+        "sourceAbsoluteMagnitude": -3.15976,
+        "sourceDistancePc": 240.963855406,
+        "sourceNotes": "Western constellation line-figure star (HIP 23453; Stellarium Aur). SIMBAD identity * zet Aur; SIMBAD compiled Johnson V=3.75; inverse Hipparcos 2007 parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...692A.189R).",
+        "policy": "Observed catalog-source photometry only; no individual component flux inferred."
+      },
+      "constellationSystemMotion": {
+        "systemId": "spectroscopic-hip-23453",
+        "primaryStarId": "hip-23453",
+        "radialVelocity": {
+          "valueKms": -3.4116,
+          "uncertaintyKms": null,
+          "uncertaintyKind": "unreported",
+          "reference": "SIMBAD TAP snapshot 2026-10-01",
+          "sourceUrl": "https://simbad.cds.unistra.fr/simbad/",
+          "section": "Existing frozen primary/source RV adoption",
+          "status": "compiled-primary-proxy",
+          "scope": "Compiled primary/source radial velocity used as a system bulk-motion proxy. It may contain orbital, pulsation, wind, gravitational or instrumental shifts; a measurement error does not bound those systematics."
+        },
+        "motionInputs": {
+          "ra_deg": 75.61951434554709,
+          "dec_deg": 41.07583198882223,
+          "parallax_mas": 1.4244,
+          "parallax_error_mas": 0.305,
+          "pm_ra_cosdec_masyr": 12.093,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -19.324,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -3.4116,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        },
+        "adoptedVectorKms": [
+          -16.166636,
+          -73.827346,
+          -7.44821
+        ],
+        "retainedOriginal": {
+          "raw_astrometry": null,
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        },
+        "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
+      },
+      "spectralSubtypes": {
+        "spectralType": "K5II",
+        "labels": [
+          "Bright giant"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "hip-23453-component-b": {
+      "membership": {
+        "source": "frozen SIMBAD composite spectral classification",
+        "mainId": "* zet Aur",
+        "originalSpectralType": "K5II+B7V",
+        "spectralBibcode": null
+      },
+      "withheldIntegratedFields": {
+        "temperature_k": 4343.0,
+        "luminosity_solar": 3888.764439466537,
+        "radius_solar": 110.148555,
+        "metallicity_dex": -0.04,
+        "absolute_mag": -3.15976
+      },
+      "temperature_k": {
+        "field": "temperature_k",
+        "value": 14000,
+        "status": "estimated",
+        "reference": "Pecaut-Mamajek 2022.04.16",
+        "spectralType": "B7V"
+      },
+      "constellationSystemMotion": {
+        "systemId": "spectroscopic-hip-23453",
+        "primaryStarId": "hip-23453",
+        "radialVelocity": {
+          "valueKms": -3.4116,
+          "uncertaintyKms": null,
+          "uncertaintyKind": "unreported",
+          "reference": "SIMBAD TAP snapshot 2026-10-01",
+          "sourceUrl": "https://simbad.cds.unistra.fr/simbad/",
+          "section": "Existing frozen primary/source RV adoption",
+          "status": "compiled-primary-proxy",
+          "scope": "Compiled primary/source radial velocity used as a system bulk-motion proxy. It may contain orbital, pulsation, wind, gravitational or instrumental shifts; a measurement error does not bound those systematics."
+        },
+        "motionInputs": {
+          "ra_deg": 75.61951434554709,
+          "dec_deg": 41.07583198882223,
+          "parallax_mas": 1.4244,
+          "parallax_error_mas": 0.305,
+          "pm_ra_cosdec_masyr": 12.093,
+          "pm_ra_error_masyr": null,
+          "pm_dec_masyr": -19.324,
+          "pm_dec_error_masyr": null,
+          "radial_velocity_kms": -3.4116,
+          "radial_velocity_error_kms": null,
+          "epoch": 2000.0,
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+        },
+        "adoptedVectorKms": [
+          -16.166636,
+          -73.827346,
+          -7.44821
+        ],
+        "retainedOriginal": {
+          "raw_astrometry": null,
+          "vx_kms": null,
+          "vy_kms": null,
+          "vz_kms": null
+        },
+        "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
+      },
+      "spectralSubtypes": {
+        "spectralType": "B7V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
     "hip-108661": {
       "membership": {
         "source": "frozen SIMBAD composite spectral classification",
@@ -74902,6 +75075,13 @@
           "Supergiant"
         ],
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      },
+      "gcvsSubtypes": {
+        "gcvs": "eta Aql: DCEP",
+        "labels": [
+          "Classical Cepheid"
+        ],
+        "method": "GCVS pulsation class of the system assigned to its only evolved component"
       }
     },
     "hip-97804-component-b": {
@@ -75331,151 +75511,6 @@
       },
       "spectralSubtypes": {
         "spectralType": "B2V",
-        "labels": [
-          "Main-sequence"
-        ],
-        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
-      }
-    },
-    "hip-23453": {
-      "membership": {
-        "source": "frozen SIMBAD composite spectral classification",
-        "mainId": "* zet Aur",
-        "originalSpectralType": "K5II+B7V",
-        "spectralBibcode": null
-      },
-      "withheldIntegratedFields": {
-        "temperature_k": 4343.0,
-        "luminosity_solar": 60641.60569206939,
-        "radius_solar": 434.969026,
-        "metallicity_dex": -0.04,
-        "absolute_mag": -6.142157
-      },
-      "unresolvedPhotometry": {
-        "magnitude_v": 3.75,
-        "error_mag": null,
-        "scope": "Saclateni catalog source; unresolved component contributions",
-        "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
-        "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A+zet+Aur",
-        "sourceStarId": "hip-23453",
-        "sourceAbsoluteMagnitude": -6.142157,
-        "sourceDistancePc": 951.549599939,
-        "sourceNotes": "Western constellation line-figure star (HIP 23453; Stellarium Aur). SIMBAD identity * zet Aur; SIMBAD compiled Johnson V=3.75; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...692A.189R).",
-        "policy": "Observed catalog-source photometry only; no individual component flux inferred."
-      },
-      "constellationSystemMotion": {
-        "systemId": "spectroscopic-hip-23453",
-        "primaryStarId": "hip-23453",
-        "radialVelocity": {
-          "valueKms": -3.4116,
-          "uncertaintyKms": null,
-          "uncertaintyKind": "unreported",
-          "reference": "SIMBAD TAP snapshot 2026-10-01",
-          "sourceUrl": "https://simbad.cds.unistra.fr/simbad/",
-          "section": "Existing frozen primary/source RV adoption",
-          "status": "compiled-primary-proxy",
-          "scope": "Compiled primary/source radial velocity used as a system bulk-motion proxy. It may contain orbital, pulsation, wind, gravitational or instrumental shifts; a measurement error does not bound those systematics."
-        },
-        "motionInputs": {
-          "ra_deg": 75.61951434554709,
-          "dec_deg": 41.07583198882223,
-          "parallax_mas": 1.4244,
-          "parallax_error_mas": 0.305,
-          "pm_ra_cosdec_masyr": 12.093,
-          "pm_ra_error_masyr": null,
-          "pm_dec_masyr": -19.324,
-          "pm_dec_error_masyr": null,
-          "radial_velocity_kms": -3.4116,
-          "radial_velocity_error_kms": null,
-          "epoch": 2000.0,
-          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
-          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
-        },
-        "adoptedVectorKms": [
-          -16.166636,
-          -73.827346,
-          -7.44821
-        ],
-        "retainedOriginal": {
-          "raw_astrometry": null,
-          "vx_kms": null,
-          "vy_kms": null,
-          "vz_kms": null
-        },
-        "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
-      },
-      "spectralSubtypes": {
-        "spectralType": "K5II",
-        "labels": [
-          "Bright giant"
-        ],
-        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
-      }
-    },
-    "hip-23453-component-b": {
-      "membership": {
-        "source": "frozen SIMBAD composite spectral classification",
-        "mainId": "* zet Aur",
-        "originalSpectralType": "K5II+B7V",
-        "spectralBibcode": null
-      },
-      "withheldIntegratedFields": {
-        "temperature_k": 4343.0,
-        "luminosity_solar": 60641.60569206939,
-        "radius_solar": 434.969026,
-        "metallicity_dex": -0.04,
-        "absolute_mag": -6.142157
-      },
-      "temperature_k": {
-        "field": "temperature_k",
-        "value": 14000,
-        "status": "estimated",
-        "reference": "Pecaut-Mamajek 2022.04.16",
-        "spectralType": "B7V"
-      },
-      "constellationSystemMotion": {
-        "systemId": "spectroscopic-hip-23453",
-        "primaryStarId": "hip-23453",
-        "radialVelocity": {
-          "valueKms": -3.4116,
-          "uncertaintyKms": null,
-          "uncertaintyKind": "unreported",
-          "reference": "SIMBAD TAP snapshot 2026-10-01",
-          "sourceUrl": "https://simbad.cds.unistra.fr/simbad/",
-          "section": "Existing frozen primary/source RV adoption",
-          "status": "compiled-primary-proxy",
-          "scope": "Compiled primary/source radial velocity used as a system bulk-motion proxy. It may contain orbital, pulsation, wind, gravitational or instrumental shifts; a measurement error does not bound those systematics."
-        },
-        "motionInputs": {
-          "ra_deg": 75.61951434554709,
-          "dec_deg": 41.07583198882223,
-          "parallax_mas": 1.4244,
-          "parallax_error_mas": 0.305,
-          "pm_ra_cosdec_masyr": 12.093,
-          "pm_ra_error_masyr": null,
-          "pm_dec_masyr": -19.324,
-          "pm_dec_error_masyr": null,
-          "radial_velocity_kms": -3.4116,
-          "radial_velocity_error_kms": null,
-          "epoch": 2000.0,
-          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
-          "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
-        },
-        "adoptedVectorKms": [
-          -16.166636,
-          -73.827346,
-          -7.44821
-        ],
-        "retainedOriginal": {
-          "raw_astrometry": null,
-          "vx_kms": null,
-          "vy_kms": null,
-          "vz_kms": null
-        },
-        "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
-      },
-      "spectralSubtypes": {
-        "spectralType": "B7V",
         "labels": [
           "Main-sequence"
         ],
@@ -78097,6 +78132,13 @@
         },
         "scope": "Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
       },
+      "gcvsSubtypes": {
+        "gcvs": "omi Cet: M",
+        "labels": [
+          "Mira variable"
+        ],
+        "method": "GCVS pulsation class of the system assigned to its only evolved component"
+      },
       "reviewedLiterature": {
         "expectedName": "Mira Aa",
         "systemId": "orb6-02193-0259-aa-ab",
@@ -80459,12 +80501,12 @@
       },
       "withheldIntegratedFields": {
         "temperature_k": 8279.0,
-        "luminosity_solar": 996.2265909,
-        "radius_solar": 15.34178684,
-        "absolute_mag": -2.755598,
-        "vx_kms": 15.097904,
-        "vy_kms": -19.505701,
-        "vz_kms": -44.352188
+        "luminosity_solar": 121.1376741,
+        "radius_solar": 5.349787049,
+        "absolute_mag": -0.467901,
+        "vx_kms": -1.472227,
+        "vy_kms": -11.572444,
+        "vz_kms": -18.297906
       },
       "unresolvedPhotometry": {
         "magnitude_v": 6.09,
@@ -80473,9 +80515,9 @@
         "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
         "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=HD++38735",
         "sourceStarId": "hip-27341",
-        "sourceAbsoluteMagnitude": -2.755598,
-        "sourceDistancePc": 587.651199996,
-        "sourceNotes": "Naked-eye star: SIMBAD compiled Johnson V=6.09 (2000A&A...355L..27H). SIMBAD identity HD  38735; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2012A&A...537A.120Z; luminosity_solar: 2012MNRAS.427..343M). radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
+        "sourceAbsoluteMagnitude": -0.467901,
+        "sourceDistancePc": 204.918032785,
+        "sourceNotes": "Naked-eye star: SIMBAD compiled Johnson V=6.09 (2000A&A...355L..27H). SIMBAD identity HD  38735; inverse Hipparcos 2007 parallax distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2012A&A...537A.120Z; luminosity_solar: 2012MNRAS.427..343M). radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
         "policy": "Observed catalog-source photometry only; no individual component flux inferred."
       }
     },
@@ -82695,9 +82737,9 @@
         "radius_solar": 2.1156657,
         "age_gyr": 1.841,
         "absolute_mag": 2.683692,
-        "vx_kms": 74.786484,
-        "vy_kms": 8.791188,
-        "vz_kms": -39.055404
+        "vx_kms": -23.428579,
+        "vy_kms": -21.66114,
+        "vz_kms": -7.028118
       },
       "unresolvedPhotometry": {
         "magnitude_v": 5.24,
@@ -96889,10 +96931,10 @@
       },
       "withheldIntegratedFields": {
         "temperature_k": 32200.0,
-        "absolute_mag": -7.084097,
-        "vx_kms": -17.854977,
-        "vy_kms": -11.362247,
-        "vz_kms": -22.933884
+        "absolute_mag": -6.49936,
+        "vx_kms": -18.981591,
+        "vy_kms": -11.704834,
+        "vz_kms": -19.703731
       },
       "unresolvedPhotometry": {
         "magnitude_v": 2.77,
@@ -96901,9 +96943,9 @@
         "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
         "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A+iot+Ori",
         "sourceStarId": "hip-26241",
-        "sourceAbsoluteMagnitude": -7.084097,
-        "sourceDistancePc": 935.016699982,
-        "sourceNotes": "Naked-eye star: SIMBAD compiled Johnson V=2.77 (2002yCat.2237....0D). SIMBAD identity * iot Ori; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 1995A&AS..110..553S).",
+        "sourceAbsoluteMagnitude": -6.49936,
+        "sourceDistancePc": 714.285714272,
+        "sourceNotes": "Naked-eye star: SIMBAD compiled Johnson V=2.77 (2002yCat.2237....0D). SIMBAD identity * iot Ori; inverse Hipparcos 2007 parallax distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 1995A&AS..110..553S).",
         "policy": "Observed catalog-source photometry only; no individual component flux inferred."
       },
       "spectralClassification": {
@@ -111803,10 +111845,10 @@
       },
       "withheldIntegratedFields": {
         "temperature_k": 26100.0,
-        "absolute_mag": -7.110115,
-        "vx_kms": -81.391281,
-        "vy_kms": -25.456464,
-        "vz_kms": -25.326403
+        "absolute_mag": -5.595058,
+        "vx_kms": -12.248788,
+        "vy_kms": -21.061721,
+        "vz_kms": -11.980039
       },
       "unresolvedPhotometry": {
         "magnitude_v": 5.45,
@@ -111815,9 +111857,9 @@
         "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
         "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=HD+152234",
         "sourceStarId": "hip-82676",
-        "sourceAbsoluteMagnitude": -7.110115,
-        "sourceDistancePc": 3251.044399787,
-        "sourceNotes": "Naked-eye star: SIMBAD compiled Johnson V=5.45 (2002yCat.2237....0D). SIMBAD identity HD 152234; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2024A&A...687A.228D).",
+        "sourceAbsoluteMagnitude": -5.595058,
+        "sourceDistancePc": 1618.122977241,
+        "sourceNotes": "Naked-eye star: SIMBAD compiled Johnson V=5.45 (2002yCat.2237....0D). SIMBAD identity HD 152234; open-cluster parallax (NGC 6231) distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2024A&A...687A.228D).",
         "policy": "Observed catalog-source photometry only; no individual component flux inferred."
       },
       "spectralClassification": {
@@ -123504,6 +123546,7 @@
             "Emission-line star",
             "Rotating variable",
             "Spectroscopic binary",
+            "BY Draconis variable candidate",
             "Main-sequence"
           ],
           "known_planets": 0,
@@ -123739,6 +123782,7 @@
             "Emission-line star",
             "Rotating variable",
             "Spectroscopic binary",
+            "BY Draconis variable candidate",
             "Main-sequence"
           ],
           "known_planets": 0,
@@ -169711,6 +169755,16 @@
       "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
     },
     {
+      "id": "hip-87073",
+      "name": "Iota1 Sco",
+      "simbadType": "s*y",
+      "spectralType": "F2Ia",
+      "wdsIds": [
+        "WDS J17476-4008A"
+      ],
+      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
+    },
+    {
       "id": "hip-49583",
       "name": "Eta Leo",
       "simbadType": "sg*",
@@ -169761,16 +169815,6 @@
       "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
     },
     {
-      "id": "hip-87073",
-      "name": "Iota1 Sco",
-      "simbadType": "s*y",
-      "spectralType": "F2Ia",
-      "wdsIds": [
-        "WDS J17476-4008A"
-      ],
-      "status": "Needs source review; a WDS identifier or spectral/astrometric flag alone does not establish physical component membership."
-    },
-    {
       "id": "hip-89341",
       "name": "Polis",
       "simbadType": "s*b",
@@ -169788,7 +169832,7 @@
   "selectedFieldCoverage": {
     "individualApparentMagnitude": 1124,
     "unresolvedSourcePhotometry": 365,
-    "subtypes": 1311,
+    "subtypes": 1313,
     "missingSubtypes": [
       "gj-105-c",
       "cns5-1723",
@@ -170318,7 +170362,6 @@
       "msc-12372-6908-b",
       "msc-12463-6806-ab",
       "msc-12463-6806-d",
-      "cns5-3169",
       "msc-12490+6607-ab",
       "msc-12490+6607-b",
       "msc-13239+5456-ba",
@@ -170436,7 +170479,6 @@
       "orb6-02095+3459-a-b-b",
       "hip-10305",
       "orb6-02128-0224-aa-ab-ab",
-      "hip-10826",
       "orb6-02193-0259-aa-ab-ab",
       "cns5-0609",
       "orb6-02225-2349-a-b-b",
@@ -171418,10 +171460,10 @@
       "hip-112158-component-b",
       "hip-61199-component-b",
       "hip-97365-component-b",
+      "hip-23453-component-b",
       "hip-97804-component-b",
       "hip-26207-component-b",
       "hip-111022-component-b",
-      "hip-23453-component-b",
       "cns5-0137",
       "orb6-00279+2220-a-b-b",
       "orb6-00329-0434-a-c-c",
@@ -171800,7 +171842,7 @@
       "luminosity_solar": 826,
       "radius_solar": 850,
       "metallicity_dex": 788,
-      "age_gyr": 94,
+      "age_gyr": 82,
       "absolute_mag": 1124
     },
     "withoutProperties": [
@@ -174417,6 +174459,9 @@
         "mass_solar",
         "age_gyr"
       ],
+      "cns5-0347": [
+        "age_gyr"
+      ],
       "hip-71908": [
         "age_gyr"
       ],
@@ -174538,6 +174583,9 @@
         "age_gyr"
       ],
       "cns5-4201": [
+        "age_gyr"
+      ],
+      "cns5-4202": [
         "age_gyr"
       ],
       "cns5-4264": [
@@ -174669,6 +174717,9 @@
         "mass_solar",
         "age_gyr"
       ],
+      "cns5-5220": [
+        "age_gyr"
+      ],
       "cns5-5219": [
         "mass_solar",
         "luminosity_solar",
@@ -174758,6 +174809,9 @@
         "age_gyr"
       ],
       "cns5-5695": [
+        "age_gyr"
+      ],
+      "cns5-0574": [
         "age_gyr"
       ],
       "cns5-0575": [
@@ -175135,6 +175189,9 @@
         "radius_solar",
         "age_gyr"
       ],
+      "cns5-0859": [
+        "age_gyr"
+      ],
       "cns5-0941": [
         "age_gyr"
       ],
@@ -175313,6 +175370,9 @@
         "mass_solar",
         "age_gyr",
         "absolute_mag"
+      ],
+      "cns5-5722": [
+        "age_gyr"
       ],
       "cns5-5721": [
         "metallicity_dex",
@@ -175514,6 +175574,9 @@
         "age_gyr",
         "absolute_mag"
       ],
+      "cns5-0862": [
+        "age_gyr"
+      ],
       "cns5-0863": [
         "spectral_type",
         "temperature_k",
@@ -175669,6 +175732,9 @@
         "metallicity_dex",
         "age_gyr",
         "absolute_mag"
+      ],
+      "cns5-1336": [
+        "age_gyr"
       ],
       "cns5-1335": [
         "spectral_type",
@@ -176448,7 +176514,13 @@
         "age_gyr",
         "absolute_mag"
       ],
+      "cns5-4894": [
+        "age_gyr"
+      ],
       "cns5-4903": [
+        "age_gyr"
+      ],
+      "cns5-4904": [
         "age_gyr"
       ],
       "cns5-4913": [
@@ -177555,6 +177627,9 @@
       "cns5-2547": [
         "age_gyr",
         "absolute_mag"
+      ],
+      "cns5-2687": [
+        "age_gyr"
       ],
       "cns5-2795": [
         "age_gyr"
@@ -178707,6 +178782,9 @@
         "age_gyr",
         "absolute_mag"
       ],
+      "cns5-5711": [
+        "age_gyr"
+      ],
       "cns5-5712": [
         "temperature_k",
         "mass_solar",
@@ -179507,6 +179585,7 @@
         "absolute_mag"
       ],
       "trapezium-theta1-orionis-d": [
+        "temperature_k",
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
@@ -180468,7 +180547,6 @@
         "age_gyr"
       ],
       "cns5-3169": [
-        "temperature_k",
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
@@ -182636,6 +182714,23 @@
       "hip-30867-component-c": [
         "age_gyr"
       ],
+      "hip-23453": [
+        "temperature_k",
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "absolute_mag"
+      ],
+      "hip-23453-component-b": [
+        "mass_solar",
+        "luminosity_solar",
+        "radius_solar",
+        "metallicity_dex",
+        "age_gyr",
+        "absolute_mag"
+      ],
       "hip-108661": [
         "temperature_k",
         "mass_solar",
@@ -182693,23 +182788,6 @@
         "absolute_mag"
       ],
       "hip-111022-component-b": [
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
-        "metallicity_dex",
-        "age_gyr",
-        "absolute_mag"
-      ],
-      "hip-23453": [
-        "temperature_k",
-        "mass_solar",
-        "luminosity_solar",
-        "radius_solar",
-        "metallicity_dex",
-        "age_gyr",
-        "absolute_mag"
-      ],
-      "hip-23453-component-b": [
         "mass_solar",
         "luminosity_solar",
         "radius_solar",
@@ -189132,20 +189210,20 @@
     "luminosity_solar": 826,
     "radius_solar": 850,
     "metallicity_dex": 788,
-    "age_gyr": 94
+    "age_gyr": 82
   },
   "inputSha256": {
     "src/data/star-systems.json": "ccb8b300d861fec42a9b95bfeafa8e30f3b4c53298c8c03e3f1743bf4c28fddf",
-    "src/data/object-designations.json": "4dc3f3f6132f721fd0cf7d68be311d58fc9e11e4438d583c4c74a8d758b02233",
-    "src/data/object-stats.json": "a1c174d5fbc3a13435e40186656cd236d5fc6142d5f0913ac4014835ef38dae0",
+    "src/data/object-designations.json": "dc118d1aa7b4eea630ad078e26295c7c3f75a6955f505dcb85b353eaddf79dc0",
+    "src/data/object-stats.json": "c50c2bca8d452b4551568e8c23ed5f59d9606b9e6b2a8ad188bd761c8c2a701d",
     "catalog-work/bright-stars/retired-catalog/stars.csv": "7323a7558aa7af710cdd3829a865fe1c207629a47252fdcde4eef833dbab0cb1",
     "catalog-work/famous-cluster-stars/retired-catalog/stars.csv": "33177d7aebf518102e1e9df6d8117bb632b8cf2dd344a2a2bbb2caa3b6ffc210",
-    "src/data/catalogs/naked-eye-stars/stars.csv": "9212bdef36cf17336f7e03dec3e8df94fdcaa6d523c62a13d4fc071c53e630b3",
+    "src/data/catalogs/naked-eye-stars/stars.csv": "e6840784bebf3a0df072f304d5ab319bd33c5eb56982e6dd1a0b70ea1f06a887",
     "src/data/catalogs/nearest-100/stars.csv": "d5a025666750b798e5ba991436b5a3656f6aea4a2ad7a50cb795aa752c0259f8",
-    "src/data/catalogs/nearest-1000/stars.csv": "bfe66cbcd8288c51e2f17f4ffd12f3661605c2dee22f4f42cdc6d2d776ceb182",
-    "src/data/catalogs/nearest-5000/stars.csv": "f911ed7c55e6c1d2a76174af123a9d324c300b849e72009fa80488f8d642aaa0",
+    "src/data/catalogs/nearest-1000/stars.csv": "801789f131e2a21dcd5e2d8ffb6e4d7f929eb244da5fa3e6396fa458cbf62d17",
+    "src/data/catalogs/nearest-5000/stars.csv": "d68a715ed91b28b4691b093a2b4988bab253c878bf9ce0f0e7d246c456fc798b",
     "src/data/catalogs/notable-distant-stars/stars.csv": "afed253f44340a6d0a4057b91ab1554fba16f1c106e76e54a8660b016bfdbd36",
-    "src/data/catalogs/western-constellation-stars/stars.csv": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748",
+    "src/data/catalogs/western-constellation-stars/stars.csv": "f094b4f53be6c5d73bca10c803845831096d7a2dd48b1606d68ca65ea287dcc8",
     "src/data/stars.csv": "44288f83123f36b349c58a72e4ae23608ec242e5ff25850fabf6a42ca2ae616a",
     "catalog-work/star-systems/catalog-companions-msc.json": "b81210724ff9914c3c286c5971155df5bf20613252baaa9472eee085f0cd0f41",
     "catalog-work/star-systems/catalog-companions-cifuentes.json": "bdd35ae8d422a55660f6055417684ec7dbe7bf8df6ec1657129b448bc73346b8",

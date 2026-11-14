@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "id": "naked-eye-stars",
   "label": "Naked-eye stars",
-  "description": "Every star brighter than V 6.5, visible without a telescope from a dark site, out to 20,000 light-years: 7748 new records plus 1049 records shared verbatim with the nearby and constellation catalogs, plus the Sun.",
+  "description": "Every star brighter than V 6.5, visible without a telescope from a dark site, out to 20,000 light-years: 7743 new records plus 1049 records shared verbatim with the nearby and constellation catalogs, plus the Sun.",
   "epoch": 2000,
-  "objectCount": 8798,
+  "objectCount": 8793,
   "sources": [
     {
       "name": "SIMBAD TAP snapshot via the simbad.harvard.edu mirror; exact identities, astrometry, classification, compiled Johnson V and mesFe_h spectroscopy",
@@ -533,5 +533,5 @@
     }
   ],
   "cutoffPolicy": "Every SIMBAD object with a compiled Johnson V <= 6.5, a positive parallax and an adopted distance within 20,000 light-years. Clusters, galaxies, supernovae and other non-stellar types are excluded, as are ** aggregates whose components are listed. Stars curated by the nearby or constellation catalogs, matched by exact identifier or within 20 arcsec at a consistent distance, keep that record and ID; their reviewed companions follow. A component without a parallax of its own uses the parallax and motion of its SIMBAD multiple-star record; other stars without a parallax are listed in the provenance audit, not placed. Sun is included only as the map origin.",
-  "snapshot": "SIMBAD, Gaia DR3 and Bailer-Jones snapshots frozen 2026-11-03; Allende Prieto & Lambert 1999 and McDonald et al. 2012 exact-HIP rows frozen 2026-11-10 from the vizier.idia.ac.za VizieR mirror."
+  "snapshot": "SIMBAD, Gaia DR3 and Bailer-Jones snapshots frozen 2026-11-03; Allende Prieto & Lambert 1999 and McDonald et al. 2012 exact-HIP rows frozen 2026-11-10 from the vizier.idia.ac.za VizieR mirror; SIMBAD radial-velocity measurements frozen 2026-11-14."
 }

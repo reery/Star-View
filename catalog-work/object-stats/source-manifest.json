@@ -2,7 +2,8 @@
   "retrieved": "2026-10-08",
   "sources": {
     "simbad": "https://simbad.cds.unistra.fr/simbad/sim-tap/sync",
-    "planets": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
+    "planets": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync",
+    "gcvs": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=B/gcvs/gcvs_cat&-out=GCVS,VarType&-out.max=unlimited"
   },
   "checksumsSha256": {
     "simbad.csv": "48f74f724f4a07e8c48c9f00de48acb2d2d8d6bc781618f5b9eb11c360d56473",
@@ -10,7 +11,8 @@
     "types.csv": "78f2745a265e2ec34115ef02072a13ad3b007d8028beeff3b64eef54042372bc",
     "types.adql": "70661c7e93361cd294a039794f4739d98c8d172aa97668bab0a38833a5685ead",
     "planet-hosts.csv": "4e0b982a1c38b8bfae606608ed6c003c1ed3872b5a460f215d4f6965bbe21323",
-    "planet-hosts.adql": "81bbfcbc18c46c0b48238f47723cf581ea118fda46b332ebbc40c0eaf0000308"
+    "planet-hosts.adql": "81bbfcbc18c46c0b48238f47723cf581ea118fda46b332ebbc40c0eaf0000308",
+    "gcvs.csv": "8d00ca128de6b0985742ce95e210c6e1c695785b89e11971f49d3361292d077b"
   },
   "extensions": [
     {
@@ -57,6 +59,14 @@
         "simbad.csv"
       ],
       "note": "Classifications of the 7741 naked-eye-star identities without an earlier snapshot row, appended through the ident index (97 batches of up to 80 exact SIMBAD main identifiers, alltypes split one row per type); every identity returned exactly one object. Earlier rows are unchanged."
+    },
+    {
+      "retrieved": "2026-11-14",
+      "source": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=B/gcvs/gcvs_cat&-out=GCVS,VarType&-out.max=unlimited",
+      "files": [
+        "gcvs.csv"
+      ],
+      "note": "General Catalogue of Variable Stars (Samus et al. 2017, 2017ARep...61...80S): every name with its variability type."
     }
   ],
   "compactExpansion": {

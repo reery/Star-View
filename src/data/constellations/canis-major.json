@@ -505,19 +505,19 @@
       "magnitude_v": 3.02,
       "bayer": "ο2",
       "object": {
-        "x_pc": -811.319916735,
-        "y_pc": -1182.892154861,
-        "z_pc": -207.414298563,
-        "vx_kms": -49.856303,
-        "vy_kms": -24.071586,
-        "vz_kms": -3.660505,
+        "x_pc": -474.40510171,
+        "y_pc": -691.675455592,
+        "z_pc": -121.281875837,
+        "vx_kms": -40.329562,
+        "vy_kms": -30.37128,
+        "vz_kms": -4.997812,
         "temperature_k": 17000.0,
         "mass_solar": null,
         "luminosity_solar": null,
         "radius_solar": null,
         "metallicity_dex": null,
         "age_gyr": null,
-        "absolute_mag": -7.785804,
+        "absolute_mag": -6.62059,
         "epoch": 2000.0,
         "type": "star",
         "id": "hip-33977",
@@ -532,8 +532,8 @@
         "raw_astrometry": {
           "ra_deg": 105.75613058900544,
           "dec_deg": -23.833293974200288,
-          "parallax_mas": 0.8715,
-          "parallax_error_mas": 0.3319,
+          "parallax_mas": 1.18,
+          "parallax_error_mas": 0.4,
           "pm_ra_cosdec_masyr": -1.335,
           "pm_ra_error_masyr": null,
           "pm_dec_masyr": 3.803,
@@ -541,7 +541,7 @@
           "radial_velocity_kms": 48.08,
           "radial_velocity_error_kms": null,
           "epoch": 2000.0,
-          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01; parallax 2007A&A...474..653V",
           "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
         }
       }
@@ -1214,7 +1214,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
+      "sha256": "f094b4f53be6c5d73bca10c803845831096d7a2dd48b1606d68ca65ea287dcc8"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

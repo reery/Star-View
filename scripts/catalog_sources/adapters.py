@@ -126,6 +126,14 @@ def read_gaia_tap(path: Path) -> list[NormalizedSourceRecord]:
     return records
 
 
+# FLAME ages stop at 13.5 Gyr. An upper bound at that limit marks a posterior cut off by the grid, whose median is no measurement.
+FLAME_AGE_LIMIT_GYR = 13.5
+
+
+def flame_age_truncated(upper) -> bool:
+    return upper is not None and upper >= FLAME_AGE_LIMIT_GYR
+
+
 def eligible_gaia_physical(record: NormalizedSourceRecord | None) -> dict[str, PhysicalObservation]:
     """Return Gaia DR3 physical fields that satisfy the catalog's existing quality policy."""
     if record is None:
@@ -133,6 +141,8 @@ def eligible_gaia_physical(record: NormalizedSourceRecord | None) -> dict[str, P
     eligible = {}
     for item in record.physical:
         if not math.isfinite(item.value) or (item.field != "metallicity_dex" and item.value <= 0):
+            continue
+        if item.field == "age_gyr" and flame_age_truncated(_number((record.raw or {}).get("age_flame_upper"))):
             continue
         if item.field in {"temperature_k", "metallicity_dex"}:
             eligible[item.field] = item

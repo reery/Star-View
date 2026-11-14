@@ -23,7 +23,7 @@ from catalog_sources.enrichment import GAIA_REPUBLICATIONS, estimate_temperature
 from catalog_sources.ordinary_binaries import orbit_pairs, matching_members
 from catalog_sources.spectroscopic_binaries import FILES as SB9_FILES, best_orbit, sb9_systems
 from catalog_sources.companion_properties import apply_literature, property_coverage
-from catalog_sources.classification import prune_subtypes, spectral_labels
+from catalog_sources.classification import contradicted, gcvs_labels, prune_subtypes, spectral_labels
 from catalog_sources.preservation import catalog_withheld, pool_losses, retain_frozen_source
 from catalog_sources.shared_objects import REVIEW as SHARED_OBJECT_REVIEW, reviewed_objects
 from catalog_sources.bright_system_motion import apply_bright_system_motion, bulk_vector
@@ -160,6 +160,11 @@ def sb9_system_motion(parent, orbit):
     adopted = {**raw, **({"radial_velocity_kms": fitted, "radial_velocity_error_kms": error,
                           "radial_velocity_ref": f"{orbit['bibcode']}; SB9 systemic velocity"} if fitted is not None else {})}
     return adopted, bulk_vector(raw, velocity)
+
+
+EVOLVED_STAGES = {"Giant", "Bright giant", "Supergiant", "Red giant", "Red supergiant", "Yellow supergiant", "Blue supergiant",
+                  "Evolved supergiant", "Asymptotic giant branch"}
+EVOLVED_PULSATION = {"Cepheid variable", "Classical Cepheid", "Type II Cepheid", "Mira variable", "Semiregular variable", "RV Tauri variable"}
 
 
 def build():
@@ -414,7 +419,9 @@ def build():
                         "distancePc": calculated_float(distance), "method": "Individual V and adopted component distance; no extinction correction"}
                 elif visual:
                     evidence["withheldPhotometry"] = {"V": visual, "reason": "Unresolved parent flux; secondary brightness unavailable"}
-            star["spectral_type"] = spectrum(inherited_spectrum)
+            # MSC spectra fill a five-character field (B9.5III becomes B9.5I); the star's own longer spectrum is the untruncated one.
+            own = existing and not COMPOSITE.search(existing["spectral_type"] or "") and existing["spectral_type"]
+            star["spectral_type"] = own if own and inherited_spectrum and own.startswith(spectrum(inherited_spectrum)) else spectrum(inherited_spectrum)
             star["notes"] += f" MSC physical hierarchy {wds}, component {label}. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld."
             # Prefer the explicitly named individual measurement to a compiled alternate class.
             if source and not COMPOSITE.search(source["sp_type"]) and number(source["V"]) is not None:
@@ -804,6 +811,35 @@ def build():
             audit["componentRecords"].setdefault(identifier, {})["spectralSubtypes"] = {
                 "spectralType": star["spectral_type"], "labels": added_labels,
                 "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"}
+
+    # A GCVS pulsation class that only an evolved star shows belongs to the system's one evolved component:
+    # Polaris Aa (F8Ib) is the Cepheid, not Polaris B (F3V). With several evolved members it stays unassigned.
+    for system in definitions:
+        members = [component["starId"] for component in system["components"] if component["starId"] in pool]
+        entries = {stats.get(identifier, {}).get("gcvs") for identifier in members} - {None}
+        primaries = {component["starId"] for component in system["components"] if component["label"] in {"A", "Aa"}}
+
+        def stage_labels(identifier):
+            # An unresolved primary without a split spectrum keeps its catalog row's single spectrum (Mira's M5/6IIIe):
+            # the system's integrated light is the primary's.
+            own = pool[identifier]["subtypes"]
+            if not pool[identifier]["spectral_type"] and identifier in primaries:
+                own = [*own, *spectral_labels({"type": "star", "spectral_type": stars.get(identifier, {}).get("spectral_type") or ""})]
+            return {label.removesuffix(" candidate") for label in own}
+
+        evolved = [identifier for identifier in members if EVOLVED_STAGES & stage_labels(identifier)]
+        # Every other member must be a known dwarf or have no spectrum; a mixed class (Rasalgethi A, M5Ib-II) could be the variable.
+        others_ruled_out = all(pool[identifier]["type"] != "star" or not pool[identifier]["spectral_type"]
+                               or {"Main-sequence", "Subdwarf"} & set(pool[identifier]["subtypes"]) for identifier in members if identifier not in evolved)
+        if len(entries) != 1 or len(evolved) != 1 or not others_ruled_out:
+            continue
+        star, entry = pool[evolved[0]], next(iter(entries))
+        labels = [label for label in gcvs_labels(entry.split(": ", 1)[1])[0]
+                  if label.removesuffix(" candidate") in EVOLVED_PULSATION and not contradicted(label, star) and label not in star["subtypes"]]
+        if labels:
+            star["subtypes"] = prune_subtypes(unique([*star["subtypes"], *labels]))
+            audit["componentRecords"].setdefault(evolved[0], {})["gcvsSubtypes"] = {
+                "gcvs": entry, "labels": labels, "method": "GCVS pulsation class of the system assigned to its only evolved component"}
 
     # Enrich after the motion/observation reviews so their retained historical
     # source records remain verbatim, rather than acquiring today's new values.

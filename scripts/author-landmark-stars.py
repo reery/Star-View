@@ -8,11 +8,13 @@ import math
 import re
 from functools import cache
 from pathlib import Path
+from catalog_sources.adapters import flame_age_truncated
 from catalog_sources.enrichment import enrich_from_frozen, enrichment_sources, flame_withheld, manifest_sha256, normalized_id, reviewed_physical, select_spectroscopy, spectroscopy_index
 from catalog_sources.shared_objects import adopt_shared_objects
 from catalog_sources.overlay_companions import expand_overlay
 from catalog_sources.solar import adopt_solar_reference, solar_provenance
 from catalog_sources.preservation import lost_fields
+from catalog_sources.snapshots import verify_sha256
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,6 +24,8 @@ PHYSICAL_SOURCE = ROOT / "catalog-work/landmark-stars"
 WESTERN_OUTPUT = ROOT / "src/data/catalogs/western-constellation-stars"
 CLUSTER_OUTPUT = CLUSTER_SOURCE / "retired-catalog"
 BRIGHT_ARCHIVE = ROOT / "catalog-work/bright-stars/retired-catalog"
+# The naked-eye snapshot holds the Hipparcos 2007 parallaxes and SIMBAD cluster memberships of every V <= 6.5 star.
+NAKED_EYE_SOURCE = ROOT / "catalog-work/naked-eye-stars"
 LEGACY_IDS = ROOT / "src/data/legacy-star-ids.json"
 DEFAULT_CATALOG = ROOT / "src/data/stars.csv"
 PHYSICAL_FIELDS = ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr")
@@ -48,6 +52,17 @@ GREEK_DESIGNATIONS = {
     "pi.": "Pi", "rho": "Rho", "sig": "Sigma", "tau": "Tau", "ups": "Upsilon",
     "phi": "Phi", "chi": "Chi", "psi": "Psi", "ome": "Omega",
 }
+# Below this signal-to-noise a parallax barely constrains the distance; a Bailer-Jones posterior then follows its prior.
+MIN_PARALLAX_SNR = 5
+HIPPARCOS_2007 = "2007A&A...474..653V"
+# Global parallax zero-points of the Gaia releases behind SIMBAD's cluster parallaxes (Lindegren et al. 2018 for DR2, 2021 for DR3);
+# clusters from other catalogues are not used.
+CLUSTER_PARALLAX_ZERO_POINTS = {
+    "2018A&A...616A..10G": -0.029, "2020A&A...633A..99C": -0.029, "2020A&A...640A...1C": -0.029,  # Gaia DR2
+    "2023ApJS..265...12Q": -0.017,  # Gaia DR3
+}
+CLUSTER_MIN_MEMBERSHIP = 50
+CLUSTER_AGREEMENT_SIGMA = 3
 CLUSTER_ALIASES = {
     "Pleiades": "Melotte 22",
     "Hyades": "Melotte 25",
@@ -209,6 +224,117 @@ def distance_overrides():
 
 
 @cache
+def naked_eye_rows(name):
+    manifest = json.loads((NAKED_EYE_SOURCE / "source-manifest.json").read_text())
+    verify_sha256(NAKED_EYE_SOURCE / name, manifest["checksumsSha256"][name])
+    with (NAKED_EYE_SOURCE / name).open(newline="") as handle:
+        return list(csv.DictReader(handle))
+
+
+@cache
+def hipparcos_rows():
+    return {row["HIP"]: row for row in naked_eye_rows("hipparcos.csv")}
+
+
+@cache
+def comoving_groups():
+    """Inverse-variance mean of the zero-point-corrected Gaia DR3 parallaxes of each yellow super- or hypergiant's
+    co-moving neighbours (Kasikov et al. 2026), with its error and the neighbour count, by SIMBAD identity."""
+    neighbours = {}
+    for row in naked_eye_rows("kasikov.csv"):
+        neighbours.setdefault(row["simbad_id"], []).append((float(row["plxcorr"]), float(row["eExtplx"]) ** -2))
+    return {star: (sum(parallax * weight for parallax, weight in rows) / sum(weight for _, weight in rows),
+                   sum(weight for _, weight in rows) ** -0.5, len(rows)) for star, rows in neighbours.items()}
+
+
+@cache
+def cluster_rows():
+    rows = {}
+    for row in naked_eye_rows("clusters.csv"):
+        rows.setdefault(row["child_id"], []).append(row)
+    return rows
+
+
+def checked_parallax(source):
+    """SIMBAD's parallax, unless it is below MIN_PARALLAX_SNR and the star's own Hipparcos 2007 parallax is more precise."""
+    parallax, error = optional_number(source["plx_value"]), optional_number(source["plx_err"])
+    hips = set(re.findall(r"(?:^|\|)HIP\s+(\d+)(?=\||$)", source["ids"] or ""))
+    row = hipparcos_rows().get(next(iter(hips))) if len(hips) == 1 else None
+    if not (row and parallax and error) or parallax / error >= MIN_PARALLAX_SNR or source.get("plx_bibcode") == HIPPARCOS_2007:
+        return source, None
+    if float(row["Plx"]) <= 0 or float(row["Plx"]) / float(row["e_Plx"]) <= parallax / error:
+        return source, None
+    review = {"replaced": {"parallaxMas": parallax, "errorMas": error, "bibcode": source.get("plx_bibcode") or None},
+              "reason": f"Signal-to-noise {parallax / error:.2f} is below {MIN_PARALLAX_SNR}; the Hipparcos 2007 parallax of HIP {row['HIP']} "
+                        f"({row['Plx']} +/- {row['e_Plx']} mas, signal-to-noise {float(row['Plx']) / float(row['e_Plx']):.2f}) is more precise"}
+    return {**source, "plx_value": row["Plx"], "plx_err": row["e_Plx"], "plx_bibcode": HIPPARCOS_2007}, review
+
+
+def cluster_distance(source):
+    """For a parallax below MIN_PARALLAX_SNR, the parallax of a SIMBAD open cluster the star belongs to and agrees with."""
+    parallax, error = optional_number(source["plx_value"]), optional_number(source["plx_err"])
+    if not (parallax and error) or parallax / error >= MIN_PARALLAX_SNR:
+        return None
+    for row in cluster_rows().get(source["main_id"], []):
+        zero_point = CLUSTER_PARALLAX_ZERO_POINTS.get(row["plx_bibcode"])
+        if zero_point is None or int(row["membership"] or 0) < CLUSTER_MIN_MEMBERSHIP:
+            continue
+        cluster, cluster_error = float(row["plx_value"]) - zero_point, float(row["plx_err"])
+        if abs(parallax - cluster) > CLUSTER_AGREEMENT_SIGMA * math.hypot(error, cluster_error):
+            continue
+        name = compact_spaces(row["parent_id"])
+        return 1000 / cluster, {
+            "method": f"open-cluster parallax ({name})", "distancePc": 1000 / cluster,
+            "lowerPc": 1000 / (cluster + cluster_error), "upperPc": 1000 / (cluster - cluster_error),
+            "source": row["plx_bibcode"], "sourceId": row["parent_id"],
+            "note": f"The star's parallax of {parallax} +/- {error} mas has a signal-to-noise below {MIN_PARALLAX_SNR}; SIMBAD lists it as a "
+                    f"{row['membership']} percent member of {name} ({row['link_bibcode']}), whose parallax of {row['plx_value']} +/- {row['plx_err']} mas, "
+                    f"corrected by the Gaia zero-point of {zero_point} mas, agrees with it within {CLUSTER_AGREEMENT_SIGMA} sigma",
+        }
+    return None
+
+
+def reviewed_distance(source):
+    """The source with its checked parallax, and a reviewed literature distance, else a co-moving group distance, else a cluster
+    distance, else the inverse Hipparcos parallax that replaced SIMBAD's; None leaves the usual Gaia or SIMBAD distance."""
+    source, review = checked_parallax(source)
+    review_field = {"parallaxReview": review} if review else {}
+    override = distance_overrides().get(source["main_id"])
+    if override:
+        distance = float(override["distance_pc"])
+        return source, (distance, {
+            "method": override["method"], "distancePc": distance,
+            "lowerPc": optional_number(override.get("distance_lower_pc")),
+            "upperPc": optional_number(override.get("distance_upper_pc")),
+            "source": override["source"], "sourceId": override["source_id"],
+            "note": override["note"], **review_field,
+        })
+    # Surface convection makes a yellow super- or hypergiant's own parallax unreliable at any signal-to-noise.
+    group = comoving_groups().get(compact_spaces(source["main_id"]))
+    if group:
+        parallax, error, count = group
+        return source, (1000 / parallax, {
+            "method": "co-moving group distance", "distancePc": 1000 / parallax,
+            "lowerPc": 1000 / (parallax + error), "upperPc": 1000 / (parallax - error),
+            "source": "Kasikov et al. 2026", "sourceId": "2026A&A...708A..78K",
+            "note": f"Inverse-variance mean of the zero-point-corrected Gaia DR3 parallaxes of {count} co-moving neighbours "
+                    f"({parallax:.4f} +/- {error:.4f} mas); a yellow super- or hypergiant's own parallax is unreliable",
+            **review_field,
+        })
+    cluster = cluster_distance(source)
+    if cluster:
+        return source, (cluster[0], {**cluster[1], **review_field})
+    if not review:
+        return source, None
+    parallax = float(source["plx_value"])
+    return source, (1000 / parallax, {
+        "method": "inverse Hipparcos 2007 parallax", "distancePc": 1000 / parallax,
+        "parallaxSignalToNoise": parallax / float(source["plx_err"]), "source": HIPPARCOS_2007, "sourceId": source["main_id"],
+        **review_field,
+    })
+
+
+@cache
 def physical_overrides():
     with (PHYSICAL_SOURCE / "physical-overrides.csv").open(newline="") as handle:
         rows = list(csv.DictReader(handle))
@@ -287,7 +413,8 @@ def eligible_gaia_physical(source):
         ("mass_solar", "mass_flame", "mass_flame_lower", "mass_flame_upper", len(flame_flags) == 2 and flame_flags[0] == "0"),
         ("luminosity_solar", "lum_flame", "lum_flame_lower", "lum_flame_upper", len(flame_flags) == 2 and flame_flags[1] in {"0", "2"}),
         ("radius_solar", "radius_flame", "radius_flame_lower", "radius_flame_upper", len(flame_flags) == 2 and flame_flags[1] in {"0", "2"}),
-        ("age_gyr", "age_flame", "age_flame_lower", "age_flame_upper", len(flame_flags) == 2 and flame_flags[0] == "0"),
+        ("age_gyr", "age_flame", "age_flame_lower", "age_flame_upper",
+         len(flame_flags) == 2 and flame_flags[0] == "0" and not flame_age_truncated(optional_number(gaia.get("age_flame_upper")))),
     )
     values = {}
     observations = []
@@ -306,7 +433,7 @@ def eligible_gaia_physical(source):
     return values, observations
 
 
-def published_hip_physical(source):
+def published_hip_physical(source, distance):
     identifier = hip_id(source)
     if identifier is None:
         return {}, []
@@ -350,14 +477,13 @@ def published_hip_physical(source):
             if "temperature_k" not in values:
                 adopt("temperature_k", optional_number(sed.get("Teff")), None, "McDonald et al. 2012", "2012MNRAS.427..343M")
             luminosity = optional_number(sed.get("Lum"))
-            distance, _ = adopted_distance(source)
             if luminosity is not None:
                 luminosity *= (distance / source_distance) ** 2
                 adopt("luminosity_solar", luminosity, None, "McDonald et al. 2012 SED rescaled to adopted distance", "2012MNRAS.427..343M")
     return values, observations
 
 
-def enrich_physical(row, source):
+def enrich_physical(row, source, distance):
     adopted = {}
     observations = []
     curated = curated_physical_match(source, row["name"])
@@ -389,7 +515,7 @@ def enrich_physical(row, source):
         reviewed = enrich_from_frozen(row, source["main_id"], aliases(source), reviewed_only=True)
         adopted.update({field: f"shared:{item['reference']}" for field, item in reviewed.items()})
         observations.extend(reviewed.values())
-    published_values, published_observations = published_hip_physical(source)
+    published_values, published_observations = published_hip_physical(source, distance)
     for field, value in published_values.items():
         if not row[field]:
             row[field] = value
@@ -460,16 +586,6 @@ def enrich_physical(row, source):
 
 
 def adopted_distance(source):
-    override = distance_overrides().get(source["main_id"])
-    if override:
-        distance = float(override["distance_pc"])
-        return distance, {
-            "method": override["method"], "distancePc": distance,
-            "lowerPc": optional_number(override.get("distance_lower_pc")),
-            "upperPc": optional_number(override.get("distance_upper_pc")),
-            "source": override["source"], "sourceId": override["source_id"],
-            "note": override["note"],
-        }
     gaia_identifier = gaia_dr3_id(source)
     posterior = distance_rows().get(gaia_identifier) if gaia_identifier else None
     if posterior:
@@ -493,8 +609,8 @@ def adopted_distance(source):
 def source_row(source, identifier, name, constellation, context, visual_magnitude, photometry):
     ra = math.radians(float(source["ra"]))
     dec = math.radians(float(source["dec"]))
-    parallax = float(source["plx_value"])
-    distance, distance_provenance = adopted_distance(source)
+    source, reviewed = reviewed_distance(source)
+    distance, distance_provenance = reviewed or adopted_distance(source)
     radial = (math.cos(dec) * math.cos(ra), math.cos(dec) * math.sin(ra), math.sin(dec))
     east = (-math.sin(ra), math.cos(ra), 0)
     north = (-math.sin(dec) * math.cos(ra), -math.sin(dec) * math.sin(ra), math.cos(dec))
@@ -527,7 +643,7 @@ def source_row(source, identifier, name, constellation, context, visual_magnitud
         "parallax_error_mas": source["plx_err"], "pm_ra_cosdec_masyr": source["pmra"],
         "pm_dec_masyr": source["pmdec"], "radial_velocity_kms": radial_velocity,
         "radial_velocity_error_kms": radial_velocity_error,
-        "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01" + (f"; parallax {HIPPARCOS_2007}" if "parallaxReview" in distance_provenance else ""),
         "radial_velocity_ref": radial_velocity_reference,
     })
     radial_velocity_provenance = {
@@ -596,7 +712,7 @@ def western_catalog():
             f"Western constellation line-figure star (HIP {hip}; Stellarium {', '.join(memberships)}).",
             visual_magnitude, photometry,
         )
-        physical = enrich_physical(row, source)
+        physical = enrich_physical(row, source, distance["distancePc"])
         rows.append(row)
         provenance[row["id"]] = {
             "hip": hip,
@@ -739,7 +855,7 @@ def cluster_catalog():
             f"{group['name']} landmark star; {group['selection']}", float(visual_text),
             f"SIMBAD compiled Johnson V={visual_text}",
         )
-        physical = enrich_physical(row, source)
+        physical = enrich_physical(row, source, distance["distancePc"])
         rows.append(row)
         provenance[identifier] = {
             "group": group["name"], "queryId": query_id, "simbadId": source["main_id"],

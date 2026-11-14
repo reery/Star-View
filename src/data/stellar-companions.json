@@ -15009,6 +15009,23 @@
       ]
     },
     {
+      "id": "spectroscopic-hip-23453",
+      "name": "Saclateni",
+      "sourceRef": "catalog-companions-simbad",
+      "sourceUrl": "https://simbad.cds.unistra.fr/simbad/",
+      "compositeSimbadId": "* zet Aur",
+      "components": [
+        {
+          "starId": "hip-23453",
+          "label": "A"
+        },
+        {
+          "starId": "hip-23453-component-b",
+          "label": "B"
+        }
+      ]
+    },
+    {
       "id": "spectroscopic-hip-108661",
       "name": "Eta PsA",
       "sourceRef": "catalog-companions-simbad",
@@ -15072,23 +15089,6 @@
         },
         {
           "starId": "hip-111022-component-b",
-          "label": "B"
-        }
-      ]
-    },
-    {
-      "id": "spectroscopic-hip-23453",
-      "name": "Saclateni",
-      "sourceRef": "catalog-companions-simbad",
-      "sourceUrl": "https://simbad.cds.unistra.fr/simbad/",
-      "compositeSimbadId": "* zet Aur",
-      "components": [
-        {
-          "starId": "hip-23453",
-          "label": "A"
-        },
-        {
-          "starId": "hip-23453-component-b",
           "label": "B"
         }
       ]
@@ -16006,7 +16006,7 @@
         }
       ],
       "adoptedDistance": {
-        "parallaxMas": 2.5381,
+        "parallaxMas": 4.88,
         "sourceStarId": "hip-27341",
         "scope": "Shared catalog parent distance; approximate for unresolved components"
       }
@@ -19097,7 +19097,7 @@
         }
       ],
       "adoptedDistance": {
-        "parallaxMas": 1.9969,
+        "parallaxMas": 1.4,
         "sourceStarId": "hip-26241",
         "scope": "Shared catalog parent distance; approximate for unresolved components"
       }
@@ -21498,7 +21498,7 @@
         }
       ],
       "adoptedDistance": {
-        "parallaxMas": 0.1599,
+        "parallaxMas": 1.26,
         "sourceStarId": "hip-82676",
         "scope": "Shared catalog parent distance; approximate for unresolved components"
       }
@@ -23370,7 +23370,8 @@
         "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
       },
       "subtypes": [
-        "Eruptive variable",
+        "Flare star",
+        "BY Draconis variable",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -23561,7 +23562,8 @@
         "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
       },
       "subtypes": [
-        "Eruptive variable",
+        "Flare star",
+        "BY Draconis variable",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -23750,7 +23752,8 @@
         "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation; EZ Aquarii ABC"
       },
       "subtypes": [
-        "Eruptive variable",
+        "Flare star",
+        "BY Draconis variable",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -28172,6 +28175,7 @@
         "Eruptive variable",
         "Rotating variable",
         "Spectroscopic binary",
+        "BY Draconis variable candidate",
         "Main-sequence"
       ],
       "known_planets": 1,
@@ -28360,7 +28364,7 @@
         "radial_velocity_ref": "2014AJ....147...20N"
       },
       "subtypes": [
-        "Eruptive variable",
+        "Flare star",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -28472,6 +28476,7 @@
       "subtypes": [
         "Spectroscopic binary",
         "Variable star",
+        "RS CVn variable candidate",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -28700,6 +28705,7 @@
             "subtypes": [
               "Spectroscopic binary",
               "Variable star",
+              "RS CVn variable candidate",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -34461,7 +34467,7 @@
       },
       "subtypes": [
         "Emission-line star",
-        "Eruptive variable",
+        "Flare star",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -35524,7 +35530,7 @@
         "radial_velocity_ref": "Gaia DR3"
       },
       "subtypes": [
-        "Eruptive variable",
+        "Flare star",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -35711,7 +35717,7 @@
         "radial_velocity_ref": "Gaia DR3"
       },
       "subtypes": [
-        "Eruptive variable",
+        "Flare star",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -42539,6 +42545,7 @@
       },
       "subtypes": [
         "Rotating variable",
+        "BY Draconis variable candidate",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -44124,6 +44131,7 @@
       },
       "subtypes": [
         "Rotating variable",
+        "BY Draconis variable candidate",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -47916,9 +47924,9 @@
         "radial_velocity_ref": null
       },
       "subtypes": [
-        "Eruptive variable",
-        "Rotating variable",
         "Spectroscopic binary",
+        "Flare star",
+        "BY Draconis variable",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -48017,9 +48025,9 @@
               "radial_velocity_ref": null
             },
             "subtypes": [
-              "Eruptive variable",
-              "Rotating variable",
               "Spectroscopic binary",
+              "Flare star",
+              "BY Draconis variable",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -48111,9 +48119,9 @@
         "radial_velocity_ref": "Gaia DR3"
       },
       "subtypes": [
-        "Eruptive variable",
-        "Rotating variable",
         "Spectroscopic binary",
+        "Flare star",
+        "BY Draconis variable",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -48486,7 +48494,7 @@
         "radial_velocity_ref": "2020yCat.1350....0G"
       },
       "subtypes": [
-        "Eruptive variable",
+        "Flare star",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -48680,7 +48688,7 @@
               "radial_velocity_ref": "2020yCat.1350....0G"
             },
             "subtypes": [
-              "Eruptive variable",
+              "Flare star",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -50819,7 +50827,7 @@
         "radial_velocity_ref": null
       },
       "subtypes": [
-        "Eruptive variable"
+        "Flare star"
       ],
       "known_planets": 0,
       "apparent_mag": 10.34184389466865,
@@ -50897,7 +50905,7 @@
               "radial_velocity_ref": null
             },
             "subtypes": [
-              "Eruptive variable"
+              "Flare star"
             ],
             "known_planets": 0,
             "apparent_mag": null
@@ -53203,8 +53211,8 @@
         "radial_velocity_ref": null
       },
       "subtypes": [
-        "Eruptive variable",
-        "Spectroscopic binary"
+        "Spectroscopic binary",
+        "Flare star"
       ],
       "known_planets": 0,
       "apparent_mag": null
@@ -53391,8 +53399,8 @@
         "radial_velocity_ref": "2000A&A...364..665S:Table 2; shared systemic velocity approximation"
       },
       "subtypes": [
-        "Eruptive variable",
         "Spectroscopic binary",
+        "Flare star",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -53903,8 +53911,9 @@
         "radial_velocity_ref": null
       },
       "subtypes": [
-        "Eruptive variable",
         "RS CVn variable",
+        "Flare star",
+        "BY Draconis variable",
         "Main-sequence"
       ],
       "known_planets": null,
@@ -54014,8 +54023,9 @@
               "radial_velocity_ref": null
             },
             "subtypes": [
-              "Eruptive variable",
               "RS CVn variable",
+              "Flare star",
+              "BY Draconis variable",
               "Main-sequence"
             ],
             "known_planets": null,
@@ -57364,9 +57374,8 @@
         "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01; HIP 27913 / * chi01 Ori; compiled-primary-proxy; shared systemic velocity approximation"
       },
       "subtypes": [
-        "Rotating variable",
         "Spectroscopic binary",
-        "RS CVn variable candidate"
+        "RS CVn variable"
       ],
       "known_planets": 0,
       "apparent_mag": null,
@@ -57472,9 +57481,8 @@
               "radial_velocity_ref": null
             },
             "subtypes": [
-              "Rotating variable",
               "Spectroscopic binary",
-              "RS CVn variable candidate"
+              "RS CVn variable"
             ],
             "known_planets": 0,
             "apparent_mag": null
@@ -57580,9 +57588,8 @@
               "radial_velocity_ref": null
             },
             "subtypes": [
-              "Rotating variable",
               "Spectroscopic binary",
-              "RS CVn variable candidate"
+              "RS CVn variable"
             ],
             "known_planets": 0,
             "apparent_mag": null
@@ -60788,8 +60795,8 @@
         "radial_velocity_ref": "2014MNRAS.439.3094B"
       },
       "subtypes": [
-        "Eruptive variable",
-        "Rotating variable",
+        "Flare star",
+        "BY Draconis variable",
         "Main-sequence"
       ],
       "known_planets": 2,
@@ -60894,8 +60901,8 @@
               "radial_velocity_ref": "2014MNRAS.439.3094B"
             },
             "subtypes": [
-              "Eruptive variable",
-              "Rotating variable",
+              "Flare star",
+              "BY Draconis variable",
               "Main-sequence"
             ],
             "known_planets": 2,
@@ -61002,8 +61009,8 @@
               "radial_velocity_ref": "2014MNRAS.439.3094B"
             },
             "subtypes": [
-              "Eruptive variable",
-              "Rotating variable",
+              "Flare star",
+              "BY Draconis variable",
               "Main-sequence"
             ],
             "known_planets": 2,
@@ -64717,7 +64724,7 @@
         "radial_velocity_ref": "2016A&A...593A.127K:Table 4;Section 4.1; shared systemic velocity approximation; gj65"
       },
       "subtypes": [
-        "Eruptive variable",
+        "Flare star",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -64870,7 +64877,7 @@
       },
       "subtypes": [
         "Emission-line star",
-        "Eruptive variable",
+        "Flare star",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -65916,7 +65923,7 @@
       },
       "subtypes": [
         "Emission-line star",
-        "Eruptive variable"
+        "Flare star"
       ],
       "known_planets": 0,
       "apparent_mag": 11.201843895,
@@ -66573,7 +66580,7 @@
         "radial_velocity_ref": "2015ApJ...802L..10T; shared systemic velocity approximation; wolf424"
       },
       "subtypes": [
-        "Eruptive variable"
+        "Flare star"
       ],
       "known_planets": 0,
       "apparent_mag": 13.227586502,
@@ -66967,7 +66974,7 @@
         "radial_velocity_ref": "2015ApJ...802L..10T; shared systemic velocity approximation; wolf424"
       },
       "subtypes": [
-        "Eruptive variable"
+        "Flare star"
       ],
       "known_planets": 0,
       "apparent_mag": 13.217586502,
@@ -67347,8 +67354,8 @@
         "radial_velocity_ref": "2010MNRAS.407.2269M; shared systemic velocity approximation; gj1245"
       },
       "subtypes": [
-        "Eruptive variable",
-        "Rotating variable"
+        "Rotating variable",
+        "Flare star"
       ],
       "known_planets": 0,
       "apparent_mag": 13.461220055,
@@ -68144,8 +68151,8 @@
         "radial_velocity_ref": "2010MNRAS.407.2269M; shared systemic velocity approximation; gj1245"
       },
       "subtypes": [
-        "Eruptive variable",
-        "Rotating variable"
+        "Rotating variable",
+        "Flare star"
       ],
       "known_planets": 0,
       "apparent_mag": 16.751220055,
@@ -69353,8 +69360,8 @@
       },
       "subtypes": [
         "Emission-line star",
-        "Eruptive variable",
         "Rotating variable",
+        "Flare star",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -80934,7 +80941,7 @@
       "luminosity_solar": 0.4130945,
       "radius_solar": 0.85907197,
       "metallicity_dex": -0.1055,
-      "age_gyr": 9.023818,
+      "age_gyr": null,
       "absolute_mag": 5.970679,
       "epoch": 2000.0,
       "x_pc": 6.93353637,
@@ -83714,7 +83721,7 @@
       "luminosity_solar": 0.13496596,
       "radius_solar": 0.66833144,
       "metallicity_dex": 0.2842,
-      "age_gyr": 13.401558,
+      "age_gyr": null,
       "absolute_mag": 7.57357,
       "epoch": 2000.0,
       "x_pc": 2.302564269,
@@ -84911,7 +84918,7 @@
         "radial_velocity_ref": "2020yCat.1350....0G"
       },
       "subtypes": [
-        "Eruptive variable",
+        "Flare star",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -85079,8 +85086,8 @@
       },
       "subtypes": [
         "BY Draconis variable",
-        "Eruptive variable",
-        "Spectroscopic binary"
+        "Spectroscopic binary",
+        "Flare star"
       ],
       "known_planets": 0,
       "apparent_mag": 8.094764201
@@ -86253,7 +86260,7 @@
         "radial_velocity_ref": "Gaia DR3"
       },
       "subtypes": [
-        "Eruptive variable"
+        "Flare star"
       ],
       "known_planets": 0,
       "apparent_mag": 13.882999766
@@ -86483,7 +86490,7 @@
       "luminosity_solar": 0.3954253,
       "radius_solar": 0.81456494,
       "metallicity_dex": -0.01,
-      "age_gyr": 12.743431,
+      "age_gyr": null,
       "absolute_mag": 5.990557,
       "epoch": 2000.0,
       "x_pc": 11.43198302,
@@ -86572,7 +86579,7 @@
             "luminosity_solar": 0.3954253,
             "radius_solar": 0.81456494,
             "metallicity_dex": -0.01,
-            "age_gyr": 12.743431,
+            "age_gyr": null,
             "absolute_mag": 5.990557,
             "epoch": 2000.0,
             "x_pc": 11.43198302,
@@ -87976,7 +87983,7 @@
       "luminosity_solar": 0.25883058,
       "radius_solar": 0.7541291,
       "metallicity_dex": -0.1883,
-      "age_gyr": 12.953588,
+      "age_gyr": null,
       "absolute_mag": 6.682812,
       "epoch": 2000.0,
       "x_pc": -8.159628114,
@@ -92118,7 +92125,7 @@
       "luminosity_solar": 0.07132354,
       "radius_solar": 0.5766,
       "metallicity_dex": 0.0,
-      "age_gyr": 11.009577,
+      "age_gyr": null,
       "absolute_mag": 8.89327,
       "epoch": 2000.0,
       "x_pc": -1.676664581,
@@ -93078,6 +93085,7 @@
       "subtypes": [
         "Variable star",
         "Long-period variable candidate",
+        "Irregular variable candidate",
         "Giant"
       ],
       "known_planets": 1,
@@ -93937,6 +93945,7 @@
               "Emission-line star",
               "Rotating variable",
               "Spectroscopic binary",
+              "BY Draconis variable candidate",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -94026,6 +94035,7 @@
               "Emission-line star",
               "Rotating variable",
               "Spectroscopic binary",
+              "BY Draconis variable candidate",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -94179,9 +94189,9 @@
       },
       "subtypes": [
         "Eclipsing binary",
-        "Eruptive variable",
         "Rotating variable",
         "Spectroscopic binary",
+        "Flare star",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -94270,9 +94280,9 @@
             },
             "subtypes": [
               "Eclipsing binary",
-              "Eruptive variable",
               "Rotating variable",
               "Spectroscopic binary",
+              "Flare star",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -94748,7 +94758,7 @@
       "luminosity_solar": 0.075562626,
       "radius_solar": 0.6342,
       "metallicity_dex": 0.24,
-      "age_gyr": 10.185898,
+      "age_gyr": null,
       "absolute_mag": 8.845547,
       "epoch": 2000.0,
       "x_pc": 5.795107913,
@@ -94797,7 +94807,7 @@
         "WDS J23142-1938A",
         "GJ 2154 A"
       ],
-      "notes": "Corrected CNS5 5722; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion using exact-ID Gaia DR3 radial velocity fallback. Supplementary temperature, mass, luminosity, radius from Cifuentes et al. 2020 CARMENES SED analysis (2020A&A...642A.115C). Shared exact-identity physical supplements (metallicity_dex: 2021MNRAS.508.5148C; age_gyr: Gaia DR3 astrophysical_parameters).",
+      "notes": "Corrected CNS5 5722; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion using exact-ID Gaia DR3 radial velocity fallback. Supplementary temperature, mass, luminosity, radius from Cifuentes et al. 2020 CARMENES SED analysis (2020A&A...642A.115C). Shared exact-identity physical supplements (metallicity_dex: 2021MNRAS.508.5148C).",
       "raw_astrometry": {
         "ra_deg": 348.57136695717173,
         "dec_deg": -19.644029228906422,
@@ -97891,7 +97901,7 @@
       "luminosity_solar": 0.500709,
       "radius_solar": 0.87849176,
       "metallicity_dex": 0.069,
-      "age_gyr": 12.388396,
+      "age_gyr": null,
       "absolute_mag": 5.665996,
       "epoch": 2000.0,
       "x_pc": -4.129784947,
@@ -97966,7 +97976,7 @@
             "luminosity_solar": 0.500709,
             "radius_solar": 0.87849176,
             "metallicity_dex": 0.069,
-            "age_gyr": 12.388396,
+            "age_gyr": null,
             "absolute_mag": 5.665996,
             "epoch": 2000.0,
             "x_pc": -4.129784947,
@@ -99383,7 +99393,7 @@
       "luminosity_solar": 0.21939419,
       "radius_solar": 0.7272426,
       "metallicity_dex": -0.2623,
-      "age_gyr": 13.05279,
+      "age_gyr": null,
       "absolute_mag": 7.582193,
       "epoch": 2000.0,
       "x_pc": -16.730548885,
@@ -99456,7 +99466,7 @@
             "luminosity_solar": 0.21939419,
             "radius_solar": 0.7272426,
             "metallicity_dex": -0.2623,
-            "age_gyr": 13.05279,
+            "age_gyr": null,
             "absolute_mag": 7.582193,
             "epoch": 2000.0,
             "x_pc": -16.730548885,
@@ -108198,8 +108208,8 @@
       "subtypes": [
         "BY Draconis variable",
         "Eclipsing binary",
-        "Eruptive variable",
         "Spectroscopic binary",
+        "Flare star",
         "Main-sequence"
       ],
       "known_planets": 0,
@@ -110497,7 +110507,7 @@
       "luminosity_solar": 0.23810102,
       "radius_solar": 0.746818,
       "metallicity_dex": -0.2579571648,
-      "age_gyr": 11.099625,
+      "age_gyr": null,
       "absolute_mag": 6.752397,
       "epoch": 2000.0,
       "x_pc": 7.623276259,
@@ -110708,7 +110718,7 @@
       "luminosity_solar": 0.20394991,
       "radius_solar": 0.7218429,
       "metallicity_dex": -0.2518430912,
-      "age_gyr": 11.710939,
+      "age_gyr": null,
       "absolute_mag": 6.946176,
       "epoch": 2000.0,
       "x_pc": 7.544000475,
@@ -111389,7 +111399,8 @@
         "radial_velocity_ref": null
       },
       "subtypes": [
-        "Variable star"
+        "Variable star",
+        "Eclipsing binary candidate"
       ],
       "known_planets": 0,
       "apparent_mag": 15.75100027
@@ -112540,9 +112551,9 @@
       "age_gyr": null,
       "absolute_mag": null,
       "epoch": 2000.0,
-      "x_pc": 1.446869091,
-      "y_pc": 18.028053339,
-      "z_pc": -7.811018168,
+      "x_pc": 1.446446912,
+      "y_pc": 18.022792021,
+      "z_pc": -7.808738868,
       "vx_kms": -11.717648,
       "vy_kms": 39.576795,
       "vz_kms": 39.249921,
@@ -112560,7 +112571,7 @@
         "WDS J22145+2751B",
         "G 188-49B"
       ],
-      "notes": "Corrected CNS5 5497; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Full source space motion using exact-ID Gaia DR3 radial velocity fallback. Systemic space velocity of G 188-49 adopted from G 188-49 (cns5-5496); individual orbital motion is not modelled.",
+      "notes": "Corrected CNS5 5497; J2000 Sun-relative Galactic position. SIMBAD exact CNS5 identity. Transverse-only source motion; radial velocity unavailable or withheld. Systemic space velocity of G 188-49 adopted from G 188-49 (cns5-5496); individual orbital motion is not modelled.",
       "raw_astrometry": {
         "ra_deg": 333.63077733160594,
         "dec_deg": 27.857545343181602,
@@ -112570,11 +112581,11 @@
         "pm_ra_error_masyr": 0.11533119529485703,
         "pm_dec_masyr": 543.1007840985111,
         "pm_dec_error_masyr": 0.10526560246944427,
-        "radial_velocity_kms": -351.1481,
-        "radial_velocity_error_kms": 8.175293,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
         "epoch": 2016.0,
         "astrometry_ref": "2020yCat.1350....0G",
-        "radial_velocity_ref": "Gaia DR3"
+        "radial_velocity_ref": null
       },
       "subtypes": [],
       "known_planets": 0,
@@ -113034,6 +113045,7 @@
       },
       "subtypes": [
         "BY Draconis variable",
+        "Flare star",
         "Subgiant"
       ],
       "known_planets": 0,
@@ -113100,7 +113112,7 @@
         "radial_velocity_ref": "Gaia DR3"
       },
       "subtypes": [
-        "Eruptive variable",
+        "Flare star",
         "Subgiant"
       ],
       "known_planets": 0,
@@ -117276,6 +117288,7 @@
       },
       "subtypes": [
         "Rotating variable",
+        "BY Draconis variable candidate",
         "Subgiant"
       ],
       "known_planets": 0,
@@ -121916,7 +121929,7 @@
       "luminosity_solar": 0.16234459,
       "radius_solar": 0.69968307,
       "metallicity_dex": -0.1679571648,
-      "age_gyr": 13.161468,
+      "age_gyr": null,
       "absolute_mag": 7.3584,
       "epoch": 2000.0,
       "x_pc": -7.76809643,
@@ -131710,7 +131723,7 @@
       "luminosity_solar": 0.78243244,
       "radius_solar": 0.998014,
       "metallicity_dex": 0.22,
-      "age_gyr": 13.39342,
+      "age_gyr": null,
       "absolute_mag": 5.121553,
       "epoch": 2000.0,
       "x_pc": -5.940903352,
@@ -132806,7 +132819,7 @@
       "type": "star",
       "id": "cns5-0006",
       "name": "85 Peg A",
-      "spectral_type": "G5V",
+      "spectral_type": "G5VbFe-2",
       "constellation": "Pegasus",
       "metallicity_kind": "[Fe/H]",
       "designations": [
@@ -133058,7 +133071,7 @@
       "type": "star",
       "id": "bright-alpheratz",
       "name": "Alpheratz A",
-      "spectral_type": "B8IV-",
+      "spectral_type": "B8IV-VHgMn",
       "constellation": "Andromeda",
       "metallicity_kind": "[Fe/H]",
       "designations": [
@@ -133145,8 +133158,7 @@
       },
       "subtypes": [
         "Spectroscopic binary",
-        "Alpha\u00b2 CVn variable",
-        "Subgiant"
+        "Alpha\u00b2 CVn variable"
       ],
       "known_planets": 0,
       "apparent_mag": 2.22,
@@ -133396,7 +133408,7 @@
             "type": "star",
             "id": "bright-alpheratz",
             "name": "Alpheratz A",
-            "spectral_type": "B8IV-",
+            "spectral_type": "B8IV-VHgMn",
             "constellation": "Andromeda",
             "metallicity_kind": "[Fe/H]",
             "designations": [
@@ -136050,7 +136062,7 @@
       "subtypes": [
         "Be star",
         "High-mass X-ray binary",
-        "Variable star",
+        "Eruptive variable",
         "Subgiant"
       ],
       "known_planets": 0,
@@ -136173,7 +136185,7 @@
             "subtypes": [
               "Be star",
               "High-mass X-ray binary",
-              "Variable star",
+              "Eruptive variable",
               "Subgiant"
             ],
             "known_planets": 0,
@@ -136337,7 +136349,7 @@
             "subtypes": [
               "Be star",
               "High-mass X-ray binary",
-              "Variable star",
+              "Eruptive variable",
               "Subgiant"
             ],
             "known_planets": 0,
@@ -136462,7 +136474,7 @@
             "subtypes": [
               "Be star",
               "High-mass X-ray binary",
-              "Variable star",
+              "Eruptive variable",
               "Subgiant"
             ],
             "known_planets": 0,
@@ -136575,10 +136587,10 @@
       ]
     },
     {
-      "temperature_k": 10740,
+      "temperature_k": 10400.0,
       "mass_solar": null,
       "luminosity_solar": 107.88134,
-      "radius_solar": 3.0400357,
+      "radius_solar": 3.199330692,
       "metallicity_dex": -0.8114,
       "age_gyr": null,
       "metallicity_kind": "[M/H]",
@@ -136669,16 +136681,16 @@
       "subtypes": [
         "Main-sequence"
       ],
-      "notes": " MSC physical hierarchy 01028+3148, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Sigma Psc Aa: RV 10.4 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference.",
+      "notes": " MSC physical hierarchy 01028+3148, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Estimated temperature from Pecaut-Mamajek 2022.04.16 B9.5V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Sigma Psc Aa: RV 10.4 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference.",
       "catalog_sources": [
         {
           "catalog_id": "constellation-motion-before-20261019",
           "scope": "Original component observations and adopted velocity before shared system propagation. Individual/source RVs include their original scope and may contain orbital motion; not the adopted common bulk velocity.",
           "record": {
-            "temperature_k": 10740,
+            "temperature_k": 10400.0,
             "mass_solar": null,
             "luminosity_solar": 107.88134,
-            "radius_solar": 3.0400357,
+            "radius_solar": 3.199330692,
             "metallicity_dex": -0.8114,
             "age_gyr": null,
             "metallicity_kind": "[M/H]",
@@ -136767,7 +136779,7 @@
               "*  40 And"
             ],
             "subtypes": [],
-            "notes": " MSC physical hierarchy 01028+3148, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+            "notes": " MSC physical hierarchy 01028+3148, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Estimated temperature from Pecaut-Mamajek 2022.04.16 B9.5V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
           }
         },
         {
@@ -140059,7 +140071,7 @@
       "type": "star",
       "id": "cns5-0527",
       "name": "BD-18 359 A",
-      "spectral_type": "M2.5",
+      "spectral_type": "M2.5V",
       "constellation": "Cetus",
       "metallicity_kind": "[Fe/H]",
       "designations": [
@@ -140385,7 +140397,8 @@
         "WEB  2438"
       ],
       "subtypes": [
-        "Supergiant"
+        "Supergiant",
+        "Classical Cepheid"
       ],
       "notes": " MSC physical hierarchy 02318+8916, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature:  Evans et al. (2024): Cepheid Polaris Aa mass and pulsation-averaged CHARA radius at Gaia Polaris B distance 136.90 +/-0.34 pc. Not Aa+Ab total; no instantaneous pulsation phase inferred. luminosity_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Shared system radial velocity approximation: -16.1024 km/s (Evans et al. 2024 Table 5 preferred replicated solution; arXiv:2407.09641; published-systemic). Approximate shared system motion for confirmed members only. Published gamma where identified; otherwise the existing compiled parent/member RV is a proxy that may contain orbital, pulsation, wind, or gravitational shifts. Measurement uncertainty does not bound those effects. Existing individual RVs and existing velocity vectors are preserved; no orbital phase is modeled. Adopted common system motion from Polaris Aa: RV -16.1024 km/s (Evans et al. 2024 Table 5 preferred replicated solution; arXiv:2407.09641; published-systemic). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference.",
       "catalog_sources": [
@@ -149936,6 +149949,7 @@
               "Be star",
               "Irregular variable",
               "Chemically peculiar",
+              "Eruptive variable",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -150046,6 +150060,7 @@
               "Be star",
               "Irregular variable",
               "Chemically peculiar",
+              "Eruptive variable",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -152601,7 +152616,7 @@
         "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
         "radial_velocity_ref": "2008AJ....135..209M; MSC SB9_2601 orbit; published-systemic; shared systemic velocity approximation"
       },
-      "spectral_type": "G9III",
+      "spectral_type": "G9IIIFe-0.5",
       "known_planets": null,
       "x_pc": -43.294750397,
       "y_pc": -0.193821246,
@@ -152710,7 +152725,7 @@
               "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
               "radial_velocity_ref": null
             },
-            "spectral_type": "G9III",
+            "spectral_type": "G9IIIFe-0.5",
             "known_planets": null,
             "x_pc": -43.294750397,
             "y_pc": -0.193821246,
@@ -156578,10 +156593,10 @@
       ]
     },
     {
-      "temperature_k": 13150.0,
+      "temperature_k": 12618,
       "mass_solar": null,
       "luminosity_solar": 149.5002,
-      "radius_solar": 2.355711088,
+      "radius_solar": 2.558541617,
       "metallicity_dex": -0.7264,
       "age_gyr": null,
       "metallicity_kind": "[M/H]",
@@ -156685,16 +156700,16 @@
       "subtypes": [
         "Main-sequence"
       ],
-      "notes": " MSC physical hierarchy 05123-1152, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Estimated temperature from Pecaut-Mamajek 2022.04.16 B7.5V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Iota Lep Aa: RV 23.5 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference.",
+      "notes": " MSC physical hierarchy 05123-1152, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Iota Lep Aa: RV 23.5 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference.",
       "catalog_sources": [
         {
           "catalog_id": "constellation-motion-before-20261019",
           "scope": "Original component observations and adopted velocity before shared system propagation. Individual/source RVs include their original scope and may contain orbital motion; not the adopted common bulk velocity.",
           "record": {
-            "temperature_k": 13150.0,
+            "temperature_k": 12618,
             "mass_solar": null,
             "luminosity_solar": 149.5002,
-            "radius_solar": 2.355711088,
+            "radius_solar": 2.558541617,
             "metallicity_dex": -0.7264,
             "age_gyr": null,
             "metallicity_kind": "[M/H]",
@@ -156796,7 +156811,7 @@
               "WEB  4706"
             ],
             "subtypes": [],
-            "notes": " MSC physical hierarchy 05123-1152, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Estimated temperature from Pecaut-Mamajek 2022.04.16 B7.5V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+            "notes": " MSC physical hierarchy 05123-1152, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
           }
         },
         {
@@ -159245,6 +159260,7 @@
               "Herbig Ae/Be",
               "Orion variable",
               "Spectroscopic binary",
+              "Eclipsing binary",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -159373,6 +159389,7 @@
               "Herbig Ae/Be",
               "Orion variable",
               "Spectroscopic binary",
+              "Eclipsing binary",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -159523,7 +159540,7 @@
       "notes": " MSC physical hierarchy 05353-0524, component Ab. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Resolved outer Theta1 Ori A2 is MSC Ab, not the eclipsing Aa2. Published approximate photometric/evolutionary mass; no formal uncertainty stated."
     },
     {
-      "temperature_k": 24500.0,
+      "temperature_k": null,
       "mass_solar": 16,
       "luminosity_solar": null,
       "radius_solar": null,
@@ -159550,7 +159567,7 @@
         "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
         "radial_velocity_ref": null
       },
-      "spectral_type": "B1.5V",
+      "spectral_type": "B1.5Vp",
       "known_planets": null,
       "x_pc": -342.314665261,
       "y_pc": -189.828264581,
@@ -159629,7 +159646,7 @@
       "subtypes": [
         "Main-sequence"
       ],
-      "notes": " MSC physical hierarchy 05353-052D, component Da1. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Estimated temperature from Pecaut-Mamajek 2022.04.16 B1.5V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: D1/D3 map to MSC Da1/Da2 by the same 53-day, 1.86-mas orbit. Component masses combine the total dynamical mass with a flux/model mass split; not independent purely dynamical component masses.",
+      "notes": " MSC physical hierarchy 05353-052D, component Da1. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: D1/D3 map to MSC Da1/Da2 by the same 53-day, 1.86-mas orbit. Component masses combine the total dynamical mass with a flux/model mass split; not independent purely dynamical component masses.",
       "unresolved_photometry": {
         "magnitude_v": 6.7,
         "error_mag": null,
@@ -162669,7 +162686,8 @@
         "HD  42995A"
       ],
       "subtypes": [
-        "Giant"
+        "Giant",
+        "Semiregular variable"
       ],
       "notes": " MSC physical hierarchy 06149+2230, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Propus Aa: RV 22.39 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference.",
       "catalog_sources": [
@@ -162809,18 +162827,18 @@
           "record": {
             "temperature_k": 3580.0,
             "mass_solar": null,
-            "luminosity_solar": 12513.755826651777,
-            "radius_solar": 290.790644,
+            "luminosity_solar": 3895.279151695026,
+            "radius_solar": 162.239233,
             "metallicity_dex": 0.04,
             "age_gyr": null,
-            "absolute_mag": -3.345143,
+            "absolute_mag": -2.078021,
             "epoch": 2000.0,
-            "x_pc": -208.642941184,
-            "y_pc": -32.498111328,
-            "z_pc": 9.287503598,
-            "vx_kms": -27.855121,
-            "vy_kms": 17.458792,
-            "vz_kms": -55.125891,
+            "x_pc": -116.407014543,
+            "y_pc": -18.131493434,
+            "z_pc": 5.181726064,
+            "vx_kms": -25.311751,
+            "vy_kms": 8.21881,
+            "vz_kms": -30.321155,
             "type": "star",
             "id": "hip-29655",
             "name": "Propus",
@@ -162883,12 +162901,12 @@
               "YZ 22 2261",
               "Propus"
             ],
-            "notes": "Western constellation line-figure star (HIP 29655; Stellarium Gem). SIMBAD identity * eta Gem; SIMBAD compiled Johnson V=3.28; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 1998A&A...338..623M).",
+            "notes": "Western constellation line-figure star (HIP 29655; Stellarium Gem). SIMBAD identity * eta Gem; SIMBAD compiled Johnson V=3.28; inverse Hipparcos 2007 parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 1998A&A...338..623M).",
             "raw_astrometry": {
               "ra_deg": 93.71935536055373,
               "dec_deg": 22.506787327170834,
-              "parallax_mas": 4.7312,
-              "parallax_error_mas": 1.0207,
+              "parallax_mas": 8.48,
+              "parallax_error_mas": 1.23,
               "pm_ra_cosdec_masyr": -59.53,
               "pm_ra_error_masyr": null,
               "pm_dec_masyr": -7.766,
@@ -162896,16 +162914,17 @@
               "radial_velocity_kms": 22.39,
               "radial_velocity_error_kms": null,
               "epoch": 2000.0,
-              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01; parallax 2007A&A...474..653V",
               "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
             },
             "subtypes": [
               "Eclipsing binary",
               "Red giant",
-              "Spectroscopic binary"
+              "Spectroscopic binary",
+              "Semiregular variable"
             ],
             "known_planets": 0,
-            "apparent_mag": 3.280000464
+            "apparent_mag": 3.279999739
           },
           "scope": "Original Propus catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
         }
@@ -173407,6 +173426,7 @@
             "subtypes": [
               "Pulsating variable",
               "Spectroscopic binary",
+              "Ellipsoidal variable candidate",
               "Subgiant"
             ],
             "known_planets": 0,
@@ -173728,6 +173748,7 @@
             "subtypes": [
               "Pulsating variable",
               "Spectroscopic binary",
+              "Ellipsoidal variable candidate",
               "Subgiant"
             ],
             "known_planets": 0,
@@ -177524,7 +177545,8 @@
             },
             "subtypes": [
               "Rotating variable",
-              "Spectroscopic binary"
+              "Spectroscopic binary",
+              "BY Draconis variable candidate"
             ],
             "known_planets": 0,
             "apparent_mag": 3.379999747
@@ -193461,7 +193483,7 @@
       ]
     },
     {
-      "temperature_k": null,
+      "temperature_k": 3430.0,
       "mass_solar": null,
       "luminosity_solar": null,
       "radius_solar": null,
@@ -193488,7 +193510,7 @@
         "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
         "radial_velocity_ref": null
       },
-      "spectral_type": "M3",
+      "spectral_type": "M3V",
       "known_planets": null,
       "x_pc": -3.354804314,
       "y_pc": 5.103925612,
@@ -193546,8 +193568,10 @@
         "WDS J12490+6607Aa",
         "cns5-3169"
       ],
-      "subtypes": [],
-      "notes": " MSC physical hierarchy 12490+6607, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
+      "subtypes": [
+        "Main-sequence"
+      ],
+      "notes": " MSC physical hierarchy 12490+6607, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Estimated temperature from Pecaut-Mamajek 2022.04.16 M3V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json.",
       "catalog_sources": [
         {
           "catalog_id": "nearest-1000",
@@ -193635,8 +193659,8 @@
               "radial_velocity_ref": null
             },
             "subtypes": [
-              "Eruptive variable",
               "Spectroscopic binary",
+              "Flare star",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -196841,7 +196865,7 @@
             },
             "subtypes": [
               "Be star",
-              "Variable star",
+              "Eruptive variable",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -202140,6 +202164,7 @@
         "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
       },
       "subtypes": [
+        "Delta Scuti variable",
         "Subgiant"
       ],
       "known_planets": 0,
@@ -202234,7 +202259,9 @@
               "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
               "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
             },
-            "subtypes": [],
+            "subtypes": [
+              "Delta Scuti variable"
+            ],
             "known_planets": 0,
             "apparent_mag": 4.14
           }
@@ -202302,7 +202329,9 @@
               "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
               "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
             },
-            "subtypes": [],
+            "subtypes": [
+              "Delta Scuti variable"
+            ],
             "known_planets": 0,
             "apparent_mag": 3.799999813
           },
@@ -207917,18 +207946,18 @@
           "record": {
             "temperature_k": 15348.0,
             "mass_solar": null,
-            "luminosity_solar": 212687.27505173496,
-            "radius_solar": 65.225861,
+            "luminosity_solar": 3505.1022887707236,
+            "radius_solar": 8.373353,
             "metallicity_dex": -0.3694,
             "age_gyr": null,
-            "absolute_mag": -7.409697,
+            "absolute_mag": -2.952095,
             "epoch": 2000.0,
-            "x_pc": 1158.900562165,
-            "y_pc": -286.473175056,
-            "z_pc": 81.676110415,
-            "vx_kms": -34.333819,
-            "vy_kms": -112.989248,
-            "vz_kms": -20.481708,
+            "x_pc": 148.773564396,
+            "y_pc": -36.775920858,
+            "z_pc": 10.485149865,
+            "vx_kms": -10.823385,
+            "vy_kms": -12.919022,
+            "vz_kms": -3.081501,
             "type": "star",
             "id": "hip-82514",
             "name": "Xamidimura",
@@ -207979,12 +208008,12 @@
               "WEB 13932",
               "Xamidimura"
             ],
-            "notes": "Western constellation line-figure star (HIP 82514; Stellarium Sco). SIMBAD identity * mu.01 Sco; SIMBAD compiled Johnson V=2.98; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
+            "notes": "Western constellation line-figure star (HIP 82514; Stellarium Sco). SIMBAD identity * mu.01 Sco; SIMBAD compiled Johnson V=2.98; inverse Hipparcos 2007 parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Gaia DR3 model values for metallicity_dex; Stefan-Boltzmann scaling for radius_solar.",
             "raw_astrometry": {
               "ra_deg": 252.96761814529,
               "dec_deg": -38.04739946400001,
-              "parallax_mas": 1.8732,
-              "parallax_error_mas": 0.7355,
+              "parallax_mas": 6.51,
+              "parallax_error_mas": 0.91,
               "pm_ra_cosdec_masyr": -10.451,
               "pm_ra_error_masyr": null,
               "pm_dec_masyr": -18.315,
@@ -207992,7 +208021,7 @@
               "radial_velocity_kms": -7.6,
               "radial_velocity_error_kms": null,
               "epoch": 2000.0,
-              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01; parallax 2007A&A...474..653V",
               "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
             },
             "subtypes": [
@@ -208001,7 +208030,7 @@
               "Spectroscopic binary"
             ],
             "known_planets": 0,
-            "apparent_mag": 2.980000084
+            "apparent_mag": 2.980000057
           },
           "scope": "Original Xamidimura catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
         }
@@ -208909,7 +208938,7 @@
               "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
             },
             "subtypes": [
-              "Variable star"
+              "Semiregular variable"
             ],
             "known_planets": 0,
             "apparent_mag": 2.779999565
@@ -213654,18 +213683,18 @@
           "record": {
             "temperature_k": 4200.0,
             "mass_solar": null,
-            "luminosity_solar": 2757.7113977499043,
-            "radius_solar": 99.180997,
+            "luminosity_solar": 738.2311011628585,
+            "radius_solar": 51.315697,
             "metallicity_dex": -0.5,
             "age_gyr": null,
-            "absolute_mag": -2.850845,
+            "absolute_mag": -1.419954,
             "epoch": 2000.0,
-            "x_pc": 232.497577716,
-            "y_pc": -117.009225968,
-            "z_pc": -96.791340764,
-            "vx_kms": 16.773993,
-            "vy_kms": 3.126071,
-            "vz_kms": 1.510953,
+            "x_pc": 120.292955252,
+            "y_pc": -60.539923563,
+            "z_pc": -50.079302063,
+            "vx_kms": 13.608256,
+            "vy_kms": -0.863454,
+            "vz_kms": -1.270441,
             "type": "star",
             "id": "hip-90098",
             "name": "Xi Pav",
@@ -213712,12 +213741,12 @@
               "Xi Pavonis",
               "Xi Pav"
             ],
-            "notes": "Western constellation line-figure star (HIP 90098; Stellarium Pav). SIMBAD identity * ksi Pav; SIMBAD compiled Johnson V=4.367; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2020A&A...633A..34C).",
+            "notes": "Western constellation line-figure star (HIP 90098; Stellarium Pav). SIMBAD identity * ksi Pav; SIMBAD compiled Johnson V=4.367; inverse Hipparcos 2007 parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2020A&A...633A..34C).",
             "raw_astrometry": {
               "ra_deg": 275.80682218129,
               "dec_deg": -61.49391192172,
-              "parallax_mas": 4.4041,
-              "parallax_error_mas": 0.8898,
+              "parallax_mas": 6.96,
+              "parallax_error_mas": 1.03,
               "pm_ra_cosdec_masyr": -1.775,
               "pm_ra_error_masyr": null,
               "pm_dec_masyr": 8.96,
@@ -213725,7 +213754,7 @@
               "radial_velocity_kms": 12.2,
               "radial_velocity_error_kms": null,
               "epoch": 2000.0,
-              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01; parallax 2007A&A...474..653V",
               "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
             },
             "subtypes": [
@@ -213734,7 +213763,7 @@
               "Giant"
             ],
             "known_planets": 0,
-            "apparent_mag": 4.366999993
+            "apparent_mag": 4.366999802
           },
           "scope": "Original Xi Pav catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
         }
@@ -218191,7 +218220,7 @@
         "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
         "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
       },
-      "spectral_type": "B9.5I",
+      "spectral_type": "B9.5III",
       "known_planets": null,
       "x_pc": 49.830572943,
       "y_pc": 44.209983403,
@@ -218256,7 +218285,7 @@
         "hip-99473"
       ],
       "subtypes": [
-        "Supergiant"
+        "Giant"
       ],
       "notes": " MSC physical hierarchy 20113-0049, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Reviewed individual literature: Piccotti et al. (2020), exact HD 191692 reviewed pair. Component Johnson V comes from Table 6 resolved-flux decomposition. Eligible masses use Table 5 orbital-parallax solution, with orbital/Hipparcos parallax consistency reviewed. Earlier individual catalog values win; ambiguous hierarchical totals and conflicting atmosphere/model estimates remain unavailable. Adopted common system motion from Antinous Aa: RV -28.02 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference.",
       "catalog_sources": [
@@ -218291,7 +218320,7 @@
               "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
               "radial_velocity_ref": null
             },
-            "spectral_type": "B9.5I",
+            "spectral_type": "B9.5III",
             "known_planets": null,
             "x_pc": 49.830572943,
             "y_pc": 44.209983403,
@@ -220359,7 +220388,7 @@
       "type": "star",
       "id": "cns5-5103",
       "name": "AT Mic B",
-      "spectral_type": "M4.5V",
+      "spectral_type": "M4.5Ve",
       "constellation": "Microscopium",
       "metallicity_kind": null,
       "designations": [
@@ -220500,7 +220529,7 @@
       "type": "star",
       "id": "cns5-5104",
       "name": "AT Mic C",
-      "spectral_type": "M4.5V",
+      "spectral_type": "M4.5Ve",
       "constellation": "Microscopium",
       "metallicity_kind": "[M/H]",
       "designations": [
@@ -222048,7 +222077,7 @@
         "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
         "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
       },
-      "spectral_type": "G8+II",
+      "spectral_type": "G8+III-IIIaBa0.5",
       "known_planets": null,
       "x_pc": 10.258859452,
       "y_pc": 43.580753675,
@@ -222114,7 +222143,7 @@
         "hip-104732"
       ],
       "subtypes": [
-        "Bright giant"
+        "Giant"
       ],
       "notes": " MSC physical hierarchy 21129+3014, component Aa. Shared system distance for close components is approximate. Catalog magnitude/spectral-type masses and minimum companion masses are withheld. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Zeta Cyg Aa: RV 16.72 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference.",
       "catalog_sources": [
@@ -222149,7 +222178,7 @@
               "astrometry_ref": "MSC 2026-06-19; shared parent astrometry for unresolved members (approximate)",
               "radial_velocity_ref": null
             },
-            "spectral_type": "G8+II",
+            "spectral_type": "G8+III-IIIaBa0.5",
             "known_planets": null,
             "x_pc": 10.258859452,
             "y_pc": 43.580753675,
@@ -229904,8 +229933,8 @@
       },
       "subtypes": [
         "BY Draconis variable",
-        "Eruptive variable",
         "Low-mass star",
+        "Flare star",
         "Main-sequence"
       ],
       "known_planets": 4,
@@ -230112,7 +230141,8 @@
             },
             "subtypes": [
               "Long-period variable",
-              "Red supergiant"
+              "Red supergiant",
+              "Irregular variable"
             ],
             "known_planets": 0,
             "apparent_mag": 0.909999526
@@ -230315,7 +230345,8 @@
             },
             "subtypes": [
               "Long-period variable",
-              "Red supergiant"
+              "Red supergiant",
+              "Irregular variable"
             ],
             "known_planets": 0,
             "apparent_mag": 0.909999526
@@ -236995,9 +237026,9 @@
             "x_pc": -1130.286647559,
             "y_pc": -556.405203859,
             "z_pc": 17.552758175,
-            "vx_kms": 579.040355,
-            "vy_kms": 298.16127,
-            "vz_kms": 3.984787,
+            "vx_kms": -32.844629,
+            "vy_kms": -3.050807,
+            "vz_kms": 13.487039,
             "type": "star",
             "id": "hip-32067",
             "name": "HD 48099",
@@ -237058,11 +237089,11 @@
               "pm_ra_error_masyr": 0.04358086,
               "pm_dec_masyr": 2.752,
               "pm_dec_error_masyr": 0.038971886,
-              "radial_velocity_kms": -651.072021,
-              "radial_velocity_error_kms": 0.108526,
+              "radial_velocity_kms": 31.0,
+              "radial_velocity_error_kms": 2.0,
               "epoch": 2000.0,
               "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
-              "radial_velocity_ref": "2020AJ....160..120J"
+              "radial_velocity_ref": "1953GCRV..C......0W"
             },
             "subtypes": [
               "Be star",
@@ -238252,7 +238283,7 @@
             "subtypes": [
               "Wolf\u2013Rayet",
               "Spectroscopic binary",
-              "Variable star"
+              "Eclipsing binary"
             ],
             "known_planets": 0,
             "apparent_mag": 5.529999682
@@ -239679,7 +239710,8 @@
             },
             "subtypes": [
               "BY Draconis variable",
-              "Eruptive variable"
+              "Eruptive variable",
+              "Flare star candidate"
             ],
             "known_planets": 0,
             "apparent_mag": 10.520000336
@@ -242428,8 +242460,9 @@
               "radial_velocity_ref": "Gaia DR3"
             },
             "subtypes": [
-              "Eruptive variable",
-              "Spectroscopic binary"
+              "Spectroscopic binary",
+              "Flare star",
+              "BY Draconis variable"
             ],
             "known_planets": 0,
             "apparent_mag": 10.390862629
@@ -246969,7 +247002,8 @@
             "subtypes": [
               "Spectroscopic binary",
               "Variable star",
-              "Long-period variable candidate"
+              "Long-period variable candidate",
+              "Irregular variable candidate"
             ],
             "known_planets": 0,
             "apparent_mag": 3.810000005
@@ -247565,6 +247599,357 @@
       "metallicity_dex": null,
       "age_gyr": null,
       "metallicity_kind": null,
+      "absolute_mag": null,
+      "apparent_mag": null,
+      "vx_kms": -16.166636,
+      "vy_kms": -73.827346,
+      "vz_kms": -7.44821,
+      "raw_astrometry": {
+        "ra_deg": 75.61951434554709,
+        "dec_deg": 41.07583198882223,
+        "parallax_mas": 1.4244,
+        "parallax_error_mas": 0.305,
+        "pm_ra_cosdec_masyr": 12.093,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": -19.324,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": -3.4116,
+        "radial_velocity_error_kms": null,
+        "epoch": 2000.0,
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01; shared primary astrometry approximation",
+        "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
+      },
+      "spectral_type": "K5II",
+      "known_planets": null,
+      "x_pc": -232.767126882,
+      "y_pc": 62.288006015,
+      "z_pc": -1.802376761,
+      "epoch": 2000.0,
+      "constellation": "Auriga",
+      "id": "hip-23453",
+      "name": "Saclateni A",
+      "type": "star",
+      "designations": [
+        "HD 32068",
+        "HD 32069",
+        "HIP 23453",
+        "2MASS J05022869+4104329",
+        "8 Aur",
+        "AAVSO 0455+40",
+        "AG+41 504",
+        "AP J05022869+4104329",
+        "BD+40 1142",
+        "CEL 510",
+        "FK5 1137",
+        "Gaia DR2 200929706962974080",
+        "Gaia DR3 200929706966014976",
+        "GC 6137",
+        "GCRV 2976",
+        "GEN# +1.00032068",
+        "GSC 02899-02236",
+        "HIC 23453",
+        "HR 1612",
+        "IRAS 04589+4100",
+        "IRC +40110",
+        "JP11 965",
+        "LF 7 +40 172",
+        "N30 1070",
+        "NAME-IAU Saclateni",
+        "PLX 1127",
+        "PLX 1127.00",
+        "PMC 90-93 761",
+        "PPM 47641",
+        "RAFGL 674",
+        "ROT 709",
+        "SAO 39966",
+        "SBC7 201",
+        "SBC9 292",
+        "SKY# 7891",
+        "TD1 3847",
+        "TIC 121815866",
+        "TYC 2899-2236-1",
+        "UBV 21465",
+        "UBV M 10543",
+        "WEB 4563",
+        "zet Aur",
+        "Zeta Aurigae",
+        "Saclateni"
+      ],
+      "subtypes": [
+        "Bright giant"
+      ],
+      "notes": "Individual A spectrum from catalog composite K5II+B7V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Saclateni A: RV -3.4116 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference.",
+      "unresolved_photometry": {
+        "magnitude_v": 3.75,
+        "error_mag": null,
+        "scope": "Saclateni catalog source; unresolved component contributions",
+        "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
+        "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A+zet+Aur"
+      },
+      "catalog_sources": [
+        {
+          "catalog_id": "constellation-motion-before-20261019",
+          "scope": "Original component observations and adopted velocity before shared system propagation. Individual/source RVs include their original scope and may contain orbital motion; not the adopted common bulk velocity.",
+          "record": {
+            "temperature_k": null,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "metallicity_kind": null,
+            "absolute_mag": null,
+            "apparent_mag": null,
+            "vx_kms": null,
+            "vy_kms": null,
+            "vz_kms": null,
+            "raw_astrometry": null,
+            "spectral_type": "K5II",
+            "known_planets": null,
+            "x_pc": -232.767126882,
+            "y_pc": 62.288006015,
+            "z_pc": -1.802376761,
+            "epoch": 2000.0,
+            "constellation": "Auriga",
+            "id": "hip-23453",
+            "name": "Saclateni A",
+            "type": "star",
+            "designations": [
+              "HD 32068",
+              "HD 32069",
+              "HIP 23453",
+              "2MASS J05022869+4104329",
+              "8 Aur",
+              "AAVSO 0455+40",
+              "AG+41 504",
+              "AP J05022869+4104329",
+              "BD+40 1142",
+              "CEL 510",
+              "FK5 1137",
+              "Gaia DR2 200929706962974080",
+              "Gaia DR3 200929706966014976",
+              "GC 6137",
+              "GCRV 2976",
+              "GEN# +1.00032068",
+              "GSC 02899-02236",
+              "HIC 23453",
+              "HR 1612",
+              "IRAS 04589+4100",
+              "IRC +40110",
+              "JP11 965",
+              "LF 7 +40 172",
+              "N30 1070",
+              "NAME-IAU Saclateni",
+              "PLX 1127",
+              "PLX 1127.00",
+              "PMC 90-93 761",
+              "PPM 47641",
+              "RAFGL 674",
+              "ROT 709",
+              "SAO 39966",
+              "SBC7 201",
+              "SBC9 292",
+              "SKY# 7891",
+              "TD1 3847",
+              "TIC 121815866",
+              "TYC 2899-2236-1",
+              "UBV 21465",
+              "UBV M 10543",
+              "WEB 4563",
+              "zet Aur",
+              "Zeta Aurigae",
+              "Saclateni"
+            ],
+            "subtypes": [],
+            "notes": "Individual A spectrum from catalog composite K5II+B7V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+          }
+        },
+        {
+          "catalog_id": "western-constellation-stars",
+          "record": {
+            "temperature_k": 4343.0,
+            "mass_solar": null,
+            "luminosity_solar": 3888.764439466537,
+            "radius_solar": 110.148555,
+            "metallicity_dex": -0.04,
+            "age_gyr": null,
+            "absolute_mag": -3.15976,
+            "epoch": 2000.0,
+            "x_pc": -232.767126882,
+            "y_pc": 62.288006015,
+            "z_pc": -1.802376761,
+            "vx_kms": -3.384435,
+            "vy_kms": -25.918875,
+            "vz_kms": -2.539681,
+            "type": "star",
+            "id": "hip-23453",
+            "name": "Saclateni",
+            "spectral_type": "K5II+B7V",
+            "constellation": "Auriga",
+            "metallicity_kind": "[Fe/H]",
+            "designations": [
+              "HD 32068",
+              "HD 32069",
+              "HIP 23453",
+              "2MASS J05022869+4104329",
+              "8 Aur",
+              "AAVSO 0455+40",
+              "AG+41 504",
+              "AP J05022869+4104329",
+              "BD+40 1142",
+              "CEL 510",
+              "FK5 1137",
+              "Gaia DR2 200929706962974080",
+              "Gaia DR3 200929706966014976",
+              "GC 6137",
+              "GCRV 2976",
+              "GEN# +1.00032068",
+              "GSC 02899-02236",
+              "HIC 23453",
+              "HR 1612",
+              "IRAS 04589+4100",
+              "IRC +40110",
+              "JP11 965",
+              "LF 7 +40 172",
+              "N30 1070",
+              "NAME-IAU Saclateni",
+              "PLX 1127",
+              "PLX 1127.00",
+              "PMC 90-93 761",
+              "PPM 47641",
+              "RAFGL 674",
+              "ROT 709",
+              "SAO 39966",
+              "SBC7 201",
+              "SBC9 292",
+              "SKY# 7891",
+              "TD1 3847",
+              "TIC 121815866",
+              "TYC 2899-2236-1",
+              "UBV 21465",
+              "UBV M 10543",
+              "WEB 4563",
+              "zet Aur",
+              "Zeta Aurigae",
+              "Saclateni"
+            ],
+            "notes": "Western constellation line-figure star (HIP 23453; Stellarium Aur). SIMBAD identity * zet Aur; SIMBAD compiled Johnson V=3.75; inverse Hipparcos 2007 parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...692A.189R).",
+            "raw_astrometry": {
+              "ra_deg": 75.61951434554709,
+              "dec_deg": 41.07583198882223,
+              "parallax_mas": 4.15,
+              "parallax_error_mas": 0.29,
+              "pm_ra_cosdec_masyr": 12.093,
+              "pm_ra_error_masyr": null,
+              "pm_dec_masyr": -19.324,
+              "pm_dec_error_masyr": null,
+              "radial_velocity_kms": -3.4116,
+              "radial_velocity_error_kms": null,
+              "epoch": 2000.0,
+              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01; parallax 2007A&A...474..653V",
+              "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
+            },
+            "subtypes": [
+              "Spectroscopic binary",
+              "Eclipsing binary"
+            ],
+            "known_planets": 0,
+            "apparent_mag": 3.749999516
+          },
+          "scope": "Original Saclateni catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
+        }
+      ]
+    },
+    {
+      "temperature_k": 14000.0,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "metallicity_kind": null,
+      "absolute_mag": null,
+      "apparent_mag": null,
+      "vx_kms": -16.166636,
+      "vy_kms": -73.827346,
+      "vz_kms": -7.44821,
+      "raw_astrometry": {
+        "ra_deg": 75.61951434554709,
+        "dec_deg": 41.07583198882223,
+        "parallax_mas": 1.4244,
+        "parallax_error_mas": 0.305,
+        "pm_ra_cosdec_masyr": 12.093,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": -19.324,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": -3.4116,
+        "radial_velocity_error_kms": null,
+        "epoch": 2000.0,
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01; shared primary astrometry approximation",
+        "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
+      },
+      "spectral_type": "B7V",
+      "known_planets": null,
+      "x_pc": -232.767126882,
+      "y_pc": 62.288006015,
+      "z_pc": -1.802376761,
+      "epoch": 2000.0,
+      "constellation": "Auriga",
+      "id": "hip-23453-component-b",
+      "name": "Saclateni B",
+      "type": "star",
+      "designations": [
+        "Saclateni B"
+      ],
+      "subtypes": [
+        "Main-sequence"
+      ],
+      "notes": "Individual B spectrum from catalog composite K5II+B7V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Estimated temperature from Pecaut-Mamajek 2022.04.16 B7V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Saclateni A: RV -3.4116 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference.",
+      "catalog_sources": [
+        {
+          "catalog_id": "constellation-motion-before-20261019",
+          "scope": "Original component observations and adopted velocity before shared system propagation. Individual/source RVs include their original scope and may contain orbital motion; not the adopted common bulk velocity.",
+          "record": {
+            "temperature_k": 14000.0,
+            "mass_solar": null,
+            "luminosity_solar": null,
+            "radius_solar": null,
+            "metallicity_dex": null,
+            "age_gyr": null,
+            "metallicity_kind": null,
+            "absolute_mag": null,
+            "apparent_mag": null,
+            "vx_kms": null,
+            "vy_kms": null,
+            "vz_kms": null,
+            "raw_astrometry": null,
+            "spectral_type": "B7V",
+            "known_planets": null,
+            "x_pc": -232.767126882,
+            "y_pc": 62.288006015,
+            "z_pc": -1.802376761,
+            "epoch": 2000.0,
+            "constellation": "Auriga",
+            "id": "hip-23453-component-b",
+            "name": "Saclateni B",
+            "type": "star",
+            "designations": [
+              "Saclateni B"
+            ],
+            "subtypes": [],
+            "notes": "Individual B spectrum from catalog composite K5II+B7V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Estimated temperature from Pecaut-Mamajek 2022.04.16 B7V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
+          }
+        }
+      ]
+    },
+    {
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "metallicity_kind": null,
       "absolute_mag": -1.275135522,
       "apparent_mag": 5.72,
       "vx_kms": -17.081997,
@@ -248006,7 +248391,8 @@
         "Eta Aql"
       ],
       "subtypes": [
-        "Supergiant"
+        "Supergiant",
+        "Classical Cepheid"
       ],
       "notes": "Individual A spectrum from catalog composite F6Iab+B9.8V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Eta Aql A: RV 10.82 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference.",
       "unresolved_photometry": {
@@ -249111,7 +249497,8 @@
             "subtypes": [
               "Long-period variable",
               "Spectroscopic binary",
-              "Red supergiant"
+              "Red supergiant",
+              "Irregular variable"
             ],
             "known_planets": 0,
             "apparent_mag": 4.370000258
@@ -249198,357 +249585,6 @@
             ],
             "subtypes": [],
             "notes": "Individual B spectrum from catalog composite K9Ia+B2V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Estimated temperature from Pecaut-Mamajek 2022.04.16 B2V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
-          }
-        }
-      ]
-    },
-    {
-      "temperature_k": null,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
-      "metallicity_dex": null,
-      "age_gyr": null,
-      "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
-      "vx_kms": -16.166636,
-      "vy_kms": -73.827346,
-      "vz_kms": -7.44821,
-      "raw_astrometry": {
-        "ra_deg": 75.61951434554709,
-        "dec_deg": 41.07583198882223,
-        "parallax_mas": 1.4244,
-        "parallax_error_mas": 0.305,
-        "pm_ra_cosdec_masyr": 12.093,
-        "pm_ra_error_masyr": null,
-        "pm_dec_masyr": -19.324,
-        "pm_dec_error_masyr": null,
-        "radial_velocity_kms": -3.4116,
-        "radial_velocity_error_kms": null,
-        "epoch": 2000.0,
-        "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01; shared primary astrometry approximation",
-        "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
-      },
-      "spectral_type": "K5II",
-      "known_planets": null,
-      "x_pc": -919.181285882,
-      "y_pc": 245.971027916,
-      "z_pc": -7.117461177,
-      "epoch": 2000.0,
-      "constellation": "Auriga",
-      "id": "hip-23453",
-      "name": "Saclateni A",
-      "type": "star",
-      "designations": [
-        "HD 32068",
-        "HD 32069",
-        "HIP 23453",
-        "2MASS J05022869+4104329",
-        "8 Aur",
-        "AAVSO 0455+40",
-        "AG+41 504",
-        "AP J05022869+4104329",
-        "BD+40 1142",
-        "CEL 510",
-        "FK5 1137",
-        "Gaia DR2 200929706962974080",
-        "Gaia DR3 200929706966014976",
-        "GC 6137",
-        "GCRV 2976",
-        "GEN# +1.00032068",
-        "GSC 02899-02236",
-        "HIC 23453",
-        "HR 1612",
-        "IRAS 04589+4100",
-        "IRC +40110",
-        "JP11 965",
-        "LF 7 +40 172",
-        "N30 1070",
-        "NAME-IAU Saclateni",
-        "PLX 1127",
-        "PLX 1127.00",
-        "PMC 90-93 761",
-        "PPM 47641",
-        "RAFGL 674",
-        "ROT 709",
-        "SAO 39966",
-        "SBC7 201",
-        "SBC9 292",
-        "SKY# 7891",
-        "TD1 3847",
-        "TIC 121815866",
-        "TYC 2899-2236-1",
-        "UBV 21465",
-        "UBV M 10543",
-        "WEB 4563",
-        "zet Aur",
-        "Zeta Aurigae",
-        "Saclateni"
-      ],
-      "subtypes": [
-        "Bright giant"
-      ],
-      "notes": "Individual A spectrum from catalog composite K5II+B7V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Saclateni A: RV -3.4116 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference.",
-      "unresolved_photometry": {
-        "magnitude_v": 3.75,
-        "error_mag": null,
-        "scope": "Saclateni catalog source; unresolved component contributions",
-        "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
-        "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A+zet+Aur"
-      },
-      "catalog_sources": [
-        {
-          "catalog_id": "constellation-motion-before-20261019",
-          "scope": "Original component observations and adopted velocity before shared system propagation. Individual/source RVs include their original scope and may contain orbital motion; not the adopted common bulk velocity.",
-          "record": {
-            "temperature_k": null,
-            "mass_solar": null,
-            "luminosity_solar": null,
-            "radius_solar": null,
-            "metallicity_dex": null,
-            "age_gyr": null,
-            "metallicity_kind": null,
-            "absolute_mag": null,
-            "apparent_mag": null,
-            "vx_kms": null,
-            "vy_kms": null,
-            "vz_kms": null,
-            "raw_astrometry": null,
-            "spectral_type": "K5II",
-            "known_planets": null,
-            "x_pc": -919.181285882,
-            "y_pc": 245.971027916,
-            "z_pc": -7.117461177,
-            "epoch": 2000.0,
-            "constellation": "Auriga",
-            "id": "hip-23453",
-            "name": "Saclateni A",
-            "type": "star",
-            "designations": [
-              "HD 32068",
-              "HD 32069",
-              "HIP 23453",
-              "2MASS J05022869+4104329",
-              "8 Aur",
-              "AAVSO 0455+40",
-              "AG+41 504",
-              "AP J05022869+4104329",
-              "BD+40 1142",
-              "CEL 510",
-              "FK5 1137",
-              "Gaia DR2 200929706962974080",
-              "Gaia DR3 200929706966014976",
-              "GC 6137",
-              "GCRV 2976",
-              "GEN# +1.00032068",
-              "GSC 02899-02236",
-              "HIC 23453",
-              "HR 1612",
-              "IRAS 04589+4100",
-              "IRC +40110",
-              "JP11 965",
-              "LF 7 +40 172",
-              "N30 1070",
-              "NAME-IAU Saclateni",
-              "PLX 1127",
-              "PLX 1127.00",
-              "PMC 90-93 761",
-              "PPM 47641",
-              "RAFGL 674",
-              "ROT 709",
-              "SAO 39966",
-              "SBC7 201",
-              "SBC9 292",
-              "SKY# 7891",
-              "TD1 3847",
-              "TIC 121815866",
-              "TYC 2899-2236-1",
-              "UBV 21465",
-              "UBV M 10543",
-              "WEB 4563",
-              "zet Aur",
-              "Zeta Aurigae",
-              "Saclateni"
-            ],
-            "subtypes": [],
-            "notes": "Individual A spectrum from catalog composite K5II+B7V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
-          }
-        },
-        {
-          "catalog_id": "western-constellation-stars",
-          "record": {
-            "temperature_k": 4343.0,
-            "mass_solar": null,
-            "luminosity_solar": 60641.60569206939,
-            "radius_solar": 434.969026,
-            "metallicity_dex": -0.04,
-            "age_gyr": null,
-            "absolute_mag": -6.142157,
-            "epoch": 2000.0,
-            "x_pc": -919.181285882,
-            "y_pc": 245.971027916,
-            "z_pc": -7.117461177,
-            "vx_kms": -23.083248,
-            "vy_kms": -99.751233,
-            "vz_kms": -10.104278,
-            "type": "star",
-            "id": "hip-23453",
-            "name": "Saclateni",
-            "spectral_type": "K5II+B7V",
-            "constellation": "Auriga",
-            "metallicity_kind": "[Fe/H]",
-            "designations": [
-              "HD 32068",
-              "HD 32069",
-              "HIP 23453",
-              "2MASS J05022869+4104329",
-              "8 Aur",
-              "AAVSO 0455+40",
-              "AG+41 504",
-              "AP J05022869+4104329",
-              "BD+40 1142",
-              "CEL 510",
-              "FK5 1137",
-              "Gaia DR2 200929706962974080",
-              "Gaia DR3 200929706966014976",
-              "GC 6137",
-              "GCRV 2976",
-              "GEN# +1.00032068",
-              "GSC 02899-02236",
-              "HIC 23453",
-              "HR 1612",
-              "IRAS 04589+4100",
-              "IRC +40110",
-              "JP11 965",
-              "LF 7 +40 172",
-              "N30 1070",
-              "NAME-IAU Saclateni",
-              "PLX 1127",
-              "PLX 1127.00",
-              "PMC 90-93 761",
-              "PPM 47641",
-              "RAFGL 674",
-              "ROT 709",
-              "SAO 39966",
-              "SBC7 201",
-              "SBC9 292",
-              "SKY# 7891",
-              "TD1 3847",
-              "TIC 121815866",
-              "TYC 2899-2236-1",
-              "UBV 21465",
-              "UBV M 10543",
-              "WEB 4563",
-              "zet Aur",
-              "Zeta Aurigae",
-              "Saclateni"
-            ],
-            "notes": "Western constellation line-figure star (HIP 23453; Stellarium Aur). SIMBAD identity * zet Aur; SIMBAD compiled Johnson V=3.75; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2024A&A...692A.189R).",
-            "raw_astrometry": {
-              "ra_deg": 75.61951434554709,
-              "dec_deg": 41.07583198882223,
-              "parallax_mas": 1.4244,
-              "parallax_error_mas": 0.305,
-              "pm_ra_cosdec_masyr": 12.093,
-              "pm_ra_error_masyr": null,
-              "pm_dec_masyr": -19.324,
-              "pm_dec_error_masyr": null,
-              "radial_velocity_kms": -3.4116,
-              "radial_velocity_error_kms": null,
-              "epoch": 2000.0,
-              "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
-              "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
-            },
-            "subtypes": [
-              "Spectroscopic binary",
-              "Variable star"
-            ],
-            "known_planets": 0,
-            "apparent_mag": 3.750000155
-          },
-          "scope": "Original Saclateni catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
-        }
-      ]
-    },
-    {
-      "temperature_k": 14000.0,
-      "mass_solar": null,
-      "luminosity_solar": null,
-      "radius_solar": null,
-      "metallicity_dex": null,
-      "age_gyr": null,
-      "metallicity_kind": null,
-      "absolute_mag": null,
-      "apparent_mag": null,
-      "vx_kms": -16.166636,
-      "vy_kms": -73.827346,
-      "vz_kms": -7.44821,
-      "raw_astrometry": {
-        "ra_deg": 75.61951434554709,
-        "dec_deg": 41.07583198882223,
-        "parallax_mas": 1.4244,
-        "parallax_error_mas": 0.305,
-        "pm_ra_cosdec_masyr": 12.093,
-        "pm_ra_error_masyr": null,
-        "pm_dec_masyr": -19.324,
-        "pm_dec_error_masyr": null,
-        "radial_velocity_kms": -3.4116,
-        "radial_velocity_error_kms": null,
-        "epoch": 2000.0,
-        "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01; shared primary astrometry approximation",
-        "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy; shared systemic velocity approximation"
-      },
-      "spectral_type": "B7V",
-      "known_planets": null,
-      "x_pc": -919.181285882,
-      "y_pc": 245.971027916,
-      "z_pc": -7.117461177,
-      "epoch": 2000.0,
-      "constellation": "Auriga",
-      "id": "hip-23453-component-b",
-      "name": "Saclateni B",
-      "type": "star",
-      "designations": [
-        "Saclateni B"
-      ],
-      "subtypes": [
-        "Main-sequence"
-      ],
-      "notes": "Individual B spectrum from catalog composite K5II+B7V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Estimated temperature from Pecaut-Mamajek 2022.04.16 B7V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Saclateni A: RV -3.4116 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference.",
-      "catalog_sources": [
-        {
-          "catalog_id": "constellation-motion-before-20261019",
-          "scope": "Original component observations and adopted velocity before shared system propagation. Individual/source RVs include their original scope and may contain orbital motion; not the adopted common bulk velocity.",
-          "record": {
-            "temperature_k": 14000.0,
-            "mass_solar": null,
-            "luminosity_solar": null,
-            "radius_solar": null,
-            "metallicity_dex": null,
-            "age_gyr": null,
-            "metallicity_kind": null,
-            "absolute_mag": null,
-            "apparent_mag": null,
-            "vx_kms": null,
-            "vy_kms": null,
-            "vz_kms": null,
-            "raw_astrometry": null,
-            "spectral_type": "B7V",
-            "known_planets": null,
-            "x_pc": -919.181285882,
-            "y_pc": 245.971027916,
-            "z_pc": -7.117461177,
-            "epoch": 2000.0,
-            "constellation": "Auriga",
-            "id": "hip-23453-component-b",
-            "name": "Saclateni B",
-            "type": "star",
-            "designations": [
-              "Saclateni B"
-            ],
-            "subtypes": [],
-            "notes": "Individual B spectrum from catalog composite K5II+B7V; component spectral ordering retained. Integrated system photometry and physical estimates withheld. Shared system sky position/distance is approximate; no orbital phase or individual space motion inferred. Estimated temperature from Pecaut-Mamajek 2022.04.16 B7V mean dwarf sequence (interpolation where needed); not an object-specific measurement. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json."
           }
         }
       ]
@@ -253082,7 +253118,7 @@
             "subtypes": [
               "Be star",
               "Spectroscopic binary",
-              "Variable star",
+              "Eruptive variable",
               "Main-sequence candidate"
             ],
             "known_planets": 0,
@@ -254652,7 +254688,9 @@
         "Mira",
         "hip-10826"
       ],
-      "subtypes": [],
+      "subtypes": [
+        "Mira variable"
+      ],
       "notes": "Detected ORB6 visual pair 02193-0259 JOY   1Aa,Ab, component Aa. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Mira Aa: RV 63.5 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference. Reviewed individual literature: Reviewed 151-target enrichment (2026-10-21). 2004A&A...421..703W. Existing non-null values retain their independent sources. Mira variable, observed phase 0.13; radius and temperature vary over the cycle. Not a mean photosphere or a prediction for the current phase. The far-fainter companion is not the observed M-giant. Phase 0.13 photospheric estimate, not cycle-averaged luminosity; no mixed-phase or current-phase prediction.",
       "unresolved_photometry": {
         "magnitude_v": 6.53,
@@ -254763,7 +254801,9 @@
               "Mira",
               "hip-10826"
             ],
-            "subtypes": [],
+            "subtypes": [
+              "Mira variable"
+            ],
             "notes": "Detected ORB6 visual pair 02193-0259 JOY   1Aa,Ab, component Aa. Unresolved parent photometry, physical parameters and space motion withheld. Shared parent position/distance is approximate unless individual astrometry is available. ORB6 magnitudes are withheld because their photometric band is not guaranteed to be Johnson V. Component-scoped catalog measurements/estimates; details in catalog-work/star-systems/catalog-companions-audit.json. Adopted common system motion from Mira Aa: RV 63.5 km/s (SIMBAD TAP snapshot 2026-10-01; compiled-primary-proxy). All adopted members use the same Galactic velocity vector for linear propagation; component orbital velocities are not modeled. Native positions, proper motions, parallaxes and their uncertainties are retained. Previous RVs, errors and vectors are retained as source observations. This adoption supersedes earlier motion assumptions in the source notes. Shared primary astrometric basis and a single Galactic Cartesian velocity for all listed targets. This is a common linear-propagation approximation; individual measured positions, distances and proper motions are not overwritten. No orbital phase integration or binding-energy inference."
           }
         },
@@ -258116,6 +258156,7 @@
             "subtypes": [
               "Spectroscopic binary",
               "Delta Scuti variable",
+              "Eclipsing binary candidate",
               "Giant"
             ],
             "known_planets": 0,
@@ -258223,6 +258264,7 @@
             "subtypes": [
               "Spectroscopic binary",
               "Delta Scuti variable",
+              "Eclipsing binary candidate",
               "Giant"
             ],
             "known_planets": 0,
@@ -260303,14 +260345,14 @@
       "metallicity_kind": null,
       "absolute_mag": null,
       "apparent_mag": null,
-      "vx_kms": 17.374393,
-      "vy_kms": -7.942459,
-      "vz_kms": -26.687841,
+      "vx_kms": 9.188433,
+      "vy_kms": -4.023278,
+      "vz_kms": -13.816529,
       "raw_astrometry": {
         "ra_deg": 86.86205431107791,
         "dec_deg": -10.532969635484722,
-        "parallax_mas": 2.5381,
-        "parallax_error_mas": 1.0356,
+        "parallax_mas": 4.88,
+        "parallax_error_mas": 0.73,
         "pm_ra_cosdec_masyr": -9.958,
         "pm_ra_error_masyr": 0.6900346,
         "pm_dec_masyr": -14.477,
@@ -260318,14 +260360,14 @@
         "radial_velocity_kms": -0.4102247436674551,
         "radial_velocity_error_kms": 0.231897,
         "epoch": 2000.0,
-        "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2007A&A...474..653V; proper motion 2020yCat.1350....0G",
         "radial_velocity_ref": "Gaia DR3; SB9 systemic velocity"
       },
       "spectral_type": null,
       "known_planets": null,
-      "x_pc": -453.631263081,
-      "y_pc": -321.231267773,
-      "z_pc": -190.691065907,
+      "x_pc": -158.184355007,
+      "y_pc": -112.015562057,
+      "z_pc": -66.495291928,
       "epoch": 2000.0,
       "constellation": "Orion",
       "id": "hip-27341",
@@ -260379,18 +260421,18 @@
           "record": {
             "temperature_k": 8279.0,
             "mass_solar": null,
-            "luminosity_solar": 996.2265909,
-            "radius_solar": 15.34178684,
+            "luminosity_solar": 121.1376741,
+            "radius_solar": 5.349787049,
             "metallicity_dex": null,
             "age_gyr": null,
-            "absolute_mag": -2.755598,
+            "absolute_mag": -0.467901,
             "epoch": 2000.0,
-            "x_pc": -453.631263081,
-            "y_pc": -321.231267773,
-            "z_pc": -190.691065907,
-            "vx_kms": 15.097904,
-            "vy_kms": -19.505701,
-            "vz_kms": -44.352188,
+            "x_pc": -158.184355007,
+            "y_pc": -112.015562057,
+            "z_pc": -66.495291928,
+            "vx_kms": -1.472227,
+            "vy_kms": -11.572444,
+            "vz_kms": -18.297906,
             "type": "star",
             "id": "hip-27341",
             "name": "HD 38735",
@@ -260428,12 +260470,12 @@
               "YZC 11 1616",
               "HD 38735"
             ],
-            "notes": "Naked-eye star: SIMBAD compiled Johnson V=6.09 (2000A&A...355L..27H). SIMBAD identity HD  38735; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2012A&A...537A.120Z; luminosity_solar: 2012MNRAS.427..343M). radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
+            "notes": "Naked-eye star: SIMBAD compiled Johnson V=6.09 (2000A&A...355L..27H). SIMBAD identity HD  38735; inverse Hipparcos 2007 parallax distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2012A&A...537A.120Z; luminosity_solar: 2012MNRAS.427..343M). radius_solar derived by Stefan-Boltzmann scaling from adopted inputs (solar Teff=5772 K); inherits their measurement/model/estimate assumptions.",
             "raw_astrometry": {
               "ra_deg": 86.86205431107791,
               "dec_deg": -10.532969635484722,
-              "parallax_mas": 2.5381,
-              "parallax_error_mas": 1.0356,
+              "parallax_mas": 4.88,
+              "parallax_error_mas": 0.73,
               "pm_ra_cosdec_masyr": -9.958,
               "pm_ra_error_masyr": 0.6900346,
               "pm_dec_masyr": -14.477,
@@ -260441,7 +260483,7 @@
               "radial_velocity_kms": 13.4,
               "radial_velocity_error_kms": 1.0,
               "epoch": 2000.0,
-              "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
+              "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2007A&A...474..653V; proper motion 2020yCat.1350....0G",
               "radial_velocity_ref": "2006AstL...32..759G"
             },
             "subtypes": [
@@ -260450,7 +260492,7 @@
               "Subgiant"
             ],
             "known_planets": 0,
-            "apparent_mag": 6.090000137
+            "apparent_mag": 6.08999989
           },
           "scope": "Original HD 38735 catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
         }
@@ -260466,14 +260508,14 @@
       "metallicity_kind": null,
       "absolute_mag": null,
       "apparent_mag": null,
-      "vx_kms": 17.374393,
-      "vy_kms": -7.942459,
-      "vz_kms": -26.687841,
+      "vx_kms": 9.188433,
+      "vy_kms": -4.023278,
+      "vz_kms": -13.816529,
       "raw_astrometry": {
         "ra_deg": 86.86205431107791,
         "dec_deg": -10.532969635484722,
-        "parallax_mas": 2.5381,
-        "parallax_error_mas": 1.0356,
+        "parallax_mas": 4.88,
+        "parallax_error_mas": 0.73,
         "pm_ra_cosdec_masyr": -9.958,
         "pm_ra_error_masyr": 0.6900346,
         "pm_dec_masyr": -14.477,
@@ -260481,14 +260523,14 @@
         "radial_velocity_kms": -0.4102247436674551,
         "radial_velocity_error_kms": 0.231897,
         "epoch": 2000.0,
-        "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2007A&A...474..653V; proper motion 2020yCat.1350....0G",
         "radial_velocity_ref": "Gaia DR3; SB9 systemic velocity"
       },
       "spectral_type": null,
       "known_planets": null,
-      "x_pc": -453.631263081,
-      "y_pc": -321.231267773,
-      "z_pc": -190.691065907,
+      "x_pc": -158.184355007,
+      "y_pc": -112.015562057,
+      "z_pc": -66.495291928,
       "epoch": 2000.0,
       "constellation": "Orion",
       "id": "orb6-05474-1032-a-b-b",
@@ -263227,9 +263269,9 @@
       "metallicity_kind": null,
       "absolute_mag": null,
       "apparent_mag": null,
-      "vx_kms": 74.786427,
-      "vy_kms": 8.788082,
-      "vz_kms": -39.058532,
+      "vx_kms": -23.428636,
+      "vy_kms": -21.664246,
+      "vz_kms": -7.031246,
       "raw_astrometry": {
         "ra_deg": 111.93482220727002,
         "dec_deg": 21.44527902503,
@@ -263239,11 +263281,11 @@
         "pm_ra_error_masyr": 1.0026919,
         "pm_dec_masyr": -121.068,
         "pm_dec_error_masyr": 0.815047,
-        "radial_velocity_kms": -82.3,
-        "radial_velocity_error_kms": 1.9,
+        "radial_velocity_kms": 25.4,
+        "radial_velocity_error_kms": 2.0,
         "epoch": 2000.0,
         "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
-        "radial_velocity_ref": "2006AstL...32..759G"
+        "radial_velocity_ref": "1953GCRV..C......0W"
       },
       "spectral_type": null,
       "known_planets": null,
@@ -263325,9 +263367,9 @@
             "x_pc": -29.59539029,
             "y_pc": -9.17627608,
             "z_pc": 9.650862249,
-            "vx_kms": 74.786484,
-            "vy_kms": 8.791188,
-            "vz_kms": -39.055404,
+            "vx_kms": -23.428579,
+            "vy_kms": -21.66114,
+            "vz_kms": -7.028118,
             "type": "star",
             "id": "hip-36238",
             "name": "63 Gem",
@@ -263388,11 +263430,11 @@
               "pm_ra_error_masyr": 1.0026919,
               "pm_dec_masyr": -121.068,
               "pm_dec_error_masyr": 0.815047,
-              "radial_velocity_kms": -82.3,
-              "radial_velocity_error_kms": 1.9,
+              "radial_velocity_kms": 25.4,
+              "radial_velocity_error_kms": 2.0,
               "epoch": 2000.0,
               "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
-              "radial_velocity_ref": "2006AstL...32..759G"
+              "radial_velocity_ref": "1953GCRV..C......0W"
             },
             "subtypes": [
               "Spectroscopic binary",
@@ -263415,9 +263457,9 @@
       "metallicity_kind": null,
       "absolute_mag": null,
       "apparent_mag": null,
-      "vx_kms": 74.786427,
-      "vy_kms": 8.788082,
-      "vz_kms": -39.058532,
+      "vx_kms": -23.428636,
+      "vy_kms": -21.664246,
+      "vz_kms": -7.031246,
       "raw_astrometry": {
         "ra_deg": 111.93482220727002,
         "dec_deg": 21.44527902503,
@@ -263427,11 +263469,11 @@
         "pm_ra_error_masyr": 1.0026919,
         "pm_dec_masyr": -121.068,
         "pm_dec_error_masyr": 0.815047,
-        "radial_velocity_kms": -82.3,
-        "radial_velocity_error_kms": 1.9,
+        "radial_velocity_kms": 25.4,
+        "radial_velocity_error_kms": 2.0,
         "epoch": 2000.0,
         "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
-        "radial_velocity_ref": "2006AstL...32..759G"
+        "radial_velocity_ref": "1953GCRV..C......0W"
       },
       "spectral_type": null,
       "known_planets": null,
@@ -270750,6 +270792,7 @@
               "Be star",
               "Pulsating variable",
               "Rotating variable",
+              "Eruptive variable",
               "Giant"
             ],
             "known_planets": 0,
@@ -279133,7 +279176,7 @@
             },
             "subtypes": [
               "Spectroscopic binary",
-              "Variable star",
+              "Eruptive variable",
               "Subgiant"
             ],
             "known_planets": 0,
@@ -279342,7 +279385,7 @@
             },
             "subtypes": [
               "Spectroscopic binary",
-              "Variable star",
+              "Eruptive variable",
               "Subgiant"
             ],
             "known_planets": 0,
@@ -279638,8 +279681,8 @@
               "radial_velocity_ref": "2020yCat.1350....0G"
             },
             "subtypes": [
-              "Eruptive variable",
               "Spectroscopic binary",
+              "Flare star",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -288269,8 +288312,8 @@
               "radial_velocity_ref": null
             },
             "subtypes": [
-              "Eruptive variable",
               "Low-mass star",
+              "Flare star",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -295055,8 +295098,8 @@
             },
             "subtypes": [
               "BY Draconis variable",
-              "Eruptive variable",
               "Spectroscopic binary",
+              "Flare star",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -297016,14 +297059,14 @@
       "metallicity_kind": null,
       "absolute_mag": null,
       "apparent_mag": null,
-      "vx_kms": -23.10472,
-      "vy_kms": -13.753958,
-      "vz_kms": -17.819419,
+      "vx_kms": -22.014963,
+      "vy_kms": -13.422579,
+      "vz_kms": -20.943894,
       "raw_astrometry": {
         "ra_deg": 83.85827580502625,
         "dec_deg": -5.909888523506666,
-        "parallax_mas": 1.9969,
-        "parallax_error_mas": 0.7299,
+        "parallax_mas": 1.4,
+        "parallax_error_mas": 0.22,
         "pm_ra_cosdec_masyr": -2.816,
         "pm_ra_error_masyr": 1.022422,
         "pm_dec_masyr": -1.693,
@@ -297031,14 +297074,14 @@
         "radial_velocity_kms": 31.3,
         "radial_velocity_error_kms": 1.2,
         "epoch": 2000.0,
-        "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2007A&A...474..653V; proper motion 2020yCat.1350....0G",
         "radial_velocity_ref": "2000MNRAS.317..333M; SB9 systemic velocity"
       },
       "spectral_type": "O9III",
       "known_planets": null,
-      "x_pc": -766.555060881,
-      "y_pc": -434.086477681,
-      "z_pc": -313.398305321,
+      "x_pc": -585.593101386,
+      "y_pc": -331.610943176,
+      "z_pc": -239.413833328,
       "epoch": 2000.0,
       "constellation": "Orion",
       "id": "hip-26241",
@@ -297139,14 +297182,14 @@
             "radius_solar": null,
             "metallicity_dex": null,
             "age_gyr": null,
-            "absolute_mag": -7.084097,
+            "absolute_mag": -6.49936,
             "epoch": 2000.0,
-            "x_pc": -766.555060881,
-            "y_pc": -434.086477681,
-            "z_pc": -313.398305321,
-            "vx_kms": -17.854977,
-            "vy_kms": -11.362247,
-            "vz_kms": -22.933884,
+            "x_pc": -585.593101386,
+            "y_pc": -331.610943176,
+            "z_pc": -239.413833328,
+            "vx_kms": -18.981591,
+            "vy_kms": -11.704834,
+            "vz_kms": -19.703731,
             "type": "star",
             "id": "hip-26241",
             "name": "Hatysa",
@@ -297227,12 +297270,12 @@
               "WH 301",
               "Hatysa"
             ],
-            "notes": "Naked-eye star: SIMBAD compiled Johnson V=2.77 (2002yCat.2237....0D). SIMBAD identity * iot Ori; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 1995A&AS..110..553S).",
+            "notes": "Naked-eye star: SIMBAD compiled Johnson V=2.77 (2002yCat.2237....0D). SIMBAD identity * iot Ori; inverse Hipparcos 2007 parallax distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 1995A&AS..110..553S).",
             "raw_astrometry": {
               "ra_deg": 83.85827580502625,
               "dec_deg": -5.909888523506666,
-              "parallax_mas": 1.9969,
-              "parallax_error_mas": 0.7299,
+              "parallax_mas": 1.4,
+              "parallax_error_mas": 0.22,
               "pm_ra_cosdec_masyr": -2.816,
               "pm_ra_error_masyr": 1.022422,
               "pm_dec_masyr": -1.693,
@@ -297240,7 +297283,7 @@
               "radial_velocity_kms": 27.6,
               "radial_velocity_error_kms": 0.3,
               "epoch": 2000.0,
-              "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
+              "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2007A&A...474..653V; proper motion 2020yCat.1350....0G",
               "radial_velocity_ref": "1970ApJS...19..387A"
             },
             "subtypes": [
@@ -297249,7 +297292,7 @@
               "Giant"
             ],
             "known_planets": 0,
-            "apparent_mag": 2.769999839
+            "apparent_mag": 2.769999822
           },
           "scope": "Original Hatysa catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
         }
@@ -297265,14 +297308,14 @@
       "metallicity_kind": null,
       "absolute_mag": null,
       "apparent_mag": null,
-      "vx_kms": -23.10472,
-      "vy_kms": -13.753958,
-      "vz_kms": -17.819419,
+      "vx_kms": -22.014963,
+      "vy_kms": -13.422579,
+      "vz_kms": -20.943894,
       "raw_astrometry": {
         "ra_deg": 83.85827580502625,
         "dec_deg": -5.909888523506666,
-        "parallax_mas": 1.9969,
-        "parallax_error_mas": 0.7299,
+        "parallax_mas": 1.4,
+        "parallax_error_mas": 0.22,
         "pm_ra_cosdec_masyr": -2.816,
         "pm_ra_error_masyr": 1.022422,
         "pm_dec_masyr": -1.693,
@@ -297280,14 +297323,14 @@
         "radial_velocity_kms": 31.3,
         "radial_velocity_error_kms": 1.2,
         "epoch": 2000.0,
-        "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2007A&A...474..653V; proper motion 2020yCat.1350....0G",
         "radial_velocity_ref": "2000MNRAS.317..333M; SB9 systemic velocity"
       },
       "spectral_type": "B1III",
       "known_planets": null,
-      "x_pc": -766.555060881,
-      "y_pc": -434.086477681,
-      "z_pc": -313.398305321,
+      "x_pc": -585.593101386,
+      "y_pc": -331.610943176,
+      "z_pc": -239.413833328,
       "epoch": 2000.0,
       "constellation": "Orion",
       "id": "sb9-343-ab",
@@ -309285,8 +309328,7 @@
             "subtypes": [
               "Be star",
               "Spectroscopic binary",
-              "Variable star",
-              "Ellipsoidal variable candidate",
+              "Ellipsoidal variable",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -312027,8 +312069,7 @@
             },
             "subtypes": [
               "Eclipsing binary",
-              "Spectroscopic binary",
-              "Young stellar object candidate"
+              "Spectroscopic binary"
             ],
             "known_planets": 0,
             "apparent_mag": 4.849999529
@@ -320306,7 +320347,7 @@
             "subtypes": [
               "Be star",
               "Spectroscopic binary",
-              "Variable star"
+              "Eruptive variable"
             ],
             "known_planets": 0,
             "apparent_mag": 4.639999827
@@ -320793,14 +320834,14 @@
       "metallicity_kind": null,
       "absolute_mag": null,
       "apparent_mag": null,
-      "vx_kms": -61.056,
-      "vy_kms": -77.329381,
-      "vz_kms": -46.605405,
+      "vx_kms": -39.127978,
+      "vy_kms": -0.496224,
+      "vz_kms": -6.608982,
       "raw_astrometry": {
         "ra_deg": 253.50765574400458,
         "dec_deg": -41.80638538865194,
-        "parallax_mas": 0.1599,
-        "parallax_error_mas": 0.3406,
+        "parallax_mas": 1.26,
+        "parallax_error_mas": 0.63,
         "pm_ra_cosdec_masyr": -0.748,
         "pm_ra_error_masyr": 0.4617961,
         "pm_dec_masyr": -3.37,
@@ -320808,14 +320849,14 @@
         "radial_velocity_kms": -37.5,
         "radial_velocity_error_kms": 2.9,
         "epoch": 2000.0,
-        "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2007A&A...474..653V; proper motion 2020yCat.1350....0G",
         "radial_velocity_ref": "2001A&A...368..122G; SB9 systemic velocity"
       },
       "spectral_type": "B0.5Ia",
       "known_planets": null,
-      "x_pc": 3115.864288145,
-      "y_pc": -925.161266657,
-      "z_pc": 68.964178584,
+      "x_pc": 1550.840584934,
+      "y_pc": -460.475010224,
+      "z_pc": 34.325130097,
       "epoch": 2000.0,
       "constellation": "Scorpius",
       "id": "hip-82676",
@@ -320889,14 +320930,14 @@
             "radius_solar": null,
             "metallicity_dex": null,
             "age_gyr": null,
-            "absolute_mag": -7.110115,
+            "absolute_mag": -5.595058,
             "epoch": 2000.0,
-            "x_pc": 3115.864288145,
-            "y_pc": -925.161266657,
-            "z_pc": 68.964178584,
-            "vx_kms": -81.391281,
-            "vy_kms": -25.456464,
-            "vz_kms": -25.326403,
+            "x_pc": 1550.840584934,
+            "y_pc": -460.475010224,
+            "z_pc": 34.325130097,
+            "vx_kms": -12.248788,
+            "vy_kms": -21.061721,
+            "vz_kms": -11.980039,
             "type": "star",
             "id": "hip-82676",
             "name": "HD 152234",
@@ -320950,21 +320991,21 @@
               "XMMU J165401.9-414823",
               "HD 152234"
             ],
-            "notes": "Naked-eye star: SIMBAD compiled Johnson V=5.45 (2002yCat.2237....0D). SIMBAD identity HD 152234; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2024A&A...687A.228D).",
+            "notes": "Naked-eye star: SIMBAD compiled Johnson V=5.45 (2002yCat.2237....0D). SIMBAD identity HD 152234; open-cluster parallax (NGC 6231) distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: 2024A&A...687A.228D).",
             "raw_astrometry": {
               "ra_deg": 253.50765574400458,
               "dec_deg": -41.80638538865194,
-              "parallax_mas": 0.1599,
-              "parallax_error_mas": 0.3406,
+              "parallax_mas": 1.26,
+              "parallax_error_mas": 0.63,
               "pm_ra_cosdec_masyr": -0.748,
               "pm_ra_error_masyr": 0.4617961,
               "pm_dec_masyr": -3.37,
               "pm_dec_error_masyr": 0.32427442,
-              "radial_velocity_kms": -71.3,
-              "radial_velocity_error_kms": 2.7,
+              "radial_velocity_kms": -6.0,
+              "radial_velocity_error_kms": 5.0,
               "epoch": 2000.0,
-              "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
-              "radial_velocity_ref": "1983ApL....23..183L"
+              "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2007A&A...474..653V; proper motion 2020yCat.1350....0G",
+              "radial_velocity_ref": "1953GCRV..C......0W"
             },
             "subtypes": [
               "Spectroscopic binary",
@@ -320973,7 +321014,7 @@
               "Young stellar object candidate"
             ],
             "known_planets": 0,
-            "apparent_mag": 5.449999504
+            "apparent_mag": 5.449999624
           },
           "scope": "Original HD 152234 catalog source; component contributions are not separated here. Retained source measurements, not individual component measurements."
         }
@@ -320989,14 +321030,14 @@
       "metallicity_kind": null,
       "absolute_mag": null,
       "apparent_mag": null,
-      "vx_kms": -61.056,
-      "vy_kms": -77.329381,
-      "vz_kms": -46.605405,
+      "vx_kms": -39.127978,
+      "vy_kms": -0.496224,
+      "vz_kms": -6.608982,
       "raw_astrometry": {
         "ra_deg": 253.50765574400458,
         "dec_deg": -41.80638538865194,
-        "parallax_mas": 0.1599,
-        "parallax_error_mas": 0.3406,
+        "parallax_mas": 1.26,
+        "parallax_error_mas": 0.63,
         "pm_ra_cosdec_masyr": -0.748,
         "pm_ra_error_masyr": 0.4617961,
         "pm_dec_masyr": -3.37,
@@ -321004,14 +321045,14 @@
         "radial_velocity_kms": -37.5,
         "radial_velocity_error_kms": 2.9,
         "epoch": 2000.0,
-        "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
+        "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2007A&A...474..653V; proper motion 2020yCat.1350....0G",
         "radial_velocity_ref": "2001A&A...368..122G; SB9 systemic velocity"
       },
       "spectral_type": null,
       "known_planets": null,
-      "x_pc": 3115.864288145,
-      "y_pc": -925.161266657,
-      "z_pc": 68.964178584,
+      "x_pc": 1550.840584934,
+      "y_pc": -460.475010224,
+      "z_pc": 34.325130097,
       "epoch": 2000.0,
       "constellation": "Scorpius",
       "id": "sb9-2596-ab",
@@ -325848,6 +325889,7 @@
             "subtypes": [
               "Rotating variable",
               "Spectroscopic binary",
+              "BY Draconis variable candidate",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -326047,8 +326089,8 @@
               "radial_velocity_ref": null
             },
             "subtypes": [
-              "Eruptive variable",
               "Spectroscopic binary",
+              "Flare star",
               "Main-sequence"
             ],
             "known_planets": 0,
@@ -331446,6 +331488,7 @@
             "subtypes": [
               "Pulsating variable",
               "Spectroscopic binary",
+              "Gamma Doradus variable candidate",
               "Subgiant"
             ],
             "known_planets": 0,
@@ -333660,6 +333703,7 @@
               "Emission-line star",
               "Rotating variable",
               "Spectroscopic binary",
+              "BY Draconis variable candidate",
               "Main-sequence"
             ],
             "known_planets": 0,

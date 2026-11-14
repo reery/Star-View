@@ -4,11 +4,12 @@ import argparse
 import csv
 import hashlib
 import json
+import math
 import re
 from collections import defaultdict
 from pathlib import Path
 
-from catalog_sources.classification import contradicted, prune_subtypes, spectral_labels
+from catalog_sources.classification import contradicted, gcvs_contradicted, gcvs_labels, prune_subtypes, spectral_labels
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/object-stats"
@@ -49,6 +50,33 @@ COMPACT_SYSTEM_SUBTYPES = {"Eclipsing binary", "Spectroscopic binary", "X-ray bi
 
 def key(value):
     return re.sub(r"\s+", "", re.sub(r"^(?:NAME|V\*|\*\*|\*)\s+", "", value)).casefold()
+
+
+GREEK = {"khi": "chi"}
+
+
+def gcvs_key(name):
+    """GCVS and SIMBAD spell variable names differently: V0399 Car / V399 Car, omi 1 Ori / omi01 Ori, khi Cyg / chi Cyg, pi. PsA.
+    Case stays: R Dor is a variable, r Dor a Bayer letter."""
+    name = re.sub(r"^V0+(?=\d)", "V", name.replace(".", ""))
+    match = re.match(r"^([A-Za-z]+) ?0*(\d+) (\w+)$", name) or re.match(r"^([A-Za-z]+)()() ?(\w+)$", name)
+    if match and len(match.groups()) == 3:
+        return f"{GREEK.get(match[1], match[1])}{match[2]} {match[3]}"
+    letter, rest = name.split(" ", 1) if " " in name else (name, "")
+    return f"{GREEK.get(letter, letter)} {rest}".strip()
+
+
+# Cepheids vary by tenths of a magnitude over days; GCVS lists every known one brighter than V 8.
+CEPHEIDS = {"Cepheid variable", "Classical Cepheid", "Type II Cepheid"}
+GCVS_COMPLETE_V = 8
+
+
+def unconfirmed_cepheid(label, row, variable):
+    """A SIMBAD Cepheid class on a star bright enough that GCVS would list it as one, but does not."""
+    if label.removesuffix(" candidate") not in CEPHEIDS or variable or not row.get("absolute_mag") or not row.get("x_pc"):
+        return False
+    distance = math.hypot(*(float(row[axis]) for axis in ("x_pc", "y_pc", "z_pc")))
+    return distance > 0 and float(row["absolute_mag"]) + 5 * math.log10(distance / 10) <= GCVS_COMPLETE_V
 
 
 def csv_rows(path):
@@ -103,6 +131,7 @@ def build():
             continue
         hosts[main].add(host["pl_name"])
         host_matches[main].append(host["hostname"])
+    gcvs = {gcvs_key(row["name"]): (row["name"], row["type"]) for row in csv_rows(WORK / "gcvs.csv")}
     compact_subtypes = {row["id"]: row["subtypes"] for row in json.loads((ROOT / "catalog-work/compact-remnants/curated.json").read_text())
                         if "subtypes" in row}
     objects = {}
@@ -113,7 +142,16 @@ def build():
         # Candidate classes stay explicitly tentative.
         candidates = (CANDIDATES.get(code, code[:-1] + "*") for code in codes if code.endswith("?"))
         labels.extend(LABELS[code] + " candidate" for code in candidates if code in LABELS)
-        labels = [label for label in labels if not contradicted(label, row)]
+        # GCVS names are exact (case matters: R Dor is a variable, r Dor a Bayer letter); one entry per object.
+        entry = identities.get(identifier, {})
+        # Designations are stored without SIMBAD's "V* " and "* " prefixes; the SIMBAD identifier keeps them.
+        names = {gcvs_key(re.sub(r"^(?:V\*|\*) ", "", " ".join(name.split()))) for name in [entry.get("simbadId") or "", *entry.get("designations", [])] if name}
+        variable = sorted(gcvs[name] for name in names if name in gcvs)
+        variable = variable[0] if len(variable) == 1 and row["type"] in STELLAR else None
+        variability, constant = gcvs_labels(variable[1]) if variable else ([], False)
+        labels = [label for label in labels if not contradicted(label, row) and not gcvs_contradicted(label, variability, constant)
+                  and not unconfirmed_cepheid(label, row, variable)]
+        labels.extend(label for label in variability if not contradicted(label, row))
         labels.extend(spectral_labels(row))
         labels = prune_subtypes(list(dict.fromkeys(labels)))
         if identifier in compact_subtypes:
@@ -134,10 +172,10 @@ def build():
         elif not counts and main and row["type"] in STELLAR and key(main) in types:
             known = 0
         objects[identifier] = {"subtypes": labels, "known_planets": known,
-                               "simbadId": main, "sourceTypes": codes,
+                               "simbadId": main, "sourceTypes": codes, **({"gcvs": f"{variable[0]}: {variable[1]}"} if variable else {}),
                                "planetHosts": sorted(set(host_matches.get(key(main), []))) if main else []}
     return {"schemaVersion": 1, "retrieved": manifest["retrieved"],
-            "policy": "Exact reviewed SIMBAD identities and unique exact NASA host identifiers. SIMBAD classes contradicted by the record's own object type, single-star spectrum or luminosity are withheld from subtypes; sourceTypes keeps every SIMBAD code. Count distinct confirmed pscomppars planet rows per host, never system sy_pnum on stellar companions; circumbinary counts withheld. Zero means no confirmed host match in this archive snapshot, not absence of planets. Unresolved identities remain null. Apparent Johnson V is generated per row from reviewed absolute V and adopted distance; no blended flux substitution. Sun: eight planets and apparent V -26.74 (NASA Sun fact sheet).",
+            "policy": "Exact reviewed SIMBAD identities and unique exact NASA host identifiers. SIMBAD classes contradicted by the record's own object type, single-star spectrum or luminosity are withheld from subtypes; sourceTypes keeps every SIMBAD code. GCVS 5.1 types of the exact GCVS name add variability classes; a SIMBAD pulsation class is withheld when GCVS lists the star as constant or gives it another pulsation class. Count distinct confirmed pscomppars planet rows per host, never system sy_pnum on stellar companions; circumbinary counts withheld. Zero means no confirmed host match in this archive snapshot, not absence of planets. Unresolved identities remain null. Apparent Johnson V is generated per row from reviewed absolute V and adopted distance; no blended flux substitution. Sun: eight planets and apparent V -26.74 (NASA Sun fact sheet).",
             "sources": manifest["sources"], "sourceChecksumsSha256": manifest["checksumsSha256"],
             "unmatchedArchiveHosts": sorted(set(unmatched)), "objects": objects}
 

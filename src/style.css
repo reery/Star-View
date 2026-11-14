@@ -316,6 +316,11 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .dock-card.glossary-card { position: relative; display: flex; flex-direction: column; width: min(640px, calc(var(--ui-width) - var(--dock-gutter))); height: min(520px, calc(var(--ui-height) - 100px)); overflow: hidden; }
 /* Wide enough for the supernova candidates table without horizontal scrolling. */
 .dock-card.top-lists-card { width: min(900px, calc(var(--ui-width) - var(--dock-gutter))); }
+.dock-card.top-lists-card.is-narrow { width: min(500px, calc(var(--ui-width) - var(--dock-gutter))); }
+.top-lists-card .glossary-heading { padding-right: 186px; }
+.top-lists-card .glossary-heading #top-lists-width { right: 131px; border-radius: 0; }
+.top-lists-card .glossary-heading #top-lists-lock { right: 87px; }
+.top-lists-card .glossary-heading #top-lists-minimize { right: 43px; border-radius: 0; }
 /* Wide enough for the paint setting titles beside their scale buttons. */
 #paint-panel { width: min(400px, calc(var(--ui-width) - var(--dock-gutter))); }
 /* The Graphs width toggle switches between the default and compact widths. */
@@ -554,7 +559,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 
 .projected-axes, .projected-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; contain: strict; }
 .projected-axes { z-index: 0; }
-.projected-labels, .solar-system-labels { z-index: 3; }
+.projected-labels, .solar-system-labels, .visibility-cone-cardinals { z-index: 3; }
 .map-anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
 .map-label { position: absolute; top: 0; left: 0; width: max-content; max-width: 180px; line-height: 1.4; }
 .star-label { font-size: 14px; font-weight: 500; color: var(--ink); text-shadow: 0 1px 5px #000000, 0 0 4px #000000; transform-origin: top left; }
@@ -572,7 +577,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .dimension-label { background: #000000; padding: 3px 5px; color: var(--accent-strong); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .axis-label, .sky-grid-label { color: var(--muted); font-size: 10px; text-shadow: 0 0 3px #000000; }
 .sky-grid-label { transform: translate(7px, 5px); font-variant-numeric: tabular-nums; }
-.visibility-cone-label { font-size: 14px; font-weight: 600; opacity: 0.8; text-shadow: 0 0 3px #000000; transform: translate(-50%, -50%); }
+.visibility-cone-label { font-size: 20px; font-weight: 700; opacity: 0.9; text-shadow: 0 1px 5px #000000, 0 0 4px #000000; transform: translate(-50%, -50%); }
 .is-moving .map-label { text-shadow: none; }
 
 .display-settings, .filter-controls { font-size: 14px; line-height: 1.35; color: var(--ink); }
@@ -1966,6 +1971,19 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .top-list:is([data-list="solar-type"], [data-list="solar-analogs"], [data-list="solar-twins"]) { min-width: 820px; }
 .top-list:is([data-list="solar-type"], [data-list="solar-analogs"], [data-list="solar-twins"]) .top-list-field-1 { width: 104px; }
 .top-list:is([data-list="solar-type"], [data-list="solar-analogs"], [data-list="solar-twins"]) .top-list-field-3 { width: 88px; }
+.top-list[data-list="encounters"] { min-width: 620px; }
+.top-list[data-list="encounters"] .top-list-field-0 { width: 144px; }
+/* Like single lists, narrow cards scroll the tables sideways instead of squeezing the names. */
+.top-list-groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+.top-list-group .card-subgroup-heading { margin: 0; padding: 7px 12px; }
+.top-list-group-heading { display: flex; align-items: center; gap: 8px; }
+/* Marks of every size share one 14px slot, so the titles line up. */
+.top-list-kind-mark { width: var(--kind-size); height: var(--kind-size); margin-inline: calc((14px - var(--kind-size)) / 2); }
+.top-list-kind-mark.is-orbited { outline: 1px solid var(--muted); outline-offset: 2px; }
+.top-list-groups .top-list { min-width: 340px; }
+.top-list-groups.has-metrics { grid-template-columns: repeat(auto-fill, minmax(460px, 1fr)); }
+.top-list-groups.has-metrics .top-list { min-width: 460px; }
+.top-list-groups .top-list .top-list-number { width: 96px; }
 .top-list tbody td:first-child { color: var(--muted); }
 .top-list tbody tr:not(.top-list-marker):hover td { background: var(--panel-selected); }
 .top-list tbody tr:not(.top-list-marker):hover td:first-child { border-radius: 5px 0 0 5px; }

@@ -1,4 +1,4 @@
-"""Explicitly freeze SIMBAD classifications and NASA confirmed-planet hosts.
+"""Explicitly freeze SIMBAD classifications, NASA confirmed-planet hosts and GCVS variability types.
 
 This acquisition is separate from offline application builds.
 """
@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/object-stats"
 SIMBAD = "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"
 NASA = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
+GCVS_TABLE = "B/gcvs/gcvs_cat"
 
 
 def query(url, adql):
@@ -65,6 +66,9 @@ def refresh(retrieved, planets_only=False):
             "FROM pscomppars ORDER BY pl_name")
     files["planet-hosts.csv"] = query(NASA, adql)
     files["planet-hosts.adql"] = adql + "\n"
+    # GCVS is frozen separately (--gcvs) and carried over unchanged.
+    if (WORK / "gcvs.csv").exists():
+        files["gcvs.csv"] = (WORK / "gcvs.csv").read_text()
     manifest = {"retrieved": retrieved, "sources": {"simbad": SIMBAD, "planets": NASA},
                 "checksumsSha256": {name: hashlib.sha256(content.encode()).hexdigest() for name, content in files.items()}}
     files["source-manifest.json"] = json.dumps(manifest, indent=2) + "\n"
@@ -73,9 +77,35 @@ def refresh(retrieved, planets_only=False):
     print(f"Frozen {len(records)} classifications and NASA planet-host snapshot.")
 
 
+def freeze_gcvs(retrieved, vizier_url):
+    """The complete GCVS name and variability-type columns, through VizieR ASU (official mirrors serve it too)."""
+    url = f"{vizier_url}/viz-bin/asu-tsv?" + urllib.parse.urlencode({"-source": GCVS_TABLE, "-out": "GCVS,VarType", "-out.max": "unlimited"}, safe="/,")
+    with urllib.request.urlopen(url, context=ssl.create_default_context(cafile="/etc/ssl/cert.pem"), timeout=300) as response:
+        lines = [line for line in response.read().decode().splitlines() if line and not line.startswith("#")]
+    if lines[0].split("\t") != ["GCVS", "VarType"]:
+        raise ValueError(f"Unexpected GCVS columns: {lines[0]}")
+    buffer = io.StringIO()
+    writer = csv.writer(buffer, lineterminator="\n")
+    writer.writerow(["name", "type"])
+    writer.writerows([" ".join(name.split()), kind.strip()] for name, kind in (line.split("\t") for line in lines[3:]))
+    manifest = json.loads((WORK / "source-manifest.json").read_text())
+    manifest["checksumsSha256"]["gcvs.csv"] = hashlib.sha256(buffer.getvalue().encode()).hexdigest()
+    manifest["sources"]["gcvs"] = url
+    manifest["extensions"] = [entry for entry in manifest.get("extensions", []) if entry.get("files") != ["gcvs.csv"]] + [
+        {"retrieved": retrieved, "source": url, "files": ["gcvs.csv"],
+         "note": "General Catalogue of Variable Stars (Samus et al. 2017, 2017ARep...61...80S): every name with its variability type."}]
+    write_managed_files(WORK, {"gcvs.csv": buffer.getvalue(), "source-manifest.json": json.dumps(manifest, indent=2) + "\n"}, force=True)
+    print(f"Frozen {buffer.getvalue().count(chr(10)) - 1} GCVS variables.")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--retrieved", required=True)
     parser.add_argument("--planets-only", action="store_true")
+    parser.add_argument("--gcvs", action="store_true", help="freeze only the GCVS variability types")
+    parser.add_argument("--vizier-url", default="https://vizier.cds.unistra.fr", help="VizieR host or official mirror (--gcvs)")
     arguments = parser.parse_args()
-    refresh(arguments.retrieved, arguments.planets_only)
+    if arguments.gcvs:
+        freeze_gcvs(arguments.retrieved, arguments.vizier_url)
+    else:
+        refresh(arguments.retrieved, arguments.planets_only)

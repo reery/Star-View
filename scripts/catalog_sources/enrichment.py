@@ -550,7 +550,8 @@ def enrich_from_frozen(row, main_id=None, aliases=(), derive=True, reviewed_only
             source_distance = number(sed_model.get("Dist"))
             luminosity = number(sed_model.get("Lum"))
             distance = math.hypot(*(float(row[field]) for field in ("x_pc", "y_pc", "z_pc")))
-            if source_distance and luminosity:
+            # A fit from a non-positive Hipparcos parallax has no luminosity scale; its SED temperature remains valid.
+            if source_distance and source_distance > 0 and luminosity:
                 adopt("luminosity_solar", luminosity * (distance / source_distance) ** 2, "2012MNRAS.427..343M", sourceRecordId=f"HIP {hip}", sourceDistancePc=source_distance, adoptedDistancePc=distance)
         # Individual isochrone ages outrank Gaia FLAME; the tightest qualifying one wins.
         age = min(supplement_index()[1].get(hip, []), key=lambda item: item["relativeHalfWidth"], default=None)
