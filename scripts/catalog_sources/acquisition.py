@@ -246,6 +246,11 @@ def naked_eye_simbad_query() -> str:
     )
 
 
+def naked_eye_velocity_queries(main_ids: list[str]) -> list[str]:
+    return ["SELECT b.main_id,m.velValue AS velvalue,m.meanError AS meanerror,m.bibcode FROM basic AS b JOIN mesVelocities AS m ON b.oid=m.oidref "
+            f"WHERE b.main_id IN ({_quoted(values)}) ORDER BY main_id,bibcode,velvalue" for values in (main_ids[start:start + 500] for start in range(0, len(main_ids), 500))]
+
+
 def acquire_naked_eye_stars(
     output: Path,
     retrieved: str,
@@ -261,7 +266,7 @@ def acquire_naked_eye_stars(
         raise ValueError("Network timeout must be positive")
     output = safe_output_directory(output)
     managed = ("simbad.adql", "simbad.csv", "parents.adql", "parents.csv", "gaia.adql", "gaia.csv", "distance.adql", "distance.csv",
-               "spectroscopy.adql", "spectroscopy.csv", "source-manifest.json")
+               "spectroscopy.adql", "spectroscopy.csv", "velocities.adql", "velocities.csv", "source-manifest.json")
     if any(managed_path(output, name).exists() for name in managed) and not force:
         raise FileExistsError("Source snapshot exists; use --force only for an intentional refresh")
     chunk = lambda values, size: [values[start:start + size] for start in range(0, len(values), size)]
@@ -289,6 +294,10 @@ def acquire_naked_eye_stars(
         main_ids = sorted({row["main_id"] for row in simbad})
         run("spectroscopy", simbad_url, ["SELECT b.main_id,m.teff,m.log_g,m.fe_h,m.bibcode,m.mespos FROM basic AS b JOIN mesFe_h AS m "
                                          f"ON b.oid=m.oidref WHERE b.main_id IN ({_quoted(values)})" for values in chunk(main_ids, 500)])
+        # Every published measurement lets the catalog test a compiled radial velocity against the others.
+        moving = sorted({row["main_id"] for row in simbad if row["rvz_radvel"]}
+                        | {row["parent_id"] for row in csv.DictReader(io.StringIO((staging / "parents.csv").read_text())) if row["rvz_radvel"]})
+        run("velocities", simbad_url, naked_eye_velocity_queries(moving))
         manifest = {
             "schemaVersion": 1,
             "retrieved": retrieved,
@@ -301,6 +310,8 @@ def acquire_naked_eye_stars(
                 "gaia": {"release": "DR3", "url": GAIA_TAP_URL, "queryFile": "gaia.adql"},
                 "distance": {"release": "Bailer-Jones et al. 2021 Gaia EDR3 distances", "url": GAIA_TAP_URL, "queryFile": "distance.adql", "reference": "2021AJ....161..147B"},
                 "spectroscopy": {"url": simbad_url, "queryFile": "spectroscopy.adql"},
+                "velocities": {"url": simbad_url, "queryFile": "velocities.adql",
+                               "scope": "Every SIMBAD radial-velocity measurement (mesVelocities) of snapshot objects and hierarchy parents with a compiled radial velocity"},
             },
             "checksumsSha256": {name: sha256(staging / name) for name in managed[:-1]},
         }
@@ -412,6 +423,7 @@ def acquire_vizier_supplement(
 HIPPARCOS_MODELS = {
     "fundamental": ("J/A+A/352/555/table1", ("HIP", "Mass", "e_Mass", "logRad", "e_logRad", "logTeff", "e_logTeff"), "1999A&A...352..555A"),
     "sed": ("J/MNRAS/427/343/table2", ("HIP", "Dist", "eDist", "Teff", "Lum"), "2012MNRAS.427..343M"),
+    "hipparcos": ("I/311/hip2", ("HIP", "Plx", "e_Plx"), "2007A&A...474..653V"),
 }
 
 
@@ -447,7 +459,7 @@ def acquire_hipparcos_models(
     timeout: float = DEFAULT_NETWORK_TIMEOUT_SECONDS,
     vizier_url: str = VIZIER_URL,
 ) -> dict:
-    """Add exact-HIP Allende Prieto & Lambert 1999 and McDonald et al. 2012 rows to a frozen SIMBAD snapshot.
+    """Add exact-HIP Allende Prieto & Lambert 1999, McDonald et al. 2012 and van Leeuwen 2007 rows to a frozen SIMBAD snapshot.
 
     Complete tables come through VizieR's ASU interface, which official mirrors
     also serve, and are filtered locally to each object's unique SIMBAD HIP alias.
@@ -456,7 +468,9 @@ def acquire_hipparcos_models(
         raise ValueError("Network timeout must be positive")
     output = safe_output_directory(output)
     manifest = json.loads(managed_path(output, "source-manifest.json").read_text())
-    if any(name in manifest["sources"] for name in HIPPARCOS_MODELS) and not force:
+    # Tables already frozen are refetched only with --force.
+    pending = {name: spec for name, spec in HIPPARCOS_MODELS.items() if force or name not in manifest["sources"]}
+    if not pending:
         raise FileExistsError("Hipparcos model snapshot exists; use --force only for an intentional refresh")
     for name, digest in manifest["checksumsSha256"].items():
         verify_sha256(managed_path(output, name), digest)
@@ -466,7 +480,7 @@ def acquire_hipparcos_models(
         hips |= values if len(values) == 1 else set()
     files = {}
     with tempfile.TemporaryDirectory(prefix=".catalog-acquire-", dir=output) as staging_name:
-        for name, (table, columns, reference) in HIPPARCOS_MODELS.items():
+        for name, (table, columns, reference) in pending.items():
             url, rows = _vizier_table(vizier_url, table, columns, Path(staging_name) / f"{name}.tsv", timeout)
             selected = sorted((row for row in rows if row[0] in hips), key=lambda row: int(row[0]))
             files[f"{name}.csv"] = _csv_text(columns, selected)

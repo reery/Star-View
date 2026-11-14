@@ -113,19 +113,19 @@
       "magnitude_v": 4.35,
       "bayer": "ξ",
       "object": {
-        "x_pc": 232.497577716,
-        "y_pc": -117.009225968,
-        "z_pc": -96.791340764,
-        "vx_kms": 16.773993,
-        "vy_kms": 3.126071,
-        "vz_kms": 1.510953,
+        "x_pc": 120.292955252,
+        "y_pc": -60.539923563,
+        "z_pc": -50.079302063,
+        "vx_kms": 13.608256,
+        "vy_kms": -0.863454,
+        "vz_kms": -1.270441,
         "temperature_k": 4200.0,
         "mass_solar": null,
-        "luminosity_solar": 2757.7113977499043,
-        "radius_solar": 99.180997,
+        "luminosity_solar": 738.2311011628585,
+        "radius_solar": 51.315697,
         "metallicity_dex": -0.5,
         "age_gyr": null,
-        "absolute_mag": -2.850845,
+        "absolute_mag": -1.419954,
         "epoch": 2000.0,
         "type": "star",
         "id": "hip-90098",
@@ -133,15 +133,15 @@
         "constellation": "Pavo",
         "spectral_type": "K4III",
         "metallicity_kind": "[Fe/H]",
-        "notes": "Western constellation line-figure star (HIP 90098; Stellarium Pav). SIMBAD identity * ksi Pav; SIMBAD compiled Johnson V=4.367; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2020A&A...633A..34C).",
+        "notes": "Western constellation line-figure star (HIP 90098; Stellarium Pav). SIMBAD identity * ksi Pav; SIMBAD compiled Johnson V=4.367; inverse Hipparcos 2007 parallax distance; absolute V uses no extinction correction. Physical parameters: published Hipparcos-source models for temperature_k, luminosity_solar; Stefan-Boltzmann scaling for radius_solar. Shared exact-identity physical supplements (metallicity_dex: 2020A&A...633A..34C).",
         "designations": [
           "HIP 90098"
         ],
         "raw_astrometry": {
           "ra_deg": 275.80682218129,
           "dec_deg": -61.49391192172,
-          "parallax_mas": 4.4041,
-          "parallax_error_mas": 0.8898,
+          "parallax_mas": 6.96,
+          "parallax_error_mas": 1.03,
           "pm_ra_cosdec_masyr": -1.775,
           "pm_ra_error_masyr": null,
           "pm_dec_masyr": 8.96,
@@ -149,7 +149,7 @@
           "radial_velocity_kms": 12.2,
           "radial_velocity_error_kms": null,
           "epoch": 2000.0,
-          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01; parallax 2007A&A...474..653V",
           "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
         }
       }
@@ -1316,7 +1316,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
+      "sha256": "f094b4f53be6c5d73bca10c803845831096d7a2dd48b1606d68ca65ea287dcc8"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

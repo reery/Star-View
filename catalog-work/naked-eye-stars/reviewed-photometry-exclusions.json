@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-11-14",
+  "policy": "SIMBAD objects whose compiled Johnson V is contradicted by Tycho-2, Gaia DR3 and 2MASS photometry of the same position are not naked-eye stars and leave the catalog. Each full former row stays here.",
+  "objects": [
+    {
+      "id": "hip-13487",
+      "simbadId": "HD  17706",
+      "status": "excluded-not-naked-eye",
+      "reason": "SIMBAD's compiled V = 6.408 (2000A&A...355L..27H) does not describe HD 17706: Tycho-2 measures VT = 8.549 and BT = 8.887 at its position (TYC 4056-1120-1), Gaia DR3 gives G = 8.51 and 2MASS J = 7.66. At V of about 8.5 the star is not visible to the naked eye.",
+      "references": [
+        {
+          "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR-3?-source=I/259/tyc2",
+          "scope": "TYC 4056-1120-1 at RA 43.4187, Dec +64.4520: VT 8.549, BT 8.887; no brighter Tycho-2 source within 30 arcsec"
+        },
+        {
+          "url": "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=HD+17706",
+          "scope": "Compiled V 6.408 and B 6.312 (Tycho-2 photometry entry), Gaia DR3 G 8.507"
+        }
+      ],
+      "previousCatalogRecords": [
+        {
+          "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+          "record": {
+            "type": "star",
+            "id": "hip-13487",
+            "name": "HD 17706",
+            "designations": "",
+            "spectral_type": "B5IV",
+            "x_pc": "-500.903214982",
+            "y_pc": "489.830225075",
+            "z_pc": "56.856448460",
+            "vx_kms": "17.143254",
+            "vy_kms": "-22.401443",
+            "vz_kms": "-3.368363",
+            "temperature_k": "",
+            "mass_solar": "",
+            "luminosity_solar": "",
+            "radius_solar": "",
+            "metallicity_dex": "",
+            "metallicity_kind": "",
+            "age_gyr": "",
+            "absolute_mag": "-2.826472",
+            "epoch": "2000.0",
+            "notes": "Naked-eye star: SIMBAD compiled Johnson V=6.408 (2000A&A...355L..27H). SIMBAD identity HD  17706; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction.",
+            "constellation": "Cassiopeia",
+            "ra_deg": "43.41871054803",
+            "dec_deg": "64.45198390429",
+            "astrometry_epoch": "2000.0",
+            "parallax_mas": "1.4219",
+            "parallax_error_mas": "0.108",
+            "pm_ra_cosdec_masyr": "0.928",
+            "pm_ra_error_masyr": "0.03962516",
+            "pm_dec_masyr": "-0.843",
+            "pm_dec_error_masyr": "0.0918145",
+            "radial_velocity_kms": "-28.1",
+            "radial_velocity_error_kms": "0.7",
+            "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
+            "radial_velocity_ref": "2007AN....328..889K"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gamma-psa-b",
+      "simbadId": "* gam PsA B",
+      "status": "excluded-not-naked-eye",
+      "reason": "SIMBAD's compiled V = 5.023 and B = 5.049 (2000A&A...355L..27H) belong to the bright primary Gamma PsA A: Tycho-2 has a single source, VT = 4.502, within 60 arcsec, which is the A star. The F5V companion 4 arcsec away has Gaia DR3 G = 8.00, about V = 8.1, beyond naked-eye visibility.",
+      "references": [
+        {
+          "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR-3?-source=I/259/tyc2",
+          "scope": "TYC 7508-1313-1 at RA 343.1314, Dec -32.8756 (Gamma PsA A): VT 4.502, BT 4.446; no other Tycho-2 source within 60 arcsec"
+        },
+        {
+          "url": "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=*+gam+PsA+B",
+          "scope": "Compiled V 5.023 (Tycho-2), Gaia DR3 G 7.999 of the B component"
+        }
+      ],
+      "previousCatalogRecords": [
+        {
+          "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+          "record": {
+            "type": "star",
+            "id": "gamma-psa-b",
+            "name": "Gamma PsA B",
+            "designations": "",
+            "spectral_type": "F5V",
+            "x_pc": "29.843616149",
+            "y_pc": "6.921791131",
+            "z_pc": "-62.023532204",
+            "vx_kms": "19.979470",
+            "vy_kms": "-4.881905",
+            "vz_kms": "-13.048496",
+            "temperature_k": "6550",
+            "mass_solar": "",
+            "luminosity_solar": "",
+            "radius_solar": "",
+            "metallicity_dex": "",
+            "metallicity_kind": "",
+            "age_gyr": "",
+            "absolute_mag": "0.823188",
+            "epoch": "2000.0",
+            "notes": "Naked-eye star: SIMBAD compiled Johnson V=5.023 (2000A&A...355L..27H). SIMBAD identity * gam PsA B; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Estimated temperature from Pecaut-Mamajek 2022.04.16 F5V mean dwarf sequence (interpolation where needed); not an object-specific measurement.",
+            "constellation": "Piscis Austrinus",
+            "ra_deg": "343.13007123016",
+            "dec_deg": "-32.87575879603",
+            "astrometry_epoch": "2000.0",
+            "parallax_mas": "14.4163",
+            "parallax_error_mas": "0.0395",
+            "pm_ra_cosdec_masyr": "-30.131",
+            "pm_ra_error_masyr": "0.038371418",
+            "pm_dec_masyr": "-30.86",
+            "pm_dec_error_masyr": "0.042685024",
+            "radial_velocity_kms": "19.83",
+            "radial_velocity_error_kms": "0.67",
+            "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
+            "radial_velocity_ref": "2018yCat.1345....0G"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cl-melotte-20-772",
+      "simbadId": "Cl Melotte   20   772",
+      "status": "excluded-not-naked-eye",
+      "reason": "The compiled V = 4.989 (2006RMxAA..42..179P) cannot belong to this Alpha Persei cluster member: Gaia DR3 gives G = 11.47, 2MASS J = 10.50, and Tycho-2 has no source at its position (complete to about VT 11.5). The star is about V 12, far below naked-eye visibility.",
+      "references": [
+        {
+          "url": "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Cl+Melotte+20+772",
+          "scope": "Compiled V 4.989 (2006RMxAA..42..179P), Gaia DR3 G 11.469, 2MASS J 10.504"
+        },
+        {
+          "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR-3?-source=I/259/tyc2",
+          "scope": "No Tycho-2 source within 30 arcsec of RA 51.9955, Dec +49.0195"
+        }
+      ],
+      "previousCatalogRecords": [
+        {
+          "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+          "record": {
+            "type": "star",
+            "id": "cl-melotte-20-772",
+            "name": "Cl Melotte 20 772",
+            "designations": "",
+            "spectral_type": "",
+            "x_pc": "-1648.017960107",
+            "y_pc": "1048.373452472",
+            "z_pc": "-213.133491443",
+            "vx_kms": "",
+            "vy_kms": "",
+            "vz_kms": "",
+            "temperature_k": "8939",
+            "mass_solar": "3.448189",
+            "luminosity_solar": "263.99942",
+            "radius_solar": "6.786526",
+            "metallicity_dex": "",
+            "metallicity_kind": "",
+            "age_gyr": "0.24994072",
+            "absolute_mag": "-6.477602",
+            "epoch": "2000.0",
+            "notes": "Naked-eye star: SIMBAD compiled Johnson V=4.989 (2006RMxAA..42..179P). SIMBAD identity Cl Melotte   20   772; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: Gaia DR3 astrophysical_parameters; mass_solar: Gaia DR3 astrophysical_parameters; luminosity_solar: Gaia DR3 astrophysical_parameters; radius_solar: Gaia DR3 astrophysical_parameters; age_gyr: Gaia DR3 astrophysical_parameters).",
+            "constellation": "Perseus",
+            "ra_deg": "51.99546621374",
+            "dec_deg": "49.01952829638001",
+            "astrometry_epoch": "2000.0",
+            "parallax_mas": "0.4559",
+            "parallax_error_mas": "0.0215",
+            "pm_ra_cosdec_masyr": "0.24",
+            "pm_ra_error_masyr": "0.026214702",
+            "pm_dec_masyr": "-1.956",
+            "pm_dec_error_masyr": "0.021561023",
+            "radial_velocity_kms": "",
+            "radial_velocity_error_kms": "",
+            "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
+            "radial_velocity_ref": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "hd-117630",
+      "simbadId": "HD 117630",
+      "status": "excluded-not-naked-eye",
+      "reason": "SIMBAD's compiled V = 6.5 and B = 6.68 (1967ArA.....4..375L) contradict every modern measurement: Tycho-2 VT = 10.255 and BT = 10.458 (TYC 8999-1232-1), Gaia DR3 G = 10.20, 2MASS J = 9.81. At V of about 10.2 the star is not visible to the naked eye.",
+      "references": [
+        {
+          "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR-3?-source=I/259/tyc2",
+          "scope": "TYC 8999-1232-1 at RA 203.3617, Dec -64.8647: VT 10.255, BT 10.458"
+        },
+        {
+          "url": "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=HD+117630",
+          "scope": "Compiled V 6.5 and B 6.68 (1967ArA.....4..375L), Gaia DR3 G 10.196"
+        }
+      ],
+      "previousCatalogRecords": [
+        {
+          "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+          "record": {
+            "type": "star",
+            "id": "hd-117630",
+            "name": "HD 117630",
+            "designations": "",
+            "spectral_type": "B8/9IV/V",
+            "x_pc": "228.838974578",
+            "y_pc": "-299.567912793",
+            "z_pc": "-15.510472369",
+            "vx_kms": "",
+            "vy_kms": "",
+            "vz_kms": "",
+            "temperature_k": "9334",
+            "mass_solar": "",
+            "luminosity_solar": "17.120554",
+            "radius_solar": "1.5828077",
+            "metallicity_dex": "",
+            "metallicity_kind": "",
+            "age_gyr": "",
+            "absolute_mag": "-1.383384",
+            "epoch": "2000.0",
+            "notes": "Naked-eye star: SIMBAD compiled Johnson V=6.5 (1967ArA.....4..375L). SIMBAD identity HD 117630; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction. Shared exact-identity physical supplements (temperature_k: Gaia DR3 astrophysical_parameters; luminosity_solar: Gaia DR3 astrophysical_parameters; radius_solar: Gaia DR3 astrophysical_parameters).",
+            "constellation": "Musca",
+            "ra_deg": "203.36173896786",
+            "dec_deg": "-64.86474020704",
+            "astrometry_epoch": "2000.0",
+            "parallax_mas": "2.6315",
+            "parallax_error_mas": "0.0161",
+            "pm_ra_cosdec_masyr": "-19.19",
+            "pm_ra_error_masyr": "0.012704039",
+            "pm_dec_masyr": "-10.785",
+            "pm_dec_error_masyr": "0.018010886",
+            "radial_velocity_kms": "",
+            "radial_velocity_error_kms": "",
+            "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
+            "radial_velocity_ref": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "asas-j091626-6728-7",
+      "simbadId": "ASAS J091626-6728.7",
+      "status": "excluded-not-naked-eye",
+      "reason": "The compiled V = 3.27 (2017MNRAS.469.3688D) is this Mira variable's amplitude in a periodic-variable catalogue, not its brightness: B = 15.96, Gaia DR3 G = 13.17 and 2MASS J = 9.50. Even at maximum the star stays far below naked-eye visibility.",
+      "references": [
+        {
+          "url": "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=ASAS+J091626-6728.7",
+          "scope": "Compiled V 3.27 (2017MNRAS.469.3688D), B 15.96 (2012yCat.1322....0Z), Gaia DR3 G 13.175"
+        }
+      ],
+      "previousCatalogRecords": [
+        {
+          "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+          "record": {
+            "type": "star",
+            "id": "asas-j091626-6728-7",
+            "name": "ASAS J091626-6728.7",
+            "designations": "",
+            "spectral_type": "",
+            "x_pc": "1255.265948327",
+            "y_pc": "-4863.938967700",
+            "z_pc": "-1130.857119031",
+            "vx_kms": "",
+            "vy_kms": "",
+            "vz_kms": "",
+            "temperature_k": "",
+            "mass_solar": "",
+            "luminosity_solar": "",
+            "radius_solar": "",
+            "metallicity_dex": "",
+            "metallicity_kind": "",
+            "age_gyr": "",
+            "absolute_mag": "-10.288624",
+            "epoch": "2000.0",
+            "notes": "Naked-eye star: SIMBAD compiled Johnson V=3.27 (2017MNRAS.469.3688D). SIMBAD identity ASAS J091626-6728.7; Bailer-Jones EDR3 geometric posterior median distance; absolute V uses no extinction correction.",
+            "constellation": "Carina",
+            "ra_deg": "139.10693927784",
+            "dec_deg": "-67.47656533389",
+            "astrometry_epoch": "2000.0",
+            "parallax_mas": "0.1369",
+            "parallax_error_mas": "0.0482",
+            "pm_ra_cosdec_masyr": "-8.094",
+            "pm_ra_error_masyr": "0.061213437",
+            "pm_dec_masyr": "6.422",
+            "pm_dec_error_masyr": "0.058378577",
+            "radial_velocity_kms": "",
+            "radial_velocity_error_kms": "",
+            "astrometry_ref": "SIMBAD TAP snapshot 2026-11-03; parallax 2020yCat.1350....0G; proper motion 2020yCat.1350....0G",
+            "radial_velocity_ref": ""
+          }
+        }
+      ]
+    }
+  ]
+}

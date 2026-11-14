@@ -817,6 +817,7 @@
                 <div class="dock-indicators" role="group" aria-label="Active view changes">
                   <button id="motion-active" class="icon-button" type="button" aria-label="Stellar motion active" aria-pressed="true" aria-controls="motion-panel" hidden><span id="motion-active-icon"></span><span class="tooltip">Stellar motion active</span></button>
                   <button id="paint-active" class="icon-button" type="button" aria-label="Paint active" aria-pressed="true" aria-controls="paint-panel" hidden><span id="paint-active-icon"></span><span class="tooltip">Paint active</span></button>
+                  <button id="top-lists-active" class="icon-button" type="button" aria-label="Top lists minimized" aria-pressed="true" aria-controls="top-lists-panel" hidden><span id="top-lists-active-icon"></span><span class="tooltip">Top lists minimized</span></button>
                   <button id="neighborhood-active" class="icon-button" type="button" aria-label="Neighborhood active" aria-pressed="true" aria-controls="neighborhood-panel" hidden><span id="neighborhood-active-icon"></span><span class="tooltip">Neighborhood active</span></button>
                   <button id="spaceship-active" class="icon-button" type="button" aria-label="Spaceship active" aria-pressed="true" aria-controls="spaceship-panel" hidden><span id="spaceship-active-icon"></span><span class="tooltip">Spaceship active</span></button>
                   <button id="observer-active" class="icon-button" type="button" aria-label="Observer view active" aria-pressed="true" aria-controls="observer-panel" hidden><span id="observer-active-icon"></span><span class="tooltip">Observer view active</span></button>
@@ -1065,7 +1066,9 @@
               <section id="top-lists-panel" class="dock-card glossary-card top-lists-card" aria-labelledby="top-lists-heading" data-scene-obstacle hidden>
                 <div class="panel-heading glossary-heading">
                   <h2 id="top-lists-heading">Top lists</h2>
+                  <button id="top-lists-width" class="panel-lock" type="button" aria-label="Narrow top lists card" aria-expanded="true" aria-controls="top-lists-panel" title="Narrow top lists card"><span id="top-lists-width-icon"></span></button>
                   <button id="top-lists-lock" class="panel-lock" type="button" aria-label="Keep Top lists open" aria-pressed="false"><span id="top-lists-lock-icon"></span></button>
+                  <button id="top-lists-minimize" class="panel-lock" type="button" aria-label="Minimize top lists card" title="Minimize top lists card"><span id="top-lists-minimize-icon"></span></button>
                   <button id="top-lists-close" class="panel-lock" type="button" aria-label="Close top lists card"><span id="top-lists-close-icon"></span></button>
                 </div>
                 <div class="glossary-body">
@@ -1078,7 +1081,8 @@
                         <thead><tr id="top-lists-head"></tr></thead>
                         <tbody id="top-lists-rows"></tbody>
                       </table>
-                      <p class="glossary-attribution top-list-source"><span id="top-lists-notes" class="top-list-notes" hidden></span>Dimmed stars are not in Star View’s catalogs. Source: <a id="top-lists-source" target="_blank" rel="noreferrer"></a></p>
+                      <div id="top-lists-groups" class="top-list-groups" hidden></div>
+                      <p class="glossary-attribution top-list-source"><span id="top-lists-notes" class="top-list-notes" hidden></span><span id="top-lists-method"></span><span id="top-lists-missing">Dimmed stars are not in Star View’s catalogs. </span><span id="top-lists-attribution">Source: <a id="top-lists-source" target="_blank" rel="noreferrer"></a></span></p>
                     </div>
                   </article>
                 </div>
@@ -1261,7 +1265,7 @@
                     <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                     <div><dt>License</dt><dd>MIT</dd></div>
                     <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
-                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-10">10 November 2026</time></dd></div>
+                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-14">14 November 2026</time></dd></div>
                     <div><dt>Build date</dt><dd><time datetime="%BUILD_DATE_ISO%">%BUILD_DATE%</time></dd></div>
                     <div><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="catalog-epoch-tooltip">Position reference epoch</button><span id="catalog-epoch-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog positions use the year 2000 as their reference time.</span></dt><dd id="catalog-epoch">J2000.0</dd></div>
                     <div><dt>Version</dt><dd>%APP_VERSION%</dd></div>

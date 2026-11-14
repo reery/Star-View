@@ -2424,6 +2424,2401 @@
      ]
     }
    ]
+  },
+  {
+   "id": "nearest-kinds",
+   "title": "Nearest of each kind",
+   "method": "From Star View’s catalogs and compact-object overlay, by each object’s type, spectral class and luminosity class.",
+   "groups": [
+    {
+     "kind": "red-dwarfs",
+     "title": "Red dwarfs",
+     "entries": [
+      {
+       "name": "Proxima Centauri",
+       "distance_pc": 1.302,
+       "constellation": "Centaurus",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "proxima-centauri",
+        "designation": "HIP 70890"
+       }
+      },
+      {
+       "name": "Barnard's Star",
+       "distance_pc": 1.828,
+       "constellation": "Ophiuchus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "barnards-star",
+        "designation": "HIP 87937"
+       }
+      },
+      {
+       "name": "Wolf 359",
+       "distance_pc": 2.409,
+       "constellation": "Leo",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "wolf-359",
+        "designation": null
+       }
+      },
+      {
+       "name": "Lalande 21185",
+       "distance_pc": 2.546,
+       "constellation": "Ursa Major",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "lalande-21185",
+        "designation": "HIP 54035"
+       }
+      },
+      {
+       "name": "Luyten 726-8 A",
+       "distance_pc": 2.689,
+       "constellation": "Cetus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "luyten-726-8-a",
+        "designation": null
+       }
+      }
+     ]
+    },
+    {
+     "kind": "orange-dwarfs",
+     "title": "Orange dwarfs",
+     "entries": [
+      {
+       "name": "Alpha Centauri B",
+       "distance_pc": 1.332,
+       "constellation": "Centaurus",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "alpha-centauri-b",
+        "designation": "HIP 71681"
+       }
+      },
+      {
+       "name": "Epsilon Eridani",
+       "distance_pc": 3.22,
+       "constellation": "Eridanus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "epsilon-eridani",
+        "designation": "HIP 16537"
+       }
+      },
+      {
+       "name": "61 Cyg B",
+       "distance_pc": 3.497,
+       "constellation": "Cygnus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0030",
+        "designation": "HIP 104217"
+       }
+      },
+      {
+       "name": "61 Cyg A",
+       "distance_pc": 3.498,
+       "constellation": "Cygnus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0029",
+        "designation": "HIP 104214"
+       }
+      },
+      {
+       "name": "Epsilon Indi A",
+       "distance_pc": 3.639,
+       "constellation": "Indus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0040",
+        "designation": "HIP 108870"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "yellow-dwarfs",
+     "title": "Yellow dwarfs",
+     "entries": [
+      {
+       "name": "Alpha Centauri A",
+       "distance_pc": 1.332,
+       "constellation": "Centaurus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "alpha-centauri-a",
+        "designation": "HIP 71683"
+       }
+      },
+      {
+       "name": "Tau Ceti",
+       "distance_pc": 3.652,
+       "constellation": "Cetus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0044",
+        "designation": "HIP 8102"
+       }
+      },
+      {
+       "name": "e Eri",
+       "distance_pc": 6.04,
+       "constellation": "Eridanus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-0843",
+        "designation": "HIP 15510"
+       }
+      },
+      {
+       "name": "Xi Boo A",
+       "distance_pc": 6.754,
+       "constellation": "Bootes",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-3674",
+        "designation": null
+       }
+      },
+      {
+       "name": "Beta Hyi",
+       "distance_pc": 7.476,
+       "constellation": "Hydrus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-0125",
+        "designation": "HIP 2021"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "f-dwarfs",
+     "title": "F-type main-sequence stars",
+     "entries": [
+      {
+       "name": "Achird",
+       "distance_pc": 5.923,
+       "constellation": "Cassiopeia",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-0239",
+        "designation": "HIP 3821"
+       }
+      },
+      {
+       "name": "Tabit",
+       "distance_pc": 8.068,
+       "constellation": "Orion",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-1208",
+        "designation": "HIP 22449"
+       }
+      },
+      {
+       "name": "Zeta Tuc",
+       "distance_pc": 8.607,
+       "constellation": "Tucana",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-0102",
+        "designation": "HIP 1599"
+       }
+      },
+      {
+       "name": "Gamma Lep",
+       "distance_pc": 8.905,
+       "constellation": "Lepus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-1427",
+        "designation": "HIP 27072"
+       }
+      },
+      {
+       "name": "Beta Com",
+       "distance_pc": 9.129,
+       "constellation": "Coma Berenices",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-3247",
+        "designation": "HIP 64394"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "a-dwarfs",
+     "title": "A-type main-sequence stars",
+     "entries": [
+      {
+       "name": "Sirius A",
+       "distance_pc": 2.639,
+       "constellation": "Canis Major",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-32349",
+        "designation": "HIP 32349"
+       }
+      },
+      {
+       "name": "Altair",
+       "distance_pc": 5.13,
+       "constellation": "Aquila",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0117",
+        "designation": "HIP 97649"
+       }
+      },
+      {
+       "name": "Vega",
+       "distance_pc": 7.679,
+       "constellation": "Lyra",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-4607",
+        "designation": "HIP 91262"
+       }
+      },
+      {
+       "name": "Fomalhaut",
+       "distance_pc": 7.704,
+       "constellation": "Piscis Austrinus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-5665",
+        "designation": "HIP 113368"
+       }
+      },
+      {
+       "name": "Denebola",
+       "distance_pc": 11.0,
+       "constellation": "Leo",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-2899",
+        "designation": "HIP 57632"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "b-dwarfs",
+     "title": "B-type main-sequence stars",
+     "entries": [
+      {
+       "name": "Algol Aa",
+       "distance_pc": 28.49,
+       "constellation": "Perseus",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-14576",
+        "designation": "HIP 14576"
+       }
+      },
+      {
+       "name": "Alnair",
+       "distance_pc": 30.97,
+       "constellation": "Grus",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-109268",
+        "designation": "HIP 109268"
+       }
+      },
+      {
+       "name": "Alcaid",
+       "distance_pc": 31.87,
+       "constellation": "Ursa Major",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-67301",
+        "designation": "HIP 67301"
+       }
+      },
+      {
+       "name": "Theta Hya A",
+       "distance_pc": 36.91,
+       "constellation": "Hydra",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-45336",
+        "designation": "HIP 45336"
+       }
+      },
+      {
+       "name": "Lambda Aql",
+       "distance_pc": 38.95,
+       "constellation": "Aquila",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-93805",
+        "designation": "HIP 93805"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "o-stars",
+     "title": "O-type stars",
+     "entries": [
+      {
+       "name": "Zeta Oph",
+       "distance_pc": 138.6,
+       "constellation": "Ophiuchus",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-81377",
+        "designation": "HIP 81377"
+       }
+      },
+      {
+       "name": "15 Mon",
+       "distance_pc": 281.7,
+       "constellation": "Monoceros",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-31978",
+        "designation": "HIP 31978"
+       }
+      },
+      {
+       "name": "Alnitak Aa",
+       "distance_pc": 325.7,
+       "constellation": "Orion",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-26727",
+        "designation": "HIP 26727"
+       }
+      },
+      {
+       "name": "Alnitak B",
+       "distance_pc": 325.7,
+       "constellation": "Orion",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "msc-05407-0157-b",
+        "designation": null
+       }
+      },
+      {
+       "name": "Naos",
+       "distance_pc": 332.2,
+       "constellation": "Puppis",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-39429",
+        "designation": "HIP 39429"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "subgiants",
+     "title": "Subgiants",
+     "entries": [
+      {
+       "name": "Delta Pav",
+       "distance_pc": 6.099,
+       "constellation": "Pavo",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-4994",
+        "designation": "HIP 99240"
+       }
+      },
+      {
+       "name": "Mu Her Aa",
+       "distance_pc": 8.339,
+       "constellation": "Hercules",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-4401",
+        "designation": "HIP 86974"
+       }
+      },
+      {
+       "name": "Rana",
+       "distance_pc": 9.088,
+       "constellation": "Eridanus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-0938",
+        "designation": "HIP 17378"
+       }
+      },
+      {
+       "name": "Zeta Herculis A",
+       "distance_pc": 10.72,
+       "constellation": "Hercules",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-4097",
+        "designation": "HIP 81693"
+       }
+      },
+      {
+       "name": "Muphrid",
+       "distance_pc": 11.4,
+       "constellation": "Bootes",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-3442",
+        "designation": "HIP 67927"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "giants",
+     "title": "Giants",
+     "entries": [
+      {
+       "name": "Pollux",
+       "distance_pc": 10.36,
+       "constellation": "Gemini",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-1912",
+        "designation": "HIP 37826"
+       }
+      },
+      {
+       "name": "Arcturus",
+       "distance_pc": 11.26,
+       "constellation": "Bootes",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-3517",
+        "designation": "HIP 69673"
+       }
+      },
+      {
+       "name": "Capella Ab",
+       "distance_pc": 13.12,
+       "constellation": "Auriga",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "capella-ab",
+        "designation": null
+       }
+      },
+      {
+       "name": "Capella Aa",
+       "distance_pc": 13.12,
+       "constellation": "Auriga",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-1318",
+        "designation": "HIP 24608"
+       }
+      },
+      {
+       "name": "Caph",
+       "distance_pc": 16.78,
+       "constellation": "Cassiopeia",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-746",
+        "designation": "HIP 746"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "bright-giants",
+     "title": "Bright giants",
+     "entries": [
+      {
+       "name": "Tureis",
+       "distance_pc": 19.45,
+       "constellation": "Puppis",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-39757",
+        "designation": "HIP 39757"
+       }
+      },
+      {
+       "name": "Psi Oct",
+       "distance_pc": 38.82,
+       "constellation": "Octans",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-110078",
+        "designation": "HIP 110078"
+       }
+      },
+      {
+       "name": "Mu Aqr",
+       "distance_pc": 44.23,
+       "constellation": "Aquarius",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-103045",
+        "designation": "HIP 103045"
+       }
+      },
+      {
+       "name": "Kraz",
+       "distance_pc": 45.38,
+       "constellation": "Corvus",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-61359",
+        "designation": "HIP 61359"
+       }
+      },
+      {
+       "name": "57 Gem",
+       "distance_pc": 54.8,
+       "constellation": "Gemini",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-35846",
+        "designation": "HIP 35846"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "supergiants",
+     "title": "Supergiants",
+     "entries": [
+      {
+       "name": "Polaris Aa",
+       "distance_pc": 137.2,
+       "constellation": "Ursa Minor",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-11767",
+        "designation": "HIP 11767"
+       }
+      },
+      {
+       "name": "Betelgeuse",
+       "distance_pc": 152.7,
+       "constellation": "Orion",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-27989",
+        "designation": "HIP 27989"
+       }
+      },
+      {
+       "name": "Mirfak",
+       "distance_pc": 155.3,
+       "constellation": "Perseus",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-15863",
+        "designation": "HIP 15863"
+       }
+      },
+      {
+       "name": "Sadalsuud",
+       "distance_pc": 165.8,
+       "constellation": "Aquarius",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-106278",
+        "designation": "HIP 106278"
+       }
+      },
+      {
+       "name": "Suhail",
+       "distance_pc": 166.9,
+       "constellation": "Vela",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-44816",
+        "designation": "HIP 44816"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "wolf-rayet",
+     "title": "Wolf–Rayet stars",
+     "entries": [
+      {
+       "name": "Regor Aa",
+       "distance_pc": 342.5,
+       "constellation": "Vela",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-39953",
+        "designation": "HIP 39953"
+       }
+      },
+      {
+       "name": "HD 152408",
+       "distance_pc": 1812.0,
+       "constellation": "Scorpius",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-82775",
+        "designation": "HIP 82775"
+       }
+      },
+      {
+       "name": "Theta Mus A",
+       "distance_pc": 2394.0,
+       "constellation": "Musca",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-64094",
+        "designation": "HIP 64094"
+       }
+      },
+      {
+       "name": "HD 92740",
+       "distance_pc": 2456.0,
+       "constellation": "Carina",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-52308",
+        "designation": "HIP 52308"
+       }
+      },
+      {
+       "name": "HD 93131",
+       "distance_pc": 2657.0,
+       "constellation": "Carina",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-52488",
+        "designation": "HIP 52488"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "carbon-stars",
+     "title": "Carbon stars",
+     "entries": [
+      {
+       "name": "U Hya",
+       "distance_pc": 208.3,
+       "constellation": "Hydra",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-52009",
+        "designation": "HIP 52009"
+       }
+      },
+      {
+       "name": "19 Psc",
+       "distance_pc": 243.6,
+       "constellation": "Pisces",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-117245",
+        "designation": "HIP 117245"
+       }
+      },
+      {
+       "name": "U Ant",
+       "distance_pc": 276.3,
+       "constellation": "Antlia",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-51821",
+        "designation": "HIP 51821"
+       }
+      },
+      {
+       "name": "La Superba",
+       "distance_pc": 314.1,
+       "constellation": "Canes Venatici",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-62223",
+        "designation": "HIP 62223"
+       }
+      },
+      {
+       "name": "X TrA",
+       "distance_pc": 349.3,
+       "constellation": "Triangulum Australe",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-74582",
+        "designation": "HIP 74582"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "cepheids",
+     "title": "Cepheids",
+     "entries": [
+      {
+       "name": "Polaris Aa",
+       "distance_pc": 137.2,
+       "constellation": "Ursa Minor",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-11767",
+        "designation": "HIP 11767"
+       }
+      },
+      {
+       "name": "Kappa Pav",
+       "distance_pc": 190.2,
+       "constellation": "Pavo",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-93015",
+        "designation": "HIP 93015"
+       }
+      },
+      {
+       "name": "Eta Aql A",
+       "distance_pc": 272.2,
+       "constellation": "Aquila",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-97804",
+        "designation": "HIP 97804"
+       }
+      },
+      {
+       "name": "Delta Cep",
+       "distance_pc": 281.2,
+       "constellation": "Cepheus",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-110991",
+        "designation": "HIP 110991"
+       }
+      },
+      {
+       "name": "Omega Gem",
+       "distance_pc": 282.5,
+       "constellation": "Gemini",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-33927",
+        "designation": "HIP 33927"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "miras",
+     "title": "Mira variables",
+     "entries": [
+      {
+       "name": "W Pup",
+       "distance_pc": 67.66,
+       "constellation": "Puppis",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-37664",
+        "designation": "HIP 37664"
+       }
+      },
+      {
+       "name": "Mira Aa",
+       "distance_pc": 91.66,
+       "constellation": "Cetus",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-10826",
+        "designation": "HIP 10826"
+       }
+      },
+      {
+       "name": "R Hya",
+       "distance_pc": 150.2,
+       "constellation": "Hydra",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-65835",
+        "designation": "HIP 65835"
+       }
+      },
+      {
+       "name": "Chi Cyg",
+       "distance_pc": 161.2,
+       "constellation": "Cygnus",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-97629",
+        "designation": "HIP 97629"
+       }
+      },
+      {
+       "name": "R Cas",
+       "distance_pc": 173.2,
+       "constellation": "Cassiopeia",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-118188",
+        "designation": "HIP 118188"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "white-dwarfs",
+     "title": "White dwarfs",
+     "entries": [
+      {
+       "name": "Sirius B",
+       "distance_pc": 2.639,
+       "constellation": "Canis Major",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "sirius-b",
+        "designation": null
+       }
+      },
+      {
+       "name": "Procyon B",
+       "distance_pc": 3.514,
+       "constellation": "Canis Minor",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "10pc-0032",
+        "designation": null
+       }
+      },
+      {
+       "name": "van Maanen's Star",
+       "distance_pc": 4.314,
+       "constellation": "Pisces",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0073",
+        "designation": "HIP 3829"
+       }
+      },
+      {
+       "name": "LAWD 37",
+       "distance_pc": 4.637,
+       "constellation": "Musca",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0086",
+        "designation": "HIP 57367"
+       }
+      },
+      {
+       "name": "GJ 166 B",
+       "distance_pc": 5.008,
+       "constellation": "Eridanus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0110",
+        "designation": null
+       }
+      }
+     ]
+    },
+    {
+     "kind": "brown-dwarfs",
+     "title": "Brown dwarfs",
+     "entries": [
+      {
+       "name": "Luhman 16 A",
+       "distance_pc": 1.996,
+       "constellation": "Vela",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "luhman-16-a",
+        "designation": null
+       }
+      },
+      {
+       "name": "Luhman 16 B",
+       "distance_pc": 1.996,
+       "constellation": "Vela",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "luhman-16-b",
+        "designation": null
+       }
+      },
+      {
+       "name": "WISE 0855-0714",
+       "distance_pc": 2.278,
+       "constellation": "Hydra",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "wise-0855-0714",
+        "designation": null
+       }
+      },
+      {
+       "name": "Epsilon Indi Ba",
+       "distance_pc": 3.695,
+       "constellation": "Indus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0042",
+        "designation": null
+       }
+      },
+      {
+       "name": "SCR J1845-6357 B",
+       "distance_pc": 4.005,
+       "constellation": "Pavo",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0064",
+        "designation": null
+       }
+      }
+     ]
+    },
+    {
+     "kind": "planet-hosts",
+     "title": "Planet hosts",
+     "entries": [
+      {
+       "name": "Proxima Centauri",
+       "distance_pc": 1.302,
+       "constellation": "Centaurus",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "proxima-centauri",
+        "designation": "HIP 70890"
+       }
+      },
+      {
+       "name": "Barnard's Star",
+       "distance_pc": 1.828,
+       "constellation": "Ophiuchus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "barnards-star",
+        "designation": "HIP 87937"
+       }
+      },
+      {
+       "name": "Luhman 16 A",
+       "distance_pc": 1.996,
+       "constellation": "Vela",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "luhman-16-a",
+        "designation": null
+       }
+      },
+      {
+       "name": "Lalande 21185",
+       "distance_pc": 2.546,
+       "constellation": "Ursa Major",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "lalande-21185",
+        "designation": "HIP 54035"
+       }
+      },
+      {
+       "name": "Epsilon Eridani",
+       "distance_pc": 3.22,
+       "constellation": "Eridanus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "epsilon-eridani",
+        "designation": "HIP 16537"
+       }
+      }
+     ]
+    },
+    {
+     "kind": "neutron-stars",
+     "title": "Neutron stars",
+     "entries": [
+      {
+       "name": "RX J1605.3+3249",
+       "distance_pc": 390.0,
+       "constellation": "Corona Borealis",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "rx-j1605",
+        "designation": null
+       }
+      },
+      {
+       "name": "PSR J0453+1559 B",
+       "distance_pc": 521.0,
+       "constellation": "Taurus",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "psr-j0453p1559-b",
+        "designation": null
+       }
+      },
+      {
+       "name": "X Persei",
+       "distance_pc": 614.0,
+       "constellation": "Perseus",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "x-persei",
+        "designation": null
+       }
+      },
+      {
+       "name": "PSR J1756-2251 B",
+       "distance_pc": 730.0,
+       "constellation": "Sagittarius",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "psr-j1756m2251-b",
+        "designation": null
+       }
+      },
+      {
+       "name": "CXOU J085201.4-461753",
+       "distance_pc": 900.0,
+       "constellation": "Vela",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "cxou-j085201",
+        "designation": null
+       }
+      }
+     ]
+    },
+    {
+     "kind": "pulsars",
+     "title": "Pulsars",
+     "entries": [
+      {
+       "name": "PSR J1015-5359",
+       "distance_pc": 92.0,
+       "constellation": "Vela",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "psr-j1015m5359",
+        "designation": null
+       }
+      },
+      {
+       "name": "PSR B1055-52",
+       "distance_pc": 93.0,
+       "constellation": "Vela",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "psr-j1057m5226",
+        "designation": null
+       }
+      },
+      {
+       "name": "PSR J0834-60",
+       "distance_pc": 95.0,
+       "constellation": "Carina",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "psr-j0834m60",
+        "designation": null
+       }
+      },
+      {
+       "name": "PSR J1120-24",
+       "distance_pc": 98.0,
+       "constellation": "Crater",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "psr-j1120m24",
+        "designation": null
+       }
+      },
+      {
+       "name": "PSR J0736-6304",
+       "distance_pc": 103.0,
+       "constellation": "Carina",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "psr-j0736m6304",
+        "designation": null
+       }
+      }
+     ]
+    },
+    {
+     "kind": "black-holes",
+     "title": "Black holes",
+     "entries": [
+      {
+       "name": "Gaia BH1",
+       "distance_pc": 478.0,
+       "constellation": "Ophiuchus",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "gaia-bh1",
+        "designation": null
+       }
+      },
+      {
+       "name": "Gaia BH3",
+       "distance_pc": 590.6,
+       "constellation": "Aquila",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "gaia-bh3",
+        "designation": null
+       }
+      },
+      {
+       "name": "Gaia BH2",
+       "distance_pc": 1160.0,
+       "constellation": "Centaurus",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "gaia-bh2",
+        "designation": null
+       }
+      },
+      {
+       "name": "A0620-00",
+       "distance_pc": 1435.0,
+       "constellation": "Monoceros",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "a0620-00",
+        "designation": null
+       }
+      },
+      {
+       "name": "OGLE-2011-BLG-0462",
+       "distance_pc": 1520.0,
+       "constellation": "Sagittarius",
+       "object": {
+        "catalog": "compact-remnants",
+        "id": "ogle-2011-blg-0462",
+        "designation": null
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "encounters",
+   "title": "Closest stellar encounters",
+   "metric": "Closest approach",
+   "unit": "distance",
+   "ascending": true,
+   "columns": [
+    "When"
+   ],
+   "method": "Straight-line motion from today’s positions and space velocities in Star View’s catalogs, for closest approaches within 2 million years. Stars without a radial velocity are not included.",
+   "entries": [
+    {
+     "name": "GJ 710",
+     "value": 0.05081,
+     "distance_pc": 19.07,
+     "fields": [
+      "in 1.3 million years"
+     ],
+     "constellation": "Serpens",
+     "object": {
+      "catalog": "nearest-5000",
+      "id": "cns5-4536",
+      "designation": "HIP 89825"
+     }
+    },
+    {
+     "name": "LSPM J2146+3813",
+     "value": 0.5686,
+     "distance_pc": 7.046,
+     "fields": [
+      "in 83,000 years"
+     ],
+     "constellation": "Cygnus",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-5362",
+      "designation": null
+     }
+    },
+    {
+     "name": "UPM J1121-5549",
+     "value": 0.8596,
+     "distance_pc": 22.23,
+     "fields": [
+      "280,000 years ago"
+     ],
+     "constellation": "Centaurus",
+     "object": {
+      "catalog": "nearest-5000",
+      "id": "cns5-2777",
+      "designation": null
+     }
+    },
+    {
+     "name": "StKM 1-928",
+     "value": 0.9044,
+     "distance_pc": 16.68,
+     "fields": [
+      "510,000 years ago"
+     ],
+     "constellation": "Leo",
+     "object": {
+      "catalog": "nearest-5000",
+      "id": "cns5-2735",
+      "designation": null
+     }
+    },
+    {
+     "name": "Ross 248",
+     "value": 0.9312,
+     "distance_pc": 3.16,
+     "fields": [
+      "in 36,000 years"
+     ],
+     "constellation": "Andromeda",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "ross-248",
+      "designation": null
+     }
+    },
+    {
+     "name": "Alpha Centauri A",
+     "value": 0.9623,
+     "distance_pc": 1.332,
+     "fields": [
+      "in 28,000 years"
+     ],
+     "constellation": "Centaurus",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "alpha-centauri-a",
+      "designation": "HIP 71683"
+     }
+    },
+    {
+     "name": "GJ 445",
+     "value": 1.02,
+     "distance_pc": 5.256,
+     "fields": [
+      "in 44,000 years"
+     ],
+     "constellation": "Camelopardalis",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "10pc-0121",
+      "designation": "HIP 57544"
+     }
+    },
+    {
+     "name": "UPM J1358+2752",
+     "value": 1.071,
+     "distance_pc": 19.36,
+     "fields": [
+      "in 430,000 years"
+     ],
+     "constellation": "Bootes",
+     "object": {
+      "catalog": "nearest-5000",
+      "id": "cns5-3459",
+      "designation": null
+     }
+    },
+    {
+     "name": "GJ 3618",
+     "value": 1.139,
+     "distance_pc": 4.829,
+     "fields": [
+      "29,000 years ago"
+     ],
+     "constellation": "Carina",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "10pc-0096",
+      "designation": null
+     }
+    },
+    {
+     "name": "Barnard's Star",
+     "value": 1.158,
+     "distance_pc": 1.828,
+     "fields": [
+      "in 9,700 years"
+     ],
+     "constellation": "Ophiuchus",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "barnards-star",
+      "designation": "HIP 87937"
+     }
+    },
+    {
+     "name": "GJ 3379",
+     "value": 1.285,
+     "distance_pc": 5.207,
+     "fields": [
+      "160,000 years ago"
+     ],
+     "constellation": "Orion",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "10pc-0119",
+      "designation": null
+     }
+    },
+    {
+     "name": "UPM J0815-2344",
+     "value": 1.312,
+     "distance_pc": 9.894,
+     "fields": [
+      "210,000 years ago"
+     ],
+     "constellation": "Puppis",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-2051",
+      "designation": null
+     }
+    },
+    {
+     "name": "Zeta Lep",
+     "value": 1.361,
+     "distance_pc": 22.35,
+     "fields": [
+      "880,000 years ago"
+     ],
+     "constellation": "Lepus",
+     "object": {
+      "catalog": "western-constellation-stars",
+      "id": "hip-27288",
+      "designation": "HIP 27288"
+     }
+    },
+    {
+     "name": "UCAC2 26891953",
+     "value": 1.365,
+     "distance_pc": 22.19,
+     "fields": [
+      "1.4 million years ago"
+     ],
+     "constellation": "Corvus",
+     "object": {
+      "catalog": "nearest-5000",
+      "id": "cns5-2999",
+      "designation": null
+     }
+    },
+    {
+     "name": "Lalande 21185",
+     "value": 1.441,
+     "distance_pc": 2.546,
+     "fields": [
+      "in 20,000 years"
+     ],
+     "constellation": "Ursa Major",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "lalande-21185",
+      "designation": "HIP 54035"
+     }
+    },
+    {
+     "name": "UPM J1941-4602",
+     "value": 1.492,
+     "distance_pc": 20.49,
+     "fields": [
+      "460,000 years ago"
+     ],
+     "constellation": "Telescopium",
+     "object": {
+      "catalog": "nearest-5000",
+      "id": "cns5-4879",
+      "designation": null
+     }
+    },
+    {
+     "name": "VV Lyn B",
+     "value": 1.523,
+     "distance_pc": 11.97,
+     "fields": [
+      "75,000 years ago"
+     ],
+     "constellation": "Lynx",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-1865",
+      "designation": null
+     }
+    },
+    {
+     "name": "GJ 3478",
+     "value": 1.552,
+     "distance_pc": 18.31,
+     "fields": [
+      "in 1.1 million years"
+     ],
+     "constellation": "Cancer",
+     "object": {
+      "catalog": "nearest-5000",
+      "id": "cns5-1998",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSS 418-2",
+     "value": 1.599,
+     "distance_pc": 16.61,
+     "fields": [
+      "150,000 years ago"
+     ],
+     "constellation": "Taurus",
+     "object": {
+      "catalog": "nearest-5000",
+      "id": "cns5-1340",
+      "designation": null
+     }
+    },
+    {
+     "name": "Ross 567",
+     "value": 1.6,
+     "distance_pc": 12.31,
+     "fields": [
+      "in 98,000 years"
+     ],
+     "constellation": "Camelopardalis",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-0971",
+      "designation": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "proper-motion",
+   "title": "Highest proper motion",
+   "metric": "Proper motion",
+   "unit": "″/yr",
+   "digits": 2,
+   "method": "From Star View’s catalogs; one entry per star system.",
+   "entries": [
+    {
+     "name": "Barnard's Star",
+     "value": 10.39,
+     "distance_pc": 1.828,
+     "constellation": "Ophiuchus",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "barnards-star",
+      "designation": "HIP 87937"
+     }
+    },
+    {
+     "name": "Kapteyn's Star",
+     "value": 8.64,
+     "distance_pc": 3.93,
+     "constellation": "Pictor",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "10pc-0059",
+      "designation": "HIP 24186"
+     }
+    },
+    {
+     "name": "WISE 0855-0714",
+     "value": 8.15,
+     "distance_pc": 2.278,
+     "constellation": "Hydra",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "wise-0855-0714",
+      "designation": null
+     }
+    },
+    {
+     "name": "GJ 451",
+     "value": 7.06,
+     "distance_pc": 9.171,
+     "constellation": "Ursa Major",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-2914",
+      "designation": "HIP 57939"
+     }
+    },
+    {
+     "name": "Lacaille 9352",
+     "value": 6.9,
+     "distance_pc": 3.288,
+     "constellation": "Piscis Austrinus",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "lacaille-9352",
+      "designation": "HIP 114046"
+     }
+    },
+    {
+     "name": "GJ 1",
+     "value": 6.1,
+     "distance_pc": 4.346,
+     "constellation": "Sculptor",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "10pc-0076",
+      "designation": "HIP 439"
+     }
+    },
+    {
+     "name": "61 Cyg A",
+     "value": 5.28,
+     "distance_pc": 3.498,
+     "constellation": "Cygnus",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "10pc-0029",
+      "designation": "HIP 104214"
+     }
+    },
+    {
+     "name": "Ross 619",
+     "value": 5.21,
+     "distance_pc": 6.769,
+     "constellation": "Cancer",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-2033",
+      "designation": null
+     }
+    },
+    {
+     "name": "Teegarden's Star",
+     "value": 5.12,
+     "distance_pc": 3.831,
+     "constellation": "Aries",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "10pc-0056",
+      "designation": null
+     }
+    },
+    {
+     "name": "Lalande 21185",
+     "value": 4.81,
+     "distance_pc": 2.546,
+     "constellation": "Ursa Major",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "lalande-21185",
+      "designation": "HIP 54035"
+     }
+    },
+    {
+     "name": "Wolf 359",
+     "value": 4.72,
+     "distance_pc": 2.409,
+     "constellation": "Leo",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "wolf-359",
+      "designation": null
+     }
+    },
+    {
+     "name": "Epsilon Indi A",
+     "value": 4.71,
+     "distance_pc": 3.639,
+     "constellation": "Indus",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "10pc-0040",
+      "designation": "HIP 108870"
+     }
+    },
+    {
+     "name": "GJ 412 A",
+     "value": 4.51,
+     "distance_pc": 4.904,
+     "constellation": "Ursa Major",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "10pc-0100",
+      "designation": "HIP 54211"
+     }
+    },
+    {
+     "name": "Keid",
+     "value": 4.09,
+     "distance_pc": 5.011,
+     "constellation": "Eridanus",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "10pc-0109",
+      "designation": "HIP 19849"
+     }
+    },
+    {
+     "name": "Wolf 489",
+     "value": 3.9,
+     "distance_pc": 8.347,
+     "constellation": "Virgo",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-3356",
+      "designation": null
+     }
+    },
+    {
+     "name": "Proxima Centauri",
+     "value": 3.86,
+     "distance_pc": 1.302,
+     "constellation": "Centaurus",
+     "object": {
+      "catalog": "western-constellation-stars",
+      "id": "proxima-centauri",
+      "designation": "HIP 70890"
+     }
+    },
+    {
+     "name": "Mu Cassiopeiae A",
+     "value": 3.8,
+     "distance_pc": 7.677,
+     "constellation": "Cassiopeia",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "cns5-0317",
+      "designation": "HIP 5336"
+     }
+    },
+    {
+     "name": "Luyten's Star",
+     "value": 3.74,
+     "distance_pc": 3.786,
+     "constellation": "Canis Minor",
+     "object": {
+      "catalog": "nearest-1000",
+      "id": "10pc-0053",
+      "designation": "HIP 36208"
+     }
+    },
+    {
+     "name": "EGGR 199",
+     "value": 3.61,
+     "distance_pc": 16.34,
+     "constellation": "Draco",
+     "object": {
+      "catalog": "nearest-5000",
+      "id": "cns5-4412",
+      "designation": null
+     }
+    },
+    {
+     "name": "SSSPM J1444-2019",
+     "value": 3.51,
+     "distance_pc": 17.2,
+     "constellation": "Libra",
+     "object": {
+      "catalog": "nearest-5000",
+      "id": "cns5-3647",
+      "designation": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "metallicity",
+   "title": "Metal-poor and metal-rich stars",
+   "method": "Spectroscopic [Fe/H] of F- to M-type stars in Star View’s catalogs, confirmed by a second paper within 0.3 dex. Hotter stars are left out: their surface abundances reflect atomic diffusion rather than their composition.",
+   "groups": [
+    {
+     "title": "Most metal-poor",
+     "metric": "[Fe/H]",
+     "unit": "dex",
+     "digits": 2,
+     "ascending": true,
+     "entries": [
+      {
+       "name": "HD 122563",
+       "value": -2.8,
+       "distance_pc": 318.8,
+       "constellation": "Bootes",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-68594",
+        "designation": "HIP 68594"
+       }
+      },
+      {
+       "name": "GJ 158",
+       "value": -1.76,
+       "distance_pc": 18.49,
+       "constellation": "Perseus",
+       "object": {
+        "catalog": "nearest-5000",
+        "id": "cns5-1005",
+        "designation": "HIP 18915"
+       }
+      },
+      {
+       "name": "Nu Ind",
+       "value": -1.478,
+       "distance_pc": 28.46,
+       "constellation": "Indus",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-110618",
+        "designation": "HIP 110618"
+       }
+      },
+      {
+       "name": "GJ 615",
+       "value": -1.41,
+       "distance_pc": 13.59,
+       "constellation": "Norma",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-3979",
+        "designation": "HIP 79537"
+       }
+      },
+      {
+       "name": "GJ 451",
+       "value": -1.33,
+       "distance_pc": 9.171,
+       "constellation": "Ursa Major",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-2914",
+        "designation": "HIP 57939"
+       }
+      }
+     ]
+    },
+    {
+     "title": "Most metal-rich",
+     "metric": "[Fe/H]",
+     "unit": "dex",
+     "digits": 2,
+     "entries": [
+      {
+       "name": "q Car",
+       "value": 0.54,
+       "distance_pc": 232.4,
+       "constellation": "Carina",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-50371",
+        "designation": "HIP 50371"
+       }
+      },
+      {
+       "name": "b Vel",
+       "value": 0.53,
+       "distance_pc": 1655.0,
+       "constellation": "Vela",
+       "object": {
+        "catalog": "naked-eye-stars",
+        "id": "hip-42570",
+        "designation": "HIP 42570"
+       }
+      },
+      {
+       "name": "GJ 134",
+       "value": 0.52,
+       "distance_pc": 15.95,
+       "constellation": "Perseus",
+       "object": {
+        "catalog": "nearest-5000",
+        "id": "cns5-0832",
+        "designation": "HIP 15366"
+       }
+      },
+      {
+       "name": "LP 804-27",
+       "value": 0.51,
+       "distance_pc": 14.56,
+       "constellation": "Scorpius",
+       "object": {
+        "catalog": "nearest-5000",
+        "id": "cns5-3975",
+        "designation": "HIP 79431"
+       }
+      },
+      {
+       "name": "GJ 1084",
+       "value": 0.509,
+       "distance_pc": 20.77,
+       "constellation": "Pictor",
+       "object": {
+        "catalog": "nearest-5000",
+        "id": "cns5-1438",
+        "designation": "HIP 27323"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "planets",
+   "title": "Planets",
+   "method": "Confirmed planets of stars in Star View’s catalogs, with measured values only. The habitable zone is the conservative zone of Kopparapu et al. (2014) drawn in each system diagram.",
+   "source": {
+    "label": "NASA Exoplanet Archive",
+    "url": "https://exoplanetarchive.ipac.caltech.edu/"
+   },
+   "groups": [
+    {
+     "title": "Most planets",
+     "metric": "Planets",
+     "entries": [
+      {
+       "name": "TRAPPIST-1",
+       "value": 7,
+       "distance_pc": 12.46,
+       "constellation": "Aquarius",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-5691",
+        "designation": null
+       }
+      },
+      {
+       "name": "L 98-59",
+       "value": 5,
+       "distance_pc": 10.61,
+       "constellation": "Volans",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-2057",
+        "designation": null
+       }
+      },
+      {
+       "name": "Copernicus",
+       "value": 5,
+       "distance_pc": 12.59,
+       "constellation": "Cancer",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-2182",
+        "designation": "HIP 43587"
+       }
+      },
+      {
+       "name": "Barnard's Star",
+       "value": 4,
+       "distance_pc": 1.828,
+       "constellation": "Ophiuchus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "barnards-star",
+        "designation": "HIP 87937"
+       }
+      },
+      {
+       "name": "Lacaille 9352",
+       "value": 4,
+       "distance_pc": 3.288,
+       "constellation": "Piscis Austrinus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "lacaille-9352",
+        "designation": "HIP 114046"
+       }
+      }
+     ]
+    },
+    {
+     "title": "Habitable-zone planets",
+     "entries": [
+      {
+       "name": "Proxima Cen b",
+       "distance_pc": 1.302,
+       "constellation": "Centaurus",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "proxima-centauri",
+        "designation": "HIP 70890",
+        "planet": "exo-proxima-cen-b"
+       }
+      },
+      {
+       "name": "GJ 887 d",
+       "distance_pc": 3.288,
+       "constellation": "Piscis Austrinus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "lacaille-9352",
+        "designation": "HIP 114046",
+        "planet": "exo-gj-887-d"
+       }
+      },
+      {
+       "name": "Gl 725 B c",
+       "distance_pc": 3.523,
+       "constellation": "Draco",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0034",
+        "designation": "HIP 91772",
+        "planet": "exo-gl-725-b-c"
+       }
+      },
+      {
+       "name": "GJ 1061 d",
+       "distance_pc": 3.674,
+       "constellation": "Horologium",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0045",
+        "designation": null,
+        "planet": "exo-gj-1061-d"
+       }
+      },
+      {
+       "name": "Teegarden's Star c",
+       "distance_pc": 3.831,
+       "constellation": "Aries",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0056",
+        "designation": null,
+        "planet": "exo-teegarden-s-star-c"
+       }
+      },
+      {
+       "name": "GJ 687 b",
+       "distance_pc": 4.55,
+       "constellation": "Draco",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0080",
+        "designation": "HIP 86162",
+        "planet": "exo-gj-687-b"
+       }
+      },
+      {
+       "name": "GJ 876 b",
+       "distance_pc": 4.678,
+       "constellation": "Aquarius",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0091",
+        "designation": "HIP 113020",
+        "planet": "exo-gj-876-b"
+       }
+      },
+      {
+       "name": "GJ 876 c",
+       "distance_pc": 4.678,
+       "constellation": "Aquarius",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0091",
+        "designation": "HIP 113020",
+        "planet": "exo-gj-876-c"
+       }
+      },
+      {
+       "name": "GJ 1002 b",
+       "distance_pc": 4.847,
+       "constellation": "Cetus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0097",
+        "designation": null,
+        "planet": "exo-gj-1002-b"
+       }
+      },
+      {
+       "name": "GJ 1002 c",
+       "distance_pc": 4.847,
+       "constellation": "Cetus",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "10pc-0097",
+        "designation": null,
+        "planet": "exo-gj-1002-c"
+       }
+      }
+     ]
+    },
+    {
+     "title": "Hottest planets",
+     "metric": "Temperature",
+     "unit": "K",
+     "entries": [
+      {
+       "name": "55 Cnc e",
+       "value": 1958.0,
+       "distance_pc": 12.59,
+       "constellation": "Cancer",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-2182",
+        "designation": "HIP 43587",
+        "planet": "exo-55-cnc-e"
+       }
+      },
+      {
+       "name": "G 196-3 b",
+       "value": 1670.0,
+       "distance_pc": 21.79,
+       "constellation": "Ursa Major",
+       "object": {
+        "catalog": "nearest-5000",
+        "id": "cns5-2471",
+        "designation": null,
+        "planet": "exo-g-196-3-b"
+       }
+      },
+      {
+       "name": "bet Pic b",
+       "value": 1612.0,
+       "distance_pc": 19.63,
+       "constellation": "Pictor",
+       "object": {
+        "catalog": "western-constellation-stars",
+        "id": "hip-27321",
+        "designation": "HIP 27321",
+        "planet": "exo-bet-pic-b"
+       }
+      },
+      {
+       "name": "TOI-4527.01",
+       "value": 1362.93,
+       "distance_pc": 18.09,
+       "constellation": "Pisces",
+       "object": {
+        "catalog": "nearest-5000",
+        "id": "cns5-0357",
+        "designation": "HIP 6069",
+        "planet": "exo-toi-4527-01"
+       }
+      },
+      {
+       "name": "GJ 367 b",
+       "value": 1329.0,
+       "distance_pc": 9.416,
+       "constellation": "Vela",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-2413",
+        "designation": "HIP 47780",
+        "planet": "exo-gj-367-b"
+       }
+      }
+     ]
+    },
+    {
+     "title": "Smallest planets",
+     "metric": "Radius",
+     "unit": "R⊕",
+     "digits": 2,
+     "ascending": true,
+     "entries": [
+      {
+       "name": "GJ 238 b",
+       "value": 0.566,
+       "distance_pc": 15.21,
+       "constellation": "Pictor",
+       "object": {
+        "catalog": "nearest-5000",
+        "id": "cns5-1626",
+        "designation": "HIP 31300",
+        "planet": "exo-gj-238-b"
+       }
+      },
+      {
+       "name": "LHS 1678 b",
+       "value": 0.685,
+       "distance_pc": 19.86,
+       "constellation": "Caelum",
+       "object": {
+        "catalog": "nearest-5000",
+        "id": "cns5-1125",
+        "designation": null,
+        "planet": "exo-lhs-1678-b"
+       }
+      },
+      {
+       "name": "GJ 367 b",
+       "value": 0.736,
+       "distance_pc": 9.416,
+       "constellation": "Vela",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-2413",
+        "designation": "HIP 47780",
+        "planet": "exo-gj-367-b"
+       }
+      },
+      {
+       "name": "TRAPPIST-1 h",
+       "value": 0.755,
+       "distance_pc": 12.46,
+       "constellation": "Aquarius",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-5691",
+        "designation": null,
+        "planet": "exo-trappist-1-h"
+       }
+      },
+      {
+       "name": "TRAPPIST-1 d",
+       "value": 0.788,
+       "distance_pc": 12.46,
+       "constellation": "Aquarius",
+       "object": {
+        "catalog": "nearest-1000",
+        "id": "cns5-5691",
+        "designation": null,
+        "planet": "exo-trappist-1-d"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "fastest-pulsars",
+   "title": "Fastest pulsars",
+   "metric": "Spin rate",
+   "unit": "rotations/s",
+   "source": {
+    "label": "ATNF Pulsar Catalogue v2.9.0",
+    "url": "https://www.atnf.csiro.au/research/pulsar/psrcat/"
+   },
+   "entries": [
+    {
+     "name": "PSR B1937+21",
+     "value": 641.9,
+     "distance_pc": 2900.0,
+     "constellation": "Vulpecula",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1939p2134",
+      "designation": null
+     }
+    },
+    {
+     "name": "Black Widow Pulsar",
+     "value": 622.1,
+     "distance_pc": 1400.0,
+     "constellation": "Sagitta",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1959p2048",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J1036-4353",
+     "value": 595.2,
+     "distance_pc": 408.0,
+     "constellation": "Vela",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1036m4353",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J1227-4853",
+     "value": 593.0,
+     "distance_pc": 1613.0,
+     "constellation": "Centaurus",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1227m4853",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J1023+0038",
+     "value": 592.4,
+     "distance_pc": 1368.0,
+     "constellation": "Sextans",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1023p0038",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J1843-1113",
+     "value": 541.8,
+     "distance_pc": 1300.0,
+     "constellation": "Scutum",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1843m1113",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J1723-2837",
+     "value": 538.9,
+     "distance_pc": 925.9,
+     "constellation": "Ophiuchus",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1723m2837",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J1653-0158",
+     "value": 508.2,
+     "distance_pc": 840.0,
+     "constellation": "Ophiuchus",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1653m0158",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J1431-4715",
+     "value": 497.0,
+     "distance_pc": 1563.0,
+     "constellation": "Lupus",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1431m4715",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J0955-3947",
+     "value": 494.4,
+     "distance_pc": 488.0,
+     "constellation": "Antlia",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j0955m3947",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J0212+5321",
+     "value": 472.9,
+     "distance_pc": 1160.0,
+     "constellation": "Perseus",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j0212p5321",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J1513-2550",
+     "value": 471.9,
+     "distance_pc": 1950.0,
+     "constellation": "Libra",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1513m2550",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J2241-5236",
+     "value": 457.3,
+     "distance_pc": 1042.0,
+     "constellation": "Grus",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j2241m5236",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J1446-4701",
+     "value": 455.6,
+     "distance_pc": 1429.0,
+     "constellation": "Lupus",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1446m4701",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J2256-1024",
+     "value": 435.8,
+     "distance_pc": 2083.0,
+     "constellation": "Aquarius",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j2256m1024",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J2017-1614",
+     "value": 432.1,
+     "distance_pc": 2400.0,
+     "constellation": "Capricornus",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j2017m1614",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J2043+1711",
+     "value": 420.2,
+     "distance_pc": 1389.0,
+     "constellation": "Delphinus",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j2043p1711",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J1658-5324",
+     "value": 410.0,
+     "distance_pc": 769.2,
+     "constellation": "Ara",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1658m5324",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J0646-5455",
+     "value": 398.8,
+     "distance_pc": 367.0,
+     "constellation": "Carina",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j0646m5455",
+      "designation": null
+     }
+    },
+    {
+     "name": "PSR J0646-54",
+     "value": 398.4,
+     "distance_pc": 367.0,
+     "constellation": "Carina",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j0646m54",
+      "designation": null
+     }
+    }
+   ]
   }
  ]
 }

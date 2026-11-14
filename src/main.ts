@@ -177,6 +177,9 @@ const updateSpaceshipGizmo = createSpaceshipGizmo(element('spaceship-gizmo'))
 icon('top-lists-icon', Trophy)
 icon('top-lists-lock-icon', Lock)
 icon('top-lists-close-icon', X)
+icon('top-lists-minimize-icon', Minus)
+icon('top-lists-width-icon', ChevronsRightLeft)
+icon('top-lists-active-icon', Trophy)
 icon('graphs-icon', ChartColumn)
 icon('spectral-catalog-icon', ChartScatter)
 icon('spectral-kiel-catalog-icon', ChartScatter)
@@ -776,6 +779,7 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
     else void loadConstellationsPanel()
   }
   if (name === 'top-lists' && open) {
+    setActiveIndicator('top-lists-active', false)
     if (topLists) topLists.open()
     else void loadTopListsPanel()
   }
@@ -878,11 +882,16 @@ const KELVIN_PER_KEV = 1.160452e7
 async function selectTopListObject(object: import('./top-lists').TopListObject): Promise<void> {
   const hip = object.designation === null ? null : hipNumber(object.designation)
   const loaded = starById(object.id) ?? (hip === null ? undefined : stars.find((star) => objectHipNumbers(star).includes(hip)))
-  if (loaded) return selectConstellationStar(loaded)
-  const payload = object.catalog === compactOverlayManifest.id ? await loadCompactRemnants()
-    : await catalogs.find((catalog) => catalog.manifest.id === object.catalog)!.load()
-  const record = payload.find((star) => star.id === object.id)
-  if (record) await selectConstellationStar(record, new Map(payload.map((star) => [star.id, star])))
+  if (loaded) await selectConstellationStar(loaded)
+  else {
+    const payload = object.catalog === compactOverlayManifest.id ? await loadCompactRemnants()
+      : await catalogs.find((catalog) => catalog.manifest.id === object.catalog)!.load()
+    const record = payload.find((star) => star.id === object.id)
+    if (!record) return
+    await selectConstellationStar(record, new Map(payload.map((star) => [star.id, star])))
+  }
+  // A planet entry opens that planet's card on its selected host.
+  if (object.planet && selectedId) await openHostPlanet(selectedId, object.planet)
 }
 
 function syncPanelLayout(): void {
@@ -1321,12 +1330,23 @@ async function selectSystemPlanet(planetId: string): Promise<void> {
 async function openSkyBody(id: string): Promise<void> {
   const planetId = id === 'moon' ? 'earth' : id
   if (selectedId !== 'sun') selectStar('sun')
-  // Until the planet modules load, the Sun's card cannot tell that it owns the open planet card, and closes it.
-  await loadPlanetModules().catch(() => undefined)
-  if (selectedId !== 'sun') return
-  if (!observerView) element<HTMLDetailsElement>('object-card-details').open = true
-  if (element('planet-card').hidden || activePlanetId !== planetId) await selectSystemPlanet(planetId)
+  if (!await openHostPlanet('sun', planetId)) return
   if (id === 'moon' && activePlanetId === 'earth' && !element('planet-card').hidden) showPlanetSection('moons')
+}
+
+/** Opens a planet card of the selected host; false when the selection moved on meanwhile. */
+async function openHostPlanet(hostId: string, planetId: string): Promise<boolean> {
+  // Until the planet modules and the host's planets load, its card cannot tell that it owns the open planet card, and closes it.
+  await Promise.all([loadPlanetModules(), loadPlanetarySystem(hostId)]).catch(() => undefined)
+  if (selectedId !== hostId) return false
+  if (!observerView) {
+    // The planet's row lives in the System section, which owns the open planet card.
+    activeObjectSection = 'system'
+    element<HTMLDetailsElement>('object-card-details').open = true
+    syncObjectSections()
+  }
+  if (element('planet-card').hidden || activePlanetId !== planetId) await selectSystemPlanet(planetId)
+  return true
 }
 
 let luminosityCardModule: typeof import('./luminosity-card') | undefined
@@ -1918,7 +1938,7 @@ function syncSelectedObjectLayout(): void {
   selectedCard.style.maxHeight = `${Math.max(68, availableHeight)}px`
 }
 
-function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active' | 'demo-active', active: boolean): void {
+function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'top-lists-active' | 'motion-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active' | 'demo-active', active: boolean): void {
   if (active) noteTipFeature(id)
   const indicator = element(id)
   if (indicator.hidden !== active) return
@@ -4182,6 +4202,14 @@ function focusToolbarButton(id: string): void {
 }
 element('graph-filter-active').addEventListener('click', () => togglePanel('graphs'), { signal: events.signal })
 element('paint-active').addEventListener('click', () => togglePanel('paint'), { signal: events.signal })
+element('top-lists-active').addEventListener('click', () => togglePanel('top-lists'), { signal: events.signal })
+// Minimizing closes Top lists and leaves its indicator to restore it.
+element('top-lists-minimize').addEventListener('click', () => {
+  setPanelOpen('top-lists', false)
+  setActiveIndicator('top-lists-active', true)
+  syncPanelLayout()
+  focusToolbarButton('top-lists-active')
+}, { signal: events.signal })
 element('motion-active').addEventListener('click', () => togglePanel('motion'), { signal: events.signal })
 element('neighborhood-active').addEventListener('click', () => togglePanel('neighborhood'), { signal: events.signal })
 element('spaceship-active').addEventListener('click', () => togglePanel('spaceship'), { signal: events.signal })
@@ -4359,6 +4387,22 @@ element('graphs-width').addEventListener('click', () => {
   const compact = !element('control-dock').hasAttribute('data-graphs-compact')
   setGraphsCompact(compact)
   storeLayout('graphs-compact', String(compact))
+  syncPanelLayout()
+}, { signal: events.signal })
+function setTopListsNarrow(narrow: boolean): void {
+  element('top-lists-panel').classList.toggle('is-narrow', narrow)
+  const button = element('top-lists-width')
+  const label = `${narrow ? 'Expand' : 'Narrow'} top lists card`
+  button.setAttribute('aria-expanded', String(!narrow))
+  button.setAttribute('aria-label', label)
+  button.title = label
+  icon('top-lists-width-icon', narrow ? ChevronsLeftRight : ChevronsRightLeft)
+}
+if (storedLayout('top-lists-narrow') === 'true') setTopListsNarrow(true)
+element('top-lists-width').addEventListener('click', () => {
+  const narrow = !element('top-lists-panel').classList.contains('is-narrow')
+  setTopListsNarrow(narrow)
+  storeLayout('top-lists-narrow', String(narrow))
   syncPanelLayout()
 }, { signal: events.signal })
 function setSidebarCollapsed(id: string, collapsed: boolean): void {

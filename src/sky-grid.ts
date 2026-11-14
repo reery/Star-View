@@ -163,7 +163,8 @@ export function createSkyGridLayer(container: HTMLElement, opacity: { value: num
     `,
   })
   const cardinalLayer = document.createElement('div')
-  cardinalLayer.className = 'projected-axes'
+  // Above the canvas, so the cone's darkened outside cannot cover the letters.
+  cardinalLayer.className = 'projected-axes visibility-cone-cardinals'
   cardinalLayer.setAttribute('aria-hidden', 'true')
   cardinalLayer.hidden = true
   container.append(cardinalLayer)

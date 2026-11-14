@@ -31,7 +31,8 @@ def catalog_ids(name):
 
 def top_list_ids():
     lists = json.loads((ROOT / "src/data/top-lists.json").read_text())["lists"]
-    return {entry["object"]["id"] for top_list in lists for entry in top_list["entries"] if entry.get("object")}
+    entries = [entry for top_list in lists for group in top_list.get("groups", [top_list]) for entry in group["entries"]]
+    return {entry["object"]["id"] for entry in entries if entry.get("object")}
 
 
 def listed_ids():

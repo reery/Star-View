@@ -187,6 +187,7 @@ def radial_velocity_overrides():
 
 
 def reviewed_radial_velocity(simbad, astrometry):
+    """A reviewed literature velocity; one without a value withholds a measurement the review rejects."""
     override = radial_velocity_overrides().get((simbad.raw or {}).get("main_id"))
     if override is None:
         return None
@@ -194,16 +195,16 @@ def reviewed_radial_velocity(simbad, astrometry):
         raise ValueError(f"Reviewed radial-velocity Gaia identity drifted: {override['main_id']}")
     return AstrometryObservation(
         source_id="reviewed-literature-rv",
-        source_record_id=f"HIP {override['hip_id']}",
+        source_record_id=f"HIP {override['hip_id']}" if override["hip_id"] else override["main_id"],
         ra_deg=astrometry.ra_deg,
         dec_deg=astrometry.dec_deg,
         epoch=astrometry.epoch,
         parallax_mas=astrometry.parallax_mas,
         pm_ra_cosdec_masyr=astrometry.pm_ra_cosdec_masyr,
         pm_dec_masyr=astrometry.pm_dec_masyr,
-        radial_velocity_kms=float(override["radial_velocity_kms"]),
+        radial_velocity_kms=float(override["radial_velocity_kms"]) if override["radial_velocity_kms"] else None,
         radial_velocity_error_kms=float(override["radial_velocity_error_kms"]) if override["radial_velocity_error_kms"] else None,
-        radial_velocity_ref=override["reference"],
+        radial_velocity_ref=override["reference"] if override["radial_velocity_kms"] else None,
         quality_flags=(override["source"], override["note"]),
     )
 
@@ -214,6 +215,8 @@ def radial_velocity_choice(astrometry, gaia, object_type, reviewed=None):
                         if candidate is not None and candidate.radial_velocity_kms is not None), None)
     if observation is None:
         return None, "unknown"
+    if reviewed is not None and reviewed.radial_velocity_kms is None:
+        return observation, "withheld-reviewed"
     if object_type == "white_dwarf":
         return observation, "withheld-white-dwarf"
     if observation is reviewed:
@@ -240,7 +243,7 @@ def normalize(record, simbad, gaia, supplements, extended=False):
     raw = simbad.raw or {}
     object_type = source_type(raw.get("otype"))
     radial_velocity, radial_velocity_status = radial_velocity_choice(astrometry, gaia, object_type, reviewed_radial_velocity(simbad, astrometry))
-    use_rv = radial_velocity is not None and radial_velocity_status != "withheld-white-dwarf"
+    use_rv = radial_velocity is not None and radial_velocity_status not in {"withheld-white-dwarf", "withheld-reviewed"}
     motion = {"radial_velocity": radial_velocity.radial_velocity_kms * units.km / units.s} if use_rv else {}
     motion_note = {
         "compiled-cns5": "Full source space motion.",
@@ -351,7 +354,8 @@ def normalize(record, simbad, gaia, supplements, extended=False):
         "sourceType": raw.get("otype"),
         "identityMethod": "exact CNS5 identifier; exact Gaia DR3 identifier when present",
         "astrometry": astrometry.to_dict(),
-        "radialVelocity": radial_velocity_provenance(radial_velocity, radial_velocity_status),
+        "radialVelocity": {**radial_velocity_provenance(radial_velocity, radial_velocity_status),
+                           **({"reason": radial_velocity_overrides()[raw["main_id"]]["note"]} if radial_velocity_status == "withheld-reviewed" else {})},
         "physicalObservations": physical,
         "fieldStatus": {
             "temperature_k": status("temperature_k"),
@@ -621,6 +625,7 @@ def build_package():
         "radialVelocityPolicy": {
             "precedence": ["nearest-100 curated override", "reviewed literature override", "CNS5 spectroscopic radial velocity", "Gaia DR3 exact-ID radial velocity fallback"],
             "whiteDwarfs": "Withhold new spectroscopic radial velocities because gravitational redshift may contaminate space motion.",
+            "rejected": "A reviewed override without a value withholds a source measurement the review rejects; its reason is kept under radialVelocity.reason.",
             "review": "Gaia DR3 fallback measurements are source-backed and retain uncertainty and quality flags, but are not individually reviewed for systemic binary motion.",
             "resolvedComponents": "After aggregate splitting, reviewed systemic RVs can fill withheld motion as an explicitly documented bulk-motion approximation; no individual orbital velocities are supplied.",
         },

@@ -2,19 +2,22 @@
   "schemaVersion": 1,
   "catalogId": "naked-eye-stars",
   "policy": "Every SIMBAD object with a compiled Johnson V <= 6.5, a positive parallax and an adopted distance within 20,000 light-years. Clusters, galaxies, supernovae and other non-stellar types are excluded, as are ** aggregates whose components are listed. Stars curated by the nearby or constellation catalogs, matched by exact identifier or within 20 arcsec at a consistent distance, keep that record and ID; their reviewed companions follow. A component without a parallax of its own uses the parallax and motion of its SIMBAD multiple-star record; other stars without a parallax are listed in the provenance audit, not placed. Sun is included only as the map origin.",
-  "physicalPolicy": "New records use the shared exact-identity enrichment without Gaia DR3 GSP-Phot [M/H]. Gaia DR3 GSP-Phot and FLAME values are withheld for O, B0-B4 and M spectral types, FLAME values for parallax signal-to-noise below 10, and any temperature more than 35% from the Pecaut-Mamajek temperature of its spectral class is withheld before selection, with the values derived from the same solution: FLAME values, Allende Prieto & Lambert 1999 mass and radius, and McDonald et al. 2012 luminosity. These two Hipparcos model solutions are also withheld when their temperature lies more than 20% from an adopted spectroscopic temperature, and McDonald et al. 2012 fits are not used for O and B stars, whose zero-reddening fits run systematically cool. The more accurate temperature wins; FLAME values that assumed a different GSP-Phot temperature are not adopted and are kept with their reason under withheldSourceValues.",
-  "sourceManifestSha256": "8476c9cb9e032e962ae6fa19a95487b5745f5c4c44a0ab0fbcaa84ddf02694e6",
+  "physicalPolicy": "New records use the shared exact-identity enrichment without Gaia DR3 GSP-Phot [M/H]. Gaia DR3 GSP-Phot and FLAME values are withheld for O, B0-B4 and M spectral types, FLAME values for parallax signal-to-noise below 10, and any temperature more than 35% from the Pecaut-Mamajek temperature of its spectral class is withheld before selection, with the values derived from the same solution: FLAME values, Allende Prieto & Lambert 1999 mass and radius, and McDonald et al. 2012 luminosity. These two Hipparcos model solutions are also withheld when their temperature lies more than 20% from an adopted spectroscopic temperature, and McDonald et al. 2012 fits are not used for O and B stars, whose zero-reddening fits run systematically cool. A McDonald et al. 2012 luminosity fitted from a non-positive Hipparcos parallax has no distance scale and is not used; a FLAME age whose upper bound reaches the 13.5 Gyr grid limit is a truncated posterior and is not used. The more accurate temperature wins; FLAME values that assumed a different GSP-Phot temperature are not adopted and are kept with their reason under withheldSourceValues.",
+  "distancePolicy": "Bailer-Jones geometric distance where SIMBAD adopts the Gaia DR3 parallax, else the inverse SIMBAD parallax. Where that parallax has a signal-to-noise below 5, the inverse Gaia parallax of an open cluster SIMBAD lists the star in (membership at least 50 percent, cluster parallax corrected by the release's global zero-point and agreeing with the star's within 3 sigma) is adopted; failing that, the star's own Hipparcos 2007 parallax (van Leeuwen 2007) replaces it where more precise, the replaced parallax kept under adoptedDistance.parallaxReview. Reviewed literature distances (catalog-work/landmark-stars/distance-overrides.csv) take precedence over all of these.",
+  "radialVelocityPolicy": "SIMBAD's compiled radial velocity, unless it lies more than 50 km/s from the median of at least two other SIMBAD measurements and a strict majority of those agree within 25 km/s of that median. The most precise measurement within 10 km/s of the median, else the newest, then replaces it, or the velocity is withheld when none lies that close; the rejected value is kept with its reason under radialVelocity.review.",
+  "sourceManifestSha256": "e8940ec505e6fc74e00e90c73fd313ee4a84fc636cf809cec4024adf159b5f73",
+  "photometryExclusionsSha256": "0f42d15b9edc0738b135440cf2ffcb23cb750c0a7c06c6e99dea9a75cbdc10d0",
   "coverage": {
-    "constellation": 7748,
-    "spectral_type": 7592,
-    "temperature_k": 7318,
-    "mass_solar": 1741,
-    "luminosity_solar": 6408,
-    "radius_solar": 6410,
+    "constellation": 7743,
+    "spectral_type": 7589,
+    "temperature_k": 7315,
+    "mass_solar": 1740,
+    "luminosity_solar": 6395,
+    "radius_solar": 6397,
     "metallicity_dex": 3951,
-    "age_gyr": 764,
-    "radial_velocity_kms": 7607,
-    "vx_kms": 7607
+    "age_gyr": 763,
+    "radial_velocity_kms": 7605,
+    "vx_kms": 7605
   },
   "audit": [
     {
@@ -256,6 +259,13 @@
       "reason": "component of * f Pup; no parallax of its own"
     },
     {
+      "simbadId": "* gam PsA B",
+      "otype": "*",
+      "v": "5.023",
+      "status": "excluded",
+      "reason": "reviewed photometry: SIMBAD's compiled V = 5.023 and B = 5.049 (2000A&A...355L..27H) belong to the bright primary Gamma PsA A: Tycho-2 has a single source, VT = 4.502, within 60 arcsec, which is the A star. The F5V companion 4 arcsec away has Gaia DR3 G = 8.00, about V = 8.1, beyond naked-eye visibility."
+    },
+    {
       "simbadId": "* gam Sex A",
       "otype": "PM*",
       "v": "5.43",
@@ -443,6 +453,13 @@
       "v": "6.09",
       "status": "represented",
       "reason": "aggregate of * tet Phe A"
+    },
+    {
+      "simbadId": "ASAS J091626-6728.7",
+      "otype": "Mi*",
+      "v": "3.27",
+      "status": "excluded",
+      "reason": "reviewed photometry: The compiled V = 3.27 (2017MNRAS.469.3688D) is this Mira variable's amplitude in a periodic-variable catalogue, not its brightness: B = 15.96, Gaia DR3 G = 13.17 and 2MASS J = 9.50. Even at maximum the star stays far below naked-eye visibility."
     },
     {
       "simbadId": "BD+02  4211",
@@ -662,6 +679,13 @@
       "reason": "non-stellar SIMBAD type"
     },
     {
+      "simbadId": "Cl Melotte   20   772",
+      "otype": "*",
+      "v": "4.989",
+      "status": "excluded",
+      "reason": "reviewed photometry: The compiled V = 4.989 (2006RMxAA..42..179P) cannot belong to this Alpha Persei cluster member: Gaia DR3 gives G = 11.47, 2MASS J = 10.50, and Tycho-2 has no source at its position (complete to about VT 11.5). The star is about V 12, far below naked-eye visibility."
+    },
+    {
       "simbadId": "Cl Pismis    4",
       "otype": "OpC",
       "v": "5.9",
@@ -765,6 +789,13 @@
       "v": "6.38",
       "status": "represented",
       "reason": "component of HD  17240; no parallax of its own"
+    },
+    {
+      "simbadId": "HD  17706",
+      "otype": "**",
+      "v": "6.408",
+      "status": "excluded",
+      "reason": "reviewed photometry: SIMBAD's compiled V = 6.408 (2000A&A...355L..27H) does not describe HD 17706: Tycho-2 measures VT = 8.549 and BT = 8.887 at its position (TYC 4056-1120-1), Gaia DR3 gives G = 8.51 and 2MASS J = 7.66. At V of about 8.5 the star is not visible to the naked eye."
     },
     {
       "simbadId": "HD  20319",
@@ -968,6 +999,13 @@
       "v": "6.06",
       "status": "represented",
       "reason": "component of HD 113120; no parallax of its own"
+    },
+    {
+      "simbadId": "HD 117630",
+      "otype": "*",
+      "v": "6.5",
+      "status": "excluded",
+      "reason": "reviewed photometry: SIMBAD's compiled V = 6.5 and B = 6.68 (1967ArA.....4..375L) contradict every modern measurement: Tycho-2 VT = 10.255 and BT = 10.458 (TYC 8999-1232-1), Gaia DR3 G = 10.20, 2MASS J = 9.81. At V of about 10.2 the star is not visible to the naked eye."
     },
     {
       "simbadId": "HD 130458A",
@@ -9763,12 +9801,19 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 1422.0262,
-        "lowerPc": 1202.323,
-        "upperPc": 1798.0544,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "3429829048565502848"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 476.19047619047615,
+        "parallaxSignalToNoise": 11.052631578947368,
+        "source": "2007A&A...474..653V",
+        "sourceId": "* 139 Tau",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.8615,
+            "errorMas": 0.179,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 4.81 is below 5; the Hipparcos 2007 parallax of HIP 28237 (2.10 +/- 0.19 mas, signal-to-noise 11.05) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -14096,12 +14141,19 @@
         "bibcode": "2000A&A...355L..27H"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 169.63297,
-        "lowerPc": 140.94583,
-        "upperPc": 217.96658,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "5099265828450228864"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 78.30853563038372,
+        "parallaxSignalToNoise": 10.914529914529915,
+        "source": "2007A&A...474..653V",
+        "sourceId": "*  15 Eri",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 7.0838,
+            "errorMas": 1.4668,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 4.83 is below 5; the Hipparcos 2007 parallax of HIP 15382 (12.77 +/- 1.17 mas, signal-to-noise 10.91) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -14134,23 +14186,23 @@
         },
         "luminosity_solar": {
           "field": "luminosity_solar",
-          "value": 331.9335414,
+          "value": 70.73735439,
           "status": "model-derived",
           "reference": "2012MNRAS.427..343M",
           "uncertainty": null,
           "identity": "* 15 Eri",
           "sourceRecordId": "HIP 15382",
           "sourceDistancePc": 78.31,
-          "adoptedDistancePc": 169.6329699958327
+          "adoptedDistancePc": 78.3085356279332
         },
         "radius_solar": {
           "field": "radius_solar",
-          "value": 24.16329132,
+          "value": 11.15462377,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 5012.0,
-            "luminosity_solar": 331.9335414
+            "luminosity_solar": 70.73735439
           }
         }
       },
@@ -27825,14 +27877,6 @@
           "gspPhotTemperatureK": 5619.5156,
           "adoptedTemperatureK": 5771.0,
           "reason": "FLAME assumes the GSP-Phot temperature and solar metallicity; the adopted, more accurate temperature differs by over 2 percent or the metallicity lies beyond 0.3 dex"
-        },
-        "age_gyr": {
-          "value": 13.027181,
-          "reference": "Gaia DR3 astrophysical_parameters",
-          "sourceRecordId": "6226694571859532800",
-          "gspPhotTemperatureK": 5619.5156,
-          "adoptedTemperatureK": 5771.0,
-          "reason": "FLAME assumes the GSP-Phot temperature and solar metallicity; the adopted, more accurate temperature differs by over 2 percent or the metallicity lies beyond 0.3 dex"
         }
       }
     },
@@ -30993,11 +31037,13 @@
         "bibcode": "2000A&A...355L..27H"
       },
       "adoptedDistance": {
-        "method": "inverse SIMBAD compiled parallax",
-        "distancePc": 173.61111111111111,
-        "parallaxSignalToNoise": 0.897196261682243,
-        "source": "2007A&A...474..653V",
-        "sourceId": "*  26 Aur"
+        "method": "inverse Hipparcos 1997 parallax",
+        "distancePc": 137.174,
+        "lowerPc": 121.212,
+        "upperPc": 157.978,
+        "source": "Perryman et al. 1997",
+        "sourceId": "1997A&A...323L..49P",
+        "note": "7.29 +/- 0.96 mas; the Hipparcos 2007 re-reduction of this double star gives 5.76 +/- 6.42 mas, which does not constrain the distance"
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -42033,8 +42079,19 @@
         "sourceId": "65519283722314496"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "1979IAUS...30...57E"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2007AN....328..889K",
+        "review": {
+          "rejected": {
+            "valueKms": -25.4,
+            "uncertaintyKms": 5.0,
+            "bibcode": "1979IAUS...30...57E"
+          },
+          "consensusKms": 25.0,
+          "agreeing": 3,
+          "measurements": 5,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 5 SIMBAD measurements, 3 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -58363,23 +58420,25 @@
         },
         "luminosity_solar": {
           "field": "luminosity_solar",
-          "value": 1775606085.0,
+          "value": 1635.041,
           "status": "model-derived",
-          "reference": "2012MNRAS.427..343M",
-          "uncertainty": null,
+          "reference": "Gaia DR3 astrophysical_parameters",
+          "uncertainty": 225.37090000000012,
           "identity": "* 48 Aur",
-          "sourceRecordId": "HIP 30827",
-          "sourceDistancePc": -909.09,
-          "adoptedDistancePc": 543.0971699755247
+          "sourceRecordId": "3435571660360952704",
+          "qualityFlags": [
+            "10"
+          ],
+          "quantity": null
         },
         "radius_solar": {
           "field": "radius_solar",
-          "value": 36544.5664,
+          "value": 35.06822826,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 6198.0,
-            "luminosity_solar": 1775606085.0
+            "luminosity_solar": 1635.041
           }
         }
       },
@@ -61943,8 +62002,19 @@
         "sourceId": "4069112871640783360"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2022yCat.1355....0G"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2006AstL...32..759G",
+        "review": {
+          "rejected": {
+            "valueKms": 64.33,
+            "uncertaintyKms": 1.32,
+            "bibcode": "2022yCat.1355....0G"
+          },
+          "consensusKms": -18.0,
+          "agreeing": 6,
+          "measurements": 6,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 6 SIMBAD measurements, 6 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -70180,23 +70250,25 @@
         },
         "luminosity_solar": {
           "field": "luminosity_solar",
-          "value": 9081556717.0,
+          "value": 50.401024,
           "status": "model-derived",
-          "reference": "2012MNRAS.427..343M",
-          "uncertainty": null,
+          "reference": "Gaia DR3 astrophysical_parameters",
+          "uncertainty": 0.48651100000000014,
           "identity": "* 59 And B",
-          "sourceRecordId": "HIP 10180",
-          "sourceDistancePc": -64.14,
-          "adoptedDistancePc": 134.37528999337187
+          "sourceRecordId": "332409925884476928",
+          "qualityFlags": [
+            "00"
+          ],
+          "quantity": null
         },
         "radius_solar": {
           "field": "radius_solar",
-          "value": 37299.74769,
+          "value": 2.778724078,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 9226.0,
-            "luminosity_solar": 9081556717.0
+            "luminosity_solar": 50.401024
           }
         }
       },
@@ -75054,8 +75126,19 @@
         "sourceId": "865209037088705024"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2006AstL...32..759G"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "1953GCRV..C......0W",
+        "review": {
+          "rejected": {
+            "valueKms": -82.3,
+            "uncertaintyKms": 1.9,
+            "bibcode": "2006AstL...32..759G"
+          },
+          "consensusKms": 24.399999618530273,
+          "agreeing": 5,
+          "measurements": 6,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 6 SIMBAD measurements, 5 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -75251,8 +75334,19 @@
         "sourceId": "4067435566661212672"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2022yCat.1355....0G"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2006AstL...32..759G",
+        "review": {
+          "rejected": {
+            "valueKms": 90.34,
+            "uncertaintyKms": 5.48,
+            "bibcode": "2022yCat.1355....0G"
+          },
+          "consensusKms": -11.0,
+          "agreeing": 6,
+          "measurements": 6,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 6 SIMBAD measurements, 6 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -78414,12 +78508,19 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 830.5375,
-        "lowerPc": 668.7948,
-        "upperPc": 1171.0902,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "4469314179061640320"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 377.35849056603774,
+        "parallaxSignalToNoise": 4.9074074074074066,
+        "source": "2007A&A...474..653V",
+        "sourceId": "*  67 Oph",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 1.3731,
+            "errorMas": 0.2933,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 4.68 is below 5; the Hipparcos 2007 parallax of HIP 88192 (2.65 +/- 0.54 mas, signal-to-noise 4.91) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -80262,27 +80363,6 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "catalogued stellar object"
-        },
-        "luminosity_solar": {
-          "field": "luminosity_solar",
-          "value": 24171761390.0,
-          "status": "model-derived",
-          "reference": "2012MNRAS.427..343M",
-          "uncertainty": null,
-          "identity": "* 6 Gem",
-          "sourceRecordId": "HIP 29450",
-          "sourceDistancePc": -1923.08,
-          "adoptedDistancePc": 1757.051399924905
-        },
-        "radius_solar": {
-          "field": "radius_solar",
-          "value": 341247.0437,
-          "status": "derived",
-          "reference": "Stefan-Boltzmann scaling",
-          "inputs": {
-            "temperature_k": 3896.0,
-            "luminosity_solar": 24171761390.0
-          }
         }
       },
       "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
@@ -87983,8 +88063,19 @@
         "sourceId": "2017735817073815680"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "1953GCRV..C......0W"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2006AstL...32..759G",
+        "review": {
+          "rejected": {
+            "valueKms": -420.7,
+            "uncertaintyKms": 2.0,
+            "bibcode": "1953GCRV..C......0W"
+          },
+          "consensusKms": -37.70000076293945,
+          "agreeing": 5,
+          "measurements": 6,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 6 SIMBAD measurements, 5 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {}
     },
@@ -90225,8 +90316,19 @@
         "sourceId": "3605315055728454016"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2020AJ....160..120J"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2007AN....328..889K",
+        "review": {
+          "rejected": {
+            "valueKms": 38.1082,
+            "uncertaintyKms": 0.323621,
+            "bibcode": "2020AJ....160..120J"
+          },
+          "consensusKms": -41.0,
+          "agreeing": 3,
+          "measurements": 3,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 3 SIMBAD measurements, 3 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -95920,30 +96022,6 @@
       "physicalObservations": {},
       "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
     },
-    "asas-j091626-6728-7": {
-      "simbadId": "ASAS J091626-6728.7",
-      "simbadType": "Mi*",
-      "gaiaDr3Id": "5247105646530582144",
-      "visualMagnitude": {
-        "value": 3.27,
-        "uncertainty": null,
-        "bibcode": "2017MNRAS.469.3688D"
-      },
-      "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 5149.0225,
-        "lowerPc": 4162.2256,
-        "upperPc": 6802.061,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "5247105646530582144"
-      },
-      "radialVelocity": {
-        "status": "unknown",
-        "bibcode": null
-      },
-      "physicalObservations": {},
-      "gaiaFlame": "withheld: parallax signal-to-noise below 10"
-    },
     "hip-43023": {
       "simbadId": "* a Vel",
       "simbadType": "*",
@@ -96334,8 +96412,19 @@
         "sourceId": "271495572960091648"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2022yCat.1355....0G"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2006AstL...32..759G",
+        "review": {
+          "rejected": {
+            "valueKms": 64.96,
+            "uncertaintyKms": 5.56,
+            "bibcode": "2022yCat.1355....0G"
+          },
+          "consensusKms": -15.800000190734863,
+          "agreeing": 9,
+          "measurements": 9,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 9 SIMBAD measurements, 9 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {},
       "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
@@ -98797,8 +98886,19 @@
         "sourceId": "5537733610870346880"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2007AN....328..889K"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "1953GCRV..C......0W",
+        "review": {
+          "rejected": {
+            "valueKms": 29.5,
+            "uncertaintyKms": 7.4,
+            "bibcode": "2007AN....328..889K"
+          },
+          "consensusKms": -20.799999237060547,
+          "agreeing": 4,
+          "measurements": 5,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 5 SIMBAD measurements, 4 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -99199,12 +99299,13 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 2532.0845,
-        "lowerPc": 2134.6707,
-        "upperPc": 3131.9492,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "5521599549054493696"
+        "method": "co-moving group distance",
+        "distancePc": 1654.779327209836,
+        "lowerPc": 1627.3648235740282,
+        "upperPc": 1683.133303778312,
+        "source": "Kasikov et al. 2026",
+        "sourceId": "2026A&A...708A..78K",
+        "note": "Inverse-variance mean of the zero-point-corrected Gaia DR3 parallaxes of 6 co-moving neighbours (0.6043 +/- 0.0102 mas); a yellow super- or hypergiant's own parallax is unreliable"
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -103387,93 +103488,6 @@
         }
       }
     },
-    "cl-melotte-20-772": {
-      "simbadId": "Cl Melotte   20   772",
-      "simbadType": "*",
-      "gaiaDr3Id": "441415165068758400",
-      "visualMagnitude": {
-        "value": 4.989,
-        "uncertainty": null,
-        "bibcode": "2006RMxAA..42..179P"
-      },
-      "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 1964.8094,
-        "lowerPc": 1880.927,
-        "upperPc": 2063.2866,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "441415165068758400"
-      },
-      "radialVelocity": {
-        "status": "unknown",
-        "bibcode": null
-      },
-      "physicalObservations": {
-        "temperature_k": {
-          "field": "temperature_k",
-          "value": 8939.0,
-          "status": "model-derived",
-          "reference": "Gaia DR3 astrophysical_parameters",
-          "uncertainty": 56.99499999999898,
-          "identity": "Cl Melotte 20 772",
-          "sourceRecordId": "441415165068758400",
-          "qualityFlags": [],
-          "quantity": null
-        },
-        "mass_solar": {
-          "field": "mass_solar",
-          "value": 3.448189,
-          "status": "model-derived",
-          "reference": "Gaia DR3 astrophysical_parameters",
-          "uncertainty": 0.0828401999999997,
-          "identity": "Cl Melotte 20 772",
-          "sourceRecordId": "441415165068758400",
-          "qualityFlags": [
-            "00"
-          ],
-          "quantity": null
-        },
-        "luminosity_solar": {
-          "field": "luminosity_solar",
-          "value": 263.99942,
-          "status": "model-derived",
-          "reference": "Gaia DR3 astrophysical_parameters",
-          "uncertainty": 22.760530000000017,
-          "identity": "Cl Melotte 20 772",
-          "sourceRecordId": "441415165068758400",
-          "qualityFlags": [
-            "00"
-          ],
-          "quantity": null
-        },
-        "radius_solar": {
-          "field": "radius_solar",
-          "value": 6.786526,
-          "status": "model-derived",
-          "reference": "Gaia DR3 astrophysical_parameters",
-          "uncertainty": 0.32250140000000016,
-          "identity": "Cl Melotte 20 772",
-          "sourceRecordId": "441415165068758400",
-          "qualityFlags": [
-            "00"
-          ],
-          "quantity": null
-        },
-        "age_gyr": {
-          "field": "age_gyr",
-          "value": 0.24994072,
-          "status": "model-derived",
-          "reference": "Gaia DR3 astrophysical_parameters",
-          "uncertainty": 0.03128320000000001,
-          "identity": "Cl Melotte 20 772",
-          "sourceRecordId": "441415165068758400",
-          "qualityFlags": [
-            "00"
-          ],
-          "quantity": null
-        }
-      }
-    },
     "hip-73095": {
       "simbadId": "* c Lup",
       "simbadType": "SB*",
@@ -105895,8 +105909,19 @@
         "sourceId": "2200153214212849024"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2022yCat.1355....0G"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2006AstL...32..759G",
+        "review": {
+          "rejected": {
+            "valueKms": 40.17,
+            "uncertaintyKms": 2.97,
+            "bibcode": "2022yCat.1355....0G"
+          },
+          "consensusKms": -21.3,
+          "agreeing": 4,
+          "measurements": 4,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 4 SIMBAD measurements, 4 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -109731,12 +109756,13 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 1056.3344,
-        "lowerPc": 873.8515,
-        "upperPc": 1274.1644,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "205499655242974464"
+        "method": "co-moving group distance",
+        "distancePc": 1124.273618191804,
+        "lowerPc": 1096.402964186614,
+        "upperPc": 1153.598179294188,
+        "source": "Kasikov et al. 2026",
+        "sourceId": "2026A&A...708A..78K",
+        "note": "Inverse-variance mean of the zero-point-corrected Gaia DR3 parallaxes of 4 co-moving neighbours (0.8895 +/- 0.0226 mas); a yellow super- or hypergiant's own parallax is unreliable"
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -109769,23 +109795,23 @@
         },
         "luminosity_solar": {
           "field": "luminosity_solar",
-          "value": 58422.31068,
+          "value": 66178.95779,
           "status": "model-derived",
           "reference": "2012MNRAS.427..343M",
           "uncertainty": null,
           "identity": "* eps Aur",
           "sourceRecordId": "HIP 23416",
           "sourceDistancePc": 653.6,
-          "adoptedDistancePc": 1056.3343999330718
+          "adoptedDistancePc": 1124.2736181200898
         },
         "radius_solar": {
           "field": "radius_solar",
-          "value": 147.2535092,
+          "value": 156.7242679,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 7395.0,
-            "luminosity_solar": 58422.31068
+            "luminosity_solar": 66178.95779
           }
         }
       },
@@ -113564,12 +113590,13 @@
         "bibcode": "2002A&A...384..180F"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 907.5889,
-        "lowerPc": 624.1506,
-        "upperPc": 1328.1794,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "3214077516844988800"
+        "method": "system parallax (Eta Ori)",
+        "distancePc": 299.401,
+        "lowerPc": 226.757,
+        "upperPc": 440.529,
+        "source": "van Leeuwen 2007",
+        "sourceId": "2007A&A...474..653V",
+        "note": "Component of the Eta Ori system, which adopts the Hipparcos 2007 parallax of HIP 25281 (3.34 +/- 1.07 mas); the component's own Gaia DR3 parallax of 1.58 +/- 0.77 mas placed it at 908 pc, too bright for a B1 V star and three times farther than its system"
       },
       "radialVelocity": {
         "status": "unknown",
@@ -114449,12 +114476,19 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 2572.7607,
-        "lowerPc": 1707.216,
-        "upperPc": 3124.86,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "2163949388695291136"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 434.7826086956522,
+        "parallaxSignalToNoise": 5.476190476190476,
+        "source": "2007A&A...474..653V",
+        "sourceId": "* f01 Cyg",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 1.4681,
+            "errorMas": 0.368,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 3.99 is below 5; the Hipparcos 2007 parallax of HIP 103632 (2.30 +/- 0.42 mas, signal-to-noise 5.48) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -117360,37 +117394,6 @@
         }
       }
     },
-    "gamma-psa-b": {
-      "simbadId": "* gam PsA B",
-      "simbadType": "*",
-      "gaiaDr3Id": "6602839458218256896",
-      "visualMagnitude": {
-        "value": 5.023,
-        "uncertainty": 0.064,
-        "bibcode": "2000A&A...355L..27H"
-      },
-      "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 69.1771,
-        "lowerPc": 69.015755,
-        "upperPc": 69.41286,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "6602839458218256896"
-      },
-      "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2018yCat.1345....0G"
-      },
-      "physicalObservations": {
-        "temperature_k": {
-          "field": "temperature_k",
-          "value": 6550,
-          "status": "estimated",
-          "reference": "Pecaut-Mamajek 2022.04.16",
-          "spectralType": "F5V"
-        }
-      }
-    },
     "hip-18744": {
       "simbadId": "* gam Ret",
       "simbadType": "LP*",
@@ -119571,27 +119574,6 @@
           "uncertainty": null,
           "identity": "HD 100198",
           "sourceRecordId": "HIP 56201"
-        },
-        "luminosity_solar": {
-          "field": "luminosity_solar",
-          "value": 235708656.8,
-          "status": "model-derived",
-          "reference": "2012MNRAS.427..343M",
-          "uncertainty": null,
-          "identity": "HD 100198",
-          "sourceRecordId": "HIP 56201",
-          "sourceDistancePc": -20000.0,
-          "adoptedDistancePc": 5885.087999975284
-        },
-        "radius_solar": {
-          "field": "radius_solar",
-          "value": 15859.7623,
-          "status": "derived",
-          "reference": "Stefan-Boltzmann scaling",
-          "inputs": {
-            "temperature_k": 5679.0,
-            "luminosity_solar": 235708656.8
-          }
         }
       },
       "gaiaFlame": "withheld: parallax signal-to-noise below 10"
@@ -126426,27 +126408,6 @@
           "uncertainty": null,
           "identity": "HD 104111",
           "sourceRecordId": "HIP 58469"
-        },
-        "luminosity_solar": {
-          "field": "luminosity_solar",
-          "value": 3642389857.0,
-          "status": "model-derived",
-          "reference": "2012MNRAS.427..343M",
-          "uncertainty": null,
-          "identity": "HD 104111",
-          "sourceRecordId": "HIP 58469",
-          "sourceDistancePc": -1818.18,
-          "adoptedDistancePc": 2296.470999975764
-        },
-        "radius_solar": {
-          "field": "radius_solar",
-          "value": 52307.32127,
-          "status": "derived",
-          "reference": "Stefan-Boltzmann scaling",
-          "inputs": {
-            "temperature_k": 6200.0,
-            "luminosity_solar": 3642389857.0
-          }
         }
       }
     },
@@ -147341,77 +147302,6 @@
         }
       }
     },
-    "hd-117630": {
-      "simbadId": "HD 117630",
-      "simbadType": "*",
-      "gaiaDr3Id": "5864030453992471808",
-      "visualMagnitude": {
-        "value": 6.5,
-        "uncertainty": null,
-        "bibcode": "1967ArA.....4..375L"
-      },
-      "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 377.29138,
-        "lowerPc": 374.9508,
-        "upperPc": 379.24777,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "5864030453992471808"
-      },
-      "radialVelocity": {
-        "status": "unknown",
-        "bibcode": null
-      },
-      "physicalObservations": {
-        "temperature_k": {
-          "field": "temperature_k",
-          "value": 9334.0,
-          "status": "model-derived",
-          "reference": "Gaia DR3 astrophysical_parameters",
-          "uncertainty": 41.759000000000015,
-          "identity": "HD 117630",
-          "sourceRecordId": "5864030453992471808",
-          "qualityFlags": [],
-          "quantity": null
-        },
-        "luminosity_solar": {
-          "field": "luminosity_solar",
-          "value": 17.120554,
-          "status": "model-derived",
-          "reference": "Gaia DR3 astrophysical_parameters",
-          "uncertainty": 0.3019679999999987,
-          "identity": "HD 117630",
-          "sourceRecordId": "5864030453992471808",
-          "qualityFlags": [
-            "00"
-          ],
-          "quantity": null
-        },
-        "radius_solar": {
-          "field": "radius_solar",
-          "value": 1.5828077,
-          "status": "model-derived",
-          "reference": "Gaia DR3 astrophysical_parameters",
-          "uncertainty": 0.03459710000000005,
-          "identity": "HD 117630",
-          "sourceRecordId": "5864030453992471808",
-          "qualityFlags": [
-            "00"
-          ],
-          "quantity": null
-        }
-      },
-      "withheldSourceValues": {
-        "mass_solar": {
-          "value": 2.0138505,
-          "reference": "Gaia DR3 astrophysical_parameters",
-          "sourceRecordId": "5864030453992471808",
-          "gspPhotTemperatureK": 9333.655,
-          "adoptedTemperatureK": 9334.0,
-          "reason": "FLAME assumes the GSP-Phot temperature and solar metallicity; the adopted, more accurate temperature differs by over 2 percent or the metallicity lies beyond 0.3 dex"
-        }
-      }
-    },
     "hip-66152": {
       "simbadId": "HD 117651",
       "simbadType": "*",
@@ -147827,12 +147717,19 @@
         "bibcode": "2000A&A...355L..27H"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 1629.9933,
-        "lowerPc": 1060.8547,
-        "upperPc": 2395.586,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "6082997881094443776"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 303.951367781155,
+        "parallaxSignalToNoise": 5.874999999999999,
+        "source": "2007A&A...474..653V",
+        "sourceId": "HD 117919",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.9819,
+            "errorMas": 0.4411,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 2.23 is below 5; the Hipparcos 2007 parallax of HIP 66236 (3.29 +/- 0.56 mas, signal-to-noise 5.87) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -157077,27 +156974,6 @@
           "uncertainty": null,
           "identity": "HD 123377",
           "sourceRecordId": "HIP 69241"
-        },
-        "luminosity_solar": {
-          "field": "luminosity_solar",
-          "value": 4765778536.0,
-          "status": "model-derived",
-          "reference": "2012MNRAS.427..343M",
-          "uncertainty": null,
-          "identity": "HD 123377",
-          "sourceRecordId": "HIP 69241",
-          "sourceDistancePc": -1282.05,
-          "adoptedDistancePc": 857.3586999755621
-        },
-        "radius_solar": {
-          "field": "radius_solar",
-          "value": 148535.4444,
-          "status": "derived",
-          "reference": "Stefan-Boltzmann scaling",
-          "inputs": {
-            "temperature_k": 3935.0,
-            "luminosity_solar": 4765778536.0
-          }
         }
       }
     },
@@ -160885,8 +160761,19 @@
         "sourceId": "6119752463163333632"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2022yCat.1355....0G"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2006AstL...32..759G",
+        "review": {
+          "rejected": {
+            "valueKms": 58.93,
+            "uncertaintyKms": 4.3,
+            "bibcode": "2022yCat.1355....0G"
+          },
+          "consensusKms": -37.0,
+          "agreeing": 5,
+          "measurements": 5,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 5 SIMBAD measurements, 5 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -173238,8 +173125,19 @@
         "sourceId": "5875492519139336704"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2022yCat.1355....0G"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2006AstL...32..759G",
+        "review": {
+          "rejected": {
+            "valueKms": 69.49,
+            "uncertaintyKms": 17.37,
+            "bibcode": "2022yCat.1355....0G"
+          },
+          "consensusKms": 6.0,
+          "agreeing": 4,
+          "measurements": 4,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 4 SIMBAD measurements, 4 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {},
       "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
@@ -173567,12 +173465,19 @@
         "bibcode": "2000A&A...355L..27H"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 3745.6528,
-        "lowerPc": 2257.8662,
-        "upperPc": 7226.4326,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "6004302402223120512"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 540.5405405405405,
+        "parallaxSignalToNoise": 3.0327868852459017,
+        "source": "2007A&A...474..653V",
+        "sourceId": "HD 135345",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.2968,
+            "errorMas": 0.4491,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 0.66 is below 5; the Hipparcos 2007 parallax of HIP 74707 (1.85 +/- 0.61 mas, signal-to-noise 3.03) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -173602,23 +173507,23 @@
         },
         "luminosity_solar": {
           "field": "luminosity_solar",
-          "value": 101078.2354,
+          "value": 2105.03421,
           "status": "model-derived",
           "reference": "2012MNRAS.427..343M",
           "uncertainty": null,
           "identity": "HD 135345",
           "sourceRecordId": "HIP 74707",
           "sourceDistancePc": 540.54,
-          "adoptedDistancePc": 3745.652799756408
+          "adoptedDistancePc": 540.5405405050593
         },
         "radius_solar": {
           "field": "radius_solar",
-          "value": 310.5673357,
+          "value": 44.81841872,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 5840.0,
-            "luminosity_solar": 101078.2354
+            "luminosity_solar": 2105.03421
           }
         }
       },
@@ -181114,11 +181019,19 @@
         "bibcode": "1991A&AS...89..415O"
       },
       "adoptedDistance": {
-        "method": "inverse SIMBAD compiled parallax",
-        "distancePc": 380.04028427013264,
-        "parallaxSignalToNoise": 2.7532698545568692,
-        "source": "2018yCat.1345....0G",
-        "sourceId": "HD 140438"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 173.3102253032929,
+        "parallaxSignalToNoise": 5.656862745098039,
+        "source": "2007A&A...474..653V",
+        "sourceId": "HD 140438",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 2.6313,
+            "errorMas": 0.9557,
+            "bibcode": "2018yCat.1345....0G"
+          },
+          "reason": "Signal-to-noise 2.75 is below 5; the Hipparcos 2007 parallax of HIP 76985 (5.77 +/- 1.02 mas, signal-to-noise 5.66) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -181136,23 +181049,23 @@
         },
         "luminosity_solar": {
           "field": "luminosity_solar",
-          "value": 366.602069,
+          "value": 76.24019822,
           "status": "model-derived",
           "reference": "2012MNRAS.427..343M",
           "uncertainty": null,
           "identity": "HD 140438",
           "sourceRecordId": "HIP 76985",
           "sourceDistancePc": 173.31,
-          "adoptedDistancePc": 380.0402842573001
+          "adoptedDistancePc": 173.3102252977443
         },
         "radius_solar": {
           "field": "radius_solar",
-          "value": 26.96267446,
+          "value": 12.29582068,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 4864.0,
-            "luminosity_solar": 366.602069
+            "luminosity_solar": 76.24019822
           }
         }
       },
@@ -197372,16 +197285,36 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 3251.0444,
-        "lowerPc": 2068.356,
-        "upperPc": 4629.203,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "5966510057279631488"
+        "method": "open-cluster parallax (NGC 6231)",
+        "distancePc": 1618.1229773462783,
+        "lowerPc": 1612.9032258064517,
+        "upperPc": 1623.3766233766235,
+        "source": "2020A&A...633A..99C",
+        "sourceId": "NGC  6231",
+        "note": "The star's parallax of 1.26 +/- 0.63 mas has a signal-to-noise below 5; SIMBAD lists it as a 75 percent member of NGC 6231 (2017AJ....154...87K), whose parallax of 0.589 +/- 0.002 mas, corrected by the Gaia zero-point of -0.029 mas, agrees with it within 3 sigma",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.1599,
+            "errorMas": 0.3406,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 0.47 is below 5; the Hipparcos 2007 parallax of HIP 82676 (1.26 +/- 0.63 mas, signal-to-noise 2.00) is more precise"
+        }
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "1983ApL....23..183L"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "1953GCRV..C......0W",
+        "review": {
+          "rejected": {
+            "valueKms": -71.3,
+            "uncertaintyKms": 2.7,
+            "bibcode": "1983ApL....23..183L"
+          },
+          "consensusKms": -6.0,
+          "agreeing": 15,
+          "measurements": 17,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 17 SIMBAD measurements, 15 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -197417,8 +197350,19 @@
         "sourceId": "5966501501704611840"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2023A&A...676A.129H"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2006AstL...32..759G",
+        "review": {
+          "rejected": {
+            "valueKms": 16.83,
+            "uncertaintyKms": 3.1,
+            "bibcode": "2023A&A...676A.129H"
+          },
+          "consensusKms": -36.0,
+          "agreeing": 5,
+          "measurements": 5,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 5 SIMBAD measurements, 5 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -197738,8 +197682,19 @@
         "sourceId": "5966563486675142912"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2018yCat.1345....0G"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "1953GCRV..C......0W",
+        "review": {
+          "rejected": {
+            "valueKms": 1.38,
+            "uncertaintyKms": 3.8,
+            "bibcode": "2018yCat.1345....0G"
+          },
+          "consensusKms": -140.0,
+          "agreeing": 6,
+          "measurements": 6,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 6 SIMBAD measurements, 6 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {},
       "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
@@ -203011,12 +202966,13 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 1717.7424,
-        "lowerPc": 1602.7256,
-        "upperPc": 1892.6212,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "5972220130436909568"
+        "method": "co-moving group distance",
+        "distancePc": 2250.687964764381,
+        "lowerPc": 2206.9783771936645,
+        "upperPc": 2296.1638867404818,
+        "source": "Kasikov et al. 2026",
+        "sourceId": "2026A&A...708A..78K",
+        "note": "Inverse-variance mean of the zero-point-corrected Gaia DR3 parallaxes of 30 co-moving neighbours (0.4443 +/- 0.0088 mas); a yellow super- or hypergiant's own parallax is unreliable"
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -203031,27 +202987,6 @@
           "uncertainty": null,
           "identity": "HD 155603",
           "sourceRecordId": "HIP 84332"
-        },
-        "luminosity_solar": {
-          "field": "luminosity_solar",
-          "value": 29342696090.0,
-          "status": "model-derived",
-          "reference": "2012MNRAS.427..343M",
-          "uncertainty": null,
-          "identity": "HD 155603",
-          "sourceRecordId": "HIP 84332",
-          "sourceDistancePc": -1449.28,
-          "adoptedDistancePc": 1717.7423998908935
-        },
-        "radius_solar": {
-          "field": "radius_solar",
-          "value": 477533.5548,
-          "status": "derived",
-          "reference": "Stefan-Boltzmann scaling",
-          "inputs": {
-            "temperature_k": 3457.0,
-            "luminosity_solar": 29342696090.0
-          }
         }
       }
     },
@@ -215680,8 +215615,19 @@
         "sourceId": "4063417332766504576"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2020AJ....160..120J"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2006AstL...32..759G",
+        "review": {
+          "rejected": {
+            "valueKms": -829.911011,
+            "uncertaintyKms": 0.437207,
+            "bibcode": "2020AJ....160..120J"
+          },
+          "consensusKms": 13.15,
+          "agreeing": 2,
+          "measurements": 2,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 2 SIMBAD measurements, 2 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "metallicity_dex": {
@@ -218362,12 +218308,19 @@
         "bibcode": "2000A&A...355L..27H"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 398.9908,
-        "lowerPc": 307.2024,
-        "upperPc": 512.078,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "4158888511447492736"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 158.73015873015873,
+        "parallaxSignalToNoise": 8.289473684210526,
+        "source": "2007A&A...474..653V",
+        "sourceId": "HD 165402",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 3.7816,
+            "errorMas": 0.933,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 4.05 is below 5; the Hipparcos 2007 parallax of HIP 88670 (6.30 +/- 0.76 mas, signal-to-noise 8.29) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -230814,12 +230767,19 @@
         "bibcode": "2000A&A...355L..27H"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 2532.719,
-        "lowerPc": 890.03015,
-        "upperPc": 3723.5112,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "2091774627937648256"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 456.62100456621005,
+        "parallaxSignalToNoise": 3.5901639344262297,
+        "source": "2007A&A...474..653V",
+        "sourceId": "HD 173087",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 1.2987,
+            "errorMas": 0.672,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 1.93 is below 5; the Hipparcos 2007 parallax of HIP 91707 (2.19 +/- 0.61 mas, signal-to-noise 3.59) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -238109,29 +238069,6 @@
           }
         }
       }
-    },
-    "hip-13487": {
-      "simbadId": "HD  17706",
-      "simbadType": "**",
-      "gaiaDr3Id": "468110718974249600",
-      "visualMagnitude": {
-        "value": 6.408,
-        "uncertainty": 0.009,
-        "bibcode": "2000A&A...355L..27H"
-      },
-      "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 702.90137,
-        "lowerPc": 647.85614,
-        "upperPc": 758.4943,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "468110718974249600"
-      },
-      "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2007AN....328..889K"
-      },
-      "physicalObservations": {}
     },
     "hip-93667": {
       "simbadId": "HD 177074",
@@ -252190,12 +252127,19 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 1749.2167,
-        "lowerPc": 1371.1018,
-        "upperPc": 2310.2993,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "2026641620708032640"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 518.1347150259068,
+        "parallaxSignalToNoise": 4.948717948717948,
+        "source": "2007A&A...474..653V",
+        "sourceId": "HD 187982",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.6566,
+            "errorMas": 0.134,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 4.90 is below 5; the Hipparcos 2007 parallax of HIP 97765 (1.93 +/- 0.39 mas, signal-to-noise 4.95) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -258858,8 +258802,19 @@
         "sourceId": "2060614983816364416"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2020AJ....160..120J"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2006AstL...32..759G",
+        "review": {
+          "rejected": {
+            "valueKms": -372.493011,
+            "uncertaintyKms": 0.019394,
+            "bibcode": "2020AJ....160..120J"
+          },
+          "consensusKms": -9.0,
+          "agreeing": 7,
+          "measurements": 7,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 7 SIMBAD measurements, 7 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {}
     },
@@ -261016,8 +260971,19 @@
         "sourceId": "2057982375009189632"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2020AJ....160..120J"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2006AstL...32..759G",
+        "review": {
+          "rejected": {
+            "valueKms": 650.008972,
+            "uncertaintyKms": 0.098743,
+            "bibcode": "2020AJ....160..120J"
+          },
+          "consensusKms": -30.350000381469727,
+          "agreeing": 8,
+          "measurements": 8,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 8 SIMBAD measurements, 8 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {},
       "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
@@ -275980,12 +275946,19 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 2052.3865,
-        "lowerPc": 1470.7078,
-        "upperPc": 2820.9653,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "2191213153886504704"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 591.7159763313609,
+        "parallaxSignalToNoise": 3.188679245283019,
+        "source": "2007A&A...474..653V",
+        "sourceId": "HD 203338",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.5546,
+            "errorMas": 0.1793,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 3.09 is below 5; the Hipparcos 2007 parallax of HIP 105259 (1.69 +/- 0.53 mas, signal-to-noise 3.19) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -276018,23 +275991,23 @@
         },
         "luminosity_solar": {
           "field": "luminosity_solar",
-          "value": 124729.2249,
+          "value": 10367.559,
           "status": "model-derived",
           "reference": "2012MNRAS.427..343M",
           "uncertainty": null,
           "identity": "HD 203338",
           "sourceRecordId": "HIP 105259",
           "sourceDistancePc": 591.72,
-          "adoptedDistancePc": 2052.3865000450132
+          "adoptedDistancePc": 591.7159763446381
         },
         "radius_solar": {
           "field": "radius_solar",
-          "value": 582.600188,
+          "value": 167.9673098,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 4494.0,
-            "luminosity_solar": 124729.2249
+            "luminosity_solar": 10367.559
           }
         }
       },
@@ -293905,8 +293878,19 @@
         "sourceId": "242889338420659968"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2020AJ....160..120J"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2006AstL...32..759G",
+        "review": {
+          "rejected": {
+            "valueKms": -102.385002,
+            "uncertaintyKms": 0.13361,
+            "bibcode": "2020AJ....160..120J"
+          },
+          "consensusKms": 1.5,
+          "agreeing": 7,
+          "measurements": 7,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 7 SIMBAD measurements, 7 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -312888,12 +312872,19 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 2024.4929,
-        "lowerPc": 1215.9987,
-        "upperPc": 3603.2712,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "431612056844840704"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 763.3587786259542,
+        "parallaxSignalToNoise": 3.447368421052632,
+        "source": "2007A&A...474..653V",
+        "sourceId": "HD 225094",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.8162,
+            "errorMas": 0.3723,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 2.19 is below 5; the Hipparcos 2007 parallax of HIP 274 (1.31 +/- 0.38 mas, signal-to-noise 3.45) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -323004,8 +322995,19 @@
         "sourceId": "4975675979846583296"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2007A&A...475..519H"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2020AJ....160...83S",
+        "review": {
+          "rejected": {
+            "valueKms": -58.9,
+            "uncertaintyKms": 1.6,
+            "bibcode": "2007A&A...475..519H"
+          },
+          "consensusKms": 2.0,
+          "agreeing": 4,
+          "measurements": 5,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 5 SIMBAD measurements, 4 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -323597,8 +323599,19 @@
         "sourceId": "4897544649215563008"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2023ApJS..266...11B"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2007AN....328..889K",
+        "review": {
+          "rejected": {
+            "valueKms": 40.62,
+            "uncertaintyKms": 1.05,
+            "bibcode": "2023ApJS..266...11B"
+          },
+          "consensusKms": -21.0,
+          "agreeing": 3,
+          "measurements": 4,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 4 SIMBAD measurements, 3 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -344017,27 +344030,6 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
-        },
-        "luminosity_solar": {
-          "field": "luminosity_solar",
-          "value": 619911152.1,
-          "status": "model-derived",
-          "reference": "2012MNRAS.427..343M",
-          "uncertainty": null,
-          "identity": "HD 36891",
-          "sourceRecordId": "HIP 26363",
-          "sourceDistancePc": -1333.33,
-          "adoptedDistancePc": 486.9907499705094
-        },
-        "radius_solar": {
-          "field": "radius_solar",
-          "value": 31568.95207,
-          "status": "derived",
-          "reference": "Stefan-Boltzmann scaling",
-          "inputs": {
-            "temperature_k": 5126.0,
-            "luminosity_solar": 619911152.1
-          }
         }
       }
     },
@@ -344211,8 +344203,19 @@
         "sourceId": "HD  37016A"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2020AJ....160..120J"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2015ApJ...807...27C",
+        "review": {
+          "rejected": {
+            "valueKms": 97.897301,
+            "uncertaintyKms": 0.283246,
+            "bibcode": "2020AJ....160..120J"
+          },
+          "consensusKms": 37.366188,
+          "agreeing": 16,
+          "measurements": 23,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 23 SIMBAD measurements, 16 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {},
       "gaiaFlame": "withheld: parallax signal-to-noise below 10",
@@ -345421,8 +345424,19 @@
         "sourceId": "3016904707975752448"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2020AJ....160..120J"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2015ApJ...807...27C",
+        "review": {
+          "rejected": {
+            "valueKms": 80.262901,
+            "uncertaintyKms": 0.830494,
+            "bibcode": "2020AJ....160..120J"
+          },
+          "consensusKms": 20.05,
+          "agreeing": 6,
+          "measurements": 10,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 10 SIMBAD measurements, 6 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -348300,12 +348314,19 @@
         "bibcode": "2000A&A...355L..27H"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 587.6512,
-        "lowerPc": 389.52722,
-        "upperPc": 976.6004,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "3011007889677269888"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 204.91803278688525,
+        "parallaxSignalToNoise": 6.684931506849315,
+        "source": "2007A&A...474..653V",
+        "sourceId": "HD  38735",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 2.5381,
+            "errorMas": 1.0356,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 2.45 is below 5; the Hipparcos 2007 parallax of HIP 27341 (4.88 +/- 0.73 mas, signal-to-noise 6.68) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -348326,23 +348347,23 @@
         },
         "luminosity_solar": {
           "field": "luminosity_solar",
-          "value": 996.2265909,
+          "value": 121.1376741,
           "status": "model-derived",
           "reference": "2012MNRAS.427..343M",
           "uncertainty": null,
           "identity": "HD 38735",
           "sourceRecordId": "HIP 27341",
           "sourceDistancePc": 204.92,
-          "adoptedDistancePc": 587.6511999955927
+          "adoptedDistancePc": 204.91803278510207
         },
         "radius_solar": {
           "field": "radius_solar",
-          "value": 15.34178684,
+          "value": 5.349787049,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 8279.0,
-            "luminosity_solar": 996.2265909
+            "luminosity_solar": 121.1376741
           }
         }
       },
@@ -366765,8 +366786,19 @@
         "sourceId": "3132668164099141120"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2020AJ....160..120J"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "1953GCRV..C......0W",
+        "review": {
+          "rejected": {
+            "valueKms": -651.072021,
+            "uncertaintyKms": 0.108526,
+            "bibcode": "2020AJ....160..120J"
+          },
+          "consensusKms": 31.0,
+          "agreeing": 3,
+          "measurements": 5,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 5 SIMBAD measurements, 3 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -368552,12 +368584,19 @@
         "bibcode": "2000A&A...355L..27H"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 2108.1472,
-        "lowerPc": 806.9374,
-        "upperPc": 2971.951,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "3106139800379828480"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 176.05633802816902,
+        "parallaxSignalToNoise": 10.716981132075471,
+        "source": "2007A&A...474..653V",
+        "sourceId": "HD  49643",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 2.5134,
+            "errorMas": 0.8271,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 3.04 is below 5; the Hipparcos 2007 parallax of HIP 32698 (5.68 +/- 0.53 mas, signal-to-noise 10.72) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -379218,12 +379257,13 @@
         "bibcode": "2000A&A...355L..27H"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 2759.2444,
-        "lowerPc": 2621.4011,
-        "upperPc": 2875.7432,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "2931284534938925696"
+        "method": "co-moving group distance",
+        "distancePc": 2786.2038886456035,
+        "lowerPc": 2715.8948221868295,
+        "upperPc": 2860.250021510636,
+        "source": "Kasikov et al. 2026",
+        "sourceId": "2026A&A...708A..78K",
+        "note": "Inverse-variance mean of the zero-point-corrected Gaia DR3 parallaxes of 14 co-moving neighbours (0.3589 +/- 0.0093 mas); a yellow super- or hypergiant's own parallax is unreliable"
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -396713,8 +396753,19 @@
         "sourceId": "5541472465805985024"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2023A&A...676A.129H"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "1977ApJ...214..759C",
+        "review": {
+          "rejected": {
+            "valueKms": 378.33,
+            "uncertaintyKms": 0.21,
+            "bibcode": "2023A&A...676A.129H"
+          },
+          "consensusKms": 35.5,
+          "agreeing": 10,
+          "measurements": 10,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 10 SIMBAD measurements, 10 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -399848,27 +399899,6 @@
           "quantity": "photospheric [Fe/H]",
           "selection": "Newest within 0.3 dex / 10 percent of the median; strict majority required for multiple observations",
           "scope": "SIMBAD object as catalogued; unresolved spectra may be primary-dominated"
-        },
-        "luminosity_solar": {
-          "field": "luminosity_solar",
-          "value": 1601276320.0,
-          "status": "model-derived",
-          "reference": "2012MNRAS.427..343M",
-          "uncertainty": null,
-          "identity": "HD 70761",
-          "sourceRecordId": "HIP 41074",
-          "sourceDistancePc": -3846.15,
-          "adoptedDistancePc": 2630.5413001083957
-        },
-        "radius_solar": {
-          "field": "radius_solar",
-          "value": 25788.61417,
-          "status": "derived",
-          "reference": "Stefan-Boltzmann scaling",
-          "inputs": {
-            "temperature_k": 7190.0,
-            "luminosity_solar": 1601276320.0
-          }
         }
       },
       "gaiaFlame": "withheld: parallax signal-to-noise below 10"
@@ -407132,12 +407162,13 @@
         "bibcode": "2000A&A...355L..27H"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 1443.1152,
-        "lowerPc": 1386.3157,
-        "upperPc": 1517.5255,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "5329890866290156288"
+        "method": "co-moving group distance",
+        "distancePc": 1538.0447145328762,
+        "lowerPc": 1518.1407717902619,
+        "upperPc": 1558.4775014862596,
+        "source": "Kasikov et al. 2026",
+        "sourceId": "2026A&A...708A..78K",
+        "note": "Inverse-variance mean of the zero-point-corrected Gaia DR3 parallaxes of 7 co-moving neighbours (0.6502 +/- 0.0085 mas); a yellow super- or hypergiant's own parallax is unreliable"
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -435189,8 +435220,19 @@
         "sourceId": "5350370026290390912"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2007AN....328..889K"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "1953GCRV..C......0W",
+        "review": {
+          "rejected": {
+            "valueKms": -28.0,
+            "uncertaintyKms": 7.4,
+            "bibcode": "2007AN....328..889K"
+          },
+          "consensusKms": 33.0,
+          "agreeing": 2,
+          "measurements": 3,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 3 SIMBAD measurements, 2 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {}
     },
@@ -449149,12 +449191,19 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 935.0167,
-        "lowerPc": 545.34235,
-        "upperPc": 1551.4907,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "3017190546641718144"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 714.2857142857143,
+        "parallaxSignalToNoise": 6.363636363636363,
+        "source": "2007A&A...474..653V",
+        "sourceId": "* iot Ori",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 1.9969,
+            "errorMas": 0.7299,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 2.74 is below 5; the Hipparcos 2007 parallax of HIP 26241 (1.40 +/- 0.22 mas, signal-to-noise 6.36) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -463405,12 +463454,21 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 4495.93,
-        "lowerPc": 3047.9768,
-        "upperPc": 6182.45,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "2202630001603369856"
+        "method": "OB-association distance",
+        "distancePc": 940.0,
+        "lowerPc": 900.0,
+        "upperPc": 1080.0,
+        "source": "Davies & Beasor 2020",
+        "sourceId": "2020MNRAS.493..468D",
+        "note": "Sigma-clipped mean Gaia DR2 parallax of the neighbouring OB stars; preferred because the red supergiant's own parallaxes (Hipparcos 2007 0.55 +/- 0.20 mas, Gaia DR3 0.12 +/- 0.26 mas) barely constrain its distance",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.119,
+            "errorMas": 0.2637,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 0.45 is below 5; the Hipparcos 2007 parallax of HIP 107259 (0.55 +/- 0.20 mas, signal-to-noise 2.75) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -463419,15 +463477,15 @@
       "physicalObservations": {
         "radius_solar": {
           "field": "radius_solar",
-          "value": 9949.984693,
+          "value": 2080.322783,
           "status": "derived",
           "reference": "2003AJ....126.2502M",
-          "uncertainty": 232.02451674667728,
+          "uncertainty": 48.511219200907746,
           "identity": "* mu. Cep",
           "sourceRecordId": "JMDC HD206936",
           "angularDiameterMas": 20.584,
           "band": "800nm",
-          "distancePc": 4495.930000082881,
+          "distancePc": 940.0000000175894,
           "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
           "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required"
         },
@@ -463442,14 +463500,14 @@
         },
         "luminosity_solar": {
           "field": "luminosity_solar",
-          "value": 5183613.537,
+          "value": 226594.4357,
           "status": "model-derived",
           "reference": "2012MNRAS.427..343M",
           "uncertainty": null,
           "identity": "* mu. Cep",
           "sourceRecordId": "HIP 107259",
           "sourceDistancePc": 1818.18,
-          "adoptedDistancePc": 4495.930000082881
+          "adoptedDistancePc": 940.0000000175894
         }
       },
       "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
@@ -471980,12 +472038,13 @@
         "bibcode": "2000A&A...355L..27H"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 3782.7124,
-        "lowerPc": 2854.7537,
-        "upperPc": 6979.382,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "5336490478704008960"
+        "method": "co-moving group distance",
+        "distancePc": 2878.387588835835,
+        "lowerPc": 2793.2355424792145,
+        "upperPc": 2968.894618529639,
+        "source": "Kasikov et al. 2026",
+        "sourceId": "2026A&A...708A..78K",
+        "note": "Inverse-variance mean of the zero-point-corrected Gaia DR3 parallaxes of 8 co-moving neighbours (0.3474 +/- 0.0106 mas); a yellow super- or hypergiant's own parallax is unreliable"
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -472003,23 +472062,23 @@
         },
         "luminosity_solar": {
           "field": "luminosity_solar",
-          "value": 166761.8226,
+          "value": 96558.06047,
           "status": "model-derived",
           "reference": "2012MNRAS.427..343M",
           "uncertainty": null,
           "identity": "* omi01 Cen",
           "sourceRecordId": "HIP 56243",
           "sourceDistancePc": 1754.39,
-          "adoptedDistancePc": 3782.7123999859145
+          "adoptedDistancePc": 2878.387588825129
         },
         "radius_solar": {
           "field": "radius_solar",
-          "value": 572.938674,
+          "value": 435.9674736,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 4873.0,
-            "luminosity_solar": 166761.8226
+            "luminosity_solar": 96558.06047
           }
         }
       },
@@ -472840,12 +472899,19 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 2312.166,
-        "lowerPc": 1513.673,
-        "upperPc": 3638.8647,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "390548351252549760"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 215.51724137931035,
+        "parallaxSignalToNoise": 12.210526315789473,
+        "source": "2007A&A...474..653V",
+        "sourceId": "* omi Cas",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.5116,
+            "errorMas": 0.7336,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 0.70 is below 5; the Hipparcos 2007 parallax of HIP 3504 (4.64 +/- 0.38 mas, signal-to-noise 12.21) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -476063,12 +476129,13 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 3978.475,
-        "lowerPc": 3075.341,
-        "upperPc": 5605.877,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "413828761929696256"
+        "method": "co-moving group distance",
+        "distancePc": 2914.87955534423,
+        "lowerPc": 2821.3584389354696,
+        "upperPc": 3014.8132236615033,
+        "source": "Kasikov et al. 2026",
+        "sourceId": "2026A&A...708A..78K",
+        "note": "Inverse-variance mean of the zero-point-corrected Gaia DR3 parallaxes of 8 co-moving neighbours (0.3431 +/- 0.0114 mas); a yellow super- or hypergiant's own parallax is unreliable"
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -485234,11 +485301,13 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "inverse SIMBAD compiled parallax",
-        "distancePc": 1055.9662090813094,
-        "parallaxSignalToNoise": 4.685799109351806,
-        "source": "2018yCat.1345....0G",
-        "sourceId": "* rho Cas"
+        "method": "co-moving group distance",
+        "distancePc": 2806.0098249211337,
+        "lowerPc": 2717.494255039741,
+        "upperPc": 2900.4858890093906,
+        "source": "Kasikov et al. 2026",
+        "sourceId": "2026A&A...708A..78K",
+        "note": "Inverse-variance mean of the zero-point-corrected Gaia DR3 parallaxes of 17 co-moving neighbours (0.3564 +/- 0.0116 mas); a yellow super- or hypergiant's own parallax is unreliable"
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -488795,11 +488864,13 @@
         "bibcode": "2014ApJ...794...36H"
       },
       "adoptedDistance": {
-        "method": "inverse SIMBAD compiled parallax",
-        "distancePc": 328.9473684210526,
-        "parallaxSignalToNoise": 0.34080717488789236,
-        "source": "2007A&A...474..653V",
-        "sourceId": "* sig Ori"
+        "method": "interferometric orbital parallax",
+        "distancePc": 387.5,
+        "lowerPc": 386.2,
+        "upperPc": 388.8,
+        "source": "Schaefer et al. 2016",
+        "sourceId": "2016AJ....152..213S",
+        "note": "Orbital parallax of the Aa, Ab and B triple from interferometric visual orbits and radial velocities; the Hipparcos 2007 parallax of 3.04 +/- 8.92 mas does not constrain the distance"
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -490043,8 +490114,19 @@
         "sourceId": "6099307559847568512"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "1979IAUS...30...57E"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "1953GCRV..C......0W",
+        "review": {
+          "rejected": {
+            "valueKms": -215.0,
+            "uncertaintyKms": 2.0,
+            "bibcode": "1979IAUS...30...57E"
+          },
+          "consensusKms": -21.5,
+          "agreeing": 5,
+          "measurements": 5,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 5 SIMBAD measurements, 5 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {},
       "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
@@ -491369,12 +491451,21 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 3216.3547,
-        "lowerPc": 1805.8402,
-        "upperPc": 5011.333,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "5616537017987940736"
+        "method": "open-cluster parallax (NGC 2362)",
+        "distancePc": 1297.0168612191958,
+        "lowerPc": 1287.001287001287,
+        "upperPc": 1307.18954248366,
+        "source": "2020A&A...633A..99C",
+        "sourceId": "NGC  2362",
+        "note": "The star's parallax of 1.09 +/- 0.59 mas has a signal-to-noise below 5; SIMBAD lists it as a 100 percent member of NGC 2362 (2014MNRAS.444.1982A), whose parallax of 0.742 +/- 0.006 mas, corrected by the Gaia zero-point of -0.029 mas, agrees with it within 3 sigma",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.5765,
+            "errorMas": 0.7371,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 0.78 is below 5; the Hipparcos 2007 parallax of HIP 35415 (1.09 +/- 0.59 mas, signal-to-noise 1.85) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -495771,8 +495862,19 @@
         "sourceId": "3765400306600131968"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2022yCat.1355....0G"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2006AstL...32..759G",
+        "review": {
+          "rejected": {
+            "valueKms": 111.7,
+            "uncertaintyKms": 1.93,
+            "bibcode": "2022yCat.1355....0G"
+          },
+          "consensusKms": 26.5,
+          "agreeing": 8,
+          "measurements": 8,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 8 SIMBAD measurements, 8 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -501544,8 +501646,19 @@
         "sourceId": "1693272581363394304"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "2020AJ....160..120J"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2004A&A...424..727P",
+        "review": {
+          "rejected": {
+            "valueKms": -61.502102,
+            "uncertaintyKms": 0.799926,
+            "bibcode": "2020AJ....160..120J"
+          },
+          "consensusKms": 0.30000001192092896,
+          "agreeing": 9,
+          "measurements": 9,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 9 SIMBAD measurements, 9 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -510595,27 +510708,6 @@
           "uncertainty": null,
           "identity": "V* R Boo",
           "sourceRecordId": "HIP 71490"
-        },
-        "luminosity_solar": {
-          "field": "luminosity_solar",
-          "value": 7138583879.0,
-          "status": "model-derived",
-          "reference": "2012MNRAS.427..343M",
-          "uncertainty": null,
-          "identity": "V* R Boo",
-          "sourceRecordId": "HIP 71490",
-          "sourceDistancePc": -746.27,
-          "adoptedDistancePc": 637.8495999881159
-        },
-        "radius_solar": {
-          "field": "radius_solar",
-          "value": 312346.9737,
-          "status": "derived",
-          "reference": "Stefan-Boltzmann scaling",
-          "inputs": {
-            "temperature_k": 3002.0,
-            "luminosity_solar": 7138583879.0
-          }
         }
       },
       "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
@@ -512425,27 +512517,6 @@
           "uncertainty": null,
           "identity": "V* S Her",
           "sourceRecordId": "HIP 82516"
-        },
-        "luminosity_solar": {
-          "field": "luminosity_solar",
-          "value": 46835598.29,
-          "status": "model-derived",
-          "reference": "2012MNRAS.427..343M",
-          "uncertainty": null,
-          "identity": "V* S Her",
-          "sourceRecordId": "HIP 82516",
-          "sourceDistancePc": -11111.1,
-          "adoptedDistancePc": 566.6812999902899
-        },
-        "radius_solar": {
-          "field": "radius_solar",
-          "value": 21773.26985,
-          "status": "derived",
-          "reference": "Stefan-Boltzmann scaling",
-          "inputs": {
-            "temperature_k": 3236.0,
-            "luminosity_solar": 46835598.29
-          }
         }
       },
       "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
@@ -513834,8 +513905,19 @@
         "sourceId": "4833994732555940352"
       },
       "radialVelocity": {
-        "status": "simbad-compiled",
-        "bibcode": "1979IAUS...30...57E"
+        "status": "simbad-measurement-consensus",
+        "bibcode": "2007AN....328..889K",
+        "review": {
+          "rejected": {
+            "valueKms": -12.0,
+            "uncertaintyKms": 5.0,
+            "bibcode": "1979IAUS...30...57E"
+          },
+          "consensusKms": 44.6,
+          "agreeing": 2,
+          "measurements": 2,
+          "reason": "SIMBAD's compiled velocity lies more than 50 km/s from the median of the other 2 SIMBAD measurements, 2 of which agree within 25 km/s"
+        }
       },
       "physicalObservations": {
         "temperature_k": {
@@ -521540,12 +521622,13 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 3916.8735,
-        "lowerPc": 3179.5588,
-        "upperPc": 4885.9326,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "2009856132592845568"
+        "method": "co-moving group distance",
+        "distancePc": 3370.3528420160815,
+        "lowerPc": 3256.3155905460917,
+        "upperPc": 3492.667205389948,
+        "source": "Kasikov et al. 2026",
+        "sourceId": "2026A&A...708A..78K",
+        "note": "Inverse-variance mean of the zero-point-corrected Gaia DR3 parallaxes of 10 co-moving neighbours (0.2967 +/- 0.0104 mas); a yellow super- or hypergiant's own parallax is unreliable"
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -521566,28 +521649,28 @@
         },
         "radius_solar": {
           "field": "radius_solar",
-          "value": 428.2857229,
+          "value": 368.5270927,
           "status": "derived",
           "reference": "2009MNRAS.394.1925V",
-          "uncertainty": 13.054923708066662,
+          "uncertainty": 11.233372541080657,
           "identity": "V* V509 Cas",
           "sourceRecordId": "JMDC HD217476",
           "angularDiameterMas": 1.017,
           "band": "H,K",
-          "distancePc": 3916.8735000182,
+          "distancePc": 3370.3528420318107,
           "method": "Limb-darkened angular diameter (JMDC, direct technique) and adopted distance; uncertainty from the diameter only",
           "selection": "Most precise of the JMDC measurements within 10 percent of their median; strict majority required"
         },
         "luminosity_solar": {
           "field": "luminosity_solar",
-          "value": 201448.4365,
+          "value": 149154.2211,
           "status": "model-derived",
           "reference": "2012MNRAS.427..343M",
           "uncertainty": null,
           "identity": "V* V509 Cas",
           "sourceRecordId": "HIP 113561",
           "sourceDistancePc": 1369.86,
-          "adoptedDistancePc": 3916.8735000182
+          "adoptedDistancePc": 3370.3528420318107
         }
       },
       "gaiaFlame": "withheld: parallax signal-to-noise below 10"
@@ -523880,12 +523963,21 @@
         "bibcode": "2002yCat.2237....0D"
       },
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 5311.6523,
-        "lowerPc": 3992.452,
-        "upperPc": 7406.444,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "5333358794709001216"
+        "method": "co-moving group distance",
+        "distancePc": 2325.4073066090145,
+        "lowerPc": 2274.596252169527,
+        "upperPc": 2378.5403148558107,
+        "source": "Kasikov et al. 2026",
+        "sourceId": "2026A&A...708A..78K",
+        "note": "Inverse-variance mean of the zero-point-corrected Gaia DR3 parallaxes of 13 co-moving neighbours (0.4300 +/- 0.0096 mas); a yellow super- or hypergiant's own parallax is unreliable",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.1537,
+            "errorMas": 0.0927,
+            "bibcode": "2020yCat.1350....0G"
+          },
+          "reason": "Signal-to-noise 1.66 is below 5; the Hipparcos 2007 parallax of HIP 57175 (0.46 +/- 0.22 mas, signal-to-noise 2.09) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -523918,23 +524010,23 @@
         },
         "luminosity_solar": {
           "field": "luminosity_solar",
-          "value": 250321.361,
+          "value": 47977.39901,
           "status": "model-derived",
           "reference": "2012MNRAS.427..343M",
           "uncertainty": null,
           "identity": "V* V810 Cen",
           "sourceRecordId": "HIP 57175",
           "sourceDistancePc": 2173.91,
-          "adoptedDistancePc": 5311.652299962182
+          "adoptedDistancePc": 2325.407306592725
         },
         "radius_solar": {
           "field": "radius_solar",
-          "value": 378.1780022,
+          "value": 165.5639036,
           "status": "derived",
           "reference": "Stefan-Boltzmann scaling",
           "inputs": {
             "temperature_k": 6639.0,
-            "luminosity_solar": 250321.361
+            "luminosity_solar": 47977.39901
           }
         }
       },
@@ -527107,27 +527199,6 @@
           "uncertainty": null,
           "identity": "V* X Oph",
           "sourceRecordId": "HIP 91389"
-        },
-        "luminosity_solar": {
-          "field": "luminosity_solar",
-          "value": 9167937726000.0,
-          "status": "model-derived",
-          "reference": "2012MNRAS.427..343M",
-          "uncertainty": null,
-          "identity": "V* X Oph",
-          "sourceRecordId": "HIP 91389",
-          "sourceDistancePc": -20.58,
-          "adoptedDistancePc": 198.16110000116174
-        },
-        "radius_solar": {
-          "field": "radius_solar",
-          "value": 10599323.21,
-          "status": "derived",
-          "reference": "Stefan-Boltzmann scaling",
-          "inputs": {
-            "temperature_k": 3085.0,
-            "luminosity_solar": 9167937726000.0
-          }
         }
       },
       "gaiaPhysical": "withheld: GSP-Phot temperature and the FLAME values derived from it are unreliable for O, B0-B4 and M spectral types"
@@ -528585,27 +528656,6 @@
           "uncertainty": null,
           "identity": "* y Car",
           "sourceRecordId": "HIP 54751"
-        },
-        "luminosity_solar": {
-          "field": "luminosity_solar",
-          "value": 46536925.48,
-          "status": "model-derived",
-          "reference": "2012MNRAS.427..343M",
-          "uncertainty": null,
-          "identity": "* y Car",
-          "sourceRecordId": "HIP 54751",
-          "sourceDistancePc": -50000.0,
-          "adoptedDistancePc": 3054.4438000006826
-        },
-        "radius_solar": {
-          "field": "radius_solar",
-          "value": 6652.462846,
-          "status": "derived",
-          "reference": "Stefan-Boltzmann scaling",
-          "inputs": {
-            "temperature_k": 5845.0,
-            "luminosity_solar": 46536925.48
-          }
         }
       },
       "gaiaFlame": "withheld: parallax signal-to-noise below 10"

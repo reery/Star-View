@@ -1,32 +1,48 @@
 {
   "checksumsSha256": {
+    "clusters.adql": "95c8123145802d6a9a96917d44912b51370d200720d37f1f97991d5791136c48",
+    "clusters.csv": "aa7695dcec28ace6f45a701e6ddd5956c0a3b71dda84a053e684688db1998440",
     "distance.adql": "ca67aacb8b8d78f5a1adb3054c9a07bc238ab77ad927a3090acbf2b2a4531c6a",
     "distance.csv": "2f48a19bbdb037272fdc1e53118dc8d68cd07c148508d1c320fbfb60a9675675",
     "fundamental.csv": "6ab63283f195a087fe22732766b156192999dad63924cece1069aa51c5f9b508",
     "gaia.adql": "ad7d0e1dd595aebee8290ab73a3ba3a55cf583153f886768600867a67e640a3f",
     "gaia.csv": "6aeba274df81ef883da2587f519e2f85a2e091feedf7c99d2fc1028d98c2e6b7",
+    "hipparcos.csv": "1821373245d717dd2602726ab88473a7500dbda2f77aa8b867a657ccf4f50dca",
+    "kasikov.csv": "70c0c242233740ea2dd5dbac58e158bc273328f45f43dd23561c5a8138a9e907",
     "parents.adql": "5090fdcb02ca115ec2ce7a940b7b428b4eb70adfc7a22c5b6dbf3208d5861fb6",
     "parents.csv": "1450163f86b3507458192b3eae5dfa5bc1abe3c7ead954f02f0250543cc5e221",
     "sed.csv": "da0e78dac44316ecdc71ba33b803ab33188493d0a0679d56e72bafdc1266b276",
     "simbad.adql": "8294b3cfae420c2ba3c0ca25ea07f28fdc9cf3e6397f3b98d40770b8b4ef4c24",
     "simbad.csv": "deec1fb922b1e9afc3ed20ea0c24f7905d6840af0b6df71a82f617948054b85c",
     "spectroscopy.adql": "d7b8e03e5c4dcc718a3b1ca514ae0343046ed74f1baa67b4f84cfce133c02959",
-    "spectroscopy.csv": "688c4331bcca6a6bda4252ac43bc64b6d8f9c2a2890d65e4a8e1618dfed550df"
+    "spectroscopy.csv": "688c4331bcca6a6bda4252ac43bc64b6d8f9c2a2890d65e4a8e1618dfed550df",
+    "velocities.adql": "195549d996e8be0905af5f50962e842b002571008d56e8ebd99e88a99dc857e6",
+    "velocities.csv": "23de3d360ead737f16b973dc56dd70dd55d91b969f0eb306d9ffb1853d77ec75"
   },
   "identityPolicy": "Exact SIMBAD records; exact Gaia DR3 aliases for Gaia astrometry, astrophysical parameters and Bailer-Jones distances",
   "retrieved": "2026-11-03",
   "rowCounts": {
+    "clusters": 2487,
     "distance": 8181,
     "fundamental": 2827,
     "gaia": 8447,
+    "hipparcos": 8396,
+    "kasikov": 563,
     "parents": 213,
     "sed": 7549,
     "simbad": 9015,
-    "spectroscopy": 40653
+    "spectroscopy": 40653,
+    "velocities": 57809
   },
   "schemaVersion": 1,
   "selection": "Every SIMBAD object with a compiled Johnson V flux <= 6.5",
   "sources": {
+    "clusters": {
+      "queryFile": "clusters.adql",
+      "release": "SIMBAD hierarchy links to open and globular clusters with a compiled parallax",
+      "retrieved": "2026-11-14",
+      "url": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync"
+    },
     "distance": {
       "queryFile": "distance.adql",
       "reference": "2021AJ....161..147B",
@@ -45,6 +61,22 @@
       "queryFile": "gaia.adql",
       "release": "DR3",
       "url": "https://gea.esac.esa.int/tap-server/tap/sync"
+    },
+    "hipparcos": {
+      "reference": "2007A&A...474..653V",
+      "release": "VizieR I/311/hip2",
+      "retrieved": "2026-11-14",
+      "selection": "Rows whose HIP equals the unique SIMBAD HIP alias of a snapshot object",
+      "tableRows": 117955,
+      "url": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=I/311/hip2&-out=HIP,Plx,e_Plx&-out.max=unlimited"
+    },
+    "kasikov": {
+      "identity": "simbad_id is the SIMBAD main identifier of the paper's star name, resolved with SIMBAD sim-id (simbad.cfa.harvard.edu) on 2026-11-14; R_Pup is V* R Pup, not r Pup",
+      "reference": "2026A&A...708A..78K",
+      "release": "VizieR J/A+A/708/A78/tabled1",
+      "retrieved": "2026-11-14",
+      "selection": "All rows: Gaia DR3 co-moving neighbours of 28 Milky Way yellow super- and hypergiants",
+      "url": "https://vizier.idia.ac.za/viz-bin/asu-tsv?-source=J/A%2BA/708/A78/tabled1&-out=YSG/YHG,GaiaDR3,plx,e_plx,zpt,plxcorr,eExtplx&-out.max=unlimited"
     },
     "parents": {
       "queryFile": "parents.adql",
@@ -66,6 +98,12 @@
     "spectroscopy": {
       "queryFile": "spectroscopy.adql",
       "url": "https://simbad.harvard.edu/simbad/sim-tap/sync"
+    },
+    "velocities": {
+      "queryFile": "velocities.adql",
+      "retrieved": "2026-11-14",
+      "scope": "Every SIMBAD radial-velocity measurement (mesVelocities) of snapshot objects and hierarchy parents with a compiled radial velocity",
+      "url": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync"
     }
   }
 }

@@ -17,6 +17,7 @@ import json
 import math
 import re
 from pathlib import Path
+from statistics import median
 
 from astropy.coordinates import SkyCoord, get_constellation
 import astropy.units as units
@@ -43,6 +44,8 @@ EXTENSION = str(WORK.relative_to(ROOT))
 SOURCE_CATALOGS = ("nearest-100", "nearest-1000", "nearest-5000", "western-constellation-stars")
 DESIGNATIONS = ROOT / "src/data/object-designations.json"
 COMPANIONS = ROOT / "src/data/stellar-companions.json"
+# SIMBAD objects whose compiled V other photometry rules out; the review keeps each former row.
+PHOTOMETRY_EXCLUSIONS = WORK / "reviewed-photometry-exclusions.json"
 SYSTEM_IDENTITIES = ROOT / "src/data/stellar-system-identities.json"
 LIMIT_V = 6.5
 LIGHT_YEARS_PER_PARSEC = 3.261563777
@@ -65,6 +68,12 @@ CLASS_TOLERANCE = 0.35
 # Close components often lack a parallax of their own; SIMBAD gives it to their multiple-star record.
 SYSTEM_TYPES = {"**", "SB*", "EB*"}
 SYSTEM_FIELDS = ("plx_value", "plx_err", "plx_bibcode", "pmra", "pmdec", "pm_bibcode", "rvz_radvel", "rvz_err", "rvz_bibcode")
+# A compiled radial velocity this far from the consensus of the other SIMBAD measurements is a failed survey fit
+# (APOGEE DR16 hot stars) or a transcription error (a dropped decimal or sign); the consensus spread allows for binaries.
+RV_CONTRADICTION_KMS = 50
+RV_CONSENSUS_KMS = 25
+# Single epochs of a binary scatter around its systemic velocity; the replacement must lie near the consensus.
+RV_ADOPTION_KMS = 10
 NON_STELLAR = {"OpC", "GlC", "Cl*", "G", "GiG", "GrG", "AGN", "SN*", "UV", "X"}
 # Identifier families that name one object; double-star catalogue numbers can name a whole pair.
 IDENTITY_PREFIXES = ("* ", "V* ", "NAME ", "HIP ", "HD ", "HR ", "Gaia DR3 ", "BD", "CD", "CPD", "SAO ", "TYC ", "FK5 ", "GJ ")
@@ -99,7 +108,31 @@ def snapshot():
     for row in csv_rows(WORK / "parents.csv"):
         if row["otype"] in SYSTEM_TYPES and (number(row["plx_value"]) or 0) > 0:
             parents.setdefault(row["child_id"], []).append(row)
-    return manifest, csv_rows(WORK / "simbad.csv"), gaia, distances, {child: rows[0] for child, rows in parents.items() if len(rows) == 1}
+    velocities = {}
+    for row in csv_rows(WORK / "velocities.csv"):
+        velocities.setdefault(row["main_id"], []).append(row)
+    return manifest, csv_rows(WORK / "simbad.csv"), gaia, distances, {child: rows[0] for child, rows in parents.items() if len(rows) == 1}, velocities
+
+
+def checked_radial_velocity(source, simbad_id, velocities):
+    """The compiled velocity, unless a strict majority of the other measurements agree on a value it contradicts.
+    Then the most precise measurement near their median, else the newest, replaces it; without one it is withheld."""
+    if not source["rvz_radvel"]:
+        return source, None
+    others = [row for row in velocities.get(simbad_id, []) if row["bibcode"] != source["rvz_bibcode"]]
+    if len(others) < 2:
+        return source, None
+    center = median(float(row["velvalue"]) for row in others)
+    agreeing = [row for row in others if abs(float(row["velvalue"]) - center) <= RV_CONSENSUS_KMS]
+    if abs(float(source["rvz_radvel"]) - center) <= RV_CONTRADICTION_KMS or len(agreeing) * 2 <= len(others):
+        return source, None
+    near = [row for row in others if abs(float(row["velvalue"]) - center) <= RV_ADOPTION_KMS]
+    best = min(near, key=lambda row: (number(row["meanerror"]) is None, number(row["meanerror"]) or 0, -int(row["bibcode"][:4])), default=None)
+    review = {"rejected": {"valueKms": float(source["rvz_radvel"]), "uncertaintyKms": number(source["rvz_err"]), "bibcode": source["rvz_bibcode"]},
+              "consensusKms": center, "agreeing": len(agreeing), "measurements": len(others),
+              "reason": f"SIMBAD's compiled velocity lies more than {RV_CONTRADICTION_KMS} km/s from the median of the other {len(others)} SIMBAD measurements, "
+                        f"{len(agreeing)} of which agree within {RV_CONSENSUS_KMS} km/s"}
+    return {**source, "rvz_radvel": best["velvalue"] if best else "", "rvz_err": best["meanerror"] if best else "", "rvz_bibcode": best["bibcode"] if best else ""}, review
 
 
 def curated_records():
@@ -231,12 +264,17 @@ def new_row(source, identifier, gaia, distance, distance_provenance, retrieved, 
 
 
 def build():
-    manifest_input, simbad, gaia, distances, parents = snapshot()
+    manifest_input, simbad, gaia, distances, parents, velocities = snapshot()
     selected = {source["main_id"] for source in simbad}
     retrieved = manifest_input["retrieved"]
     curated, index, positions = curated_records()
     copied, new, audit = {}, [], []
+    excluded = {item["simbadId"]: item for item in json.loads(PHOTOMETRY_EXCLUSIONS.read_text())["objects"]}
     for source in simbad:
+        if source["main_id"] in excluded:
+            audit.append({"simbadId": source["main_id"], "otype": source["otype"], "v": source["v"], "status": "excluded",
+                          "reason": f"reviewed photometry: {excluded[source['main_id']]['reason']}"})
+            continue
         parallax = number(source["plx_value"])
         system = parents.get(source["main_id"]) if not (parallax and parallax > 0) else None
         if system and system["parent_id"] not in selected:
@@ -244,9 +282,12 @@ def build():
             parallax = number(source["plx_value"])
         else:
             system = None
+        source, reviewed = landmarks.reviewed_distance(source)
+        parallax_review = reviewed and reviewed[1].get("parallaxReview")
+        parallax = number(source["plx_value"])
         gaia_ids = [value.removeprefix("Gaia DR3 ") for value in aliases(source) if value.startswith("Gaia DR3 ")]
         gaia_id = gaia_ids[0] if len(gaia_ids) == 1 else None
-        distance, distance_provenance = adopted_distance(source, gaia_id, distances) if parallax and parallax > 0 else (None, None)
+        distance, distance_provenance = reviewed or (adopted_distance(source, gaia_id, distances) if parallax and parallax > 0 else (None, None))
         matches, method = curated_match(source, index, positions, distance)
         if not matches and system:
             matches, method = curated_match({**system, "main_id": system["parent_id"], "ra": "", "dec": ""}, index, positions, distance)
@@ -260,7 +301,9 @@ def build():
         if reason:
             audit.append({"simbadId": source["main_id"], "otype": source["otype"], "v": source["v"], "status": "excluded", "reason": reason})
             continue
-        new.append({"source": source, "gaiaId": gaia_id, "distance": distance, "distanceProvenance": distance_provenance, "system": system})
+        source, velocity_review = checked_radial_velocity(source, system["parent_id"] if system else source["main_id"], velocities)
+        new.append({"source": source, "gaiaId": gaia_id, "distance": distance, "distanceProvenance": distance_provenance, "system": system, "parallaxReview": parallax_review,
+                    "velocityReview": velocity_review})
     # SIMBAD can list a double star both as one ** record and as its components; keep the components.
     components = [item for item in new if item["source"]["otype"] != "**"]
     represented = []
@@ -301,7 +344,8 @@ def build():
         row = new_row(source, identifier, None if item["system"] else gaia.get(item["gaiaId"]), item["distance"], item["distanceProvenance"], retrieved, str(constellation).strip(), item["system"])
         gaia_suitable = not re.match(GAIA_UNSUITABLE_TYPES, source["sp_type"] or "")
         error = number(source["plx_err"])
-        flame_suitable = bool(error) and float(source["plx_value"]) / error >= FLAME_MIN_PARALLAX_SNR
+        # FLAME used the Gaia distance, which a Hipparcos replacement has already ruled too uncertain.
+        flame_suitable = not item["parallaxReview"] and bool(error) and float(source["plx_value"]) / error >= FLAME_MIN_PARALLAX_SNR
         gaia_fields = (GAIA_FIELDS if flame_suitable else GAIA_FIELDS[:1]) if gaia_suitable else ()
         withheld = {}
         physical = enrich_from_frozen(row, source["main_id"], aliases(source), extended=EXTENSION,
@@ -311,7 +355,9 @@ def build():
             "simbadId": source["main_id"], "simbadType": source["otype"], "gaiaDr3Id": item["gaiaId"],
             "visualMagnitude": {"value": float(source["v"]), "uncertainty": number(source["v_err"]), "bibcode": source["v_bibcode"]},
             "adoptedDistance": item["distanceProvenance"],
-            "radialVelocity": {"status": "simbad-compiled" if source["rvz_radvel"] else "unknown", "bibcode": source["rvz_bibcode"] or None},
+            "radialVelocity": {"status": ("simbad-measurement-consensus" if source["rvz_radvel"] else "withheld-contradicted") if item["velocityReview"]
+                               else "simbad-compiled" if source["rvz_radvel"] else "unknown",
+                               "bibcode": source["rvz_bibcode"] or None, **({"review": item["velocityReview"]} if item["velocityReview"] else {})},
             "physicalObservations": physical,
             **({"withheldSourceValues": withheld} if withheld else {}),
             **({} if gaia_suitable else {"gaiaPhysical": GAIA_WITHHELD}),
@@ -353,7 +399,8 @@ def build():
                         "their reviewed companions follow. A component without a parallax of its own uses the parallax and motion of its SIMBAD multiple-star record; "
                         "other stars without a parallax are listed in the provenance audit, not placed. Sun is included only as the map origin.",
         "snapshot": f"SIMBAD, Gaia DR3 and Bailer-Jones snapshots frozen {retrieved}; Allende Prieto & Lambert 1999 and McDonald et al. 2012 exact-HIP rows frozen "
-                    f"{manifest_input['sources']['fundamental']['retrieved']} from the {manifest_input['sources']['fundamental']['url'].split('/')[2]} VizieR mirror.",
+                    f"{manifest_input['sources']['fundamental']['retrieved']} from the {manifest_input['sources']['fundamental']['url'].split('/')[2]} VizieR mirror; "
+                    f"SIMBAD radial-velocity measurements frozen {manifest_input['sources']['velocities'].get('retrieved', retrieved)}.",
     }
     payload = {
         "schemaVersion": 1,
@@ -365,8 +412,20 @@ def build():
                           "FLAME values, Allende Prieto & Lambert 1999 mass and radius, and McDonald et al. 2012 luminosity. "
                           "These two Hipparcos model solutions are also withheld when their temperature lies more than 20% from an adopted spectroscopic temperature, "
                           "and McDonald et al. 2012 fits are not used for O and B stars, whose zero-reddening fits run systematically cool. "
+                          "A McDonald et al. 2012 luminosity fitted from a non-positive Hipparcos parallax has no distance scale and is not used; "
+                          "a FLAME age whose upper bound reaches the 13.5 Gyr grid limit is a truncated posterior and is not used. "
                           "The more accurate temperature wins; FLAME values that assumed a different GSP-Phot temperature are not adopted and are kept with their reason under withheldSourceValues.",
+        "distancePolicy": f"Bailer-Jones geometric distance where SIMBAD adopts the Gaia DR3 parallax, else the inverse SIMBAD parallax. Where that parallax has a signal-to-noise below {landmarks.MIN_PARALLAX_SNR}, "
+                          f"the inverse Gaia parallax of an open cluster SIMBAD lists the star in (membership at least {landmarks.CLUSTER_MIN_MEMBERSHIP} percent, cluster parallax corrected by the release's "
+                          f"global zero-point and agreeing with the star's within {landmarks.CLUSTER_AGREEMENT_SIGMA} sigma) is adopted; failing that, the star's own Hipparcos 2007 parallax (van Leeuwen 2007) "
+                          "replaces it where more precise, the replaced parallax kept under adoptedDistance.parallaxReview. Reviewed literature distances "
+                          "(catalog-work/landmark-stars/distance-overrides.csv) take precedence over all of these.",
+        "radialVelocityPolicy": f"SIMBAD's compiled radial velocity, unless it lies more than {RV_CONTRADICTION_KMS} km/s from the median of at least two other SIMBAD measurements "
+                                f"and a strict majority of those agree within {RV_CONSENSUS_KMS} km/s of that median. The most precise measurement within {RV_ADOPTION_KMS} km/s of the median, else the newest, then replaces it, "
+                                "or the velocity is withheld when none lies that close; "
+                                "the rejected value is kept with its reason under radialVelocity.review.",
         "sourceManifestSha256": sha256(WORK / "source-manifest.json"),
+        "photometryExclusionsSha256": sha256(PHOTOMETRY_EXCLUSIONS),
         "coverage": {field: sum(bool(row[field]) for row in rows if row["id"] not in copied) for field in
                      ("constellation", "spectral_type", "temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr", "radial_velocity_kms", "vx_kms")},
         "audit": sorted(audit, key=lambda item: item["simbadId"]),

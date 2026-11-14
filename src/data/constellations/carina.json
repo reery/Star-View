@@ -630,8 +630,8 @@
         "raw_astrometry": {
           "ra_deg": 167.147453191,
           "dec_deg": -58.975038633492225,
-          "parallax_mas": 0.2228,
-          "parallax_error_mas": 0.1004,
+          "parallax_mas": 0.52,
+          "parallax_error_mas": 0.17,
           "pm_ra_cosdec_masyr": -5.863,
           "pm_ra_error_masyr": null,
           "pm_dec_masyr": 1.57,
@@ -639,7 +639,7 @@
           "radial_velocity_kms": 6.0,
           "radial_velocity_error_kms": null,
           "epoch": 2000.0,
-          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01",
+          "astrometry_ref": "SIMBAD TAP snapshot 2026-10-01; parallax 2007A&A...474..653V",
           "radial_velocity_ref": "SIMBAD TAP snapshot 2026-10-01"
         }
       }
@@ -1766,7 +1766,7 @@
       "label": "Adopted star positions and names",
       "url": "https://simbad.cds.unistra.fr/simbad/",
       "path": "src/data/catalogs/western-constellation-stars/stars.csv",
-      "sha256": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748"
+      "sha256": "f094b4f53be6c5d73bca10c803845831096d7a2dd48b1606d68ca65ea287dcc8"
     },
     {
       "label": "Hipparcos Johnson V magnitudes",

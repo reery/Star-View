@@ -4898,6 +4898,1374 @@
         "Main-sequence"
       ],
       "reason": "catalog_sources.nearest-1000.subtypes: SIMBAD secondary class(es) Chemically peculiar withheld by the object-stats contradiction rule (scripts/catalog_sources/classification.py contradicted): a brown dwarf cannot be a carbon star, and a mid-M dwarf is not a chemically peculiar star. The raw SIMBAD codes remain in src/data/object-stats.json sourceTypes."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "cns5-0347",
+      "field": "age_gyr",
+      "expectedPrevious": "9.023818",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 9.023818 (Gyr) of Kappa Tuc B was a Gaia DR3 FLAME estimate (Gaia DR3 4692263904164105856) whose 16th-84th percentile range 7.26-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-36238",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-82.3",
+      "expectedCurrent": "25.4",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity -82.3 km/s of 63 Gem (2006AstL...32..759G) lies more than 50 km/s from the 24.4 km/s median of the other 6 SIMBAD measurements, 5 of which agree within 25 km/s. Replaced by 25.4 measurement 1953GCRV..C......0W, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-59504",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-61.502102",
+      "expectedCurrent": "0.4",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity -61.502102 km/s of CO Cam (2020AJ....160..120J) lies more than 50 km/s from the 0.3 km/s median of the other 9 SIMBAD measurements, 9 of which agree within 25 km/s. Replaced by 0.4 measurement 2004A&A...424..727P, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-87836",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-829.911011",
+      "expectedCurrent": "10.8",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity -829.911011 km/s of HD 163318 (2020AJ....160..120J) lies more than 50 km/s from the 13.2 km/s median of the other 2 SIMBAD measurements, 2 of which agree within 25 km/s. Replaced by 10.8 measurement 2006AstL...32..759G, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-2383",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-58.9",
+      "expectedCurrent": "-0.37",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity -58.9 km/s of HD 2726 (2007A&A...475..519H) lies more than 50 km/s from the 2.0 km/s median of the other 5 SIMBAD measurements, 4 of which agree within 25 km/s. Replaced by -0.37 measurement 2020AJ....160...83S, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-20106",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "40.62",
+      "expectedCurrent": "-21.0",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 40.62 km/s of HD 27411 (2023ApJS..266...11B) lies more than 50 km/s from the -21.0 km/s median of the other 4 SIMBAD measurements, 3 of which agree within 25 km/s. Replaced by -21.0 measurement 2007AN....328..889K, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-67139",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "38.1082",
+      "expectedCurrent": "-41.0",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 38.1082 km/s of 85 Vir (2020AJ....160..120J) lies more than 50 km/s from the -41.0 km/s median of the other 3 SIMBAD measurements, 3 of which agree within 25 km/s. Replaced by -41.0 measurement 2007AN....328..889K, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-49402",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "111.7",
+      "expectedCurrent": "24.3",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 111.7 km/s of Upsilon2 Hya (2022yCat.1355....0G) lies more than 50 km/s from the 26.5 km/s median of the other 8 SIMBAD measurements, 8 of which agree within 25 km/s. Replaced by 24.3 measurement 2006AstL...32..759G, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-16339",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-12.0",
+      "expectedCurrent": "44.6",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity -12.0 km/s of TU Hor (1979IAUS...30...57E) lies more than 50 km/s from the 44.6 km/s median of the other 2 SIMBAD measurements, 2 of which agree within 25 km/s. Replaced by 44.6 measurement 2007AN....328..889K, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-88116",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "64.33",
+      "expectedCurrent": "-18.0",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 64.33 km/s of 4 Sgr (2022yCat.1355....0G) lies more than 50 km/s from the -18.0 km/s median of the other 6 SIMBAD measurements, 6 of which agree within 25 km/s. Replaced by -18.0 measurement 2006AstL...32..759G, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-10180",
+      "field": "luminosity_solar",
+      "expectedPrevious": "9081556717",
+      "expectedCurrent": "50.401024",
+      "reason": "luminosity_solar: the previous 9081556717 Lsun of 59 And B came from the McDonald et al. 2012 SED fit (2012MNRAS.427..343M, HIP 10180) rescaled from its source distance of -64.14 pc. That distance comes from a non-positive Hipparcos parallax, so the fit has no luminosity scale and the rescaled value is meaningless. The distance-independent SED temperature is kept. Gaia DR3 FLAME now supplies 50.401024 Lsun."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-10180",
+      "field": "radius_solar",
+      "expectedPrevious": "37299.74769",
+      "expectedCurrent": "2.778724078",
+      "reason": "radius_solar: the previous 37299.74769 Rsun of 59 And B was derived by Stefan-Boltzmann scaling from the retired McDonald et al. 2012 luminosity of 9081556717 Lsun (fitted from a non-positive Hipparcos parallax) and is withdrawn with it. Scaling from the adopted luminosity now gives 2.778724078 Rsun."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-16252",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-102.385002",
+      "expectedCurrent": "1.6",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity -102.385002 km/s of HD 21455 (2020AJ....160..120J) lies more than 50 km/s from the 1.5 km/s median of the other 7 SIMBAD measurements, 7 of which agree within 25 km/s. Replaced by 1.6 measurement 2006AstL...32..759G, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-91389",
+      "field": "luminosity_solar",
+      "expectedPrevious": "9.167937726e+12",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 9.167937726e+12 Lsun of X Oph came from the McDonald et al. 2012 SED fit (2012MNRAS.427..343M, HIP 91389) rescaled from its source distance of -20.58 pc. That distance comes from a non-positive Hipparcos parallax, so the fit has no luminosity scale and the rescaled value is meaningless. The distance-independent SED temperature is kept. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-91389",
+      "field": "radius_solar",
+      "expectedPrevious": "10599323.21",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 10599323.21 Rsun of X Oph was derived by Stefan-Boltzmann scaling from the retired McDonald et al. 2012 luminosity of 9.167937726e+12 Lsun (fitted from a non-positive Hipparcos parallax) and is withdrawn with it."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-18485",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-25.4",
+      "expectedCurrent": "25.0",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity -25.4 km/s of 33 Tau (1979IAUS...30...57E) lies more than 50 km/s from the 25.0 km/s median of the other 5 SIMBAD measurements, 3 of which agree within 25 km/s. Replaced by 25.0 measurement 2007AN....328..889K, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-38455",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "29.5",
+      "expectedCurrent": "-21.0",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 29.5 km/s of b Pup (2007AN....328..889K) lies more than 50 km/s from the -20.8 km/s median of the other 5 SIMBAD measurements, 4 of which agree within 25 km/s. Replaced by -21.0 measurement 1953GCRV..C......0W, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-70574",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-215.0",
+      "expectedCurrent": "-17.7",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity -215.0 km/s of Tau1 Lup (1979IAUS...30...57E) lies more than 50 km/s from the -21.5 km/s median of the other 5 SIMBAD measurements, 5 of which agree within 25 km/s. Replaced by -17.7 measurement 1953GCRV..C......0W, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-95818",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-420.7",
+      "expectedCurrent": "-38.0",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity -420.7 km/s of 7 Vul (1953GCRV..C......0W) lies more than 50 km/s from the -37.7 km/s median of the other 6 SIMBAD measurements, 5 of which agree within 25 km/s. Replaced by -38.0 measurement 2006AstL...32..759G, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-70243",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "58.93",
+      "expectedCurrent": "-37.0",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 58.93 km/s of HD 125745 (2022yCat.1355....0G) lies more than 50 km/s from the -37.0 km/s median of the other 5 SIMBAD measurements, 5 of which agree within 25 km/s. Replaced by -37.0 measurement 2006AstL...32..759G, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-110988",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "40.17",
+      "expectedCurrent": "-21.6",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 40.17 km/s of Delta Cep B (2022yCat.1355....0G) lies more than 50 km/s from the -21.3 km/s median of the other 4 SIMBAD measurements, 4 of which agree within 25 km/s. Replaced by -21.6 measurement 2006AstL...32..759G, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hd-37016a",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "97.897301",
+      "expectedCurrent": "35.926975",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 97.897301 km/s of HD 37016A (2020AJ....160..120J) lies more than 50 km/s from the 37.4 km/s median of the other 23 SIMBAD measurements, 16 of which agree within 25 km/s. Replaced by 35.926975 measurement 2015ApJ...807...27C, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-26535",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "80.262901",
+      "expectedCurrent": "12.634058",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 80.262901 km/s of HD 37481 (2020AJ....160..120J) lies more than 50 km/s from the 20.1 km/s median of the other 10 SIMBAD measurements, 6 of which agree within 25 km/s. Replaced by 12.634058 measurement 2015ApJ...807...27C, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-100574",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "650.008972",
+      "expectedCurrent": "-29.7",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 650.008972 km/s of HD 194335 (2020AJ....160..120J) lies more than 50 km/s from the -30.4 km/s median of the other 8 SIMBAD measurements, 8 of which agree within 25 km/s. Replaced by -29.7 measurement 2006AstL...32..759G, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-99929",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-372.493011",
+      "expectedCurrent": "-9.0",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity -372.493011 km/s of HD 192987 (2020AJ....160..120J) lies more than 50 km/s from the -9.0 km/s median of the other 7 SIMBAD measurements, 7 of which agree within 25 km/s. Replaced by -9.0 measurement 2006AstL...32..759G, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-20234",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "64.96",
+      "expectedCurrent": "-17.8",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 64.96 km/s of b02 Per (2022yCat.1355....0G) lies more than 50 km/s from the -15.8 km/s median of the other 9 SIMBAD measurements, 9 of which agree within 25 km/s. Replaced by -17.8 measurement 2006AstL...32..759G, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-26363",
+      "field": "luminosity_solar",
+      "expectedPrevious": "619911152.1",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 619911152.1 Lsun of HD 36891 came from the McDonald et al. 2012 SED fit (2012MNRAS.427..343M, HIP 26363) rescaled from its source distance of -1333.33 pc. That distance comes from a non-positive Hipparcos parallax, so the fit has no luminosity scale and the rescaled value is meaningless. The distance-independent SED temperature is kept. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-26363",
+      "field": "radius_solar",
+      "expectedPrevious": "31568.95207",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 31568.95207 Rsun of HD 36891 was derived by Stefan-Boltzmann scaling from the retired McDonald et al. 2012 luminosity of 619911152.1 Lsun (fitted from a non-positive Hipparcos parallax) and is withdrawn with it."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-30827",
+      "field": "luminosity_solar",
+      "expectedPrevious": "1775606085",
+      "expectedCurrent": "1635.041",
+      "reason": "luminosity_solar: the previous 1775606085 Lsun of 48 Aur came from the McDonald et al. 2012 SED fit (2012MNRAS.427..343M, HIP 30827) rescaled from its source distance of -909.09 pc. That distance comes from a non-positive Hipparcos parallax, so the fit has no luminosity scale and the rescaled value is meaningless. The distance-independent SED temperature is kept. Gaia DR3 FLAME now supplies 1635.041 Lsun."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-30827",
+      "field": "radius_solar",
+      "expectedPrevious": "36544.5664",
+      "expectedCurrent": "35.06822826",
+      "reason": "radius_solar: the previous 36544.5664 Rsun of 48 Aur was derived by Stefan-Boltzmann scaling from the retired McDonald et al. 2012 luminosity of 1775606085 Lsun (fitted from a non-positive Hipparcos parallax) and is withdrawn with it. Scaling from the adopted luminosity now gives 35.06822826 Rsun."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-82516",
+      "field": "luminosity_solar",
+      "expectedPrevious": "46835598.29",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 46835598.29 Lsun of S Her came from the McDonald et al. 2012 SED fit (2012MNRAS.427..343M, HIP 82516) rescaled from its source distance of -11111.1 pc. That distance comes from a non-positive Hipparcos parallax, so the fit has no luminosity scale and the rescaled value is meaningless. The distance-independent SED temperature is kept. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-82516",
+      "field": "radius_solar",
+      "expectedPrevious": "21773.26985",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 21773.26985 Rsun of S Her was derived by Stefan-Boltzmann scaling from the retired McDonald et al. 2012 luminosity of 46835598.29 Lsun (fitted from a non-positive Hipparcos parallax) and is withdrawn with it."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-71490",
+      "field": "luminosity_solar",
+      "expectedPrevious": "7138583879",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 7138583879 Lsun of R Boo came from the McDonald et al. 2012 SED fit (2012MNRAS.427..343M, HIP 71490) rescaled from its source distance of -746.27 pc. That distance comes from a non-positive Hipparcos parallax, so the fit has no luminosity scale and the rescaled value is meaningless. The distance-independent SED temperature is kept. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-71490",
+      "field": "radius_solar",
+      "expectedPrevious": "312346.9737",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 312346.9737 Rsun of R Boo was derived by Stefan-Boltzmann scaling from the retired McDonald et al. 2012 luminosity of 7138583879 Lsun (fitted from a non-positive Hipparcos parallax) and is withdrawn with it."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-74750",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "69.49",
+      "expectedCurrent": "6.0",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 69.49 km/s of HD 135160 (2022yCat.1355....0G) lies more than 50 km/s from the 6.0 km/s median of the other 4 SIMBAD measurements, 4 of which agree within 25 km/s. Replaced by 6.0 measurement 2006AstL...32..759G, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-69241",
+      "field": "luminosity_solar",
+      "expectedPrevious": "4765778536",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 4765778536 Lsun of HD 123377 came from the McDonald et al. 2012 SED fit (2012MNRAS.427..343M, HIP 69241) rescaled from its source distance of -1282.05 pc. That distance comes from a non-positive Hipparcos parallax, so the fit has no luminosity scale and the rescaled value is meaningless. The distance-independent SED temperature is kept. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-69241",
+      "field": "radius_solar",
+      "expectedPrevious": "148535.4444",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 148535.4444 Rsun of HD 123377 was derived by Stefan-Boltzmann scaling from the retired McDonald et al. 2012 luminosity of 4765778536 Lsun (fitted from a non-positive Hipparcos parallax) and is withdrawn with it."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-87706",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "90.34",
+      "expectedCurrent": "-12.1",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 90.34 km/s of 63 Oph (2022yCat.1355....0G) lies more than 50 km/s from the -11.0 km/s median of the other 6 SIMBAD measurements, 6 of which agree within 25 km/s. Replaced by -12.1 measurement 2006AstL...32..759G, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-32067",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-651.072021",
+      "expectedCurrent": "31.0",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity -651.072021 km/s of HD 48099 (2020AJ....160..120J) lies more than 50 km/s from the 31.0 km/s median of the other 5 SIMBAD measurements, 3 of which agree within 25 km/s. Replaced by 31.0 measurement 1953GCRV..C......0W, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-40063",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "378.33",
+      "expectedCurrent": "34.6",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 378.33 km/s of HD 68450 (2023A&A...676A.129H) lies more than 50 km/s from the 35.5 km/s median of the other 10 SIMBAD measurements, 10 of which agree within 25 km/s. Replaced by 34.6 measurement 1977ApJ...214..759C, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-82669",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "16.83",
+      "expectedCurrent": "-35.2",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 16.83 km/s of HD 152235 (2023A&A...676A.129H) lies more than 50 km/s from the -36.0 km/s median of the other 5 SIMBAD measurements, 5 of which agree within 25 km/s. Replaced by -35.2 measurement 2006AstL...32..759G, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-84332",
+      "field": "luminosity_solar",
+      "expectedPrevious": "2.934269609e+10",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 2.934269609e+10 Lsun of HD 155603 came from the McDonald et al. 2012 SED fit (2012MNRAS.427..343M, HIP 84332) rescaled from its source distance of -1449.28 pc. That distance comes from a non-positive Hipparcos parallax, so the fit has no luminosity scale and the rescaled value is meaningless. The distance-independent SED temperature is kept. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-84332",
+      "field": "radius_solar",
+      "expectedPrevious": "477533.5548",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 477533.5548 Rsun of HD 155603 was derived by Stefan-Boltzmann scaling from the retired McDonald et al. 2012 luminosity of 2.934269609e+10 Lsun (fitted from a non-positive Hipparcos parallax) and is withdrawn with it."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-29450",
+      "field": "luminosity_solar",
+      "expectedPrevious": "2.417176139e+10",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 2.417176139e+10 Lsun of 6 Gem came from the McDonald et al. 2012 SED fit (2012MNRAS.427..343M, HIP 29450) rescaled from its source distance of -1923.08 pc. That distance comes from a non-positive Hipparcos parallax, so the fit has no luminosity scale and the rescaled value is meaningless. The distance-independent SED temperature is kept. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-29450",
+      "field": "radius_solar",
+      "expectedPrevious": "341247.0437",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 341247.0437 Rsun of 6 Gem was derived by Stefan-Boltzmann scaling from the retired McDonald et al. 2012 luminosity of 2.417176139e+10 Lsun (fitted from a non-positive Hipparcos parallax) and is withdrawn with it."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-82775",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "1.38",
+      "expectedCurrent": "-138.0",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity 1.38 km/s of HD 152408 (2018yCat.1345....0G) lies more than 50 km/s from the -140.0 km/s median of the other 6 SIMBAD measurements, 6 of which agree within 25 km/s. Replaced by -138.0 measurement 1953GCRV..C......0W, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-58469",
+      "field": "luminosity_solar",
+      "expectedPrevious": "3642389857",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 3642389857 Lsun of HD 104111 came from the McDonald et al. 2012 SED fit (2012MNRAS.427..343M, HIP 58469) rescaled from its source distance of -1818.18 pc. That distance comes from a non-positive Hipparcos parallax, so the fit has no luminosity scale and the rescaled value is meaningless. The distance-independent SED temperature is kept. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-58469",
+      "field": "radius_solar",
+      "expectedPrevious": "52307.32127",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 52307.32127 Rsun of HD 104111 was derived by Stefan-Boltzmann scaling from the retired McDonald et al. 2012 luminosity of 3642389857 Lsun (fitted from a non-positive Hipparcos parallax) and is withdrawn with it."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-52308",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-28.0",
+      "expectedCurrent": "33.0",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity -28.0 km/s of HD 92740 (2007AN....328..889K) lies more than 50 km/s from the 33.0 km/s median of the other 3 SIMBAD measurements, 2 of which agree within 25 km/s. Replaced by 33.0 measurement 1953GCRV..C......0W, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-52308",
+      "field": "radial_velocity_error_kms",
+      "expectedPrevious": "7.4",
+      "expectedCurrent": "",
+      "reason": "radial_velocity_error_kms: the previous uncertainty belonged to the rejected velocity; the replacement publishes none. SIMBAD's compiled radial velocity -28.0 km/s of HD 92740 (2007AN....328..889K) lies more than 50 km/s from the 33.0 km/s median of the other 3 SIMBAD measurements, 2 of which agree within 25 km/s. Replaced by the measurement 1953GCRV..C......0W, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-41074",
+      "field": "luminosity_solar",
+      "expectedPrevious": "1601276320",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 1601276320 Lsun of HD 70761 came from the McDonald et al. 2012 SED fit (2012MNRAS.427..343M, HIP 41074) rescaled from its source distance of -3846.15 pc. That distance comes from a non-positive Hipparcos parallax, so the fit has no luminosity scale and the rescaled value is meaningless. The distance-independent SED temperature is kept. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-41074",
+      "field": "radius_solar",
+      "expectedPrevious": "25788.61417",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 25788.61417 Rsun of HD 70761 was derived by Stefan-Boltzmann scaling from the retired McDonald et al. 2012 luminosity of 1601276320 Lsun (fitted from a non-positive Hipparcos parallax) and is withdrawn with it."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-54751",
+      "field": "luminosity_solar",
+      "expectedPrevious": "46536925.48",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 46536925.48 Lsun of y Car came from the McDonald et al. 2012 SED fit (2012MNRAS.427..343M, HIP 54751) rescaled from its source distance of -50000.0 pc. That distance comes from a non-positive Hipparcos parallax, so the fit has no luminosity scale and the rescaled value is meaningless. The distance-independent SED temperature is kept. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-54751",
+      "field": "radius_solar",
+      "expectedPrevious": "6652.462846",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 6652.462846 Rsun of y Car was derived by Stefan-Boltzmann scaling from the retired McDonald et al. 2012 luminosity of 46536925.48 Lsun (fitted from a non-positive Hipparcos parallax) and is withdrawn with it."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-82676",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-71.3",
+      "expectedCurrent": "-6.0",
+      "reason": "radial_velocity_kms: SIMBAD's compiled radial velocity -71.3 km/s of HD 152234 (1983ApL....23..183L) lies more than 50 km/s from the -6.0 km/s median of the other 17 SIMBAD measurements, 15 of which agree within 25 km/s. Replaced by -6.0 measurement 1953GCRV..C......0W, the most precise within 10 km/s of the median."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-56201",
+      "field": "luminosity_solar",
+      "expectedPrevious": "235708656.8",
+      "expectedCurrent": "",
+      "reason": "luminosity_solar: the previous 235708656.8 Lsun of HD 100198 came from the McDonald et al. 2012 SED fit (2012MNRAS.427..343M, HIP 56201) rescaled from its source distance of -20000.0 pc. That distance comes from a non-positive Hipparcos parallax, so the fit has no luminosity scale and the rescaled value is meaningless. The distance-independent SED temperature is kept. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-56201",
+      "field": "radius_solar",
+      "expectedPrevious": "15859.7623",
+      "expectedCurrent": "",
+      "reason": "radius_solar: the previous 15859.7623 Rsun of HD 100198 was derived by Stefan-Boltzmann scaling from the retired McDonald et al. 2012 luminosity of 235708656.8 Lsun (fitted from a non-positive Hipparcos parallax) and is withdrawn with it."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-4305",
+      "field": "age_gyr",
+      "expectedPrevious": "13.090235",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 13.090235 (Gyr) of BD+05 3409 was a Gaia DR3 FLAME estimate (Gaia DR3 4389844948935164544) whose 16th-84th percentile range 6.86-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-1000/stars.csv",
+      "id": "cns5-2349",
+      "field": "age_gyr",
+      "expectedPrevious": "12.569355",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 12.569355 (Gyr) of HD 82106 was a Gaia DR3 FLAME estimate (Gaia DR3 3852570413083923072) whose 16th-84th percentile range 10.15-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4687",
+      "field": "age_gyr",
+      "expectedPrevious": "12.954456",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 12.954456 (Gyr) of HD 229793 was a Gaia DR3 FLAME estimate (Gaia DR3 4510987662629223424) whose 16th-84th percentile range 6.80-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-3861",
+      "field": "age_gyr",
+      "expectedPrevious": "12.936792",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 12.936792 (Gyr) of HD 139763 was a Gaia DR3 FLAME estimate (Gaia DR3 6260386975385254656) whose 16th-84th percentile range 9.44-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-3675",
+      "field": "age_gyr",
+      "expectedPrevious": "6.8522115",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 6.8522115 (Gyr) of HD 130992 was a Gaia DR3 FLAME estimate (Gaia DR3 6229442835525861120) whose 16th-84th percentile range 4.65-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-3494",
+      "field": "age_gyr",
+      "expectedPrevious": "13.325174",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 13.325174 (Gyr) of BD+81 465 was a Gaia DR3 FLAME estimate (Gaia DR3 1715791060537076608) whose 16th-84th percentile range 7.79-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-5220",
+      "field": "age_gyr",
+      "expectedPrevious": "12.743431",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 12.743431 (Gyr) of HD 200968 was a Gaia DR3 FLAME estimate (Gaia DR3 6885342959337741184) whose 16th-84th percentile range 10.62-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-0862",
+      "field": "age_gyr",
+      "expectedPrevious": "12.388396",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 12.388396 (Gyr) of HD 21175 was a Gaia DR3 FLAME estimate (Gaia DR3 4852870701505115904) whose 16th-84th percentile range 4.87-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4020",
+      "field": "age_gyr",
+      "expectedPrevious": "8.416435",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 8.416435 (Gyr) of BD-21 4352 was a Gaia DR3 FLAME estimate (Gaia DR3 6051948158061617024) whose 16th-84th percentile range 0.75-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-0859",
+      "field": "age_gyr",
+      "expectedPrevious": "11.009577",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 11.009577 (Gyr) of HD 21209B was a Gaia DR3 FLAME estimate (Gaia DR3 4737533134341791872) whose 16th-84th percentile range 6.08-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-5684",
+      "field": "age_gyr",
+      "expectedPrevious": "13.40872",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 13.40872 (Gyr) of CD-50 13863 was a Gaia DR3 FLAME estimate (Gaia DR3 6514632718428652928) whose 16th-84th percentile range 7.38-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-5497",
+      "field": "radial_velocity_kms",
+      "expectedPrevious": "-351.1481",
+      "expectedCurrent": "",
+      "reason": "radial_velocity_kms: Gaia DR3 radial velocity -351.1481 km/s of G 188-49B rejected: the star shares the parallax (50.77 vs 50.82 mas) and proper motion of G 188-49, 1.2 arcsec (59 au) away, whose radial velocity is +17 to +26 km/s in four SIMBAD measurements (Gaia DR2 19.8 +/- 0.3, 2016A&A...596A.116S 20.1 +/- 0.3). A 370 km/s difference is far beyond any orbital motion of this bound pair (escape speed about 6 km/s). Reviewed override in catalog-work/nearest-1000/radial-velocity-overrides.csv; the shared system velocity of G 188-49 remains in use."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-5497",
+      "field": "radial_velocity_error_kms",
+      "expectedPrevious": "8.175293",
+      "expectedCurrent": "",
+      "reason": "radial_velocity_error_kms: Gaia DR3 radial velocity -351.1481 km/s of G 188-49B rejected: the star shares the parallax (50.77 vs 50.82 mas) and proper motion of G 188-49, 1.2 arcsec (59 au) away, whose radial velocity is +17 to +26 km/s in four SIMBAD measurements (Gaia DR2 19.8 +/- 0.3, 2016A&A...596A.116S 20.1 +/- 0.3). A 370 km/s difference is far beyond any orbital motion of this bound pair (escape speed about 6 km/s). Reviewed override in catalog-work/nearest-1000/radial-velocity-overrides.csv; the shared system velocity of G 188-49 remains in use."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-5497",
+      "field": "radial_velocity_ref",
+      "expectedPrevious": "Gaia DR3",
+      "expectedCurrent": "",
+      "reason": "radial_velocity_ref: Gaia DR3 radial velocity -351.1481 km/s of G 188-49B rejected: the star shares the parallax (50.77 vs 50.82 mas) and proper motion of G 188-49, 1.2 arcsec (59 au) away, whose radial velocity is +17 to +26 km/s in four SIMBAD measurements (Gaia DR2 19.8 +/- 0.3, 2016A&A...596A.116S 20.1 +/- 0.3). A 370 km/s difference is far beyond any orbital motion of this bound pair (escape speed about 6 km/s). Reviewed override in catalog-work/nearest-1000/radial-velocity-overrides.csv; the shared system velocity of G 188-49 remains in use."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4083",
+      "field": "age_gyr",
+      "expectedPrevious": "13.3927145",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 13.3927145 (Gyr) of HD 149806 was a Gaia DR3 FLAME estimate (Gaia DR3 4383374219923745024) whose 16th-84th percentile range 11.57-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-2193",
+      "field": "age_gyr",
+      "expectedPrevious": "12.343903",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 12.343903 (Gyr) of BD+02 2098 was a Gaia DR3 FLAME estimate (Gaia DR3 577602496345490176) whose 16th-84th percentile range 8.34-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-0272",
+      "field": "age_gyr",
+      "expectedPrevious": "11.756473",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 11.756473 (Gyr) of HD 5633 was a Gaia DR3 FLAME estimate (Gaia DR3 4710180171260274816) whose 16th-84th percentile range 8.34-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4896",
+      "field": "age_gyr",
+      "expectedPrevious": "10.932998",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 10.932998 (Gyr) of HD 332518 was a Gaia DR3 FLAME estimate (Gaia DR3 2032017717217569152) whose 16th-84th percentile range 7.43-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-5424",
+      "field": "age_gyr",
+      "expectedPrevious": "10.877931",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 10.877931 (Gyr) of Wolf 953 was a Gaia DR3 FLAME estimate (Gaia DR3 2724890053318383232) whose 16th-84th percentile range 4.54-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4904",
+      "field": "age_gyr",
+      "expectedPrevious": "11.710939",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 11.710939 (Gyr) of 17 Cyg B was a Gaia DR3 FLAME estimate (Gaia DR3 2035035258143206016) whose 16th-84th percentile range 9.06-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4894",
+      "field": "age_gyr",
+      "expectedPrevious": "11.099625",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 11.099625 (Gyr) of HD 186858A was a Gaia DR3 FLAME estimate (Gaia DR3 2035020964491479552) whose 16th-84th percentile range 8.68-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-0347",
+      "field": "age_gyr",
+      "expectedPrevious": "9.023818",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 9.023818 (Gyr) of Kappa Tuc B was a Gaia DR3 FLAME estimate (Gaia DR3 4692263904164105856) whose 16th-84th percentile range 7.26-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-5722",
+      "field": "age_gyr",
+      "expectedPrevious": "10.185898",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 10.185898 (Gyr) of BD-20 6558 was a Gaia DR3 FLAME estimate (Gaia DR3 2386898972054841088) whose 16th-84th percentile range 5.50-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-2591",
+      "field": "age_gyr",
+      "expectedPrevious": "13.40934",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 13.40934 (Gyr) of HD 90343 was a Gaia DR3 FLAME estimate (Gaia DR3 1147862174868109184) whose 16th-84th percentile range 11.60-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4202",
+      "field": "age_gyr",
+      "expectedPrevious": "13.401558",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 13.401558 (Gyr) of BD+54 1862 was a Gaia DR3 FLAME estimate (Gaia DR3 1419999819661235840) whose 16th-84th percentile range 8.45-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-2687",
+      "field": "age_gyr",
+      "expectedPrevious": "13.161468",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 13.161468 (Gyr) of HD 95174B was a Gaia DR3 FLAME estimate (Gaia DR3 3996306127914172928) whose 16th-84th percentile range 10.12-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-5780",
+      "field": "age_gyr",
+      "expectedPrevious": "12.939055",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 12.939055 (Gyr) of CPD-88 203 was a Gaia DR3 FLAME estimate (Gaia DR3 6341793441911160064) whose 16th-84th percentile range 8.81-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4971",
+      "field": "age_gyr",
+      "expectedPrevious": "12.818258",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 12.818258 (Gyr) of HD 190470 was a Gaia DR3 FLAME estimate (Gaia DR3 1834788970646666112) whose 16th-84th percentile range 9.24-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-1136",
+      "field": "age_gyr",
+      "expectedPrevious": "11.505159",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 11.505159 (Gyr) of HD 29220 was a Gaia DR3 FLAME estimate (Gaia DR3 4791496409119237888) whose 16th-84th percentile range 8.81-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-0112",
+      "field": "age_gyr",
+      "expectedPrevious": "12.249264",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 12.249264 (Gyr) of HD 1910 was a Gaia DR3 FLAME estimate (Gaia DR3 2315390347851431680) whose 16th-84th percentile range 9.53-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4418",
+      "field": "age_gyr",
+      "expectedPrevious": "12.812308",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 12.812308 (Gyr) of HD 162283 was a Gaia DR3 FLAME estimate (Gaia DR3 4175058204312299904) whose 16th-84th percentile range 8.83-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4520",
+      "field": "age_gyr",
+      "expectedPrevious": "11.413444",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 11.413444 (Gyr) of TYC 432-673-1 was a Gaia DR3 FLAME estimate (Gaia DR3 4274925505435880704) whose 16th-84th percentile range 3.06-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-5924",
+      "field": "age_gyr",
+      "expectedPrevious": "11.031844",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 11.031844 (Gyr) of HD 224607 was a Gaia DR3 FLAME estimate (Gaia DR3 2334879397612667648) whose 16th-84th percentile range 8.47-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-2714",
+      "field": "age_gyr",
+      "expectedPrevious": "12.72131",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 12.72131 (Gyr) of HD 96612 was a Gaia DR3 FLAME estimate (Gaia DR3 764805169996366720) whose 16th-84th percentile range 10.27-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-1772",
+      "field": "age_gyr",
+      "expectedPrevious": "13.354582",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 13.354582 (Gyr) of BD+27 1311 was a Gaia DR3 FLAME estimate (Gaia DR3 884039857341503616) whose 16th-84th percentile range 7.76-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-0574",
+      "field": "age_gyr",
+      "expectedPrevious": "12.953588",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 12.953588 (Gyr) of HD 14001A was a Gaia DR3 FLAME estimate (Gaia DR3 5143341362661301632) whose 16th-84th percentile range 3.96-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-5711",
+      "field": "age_gyr",
+      "expectedPrevious": "13.39342",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 13.39342 (Gyr) of HD 218868 was a Gaia DR3 FLAME estimate (Gaia DR3 1935133906477014016) whose 16th-84th percentile range 11.87-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-2563",
+      "field": "age_gyr",
+      "expectedPrevious": "12.746572",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 12.746572 (Gyr) of HD 90884 was a Gaia DR3 FLAME estimate (Gaia DR3 5357886734438478848) whose 16th-84th percentile range 9.85-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-1336",
+      "field": "age_gyr",
+      "expectedPrevious": "13.05279",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 13.05279 (Gyr) of HD 34865 was a Gaia DR3 FLAME estimate (Gaia DR3 2983256662869643776) whose 16th-84th percentile range 10.26-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-0454",
+      "field": "age_gyr",
+      "expectedPrevious": "10.76281",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 10.76281 (Gyr) of HD 10853 was a Gaia DR3 FLAME estimate (Gaia DR3 2575383100738086656) whose 16th-84th percentile range 8.08-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-2348",
+      "field": "age_gyr",
+      "expectedPrevious": "13.012541",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 13.012541 (Gyr) of BD-04 2639 was a Gaia DR3 FLAME estimate (Gaia DR3 3824731809460825728) whose 16th-84th percentile range 9.65-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/catalogs/nearest-5000/stars.csv",
+      "id": "cns5-4358",
+      "field": "age_gyr",
+      "expectedPrevious": "13.003913",
+      "expectedCurrent": "",
+      "reason": "age_gyr: the previous 13.003913 (Gyr) of BD+71 851 was a Gaia DR3 FLAME estimate (Gaia DR3 1651145102583323136) whose 16th-84th percentile range 9.45-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-0347",
+      "field": "age_gyr",
+      "expectedPrevious": 9.023818,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 9.023818 (Gyr) of Kappa Tuc B was a Gaia DR3 FLAME estimate (Gaia DR3 4692263904164105856) whose 16th-84th percentile range 7.26-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-4202",
+      "field": "age_gyr",
+      "expectedPrevious": 13.401558,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 13.401558 (Gyr) of BD+54 1862 was a Gaia DR3 FLAME estimate (Gaia DR3 1419999819661235840) whose 16th-84th percentile range 8.45-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-5220",
+      "field": "age_gyr",
+      "expectedPrevious": 12.743431,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 12.743431 (Gyr) of HD 200968 was a Gaia DR3 FLAME estimate (Gaia DR3 6885342959337741184) whose 16th-84th percentile range 10.62-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-5220",
+      "field": "catalog_sources.nearest-5000.age_gyr",
+      "expectedPrevious": 12.743431,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 12.743431 (Gyr) of HD 200968 was a Gaia DR3 FLAME estimate (Gaia DR3 6885342959337741184) whose 16th-84th percentile range 10.62-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-0574",
+      "field": "age_gyr",
+      "expectedPrevious": 12.953588,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 12.953588 (Gyr) of HD 14001A was a Gaia DR3 FLAME estimate (Gaia DR3 5143341362661301632) whose 16th-84th percentile range 3.96-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-0859",
+      "field": "age_gyr",
+      "expectedPrevious": 11.009577,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 11.009577 (Gyr) of HD 21209B was a Gaia DR3 FLAME estimate (Gaia DR3 4737533134341791872) whose 16th-84th percentile range 6.08-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-5722",
+      "field": "age_gyr",
+      "expectedPrevious": 10.185898,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 10.185898 (Gyr) of BD-20 6558 was a Gaia DR3 FLAME estimate (Gaia DR3 2386898972054841088) whose 16th-84th percentile range 5.50-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-0862",
+      "field": "age_gyr",
+      "expectedPrevious": 12.388396,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 12.388396 (Gyr) of HD 21175 was a Gaia DR3 FLAME estimate (Gaia DR3 4852870701505115904) whose 16th-84th percentile range 4.87-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-0862",
+      "field": "catalog_sources.nearest-5000.age_gyr",
+      "expectedPrevious": 12.388396,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 12.388396 (Gyr) of HD 21175 was a Gaia DR3 FLAME estimate (Gaia DR3 4852870701505115904) whose 16th-84th percentile range 4.87-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-1336",
+      "field": "age_gyr",
+      "expectedPrevious": 13.05279,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 13.05279 (Gyr) of HD 34865 was a Gaia DR3 FLAME estimate (Gaia DR3 2983256662869643776) whose 16th-84th percentile range 10.26-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-1336",
+      "field": "catalog_sources.nearest-5000.age_gyr",
+      "expectedPrevious": 13.05279,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 13.05279 (Gyr) of HD 34865 was a Gaia DR3 FLAME estimate (Gaia DR3 2983256662869643776) whose 16th-84th percentile range 10.26-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-4894",
+      "field": "age_gyr",
+      "expectedPrevious": 11.099625,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 11.099625 (Gyr) of HD 186858A was a Gaia DR3 FLAME estimate (Gaia DR3 2035020964491479552) whose 16th-84th percentile range 8.68-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-4904",
+      "field": "age_gyr",
+      "expectedPrevious": 11.710939,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 11.710939 (Gyr) of 17 Cyg B was a Gaia DR3 FLAME estimate (Gaia DR3 2035035258143206016) whose 16th-84th percentile range 9.06-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-5497",
+      "field": "raw_astrometry.radial_velocity_kms",
+      "expectedPrevious": -351.1481,
+      "expectedCurrent": null,
+      "reason": "raw_astrometry.radial_velocity_kms: Gaia DR3 radial velocity -351.1481 km/s of G 188-49B rejected: the star shares the parallax (50.77 vs 50.82 mas) and proper motion of G 188-49, 1.2 arcsec (59 au) away, whose radial velocity is +17 to +26 km/s in four SIMBAD measurements (Gaia DR2 19.8 +/- 0.3, 2016A&A...596A.116S 20.1 +/- 0.3). A 370 km/s difference is far beyond any orbital motion of this bound pair (escape speed about 6 km/s). Reviewed override in catalog-work/nearest-1000/radial-velocity-overrides.csv; the shared system velocity of G 188-49 remains in use."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-5497",
+      "field": "raw_astrometry.radial_velocity_error_kms",
+      "expectedPrevious": 8.175293,
+      "expectedCurrent": null,
+      "reason": "raw_astrometry.radial_velocity_error_kms: Gaia DR3 radial velocity -351.1481 km/s of G 188-49B rejected: the star shares the parallax (50.77 vs 50.82 mas) and proper motion of G 188-49, 1.2 arcsec (59 au) away, whose radial velocity is +17 to +26 km/s in four SIMBAD measurements (Gaia DR2 19.8 +/- 0.3, 2016A&A...596A.116S 20.1 +/- 0.3). A 370 km/s difference is far beyond any orbital motion of this bound pair (escape speed about 6 km/s). Reviewed override in catalog-work/nearest-1000/radial-velocity-overrides.csv; the shared system velocity of G 188-49 remains in use."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-5497",
+      "field": "raw_astrometry.radial_velocity_ref",
+      "expectedPrevious": "Gaia DR3",
+      "expectedCurrent": null,
+      "reason": "raw_astrometry.radial_velocity_ref: Gaia DR3 radial velocity -351.1481 km/s of G 188-49B rejected: the star shares the parallax (50.77 vs 50.82 mas) and proper motion of G 188-49, 1.2 arcsec (59 au) away, whose radial velocity is +17 to +26 km/s in four SIMBAD measurements (Gaia DR2 19.8 +/- 0.3, 2016A&A...596A.116S 20.1 +/- 0.3). A 370 km/s difference is far beyond any orbital motion of this bound pair (escape speed about 6 km/s). Reviewed override in catalog-work/nearest-1000/radial-velocity-overrides.csv; the shared system velocity of G 188-49 remains in use."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-2687",
+      "field": "age_gyr",
+      "expectedPrevious": 13.161468,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 13.161468 (Gyr) of HD 95174B was a Gaia DR3 FLAME estimate (Gaia DR3 3996306127914172928) whose 16th-84th percentile range 10.12-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-5711",
+      "field": "age_gyr",
+      "expectedPrevious": 13.39342,
+      "expectedCurrent": null,
+      "reason": "age_gyr: the previous 13.39342 (Gyr) of HD 218868 was a Gaia DR3 FLAME estimate (Gaia DR3 1935133906477014016) whose 16th-84th percentile range 11.87-13.5 Gyr reaches the 13.5 Gyr limit of the FLAME age grid. The posterior is cut off by the grid, so its median is not a measurement. No replacement is inferred."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "bright-alpheratz",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Spectroscopic binary",
+        "Alpha\u00b2 CVn variable",
+        "Subgiant"
+      ],
+      "expectedCurrent": [
+        "Spectroscopic binary",
+        "Alpha\u00b2 CVn variable"
+      ],
+      "reason": "subtypes: Subgiant came from the MSC spectrum B8IV-, which is the five-character truncation of the star's own B8IV-VHgMn. B8IV-V spans subgiant and main-sequence classes. Retain the full spectrum and the supported binary/variability labels without selecting one evolutionary stage."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "hip-104732",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Bright giant"
+      ],
+      "expectedCurrent": [
+        "Giant"
+      ],
+      "reason": "subtypes: Bright giant came from the MSC spectrum G8+II, which is the five-character truncation of the star's own G8+III-IIIaBa0.5. Zeta Cyg Aa is a giant (luminosity class III-IIIa); the full spectrum and its label replace the truncated ones."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "hip-99473",
+      "field": "spectral_type",
+      "expectedPrevious": "B9.5I",
+      "expectedCurrent": "B9.5III",
+      "reason": "spectral_type: B9.5I is the five-character MSC truncation of B9.5III. MSC stores spectra in a five-character field; the star's own catalog spectrum B9.5III is the untruncated classification."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "hip-99473",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Supergiant"
+      ],
+      "expectedCurrent": [
+        "Giant"
+      ],
+      "reason": "subtypes: Supergiant came from the truncated MSC spectrum B9.5I. Theta Aql Aa is a B9.5III giant (V = 3.2 at 70 pc rules out a supergiant); the full spectrum and its label replace the truncated ones."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "bright-alpheratz",
+      "field": "spectral_type",
+      "expectedPrevious": "B8IV-",
+      "expectedCurrent": "B8IV-VHgMn",
+      "reason": "spectral_type: B8IV- is the five-character MSC truncation of B8IV-VHgMn. MSC stores spectra in a five-character field; the star's own catalog spectrum B8IV-VHgMn is the untruncated classification."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "hip-104732",
+      "field": "spectral_type",
+      "expectedPrevious": "G8+II",
+      "expectedCurrent": "G8+III-IIIaBa0.5",
+      "reason": "spectral_type: G8+II is the five-character MSC truncation of G8+III-IIIaBa0.5. MSC stores spectra in a five-character field; the star's own catalog spectrum G8+III-IIIaBa0.5 is the untruncated classification."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-44511",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Red supergiant",
+        "Giant"
+      ],
+      "expectedCurrent": [
+        "Giant"
+      ],
+      "reason": "subtypes: SIMBAD secondary class Red supergiant withheld by the object-stats contradiction review. The star's own single spectrum K2III has luminosity class III, which rules out a supergiant; SIMBAD's sourceTypes keep the original code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-41039",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Eclipsing binary",
+        "Spectroscopic binary",
+        "Yellow supergiant",
+        "Beta Cephei variable candidate",
+        "Giant"
+      ],
+      "expectedCurrent": [
+        "Eclipsing binary",
+        "Spectroscopic binary",
+        "Beta Cephei variable candidate",
+        "Giant"
+      ],
+      "reason": "subtypes: SIMBAD secondary class Yellow supergiant withheld by the object-stats contradiction review. The star's own single spectrum B2III has luminosity class III, which rules out a supergiant; SIMBAD's sourceTypes keep the original code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-32226",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Blue supergiant",
+        "Giant"
+      ],
+      "expectedCurrent": [
+        "Giant"
+      ],
+      "reason": "subtypes: SIMBAD secondary class Blue supergiant withheld by the object-stats contradiction review. The star's own single spectrum B0III has luminosity class III, which rules out a supergiant; SIMBAD's sourceTypes keep the original code."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "hip-93174",
+      "field": "catalog_sources.western-constellation-stars.subtypes",
+      "expectedPrevious": [
+        "Eclipsing binary",
+        "Spectroscopic binary",
+        "Young stellar object candidate"
+      ],
+      "expectedCurrent": [
+        "Eclipsing binary",
+        "Spectroscopic binary"
+      ],
+      "reason": "catalog_sources.western-constellation-stars.subtypes: SIMBAD candidate class Young stellar object withheld by the object-stats contradiction review. Epsilon CrA's own spectrum F0V is a main-sequence class, which rules out a pre-main-sequence star; GCVS lists it as a W UMa contact binary (EW). The luminosity-class parser now reads classes followed by abundance or line notes."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-106752",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Variable star",
+        "Giant"
+      ],
+      "expectedCurrent": [
+        "Giant"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Variable star withheld. GCVS lists CP Cyg as constant (CST): a suspected variability that later observations did not confirm. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-106897",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Variable star",
+        "RR Lyrae variable candidate",
+        "Main-sequence"
+      ],
+      "expectedCurrent": [
+        "Variable star",
+        "Main-sequence"
+      ],
+      "reason": "subtypes: SIMBAD class RR Lyrae variable candidate withheld. RR Lyrae stars are horizontal-branch stars, which NZ Peg's own main-sequence spectrum rules out; the uncertain GCVS type (RR:) is withheld for the same reason. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-113860",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Cepheid variable",
+        "Eruptive variable",
+        "Spectroscopic binary",
+        "Main-sequence"
+      ],
+      "expectedCurrent": [
+        "Eruptive variable",
+        "Pulsating variable",
+        "Spectroscopic binary",
+        "Main-sequence"
+      ],
+      "reason": "subtypes: SIMBAD class Cepheid variable withheld. Pi PsA's own spectrum F1VFe-0.8 is a main-sequence dwarf, which rules out a Cepheid, and GCVS lists it as suspected constant (CST:). sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-114347",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Mira variable",
+        "S-type star"
+      ],
+      "expectedCurrent": [
+        "S-type star",
+        "Semiregular variable"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Mira variable withheld. GCVS classifies GZ Peg as SRA, a different variability type; GCVS is the reference catalog of variable-star types, and the star's own spectral class is checked as well. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-30011",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Cepheid variable"
+      ],
+      "expectedCurrent": [
+        "Pulsating variable"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Cepheid variable withheld. GCVS lists every known Cepheid brighter than V 8, and this naked-eye star is not among them; a Cepheid must also be an F-K star. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-3179",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Variable star",
+        "Giant"
+      ],
+      "expectedCurrent": [
+        "Giant"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Variable star withheld. GCVS lists alf Cas as constant (CST): a suspected variability that later observations did not confirm. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-34922",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Asymptotic giant branch",
+        "Mira variable"
+      ],
+      "expectedCurrent": [
+        "Asymptotic giant branch",
+        "Semiregular variable"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Mira variable withheld. GCVS classifies L 2 Pup as SRB, a different variability type; GCVS is the reference catalog of variable-star types, and the star's own spectral class is checked as well. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-38074",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Variable star",
+        "Giant"
+      ],
+      "expectedCurrent": [
+        "Giant"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Variable star withheld. GCVS lists T Pup as constant (CST): a suspected variability that later observations did not confirm. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-38414",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Cepheid variable",
+        "Spectroscopic binary"
+      ],
+      "expectedCurrent": [
+        "Pulsating variable",
+        "Spectroscopic binary"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Cepheid variable withheld. GCVS lists every known Cepheid brighter than V 8, and this naked-eye star is not among them; a Cepheid must also be an F-K star. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-48682",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Variable star",
+        "Giant"
+      ],
+      "expectedCurrent": [
+        "Giant"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Variable star withheld. GCVS lists SY UMa as constant (CST): a suspected variability that later observations did not confirm. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-51192",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Cepheid variable",
+        "Supergiant"
+      ],
+      "expectedCurrent": [
+        "Variable star",
+        "Supergiant"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Cepheid variable withheld. GCVS classifies V0399 Car as ACYG, a different variability type; GCVS is the reference catalog of variable-star types, and the star's own spectral class is checked as well. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-56379",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Herbig Ae/Be",
+        "Be star",
+        "Orion variable",
+        "Asymptotic giant branch candidate",
+        "Main-sequence"
+      ],
+      "expectedCurrent": [
+        "Herbig Ae/Be",
+        "Be star",
+        "Orion variable",
+        "Eclipsing binary",
+        "Main-sequence"
+      ],
+      "reason": "subtypes: SIMBAD class Asymptotic giant branch candidate withheld. KR Mus's own spectrum A0Vae is a main-sequence dwarf, which rules out an evolved giant; GCVS lists it as an eclipsing binary (E). sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-57439",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Cepheid variable"
+      ],
+      "expectedCurrent": [
+        "Variable star"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Cepheid variable withheld. GCVS lists every known Cepheid brighter than V 8, and this naked-eye star is not among them; a Cepheid must also be an F-K star. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-66825",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Mira variable"
+      ],
+      "expectedCurrent": [
+        "Semiregular variable"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Mira variable withheld. GCVS classifies T Cen as SR, a different variability type; GCVS is the reference catalog of variable-star types, and the star's own spectral class is checked as well. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-73714",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Mira variable",
+        "Giant"
+      ],
+      "expectedCurrent": [
+        "Semiregular variable",
+        "Giant"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Mira variable withheld. GCVS classifies sig Lib as SRB, a different variability type; GCVS is the reference catalog of variable-star types, and the star's own spectral class is checked as well. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-80843",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Mira variable",
+        "Chemically peculiar",
+        "Red giant",
+        "S-type star"
+      ],
+      "expectedCurrent": [
+        "Long-period variable",
+        "Chemically peculiar",
+        "Red giant",
+        "S-type star"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Mira variable withheld. The star's own spectral type rules them out (a Mira is a K-M giant; evolved or pre-main-sequence classes cannot apply to a main-sequence dwarf). sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-92202",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Asymptotic giant branch",
+        "Emission-line star",
+        "RV Tauri variable",
+        "Classical Cepheid"
+      ],
+      "expectedCurrent": [
+        "Asymptotic giant branch",
+        "Emission-line star",
+        "RV Tauri variable"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Classical Cepheid withheld. GCVS classifies R Sct as RVA, a different variability type; GCVS is the reference catalog of variable-star types, and the star's own spectral class is checked as well. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-92862",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Long-period variable",
+        "Classical Cepheid",
+        "Giant"
+      ],
+      "expectedCurrent": [
+        "Semiregular variable",
+        "Giant"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Classical Cepheid withheld. GCVS classifies R Lyr as SRB, a different variability type; GCVS is the reference catalog of variable-star types, and the star's own spectral class is checked as well. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-93174",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Eclipsing binary",
+        "Spectroscopic binary",
+        "Young stellar object candidate"
+      ],
+      "expectedCurrent": [
+        "Eclipsing binary",
+        "Spectroscopic binary"
+      ],
+      "reason": "subtypes: SIMBAD class Young stellar object candidate withheld. Epsilon CrA's own spectrum F4V is a main-sequence dwarf, which rules out a pre-main-sequence star; GCVS lists it as a W UMa contact binary (EW). sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-98085",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "RV Tauri variable",
+        "Spectroscopic binary",
+        "Classical Cepheid",
+        "Supergiant"
+      ],
+      "expectedCurrent": [
+        "Spectroscopic binary",
+        "Classical Cepheid",
+        "Supergiant"
+      ],
+      "reason": "subtypes: SIMBAD class(es) RV Tauri variable withheld. GCVS classifies S Sge as DCEP, a different variability type; GCVS is the reference catalog of variable-star types, and the star's own spectral class is checked as well. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/object-stats.json",
+      "id": "hip-99653",
+      "field": "subtypes",
+      "expectedPrevious": [
+        "Carbon star",
+        "Emission-line star",
+        "Mira variable"
+      ],
+      "expectedCurrent": [
+        "Carbon star",
+        "Emission-line star",
+        "Semiregular variable"
+      ],
+      "reason": "subtypes: SIMBAD class(es) Mira variable withheld. GCVS classifies RS Cyg as SRA, a different variability type; GCVS is the reference catalog of variable-star types, and the star's own spectral class is checked as well. sourceTypes keeps every SIMBAD code."
     }
   ],
   "recordRetirements": [
@@ -4906,6 +6274,36 @@
       "id": "cns5-3707",
       "reviewPath": "catalog-work/nearest-1000/reviewed-membership-exclusions.json",
       "reason": "Reviewed background object, not a confirmed nearby member. The full original catalog row, provenance and frozen source observations are retained in the exact-identity review."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hip-13487",
+      "reviewPath": "catalog-work/naked-eye-stars/reviewed-photometry-exclusions.json",
+      "reason": "Not a naked-eye star: SIMBAD's compiled V = 6.408 (2000A&A...355L..27H) does not describe HD 17706: Tycho-2 measures VT = 8.549 and BT = 8.887 at its position (TYC 4056-1120-1), Gaia DR3 gives G = 8.51 and 2MASS J = 7.66. At V of about 8.5 the star is not visible to the naked eye. The full former row is retained in the photometry review."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "gamma-psa-b",
+      "reviewPath": "catalog-work/naked-eye-stars/reviewed-photometry-exclusions.json",
+      "reason": "Not a naked-eye star: SIMBAD's compiled V = 5.023 and B = 5.049 (2000A&A...355L..27H) belong to the bright primary Gamma PsA A: Tycho-2 has a single source, VT = 4.502, within 60 arcsec, which is the A star. The F5V companion 4 arcsec away has Gaia DR3 G = 8.00, about V = 8.1, beyond naked-eye visibility. The full former row is retained in the photometry review."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "cl-melotte-20-772",
+      "reviewPath": "catalog-work/naked-eye-stars/reviewed-photometry-exclusions.json",
+      "reason": "Not a naked-eye star: The compiled V = 4.989 (2006RMxAA..42..179P) cannot belong to this Alpha Persei cluster member: Gaia DR3 gives G = 11.47, 2MASS J = 10.50, and Tycho-2 has no source at its position (complete to about VT 11.5). The star is about V 12, far below naked-eye visibility. The full former row is retained in the photometry review."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "hd-117630",
+      "reviewPath": "catalog-work/naked-eye-stars/reviewed-photometry-exclusions.json",
+      "reason": "Not a naked-eye star: SIMBAD's compiled V = 6.5 and B = 6.68 (1967ArA.....4..375L) contradict every modern measurement: Tycho-2 VT = 10.255 and BT = 10.458 (TYC 8999-1232-1), Gaia DR3 G = 10.20, 2MASS J = 9.81. At V of about 10.2 the star is not visible to the naked eye. The full former row is retained in the photometry review."
+    },
+    {
+      "path": "src/data/catalogs/naked-eye-stars/stars.csv",
+      "id": "asas-j091626-6728-7",
+      "reviewPath": "catalog-work/naked-eye-stars/reviewed-photometry-exclusions.json",
+      "reason": "Not a naked-eye star: The compiled V = 3.27 (2017MNRAS.469.3688D) is this Mira variable's amplitude in a periodic-variable catalogue, not its brightness: B = 15.96, Gaia DR3 G = 13.17 and 2MASS J = 9.50. Even at maximum the star stays far below naked-eye visibility. The full former row is retained in the photometry review."
     }
   ]
 }

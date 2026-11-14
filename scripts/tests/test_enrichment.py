@@ -32,7 +32,7 @@ class EnrichmentTests(unittest.TestCase):
         with author.WESTERN_SOURCE.joinpath("simbad.csv").open() as handle:
             source = next(item for item in csv.DictReader(handle) if item["main_id"] == "* zet01 Sco")
         row = empty_row(id="hip-82671", name="Zeta1 Sco", spectral_type="B1.5Ia+")
-        provenance = author.enrich_physical(row, source)
+        provenance = author.enrich_physical(row, source, author.reviewed_distance(source)[1][0])
         self.assertEqual(row["temperature_k"], "17200")
         self.assertEqual(float(row["radius_solar"]), 103)
         self.assertAlmostEqual(float(row["luminosity_solar"]), 10 ** 5.93, places=3)

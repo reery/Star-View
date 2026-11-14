@@ -161,8 +161,8 @@
     "inputSha256": {
       "catalog-work/star-systems/overlay-companions.json": "0155d05f01e61ef80496c0d515b35946c8e6dcdd06342bb7fa8eda653e39485b",
       "src/data/star-systems.json": "ccb8b300d861fec42a9b95bfeafa8e30f3b4c53298c8c03e3f1743bf4c28fddf",
-      "src/data/catalogs/nearest-1000/stars.csv": "bfe66cbcd8288c51e2f17f4ffd12f3661605c2dee22f4f42cdc6d2d776ceb182",
-      "src/data/catalogs/nearest-1000/provenance.json": "24940c54dc21b8d094ad37d6620e652e2f41660ec4aae936f7d6532d13c46925",
+      "src/data/catalogs/nearest-1000/stars.csv": "801789f131e2a21dcd5e2d8ffb6e4d7f929eb244da5fa3e6396fa458cbf62d17",
+      "src/data/catalogs/nearest-1000/provenance.json": "7c696eba1ad921bdca3291024871e008fd36b07e94db58893618283e68158f4e",
       "catalog-work/star-systems/overlay-individual-components.json": "b4fbcf92e682c639a11c5e488a378d43a0b43aaa10e0e8b16b2db70dc9a10741",
       "catalog-work/star-systems/msc-20260619-rigel.json": "0bc6740e8537705363c915a78b203822b46a9a31330f325f6b4a783091e40e97",
       "catalog-work/star-systems/msc-20260619.Readme": "d0906632b078a3b97b4e7247ad76830e2cc13bae6300ae145d69ce30a8e859b8"
@@ -16081,12 +16081,19 @@
       "simbadId": "* zet Aur",
       "visualMagnitudeSource": "SIMBAD compiled Johnson V",
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 951.5496,
-        "lowerPc": 676.9546,
-        "upperPc": 1818.0911,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "200929706966014976"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 240.96385542168673,
+        "parallaxSignalToNoise": 14.31034482758621,
+        "source": "2007A&A...474..653V",
+        "sourceId": "* zet Aur",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 1.4244,
+            "errorMas": 0.305,
+            "bibcode": null
+          },
+          "reason": "Signal-to-noise 4.67 is below 5; the Hipparcos 2007 parallax of HIP 23453 (4.15 +/- 0.29 mas, signal-to-noise 14.31) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -16114,7 +16121,7 @@
         },
         {
           "field": "luminosity_solar",
-          "value": 60641.60569206939,
+          "value": 3888.764439466537,
           "uncertainty": null,
           "status": "model-derived",
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
@@ -16123,7 +16130,7 @@
         },
         {
           "field": "radius_solar",
-          "value": 434.9690261262868,
+          "value": 110.14855507732486,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         },
@@ -22975,11 +22982,19 @@
       "simbadId": "* eta Gem",
       "visualMagnitudeSource": "SIMBAD compiled Johnson V",
       "adoptedDistance": {
-        "method": "inverse SIMBAD compiled parallax",
-        "distancePc": 211.36286777138992,
-        "parallaxSignalToNoise": 4.635250318408936,
-        "source": "SIMBAD TAP snapshot 2026-10-01",
-        "sourceId": "* eta Gem"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 117.92452830188678,
+        "parallaxSignalToNoise": 6.894308943089431,
+        "source": "2007A&A...474..653V",
+        "sourceId": "* eta Gem",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 4.7312,
+            "errorMas": 1.0207,
+            "bibcode": null
+          },
+          "reason": "Signal-to-noise 4.64 is below 5; the Hipparcos 2007 parallax of HIP 29655 (8.48 +/- 1.23 mas, signal-to-noise 6.89) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -23007,7 +23022,7 @@
         },
         {
           "field": "luminosity_solar",
-          "value": 12513.755826651777,
+          "value": 3895.279151695026,
           "uncertainty": null,
           "status": "model-derived",
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
@@ -23016,7 +23031,7 @@
         },
         {
           "field": "radius_solar",
-          "value": 290.7906443919871,
+          "value": 162.23923310700107,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         },
@@ -25692,12 +25707,19 @@
       "simbadId": "* omi02 CMa",
       "visualMagnitudeSource": "SIMBAD compiled Johnson V",
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 1449.3083,
-        "lowerPc": 1052.5222,
-        "upperPc": 2452.2114,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "2921635736292220800"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 847.4576271186442,
+        "parallaxSignalToNoise": 2.9499999999999997,
+        "source": "2007A&A...474..653V",
+        "sourceId": "* omi02 CMa",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.8715,
+            "errorMas": 0.3319,
+            "bibcode": null
+          },
+          "reason": "Signal-to-noise 2.63 is below 5; the Hipparcos 2007 parallax of HIP 33977 (1.18 +/- 0.40 mas, signal-to-noise 2.95) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -25724,7 +25746,7 @@
         },
         {
           "field": "luminosity_solar",
-          "value": 154077.34997579237,
+          "value": 52680.90498651907,
           "uncertainty": null,
           "status": "model-derived",
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
@@ -25733,7 +25755,7 @@
         },
         {
           "field": "radius_solar",
-          "value": 104.25238510849437,
+          "value": 60.9597550124454,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
@@ -37182,7 +37204,15 @@
         "upperPc": 2711.0,
         "source": "Kasikov et al. 2026",
         "sourceId": "2026A&A...708A..78K",
-        "note": "Gaia DR3 co-moving OB-association distance; preferred because the hypergiant's direct parallax has signal-to-noise 2.2 and RUWE 1.99"
+        "note": "Gaia DR3 co-moving OB-association distance; preferred because the hypergiant's direct parallax has signal-to-noise 2.2 and RUWE 1.99",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.2228,
+            "errorMas": 0.1004,
+            "bibcode": null
+          },
+          "reason": "Signal-to-noise 2.22 is below 5; the Hipparcos 2007 parallax of HIP 54463 (0.52 +/- 0.17 mas, signal-to-noise 3.06) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -55723,12 +55753,19 @@
       "simbadId": "* mu.01 Sco",
       "visualMagnitudeSource": "SIMBAD compiled Johnson V",
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 1196.5736,
-        "lowerPc": 801.46844,
-        "upperPc": 1601.6946,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "5971289565647972608"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 153.60983102918587,
+        "parallaxSignalToNoise": 7.153846153846153,
+        "source": "2007A&A...474..653V",
+        "sourceId": "* mu.01 Sco",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 1.8732,
+            "errorMas": 0.7355,
+            "bibcode": null
+          },
+          "reason": "Signal-to-noise 2.55 is below 5; the Hipparcos 2007 parallax of HIP 82514 (6.51 +/- 0.91 mas, signal-to-noise 7.15) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -55756,7 +55793,7 @@
         },
         {
           "field": "luminosity_solar",
-          "value": 212687.27505173496,
+          "value": 3505.1022887707236,
           "uncertainty": null,
           "status": "model-derived",
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
@@ -55774,7 +55811,7 @@
         },
         {
           "field": "radius_solar",
-          "value": 65.22586050794578,
+          "value": 8.373353224038036,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         }
@@ -55789,12 +55826,21 @@
       "simbadId": "* zet01 Sco",
       "visualMagnitudeSource": "SIMBAD compiled Johnson V",
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 1714.4269,
-        "lowerPc": 1438.9724,
-        "upperPc": 2101.8137,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "5964986649547042944"
+        "method": "open-cluster parallax (NGC 6231)",
+        "distancePc": 1618.123,
+        "lowerPc": 1612.903,
+        "upperPc": 1623.377,
+        "source": "Cantat-Gaudin et al. 2020",
+        "sourceId": "2020A&A...633A..99C",
+        "note": "Hypergiant member of NGC 6231 in Sco OB1 (Feinstein & Ferrer 1968, 1968PASP...80..410F); cluster parallax 0.589 +/- 0.002 mas corrected by the Gaia DR2 zero-point of -0.029 mas. The star's own Gaia DR3 parallax of 0.5855 +/- 0.1176 mas agrees; the Hipparcos 2007 parallax of 1.27 +/- 0.25 mas does not",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 0.5855,
+            "errorMas": 0.1176,
+            "bibcode": null
+          },
+          "reason": "Signal-to-noise 4.98 is below 5; the Hipparcos 2007 parallax of HIP 82671 (1.27 +/- 0.25 mas, signal-to-noise 5.08) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -59309,12 +59355,19 @@
       "simbadId": "* iot01 Sco",
       "visualMagnitudeSource": "SIMBAD compiled Johnson V",
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 965.5109,
-        "lowerPc": 721.4336,
-        "upperPc": 1384.3016,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "5958043164999014400"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 591.7159763313609,
+        "parallaxSignalToNoise": 11.266666666666667,
+        "source": "2007A&A...474..653V",
+        "sourceId": "* iot01 Sco",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 1.4177,
+            "errorMas": 0.2941,
+            "bibcode": null
+          },
+          "reason": "Signal-to-noise 4.82 is below 5; the Hipparcos 2007 parallax of HIP 87073 (1.69 +/- 0.15 mas, signal-to-noise 11.27) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -59342,7 +59395,7 @@
         },
         {
           "field": "luminosity_solar",
-          "value": 48587.8940212681,
+          "value": 18249.051812051515,
           "uncertainty": null,
           "status": "model-derived",
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
@@ -59351,7 +59404,7 @@
         },
         {
           "field": "radius_solar",
-          "value": 199.05225752907077,
+          "value": 121.98971643383375,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         },
@@ -60901,12 +60954,19 @@
       "simbadId": "* ksi Pav",
       "visualMagnitudeSource": "SIMBAD compiled Johnson V",
       "adoptedDistance": {
-        "method": "Bailer-Jones EDR3 geometric posterior median",
-        "distancePc": 277.6956,
-        "lowerPc": 216.57802,
-        "upperPc": 365.6973,
-        "source": "Bailer-Jones et al. 2021",
-        "sourceId": "6634378296431076864"
+        "method": "inverse Hipparcos 2007 parallax",
+        "distancePc": 143.67816091954023,
+        "parallaxSignalToNoise": 6.757281553398058,
+        "source": "2007A&A...474..653V",
+        "sourceId": "* ksi Pav",
+        "parallaxReview": {
+          "replaced": {
+            "parallaxMas": 4.4041,
+            "errorMas": 0.8898,
+            "bibcode": null
+          },
+          "reason": "Signal-to-noise 4.95 is below 5; the Hipparcos 2007 parallax of HIP 90098 (6.96 +/- 1.03 mas, signal-to-noise 6.76) is more precise"
+        }
       },
       "radialVelocity": {
         "status": "simbad-compiled",
@@ -60934,7 +60994,7 @@
         },
         {
           "field": "luminosity_solar",
-          "value": 2757.7113977499043,
+          "value": 738.2311011628585,
           "uncertainty": null,
           "status": "model-derived",
           "source": "McDonald et al. 2012 SED rescaled to adopted distance",
@@ -60961,7 +61021,7 @@
         },
         {
           "field": "radius_solar",
-          "value": 99.18099732859949,
+          "value": 51.315697095449146,
           "status": "derived",
           "source": "Stefan-Boltzmann scaling"
         },
@@ -80000,18 +80060,6 @@
               "status": "model-derived",
               "uncertainty": 0.031128739999999988,
               "value": 0.55555
-            },
-            {
-              "field": "age_gyr",
-              "quality_flags": [
-                "00"
-              ],
-              "reference": "Gaia DR3 astrophysical_parameters",
-              "source_id": "gaia-dr3",
-              "source_record_id": "211810233512673792",
-              "status": "model-derived",
-              "uncertainty": 7.4399391999999995,
-              "value": 10.741266
             }
           ],
           "physicalSupplements": {
@@ -80080,18 +80128,6 @@
           "sourceType": "PM*",
           "supersededGaiaPhysical": {
             "observations": {
-              "age_gyr": {
-                "field": "age_gyr",
-                "quality_flags": [
-                  "00"
-                ],
-                "reference": "Gaia DR3 astrophysical_parameters",
-                "source_id": "gaia-dr3",
-                "source_record_id": "211810233512673792",
-                "status": "model-derived",
-                "uncertainty": 7.4399391999999995,
-                "value": 10.741266
-              },
               "mass_solar": {
                 "field": "mass_solar",
                 "quality_flags": [

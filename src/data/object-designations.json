@@ -17,24 +17,24 @@
     "catalog-work/object-designations/simbad.csv": "d2f31fe2362ae8b8b56b672e93ab48e144457ed5795e3b90fb905ffc78bdea12",
     "catalog-work/object-designations/source-manifest.json": "2655d804d7aa488d2d01d0439e5279131f89f113ae624aaa47ab339f78c3bfb7",
     "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede",
-    "src/data/catalogs/naked-eye-stars/provenance.json": "bae602ce4f3760afa8d9606b2d4f59df65ec9a4d900b5c1987dd05b632a04109",
-    "src/data/catalogs/naked-eye-stars/stars.csv": "9212bdef36cf17336f7e03dec3e8df94fdcaa6d523c62a13d4fc071c53e630b3",
-    "src/data/catalogs/nearest-100/provenance.json": "648d7c6c5edc91bf6078af7dda18679770ab276defee0a7a03f4b325ee145cd4",
+    "src/data/catalogs/naked-eye-stars/provenance.json": "8f3e41b7b19b9bd922b774af28ad20e0def798900b77953045bee721a3eac359",
+    "src/data/catalogs/naked-eye-stars/stars.csv": "e6840784bebf3a0df072f304d5ab319bd33c5eb56982e6dd1a0b70ea1f06a887",
+    "src/data/catalogs/nearest-100/provenance.json": "e251dea3eefcec3689b320de51ebd78f48ba6af1767172b1a466e6695c8201fa",
     "src/data/catalogs/nearest-100/stars.csv": "d5a025666750b798e5ba991436b5a3656f6aea4a2ad7a50cb795aa752c0259f8",
-    "src/data/catalogs/nearest-1000/provenance.json": "24940c54dc21b8d094ad37d6620e652e2f41660ec4aae936f7d6532d13c46925",
-    "src/data/catalogs/nearest-1000/stars.csv": "bfe66cbcd8288c51e2f17f4ffd12f3661605c2dee22f4f42cdc6d2d776ceb182",
-    "src/data/catalogs/nearest-5000/provenance.json": "df74a9afb57de1454c03736dd9e866ce85b40ffb2dafcad3249daf0f0a9a97c9",
-    "src/data/catalogs/nearest-5000/stars.csv": "f911ed7c55e6c1d2a76174af123a9d324c300b849e72009fa80488f8d642aaa0",
+    "src/data/catalogs/nearest-1000/provenance.json": "7c696eba1ad921bdca3291024871e008fd36b07e94db58893618283e68158f4e",
+    "src/data/catalogs/nearest-1000/stars.csv": "801789f131e2a21dcd5e2d8ffb6e4d7f929eb244da5fa3e6396fa458cbf62d17",
+    "src/data/catalogs/nearest-5000/provenance.json": "341aebc5ab23a7a7c7325c52bd37d7d0926c040d620446fe9a239aad40ac6067",
+    "src/data/catalogs/nearest-5000/stars.csv": "d68a715ed91b28b4691b093a2b4988bab253c878bf9ce0f0e7d246c456fc798b",
     "src/data/catalogs/notable-distant-stars/stars.csv": "afed253f44340a6d0a4057b91ab1554fba16f1c106e76e54a8660b016bfdbd36",
-    "src/data/catalogs/western-constellation-stars/provenance.json": "a7f3303ac01df51ac02ad43643c28414d2b1f7f6c0c04c006764f5e209fa6587",
-    "src/data/catalogs/western-constellation-stars/stars.csv": "ac93013a81023993712831294e80229ca693476878fdc47538be6a0f5bd5d748",
+    "src/data/catalogs/western-constellation-stars/provenance.json": "c48cddbf01e7bd7d0f3877deba16cf5eab085e1c989d635eb04eac79eb370dcd",
+    "src/data/catalogs/western-constellation-stars/stars.csv": "f094b4f53be6c5d73bca10c803845831096d7a2dd48b1606d68ca65ea287dcc8",
     "src/data/legacy-star-ids.json": "1b3022e79a02fac18f035fd4323dc43c582730ec66b4dd5baa85a1d0873362a3",
     "src/data/overlays/bubbles/objects.json": "1fb673285045e35cb4caafa2a672d6d0ad2bc6c3218badd4861cb582a8429926",
     "src/data/overlays/compact-remnants/objects.json": "a9f95edd9421e54ddfdcc2ff51e572033c279e8883e5a8448c67b97c6f185742",
     "src/data/overlays/molecular-clouds/objects.json": "6f20f8fefbbeab700c05c1a0e6b9844f42998da9d810f073973cd99da50419b4",
-    "src/data/overlays/nebulae/objects.json": "36f03b0ac92eb531bc76b9ae2b5d61e660636167c91ec1ed12a67cbf54a0d8c2",
+    "src/data/overlays/nebulae/objects.json": "0bd9efc441d29f687e62085d74f04ccaa58447f17da666341457e831f5c3cdd6",
     "src/data/stars.csv": "44288f83123f36b349c58a72e4ae23608ec242e5ff25850fabf6a42ca2ae616a",
-    "src/data/stellar-companions.json": "534fc8436d4c2014944197f576a021f32d83ba6032c686ad48d8ee7c7adf4a11"
+    "src/data/stellar-companions.json": "36b4828120eccbdcfc5867b8c0b79a139f58c272c2c43e2f8b04eb478e4bcce9"
   },
   "objects": {
     "10pc-0029": {
@@ -4329,27 +4329,6 @@
       ],
       "simbadId": "* alf Cen B"
     },
-    "asas-j091626-6728-7": {
-      "name": "ASAS J091626-6728.7",
-      "designations": [
-        "2MASS J09162567-6728356",
-        "AKARI-IRC-V1 J0916256-672835",
-        "ASASSN-V J091625.68-672835.7",
-        "CRTS J091625.4-672836",
-        "Gaia DR2 5247105646530582144",
-        "Gaia DR3 5247105646530582144",
-        "TIC 303544856",
-        "UCAC2 2382990",
-        "UCAC4 113-022583",
-        "WISE J091625.66-672835.5",
-        "WISEA J091625.64-672835.5"
-      ],
-      "sources": [
-        "catalog-work/naked-eye-stars/simbad.csv",
-        "src/data/catalogs/naked-eye-stars/stars.csv"
-      ],
-      "simbadId": "ASAS J091626-6728.7"
-    },
     "barnards-star": {
       "name": "Barnard's Star",
       "designations": [
@@ -7628,20 +7607,6 @@
         "src/data/catalogs/nearest-1000/stars.csv",
         "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
-    },
-    "cl-melotte-20-772": {
-      "name": "Cl Melotte 20 772",
-      "designations": [
-        "2MASS J03275892+4901102",
-        "Gaia DR2 441415165068758400",
-        "Gaia DR3 441415165068758400",
-        "TIC 410707239"
-      ],
-      "sources": [
-        "catalog-work/naked-eye-stars/simbad.csv",
-        "src/data/catalogs/naked-eye-stars/stars.csv"
-      ],
-      "simbadId": "Cl Melotte   20   772"
     },
     "cns5-0001": {
       "name": "2MASS J00001354+2554180",
@@ -141722,28 +141687,6 @@
         "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
     },
-    "gamma-psa-b": {
-      "name": "Gamma PsA B",
-      "designations": [
-        "Gamma Piscis Austrini B",
-        "GJ 9800 B",
-        "CCDM J22525-3253B",
-        "CD-33 16270B",
-        "CSI-33 16270 22",
-        "Gaia DR2 6602839458218256896",
-        "Gaia DR3 6602839458218256896",
-        "gam PsA B",
-        "HJ 5367B",
-        "IDS 22470-3324 B",
-        "TYC 7508-1315-1",
-        "WDS J22525-3253B"
-      ],
-      "sources": [
-        "catalog-work/naked-eye-stars/simbad.csv",
-        "src/data/catalogs/naked-eye-stars/stars.csv"
-      ],
-      "simbadId": "* gam PsA B"
-    },
     "gj-1001-c": {
       "name": "GJ 1001 C",
       "designations": [],
@@ -142353,30 +142296,6 @@
       ],
       "sourceName": "HD 113415B",
       "simbadId": "HD 113415B"
-    },
-    "hd-117630": {
-      "name": "HD 117630",
-      "designations": [
-        "2MASS J13332681-6451531",
-        "[L67b] 29- 17",
-        "Cl Loden 848 16",
-        "CPD-64 2464",
-        "Gaia DR1 5864030449663038464",
-        "Gaia DR2 5864030453992471808",
-        "Gaia DR3 5864030453992471808",
-        "GEN# +1.00117630",
-        "GSC 08999-01232",
-        "PPM 779521",
-        "TIC 316293394",
-        "TYC 8999-1232-1",
-        "UBV M 19471",
-        "UCAC2 3322650"
-      ],
-      "sources": [
-        "catalog-work/naked-eye-stars/simbad.csv",
-        "src/data/catalogs/naked-eye-stars/stars.csv"
-      ],
-      "simbadId": "HD 117630"
     },
     "hd-118623a": {
       "name": "25 CVn A",
@@ -203730,43 +203649,6 @@
         "src/data/catalogs/naked-eye-stars/stars.csv"
       ],
       "simbadId": "HD  18071"
-    },
-    "hip-13487": {
-      "name": "HD 17706",
-      "designations": [
-        "HIP 13487",
-        "2MASS J02534049+6427070",
-        "AG+64 186",
-        "AGKR 2513",
-        "AKARI-FIS-V1 J0253413+642707",
-        "BD+63 364",
-        "CCDM J02537+6427AB",
-        "Gaia DR2 468110718974249600",
-        "Gaia DR3 468110718974249600",
-        "GEN# +1.00017706",
-        "GSC 04056-01120",
-        "HIC 13487",
-        "IDS 02454+6402 AB",
-        "IRAS 02495+6414",
-        "MLR 307",
-        "PPM 13937",
-        "SAO 12493",
-        "TIC 390576440",
-        "TYC 4056-1120-1",
-        "UBV M 9181",
-        "UCAC3 55-278141",
-        "UCAC4 136-123901",
-        "uvby98 100017706",
-        "WB89 454",
-        "WDS J02537+6427AB",
-        "WISE J025340.51+642707.0",
-        "WISEA J025340.51+642707.0"
-      ],
-      "sources": [
-        "catalog-work/naked-eye-stars/simbad.csv",
-        "src/data/catalogs/naked-eye-stars/stars.csv"
-      ],
-      "simbadId": "HD  17706"
     },
     "hip-13490": {
       "name": "20 Per",

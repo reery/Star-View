@@ -9,7 +9,7 @@
     "naked-eye-stars",
     "notable-distant-stars"
   ],
-  "uniqueObjects": 14082,
+  "uniqueObjects": 14077,
   "classes": [
     {
       "spectral": "A0.5V",
@@ -4427,7 +4427,7 @@
       "letter": "B",
       "subtype": 1,
       "stage": "V",
-      "count": 26,
+      "count": 27,
       "metrics": {
         "mass": {
           "value": 9.315,
@@ -5736,7 +5736,7 @@
       "letter": "B",
       "subtype": 5,
       "stage": "IV",
-      "count": 20,
+      "count": 19,
       "metrics": {
         "mass": {
           "value": 5.44447,
@@ -6867,43 +6867,6 @@
       }
     },
     {
-      "spectral": "B9.5I",
-      "letter": "B",
-      "subtype": 9.5,
-      "stage": "I",
-      "count": 1,
-      "metrics": {
-        "mass": {
-          "value": 3.514,
-          "range": [
-            3.514,
-            3.514
-          ],
-          "count": 1
-        },
-        "gravity": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "escapeKms": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "density": {
-          "value": null,
-          "range": null,
-          "count": 0
-        },
-        "luminosityPerMass": {
-          "value": null,
-          "range": null,
-          "count": 0
-        }
-      }
-    },
-    {
       "spectral": "B9.5Ia",
       "letter": "B",
       "subtype": 9.5,
@@ -7044,15 +7007,15 @@
       "letter": "B",
       "subtype": 9.5,
       "stage": "III",
-      "count": 18,
+      "count": 19,
       "metrics": {
         "mass": {
-          "value": 2.99,
+          "value": 3.121,
           "range": [
             2.59,
-            3.49
+            3.514
           ],
-          "count": 3
+          "count": 4
         },
         "gravity": {
           "value": 114.595,
@@ -9356,7 +9319,7 @@
       "letter": "F",
       "subtype": 5,
       "stage": "V",
-      "count": 102,
+      "count": 101,
       "metrics": {
         "mass": {
           "value": 1.44926,
@@ -12811,7 +12774,7 @@
       "letter": "G",
       "subtype": 5,
       "stage": "V",
-      "count": 28,
+      "count": 27,
       "metrics": {
         "mass": {
           "value": 0.970144,
@@ -12852,6 +12815,40 @@
             3.77308
           ],
           "count": 12
+        }
+      }
+    },
+    {
+      "spectral": "G5Vb",
+      "letter": "G",
+      "subtype": 5,
+      "stage": "V",
+      "count": 1,
+      "metrics": {
+        "mass": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "gravity": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "escapeKms": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "density": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": null,
+          "count": 0
         }
       }
     },
@@ -14060,7 +14057,7 @@
       "letter": "G",
       "subtype": 8,
       "stage": "II",
-      "count": 33,
+      "count": 32,
       "metrics": {
         "mass": {
           "value": 1.915,
@@ -14143,7 +14140,7 @@
       "letter": "G",
       "subtype": 8,
       "stage": "III",
-      "count": 269,
+      "count": 270,
       "metrics": {
         "mass": {
           "value": 1.73668,
@@ -20202,7 +20199,7 @@
       "letter": "M",
       "subtype": 2.5,
       "stage": "V",
-      "count": 135,
+      "count": 136,
       "metrics": {
         "mass": {
           "value": 0.388041,
@@ -21232,7 +21229,7 @@
       "letter": "M",
       "subtype": 3,
       "stage": "V",
-      "count": 220,
+      "count": 221,
       "metrics": {
         "mass": {
           "value": 0.363245,
@@ -24214,21 +24211,21 @@
       "key": "AI",
       "label": "A-type supergiant",
       "low": 1293.71,
-      "high": 235709000,
-      "count": 21,
-      "median": 20187.5,
-      "p10": 7535.07,
-      "p90": 58422.3
+      "high": 66179,
+      "count": 19,
+      "median": 18325.5,
+      "p10": 7076.81,
+      "p90": 41756.9
     },
     {
       "key": "AII",
       "label": "A-type bright giant",
       "low": 8.04969,
-      "high": 3642389857,
-      "count": 26,
-      "median": 636.19,
-      "p10": 13.5043,
-      "p90": 6482.3
+      "high": 11642.8,
+      "count": 25,
+      "median": 133.988,
+      "p10": 13.3393,
+      "p90": 5151.02
     },
     {
       "key": "AIII",
@@ -24254,11 +24251,11 @@
       "key": "AV",
       "label": "A-type main-sequence star",
       "low": 4.52907,
-      "high": 9081556717,
+      "high": 751.373,
       "count": 938,
       "median": 34.6312,
       "p10": 13.3346,
-      "p90": 100.997
+      "p90": 100.306
     },
     {
       "key": "BI",
@@ -24293,12 +24290,12 @@
     {
       "key": "BIV",
       "label": "B-type subgiant",
-      "low": 17.1206,
+      "low": 43.0089,
       "high": 28000,
-      "count": 96,
-      "median": 274.689,
-      "p10": 96.3814,
-      "p90": 1806.55
+      "count": 95,
+      "median": 275.485,
+      "p10": 105.626,
+      "p90": 1822.25
     },
     {
       "key": "brown_dwarf:L",
@@ -24394,11 +24391,11 @@
       "key": "FI",
       "label": "F-type supergiant",
       "low": 515.605,
-      "high": 1601276320,
-      "count": 32,
-      "median": 3130.7,
-      "p10": 1067.29,
-      "p90": 32007.3
+      "high": 37477.1,
+      "count": 31,
+      "median": 3110.9,
+      "p10": 1009.47,
+      "p90": 18249.1
     },
     {
       "key": "FII",
@@ -24444,11 +24441,11 @@
       "key": "GI",
       "label": "G-type supergiant",
       "low": 80.2916,
-      "high": 619911000,
-      "count": 58,
-      "median": 1530.87,
-      "p10": 533.262,
-      "p90": 4299.35
+      "high": 6114.66,
+      "count": 57,
+      "median": 1484.94,
+      "p10": 528.94,
+      "p90": 3842.63
     },
     {
       "key": "GII",
@@ -24464,11 +24461,11 @@
       "key": "GIII",
       "label": "G-type giant",
       "low": 4.31273,
-      "high": 46835600,
-      "count": 561,
-      "median": 65.1242,
-      "p10": 43.1513,
-      "p90": 210.053
+      "high": 1784.7,
+      "count": 560,
+      "median": 65.0598,
+      "p10": 43.1492,
+      "p90": 205.427
     },
     {
       "key": "GIV",
@@ -24494,21 +24491,21 @@
       "key": "KI",
       "label": "K-type supergiant",
       "low": 223.438,
-      "high": 29342696090,
-      "count": 29,
-      "median": 9165.28,
-      "p10": 3099.63,
-      "p90": 41150
+      "high": 263900,
+      "count": 28,
+      "median": 9115.09,
+      "p10": 3080.37,
+      "p90": 26256.3
     },
     {
       "key": "KII",
       "label": "K-type bright giant",
       "low": 33.501,
-      "high": 4765778536,
-      "count": 119,
-      "median": 472.238,
-      "p10": 66.3476,
-      "p90": 3467.65
+      "high": 7795.82,
+      "count": 118,
+      "median": 458.815,
+      "p10": 66.1813,
+      "p90": 3355.17
     },
     {
       "key": "KIII",
@@ -24516,7 +24513,7 @@
       "low": 0.560719,
       "high": 11454.3,
       "count": 1865,
-      "median": 126.693,
+      "median": 126.314,
       "p10": 42.2798,
       "p90": 708.836
     },
@@ -24543,12 +24540,12 @@
     {
       "key": "MI",
       "label": "M-type supergiant",
-      "low": 26574.9,
-      "high": 24171761390,
-      "count": 9,
-      "median": 75857.8,
-      "p10": 31488.7,
-      "p90": 4838500000
+      "low": 10367.6,
+      "high": 226594,
+      "count": 8,
+      "median": 66509.3,
+      "p10": 21712.7,
+      "p90": 121107
     },
     {
       "key": "MII",

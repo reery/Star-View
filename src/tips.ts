@@ -116,7 +116,7 @@ export const TIP_FEATURES: readonly Feature[] = [
   // Taking the tour shows these features with a step of their own.
   open('tour', '#welcome-yes', { implies: ['tutorial', 'set-origin', 'object-menu', 'rotation', 'sky-grid', 'saved-views', 'filter', 'observer', 'explore', 'objects', 'objects-table', 'glossary'] }),
   open('explore', '#discover-toggle, #discover-options button'),
-  open('top-lists', '#top-lists-toggle', exploreTool),
+  open('top-lists', '#top-lists-toggle, #top-lists-active', exploreTool),
   deep('top-lists', 'top-list', '#top-lists-terms .glossary-term', byLabel),
   deep('top-lists', 'top-list-entry', '#top-lists-panel tbody button'),
   open('constellations', '#constellations-toggle', exploreTool),
@@ -214,7 +214,7 @@ const PAST_USE: Readonly<Record<string, string>> = {
   'objects-expanded': 'objects-table', 'objects-height': 'objects-table', 'glossary-sidebar-collapsed': 'glossary',
   'graph-sections-collapsed': 'graphs', 'graphs-sidebar-collapsed': 'graphs', 'graphs-compact': 'graphs-width',
   'constellations-maximized': 'constellations', 'constellations-sidebar-collapsed': 'constellations', 'constellation-latitude': 'constellations',
-  'top-lists-sidebar-collapsed': 'top-lists', 'magnitude-city': 'value-card:magnitude-toggle',
+  'top-lists-sidebar-collapsed': 'top-lists', 'top-lists-narrow': 'top-lists', 'magnitude-city': 'value-card:magnitude-toggle',
   'distance-unit': 'distance-units', 'color-mode': 'star-colors', 'color-blind-palette': 'star-colors',
   'star-style': 'star-style', 'star-brightness': 'star-style', 'faint-stars': 'star-style', 'label-limit': 'label-limit', 'render-stats': 'preferences', 'shader': 'shader',
   'observer-latitude': 'observer-latitude', 'observer-axial-tilt': 'observer-latitude', 'observer-cone': 'observer-cone', 'observer-cone-mode': 'observer-cone', 'observer-planets': 'observer-planets',

@@ -1,16 +1,20 @@
-"""Build the Discover top lists from frozen literature rankings.
+"""Build the Discover top lists from frozen literature rankings and from Star View's own catalogs.
 
-Rankings and values follow the cited Wikipedia revisions. Positions and
+Literature rankings and values follow the cited Wikipedia revisions. Positions and
 identifiers come from a frozen SIMBAD response; the IAU constellation is derived
 from those positions once with astropy (Roman 1987 boundaries). Catalog
 presence is detected by exact identifier overlap with the generated catalogs.
+Computed lists rank the generated catalog records and the compact-object overlay.
 
   --refresh  re-query SIMBAD and refreeze catalog-work/top-lists/simbad.json (needs network and astropy)
   --check    compare the checked-in output without writing it
 """
 
 import argparse
+import csv
 import json
+import math
+import re
 import sys
 import unicodedata
 import urllib.parse
@@ -25,7 +29,16 @@ CATALOGS = ROOT / "src/data/generated/catalog-records"
 CATALOG_ORDER = ["western-constellation-stars", "nearest-1000", "nearest-5000", "nearest-100", "naked-eye-stars",
                  "nearest-neighbors", "notable-distant-stars"]
 COMPACT_REMNANTS = ROOT / "src/data/generated/overlays/compact-remnants.json"
+COMPANIONS = ROOT / "src/data/stellar-companions.json"
+PLANETS = ROOT / "src/data/nearby-planets.json"
+DESIGNATIONS = ROOT / "src/data/object-designations.json"
+# Frozen SIMBAD mesFe_h measurements that the catalogs select their [Fe/H] from.
+SPECTROSCOPY = [ROOT / f"catalog-work/{path}/spectroscopy.csv" for path in ("naked-eye-stars", "nearest-5000", "shared-enrichment/literature")]
 LY_PER_PC = 3.261563777
+# Myr taken to cross 1 pc at 1 km/s.
+MYR_PER_PC_KMS = 0.9777922
+# Straight lines approximate Galactic orbits only near the present.
+ENCOUNTER_WINDOW_MYR = 2
 
 LARGEST = "https://en.wikipedia.org/w/index.php?oldid=1381460615"
 HOTTEST = "https://en.wikipedia.org/w/index.php?oldid=1372500185"
@@ -306,15 +319,240 @@ def refresh(identifiers):
 
 
 def catalog_index():
-    index, records = {}, {}
+    """Designation index, every catalog record, and each object with its preferred record."""
+    index, records, objects = {}, {}, {}
     for catalog in reversed(CATALOG_ORDER):
         for star in json.loads((CATALOGS / f"{catalog}.json").read_text())["stars"]:
             hip = next((d for d in star.get("designations") or [] if key(d).startswith("hip")), None)
             record = {"catalog": catalog, "id": star["id"], "designation": hip and " ".join(hip.split())}
             records[catalog, star["id"]] = record
+            objects[star["id"]] = record, star
             for designation in [star["name"], *(star.get("designations") or [])]:
                 index[key(designation)] = record
-    return index, records
+    objects.pop("sun", None)
+    return index, records, objects
+
+
+def identity(objects, systems=False):
+    """Representative of each object: records sharing a HIP or Gaia DR3 number are one object; `systems` also joins reviewed system members."""
+    parent = {identifier: identifier for identifier in objects}
+
+    def root(identifier):
+        while parent[identifier] != identifier:
+            identifier = parent[identifier]
+        return identifier
+
+    def join(first, second):
+        parent[root(second)] = root(first)
+
+    first = {}
+    for identifier, (_, star) in objects.items():
+        for designation in star.get("designations") or []:
+            designation = " ".join(designation.split())
+            if re.fullmatch(r"(?:HIP|Gaia DR3) \d+", designation):
+                join(first.setdefault(designation, identifier), identifier)
+    if systems:
+        for system in json.loads(COMPANIONS.read_text())["systems"]:
+            members = [component["starId"] for component in system["components"] if component["starId"] in objects]
+            for member in members[1:]:
+                join(members[0], member)
+    return root
+
+
+def distance(star):
+    return math.hypot(star["x_pc"], star["y_pc"], star["z_pc"])
+
+
+def computed(object_record, star, value=None, fields=None, name=None):
+    """A computed entry; four significant digits keep the 3-digit display exact in either unit."""
+    return {"name": name or star["name"], **({"value": value} if value is not None else {}), "distance_pc": float(f"{distance(star):.4g}"),
+            **({"fields": fields} if fields else {}), "constellation": star["constellation"], "object": object_record}
+
+
+def best(ranked, root, count):
+    """The first `count` (sort key, identifier) pairs in key order, one per representative."""
+    chosen, seen = [], set()
+    for _, identifier in sorted(ranked):
+        if root(identifier) not in seen:
+            seen.add(root(identifier))
+            chosen.append(identifier)
+        if len(chosen) == count:
+            break
+    return chosen
+
+
+def when(myr):
+    years = abs(myr) * 1e6
+    text = f"{float(f'{abs(myr):.2g}'):g} million" if years >= 1e6 else f"{float(f'{years:.2g}'):,.0f}"
+    return f"in {text} years" if myr > 0 else f"{text} years ago"
+
+
+def encounters(objects):
+    """Closest approaches to the Sun on straight lines from today's positions and space velocities."""
+    approaches = {}
+    for identifier, (_, star) in objects.items():
+        velocity = [star[f"v{axis}_kms"] for axis in "xyz"]
+        if None in velocity or not any(velocity):
+            continue
+        position = [star[f"{axis}_pc"] for axis in "xyz"]
+        time = -sum(p * v for p, v in zip(position, velocity)) / sum(v * v for v in velocity)
+        if abs(time * MYR_PER_PC_KMS) <= ENCOUNTER_WINDOW_MYR:
+            approaches[identifier] = math.dist([p + v * time for p, v in zip(position, velocity)], (0, 0, 0)), time * MYR_PER_PC_KMS
+    chosen = best([(approach[0], identifier) for identifier, approach in approaches.items()], identity(objects, systems=True), 20)
+    return [computed(*objects[identifier], float(f"{approaches[identifier][0]:.4g}"), [when(approaches[identifier][1])]) for identifier in chosen]
+
+
+def proper_motions(objects):
+    motions = {identifier: math.hypot(star["raw_astrometry"]["pm_ra_cosdec_masyr"], star["raw_astrometry"]["pm_dec_masyr"]) / 1000
+               for identifier, (_, star) in objects.items() if (star.get("raw_astrometry") or {}).get("pm_dec_masyr") is not None}
+    chosen = best([(-motion, identifier) for identifier, motion in motions.items()], identity(objects, systems=True), 20)
+    return [computed(*objects[identifier], round(motions[identifier], 2)) for identifier in chosen]
+
+
+def remnant_entry(remnant, value=None):
+    return computed({"catalog": "compact-remnants", "id": remnant["id"], "designation": None}, remnant, value)
+
+
+def fastest_pulsars(remnants):
+    spinning = sorted((remnant for remnant in remnants if remnant["type"] == "pulsar" and remnant["compact"].get("rotation_period_s")),
+                      key=lambda remnant: remnant["compact"]["rotation_period_s"])
+    return [remnant_entry(remnant, round(1 / remnant["compact"]["rotation_period_s"], 1)) for remnant in spinning[:20]]
+
+
+def spectral_class(star):
+    match = re.search(r"([OBAFGKM])\d", star.get("spectral_type") or "")
+    return match and match[1]
+
+
+def labelled(star, *labels):
+    return any(label in (star.get("subtypes") or []) for label in labels)
+
+
+def main_sequence(letter):
+    return lambda star: star["type"] == "star" and spectral_class(star) == letter and labelled(star, "Main-sequence")
+
+
+# Kinds follow the type, spectral class and luminosity-class labels shown on each object's card;
+# the key selects the kind's mark in src/top-lists.ts.
+STAR_KINDS = (
+    ("red-dwarfs", "Red dwarfs", main_sequence("M")),
+    ("orange-dwarfs", "Orange dwarfs", main_sequence("K")),
+    ("yellow-dwarfs", "Yellow dwarfs", main_sequence("G")),
+    ("f-dwarfs", "F-type main-sequence stars", main_sequence("F")),
+    ("a-dwarfs", "A-type main-sequence stars", main_sequence("A")),
+    ("b-dwarfs", "B-type main-sequence stars", main_sequence("B")),
+    ("o-stars", "O-type stars", lambda star: star["type"] == "star" and spectral_class(star) == "O"),
+    ("subgiants", "Subgiants", lambda star: labelled(star, "Subgiant")),
+    ("giants", "Giants", lambda star: labelled(star, "Giant", "Red giant")),
+    ("bright-giants", "Bright giants", lambda star: labelled(star, "Bright giant")),
+    ("supergiants", "Supergiants", lambda star: labelled(star, "Supergiant", "Red supergiant", "Yellow supergiant", "Blue supergiant", "Evolved supergiant")),
+    ("wolf-rayet", "Wolf–Rayet stars", lambda star: labelled(star, "Wolf–Rayet")),
+    ("carbon-stars", "Carbon stars", lambda star: labelled(star, "Carbon star")),
+    ("cepheids", "Cepheids", lambda star: labelled(star, "Classical Cepheid", "Type II Cepheid", "Cepheid variable")),
+    ("miras", "Mira variables", lambda star: labelled(star, "Mira variable")),
+    ("white-dwarfs", "White dwarfs", lambda star: star["type"] == "white_dwarf"),
+    ("brown-dwarfs", "Brown dwarfs", lambda star: star["type"] in {"brown_dwarf", "sub_brown_dwarf"}),
+    ("planet-hosts", "Planet hosts", lambda star: (star.get("known_planets") or 0) > 0),
+)
+REMNANT_KINDS = (("neutron-stars", "Neutron stars", "neutron_star"), ("pulsars", "Pulsars", "pulsar"), ("black-holes", "Black holes", "black_hole"))
+
+
+def nearest_kinds(objects, remnants):
+    root = identity(objects)
+    groups = [{"kind": kind, "title": title, "entries": [computed(*objects[identifier]) for identifier in
+               best([(distance(star), identifier) for identifier, (_, star) in objects.items() if test(star)], root, 5)]}
+              for kind, title, test in STAR_KINDS]
+    for key_, title, kind in REMNANT_KINDS:
+        # Candidates stay out of a list of confirmed nearest objects.
+        nearest = sorted((remnant for remnant in remnants if remnant["type"] == kind and remnant["compact"]["confidence"] == "confirmed"), key=distance)
+        groups.append({"kind": key_, "title": title, "entries": [remnant_entry(remnant) for remnant in nearest[:5]]})
+    return groups
+
+
+def corroborated_metallicities(objects):
+    """[Fe/H] of F-M stars that a second paper confirms within 0.3 dex. Hotter stars' surface abundances
+    are reshaped by diffusion (Ap, Am, Lambda Bootis stars) and do not describe their composition."""
+    measured = {}
+    for path in SPECTROSCOPY:
+        with path.open(newline="") as handle:
+            for row in csv.DictReader(handle):
+                if row["fe_h"]:
+                    measured.setdefault(" ".join(row["main_id"].split()), set()).add((row["bibcode"], float(row["fe_h"])))
+    simbad = {identifier: " ".join(entry["simbadId"].split()) for identifier, entry in json.loads(DESIGNATIONS.read_text())["objects"].items() if entry.get("simbadId")}
+    values = {}
+    for identifier, (_, star) in objects.items():
+        value = star.get("metallicity_dex")
+        # Am notation (kA1mA1) and Lambda Bootis stars (_lB) state a peculiar hotter atmosphere even under an F type.
+        peculiar = re.search(r"k[A-F]\d|m[A-F]\d|lB", star.get("spectral_type") or "")
+        if star["type"] != "star" or star.get("metallicity_kind") != "[Fe/H]" or value is None or spectral_class(star) not in set("FGKM") or peculiar:
+            continue
+        papers = {bibcode for bibcode, fe_h in measured.get(simbad.get(identifier), ()) if abs(fe_h - value) <= 0.3}
+        if len(papers) >= 2:
+            values[identifier] = value
+    return values
+
+
+def metallicity_groups(objects):
+    values, root = corroborated_metallicities(objects), identity(objects)
+    poorest = best([(value, identifier) for identifier, value in values.items()], root, 5)
+    richest = best([(-value, identifier) for identifier, value in values.items()], root, 5)
+    group = lambda title, chosen, ascending: {"title": title, "metric": "[Fe/H]", "unit": "dex", "digits": 2, **({"ascending": True} if ascending else {}),
+                                              "entries": [computed(*objects[identifier], values[identifier]) for identifier in chosen]}
+    return [group("Most metal-poor", poorest, True), group("Most metal-rich", richest, False)]
+
+
+def measured(planet, metric):
+    """A planet metric the archive reports as measured: neither calculated nor a limit."""
+    value = planet["metrics"].get(metric)
+    return value["value"] if value and not value.get("estimated") and not value.get("limit") else None
+
+
+# Kopparapu et al. (2014) conservative limits, as src/habitable-zone.ts draws them in the system diagram.
+HZ_INNER = (1.107, 1.332e-4, 1.58e-8, -8.308e-12, -1.931e-15)
+HZ_OUTER = (0.356, 6.171e-5, 1.698e-9, -3.198e-12, -5.575e-16)
+
+
+def habitable_zone(star):
+    luminosity, temperature = star.get("luminosity_solar"), star.get("temperature_k")
+    if not luminosity or luminosity <= 0 or temperature is None or not 2600 <= temperature <= 7200:
+        return None
+    t = temperature - 5780
+    flux = lambda c: c[0] + t * (c[1] + t * (c[2] + t * (c[3] + t * c[4])))
+    return math.sqrt(luminosity / flux(HZ_INNER)), math.sqrt(luminosity / flux(HZ_OUTER))
+
+
+def planet_groups(objects):
+    data = json.loads(PLANETS.read_text())
+    host = lambda planet: objects.get(data["aliases"].get(planet["hostStarId"], planet["hostStarId"]))
+    # Disputed planets stay out; every listed planet opens its card from its host star.
+    planets = [planet for planet in data["planets"] if not planet["controversial"] and host(planet)]
+    orbits = {planet["id"]: planet["semiMajorAxisAu"] for system in data["systems"] for planet in system["planets"]
+              if planet["distanceKind"] == "semi-major-axis" and not planet["distanceLimit"]}
+
+    def entry(planet, value=None):
+        record, star = host(planet)
+        return computed({**record, "planet": planet["id"]}, star, value, name=planet["name"])
+
+    def ranked(metric, descending):
+        values = [(measured(planet, metric), planet) for planet in planets if measured(planet, metric) is not None]
+        return [entry(planet, value) for value, planet in sorted(values, key=lambda item: (-item[0] if descending else item[0], item[1]["id"]))[:5]]
+
+    counts = {}
+    for planet in planets:
+        counts.setdefault(host(planet)[0]["id"], []).append(planet)
+    most = sorted(counts.values(), key=lambda system: (-len(system), distance(host(system[0])[1])))[:5]
+    habitable = []
+    for planet in planets:
+        zone, orbit = habitable_zone(host(planet)[1]), orbits.get(planet["id"])
+        if zone and orbit and zone[0] <= orbit <= zone[1]:
+            habitable.append(planet)
+    habitable.sort(key=lambda planet: (distance(host(planet)[1]), planet["id"]))
+    return [
+        {"title": "Most planets", "metric": "Planets", "entries": [computed(*host(system[0]), len(system)) for system in most]},
+        {"title": "Habitable-zone planets", "entries": [entry(planet) for planet in habitable[:10]]},
+        {"title": "Hottest planets", "metric": "Temperature", "unit": "K", "entries": ranked("pl_eqt", True)},
+        {"title": "Smallest planets", "metric": "Radius", "unit": "R⊕", "digits": 2, "ascending": True, "entries": ranked("pl_rade", False)},
+    ]
 
 
 def entry(index, frozen, name, identifier, value, distance_pc, distance_source=None):
@@ -351,8 +589,9 @@ def pioneer(remnants, name, j_name, period, distance_pc, constellation):
 
 def build():
     frozen = json.loads(FROZEN.read_text())["objects"]
-    index, records = catalog_index()
-    remnants = {o["id"] for o in json.loads(COMPACT_REMNANTS.read_text())["objects"]}
+    index, records, objects = catalog_index()
+    overlay = json.loads(COMPACT_REMNANTS.read_text())["objects"]
+    remnants = {o["id"] for o in overlay}
     return {"schemaVersion": 1, "lists": [
         {"id": "largest", "title": "Largest stars", "metric": "Radius", "unit": "R☉", "markers": "solar-orbits",
          "source": {"label": "Wikipedia · List of largest stars (Milky Way)", "url": LARGEST},
@@ -381,6 +620,28 @@ def build():
         {"id": "pioneer-plaque", "title": "Pioneer plaque pulsars", "columns": ["Period on plaque (s)", "J2000 name"],
          "source": {"label": "Johnston · Pioneer plaque pulsar map identifications", "url": PIONEER},
          "entries": sorted((pioneer(remnants, *row) for row in PIONEER_PULSARS), key=lambda row: row["distance_pc"])},
+        {"id": "nearest-kinds", "title": "Nearest of each kind",
+         "method": "From Star View’s catalogs and compact-object overlay, by each object’s type, spectral class and luminosity class.",
+         "groups": nearest_kinds(objects, overlay)},
+        {"id": "encounters", "title": "Closest stellar encounters", "metric": "Closest approach", "unit": "distance", "ascending": True, "columns": ["When"],
+         "method": f"Straight-line motion from today’s positions and space velocities in Star View’s catalogs, for closest approaches within {ENCOUNTER_WINDOW_MYR} million years. "
+                   "Stars without a radial velocity are not included.",
+         "entries": encounters(objects)},
+        {"id": "proper-motion", "title": "Highest proper motion", "metric": "Proper motion", "unit": "″/yr", "digits": 2,
+         "method": "From Star View’s catalogs; one entry per star system.",
+         "entries": proper_motions(objects)},
+        {"id": "metallicity", "title": "Metal-poor and metal-rich stars",
+         "method": "Spectroscopic [Fe/H] of F- to M-type stars in Star View’s catalogs, confirmed by a second paper within 0.3 dex. "
+                   "Hotter stars are left out: their surface abundances reflect atomic diffusion rather than their composition.",
+         "groups": metallicity_groups(objects)},
+        {"id": "planets", "title": "Planets",
+         "method": "Confirmed planets of stars in Star View’s catalogs, with measured values only. The habitable zone is the conservative zone "
+                   "of Kopparapu et al. (2014) drawn in each system diagram.",
+         "source": {"label": "NASA Exoplanet Archive", "url": "https://exoplanetarchive.ipac.caltech.edu/"},
+         "groups": planet_groups(objects)},
+        {"id": "fastest-pulsars", "title": "Fastest pulsars", "metric": "Spin rate", "unit": "rotations/s",
+         "source": {"label": "ATNF Pulsar Catalogue v2.9.0", "url": "https://www.atnf.csiro.au/research/pulsar/psrcat/"},
+         "entries": fastest_pulsars(overlay)},
     ]}
 
 

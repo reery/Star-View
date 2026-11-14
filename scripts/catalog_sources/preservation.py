@@ -69,12 +69,14 @@ def unretained(fields, previous, withheld):
 
 
 def field_value(record, field):
-    """A record field, or a "catalog_sources.<catalog>.<field>" value of that retained source record."""
+    """A record field, a nested "<field>.<name>" value, or a "catalog_sources.<catalog>.<field>" value of that retained source record."""
     if field.startswith("catalog_sources."):
         _, catalog, name = field.split(".", 2)
         sources = [source["record"] for source in record.get("catalog_sources", []) if source["catalog_id"] == catalog]
         return sources[0].get(name) if sources else None
-    return record.get(field)
+    for name in field.split("."):
+        record = record.get(name) if isinstance(record, dict) else None
+    return record
 
 
 def reviewed_fields(path, identifier, old, new, missing, retirements):
@@ -90,7 +92,7 @@ def reviewed_record_removal(path, previous, retirements, load_review):
             continue
         review = load_review(entry["reviewPath"])
         for item in review["objects"]:
-            if (item["id"] == previous["id"] and item.get("status") == "excluded-background-object"
+            if (item["id"] == previous["id"] and item.get("status", "").startswith("excluded-")
                 and item.get("reason") and item.get("references")
                 and {"path": path, "record": previous} in item.get("previousCatalogRecords", [])):
                 return True
