@@ -7,7 +7,7 @@ import compactInfo from './data/compact-object-info.json'
 import { equatorialToGalacticPc, type Star } from './catalog-model'
 import { galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor } from './astronomy'
 import { decodeNebulaMask, parseNebulaOverlayManifest, parseNebulaOverlayPayload } from './nebula-overlay-model'
-import { generateNebulaPuffs, nebulaBasis, packNebulaInstances, seededRandom } from './nebula-layer'
+import { detailPuffCount, generateNebulaPuffs, nebulaBasis, packNebulaInstances, puffSource, seededRandom } from './nebula-layer'
 
 const manifest = parseNebulaOverlayManifest(manifestRaw)
 const nebulae = parseNebulaOverlayPayload(JSON.parse(payloadRaw), manifest)
@@ -236,7 +236,7 @@ describe('nebula puff volumes', () => {
     expect(() => parseNebulaOverlayPayload(withPoints((shape) => { shape.points.values = 'AAA=' }), manifest)).toThrow(/row/)
   })
 
-  it('packs visible nebulae with level-of-detail prefixes', () => {
+  it('packs drawn nebulae as level-of-detail prefixes with widened puffs', () => {
     const sources = nebulae.map((nebula) => generateNebulaPuffs(nebula, sun))
     const capacity = sources.reduce((sum, puffs) => sum + puffs.count, 0)
     const target = {
@@ -245,14 +245,43 @@ describe('nebula puff volumes', () => {
       realColors: new Float32Array(capacity * 3),
       vividColors: new Float32Array(capacity * 3),
     }
-    const all = sources.map(() => true)
-    const onlySecond = sources.map((_, index) => index === 1)
-    expect(packNebulaInstances(sources, all, 1, target)).toBe(capacity)
-    expect(packNebulaInstances(sources, onlySecond, 1, target)).toBe(sources[1]!.count)
-    expect(target.centers.subarray(0, 3)).toEqual(sources[1]!.centers.subarray(0, 3))
-    expect(packNebulaInstances(sources, all, 0.5, target)).toBe(sources.reduce((sum, puffs) => sum + Math.ceil(puffs.count / 2), 0))
-    expect(target.shapes.subarray(Math.ceil(sources[0]!.count / 2) * 4, Math.ceil(sources[0]!.count / 2) * 4 + 4))
-      .toEqual(sources[1]!.shapes.subarray(0, 4))
-    expect(packNebulaInstances(sources, sources.map(() => false), 1, target)).toBe(0)
+    expect(packNebulaInstances(sources.map((puffs) => ({ puffs, count: puffs.count, radiusScale: 1 })), target)).toBe(capacity)
+    const [first, second] = sources as [typeof sources[0], typeof sources[0]]
+    const half = Math.ceil(first.count / 2)
+    expect(packNebulaInstances([{ puffs: first, count: half, radiusScale: 2 }, { puffs: second, count: second.count, radiusScale: 1 }], target))
+      .toBe(half + second.count)
+    expect(target.shapes[0]).toBeCloseTo(2 * first.shapes[0]!)
+    expect(target.shapes.subarray(1, 4)).toEqual(first.shapes.subarray(1, 4))
+    expect(target.shapes.subarray(half * 4, half * 4 + 4)).toEqual(second.shapes.subarray(0, 4))
+    expect(packNebulaInstances([], target)).toBe(0)
+  })
+
+  it('generates any prefix of a nebula identically', () => {
+    for (const id of ['crab-nebula', 'vela-supernova-remnant', 'orion-nebula', 'pleiades-nebula']) {
+      const full = generateNebulaPuffs(byId(id), sun)
+      const prefix = generateNebulaPuffs(byId(id), sun, 16)
+      expect(prefix.count, id).toBe(16)
+      expect(prefix.centers, id).toEqual(full.centers.subarray(0, 16 * 3))
+      expect(prefix.shapes, id).toEqual(full.shapes.subarray(0, 16 * 4))
+      expect(prefix.realColors, id).toEqual(full.realColors.subarray(0, 16 * 3))
+    }
+  })
+
+  it('thins nebulae only while their widened puffs stay below the minimum kernel', () => {
+    const source = { ...puffSource(generateNebulaPuffs(byId('crab-nebula'), sun)), extent: { center: sun, semiAxes: [1.8, 1.5] as const } }
+    // A few pixels across: the coarsest prefix; large on screen: every puff.
+    expect(detailPuffCount(source, 0.05, 0.1)).toBe(16)
+    expect(detailPuffCount(source, 0.05, 100)).toBe(source.count)
+    // Levels step by four from full detail, so zooming repacks rarely.
+    const counts = [0.3, 0.6, 1.2, 2.4, 4.8].map((pixelsPerPc) => detailPuffCount(source, 0.05, pixelsPerPc))
+    expect(counts.every((count, index) => index === 0 || count >= counts[index - 1]!)).toBe(true)
+    for (const count of counts.filter((value) => value > 16 && value < source.count)) {
+      expect([1, 4, 16, 64, 256].map((step) => Math.ceil(source.count / step))).toContain(count)
+    }
+    // Each drawn puff widened by √(full / drawn) stays at most the 1.5 px minimum kernel.
+    for (const pixelsPerPc of [0.3, 1.2, 4.8]) {
+      const count = detailPuffCount(source, 0.05, pixelsPerPc)
+      if (count < source.count) expect(0.05 * Math.sqrt(source.count / count) * pixelsPerPc).toBeLessThanOrEqual(1.5)
+    }
   })
 })
