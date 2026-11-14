@@ -58,7 +58,10 @@ export interface NebulaDetails {
   shape: NebulaShape
   // Hex sRGB colors ordered from the illuminated core outward.
   palette: { real: string[]; exaggerated: string[] }
-  brightness: number
+  // R-band mag/arcsec² (Vega); estimated values come from plate classes or calibrated hand estimates.
+  surface_brightness_mag_arcsec2: number
+  surface_brightness_source: string
+  surface_brightness_estimated: boolean
   puff_count: number
   seed: number
   source_label: string

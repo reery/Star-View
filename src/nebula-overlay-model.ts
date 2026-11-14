@@ -94,7 +94,7 @@ function validDetails(value: unknown): value is NebulaDetails {
     && typeof details.dec_deg === 'number' && Math.abs(details.dec_deg) <= 90
     && finitePositive(details.distance_pc)
     && (details.distance_error_pc === null || finitePositive(details.distance_error_pc))
-    && ['distance_source', 'position_source', 'illuminating_stars', 'source_label', 'source_url', 'model_note']
+    && ['distance_source', 'position_source', 'illuminating_stars', 'source_label', 'source_url', 'model_note', 'surface_brightness_source']
       .every((field) => typeof details[field] === 'string' && (details[field] as string).length > 0)
     && /^https:\/\//.test(details.source_url as string)
     && Array.isArray(angular) && angular.length === 2 && angular.every(finitePositive)
@@ -105,7 +105,8 @@ function validDetails(value: unknown): value is NebulaDetails {
     && (shape.kind !== 'layers' || shape.layer_offsets_pc.length > 0)
     && validMask(shape)
     && !!palette && hexes(palette.real) && hexes(palette.exaggerated)
-    && typeof details.brightness === 'number' && details.brightness > 0 && details.brightness <= 1
+    && typeof details.surface_brightness_mag_arcsec2 === 'number' && Number.isFinite(details.surface_brightness_mag_arcsec2)
+    && typeof details.surface_brightness_estimated === 'boolean'
     && Number.isInteger(details.puff_count) && (details.puff_count as number) >= 16 && (details.puff_count as number) <= 8192
     && validPoints(shape, details.puff_count)
     && Number.isInteger(details.seed)

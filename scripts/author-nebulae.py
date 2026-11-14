@@ -1,8 +1,8 @@
 """Author the reviewed nebula additions of the 2000-ly census.
 
 Rows already in src/data/overlays/nebulae/objects.json that are not listed in
-catalog-work/nebulae/additions.json stay byte-for-byte as authored. Listed rows
-are regenerated from their reviewed inputs and follow in input order.
+catalog-work/nebulae/additions.json keep their authored values. Listed rows are
+regenerated from their reviewed inputs and follow in input order.
 
 Large H II regions take their sky shape from a frozen mask of the Finkbeiner
 (2003) all-sky H-alpha composite. Rebuild the masks from the downloaded HEALPix
@@ -13,6 +13,14 @@ The Crab Nebula takes its 3D filaments from the published SITELLE reconstruction
 of Martin, Milisavljevic & Drissen (2021). Rebuild the frozen point set with
 --points <directory holding 3dmap_XYZflux.fits and 3dmap_XYZvel.fits>; offline
 builds read only catalog-work/nebulae/point-clouds.json.
+
+Every row, including those kept as authored, takes its surface brightness from
+catalog-work/nebulae/surface-brightness.json. Rebuild it with
+--surface-brightness <directory> holding the Finkbeiner map above and these
+VizieR tables as tab-separated files (asu-tsv, -out.all, -out.max=unlimited):
+VII_9.tsv (Lynds 1965), VII_21.tsv (van den Bergh 1966), VII_218.tsv
+(van den Bergh & Herbst 1975), V_84_main.tsv, V_84_diam.tsv and V_84_hbeta.tsv
+(Acker et al. 1992).
 
   --check  compare the checked-in overlay without writing it
 """
@@ -31,6 +39,7 @@ WORK = ROOT / "catalog-work/nebulae"
 ADDITIONS = WORK / "additions.json"
 MASKS = WORK / "halpha-masks.json"
 POINTS = WORK / "point-clouds.json"
+SURFACE_BRIGHTNESS = WORK / "surface-brightness.json"
 OVERLAY = ROOT / "src/data/overlays/nebulae"
 HALPHA_URL = "https://lambda.gsfc.nasa.gov/data/foregrounds/halpha/lambda_halpha_fwhm06_0512.fits"
 HALPHA_SHA256 = "0768cb79f20adb0080004e10a8b3671f53a79a8f1d1cf0a2f0faec654c742099"
@@ -90,6 +99,29 @@ MASK_SUPERSAMPLE = 3
 BACKGROUND_SCALE = 1.5
 # Highlights compress like a stretched long exposure, so faint wings stay visible.
 MASK_STRETCH = 0.3
+# Surface brightness is expressed as Cousins R mag/arcsec^2 (Vega). One Rayleigh of H-alpha is
+# 1e6/(4 pi) photons s^-1 cm^-2 sr^-1; spread over the R band's 1580 A width (Bessell 1990) against
+# Vega's 2.177e-9 erg s^-1 cm^-2 A^-1 (Bessell, Castelli & Plez 1998) it is 29.46 mag/arcsec^2.
+RAYLEIGH_ERG_ARCSEC2 = 1e6 / (4 * math.pi) * 6.62607015e-27 * 2.99792458e10 / 6562.8e-8 / 4.25451703e10
+R_BAND_WIDTH_A = 1580
+R_BAND_VEGA = 2.177e-9
+# Recombination H-alpha/H-beta at 10,000 K (Osterbrock & Ferland 2006, case B).
+CASE_B_HALPHA_HBETA = 2.86
+# The 6-arcmin map resolves a nebula at least two beams across.
+HALPHA_MIN_DIAMETER_ARCMIN = 12
+# Fields span 1.25 catalogued diameters, like the masks.
+HALPHA_FIELD_SCALE = 1.25
+# Plate classes of the reflection nebula catalogues, brightest first, on an ordinal scale;
+# 'mBr' (moderately bright) sits between bright and moderate.
+REFLECTION_CLASSES = {"vBr": 0, "Br": 1, "mBr": 1.5, "M": 2, "F": 3, "vF": 4}
+REFLECTION_CLASS_ALIASES = {"vB": "vBr", "B": "Br"}
+SURFACE_BRIGHTNESS_SOURCES = {
+    "halpha": ("Finkbeiner (2003) H-alpha map", "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F"),
+    "acker": ("Acker et al. (1992) Strasbourg-ESO catalogue", "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=V/84"),
+    "lynds": ("Lynds (1965) bright nebulae", "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/9"),
+    "vdb": ("van den Bergh (1966) reflection nebulae", "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/21"),
+    "vdbh": ("van den Bergh & Herbst (1975) southern reflection nebulae", "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/218"),
+}
 
 
 def equatorial_to_galactic(ra, dec, distance):
@@ -186,7 +218,7 @@ def gnomonic_offset(entry, ra, dec):
             (math.cos(center_b) * math.sin(target_b) - math.sin(center_b) * math.cos(target_b) * math.cos(delta)) / cos_c)
 
 
-def build_masks(fits_path):
+def load_halpha(fits_path):
     import numpy as np
     from astropy.io import fits
     digest = hashlib.sha256(Path(fits_path).read_bytes()).hexdigest()
@@ -196,19 +228,31 @@ def build_masks(fits_path):
         header = hdus[1].header
         if header["ORDERING"] != "NESTED" or header["NSIDE"] != 512:
             raise SystemExit("Expected the NESTED Nside 512 Finkbeiner map")
-        rayleigh = np.asarray(hdus[1].data["TEMPERATURE"], dtype=np.float64).ravel()
+        return np.asarray(hdus[1].data["TEMPERATURE"], dtype=np.float64).ravel()
+
+
+def halpha_field(rayleigh, entry):
+    """Map samples (R), normalized radii and the diffuse background on the field `entry["mask"]` spans."""
+    import numpy as np
+    size, theta, phi, (u, v) = mask_grid(entry)
+    samples = rayleigh[ang2pix_nest(512, theta, phi)]
+    samples = samples.reshape(size, MASK_SUPERSAMPLE, size, MASK_SUPERSAMPLE).mean(axis=(1, 3))
+    radius = np.hypot(u, v).reshape(size, MASK_SUPERSAMPLE, size, MASK_SUPERSAMPLE).mean(axis=(1, 3))
+    # The diffuse warm ionized medium fills the sky; measure it in an annulus outside the field.
+    _, ring_theta, ring_phi, (ring_u, ring_v) = mask_grid({**entry, "mask": {"box_arcmin": BACKGROUND_SCALE * entry["mask"]["box_arcmin"]}})
+    ring_radius = np.hypot(ring_u, ring_v) * BACKGROUND_SCALE
+    background = float(np.median(rayleigh[ang2pix_nest(512, ring_theta, ring_phi)][(ring_radius > 1) & (ring_radius < BACKGROUND_SCALE)]))
+    return size, samples, radius, background
+
+
+def build_masks(fits_path):
+    import numpy as np
+    rayleigh = load_halpha(fits_path)
     masks = {}
     for entry in json.loads(ADDITIONS.read_text())["objects"]:
         if "mask" not in entry:
             continue
-        size, theta, phi, (u, v) = mask_grid(entry)
-        samples = rayleigh[ang2pix_nest(512, theta, phi)]
-        samples = samples.reshape(size, MASK_SUPERSAMPLE, size, MASK_SUPERSAMPLE).mean(axis=(1, 3))
-        radius = np.hypot(u, v).reshape(size, MASK_SUPERSAMPLE, size, MASK_SUPERSAMPLE).mean(axis=(1, 3))
-        # The diffuse warm ionized medium fills the sky; measure it in an annulus outside the field.
-        _, ring_theta, ring_phi, (ring_u, ring_v) = mask_grid({**entry, "mask": {"box_arcmin": BACKGROUND_SCALE * entry["mask"]["box_arcmin"]}})
-        ring_radius = np.hypot(ring_u, ring_v) * BACKGROUND_SCALE
-        background = float(np.median(rayleigh[ang2pix_nest(512, ring_theta, ring_phi)][(ring_radius > 1) & (ring_radius < BACKGROUND_SCALE)]))
+        size, samples, radius, background = halpha_field(rayleigh, entry)
         excess = np.clip(samples - background, 0, None)
         # Separately catalogued nebulae inside the box keep their own records.
         half = math.tan(math.radians(entry["mask"]["box_arcmin"] / 120))
@@ -319,6 +363,200 @@ def build_points(directory):
     }
 
 
+def rayleigh_magnitude(rayleigh):
+    """H-alpha surface brightness in Rayleigh as R-band mag/arcsec^2."""
+    return -2.5 * math.log10(rayleigh * RAYLEIGH_ERG_ARCSEC2 / R_BAND_WIDTH_A / R_BAND_VEGA)
+
+
+def hand_rayleigh(brightness):
+    """The hand-authored 0-1 scale's H-alpha equivalent: 0.45 at 100 R, 0.85 at 10,000 R."""
+    return 10 * 10 ** ((brightness - 0.25) / 0.2)
+
+
+def vizier_rows(path):
+    """Rows of a VizieR asu-tsv table: comment lines, a header, units and dashes, then data."""
+    lines = [line for line in Path(path).read_text().splitlines() if line and not line.startswith("#")]
+    header = lines[0].split("\t")
+    return [dict(zip(header, (cell.strip() for cell in line.split("\t")))) for line in lines[3:] if line.count("\t") == len(header) - 1]
+
+
+def sexagesimal(ra, dec):
+    hours, minutes, *seconds = (float(part) for part in ra.split())
+    degrees, arcmin, *arcsec = (abs(float(part)) for part in dec.split())
+    sign = -1 if dec.strip().startswith("-") else 1
+    return 15 * (hours + minutes / 60 + sum(seconds) / 3600), sign * (degrees + arcmin / 60 + sum(arcsec) / 3600)
+
+
+def separation_arcmin(ra1, dec1, ra2, dec2):
+    a, b, c, d = map(math.radians, (ra1, dec1, ra2, dec2))
+    return math.degrees(math.acos(max(-1, min(1, math.sin(b) * math.sin(d) + math.cos(b) * math.cos(d) * math.cos(a - c))))) * 60
+
+
+def compact_name(name):
+    """'Sh 2-27', 'S 27' -> 'S27'; 'IC  432' -> 'IC432'."""
+    return name.replace("Sh 2-", "S").replace(" ", "")
+
+
+def lynds_match(row, lynds):
+    """The LBN record a designation names, else the one named like the nebula, else the largest nearby of similar size."""
+    details = row["nebula"]
+    for designation in details["designations"]:
+        if designation.startswith("LBN "):
+            label = designation[4:]
+            for record in lynds:
+                if record["Seq"] == label or f"{float(record['GLON']):06.2f}{float(record['GLAT']):+06.2f}" == label:
+                    return record
+    names = {compact_name(designation) for designation in details["designations"] + [row["name"]]}
+    radius = max(max(details["angular_size_arcmin"]) / 2, 10)
+    nearby = [record for record in lynds if separation_arcmin(details["ra_deg"], details["dec_deg"], *record["position"]) <= radius]
+    named = [record for record in nearby if record["Name"] and compact_name(record["Name"]) in names]
+    similar = [record for record in nearby if 0.5 <= int(record["Diam1"] or 0) / max(details["angular_size_arcmin"]) <= 2]
+    return (named or sorted(similar, key=lambda record: -int(record["Diam1"])) or [None])[0]
+
+
+def reflection_class(row, vdb, vdbh):
+    """The brightest van den Bergh (or van den Bergh & Herbst) plate class among the nebula's designations."""
+    found = []
+    for designation in row["nebula"]["designations"]:
+        catalogue, _, number = designation.partition(" ")
+        if catalogue in ("vdB", "vdBH") and number.isdigit():
+            records = vdb if catalogue == "vdB" else vdbh
+            key = "VdB" if catalogue == "vdB" else "BHe"
+            found += [(REFLECTION_CLASS_ALIASES.get(value, value), catalogue)
+                      for record in records if record[key] == number
+                      for value in [record["SurfBr" if catalogue == "vdB" else "Br"].rstrip(":")] if value]
+    return min(found, key=lambda item: REFLECTION_CLASSES[item[0]], default=None)
+
+
+def acker_flux(row, main, diameters, fluxes):
+    """Observed H-beta flux and optical diameter of the Strasbourg-ESO PN at the nebula's position."""
+    details = row["nebula"]
+    nearest = min(main, key=lambda record: separation_arcmin(details["ra_deg"], details["dec_deg"], *record["position"]))
+    if separation_arcmin(details["ra_deg"], details["dec_deg"], *nearest["position"]) > 1:
+        return None
+    diameter, flux = diameters.get(nearest["PNG"], {}).get("oDiam"), fluxes.get(nearest["PNG"], {}).get("log(Fbeta)")
+    return (nearest, float(flux), float(diameter)) if diameter and flux else None
+
+
+def build_surface_brightness(directory):
+    """One surface brightness per nebula, measured where a catalogue resolves it and estimated from plate classes otherwise."""
+    import numpy as np
+    from statistics import median
+    directory = Path(directory)
+    rayleigh = load_halpha(directory / "lambda_halpha_fwhm06_0512.fits")
+    table = lambda name: vizier_rows(directory / f"{name}.tsv")
+    lynds = table("VII_9")
+    for record in lynds:
+        record["position"] = sexagesimal(record["_RA.icrs"], record["_DE.icrs"])
+    vdb, vdbh, main = table("VII_21"), table("VII_218"), table("V_84_main")
+    for record in main:
+        record["position"] = sexagesimal(record["_RA.icrs"], record["_DE.icrs"])
+    first = lambda rows: {record["PNG"]: record for record in reversed(rows)}
+    diameters, fluxes = first(table("V_84_diam")), first(table("V_84_hbeta"))
+    masks = json.loads(MASKS.read_text())["masks"]
+    previous = json.loads(SURFACE_BRIGHTNESS.read_text())["nebulae"] if SURFACE_BRIGHTNESS.exists() else {}
+    hand = {entry["id"]: entry["brightness"] for entry in json.loads(ADDITIONS.read_text())["objects"] if "brightness" in entry}
+    rows = json.loads((OVERLAY / "objects.json").read_text())["objects"]
+
+    def field_peak(row):
+        details = row["nebula"]
+        diameter = max(details["angular_size_arcmin"])
+        entry = {"ra_deg": details["ra_deg"], "dec_deg": details["dec_deg"], "mask": {"box_arcmin": HALPHA_FIELD_SCALE * diameter}}
+        _, samples, radius, background = halpha_field(rayleigh, entry)
+        return float(np.max((samples - background)[radius <= 1 / HALPHA_FIELD_SCALE]))
+
+    def halpha_record(peak, scope):
+        label, url = SURFACE_BRIGHTNESS_SOURCES["halpha"]
+        return {"mag_arcsec2": rayleigh_magnitude(max(peak, 0.1)), "estimated": False,
+                "source": f"{label}: {scope} {peak:.1f} R above the diffuse background at 6 arcmin resolution", "url": url,
+                "basis": {"halpha_peak_excess_rayleigh": round(peak, 2)}}
+
+    measured, pending = {}, {}
+    for row in rows:
+        identifier, kind, details = row["id"], row["type"], row["nebula"]
+        diameter = max(details["angular_size_arcmin"])
+        lynds_record = lynds_match(row, lynds)
+        pending[identifier] = {
+            "lynds": {"seq": int(lynds_record["Seq"]), "class": int(lynds_record["Bright"])} if lynds_record and lynds_record["Bright"] not in ("", "0") else None,
+            "reflection": reflection_class(row, vdb, vdbh) if kind == "reflection_nebula" else None,
+            "hand": hand.get(identifier, details.get("brightness", previous.get(identifier, {}).get("basis", {}).get("retired_brightness"))),
+        }
+        acker = acker_flux(row, main, diameters, fluxes) if kind == "planetary_nebula" else None
+        if acker:
+            record, log_flux, arcsec = acker
+            halpha = CASE_B_HALPHA_HBETA * 10 ** log_flux / (math.pi * (arcsec / 2) ** 2) / RAYLEIGH_ERG_ARCSEC2
+            label, url = SURFACE_BRIGHTNESS_SOURCES["acker"]
+            measured[identifier] = {"mag_arcsec2": rayleigh_magnitude(halpha), "estimated": False,
+                "source": f"{label}: mean over the {arcsec:g}-arcsec disk of the observed H-beta flux 10^{log_flux:g} erg/s/cm^2 (PN G{record['PNG']}), as H-alpha at the case-B ratio {CASE_B_HALPHA_HBETA}",
+                "url": url, "basis": {"png": record["PNG"], "log_hbeta_flux": log_flux, "diameter_arcsec": arcsec}}
+        elif identifier in masks:
+            measured[identifier] = halpha_record(masks[identifier]["peak_excess_rayleigh"], "peak")
+        elif kind in ("hii_region", "planetary_nebula") and diameter >= HALPHA_MIN_DIAMETER_ARCMIN:
+            measured[identifier] = halpha_record(field_peak(row), "peak")
+        elif kind == "supernova_remnant" and diameter >= HALPHA_MIN_DIAMETER_ARCMIN:
+            # The map cannot isolate a remnant's shell, but its peak in the field bounds it.
+            pending[identifier]["upper_limit_rayleigh"] = round(field_peak(row), 2)
+
+    # Plate classes step about a magnitude each; their zero point follows the H-alpha measurements they overlap.
+    lynds_offset = median(record["mag_arcsec2"] - pending[identifier]["lynds"]["class"]
+                          for identifier, record in measured.items() if pending[identifier]["lynds"])
+    # Reflection classes map linearly onto the Lynds classes of the nebulae both catalogues list.
+    overlaps = [(REFLECTION_CLASSES[item["reflection"][0]], item["lynds"]["class"]) for item in pending.values() if item["reflection"] and item["lynds"]]
+    slope, intercept = np.polyfit(*zip(*overlaps), 1)
+    reflection_level = {name: round(float(intercept + slope * index), 2) for name, index in REFLECTION_CLASSES.items()}
+    # The hand scale keeps its slope; its zero point follows the measurements it overlaps.
+    hand_offset = median(record["mag_arcsec2"] - rayleigh_magnitude(hand_rayleigh(pending[identifier]["hand"]))
+                         for identifier, record in measured.items() if pending[identifier]["hand"] is not None)
+
+    nebulae = {}
+    for row in rows:
+        identifier, item = row["id"], pending[row["id"]]
+        if identifier in measured:
+            record = measured[identifier]
+        elif item["reflection"]:
+            name, catalogue = item["reflection"]
+            label, url = SURFACE_BRIGHTNESS_SOURCES[catalogue.lower()]
+            record = {"mag_arcsec2": lynds_offset + reflection_level[name], "estimated": True,
+                      "source": f"{label}: plate class {name}, placed on the Lynds (1965) scale where the catalogues overlap and calibrated against the measurements",
+                      "url": url, "basis": {"plate_class": name, "catalogue": catalogue}}
+        elif item["lynds"]:
+            label, url = SURFACE_BRIGHTNESS_SOURCES["lynds"]
+            record = {"mag_arcsec2": lynds_offset + item["lynds"]["class"], "estimated": True,
+                      "source": f"{label}: brightness class {item['lynds']['class']} of 6 (LBN {item['lynds']['seq']}), one magnitude per class calibrated against the measurements",
+                      "url": url, "basis": {"lbn": item["lynds"]["seq"], "lynds_class": item["lynds"]["class"]}}
+        elif item["hand"] is not None:
+            magnitude = rayleigh_magnitude(hand_rayleigh(item["hand"])) + hand_offset
+            source = "Hand-authored visual estimate, calibrated against the measurements"
+            basis = {}
+            if "upper_limit_rayleigh" in item:
+                limit = rayleigh_magnitude(max(item["upper_limit_rayleigh"], 0.1))
+                basis["halpha_field_peak_rayleigh"] = item["upper_limit_rayleigh"]
+                if limit > magnitude:
+                    magnitude = limit
+                    source = f"Hand-authored visual estimate, capped at the {item['upper_limit_rayleigh']:.1f} R H-alpha peak of its field in the Finkbeiner (2003) map"
+            record = {"mag_arcsec2": magnitude, "estimated": True, "source": source, "url": None, "basis": basis}
+        else:
+            raise SystemExit(f"No surface brightness for {identifier}")
+        # The retired 0-1 brightness stays on record wherever it existed.
+        basis = {**record["basis"], **({"retired_brightness": item["hand"]} if item["hand"] is not None else {})}
+        nebulae[identifier] = {**record, "mag_arcsec2": round(record["mag_arcsec2"], 2), "basis": basis}
+    return {
+        "schemaVersion": 1,
+        "sources": {key: {"label": label, "url": url} for key, (label, url) in SURFACE_BRIGHTNESS_SOURCES.items()},
+        "method": (
+            "R-band mag/arcsec^2 (Vega). Planetary nebulae take the mean of their Strasbourg-ESO H-beta flux over the optical disk; "
+            f"emission nebulae at least {HALPHA_MIN_DIAMETER_ARCMIN} arcmin across take the peak H-alpha excess of the 6-arcmin Finkbeiner map within "
+            "their catalogued extent (the frozen mask peak where a mask exists). Others are estimated from photographic plate classes: "
+            f"Lynds classes step one magnitude each from a zero point of {lynds_offset:.2f} (the median offset of the measurements they overlap), "
+            "and reflection-nebula classes map linearly onto the Lynds classes of the nebulae both catalogues list. The remaining few keep their "
+            f"hand estimate, shifted by {hand_offset:.2f} mag (the median offset of the measurements it overlaps); supernova remnants the map "
+            "cannot isolate are capped at the H-alpha peak of their field."
+        ),
+        "calibration": {"lynds_offset_mag": round(lynds_offset, 2), "reflection_lynds_class": reflection_level, "hand_offset_mag": round(hand_offset, 2)},
+        "nebulae": nebulae,
+    }
+
+
 def mask_puff_count(mask):
     """One puff per lit pixel; src/nebula-layer.ts weights each by the pixel's brightness."""
     return max(16, min(4096, sum(value > 0 for value in base64.b64decode(mask["values"]))))
@@ -347,18 +585,14 @@ def nebula_row(entry, masks, points):
         shape = {"kind": entry["shape"], "semi_axes_pc": [depth, radius, radius], "position_angle_deg": 0,
                  "layer_offsets_pc": [], "mask": {"size": mask["size"], "values": mask["values"]}}
         puff_count = mask_puff_count(mask)
-        # Peak surface brightness on the hand-authored 0-1 scale: about 0.45 at 100 R, 0.85 at 10,000 R.
-        brightness = round(max(0.25, min(0.9, 0.25 + 0.2 * math.log10(mask["peak_excess_rayleigh"] / 10))), 2)
     elif "points" in entry:
         cloud = points["clouds"][entry["id"]]
         if cloud["distance_pc"] != distance or cloud["radius_pc"] != entry["points"]["voxel_pc"]:
             raise SystemExit(f"Stale point cloud for {entry['id']}; rebuild with --points")
         shape = {"kind": "points", "semi_axes_pc": cloud["semi_axes_pc"], "position_angle_deg": cloud["position_angle_deg"],
                  "layer_offsets_pc": [], "points": {"radius_pc": cloud["radius_pc"], "values": cloud["values"]}}
-        brightness = entry["brightness"]
         puff_count = len(base64.b64decode(cloud["values"])) // 4 + entry["points"]["body_puffs"]
     else:
-        brightness = entry["brightness"]
         # Without a measured orientation, an equal-area circle avoids inventing one.
         radius = semi_axis(distance, math.sqrt(major * minor))
         shape = {"kind": entry["shape"], "semi_axes_pc": [radius, radius, radius], "position_angle_deg": 0, "layer_offsets_pc": []}
@@ -366,7 +600,6 @@ def nebula_row(entry, masks, points):
     details.update({
         "shape": shape,
         "palette": PALETTES[entry["palette"]],
-        "brightness": brightness,
         "puff_count": puff_count,
         "seed": zlib.crc32(entry["id"].encode()) % 9000 + 1000,
         "source_label": entry["source_label"],
@@ -400,13 +633,34 @@ def dumps(value, indent=0):
     return json.dumps(value, ensure_ascii=False)
 
 
+def with_surface_brightness(row, records):
+    """The row with its surface brightness after the palette, replacing the retired 0-1 hand scale."""
+    if row["id"] not in records:
+        raise SystemExit(f"No surface brightness for {row['id']}; rebuild with --surface-brightness")
+    record = records[row["id"]]
+    details = {}
+    for key, value in row["nebula"].items():
+        if key in ("brightness", "surface_brightness_mag_arcsec2", "surface_brightness_source", "surface_brightness_estimated"):
+            continue
+        details[key] = value
+        if key == "palette":
+            details.update({
+                "surface_brightness_mag_arcsec2": record["mag_arcsec2"],
+                "surface_brightness_source": record["source"],
+                "surface_brightness_estimated": record["estimated"],
+            })
+    return {**row, "nebula": details}
+
+
 def render():
     additions = json.loads(ADDITIONS.read_text())["objects"]
     masks = json.loads(MASKS.read_text())
     points = json.loads(POINTS.read_text())
+    surface_brightness = json.loads(SURFACE_BRIGHTNESS.read_text())["nebulae"]
     payload = json.loads((OVERLAY / "objects.json").read_text())
     listed = {entry["id"] for entry in additions}
     objects = [row for row in payload["objects"] if row["id"] not in listed] + [nebula_row(entry, masks, points) for entry in additions]
+    objects = [with_surface_brightness(row, surface_brightness) for row in objects]
     manifest = json.loads((OVERLAY / "manifest.json").read_text())
     manifest["objectCount"] = len(objects)
     manifest["counts"] = {kind: sum(row["type"] == kind for row in objects) for kind in TYPES}
@@ -420,12 +674,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--masks", metavar="HALPHA_FITS", help="Rebuild the frozen H-alpha masks from the Finkbeiner map")
     parser.add_argument("--points", metavar="M1_PAPER_DIR", help="Rebuild the frozen Crab Nebula point cloud from the released 3D maps")
+    parser.add_argument("--surface-brightness", metavar="SOURCE_DIR", help="Rebuild the frozen surface brightness from the H-alpha map and VizieR tables")
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     if args.masks:
         MASKS.write_text(json.dumps(build_masks(args.masks), indent=2) + "\n")
     if args.points:
         POINTS.write_text(json.dumps(build_points(args.points), indent=2) + "\n")
+    if args.surface_brightness:
+        SURFACE_BRIGHTNESS.write_text(json.dumps(build_surface_brightness(args.surface_brightness), indent=2, ensure_ascii=False) + "\n")
     outputs = render()
     stale = [name for name, content in outputs.items() if (OVERLAY / name).read_text() != content]
     if args.check:

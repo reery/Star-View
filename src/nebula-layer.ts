@@ -17,6 +17,19 @@ const PUFF_ALPHA = 0.22 * 9 / PUFF_OVERLAP
 const MIN_PUFF_PIXELS = 1.5
 // Kernel radius of mask-shaped nebulae in mask pixels.
 const MASK_PUFF_PIXELS = 2
+// Every nebula shares one slightly long exposure: puff opacity follows surface brightness, the Orion
+// Nebula's 6-arcmin peak (20.3 R mag/arcsec²) at full weight, with a gentle stretch like a processed
+// photograph. A floor keeps the faintest nebulae just visible. Each lift step stretches harder and raises
+// the floor, brightening fainter nebulae while the Orion Nebula stays at full weight.
+const EXPOSURE_REFERENCE_MAG = 20.3
+const EXPOSURE_STRETCH = 0.7
+const EXPOSURE_FLOOR = 0.05
+
+export function nebulaExposure(surfaceBrightnessMag: number, lift = 0): number {
+  const stretch = EXPOSURE_STRETCH - 0.1 * lift
+  const floor = EXPOSURE_FLOOR + 0.01 * lift
+  return Math.max(floor, Math.min(1, 10 ** (-0.4 * stretch * (surfaceBrightnessMag - EXPOSURE_REFERENCE_MAG))))
+}
 
 export function seededRandom(seed: number): () => number {
   let state = seed >>> 0
@@ -280,10 +293,12 @@ function shapeSampler(details: NebulaDetails, random: () => number): () => Sampl
   }
 }
 
-export function generateNebulaPuffs(star: Star, observer: Vector3): NebulaPuffs {
+/** Generates the first `limit` puffs, the same prefix every larger limit yields. */
+export function generateNebulaPuffs(star: Star, observer: Vector3, limit?: number): NebulaPuffs {
   const details = star.nebula
   if (!details) throw new Error(`Not a nebula: ${star.id}`)
   const count = details.puff_count
+  const generated = Math.min(count, limit ?? count)
   const random = seededRandom(details.seed)
   const mask = details.shape.mask
   const pixels = mask ? maskPixels(mask, random) : null
@@ -304,25 +319,25 @@ export function generateNebulaPuffs(star: Star, observer: Vector3): NebulaPuffs 
   const noiseScale = 0.35 / Math.sqrt(major * minor)
   const noiseOffset = (details.seed % 997) / 997
   const puffs: NebulaPuffs = {
-    count,
-    local: new Float32Array(count * 3),
-    centers: new Float32Array(count * 3),
-    shapes: new Float32Array(count * 4),
-    realColors: new Float32Array(count * 3),
-    vividColors: new Float32Array(count * 3),
+    count: generated,
+    local: new Float32Array(generated * 3),
+    centers: new Float32Array(generated * 3),
+    shapes: new Float32Array(generated * 4),
+    realColors: new Float32Array(generated * 3),
+    vividColors: new Float32Array(generated * 3),
   }
   const color = new Color()
   const scratch = new Color()
   const position = new Vector3()
   // Puffs are independent draws, so any prefix is an unbiased level-of-detail subset.
-  for (let index = 0; index < count; index++) {
+  for (let index = 0; index < generated; index++) {
     const { d, u, v, t, size, alpha } = sample()
     puffs.local.set([d, u, v], index * 3)
     position.copy(center).addScaledVector(basis.lineOfSight, d).addScaledVector(basis.major, u).addScaledVector(basis.minor, v)
     puffs.centers.set([position.x, position.y, position.z], index * 3)
     puffs.shapes.set([
       baseRadius * size * (0.9 + 0.2 * random()),
-      details.brightness * alpha * alphaScale * PUFF_ALPHA * (0.45 + 0.55 * random()),
+      alpha * alphaScale * PUFF_ALPHA * (0.45 + 0.55 * random()),
       noiseScale,
       noiseOffset,
     ], index * 4)
@@ -332,24 +347,77 @@ export function generateNebulaPuffs(star: Star, observer: Vector3): NebulaPuffs 
   return puffs
 }
 
-// Copies each visible nebula's first LOD fraction of puffs into the front of the target buffers.
+// Copies each drawn source's first `count` puffs into the front of the target buffers. A thinned
+// source widens its puffs by `radiusScale`, so fewer puffs cover the same area with the same light;
+// `alphaScale` applies the source's exposure.
 export function packNebulaInstances(
-  sources: readonly PuffInstances[],
-  visible: readonly boolean[],
-  fraction: number,
+  drawn: readonly { puffs: PuffInstances; count: number; radiusScale: number; alphaScale: number }[],
   target: { centers: Float32Array; shapes: Float32Array; realColors: Float32Array; vividColors: Float32Array },
 ): number {
   let offset = 0
-  sources.forEach((puffs, index) => {
-    if (!visible[index]) return
-    const count = Math.max(1, Math.min(puffs.count, Math.ceil(puffs.count * fraction)))
+  for (const { puffs, count, radiusScale, alphaScale } of drawn) {
     target.centers.set(puffs.centers.subarray(0, count * 3), offset * 3)
     target.shapes.set(puffs.shapes.subarray(0, count * 4), offset * 4)
+    if (radiusScale !== 1 || alphaScale !== 1) {
+      for (let index = offset; index < offset + count; index++) {
+        target.shapes[index * 4]! *= radiusScale
+        target.shapes[index * 4 + 1]! *= alphaScale
+      }
+    }
     target.realColors.set(puffs.realColors.subarray(0, count * 3), offset * 3)
     target.vividColors.set(puffs.vividColors.subarray(0, count * 3), offset * 3)
     offset += count
-  })
+  }
   return offset
+}
+
+/**
+ * Puffs one source draws. `instances(limit)` returns at least its first `limit` puffs; any prefix is
+ * an unbiased level-of-detail subset. With an `extent`, the puffs drawn follow the source's size on screen.
+ */
+export interface PuffSource {
+  count: number
+  instances(limit: number): PuffInstances
+  /** World center and the two largest semi-axes in pc. */
+  extent?: { center: Vector3; semiAxes: readonly [number, number] }
+  /** Opacity scale at an exposure lift; 1 without one. */
+  exposure?(lift: number): number
+}
+
+export function puffSource(instances: PuffInstances): PuffSource {
+  return { count: instances.count, instances: () => instances }
+}
+
+// The coarsest level of detail: a nebula only a few pixels across draws just this prefix.
+const MIN_DETAIL_PUFFS = 16
+
+// Generates a nebula's puffs only as far as the view has needed them.
+function nebulaPuffSource(star: Star, observer: Vector3): PuffSource {
+  const { puff_count: count, shape } = star.nebula!
+  const [first, second] = [...shape.semi_axes_pc].sort((a, b) => b - a)
+  let puffs: NebulaPuffs | null = null
+  return {
+    count,
+    extent: { center: galacticToWorld(star), semiAxes: [first!, second!] },
+    exposure: (lift) => nebulaExposure(star.nebula!.surface_brightness_mag_arcsec2, lift),
+    instances(limit) {
+      if (!puffs || puffs.count < limit) puffs = generateNebulaPuffs(star, observer, limit)
+      return puffs
+    },
+  }
+}
+
+/**
+ * Puffs a source needs at `pixelsPerPc` (target pixels), from full detail down in steps of four.
+ * Thinned puffs widen by √(full / drawn) but stay below the minimum kernel, and about
+ * PUFF_OVERLAP of them still overlap per kernel, so the nebula looks the same.
+ */
+export function detailPuffCount(source: PuffSource, puffRadiusPc: number, pixelsPerPc: number): number {
+  const [major, minor] = source.extent!.semiAxes
+  const needed = Math.max(PUFF_OVERLAP * major * minor, source.count * puffRadiusPc ** 2) * (pixelsPerPc / MIN_PUFF_PIXELS) ** 2
+  let level = source.count
+  while (level > MIN_DETAIL_PUFFS && level / 4 >= needed) level /= 4
+  return Math.max(Math.min(source.count, MIN_DETAIL_PUFFS), Math.ceil(level))
 }
 
 function noiseTexture(seed: number): DataTexture {
@@ -390,17 +458,25 @@ export interface NebulaLayer {
   setVisible(visible: readonly boolean[]): void
   setLevelOfDetail(fraction: number): void
   setColorMode(mode: StarColorMode): void
+  /** Lifts fainter puffs, in steps of a longer exposure. */
+  setExposureLift(lift: number): void
   setViewportHeight(pixels: number): void
   /** Scales every puff's opacity, e.g. to fade the whole layer in. */
   setOpacity(opacity: number): void
-  /** Draws the puffs of a half-resolution layer for the coming frame; a no-op otherwise. */
+  /**
+   * Draws the puffs of a half-resolution layer for the coming frame, each source with the detail
+   * its size on screen needs; a no-op otherwise.
+   */
   renderOffscreen(renderer: WebGLRenderer, camera: Camera): void
+  /** Puffs of the visible sources at full detail, after the power-saving fraction. */
+  puffCount(): number
+  /** Puffs drawn. */
   instanceCount(): number
   dispose(): void
 }
 
 export function createNebulaLayer(nebulae: readonly Star[], observer: Vector3, mode: StarColorMode): NebulaLayer {
-  return createPuffLayer(nebulae.map((nebula) => generateNebulaPuffs(nebula, observer)), mode, { halfResolution: true })
+  return createPuffLayer(nebulae.map((nebula) => nebulaPuffSource(nebula, observer)), mode, { halfResolution: true })
 }
 
 export interface PuffLayerOptions {
@@ -462,11 +538,11 @@ function createHalfResolutionComposite(texture: Texture): Mesh {
 }
 
 export function createPuffLayer(
-  sources: readonly PuffInstances[],
+  sources: readonly PuffSource[],
   mode: StarColorMode,
   { absorb = false, maxScreenFraction = NEBULA_MAX_SCREEN_FRACTION, halfResolution = false }: PuffLayerOptions = {},
 ): NebulaLayer {
-  const capacity = sources.reduce((sum, puffs) => sum + puffs.count, 0)
+  const capacity = sources.reduce((sum, source) => sum + source.count, 0)
   const geometry = new InstancedBufferGeometry()
   geometry.setAttribute('position', new Float32BufferAttribute([-1, -1, 0, 1, -1, 0, 1, 1, 0, -1, 1, 0], 3))
   geometry.setIndex([0, 1, 2, 0, 2, 3])
@@ -598,16 +674,32 @@ export function createPuffLayer(
   mesh.visible = false
   const drawingSize = new Vector2()
   const clearColor = new Color()
+  const cameraPosition = new Vector3()
   let visibility: boolean[] = sources.map(() => false)
+  // Puffs each source needs on screen; sources without an extent always draw all of theirs.
+  const screenCounts = sources.map((source) => source.extent ? Math.min(source.count, MIN_DETAIL_PUFFS) : source.count)
+  // Largest radius among each source's coarsest puffs, measured once they exist.
+  const puffRadii = sources.map(() => 0)
   let fraction = 1
   let opacity = 1
+  let exposureLift = 0
   let packedKey = ''
 
   function repack(): void {
-    const key = `${fraction}:${visibility.map(Number).join('')}`
+    const key = `${exposureLift}:${fraction}:${visibility.map((shown, index) => shown ? screenCounts[index] : 0).join()}`
     if (key === packedKey) return
     packedKey = key
-    const count = packNebulaInstances(sources, visibility, fraction, buffers)
+    const drawn = sources.flatMap((source, index) => {
+      if (!visibility[index]) return []
+      const screenCount = screenCounts[index]!
+      const count = Math.max(1, Math.ceil(screenCount * fraction))
+      return [{
+        puffs: source.instances(count), count,
+        radiusScale: Math.sqrt(source.count / screenCount),
+        alphaScale: source.exposure?.(exposureLift) ?? 1,
+      }]
+    })
+    const count = packNebulaInstances(drawn, buffers)
     geometry.instanceCount = count
     mesh.visible = count > 0
     uniforms.alphaScale.value = opacity / fraction
@@ -619,6 +711,23 @@ export function createPuffLayer(
     }
   }
 
+  function updateDetail(camera: Camera, height: number): void {
+    cameraPosition.setFromMatrixPosition(camera.matrixWorld)
+    const pixelsPerPcAtUnitDistance = camera.projectionMatrix.elements[5]! * 0.5 * height
+    sources.forEach((source, index) => {
+      if (!source.extent || !visibility[index]) return
+      if (puffRadii[index] === 0) {
+        const floor = Math.min(source.count, MIN_DETAIL_PUFFS)
+        const { shapes } = source.instances(floor)
+        for (let puff = 0; puff < floor; puff++) puffRadii[index] = Math.max(puffRadii[index]!, shapes[puff * 4]!)
+      }
+      // The nearest point of the nebula sets its detail; from inside it, everything is drawn.
+      const distance = cameraPosition.distanceTo(source.extent.center) - source.extent.semiAxes[0]
+      screenCounts[index] = distance > 0 ? detailPuffCount(source, puffRadii[index]!, pixelsPerPcAtUnitDistance / distance) : source.count
+    })
+    repack()
+  }
+
   return {
     mesh,
     setVisible(next) {
@@ -628,6 +737,10 @@ export function createPuffLayer(
     setLevelOfDetail(next) {
       if (!(next > 0 && next <= 1)) return
       fraction = next
+      repack()
+    },
+    setExposureLift(next) {
+      exposureLift = next
       repack()
     },
     setColorMode(next) {
@@ -649,6 +762,7 @@ export function createPuffLayer(
       target.setSize(Math.max(1, Math.ceil(drawingSize.x / 2)), Math.max(1, Math.ceil(drawingSize.y / 2)))
       // Puff sizes, screen caps and the minimum kernel follow the pixels actually drawn.
       uniforms.viewportHeight.value = target.height
+      updateDetail(camera, target.height)
       renderer.getClearColor(clearColor)
       const clearAlpha = renderer.getClearAlpha()
       try {
@@ -661,6 +775,7 @@ export function createPuffLayer(
         renderer.setRenderTarget(previousTarget)
       }
     },
+    puffCount: () => sources.reduce((sum, source, index) => sum + (visibility[index] ? Math.max(1, Math.ceil(source.count * fraction)) : 0), 0),
     instanceCount: () => geometry.instanceCount,
     dispose() {
       geometry.dispose()

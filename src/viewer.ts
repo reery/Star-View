@@ -8,6 +8,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import type { Star } from './catalog-model'
 import { createStarAppearance, displayMagnitude, STAR_ADAPTATION_FLUX, STAR_BRIGHTNESSES, starCrowdCoverage, starEyeExposure, STAR_GLARE_MAX_RADIUS_PX, STAR_STYLES, type FaintStars, type StarBrightness, type StarStyle } from './star-appearance'
 import { createDepthLabel } from './depth-label'
+import type { ScenePass } from './scene-shader'
 import { updateCameraNearPlane } from './camera-depth'
 import { createMilkyWayLayer } from './milky-way-layer'
 import { createRenderStats, type RenderSetup, type RenderStats } from './render-stats'
@@ -94,6 +95,7 @@ export interface StarViewer {
   setStarStyle(style: StarStyle): void
   setStarBrightness(brightness: StarBrightness): void
   setFaintStars(mode: FaintStars): void
+  setShader(shader: Shader): void
   setStarPaint(painter: StarPainter | null): void
   /** Lets painted stars shrink and fade when zooming out, like unpainted ones. */
   setStarPaintZoomShrink(enabled: boolean): void
@@ -110,6 +112,9 @@ export interface StarViewer {
   setControlsEnabled(enabled: boolean): void
   dispose(): void
 }
+
+export const SHADERS = ['none', 'concept', 'exposure', 'atlas'] as const
+export type Shader = typeof SHADERS[number]
 
 export const MOTION_YEAR_OPTIONS = [1_000, 5_000, 10_000, 25_000, 50_000] as const
 export type MotionYears = typeof MOTION_YEAR_OPTIONS[number]
@@ -146,6 +151,7 @@ interface ViewerOptions {
   starStyle?: StarStyle
   starBrightness?: StarBrightness
   faintStars?: FaintStars
+  shader?: Shader
   earthOrbitDate?: Date | null
   milkyWayVisible?: boolean
   oortCloudVisible?: boolean
@@ -319,6 +325,23 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let starColorMode = options.colorMode
   let starStyle = options.starStyle ?? 'exaggerated'
   let starBrightness = options.starBrightness ?? 'normal'
+  let shader: Shader = options.shader ?? 'none'
+  let scenePass: ScenePass | null = null
+  let shaderRequest = 0
+  // The shader code loads only once a style is chosen, so it never delays the app.
+  function loadShader(): void {
+    scenePass?.dispose()
+    scenePass = null
+    const request = ++shaderRequest
+    if (shader === 'none') return
+    const style = shader
+    void import('./scene-shader').then(({ createScenePass }) => {
+      if (disposed || request !== shaderRequest) return
+      scenePass = createScenePass(style)
+      requestRender()
+    }, () => {})
+  }
+  if (shader !== 'none') loadShader()
   let starPaints: StarPaint[] | null = null
   /** Whether the paint sizes objects, rather than only coloring them. */
   let starPaintSized = false
@@ -677,6 +700,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const OBSERVER_ZOOMS: Record<ObserverZoom, number> = { telescope: 1.6, observatory: 4 }
   const OBSERVER_ZOOM_DURATION_MS = 360
   let observerZoom: ObserverZoom | null = null
+  // Nebulae start at the preferred brightness.
+  updateNebulaExposure()
   // The frame's up (galactic north or the zenith), and the observer's up: the axis drags turn the sky around,
   // which rolling tilts around the view direction.
   const observerFrameUp = new Vector3(0, 1, 0)
@@ -686,10 +711,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let observerZoomTransition: { from: number; to: number; started: number } | null = null
   /**
    * Entering or leaving observer view draws the camera flying from where it was to the pose the controls hold.
-   * With a focus, the drawn camera keeps turned to it; `aim` is the start's offset from it, fading out on the way.
+   * With a focus, the drawn camera keeps turned to it; `aim` is the start's offset from it, fading out over
+   * `turnShare` of the flight.
    */
-  let observerFlight: { position: Vector3; quaternion: Quaternion; focus: Vector3 | null; aim: Quaternion; started: number } | null = null
+  let observerFlight: { position: Vector3; quaternion: Quaternion; focus: Vector3 | null; aim: Quaternion; turnShare: number; started: number } | null = null
   const OBSERVER_FLIGHT_MS = 2000
+  /** Leaving turns to the overview within the first part of the flight, so the way out never looks away from it. */
+  const OBSERVER_EXIT_TURN_SHARE = 0.3
   const observerFlightPosition = new Vector3()
   const observerFlightQuaternion = new Quaternion()
   const heldCameraPosition = new Vector3()
@@ -1416,7 +1444,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     })
     if (nebulaLayer) {
       nebulaLayer.setVisible(nebulaIndices.map((index) => mapVisible[index] === 1 && index !== observerIndex))
-      labelLayer.dataset.nebulaPuffCount = String(nebulaLayer.instanceCount())
+      labelLayer.dataset.nebulaPuffCount = String(nebulaLayer.puffCount())
     }
     if (molecularCloudLayer) {
       molecularCloudLayer.setVisible(molecularCloudIndices.map((index) => mapVisible[index] === 1 && index !== observerIndex))
@@ -2082,11 +2110,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (modeChanged) observerFacingPending = enabled && animate && !focus
     if (animate && !reducedMotion.matches) {
       // A flight starts where the camera is drawn, so toggling again mid-flight turns smoothly.
-      const position = (observerFlight ? observerFlightPosition : camera.position).clone()
-      const quaternion = (observerFlight ? observerFlightQuaternion : camera.quaternion).clone()
-      const aim = new Quaternion()
-      if (focus) aim.setFromUnitVectors(flightFocusDirection.subVectors(focus, position).normalize(), flightForward.set(0, 0, -1).applyQuaternion(quaternion))
-      observerFlight = { position, quaternion, focus, aim, started: performance.now() }
+      observerFlight = {
+        position: (observerFlight ? observerFlightPosition : camera.position).clone(),
+        quaternion: (observerFlight ? observerFlightQuaternion : camera.quaternion).clone(),
+        focus, aim: new Quaternion(), turnShare: 1, started: performance.now(),
+      }
     } else observerFlight = null
     observerUp.copy(observerFrameUp)
     observerViewEnabled = enabled
@@ -2094,6 +2122,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       observerZoom = null
       observerZoomTransition = null
       applyObserverZoom(1)
+      updateNebulaExposure()
     }
     observerViewAnchorIndex = anchor?.index ?? null
     setOrbitUp(enabled ? observerUp : worldUp)
@@ -2112,6 +2141,17 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       applyObserverRollFrame()
     }
     else reset()
+    if (observerFlight) {
+      // Leaving faces the overview's center, between the origin and the selection, early on and backs out toward it.
+      if (!enabled) {
+        observerFlight.focus = controls.target
+        observerFlight.turnShare = OBSERVER_EXIT_TURN_SHARE
+      }
+      const { position, quaternion, focus: flightFocus } = observerFlight
+      if (flightFocus && flightFocus.distanceToSquared(position) > 1e-18) {
+        observerFlight.aim.setFromUnitVectors(flightFocusDirection.subVectors(flightFocus, position).normalize(), flightForward.set(0, 0, -1).applyQuaternion(quaternion))
+      } else observerFlight.focus = null
+    }
     if (!enabled) {
       container.dataset.observerRollDegrees = '0'
       delete container.dataset.observerViewDirection
@@ -2187,8 +2227,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     requestRender()
   }
 
+  /** High brightness lifts nebulae two exposure steps, a telescope or observatory one more. */
+  function updateNebulaExposure(): void {
+    nebulaLayer?.setExposureLift((starBrightness === 'high' ? 2 : 0) + (observerZoom ? 1 : 0))
+  }
+
   function setObserverZoom(zoom: ObserverZoom | null, animate = true): void {
     observerZoom = observerViewEnabled ? zoom : null
+    updateNebulaExposure()
     const to = observerZoom ? OBSERVER_ZOOMS[observerZoom] : 1
     observerZoomTransition = null
     if (animate && !reducedMotion.matches && camera.zoom !== to) {
@@ -2513,7 +2559,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       camera.quaternion.slerpQuaternions(observerFlight.quaternion, heldCameraQuaternion, eased)
       if (observerFlight.focus && camera.position.distanceToSquared(observerFlight.focus) > 1e-18) {
         // Turn onto the focus, offset by what remains of the start's aim, so a focus in view stays centered.
-        flightAim.identity().slerp(observerFlight.aim, 1 - eased)
+        const turn = Math.min(1, progress / observerFlight.turnShare)
+        flightAim.identity().slerp(observerFlight.aim, 1 - turn * turn * (3 - 2 * turn))
         flightFocusDirection.subVectors(observerFlight.focus, camera.position).normalize().applyQuaternion(flightAim)
         flightForward.set(0, 0, -1).applyQuaternion(camera.quaternion)
         camera.quaternion.premultiply(flightAim.setFromUnitVectors(flightForward, flightFocusDirection))
@@ -2561,10 +2608,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     // The fade alone does not move labels, so it keeps frames coming without setLabelsMoving().
     milkyWayFading = milkyWay.updateFade(time)
     renderer.info.reset()
-    nebulaLayer?.renderOffscreen(renderer, camera)
+    if (nebulaLayer) {
+      nebulaLayer.renderOffscreen(renderer, camera)
+      setData(labelLayer, 'nebulaDrawnPuffCount', String(nebulaLayer.instanceCount()))
+    }
     const offscreenCalls = renderer.info.render.calls
     if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
     else renderer.render(scene, camera)
+    scenePass?.render(renderer)
     setData(labelLayer, 'drawCalls', String(renderer.info.render.calls - offscreenCalls))
     if (drawingObserverFlight) {
       camera.position.copy(heldCameraPosition)
@@ -2838,7 +2889,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (enabled === powerSavingMode) return
       powerSavingMode = enabled
       nebulaLayer?.setLevelOfDetail(enabled ? 0.5 : 1)
-      if (nebulaLayer) labelLayer.dataset.nebulaPuffCount = String(nebulaLayer.instanceCount())
+      if (nebulaLayer) labelLayer.dataset.nebulaPuffCount = String(nebulaLayer.puffCount())
       molecularCloudLayer?.setLevelOfDetail(enabled ? 0.4 : 1)
       molecularCloudLayer?.setSourceDepthCapture(!enabled)
       if (molecularCloudLayer) labelLayer.dataset.molecularCloudPuffCount = String(molecularCloudLayer.instanceCount())
@@ -2870,12 +2921,19 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (!STAR_BRIGHTNESSES.includes(brightness) || brightness === starBrightness) return
       starBrightness = brightness
       crowdCoverage.value = starCrowdCoverage(brightness)
+      updateNebulaExposure()
       updateSolarSystemSky()
       updatePresentation()
       requestRender()
     },
     setFaintStars(mode) {
       faintLift.value = mode === 'lifted' ? 1 : 0
+      requestRender()
+    },
+    setShader(next) {
+      if (!SHADERS.includes(next) || next === shader) return
+      shader = next
+      loadShader()
       requestRender()
     },
     setStarPaint(painter) {
@@ -3040,6 +3098,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       arrowMaterial.dispose()
       nebulaLayer?.dispose()
       molecularCloudLayer?.dispose()
+      scenePass?.dispose()
       bubbleLayer?.dispose()
       faintClouds.dispose()
       spaceshipModel?.dispose()

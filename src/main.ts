@@ -23,7 +23,7 @@ import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, fo
 import { EARTH_ORBIT_MODES, earthOrbitDateForMode, earthOrbitModeLabel, isEarthOrbitMode, type EarthOrbitMode } from './earth-orbit'
 import { isVisibilityConeMode, LATITUDE_STORAGE_KEY, latitudeLabel, observerLatitude, VISIBILITY_CONE_MODES, visibilityConeHours, visibilityConeModeLabel, type VisibilityConeMode } from './constellation-visibility'
 import type { RenderSetup, RenderStats } from './render-stats'
-import { MOTION_YEAR_OPTIONS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type ObserverFrame, type StarViewer, type ViewerViewState } from './viewer'
+import { MOTION_YEAR_OPTIONS, SHADERS, SIMULATION_YEAR_LIMIT, createStarViewer, type MotionYears, type Shader, type ObserverFrame, type StarViewer, type ViewerViewState } from './viewer'
 import { STAR_STYLES, type FaintStars, type StarBrightness, type StarStyle } from './star-appearance'
 import { CONTEXT_MENU_HOLD_MS, isObjectMapVisible, mapVisibilityTier, motionTravelDistancePc } from './viewer-primitives'
 import { targetRenderFps } from './render-scheduling'
@@ -469,6 +469,7 @@ let starColorMode: StarColorMode = 'exaggerated'
 let starStyle: StarStyle = 'realistic'
 let starBrightness: StarBrightness = 'normal'
 let faintStars: FaintStars = 'natural'
+let shader: Shader = 'none'
 let colorBlindPalette = false
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
 const NAKED_EYE_CATALOG_ID = 'naked-eye-stars'
@@ -525,6 +526,8 @@ try {
   if (STAR_STYLES.includes(storedStarStyle as StarStyle)) starStyle = storedStarStyle as StarStyle
   if (localStorage.getItem('star-view-star-brightness') === 'high') starBrightness = 'high'
   if (localStorage.getItem('star-view-faint-stars') === 'lifted') faintStars = 'lifted'
+  const storedShader = localStorage.getItem('star-view-shader')
+  if (SHADERS.includes(storedShader as Shader)) shader = storedShader as Shader
   colorBlindPalette = localStorage.getItem('star-view-color-blind-palette') === 'true'
   renderStatsVisible = localStorage.getItem('star-view-render-stats') === 'true'
   const storedEarthOrbitMode = localStorage.getItem('star-view-earth-orbit-mode')
@@ -554,6 +557,7 @@ element<HTMLInputElement>(`star-style-${starStyle}`).checked = true
 element<HTMLInputElement>(`star-brightness-${starBrightness}`).checked = true
 element<HTMLInputElement>(`faint-stars-${faintStars}`).checked = true
 syncFaintStarsAvailability()
+element<HTMLSelectElement>('shader-select').value = shader
 element<HTMLInputElement>('color-blind-palette').checked = colorBlindPalette
 element<HTMLInputElement>('render-stats-visible').checked = renderStatsVisible
 element('render-stats').hidden = !renderStatsVisible
@@ -3177,6 +3181,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       starStyle,
       starBrightness,
       faintStars,
+      shader,
       earthOrbitDate: earthOrbitDateForMode(earthOrbitMode),
       milkyWayVisible,
       oortCloudVisible,
@@ -3451,8 +3456,11 @@ function openSceneContextMenu(id: string, x: number, y: number, held: PointerEve
   const origin = element('scene-context-origin')
   compare.hidden = !starComparison.canCompare(id, selected.id)
   origin.hidden = sceneBusy || id === referenceId
+  // Matches the observer control: a piloted ship owns the camera, and the current anchor is already observed from.
+  const observe = element('scene-context-observe')
+  observe.hidden = sceneBusy || spaceship?.piloting === true || (observerView && id === observerViewAnchorId)
   element('scene-context-distance').hidden = distancePc === null
-  if (compare.hidden && origin.hidden && distancePc === null) return false
+  if (compare.hidden && origin.hidden && observe.hidden && distancePc === null) return false
   const menu = element('scene-context-menu')
   for (const object of menu.querySelectorAll<HTMLElement>('[data-scene-context-object]')) {
     const star = object.dataset.sceneContextObject === 'target' ? target : selected
@@ -4566,6 +4574,13 @@ element('faint-stars').addEventListener('change', () => {
   try { localStorage.setItem('star-view-faint-stars', faintStars) } catch {}
   viewer?.setFaintStars(faintStars)
 }, { signal: events.signal })
+element('shader').addEventListener('change', () => {
+  const selected = element<HTMLSelectElement>('shader-select').value as Shader
+  if (!SHADERS.includes(selected)) return
+  shader = selected
+  try { localStorage.setItem('star-view-shader', shader) } catch {}
+  viewer?.setShader(shader)
+}, { signal: events.signal })
 // Exaggerated stars already keep faint stars visible, so the lift only applies to realistic stars.
 function syncFaintStarsAvailability(): void {
   for (const input of element('faint-stars').querySelectorAll('input')) input.disabled = starStyle !== 'realistic'
@@ -4949,6 +4964,11 @@ element('scene-context-origin').addEventListener('click', () => {
   const id = sceneMenuTargetId
   closeSceneContextMenu()
   if (id !== null) setOrigin(id)
+}, { signal: events.signal })
+element('scene-context-observe').addEventListener('click', () => {
+  const id = sceneMenuTargetId
+  closeSceneContextMenu()
+  if (id !== null) setObserverViewAnchor(id)
 }, { signal: events.signal })
 element('scene-context-backdrop').addEventListener('click', closeSceneContextMenu, { signal: events.signal })
 element('scene-context-backdrop').addEventListener('contextmenu', (event) => {

@@ -1,7 +1,7 @@
 import { Group, Vector3 } from 'three'
 import type { Star } from './catalog-model'
 import { LIGHT_YEARS_PER_PARSEC, type StarColorMode } from './astronomy'
-import { createPuffLayer, type NebulaLayer } from './nebula-layer'
+import { createPuffLayer, puffSource, type NebulaLayer } from './nebula-layer'
 import { distanceFade } from './milky-way-layer'
 
 // From this camera distance, a blob of faint objects is only a clump of
@@ -79,13 +79,13 @@ export interface FaintObjectClouds {
 export function createFaintObjectClouds(blobs: readonly FaintBlob[], mode: StarColorMode): FaintObjectClouds {
   const group = new Group()
   const layers: NebulaLayer[] = blobs.map(({ center, radius }) => {
-    const layer = createPuffLayer([{
+    const layer = createPuffLayer([puffSource({
       count: 1,
       centers: Float32Array.from(center.toArray()),
       shapes: Float32Array.of(radius, 0.5, 1 / radius, 0.5),
       realColors: Float32Array.of(1, 0.62, 0.3),
       vividColors: Float32Array.of(1, 0.48, 0.16),
-    }], mode)
+    })], mode)
     layer.setVisible([true])
     // Behind star cores, above the Milky Way, like the other extended glows.
     layer.mesh.renderOrder = 1.5

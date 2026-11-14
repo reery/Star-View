@@ -1,6 +1,6 @@
 import { Color, Group } from 'three'
 import type { StarColorMode } from './astronomy'
-import { createPuffLayer, gaussian, seededRandom, type PuffInstances } from './nebula-layer'
+import { createPuffLayer, gaussian, puffSource, seededRandom, type PuffInstances } from './nebula-layer'
 
 // The Galaxy seen from outside, generated from a handful of published parameters:
 // glowing puffs for starlight and absorbing puffs for dust, two instanced draws.
@@ -198,8 +198,8 @@ export interface GalaxyLayer {
 export function createGalaxyLayer(mode: StarColorMode): GalaxyLayer {
   const { emission, dust } = generateGalaxyPuffs()
   const layers = [
-    createPuffLayer([emission], mode, { maxScreenFraction: 0.25 }),
-    createPuffLayer([dust], mode, { absorb: true, maxScreenFraction: 0.25 }),
+    createPuffLayer([puffSource(emission)], mode, { maxScreenFraction: 0.25 }),
+    createPuffLayer([puffSource(dust)], mode, { absorb: true, maxScreenFraction: 0.25 }),
   ]
   const group = new Group()
   layers.forEach((layer, index) => {
