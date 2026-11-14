@@ -8,6 +8,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import type { Star } from './catalog-model'
 import { createStarAppearance, displayMagnitude, STAR_ADAPTATION_FLUX, STAR_BRIGHTNESSES, starCrowdCoverage, starEyeExposure, STAR_GLARE_MAX_RADIUS_PX, STAR_STYLES, type FaintStars, type StarBrightness, type StarStyle } from './star-appearance'
 import { createDepthLabel } from './depth-label'
+import type { ScenePass } from './scene-shader'
 import { updateCameraNearPlane } from './camera-depth'
 import { createMilkyWayLayer } from './milky-way-layer'
 import { createRenderStats, type RenderSetup, type RenderStats } from './render-stats'
@@ -94,6 +95,7 @@ export interface StarViewer {
   setStarStyle(style: StarStyle): void
   setStarBrightness(brightness: StarBrightness): void
   setFaintStars(mode: FaintStars): void
+  setShader(shader: Shader): void
   setStarPaint(painter: StarPainter | null): void
   /** Lets painted stars shrink and fade when zooming out, like unpainted ones. */
   setStarPaintZoomShrink(enabled: boolean): void
@@ -110,6 +112,9 @@ export interface StarViewer {
   setControlsEnabled(enabled: boolean): void
   dispose(): void
 }
+
+export const SHADERS = ['none', 'concept', 'exposure', 'atlas'] as const
+export type Shader = typeof SHADERS[number]
 
 export const MOTION_YEAR_OPTIONS = [1_000, 5_000, 10_000, 25_000, 50_000] as const
 export type MotionYears = typeof MOTION_YEAR_OPTIONS[number]
@@ -146,6 +151,7 @@ interface ViewerOptions {
   starStyle?: StarStyle
   starBrightness?: StarBrightness
   faintStars?: FaintStars
+  shader?: Shader
   earthOrbitDate?: Date | null
   milkyWayVisible?: boolean
   oortCloudVisible?: boolean
@@ -319,6 +325,23 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let starColorMode = options.colorMode
   let starStyle = options.starStyle ?? 'exaggerated'
   let starBrightness = options.starBrightness ?? 'normal'
+  let shader: Shader = options.shader ?? 'none'
+  let scenePass: ScenePass | null = null
+  let shaderRequest = 0
+  // The shader code loads only once a style is chosen, so it never delays the app.
+  function loadShader(): void {
+    scenePass?.dispose()
+    scenePass = null
+    const request = ++shaderRequest
+    if (shader === 'none') return
+    const style = shader
+    void import('./scene-shader').then(({ createScenePass }) => {
+      if (disposed || request !== shaderRequest) return
+      scenePass = createScenePass(style)
+      requestRender()
+    }, () => {})
+  }
+  if (shader !== 'none') loadShader()
   let starPaints: StarPaint[] | null = null
   /** Whether the paint sizes objects, rather than only coloring them. */
   let starPaintSized = false
@@ -2592,6 +2615,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const offscreenCalls = renderer.info.render.calls
     if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
     else renderer.render(scene, camera)
+    scenePass?.render(renderer)
     setData(labelLayer, 'drawCalls', String(renderer.info.render.calls - offscreenCalls))
     if (drawingObserverFlight) {
       camera.position.copy(heldCameraPosition)
@@ -2906,6 +2930,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       faintLift.value = mode === 'lifted' ? 1 : 0
       requestRender()
     },
+    setShader(next) {
+      if (!SHADERS.includes(next) || next === shader) return
+      shader = next
+      loadShader()
+      requestRender()
+    },
     setStarPaint(painter) {
       if (!painter && !starPaints) return
       starPaints = painter ? stars.map(painter) : null
@@ -3068,6 +3098,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       arrowMaterial.dispose()
       nebulaLayer?.dispose()
       molecularCloudLayer?.dispose()
+      scenePass?.dispose()
       bubbleLayer?.dispose()
       faintClouds.dispose()
       spaceshipModel?.dispose()

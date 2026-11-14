@@ -214,7 +214,7 @@ const PAST_USE: Readonly<Record<string, string>> = {
   'constellations-maximized': 'constellations', 'constellations-sidebar-collapsed': 'constellations', 'constellation-latitude': 'constellations',
   'top-lists-sidebar-collapsed': 'top-lists', 'magnitude-city': 'value-card:magnitude-toggle',
   'distance-unit': 'distance-units', 'color-mode': 'star-colors', 'color-blind-palette': 'star-colors',
-  'star-style': 'star-style', 'star-brightness': 'star-style', 'faint-stars': 'star-style', 'label-limit': 'label-limit', 'render-stats': 'preferences',
+  'star-style': 'star-style', 'star-brightness': 'star-style', 'faint-stars': 'star-style', 'label-limit': 'label-limit', 'render-stats': 'preferences', 'shader': 'preferences',
   'observer-latitude': 'observer-latitude', 'observer-axial-tilt': 'observer-latitude', 'observer-cone': 'observer-cone', 'observer-cone-mode': 'observer-cone', 'observer-planets': 'observer-planets',
 }
 
