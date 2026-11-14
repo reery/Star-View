@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, Lightbulb, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, Clapperboard, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, Lightbulb, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipBrightness, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
@@ -56,6 +56,7 @@ import { loadDataShardEntry } from './data-shards'
 import { appendConstellationContent } from './constellation-card-content'
 import { initializeToolbarTouch } from './toolbar-touch'
 import { initializeHideUi } from './hide-ui'
+import type { createDemoTour } from './demo-mode'
 import { initializeTips, noteTipFeature } from './tips'
 import { initializeCardSwipes } from './card-swipe'
 import { initializeTouchTooltips } from './touch-tooltips'
@@ -248,6 +249,10 @@ icon('info-brand-icon', Orbit)
 icon('welcome-icon', Orbit)
 icon('tutorial-icon', GraduationCap)
 icon('tips-icon', Lightbulb)
+icon('demo-icon', Clapperboard)
+icon('demo-active-icon', Clapperboard)
+icon('demo-lock-icon', Lock)
+icon('demo-close-icon', X)
 icon('tip-icon', Lightbulb)
 icon('tip-close-icon', X)
 icon('filter-lock-icon', Lock)
@@ -458,6 +463,24 @@ let autoRotationSpeedIndex = 3
 let autoRotation: 'left' | 'right' | null = null
 /** The view before the first turn, restored by the card's Reset. */
 let autoRotationStart: ViewerViewState | null = null
+/** The running demo; null when stopped. */
+let demoTour: ReturnType<typeof createDemoTour> | null = null
+let demoFrameRequest: number | null = null
+let demoPreviousTime = 0
+/** A press or zoom on the map hands the camera to the visitor until a few seconds after letting go. */
+let demoResumeTime = 0
+let demoPointerHeld = false
+let demoLabels = false
+let demoUi = false
+let demoSpeedLevel = 2
+/** Whether a demo journey rates brightness from the camera, as an imaginary ship. */
+let demoShipView = false
+const DEMO_HOLD_MS = 4000
+/** Pace multipliers of the Demo speed slider, from slow to fast. */
+const DEMO_SPEEDS = [0.4, 0.65, 1, 1.5, 2.25] as const
+const DEMO_SPEED_LABELS = ['Slowest', 'Slow', 'Medium', 'Fast', 'Fastest'] as const
+/** Counts start requests, so stopping while the demo code loads cancels the start. */
+let demoRequest = 0
 let catalogRequest = 0
 let sceneBusy = true
 const filterCategories = new Set<FilterCategoryId>(DEFAULT_FILTER_CATEGORIES)
@@ -469,7 +492,7 @@ let starColorMode: StarColorMode = 'exaggerated'
 let starStyle: StarStyle = 'realistic'
 let starBrightness: StarBrightness = 'normal'
 let faintStars: FaintStars = 'natural'
-let shader: Shader = 'none'
+let shader: Shader = 'exposure'
 let colorBlindPalette = false
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
 const NAKED_EYE_CATALOG_ID = 'naked-eye-stars'
@@ -583,11 +606,11 @@ document.querySelectorAll('.time-markers').forEach((markers) => {
 })
 const selectionHistory = new SelectionHistory(selectedId)
 // The Spaceship card opens in the dock like other cards, but scene clicks leave it open for flying.
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation', 'observer'] as const
-const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'rotation', 'observer'] as const
-// Explore panels open from the flyout, so focus returns to its toggle.
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation', 'observer', 'demo'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'rotation', 'observer', 'demo'] as const
+// Explore panels and Demo mode open from a flyout, so focus returns to its toggle.
 // The observer card opens with observer view and has no toggle of its own; closed, its indicator reopens it.
-const panelToggleId = (name: typeof panelNames[number]) => name === 'observer' ? 'observer-active' : name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
+const panelToggleId = (name: typeof panelNames[number]) => name === 'observer' ? 'observer-active' : name === 'demo' ? 'info-toggle' : name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 // Only the observer card remembers its lock between visits.
 try {
@@ -771,6 +794,11 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
     else renderSpaceship()
   }
   if (name === 'rotation') renderAutoRotation()
+  if (name === 'demo') {
+    // Opening starts the demo; a running one keeps going.
+    if (open && !demoTour) void startDemo()
+    else renderDemo()
+  }
 }
 
 async function loadGlossaryPanel(): Promise<void> {
@@ -1890,7 +1918,7 @@ function syncSelectedObjectLayout(): void {
   selectedCard.style.maxHeight = `${Math.max(68, availableHeight)}px`
 }
 
-function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active', active: boolean): void {
+function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'motion-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active' | 'demo-active', active: boolean): void {
   if (active) noteTipFeature(id)
   const indicator = element(id)
   if (indicator.hidden !== active) return
@@ -1935,6 +1963,7 @@ function togglePanel(name: typeof panelNames[number]): void {
 }
 
 function onSceneInteraction(): void {
+  holdDemo()
   dismissOpenPanel()
   if (touchFirstInput.matches) element<HTMLDetailsElement>('object-card-details').open = false
 }
@@ -2054,6 +2083,93 @@ function renderAutoRotation(): void {
   element<HTMLButtonElement>('rotation-reset').disabled = !autoRotationStart || observerView
   element<HTMLButtonElement>('rotation-faster').disabled = autoRotationSpeedIndex === AUTO_ROTATION_SECONDS_PER_TURN.length - 1
   element<HTMLButtonElement>('rotation-slower').disabled = autoRotationSpeedIndex === 0
+}
+
+/**
+ * Takes over the camera from observer view, a piloted ship and automatic rotation; a loading scene only delays it.
+ * The demo code loads on the first start, so it costs nothing until then.
+ */
+async function startDemo(): Promise<void> {
+  if (demoTour) return
+  const request = ++demoRequest
+  const result = await loadWithRecovery(element('demo-panel').querySelector<HTMLElement>('.display-settings')!, () => import('./demo-mode'), {
+    label: 'Demo mode', silent: true, keepContent: true, retry: () => { void startDemo() },
+    isCurrent: () => !events.signal.aborted && request === demoRequest && !demoTour,
+    focusTarget: element('demo-close'), onChange: syncPanelLayout,
+  })
+  if (!result || request !== demoRequest || demoTour) return
+  if (observerView) setObserverViewAnchor(null, false)
+  if (spaceship?.piloting) setSpaceshipPiloting(false)
+  setAutoRotation(null)
+  demoTour = result.value.createDemoTour({
+    objects: paintableStars,
+    position: (id) => viewer?.objectPosition(id) ?? null,
+    view: () => viewer!.getViewState(),
+    selectedId: () => selectedId,
+    select: (id) => selectStar(id),
+  })
+  demoPreviousTime = 0
+  demoResumeTime = 0
+  demoFrameRequest = requestAnimationFrame(stepDemo)
+  renderDemo()
+}
+
+function stopDemo(): void {
+  demoRequest++
+  demoTour = null
+  if (demoFrameRequest !== null) cancelAnimationFrame(demoFrameRequest)
+  demoFrameRequest = null
+  viewer?.setVisibilityPoint(null)
+  setDemoShipView(false)
+  renderDemo()
+}
+
+function setDemoShipView(shipView: boolean): void {
+  if (shipView === demoShipView) return
+  demoShipView = shipView
+  text('visibility-base', visibilityBaseName())
+}
+
+function visibilityBaseName(): string {
+  if (spaceship && spaceshipVisibility) return 'Spaceship'
+  return demoShipView ? 'Demo ship' : stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun'
+}
+
+function stepDemo(time: number): void {
+  demoFrameRequest = requestAnimationFrame(stepDemo)
+  // A hidden tab pauses the demo instead of jumping ahead on return.
+  const seconds = demoPreviousTime ? Math.min(0.1, (time - demoPreviousTime) / 1000) : 0
+  demoPreviousTime = time
+  // Boarding a ship or observing from an object hands the camera back.
+  if (observerView || spaceship?.piloting) return stopDemo()
+  if (!viewer || sceneBusy || demoPointerHeld || performance.now() < demoResumeTime) return
+  const pose = demoTour?.advance(seconds * DEMO_SPEEDS[demoSpeedLevel]!)
+  if (!pose) return
+  viewer.setViewState({ position: pose.position.toArray(), target: pose.target.toArray(), home: false, observerRollRadians: 0 })
+  viewer.setVisibilityPoint(pose.observer)
+  setDemoShipView(pose.observer !== null)
+}
+
+/** The visitor's own camera moves pause the demo, which then continues from where they left the view. */
+function holdDemo(): void {
+  if (!demoTour) return
+  demoTour.restart()
+  demoResumeTime = performance.now() + DEMO_HOLD_MS
+}
+
+function renderDemo(): void {
+  const running = demoTour !== null
+  setActiveIndicator('demo-active', running && !panelIsOpen('demo'))
+  const root = document.documentElement
+  root.toggleAttribute('data-demo', running)
+  root.toggleAttribute('data-demo-labels-off', running && !demoLabels)
+  root.toggleAttribute('data-demo-ui-off', running && !demoUi)
+  viewer?.setMapGuidesVisible(!running || demoUi)
+  const label = running ? 'Stop demo' : 'Start demo'
+  const run = element<HTMLButtonElement>('demo-run')
+  run.setAttribute('aria-label', label)
+  run.title = label
+  icon('demo-run-icon', running ? Pause : Play)
 }
 
 function renderFollowState(): void {
@@ -2370,7 +2486,7 @@ function renderSelection(): void {
     magnitudeCard.dataset.visibilityGuide = magnitudeCard.dataset.defaultVisibilityGuide ?? 'eye'
   }
   text('reference-base', reference.name)
-  text('visibility-base', spaceship && spaceshipVisibility ? 'Spaceship' : stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun')
+  text('visibility-base', visibilityBaseName())
   const visibilityLock = element('visibility-lock')
   visibilityLock.setAttribute('aria-pressed', String(visibilityLockId !== null))
   visibilityLock.title = visibilityLockId === null ? 'Lock visibility to this object' : 'Unlock visibility'
@@ -3215,6 +3331,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   applyAutoRotation()
   viewer.setGridVisible(gridVisible)
   viewer.setSkyGrid(skyGridMode)
+  viewer.setMapGuidesVisible(!demoTour || demoUi)
   viewer.setStarPaintZoomShrink(paintZoomShrink)
   paintVisible(true)
   // Filtering changes the visible objects, not the camera, including the initial overview.
@@ -4069,6 +4186,29 @@ element('motion-active').addEventListener('click', () => togglePanel('motion'), 
 element('neighborhood-active').addEventListener('click', () => togglePanel('neighborhood'), { signal: events.signal })
 element('spaceship-active').addEventListener('click', () => togglePanel('spaceship'), { signal: events.signal })
 element('rotation-active').addEventListener('click', () => togglePanel('rotation'), { signal: events.signal })
+element('demo-active').addEventListener('click', () => togglePanel('demo'), { signal: events.signal })
+element('demo-run').addEventListener('click', () => demoTour ? stopDemo() : void startDemo(), { signal: events.signal })
+for (const [id, set] of [['demo-labels', (on: boolean) => { demoLabels = on }], ['demo-ui', (on: boolean) => { demoUi = on }]] as const) {
+  element(id).addEventListener('change', () => {
+    set(element<HTMLInputElement>(id).checked)
+    renderDemo()
+  }, { signal: events.signal })
+}
+element('demo-speed').addEventListener('input', () => {
+  const input = element<HTMLInputElement>('demo-speed')
+  demoSpeedLevel = input.valueAsNumber
+  input.setAttribute('aria-valuetext', DEMO_SPEED_LABELS[demoSpeedLevel]!)
+  text('demo-speed-value', DEMO_SPEED_LABELS[demoSpeedLevel]!)
+}, { signal: events.signal })
+// Wheel zooms only hold the demo for a moment; a drag holds it until a few seconds after release.
+element('scene').addEventListener('pointerdown', () => { demoPointerHeld = demoTour !== null }, { signal: events.signal })
+for (const type of ['pointerup', 'pointercancel'] as const) {
+  window.addEventListener(type, () => {
+    if (!demoPointerHeld) return
+    demoPointerHeld = false
+    holdDemo()
+  }, { signal: events.signal })
+}
 element('spaceship-hud').addEventListener('click', (event) => {
   if (!panelIsOpen('spaceship') && !(event.target instanceof Element && event.target.closest('button'))) togglePanel('spaceship')
 }, { signal: events.signal })
@@ -4824,7 +4964,7 @@ document.addEventListener('click', (event) => {
   event.preventDefault()
   openGlossaryTerm(term)
 }, { signal: events.signal })
-for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'spaceship', 'rotation', 'observer'] as const) {
+for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'spaceship', 'rotation', 'observer', 'demo'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()
@@ -5052,6 +5192,11 @@ document.addEventListener('keydown', (event) => {
     }
   }
   if (event.key !== 'Escape') return
+  // Without its UI, Escape is the quickest way out of the demo.
+  if (demoTour && !demoUi) {
+    stopDemo()
+    return
+  }
   if (starComparison.abort()) {
     event.preventDefault()
     return
