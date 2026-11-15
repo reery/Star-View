@@ -1,5 +1,6 @@
 import { validDesignations } from './designations.ts'
 import { equatorialToGalacticPc, NEBULA_OBJECT_TYPES, NEBULA_SHAPE_KINDS, type NebulaDetails, type NebulaObjectType, type Star } from './catalog-model.ts'
+import { finitePositive, parseOverlayManifest, strings } from './overlay-model.ts'
 
 export interface NebulaOverlayManifest {
   schemaVersion: 1
@@ -17,29 +18,17 @@ export interface NebulaOverlayManifest {
 const POSITION_TOLERANCE_PC = 0.001
 
 export function parseNebulaOverlayManifest(raw: string): NebulaOverlayManifest {
-  const value: unknown = JSON.parse(raw)
-  if (!value || typeof value !== 'object') throw new Error('Nebula manifest must be an object.')
-  const manifest = value as Record<string, unknown>
-  if (manifest.schemaVersion !== 1 || manifest.id !== 'nebulae') throw new Error('Invalid nebula manifest.')
-  if (typeof manifest.epoch !== 'number' || !Number.isFinite(manifest.epoch)
-    || typeof manifest.objectCount !== 'number' || !Number.isInteger(manifest.objectCount)
-    || !manifest.counts || typeof manifest.counts !== 'object'
-    || !NEBULA_OBJECT_TYPES.every((type) => Number.isInteger((manifest.counts as Record<string, unknown>)[type]))) {
-    throw new Error('Invalid nebula manifest counts.')
-  }
-  return manifest as unknown as NebulaOverlayManifest
-}
-
-function finitePositive(value: unknown): value is number {
-  return typeof value === 'number' && Number.isFinite(value) && value > 0
-}
-
-function strings(value: unknown, minimum = 1): value is string[] {
-  return Array.isArray(value) && value.length >= minimum && value.every((entry) => typeof entry === 'string' && entry.length > 0)
+  return parseOverlayManifest(raw, 'nebulae', 'Nebula', NEBULA_OBJECT_TYPES)
 }
 
 export function decodeNebulaMask(mask: { values: string }): Uint8Array {
   return Uint8Array.from(atob(mask.values), (character) => character.charCodeAt(0))
+}
+
+/** Byte length of padded base64, or -1; validation checks sizes without decoding what the layer decodes on first use. */
+function base64Bytes(value: string): number {
+  if (value.length % 4 !== 0 || !/^[A-Za-z0-9+/]*={0,2}$/.test(value)) return -1
+  return value.length / 4 * 3 - (value.endsWith('==') ? 2 : value.endsWith('=') ? 1 : 0)
 }
 
 function validMask(shape: Record<string, unknown>): boolean {
@@ -48,12 +37,8 @@ function validMask(shape: Record<string, unknown>): boolean {
   const size = mask?.size
   if (!Array.isArray(size) || size.length !== 2 || !size.every((cells) => Number.isInteger(cells) && cells >= 2 && cells <= 128)
     || typeof mask.values !== 'string' || !['ellipsoid', 'shell'].includes(shape.kind as string) || shape.position_angle_deg !== 0) return false
-  try {
-    const values = decodeNebulaMask(mask as { values: string })
-    return values.length === size[0] * size[1] && values.some((cell) => cell > 0)
-  } catch {
-    return false
-  }
+  // Zero bytes encode as "A", so any other character is a lit cell.
+  return base64Bytes(mask.values) === size[0] * size[1] && /[^A=]/.test(mask.values)
 }
 
 // Four bytes per measured puff; the remaining puffs of the count fill the body.
@@ -61,12 +46,8 @@ function validPoints(shape: Record<string, unknown>, puffCount: unknown): boolea
   const points = shape.points as Record<string, unknown> | undefined
   if (points === undefined) return shape.kind !== 'points'
   if (shape.kind !== 'points' || !points || !finitePositive(points.radius_pc) || typeof points.values !== 'string') return false
-  try {
-    const bytes = decodeNebulaMask(points as { values: string }).length
-    return bytes > 0 && bytes % 4 === 0 && bytes / 4 <= (puffCount as number)
-  } catch {
-    return false
-  }
+  const bytes = base64Bytes(points.values)
+  return bytes > 0 && bytes % 4 === 0 && bytes / 4 <= (puffCount as number)
 }
 
 function validRemnant(value: unknown, type: unknown): boolean {

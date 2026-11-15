@@ -1,5 +1,5 @@
 import { brownDwarfAppearanceKelvin, brownDwarfSurfaceColor, starDisplayColor } from './astronomy'
-import { MISSING_VALUE } from './format'
+import { MISSING_VALUE, significant } from './format'
 import { isBubbleObject, isCompactObject, isGalaxyObject, isMolecularCloudObject, isNebulaObject, type Star } from './catalog-model'
 import { SOLAR_RADIUS_METERS } from './luminosity-properties'
 import jupiterMapUrl from './assets/radius-comparison/jupiter-map.webp?url'
@@ -96,7 +96,6 @@ export function dimensionNumber(value: number): string {
   return value.toLocaleString('en-US', { maximumSignificantDigits: 4 })
 }
 
-const rotationNumber = (value: number) => value.toLocaleString('en-US', { maximumSignificantDigits: 3 })
 
 export function radiusStats(comparison: RadiusComparison): { label: string; values: { value: string }[] }[] {
   const bodies = [comparison.selected, comparison.reference]
@@ -111,8 +110,8 @@ export function radiusStats(comparison: RadiusComparison): { label: string; valu
     { label: 'Volume', measure: volume, format: scientific('km³') },
     ...comparison.selected.rotationPeriodDays === null ? [] : [
       { label: 'Rotation period', measure: (body: RadiusBody) => body.rotationPeriodDays,
-        format: (days: number) => days < 2 ? `${rotationNumber(days * 24)} h` : `${rotationNumber(days)} days` },
-      { label: 'Equatorial velocity', measure: (body: RadiusBody) => body.equatorialVelocityKms, format: (value: number) => `${rotationNumber(value)} km/s` },
+        format: (days: number) => days < 2 ? `${significant(days * 24)} h` : `${significant(days)} days` },
+      { label: 'Equatorial velocity', measure: (body: RadiusBody) => body.equatorialVelocityKms, format: (value: number) => `${significant(value)} km/s` },
     ],
   ]
   return rows.map(({ label, measure, format }) => ({

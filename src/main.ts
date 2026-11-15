@@ -13,11 +13,7 @@ import { completeLoadedCompanions as completeCatalogCompanions } from './constel
 import { hipNumber, objectDesignations, objectHipNumbers } from './designations'
 import { designationsAvailable, loadCatalogDesignations } from './catalog-designations'
 import { completeCompanionRecords } from './companion-records'
-import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
-import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
-import { loadMolecularClouds, molecularCloudOverlayManifest } from './molecular-cloud-overlay'
-import { bubbleOverlayManifest, loadBubbles } from './bubble-overlay'
-import { loadGalaxies } from './galaxy-overlay'
+import { bubbleOverlayManifest, compactOverlayManifest, loadBubbles, loadCompactRemnants, loadGalaxies, loadMolecularClouds, loadNebulae, molecularCloudOverlayManifest, nebulaOverlayManifest } from './overlays'
 import { catalogs, catalogErrors } from './registry'
 import legacyStarIds from './data/legacy-star-ids.json'
 import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, formatDistance, galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
@@ -3395,27 +3391,31 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setVisibilityLocked(visibilityLockId !== null)
   syncViewCenterInset()
   viewer.select(selectedId, false)
-  viewer.setVisibility(observerId, magnitudeLimit, hideFainterObjects)
-  viewer.setObjectDistanceLimit(objectDistanceLimitLy)
-  viewer.setObjectFilter([...visibleKeys])
-  viewer.setObjectPredicate(mapObjectPredicate())
-  viewer.setNeighborhood(viewerNeighborhood())
-  viewer.setLabelLimit(labelLimit)
-  viewer.setMotionArrowsVisible(motionArrowsVisible)
-  viewer.setMotionFrame(motionFrame)
-  viewer.setMotionYears(motionYears)
-  viewer.setFollowSelection(followSelection)
-  viewer.setSimulationYears(simulationYears)
-  viewer.setSimulationPlaying(simulationPlaying)
-  viewer.setPowerSavingMode(powerSavingMode)
-  viewer.setRenderStatsListener(renderStatsVisible ? showRenderStats : null)
-  viewer.setSolarSystemSkyVisible(observerPlanetsVisible)
-  applyAutoRotation()
-  viewer.setGridVisible(gridVisible)
-  viewer.setSkyGrid(skyGridMode)
-  viewer.setMapGuidesVisible(!demoTour || demoUi)
-  viewer.setStarPaintZoomShrink(paintZoomShrink)
-  paintVisible(true)
+  const created = viewer
+  // Each of these alone would recompute every object's visibility, size and label rank.
+  created.batch(() => {
+    created.setVisibility(observerId, magnitudeLimit, hideFainterObjects)
+    created.setObjectDistanceLimit(objectDistanceLimitLy)
+    created.setObjectFilter([...visibleKeys])
+    created.setObjectPredicate(mapObjectPredicate())
+    created.setNeighborhood(viewerNeighborhood())
+    created.setLabelLimit(labelLimit)
+    created.setMotionArrowsVisible(motionArrowsVisible)
+    created.setMotionFrame(motionFrame)
+    created.setMotionYears(motionYears)
+    created.setFollowSelection(followSelection)
+    created.setSimulationYears(simulationYears)
+    created.setSimulationPlaying(simulationPlaying)
+    created.setPowerSavingMode(powerSavingMode)
+    created.setRenderStatsListener(renderStatsVisible ? showRenderStats : null)
+    created.setSolarSystemSkyVisible(observerPlanetsVisible)
+    applyAutoRotation()
+    created.setGridVisible(gridVisible)
+    created.setSkyGrid(skyGridMode)
+    created.setMapGuidesVisible(!demoTour || demoUi)
+    created.setStarPaintZoomShrink(paintZoomShrink)
+    paintVisible(true)
+  })
   // Filtering changes the visible objects, not the camera, including the initial overview.
   if (retainedView) {
     viewer.setViewState({ ...retainedView, home: false })

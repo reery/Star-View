@@ -1,5 +1,6 @@
 import { validDesignations } from './designations.ts'
 import { equatorialToGalacticPc, GALAXY_OBJECT_TYPES, type GalaxyDetails, type GalaxyObjectType, type Star } from './catalog-model.ts'
+import { finite, finitePositive as positive, parseOverlayManifest } from './overlay-model.ts'
 
 export interface GalaxyOverlayManifest {
   schemaVersion: 1
@@ -14,8 +15,6 @@ export interface GalaxyOverlayManifest {
   snapshot: string
 }
 
-const finite = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value)
-const positive = (value: unknown): value is number => finite(value) && value > 0
 const text = (value: unknown): value is string => typeof value === 'string' && value.length > 0
 const color = (value: unknown) => typeof value === 'string' && /^#[0-9a-f]{6}$/i.test(value)
 
@@ -48,15 +47,7 @@ function validDetails(value: unknown): value is GalaxyDetails {
 }
 
 export function parseGalaxyOverlayManifest(raw: string): GalaxyOverlayManifest {
-  const value: unknown = JSON.parse(raw)
-  if (!value || typeof value !== 'object') throw new Error('Galaxy manifest must be an object.')
-  const manifest = value as Record<string, unknown>
-  if (manifest.schemaVersion !== 1 || manifest.id !== 'galaxies') throw new Error('Invalid galaxy manifest.')
-  if (!finite(manifest.epoch) || !Number.isInteger(manifest.objectCount) || !manifest.counts || typeof manifest.counts !== 'object'
-    || !GALAXY_OBJECT_TYPES.every((type) => Number.isInteger((manifest.counts as Record<string, unknown>)[type]))) {
-    throw new Error('Invalid galaxy manifest counts.')
-  }
-  return manifest as unknown as GalaxyOverlayManifest
+  return parseOverlayManifest(raw, 'galaxies', 'Galaxy', GALAXY_OBJECT_TYPES)
 }
 
 export function parseGalaxyOverlayPayload(value: unknown, manifest: GalaxyOverlayManifest): Star[] {

@@ -1,5 +1,6 @@
 import type { Star } from './catalog-model'
 import dwarfSequence from './data/stellar-class-references.json'
+import { positiveMeasurement } from './luminosity-properties'
 import { massProperties } from './mass-properties'
 import { hrCardAvailable } from './spectral-properties'
 export { hrCardAvailable } from './spectral-properties'
@@ -14,17 +15,16 @@ export interface HrAxes { hot: number; cool: number; bright: number; faint: numb
 // IAU 2015 B2, rounded solar bolometric zero point. Visual magnitudes remain
 // Johnson V: a bolometric magnitude must never fill a missing catalog M_V.
 export const HR_SUN = { temperature: 5772, visual: 4.83, bolometric: 4.74 } as const
-const positive = (value: number | null): value is number => value !== null && Number.isFinite(value) && value > 0
 
 export function hrMagnitude(star: HrStar, mode: HrMagnitudeMode): number | null {
   if (!hrCardAvailable(star)) return null
   if (mode === 'visual') return star.absolute_mag !== null && Number.isFinite(star.absolute_mag) ? star.absolute_mag : null
-  return positive(star.luminosity_solar) ? HR_SUN.bolometric - 2.5 * Math.log10(star.luminosity_solar) : null
+  return positiveMeasurement(star.luminosity_solar) ? HR_SUN.bolometric - 2.5 * Math.log10(star.luminosity_solar) : null
 }
 
 export function hrPoint(star: HrStar, mode: HrMagnitudeMode): HrPoint | null {
   const magnitude = hrMagnitude(star, mode)
-  return positive(star.temperature_k) && magnitude !== null ? { temperature: star.temperature_k, magnitude } : null
+  return positiveMeasurement(star.temperature_k) && magnitude !== null ? { temperature: star.temperature_k, magnitude } : null
 }
 
 export function hrAxes(point: HrPoint | null, reference: HrPoint | null = null): HrAxes {
@@ -77,7 +77,7 @@ const spectralGuides = [
 ] as const
 
 const number = (value: number) => value.toLocaleString('en-US', { maximumFractionDigits: 2 })
-const temperatureText = (object: Star) => positive(object.temperature_k) ? `${Math.round(object.temperature_k).toLocaleString('en-US')} K` : 'Not available'
+const temperatureText = (object: Star) => positiveMeasurement(object.temperature_k) ? `${Math.round(object.temperature_k).toLocaleString('en-US')} K` : 'Not available'
 
 // Plot frame shared by the H-R and Kiel diagrams, in SVG user units.
 const left = 54, top = 50, size = 330, bottom = top + size
@@ -168,7 +168,7 @@ export function renderHrDiagram(card: HTMLElement, star: Star, reference: Star, 
   for (const candidate of ['visual', 'bolometric'] as const) get(`spectral-${candidate}`).setAttribute('aria-pressed', String(candidate === mode))
   const missing = (object: Star): string => {
     const fields: string[] = []
-    if (!positive(object.temperature_k)) fields.push('temperature')
+    if (!positiveMeasurement(object.temperature_k)) fields.push('temperature')
     if (hrMagnitude(object, mode) === null) fields.push(mode === 'visual' ? 'visual magnitude' : 'bolometric luminosity')
     return fields.length ? `${object.name} cannot be plotted: no catalog ${fields.join(' or ')}.${mode === 'visual' && hrPoint(object, 'bolometric') ? ' Choose Bolometric to show its position.' : ''}` : ''
   }
@@ -243,7 +243,7 @@ export function derivedLogG(star: KielStar): number | null {
 
 /** Measured spectroscopic log g wins; the mass/radius value is kept for comparison. */
 export function kielPoint(star: KielStar): KielPoint | null {
-  if (!hrCardAvailable(star) || !positive(star.temperature_k)) return null
+  if (!hrCardAvailable(star) || !positiveMeasurement(star.temperature_k)) return null
   const measured = star.stellar_observations?.surface_gravity?.log_g ?? null
   const derived = derivedLogG(star)
   const logG = measured ?? derived
@@ -287,7 +287,7 @@ export function renderKielDiagram(card: HTMLElement, star: Star, reference: Star
     get(`kiel-${prefix}-derived`).textContent = logGText(derivedLogG(object))
   }
   const missing = (object: Star) => kielPoint(object) ? ''
-    : !positive(object.temperature_k) ? `${object.name} cannot be plotted: no catalog temperature.`
+    : !positiveMeasurement(object.temperature_k) ? `${object.name} cannot be plotted: no catalog temperature.`
       : `${object.name} cannot be plotted: no spectroscopic log g, and no catalog mass and radius.`
   const note = get('kiel-missing')
   note.textContent = [...new Set([missing(star), same ? '' : missing(reference)])].filter(Boolean).join(' ')

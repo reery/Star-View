@@ -1,16 +1,31 @@
 import { describe, expect, it } from 'vitest'
-import { PerspectiveCamera, Vector3, type Camera } from 'three'
+import { Matrix4, PerspectiveCamera, Vector3, Vector4, type Camera } from 'three'
 import { apparentVisualMagnitude, LIGHT_YEARS_PER_PARSEC } from './astronomy'
 import { chooseOrdinaryLabelPlacement, ordinaryLabelCandidates } from './label-layout'
 import {
   GUIDE_DASH_PX, GUIDE_GAP_PX, MOTION_ARROW_HEAD_PX, MOTION_ARROW_STROKE_PX, MOTION_ARROW_TAIL_OFFSET_PX,
   ScreenSpaceGrid, TapGesture, budgetVisibleLabelIndices, compareMapLabelCandidates, focusProgress, isObjectMapVisible, mapVisibilityTier, maxOrbitDistancePc,
   guideDashScale, motionArrowGeometryInto, motionTravelDistancePc, pickProjectedStarAtScreenPoint,
-  projectMotionDirection, projectSelectedAnchor, projectWorldPoint, starBlocksLabels,
-  shouldRunOrdinaryLabelLayout, starCoreShape, starCoreViewScale, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
-  starHaloStrength, starHaloViewOpacityScale, starHaloViewScale, type MotionArrowGeometry,
+  projectMotionDirectionInto, projectSelectedAnchor, projectWorldPointInto, starBlocksLabels,
+  shouldRunOrdinaryLabelLayout, starCoreShape, starCoreWhiteStrength, starHaloDiameter, starHaloEmphasis, starHaloOpacity,
+  starHaloStrength, type MotionArrowGeometry,
   type PointerPosition, type ProjectedPickable, type Viewport,
 } from './viewer-primitives'
+
+function projectWorldPoint(position: Vector3, camera: Camera, viewport: Viewport) {
+  const target = { x: 0, y: 0, depth: 0 }
+  const viewProjection = new Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)
+  return projectWorldPointInto(position, viewProjection, viewport, new Vector4(), target) ? target : null
+}
+
+function projectMotionDirection(position: Vector3, velocity: Vector3, camera: Camera, viewport: Viewport) {
+  const clipPoint = new Vector4()
+  const projected = { x: 0, y: 0, depth: 0, motionX: 0, motionY: 0, motionScale: 0, motionDepthScale: 0, motionVisible: false }
+  const viewProjection = new Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)
+  if (!projectWorldPointInto(position, viewProjection, viewport, clipPoint, projected)) return null
+  projectMotionDirectionInto(position, velocity, camera, viewport, clipPoint, new Vector4(), new Vector4(), new Vector4(), projected)
+  return projected.motionVisible ? { x: projected.motionX, y: projected.motionY, pixelsPerPc: projected.motionScale } : null
+}
 
 const viewport = { left: 110, top: 90, width: 400, height: 300 }
 
@@ -317,28 +332,6 @@ describe('magnitude-sized halos', () => {
     const distantMagnitude = apparentVisualMagnitude(-5, 1000)!
     expect(starHaloDiameter(distantMagnitude)).toBeLessThan(starHaloDiameter(nearbyMagnitude))
     expect(starHaloOpacity(distantMagnitude)).toBeLessThan(starHaloOpacity(nearbyMagnitude))
-  })
-})
-
-describe('view-distance halo falloff', () => {
-  it('preserves close glows and substantially tones them down around 1,000 light-years', () => {
-    const oneThousandLightYearsPc = 1000 / LIGHT_YEARS_PER_PARSEC
-    const oneThousandLightYearHaloRatio = 0.05
-    expect(starCoreViewScale(50 / LIGHT_YEARS_PER_PARSEC)).toBe(1)
-    expect(starHaloViewScale(50 / LIGHT_YEARS_PER_PARSEC)).toBe(1)
-    expect(starHaloViewOpacityScale(50 / LIGHT_YEARS_PER_PARSEC)).toBe(1)
-    expect(starCoreViewScale(oneThousandLightYearsPc)).toBe(0.3)
-    expect(starHaloViewScale(oneThousandLightYearsPc)).toBeCloseTo(oneThousandLightYearHaloRatio ** 0.25)
-    expect(starHaloViewOpacityScale(oneThousandLightYearsPc)).toBeCloseTo(Math.sqrt(oneThousandLightYearHaloRatio))
-  })
-
-  it('keeps small cores and a restrained minimum glow at extreme and invalid view distances', () => {
-    expect(starCoreViewScale(1_000_000)).toBe(0.3)
-    expect(starHaloViewScale(1_000_000)).toBe(0.3)
-    expect(starHaloViewOpacityScale(1_000_000)).toBeCloseTo(0.08)
-    expect(starCoreViewScale(0)).toBe(1)
-    expect(starHaloViewScale(0)).toBe(1)
-    expect(starHaloViewOpacityScale(NaN)).toBe(1)
   })
 })
 

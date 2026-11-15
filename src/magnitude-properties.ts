@@ -18,7 +18,7 @@ export const MAGNITUDE_VISIBILITY_GUIDES = [
   ] as IconNode },
 ] as const
 
-const finiteMagnitude = (value: number | null | undefined): value is number => typeof value === 'number' && Number.isFinite(value)
+export const finiteMagnitude = (value: number | null | undefined): value is number => typeof value === 'number' && Number.isFinite(value)
 
 export function magnitudeCardAvailable(star: Star): boolean {
   return finiteMagnitude(star.absolute_mag) || finiteMagnitude(star.apparent_mag)

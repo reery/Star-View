@@ -85,14 +85,11 @@ export function earthEclipticLongitude(date: Date): number {
   return wrapDegrees(solarLongitude + 180) * DEGREES_TO_RADIANS
 }
 
-export interface EarthOrbitModel {
-  orbitPoints: Vector3[]
+export interface EarthOrbitMarker {
   earthPosition: Vector3
   axisDirection: Vector3
   eclipticLongitudeDeg: number
 }
-
-export type EarthOrbitMarker = Omit<EarthOrbitModel, 'orbitPoints'>
 
 function validateOrbitRadius(radiusPc: number): void {
   if (!Number.isFinite(radiusPc) || radiusPc <= 0) throw new RangeError('Orbit display radius must be positive.')
@@ -114,8 +111,4 @@ export function earthOrbitMarker(date = new Date(), radiusPc = EARTH_ORBIT_DISPL
   // In ecliptic coordinates, Earth's J2000 north pole is tilted toward +Y.
   const axisDirection = eclipticVectorToWorld(new Vector3(0, Math.sin(MEAN_OBLIQUITY_RADIANS), Math.cos(MEAN_OBLIQUITY_RADIANS))).normalize()
   return { earthPosition, axisDirection, eclipticLongitudeDeg: longitude * RADIANS_TO_DEGREES }
-}
-
-export function earthOrbitModel(date = new Date(), radiusPc = EARTH_ORBIT_DISPLAY_RADIUS_PC, segments = 180): EarthOrbitModel {
-  return { orbitPoints: earthOrbitPoints(radiusPc, segments), ...earthOrbitMarker(date, radiusPc) }
 }

@@ -4,8 +4,8 @@ export { svgNode }
 export type WidgetMount = (host: HTMLElement, signal: AbortSignal, variant?: string) => void
 
 export const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
-export const clamp = (value: number, low: number, high: number) => Math.min(high, Math.max(low, value))
-export const number = (value: number, digits = 3) => value.toLocaleString('en-US', { maximumSignificantDigits: digits })
+export { clamp } from './math'
+export { significant as number } from './format'
 
 /** The widget's drawing surface; text sizes assume this width and scale with the card. */
 export function drawing(host: HTMLElement, height: number, label: string, width = 360): SVGSVGElement {

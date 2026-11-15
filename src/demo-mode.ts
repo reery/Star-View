@@ -1,6 +1,7 @@
 import { Vector3 } from 'three'
 import { LIGHT_YEARS_PER_PARSEC } from './astronomy'
 import type { Star } from './catalog-model'
+import { clamp } from './math'
 
 export interface DemoPose { position: Vector3; target: Vector3 }
 
@@ -81,7 +82,6 @@ const smooth = (u: number) => u * u * (3 - 2 * u)
 /** Like smooth, but also without a sudden change of acceleration at its ends. */
 const smoother = (u: number) => u ** 3 * (u * (6 * u - 15) + 10)
 const easeInOut = (u: number) => u < 0.5 ? 4 * u ** 3 : 1 - (-2 * u + 2) ** 3 / 2
-const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value))
 /** The share of a flight's average speed it keeps at its ends: a local move's speed, within the cruising share. */
 const cruisingShare = (framing: number, seconds: number, distance: number) => clamp(LOCAL_SPEED * framing * seconds / Math.max(distance, 1e-9), 0, CRUISING)
 const travelEase = (u: number, cruising: number) => (1 - cruising) * easeInOut(u) + cruising * u

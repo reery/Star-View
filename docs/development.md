@@ -113,11 +113,12 @@ Visual-polish regressions additionally sample the gap-free core-to-halo falloff,
 - [src/astronomy.ts](../src/astronomy.ts): frame mapping, distances, and temperature colors.
 - [src/viewer.ts](../src/viewer.ts): Three.js scene, camera, measurement guides, budgeted label placement, picking, and teardown.
 - [src/object-filter.ts](../src/object-filter.ts): filter categories, subtypes, data availability and effective visible types.
-- [src/nebula-overlay-model.ts](../src/nebula-overlay-model.ts) and [src/nebula-overlay.ts](../src/nebula-overlay.ts): nebula overlay validation and lazy loading.
+- [src/overlays.ts](../src/overlays.ts): lazy loading of every overlay payload; [src/overlay-model.ts](../src/overlay-model.ts): the manifest checks the overlay models share.
+- [src/nebula-overlay-model.ts](../src/nebula-overlay-model.ts): nebula overlay validation.
 - [src/nebula-layer.ts](../src/nebula-layer.ts): deterministic nebula puff sampling and the single instanced nebula draw.
-- [src/molecular-cloud-overlay-model.ts](../src/molecular-cloud-overlay-model.ts) and [src/molecular-cloud-overlay.ts](../src/molecular-cloud-overlay.ts): Cahlon catalog validation and lazy loading.
+- [src/molecular-cloud-overlay-model.ts](../src/molecular-cloud-overlay-model.ts): Cahlon catalog validation.
 - [src/molecular-cloud-layer.ts](../src/molecular-cloud-layer.ts): voxel-sampled smoky body and luminous-rim cloud rendering.
-- [src/bubble-overlay-model.ts](../src/bubble-overlay-model.ts) and [src/bubble-overlay.ts](../src/bubble-overlay.ts): bubble validation and lazy loading.
+- [src/bubble-overlay-model.ts](../src/bubble-overlay-model.ts): bubble validation.
 - [src/bubble-layer.ts](../src/bubble-layer.ts): directional-grid and analytic shell generation plus the merged translucent draw.
 - [src/object-list.ts](../src/object-list.ts): normalized search and fixed-row virtual object list.
 - [src/main.ts](../src/main.ts): selected-object state and semantic DOM inspector.

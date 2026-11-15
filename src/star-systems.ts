@@ -52,10 +52,10 @@ function projectedSeparationAu(a: Star, b: Star): number {
 
 const knownDifference = (a: number | null, b: number | null) => a === null || b === null ? 0 : a - b
 
-/** Draw the brightest close component plus any explicitly selected companion. */
-export function mapComponentVisibility(stars: readonly Star[], selectedId: string | null = null): Uint8Array {
+/** Close components other than the brightest of their group; the map draws them only while selected. */
+export function closeCompanionIndices(stars: readonly Star[]): number[] {
   const indices = new Map(stars.map((star, index) => [star.id, index]))
-  const visible = new Uint8Array(stars.length).fill(1)
+  const companions: number[] = []
   for (const system of new Set(indexStarSystems(stars).values())) {
     const remaining = new Set(system.components)
     while (remaining.size > 0) {
@@ -76,9 +76,19 @@ export function mapComponentVisibility(stars: readonly Star[], selectedId: strin
         || knownDifference(a.star.absolute_mag, b.star.absolute_mag)
         || knownDifference(b.star.luminosity_solar, a.star.luminosity_solar)
         || a.label.localeCompare(b.label, 'en'))
-      for (const { star } of group.slice(1)) visible[indices.get(star.id)!] = star.id === selectedId ? 1 : 0
+      for (const { star } of group.slice(1)) companions.push(indices.get(star.id)!)
     }
   }
+  return companions
+}
+
+/**
+ * Draw the brightest close component plus any explicitly selected companion.
+ * The companions depend only on the rows, so a caller that asks repeatedly passes them in.
+ */
+export function mapComponentVisibility(stars: readonly Star[], selectedId: string | null = null, companions = closeCompanionIndices(stars)): Uint8Array {
+  const visible = new Uint8Array(stars.length).fill(1)
+  for (const index of companions) if (stars[index]!.id !== selectedId) visible[index] = 0
   return visible
 }
 

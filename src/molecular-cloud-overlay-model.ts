@@ -1,5 +1,6 @@
 import { validDesignations } from './designations.ts'
 import { MOLECULAR_CLOUD_OBJECT_TYPES, type MolecularCloudDetails, type MolecularCloudObjectType, type Star } from './catalog-model.ts'
+import { finite, finitePositive, parseOverlayManifest } from './overlay-model.ts'
 
 export interface MolecularCloudOverlayManifest {
   schemaVersion: 1
@@ -14,14 +15,6 @@ export interface MolecularCloudOverlayManifest {
   sources: { name: string; url: string }[]
   cutoffPolicy: string
   snapshot: string
-}
-
-function finite(value: unknown): value is number {
-  return typeof value === 'number' && Number.isFinite(value)
-}
-
-function finitePositive(value: unknown): value is number {
-  return finite(value) && value > 0
 }
 
 function pair(value: unknown): value is [number, number] {
@@ -59,18 +52,12 @@ function validDetails(value: unknown): value is MolecularCloudDetails {
 }
 
 export function parseMolecularCloudOverlayManifest(raw: string): MolecularCloudOverlayManifest {
-  const value: unknown = JSON.parse(raw)
-  if (!value || typeof value !== 'object') throw new Error('Molecular-cloud manifest must be an object.')
-  const manifest = value as Record<string, unknown>
-  if (manifest.schemaVersion !== 1 || manifest.id !== 'molecular-clouds') throw new Error('Invalid molecular-cloud manifest.')
-  if (!finite(manifest.epoch) || !Number.isInteger(manifest.objectCount)
-    || !manifest.counts || typeof manifest.counts !== 'object'
-    || !MOLECULAR_CLOUD_OBJECT_TYPES.every((type) => Number.isInteger((manifest.counts as Record<string, unknown>)[type]))
-    || !Number.isInteger(manifest.sourceVoxelCount) || (manifest.sourceVoxelCount as number) <= 0
-    || !Number.isInteger(manifest.displaySampleCount) || (manifest.displaySampleCount as number) <= 0) {
+  const manifest = parseOverlayManifest<MolecularCloudOverlayManifest>(raw, 'molecular-clouds', 'Molecular-cloud', MOLECULAR_CLOUD_OBJECT_TYPES)
+  if (!Number.isInteger(manifest.sourceVoxelCount) || manifest.sourceVoxelCount <= 0
+    || !Number.isInteger(manifest.displaySampleCount) || manifest.displaySampleCount <= 0) {
     throw new Error('Invalid molecular-cloud manifest counts.')
   }
-  return manifest as unknown as MolecularCloudOverlayManifest
+  return manifest
 }
 
 export function parseMolecularCloudOverlayPayload(value: unknown, manifest: MolecularCloudOverlayManifest): Star[] {

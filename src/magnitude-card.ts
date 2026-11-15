@@ -1,4 +1,4 @@
-import { MAGNITUDE_VISIBILITY_GUIDES } from './magnitude-properties'
+import { finiteMagnitude, MAGNITUDE_VISIBILITY_GUIDES } from './magnitude-properties'
 export { magnitudeCardAvailable, MAGNITUDE_VISIBILITY_GUIDES, NAKED_EYE_MAGNITUDE } from './magnitude-properties'
 import { Eye, Sun, createElement } from 'lucide'
 import { starDisplayColor, type StarColorMode } from './astronomy'
@@ -45,7 +45,6 @@ export function initializeMagnitudeVisibility(card: HTMLElement, onChange: () =>
     return button
   }))
 }
-const finiteMagnitude = (value: number | null | undefined): value is number => typeof value === 'number' && Number.isFinite(value)
 export const magnitudeNumber = (value: number | null | undefined): string => !finiteMagnitude(value) ? MISSING_VALUE
   : `${value < 0 ? '−' : value > 0 ? '+' : ''}${Math.abs(value).toLocaleString('en-US', { maximumFractionDigits: 2 })}`
 

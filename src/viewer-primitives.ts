@@ -147,27 +147,6 @@ export function starHaloOpacity(apparentMagnitude: number | null, selected = fal
   return 0.9 * (1 - Math.exp(-1.4 * starHaloStrength(apparentMagnitude, selected)))
 }
 
-function starViewDistanceRatio(viewDistancePc: number, fullStrengthDistancePc: number, power = 1): number {
-  if (!Number.isFinite(viewDistancePc) || viewDistancePc <= 0) return 1
-  return Math.min(1, (fullStrengthDistancePc / viewDistancePc) ** power)
-}
-
-export function starCoreViewScale(viewDistancePc: number): number {
-  return Math.max(STAR_CORE_MIN_VIEW_SCALE, Math.sqrt(starViewDistanceRatio(
-    viewDistancePc,
-    STAR_CORE_FULL_STRENGTH_DISTANCE_PC,
-    STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER,
-  )))
-}
-
-export function starHaloViewScale(viewDistancePc: number): number {
-  return Math.max(STAR_HALO_MIN_VIEW_SCALE, starViewDistanceRatio(viewDistancePc, STAR_HALO_FULL_STRENGTH_DISTANCE_PC) ** 0.25)
-}
-
-export function starHaloViewOpacityScale(viewDistancePc: number): number {
-  return Math.max(STAR_HALO_MIN_OPACITY_SCALE, Math.sqrt(starViewDistanceRatio(viewDistancePc, STAR_HALO_FULL_STRENGTH_DISTANCE_PC)))
-}
-
 export function starHaloEmphasis(apparentMagnitude: number | null): number {
   if (apparentMagnitude === null || !Number.isFinite(apparentMagnitude)) return 0
   const brightProgress = Math.max(0, Math.min(1, (2 - apparentMagnitude) / 2))
@@ -366,12 +345,6 @@ export function projectWorldPointInto(
   return true
 }
 
-export function projectWorldPoint(position: Vector3, camera: Camera, viewport: Viewport) {
-  const target = { x: 0, y: 0, depth: 0 }
-  const viewProjection = new Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)
-  return projectWorldPointInto(position, viewProjection, viewport, new Vector4(), target) ? target : null
-}
-
 export function projectSelectedAnchor(position: Vector3, camera: Camera, viewport: Viewport) {
   if (viewport.width <= 0 || viewport.height <= 0) return null
   const clip = new Vector4(position.x, position.y, position.z, 1)
@@ -449,15 +422,6 @@ export function projectMotionDirectionInto(
   target.motionY = screenY / length
   target.motionScale = length
   target.motionVisible = true
-}
-
-export function projectMotionDirection(position: Vector3, velocity: Vector3, camera: Camera, viewport: Viewport) {
-  const clipPoint = new Vector4()
-  const projected = { x: 0, y: 0, depth: 0, motionX: 0, motionY: 0, motionScale: 0, motionDepthScale: 0, motionVisible: false }
-  const viewProjection = new Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)
-  if (!projectWorldPointInto(position, viewProjection, viewport, clipPoint, projected)) return null
-  projectMotionDirectionInto(position, velocity, camera, viewport, clipPoint, new Vector4(), new Vector4(), new Vector4(), projected)
-  return projected.motionVisible ? { x: projected.motionX, y: projected.motionY, pixelsPerPc: projected.motionScale } : null
 }
 
 type GesturePointer = PointerPosition & { pointerId: number; button: number }

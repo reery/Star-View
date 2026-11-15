@@ -1,5 +1,6 @@
 import definitions from './data/generated/small-body-details.json'
 import type { PlanetSpec } from './planet-properties'
+import { significant } from './format'
 import { scientificPlanetValue } from './planet-value'
 
 export interface SmallBodyMeasurement {
@@ -30,14 +31,13 @@ export function isSmallBody(planet: { readonly id: string; readonly kind?: strin
   return planet.kind === 'small-body'
 }
 
-const format = (value: number) => value.toLocaleString('en-US', { maximumSignificantDigits: 4 })
 
 export function smallBodyPhysicalSpecs(body: SmallBodyDescription): PlanetSpec[] {
   const metric = (key: string, label: string, unit: string, earthReference?: number): PlanetSpec => {
     const measurement = body.metrics[key]
     const value = measurement?.value
     return {
-      id: key, label, value: value === undefined ? '—' : `${key === 'mass' ? scientificPlanetValue(value) : format(value)}${unit ? ` ${unit}` : ''}`,
+      id: key, label, value: value === undefined ? '—' : `${key === 'mass' ? scientificPlanetValue(value) : significant(value, 4)}${unit ? ` ${unit}` : ''}`,
       comparison: '', earthRatios: value !== undefined && earthReference ? [value / earthReference] : undefined,
       detail: measurement ? `${measurement.detail}${measurement.uncertainty ? ` Published uncertainty: ${measurement.uncertainty}.` : ''}` : 'No adopted measurement for this object. Unresolved system measurements are not assigned to an individual body.',
       sourceUrl: measurement?.source,

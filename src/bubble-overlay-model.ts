@@ -1,5 +1,6 @@
 import { validDesignations } from './designations.ts'
 import { BUBBLE_OBJECT_TYPES, type BubbleDetails, type BubbleObjectType, type Star } from './catalog-model.ts'
+import { finite, finitePositive, parseOverlayManifest, strings } from './overlay-model.ts'
 
 export interface BubbleOverlayManifest {
   schemaVersion: 1
@@ -15,29 +16,7 @@ export interface BubbleOverlayManifest {
 }
 
 export function parseBubbleOverlayManifest(raw: string): BubbleOverlayManifest {
-  const value: unknown = JSON.parse(raw)
-  if (!value || typeof value !== 'object') throw new Error('Bubble manifest must be an object.')
-  const manifest = value as Record<string, unknown>
-  if (manifest.schemaVersion !== 1 || manifest.id !== 'bubbles') throw new Error('Invalid bubble manifest.')
-  if (typeof manifest.epoch !== 'number' || !Number.isFinite(manifest.epoch)
-    || typeof manifest.objectCount !== 'number' || !Number.isInteger(manifest.objectCount)
-    || !manifest.counts || typeof manifest.counts !== 'object'
-    || !BUBBLE_OBJECT_TYPES.every((type) => Number.isInteger((manifest.counts as Record<string, unknown>)[type]))) {
-    throw new Error('Invalid bubble manifest counts.')
-  }
-  return manifest as unknown as BubbleOverlayManifest
-}
-
-function finite(value: unknown): value is number {
-  return typeof value === 'number' && Number.isFinite(value)
-}
-
-function finitePositive(value: unknown): value is number {
-  return finite(value) && value > 0
-}
-
-function strings(value: unknown, minimum = 1): value is string[] {
-  return Array.isArray(value) && value.length >= minimum && value.every((entry) => typeof entry === 'string' && entry.length > 0)
+  return parseOverlayManifest(raw, 'bubbles', 'Bubble', BUBBLE_OBJECT_TYPES)
 }
 
 function pair(value: unknown, positive = false): value is [number, number] {

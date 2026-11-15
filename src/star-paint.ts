@@ -2,6 +2,7 @@ import { Color, SRGBColorSpace } from 'three'
 import { LIGHT_YEARS_PER_PARSEC, SOLAR_PECULIAR_VELOCITY_KMS, temperatureSpectrumColor, type DistanceUnit } from './astronomy'
 import type { Star } from './catalog-model'
 import { formatNumber } from './format'
+import { clamp } from './math'
 import { scientificPlanetValue } from './planet-value'
 import { radialVelocityKms } from './spec-values'
 
@@ -165,7 +166,7 @@ function visibleKeys(stars: readonly Star[], value: (star: Star) => number | nul
 
 function histogram(keys: readonly number[], [low, high]: readonly [number, number]): number[] {
   const counts = new Array<number>(PAINT_HISTOGRAM_BINS).fill(0)
-  for (const key of keys) counts[high > low ? Math.min(PAINT_HISTOGRAM_BINS - 1, Math.floor(clamp((key - low) / (high - low)) * PAINT_HISTOGRAM_BINS)) : PAINT_HISTOGRAM_BINS >> 1]!++
+  for (const key of keys) counts[high > low ? Math.min(PAINT_HISTOGRAM_BINS - 1, Math.floor(clamp((key - low) / (high - low), 0, 1) * PAINT_HISTOGRAM_BINS)) : PAINT_HISTOGRAM_BINS >> 1]!++
   return counts
 }
 
@@ -191,7 +192,6 @@ function meanRank(sorted: readonly number[], value: number | null): number {
   return below + (sorted.length - below - above - 1) / 2
 }
 
-const clamp = (value: number, min = 0) => Math.max(min, Math.min(1, value))
 
 const logPositive = (value: number | null) => value !== null && value > 0 && Number.isFinite(value) ? Math.log10(value) : null
 const decimal = (power: number) => (10 ** power).toLocaleString('en-US', { maximumSignificantDigits: 3 })
@@ -242,8 +242,8 @@ function keyedSetting<const Id extends string>(
           if (extended(star)) return {}
           const entry = value(star)
           // Objects outside the fitted set clamp to its ends.
-          const progress = linear ? clamp(((entry ?? range[0]) - range[0]) / (range[1] - range[0]))
-            : sorted.length < 2 ? Number(entry !== null) : clamp(meanRank(sorted, entry) / (sorted.length - 1))
+          const progress = linear ? clamp(((entry ?? range[0]) - range[0]) / (range[1] - range[0]), 0, 1)
+            : sorted.length < 2 ? Number(entry !== null) : clamp(meanRank(sorted, entry) / (sorted.length - 1), 0, 1)
           const strength = curved(progress, level)
           return painted(strength, tint?.(star, strength, context), dimness)
         },
@@ -277,8 +277,8 @@ const radialVelocitySetting = {
         if (entry === null) return painted(0, WHITE, dimness)
         const side = entry > 0 ? sides[1] : sides[0]
         // Even the slowest ranked object keeps a trace of its side's color.
-        const progress = linear ? clamp(entry / RADIAL_VELOCITY_RANGE[1], -1)
-          : Math.sign(entry) * (side.length ? clamp((meanRank(side, Math.abs(entry)) + 1) / side.length) : 1)
+        const progress = linear ? clamp(entry / RADIAL_VELOCITY_RANGE[1], -1, 1)
+          : Math.sign(entry) * (side.length ? clamp((meanRank(side, Math.abs(entry)) + 1) / side.length, 0, 1) : 1)
         return painted(radialStrength(progress, level), radialTint(progress), dimness)
       },
     }
@@ -339,7 +339,7 @@ const bandCenter = (level: number) => TEMPERATURE_POWERS[0] + level * (TEMPERATU
 /** Half the band width in decades, from ±2% to ±10× around its center. */
 const bandHalfWidth = (width: number) => 0.01 * 100 ** width
 /** Full inside the band, fading out over one more half width on either side. */
-const bandStrength = (power: number, level: number, width: number) => clamp(2 - Math.abs(power - bandCenter(level)) / bandHalfWidth(width))
+const bandStrength = (power: number, level: number, width: number) => clamp(2 - Math.abs(power - bandCenter(level)) / bandHalfWidth(width), 0, 1)
 
 function temperatureGradient(level: number, { width, dimness }: PaintControls): string {
   const stops = Array.from({ length: 21 }, (_, index) => {
@@ -392,7 +392,7 @@ const MIN_DISTANCE_REACH = 0.02
 
 function distanceTint(progress: number, colorBlindPalette = false): readonly number[] {
   const spectrum: readonly (readonly number[])[] = colorBlindPalette ? COLOR_BLIND_DISTANCE_SPECTRUM : DISTANCE_SPECTRUM
-  const at = clamp(progress) * (spectrum.length - 1)
+  const at = clamp(progress, 0, 1) * (spectrum.length - 1)
   const index = Math.min(spectrum.length - 2, Math.floor(at))
   return mixChannels(spectrum[index]!, spectrum[index + 1]!, at - index)
 }
@@ -437,7 +437,7 @@ const distanceSetting = {
       histogram: histogram(distances.map(key), extent), missing: 0,
       paint(star, level) {
         if (extended(star)) return {}
-        const progress = span > 0 ? clamp((key(distance(star)) - extent[0]) / span) : 0
+        const progress = span > 0 ? clamp((key(distance(star)) - extent[0]) / span, 0, 1) : 0
         const reach = distanceReach(level)
         if (progress > reach) return painted(0)
         const share = progress / reach

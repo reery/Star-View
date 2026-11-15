@@ -2,7 +2,7 @@ import { Vector3 } from 'three'
 import { describe, expect, it } from 'vitest'
 import {
   EARTH_OBLIQUITY_DEG, EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MODES, earthEclipticLongitude, earthOrbitDateForMode,
-  earthOrbitMarker, earthOrbitModeLabel, earthOrbitModel, earthOrbitPoints, eclipticVectorToWorld, isEarthOrbitMode,
+  earthOrbitMarker, earthOrbitModeLabel, earthOrbitPoints, eclipticVectorToWorld, isEarthOrbitMode,
 } from './earth-orbit'
 
 function angularDistanceDegrees(first: number, second: number): number {
@@ -45,7 +45,7 @@ describe('Earth orbit reference overlay', () => {
   })
 
   it('draws the spin axis at Earth obliquity to the orbit normal', () => {
-    const model = earthOrbitModel(new Date('2026-10-03T12:00:00Z'))
+    const model = earthOrbitMarker(new Date('2026-10-03T12:00:00Z'))
     const eclipticNorth = eclipticVectorToWorld(new Vector3(0, 0, 1)).normalize()
     const tilt = Math.acos(model.axisDirection.dot(eclipticNorth)) * 180 / Math.PI
     expect(tilt).toBeCloseTo(EARTH_OBLIQUITY_DEG, 5)
@@ -56,7 +56,5 @@ describe('Earth orbit reference overlay', () => {
     expect(() => earthOrbitMarker(new Date(), 0)).toThrow(RangeError)
     expect(() => earthOrbitPoints(0)).toThrow(RangeError)
     expect(() => earthOrbitPoints(1, 8)).toThrow(RangeError)
-    expect(() => earthOrbitModel(new Date(), 0)).toThrow(RangeError)
-    expect(() => earthOrbitModel(new Date(), 1, 8)).toThrow(RangeError)
   })
 })

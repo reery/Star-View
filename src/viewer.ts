@@ -29,7 +29,7 @@ import { createMolecularCloudLayer } from './molecular-cloud-layer'
 import { createBubbleLayer } from './bubble-layer'
 import { createFaintObjectClouds, faintObjectBlobs, isFaintObject } from './faint-object-cloud'
 import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
-import { mapComponentVisibility } from './star-systems'
+import { closeCompanionIndices, mapComponentVisibility } from './star-systems'
 import { createSpaceshipModel, SPACESHIP_LENGTH_PC, spaceshipMoving, stepSpaceship, type Spaceship, type SpaceshipBrightness, type SpaceshipInput, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
 import type { StarPaint, StarPainter } from './star-paint'
 import {
@@ -46,6 +46,8 @@ import {
 export interface StarViewer {
   getViewState(): ViewerViewState
   select(id: string | null, focus?: boolean): void
+  /** Applies several settings with a single pass over the objects, instead of one for each. */
+  batch(update: () => void): void
   setReference(referenceId: string): void
   /** Animated, the camera flies into the object's view, or backs out of it along the line of sight. */
   setObserverView(enabled: boolean, anchorId?: string, rollRadians?: number, animate?: boolean): boolean
@@ -349,6 +351,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     void import('./scene-shader').then(({ createScenePass }) => {
       if (disposed || request !== shaderRequest) return
       scenePass = createScenePass(style)
+      programsStale = true
       requestRender()
     }, () => {})
   }
@@ -390,7 +393,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (ready === null) delete container.dataset.milkyWayReady
     else container.dataset.milkyWayReady = ready ? 'true' : 'error'
     if (ready) requestRender()
-  }, () => requestRender(), galaxyIndices.map((index) => stars[index]!))
+  }, () => {
+    programsStale = true
+    requestRender()
+  }, galaxyIndices.map((index) => stars[index]!))
   scene.add(milkyWay.group)
 
   const starViewDistance = { value: camera.position.distanceTo(controls.target) }
@@ -479,7 +485,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   // the rasterizer. The visible subset only changes with selection/settings.
   haloGeometry.setIndex(stars.map((_, index) => index))
   const haloIndices = haloGeometry.getIndex()!
-  let componentVisible = mapComponentVisibility(stars)
+  const closeCompanions = closeCompanionIndices(stars)
+  let componentVisible = mapComponentVisibility(stars, null, closeCompanions)
   const coreEnabled = new Uint8Array(stars.length)
   const nextCoreEnabled = new Uint8Array(stars.length)
   const haloEnabled = new Uint8Array(stars.length)
@@ -821,6 +828,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let pendingFrame: number | null = null
   let sceneDirty = false
   let milkyWayFading = false
+  // Shader programs compile on the driver's threads, but a draw that needs an unfinished one waits for it,
+  // one program after another. A frame with new materials starts them all instead, and is drawn once they are done.
+  let programsStale = true
+  let programsCompiling = false
   let lastViewerDistanceReport = 0
   let nextRenderDeadline = 0
   let lastRenderTime = 0
@@ -1404,8 +1415,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     nextRenderDeadline = 0
   }
 
+  let presentationHeld = false
+  let presentationPending = false
+
   function updatePresentation(): void {
-    componentVisible = mapComponentVisibility(stars, selectedId)
+    if (presentationHeld) {
+      presentationPending = true
+      return
+    }
+    componentVisible = mapComponentVisibility(stars, selectedId, closeCompanions)
     componentVisible[referenceIndex] = 1
     ordinaryLayoutDirty = true
     const visibilityBase = observerPoint() ? spaceshipObserver : visibilityBaseStar
@@ -2520,9 +2538,42 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     resize()
     requestRender()
   }, { signal: events.signal })
+  /** Draws the frame's passes; returns the draw calls of the offscreen nebula pass. */
+  function drawPasses(): number {
+    nebulaLayer?.renderOffscreen(renderer, camera)
+    const offscreenCalls = renderer.info.render.calls
+    if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
+    else renderer.render(scene, camera)
+    scenePass?.render(renderer)
+    return offscreenCalls
+  }
+
+  /** Runs the passes with every draw replaced by starting its programs, so each keeps its own render target and material state. */
+  function compilePasses(): void {
+    const draw = renderer.render
+    renderer.render = (object, viewCamera) => { renderer.compile(object, viewCamera) }
+    try {
+      drawPasses()
+    } finally {
+      renderer.render = draw
+    }
+  }
+
+  // Without the parallel-compile extension every program reports ready, and the first draw waits as before.
+  function programsReady(): boolean {
+    return (renderer.info.programs as unknown as { isReady(): boolean }[] | null)?.every((program) => program.isReady()) ?? true
+  }
+
   function render(time: number): void {
     pendingFrame = null
     if (disposed || contextLost || document.hidden) return
+    if (programsCompiling) {
+      if (!programsReady()) {
+        requestRender(false)
+        return
+      }
+      programsCompiling = false
+    }
     if (previousRafTime > 0 && refreshSamplesRemaining > 0) {
       refreshSamples.push(time - previousRafTime)
       if (refreshSamples.length > 30) refreshSamples.shift()
@@ -2675,22 +2726,25 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     milkyWayFading = milkyWay.updateFade(time)
     milkyWay.update(camera)
     renderer.info.reset()
-    if (nebulaLayer) {
-      nebulaLayer.renderOffscreen(renderer, camera)
-      setData(labelLayer, 'nebulaDrawnPuffCount', String(nebulaLayer.instanceCount()))
+    if (programsStale) {
+      programsStale = false
+      compilePasses()
+      programsCompiling = !programsReady()
     }
-    const offscreenCalls = renderer.info.render.calls
-    if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
-    else renderer.render(scene, camera)
-    scenePass?.render(renderer)
-    setData(labelLayer, 'drawCalls', String(renderer.info.render.calls - offscreenCalls))
+    // The frame stays due until its programs are ready.
+    if (programsCompiling) sceneDirty = true
+    else {
+      const offscreenCalls = drawPasses()
+      if (nebulaLayer) setData(labelLayer, 'nebulaDrawnPuffCount', String(nebulaLayer.instanceCount()))
+      setData(labelLayer, 'drawCalls', String(renderer.info.render.calls - offscreenCalls))
+    }
     if (drawingObserverFlight) {
       camera.position.copy(heldCameraPosition)
       camera.quaternion.copy(heldCameraQuaternion)
       camera.updateMatrixWorld()
     }
     renderStats?.end()
-    if (continueRendering || milkyWayFading || refreshSamplesRemaining > 0) requestRender(false)
+    if (continueRendering || milkyWayFading || programsCompiling || refreshSamplesRemaining > 0) requestRender(false)
     else {
       previousRafTime = 0
       lastRenderTime = 0
@@ -2706,6 +2760,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }, { signal: events.signal })
   canvas.addEventListener('webglcontextrestored', () => {
     contextLost = false
+    programsStale = true
+    programsCompiling = false
     options.onStatus(null)
     milkyWay.reload()
     resetCadenceSamples()
@@ -2783,6 +2839,18 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
     },
     select,
+    batch(update) {
+      presentationHeld = true
+      try {
+        update()
+      } finally {
+        presentationHeld = false
+        if (presentationPending) {
+          presentationPending = false
+          updatePresentation()
+        }
+      }
+    },
     distanceBetween(firstId, secondId) {
       const first = starsById.get(firstId)
       const second = starsById.get(secondId)

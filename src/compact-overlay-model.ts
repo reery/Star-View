@@ -1,5 +1,6 @@
 import { validDesignations } from './designations.ts'
 import { COMPACT_OBJECT_TYPES, type CompactObjectDetails, type Star } from './catalog-model.ts'
+import { finite, parseOverlayManifest } from './overlay-model.ts'
 
 export interface CompactOverlayManifest {
   schemaVersion: 1
@@ -16,21 +17,12 @@ export interface CompactOverlayManifest {
 }
 
 export function parseCompactOverlayManifest(raw: string): CompactOverlayManifest {
-  const value: unknown = JSON.parse(raw)
-  if (!value || typeof value !== 'object') throw new Error('Compact-object manifest must be an object.')
-  const manifest = value as Record<string, unknown>
-  if (manifest.schemaVersion !== 1 || manifest.id !== 'compact-remnants') throw new Error('Invalid compact-object manifest.')
-  if (typeof manifest.epoch !== 'number' || !Number.isFinite(manifest.epoch)
-    || typeof manifest.objectCount !== 'number' || !Number.isInteger(manifest.objectCount)
-    || typeof manifest.radiusLy !== 'number' || !Number.isFinite(manifest.radiusLy)) {
-    throw new Error('Invalid compact-object manifest counts or range.')
-  }
-  return manifest as unknown as CompactOverlayManifest
+  const manifest = parseOverlayManifest<CompactOverlayManifest>(raw, 'compact-remnants', 'Compact-object', COMPACT_OBJECT_TYPES)
+  if (!finite(manifest.radiusLy)) throw new Error('Invalid compact-object manifest range.')
+  return manifest
 }
 
-function finiteOrNull(value: unknown): boolean {
-  return value === null || (typeof value === 'number' && Number.isFinite(value))
-}
+const finiteOrNull = (value: unknown) => value === null || finite(value)
 
 function isSafeSourceUrl(value: unknown): value is string {
   if (typeof value !== 'string') return false
@@ -46,7 +38,7 @@ function validMassModel(value: unknown): boolean {
   if (value === undefined) return true
   if (!value || typeof value !== 'object') return false
   const model = value as Record<string, unknown>
-  return typeof model.value_solar === 'number' && Number.isFinite(model.value_solar)
+  return finite(model.value_solar)
     && typeof model.reference === 'string' && typeof model.scope === 'string' && isSafeSourceUrl(model.source_url)
 }
 
@@ -60,8 +52,7 @@ function validDetails(value: unknown): value is CompactObjectDetails {
       'period_derivative', 'period_derivative_error', 'dispersion_measure_pc_cm3', 'transverse_velocity_kms', 'glitch_count', 'eccentricity', 'projected_semi_major_axis_lt_s', 'companion_min_mass_solar', 'companion_median_mass_solar'].every((field) => finiteOrNull(details[field]))
     && ['pulsar_classes', 'associations'].every((field) => Array.isArray(details[field]) && (details[field] as unknown[]).every((entry) => typeof entry === 'string'))
     && (details.companion === null || typeof details.companion === 'string')
-    && typeof details.ra_deg === 'number' && Number.isFinite(details.ra_deg)
-    && typeof details.dec_deg === 'number' && Number.isFinite(details.dec_deg)
+    && finite(details.ra_deg) && finite(details.dec_deg)
 }
 
 export function parseCompactOverlayPayload(value: unknown, manifest: CompactOverlayManifest): Star[] {
@@ -77,7 +68,7 @@ export function parseCompactOverlayPayload(value: unknown, manifest: CompactOver
     if (!object || typeof object.id !== 'string' || !object.id || ids.has(object.id)
       || typeof object.name !== 'string' || !object.name || !validDesignations(object.designations)
       || typeof object.type !== 'string' || !COMPACT_OBJECT_TYPES.includes(object.type as never)
-      || !['x_pc', 'y_pc', 'z_pc', 'epoch'].every((field) => typeof object[field] === 'number' && Number.isFinite(object[field]))
+      || !['x_pc', 'y_pc', 'z_pc', 'epoch'].every((field) => finite(object[field]))
       || object.epoch !== manifest.epoch || !validDetails(object.compact)) {
       throw new Error(`Invalid compact-object payload row: ${String(object.id ?? 'unknown')}`)
     }
