@@ -803,6 +803,8 @@
                 <div class="discover-controls" data-toolbar-flyout role="group" aria-label="Explore">
                   <button id="discover-toggle" class="icon-button" type="button" aria-label="Explore" aria-controls="discover-options"><span id="discover-icon"></span><span class="tooltip">Explore</span></button>
                   <div id="discover-options" class="discover-options" data-toolbar-options>
+                    <!-- Disabled until the first insight shows on the map; then remove `disabled` and list Insights in the tutorial's Explore step. -->
+                    <button id="insights-toggle" class="icon-button panel-button" type="button" aria-label="Insights" aria-controls="insights-panel" aria-expanded="false" disabled><span id="insights-icon"></span><span class="tooltip">Insights</span></button>
                     <button id="top-lists-toggle" class="icon-button panel-button" type="button" aria-label="Top lists" aria-controls="top-lists-panel" aria-expanded="false"><span id="top-lists-icon"></span><span class="tooltip">Top lists</span></button>
                     <button id="constellations-toggle" class="icon-button panel-button" type="button" aria-label="Constellations" aria-controls="constellations-panel" aria-expanded="false"><span id="constellations-icon"></span><span class="tooltip">Constellations</span></button>
                     <button id="neighborhood-toggle" class="icon-button panel-button" type="button" aria-label="Neighborhood" aria-controls="neighborhood-panel" aria-expanded="false"><span id="neighborhood-icon"></span><span class="tooltip">Neighborhood</span></button>
@@ -828,6 +830,7 @@
                   <button id="motion-active" class="icon-button" type="button" aria-label="Stellar motion active" aria-pressed="true" aria-controls="motion-panel" hidden><span id="motion-active-icon"></span><span class="tooltip">Stellar motion active</span></button>
                   <button id="paint-active" class="icon-button" type="button" aria-label="Paint active" aria-pressed="true" aria-controls="paint-panel" hidden><span id="paint-active-icon"></span><span class="tooltip">Paint active</span></button>
                   <button id="top-lists-active" class="icon-button" type="button" aria-label="Top lists minimized" aria-pressed="true" aria-controls="top-lists-panel" hidden><span id="top-lists-active-icon"></span><span class="tooltip">Top lists minimized</span></button>
+                  <button id="insights-active" class="icon-button" type="button" aria-label="Insight active" aria-pressed="true" aria-controls="insights-panel" hidden><span id="insights-active-icon"></span><span class="tooltip">Insight active</span></button>
                   <button id="neighborhood-active" class="icon-button" type="button" aria-label="Neighborhood active" aria-pressed="true" aria-controls="neighborhood-panel" hidden><span id="neighborhood-active-icon"></span><span class="tooltip">Neighborhood active</span></button>
                   <button id="spaceship-active" class="icon-button" type="button" aria-label="Spaceship active" aria-pressed="true" aria-controls="spaceship-panel" hidden><span id="spaceship-active-icon"></span><span class="tooltip">Spaceship active</span></button>
                   <button id="observer-active" class="icon-button" type="button" aria-label="Observer view active" aria-pressed="true" aria-controls="observer-panel" hidden><span id="observer-active-icon"></span><span class="tooltip">Observer view active</span></button>
@@ -1116,12 +1119,23 @@
               <section id="paint-panel" class="dock-card" aria-labelledby="paint-heading" data-scene-obstacle hidden>
                 <div class="panel-heading paint-heading">
                   <h2 id="paint-heading">Paint</h2>
+                  <button id="paint-expand" class="panel-lock" type="button" aria-controls="paint-settings" hidden><span id="paint-expand-icon"></span></button>
                   <button id="paint-keep-size" class="panel-lock" type="button" aria-label="Keep painted star sizes when zooming out" title="Keep painted star sizes when zooming out" aria-pressed="false"><span id="paint-keep-size-icon"></span></button>
                   <button id="paint-reset" class="panel-lock" type="button" aria-label="Reset paint" title="Reset paint"><span id="paint-reset-icon"></span></button>
                   <button id="paint-lock" class="panel-lock" type="button" aria-label="Keep Paint open" aria-pressed="false"><span id="paint-lock-icon"></span></button>
                   <button id="paint-close" class="panel-lock" type="button" aria-label="Close paint card"><span id="paint-close-icon"></span></button>
                 </div>
                 <div id="paint-settings" class="filter-controls card-scroll-content" role="group" aria-label="Paint settings"></div>
+              </section>
+              <section id="insights-panel" class="dock-card" aria-labelledby="insights-heading" data-scene-obstacle hidden>
+                <div class="panel-heading insights-heading">
+                  <h2 id="insights-heading">Insights</h2>
+                  <button id="insights-lock" class="panel-lock" type="button" aria-label="Keep Insights open" aria-pressed="false"><span id="insights-lock-icon"></span></button>
+                  <button id="insights-close" class="panel-lock" type="button" aria-label="Close insights card"><span id="insights-close-icon"></span></button>
+                </div>
+                <div class="filter-controls card-scroll-content">
+                  <div id="insights-list" class="planet-facts-grid mass-facts" role="group" aria-label="Insights"></div>
+                </div>
               </section>
               <section id="neighborhood-panel" class="dock-card" aria-labelledby="neighborhood-heading" data-scene-obstacle hidden>
                 <div class="panel-heading neighborhood-heading">
@@ -1196,7 +1210,7 @@
                   <div id="star-style" class="segmented-choice" role="group" aria-labelledby="star-style-label"><button id="star-style-label" type="button" class="mass-metric-help">Stars</button><span id="star-style-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">How stars are drawn on the map. Exaggerated gives every star a large glow, so faint stars are easy to see and select. Realistic draws them like a photograph of the sky: brightness sets how much light reaches you, so faint stars are small dim points and only the brightest have a glow and diffraction spikes.</span><div class="unit-options"><label><input id="star-style-exaggerated" type="radio" name="star-style" value="exaggerated"><span>Exaggerated</span></label><label><input id="star-style-realistic" type="radio" name="star-style" value="realistic" checked><span>Realistic</span></label></div></div>
                   <div id="star-brightness" class="segmented-choice" role="group" aria-labelledby="star-brightness-label"><button id="star-brightness-label" type="button" class="mass-metric-help">Brightness</button><span id="star-brightness-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">How bright stars and nebulae are drawn, in either star style. High shows every star one more magnitude brighter, like a longer exposure, lets the light of crowded stars add up, so dense regions glow, and lifts faint nebulae.</span><div class="unit-options"><label><input id="star-brightness-normal" type="radio" name="star-brightness" value="normal" checked><span>Normal</span></label><label><input id="star-brightness-high" type="radio" name="star-brightness" value="high"><span>High</span></label></div></div>
                   <div id="faint-stars" class="segmented-choice" role="group" aria-labelledby="faint-stars-label"><button id="faint-stars-label" type="button" class="mass-metric-help">Faint stars</button><span id="faint-stars-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">How faint stars look with realistic stars. Natural keeps them as dim as their light. Lifted brightens stars fainter than magnitude 4 as you zoom in, so dim dwarfs are easy to find. The faintest still look fainter than the rest. Zoomed out, they look natural again.</span><div class="unit-options"><label><input id="faint-stars-natural" type="radio" name="faint-stars" value="natural" checked><span>Natural</span></label><label><input id="faint-stars-lifted" type="radio" name="faint-stars" value="lifted"><span>Lifted</span></label></div></div>
-                  <div id="shader" class="segmented-choice"><button id="shader-label" type="button" class="mass-metric-help">Shader</button><span id="shader-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">A drawing style for the 3D map.</span><select id="shader-select" aria-labelledby="shader-label"><option value="none">None</option><option value="concept">Concept art</option><option value="exposure" selected>Long exposure</option><option value="atlas">Star atlas</option></select></div>
+                  <div id="shader" class="segmented-choice"><button id="shader-label" type="button" class="mass-metric-help">Shader</button><span id="shader-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">A drawing style for the 3D map.</span><select id="shader-select" aria-labelledby="shader-label"><option value="none" selected>None</option><option value="concept">Concept art</option><option value="exposure">Long exposure</option><option value="atlas">Star atlas</option></select></div>
                   <label class="filter-toggle" for="color-blind-palette">
                     <span class="mass-metric-help">Color-blind mode</span>
                     <span class="switch-control"><input id="color-blind-palette" type="checkbox" role="switch" aria-describedby="color-blind-palette-tooltip"><span class="switch-track" aria-hidden="true"></span></span>

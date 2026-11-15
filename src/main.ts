@@ -1,11 +1,12 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
-import { streamWhenLoaded } from './content-stream'
+import { STREAM_EASING, STREAM_MS, streamWhenLoaded } from './content-stream'
 import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, Clapperboard, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, Lightbulb, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipBrightness, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
 import { FIRST_BIRTH_YEAR, NEIGHBORHOOD_RADIUS_LY, NeighborhoodIcon, neighborhoodBounds } from './neighborhood'
+import { initializeInsights, InsightsIcon } from './insights'
 import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isGalaxyObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type GalaxyDetails, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogMeasurement, catalogSourceFor } from './catalog-source'
@@ -157,6 +158,10 @@ appendConstellationContent(element('constellation-card'))
 
 icon('discover-icon', Compass)
 icon('constellations-icon', ConstellationIcon)
+icon('insights-icon', InsightsIcon)
+icon('insights-active-icon', InsightsIcon)
+icon('insights-lock-icon', Lock)
+icon('insights-close-icon', X)
 icon('neighborhood-icon', NeighborhoodIcon)
 icon('neighborhood-active-icon', NeighborhoodIcon)
 icon('neighborhood-clear-icon', FunnelX)
@@ -495,7 +500,7 @@ let starColorMode: StarColorMode = 'exaggerated'
 let starStyle: StarStyle = 'realistic'
 let starBrightness: StarBrightness = 'normal'
 let faintStars: FaintStars = 'natural'
-let shader: Shader = 'exposure'
+let shader: Shader = 'none'
 let colorBlindPalette = false
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
 const NAKED_EYE_CATALOG_ID = 'naked-eye-stars'
@@ -609,11 +614,11 @@ document.querySelectorAll('.time-markers').forEach((markers) => {
 })
 const selectionHistory = new SelectionHistory(selectedId)
 // The Spaceship card opens in the dock like other cards, but scene clicks leave it open for flying.
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation', 'observer', 'demo'] as const
-const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'rotation', 'observer', 'demo'] as const
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'insights', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation', 'observer', 'demo'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'insights', 'neighborhood', 'preferences', 'rotation', 'observer', 'demo'] as const
 // Explore panels and Demo mode open from a flyout, so focus returns to its toggle.
 // The observer card opens with observer view and has no toggle of its own; closed, its indicator reopens it.
-const panelToggleId = (name: typeof panelNames[number]) => name === 'observer' ? 'observer-active' : name === 'demo' ? 'info-toggle' : name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
+const panelToggleId = (name: typeof panelNames[number]) => name === 'observer' ? 'observer-active' : name === 'demo' ? 'info-toggle' : name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'insights' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 // Only the observer card remembers its lock between visits.
 try {
@@ -1939,7 +1944,7 @@ function syncSelectedObjectLayout(): void {
   selectedCard.style.maxHeight = `${Math.max(68, availableHeight)}px`
 }
 
-function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'top-lists-active' | 'motion-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active' | 'demo-active', active: boolean): void {
+function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'top-lists-active' | 'motion-active' | 'insights-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active' | 'demo-active', active: boolean): void {
   if (active) noteTipFeature(id)
   const indicator = element(id)
   if (indicator.hidden !== active) return
@@ -4278,6 +4283,7 @@ element('top-lists-minimize').addEventListener('click', () => {
   focusToolbarButton('top-lists-active')
 }, { signal: events.signal })
 element('motion-active').addEventListener('click', () => togglePanel('motion'), { signal: events.signal })
+element('insights-active').addEventListener('click', () => togglePanel('insights'), { signal: events.signal })
 element('neighborhood-active').addEventListener('click', () => togglePanel('neighborhood'), { signal: events.signal })
 element('spaceship-active').addEventListener('click', () => togglePanel('spaceship'), { signal: events.signal })
 element('rotation-active').addEventListener('click', () => togglePanel('rotation'), { signal: events.signal })
@@ -4407,6 +4413,8 @@ spaceshipThrottlePad.addEventListener('lostpointercapture', () => {
   setSpaceshipThrottle(0)
 }, { signal: events.signal })
 touchFirstInput.addEventListener('change', renderSpaceship, { signal: events.signal })
+// An insight shows nothing on the map yet; turning one on only marks it active.
+initializeInsights(element('insights-list'), (active) => setActiveIndicator('insights-active', active !== null), events.signal)
 const birthYears = element<HTMLSelectElement>('neighborhood-birth-year')
 for (let year = new Date().getFullYear(); year >= FIRST_BIRTH_YEAR; year--) birthYears.add(new Option(String(year)))
 element('neighborhood-radius').addEventListener('input', () => {
@@ -4632,7 +4640,7 @@ function paintSettingParts(setting: HTMLElement) {
     channels: setting.querySelectorAll<HTMLButtonElement>('[data-paint-channel]'),
   }
 }
-element('paint-settings').addEventListener('click', (event) => {
+element('paint-settings').addEventListener('click', (event) => resizePaintCard(() => {
   // The chevron sits right of the scale buttons, outside the expand button, and expands like it.
   const chevron = event.target instanceof Element ? event.target.closest('.paint-setting-chevron') : null
   const button = event.target instanceof Element ? chevron?.parentElement!.querySelector('.paint-setting-expand') ?? event.target.closest('button') : null
@@ -4669,8 +4677,9 @@ element('paint-settings').addEventListener('click', (event) => {
     claimPaintChannels(parts.id)
   }
   showPaintState()
+  setPaintCompact(paintSettings.size > 0)
   paintVisible()
-}, { signal: events.signal })
+}), { signal: events.signal })
 element('paint-settings').addEventListener('input', (event) => {
   const input = event.target
   const parts = input instanceof HTMLInputElement ? paintSettingParts(input.closest<HTMLElement>('[data-paint-setting]')!) : null
@@ -4729,7 +4738,29 @@ function applyPaint(entries: readonly (readonly [PaintSettingId, number, (readon
     showPaintLevel(parts, level)
   })
   showPaintState()
+  setPaintCompact(paintSettings.size > 0)
   paintVisible(true)
+}
+/** On mobile, a compact Paint card shows only the painting settings; the heading's button brings the others back. */
+function setPaintCompact(compact: boolean): void {
+  element('paint-panel').classList.toggle('is-compact', compact)
+  const button = element('paint-expand')
+  const label = compact ? 'Show all paint settings' : 'Show only active paint settings'
+  button.hidden = !paintSettings.size
+  button.setAttribute('aria-label', label)
+  button.title = label
+  icon('paint-expand-icon', compact ? ChevronsUpDown : ChevronsDownUp)
+}
+let paintCardResize: Animation | undefined
+/** On mobile, the Paint card eases to the height a change leaves it with, as a stepped-to card eases to its size. */
+function resizePaintCard(change: () => void): void {
+  const card = element('paint-panel')
+  const from = card.offsetHeight
+  paintCardResize?.cancel()
+  change()
+  const to = card.offsetHeight
+  if (!from || to === from || wideLayout.matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  paintCardResize = card.animate({ height: [`${from}px`, `${to}px`] }, { duration: STREAM_MS, easing: STREAM_EASING })
 }
 /** The objects the map filter shows, leaving out a selection it shows only because it is selected. */
 function paintableStars(): Star[] {
@@ -4771,7 +4802,8 @@ function setPaintZoomShrink(enabled: boolean): void {
   viewer?.setStarPaintZoomShrink(enabled)
 }
 element('paint-keep-size').addEventListener('click', () => setPaintZoomShrink(!paintZoomShrink), { signal: events.signal })
-element('paint-reset').addEventListener('click', () => applyPaint([]), { signal: events.signal })
+element('paint-reset').addEventListener('click', () => resizePaintCard(() => applyPaint([])), { signal: events.signal })
+element('paint-expand').addEventListener('click', () => resizePaintCard(() => setPaintCompact(!element('paint-panel').classList.contains('is-compact'))), { signal: events.signal })
 element('filter-save').addEventListener('click', saveCurrentFilter, { signal: events.signal })
 catalogRange.addEventListener('change', () => {
   const catalog = sliderCatalogs[catalogRange.valueAsNumber]
@@ -5074,7 +5106,7 @@ document.addEventListener('click', (event) => {
   event.preventDefault()
   openGlossaryTerm(term)
 }, { signal: events.signal })
-for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'spaceship', 'rotation', 'observer', 'demo'] as const) {
+for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'insights', 'neighborhood', 'preferences', 'spaceship', 'rotation', 'observer', 'demo'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()
