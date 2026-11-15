@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "catalogId": "notable-distant-stars",
-  "policy": "Individually measured stellar companions of pulsars in the compact-remnant overlay. Each value comes from the cited paper; nothing is copied from the pulsar except its system position and astrometry, which the companion shares. Upper limits are kept in notes, not stored as measurements. The luminous stars of the dormant compact-object systems in the compact-remnant overlay, with each physical value from the cited discovery paper. A star shares its system's plotted position and the reviewed system astrometry of the unresolved binary. The visible stars of X-ray and gamma-ray binaries, of Gaia BH2 and of pulsars with a recorded optical counterpart or a main-sequence companion in the compact-remnant overlay, with each value from the cited paper. A value stays empty when no individual measurement was verified; none is inferred from a mass ratio. Very low-mass, ablated black-widow companions are classed as brown dwarfs.",
+  "policy": "Individually measured stellar companions of pulsars in the compact-remnant overlay. Each value comes from the cited paper; nothing is copied from the pulsar except its system position and astrometry, which the companion shares. Upper limits are kept in notes, not stored as measurements. The luminous stars of the dormant compact-object systems in the compact-remnant overlay, with each physical value from the cited discovery paper. A star shares its system's plotted position and the reviewed system astrometry of the unresolved binary. The visible stars of X-ray and gamma-ray binaries, of Gaia BH2 and of pulsars with a recorded optical counterpart or a main-sequence companion in the compact-remnant overlay, with each value from the cited paper. A value stays empty when no individual measurement was verified; none is inferred from a mass ratio. Very low-mass, ablated black-widow companions are classed as brown dwarfs. Single stars that survived a historical supernova and stand at the centre of its remnant in the nebula overlay. Each star is placed at its own Gaia DR3 distance, which also places its remnant, and every physical value comes from an analysis made at that distance.",
   "objects": {
     "psr-j0437m4715-b": {
       "hostId": "psr-j0437m4715",
@@ -741,6 +741,44 @@
       "spectral_type": null,
       "designations": [],
       "note": "The original black-widow companion, heated on its pulsar-facing side and cooler than about 2800 K on its far side (Fruchter et al. 1995, https://arxiv.org/abs/astro-ph/9502084). The pulsar outweighs it 69.2 ± 0.8 times (van Kerkwijk et al. 2011, https://arxiv.org/abs/1009.5427)."
+    },
+    "iras-00500p6713": {
+      "id": "iras-00500p6713",
+      "type": "white_dwarf",
+      "name": "IRAS 00500+6713",
+      "designations": [
+        "Gaia DR3 526287189172936320",
+        "2MASS J00531123+6730023",
+        "WISEA J005311.13+673002.1"
+      ],
+      "spectral_type": null,
+      "constellation": "Cassiopeia",
+      "distance_pc": 2297,
+      "distance_note": "2297 +122/−114 pc: geometric distance from the Gaia DR3 parallax, Bailer-Jones et al. 2021, https://ui.adsabs.harvard.edu/abs/2021AJ....161..147B",
+      "temperature_k": 237000,
+      "temperature_note": "the illustrated non-LTE wind model of Lykou et al. 2023 at 2.3 kpc; their best fit spans 200,000–280,000 K",
+      "luminosity_solar": 36000,
+      "luminosity_note": "36,000 L_sun from the same model; their best fit spans 30,000–60,000 L_sun",
+      "atmosphere_source": {
+        "label": "Lykou et al. 2023",
+        "url": "https://arxiv.org/abs/2208.03946"
+      },
+      "astrometry": {
+        "ra_deg": 13.29666082922,
+        "dec_deg": 67.50065708429,
+        "epoch": 2016.0,
+        "parallax_mas": 0.4065,
+        "parallax_error_mas": 0.0259,
+        "pm_ra_cosdec_masyr": -2.584,
+        "pm_ra_error_masyr": 0.025,
+        "pm_dec_masyr": -0.988,
+        "pm_dec_error_masyr": 0.028,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Gaia DR3, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": null
+      },
+      "note": "Central star of the supernova remnant Pa 30, probably the merged remains of two white dwarfs that survived SN 1181. Its wind blows at about 15,000–16,000 km/s. Spectral type WO1 (Gvaramadze et al. 2019, https://arxiv.org/abs/1904.00012) is recorded here rather than in the spectral type field, which reads only Morgan–Keenan and white-dwarf classes. The model radius and the luminosity of Gvaramadze et al. 2019 assume the Gaia DR2 distance of 3.07 kpc and are not adopted; the radius of Lykou et al. 2023 refers to a deeper layer than their temperature, so it is not adopted either. No mass is adopted: Lykou et al. 2023 give a range of 1.0–1.65 M_sun."
     }
   }
 }

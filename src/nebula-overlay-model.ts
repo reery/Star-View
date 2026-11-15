@@ -75,10 +75,12 @@ function validRemnant(value: unknown, type: unknown): boolean {
   const remnant = value as Record<string, unknown>
   const age = remnant.age_yr
   const star = remnant.neutron_star as Record<string, unknown> | null | undefined
+  const survivor = remnant.surviving_star as Record<string, unknown> | undefined
   const text = (field: unknown) => typeof field === 'string' && field.length > 0
   return Array.isArray(age) && age.length === 2 && age.every(finitePositive) && age[0]! <= age[1]!
     && text(remnant.age_source) && text(remnant.drawn_as)
     && (star === null || (!!star && typeof star === 'object' && text(star.id) && text(star.name)))
+    && (survivor === undefined || (!!survivor && typeof survivor === 'object' && text(survivor.catalog) && text(survivor.id) && text(survivor.name)))
     && (remnant.hot_gas_kev === null ? remnant.hot_gas_source === null : finitePositive(remnant.hot_gas_kev) && text(remnant.hot_gas_source))
 }
 

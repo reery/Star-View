@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "id": "notable-distant-stars",
   "label": "Notable distant stars",
-  "description": "Reviewed stars beyond the nearby catalogs that belong to notable systems: measured stellar companions of pulsars and the luminous stars of dormant black-hole and neutron-star systems, plus the Sun.",
+  "description": "Reviewed stars beyond the nearby catalogs that belong to notable systems: measured stellar companions of pulsars, the luminous stars of dormant black-hole and neutron-star systems and stars that survived historical supernovae, plus the Sun.",
   "epoch": 2000,
-  "objectCount": 50,
+  "objectCount": 51,
   "sources": [
     {
       "name": "ATNF Pulsar Catalogue v2.9.0; host pulsar positions and system astrometry",
@@ -91,6 +91,10 @@
       "url": "https://arxiv.org/abs/1807.02059"
     },
     {
+      "name": "Bailer-Jones et al. 2021; Gaia geometric distances",
+      "url": "https://ui.adsabs.harvard.edu/abs/2021AJ....161..147B"
+    },
+    {
       "name": "Burdge et al. 2024",
       "url": "https://arxiv.org/abs/2404.03719"
     },
@@ -127,6 +131,10 @@
       "url": "https://arxiv.org/abs/2404.10486"
     },
     {
+      "name": "Gaia DR3; astrometry of single stars",
+      "url": "https://arxiv.org/abs/2208.00211"
+    },
+    {
       "name": "Guo et al. 2021",
       "url": "https://arxiv.org/abs/2107.09474"
     },
@@ -145,6 +153,10 @@
     {
       "name": "Kirichenko et al. 2018",
       "url": "https://arxiv.org/abs/1807.09442"
+    },
+    {
+      "name": "Lykou et al. 2023",
+      "url": "https://arxiv.org/abs/2208.03946"
     },
     {
       "name": "Lyne et al. 2015",
@@ -215,6 +227,6 @@
       "url": "https://arxiv.org/abs/astro-ph/9606045"
     }
   ],
-  "cutoffPolicy": "Explicitly reviewed members of notable systems only; no magnitude or distance cutoff. Luminous companions of compact objects are included with whichever individual values are published. Sun is included only as the map origin.",
-  "snapshot": "J2000 map positions from the compact-remnant overlay; companion measurements reviewed 2026-11-05."
+  "cutoffPolicy": "Explicitly reviewed members of notable systems only; no magnitude or distance cutoff. Luminous companions of compact objects are included with whichever individual values are published. Single stars that survived a historical supernova are included at their own Gaia distance. Sun is included only as the map origin.",
+  "snapshot": "J2000 map positions from the compact-remnant overlay, and from Gaia DR3 for single stars; measurements reviewed 2026-11-15."
 }

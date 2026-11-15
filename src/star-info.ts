@@ -72,8 +72,8 @@ const images: Readonly<Record<string, InfoImage>> = {
   },
 }
 
-// Nebula articles name their own image file, so the credits stay in the deferred article payloads.
-const nebulaImages = import.meta.glob<string>('./assets/nebulae/*.avif', { query: '?url&no-inline', import: 'default', eager: true })
+// Nebula and galaxy articles name their own image file, so the credits stay in the deferred article payloads.
+const articleImages = import.meta.glob<string>(['./assets/nebulae/*.avif', './assets/galaxies/*.avif'], { query: '?url&no-inline', import: 'default', eager: true })
 
 interface ArticlePayload {
   reviewedAt: string
@@ -94,7 +94,8 @@ function articleContent(id: string, dataset: ArticlePayload): ObjectInfo {
     : article.wikipedia
       ? { title: `Wikipedia: ${article.name} · reviewed ${dataset.reviewedAt}`, url: article.wikipedia }
       : undefined
-  const image = article.image && { ...article.image, src: nebulaImages[`./assets/nebulae/${article.image.file}`]! }
+  const file = article.image?.file
+  const image = article.image && { ...article.image, src: (articleImages[`./assets/nebulae/${file}`] ?? articleImages[`./assets/galaxies/${file}`])! }
   return {
     image: images[id] ?? image,
     introduction: { label: article.name, text: article.introduction, source },

@@ -234,7 +234,7 @@ export const TIPS: readonly Tip[] = [
     text: 'Prefer *parsecs* to *light-years*, or more natural star colors? See [Preferences].',
     step: {
       title: 'Preferences',
-      body: 'Units, star colors and labels, and extras for the scene such as [Earth’s orbit] and the [Milky Way].',
+      body: 'Units, star colors and labels, and extras for the scene such as [Earth’s orbit] and [Galaxies].',
       target: '#preferences-toggle',
     },
   },

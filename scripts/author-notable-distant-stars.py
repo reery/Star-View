@@ -2,9 +2,10 @@
 
 The catalog holds reviewed stars beyond the nearby catalogs that belong to a
 notable system: the measured stellar companions of pulsars and the luminous
-stars of dormant black-hole and neutron-star systems. A companion shares its
-compact host's plotted position and system astrometry; every physical value is
-the companion's own published measurement.
+stars of dormant black-hole and neutron-star systems, plus single stars that
+survived a historical supernova. A companion shares its compact host's plotted
+position and system astrometry; every physical value is the star's own
+published measurement.
 Run with --check to compare the checked-in files without writing them.
 """
 
@@ -19,6 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/notable-distant-stars"
 COMPANION_FILES = [WORK / "pulsar-companions.json", WORK / "gaia-companions.json", WORK / "binary-companions.json"]
+STANDALONE = WORK / "standalone-stars.json"
 NEUTRON_STARS = ROOT / "catalog-work/compact-remnants/pulsar-binaries.json"
 COMPACT = ROOT / "src/data/overlays/compact-remnants/objects.json"
 WESTERN = ROOT / "src/data/catalogs/western-constellation-stars/stars.csv"
@@ -105,6 +107,29 @@ def companion_row(source, host, header):
     return [values.get(field, "") for field in header]
 
 
+def standalone_row(source, header):
+    """A single star at its own Gaia distance, with its own astrometry."""
+    from astropy.coordinates import SkyCoord
+    import astropy.units as units
+    astrometry = source["astrometry"]
+    galactic = SkyCoord(ra=astrometry["ra_deg"] * units.deg, dec=astrometry["dec_deg"] * units.deg, distance=source["distance_pc"] * units.pc, frame="icrs").galactic.cartesian
+    atmosphere = source["atmosphere_source"]
+    notes = [source["note"], f"Distance {source['distance_note']}.",
+             f"Effective temperature {source['temperature_k']} K: {source['temperature_note']}, {atmosphere['label']}, {atmosphere['url']}.",
+             f"Luminosity {source['luminosity_note']}.", "No radial velocity is adopted."]
+    values = {
+        "type": source["type"], "id": source["id"], "name": source["name"], "designations": "|".join(source["designations"]),
+        "spectral_type": source["spectral_type"] or "",
+        "x_pc": number(round(float(galactic.x.value), 6)), "y_pc": number(round(float(galactic.y.value), 6)), "z_pc": number(round(float(galactic.z.value), 6)),
+        "temperature_k": number(source["temperature_k"]), "luminosity_solar": number(source["luminosity_solar"]),
+        "epoch": "2000.0", "notes": " ".join(notes), "constellation": source["constellation"],
+        "astrometry_epoch": number(astrometry["epoch"]), "astrometry_ref": astrometry["astrometry_ref"], "radial_velocity_ref": astrometry["radial_velocity_ref"] or "",
+        **{key: number(astrometry[key]) for key in ("ra_deg", "dec_deg", "parallax_mas", "parallax_error_mas", "pm_ra_cosdec_masyr", "pm_ra_error_masyr",
+                                                     "pm_dec_masyr", "pm_dec_error_masyr", "radial_velocity_kms", "radial_velocity_error_kms")},
+    }
+    return [values.get(field, "") for field in header]
+
+
 def orbit(pulsar, companion_mass, range_years=None):
     """Pulsar timing or published binary orbit; Kepler's law with both measured masses gives the relative axis."""
     details = pulsar["compact"]
@@ -148,32 +173,37 @@ def build():
         reader = csv.reader(handle)
         header = next(reader)
         sun = next(row for row in reader if row[header.index("id")] == "sun")
-    rows = [sun, *(companion_row(source, compact[source["host"]], header) for source in companions)]
+    standalone = json.loads(STANDALONE.read_text())
+    rows = [sun, *(companion_row(source, compact[source["host"]], header) for source in companions),
+            *(standalone_row(source, header) for source in standalone["stars"])]
     buffer = io.StringIO()
     writer = csv.writer(buffer, lineterminator="\n")
     writer.writerow(header)
     writer.writerows(rows)
     sources = {(source["mass_source"]["label"], source["mass_source"]["url"]) for source in companions if "mass_source" in source}
     sources |= {(source[key]["label"], source[key]["url"]) for source in companions for key in ("temperature_source", "atmosphere_source") if key in source}
+    sources |= {(source["atmosphere_source"]["label"], source["atmosphere_source"]["url"]) for source in standalone["stars"]}
+    sources |= {("Gaia DR3; astrometry of single stars", "https://arxiv.org/abs/2208.00211"), ("Bailer-Jones et al. 2021; Gaia geometric distances", "https://ui.adsabs.harvard.edu/abs/2021AJ....161..147B")}
     manifest = {
         "schemaVersion": 1,
         "id": "notable-distant-stars",
         "label": "Notable distant stars",
-        "description": "Reviewed stars beyond the nearby catalogs that belong to notable systems: measured stellar companions of pulsars and the luminous stars of dormant black-hole and neutron-star systems, plus the Sun.",
+        "description": "Reviewed stars beyond the nearby catalogs that belong to notable systems: measured stellar companions of pulsars, the luminous stars of dormant black-hole and neutron-star systems and stars that survived historical supernovae, plus the Sun.",
         "epoch": 2000,
         "objectCount": len(rows),
         "sources": [{"name": "ATNF Pulsar Catalogue v2.9.0; host pulsar positions and system astrometry", "url": ATNF_URL},
                     *({"name": f"{host['compact']['source_label']}; system orbit and astrometry", "url": host["compact"]["source_url"]}
                       for host in (compact[source["host"]] for source in companions) if host["type"] != "pulsar"),
                     *({"name": label, "url": url} for label, url in sorted(sources))],
-        "cutoffPolicy": "Explicitly reviewed members of notable systems only; no magnitude or distance cutoff. Luminous companions of compact objects are included with whichever individual values are published. Sun is included only as the map origin.",
-        "snapshot": f"J2000 map positions from the compact-remnant overlay; companion measurements reviewed {max(reviewed['reviewed'] for reviewed in reviewed_files)}.",
+        "cutoffPolicy": "Explicitly reviewed members of notable systems only; no magnitude or distance cutoff. Luminous companions of compact objects are included with whichever individual values are published. Single stars that survived a historical supernova are included at their own Gaia distance. Sun is included only as the map origin.",
+        "snapshot": f"J2000 map positions from the compact-remnant overlay, and from Gaia DR3 for single stars; measurements reviewed {max(reviewed['reviewed'] for reviewed in [*reviewed_files, standalone])}.",
     }
     provenance = {
         "schemaVersion": 1,
         "catalogId": "notable-distant-stars",
-        "policy": " ".join(reviewed["policy"] for reviewed in reviewed_files),
-        "objects": {f"{source['host']}-{source.get('component', 'B').lower()}": {"hostId": source["host"], **source} for source in companions},
+        "policy": " ".join(reviewed["policy"] for reviewed in [*reviewed_files, standalone]),
+        "objects": {**{f"{source['host']}-{source.get('component', 'B').lower()}": {"hostId": source["host"], **source} for source in companions},
+                    **{source["id"]: source for source in standalone["stars"]}},
     }
     # Runtime system identities: each compact object is component A, its measured companion B.
     inner = [source for source in companions if source.get("component", "B") == "B"]
@@ -211,7 +241,7 @@ def main():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     for path, text in files.items():
         path.write_text(text)
-    print(f"{len(files) - 1} catalog files; {sum(1 for _ in files[OUTPUT / 'stars.csv'].splitlines()) - 2} companions")
+    print(f"{len(files) - 1} catalog files; {sum(1 for _ in files[OUTPUT / 'stars.csv'].splitlines()) - 2} stars besides the Sun")
 
 
 if __name__ == "__main__":

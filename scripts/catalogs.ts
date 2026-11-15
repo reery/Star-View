@@ -8,6 +8,7 @@ import { parseCompactOverlayManifest, parseCompactOverlayPayload } from '../src/
 import { parseNebulaOverlayManifest, parseNebulaOverlayPayload } from '../src/nebula-overlay-model.ts'
 import { parseMolecularCloudOverlayManifest, parseMolecularCloudOverlayPayload } from '../src/molecular-cloud-overlay-model.ts'
 import { hydrateBubbleSurfaceGridFiles, parseBubbleOverlayManifest, parseBubbleOverlayPayload } from '../src/bubble-overlay-model.ts'
+import { parseGalaxyOverlayManifest, parseGalaxyOverlayPayload } from '../src/galaxy-overlay-model.ts'
 import { containedInput, safeOutputDirectory, writeManagedFiles } from './filesystem.ts'
 import { parseObjectIdentities, supplementObjectIdentities } from '../src/designations.ts'
 import { buildCatalogClassReferences } from '../src/catalog-class-references.ts'
@@ -29,6 +30,7 @@ import nearest100Info from '../src/data/nearest-100-info.json' with { type: 'jso
 import constellationStarInfo from '../src/data/constellation-star-info.json' with { type: 'json' }
 import compactObjectInfo from '../src/data/compact-object-info.json' with { type: 'json' }
 import nebulaInfo from '../src/data/nebula-info.json' with { type: 'json' }
+import galaxyInfo from '../src/data/galaxy-info.json' with { type: 'json' }
 import legacyStarIds from '../src/data/legacy-star-ids.json' with { type: 'json' }
 import { indexStarSystems, starComponentIdentity } from '../src/star-systems.ts'
 import type { ConstellationChart } from '../src/constellations.ts'
@@ -59,6 +61,7 @@ const compactOverlayDirectory = join(root, 'src/data/overlays/compact-remnants')
 const nebulaOverlayDirectory = join(root, 'src/data/overlays/nebulae')
 const molecularCloudOverlayDirectory = join(root, 'src/data/overlays/molecular-clouds')
 const bubbleOverlayDirectory = join(root, 'src/data/overlays/bubbles')
+const galaxyOverlayDirectory = join(root, 'src/data/overlays/galaxies')
 
 function loadCompactOverlay() {
   const manifest = parseCompactOverlayManifest(readFileSync(join(compactOverlayDirectory, 'manifest.json'), 'utf8'))
@@ -89,6 +92,12 @@ function loadBubbleOverlay() {
   )
   const objects = supplement(parseBubbleOverlayPayload(payload, manifest))
   return { manifest, objects }
+}
+
+function loadGalaxyOverlay() {
+  const manifest = parseGalaxyOverlayManifest(readFileSync(join(galaxyOverlayDirectory, 'manifest.json'), 'utf8'))
+  const payload: unknown = JSON.parse(readFileSync(join(galaxyOverlayDirectory, 'objects.json'), 'utf8'))
+  return { manifest, objects: parseGalaxyOverlayPayload(payload, manifest) }
 }
 
 function packageDefinitions(extra?: string) {
@@ -142,6 +151,8 @@ function validate(directory?: string): void {
     console.log(`${molecularClouds.manifest.id}: ${molecularClouds.objects.length} overlay rows; ${molecularClouds.manifest.displaySampleCount} display samples`)
     const bubbles = loadBubbleOverlay()
     console.log(`${bubbles.manifest.id}: ${bubbles.objects.length} overlay rows; type counts ${JSON.stringify(bubbles.manifest.counts)}`)
+    const galaxies = loadGalaxyOverlay()
+    console.log(`${galaxies.manifest.id}: ${galaxies.objects.length} overlay rows; type counts ${JSON.stringify(galaxies.manifest.counts)}`)
   }
 }
 
@@ -329,7 +340,7 @@ function generate(): void {
   const legacyIds: Record<string, string> = legacyStarIds.ids
   const articleId = (id: string) => starComponentIdentity(id) ? id : legacyIds[id] ?? id
   // Exact catalog IDs of the same single star in another catalog; resolved only through the startup index.
-  const articleEntries = [starInfo, nearest100Info, constellationStarInfo, compactObjectInfo, nebulaInfo].flatMap((dataset) =>
+  const articleEntries = [starInfo, nearest100Info, constellationStarInfo, compactObjectInfo, nebulaInfo, galaxyInfo].flatMap((dataset) =>
     Object.entries(dataset.articles).map(([id, definition]) => {
       const { aliases = [], ...article } = definition as typeof definition & { aliases?: string[] }
       return { id: articleId(id), reviewedAt: dataset.reviewedAt, article, aliases }
@@ -346,8 +357,12 @@ function generate(): void {
     [`planetary-system-${system.hostStarId}.json`, JSON.stringify({ system, planets: nearbyPlanets.planets.filter((planet) => planet.hostStarId === system.hostStarId) }) + '\n']))
   writeGeneratedData('planetary-systems', systemFiles)
   const planetCounts = Object.fromEntries([...planetarySystems.systems, ...nearbyPlanets.systems].map((system) => [system.hostStarId, system.planets.length]))
+  const nebulae = loadNebulaOverlay()
+  // A remnant's neutron star or surviving star links back to the remnant without loading the nebula overlay.
+  const remnantLinks = Object.fromEntries(nebulae.objects.flatMap(({ id, name, nebula }) =>
+    [nebula?.remnant?.neutron_star, nebula?.remnant?.surviving_star].flatMap((linked) => linked ? [[linked.id, { id, name }]] : [])))
   writeManagedFiles(safeOutputDirectory(join(root, 'src/data/generated')), {
-    'startup-index.json': JSON.stringify({ catalogObjectCounts: Object.fromEntries(catalogs.map(({ id }) => [id, effective.get(id)!.length])), planetCounts, planetHostAliases: nearbyPlanets.aliases, starInfoIds: [...new Set(articleEntries.map(({ id }) => id))], starInfoAliases, planetInfoIds: [...planetDetails.planets, ...smallBodies.objects].map((planet) => planet.id) }) + '\n',
+    'startup-index.json': JSON.stringify({ catalogObjectCounts: Object.fromEntries(catalogs.map(({ id }) => [id, effective.get(id)!.length])), planetCounts, planetHostAliases: nearbyPlanets.aliases, starInfoIds: [...new Set(articleEntries.map(({ id }) => id))], starInfoAliases, planetInfoIds: [...planetDetails.planets, ...smallBodies.objects].map((planet) => planet.id), remnantLinks }) + '\n',
     'planet-details.json': JSON.stringify({ earth: planetDetails.earth, planets: planetDetails.planets }) + '\n',
     'planet-moons.json': JSON.stringify({ ...planetDetails.moons, ...smallBodies.moons }) + '\n',
     'small-body-details.json': JSON.stringify({ objects: smallBodies.objects }) + '\n',
@@ -356,16 +371,17 @@ function generate(): void {
     'stellar-orbit-ids.json': JSON.stringify(orbitSystemIds) + '\n',
   }, true)
   const { manifest: overlayManifest, objects } = loadCompactOverlay()
-  const nebulae = loadNebulaOverlay()
   const molecularClouds = loadMolecularCloudOverlay()
   const bubbles = loadBubbleOverlay()
+  const galaxies = loadGalaxyOverlay()
   writeGeneratedData('overlays', {
     [`${overlayManifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: overlayManifest.id, objects }) + '\n',
     [`${nebulae.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: nebulae.manifest.id, objects: nebulae.objects }) + '\n',
     [`${molecularClouds.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: molecularClouds.manifest.id, objects: molecularClouds.objects }) + '\n',
     [`${bubbles.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: bubbles.manifest.id, objects: bubbles.objects }) + '\n',
+    [`${galaxies.manifest.id}.json`]: JSON.stringify({ schemaVersion: 1, overlayId: galaxies.manifest.id, objects: galaxies.objects }) + '\n',
   })
-  console.log(`Generated ${objects.length} compact-object, ${nebulae.objects.length} nebula, ${molecularClouds.objects.length} molecular-cloud and ${bubbles.objects.length} bubble overlay rows.`)
+  console.log(`Generated ${objects.length} compact-object, ${nebulae.objects.length} nebula, ${molecularClouds.objects.length} molecular-cloud, ${bubbles.objects.length} bubble and ${galaxies.objects.length} galaxy overlay rows.`)
   // Same resolution as starInfoArticleId: system, canonical component, then reviewed alias.
   const articles = new Map(articleEntries.map(({ id, article }) => [id, article as ArticleSummary]))
   const articleFor = (starId: string) => {

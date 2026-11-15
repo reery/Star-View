@@ -197,7 +197,7 @@ it('eases between fast and slow moves without jolts', () => {
   }
 })
 
-it('journeys 30 to 300 ly on its own, easing brightness ratings over to the camera and back', () => {
+it('journeys 30 to 300 ly on its own', () => {
   const stars = Array.from({ length: 200 }, (_, index) => ({ id: `star-${index}`, x_pc: (index % 20) * 3 - 30, y_pc: Math.floor(index / 20) * 3 - 15, z_pc: index % 4 - 2 }) as Star)
   const world = (star: Star) => new Vector3(star.x_pc, star.z_pc, -star.y_pc)
   let selectedId: string | null = 'star-110'
@@ -210,21 +210,44 @@ it('journeys 30 to 300 ly on its own, easing brightness ratings over to the came
     selectedId: () => selectedId,
     select: (id) => { selectedId = id; lastSelection = new Vector3(...camera.position) },
   }, seeded(8))
-  // Seconds from the first rating off the selection until it rates from the camera alone, and back.
-  let shipStart: number | null = null, toShip = 0, shipEnd: number | null = null, toSelection = 0
-  for (let frame = 0; frame < 60_000 && !toSelection; frame++) {
+  // 30 ly is about 9.2 pc.
+  for (let frame = 0; frame < 60_000 && longestUnselected <= 9; frame++) {
     const pose = tour.advance(0.1)!
-    const onCamera = pose.observer !== null && pose.observer.distanceTo(pose.position) < 1e-9
-    if (pose.observer && shipStart === null) shipStart = frame
-    if (onCamera && shipStart !== null && !toShip) toShip = (frame - shipStart) * 0.1
-    if (toShip && !onCamera && shipEnd === null) shipEnd = frame
-    if (shipEnd !== null && !pose.observer) toSelection = (frame - shipEnd) * 0.1
     longestUnselected = Math.max(longestUnselected, pose.position.distanceTo(lastSelection))
     camera.position = pose.position.toArray()
     camera.target = pose.target.toArray()
   }
-  expect(toShip).toBeGreaterThan(3.5)
-  expect(toSelection).toBeGreaterThan(3.5)
-  // 30 ly is about 9.2 pc.
   expect(longestUnselected).toBeGreaterThan(9)
+})
+
+it('flies close by stars, never into them, and never close by extended objects', () => {
+  const closestApproach = (extended: boolean) => {
+    const stars = Array.from({ length: 60 }, (_, index) => ({
+      id: `object-${index}`, x_pc: (index % 6) * 2, y_pc: Math.floor(index / 6) * 2, z_pc: index % 2,
+      ...extended && { bubble: { average_radius_pc: 0.2 } },
+    }) as Star)
+    const world = (star: Star) => new Vector3(star.x_pc, star.z_pc, -star.y_pc)
+    let selectedId: string | null = null
+    const camera = { position: [0, 3, 10], target: [0, 0, 0] }
+    const tour = createDemoTour({
+      objects: () => stars,
+      position: (id) => world(stars.find((star) => star.id === id)!),
+      view: () => camera,
+      selectedId: () => selectedId,
+      select: (id) => { selectedId = id },
+    }, seeded(5))
+    let closest = Infinity
+    for (let frame = 0; frame < 40_000; frame++) {
+      const pose = tour.advance(0.1)!
+      for (const star of stars) closest = Math.min(closest, pose.position.distanceTo(world(star)))
+      camera.position = pose.position.toArray()
+      camera.target = pose.target.toArray()
+    }
+    return closest
+  }
+  // Within 8,000 AU, but beyond the 0.01 pc near plane.
+  const star = closestApproach(false)
+  expect(star).toBeLessThan(0.045)
+  expect(star).toBeGreaterThan(0.015)
+  expect(closestApproach(true)).toBeGreaterThan(0.1)
 })

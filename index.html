@@ -110,6 +110,7 @@
                             <div class="stellar-property"><dt><button type="button" class="mass-metric-help" data-glossary-term="age">Age</button></dt><dd id="age"></dd></div>
                             <div id="magnitude-row" class="stellar-property magnitude-row"><dt><span>Absolute mag. (V)</span><span id="apparent-mag-label">Apparent mag. (V)</span></dt><dd><button id="magnitude-toggle" class="object-type-toggle" type="button" aria-controls="magnitude-card" aria-expanded="false" aria-describedby="absolute-mag apparent-mag"><span id="absolute-mag"></span><span id="apparent-mag" title="Earth-view catalog V magnitude; a snapshot, not current variable-star photometry."></span></button></dd></div>
                             <div id="infrared-magnitude-row" class="stellar-property" hidden><dt id="infrared-magnitude-label"></dt><dd id="infrared-magnitude"></dd></div>
+                            <div id="parent-remnant-row" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="supernova_remnant">Supernova remnant</button></dt><dd><button id="parent-remnant" class="object-type-toggle" type="button"></button></dd></div>
                             <div class="compact-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Status</button><span id="compact-status-term" class="tooltip mass-metric-tooltip" role="tooltip">Confirmed means astronomers agree on what the object is. A candidate is a strong suspect that still needs more evidence.</span></dt><dd id="compact-status"></dd></div>
                             <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Pulsar type</button><span id="pulsar-classes-term" class="tooltip mass-metric-tooltip" role="tooltip">Groups pulsars by how fast they spin and what light they send out. Millisecond pulsars spin hundreds of times a second; some pulse in X-rays or gamma rays instead of radio waves, and rotating radio transients flash only now and then.</span></dt><dd id="pulsar-classes"></dd></div>
                             <div id="rotation-row" class="compact-property rotation-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="rotation">Rotation</button><span id="rotation-period-term" class="tooltip mass-metric-tooltip" role="tooltip">The time for one full spin. The value in brackets is the number of spins per second (Hz).</span></dt><dd><button id="pulsar-toggle" class="object-type-toggle" type="button" aria-controls="pulsar-card" aria-expanded="false" aria-describedby="rotation-period"><span id="rotation-period"></span></button></dd></div>
@@ -133,6 +134,7 @@
                             <div id="nebula-illumination-row" class="nebula-property" hidden><dt>Illuminated by</dt><dd id="nebula-illumination"></dd></div>
                             <div class="remnant-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="age">Age</button></dt><dd id="remnant-age"></dd></div>
                             <div id="remnant-neutron-star-row" class="remnant-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="neutron_star">Neutron star</button></dt><dd><button id="remnant-neutron-star" class="object-type-toggle" type="button"></button><span id="remnant-neutron-star-missing" class="missing-value" hidden></span></dd></div>
+                            <div id="remnant-surviving-star-row" class="remnant-property" hidden><dt>Surviving star</dt><dd><button id="remnant-surviving-star" class="object-type-toggle" type="button"></button></dd></div>
                             <div id="remnant-hot-gas-row" class="remnant-property" hidden><dt>Hot gas</dt><dd id="remnant-hot-gas"></dd></div>
                             <div class="remnant-property" hidden><dt>Drawn as</dt><dd id="remnant-drawn-as"></dd></div>
                             <div class="nebula-property" hidden><dt>Distance source</dt><dd id="nebula-distance-source"></dd></div>
@@ -148,6 +150,14 @@
                             <div class="bubble-property" hidden><dt>Shell radius range</dt><dd id="bubble-surface-range"></dd></div>
                             <div class="bubble-property" hidden><dt>Typical shell thickness</dt><dd id="bubble-shell-thickness"></dd></div>
                             <div class="bubble-property" hidden><dt>Source</dt><dd><a id="bubble-source" target="_blank" rel="noreferrer"></a></dd></div>
+                            <div class="galaxy-property" hidden><dt>Classification</dt><dd id="galaxy-classification"></dd></div>
+                            <div id="galaxy-angular-size-row" class="galaxy-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="apparent-size">Apparent size</button></dt><dd id="galaxy-angular-size"></dd></div>
+                            <div class="galaxy-property" hidden><dt>Diameter</dt><dd id="galaxy-diameter"></dd></div>
+                            <div class="galaxy-property" hidden><dt>Stars</dt><dd id="galaxy-stars"></dd></div>
+                            <div id="galaxy-mass-row" class="galaxy-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="mass">Total mass</button><span id="galaxy-mass-term" class="tooltip mass-metric-tooltip" role="tooltip"></span></dt><dd id="galaxy-mass"></dd></div>
+                            <div id="galaxy-velocity-row" class="galaxy-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="radial-velocity">Radial velocity</button></dt><dd id="galaxy-velocity"></dd></div>
+                            <div class="galaxy-property" hidden><dt>Distance measured by</dt><dd id="galaxy-distance-method"></dd></div>
+                            <div class="galaxy-property" hidden><dt>Source</dt><dd><a id="galaxy-source" target="_blank" rel="noreferrer"></a></dd></div>
                             <div id="designations-empty-row" hidden><dt>Designations</dt><dd id="designations-empty"></dd></div>
                           </dl>
                           <dl class="properties"><div id="object-links-row" class="object-links-row"><dt>Links</dt><dd id="object-links" class="object-links" role="group" aria-label="Links"></dd><dd id="object-comparison-links" class="object-links comparison-value" role="group" hidden></dd></div></dl>
@@ -965,10 +975,10 @@
                   </div>
                   <div id="object-categories" class="category-toggles" role="group" aria-label="Object categories"></div>
                   <div class="range-filter">
-                    <div class="range-heading"><label for="object-distance-limit"><span class="mass-metric-help">Object visibility distance</span></label><span id="object-distance-limit-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Hides objects farther than this from the origin, which is the Sun unless you set another object. This limit never hides the Sun or the selected object.</span><output id="object-distance-limit-value" for="object-distance-limit">100 ly</output></div>
+                    <div class="range-heading"><label for="object-distance-limit"><span class="mass-metric-help">Object visibility distance</span></label><span id="object-distance-limit-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Hides objects farther than this from the origin, which is the Sun unless you set another object. Infinite shows objects at every distance. This limit never hides the Sun or the selected object.</span><output id="object-distance-limit-value" for="object-distance-limit">100 ly</output></div>
                     <input id="object-distance-limit" type="range" min="0" max="25" step="1" value="14" aria-valuetext="100 light-years" aria-describedby="object-distance-steps object-distance-limit-tooltip">
-                    <div class="range-bounds" aria-hidden="true"><span>5 ly</span><span>20000 ly</span></div>
-                    <span id="object-distance-steps" class="sr-only">Distance steps above 100 light-years are 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000, and 20000 light-years.</span>
+                    <div class="range-bounds" aria-hidden="true"><span>5 ly</span><span>Infinite</span></div>
+                    <span id="object-distance-steps" class="sr-only">Distance steps above 100 light-years are 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000 and 10000 light-years, then Infinite, which shows objects at every distance.</span>
                   </div>
                   <div class="range-filter">
                     <div class="range-heading"><label for="magnitude-limit"><span class="mass-metric-help">V magnitude limit</span></label><span id="magnitude-limit-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">The faintest brightness in visible light, as seen from the “Visibility from” object. Lower numbers are brighter, and fainter objects are dimmed. Nebulae, molecular clouds and bubbles have no single magnitude, so the limit leaves them alone.</span><output id="magnitude-limit-value" for="magnitude-limit">7</output></div>
@@ -1224,9 +1234,9 @@
                     </div>
                     <div class="catalog-toggles" role="group" aria-label="Scene layers">
                       <label class="filter-toggle" for="milky-way-visible">
-                        <span class="mass-metric-help">Milky Way</span>
+                        <span class="mass-metric-help">Galaxies</span>
                         <span class="switch-control"><input id="milky-way-visible" type="checkbox" role="switch" aria-describedby="milky-way-visible-tooltip" checked><span class="switch-track" aria-hidden="true"></span></span>
-                      </label><span id="milky-way-visible-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">The Milky Way as a faint band across the sky behind the stars. Thousands of light-years from the Sun, it gives way to a model of the whole Galaxy.</span>
+                      </label><span id="milky-way-visible-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">The Milky Way as a faint band across the sky behind the stars. Thousands of light-years from the Sun, it gives way to models of the whole Galaxy and its neighbors, the Magellanic Clouds and the Andromeda and Triangulum galaxies, which you can select. With no object distance limit, you can zoom out across the Local Group.</span>
                       <label class="filter-toggle" for="oort-cloud-visible">
                         <span class="mass-metric-help">Oort cloud</span>
                         <span class="switch-control"><input id="oort-cloud-visible" type="checkbox" role="switch" aria-describedby="oort-cloud-visible-tooltip" checked><span class="switch-track" aria-hidden="true"></span></span>

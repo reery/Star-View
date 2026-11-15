@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-11-13",
+  "reviewedAt": "2026-11-15",
   "articles": {
     "pleiades-nebula": {
       "name": "Pleiades Nebula",
@@ -2874,6 +2874,346 @@
           "id": "3",
           "title": "Traces of later blasts",
           "text": "Inside the shell, radio maps show a smaller expanding shell of hydrogen, perhaps from a supernova 1–4 million years ago. A patch of radioactive aluminium-26 and a glow of soft X-rays also point to supernova activity."
+        }
+      ]
+    },
+    "rcw-86": {
+      "name": "RCW 86",
+      "wikipedia": "https://en.wikipedia.org/wiki/SN_185",
+      "introduction": "is the shell of gas probably left by SN 185, the earliest supernova on record, about 8,000 light-years away in Circinus. The explosion seems to have gone off inside a cavity, so its debris spread unusually far. It is also known as MSH 14-63.",
+      "image": {
+        "file": "rcw-86.avif",
+        "width": 600,
+        "height": 471,
+        "alt": "Faint red and pink filaments outline a huge, ragged ring among dense stars, with two bright blue stars at lower right.",
+        "caption": "CTIO/NOIRLab/DOE/NSF/AURA · Dark Energy Camera · 2023",
+        "credit": "CTIO/NOIRLab/DOE/NSF/AURA; image processing: T.A. Rector (University of Alaska Anchorage/NSF’s NOIRLab), J. Miller (Gemini Observatory/NSF’s NOIRLab), M. Zamani and D. de Martin (NSF’s NOIRLab). Dark Energy Camera image, released March 2023. Resized to 600 × 471 and converted to AVIF; colors unchanged.",
+        "source": {
+          "title": "Wikimedia Commons: RCW 86 (noirlab2307a)",
+          "url": "https://commons.wikimedia.org/wiki/File:RCW_86_-_Noirlab2307a.jpg"
+        },
+        "license": {
+          "title": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        }
+      },
+      "sections": [
+        {
+          "id": "1",
+          "title": "A guest star in 185",
+          "text": "On 7 December 185, Chinese astronomers recorded a “guest star”. According to the Book of Later Han, it disappeared in the sixth month of the following year, after about eight months. Some modern readings suggest a slow comet instead, but the gaseous shell RCW 86 is probably what the explosion left behind."
+        },
+        {
+          "id": "2",
+          "title": "Too big for its age",
+          "text": "For a remnant only about 1,800 years old, RCW 86 is unusually large. X-ray studies point to a Type Ia supernova, the explosion of a white dwarf, that went off inside a bubble blown earlier by its progenitor system’s wind. In the thin gas of that bubble, the debris could race out much faster and farther than usual.",
+          "source": {
+            "title": "Broersen et al. 2014: The many sides of RCW 86",
+            "url": "https://arxiv.org/abs/1404.5434"
+          }
+        }
+      ]
+    },
+    "rx-j1713-3946": {
+      "name": "RX J1713.7-3946",
+      "source": {
+        "title": "Wikipedia: SN 393",
+        "url": "https://en.wikipedia.org/wiki/SN_393"
+      },
+      "introduction": "is a shell of hot gas in Scorpius, probably the remnant of the supernova Chinese astronomers saw in 393. It glows in X-rays rather than visible light. It is also known as G347.3−0.5.",
+      "image": {
+        "file": "rx-j1713-3946.avif",
+        "width": 576,
+        "height": 633,
+        "alt": "A bluish, roughly circular X-ray shell with bright patches on its rim, a bright point near the bottom centre and a square outline at upper right.",
+        "caption": "Chandra: NASA/CXC/SAO/P. Slane et al.; XMM-Newton: ESA/RIKEN/J. Hiraga et al. · X-ray · 2007",
+        "credit": "Chandra: NASA/CXC/SAO/P. Slane et al.; XMM-Newton: ESA/RIKEN/J. Hiraga et al. X-ray image in false color, released 2007; the square marks the field of a Chandra close-up. Converted to AVIF at 576 × 633; colors unchanged.",
+        "source": {
+          "title": "Wikimedia Commons: Chandra & XMM-Newton X-ray images of G347.3-0.5",
+          "url": "https://commons.wikimedia.org/wiki/File:Chandra_%26_XMM-Newton_X-ray_Images_of_G347_3-0_5_(2007-2snr-more-2_-_g347).jpg"
+        }
+      },
+      "sections": [
+        {
+          "id": "1",
+          "title": "A guest star in 393",
+          "text": "Chinese astronomers recorded a guest star that appeared between 27 February and 28 March 393 and stayed visible for about eight months. Several remnants have been proposed for it. RX J1713.7−3946, about 1,000 parsecs away, was later suggested as a better match than the earlier candidates."
+        },
+        {
+          "id": "2",
+          "title": "Timing the expansion",
+          "text": "X-ray images taken years apart show the south-east rim moving outward at about 3,500 kilometers per second, if the remnant is 1 kiloparsec away. Depending on the gas around it, that speed gives an age of 1,550 to 2,300 years, which fits an explosion in 393.",
+          "source": {
+            "title": "Acero et al. 2017: X-ray proper motion of RX J1713.7-3946",
+            "url": "https://arxiv.org/abs/1610.01605"
+          }
+        },
+        {
+          "id": "3",
+          "title": "Weighing its surroundings",
+          "text": "In 2021, a map of dust built from Gaia measurements of more than 260,000 stars found a cloud of about 7,000 solar masses next to the remnant. If the remnant lies in that cloud, it is 1.12 kiloparsecs, about 3,700 light-years, away. The cloud could hold enough protons to explain the remnant’s gamma rays.",
+          "source": {
+            "title": "Leike et al. 2021, Nature Astronomy",
+            "url": "https://doi.org/10.1038/s41550-021-01344-w"
+          }
+        },
+        {
+          "id": "4",
+          "title": "The star that collapsed",
+          "text": "A faint X-ray point source near the centre, 1WGA J1713.4−3949, has a spectrum like those of other compact central objects, the neutron stars found inside young remnants. It is very probably the collapsed core of the star that exploded.",
+          "source": {
+            "title": "Cassam-Chenaï et al. 2004",
+            "url": "https://arxiv.org/abs/astro-ph/0407333"
+          }
+        }
+      ]
+    },
+    "sn-1006": {
+      "name": "SN 1006",
+      "wikipedia": "https://en.wikipedia.org/wiki/SN_1006",
+      "introduction": "is the remnant of the supernova of 1006, about 7,100 light-years away on the border of Lupus and Centaurus. At its peak the new star reached magnitude −7.5, about sixteen times as bright as Venus. It is also known as PKS 1459−41.",
+      "image": {
+        "file": "sn-1006.avif",
+        "width": 600,
+        "height": 600,
+        "alt": "A round, blue and white shell with a reddish thread on its upper right edge, on a field of stars.",
+        "caption": "NASA/CXC, NRAO/AUI/NSF and Middlebury College/NOAO · X-ray, radio and visible light · 2008",
+        "credit": "X-ray: NASA/CXC/Rutgers/G. Cassam-Chenaï, J. Hughes et al.; radio: NRAO/AUI/NSF/GBT/VLA/Dyer, Maddalena & Cornwell; optical: Middlebury College/F. Winkler, NOAO/AURA/NSF/CTIO Schmidt & DSS. Composite in false color, released 2008. Resized to 600 × 600 and converted to AVIF; colors unchanged.",
+        "source": {
+          "title": "Wikimedia Commons: Supernova Remnant SN 1006",
+          "url": "https://commons.wikimedia.org/wiki/File:Supernova_Remnant_SN_1006.jpg"
+        },
+        "license": {
+          "title": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        }
+      },
+      "sections": [
+        {
+          "id": "1",
+          "title": "Light to see by at night",
+          "text": "Observers in China, Japan, Iraq, Egypt and Europe noted the new star between 15 April and 1 May 1006. The Egyptian astronomer Ali ibn Ridwan put its light at a little more than a quarter of the Moon’s, and a Chinese record says objects on the ground could be seen by it at night. Monks at the Abbey of Saint Gall in Switzerland watched it low in the south for three months."
+        },
+        {
+          "id": "2",
+          "title": "Found again by radio",
+          "text": "The remnant was identified only in 1965, when Doug Milne and Frank Gardner found it with the Parkes radio telescope. No neutron star has been found inside, and a 2012 survey found no giant or subgiant companion that could have survived, which suggests that two white dwarfs merged."
+        },
+        {
+          "id": "3",
+          "title": "A thread of hydrogen",
+          "text": "In visible light, the remnant shows little more than thin threads of hydrogen glowing where its shock wave meets the surrounding gas. Comparing how fast these threads move across the sky with the speed of the shock puts the remnant 2.18 kiloparsecs, about 7,100 light-years, away.",
+          "source": {
+            "title": "Winkler, Gupta & Long 2003",
+            "url": "https://doi.org/10.1086/345985"
+          }
+        }
+      ]
+    },
+    "pa-30": {
+      "name": "Pa 30",
+      "wikipedia": "https://en.wikipedia.org/wiki/IRAS_00500%2B6713",
+      "introduction": "is the likely remnant of SN 1181, about 7,500 light-years away in Cassiopeia: a ball of long, straight filaments around a star that survived the explosion. The filaments are expanding at about 1,100 kilometers per second.",
+      "image": {
+        "file": "pa-30.avif",
+        "width": 600,
+        "height": 636,
+        "alt": "Hundreds of thin orange streaks radiate from a central star like a burst of fireworks, on a dense field of stars.",
+        "caption": "International Gemini Observatory/NOIRLab/NSF/AURA · Gemini North · 2026",
+        "credit": "International Gemini Observatory/NOIRLab/NSF/AURA. Acknowledgment: PI T. Cunningham (Center for Astrophysics | Harvard & Smithsonian); image processing: J. Miller and M. Rodriguez (International Gemini Observatory/NSF NOIRLab), T.A. Rector (University of Alaska Anchorage/NSF NOIRLab), D. de Martin and M. Zamani (NSF NOIRLab). Gemini North image, released 2026. Resized to 600 × 636 and converted to AVIF; colors unchanged.",
+        "source": {
+          "title": "Wikimedia Commons: Supernova remnant Pa 30 (noirlab2624a)",
+          "url": "https://commons.wikimedia.org/wiki/File:Supernova_remnant_Pa_30_(noirlab2624a).jpg"
+        },
+        "license": {
+          "title": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        }
+      },
+      "sections": [
+        {
+          "id": "1",
+          "title": "The guest star of 1181",
+          "text": "Chinese and Japanese astronomers recorded a new star in Cassiopeia between 4 and 6 August 1181; it stayed visible for 185 days. Its remnant was long thought to be 3C 58, but 3C 58 is thousands of years too old. In 2021, the nebula Pa 30 was linked to the event instead.",
+          "source": {
+            "title": "Wikipedia: SN 1181",
+            "url": "https://en.wikipedia.org/wiki/SN_1181"
+          }
+        },
+        {
+          "id": "2",
+          "title": "Found by an amateur",
+          "text": "Amateur astronomer Dana Patchick discovered the nebula in 2013 while searching infrared images from the WISE satellite for planetary nebulae. It was the 30th nebula his searches turned up, which gave it its name.",
+          "source": {
+            "title": "Wikipedia: SN 1181",
+            "url": "https://en.wikipedia.org/wiki/SN_1181"
+          }
+        },
+        {
+          "id": "3",
+          "title": "A star that should not exist",
+          "text": "The star at the centre probably formed when two white dwarfs spiralled together in a rare Type Iax supernova, which left a star behind. Its fierce wind tears the ejected material into the long radial streaks. The star may be too heavy to stay a white dwarf and is predicted to collapse into a neutron star within ten thousand years."
+        }
+      ]
+    },
+    "tychos-supernova-remnant": {
+      "name": "Tycho’s Supernova Remnant",
+      "wikipedia": "https://en.wikipedia.org/wiki/SN_1572",
+      "introduction": "is the remnant of the supernova Tycho Brahe observed in 1572, about 10,400 light-years away in Cassiopeia. The new star challenged the old belief that the realm of the stars never changes. It is also known as 3C 10.",
+      "image": {
+        "file": "tychos-supernova-remnant.avif",
+        "width": 600,
+        "height": 600,
+        "alt": "A nearly round shell glowing in red, green and blue X-rays, with a sharp, thin blue outer edge.",
+        "caption": "NASA/CXC/Rutgers/J. Warren & J. Hughes et al. · Chandra X-ray · 2003",
+        "credit": "NASA/CXC/Rutgers/J. Warren & J. Hughes et al. Chandra X-ray image in false color, released 2003. Resized to 600 × 600 and converted to AVIF; colors unchanged.",
+        "source": {
+          "title": "Wikimedia Commons: Tycho-supernova-xray.jpg",
+          "url": "https://commons.wikimedia.org/wiki/File:Tycho-supernova-xray.jpg"
+        }
+      },
+      "sections": [
+        {
+          "id": "1",
+          "title": "Brighter than Venus",
+          "text": "The star appeared in early November 1572 and was discovered independently by many people. Around 16 November it peaked at about magnitude −4, brighter than Venus, and it stayed visible to the naked eye into early 1574. Tycho Brahe published his observations in 1573 in De nova stella."
+        },
+        {
+          "id": "2",
+          "title": "An echo of the flash",
+          "text": "In 2008, astronomers caught light from the explosion that had bounced off distant dust clouds, arriving more than four centuries late. Its spectrum confirmed that the supernova was a normal Type Ia, the explosion of a white dwarf."
+        },
+        {
+          "id": "3",
+          "title": "Hunting the companion",
+          "text": "In 2004, astronomers reported Tycho G, a Sun-like star near the centre, as the possible surviving companion of the white dwarf. The claim has been challenged: Gaia measurements lowered its speed from 136 to 56 kilometers per second."
+        },
+        {
+          "id": "4",
+          "title": "Distance from the echoes",
+          "text": "Light echoes also measure distance. Placing the echoing dust in 3D dust maps puts the remnant 3.2 kiloparsecs, about 10,400 light-years, away.",
+          "source": {
+            "title": "Neumann et al. 2024: Echo Location",
+            "url": "https://arxiv.org/abs/2407.14584"
+          }
+        }
+      ]
+    },
+    "keplers-supernova-remnant": {
+      "name": "Kepler’s Supernova Remnant",
+      "wikipedia": "https://en.wikipedia.org/wiki/Kepler%27s_Supernova",
+      "introduction": "is the remnant of the supernova Johannes Kepler followed from October 1604, about 16,600 light-years away in Ophiuchus. It is the most recent supernova in the Milky Way that was unquestionably seen with the naked eye. It is also known as 3C 358.",
+      "image": {
+        "file": "keplers-supernova-remnant.avif",
+        "width": 600,
+        "height": 600,
+        "alt": "A ragged bubble of blue, green and red gas, brightest along its upper edge, on a dark background with stars.",
+        "caption": "NASA/ESA/JHU/R. Sankrit & W. Blair · Chandra, Hubble and Spitzer · 2004",
+        "credit": "NASA/ESA/JHU/R. Sankrit & W. Blair. Composite of Chandra X-ray (June 2000), Hubble visible-light (August 2003) and Spitzer infrared (August 2004) images, in false color. Resized to 600 × 600 and converted to AVIF; colors unchanged.",
+        "source": {
+          "title": "Wikimedia Commons: Keplers supernova.jpg",
+          "url": "https://commons.wikimedia.org/wiki/File:Keplers_supernova.jpg"
+        }
+      },
+      "sections": [
+        {
+          "id": "1",
+          "title": "Brighter than every star",
+          "text": "Lodovico delle Colombe recorded the new star in northern Italy on 9 October 1604; Kepler began observing it on 17 October and described it in De Stella Nova. At magnitude −2.5 it outshone every other star in the night sky. It stayed visible in daylight for over three weeks and to the naked eye for 18 months. No supernova has been seen with certainty in the Milky Way since."
+        },
+        {
+          "id": "2",
+          "title": "Measuring the distance",
+          "text": "Hubble images taken years apart show the remnant’s hydrogen filaments creeping outward. Combined with the speed of the shock behind them, this motion puts the remnant 5.1 kiloparsecs, about 16,600 light-years, away.",
+          "source": {
+            "title": "Sankrit et al. 2016",
+            "url": "https://doi.org/10.3847/0004-637X/817/1/36"
+          }
+        }
+      ]
+    },
+    "cassiopeia-a": {
+      "name": "Cassiopeia A",
+      "wikipedia": "https://en.wikipedia.org/wiki/Cassiopeia_A",
+      "introduction": "is the remnant of a star that exploded about 11,700 light-years away in Cassiopeia and whose light reached Earth in the 17th century. Dust dimmed the outburst, and no certain record of it exists. It is also known as 3C 461.",
+      "image": {
+        "file": "cassiopeia-a.avif",
+        "width": 600,
+        "height": 600,
+        "alt": "A tangled ring of glowing knots and filaments in orange, green and blue, on a dark field of stars.",
+        "caption": "NASA, ESA and the Hubble Heritage (STScI/AURA)-ESA/Hubble Collaboration · Hubble · 2004",
+        "credit": "NASA, ESA and the Hubble Heritage (STScI/AURA)-ESA/Hubble Collaboration. Acknowledgement: R. A. Fesen (Dartmouth College, USA) and J. Long (ESA/Hubble). Hubble image captured in 2004 through filters isolating glowing gas. Resized to 600 × 600 and converted to AVIF; colors unchanged.",
+        "source": {
+          "title": "Wikimedia Commons: Hubble’s view of Cassiopeia A (weic2311c)",
+          "url": "https://commons.wikimedia.org/wiki/File:Hubble%E2%80%99s_view_of_Cassiopeia_A_(weic2311c).jpg"
+        },
+        "license": {
+          "title": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        }
+      },
+      "sections": [
+        {
+          "id": "1",
+          "title": "Did Flamsteed see it?",
+          "text": "Light from the explosion first reached Earth around the 1660s, give or take 30 years. John Flamsteed may have recorded it as a sixth-magnitude star, 3 Cassiopeiae, in 1680. Otherwise nobody noted it, probably because interstellar dust absorbed most of its light."
+        },
+        {
+          "id": "2",
+          "title": "An echo reveals the star",
+          "text": "Light from the explosion reflected by dust, seen centuries later, gave its spectrum: Cassiopeia A was a Type IIb supernova, from a massive star that had lost most of its outer hydrogen before it collapsed."
+        },
+        {
+          "id": "3",
+          "title": "The neutron star at the centre",
+          "text": "In 1999, the Chandra X-ray Observatory found a point of X-rays at the centre: the neutron star left by the explosion. The debris around it is still expanding at 4,000–6,000 kilometers per second."
+        },
+        {
+          "id": "4",
+          "title": "Distance from the echoes",
+          "text": "Light echoes also measure distance. Placing the echoing dust in 3D dust maps puts the remnant 3.6 kiloparsecs, about 11,700 light-years, away.",
+          "source": {
+            "title": "Neumann et al. 2024: Echo Location",
+            "url": "https://arxiv.org/abs/2407.14584"
+          }
+        }
+      ]
+    },
+    "sn-1987a": {
+      "name": "SN 1987A",
+      "wikipedia": "https://en.wikipedia.org/wiki/SN_1987A",
+      "introduction": "is the remnant of the closest supernova observed since 1604, about 168,000 light-years away in the Large Magellanic Cloud, a dwarf galaxy orbiting the Milky Way. Its light reached Earth on 23 February 1987, and in May it peaked at magnitude 3, easy to see with the naked eye.",
+      "image": {
+        "file": "sn-1987a.avif",
+        "width": 600,
+        "height": 600,
+        "alt": "A small glowing red ring with bright spots, surrounded by two fainter loops, among scattered stars.",
+        "caption": "ESA/Hubble & NASA · Hubble · 2011",
+        "credit": "ESA/Hubble & NASA. Hubble picture of the week, October 2011. Resized to 600 × 600 and converted to AVIF; colors unchanged.",
+        "source": {
+          "title": "Wikimedia Commons: SN 1987A HST.jpg",
+          "url": "https://commons.wikimedia.org/wiki/File:SN_1987A_HST.jpg"
+        },
+        "license": {
+          "title": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/"
+        }
+      },
+      "sections": [
+        {
+          "id": "1",
+          "title": "Neutrinos first",
+          "text": "Two to three hours before its light arrived, three detectors caught a burst of neutrinos lasting less than 13 seconds: Kamiokande II counted 12, IMB 8 and Baksan 5. These 25 particles came from the collapse of the star’s core."
+        },
+        {
+          "id": "2",
+          "title": "Rings from an earlier life",
+          "text": "The star that exploded, the blue supergiant Sanduleak −69 202, had shed gas about 20,000 years earlier. Three bright rings of that gas appeared a few months after the explosion, and the debris is now crashing into the inner ring."
+        },
+        {
+          "id": "3",
+          "title": "Finally, a neutron star",
+          "text": "For decades, no neutron star could be seen in the debris. In 2024, the James Webb Space Telescope found emission lines of ionized argon at the centre, best explained by radiation from a neutron star lighting up the gas."
         }
       ]
     }

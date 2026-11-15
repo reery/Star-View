@@ -3,13 +3,15 @@ export const COMPACT_OBJECT_TYPES = ['pulsar', 'neutron_star', 'black_hole'] as 
 export const NEBULA_OBJECT_TYPES = ['reflection_nebula', 'hii_region', 'planetary_nebula', 'supernova_remnant'] as const
 export const MOLECULAR_CLOUD_OBJECT_TYPES = ['molecular_cloud'] as const
 export const BUBBLE_OBJECT_TYPES = ['bubble'] as const
-export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES, ...NEBULA_OBJECT_TYPES, ...MOLECULAR_CLOUD_OBJECT_TYPES, ...BUBBLE_OBJECT_TYPES] as const
+export const GALAXY_OBJECT_TYPES = ['galaxy'] as const
+export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES, ...NEBULA_OBJECT_TYPES, ...MOLECULAR_CLOUD_OBJECT_TYPES, ...BUBBLE_OBJECT_TYPES, ...GALAXY_OBJECT_TYPES] as const
 export type ObjectType = typeof OBJECT_TYPES[number]
 export type StellarObjectType = typeof STELLAR_OBJECT_TYPES[number]
 export type CompactObjectType = typeof COMPACT_OBJECT_TYPES[number]
 export type NebulaObjectType = typeof NEBULA_OBJECT_TYPES[number]
 export type MolecularCloudObjectType = typeof MOLECULAR_CLOUD_OBJECT_TYPES[number]
 export type BubbleObjectType = typeof BUBBLE_OBJECT_TYPES[number]
+export type GalaxyObjectType = typeof GALAXY_OBJECT_TYPES[number]
 
 // IAU ICRS-to-Galactic rotation (Hipparcos convention), row-major.
 export const ICRS_TO_GALACTIC_ROWS = [
@@ -75,6 +77,8 @@ export interface RemnantDetails {
   age_source: string
   // The neutron star the explosion left behind, when one is identified in the compact-object overlay.
   neutron_star: { id: string; name: string } | null
+  // The star that survived the explosion, in the star catalog that holds it.
+  surviving_star?: { catalog: string; id: string; name: string }
   // Temperature of the X-ray-emitting gas; null when not adopted.
   hot_gas_kev: number | null
   hot_gas_source: string | null
@@ -180,6 +184,44 @@ export interface BubbleDetails {
   position_source: string
   source_label: string
   source_url: string
+  model_note: string
+}
+
+export interface GalaxySource {
+  label: string
+  url: string
+}
+
+export interface GalaxyDetails {
+  /** De Vaucouleurs morphological class, such as SB(s)m. */
+  morphology: string
+  /** Plain-language form of the morphological class. */
+  classification: string
+  /** Center, J2000. */
+  ra_deg: number
+  dec_deg: number
+  distance_pc: number
+  distance_error_pc: number
+  distance_method: string
+  distance_source: GalaxySource
+  /** Isophotal diameter; for the Milky Way a published value, otherwise the apparent size at the adopted distance. */
+  diameter_pc: number
+  /** Major and minor isophotal axes on the sky; null for the Milky Way, which surrounds us. */
+  angular_size_deg: [number, number] | null
+  size_source: GalaxySource
+  /** Rough published star count range. */
+  star_count: [number, number]
+  star_count_source: GalaxySource
+  /** Total mass including dark matter, with its scope; null without a reviewed measurement. */
+  total_mass?: { value_solar: number; lower_error_solar: number; upper_error_solar: number; scope: string; source: GalaxySource }
+  /** Heliocentric; null for the Milky Way. */
+  radial_velocity_kms: number | null
+  radial_velocity_error_kms: number | null
+  radial_velocity_source: GalaxySource | null
+  /** Model radius: the drawn disk and the sky area that selects the galaxy. */
+  model_radius_pc: number
+  palette: { real: string; exaggerated: string }
+  position_source: string
   model_note: string
 }
 
@@ -418,6 +460,7 @@ export interface Star {
   nebula?: NebulaDetails
   molecular_cloud?: MolecularCloudDetails
   bubble?: BubbleDetails
+  galaxy?: GalaxyDetails
 }
 
 export type DesignationPart = { key: string } | { names: readonly string[] }
@@ -444,6 +487,10 @@ export function isBubbleObject(star: Pick<Star, 'type'>): boolean {
   return BUBBLE_OBJECT_TYPES.some((type) => type === star.type)
 }
 
+export function isGalaxyObject(star: Pick<Star, 'type'>): boolean {
+  return GALAXY_OBJECT_TYPES.some((type) => type === star.type)
+}
+
 export function objectTypeLabel(type: ObjectType): string {
   return {
     star: 'Star',
@@ -459,6 +506,7 @@ export function objectTypeLabel(type: ObjectType): string {
     supernova_remnant: 'Supernova remnant',
     molecular_cloud: 'Molecular cloud',
     bubble: 'Bubble',
+    galaxy: 'Galaxy',
   }[type]
 }
 

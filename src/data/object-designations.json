@@ -25,14 +25,14 @@
     "src/data/catalogs/nearest-1000/stars.csv": "801789f131e2a21dcd5e2d8ffb6e4d7f929eb244da5fa3e6396fa458cbf62d17",
     "src/data/catalogs/nearest-5000/provenance.json": "341aebc5ab23a7a7c7325c52bd37d7d0926c040d620446fe9a239aad40ac6067",
     "src/data/catalogs/nearest-5000/stars.csv": "d68a715ed91b28b4691b093a2b4988bab253c878bf9ce0f0e7d246c456fc798b",
-    "src/data/catalogs/notable-distant-stars/stars.csv": "afed253f44340a6d0a4057b91ab1554fba16f1c106e76e54a8660b016bfdbd36",
+    "src/data/catalogs/notable-distant-stars/stars.csv": "e9e876192358196c9559e13d2ac671eaf1fb93e874c16fc6ca45a4b4724fec26",
     "src/data/catalogs/western-constellation-stars/provenance.json": "c48cddbf01e7bd7d0f3877deba16cf5eab085e1c989d635eb04eac79eb370dcd",
     "src/data/catalogs/western-constellation-stars/stars.csv": "f094b4f53be6c5d73bca10c803845831096d7a2dd48b1606d68ca65ea287dcc8",
     "src/data/legacy-star-ids.json": "1b3022e79a02fac18f035fd4323dc43c582730ec66b4dd5baa85a1d0873362a3",
     "src/data/overlays/bubbles/objects.json": "1fb673285045e35cb4caafa2a672d6d0ad2bc6c3218badd4861cb582a8429926",
-    "src/data/overlays/compact-remnants/objects.json": "a9f95edd9421e54ddfdcc2ff51e572033c279e8883e5a8448c67b97c6f185742",
+    "src/data/overlays/compact-remnants/objects.json": "35aa257f163e30596dfcbbfd2a2157e885fb113e7fad0142b3911984d0c711f6",
     "src/data/overlays/molecular-clouds/objects.json": "6f20f8fefbbeab700c05c1a0e6b9844f42998da9d810f073973cd99da50419b4",
-    "src/data/overlays/nebulae/objects.json": "0bd9efc441d29f687e62085d74f04ccaa58447f17da666341457e831f5c3cdd6",
+    "src/data/overlays/nebulae/objects.json": "84467b1593872fa5ec68af20f6520cb8a331f281561bb92e8be5c5a6cd2984fa",
     "src/data/stars.csv": "44288f83123f36b349c58a72e4ae23608ec242e5ff25850fabf6a42ca2ae616a",
     "src/data/stellar-companions.json": "36b4828120eccbdcfc5867b8c0b79a139f58c272c2c43e2f8b04eb478e4bcce9"
   },
@@ -3780,6 +3780,13 @@
         "src/data/catalogs/naked-eye-stars/stars.csv"
       ],
       "simbadId": "*  14 Cap A"
+    },
+    "1wga-j1713": {
+      "name": "1WGA J1713.4-3949",
+      "designations": [],
+      "sources": [
+        "src/data/overlays/compact-remnants/objects.json"
+      ]
     },
     "2-cam-ab": {
       "name": "* 2 Cam AB",
@@ -7538,6 +7545,16 @@
         "src/data/catalogs/naked-eye-stars/stars.csv",
         "src/data/catalogs/nearest-1000/stars.csv",
         "src/data/catalogs/western-constellation-stars/stars.csv"
+      ]
+    },
+    "cassiopeia-a": {
+      "name": "Cassiopeia A",
+      "designations": [
+        "3C 461",
+        "SNR G111.7-02.1"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
       ]
     },
     "ced-184": {
@@ -141119,6 +141136,13 @@
         "src/data/overlays/compact-remnants/objects.json"
       ],
       "simbadId": "2XMM J085201.4-461753"
+    },
+    "cxou-j232327": {
+      "name": "CXOU J232327.9+584842",
+      "designations": [],
+      "sources": [
+        "src/data/overlays/compact-remnants/objects.json"
+      ]
     },
     "cygnus-x-1": {
       "name": "Cygnus X-1",
@@ -472715,6 +472739,17 @@
         "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
     },
+    "iras-00500p6713": {
+      "name": "IRAS 00500+6713",
+      "designations": [
+        "2MASS J00531123+6730023",
+        "Gaia DR3 526287189172936320",
+        "WISEA J005311.13+673002.1"
+      ],
+      "sources": [
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ]
+    },
     "iris-nebula": {
       "name": "Iris Nebula",
       "designations": [
@@ -472781,6 +472816,17 @@
         "src/data/catalogs/naked-eye-stars/stars.csv"
       ],
       "simbadId": "* kap01 Scl B"
+    },
+    "keplers-supernova-remnant": {
+      "name": "Kepler’s Supernova Remnant",
+      "designations": [
+        "3C 358",
+        "SN 1604",
+        "SNR G004.5+06.8"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
     },
     "lacaille-9352": {
       "name": "Lacaille 9352",
@@ -473453,6 +473499,13 @@
       ],
       "simbadId": "NGC  6726"
     },
+    "ns-1987a": {
+      "name": "NS 1987A",
+      "designations": [],
+      "sources": [
+        "src/data/overlays/compact-remnants/objects.json"
+      ]
+    },
     "ogle-2011-blg-0462": {
       "name": "OGLE-2011-BLG-0462",
       "designations": [
@@ -473509,6 +473562,15 @@
         "src/data/overlays/nebulae/objects.json"
       ],
       "simbadId": "M  42"
+    },
+    "pa-30": {
+      "name": "Pa 30",
+      "designations": [
+        "SNR G123.1+04.6"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
     },
     "per-tau-shell": {
       "name": "Per-Tau Shell",
@@ -479663,6 +479725,16 @@
       ],
       "simbadId": "PN PuWe    1"
     },
+    "rcw-86": {
+      "name": "RCW 86",
+      "designations": [
+        "MSH 14-63",
+        "SNR G315.4-02.3"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
     "rigel-ba": {
       "name": "Rigel Ba",
       "designations": [],
@@ -479925,6 +479997,15 @@
         "src/data/overlays/compact-remnants/objects.json"
       ],
       "simbadId": "RBS  1556"
+    },
+    "rx-j1713-3946": {
+      "name": "RX J1713.7-3946",
+      "designations": [
+        "SNR G347.3-00.5"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
     },
     "scorpius-x-1": {
       "name": "Scorpius X-1",
@@ -480281,6 +480362,25 @@
         "src/data/stars.csv"
       ],
       "simbadId": "* alf CMa B"
+    },
+    "sn-1006": {
+      "name": "SN 1006",
+      "designations": [
+        "PKS 1459-41",
+        "SNR G327.6+14.6"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
+    },
+    "sn-1987a": {
+      "name": "SN 1987A",
+      "designations": [
+        "SNR 1987A"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
     },
     "sun": {
       "name": "Sun",
@@ -480663,6 +480763,17 @@
         "src/data/catalogs/western-constellation-stars/stars.csv"
       ],
       "simbadId": "* tet01 Ori D"
+    },
+    "tychos-supernova-remnant": {
+      "name": "Tycho’s Supernova Remnant",
+      "designations": [
+        "3C 10",
+        "SN 1572",
+        "SNR G120.1+01.4"
+      ],
+      "sources": [
+        "src/data/overlays/nebulae/objects.json"
+      ]
     },
     "upsilon-gru-a": {
       "name": "Upsilon Gru A",

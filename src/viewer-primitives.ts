@@ -74,7 +74,7 @@ export function budgetVisibleLabelIndices(
 /** The selection and origin stay eligible; extended nebulae, clouds and bubbles have no point magnitude to limit. */
 export function mapVisibilityTier(star: Star, observer: Star, selectedId: string | null, originId: string, magnitude: number, limit: number): ReturnType<typeof visibilityTier> {
   if (isMapVisibilityBase(star, observer)) return 'base'
-  return star.id === selectedId || star.id === originId || star.nebula || star.molecular_cloud || star.bubble || magnitude <= limit ? 'eligible' : 'background'
+  return star.id === selectedId || star.id === originId || star.nebula || star.molecular_cloud || star.bubble || star.galaxy || magnitude <= limit ? 'eligible' : 'background'
 }
 
 export function starBlocksLabels(tier: ReturnType<typeof visibilityTier>): boolean {
@@ -99,7 +99,12 @@ export function starCoreWhiteStrength(star: Pick<Star, 'type' | 'temperature_k' 
 }
 
 /** Zoom-out reach follows the object visibility distance, reaching its full 181,000 ly at 1,000 ly. */
-export function maxOrbitDistancePc(objectDistanceLimitLy: number): number {
+/** Far enough to see the Milky Way, the Andromeda Galaxy and the Triangulum Galaxy together. */
+export const LOCAL_GROUP_REACH_PC = 4_000_000 / LIGHT_YEARS_PER_PARSEC
+
+/** The farthest orbit distance; with galaxies shown and no distance limit, it reaches across the Local Group. */
+export function maxOrbitDistancePc(objectDistanceLimitLy: number, galaxies = false): number {
+  if (galaxies && objectDistanceLimitLy === Infinity) return LOCAL_GROUP_REACH_PC
   return Math.min(objectDistanceLimitLy, 1000) * 181 / LIGHT_YEARS_PER_PARSEC
 }
 
@@ -110,8 +115,11 @@ export function isObjectMapVisible(
   observerId: string,
   distanceLy = 0,
   distanceLimitLy = Infinity,
+  galaxiesVisible = true,
 ): boolean {
   const key = filterKeyForObject(star)
+  // Galaxies are scenery far beyond any distance limit; the Galaxies preference alone shows them.
+  if (key === 'galaxy') return galaxiesVisible || star.id === selectedId || star.id === observerId
   if (key === 'sun') return visibleKeys.has(key)
   return visibleKeys.has(key) && (
     star.id === selectedId || star.id === observerId || distanceLy <= distanceLimitLy

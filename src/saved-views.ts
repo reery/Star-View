@@ -9,7 +9,14 @@ import type { SavedGraphSelection } from './graphs'
 import { NEIGHBORHOOD_RADIUS_LY } from './neighborhood'
 
 export const SAVED_VIEWS_STORAGE_KEY = 'star-view-saved-views'
-export const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000, 20000] as const
+// The last step, Infinite, shows objects at every distance.
+export const OBJECT_DISTANCE_STEPS_LY = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 150, 200, 300, 500, 1000, 1500, 2000, 3000, 5000, 10000, Infinity] as const
+
+/** JSON stores the Infinite step as null, and views and filters saved before it existed stored its predecessor, 20000 ly. */
+export function storedDistanceLimit<T>(settings: T): T {
+  const limit = (settings as { objectDistanceLimitLy?: unknown } | null | undefined)?.objectDistanceLimitLy
+  return limit === null || limit === 20000 ? { ...settings as object, objectDistanceLimitLy: Infinity } as T : settings
+}
 
 export interface SavedViewSettings {
   catalogId: string
@@ -148,7 +155,8 @@ export function readSavedViews(): SavedView[] {
     const stored = localStorage.getItem(SAVED_VIEWS_STORAGE_KEY)
     if (!stored) return []
     const parsed: unknown = JSON.parse(stored)
-    return Array.isArray(parsed) ? parsed.filter(isSavedView).sort((first, second) => Date.parse(second.savedAt) - Date.parse(first.savedAt)) : []
+    return Array.isArray(parsed) ? parsed.map((view: unknown) => view && typeof view === 'object' ? { ...view, settings: storedDistanceLimit((view as { settings?: unknown }).settings) } : view)
+      .filter(isSavedView).sort((first, second) => Date.parse(second.savedAt) - Date.parse(first.savedAt)) : []
   } catch {
     return []
   }
@@ -229,10 +237,10 @@ export function decodeSavedViewLink(fragment: string): SavedView | null {
   const name = one('n')
   if (!camera || name === undefined) return null
   try {
-    const values = Object.fromEntries(Object.values(LINK_VALUES).map(([field, fallback], index) => {
+    const values = storedDistanceLimit(Object.fromEntries(Object.values(LINK_VALUES).map(([field, fallback], index) => {
       const raw = one(Object.keys(LINK_VALUES)[index]!)
       return [field, raw === undefined ? fallback : typeof fallback === 'number' ? Number(raw) : decodeLinkText(raw)]
-    })) as Pick<SavedViewSettings, typeof LINK_VALUES[keyof typeof LINK_VALUES][0]>
+    }))) as Pick<SavedViewSettings, typeof LINK_VALUES[keyof typeof LINK_VALUES][0]>
     const bits = parseInt(one('b') ?? '0', 36)
     const flag = (name: typeof LINK_FLAGS[number]) => Boolean(bits >> LINK_FLAGS.indexOf(name) & 1) !== LINK_FLAGS_ON.includes(name)
     const filters = new Set(LINK_FILTERS)

@@ -1036,6 +1036,81 @@
         "lynds_class": 1,
         "retired_brightness": 1
       }
+    },
+    "rcw-86": {
+      "mag_arcsec2": 27.7,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "halpha_field_peak_rayleigh": 33.76,
+        "retired_brightness": 0.3
+      }
+    },
+    "rx-j1713-3946": {
+      "mag_arcsec2": 28.32,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "halpha_field_peak_rayleigh": 46.23,
+        "retired_brightness": 0.25
+      }
+    },
+    "sn-1006": {
+      "mag_arcsec2": 29.15,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, capped at the 1.3 R H-alpha peak of its field in the Finkbeiner (2003) map",
+      "url": null,
+      "basis": {
+        "halpha_field_peak_rayleigh": 1.33,
+        "retired_brightness": 0.3
+      }
+    },
+    "pa-30": {
+      "mag_arcsec2": 27.07,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "retired_brightness": 0.35
+      }
+    },
+    "tychos-supernova-remnant": {
+      "mag_arcsec2": 26.45,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "retired_brightness": 0.4
+      }
+    },
+    "keplers-supernova-remnant": {
+      "mag_arcsec2": 26.45,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "retired_brightness": 0.4
+      }
+    },
+    "cassiopeia-a": {
+      "mag_arcsec2": 23.95,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "retired_brightness": 0.6
+      }
+    },
+    "sn-1987a": {
+      "mag_arcsec2": 23.95,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "retired_brightness": 0.6
+      }
     }
   }
 }

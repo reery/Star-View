@@ -15,6 +15,7 @@ import planetaryNebulaImage from './assets/object-types/planetary_nebula.jpg'
 import supernovaRemnantImage from './assets/object-types/supernova_remnant.jpg'
 import molecularCloudImage from './assets/object-types/molecular_cloud.jpg'
 import bubbleImage from './assets/object-types/bubble.jpg'
+import galaxyImage from './assets/object-types/galaxy.jpg'
 
 interface TypeIntroduction {
   description: string
@@ -76,6 +77,10 @@ const introductions: Record<ObjectType, TypeIntroduction> = {
   bubble: {
     description: 'An interstellar bubble is a cavity in the gas between stars, carved out by powerful stellar winds or supernova explosions. The expanding hot gas sweeps surrounding material into a shell, leaving a relatively sparse interior. Large cavities created by groups of massive stars are called superbubbles; the Sun lies within one known as the Local Bubble.',
     article: 'Superbubble', image: bubbleImage, caption: 'The Bubble Nebula, a stellar-wind bubble · Hubble',
+  },
+  galaxy: {
+    description: 'A galaxy is a vast system of stars, gas, dust and dark matter held together by gravity. The smallest hold a few hundred million stars, the largest trillions. Spiral galaxies such as the Milky Way keep young stars and gas in a rotating disk, while irregular galaxies have no clear shape. Every star visible to the naked eye belongs to the Milky Way; the nearest other galaxies appear as faint clouds in the sky.',
+    article: 'Galaxy', image: galaxyImage, caption: 'The Triangulum Galaxy · ESO VLT Survey Telescope',
   },
 }
 

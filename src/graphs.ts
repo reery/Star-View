@@ -58,7 +58,7 @@ interface Histogram {
   bins: number
 }
 
-const typeLabels = new Map<FilterKey, string>(FILTER_CATEGORIES.flatMap((category) => category.subtypes.map(({ key, label }) => [key, label] as const)))
+const typeLabels = new Map<FilterKey | 'galaxy', string>([...FILTER_CATEGORIES.flatMap((category) => category.subtypes.map(({ key, label }) => [key, label] as const)), ['galaxy', 'Galaxies']])
 const spectralGroups = ['O', 'B', 'A', 'F', 'G', 'K', 'M', 'L', 'T', 'Y', 'D'] as const
 const multiplicityLabels = ['Single', 'Binary', 'Triple', 'Quadruple', '5+ components']
 const svg = (icon: IconNode, size = 20) => createElement(icon, { width: size, height: size, 'stroke-width': 1.7, 'aria-hidden': 'true' })
@@ -105,7 +105,7 @@ function groupBoth<K>(context: GraphContext, list: (view: GraphView) => readonly
 }
 
 /** The Sun counts as a star. */
-function objectType(star: Pick<Star, 'id' | 'type'>): FilterKey {
+function objectType(star: Pick<Star, 'id' | 'type'>): FilterKey | 'galaxy' {
   const key = filterKeyForObject(star)
   return key === 'sun' ? 'star' : key
 }

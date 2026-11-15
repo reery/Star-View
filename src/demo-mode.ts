@@ -3,8 +3,6 @@ import { LIGHT_YEARS_PER_PARSEC } from './astronomy'
 import type { Star } from './catalog-model'
 
 export interface DemoPose { position: Vector3; target: Vector3 }
-/** A camera pose, and the point brightness is rated from while the camera flies as an imaginary ship; null rates from the selection. */
-export interface DemoFrame extends DemoPose { observer: Vector3 | null }
 
 export interface DemoHost {
   /** Objects visible on the map. */
@@ -16,9 +14,10 @@ export interface DemoHost {
   select(id: string): void
 }
 
-type MoveKind = 'glide' | 'cruise' | 'voyage' | 'journey' | 'orbit' | 'reveal' | 'flyby' | 'pass' | 'gaze'
+type MoveKind = 'glide' | 'cruise' | 'voyage' | 'journey' | 'orbit' | 'reveal' | 'flyby' | 'pass' | 'gaze' | 'skim'
 const TRAVEL_MOVES = ['glide', 'cruise'] as const
-const LOCAL_MOVES = ['orbit', 'reveal', 'flyby', 'pass', 'gaze'] as const
+const LOCAL_MOVES = ['orbit', 'reveal', 'flyby', 'pass', 'gaze', 'skim'] as const
+const NO_SKIM_MOVES = LOCAL_MOVES.filter((kind) => kind !== 'skim')
 
 interface Move {
   seconds: number
@@ -27,8 +26,6 @@ interface Move {
   pose(t: number, out: DemoPose): void
   /** Selects the destination this many seconds in. */
   select?: { id: string; at: number }
-  /** Rates brightness from the camera, as an imaginary ship, rather than from the selection. */
-  ship?: boolean
 }
 
 /** Each move eases in from where the previous one, or a drag, left the camera. */
@@ -65,8 +62,12 @@ const VOYAGE_ELEVATION = 0.5
 /** About one travel in five is a journey: 30 to 300 ly straight on, turning gently now and then, with no destination. */
 const JOURNEY_CHANCE = 0.2
 const JOURNEY_LY = [30, 300] as const
-/** Seconds over which brightness ratings move between the selection and the camera as an imaginary ship. */
-const SHIP_VIEW_S = 4
+/** A close flyby misses its star by about 4,000 to 8,000 AU, beyond the 0.01 pc near plane, where it flares. */
+const SKIM_PC = [0.02, 0.04] as const
+/** At the star it flies slower by this share of its average speed, so the flare lasts a moment. */
+const SKIM_SLOWING = 0.6
+/** The view leans this far toward the star, so it stays in sight longer while sliding by. */
+const SKIM_LEAN = 0.3
 /**
  * Up stays the map's up, so a view near straight up or down spins its heading and seems to roll. The view tilts
  * freely up to the knee, then flattens out softly before the limit; ship orbits stay within the tilt of level.
@@ -77,6 +78,8 @@ const ORBIT_TILT = 0.5
 const UP = new Vector3(0, 1, 0)
 
 const smooth = (u: number) => u * u * (3 - 2 * u)
+/** Like smooth, but also without a sudden change of acceleration at its ends. */
+const smoother = (u: number) => u ** 3 * (u * (6 * u - 15) + 10)
 const easeInOut = (u: number) => u < 0.5 ? 4 * u ** 3 : 1 - (-2 * u + 2) ** 3 / 2
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value))
 /** The share of a flight's average speed it keeps at its ends: a local move's speed, within the cruising share. */
@@ -121,10 +124,7 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
   const visited = new Set<string>()
   const start: DemoPose = { position: new Vector3(), target: new Vector3() }
   const pose: DemoPose = { position: new Vector3(), target: new Vector3() }
-  const output: DemoFrame = { position: new Vector3(), target: new Vector3(), observer: null }
-  const observer = new Vector3()
-  /** How far brightness ratings have moved from the selection to the camera. */
-  let shipView = 0
+  const output: DemoPose = { position: new Vector3(), target: new Vector3() }
   const previous: DemoPose = { position: new Vector3(), target: new Vector3() }
   /** In demo seconds: the camera's speed over the last frame, and at the start of the current move. */
   const velocity: DemoPose = { position: new Vector3(), target: new Vector3() }
@@ -149,6 +149,13 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     const share = direction.dot(moving)
     return Math.abs(share) > 1e-3 * moving.length() + 1e-9 ? Math.sign(share) : sign()
   }
+  /** Across the line of sight the way the camera already moves, or any way across it when heading straight in or out. */
+  const acrossMotion = (inward: Vector3) => {
+    const moving = velocity.position
+    const across = moving.clone().addScaledVector(inward, -moving.dot(inward))
+    if (across.length() < 0.2 * moving.length() || across.lengthSq() < 1e-12) perpendicular(inward, across).applyAxisAngle(inward, random() * Math.PI * 2)
+    return across.normalize()
+  }
   const randomUnit = () => new Vector3(random() * 2 - 1, random() * 2 - 1, random() * 2 - 1).normalize()
   const framingPc = (star: Star) => Math.max(extentPc(star) * 3, 0.4 + random() * 1.2)
   const pick = <T extends MoveKind>(kinds: readonly T[]) => {
@@ -163,7 +170,8 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
   function destination(objects: readonly Star[], from: Vector3, forward: Vector3, currentId: string | null, avoid?: { center: Vector3; radius: number }): Star | null {
     const nearest: { star: Star; distanceSq: number; ahead: boolean }[] = []
     for (const star of objects) {
-      if (star.id === currentId || visited.has(star.id)) continue
+      // Galaxies are scenery: flights to them would last far longer than the tour's pace allows.
+      if (star.id === currentId || visited.has(star.id) || star.galaxy) continue
       // World axes are Galactic x, z and -y.
       if (avoid && Math.hypot(star.x_pc - avoid.center.x, star.z_pc - avoid.center.y, -star.y_pc - avoid.center.z) < avoid.radius) continue
       const dx = star.x_pc - from.x, dy = star.z_pc - from.y, dz = -star.y_pc - from.z
@@ -206,10 +214,12 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     const near = at && view.position.distanceTo(at) < Math.max(extentPc(current!) * 3, 1.6) * 8
     if (current && at && near && localMoves < localTarget) {
       localMoves++
-      const kind = pick(LOCAL_MOVES)
+      // A close flyby heads for the object, so it does not follow a move leaving it, nor suit extended objects.
+      const leaving = velocity.position.dot(at.clone().sub(view.position)) < 0
+      const kind = pick(extentPc(current!) > 0 || leaving ? NO_SKIM_MOVES : LOCAL_MOVES)
       lastKind = kind
-      // A look around ends facing away, so a flight follows, setting off the way it looks.
-      if (kind === 'gaze') localMoves = localTarget
+      // A look around and a close flyby end facing away, so a flight follows, setting off the way it looks.
+      if (kind === 'gaze' || kind === 'skim') localMoves = localTarget
       visited.add(current.id)
       return localMove(kind, view, at, framingPc(current))
     }
@@ -249,7 +259,8 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     // It moves on quickly: often straight to the next object, rarely with two moves around this one.
     const stay = random()
     localTarget = stay < 0.3 ? 0 : stay < 0.85 ? 1 : 2
-    const kind = voyaging ? 'voyage' : pick(TRAVEL_MOVES)
+    // A close flyby leaves fast, so a cruise carries straight on rather than a glide turning back.
+    const kind = voyaging ? 'voyage' : lastKind === 'skim' ? 'cruise' : pick(TRAVEL_MOVES)
     lastKind = lastTravel = kind
     if (kind === 'voyage') return voyage(view, at!, next.id, to, framingPc(next))
     return kind === 'glide' ? glide(view, next.id, to, framingPc(next)) : cruise(view, next.id, to, framingPc(next))
@@ -257,7 +268,7 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
 
   return {
     /** Advances by demo seconds, already scaled by the speed, and returns the camera pose; null while nothing can be shown. */
-    advance(seconds: number): DemoFrame | null {
+    advance(seconds: number): DemoPose | null {
       time += seconds * (move?.pace ?? 1)
       if (!move || time >= move.seconds) {
         // Without a destination, look again once a second rather than every frame.
@@ -301,12 +312,6 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
       previous.position.copy(output.position)
       previous.target.copy(output.target)
       tracked = true
-      // Brightness ratings glide from the selection to the camera and back, rather than switching at once.
-      shipView = clamp(shipView + (move.ship ? 1 : -1) * seconds / SHIP_VIEW_S, 0, 1)
-      const selectedId = host.selectedId()
-      const base = shipView > 0 && selectedId !== null ? host.position(selectedId) : null
-      output.observer = shipView > 0 ? observer.copy(output.position) : null
-      if (base) observer.lerpVectors(base, output.position, smooth(shipView))
       return output
     },
     /** Drops the current move, so the next one starts from the camera as the visitor left it, at rest. */
@@ -319,10 +324,7 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     },
   }
 
-  /**
-   * Cruises 30 to 300 ly straight on, looking ahead, with a gentle turn here and there; brightness is rated
-   * from the camera as if from a ship.
-   */
+  /** Cruises 30 to 300 ly straight on, looking ahead, with a gentle turn here and there. */
   function journey(view: DemoPose): Move {
     const from = view.position.clone()
     const forward = view.target.clone().sub(from)
@@ -354,7 +356,6 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     const lookAhead = Math.max(0.5, distance * 0.05)
     return {
       seconds,
-      ship: true,
       pose(t, out) {
         const u = Math.min(1, t / seconds), travelled = travelEase(u, cruising) * steps
         const step = Math.min(steps - 1, Math.floor(travelled))
@@ -422,7 +423,7 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
         const turn = azimuth + spin * u + arrivalTurn * arrive
         const tilt = (elevation + (VOYAGE_ELEVATION - elevation) * rise) * (1 - arrive) + arrivalElevation * arrive
         // It crosses over to the destination while still far out, where that is slow on screen, not while closing in.
-        center.lerpVectors(from, to, smooth(Math.min(1, arrive * 1.6)))
+        center.lerpVectors(from, to, smoother(Math.min(1, arrive * 1.6)))
         out.position.set(Math.cos(tilt) * Math.cos(turn), Math.sin(tilt), Math.cos(tilt) * Math.sin(turn)).multiplyScalar(radius).add(center)
         // The view swings to the destination early in the dive.
         out.target.lerpVectors(from, to, smooth(clamp((u - peak * 0.9) / 0.35, 0, 1)))
@@ -474,6 +475,7 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     if (kind === 'flyby') return flyby(view, at, framing)
     if (kind === 'pass') return pass(view, at, framing)
     if (kind === 'gaze') return gaze(view)
+    if (kind === 'skim') return skim(view, at, framing)
     return circle(view, at, framing, kind === 'reveal')
   }
 
@@ -555,11 +557,8 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     const range = inward.length()
     if (range > 1e-9) inward.divideScalar(range)
     else inward.copy(randomUnit())
-    // It sweeps the way the camera was heading across the line of sight, or any way across it when heading straight in or out.
     const moving = velocity.position
-    const across = moving.clone().addScaledVector(inward, -moving.dot(inward))
-    if (across.length() < 0.2 * moving.length() || across.lengthSq() < 1e-12) perpendicular(inward, across).applyAxisAngle(inward, random() * Math.PI * 2)
-    across.normalize()
+    const across = acrossMotion(inward)
     // Aimed to miss the object by the closest distance halfway along, leaning toward it, or away while already leaving.
     const closest = Math.min(range, framing * (0.6 + random() * 0.6))
     const aside = range > 1e-9 ? Math.asin(closest / range) : Math.PI / 2
@@ -575,6 +574,35 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
         // Half eased: it glides out at the end, but keeps moving throughout.
         out.position.copy(from).addScaledVector(direction, length * (u + smooth(u)) / 2)
         out.target.copy(at)
+      },
+    }
+  }
+
+  /**
+   * A close flyby: like a ship, it heads for the star and skims past it a few thousand AU out, slowing as it
+   * passes, looking ahead while the star flares and slides by to the side.
+   */
+  function skim(view: DemoPose, at: Vector3, framing: number): Move {
+    const from = view.position.clone()
+    const inward = at.clone().sub(from)
+    const range = inward.length()
+    if (range > 1e-9) inward.divideScalar(range)
+    else inward.copy(randomUnit())
+    const closest = Math.min(range / 3, SKIM_PC[0] + random() * (SKIM_PC[1] - SKIM_PC[0]))
+    const aside = range > 1e-9 ? Math.asin(closest / range) : 0
+    const direction = inward.multiplyScalar(Math.cos(aside)).addScaledVector(acrossMotion(inward), Math.sin(aside))
+    // It ends as far beyond the star as it started.
+    const length = 2 * range * Math.cos(aside)
+    const toward = at.clone().sub(from).addScaledVector(direction, -length / 2).normalize()
+    const ahead = direction.clone().multiplyScalar(Math.cos(SKIM_LEAN)).addScaledVector(toward, Math.sin(SKIM_LEAN)).multiplyScalar(Math.max(0.5, framing))
+    // Longer from farther away, so it never speeds up or slows down sharply.
+    const seconds = 10 + 5 * Math.log2(1 + range) + random() * 3
+    return {
+      seconds,
+      pose(t, out) {
+        const u = Math.min(1, t / seconds)
+        out.position.copy(from).addScaledVector(direction, length * (u - SKIM_SLOWING * Math.sin(2 * Math.PI * u) / (2 * Math.PI)))
+        out.target.copy(out.position).add(ahead)
       },
     }
   }

@@ -1,6 +1,6 @@
 import { brownDwarfAppearanceKelvin, brownDwarfSurfaceColor, starDisplayColor } from './astronomy'
 import { MISSING_VALUE } from './format'
-import { isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, type Star } from './catalog-model'
+import { isBubbleObject, isCompactObject, isGalaxyObject, isMolecularCloudObject, isNebulaObject, type Star } from './catalog-model'
 import { SOLAR_RADIUS_METERS } from './luminosity-properties'
 import jupiterMapUrl from './assets/radius-comparison/jupiter-map.webp?url'
 import earthMapUrl from './assets/radius-comparison/earth-map.webp?url'
@@ -41,7 +41,7 @@ const equatorialVelocity = (radiusKm: number, periodDays: number) => 2 * Math.PI
 
 function stellarBody(star: Star): RadiusBody {
   const radius = star.radius_solar
-  const available = !isCompactObject(star) && !isNebulaObject(star) && !isMolecularCloudObject(star) && !isBubbleObject(star)
+  const available = !isCompactObject(star) && !isNebulaObject(star) && !isMolecularCloudObject(star) && !isBubbleObject(star) && !isGalaxyObject(star)
     && radius !== null && Number.isFinite(radius) && radius > 0
   const radiusKm = available ? radius * SOLAR_RADIUS_KM : null
   const rotation = star.stellar_observations?.rotation

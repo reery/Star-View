@@ -566,16 +566,18 @@ def render():
     objects.extend(curated_object(source) for source in curated)
     if len({item["id"] for item in objects}) != len(objects):
         raise ValueError("Compact-object IDs must be unique")
+    # Reviewed neutron stars of historical supernova remnants may lie beyond the radius; each names its reason.
+    outside = {source["id"]: source["name"] for source in curated if source.get("outside_radius")}
     for item in objects:
         distance_ly = math.hypot(item["x_pc"], item["y_pc"], item["z_pc"]) * LY_PER_PC
-        if distance_ly > RADIUS_LY + 0.001:
+        if (distance_ly > RADIUS_LY + 0.001) != (item["id"] in outside):
             raise ValueError(f"Compact-object radius violation: {item['name']} at {distance_ly:g} ly")
     counts = {object_type: sum(item["type"] == object_type for item in objects) for object_type in ("pulsar", "neutron_star", "black_hole")}
     manifest = {
         "schemaVersion": 1,
         "id": "compact-remnants",
         "label": "Compact remnants",
-        "description": "A separately loaded, source-defined overlay of catalogued pulsars, their measured neutron-star companions and reviewed black holes and neutron stars within 10000 light-years.",
+        "description": "A separately loaded, source-defined overlay of catalogued pulsars, their measured neutron-star companions and reviewed black holes and neutron stars within 10000 light-years, plus the neutron stars of historical supernova remnants beyond it.",
         "epoch": 2000,
         "objectCount": len(objects),
         "radiusLy": RADIUS_LY,
@@ -588,8 +590,8 @@ def render():
             *({"name": entry["reference"], "url": entry["source_url"]} for entry in modelled_masses.values()),
             {"name": "BlackCAT catalogue of black-hole X-ray transients", "url": "https://arxiv.org/abs/1510.08869"},
         ],
-        "cutoffPolicy": f"ATNF v{atnf['catalogVersion']} non-candidate, non-interim pulsars within 10000 light-years; beyond 3000 light-years ({MODEL_DISTANCE_LIMIT_KPC} kpc) only those with a distance independent of the dispersion-measure model. Reviewed distances replace superseded ATNF values. Their reviewed neutron-star companions with measured masses, plus reviewed black-hole and non-pulsar neutron-star systems within 10000 light-years. Candidate status is explicit.",
-        "snapshot": f"J2000 map positions; ATNF package downloaded {atnf['downloaded']}; binary masses reviewed {reviewed['reviewed']}; curated literature reviewed 2026-11-05.",
+        "cutoffPolicy": f"ATNF v{atnf['catalogVersion']} non-candidate, non-interim pulsars within 10000 light-years; beyond 3000 light-years ({MODEL_DISTANCE_LIMIT_KPC} kpc) only those with a distance independent of the dispersion-measure model. Reviewed distances replace superseded ATNF values. Their reviewed neutron-star companions with measured masses, plus reviewed black-hole and non-pulsar neutron-star systems within 10000 light-years. Beyond the radius, only the reviewed neutron stars of historical supernova remnants: {', '.join(outside.values())}. Candidate status is explicit.",
+        "snapshot": f"J2000 map positions; ATNF package downloaded {atnf['downloaded']}; binary masses reviewed {reviewed['reviewed']}; curated literature reviewed 2026-11-15.",
     }
     payload = {"schemaVersion": 1, "overlayId": "compact-remnants", "objects": objects}
     provenance = {
