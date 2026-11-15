@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { decodeSavedViewLink, encodeSavedViewLink, type SavedViewSettings } from './saved-views'
+import { decodeSavedViewLink, encodeSavedViewLink, storedDistanceLimit, type SavedViewSettings } from './saved-views'
 
 const defaults: SavedViewSettings = {
   catalogId: 'nearest-neighbors', showAlwaysBright: false, showWesternConstellationStars: false, showNakedEyeStars: false, showNotableDistantStars: false,
@@ -70,6 +70,16 @@ describe('saved view links', () => {
     const link = encodeSavedViewLink({ name: 'View', settings })
     expect(link).toBe(encodeSavedViewLink({ name: 'View', settings: defaults }))
     expect(decodeSavedViewLink(link)?.settings).toMatchObject({ objectSearch: '', simulationPlaying: false, simulationDirection: 1, followSelection: false })
+  })
+
+  it('keeps the Infinite distance step and opens the former 20000 ly step at Infinite', () => {
+    expect(expectRoundTrip({ ...defaults, objectDistanceLimitLy: Infinity })).toMatch(/(^|&)d=Infinity&/)
+    const legacy = encodeSavedViewLink({ name: 'View', settings: defaults }).replace('&n=', '&d=20000&n=')
+    expect(decodeSavedViewLink(legacy)?.settings.objectDistanceLimitLy).toBe(Infinity)
+    // Stored views and filters pass through JSON, which writes Infinity as null.
+    const stored = JSON.parse(JSON.stringify({ ...defaults, objectDistanceLimitLy: Infinity })) as SavedViewSettings
+    expect(storedDistanceLimit(stored).objectDistanceLimitLy).toBe(Infinity)
+    expect(storedDistanceLimit(defaults)).toBe(defaults)
   })
 
   it('ignores fragments without a valid view', () => {

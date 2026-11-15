@@ -127,6 +127,6 @@ export function specValues(star: Star, sun: Star, unit: DistanceUnit): Record<st
       rvReview ? `${rvReview.reference}. ${rvReview.reason}` : rvSource?.scope ?? raw?.radial_velocity_ref ?? undefined)
   }
   set('astrometry-source', raw?.astrometry_ref || compact?.position_source || star.nebula?.position_source
-    || star.molecular_cloud?.position_source || star.bubble?.position_source || MISSING_VALUE)
+    || star.molecular_cloud?.position_source || star.bubble?.position_source || star.galaxy?.position_source || MISSING_VALUE)
   return values
 }

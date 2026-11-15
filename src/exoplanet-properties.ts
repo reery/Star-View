@@ -1,6 +1,7 @@
 import nearby from './data/generated/exoplanet-source.json'
 import earthDefinitions from './data/generated/planet-details.json'
 import type { PlanetSpec } from './planet-properties'
+import { significant } from './format'
 import { scientificPlanetValue } from './planet-value'
 
 interface ArchiveMeasurement {
@@ -29,7 +30,6 @@ export interface ExtrasolarPlanet {
 }
 
 const earth = earthDefinitions.earth
-const format = (value: number) => value.toLocaleString('en-US', { maximumSignificantDigits: 4 })
 // Overrides the shared title tooltip where this label means something specific.
 const define = (specs: PlanetSpec[], definition: string | undefined) => specs.map((spec) => ({ ...spec, definition }))
 
@@ -40,9 +40,9 @@ function measurementSpec(planet: ExtrasolarPlanet, field: string, id: string, la
   const qualifier = measurement.estimated ? ' · estimated' : ''
   const value = measurement.value * multiplier
   const errors = measurement.errorPlus !== null || measurement.errorMinus !== null
-    ? ` Published uncertainties: +${measurement.errorPlus === null ? 'unavailable' : format(Math.abs(measurement.errorPlus))} / −${measurement.errorMinus === null ? 'unavailable' : format(Math.abs(measurement.errorMinus))} in archive units.` : ''
+    ? ` Published uncertainties: +${measurement.errorPlus === null ? 'unavailable' : significant(Math.abs(measurement.errorPlus), 4)} / −${measurement.errorMinus === null ? 'unavailable' : significant(Math.abs(measurement.errorMinus), 4)} in archive units.` : ''
   return [{
-    id, label, value: `${prefix}${unit === 'kg' ? scientificPlanetValue(value) : format(value)}${unit ? ` ${unit}` : ''}${qualifier}`,
+    id, label, value: `${prefix}${unit === 'kg' ? scientificPlanetValue(value) : significant(value, 4)}${unit ? ` ${unit}` : ''}${qualifier}`,
     comparison: earthReference === undefined ? '' : `${prefix}${(value / earthReference).toLocaleString('en-US', { maximumSignificantDigits: 3 })}×Earth`,
     detail: `${detail}${measurement.estimated ? ' Calculated estimate in the archive, not a measured value.' : ''}${errors} ${measurement.source.label || 'NASA Exoplanet Archive'}; snapshot ${nearby.retrieved}.`,
     sourceUrl: measurement.source.url ?? undefined,

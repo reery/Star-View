@@ -29,7 +29,7 @@ import { createMolecularCloudLayer } from './molecular-cloud-layer'
 import { createBubbleLayer } from './bubble-layer'
 import { createFaintObjectClouds, faintObjectBlobs, isFaintObject } from './faint-object-cloud'
 import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
-import { mapComponentVisibility } from './star-systems'
+import { closeCompanionIndices, mapComponentVisibility } from './star-systems'
 import { createSpaceshipModel, SPACESHIP_LENGTH_PC, spaceshipMoving, stepSpaceship, type Spaceship, type SpaceshipBrightness, type SpaceshipInput, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
 import type { StarPaint, StarPainter } from './star-paint'
 import {
@@ -46,6 +46,8 @@ import {
 export interface StarViewer {
   getViewState(): ViewerViewState
   select(id: string | null, focus?: boolean): void
+  /** Applies several settings with a single pass over the objects, instead of one for each. */
+  batch(update: () => void): void
   setReference(referenceId: string): void
   /** Animated, the camera flies into the object's view, or backs out of it along the line of sight. */
   setObserverView(enabled: boolean, anchorId?: string, rollRadians?: number, animate?: boolean): boolean
@@ -70,7 +72,7 @@ export interface StarViewer {
    */
   setSpaceship(ship: Spaceship | null, labels: SpaceshipLabels, visibilityFromShip: boolean, brightness: SpaceshipBrightness): void
   setSpaceshipInput(input: SpaceshipInput): void
-  /** Rates brightness from a free point, such as the demo's imaginary ship, until null returns to the visibility base; a ship rating from itself comes first. */
+  /** Rates brightness from a free point, such as the demo's imaginary ship, ahead of a ship rating from itself, with the ship's brightness setting; null returns to the visibility base. */
   setVisibilityPoint(point: Vector3 | null): void
   /** Shows only objects between the distances from the center as they move, inside a grid sphere of the given radius; null shows all. */
   setNeighborhood(neighborhood: { centerId: string; innerPc: number; outerPc: number; spherePc: number } | null): void
@@ -349,6 +351,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     void import('./scene-shader').then(({ createScenePass }) => {
       if (disposed || request !== shaderRequest) return
       scenePass = createScenePass(style)
+      programsStale = true
       requestRender()
     }, () => {})
   }
@@ -359,7 +362,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let starPaintZoomShrink = true
   const starColors = stars.map((star) => starDisplayColor(star, starColorMode))
   const starColorStyles = starColors.map((color) => color.getStyle())
-  const starBounds = new Box3().setFromPoints(pickable.map((star) => star.position))
+  // Galaxies lie far beyond the catalogs; framing and axes follow the objects around them.
+  const isGalaxy = Uint8Array.from(stars, (star) => star.galaxy ? 1 : 0)
+  const galaxyIndices = stars.flatMap((star, index) => star.galaxy ? [index] : [])
+  const galaxyPickRadii = galaxyIndices.map((index) => stars[index]!.galaxy!.model_radius_pc)
+  const starBounds = new Box3().setFromPoints(pickable.filter((_, index) => !isGalaxy[index]).map((star) => star.position))
   stars.forEach((star) => {
     expandBoxByMolecularCloudBounds(starBounds, star)
     expandBoxByBubbleBounds(starBounds, star)
@@ -377,15 +384,19 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const homeDirection = new Vector3(-4.8, 3.8, -6.2).normalize()
   controls.minDistance = 0.08
   let objectDistanceLimitLy = 100
-  controls.maxDistance = maxOrbitDistancePc(objectDistanceLimitLy)
-  camera.far = maxOrbitDistancePc(Infinity) * 5
-
   let milkyWayVisible = options.milkyWayVisible ?? true
+  controls.maxDistance = maxOrbitDistancePc(objectDistanceLimitLy, milkyWayVisible && galaxyIndices.length > 0)
+  // Depth precision follows the near plane, so reaching the Local Group costs nothing nearby.
+  camera.far = maxOrbitDistancePc(Infinity, true) * 5
+
   const milkyWay = createMilkyWayLayer(starColorMode, renderer.capabilities.maxTextureSize, reducedMotion, (ready) => {
     if (ready === null) delete container.dataset.milkyWayReady
     else container.dataset.milkyWayReady = ready ? 'true' : 'error'
     if (ready) requestRender()
-  }, () => requestRender())
+  }, () => {
+    programsStale = true
+    requestRender()
+  }, galaxyIndices.map((index) => stars[index]!))
   scene.add(milkyWay.group)
 
   const starViewDistance = { value: camera.position.distanceTo(controls.target) }
@@ -474,7 +485,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   // the rasterizer. The visible subset only changes with selection/settings.
   haloGeometry.setIndex(stars.map((_, index) => index))
   const haloIndices = haloGeometry.getIndex()!
-  let componentVisible = mapComponentVisibility(stars)
+  const closeCompanions = closeCompanionIndices(stars)
+  let componentVisible = mapComponentVisibility(stars, null, closeCompanions)
   const coreEnabled = new Uint8Array(stars.length)
   const nextCoreEnabled = new Uint8Array(stars.length)
   const haloEnabled = new Uint8Array(stars.length)
@@ -760,9 +772,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   // The ship, or a free point, as a visibility base, in catalog coordinates; refreshed a few times a second while moving.
   const spaceshipObserver: Star = { ...sun, id: 'spaceship', name: 'Spaceship' }
   let spaceshipObserverTime = -Infinity
-  /** A free point brightness is rated from instead of the visibility base, such as the demo's imaginary ship. */
+  /** A free point brightness is rated from instead of the visibility base or the ship, such as the demo's imaginary ship. */
   let visibilityPoint: Vector3 | null = null
-  const observerPoint = () => spaceship && spaceshipVisibility ? spaceship.position : visibilityPoint
+  const observerPoint = () => visibilityPoint ?? (spaceship && spaceshipVisibility ? spaceship.position : null)
   /** Whether the ship, not orbit controls, places the camera. */
   const cameraIsShip = () => spaceshipCockpit || spaceshipFlight !== null
   let viewCenterOffset = 0
@@ -816,6 +828,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let pendingFrame: number | null = null
   let sceneDirty = false
   let milkyWayFading = false
+  // Shader programs compile on the driver's threads, but a draw that needs an unfinished one waits for it,
+  // one program after another. A frame with new materials starts them all instead, and is drawn once they are done.
+  let programsStale = true
+  let programsCompiling = false
   let lastViewerDistanceReport = 0
   let nextRenderDeadline = 0
   let lastRenderTime = 0
@@ -1100,7 +1116,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     return observerPoint() ?? pickable[starsById.get(visibilityBaseStar.id)!.index]!.position
   }
 
-  const starGlareActive = () => spaceship !== null && spaceshipVisibility && spaceshipBrightness === 'realistic'
+  /** Realistic ship brightness also applies to a free point, which views the map like a ship. */
+  const starGlareActive = () => observerPoint() !== null && spaceshipBrightness === 'realistic'
 
   function syncStarGlare(): void {
     const active = starGlareActive()
@@ -1398,8 +1415,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     nextRenderDeadline = 0
   }
 
+  let presentationHeld = false
+  let presentationPending = false
+
   function updatePresentation(): void {
-    componentVisible = mapComponentVisibility(stars, selectedId)
+    if (presentationHeld) {
+      presentationPending = true
+      return
+    }
+    componentVisible = mapComponentVisibility(stars, selectedId, closeCompanions)
     componentVisible[referenceIndex] = 1
     ordinaryLayoutDirty = true
     const visibilityBase = observerPoint() ? spaceshipObserver : visibilityBaseStar
@@ -1423,7 +1447,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       rankedCandidates = stars.map((star, index) => ({
         index,
         // Extended objects have no point magnitude, so stars fill the budget before them.
-        priority: star.id === selectedId ? 0 : isMolecularCloud[index] ? 3 : isNebula[index] || isBubble[index] ? 2 : 1,
+        priority: star.id === selectedId ? 0 : isMolecularCloud[index] ? 3 : isNebula[index] || isBubble[index] || isGalaxy[index] ? 2 : 1,
         magnitude: apparentMagnitudes[index]!,
       })).sort(compareMapLabelCandidates)
       rankedCandidates.forEach(({ index }, rank) => { labelRanks[index] = rank })
@@ -1441,6 +1465,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         visibilityBase.id,
         referenceDistancesLy[index]!,
         objectDistanceLimitLy,
+        milkyWayVisible,
       ) && neighborhoodInside[index] === 1 && (!objectPredicate || objectPredicate(star, referenceDistancesLy[index]! / LIGHT_YEARS_PER_PARSEC))
       tiers[index] = tier
       mapVisible[index] = visible && !(hideFainterObjects && tier === 'background') ? 1 : 0
@@ -1537,7 +1562,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const observerIndex = hiddenObserverIndex()
     for (let index = 0; index < stars.length; index++) {
       nextCoreEnabled[index] = componentVisible[index] && mapVisible[index] && !faintHidden[index] && index !== observerIndex
-        && !isNebula[index] && !isMolecularCloud[index] && !isBubble[index] ? 1 : 0
+        && !isNebula[index] && !isMolecularCloud[index] && !isBubble[index] && !isGalaxy[index] ? 1 : 0
     }
     for (let index = 0; index < stars.length; index++) {
       nextHaloEnabled[index] = starStyle === 'exaggerated' && nextCoreEnabled[index] && (tiers[index] !== 'background' || starPaints?.[index]!.magnitude !== undefined) ? 1 : 0
@@ -1616,7 +1641,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (!projectWorldPointInto(position, viewProjection, viewport, clipPoint, projected)) continue
       projected.visible = true
       // Draw the default representative and any explicitly selected companion.
-      if (coreEnabled[index] || isNebula[index] || isMolecularCloud[index] || isBubble[index]) projectedPickables.push(projected)
+      if (coreEnabled[index] || isNebula[index] || isMolecularCloud[index] || isBubble[index] || isGalaxy[index]) projectedPickables.push(projected)
       if (!motionArrowsVisible) continue
       const motion = motions[index]
       if (!motion || tiers[index] === 'background') continue
@@ -1858,7 +1883,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       starObstacles.clear()
       const radius = STAR_DIAMETER_PX / 2
       for (const projected of projectedPickables) {
-        if (isNebula[projected.index] || isMolecularCloud[projected.index] || isBubble[projected.index] || !starBlocksLabels(tiers[projected.index]!)) continue
+        if (isNebula[projected.index] || isMolecularCloud[projected.index] || isBubble[projected.index] || isGalaxy[projected.index] || !starBlocksLabels(tiers[projected.index]!)) continue
         const obstacle = starObstacleEntries[projected.index]!
         obstacle.depth = projected.depth
         obstacle.magnitude = apparentMagnitudes[projected.index]!
@@ -2057,6 +2082,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       resize()
       return
     }
+    if (focus && star.galaxy) extendReach(camera.position.distanceTo(pickable[selectedIndex]!.position))
     if (focus) focusFromCamera(pickable[starsById.get(star.id)!.index]!.position.clone())
     if (home && !focus) fitHome()
     else resize()
@@ -2075,10 +2101,28 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   const homeBounds = new Box3()
   const homeSphere = new Sphere()
+  const galaxyPoint = new Vector3()
+
+  /** The farthest orbit for the distance limit; with galaxies shown and no limit, the Local Group's large galaxies fit in view. */
+  function applyOrbitLimit(): void {
+    const maxDistance = maxOrbitDistancePc(objectDistanceLimitLy, milkyWayVisible && galaxyIndices.length > 0)
+    if (savedOrbitSettings) savedOrbitSettings.maxDistance = maxDistance
+    else controls.maxDistance = maxDistance
+  }
+
+  /** Lets the orbit pull back far enough to frame a galaxy; the next limit change resets it. */
+  function extendReach(distance: number): void {
+    const settings = savedOrbitSettings ?? controls
+    settings.maxDistance = Math.max(settings.maxDistance, distance * 1.05)
+    if (camera.far >= settings.maxDistance * 5) return
+    camera.far = settings.maxDistance * 5
+    camera.updateProjectionMatrix()
+  }
+
   function fitHome(): void {
     homeBounds.makeEmpty()
     pickable.forEach(({ position }, index) => {
-      if (!mapVisible[index]) return
+      if (!mapVisible[index] || isGalaxy[index]) return
       homeBounds.expandByPoint(position)
       expandBoxByMolecularCloudBounds(homeBounds, stars[index]!)
       expandBoxByBubbleBounds(homeBounds, stars[index]!)
@@ -2106,13 +2150,18 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       homeBounds.expandByPoint(pickable[selected.index]!.position)
       expandBoxByMolecularCloudBounds(homeBounds, selected.star)
       expandBoxByBubbleBounds(homeBounds, selected.star)
+      const galaxy = selected.star.galaxy
+      if (galaxy) homeBounds.expandByPoint(galaxyPoint.copy(pickable[selected.index]!.position).addScalar(galaxy.model_radius_pc))
+        .expandByPoint(galaxyPoint.copy(pickable[selected.index]!.position).addScalar(-galaxy.model_radius_pc))
     }
     homeBounds.getBoundingSphere(homeSphere)
     let distance = 50 / LIGHT_YEARS_PER_PARSEC
     if (selected && selected.index !== referenceIndex) {
       const verticalAngle = camera.fov * Math.PI / 360
       const fitAngle = Math.min(verticalAngle, Math.atan(Math.tan(verticalAngle) * camera.aspect))
-      distance = Math.min(controls.maxDistance, Math.max(homeSphere.radius, 0.75) / Math.sin(fitAngle) * 1.6)
+      distance = Math.max(homeSphere.radius, 0.75) / Math.sin(fitAngle) * 1.6
+      if (selected.star.galaxy) extendReach(distance)
+      distance = Math.min(controls.maxDistance, distance)
     }
     controls.target.copy(homeSphere.center)
     camera.position.copy(homeSphere.center).addScaledVector(homeDirection, distance)
@@ -2376,6 +2425,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         nearestDepth = projected.depth
       }
     }
+    for (let order = 0; order < galaxyIndices.length; order++) {
+      const index = galaxyIndices[order]!
+      const projected = projections[index]!
+      const radius = galaxyPickRadii[order]!
+      if (!projected.visible || projected.depth >= nearestDepth || projected.depth < 1.5 * radius) continue
+      if (Math.hypot(event.clientX - projected.x, event.clientY - projected.y) > radius * projectionScale / projected.depth) continue
+      picked = projected.id
+      nearestDepth = projected.depth
+    }
     return picked
   }
   let hoverFrame: number | null = null
@@ -2480,9 +2538,42 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     resize()
     requestRender()
   }, { signal: events.signal })
+  /** Draws the frame's passes; returns the draw calls of the offscreen nebula pass. */
+  function drawPasses(): number {
+    nebulaLayer?.renderOffscreen(renderer, camera)
+    const offscreenCalls = renderer.info.render.calls
+    if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
+    else renderer.render(scene, camera)
+    scenePass?.render(renderer)
+    return offscreenCalls
+  }
+
+  /** Runs the passes with every draw replaced by starting its programs, so each keeps its own render target and material state. */
+  function compilePasses(): void {
+    const draw = renderer.render
+    renderer.render = (object, viewCamera) => { renderer.compile(object, viewCamera) }
+    try {
+      drawPasses()
+    } finally {
+      renderer.render = draw
+    }
+  }
+
+  // Without the parallel-compile extension every program reports ready, and the first draw waits as before.
+  function programsReady(): boolean {
+    return (renderer.info.programs as unknown as { isReady(): boolean }[] | null)?.every((program) => program.isReady()) ?? true
+  }
+
   function render(time: number): void {
     pendingFrame = null
     if (disposed || contextLost || document.hidden) return
+    if (programsCompiling) {
+      if (!programsReady()) {
+        requestRender(false)
+        return
+      }
+      programsCompiling = false
+    }
     if (previousRafTime > 0 && refreshSamplesRemaining > 0) {
       refreshSamples.push(time - previousRafTime)
       if (refreshSamples.length > 30) refreshSamples.shift()
@@ -2633,23 +2724,27 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     skyGrid.updateLabels(camera, projectionViewport!, (bounds) => blocked.queryAny(bounds, (other) => overlaps(bounds, other)), ordinaryLabelsLaidOut)
     // The fade alone does not move labels, so it keeps frames coming without setLabelsMoving().
     milkyWayFading = milkyWay.updateFade(time)
+    milkyWay.update(camera)
     renderer.info.reset()
-    if (nebulaLayer) {
-      nebulaLayer.renderOffscreen(renderer, camera)
-      setData(labelLayer, 'nebulaDrawnPuffCount', String(nebulaLayer.instanceCount()))
+    if (programsStale) {
+      programsStale = false
+      compilePasses()
+      programsCompiling = !programsReady()
     }
-    const offscreenCalls = renderer.info.render.calls
-    if (molecularCloudLayer) molecularCloudLayer.render(renderer, scene, camera)
-    else renderer.render(scene, camera)
-    scenePass?.render(renderer)
-    setData(labelLayer, 'drawCalls', String(renderer.info.render.calls - offscreenCalls))
+    // The frame stays due until its programs are ready.
+    if (programsCompiling) sceneDirty = true
+    else {
+      const offscreenCalls = drawPasses()
+      if (nebulaLayer) setData(labelLayer, 'nebulaDrawnPuffCount', String(nebulaLayer.instanceCount()))
+      setData(labelLayer, 'drawCalls', String(renderer.info.render.calls - offscreenCalls))
+    }
     if (drawingObserverFlight) {
       camera.position.copy(heldCameraPosition)
       camera.quaternion.copy(heldCameraQuaternion)
       camera.updateMatrixWorld()
     }
     renderStats?.end()
-    if (continueRendering || milkyWayFading || refreshSamplesRemaining > 0) requestRender(false)
+    if (continueRendering || milkyWayFading || programsCompiling || refreshSamplesRemaining > 0) requestRender(false)
     else {
       previousRafTime = 0
       lastRenderTime = 0
@@ -2665,6 +2760,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   }, { signal: events.signal })
   canvas.addEventListener('webglcontextrestored', () => {
     contextLost = false
+    programsStale = true
+    programsCompiling = false
     options.onStatus(null)
     milkyWay.reload()
     resetCadenceSamples()
@@ -2742,6 +2839,18 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
     },
     select,
+    batch(update) {
+      presentationHeld = true
+      try {
+        update()
+      } finally {
+        presentationHeld = false
+        if (presentationPending) {
+          presentationPending = false
+          updatePresentation()
+        }
+      }
+    },
     distanceBetween(firstId, secondId) {
       const first = starsById.get(firstId)
       const second = starsById.get(secondId)
@@ -2778,12 +2887,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       requestRender()
     },
     setObjectDistanceLimit(distanceLy) {
-      if (!Number.isFinite(distanceLy) || distanceLy < 5 || distanceLy > 40000) return
+      // Infinity is the unlimited last step; NaN fails the comparison.
+      if (!(distanceLy >= 5)) return
       if (distanceLy === objectDistanceLimitLy) return
       objectDistanceLimitLy = distanceLy
-      const maxDistance = maxOrbitDistancePc(distanceLy)
-      if (savedOrbitSettings) savedOrbitSettings.maxDistance = maxDistance
-      else controls.maxDistance = maxDistance
+      applyOrbitLimit()
       updatePresentation()
       requestRender()
     },
@@ -2834,6 +2942,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       milkyWayVisible = visible
       container.dataset.milkyWayVisible = String(visible)
       milkyWay.setVisible(visible)
+      applyOrbitLimit()
+      // Galaxies themselves show and hide with their visuals.
+      if (galaxyIndices.length > 0) updatePresentation()
       requestRender()
     },
     setOortCloudVisible(visible) {
@@ -3075,6 +3186,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (point) (visibilityPoint ??= new Vector3()).copy(point)
       else visibilityPoint = null
       if (!switched) return
+      syncStarGlare()
       // Rate from the new base at once rather than after the next throttle interval; moving it re-rates by itself.
       spaceshipObserverTime = -Infinity
       syncObserverPoint(performance.now())

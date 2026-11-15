@@ -1,5 +1,5 @@
 import { isFilterCategoryId, isFilterKey, type FilterCategoryId, type FilterKey } from './object-filter'
-import { OBJECT_DISTANCE_STEPS_LY } from './saved-views'
+import { OBJECT_DISTANCE_STEPS_LY, storedDistanceLimit } from './saved-views'
 
 export const SAVED_FILTER_STORAGE_KEY = 'star-view-saved-filter'
 
@@ -29,7 +29,7 @@ export function readSavedFilter(catalogIds: readonly string[]): SavedFilter | nu
     if (!stored) return null
     const value: unknown = JSON.parse(stored)
     if (typeof value !== 'object' || value === null) return null
-    const filter = value as Record<string, unknown>
+    const filter = storedDistanceLimit(value as Record<string, unknown>)
     if (filter.version !== 1
       || typeof filter.catalogId !== 'string' || !catalogIds.includes(filter.catalogId)
       || typeof filter.showAlwaysBright !== 'boolean'

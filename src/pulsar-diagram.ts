@@ -1,5 +1,6 @@
 import type { Star } from './catalog-model'
 import { preciseMeasurement, quantity, scientificQuantity } from './format'
+import { superscript } from './planet-value'
 import { placeSpectralMarkerLabels, spectralMarker, svgNode } from './spectral-chart'
 
 interface SpinPoint { period: number; derivative: number }
@@ -16,7 +17,6 @@ const FIELD_GAUSS = 3.2e19
 const YEAR_S = 365.25 * 86400
 // Chen & Ruderman 1993 death line, B/P² = 0.17 × 10¹² G s⁻², written as Ṗ(P).
 const DEATH_LINE = (0.17e12 / FIELD_GAUSS) ** 2
-const superscript = (exponent: number) => String(exponent).replace('-', '⁻').replace(/\d/g, (digit) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[Number(digit)]!)
 const power = (exponent: number) => `10${superscript(exponent)}`
 
 export function renderPulsarDiagram(card: HTMLElement, star: Star, reference: Star | null, population: readonly Star[]): void {

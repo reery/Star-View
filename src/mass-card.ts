@@ -3,24 +3,23 @@ import type { StarColorMode } from './astronomy'
 import { isCompactObject, type Star } from './catalog-model'
 import { renderFact, type Fact } from './comparison-tiles'
 import { catalogSourceFor } from './catalog-source'
-import { MISSING_VALUE } from './format'
+import { MISSING_VALUE, significant } from './format'
+import { superscript } from './planet-value'
 import { classRangePlacement } from './mass-classification'
 import { typicalMassClass, type TypicalMassClass } from './mass-comparison'
 import { JUPITER_MASS_SOLAR, massFuel, massProperties } from './mass-properties'
 import { renderPlotMarkers, type PlotPoint } from './plot-markers'
 
-const number = (value: number, digits = 3) => value.toLocaleString('en-US', { maximumSignificantDigits: digits })
-const rangeEnd = (value: number) => number(Math.round(value * 100) / 100)
-const superscript = (value: string) => value.replace(/[-\d]/g, (digit) => '⁻⁰¹²³⁴⁵⁶⁷⁸⁹'['-0123456789'.indexOf(digit)]!)
+const rangeEnd = (value: number) => significant(Math.round(value * 100) / 100)
 const scientific = (value: number) => {
   const [mantissa, exponent] = value.toExponential(2).split('e')
-  return `${number(Number(mantissa))} × 10${superscript(String(Number(exponent)))}`
+  return `${significant(Number(mantissa))} × 10${superscript(Number(exponent))}`
 }
 const factor = (value: number) => value !== 0 && (value < 0.001 || value >= 1e12) ? scientific(value)
-  : value >= 1000 ? value.toLocaleString('en-US', { notation: 'compact', maximumSignificantDigits: 3 }).replace('K', 'k') : number(value)
-const duration = (gyr: number): [string, string] => gyr >= 1000 ? [number(gyr / 1000, 2), 'trillion years']
-  : gyr >= 1 ? [number(gyr, 2), 'billion years'] : [number(gyr * 1000, 2), 'million years']
-const teaspoon = (grams: number) => grams >= 1e6 ? `${factor(grams / 1e6)}\u00a0t` : grams >= 1000 ? `${number(grams / 1000)}\u00a0kg` : `${number(grams)}\u00a0g`
+  : value >= 1000 ? value.toLocaleString('en-US', { notation: 'compact', maximumSignificantDigits: 3 }).replace('K', 'k') : significant(value)
+const duration = (gyr: number): [string, string] => gyr >= 1000 ? [significant(gyr / 1000, 2), 'trillion years']
+  : gyr >= 1 ? [significant(gyr, 2), 'billion years'] : [significant(gyr * 1000, 2), 'million years']
+const teaspoon = (grams: number) => grams >= 1e6 ? `${factor(grams / 1e6)}\u00a0t` : grams >= 1000 ? `${significant(grams / 1000)}\u00a0kg` : `${significant(grams)}\u00a0g`
 
 function massFact(star: Star, typical: TypicalMassClass | null, comparing: boolean, retainedScope: string | undefined): Fact {
   const { mass, kilograms } = massProperties(star)
@@ -29,9 +28,9 @@ function massFact(star: Star, typical: TypicalMassClass | null, comparing: boole
   // A one-object sample only compares the object with itself.
   const range = mass !== null && typical?.metrics.mass.range && typical.metrics.mass.range[0] < typical.metrics.mass.range[1] ? typical.metrics.mass.range : null
   const placement = range && classRangePlacement(mass!, range)
-  const error = uncertainty !== null && uncertainty !== undefined && Number.isFinite(uncertainty) && uncertainty >= 0 ? [`± ${number(uncertainty)} M☉`] : []
+  const error = uncertainty !== null && uncertainty !== undefined && Number.isFinite(uncertainty) && uncertainty >= 0 ? [`± ${significant(uncertainty)} M☉`] : []
   return {
-    title: 'Mass', icon: Weight, value: mass === null ? MISSING_VALUE : number(mass), unit: mass === null ? '' : 'M☉',
+    title: 'Mass', icon: Weight, value: mass === null ? MISSING_VALUE : significant(mass), unit: mass === null ? '' : 'M☉',
     // The same note Specs shows for a retained value that is not this object's own measurement.
     ...(retainedScope ? { unresolved: retainedScope } : {}),
     bar: placement ? {
@@ -41,14 +40,14 @@ function massFact(star: Star, typical: TypicalMassClass | null, comparing: boole
     notes: mass === null ? ['Catalog mass unavailable.'] : [
       ...error,
       // Paired cells are too narrow for a conversion; a range bar leaves room for one line.
-      ...(comparing || (range && error.length) ? [] : [substellar ? `${number(mass / JUPITER_MASS_SOLAR)} Jupiter masses` : `${scientific(kilograms!)} kg`]),
+      ...(comparing || (range && error.length) ? [] : [substellar ? `${significant(mass / JUPITER_MASS_SOLAR)} Jupiter masses` : `${scientific(kilograms!)} kg`]),
     ],
   }
 }
 
 function gravityFact(star: Star): Fact {
   const { mass, radius, gravity, escapeKms, horizonKm } = massProperties(star)
-  if (horizonKm !== null) return { title: 'Event horizon', icon: CircleDashed, value: number(horizonKm), unit: 'km radius', notes: [`${number(horizonKm * 2)}\u00a0km across`] }
+  if (horizonKm !== null) return { title: 'Event horizon', icon: CircleDashed, value: significant(horizonKm), unit: 'km radius', notes: [`${significant(horizonKm * 2)}\u00a0km across`] }
   const fact = { title: 'Surface gravity', icon: ArrowDownToLine }
   if (gravity === null) return { ...fact, value: MISSING_VALUE, unit: '', notes: [star.type === 'black_hole' ? 'Catalog mass needed.'
     : isCompactObject(star) ? 'Needs a radius and a relativistic model.' : mass === null ? 'Catalog mass needed.' : radius === null ? 'Catalog radius needed.' : ''] }
@@ -63,7 +62,7 @@ function fuelFact(star: Star): Fact {
     return {
       title: 'Fuel lifetime', icon: Hourglass, value: `${fuel.lowerBound ? '>' : '~'}${value}`, unit,
       bar: age === null ? undefined : { from: 0, to: Math.min(100, age / fuel.gyr * 100) },
-      notes: age === null ? [] : [age > fuel.gyr ? `Age ${number(age, 2)} Gyr exceeds this estimate` : `Age ${number(age, 2)} Gyr · ${number(age / fuel.gyr * 100, 2)}% used`],
+      notes: age === null ? [] : [age > fuel.gyr ? `Age ${significant(age, 2)} Gyr exceeds this estimate` : `Age ${significant(age, 2)} Gyr · ${significant(age / fuel.gyr * 100, 2)}% used`],
     }
   }
   if (fuel.kind === 'burn-rate') return { title: 'Burn rate', icon: Flame, value: factor(fuel.ratio), unit: '× Sun’s rate', notes: [fuel.reason] }
@@ -165,8 +164,8 @@ export function renderMassCardContent(card: HTMLElement, selected: Star, origin:
     placed[index]!.left = Math.max(0, Math.min(placed[index]!.left, limit - placed[index]!.width))
   }
   placed.forEach(({ left }, index) => { (zoneLabels.children[index] as HTMLElement).style.left = `${left}px` })
-  set('mass-spectrum-low', `${number(low)} M☉`)
-  set('mass-spectrum-high', `${number(high)} M☉`)
+  set('mass-spectrum-low', `${significant(low)} M☉`)
+  set('mass-spectrum-high', `${significant(high)} M☉`)
   const axis = get('mass-spectrum-axis')
   axis.querySelectorAll('.mass-scale-help').forEach((label) => label.remove())
   const axisBounds = axis.getBoundingClientRect()
@@ -178,12 +177,12 @@ export function renderMassCardContent(card: HTMLElement, selected: Star, origin:
     const button = document.createElement('button')
     button.type = 'button'
     button.className = 'mass-metric-help'
-    button.textContent = number(value)
+    button.textContent = significant(value)
     const tooltip = document.createElement('span')
     tooltip.id = `mass-limit-${String(value).replace('.', '-')}-tooltip`
     tooltip.className = 'tooltip mass-metric-tooltip'
     tooltip.setAttribute('role', 'tooltip')
-    tooltip.textContent = `${number(value)} M☉ · ${description}`
+    tooltip.textContent = `${significant(value)} M☉ · ${description}`
     button.setAttribute('aria-describedby', tooltip.id)
     label.append(button, tooltip)
     axis.append(label)
@@ -213,12 +212,12 @@ export function renderMassCardContent(card: HTMLElement, selected: Star, origin:
   }
 
   const points: PlotPoint[] = plotted.map(({ object, mass }) => ({
-    name: object.name, object, position: position(mass), value: `${number(mass)} M☉`,
+    name: object.name, object, position: position(mass), value: `${significant(mass)} M☉`,
     role: object.id === star.id ? 'selected' : object.id === sun.id ? 'sun' : 'reference',
   }))
   renderPlotMarkers(bar, points, colorMode, true)
-  bar.setAttribute('aria-label', `${spectrum.heading}. Logarithmic axis from ${number(low)} to ${number(high)} solar masses. `
-    + `${spectrum.zones.map(({ from, to, label }) => `${label}: ${from <= 0 ? `below ${number(to)}` : to === Infinity ? `above ${number(from)}` : `${number(from)} to ${number(to)}`} solar masses`).join('; ')}. `
+  bar.setAttribute('aria-label', `${spectrum.heading}. Logarithmic axis from ${significant(low)} to ${significant(high)} solar masses. `
+    + `${spectrum.zones.map(({ from, to, label }) => `${label}: ${from <= 0 ? `below ${significant(to)}` : to === Infinity ? `above ${significant(from)}` : `${significant(from)} to ${significant(to)}`} solar masses`).join('; ')}. `
     + `${points.map((point) => `${point.name}: ${point.value}`).join('. ')}.`)
 
 }

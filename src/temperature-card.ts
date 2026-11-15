@@ -2,7 +2,7 @@ import { Sun, Thermometer, createElement } from 'lucide'
 import { starDisplayColor, type StarColorMode } from './astronomy'
 import type { Star } from './catalog-model'
 import { renderComparisonName } from './comparison-tiles'
-import { MISSING_VALUE } from './format'
+import { MISSING_VALUE, significant } from './format'
 import { svgNode } from './spectral-chart'
 import {
   relativeSpectralEmission, SOLAR_TEMPERATURE_K, spectrumRegion, temperatureAppearance,
@@ -10,7 +10,6 @@ import {
 } from './temperature-properties'
 
 const format = (value: number) => value.toLocaleString('en-US', { maximumFractionDigits: 0 })
-const compact = (value: number) => value.toLocaleString('en-US', { maximumSignificantDigits: 3 })
 const classes = [
   { letter: 'M', low: 2400, high: 3700, color: '#ed986c' },
   { letter: 'K', low: 3700, high: 5200, color: '#f4bf84' },
@@ -103,7 +102,7 @@ function renderSpectrum(root: HTMLElement, star: Star, origin: Star, sun: Star, 
     const line = document.createElement('i')
     line.setAttribute('aria-hidden', 'true')
     const name = document.createElement('span')
-    name.textContent = `${object.name}${!comparing && object === reference && object.id === origin.id && origin.id !== sun.id ? ' · origin' : ''}, peak ${compact(WIEN_NM_K / object.temperature_k!)} nm`
+    name.textContent = `${object.name}${!comparing && object === reference && object.id === origin.id && origin.id !== sun.id ? ' · origin' : ''}, peak ${significant(WIEN_NM_K / object.temperature_k!)} nm`
     key.append(line, name)
     legend.append(key)
   }
@@ -114,8 +113,8 @@ function renderSpectrum(root: HTMLElement, star: Star, origin: Star, sun: Star, 
   const low = Math.min(100, ...peaks.map((value) => value / 4)), high = Math.max(2500, ...peaks.map((value) => value * 2.5))
   const x = (nm: number) => left + Math.log(nm / low) / Math.log(high / low) * (right - left)
   const y = (emission: number) => bottom - emission * (bottom - top)
-  const comparison = reference ? ` Dashed comparison: ${reference.name}, ${format(reference.temperature_k!)} K, peak ${compact(WIEN_NM_K / reference.temperature_k!)} nanometers. Each curve is normalized to its own peak; heights do not compare brightness.` : ''
-  const svg = svgNode('svg', { viewBox: `0 0 ${width} ${height}`, role: 'img', 'aria-label': `Blackbody emission per wavelength at ${format(temperature)} K, normalized to its peak. Peak ${compact(peak)} nanometers in ${spectrumRegion(peak)}.${comparison} Visible light spans 380–780 nanometers. Logarithmic wavelength axis.` })
+  const comparison = reference ? ` Dashed comparison: ${reference.name}, ${format(reference.temperature_k!)} K, peak ${significant(WIEN_NM_K / reference.temperature_k!)} nanometers. Each curve is normalized to its own peak; heights do not compare brightness.` : ''
+  const svg = svgNode('svg', { viewBox: `0 0 ${width} ${height}`, role: 'img', 'aria-label': `Blackbody emission per wavelength at ${format(temperature)} K, normalized to its peak. Peak ${significant(peak)} nanometers in ${spectrumRegion(peak)}.${comparison} Visible light spans 380–780 nanometers. Logarithmic wavelength axis.` })
   const defs = svgNode('defs')
   const gradient = svgNode('linearGradient', { id: 'temperature-visible-gradient' })
   for (const [offset, color] of [[0, '#8646e9'], [0.2, '#456dff'], [0.4, '#49c4be'], [0.6, '#c8dc64'], [0.8, '#efaa55'], [1, '#e85550']] as const) {
@@ -191,7 +190,7 @@ function renderComparisonTiles(root: HTMLElement, main: Star, other: Star | unde
       strong.className = 'planet-fact-value'
       strong.textContent = !available ? MISSING_VALUE : metric === 'temperature' ? `${format(star.temperature_k!)} K`
         : metric === 'appearance' ? temperatureAppearance(star.temperature_k!)
-          : temperatureCardAvailable(reference) ? `${compact(star.temperature_k! / reference.temperature_k!)}× ${reference.name}’s temperature` : MISSING_VALUE
+          : temperatureCardAvailable(reference) ? `${significant(star.temperature_k! / reference.temperature_k!)}× ${reference.name}’s temperature` : MISSING_VALUE
       copy.append(strong)
       value.append(metricIcon, copy)
       if ((metric === 'temperature' && !available) || (metric === 'appearance' && available && star.temperature_k! < 2400)) {
@@ -214,7 +213,7 @@ function renderOverview(root: HTMLElement, star: Star): void {
   set('temperature-celsius', `${format(temperature - 273.15)} °C`)
   set('temperature-fahrenheit', `${format((temperature - 273.15) * 9 / 5 + 32)} °F`)
   set('temperature-appearance', temperatureAppearance(temperature))
-  set('temperature-solar-ratio', `${compact(temperature / SOLAR_TEMPERATURE_K)}× Sun’s temperature`)
+  set('temperature-solar-ratio', `${significant(temperature / SOLAR_TEMPERATURE_K)}× Sun’s temperature`)
   set('temperature-appearance-note', 'Faint glow; most emission is infrared.')
   root.querySelector<HTMLElement>('#temperature-appearance-note')!.hidden = temperature >= 2400
   // Use the app’s real-color mode for perceived color, independently of the

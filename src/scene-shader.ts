@@ -1,4 +1,4 @@
-import { FramebufferTexture, LinearFilter, LinearMipmapLinearFilter, Mesh, OrthographicCamera, PlaneGeometry, ShaderMaterial, Vector2, type WebGLRenderer } from 'three'
+import { FramebufferTexture, HalfFloatType, LinearFilter, LinearMipmapLinearFilter, Mesh, OrthographicCamera, PlaneGeometry, ShaderMaterial, Vector2, WebGLRenderTarget, type WebGLRenderer } from 'three'
 import type { Shader } from './viewer'
 
 type ShaderStyle = Exclude<Shader, 'none'>
@@ -16,28 +16,37 @@ void main() {
   gl_Position = vec4(position.xy, 0.0, 1.0);
 }`
 
-// Every style works on the displayed sRGB frame, so each layer is styled as it appears.
-const prelude = /* glsl */ `
+// The wide blur behind the glows. It is smooth, so it is drawn once at a quarter of the frame's size
+// and a style reads it once per pixel, rather than blurring at every pixel.
+const blurShader = /* glsl */ `
 uniform sampler2D source;
 uniform vec2 texel;
 uniform float pixelRatio;
 varying vec2 vUv;
 
-float luma(vec3 color) { return dot(color, vec3(0.2126, 0.7152, 0.0722)); }
-vec3 screen(vec3 base, vec3 light) { return 1.0 - (1.0 - base) * (1.0 - light); }
-// Mip levels follow the drawing-buffer resolution; shifting them keeps blurs the same CSS size on every display.
-float lodShift() { return log2(max(pixelRatio, 1.0)); }
 // A mip level read with four diagonal taps one texel of that level apart, so magnified glows stay round, not blocky.
 vec3 blurred(float level) {
-  level += lodShift();
+  // Mip levels follow the drawing-buffer resolution; shifting them keeps blurs the same CSS size on every display.
+  level += log2(max(pixelRatio, 1.0));
   vec2 step = texel * exp2(level);
   return (textureLod(source, vUv + vec2(step.x, step.y), level).rgb + textureLod(source, vUv - vec2(step.x, step.y), level).rgb
     + textureLod(source, vUv + vec2(step.x, -step.y), level).rgb + textureLod(source, vUv - vec2(step.x, -step.y), level).rgb) * 0.25;
 }
+void main() {
+  gl_FragColor = vec4(blurred(2.0) * 0.3 + blurred(4.0) * 0.4 + blurred(6.0) * 0.3, 1.0);
+}`
+
+// Every style works on the displayed sRGB frame, so each layer is styled as it appears.
+const prelude = /* glsl */ `
+uniform sampler2D source;
+uniform sampler2D blur;
+varying vec2 vUv;
+
+float luma(vec3 color) { return dot(color, vec3(0.2126, 0.7152, 0.0722)); }
+vec3 screen(vec3 base, vec3 light) { return 1.0 - (1.0 - base) * (1.0 - light); }
 // Light that spills only into darker surroundings, so wide bright areas are not lifted further.
 vec3 spill(vec3 color, float gain, float floorLevel) {
-  vec3 blur = blurred(2.0) * 0.3 + blurred(4.0) * 0.4 + blurred(6.0) * 0.3;
-  vec3 glow = max((blur - color) * gain - floorLevel, 0.0);
+  vec3 glow = max((texture2D(blur, vUv).rgb - color) * gain - floorLevel, 0.0);
   return glow / (1.0 + glow);
 }
 `
@@ -87,40 +96,55 @@ void main() {
 
 export function createScenePass(style: ShaderStyle): ScenePass {
   const size = new Vector2()
+  const source = { value: null as FramebufferTexture | null }
+  // The atlas has no glow, so it skips the blur and the mip levels behind it.
+  const blurTarget = style === 'atlas' ? null : new WebGLRenderTarget(1, 1, { type: HalfFloatType, depthBuffer: false })
+  const blurMaterial = new ShaderMaterial({
+    uniforms: { source, texel: { value: new Vector2() }, pixelRatio: { value: 1 } },
+    vertexShader, fragmentShader: blurShader, depthTest: false, depthWrite: false,
+  })
   const material = new ShaderMaterial({
-    uniforms: { source: { value: null }, texel: { value: new Vector2() }, pixelRatio: { value: 1 } },
+    uniforms: { source, blur: { value: blurTarget?.texture ?? null } },
     vertexShader, fragmentShader: prelude + styles[style], depthTest: false, depthWrite: false,
   })
   const geometry = new PlaneGeometry(2, 2)
   const quad = new Mesh(geometry, material)
   quad.frustumCulled = false
+  const blurQuad = new Mesh(geometry, blurMaterial)
+  blurQuad.frustumCulled = false
   const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1)
-  let texture: FramebufferTexture | null = null
   return {
     render(renderer) {
       renderer.getDrawingBufferSize(size)
-      if (!texture || texture.image.width !== size.x || texture.image.height !== size.y) {
-        texture?.dispose()
-        texture = new FramebufferTexture(size.x, size.y)
+      if (!source.value || source.value.image.width !== size.x || source.value.image.height !== size.y) {
+        source.value?.dispose()
+        source.value = new FramebufferTexture(size.x, size.y)
         // Mip levels give the glows wide, smooth blurs for a few texture reads.
-        texture.minFilter = LinearMipmapLinearFilter
-        texture.magFilter = LinearFilter
-        material.uniforms.source!.value = texture
-        material.uniforms.texel!.value.set(1 / size.x, 1 / size.y)
+        source.value.minFilter = blurTarget ? LinearMipmapLinearFilter : LinearFilter
+        source.value.magFilter = LinearFilter
+        blurMaterial.uniforms.texel!.value.set(1 / size.x, 1 / size.y)
+        blurTarget?.setSize(Math.ceil(size.x / 4), Math.ceil(size.y / 4))
       }
-      renderer.copyFramebufferToTexture(texture)
-      const gl = renderer.getContext()
-      // three copies only the base level; build the rest of the chain on the same texture.
-      renderer.state.bindTexture(gl.TEXTURE_2D, (renderer.properties.get(texture) as { __webglTexture: WebGLTexture }).__webglTexture)
-      gl.generateMipmap(gl.TEXTURE_2D)
-      renderer.state.unbindTexture()
-      material.uniforms.pixelRatio!.value = renderer.getPixelRatio()
+      renderer.copyFramebufferToTexture(source.value)
+      if (blurTarget) {
+        const gl = renderer.getContext()
+        // three copies only the base level; build the rest of the chain on the same texture.
+        renderer.state.bindTexture(gl.TEXTURE_2D, (renderer.properties.get(source.value) as { __webglTexture: WebGLTexture }).__webglTexture)
+        gl.generateMipmap(gl.TEXTURE_2D)
+        renderer.state.unbindTexture()
+        blurMaterial.uniforms.pixelRatio!.value = renderer.getPixelRatio()
+        renderer.setRenderTarget(blurTarget)
+        renderer.render(blurQuad, camera)
+        renderer.setRenderTarget(null)
+      }
       renderer.render(quad, camera)
     },
     dispose() {
-      texture?.dispose()
+      source.value?.dispose()
+      blurTarget?.dispose()
       geometry.dispose()
       material.dispose()
+      blurMaterial.dispose()
     },
   }
 }

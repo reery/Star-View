@@ -1,19 +1,22 @@
-import { BackSide, BoxGeometry, Group, LinearFilter, Mesh, RepeatWrapping, ShaderMaterial, SRGBColorSpace, Texture, Vector2 } from 'three'
+import { BackSide, BoxGeometry, Group, LinearFilter, Mesh, RepeatWrapping, ShaderMaterial, SRGBColorSpace, Texture, Vector2, type Camera } from 'three'
 import { LIGHT_YEARS_PER_PARSEC, type StarColorMode } from './astronomy'
 import type { GalaxyLayer } from './galaxy-layer'
+import type { Star } from './catalog-model'
 import type { StarStyle } from './star-appearance'
 import milkyWayAvifUrl from './assets/milky-way.avif'
 import milkyWayJpegUrl from './assets/milky-way.jpg'
 
 export interface MilkyWayLayer {
-  /** The panorama and, once loaded, the Galaxy seen from outside. */
+  /** The panorama and, once loaded, the Galaxy and its neighbors seen from outside. */
   group: Group
   setVisible(visible: boolean): void
   setColorMode(mode: StarColorMode): void
   /** Realistic stars remove the panorama's own star peaks, which blur into blobs when magnified. */
   setStarStyle(style: StarStyle): void
-  /** Crossfades from the Sun's sky panorama to the Galaxy as the camera leaves the Sun. */
+  /** Crossfades from the Sun's sky panorama to the galaxy models as the camera leaves the Sun. */
   setSunDistance(distancePc: number): void
+  /** Sorts the galaxy models and picks their detail for the coming frame. */
+  update(camera: Camera): void
   setViewportHeight(pixels: number): void
   /** Fades the panorama under telescope magnification: to 63% at 1.6× and 25% at 4×, so its own stars do not swell into blobs. */
   setMagnification(zoom: number): void
@@ -29,7 +32,8 @@ export interface MilkyWayLayer {
 const FADE_MS = 800
 const PANORAMA_INTENSITY = 0.12
 // The panorama is the Sun's sky: it fades out between 2,000 and 15,000 ly from the Sun,
-// while the Galaxy builds up from 3,000 ly to full strength at 40,000 ly.
+// while the Galaxy builds up from 3,000 ly to full strength at 40,000 ly. The other galaxies take over
+// exactly as the panorama, which already shows them, fades, so none is ever drawn twice.
 const PANORAMA_FADE_PC = [2_000, 15_000].map((ly) => ly / LIGHT_YEARS_PER_PARSEC) as [number, number]
 const GALAXY_FADE_PC = [3_000, 40_000].map((ly) => ly / LIGHT_YEARS_PER_PARSEC) as [number, number]
 
@@ -103,7 +107,7 @@ function releaseMilkyWayTexture(contextLost = false): void {
 // -world z, matching galacticToWorld().
 export function createMilkyWayLayer(
   mode: StarColorMode, maxTextureSize: number, reducedMotion: MediaQueryList,
-  onLoad: (ready: boolean | null) => void, onGalaxyLoad: () => void,
+  onLoad: (ready: boolean | null) => void, onGalaxyLoad: () => void, galaxies: readonly Star[] = [],
 ): MilkyWayLayer {
   const uniforms = {
     map: { value: null as Texture | null },
@@ -182,6 +186,7 @@ export function createMilkyWayLayer(
   let colorMode = mode
   let viewportHeight = 1
   let galaxyOpacity = 0
+  let neighborOpacity = 0
   let galaxy: GalaxyLayer | null = null
   let galaxyRequested = false
 
@@ -189,14 +194,14 @@ export function createMilkyWayLayer(
     mesh.visible = visible && uniforms.map.value !== null && uniforms.distanceOpacity.value > 0
   }
 
-  // Generated on first need from a small separate module; never fetched while the Milky Way is hidden.
+  // Generated on first need from a small separate module; never fetched while galaxies are hidden.
   function updateGalaxy(): void {
-    if (galaxy) galaxy.setOpacity(visible ? galaxyOpacity : 0)
-    else if (visible && galaxyOpacity > 0 && !galaxyRequested) {
+    if (galaxy) galaxy.setOpacity(visible ? galaxyOpacity : 0, visible ? neighborOpacity : 0)
+    else if (visible && (galaxyOpacity > 0 || neighborOpacity > 0) && !galaxyRequested) {
       galaxyRequested = true
       import('./galaxy-layer').then(({ createGalaxyLayer }) => {
         if (disposed) return
-        galaxy = createGalaxyLayer(colorMode)
+        galaxy = createGalaxyLayer(colorMode, galaxies)
         galaxy.setViewportHeight(viewportHeight)
         group.add(galaxy.group)
         updateGalaxy()
@@ -262,10 +267,14 @@ export function createMilkyWayLayer(
       uniforms.peakSuppression.value = next === 'exaggerated' ? 0.25 : 1
     },
     setSunDistance(distance) {
-      uniforms.distanceOpacity.value = 1 - distanceFade(distance, PANORAMA_FADE_PC)
+      neighborOpacity = distanceFade(distance, PANORAMA_FADE_PC)
+      uniforms.distanceOpacity.value = 1 - neighborOpacity
       updateMeshVisibility()
       galaxyOpacity = distanceFade(distance, GALAXY_FADE_PC)
       updateGalaxy()
+    },
+    update(camera) {
+      galaxy?.update(camera)
     },
     setViewportHeight(pixels) {
       viewportHeight = pixels

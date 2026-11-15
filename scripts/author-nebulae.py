@@ -456,7 +456,7 @@ def build_surface_brightness(directory):
     masks = json.loads(MASKS.read_text())["masks"]
     previous = json.loads(SURFACE_BRIGHTNESS.read_text())["nebulae"] if SURFACE_BRIGHTNESS.exists() else {}
     hand = {entry["id"]: entry["brightness"] for entry in json.loads(ADDITIONS.read_text())["objects"] if "brightness" in entry}
-    rows = json.loads((OVERLAY / "objects.json").read_text())["objects"]
+    rows = authored_rows()
 
     def field_peak(row):
         details = row["nebula"]
@@ -652,15 +652,20 @@ def with_surface_brightness(row, records):
     return {**row, "nebula": details}
 
 
-def render():
+def authored_rows():
+    """Kept overlay rows followed by the regenerated additions, before surface brightness is attached."""
     additions = json.loads(ADDITIONS.read_text())["objects"]
     masks = json.loads(MASKS.read_text())
     points = json.loads(POINTS.read_text())
+    listed = {entry["id"] for entry in additions}
+    kept = json.loads((OVERLAY / "objects.json").read_text())["objects"]
+    return [row for row in kept if row["id"] not in listed] + [nebula_row(entry, masks, points) for entry in additions]
+
+
+def render():
     surface_brightness = json.loads(SURFACE_BRIGHTNESS.read_text())["nebulae"]
     payload = json.loads((OVERLAY / "objects.json").read_text())
-    listed = {entry["id"] for entry in additions}
-    objects = [row for row in payload["objects"] if row["id"] not in listed] + [nebula_row(entry, masks, points) for entry in additions]
-    objects = [with_surface_brightness(row, surface_brightness) for row in objects]
+    objects = [with_surface_brightness(row, surface_brightness) for row in authored_rows()]
     manifest = json.loads((OVERLAY / "manifest.json").read_text())
     manifest["objectCount"] = len(objects)
     manifest["counts"] = {kind: sum(row["type"] == kind for row in objects) for kind in TYPES}

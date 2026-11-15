@@ -468,6 +468,11 @@ export interface NebulaLayer {
    * its size on screen needs; a no-op otherwise.
    */
   renderOffscreen(renderer: WebGLRenderer, camera: Camera): void
+  /**
+   * Gives each source with an extent the detail its size on screen needs, before the frame renders.
+   * Half-resolution layers do this in renderOffscreen.
+   */
+  updateDetail(camera: Camera): void
   /** Puffs of the visible sources at full detail, after the power-saving fraction. */
   puffCount(): number
   /** Puffs drawn. */
@@ -774,6 +779,9 @@ export function createPuffLayer(
         renderer.setClearColor(clearColor, clearAlpha)
         renderer.setRenderTarget(previousTarget)
       }
+    },
+    updateDetail(camera) {
+      updateDetail(camera, uniforms.viewportHeight.value)
     },
     puffCount: () => sources.reduce((sum, source, index) => sum + (visibility[index] ? Math.max(1, Math.ceil(source.count * fraction)) : 0), 0),
     instanceCount: () => geometry.instanceCount,

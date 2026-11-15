@@ -1,4 +1,5 @@
 import './tutorial.css'
+import { clamp } from './math'
 
 export interface TutorialHost {
   /** Selects an object when none is, so the selected-object card has content. */
@@ -41,7 +42,6 @@ const PRESS_FLASH_MS = 700
 const VIA_MS = 1_500
 const SIDES = ['left', 'right', 'below', 'above'] as const
 type Side = typeof SIDES[number]
-const clamp = (value: number, low: number, high: number) => Math.max(low, Math.min(value, Math.max(low, high)))
 const query = <T extends HTMLElement = HTMLElement>(selector: string) => document.querySelector<T>(selector)
 const originName = () => query('#reference-base')?.textContent ?? 'Sun'
 
@@ -81,8 +81,9 @@ function tilePlacement(target: DOMRect, avoid: DOMRect | undefined, width: numbe
   const x = side === 'left' ? anchor.left - ARROW_ROOM - width : side === 'right' ? anchor.right + ARROW_ROOM : target.left + (target.width - width) / 2
   const y = side === 'above' ? anchor.top - ARROW_ROOM - fitted : side === 'below' ? anchor.bottom + ARROW_ROOM : target.top + (target.height - fitted) / 2
   return {
-    x: clamp(x, VIEWPORT_MARGIN, innerWidth - width - VIEWPORT_MARGIN),
-    y: clamp(y, VIEWPORT_MARGIN, innerHeight - fitted - VIEWPORT_MARGIN),
+    // A viewport smaller than the card keeps it at the margin.
+    x: clamp(x, VIEWPORT_MARGIN, Math.max(VIEWPORT_MARGIN, innerWidth - width - VIEWPORT_MARGIN)),
+    y: clamp(y, VIEWPORT_MARGIN, Math.max(VIEWPORT_MARGIN, innerHeight - fitted - VIEWPORT_MARGIN)),
     height: fitted,
   }
 }

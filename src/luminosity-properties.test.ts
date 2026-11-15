@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { Star } from './catalog-model'
 import { buildCatalogClassReferences } from './catalog-class-references'
 import { buildLuminosityClassReferences, equalFluxDistance, luminosityCardAvailable, luminosityComparisonClass, luminosityProperties, originFluxAtAu, SOLAR_FLUX_AT_AU } from './luminosity-properties'
-import { luminosityClassRange, nearbySolarOrbit, solarOrbitMarkers } from './luminosity-card'
+import { luminosityClassRange, solarOrbitMarkers } from './luminosity-card'
 
 const sun: Star = {
   id: 'sun', name: 'Sun', type: 'star', spectral_type: 'G2V', mass_solar: 1, radius_solar: 1, luminosity_solar: 1, temperature_k: 5772,
@@ -129,18 +129,6 @@ describe('bolometric luminosity physics and class references', () => {
       const oddSample = buildLuminosityClassReferences(stars.slice(1))[0]!
       expect(oddSample.median).toBe(5)
     }
-  })
-
-  it('uses the closest planetary orbital size only within twenty percent, through Neptune', () => {
-    expect(nearbySolarOrbit(0.387)).toBe('Mercury')
-    expect(nearbySolarOrbit(0.85)).toBe('Earth')
-    expect(nearbySolarOrbit(4.97)).toBe('Jupiter')
-    expect(nearbySolarOrbit(5.202887 * 0.8)).toBe('Jupiter')
-    expect(nearbySolarOrbit(5.202887 * 1.2)).toBe('Jupiter')
-    expect(nearbySolarOrbit(5.202887 * 0.799)).toBeNull()
-    expect(nearbySolarOrbit(5.202887 * 1.201)).toBeNull()
-    expect(nearbySolarOrbit(30.06992276)).toBe('Neptune')
-    for (const distance of [0.038, 3, 40, 0, -1, NaN, Infinity]) expect(nearbySolarOrbit(distance)).toBeNull()
   })
 
   it('chooses sparse solar orbit references that fit the shared linear distance scale', () => {

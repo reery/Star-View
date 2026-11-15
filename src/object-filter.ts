@@ -77,7 +77,8 @@ export function isFilterCategoryId(value: unknown): value is FilterCategoryId {
   return FILTER_CATEGORY_IDS.includes(value as FilterCategoryId)
 }
 
-export function filterKeyForObject(star: Pick<Star, 'id' | 'type'>): FilterKey {
+/** Galaxies have no filter type: the Galaxies preference shows or hides them. */
+export function filterKeyForObject(star: Pick<Star, 'id' | 'type'>): FilterKey | 'galaxy' {
   if (star.id === 'sun') return 'sun'
   if (star.type === 'sub_brown_dwarf') return 'brown_dwarf'
   return star.type

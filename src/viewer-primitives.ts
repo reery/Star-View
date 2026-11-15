@@ -74,7 +74,7 @@ export function budgetVisibleLabelIndices(
 /** The selection and origin stay eligible; extended nebulae, clouds and bubbles have no point magnitude to limit. */
 export function mapVisibilityTier(star: Star, observer: Star, selectedId: string | null, originId: string, magnitude: number, limit: number): ReturnType<typeof visibilityTier> {
   if (isMapVisibilityBase(star, observer)) return 'base'
-  return star.id === selectedId || star.id === originId || star.nebula || star.molecular_cloud || star.bubble || magnitude <= limit ? 'eligible' : 'background'
+  return star.id === selectedId || star.id === originId || star.nebula || star.molecular_cloud || star.bubble || star.galaxy || magnitude <= limit ? 'eligible' : 'background'
 }
 
 export function starBlocksLabels(tier: ReturnType<typeof visibilityTier>): boolean {
@@ -99,7 +99,12 @@ export function starCoreWhiteStrength(star: Pick<Star, 'type' | 'temperature_k' 
 }
 
 /** Zoom-out reach follows the object visibility distance, reaching its full 181,000 ly at 1,000 ly. */
-export function maxOrbitDistancePc(objectDistanceLimitLy: number): number {
+/** Far enough to see the Milky Way, the Andromeda Galaxy and the Triangulum Galaxy together. */
+export const LOCAL_GROUP_REACH_PC = 4_000_000 / LIGHT_YEARS_PER_PARSEC
+
+/** The farthest orbit distance; with galaxies shown and no distance limit, it reaches across the Local Group. */
+export function maxOrbitDistancePc(objectDistanceLimitLy: number, galaxies = false): number {
+  if (galaxies && objectDistanceLimitLy === Infinity) return LOCAL_GROUP_REACH_PC
   return Math.min(objectDistanceLimitLy, 1000) * 181 / LIGHT_YEARS_PER_PARSEC
 }
 
@@ -110,8 +115,11 @@ export function isObjectMapVisible(
   observerId: string,
   distanceLy = 0,
   distanceLimitLy = Infinity,
+  galaxiesVisible = true,
 ): boolean {
   const key = filterKeyForObject(star)
+  // Galaxies are scenery far beyond any distance limit; the Galaxies preference alone shows them.
+  if (key === 'galaxy') return galaxiesVisible || star.id === selectedId || star.id === observerId
   if (key === 'sun') return visibleKeys.has(key)
   return visibleKeys.has(key) && (
     star.id === selectedId || star.id === observerId || distanceLy <= distanceLimitLy
@@ -137,27 +145,6 @@ export function starHaloDiameter(apparentMagnitude: number | null): number {
 
 export function starHaloOpacity(apparentMagnitude: number | null, selected = false): number {
   return 0.9 * (1 - Math.exp(-1.4 * starHaloStrength(apparentMagnitude, selected)))
-}
-
-function starViewDistanceRatio(viewDistancePc: number, fullStrengthDistancePc: number, power = 1): number {
-  if (!Number.isFinite(viewDistancePc) || viewDistancePc <= 0) return 1
-  return Math.min(1, (fullStrengthDistancePc / viewDistancePc) ** power)
-}
-
-export function starCoreViewScale(viewDistancePc: number): number {
-  return Math.max(STAR_CORE_MIN_VIEW_SCALE, Math.sqrt(starViewDistanceRatio(
-    viewDistancePc,
-    STAR_CORE_FULL_STRENGTH_DISTANCE_PC,
-    STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER,
-  )))
-}
-
-export function starHaloViewScale(viewDistancePc: number): number {
-  return Math.max(STAR_HALO_MIN_VIEW_SCALE, starViewDistanceRatio(viewDistancePc, STAR_HALO_FULL_STRENGTH_DISTANCE_PC) ** 0.25)
-}
-
-export function starHaloViewOpacityScale(viewDistancePc: number): number {
-  return Math.max(STAR_HALO_MIN_OPACITY_SCALE, Math.sqrt(starViewDistanceRatio(viewDistancePc, STAR_HALO_FULL_STRENGTH_DISTANCE_PC)))
 }
 
 export function starHaloEmphasis(apparentMagnitude: number | null): number {
@@ -358,12 +345,6 @@ export function projectWorldPointInto(
   return true
 }
 
-export function projectWorldPoint(position: Vector3, camera: Camera, viewport: Viewport) {
-  const target = { x: 0, y: 0, depth: 0 }
-  const viewProjection = new Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)
-  return projectWorldPointInto(position, viewProjection, viewport, new Vector4(), target) ? target : null
-}
-
 export function projectSelectedAnchor(position: Vector3, camera: Camera, viewport: Viewport) {
   if (viewport.width <= 0 || viewport.height <= 0) return null
   const clip = new Vector4(position.x, position.y, position.z, 1)
@@ -441,15 +422,6 @@ export function projectMotionDirectionInto(
   target.motionY = screenY / length
   target.motionScale = length
   target.motionVisible = true
-}
-
-export function projectMotionDirection(position: Vector3, velocity: Vector3, camera: Camera, viewport: Viewport) {
-  const clipPoint = new Vector4()
-  const projected = { x: 0, y: 0, depth: 0, motionX: 0, motionY: 0, motionScale: 0, motionDepthScale: 0, motionVisible: false }
-  const viewProjection = new Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)
-  if (!projectWorldPointInto(position, viewProjection, viewport, clipPoint, projected)) return null
-  projectMotionDirectionInto(position, velocity, camera, viewport, clipPoint, new Vector4(), new Vector4(), new Vector4(), projected)
-  return projected.motionVisible ? { x: projected.motionX, y: projected.motionY, pixelsPerPc: projected.motionScale } : null
 }
 
 type GesturePointer = PointerPosition & { pointerId: number; button: number }

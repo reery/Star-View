@@ -1,9 +1,12 @@
 import { ChartBar, ChartColumn, ChartPie, ChartScatter, ChevronUp, CircleX, ChevronsDownUp, ChevronsUpDown, Gauge, Layers, RotateCcw, Sun, ZoomIn, ZoomOut, createElement, type IconNode } from 'lucide'
 import { LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type StarColorMode } from './astronomy'
 import { STELLAR_OBJECT_TYPES, type Star } from './catalog-model'
+import { significant } from './format'
 import { MAGNITUDE_VISIBILITY_GUIDES } from './magnitude-properties'
+import { clamp } from './math'
 import { luminosityRows, mkPoint, whiteDwarfClassification, whiteDwarfFamilies } from './mk-properties'
 import { FILTER_CATEGORIES, filterKeyForObject, type FilterKey } from './object-filter'
+import { superscript } from './planet-value'
 import { svgNode } from './spectral-chart'
 import type { StarSystem } from './star-systems'
 
@@ -58,11 +61,11 @@ interface Histogram {
   bins: number
 }
 
-const typeLabels = new Map<FilterKey, string>(FILTER_CATEGORIES.flatMap((category) => category.subtypes.map(({ key, label }) => [key, label] as const)))
+const typeLabels = new Map<FilterKey | 'galaxy', string>([...FILTER_CATEGORIES.flatMap((category) => category.subtypes.map(({ key, label }) => [key, label] as const)), ['galaxy', 'Galaxies']])
 const spectralGroups = ['O', 'B', 'A', 'F', 'G', 'K', 'M', 'L', 'T', 'Y', 'D'] as const
 const multiplicityLabels = ['Single', 'Binary', 'Triple', 'Quadruple', '5+ components']
 const svg = (icon: IconNode, size = 20) => createElement(icon, { width: size, height: size, 'stroke-width': 1.7, 'aria-hidden': 'true' })
-const number = (value: number) => value.toLocaleString('en-US', { maximumSignificantDigits: 3 }).replace('-', '−')
+const number = (value: number) => significant(value).replace('-', '−')
 const isStellar = (star: Star) => STELLAR_OBJECT_TYPES.includes(star.type as never)
 const selections = new WeakMap<Element, Selection>()
 // Histogram columns and scatter plots rebuild a saved range, whose bins may differ once restored, with its key and label.
@@ -105,7 +108,7 @@ function groupBoth<K>(context: GraphContext, list: (view: GraphView) => readonly
 }
 
 /** The Sun counts as a star. */
-function objectType(star: Pick<Star, 'id' | 'type'>): FilterKey {
+function objectType(star: Pick<Star, 'id' | 'type'>): FilterKey | 'galaxy' {
   const key = filterKeyForObject(star)
   return key === 'sun' ? 'star' : key
 }
@@ -164,7 +167,6 @@ const logTicks = (min: number, max: number) => {
 }
 const linearTickLabels = (ticks: readonly number[]) => ticks.map(number)
 
-const superscript = (value: number) => String(value).replace(/[-\d]/g, (char) => '⁻⁰¹²³⁴⁵⁶⁷⁸⁹'['-0123456789'.indexOf(char)]!)
 /** Labels log ticks; an axis reaching beyond 0.01 to 10⁴ switches to powers of ten throughout, so its labels stay narrow. */
 const logTickLabels = (ticks: readonly number[]) => ticks.some((tick) => tick < -2 || tick >= 5)
   ? ticks.map((tick) => {
@@ -984,8 +986,7 @@ export function initializeGraphs(signal: AbortSignal, options: () => GraphOption
     const brush = plot && brushes.get(plot)
     if (!brush || !event.isPrimary || event.button || target!.closest('.graph-brush-remove')) return
     const bounds = plot.getBoundingClientRect()
-    const clamp = (value: number) => Math.max(0, Math.min(1, value))
-    const at = ({ clientX, clientY }: { clientX: number; clientY: number }) => [clamp((clientX - bounds.left) / bounds.width), clamp((clientY - bounds.top) / bounds.height)] as const
+    const at = ({ clientX, clientY }: { clientX: number; clientY: number }) => [clamp((clientX - bounds.left) / bounds.width, 0, 1), clamp((clientY - bounds.top) / bounds.height, 0, 1)] as const
     const existing = target!.closest<HTMLElement>('.graph-brush'), resizing = !!target!.closest('.graph-brush-resize')
     const frame = existing?.getBoundingClientRect()
     const [startX, startY] = at(event)

@@ -307,8 +307,10 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading.filter-heading { padding-right: 186px; }
 .panel-heading #filter-save { right: 131px; border-radius: 0; }
 .panel-heading #filter-reset { right: 87px; border-radius: 0; }
-.panel-heading.preferences-heading { padding-right: 98px; }
+.panel-heading:is(.preferences-heading, .insights-heading) { padding-right: 98px; }
 .panel-heading.paint-heading { padding-right: 186px; }
+/* Only the mobile card shrinks while painting, so only there the button to expand it shows. */
+.panel-heading #paint-expand { display: none; right: 175px; border-radius: 0; }
 .panel-heading #paint-keep-size { right: 131px; border-radius: 0; }
 .panel-heading #paint-reset { right: 87px; border-radius: 0; }
 .panel-heading:is(.neighborhood-heading, .demo-heading) { padding-right: 142px; }
@@ -321,8 +323,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .top-lists-card .glossary-heading #top-lists-width { right: 131px; border-radius: 0; }
 .top-lists-card .glossary-heading #top-lists-lock { right: 87px; }
 .top-lists-card .glossary-heading #top-lists-minimize { right: 43px; border-radius: 0; }
-/* Wide enough for the paint setting titles beside their scale buttons. */
-#paint-panel { width: min(400px, calc(var(--ui-width) - var(--dock-gutter))); }
+/* Wide enough for the paint setting titles beside their scale buttons, and for an insight's description. */
+#paint-panel, #insights-panel { width: min(400px, calc(var(--ui-width) - var(--dock-gutter))); }
 /* The Graphs width toggle switches between the default and compact widths. */
 .control-dock { --graphs-width: 630px; }
 .control-dock[data-graphs-compact] { --graphs-width: 440px; }
@@ -330,7 +332,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading.glossary-heading { flex: 0 0 45px; gap: 18px; padding-right: 98px; }
 /* These headings are 45px tall, 1px more than the others, so their buttons start at the top edge to share the bottom border. */
 :is(.glossary-heading, .constellations-detail-heading) > .panel-lock { top: 0; }
-.panel-heading:is(.objects-heading, .glossary-heading, .paint-heading, .neighborhood-heading, .demo-heading, .filter-heading, .preferences-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
+.panel-heading:is(.objects-heading, .glossary-heading, .paint-heading, .neighborhood-heading, .demo-heading, .filter-heading, .preferences-heading, .insights-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
 .glossary-heading h2 { flex: 0 0 auto; }
 .glossary-search { position: relative; flex: 1; min-width: 0; }
 .glossary-search > span { position: absolute; top: 50%; left: 9px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
@@ -462,9 +464,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 [data-toolbar-options] { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
 /* Seven Explore cards: three in a row above the toggle and four beside it; the corner above the toggle bridges the pointer to the upper row. */
 .discover-options { top: auto; bottom: 0; display: grid; grid-template-columns: repeat(4, 44px); }
-.discover-options > :first-child { grid-column-start: 2; }
 .discover-options::after { content: ''; position: absolute; top: 0; right: -44px; width: 44px; height: 44px; }
-.discover-controls .discover-options > :nth-child(-n + 3) .tooltip { top: auto; bottom: calc(100% + 8px); }
+.discover-controls .discover-options > :nth-child(-n + 4) .tooltip { top: auto; bottom: calc(100% + 8px); }
 .info-controls .tooltip { top: auto; bottom: calc(100% + 8px); right: 0; }
 .camera-view-button { width: 60px; flex: 0 0 60px; font: inherit; font-size: 12px; font-weight: 500; }
 .origin-controls:focus-visible, .observer-view-controls:focus-visible, .selection-controls:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; border-radius: 7px; }
@@ -601,6 +602,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 @media (hover: hover) {
   .browser-data-delete:hover:not(:disabled) { background: color-mix(in srgb, var(--danger) 18%, transparent); }
   :is(.browser-data-actions button, .browser-data-transfer > button, .neighborhood-recenter, .spaceship-exit):hover { background: var(--panel-hover); }
+  .mass-facts.planet-facts-grid > .insight-tile:not([aria-pressed="true"]):hover { border-color: color-mix(in srgb, var(--luminosity-real-color) 80%, var(--line)); }
 }
 .preferences-group { display: grid; gap: 12px; }
 .preferences-group > .card-subgroup-heading { margin: 0 -14px; padding-inline: 14px; }
@@ -653,6 +655,12 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .paint-setting-heading > .paint-setting-chevron { flex-shrink: 0; margin: 0 12px 0 8px; cursor: pointer; }
 .paint-setting-heading:has(.paint-setting-expand[aria-expanded="false"]) > .paint-setting-chevron { transform: rotate(180deg); }
 #neighborhood-birth:has([aria-pressed="true"]) { border-color: var(--border-vibrant-pressed); }
+/* An insight tile is a toggle that looks like the tinted tile at the top of the Mass card. */
+.insight-tile { color: var(--ink); text-align: left; }
+.insight-tile > .mass-fact-title { font-size: var(--property-text-size); font-weight: 600; }
+.mass-facts.planet-facts-grid > .insight-tile[aria-pressed="true"] { border-color: var(--border-vibrant-pressed); }
+.insight-tile[aria-pressed="true"] > .mass-fact-icon { color: var(--accent-vibrant); }
+.insight-tile:focus-visible { outline-color: var(--accent-vibrant); }
 .neighborhood-birth-heading > label { flex: 1; padding: 0 8px 0 12px; cursor: pointer; }
 .neighborhood-birth-heading > select { flex: 0 0 auto; width: auto; min-height: 30px; margin: 5px 6px 5px 0; padding: 4px 6px; font-size: 13px; }
 .paint-setting-body { display: grid; gap: 5px; padding: 10px 12px 12px; }
@@ -1800,6 +1808,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .spaceship-throttle { right: calc(66px + var(--safe-right)); bottom: calc(68px + var(--safe-bottom)); }
   .dock-card { max-height: calc(var(--ui-height) - 24px); }
   .dock-card.catalog.is-expanded { max-height: calc(var(--ui-height) - 36px); }
+  /* While painting, the Paint card shows only the painting settings, leaving the map in view. */
+  #paint-panel.is-compact .paint-setting:not(:has(.paint-setting-toggle[aria-pressed="true"])) { display: none; }
+  .panel-heading #paint-expand { display: grid; }
+  /* Five buttons leave the title just enough room on a 360px screen. */
+  .panel-heading.paint-heading:has(> #paint-expand:not([hidden])) { padding-right: 220px; }
   .catalog.is-expanded .objects-heading { flex-wrap: wrap; gap: 0; padding: 0; }
   .catalog.is-expanded .objects-heading h2 { flex: 0 0 100%; min-height: 44px; padding: 12px 98px 12px 14px; }
   .catalog.is-expanded .objects-heading .object-search { flex: 1 1 0; max-width: none; margin-right: 132px; padding: 7px 10px; }
@@ -1868,6 +1881,11 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .glossary-detail h3 { font-size: 18px; }
   .glossary-description { font-size: 12px; }
   .glossary-figure img { height: 110px; }
+}
+
+@media (max-width: 354px) {
+  /* Narrower than this, the five Paint heading buttons leave no room for the title. */
+  .paint-heading:has(> #paint-expand:not([hidden])) > h2 { display: none; }
 }
 
 @media (max-width: 360px) {

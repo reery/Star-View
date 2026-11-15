@@ -1,0 +1,381 @@
+{
+  "schemaVersion": 1,
+  "overlayId": "galaxies",
+  "objects": [
+    {
+      "type": "galaxy",
+      "id": "milky-way",
+      "name": "Milky Way",
+      "designations": [
+        "The Galaxy",
+        "Galactic Center",
+        "Sagittarius A*"
+      ],
+      "spectral_type": null,
+      "constellation": "Sagittarius",
+      "x_pc": 8178.0,
+      "y_pc": -8.0,
+      "z_pc": -6.6,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The home galaxy of the Sun. Its map position is the Galactic Center, marked by the black hole Sagittarius A*; the drawn model is the Reid et al. (2019) spiral-arm fit centered 8.15 kpc away.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "SB(rs)bc",
+        "classification": "Barred spiral galaxy",
+        "ra_deg": 266.4168338,
+        "dec_deg": -29.007825,
+        "distance_pc": 8178,
+        "distance_error_pc": 26,
+        "distance_method": "Orbit of the star S2 around Sagittarius A* (GRAVITY interferometry)",
+        "distance_source": {
+          "label": "GRAVITY Collaboration (2019)",
+          "url": "https://doi.org/10.1051/0004-6361/201935656"
+        },
+        "diameter_pc": 26800,
+        "angular_size_deg": null,
+        "size_source": {
+          "label": "Goodwin, Gribbin & Hendry (1998), D25 isophote",
+          "url": "https://ui.adsabs.harvard.edu/abs/1998Obs...118..201G"
+        },
+        "star_count": [
+          100000000000.0,
+          400000000000.0
+        ],
+        "star_count_source": {
+          "label": "Wikipedia: Milky Way",
+          "url": "https://en.wikipedia.org/wiki/Milky_Way"
+        },
+        "total_mass": {
+          "value_solar": 1280000000000.0,
+          "lower_error_solar": 480000000000.0,
+          "upper_error_solar": 970000000000.0,
+          "scope": "Virial mass, including dark matter, implied by Gaia DR2 motions of 34 halo globular clusters",
+          "source": {
+            "label": "Watkins et al. (2019)",
+            "url": "https://doi.org/10.3847/1538-4357/ab089f"
+          }
+        },
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "radial_velocity_source": null,
+        "model_radius_pc": 15000,
+        "palette": {
+          "real": "#ffe2b8",
+          "exaggerated": "#ffcd85"
+        },
+        "position_source": "Sagittarius A* (l = 359.944°, b = -0.046°) at the GRAVITY Collaboration (2019) distance",
+        "model_note": "Generated from published spiral-arm fits (Reid et al. 2019) with a bar, bulge and dust lanes; the Sun sits on the inner edge of the Local Arm."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "large-magellanic-cloud",
+      "name": "Large Magellanic Cloud",
+      "designations": [
+        "LMC",
+        "Nubecula Major",
+        "ESO 56-115",
+        "PGC 17223"
+      ],
+      "spectral_type": null,
+      "constellation": "Dorado",
+      "x_pc": 7563.8,
+      "y_pc": -40949.5,
+      "z_pc": -26927.6,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The largest satellite galaxy of the Milky Way, straddling Dorado and Mensa.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "SB(s)m",
+        "classification": "Barred Magellanic spiral galaxy",
+        "ra_deg": 80.89416667,
+        "dec_deg": -69.75611111,
+        "distance_pc": 49590,
+        "distance_error_pc": 547,
+        "distance_method": "Detached late-type eclipsing binaries",
+        "distance_source": {
+          "label": "Pietrzyński et al. (2019)",
+          "url": "https://doi.org/10.1038/s41586-019-0999-4"
+        },
+        "diameter_pc": 9330.0,
+        "angular_size_deg": [
+          10.75,
+          9.17
+        ],
+        "size_source": {
+          "label": "Wikipedia: Large Magellanic Cloud (RC3 isophotal size)",
+          "url": "https://en.wikipedia.org/wiki/Large_Magellanic_Cloud"
+        },
+        "star_count": [
+          20000000000.0,
+          20000000000.0
+        ],
+        "star_count_source": {
+          "label": "Wikipedia: Large Magellanic Cloud",
+          "url": "https://en.wikipedia.org/wiki/Large_Magellanic_Cloud"
+        },
+        "total_mass": {
+          "value_solar": 138000000000.0,
+          "lower_error_solar": 24000000000.0,
+          "upper_error_solar": 27000000000.0,
+          "scope": "Total mass, including dark matter, needed to bend the Orphan stream",
+          "source": {
+            "label": "Erkal et al. (2019)",
+            "url": "https://doi.org/10.1093/mnras/stz1371"
+          }
+        },
+        "radial_velocity_kms": 278.0,
+        "radial_velocity_error_kms": 2.0,
+        "radial_velocity_source": {
+          "label": "NASA/IPAC Extragalactic Database (NED)",
+          "url": "https://ned.ipac.caltech.edu/byname?objname=LMC"
+        },
+        "model_radius_pc": 4700,
+        "palette": {
+          "real": "#dfe5ff",
+          "exaggerated": "#a9c0ff"
+        },
+        "position_source": "NED J2000 center (l = 280.47°, b = -32.89°) at the Pietrzyński et al. (2019) distance",
+        "model_note": "An inclined disk with the off-center bar, one dominant spiral arm and the Tarantula Nebula; the northeast side is nearer."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "small-magellanic-cloud",
+      "name": "Small Magellanic Cloud",
+      "designations": [
+        "SMC",
+        "Nubecula Minor",
+        "NGC 292",
+        "PGC 3085"
+      ],
+      "spectral_type": null,
+      "constellation": "Tucana",
+      "x_pc": 24206.1,
+      "y_pc": -37564.9,
+      "z_pc": -43608.5,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A dwarf galaxy and satellite of the Milky Way, across Tucana and part of Hydrus.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "SB(s)m pec",
+        "classification": "Barred dwarf irregular galaxy",
+        "ra_deg": 13.18666667,
+        "dec_deg": -72.82861111,
+        "distance_pc": 62440,
+        "distance_error_pc": 935,
+        "distance_method": "Detached late-type eclipsing binaries",
+        "distance_source": {
+          "label": "Graczyk et al. (2020)",
+          "url": "https://doi.org/10.3847/1538-4357/abbb2b"
+        },
+        "diameter_pc": 5820.0,
+        "angular_size_deg": [
+          5.333,
+          3.083
+        ],
+        "size_source": {
+          "label": "Wikipedia: Small Magellanic Cloud (RC3 isophotal size)",
+          "url": "https://en.wikipedia.org/wiki/Small_Magellanic_Cloud"
+        },
+        "star_count": [
+          3000000000.0,
+          3000000000.0
+        ],
+        "star_count_source": {
+          "label": "Wikipedia: Small Magellanic Cloud",
+          "url": "https://en.wikipedia.org/wiki/Small_Magellanic_Cloud"
+        },
+        "radial_velocity_kms": 145.6,
+        "radial_velocity_error_kms": 0.6,
+        "radial_velocity_source": {
+          "label": "NASA/IPAC Extragalactic Database (NED)",
+          "url": "https://ned.ipac.caltech.edu/byname?objname=SMC"
+        },
+        "model_radius_pc": 2900,
+        "palette": {
+          "real": "#e2e7ff",
+          "exaggerated": "#b4c8ff"
+        },
+        "position_source": "NED J2000 center (l = 302.80°, b = -44.30°) at the Graczyk et al. (2020) distance",
+        "model_note": "An elongated body stretched along the line of sight, nearer in the northeast, with a bar of young stars and the Wing toward the Large Magellanic Cloud."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "andromeda-galaxy",
+      "name": "Andromeda Galaxy",
+      "designations": [
+        "M31",
+        "Messier 31",
+        "NGC 224",
+        "UGC 454",
+        "PGC 2557"
+      ],
+      "spectral_type": null,
+      "constellation": "Andromeda",
+      "x_pc": -366333.0,
+      "y_pc": 605498.0,
+      "z_pc": -279809.3,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The nearest large spiral galaxy and the largest member of the Local Group.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "SA(s)b",
+        "classification": "Spiral galaxy",
+        "ra_deg": 10.68479292,
+        "dec_deg": 41.269065,
+        "distance_pc": 761000,
+        "distance_error_pc": 11000,
+        "distance_method": "Near-infrared Cepheid period–luminosity relations (HST)",
+        "distance_source": {
+          "label": "Li et al. (2021)",
+          "url": "https://doi.org/10.3847/1538-4357/ac1597"
+        },
+        "diameter_pc": 42070.0,
+        "angular_size_deg": [
+          3.167,
+          1.0
+        ],
+        "size_source": {
+          "label": "Wikipedia: Andromeda Galaxy (isophotal size)",
+          "url": "https://en.wikipedia.org/wiki/Andromeda_Galaxy"
+        },
+        "star_count": [
+          1000000000000.0,
+          1000000000000.0
+        ],
+        "star_count_source": {
+          "label": "Wikipedia: Andromeda Galaxy",
+          "url": "https://en.wikipedia.org/wiki/Andromeda_Galaxy"
+        },
+        "radial_velocity_kms": -297.1,
+        "radial_velocity_error_kms": 0.9,
+        "radial_velocity_source": {
+          "label": "NASA/IPAC Extragalactic Database (NED)",
+          "url": "https://ned.ipac.caltech.edu/byname?objname=M31"
+        },
+        "model_radius_pc": 21000,
+        "palette": {
+          "real": "#fff0dc",
+          "exaggerated": "#ffd59a"
+        },
+        "position_source": "NED J2000 center (l = 121.17°, b = -21.57°) at the Li et al. (2021) distance",
+        "model_note": "A disk tilted 77° to face-on, with its long axis at position angle 38°, a large bulge, the star-forming ring and dust lanes on the nearer northwest side."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "triangulum-galaxy",
+      "name": "Triangulum Galaxy",
+      "designations": [
+        "M33",
+        "Messier 33",
+        "NGC 598",
+        "UGC 1117",
+        "PGC 5818"
+      ],
+      "spectral_type": null,
+      "constellation": "Triangulum",
+      "x_pc": -494902.3,
+      "y_pc": 519514.3,
+      "z_pc": -436779.8,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The third-largest member of the Local Group, after the Andromeda Galaxy and the Milky Way.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "SA(s)cd",
+        "classification": "Spiral galaxy",
+        "ra_deg": 23.46204167,
+        "dec_deg": 30.66022222,
+        "distance_pc": 840000,
+        "distance_error_pc": 11000,
+        "distance_method": "Cepheid period–luminosity relation (HST)",
+        "distance_source": {
+          "label": "Breuval et al. (2023)",
+          "url": "https://doi.org/10.3847/1538-4357/acd3f4"
+        },
+        "diameter_pc": 17300.0,
+        "angular_size_deg": [
+          1.18,
+          0.695
+        ],
+        "size_source": {
+          "label": "Wikipedia: Triangulum Galaxy (SIMBAD isophotal size)",
+          "url": "https://en.wikipedia.org/wiki/Triangulum_Galaxy"
+        },
+        "star_count": [
+          30000000000.0,
+          40000000000.0
+        ],
+        "star_count_source": {
+          "label": "Wikipedia: Triangulum Galaxy",
+          "url": "https://en.wikipedia.org/wiki/Triangulum_Galaxy"
+        },
+        "radial_velocity_kms": -179.2,
+        "radial_velocity_error_kms": 0.8,
+        "radial_velocity_source": {
+          "label": "NASA/IPAC Extragalactic Database (NED)",
+          "url": "https://ned.ipac.caltech.edu/byname?objname=M33"
+        },
+        "model_radius_pc": 8700,
+        "palette": {
+          "real": "#e6ebff",
+          "exaggerated": "#b8caff"
+        },
+        "position_source": "NED J2000 center (l = 133.61°, b = -31.33°) at the Breuval et al. (2023) distance",
+        "model_note": "A loosely wound, patchy spiral tilted 54° to face-on, with its long axis at position angle 22°, a small nucleus and NGC 604."
+      }
+    }
+  ]
+}

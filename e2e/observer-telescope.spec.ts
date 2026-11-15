@@ -253,7 +253,7 @@ test('naked-eye view applies a dark-sky filter, follows the zoom and restores th
   await eye.click()
   await expect(eye).toHaveAttribute('aria-pressed', 'true')
   await expect(magnitude).toHaveValue('6')
-  await expect(distance).toHaveText('20000 ly')
+  await expect(distance).toHaveText('Infinite')
   for (const id of ['hide-fainter-objects', 'show-western-constellation-stars', 'show-naked-eye-stars']) await expect(page.locator(`#${id}`)).toBeChecked()
   await page.locator('#objects-toggle').click()
   await page.locator('#object-search').fill('Nebula')

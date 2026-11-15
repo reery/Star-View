@@ -1,6 +1,6 @@
 # Nebula Info images
 
-Retrieved and reviewed on 2026-11-04; the Vela Supernova Remnant and Crab Nebula images were added on 2026-11-13. 83 images for the articles in `src/data/nebula-info.json`, 2.6 MB in total (mean 32 KB). They load only when a visitor opens that nebula’s Info, so they add nothing to startup.
+Retrieved and reviewed on 2026-11-04; the Vela Supernova Remnant and Crab Nebula images were added on 2026-11-13, and the images of the eight historical supernova remnants on 2026-11-15. 91 images for the articles in `src/data/nebula-info.json`, 2.9 MB in total (mean 32 KB). They load only when a visitor opens that nebula’s Info, so they add nothing to startup.
 
 ## Delivery
 
@@ -10,9 +10,9 @@ Credits, captions and licenses are stored with each article in `nebula-info.json
 
 ## Choosing an image
 
-Visible light comes first. Three images use other wavelengths because the nebula is hidden or far more striking there: W40 (Spitzer infrared), IC 348 (Webb near-infrared) and NGC 2071 (Euclid near-infrared). Narrowband filter images are labeled in their captions. Where no published image exists, the image is a cutout from the Digitized Sky Survey.
+Visible light comes first. Three images use other wavelengths because the nebula is hidden or far more striking there: W40 (Spitzer infrared), IC 348 (Webb near-infrared) and NGC 2071 (Euclid near-infrared). Four supernova remnants that are faint or invisible in visible light are shown in X-rays, alone or in false-color composites: SN 1006, RX J1713.7-3946, Tycho’s and Kepler’s remnants. Narrowband filter images are labeled in their captions. Where no published image exists, the image is a cutout from the Digitized Sky Survey.
 
-## Published images (57)
+## Published images (65)
 
 | File | Credit | Pixels (source → delivered) | Bytes | Source | License |
 | --- | --- | --- | ---: | --- | --- |
@@ -73,6 +73,14 @@ Visible light comes first. Three images use other wavelengths because the nebula
 | `mwp-1.avif` | T.A. Rector (University of Alaska Anchorage) and H. Schweiker (WIYN and NOIRLab/NSF/AURA) | 1280 × 1018 → 600 × 477 | 44,118 | [NOIRLab: Planetary Nebula MWP1](https://noirlab.edu/public/images/noao-mwp1/) | CC BY 4.0 |
 | `vela-supernova-remnant.avif` | CTIO/NOIRLab/DOE/NSF/AURA; T.A. Rector (University of Alaska Anchorage/NSF’s NOIRLab), M. Zamani & D. de Martin (NSF’s NOIRLab) | 1280 × 1283 → 598 × 600 | 45,422 | [Wikimedia Commons: Vela Supernova Remnant (noirlab2406a)](https://commons.wikimedia.org/wiki/File:Vela_Supernova_Remnant_-_Noirlab2406a.jpg) | CC BY 4.0 |
 | `crab-nebula.avif` | NASA, ESA and Allison Loll/Jeff Hester (Arizona State University); acknowledgement: Davide De Martin (ESA/Hubble) | 1280 × 1280 → 600 × 600 | 42,434 | [ESA/Hubble: Most detailed image of the Crab Nebula](https://esahubble.org/images/heic0515a/) | CC BY 4.0 |
+| `rcw-86.avif` | CTIO/NOIRLab/DOE/NSF/AURA; T.A. Rector, J. Miller, M. Zamani & D. de Martin (NSF’s NOIRLab) | 1280 × 1006 → 600 × 471 | 44,626 | [Wikimedia Commons: RCW 86 (noirlab2307a)](https://commons.wikimedia.org/wiki/File:RCW_86_-_Noirlab2307a.jpg) | CC BY 4.0 |
+| `rx-j1713-3946.avif` | Chandra: NASA/CXC/SAO/P. Slane et al.; XMM-Newton: ESA/RIKEN/J. Hiraga et al. | 576 × 633 → 576 × 633 | 16,462 | [Wikimedia Commons: Chandra & XMM-Newton X-ray images of G347.3-0.5](https://commons.wikimedia.org/wiki/File:Chandra_%26_XMM-Newton_X-ray_Images_of_G347_3-0_5_(2007-2snr-more-2_-_g347).jpg) | public domain (NASA) |
+| `sn-1006.avif` | NASA/CXC/Rutgers/G. Cassam-Chenaï, J. Hughes et al.; NRAO/AUI/NSF/GBT/VLA/Dyer, Maddalena & Cornwell; Middlebury College/F. Winkler, NOAO/AURA/NSF/CTIO Schmidt & DSS | 1280 × 1280 → 600 × 600 | 44,088 | [Wikimedia Commons: Supernova Remnant SN 1006](https://commons.wikimedia.org/wiki/File:Supernova_Remnant_SN_1006.jpg) | CC BY 4.0 |
+| `pa-30.avif` | International Gemini Observatory/NOIRLab/NSF/AURA; PI T. Cunningham; J. Miller, M. Rodriguez, T.A. Rector, D. de Martin & M. Zamani | 1280 × 1358 → 600 × 636 | 41,686 | [Wikimedia Commons: Supernova remnant Pa 30 (noirlab2624a)](https://commons.wikimedia.org/wiki/File:Supernova_remnant_Pa_30_(noirlab2624a).jpg) | CC BY 4.0 |
+| `tychos-supernova-remnant.avif` | NASA/CXC/Rutgers/J. Warren & J. Hughes et al. | 1280 × 1280 → 600 × 600 | 35,424 | [Wikimedia Commons: Tycho-supernova-xray.jpg](https://commons.wikimedia.org/wiki/File:Tycho-supernova-xray.jpg) | public domain (NASA) |
+| `keplers-supernova-remnant.avif` | NASA/ESA/JHU/R. Sankrit & W. Blair | 750 × 750 → 600 × 600 | 13,152 | [Wikimedia Commons: Keplers supernova.jpg](https://commons.wikimedia.org/wiki/File:Keplers_supernova.jpg) | public domain (NASA) |
+| `cassiopeia-a.avif` | NASA, ESA and the Hubble Heritage (STScI/AURA)-ESA/Hubble Collaboration; acknowledgement: R. A. Fesen & J. Long | 1280 × 1280 → 600 × 600 | 38,923 | [Wikimedia Commons: Hubble’s view of Cassiopeia A (weic2311c)](https://commons.wikimedia.org/wiki/File:Hubble%E2%80%99s_view_of_Cassiopeia_A_(weic2311c).jpg) | CC BY 4.0 |
+| `sn-1987a.avif` | ESA/Hubble & NASA | 850 × 850 → 600 × 600 | 20,854 | [Wikimedia Commons: SN 1987A HST.jpg](https://commons.wikimedia.org/wiki/File:SN_1987A_HST.jpg) | CC BY 4.0 |
 
 Source pixels are the rendition downloaded, usually the publisher’s web size. `ic-4812.avif` and `ic-426.avif` are crops of the full `eso1027a` and `noao-ic426` frames. `ngc-6726.avif` and `ic-4812.avif` show the same ESO field. Pixels marked as crops in the article credits were trimmed to the 5:4 limit.
 

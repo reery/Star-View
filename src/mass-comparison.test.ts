@@ -283,10 +283,14 @@ describe('precomputed white dwarf references', () => {
     expect(precomputedWhiteDwarfReferences).toEqual(buildWhiteDwarfClassReferences(shipped))
   })
 
+  // The 237,000 K merger product at the centre of Pa 30 is hotter than every cooling track and has no mass to compare.
+  const beyondGrid = new Set(['iras-00500p6713'])
+  const covered = shipped.filter((selected) => !beyondGrid.has(selected.id))
+
   withGrid('gives every shipped white dwarf the full-grid class reference to six significant digits', () => {
     const close = (stored: number | null, exact: number | null) =>
       stored === exact || (stored !== null && exact !== null && Math.abs(stored - exact) <= 5e-6 * Math.abs(exact))
-    for (const selected of shipped) {
+    for (const selected of covered) {
       const { metrics, ...labels } = typicalMassClass(selected)!
       const { metrics: exactMetrics, ...exactLabels } = modelClass(selected)!
       expect(labels).toEqual(exactLabels)
@@ -299,7 +303,8 @@ describe('precomputed white dwarf references', () => {
   })
 
   it('covers every shipped white dwarf without the grid', () => {
-    for (const selected of shipped) {
+    expect(shipped.filter((selected) => beyondGrid.has(selected.id)).every((selected) => selected.mass_solar === null)).toBe(true)
+    for (const selected of covered) {
       const typical = typicalMassClass(selected)!
       expect(typical.note).not.toContain('surface references are unavailable')
       expect(typical.metrics.gravity.range).not.toBeNull()

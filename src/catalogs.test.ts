@@ -630,9 +630,10 @@ describe('catalog packages and display settings', () => {
   it('validates the source-defined compact-remnant overlay and its nullable measurements', () => {
     const compactManifest = parseCompactOverlayManifest(compactManifestRaw)
     const compact = parseCompactOverlayPayload(JSON.parse(compactPayloadRaw), compactManifest)
-    expect(compact).toHaveLength(445)
-    expect(compactManifest.counts).toEqual({ pulsar: 420, neutron_star: 14, black_hole: 11 })
-    expect(Math.max(...compact.map((object) => Math.hypot(object.x_pc, object.y_pc, object.z_pc) * 3.261563777))).toBeLessThanOrEqual(10000)
+    expect(compact).toHaveLength(448)
+    expect(compactManifest.counts).toEqual({ pulsar: 420, neutron_star: 17, black_hole: 11 })
+    // Only the reviewed neutron stars of historical supernova remnants lie beyond the radius.
+    expect(compact.filter((object) => Math.hypot(object.x_pc, object.y_pc, object.z_pc) * 3.261563777 > 10000).map((object) => object.id)).toEqual(['cxou-j232327', 'ns-1987a'])
     // Beyond 3000 light-years, dispersion-measure model distances do not qualify.
     expect(compact.filter((object) => object.compact?.distance_method === 'Dispersion measure model'
       && Math.hypot(object.x_pc, object.y_pc, object.z_pc) * 3.261563777 > 3000)).toEqual([])

@@ -124,6 +124,7 @@ export const TIP_FEATURES: readonly Feature[] = [
   deep('constellations', 'constellation-search', '#constellations-search'),
   deep('constellations', 'constellation-info', '#discover-constellation-info-toggle, #constellation-info-toggle'),
   deep('constellations', 'constellation-chart', '#discover-constellation-grid, #discover-constellation-magnify, #constellation-grid, #constellation-magnify'),
+  open('insights', '#insights-toggle, #insights-active', exploreTool),
   open('neighborhood', '#neighborhood-toggle, #neighborhood-active', exploreTool),
   deep('neighborhood', 'neighborhood-radius', '#neighborhood-radius'),
   deep('neighborhood', 'neighborhood-catalog', '#neighborhood-catalog'),

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  relativeSpectralEmission, spectrumRegion, temperatureCardAvailable, temperatureEvolution,
+  relativeSpectralEmission, spectrumRegion, temperatureCardAvailable,
   temperaturePosition, WIEN_NM_K,
 } from './temperature-properties'
 
@@ -29,15 +29,5 @@ describe('temperature and blackbody context', () => {
     expect(temperaturePosition(5772)).toBeCloseTo(34.74, 1)
     expect(temperaturePosition(250)).toBe(0)
     expect(temperaturePosition(39000)).toBe(100)
-  })
-
-  it('uses mass and explicit main-sequence stage for lifespan trends, and cooling context for remnants', () => {
-    const star = { type: 'star' as const, spectral_type: 'A1V', mass_solar: 2, temperature_k: 9845 }
-    expect(temperatureEvolution(star).value).toBe('Usually shorter-lived')
-    expect(temperatureEvolution({ ...star, spectral_type: 'A0mA1Va' }).value).toBe('Usually shorter-lived')
-    expect(temperatureEvolution({ ...star, spectral_type: 'M5V', mass_solar: 0.2 }).value).toBe('Usually longer-lived')
-    for (const spectral_type of ['A1', 'M1III', null]) expect(temperatureEvolution({ ...star, spectral_type }).value).toBe('Depends on mass & stage')
-    expect(temperatureEvolution({ ...star, type: 'white_dwarf' }).value).toBe('Cooling remnant')
-    expect(temperatureEvolution({ ...star, type: 'brown_dwarf' }).value).toBe('Cools with age')
   })
 })

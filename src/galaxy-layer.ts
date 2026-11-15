@@ -1,6 +1,7 @@
-import { Color, Group } from 'three'
-import type { StarColorMode } from './astronomy'
-import { createPuffLayer, gaussian, puffSource, seededRandom, type PuffInstances } from './nebula-layer'
+import { Color, Group, Vector3, type Camera, type ColorRepresentation } from 'three'
+import { galacticToWorld, type StarColorMode } from './astronomy'
+import { ICRS_TO_GALACTIC_ROWS, type GalaxyDetails, type Star } from './catalog-model'
+import { createPuffLayer, gaussian, puffSource, seededRandom, type NebulaLayer, type PuffInstances, type PuffSource } from './nebula-layer'
 
 // The Galaxy seen from outside, generated from a handful of published parameters:
 // glowing puffs for starlight and absorbing puffs for dust, two instanced draws.
@@ -58,7 +59,7 @@ export function galactocentricToWorld(radiusPc: number, beta: number, heightPc: 
   return [R0_PC - radiusPc * Math.cos(beta * DEG), heightPc - SUN_HEIGHT_PC, -radiusPc * Math.sin(beta * DEG)]
 }
 
-function puffBuffer(count: number) {
+function puffBuffer(count: number, noiseScale = 1 / 1500, noiseOffset = 0.37) {
   const puffs: PuffInstances = {
     count,
     centers: new Float32Array(count * 3),
@@ -71,10 +72,10 @@ function puffBuffer(count: number) {
   const vivid = new Color()
   return {
     puffs,
-    add(position: readonly [number, number, number], radius: number, alpha: number, realColor: string, vividColor: string) {
+    add(position: readonly [number, number, number], radius: number, alpha: number, realColor: ColorRepresentation, vividColor: ColorRepresentation) {
       puffs.centers.set(position, index * 3)
-      // Noise features about 1.5 kpc across, shared by all puffs.
-      puffs.shapes.set([radius, alpha, 1 / 1500, 0.37], index * 4)
+      // Noise features shared by all puffs; about 1.5 kpc across in the Milky Way.
+      puffs.shapes.set([radius, alpha, noiseScale, noiseOffset], index * 4)
       puffs.realColors.set(real.set(realColor).toArray(), index * 3)
       puffs.vividColors.set(vivid.set(vividColor).toArray(), index * 3)
       index++
@@ -187,41 +188,379 @@ export function generateGalaxyPuffs(): GalaxyPuffs {
   return { emission: emission.puffs, dust: dust.puffs }
 }
 
+
+// The Local Group galaxies near the Milky Way, each generated from its published geometry: the disk's tilt
+// and orientation on the sky, scale lengths, and its best-known features at their measured sky offsets.
+// Puffs are produced in a sky frame centered on the galaxy, in pc: east, north and depth away from the Sun.
+
+type Vec3 = [number, number, number]
+type Random = () => number
+
+/** A disk seen at inclination `inclination` (0 = face-on) with its line of nodes at position angle `nodes`. */
+export function tiltedDisk(inclinationDeg: number, nodesDeg: number, farSideDeg: number) {
+  const cosI = Math.cos(inclinationDeg * DEG)
+  const sinI = Math.sin(inclinationDeg * DEG)
+  // Position angles run from north through east.
+  const major: Vec3 = [Math.sin(nodesDeg * DEG), Math.cos(nodesDeg * DEG), 0]
+  const far: Vec3 = [Math.sin(farSideDeg * DEG), Math.cos(farSideDeg * DEG), 0]
+  // In the disk plane, toward the far side: foreshortened on the sky and receding.
+  const inPlane: Vec3 = [far[0] * cosI, far[1] * cosI, sinI]
+  const normal: Vec3 = [
+    major[1] * inPlane[2] - major[2] * inPlane[1],
+    major[2] * inPlane[0] - major[0] * inPlane[2],
+    major[0] * inPlane[1] - major[1] * inPlane[0],
+  ]
+  return {
+    /** Sky-frame point of disk coordinates: u along the line of nodes, v in the plane, w along the normal. */
+    toSky(u: number, v: number, w: number): Vec3 {
+      return [0, 1, 2].map((axis) => u * major[axis]! + v * inPlane[axis]! + w * normal[axis]!) as Vec3
+    },
+    /** Disk coordinates of the disk point seen at a sky offset (east, north). */
+    fromSky(east: number, north: number): [number, number] {
+      return [east * major[0] + north * major[1], (east * far[0] + north * far[1]) / cosI]
+    },
+  }
+}
+
+/** A radius drawn from an exponential disk of scale length `scale`, as a surface density. */
+function exponentialRadius(random: Random, scale: number, limit: number): number {
+  for (;;) {
+    const radius = -scale * Math.log((1 - random()) * (1 - random()))
+    if (radius <= limit) return radius
+  }
+}
+
+/** A point on a logarithmic spiral arm from `inner` to `outer` radius, starting at angle `phase`. */
+function spiralPoint(random: Random, inner: number, outer: number, pitchDeg: number, phase: number): [number, number] {
+  // Uniform along the arm's length, which grows with radius.
+  const radius = Math.sqrt(inner * inner + random() * (outer * outer - inner * inner))
+  const angle = phase + Math.log(radius / inner) / Math.tan(pitchDeg * DEG)
+  return [radius * Math.cos(angle), radius * Math.sin(angle)]
+}
+
+/** A point along a sky-frame polyline (east, north), uniform in length. */
+function polylinePoint(random: Random, points: readonly (readonly [number, number])[]): [number, number] {
+  const lengths = points.slice(1).map((point, index) => Math.hypot(point[0] - points[index]![0], point[1] - points[index]![1]))
+  let pick = random() * lengths.reduce((sum, length) => sum + length, 0)
+  let index = 0
+  while (pick > lengths[index]! && index < lengths.length - 1) pick -= lengths[index++]!
+  const t = Math.min(1, pick / lengths[index]!)
+  const [from, to] = [points[index]!, points[index + 1]!]
+  return [from[0] + (to[0] - from[0]) * t, from[1] + (to[1] - from[1]) * t]
+}
+
+interface PuffSample { at: Vec3; radius: number; alpha: number; real: Color; vivid: Color }
+interface GalaxyModel {
+  emission: number
+  dust: number
+  /** Noise features about this many pc across. */
+  featurePc: number
+  sampleEmission(random: Random): PuffSample
+  sampleDust(random: Random): PuffSample
+}
+
+const color = (hex: string) => new Color(hex)
+const DUST = color(DUST_ABSORPTION)
+const HII_REAL = color('#ffc9d6')
+const HII_VIVID = color('#ff7aa2')
+/** A tint between two colors, clamped: the warm inner disk to the young, blue outskirts. */
+const tint = (from: Color, to: Color, t: number) => from.clone().lerp(to, Math.min(1, Math.max(0, t)))
+
+/** Picks a component by its weight, so every prefix of the puffs is an unbiased mix. */
+function pick<T>(random: Random, components: readonly (readonly [number, T])[]): T {
+  let value = random() * components.reduce((sum, [weight]) => sum + weight, 0)
+  for (const [weight, component] of components) if ((value -= weight) <= 0) return component
+  return components.at(-1)![1]
+}
+
+/** Places fixed for every prefix, such as star-forming complexes: H II regions cluster in them as in photographs. */
+function fixedPlaces<T>(seed: number, count: number, place: (random: Random) => T): T[] {
+  const random = seededRandom(seed)
+  return Array.from({ length: count }, () => place(random))
+}
+
+const sample = (at: Vec3, radius: number, alpha: number, real: Color, vivid: Color): PuffSample =>
+  ({ at, radius, alpha, real, vivid })
+
+// Andromeda: i = 77°, long axis at PA 38°, nearer on the northwest side (the far side lies at PA 128°).
+// Exponential disk of 5.3 kpc, a large bulge and the star-forming ring at 10 kpc (32,000 ly).
+function andromedaModel(): GalaxyModel {
+  const disk = tiltedDisk(77, 38, 128)
+  const [bulgeReal, bulgeVivid, coreReal, coreVivid] = ['#ffe6c6', '#ffc87c', '#fff4e2', '#ffe2a6'].map(color)
+  const [innerReal, innerVivid, outerReal, outerVivid] = ['#f1ebe4', '#ffe9cc', '#d6e0ff', '#a6bfff'].map(color)
+  const arm = (random: Random) => spiralPoint(random, 4000, 21_000, 8, random() < 0.5 ? 0 : Math.PI)
+  const ring = (random: Random): [number, number] => {
+    const angle = random() * 2 * Math.PI
+    const radius = 10_000 + gaussian(random) * 700
+    return [radius * Math.cos(angle), radius * Math.sin(angle)]
+  }
+  const regions = fixedPlaces(0x3131, 34, (random) => random() < 0.65 ? ring(random) : arm(random))
+  const point = ([u, v]: [number, number], width: number, height: number, random: Random) =>
+    disk.toSky(u + gaussian(random) * width, v + gaussian(random) * width, gaussian(random) * height)
+  return {
+    emission: 18_000, dust: 6000, featurePc: 2500,
+    sampleEmission: (random) => pick(random, [
+      [0.03, () => sample(disk.toSky(gaussian(random) * 260, gaussian(random) * 260, gaussian(random) * 220), 170, 0.16, coreReal!, coreVivid!)],
+      [0.13, () => sample(disk.toSky(gaussian(random) * 1100, gaussian(random) * 1100, gaussian(random) * 850), 460, 0.085, bulgeReal!, bulgeVivid!)],
+      [0.42, () => {
+        const radius = exponentialRadius(random, 5300, 20_000)
+        const angle = random() * 2 * Math.PI
+        const t = (radius - 2500) / 8000
+        return sample(disk.toSky(radius * Math.cos(angle), radius * Math.sin(angle), gaussian(random) * 300), 420 + 160 * random(), 0.034,
+          tint(innerReal!, outerReal!, t), tint(innerVivid!, outerVivid!, t))
+      }],
+      [0.18, () => sample(point(ring(random), 250, 110, random), 260, 0.05, outerReal!, outerVivid!)],
+      [0.19, () => sample(point(arm(random), 550, 140, random), 280, 0.042, outerReal!, outerVivid!)],
+      [0.05, () => sample(point(regions[Math.floor(random() * regions.length)]!, 180, 50, random), 110, 0.12, HII_REAL, HII_VIVID)],
+    ])(),
+    sampleDust: (random) => pick(random, [
+      [0.45, () => sample(point(ring(random), 400, 60, random), 280, 0.06 * (0.5 + 0.5 * random()), DUST, DUST)],
+      [0.4, () => {
+        const [u, v] = arm(random)
+        const radius = Math.hypot(u, v)
+        // Dust lanes follow the inner edge of each arm.
+        return sample(point([u * (1 - 500 / radius), v * (1 - 500 / radius)], 280, 50, random), 260, 0.05 * (0.5 + 0.5 * random()), DUST, DUST)
+      }],
+      [0.15, () => {
+        const radius = 2000 + 5000 * Math.sqrt(random())
+        const angle = random() * 2 * Math.PI
+        return sample(disk.toSky(radius * Math.cos(angle), radius * Math.sin(angle), gaussian(random) * 60), 320, 0.035, DUST, DUST)
+      }],
+    ])(),
+  }
+}
+
+// Triangulum: i = 54°, long axis at PA 22°; a loosely wound, patchy spiral of 1.6 kpc scale length
+// without a bulge. NGC 604 lies 553″ east and 444″ north of the nucleus, 4.07 pc per arcsecond at 840 kpc.
+function triangulumModel(): GalaxyModel {
+  const disk = tiltedDisk(54, 22, 112)
+  const [innerReal, innerVivid, outerReal, outerVivid, nucleusReal, nucleusVivid] = ['#f1ece6', '#ffeacc', '#d8e2ff', '#9fb8ff', '#fff4e4', '#ffe6b8'].map(color)
+  // Fragments of arms beside the two main ones give the flocculent look.
+  const fragments = fixedPlaces(0x3333, 9, (random) => ({ inner: 1500 + 5000 * random(), phase: random() * 2 * Math.PI }))
+  const armPoint = (random: Random): [number, number] => {
+    if (random() < 0.62) return spiralPoint(random, 600, 8500, 28, random() < 0.5 ? 0 : Math.PI)
+    const fragment = fragments[Math.floor(random() * fragments.length)]!
+    return spiralPoint(random, fragment.inner, fragment.inner * 1.7, 30, fragment.phase)
+  }
+  const regions = fixedPlaces(0x3334, 40, armPoint)
+  const ngc604 = disk.fromSky(553 * 4.07, 444 * 4.07)
+  const point = ([u, v]: [number, number], width: number, height: number, random: Random) =>
+    disk.toSky(u + gaussian(random) * width, v + gaussian(random) * width, gaussian(random) * height)
+  return {
+    emission: 11_000, dust: 2500, featurePc: 1000,
+    sampleEmission: (random) => pick(random, [
+      [0.03, () => sample(disk.toSky(gaussian(random) * 120, gaussian(random) * 120, gaussian(random) * 100), 90, 0.2, nucleusReal!, nucleusVivid!)],
+      [0.42, () => {
+        const radius = exponentialRadius(random, 1600, 9000)
+        const angle = random() * 2 * Math.PI
+        const t = (radius - 800) / 3500
+        return sample(disk.toSky(radius * Math.cos(angle), radius * Math.sin(angle), gaussian(random) * 180), 300 + 100 * random(), 0.034,
+          tint(innerReal!, outerReal!, t), tint(innerVivid!, outerVivid!, t))
+      }],
+      [0.43, () => sample(point(armPoint(random), 330, 80, random), 180, 0.045, outerReal!, outerVivid!)],
+      [0.11, () => sample(point(regions[Math.floor(random() * regions.length)]!, 110, 40, random), 80, 0.13, HII_REAL, HII_VIVID)],
+      [0.01, () => sample(point(ngc604, 110, 50, random), 90, 0.22, HII_REAL, HII_VIVID)],
+    ])(),
+    sampleDust: (random) => {
+      const [u, v] = armPoint(random)
+      const radius = Math.max(1, Math.hypot(u, v))
+      return sample(point([u * (1 - 250 / radius), v * (1 - 250 / radius)], 220, 50, random), 200, 0.03 * (0.5 + 0.5 * random()), DUST, DUST)
+    },
+  }
+}
+
+// Large Magellanic Cloud: i = 34.7°, line of nodes at PA 122.5°, the northeast side nearer (van der Marel &
+// Cioni 2001). One degree is 865 pc at 49.6 kpc. The off-center bar, the northern arm and the Tarantula
+// Nebula (30 Doradus, 1.33° east and 0.66° north of the center) are placed on the sky.
+function largeMagellanicModel(): GalaxyModel {
+  const disk = tiltedDisk(34.7, 122.5, 212.5)
+  const [barReal, barVivid, diskReal, diskVivid] = ['#f2eee8', '#fff2da', '#e3e9ff', '#b2c6ff'].map(color)
+  const BAR_PA = 110 * DEG
+  const tarantula: [number, number] = [1152, 569]
+  // From the Tarantula Nebula, north and west, then down to the western end of the bar.
+  const arm = [tarantula, [800, 1300], [0, 1700], [-900, 1600], [-1600, 1000], [-1900, 200]] as const
+  const diskSky = (random: Random): [number, number] => {
+    const radius = exponentialRadius(random, 1500, 5500)
+    const angle = random() * 2 * Math.PI
+    return [radius * Math.cos(angle), 500 + radius * Math.sin(angle)]
+  }
+  const regions = fixedPlaces(0x1111, 18, (random) => random() < 0.6 ? polylinePoint(random, arm) : diskSky(random))
+  const onDisk = ([east, north]: readonly [number, number], height: number, random: Random): Vec3 => {
+    const [u, v] = disk.fromSky(east, north)
+    return disk.toSky(u, v, gaussian(random) * height)
+  }
+  const near = ([east, north]: readonly [number, number], width: number, random: Random): [number, number] =>
+    [east + gaussian(random) * width, north + gaussian(random) * width]
+  return {
+    emission: 14_000, dust: 900, featurePc: 900,
+    sampleEmission: (random) => pick(random, [
+      [0.26, () => {
+        // A smooth, flat-topped profile along the bar, fading out by its ends 1.7 kpc from the middle.
+        const along = 1700 * Math.tanh(gaussian(random) * 0.75) * (0.85 + 0.15 * random())
+        const across = gaussian(random) * 300 * (1 - 0.4 * (along / 1700) ** 2)
+        return sample(onDisk([along * Math.sin(BAR_PA) + across * Math.cos(BAR_PA), along * Math.cos(BAR_PA) - across * Math.sin(BAR_PA)], 150, random),
+          160, 0.045, barReal!, barVivid!)
+      }],
+      [0.42, () => sample(onDisk(diskSky(random), 250, random), 260, 0.03, diskReal!, diskVivid!)],
+      [0.24, () => sample(onDisk(near(polylinePoint(random, arm), 300, random), 120, random), 140, 0.045, diskReal!, diskVivid!)],
+      [0.05, () => sample(onDisk(near(regions[Math.floor(random() * regions.length)]!, 90, random), 50, random), 70, 0.12, HII_REAL, HII_VIVID)],
+      [0.03, () => sample(onDisk(near(tarantula, 130, random), 80, random), 90, 0.22, HII_REAL, HII_VIVID)],
+    ])(),
+    // The Cloud holds little dust: faint lanes along the arm and around the Tarantula Nebula.
+    sampleDust: (random) => pick(random, [
+      [0.7, () => sample(onDisk(near(polylinePoint(random, arm), 280, random), 60, random), 180, 0.014, DUST, DUST)],
+      [0.3, () => sample(onDisk(near(tarantula, 350, random), 60, random), 160, 0.018, DUST, DUST)],
+    ])(),
+  }
+}
+
+// Small Magellanic Cloud: an elongated body along PA 45°, stretched along the line of sight and nearer in the
+// northeast (Graczyk et al. 2020: 10 kpc between the nearest and farthest eclipsing binaries). The Wing points
+// east toward the Large Cloud; NGC 346 lies 0.47° east and 0.65° north. One degree is 1,090 pc at 62.4 kpc.
+function smallMagellanicModel(): GalaxyModel {
+  const [bodyReal, bodyVivid, barReal, barVivid] = ['#e6ebff', '#b8caff', '#eef1ff', '#c8d6ff'].map(color)
+  const AXIS = 45 * DEG
+  // Northeast is nearer: depth falls along the long axis.
+  const elongated = (along: number, across: number, depth: number): Vec3 =>
+    [along * Math.sin(AXIS) + across * Math.cos(AXIS), along * Math.cos(AXIS) - across * Math.sin(AXIS), depth - 1.2 * along]
+  const wing = (random: Random): Vec3 => [1300 + gaussian(random) * 380, -250 + gaussian(random) * 260, gaussian(random) * 600 - 600]
+  const bar = (random: Random, width: number): Vec3 => elongated((random() * 2 - 1) * 1100, gaussian(random) * width, gaussian(random) * 900)
+  const regions = fixedPlaces(0x2222, 14, (random) => random() < 0.7 ? bar(random, 160) : wing(random))
+  const around = ([east, north, depth]: Vec3, width: number, random: Random): Vec3 =>
+    [east + gaussian(random) * width, north + gaussian(random) * width, depth + gaussian(random) * width]
+  return {
+    emission: 8000, dust: 400, featurePc: 700,
+    sampleEmission: (random) => pick(random, [
+      [0.56, () => sample(elongated(gaussian(random) * 900, gaussian(random) * 450, gaussian(random) * 1800), 220, 0.032, bodyReal!, bodyVivid!)],
+      [0.24, () => sample(bar(random, 220), 140, 0.05, barReal!, barVivid!)],
+      [0.12, () => sample(wing(random), 130, 0.04, bodyReal!, bodyVivid!)],
+      [0.065, () => sample(around(regions[Math.floor(random() * regions.length)]!, 80, random), 70, 0.12, HII_REAL, HII_VIVID)],
+      [0.015, () => sample(around([510, 710, -1.2 * 863], 70, random), 70, 0.24, HII_REAL, HII_VIVID)],
+    ])(),
+    sampleDust: (random) => sample(bar(random, 200), 180, 0.012, DUST, DUST),
+  }
+}
+
+const LOCAL_GROUP_MODELS: Record<string, () => GalaxyModel> = {
+  'large-magellanic-cloud': largeMagellanicModel,
+  'small-magellanic-cloud': smallMagellanicModel,
+  'andromeda-galaxy': andromedaModel,
+  'triangulum-galaxy': triangulumModel,
+}
+
+/** World directions of east, north and away from the Sun at a galaxy's center. */
+function skyFrame(details: Pick<GalaxyDetails, 'ra_deg' | 'dec_deg'>): [Vector3, Vector3, Vector3] {
+  const toWorld = (equatorial: Vec3) => {
+    const [x, y, z] = ICRS_TO_GALACTIC_ROWS.map((row) => row[0] * equatorial[0] + row[1] * equatorial[1] + row[2] * equatorial[2])
+    return galacticToWorld({ x_pc: x!, y_pc: y!, z_pc: z! })
+  }
+  const alpha = details.ra_deg * DEG
+  const delta = details.dec_deg * DEG
+  return [
+    toWorld([-Math.sin(alpha), Math.cos(alpha), 0]),
+    toWorld([-Math.sin(delta) * Math.cos(alpha), -Math.sin(delta) * Math.sin(alpha), Math.cos(delta)]),
+    toWorld([Math.cos(delta) * Math.cos(alpha), Math.cos(delta) * Math.sin(alpha), Math.sin(delta)]),
+  ]
+}
+
+/** The first `limit` puffs of one galaxy, relative to its center in world axes; every larger limit yields the same prefix. */
+export function generateLocalGalaxyPuffs(galaxy: Pick<Star, 'id'> & { galaxy: Pick<GalaxyDetails, 'ra_deg' | 'dec_deg'> }, kind: 'emission' | 'dust', limit?: number): PuffInstances {
+  const model = LOCAL_GROUP_MODELS[galaxy.id]?.()
+  if (!model) throw new Error(`No galaxy model: ${galaxy.id}`)
+  const count = Math.min(model[kind], limit ?? model[kind])
+  const random = seededRandom([...galaxy.id].reduce((hash, character) => Math.imul(hash ^ character.charCodeAt(0), 16777619), kind === 'dust' ? 0x9e37 : 0x811c))
+  const [east, north, away] = skyFrame(galaxy.galaxy)
+  const buffer = puffBuffer(count, 1 / model.featurePc, 0.37)
+  const position = new Vector3()
+  for (let index = 0; index < count; index++) {
+    const { at, radius, alpha, real, vivid } = kind === 'dust' ? model.sampleDust(random) : model.sampleEmission(random)
+    position.copy(east).multiplyScalar(at[0]).addScaledVector(north, at[1]).addScaledVector(away, at[2])
+    buffer.add([position.x, position.y, position.z], radius, alpha, real, vivid)
+  }
+  return buffer.puffs
+}
+
+function localGalaxySource(galaxy: Star & { galaxy: GalaxyDetails }, kind: 'emission' | 'dust'): PuffSource {
+  const radius = galaxy.galaxy.model_radius_pc
+  let puffs: PuffInstances | null = null
+  return {
+    count: LOCAL_GROUP_MODELS[galaxy.id]!()[kind],
+    extent: { center: galacticToWorld(galaxy), semiAxes: [radius, radius] },
+    instances(limit) {
+      // Generated only as far as the view has needed it.
+      if (!puffs || puffs.count < limit) puffs = generateLocalGalaxyPuffs(galaxy, kind, limit)
+      return puffs
+    },
+  }
+}
+
 export interface GalaxyLayer {
   group: Group
-  setOpacity(opacity: number): void
+  /** The Milky Way model and the other galaxies fade on their own schedules. */
+  setOpacity(milkyWay: number, others: number): void
   setColorMode(mode: StarColorMode): void
   setViewportHeight(pixels: number): void
+  /** Picks each galaxy's detail for the camera and draws the farther galaxies first, so nearer dust dims them. */
+  update(camera: Camera): void
   dispose(): void
 }
 
-export function createGalaxyLayer(mode: StarColorMode): GalaxyLayer {
+// The Galactic Center in world pc, where the Milky Way model is centered.
+const GALACTIC_CENTER = new Vector3(...galactocentricToWorld(0, 0, 0))
+
+export function createGalaxyLayer(mode: StarColorMode, galaxies: readonly Star[]): GalaxyLayer {
   const { emission, dust } = generateGalaxyPuffs()
-  const layers = [
-    createPuffLayer([puffSource(emission)], mode, { maxScreenFraction: 0.25 }),
-    createPuffLayer([puffSource(dust)], mode, { absorb: true, maxScreenFraction: 0.25 }),
-  ]
-  const group = new Group()
-  layers.forEach((layer, index) => {
-    layer.setVisible([true])
-    // Above the panorama and below the sky grid, star marks and labels.
-    layer.mesh.renderOrder = -0.8 + 0.1 * index
-    group.add(layer.mesh)
+  const milkyWay = {
+    center: GALACTIC_CENTER,
+    layers: [
+      createPuffLayer([puffSource(emission)], mode, { maxScreenFraction: 0.25 }),
+      createPuffLayer([puffSource(dust)], mode, { absorb: true, maxScreenFraction: 0.25 }),
+    ],
+  }
+  const others = galaxies.flatMap((galaxy) => {
+    if (!galaxy.galaxy || !LOCAL_GROUP_MODELS[galaxy.id]) return []
+    const center = galacticToWorld(galaxy)
+    const layers = (['emission', 'dust'] as const).map((kind) => {
+      const layer = createPuffLayer([localGalaxySource(galaxy as Star & { galaxy: GalaxyDetails }, kind)], mode, { absorb: kind === 'dust', maxScreenFraction: 0.25 })
+      // Puffs are stored relative to the center, which keeps them precise millions of light-years out.
+      layer.mesh.position.copy(center)
+      return layer
+    })
+    return [{ center, layers }]
   })
+  const all = [milkyWay, ...others]
+  const group = new Group()
+  for (const { layers } of all) {
+    for (const layer of layers) {
+      layer.setVisible([true])
+      group.add(layer.mesh)
+    }
+  }
+  const eachLayer = (action: (layer: NebulaLayer) => void) => all.forEach(({ layers }) => layers.forEach(action))
+  const cameraPosition = new Vector3()
   return {
     group,
-    setOpacity(opacity) {
-      group.visible = opacity > 0
-      for (const layer of layers) layer.setOpacity(opacity)
+    setOpacity(milkyWayOpacity, otherOpacity) {
+      group.visible = milkyWayOpacity > 0 || (others.length > 0 && otherOpacity > 0)
+      for (const layer of milkyWay.layers) layer.setOpacity(milkyWayOpacity)
+      for (const { layers } of others) for (const layer of layers) layer.setOpacity(otherOpacity)
     },
     setColorMode(next) {
-      for (const layer of layers) layer.setColorMode(next)
+      eachLayer((layer) => layer.setColorMode(next))
     },
     setViewportHeight(pixels) {
-      for (const layer of layers) layer.setViewportHeight(pixels)
+      eachLayer((layer) => layer.setViewportHeight(pixels))
+    },
+    update(camera) {
+      if (!group.visible) return
+      cameraPosition.setFromMatrixPosition(camera.matrixWorld)
+      // Above the panorama and below the sky grid, star marks and labels; each galaxy's dust right after its light.
+      ;[...all].sort((first, second) => second.center.distanceToSquared(cameraPosition) - first.center.distanceToSquared(cameraPosition))
+        .forEach(({ layers }, rank) => layers.forEach((layer, index) => { layer.mesh.renderOrder = -0.9 + 0.1 * rank + 0.05 * index }))
+      for (const { layers } of others) for (const layer of layers) layer.updateDetail(camera)
     },
     dispose() {
-      for (const layer of layers) layer.dispose()
+      eachLayer((layer) => layer.dispose())
     },
   }
 }

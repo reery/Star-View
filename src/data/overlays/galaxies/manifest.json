@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "galaxies",
+  "label": "Galaxies",
+  "description": "The Milky Way and the four major Local Group galaxies near it, shown while Galaxies is on in Preferences. Their visuals are drawn from published structure, generated on first need.",
+  "epoch": 2000,
+  "objectCount": 5,
+  "counts": {
+    "galaxy": 5
+  },
+  "sources": [
+    {
+      "name": "GRAVITY Collaboration (2019); geometric distance to Sagittarius A*",
+      "url": "https://doi.org/10.1051/0004-6361/201935656"
+    },
+    {
+      "name": "Pietrzyński et al. (2019); eclipsing-binary distance to the Large Magellanic Cloud",
+      "url": "https://doi.org/10.1038/s41586-019-0999-4"
+    },
+    {
+      "name": "Graczyk et al. (2020); eclipsing-binary distance to the Small Magellanic Cloud",
+      "url": "https://doi.org/10.3847/1538-4357/abbb2b"
+    },
+    {
+      "name": "Li et al. (2021); HST Cepheid distance to M31",
+      "url": "https://doi.org/10.3847/1538-4357/ac1597"
+    },
+    {
+      "name": "Breuval et al. (2023); HST Cepheid distance to M33",
+      "url": "https://doi.org/10.3847/1538-4357/acd3f4"
+    },
+    {
+      "name": "Reid et al. (2019); spiral-arm fits of the Milky Way",
+      "url": "https://doi.org/10.3847/1538-4357/ab4a11"
+    },
+    {
+      "name": "NASA/IPAC Extragalactic Database; centers and heliocentric velocities",
+      "url": "https://ned.ipac.caltech.edu/"
+    }
+  ],
+  "cutoffPolicy": "The Milky Way, both Magellanic Clouds, the Andromeda Galaxy and the Triangulum Galaxy: the Local Group galaxies visible to the naked eye.",
+  "snapshot": "J2000 Galactic frame; values reviewed 2026-11-15."
+}

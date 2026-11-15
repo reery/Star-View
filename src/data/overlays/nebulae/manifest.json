@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "id": "nebulae",
   "label": "Nebulae",
-  "description": "A separately loaded overlay of the catalogued nebulae and supernova remnants within about 2000 ly, rendered as approximate 3D volumes. Large H II regions take their sky shape from an all-sky H-alpha map; supernova remnants are modeled shells, except the Crab Nebula, whose filaments come from a measured 3D map.",
+  "description": "A separately loaded overlay of the catalogued nebulae and supernova remnants within about 2000 ly, plus the remnants of the supernovae with recorded dates, rendered as approximate 3D volumes. Large H II regions take their sky shape from an all-sky H-alpha map; supernova remnants are modeled shells, except the Crab Nebula, whose filaments come from a measured 3D map.",
   "epoch": 2000,
-  "objectCount": 93,
+  "objectCount": 101,
   "counts": {
     "reflection_nebula": 59,
     "hii_region": 14,
     "planetary_nebula": 16,
-    "supernova_remnant": 4
+    "supernova_remnant": 12
   },
   "sources": [
     {
@@ -131,8 +131,56 @@
     {
       "name": "Lin et al. (2023); VLBI parallax of the Crab pulsar",
       "url": "https://arxiv.org/abs/2306.01617"
+    },
+    {
+      "name": "Helder et al. (2013); proper motions of the hydrogen filaments of RCW 86",
+      "url": "https://doi.org/10.1093/mnras/stt1349"
+    },
+    {
+      "name": "Broersen et al. (2014); RCW 86, a Type Ia remnant in its progenitor’s wind bubble",
+      "url": "https://arxiv.org/abs/1404.5434"
+    },
+    {
+      "name": "Leike et al. (2021); Gaia dust reconstruction around RX J1713.7-3946",
+      "url": "https://doi.org/10.1038/s41550-021-01344-w"
+    },
+    {
+      "name": "Acero et al. (2017); X-ray proper motion of the south-east rim of RX J1713.7-3946",
+      "url": "https://arxiv.org/abs/1610.01605"
+    },
+    {
+      "name": "Winkler, Gupta & Long (2003); optical proper motions and distance of SN 1006",
+      "url": "https://doi.org/10.1086/345985"
+    },
+    {
+      "name": "Fesen, Schaefer & Patchick (2023); the optical nebula of Pa 30",
+      "url": "https://arxiv.org/abs/2301.04809"
+    },
+    {
+      "name": "Ritter et al. (2021); Pa 30 as the remnant of SN 1181",
+      "url": "https://arxiv.org/abs/2105.12384"
+    },
+    {
+      "name": "Bailer-Jones et al. (2021); geometric distances from Gaia EDR3 (VizieR I/352)",
+      "url": "https://ui.adsabs.harvard.edu/abs/2021AJ....161..147B"
+    },
+    {
+      "name": "Neumann et al. (2024); light-echo distances to Cassiopeia A and Tycho’s supernova",
+      "url": "https://arxiv.org/abs/2407.14584"
+    },
+    {
+      "name": "Sankrit et al. (2016); Hubble proper motions and distance of Kepler’s supernova remnant",
+      "url": "https://doi.org/10.3847/0004-637X/817/1/36"
+    },
+    {
+      "name": "Fesen et al. (2006); the expansion center and age of Cassiopeia A",
+      "url": "https://doi.org/10.1086/504254"
+    },
+    {
+      "name": "Panagia (2005); geometric distance to SN 1987A",
+      "url": "https://arxiv.org/abs/astro-ph/0309416"
     }
   ],
-  "cutoffPolicy": "Every reflection nebula, H II region and planetary nebula that is listed in NGC/IC, van den Bergh, van den Bergh & Herbst, Sharpless, HASH, or in Lynds with a reflection-catalogue identification (Cederblad or Dorschner & Gürtler), spans at least 5 arcmin, and whose adopted distance is within 1 sigma of 2000 ly (distance - error <= 613.2 pc); the census is being added in reviewed batches, so it is not yet complete beyond 500 ly (153.3 pc). Distances come from the SIMBAD-adopted parallax (Gaia EDR3, else Hipparcos 2007) of the illuminating or central star; several stars use an inverse-variance mean, and Gaia DR2 cluster parallaxes or VLBA parallaxes of cluster members replace stars whose own parallax is unreliable or embedded. Sizes come from LBN for named NGC/IC nebulae, Sharpless for ionized nebulae, the SIMBAD-adopted angular diameter (or HASH radius) for planetary nebulae, twice the van den Bergh maximum radius in the north, and ESO/Uppsala or the van den Bergh & Herbst diameter south of the Lynds limit. H II regions larger than about 1 degree take their sky shape and relative brightness from the Finkbeiner (2003) H-alpha map. The Orion Nebula (about 1265 ly) was kept as a showcase beyond the earlier 500-ly cutoff. Excluded: dark nebulae and molecular clouds, nebulae under 5 arcmin, the possible planetary nebula FP J1912-0331, H-alpha-only ionized regions such as Spica's, and Barnard's Loop until its distance is settled (published estimates of about 170 and 440 pc disagree). Supernova remnants: those within 2000 ly whose distances are established (Vela, Monogem Ring, Hoinga), drawn as shells of their published size around their published centers; Antlia, the Gum Nebula and Vela Junior wait for settled distances or classifications. The Crab Nebula (about 6200 ly) is kept as a showcase beyond the cutoff, at the VLBI parallax distance of its pulsar.",
-  "snapshot": "J2000 map positions; literature reviewed 2026-10-01 (500-ly census), 2026-11-03 (2000-ly batch 1), 2026-11-04 (batches 2 and 3) and 2026-11-13 (supernova remnants, including the Crab Nebula)."
+  "cutoffPolicy": "Every reflection nebula, H II region and planetary nebula that is listed in NGC/IC, van den Bergh, van den Bergh & Herbst, Sharpless, HASH, or in Lynds with a reflection-catalogue identification (Cederblad or Dorschner & Gürtler), spans at least 5 arcmin, and whose adopted distance is within 1 sigma of 2000 ly (distance - error <= 613.2 pc); the census is being added in reviewed batches, so it is not yet complete beyond 500 ly (153.3 pc). Distances come from the SIMBAD-adopted parallax (Gaia EDR3, else Hipparcos 2007) of the illuminating or central star; several stars use an inverse-variance mean, and Gaia DR2 cluster parallaxes or VLBA parallaxes of cluster members replace stars whose own parallax is unreliable or embedded. Sizes come from LBN for named NGC/IC nebulae, Sharpless for ionized nebulae, the SIMBAD-adopted angular diameter (or HASH radius) for planetary nebulae, twice the van den Bergh maximum radius in the north, and ESO/Uppsala or the van den Bergh & Herbst diameter south of the Lynds limit. H II regions larger than about 1 degree take their sky shape and relative brightness from the Finkbeiner (2003) H-alpha map. The Orion Nebula (about 1265 ly) was kept as a showcase beyond the earlier 500-ly cutoff. Excluded: dark nebulae and molecular clouds, nebulae under 5 arcmin, the possible planetary nebula FP J1912-0331, H-alpha-only ionized regions such as Spica's, and Barnard's Loop until its distance is settled (published estimates of about 170 and 440 pc disagree). Supernova remnants: those within 2000 ly whose distances are established (Vela, Monogem Ring, Hoinga), drawn as shells of their published size around their published centers; Antlia, the Gum Nebula and Vela Junior wait for settled distances or classifications. The Crab Nebula (about 6200 ly) is kept as a showcase beyond the cutoff, at the VLBI parallax distance of its pulsar. The remnants of the supernovae with recorded dates are added beyond the cutoff for the light-front topics: RCW 86 (SN 185, probable), RX J1713.7-3946 (SN 393, probable), SN 1006, Pa 30 (SN 1181), Tycho’s and Kepler’s remnants, Cassiopeia A (dated by its expansion) and SN 1987A in the Large Magellanic Cloud. 3C 58 (too old for SN 1181) and G11.2-0.3 (a doubtful match for SN 386) are left out.",
+  "snapshot": "J2000 map positions; literature reviewed 2026-10-01 (500-ly census), 2026-11-03 (2000-ly batch 1), 2026-11-04 (batches 2 and 3) and 2026-11-13 (supernova remnants, including the Crab Nebula) and 2026-11-15 (remnants of the historical supernovae)."
 }

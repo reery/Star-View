@@ -2,11 +2,15 @@ import { scientificPlanetValue } from './planet-value'
 
 export const MISSING_VALUE = '—'
 
+export function significant(value: number, digits = 3): string {
+  return value.toLocaleString('en-US', { maximumSignificantDigits: digits })
+}
+
 /** Fixed decimals, falling back to significant digits so tiny nonzero values never display as 0. */
 export function formatNumber(value: number, maximumFractionDigits = 3): string {
   const rounded = value.toLocaleString('en-US', { maximumFractionDigits })
   return value !== 0 && Number(rounded.replace(/,/g, '')) === 0
-    ? value.toLocaleString('en-US', { maximumSignificantDigits: 3 })
+    ? significant(value)
     : rounded
 }
 

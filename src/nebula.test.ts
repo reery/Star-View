@@ -26,14 +26,16 @@ describe('nebula overlay data', () => {
       ['pleiades-nebula', 'reflection_nebula'],
       ['orion-nebula', 'hii_region'],
     ])
-    expect(nebulae).toHaveLength(93)
-    expect(manifest.counts).toEqual({ reflection_nebula: 59, hii_region: 14, planetary_nebula: 16, supernova_remnant: 4 })
+    expect(nebulae).toHaveLength(101)
+    expect(manifest.counts).toEqual({ reflection_nebula: 59, hii_region: 14, planetary_nebula: 16, supernova_remnant: 12 })
     expect(byId('sh-2-216').type).toBe('planetary_nebula')
   })
 
   it('keeps every census nebula within 1 sigma of 2000 ly and at least 5 arcmin across', () => {
     const cutoffPc = 2000 / LIGHT_YEARS_PER_PARSEC
-    const showcases = ['orion-nebula', 'crab-nebula']
+    // Showcases and the remnants of supernovae with recorded dates lie beyond the census.
+    const showcases = ['orion-nebula', 'crab-nebula', 'rcw-86', 'rx-j1713-3946', 'sn-1006', 'pa-30', 'tychos-supernova-remnant',
+      'keplers-supernova-remnant', 'cassiopeia-a', 'sn-1987a']
     for (const nebula of nebulae.filter((candidate) => !showcases.includes(candidate.id))) {
       const { distance_pc, distance_error_pc, angular_size_arcmin } = nebula.nebula!
       expect(distance_pc - (distance_error_pc ?? 0), nebula.id).toBeLessThanOrEqual(cutoffPc)
@@ -145,7 +147,8 @@ describe('nebula puff volumes', () => {
     const compact = new Map((JSON.parse(compactPayloadRaw).objects as Star[]).map((star) =>
       [star.id, compactInfo.articles[star.id as keyof typeof compactInfo.articles]?.name ?? star.name]))
     const remnants = nebulae.filter((nebula) => nebula.type === 'supernova_remnant')
-    expect(remnants.map(({ id }) => id)).toEqual(['vela-supernova-remnant', 'monogem-ring', 'hoinga', 'crab-nebula'])
+    expect(remnants.map(({ id }) => id)).toEqual(['vela-supernova-remnant', 'monogem-ring', 'hoinga', 'crab-nebula', 'rcw-86', 'rx-j1713-3946', 'sn-1006', 'pa-30',
+      'tychos-supernova-remnant', 'keplers-supernova-remnant', 'cassiopeia-a', 'sn-1987a'])
     for (const { id, nebula } of remnants) {
       const star = nebula!.remnant!.neutron_star
       if (star) expect(compact.get(star.id), id).toBe(star.name)

@@ -1,22 +1,20 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
-import { streamWhenLoaded } from './content-stream'
+import { STREAM_EASING, STREAM_MS, streamWhenLoaded } from './content-stream'
 import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, Clapperboard, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, Lightbulb, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipBrightness, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
 import { FIRST_BIRTH_YEAR, NEIGHBORHOOD_RADIUS_LY, NeighborhoodIcon, neighborhoodBounds } from './neighborhood'
-import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type Star } from './catalog-model'
+import { initializeInsights, InsightsIcon } from './insights'
+import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isGalaxyObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type GalaxyDetails, type Star } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogMeasurement, catalogSourceFor } from './catalog-source'
 import { completeLoadedCompanions as completeCatalogCompanions } from './constellation-companions'
 import { hipNumber, objectDesignations, objectHipNumbers } from './designations'
 import { designationsAvailable, loadCatalogDesignations } from './catalog-designations'
 import { completeCompanionRecords } from './companion-records'
-import { compactOverlayManifest, loadCompactRemnants } from './compact-overlay'
-import { loadNebulae, nebulaOverlayManifest } from './nebula-overlay'
-import { loadMolecularClouds, molecularCloudOverlayManifest } from './molecular-cloud-overlay'
-import { bubbleOverlayManifest, loadBubbles } from './bubble-overlay'
+import { bubbleOverlayManifest, compactOverlayManifest, loadBubbles, loadCompactRemnants, loadGalaxies, loadMolecularClouds, loadNebulae, molecularCloudOverlayManifest, nebulaOverlayManifest } from './overlays'
 import { catalogs, catalogErrors } from './registry'
 import legacyStarIds from './data/legacy-star-ids.json'
 import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, formatDistance, galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
@@ -63,7 +61,8 @@ import { initializeTouchTooltips } from './touch-tooltips'
 import { attachPopoverTooltip } from './popover-tooltips'
 import startupIndex from './data/generated/startup-index.json'
 import { objectSubtypeDescription } from './object-subtype-info'
-import { formatNumber, MISSING_VALUE, preciseMeasurement, quantity, scientificQuantity } from './format'
+import { formatNumber, measurement, MISSING_VALUE, preciseMeasurement, quantity, scientificQuantity } from './format'
+import { scientificPlanetValue } from './planet-value'
 import { decodeSavedViewLink, encodeSavedViewLink, OBJECT_DISTANCE_STEPS_LY, readSavedViews, SAVED_VIEWS_STORAGE_KEY, type SavedView, type SavedViewSettings } from './saved-views'
 import type { SkyGridMode } from './sky-grid'
 import { browserDataSize, deleteBrowserData, exportBrowserData, importBrowserData } from './browser-data'
@@ -111,6 +110,8 @@ function timingText(id: string, value: number | null, error: number | null, unit
 }
 
 // Values with selection-specific markup stay in renderSelection; Specs owns the rest.
+// The supernova remnant each neutron star or surviving star belongs to, keyed by that object's ID.
+const remnantLinks: Readonly<Record<string, { id: string; name: string }>> = startupIndex.remnantLinks
 const SPECS_OWNED_BY_SELECTION = new Set(['distance-toggle', 'known-planets', 'object-subtypes-empty'])
 
 function showSpec(id: string, value: SpecValue): void {
@@ -157,6 +158,10 @@ appendConstellationContent(element('constellation-card'))
 
 icon('discover-icon', Compass)
 icon('constellations-icon', ConstellationIcon)
+icon('insights-icon', InsightsIcon)
+icon('insights-active-icon', InsightsIcon)
+icon('insights-lock-icon', Lock)
+icon('insights-close-icon', X)
 icon('neighborhood-icon', NeighborhoodIcon)
 icon('neighborhood-active-icon', NeighborhoodIcon)
 icon('neighborhood-clear-icon', FunnelX)
@@ -476,7 +481,7 @@ let demoPointerHeld = false
 let demoLabels = false
 let demoUi = false
 let demoSpeedLevel = 2
-/** Whether a demo journey rates brightness from the camera, as an imaginary ship. */
+/** Whether the demo rates brightness from the camera, as an imaginary ship. */
 let demoShipView = false
 const DEMO_HOLD_MS = 4000
 /** Pace multipliers of the Demo speed slider, from slow to fast. */
@@ -495,7 +500,7 @@ let starColorMode: StarColorMode = 'exaggerated'
 let starStyle: StarStyle = 'realistic'
 let starBrightness: StarBrightness = 'normal'
 let faintStars: FaintStars = 'natural'
-let shader: Shader = 'exposure'
+let shader: Shader = 'none'
 let colorBlindPalette = false
 const WESTERN_CONSTELLATION_CATALOG_ID = 'western-constellation-stars'
 const NAKED_EYE_CATALOG_ID = 'naked-eye-stars'
@@ -609,11 +614,11 @@ document.querySelectorAll('.time-markers').forEach((markers) => {
 })
 const selectionHistory = new SelectionHistory(selectedId)
 // The Spaceship card opens in the dock like other cards, but scene clicks leave it open for flying.
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation', 'observer', 'demo'] as const
-const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'rotation', 'observer', 'demo'] as const
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'insights', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation', 'observer', 'demo'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'insights', 'neighborhood', 'preferences', 'rotation', 'observer', 'demo'] as const
 // Explore panels and Demo mode open from a flyout, so focus returns to its toggle.
 // The observer card opens with observer view and has no toggle of its own; closed, its indicator reopens it.
-const panelToggleId = (name: typeof panelNames[number]) => name === 'observer' ? 'observer-active' : name === 'demo' ? 'info-toggle' : name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
+const panelToggleId = (name: typeof panelNames[number]) => name === 'observer' ? 'observer-active' : name === 'demo' ? 'info-toggle' : name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'insights' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 // Only the observer card remembers its lock between visits.
 try {
@@ -885,6 +890,7 @@ async function selectTopListObject(object: import('./top-lists').TopListObject):
   if (loaded) await selectConstellationStar(loaded)
   else {
     const payload = object.catalog === compactOverlayManifest.id ? await loadCompactRemnants()
+      : object.catalog === nebulaOverlayManifest.id ? await loadNebulae()
       : await catalogs.find((catalog) => catalog.manifest.id === object.catalog)!.load()
     const record = payload.find((star) => star.id === object.id)
     if (!record) return
@@ -1938,7 +1944,7 @@ function syncSelectedObjectLayout(): void {
   selectedCard.style.maxHeight = `${Math.max(68, availableHeight)}px`
 }
 
-function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'top-lists-active' | 'motion-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active' | 'demo-active', active: boolean): void {
+function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'top-lists-active' | 'motion-active' | 'insights-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active' | 'demo-active', active: boolean): void {
   if (active) noteTipFeature(id)
   const indicator = element(id)
   if (indicator.hidden !== active) return
@@ -2151,8 +2157,9 @@ function setDemoShipView(shipView: boolean): void {
 }
 
 function visibilityBaseName(): string {
+  if (demoShipView) return 'Demo ship'
   if (spaceship && spaceshipVisibility) return 'Spaceship'
-  return demoShipView ? 'Demo ship' : stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun'
+  return stars.find((candidate) => candidate.id === observerId)?.name ?? 'Sun'
 }
 
 function stepDemo(time: number): void {
@@ -2166,8 +2173,8 @@ function stepDemo(time: number): void {
   const pose = demoTour?.advance(seconds * DEMO_SPEEDS[demoSpeedLevel]!)
   if (!pose) return
   viewer.setViewState({ position: pose.position.toArray(), target: pose.target.toArray(), home: false, observerRollRadians: 0 })
-  viewer.setVisibilityPoint(pose.observer)
-  setDemoShipView(pose.observer !== null)
+  viewer.setVisibilityPoint(pose.position)
+  setDemoShipView(true)
 }
 
 /** The visitor's own camera moves pause the demo, which then continues from where they left the view. */
@@ -2399,6 +2406,14 @@ element('remnant-neutron-star').addEventListener('click', () => {
   const id = starById(selectedId)?.nebula?.remnant?.neutron_star?.id
   if (id) void selectTopListObject({ catalog: compactOverlayManifest.id, id, designation: null })
 }, { signal: events.signal })
+element('remnant-surviving-star').addEventListener('click', () => {
+  const star = starById(selectedId)?.nebula?.remnant?.surviving_star
+  if (star) void selectTopListObject({ catalog: star.catalog, id: star.id, designation: null })
+}, { signal: events.signal })
+element('parent-remnant').addEventListener('click', () => {
+  const remnant = selectedId === null ? undefined : remnantLinks[selectedId]
+  if (remnant) void selectTopListObject({ catalog: nebulaOverlayManifest.id, id: remnant.id, designation: null })
+}, { signal: events.signal })
 element('known-planets-row').addEventListener('click', () => {
   if (element<HTMLButtonElement>('known-planets').disabled) return
   activeObjectSection = 'system'
@@ -2622,17 +2637,25 @@ function renderSelection(): void {
   const molecularCloudObject = isMolecularCloudObject(star)
   const bubble = star.bubble
   const bubbleObject = isBubbleObject(star)
-  element('known-planets-row').hidden = knownPlanetCount === 0 || nebulaObject || molecularCloudObject || bubbleObject
-  element('object-subtypes-empty-row').hidden = subtypes.length > 0 || nebulaObject || molecularCloudObject || bubbleObject
-  const stellarPropertiesHidden = compactObject || nebulaObject || molecularCloudObject || bubbleObject
+  const galaxy = star.galaxy
+  const galaxyObject = isGalaxyObject(star)
+  const extendedObject = nebulaObject || molecularCloudObject || bubbleObject || galaxyObject
+  element('known-planets-row').hidden = knownPlanetCount === 0 || extendedObject
+  element('object-subtypes-empty-row').hidden = subtypes.length > 0 || extendedObject
+  const stellarPropertiesHidden = compactObject || extendedObject
   for (const row of document.querySelectorAll<HTMLElement>('.stellar-property')) row.hidden = stellarPropertiesHidden
   for (const row of document.querySelectorAll<HTMLElement>('.compact-property')) row.hidden = !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.nebula-property')) row.hidden = !nebulaObject
   for (const row of document.querySelectorAll<HTMLElement>('.remnant-property')) row.hidden = !nebula?.remnant
+  const parentRemnant = remnantLinks[star.id]
+  element('parent-remnant-row').hidden = !parentRemnant
+  text('parent-remnant', parentRemnant?.name ?? '')
+  element('parent-remnant').setAttribute('aria-label', parentRemnant ? `Select ${parentRemnant.name}` : '')
   element('nebula-illumination-row').hidden = !nebulaObject || !!nebula?.remnant
   for (const row of document.querySelectorAll<HTMLElement>('.molecular-cloud-property')) row.hidden = !molecularCloudObject
   for (const row of document.querySelectorAll<HTMLElement>('.bubble-property')) row.hidden = !bubbleObject
-  element('mass-row').hidden = nebulaObject || bubbleObject
+  for (const row of document.querySelectorAll<HTMLElement>('.galaxy-property')) row.hidden = !galaxyObject
+  element('mass-row').hidden = nebulaObject || bubbleObject || galaxyObject
   for (const row of document.querySelectorAll<HTMLElement>('.pulsar-property')) row.hidden = star.type !== 'pulsar'
   for (const row of document.querySelectorAll<HTMLElement>('.rotation-property')) row.hidden = star.type === 'black_hole' || !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.orbit-property')) {
@@ -2750,6 +2773,11 @@ function renderSelection(): void {
     text('remnant-neutron-star', neutronStar?.name ?? '')
     text('remnant-neutron-star-missing', MISSING_VALUE)
     element('remnant-neutron-star').setAttribute('aria-label', neutronStar ? `Select ${neutronStar.name}` : '')
+    // A remnant whose star survived the explosion has no neutron star to report.
+    element('remnant-neutron-star-row').hidden = !neutronStar && !!remnant.surviving_star
+    element('remnant-surviving-star-row').hidden = !remnant.surviving_star
+    text('remnant-surviving-star', remnant.surviving_star?.name ?? '')
+    element('remnant-surviving-star').setAttribute('aria-label', remnant.surviving_star ? `Select ${remnant.surviving_star.name}` : '')
     element('remnant-hot-gas-row').hidden = remnant.hot_gas_kev === null
     text('remnant-hot-gas', remnant.hot_gas_kev === null ? '' : `${(remnant.hot_gas_kev * KELVIN_PER_KEV / 1e6).toLocaleString('en-US', { maximumFractionDigits: 1 })} million K (${remnant.hot_gas_kev} keV)`)
     element('remnant-hot-gas').title = remnant.hot_gas_source ?? ''
@@ -2781,6 +2809,7 @@ function renderSelection(): void {
     source.textContent = bubble.source_label
     source.href = bubble.source_url
   }
+  if (galaxy) renderGalaxyProperties(galaxy)
   const infrared = star.stellar_observations?.infrared_photometry
   element('infrared-magnitude-row').hidden = !infrared || stellarPropertiesHidden
   // Leave the hidden row empty, so a comparison column can mark the missing value explicitly.
@@ -2817,6 +2846,38 @@ function renderSelection(): void {
   void renderActiveObjectSection()
 }
 
+function renderGalaxyProperties(galaxy: GalaxyDetails): void {
+  const significant = (value: number) => Number(value.toPrecision(3)).toLocaleString('en-US')
+  const angle = (degrees: number) => degrees < 1 ? `${Number((degrees * 60).toFixed(1))}′` : `${Number(degrees.toFixed(2))}°`
+  text('galaxy-classification', `${galaxy.classification} · ${galaxy.morphology}`)
+  const size = galaxy.angular_size_deg
+  element('galaxy-angular-size-row').hidden = !size
+  text('galaxy-angular-size', size ? `${angle(size[0])} × ${angle(size[1])}` : '')
+  text('galaxy-diameter', `${significant(galaxy.diameter_pc * (distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1))} ${distanceUnit}`)
+  const count = (value: number) => value >= 1e12 ? `${Number((value / 1e12).toPrecision(2))} trillion` : `${Number((value / 1e9).toPrecision(3))} billion`
+  const [fewest, most] = galaxy.star_count
+  text('galaxy-stars', fewest === most ? `about ${count(fewest)}` : `${count(fewest).replace(/ \w+$/, '')}–${count(most)}`)
+  element('galaxy-stars').title = galaxy.star_count_source.label
+  const mass = galaxy.total_mass
+  element('galaxy-mass-row').hidden = !mass
+  if (mass) {
+    // One shared power of ten: 1.38 (+0.27, −0.24) × 10¹¹ M☉.
+    const power = 10 ** Math.floor(Math.log10(mass.value_solar))
+    const scaled = (value: number) => Number((value / power).toFixed(2)).toLocaleString('en-US')
+    const exponent = scientificPlanetValue(power, 1).replace(/^1 × /, '')
+    text('galaxy-mass', `${scaled(mass.value_solar)} (+${scaled(mass.upper_error_solar)}, −${scaled(mass.lower_error_solar)}) × ${exponent} M☉`)
+  }
+  text('galaxy-mass-term', mass ? `${mass.scope}. ${mass.source.label}.` : '')
+  const velocity = galaxy.radial_velocity_kms
+  element('galaxy-velocity-row').hidden = velocity === null
+  text('galaxy-velocity', measurement(velocity, galaxy.radial_velocity_error_kms, 'km/s', 1))
+  element('galaxy-velocity').title = galaxy.radial_velocity_source?.label ?? ''
+  text('galaxy-distance-method', galaxy.distance_method)
+  const source = element<HTMLAnchorElement>('galaxy-source')
+  source.textContent = galaxy.distance_source.label
+  source.href = galaxy.distance_source.url
+}
+
 function baseObjectListFilter(selected = selectedId): ObjectListFilter {
   const observer = hideFainterObjects ? starById(observerId) : undefined
   // Brightness is seen from the observer, while list distances are from the reference.
@@ -2826,7 +2887,7 @@ function baseObjectListFilter(selected = selectedId): ObjectListFilter {
     star.z_pc - observer.z_pc,
   )) ?? Infinity, magnitudeLimit) !== 'background'
   const neighborhood = neighborhoodFilter
-  return (star, distancePc) => isObjectMapVisible(star, visibleKeys, selected, observerId, distancePc * LIGHT_YEARS_PER_PARSEC, objectDistanceLimitLy) && brightEnough(star)
+  return (star, distancePc) => isObjectMapVisible(star, visibleKeys, selected, observerId, distancePc * LIGHT_YEARS_PER_PARSEC, objectDistanceLimitLy, milkyWayVisible) && brightEnough(star)
     && nakedEyeVisible(star) && (!neighborhood || neighborhood(star, distancePc))
 }
 
@@ -3246,7 +3307,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     const additive = additiveCatalogIds(id)
     const loadAdditive = (catalogId: string) => additive.includes(catalogId)
       ? catalogs.find((catalog) => catalog.manifest.id === catalogId)!.load() : Promise.resolve([])
-    const [selectedCatalog, westernConstellationCatalog, nakedEyeCatalog, notableDistantCatalog, compactObjects, nebulae, molecularClouds, bubbles] = await Promise.all([
+    const [selectedCatalog, westernConstellationCatalog, nakedEyeCatalog, notableDistantCatalog, compactObjects, nebulae, molecularClouds, bubbles, galaxies] = await Promise.all([
       definition.load(),
       loadAdditive(WESTERN_CONSTELLATION_CATALOG_ID),
       loadAdditive(NAKED_EYE_CATALOG_ID),
@@ -3255,10 +3316,12 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       loadOverlay(NEBULA_OBJECT_TYPES, loadNebulae),
       loadOverlay(MOLECULAR_CLOUD_OBJECT_TYPES, loadMolecularClouds),
       loadOverlay(BUBBLE_OBJECT_TYPES, loadBubbles),
+      // A few records, always loaded: the Galaxies preference shows and hides them without a reload.
+      loadGalaxies(),
     ])
     reachLy = selectedCatalog.reduce((farthest, star) => Math.max(farthest, Math.hypot(star.x_pc, star.y_pc, star.z_pc)), 0) * LIGHT_YEARS_PER_PARSEC
     const withConstellationStars = mergedCatalogLayers(id, selectedCatalog, westernConstellationCatalog, nakedEyeCatalog, notableDistantCatalog)
-    nextStars = [...withConstellationStars, ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles]
+    nextStars = [...withConstellationStars, ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles, ...galaxies]
     nextStars = mergeCatalogStars(nextStars, [...constellationSelectedSystems.values()].flat())
   } catch (error) {
     if (request !== catalogRequest) return
@@ -3333,27 +3396,31 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
   viewer.setVisibilityLocked(visibilityLockId !== null)
   syncViewCenterInset()
   viewer.select(selectedId, false)
-  viewer.setVisibility(observerId, magnitudeLimit, hideFainterObjects)
-  viewer.setObjectDistanceLimit(objectDistanceLimitLy)
-  viewer.setObjectFilter([...visibleKeys])
-  viewer.setObjectPredicate(mapObjectPredicate())
-  viewer.setNeighborhood(viewerNeighborhood())
-  viewer.setLabelLimit(labelLimit)
-  viewer.setMotionArrowsVisible(motionArrowsVisible)
-  viewer.setMotionFrame(motionFrame)
-  viewer.setMotionYears(motionYears)
-  viewer.setFollowSelection(followSelection)
-  viewer.setSimulationYears(simulationYears)
-  viewer.setSimulationPlaying(simulationPlaying)
-  viewer.setPowerSavingMode(powerSavingMode)
-  viewer.setRenderStatsListener(renderStatsVisible ? showRenderStats : null)
-  viewer.setSolarSystemSkyVisible(observerPlanetsVisible)
-  applyAutoRotation()
-  viewer.setGridVisible(gridVisible)
-  viewer.setSkyGrid(skyGridMode)
-  viewer.setMapGuidesVisible(!demoTour || demoUi)
-  viewer.setStarPaintZoomShrink(paintZoomShrink)
-  paintVisible(true)
+  const created = viewer
+  // Each of these alone would recompute every object's visibility, size and label rank.
+  created.batch(() => {
+    created.setVisibility(observerId, magnitudeLimit, hideFainterObjects)
+    created.setObjectDistanceLimit(objectDistanceLimitLy)
+    created.setObjectFilter([...visibleKeys])
+    created.setObjectPredicate(mapObjectPredicate())
+    created.setNeighborhood(viewerNeighborhood())
+    created.setLabelLimit(labelLimit)
+    created.setMotionArrowsVisible(motionArrowsVisible)
+    created.setMotionFrame(motionFrame)
+    created.setMotionYears(motionYears)
+    created.setFollowSelection(followSelection)
+    created.setSimulationYears(simulationYears)
+    created.setSimulationPlaying(simulationPlaying)
+    created.setPowerSavingMode(powerSavingMode)
+    created.setRenderStatsListener(renderStatsVisible ? showRenderStats : null)
+    created.setSolarSystemSkyVisible(observerPlanetsVisible)
+    applyAutoRotation()
+    created.setGridVisible(gridVisible)
+    created.setSkyGrid(skyGridMode)
+    created.setMapGuidesVisible(!demoTour || demoUi)
+    created.setStarPaintZoomShrink(paintZoomShrink)
+    paintVisible(true)
+  })
   // Filtering changes the visible objects, not the camera, including the initial overview.
   if (retainedView) {
     viewer.setViewState({ ...retainedView, home: false })
@@ -3744,6 +3811,12 @@ function saveCurrentView(): void {
   renderSavedViews()
 }
 
+function renderObjectDistanceLimit(): void {
+  const finite = Number.isFinite(objectDistanceLimitLy)
+  element('object-distance-limit').setAttribute('aria-valuetext', finite ? `${objectDistanceLimitLy} light-years` : 'Infinite')
+  text('object-distance-limit-value', finite ? `${objectDistanceLimitLy} ly` : 'Infinite')
+}
+
 function syncFilterInputs(): void {
   renderCatalogRange(activeCatalogId)
   element<HTMLInputElement>('show-western-constellation-stars').checked = showWesternConstellationStars
@@ -3752,8 +3825,7 @@ function syncFilterInputs(): void {
   const distanceIndex = OBJECT_DISTANCE_STEPS_LY.indexOf(objectDistanceLimitLy as typeof OBJECT_DISTANCE_STEPS_LY[number])
   const distanceInput = element<HTMLInputElement>('object-distance-limit')
   distanceInput.value = String(Math.max(0, distanceIndex))
-  distanceInput.setAttribute('aria-valuetext', `${objectDistanceLimitLy} light-years`)
-  text('object-distance-limit-value', `${objectDistanceLimitLy} ly`)
+  renderObjectDistanceLimit()
   const magnitudeInput = element<HTMLInputElement>('magnitude-limit')
   magnitudeInput.value = String(magnitudeLimit)
   text('magnitude-limit-value', String(magnitudeLimit))
@@ -4211,6 +4283,7 @@ element('top-lists-minimize').addEventListener('click', () => {
   focusToolbarButton('top-lists-active')
 }, { signal: events.signal })
 element('motion-active').addEventListener('click', () => togglePanel('motion'), { signal: events.signal })
+element('insights-active').addEventListener('click', () => togglePanel('insights'), { signal: events.signal })
 element('neighborhood-active').addEventListener('click', () => togglePanel('neighborhood'), { signal: events.signal })
 element('spaceship-active').addEventListener('click', () => togglePanel('spaceship'), { signal: events.signal })
 element('rotation-active').addEventListener('click', () => togglePanel('rotation'), { signal: events.signal })
@@ -4340,6 +4413,8 @@ spaceshipThrottlePad.addEventListener('lostpointercapture', () => {
   setSpaceshipThrottle(0)
 }, { signal: events.signal })
 touchFirstInput.addEventListener('change', renderSpaceship, { signal: events.signal })
+// An insight shows nothing on the map yet; turning one on only marks it active.
+initializeInsights(element('insights-list'), (active) => setActiveIndicator('insights-active', active !== null), events.signal)
 const birthYears = element<HTMLSelectElement>('neighborhood-birth-year')
 for (let year = new Date().getFullYear(); year >= FIRST_BIRTH_YEAR; year--) birthYears.add(new Option(String(year)))
 element('neighborhood-radius').addEventListener('input', () => {
@@ -4565,7 +4640,7 @@ function paintSettingParts(setting: HTMLElement) {
     channels: setting.querySelectorAll<HTMLButtonElement>('[data-paint-channel]'),
   }
 }
-element('paint-settings').addEventListener('click', (event) => {
+element('paint-settings').addEventListener('click', (event) => resizePaintCard(() => {
   // The chevron sits right of the scale buttons, outside the expand button, and expands like it.
   const chevron = event.target instanceof Element ? event.target.closest('.paint-setting-chevron') : null
   const button = event.target instanceof Element ? chevron?.parentElement!.querySelector('.paint-setting-expand') ?? event.target.closest('button') : null
@@ -4602,8 +4677,9 @@ element('paint-settings').addEventListener('click', (event) => {
     claimPaintChannels(parts.id)
   }
   showPaintState()
+  setPaintCompact(paintSettings.size > 0)
   paintVisible()
-}, { signal: events.signal })
+}), { signal: events.signal })
 element('paint-settings').addEventListener('input', (event) => {
   const input = event.target
   const parts = input instanceof HTMLInputElement ? paintSettingParts(input.closest<HTMLElement>('[data-paint-setting]')!) : null
@@ -4662,7 +4738,29 @@ function applyPaint(entries: readonly (readonly [PaintSettingId, number, (readon
     showPaintLevel(parts, level)
   })
   showPaintState()
+  setPaintCompact(paintSettings.size > 0)
   paintVisible(true)
+}
+/** On mobile, a compact Paint card shows only the painting settings; the heading's button brings the others back. */
+function setPaintCompact(compact: boolean): void {
+  element('paint-panel').classList.toggle('is-compact', compact)
+  const button = element('paint-expand')
+  const label = compact ? 'Show all paint settings' : 'Show only active paint settings'
+  button.hidden = !paintSettings.size
+  button.setAttribute('aria-label', label)
+  button.title = label
+  icon('paint-expand-icon', compact ? ChevronsUpDown : ChevronsDownUp)
+}
+let paintCardResize: Animation | undefined
+/** On mobile, the Paint card eases to the height a change leaves it with, as a stepped-to card eases to its size. */
+function resizePaintCard(change: () => void): void {
+  const card = element('paint-panel')
+  const from = card.offsetHeight
+  paintCardResize?.cancel()
+  change()
+  const to = card.offsetHeight
+  if (!from || to === from || wideLayout.matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  paintCardResize = card.animate({ height: [`${from}px`, `${to}px`] }, { duration: STREAM_MS, easing: STREAM_EASING })
 }
 /** The objects the map filter shows, leaving out a selection it shows only because it is selected. */
 function paintableStars(): Star[] {
@@ -4704,7 +4802,8 @@ function setPaintZoomShrink(enabled: boolean): void {
   viewer?.setStarPaintZoomShrink(enabled)
 }
 element('paint-keep-size').addEventListener('click', () => setPaintZoomShrink(!paintZoomShrink), { signal: events.signal })
-element('paint-reset').addEventListener('click', () => applyPaint([]), { signal: events.signal })
+element('paint-reset').addEventListener('click', () => resizePaintCard(() => applyPaint([])), { signal: events.signal })
+element('paint-expand').addEventListener('click', () => resizePaintCard(() => setPaintCompact(!element('paint-panel').classList.contains('is-compact'))), { signal: events.signal })
 element('filter-save').addEventListener('click', saveCurrentFilter, { signal: events.signal })
 catalogRange.addEventListener('change', () => {
   const catalog = sliderCatalogs[catalogRange.valueAsNumber]
@@ -4808,8 +4907,7 @@ element('object-distance-limit').addEventListener('input', () => {
   const input = element<HTMLInputElement>('object-distance-limit')
   if (!input.validity.valid || !Number.isFinite(input.valueAsNumber)) return
   objectDistanceLimitLy = OBJECT_DISTANCE_STEPS_LY[input.valueAsNumber] ?? objectDistanceLimitLy
-  input.setAttribute('aria-valuetext', `${objectDistanceLimitLy} light-years`)
-  text('object-distance-limit-value', `${objectDistanceLimitLy} ly`)
+  renderObjectDistanceLimit()
   updateObjectListFilter()
   viewer?.setObjectDistanceLimit(objectDistanceLimitLy)
 }, { signal: events.signal })
@@ -5008,7 +5106,7 @@ document.addEventListener('click', (event) => {
   event.preventDefault()
   openGlossaryTerm(term)
 }, { signal: events.signal })
-for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'neighborhood', 'preferences', 'spaceship', 'rotation', 'observer', 'demo'] as const) {
+for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'insights', 'neighborhood', 'preferences', 'spaceship', 'rotation', 'observer', 'demo'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()

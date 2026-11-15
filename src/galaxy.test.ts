@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { ARMS, armRadius, galactocentricToWorld, generateGalaxyPuffs } from './galaxy-layer'
+import { ARMS, armRadius, galactocentricToWorld, generateGalaxyPuffs, generateLocalGalaxyPuffs, tiltedDisk } from './galaxy-layer'
 import { distanceFade } from './milky-way-layer'
+import { parseGalaxyOverlayManifest, parseGalaxyOverlayPayload } from './galaxy-overlay-model'
+import { isObjectMapVisible, maxOrbitDistancePc } from './viewer-primitives'
+import { LIGHT_YEARS_PER_PARSEC } from './astronomy'
+import manifestRaw from './data/overlays/galaxies/manifest.json?raw'
+import payloadRaw from './data/overlays/galaxies/objects.json?raw'
 
 const arm = (name: string) => ARMS.find((candidate) => candidate.name === name)!
 
@@ -50,5 +55,67 @@ describe('Milky Way distance fade', () => {
     expect(distanceFade(Math.sqrt(1000 * 10_000), range)).toBeCloseTo(0.5, 10)
     expect(distanceFade(10_000, range)).toBe(1)
     expect(distanceFade(50_000, range)).toBe(1)
+  })
+})
+
+describe('Local Group galaxies', () => {
+  const manifest = parseGalaxyOverlayManifest(manifestRaw)
+  const galaxies = parseGalaxyOverlayPayload(JSON.parse(payloadRaw), manifest)
+  const galaxy = (id: string) => galaxies.find((candidate) => candidate.id === id)!
+
+  it('places each galaxy at its reviewed center and distance', () => {
+    expect(galaxies.map(({ id }) => id)).toEqual(['milky-way', 'large-magellanic-cloud', 'small-magellanic-cloud', 'andromeda-galaxy', 'triangulum-galaxy'])
+    // Sagittarius A* lies just below the plane toward l = 0°; Andromeda at l = 121.2°, b = −21.6°.
+    const center = galaxy('milky-way')
+    expect(Math.hypot(center.x_pc, center.y_pc, center.z_pc)).toBeCloseTo(8178, 0)
+    const andromeda = galaxy('andromeda-galaxy')
+    expect((Math.atan2(andromeda.y_pc, andromeda.x_pc) * 180 / Math.PI + 360) % 360).toBeCloseTo(121.17, 1)
+    expect(Math.asin(andromeda.z_pc / andromeda.galaxy!.distance_pc) * 180 / Math.PI).toBeCloseTo(-21.57, 1)
+  })
+
+  it('rejects a position that disagrees with the center and distance', () => {
+    const payload = JSON.parse(payloadRaw)
+    payload.objects[1].x_pc += 100
+    expect(() => parseGalaxyOverlayPayload(payload, manifest)).toThrow(/position/)
+  })
+
+  it('tilts a disk by its inclination, with the far side receding', () => {
+    const disk = tiltedDisk(60, 0, 90)
+    // The line of nodes runs north and stays in the sky plane.
+    expect(disk.toSky(1000, 0, 0).map((value) => Math.round(value))).toEqual([0, 1000, 0])
+    // Toward the far side (east), the disk is foreshortened by cos i and recedes by sin i.
+    const [east, north, depth] = disk.toSky(0, 1000, 0)
+    expect(east).toBeCloseTo(500, 6)
+    expect(north).toBeCloseTo(0, 6)
+    expect(depth).toBeCloseTo(866.03, 1)
+    expect(disk.fromSky(500, 300)).toEqual([300, expect.closeTo(1000, 6)])
+  })
+
+  it('generates each model as a deterministic prefix, so any detail level is an unbiased subset', () => {
+    for (const id of ['large-magellanic-cloud', 'small-magellanic-cloud', 'andromeda-galaxy', 'triangulum-galaxy']) {
+      const target = galaxy(id) as Parameters<typeof generateLocalGalaxyPuffs>[0]
+      const coarse = generateLocalGalaxyPuffs(target, 'emission', 64)
+      const fine = generateLocalGalaxyPuffs(target, 'emission', 256)
+      expect(fine.centers.subarray(0, 64 * 3), id).toEqual(coarse.centers)
+      expect(fine.shapes.every(Number.isFinite), id).toBe(true)
+      // Puffs stay within a few model radii of the center.
+      const radius = galaxy(id).galaxy!.model_radius_pc
+      for (let index = 0; index < fine.count; index++) {
+        expect(Math.hypot(...fine.centers.subarray(index * 3, index * 3 + 3)), id).toBeLessThan(3 * radius)
+      }
+    }
+  })
+
+  it('shows galaxies with the Galaxies preference at any distance limit', () => {
+    const andromeda = galaxy('andromeda-galaxy')
+    expect(isObjectMapVisible(andromeda, new Set(['star']), null, 'sun', 2.5e6, 100, true)).toBe(true)
+    expect(isObjectMapVisible(andromeda, new Set(['star']), null, 'sun', 2.5e6, 100, false)).toBe(false)
+    expect(isObjectMapVisible(andromeda, new Set(['star']), andromeda.id, 'sun', 2.5e6, 100, false)).toBe(true)
+  })
+
+  it('reaches across the Local Group only with galaxies shown and no distance limit', () => {
+    expect(maxOrbitDistancePc(Infinity, true) * LIGHT_YEARS_PER_PARSEC).toBeCloseTo(4_000_000)
+    expect(maxOrbitDistancePc(1000, true)).toBe(maxOrbitDistancePc(1000))
+    expect(maxOrbitDistancePc(Infinity)).toBe(maxOrbitDistancePc(1000))
   })
 })
