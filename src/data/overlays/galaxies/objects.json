@@ -376,6 +376,1074 @@
         "position_source": "NED J2000 center (l = 133.61°, b = -31.33°) at the Breuval et al. (2023) distance",
         "model_note": "A loosely wound, patchy spiral tilted 54° to face-on, with its long axis at position angle 22°, a small nucleus and NGC 604."
       }
+    },
+    {
+      "type": "galaxy",
+      "id": "sagittarius-dwarf-galaxy",
+      "name": "Sagittarius Dwarf Galaxy",
+      "designations": [
+        "Sagittarius Dwarf Spheroidal Galaxy",
+        "Sgr dSph",
+        "Sag DEG",
+        "PGC 4689212"
+      ],
+      "spectral_type": null,
+      "constellation": "Sagittarius",
+      "x_pc": 25355.2,
+      "y_pc": 2511.8,
+      "z_pc": -6531.0,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The nearest known satellite galaxy, beyond the Galactic Center and being torn apart by the Milky Way.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "dSph",
+        "classification": "Dwarf spheroidal galaxy",
+        "ra_deg": 284.0951655,
+        "dec_deg": -30.5498868,
+        "distance_pc": 26303,
+        "distance_error_pc": 1817,
+        "distance_method": "Tip of the red giant branch",
+        "distance_source": {
+          "label": "Monaco et al. (2004)",
+          "url": "https://arxiv.org/abs/astro-ph/0406350"
+        },
+        "diameter_pc": 5250.0,
+        "angular_size_deg": [
+          11.4,
+          4.104
+        ],
+        "size_source": {
+          "label": "McConnachie (2012), twice the half-light radius",
+          "url": "https://doi.org/10.1088/0004-6256/144/1/4"
+        },
+        "star_count": null,
+        "star_count_source": null,
+        "radial_velocity_kms": 140.0,
+        "radial_velocity_error_kms": 2.0,
+        "radial_velocity_source": {
+          "label": "McConnachie (2012)",
+          "url": "https://doi.org/10.1088/0004-6256/144/1/4"
+        },
+        "model_radius_pc": 7880.0,
+        "palette": {
+          "real": "#fff0e0",
+          "exaggerated": "#ffd49e"
+        },
+        "spheroid": {
+          "half_light_radius_pc": 2625.4,
+          "ellipticity": 0.64,
+          "position_angle_deg": 102.0,
+          "surface_brightness_v": 26.04,
+          "source": {
+            "label": "McConnachie (2012)",
+            "url": "https://doi.org/10.1088/0004-6256/144/1/4"
+          }
+        },
+        "position_source": "Local Volume Database J2000 center (l = 5.66°, b = -14.38°) at the Monaco et al. (2004) distance",
+        "model_note": "A smooth spheroid of old stars, 2,625 pc in half-light radius along its long axis at position angle 102°, with a 0.36 axis ratio."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "fornax-dwarf-galaxy",
+      "name": "Fornax Dwarf Galaxy",
+      "designations": [
+        "Fornax Dwarf Spheroidal",
+        "ESO 356-4",
+        "PGC 10074"
+      ],
+      "spectral_type": null,
+      "constellation": "Fornax",
+      "x_pc": -31781.7,
+      "y_pc": -49412.2,
+      "z_pc": -129892.3,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A dwarf spheroidal satellite of the Milky Way with six globular clusters.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "dSph",
+        "classification": "Dwarf spheroidal galaxy",
+        "ra_deg": 39.9708333,
+        "dec_deg": -34.5069444,
+        "distance_pc": 142561,
+        "distance_error_pc": 3151,
+        "distance_method": "Average of the red giant branch tip, RR Lyrae stars and the horizontal branch",
+        "distance_source": {
+          "label": "Oakes et al. (2022)",
+          "url": "https://doi.org/10.3847/1538-4357/ac5b07"
+        },
+        "diameter_pc": 1650.0,
+        "angular_size_deg": [
+          0.6633,
+          0.471
+        ],
+        "size_source": {
+          "label": "Wang et al. (2019), twice the half-light radius",
+          "url": "https://doi.org/10.3847/1538-4357/ab31a9"
+        },
+        "star_count": null,
+        "star_count_source": null,
+        "total_mass": {
+          "value_solar": 95500000.0,
+          "lower_error_solar": 4300000.0,
+          "upper_error_solar": 4500000.0,
+          "scope": "Mass within the half-light radius, dark matter included, from the stars’ velocity spread measured by Walker et al. (2009)",
+          "source": {
+            "label": "Pace (2025), Local Volume Database v1.1.2",
+            "url": "https://doi.org/10.33232/001c.144859"
+          }
+        },
+        "radial_velocity_kms": 55.2,
+        "radial_velocity_error_kms": 0.1,
+        "radial_velocity_source": {
+          "label": "Walker et al. (2009)",
+          "url": "https://doi.org/10.1088/0004-6256/137/2/3100"
+        },
+        "model_radius_pc": 2480.0,
+        "palette": {
+          "real": "#fff0e0",
+          "exaggerated": "#ffd49e"
+        },
+        "spheroid": {
+          "half_light_radius_pc": 825.2,
+          "ellipticity": 0.29,
+          "position_angle_deg": 42.7,
+          "surface_brightness_v": 24.39,
+          "source": {
+            "label": "Wang et al. (2019)",
+            "url": "https://doi.org/10.3847/1538-4357/ab31a9"
+          }
+        },
+        "position_source": "Local Volume Database J2000 center (l = 237.25°, b = -65.66°) at the Oakes et al. (2022) distance",
+        "model_note": "A smooth spheroid of old stars, 825 pc in half-light radius along its long axis at position angle 42.7°, with a 0.71 axis ratio."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "sculptor-dwarf-galaxy",
+      "name": "Sculptor Dwarf Galaxy",
+      "designations": [
+        "Sculptor Dwarf Spheroidal",
+        "ESO 351-30",
+        "PGC 3589"
+      ],
+      "spectral_type": null,
+      "constellation": "Sculptor",
+      "x_pc": 3042.4,
+      "y_pc": -9535.3,
+      "z_pc": -83347.2,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A dwarf spheroidal satellite of the Milky Way, home to the most metal-poor star known outside it.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "dSph",
+        "classification": "Dwarf spheroidal galaxy",
+        "ra_deg": 15.0183,
+        "dec_deg": -33.7186,
+        "distance_pc": 83946,
+        "distance_error_pc": 1546,
+        "distance_method": "RR Lyrae period–Wesenheit relations",
+        "distance_source": {
+          "label": "Martínez-Vázquez et al. (2015)",
+          "url": "https://doi.org/10.1093/mnras/stv2014"
+        },
+        "diameter_pc": 550.0,
+        "angular_size_deg": [
+          0.3723,
+          0.2495
+        ],
+        "size_source": {
+          "label": "Muñoz et al. (2018), twice the half-light radius",
+          "url": "https://doi.org/10.3847/1538-4357/aac16b"
+        },
+        "star_count": null,
+        "star_count_source": null,
+        "total_mass": {
+          "value_solar": 17400000.0,
+          "lower_error_solar": 3900000.0,
+          "upper_error_solar": 4500000.0,
+          "scope": "Mass within the half-light radius, dark matter included, from the stars’ velocity spread measured by Walker et al. (2009)",
+          "source": {
+            "label": "Pace (2025), Local Volume Database v1.1.2",
+            "url": "https://doi.org/10.33232/001c.144859"
+          }
+        },
+        "radial_velocity_kms": 111.4,
+        "radial_velocity_error_kms": 0.1,
+        "radial_velocity_source": {
+          "label": "Walker et al. (2009)",
+          "url": "https://doi.org/10.1088/0004-6256/137/2/3100"
+        },
+        "model_radius_pc": 820.0,
+        "palette": {
+          "real": "#fff0e0",
+          "exaggerated": "#ffd49e"
+        },
+        "spheroid": {
+          "half_light_radius_pc": 272.8,
+          "ellipticity": 0.33,
+          "position_angle_deg": 92.0,
+          "surface_brightness_v": 24.54,
+          "source": {
+            "label": "Muñoz et al. (2018)",
+            "url": "https://doi.org/10.3847/1538-4357/aac16b"
+          }
+        },
+        "position_source": "Local Volume Database J2000 center (l = 287.70°, b = -83.15°) at the Martínez-Vázquez et al. (2015) distance",
+        "model_note": "A smooth spheroid of old stars, 273 pc in half-light radius along its long axis at position angle 92°, with a 0.67 axis ratio."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "draco-dwarf-galaxy",
+      "name": "Draco Dwarf Galaxy",
+      "designations": [
+        "Draco Dwarf",
+        "Draco dSph",
+        "UGC 10822",
+        "DDO 208",
+        "PGC 60095"
+      ],
+      "spectral_type": null,
+      "constellation": "Draco",
+      "x_pc": 4240.9,
+      "y_pc": 66896.6,
+      "z_pc": 46439.3,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A faint dwarf spheroidal satellite of the Milky Way, dominated by dark matter.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "dSph",
+        "classification": "Dwarf spheroidal galaxy",
+        "ra_deg": 260.064917,
+        "dec_deg": 57.9196,
+        "distance_pc": 81546,
+        "distance_error_pc": 1502,
+        "distance_method": "Near-infrared RR Lyrae period–luminosity relations",
+        "distance_source": {
+          "label": "Bhardwaj et al. (2024)",
+          "url": "https://doi.org/10.3847/1538-3881/ad38b6"
+        },
+        "diameter_pc": 510.0,
+        "angular_size_deg": [
+          0.3613,
+          0.2652
+        ],
+        "size_source": {
+          "label": "Sato et al. (2026), twice the half-light radius",
+          "url": "https://doi.org/10.48550/arXiv.2609.16476"
+        },
+        "star_count": null,
+        "star_count_source": null,
+        "total_mass": {
+          "value_solar": 18600000.0,
+          "lower_error_solar": 1200000.0,
+          "upper_error_solar": 880000.0,
+          "scope": "Mass within the half-light radius, dark matter included, from the stars’ velocity spread measured by Geha et al. (2026)",
+          "source": {
+            "label": "Pace (2025), Local Volume Database v1.1.2",
+            "url": "https://doi.org/10.33232/001c.144859"
+          }
+        },
+        "radial_velocity_kms": -292.2,
+        "radial_velocity_error_kms": 0.3,
+        "radial_velocity_source": {
+          "label": "Geha et al. (2026)",
+          "url": "https://doi.org/10.3847/1538-4357/ae290d"
+        },
+        "model_radius_pc": 770.0,
+        "palette": {
+          "real": "#fff0e0",
+          "exaggerated": "#ffd49e"
+        },
+        "spheroid": {
+          "half_light_radius_pc": 257.1,
+          "ellipticity": 0.266,
+          "position_angle_deg": 92.37,
+          "surface_brightness_v": 26.42,
+          "source": {
+            "label": "Sato et al. (2026)",
+            "url": "https://doi.org/10.48550/arXiv.2609.16476"
+          }
+        },
+        "position_source": "Local Volume Database J2000 center (l = 86.37°, b = 34.71°) at the Bhardwaj et al. (2024) distance",
+        "model_note": "A smooth spheroid of old stars, 257 pc in half-light radius along its long axis at position angle 92.37°, with a 0.73 axis ratio."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "ursa-minor-dwarf-galaxy",
+      "name": "Ursa Minor Dwarf Galaxy",
+      "designations": [
+        "Ursa Minor Dwarf",
+        "UMi dSph",
+        "UGC 9749",
+        "DDO 199",
+        "PGC 54074"
+      ],
+      "spectral_type": null,
+      "constellation": "Ursa Minor",
+      "x_pc": -12864.2,
+      "y_pc": 48071.2,
+      "z_pc": 49438.2,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A dwarf spheroidal satellite of the Milky Way whose stars formed in a single early burst.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "dSph",
+        "classification": "Dwarf spheroidal galaxy",
+        "ra_deg": 227.242,
+        "dec_deg": 67.2221,
+        "distance_pc": 70146,
+        "distance_error_pc": 3553,
+        "distance_method": "RR Lyrae stars (Gaia DR3)",
+        "distance_source": {
+          "label": "Garofalo et al. (2025)",
+          "url": "https://doi.org/10.1051/0004-6361/202452619"
+        },
+        "diameter_pc": 750.0,
+        "angular_size_deg": [
+          0.61,
+          0.2745
+        ],
+        "size_source": {
+          "label": "Muñoz et al. (2018), twice the half-light radius",
+          "url": "https://doi.org/10.3847/1538-4357/aac16b"
+        },
+        "star_count": null,
+        "star_count_source": null,
+        "total_mass": {
+          "value_solar": 18200000.0,
+          "lower_error_solar": 1200000.0,
+          "upper_error_solar": 1300000.0,
+          "scope": "Mass within the half-light radius, dark matter included, from the stars’ velocity spread measured by Geha et al. (2026)",
+          "source": {
+            "label": "Pace (2025), Local Volume Database v1.1.2",
+            "url": "https://doi.org/10.33232/001c.144859"
+          }
+        },
+        "radial_velocity_kms": -246.1,
+        "radial_velocity_error_kms": 0.3,
+        "radial_velocity_source": {
+          "label": "Geha et al. (2026)",
+          "url": "https://doi.org/10.3847/1538-4357/ae290d"
+        },
+        "model_radius_pc": 1120.0,
+        "palette": {
+          "real": "#fff0e0",
+          "exaggerated": "#ffd49e"
+        },
+        "spheroid": {
+          "half_light_radius_pc": 373.4,
+          "ellipticity": 0.55,
+          "position_angle_deg": 50.0,
+          "surface_brightness_v": 26.7,
+          "source": {
+            "label": "Muñoz et al. (2018)",
+            "url": "https://doi.org/10.3847/1538-4357/aac16b"
+          }
+        },
+        "position_source": "Local Volume Database J2000 center (l = 104.98°, b = 44.81°) at the Garofalo et al. (2025) distance",
+        "model_note": "A smooth spheroid of old stars, 373 pc in half-light radius along its long axis at position angle 50°, with a 0.45 axis ratio."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "carina-dwarf-galaxy",
+      "name": "Carina Dwarf Galaxy",
+      "designations": [
+        "Carina Dwarf Spheroidal Galaxy",
+        "ESO 206-220",
+        "PGC 19441"
+      ],
+      "spectral_type": null,
+      "constellation": "Carina",
+      "x_pc": -16794.9,
+      "y_pc": -96289.9,
+      "z_pc": -39927.1,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A dim dwarf spheroidal satellite of the Milky Way, discovered in 1977.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "dSph",
+        "classification": "Dwarf spheroidal galaxy",
+        "ra_deg": 100.4065,
+        "dec_deg": -50.9593,
+        "distance_pc": 105584,
+        "distance_error_pc": 5397,
+        "distance_method": "Near-infrared RR Lyrae period–luminosity relations",
+        "distance_source": {
+          "label": "Karczmarek et al. (2015)",
+          "url": "https://doi.org/10.1088/0004-6256/150/3/90"
+        },
+        "diameter_pc": 620.0,
+        "angular_size_deg": [
+          0.3367,
+          0.2155
+        ],
+        "size_source": {
+          "label": "Muñoz et al. (2018), twice the half-light radius",
+          "url": "https://doi.org/10.3847/1538-4357/aac16b"
+        },
+        "star_count": null,
+        "star_count_source": null,
+        "total_mass": {
+          "value_solar": 10000000.0,
+          "lower_error_solar": 3400000.0,
+          "upper_error_solar": 4100000.0,
+          "scope": "Mass within the half-light radius, dark matter included, from the stars’ velocity spread measured by Walker et al. (2009)",
+          "source": {
+            "label": "Pace (2025), Local Volume Database v1.1.2",
+            "url": "https://doi.org/10.33232/001c.144859"
+          }
+        },
+        "radial_velocity_kms": 222.9,
+        "radial_velocity_error_kms": 0.1,
+        "radial_velocity_source": {
+          "label": "Walker et al. (2009)",
+          "url": "https://doi.org/10.1088/0004-6256/137/2/3100"
+        },
+        "model_radius_pc": 930.0,
+        "palette": {
+          "real": "#fff0e0",
+          "exaggerated": "#ffd49e"
+        },
+        "spheroid": {
+          "half_light_radius_pc": 310.2,
+          "ellipticity": 0.36,
+          "position_angle_deg": 60.0,
+          "surface_brightness_v": 26.11,
+          "source": {
+            "label": "Muñoz et al. (2018)",
+            "url": "https://doi.org/10.3847/1538-4357/aac16b"
+          }
+        },
+        "position_source": "Local Volume Database J2000 center (l = 260.11°, b = -22.22°) at the Karczmarek et al. (2015) distance",
+        "model_note": "A smooth spheroid of old stars, 310 pc in half-light radius along its long axis at position angle 60°, with a 0.64 axis ratio."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "sextans-dwarf-galaxy",
+      "name": "Sextans Dwarf Galaxy",
+      "designations": [
+        "Sextans Dwarf Spheroidal",
+        "Sextans I",
+        "PGC 88608"
+      ],
+      "spectral_type": null,
+      "constellation": "Sextans",
+      "x_pc": -28352.6,
+      "y_pc": -56888.2,
+      "z_pc": 57782.8,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A very diffuse dwarf spheroidal satellite of the Milky Way, discovered in 1990.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "dSph",
+        "classification": "Dwarf spheroidal galaxy",
+        "ra_deg": 153.268,
+        "dec_deg": -1.62,
+        "distance_pc": 85901,
+        "distance_error_pc": 3956,
+        "distance_method": "Synthetic color–magnitude diagram fit",
+        "distance_source": {
+          "label": "Lee et al. (2009)",
+          "url": "https://doi.org/10.1088/0004-637X/703/1/692"
+        },
+        "diameter_pc": 1140.0,
+        "angular_size_deg": [
+          0.76,
+          0.5548
+        ],
+        "size_source": {
+          "label": "Cicuéndez et al. (2018), twice the half-light radius",
+          "url": "https://doi.org/10.1051/0004-6361/201731450"
+        },
+        "star_count": null,
+        "star_count_source": null,
+        "total_mass": {
+          "value_solar": 28200000.0,
+          "lower_error_solar": 8700000.0,
+          "upper_error_solar": 11000000.0,
+          "scope": "Mass within the half-light radius, dark matter included, from the stars’ velocity spread measured by Walker et al. (2009)",
+          "source": {
+            "label": "Pace (2025), Local Volume Database v1.1.2",
+            "url": "https://doi.org/10.33232/001c.144859"
+          }
+        },
+        "radial_velocity_kms": 224.3,
+        "radial_velocity_error_kms": 0.1,
+        "radial_velocity_source": {
+          "label": "Walker et al. (2009)",
+          "url": "https://doi.org/10.1088/0004-6256/137/2/3100"
+        },
+        "model_radius_pc": 1710.0,
+        "palette": {
+          "real": "#fff0e0",
+          "exaggerated": "#ffd49e"
+        },
+        "spheroid": {
+          "half_light_radius_pc": 569.7,
+          "ellipticity": 0.27,
+          "position_angle_deg": 52.0,
+          "surface_brightness_v": 28.28,
+          "source": {
+            "label": "Cicuéndez et al. (2018)",
+            "url": "https://doi.org/10.1051/0004-6361/201731450"
+          }
+        },
+        "position_source": "Local Volume Database J2000 center (l = 243.51°, b = 42.27°) at the Lee et al. (2009) distance",
+        "model_note": "A smooth spheroid of old stars, 570 pc in half-light radius along its long axis at position angle 52°, with a 0.73 axis ratio."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "leo-i-dwarf-galaxy",
+      "name": "Leo I Dwarf Galaxy",
+      "designations": [
+        "Leo I",
+        "Regulus Dwarf",
+        "UGC 5470",
+        "DDO 74",
+        "PGC 29488"
+      ],
+      "spectral_type": null,
+      "constellation": "Leo",
+      "x_pc": -117455.5,
+      "y_pc": -121563.7,
+      "z_pc": 195210.5,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "One of the most distant satellites of the Milky Way, 12 arcminutes from Regulus.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "dSph",
+        "classification": "Dwarf spheroidal galaxy",
+        "ra_deg": 152.1146,
+        "dec_deg": 12.3059,
+        "distance_pc": 258226,
+        "distance_error_pc": 9513,
+        "distance_method": "RR Lyrae stars",
+        "distance_source": {
+          "label": "Stetson et al. (2014)",
+          "url": "https://doi.org/10.1086/677352"
+        },
+        "diameter_pc": 550.0,
+        "angular_size_deg": [
+          0.1217,
+          0.0852
+        ],
+        "size_source": {
+          "label": "Muñoz et al. (2018), twice the half-light radius",
+          "url": "https://doi.org/10.3847/1538-4357/aac16b"
+        },
+        "star_count": null,
+        "star_count_source": null,
+        "total_mass": {
+          "value_solar": 18200000.0,
+          "lower_error_solar": 1600000.0,
+          "upper_error_solar": 1800000.0,
+          "scope": "Mass within the half-light radius, dark matter included, from the stars’ velocity spread measured by Geha et al. (2026)",
+          "source": {
+            "label": "Pace (2025), Local Volume Database v1.1.2",
+            "url": "https://doi.org/10.33232/001c.144859"
+          }
+        },
+        "radial_velocity_kms": 285.9,
+        "radial_velocity_error_kms": 0.4,
+        "radial_velocity_source": {
+          "label": "Geha et al. (2026)",
+          "url": "https://doi.org/10.3847/1538-4357/ae290d"
+        },
+        "model_radius_pc": 820.0,
+        "palette": {
+          "real": "#fff0e0",
+          "exaggerated": "#ffd49e"
+        },
+        "spheroid": {
+          "half_light_radius_pc": 274.2,
+          "ellipticity": 0.3,
+          "position_angle_deg": 78.0,
+          "surface_brightness_v": 23.55,
+          "source": {
+            "label": "Muñoz et al. (2018)",
+            "url": "https://doi.org/10.3847/1538-4357/aac16b"
+          }
+        },
+        "position_source": "Local Volume Database J2000 center (l = 225.98°, b = 49.11°) at the Stetson et al. (2014) distance",
+        "model_note": "A smooth spheroid of old stars, 274 pc in half-light radius along its long axis at position angle 78°, with a 0.70 axis ratio."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "leo-ii-dwarf-galaxy",
+      "name": "Leo II Dwarf Galaxy",
+      "designations": [
+        "Leo II",
+        "Leo B",
+        "UGC 6253",
+        "DDO 93",
+        "PGC 34176"
+      ],
+      "spectral_type": null,
+      "constellation": "Leo",
+      "x_pc": -61810.8,
+      "y_pc": -52161.7,
+      "z_pc": 192640.4,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A distant dwarf spheroidal satellite of the Milky Way.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "dSph",
+        "classification": "Dwarf spheroidal galaxy",
+        "ra_deg": 168.3627,
+        "dec_deg": 22.1529,
+        "distance_pc": 208930,
+        "distance_error_pc": 5773,
+        "distance_method": "RR Lyrae stars",
+        "distance_source": {
+          "label": "Monelli et al. (2025)",
+          "url": "https://doi.org/10.1051/0004-6361/202453567"
+        },
+        "diameter_pc": 310.0,
+        "angular_size_deg": [
+          0.084,
+          0.0781
+        ],
+        "size_source": {
+          "label": "Muñoz et al. (2018), twice the half-light radius",
+          "url": "https://doi.org/10.3847/1538-4357/aac16b"
+        },
+        "star_count": null,
+        "star_count_source": null,
+        "total_mass": {
+          "value_solar": 7760000.0,
+          "lower_error_solar": 840000.0,
+          "upper_error_solar": 750000.0,
+          "scope": "Mass within the half-light radius, dark matter included, from the stars’ velocity spread measured by Geha et al. (2026)",
+          "source": {
+            "label": "Pace (2025), Local Volume Database v1.1.2",
+            "url": "https://doi.org/10.33232/001c.144859"
+          }
+        },
+        "radial_velocity_kms": 78.8,
+        "radial_velocity_error_kms": 0.5,
+        "radial_velocity_source": {
+          "label": "Geha et al. (2026)",
+          "url": "https://doi.org/10.3847/1538-4357/ae290d"
+        },
+        "model_radius_pc": 460.0,
+        "palette": {
+          "real": "#fff0e0",
+          "exaggerated": "#ffd49e"
+        },
+        "spheroid": {
+          "half_light_radius_pc": 153.2,
+          "ellipticity": 0.07,
+          "position_angle_deg": 38.0,
+          "surface_brightness_v": 24.94,
+          "source": {
+            "label": "Muñoz et al. (2018)",
+            "url": "https://doi.org/10.3847/1538-4357/aac16b"
+          }
+        },
+        "position_source": "Local Volume Database J2000 center (l = 220.16°, b = 67.23°) at the Monelli et al. (2025) distance",
+        "model_note": "A smooth spheroid of old stars, 153 pc in half-light radius along its long axis at position angle 38°, with a 0.93 axis ratio."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "messier-32",
+      "name": "Messier 32",
+      "designations": [
+        "M32",
+        "NGC 221",
+        "UGC 452",
+        "PGC 2555",
+        "Arp 168"
+      ],
+      "spectral_type": null,
+      "constellation": "Andromeda",
+      "x_pc": -370649.1,
+      "y_pc": 613224.2,
+      "z_pc": -289156.2,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A compact elliptical satellite of the Andromeda Galaxy, seen against its disk.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "cE2",
+        "classification": "Compact elliptical galaxy",
+        "ra_deg": 10.674125,
+        "dec_deg": 40.86511111,
+        "distance_pc": 772681,
+        "distance_error_pc": 21350,
+        "distance_method": "RR Lyrae stars (HST)",
+        "distance_source": {
+          "label": "Savino et al. (2022)",
+          "url": "https://doi.org/10.3847/1538-4357/ac91cb"
+        },
+        "diameter_pc": 1960.0,
+        "angular_size_deg": [
+          0.145,
+          0.1083
+        ],
+        "size_source": {
+          "label": "Wikipedia: Messier 32 (apparent size in visible light)",
+          "url": "https://en.wikipedia.org/wiki/Messier_32"
+        },
+        "star_count": null,
+        "star_count_source": null,
+        "radial_velocity_kms": -199.0,
+        "radial_velocity_error_kms": 6.0,
+        "radial_velocity_source": {
+          "label": "McConnachie (2012)",
+          "url": "https://doi.org/10.1088/0004-6256/144/1/4"
+        },
+        "model_radius_pc": 980.0,
+        "palette": {
+          "real": "#fff0e0",
+          "exaggerated": "#ffd49e"
+        },
+        "spheroid": {
+          "half_light_radius_pc": 105.6,
+          "ellipticity": 0.25,
+          "position_angle_deg": 159.0,
+          "surface_brightness_v": 17.03,
+          "source": {
+            "label": "McConnachie (2012)",
+            "url": "https://doi.org/10.1088/0004-6256/144/1/4"
+          }
+        },
+        "position_source": "Local Volume Database J2000 center (l = 121.15°, b = -21.98°) at the Savino et al. (2022) distance",
+        "model_note": "A smooth spheroid of old stars, 106 pc in half-light radius along its long axis at position angle 159°, with a 0.75 axis ratio."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "messier-110",
+      "name": "Messier 110",
+      "designations": [
+        "M110",
+        "NGC 205",
+        "UGC 426",
+        "PGC 2429"
+      ],
+      "spectral_type": null,
+      "constellation": "Andromeda",
+      "x_pc": -398115.2,
+      "y_pc": 670028.2,
+      "z_pc": -301328.6,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A dwarf elliptical satellite of the Andromeda Galaxy and the last entry of the Messier catalog.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "dE5 pec",
+        "classification": "Dwarf elliptical galaxy",
+        "ra_deg": 10.09375,
+        "dec_deg": 41.68638889,
+        "distance_pc": 835603,
+        "distance_error_pc": 23089,
+        "distance_method": "RR Lyrae stars (HST)",
+        "distance_source": {
+          "label": "Savino et al. (2022)",
+          "url": "https://doi.org/10.3847/1538-4357/ac91cb"
+        },
+        "diameter_pc": 5320.0,
+        "angular_size_deg": [
+          0.365,
+          0.1833
+        ],
+        "size_source": {
+          "label": "Wikipedia: Messier 110 (apparent size in visible light)",
+          "url": "https://en.wikipedia.org/wiki/Messier_110"
+        },
+        "star_count": null,
+        "star_count_source": null,
+        "radial_velocity_kms": -246.0,
+        "radial_velocity_error_kms": 1.0,
+        "radial_velocity_source": {
+          "label": "McConnachie (2012)",
+          "url": "https://doi.org/10.1088/0004-6256/144/1/4"
+        },
+        "model_radius_pc": 2660.0,
+        "palette": {
+          "real": "#fff0e0",
+          "exaggerated": "#ffd49e"
+        },
+        "spheroid": {
+          "half_light_radius_pc": 597.9,
+          "ellipticity": 0.43,
+          "position_angle_deg": 28.0,
+          "surface_brightness_v": 20.33,
+          "source": {
+            "label": "McConnachie (2012)",
+            "url": "https://doi.org/10.1088/0004-6256/144/1/4"
+          }
+        },
+        "position_source": "Local Volume Database J2000 center (l = 120.72°, b = -21.14°) at the Savino et al. (2022) distance",
+        "model_note": "A smooth spheroid of old stars, 598 pc in half-light radius along its long axis at position angle 28°, with a 0.57 axis ratio."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "ngc-185",
+      "name": "NGC 185",
+      "designations": [
+        "Caldwell 18",
+        "UGC 396",
+        "PGC 2329"
+      ],
+      "spectral_type": null,
+      "constellation": "Cassiopeia",
+      "x_pc": -321496.1,
+      "y_pc": 539489.2,
+      "z_pc": -162227.5,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A dwarf elliptical satellite of the Andromeda Galaxy with young star clusters and an active nucleus.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "dE3",
+        "classification": "Dwarf elliptical galaxy",
+        "ra_deg": 9.741666667,
+        "dec_deg": 48.33611111,
+        "distance_pc": 648634,
+        "distance_error_pc": 17922,
+        "distance_method": "RR Lyrae stars (HST)",
+        "distance_source": {
+          "label": "Savino et al. (2022)",
+          "url": "https://doi.org/10.3847/1538-4357/ac91cb"
+        },
+        "diameter_pc": 2210.0,
+        "angular_size_deg": [
+          0.195,
+          0.1667
+        ],
+        "size_source": {
+          "label": "Wikipedia: NGC 185 (apparent size in visible light)",
+          "url": "https://en.wikipedia.org/wiki/NGC_185"
+        },
+        "star_count": null,
+        "star_count_source": null,
+        "radial_velocity_kms": -203.8,
+        "radial_velocity_error_kms": 1.1,
+        "radial_velocity_source": {
+          "label": "McConnachie (2012)",
+          "url": "https://doi.org/10.1088/0004-6256/144/1/4"
+        },
+        "model_radius_pc": 1660.0,
+        "palette": {
+          "real": "#fff0e0",
+          "exaggerated": "#ffd49e"
+        },
+        "spheroid": {
+          "half_light_radius_pc": 554.7,
+          "ellipticity": 0.22,
+          "position_angle_deg": 45.9,
+          "surface_brightness_v": 21.42,
+          "source": {
+            "label": "Crnojević et al. (2014)",
+            "url": "https://doi.org/10.1093/mnras/stu2003"
+          }
+        },
+        "position_source": "Local Volume Database J2000 center (l = 120.79°, b = -14.48°) at the Savino et al. (2022) distance",
+        "model_note": "A smooth spheroid of old stars, 555 pc in half-light radius along its long axis at position angle 45.9°, with a 0.78 axis ratio."
+      }
+    },
+    {
+      "type": "galaxy",
+      "id": "ngc-147",
+      "name": "NGC 147",
+      "designations": [
+        "Caldwell 17",
+        "UGC 326",
+        "DDO 3",
+        "PGC 2004"
+      ],
+      "spectral_type": null,
+      "constellation": "Cassiopeia",
+      "x_pc": -353967.9,
+      "y_pc": 617666.4,
+      "z_pc": -180847.2,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A dwarf elliptical satellite of the Andromeda Galaxy, paired with NGC 185.",
+      "raw_astrometry": null,
+      "galaxy": {
+        "morphology": "dE5",
+        "classification": "Dwarf elliptical galaxy",
+        "ra_deg": 8.298333333,
+        "dec_deg": 48.50777778,
+        "distance_pc": 734514,
+        "distance_error_pc": 20295,
+        "distance_method": "RR Lyrae stars (HST)",
+        "distance_source": {
+          "label": "Savino et al. (2022)",
+          "url": "https://doi.org/10.3847/1538-4357/ac91cb"
+        },
+        "diameter_pc": 2820.0,
+        "angular_size_deg": [
+          0.22,
+          0.13
+        ],
+        "size_source": {
+          "label": "Wikipedia: NGC 147 (apparent size in visible light)",
+          "url": "https://en.wikipedia.org/wiki/NGC_147"
+        },
+        "star_count": null,
+        "star_count_source": null,
+        "radial_velocity_kms": -193.1,
+        "radial_velocity_error_kms": 0.8,
+        "radial_velocity_source": {
+          "label": "McConnachie (2012)",
+          "url": "https://doi.org/10.1088/0004-6256/144/1/4"
+        },
+        "model_radius_pc": 4290.0,
+        "palette": {
+          "real": "#fff0e0",
+          "exaggerated": "#ffd49e"
+        },
+        "spheroid": {
+          "half_light_radius_pc": 1431.5,
+          "ellipticity": 0.46,
+          "position_angle_deg": 34.2,
+          "surface_brightness_v": 22.11,
+          "source": {
+            "label": "Crnojević et al. (2014)",
+            "url": "https://doi.org/10.1093/mnras/stu2003"
+          }
+        },
+        "position_source": "Local Volume Database J2000 center (l = 119.82°, b = -14.25°) at the Savino et al. (2022) distance",
+        "model_note": "A smooth spheroid of old stars, 1,432 pc in half-light radius along its long axis at position angle 34.2°, with a 0.54 axis ratio."
+      }
     }
   ]
 }

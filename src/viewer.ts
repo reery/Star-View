@@ -9,8 +9,9 @@ import type { Star } from './catalog-model'
 import { createStarAppearance, displayMagnitude, STAR_ADAPTATION_FLUX, STAR_BRIGHTNESSES, starCrowdCoverage, starEyeExposure, STAR_GLARE_MAX_RADIUS_PX, STAR_STYLES, type FaintStars, type StarBrightness, type StarStyle } from './star-appearance'
 import { createDepthLabel } from './depth-label'
 import type { ScenePass } from './scene-shader'
+import { createSceneCrossfade } from './scene-crossfade'
 import { updateCameraNearPlane } from './camera-depth'
-import { createMilkyWayLayer } from './milky-way-layer'
+import { createMilkyWayLayer, GALAXY_LABEL_PRIORITY_PC } from './milky-way-layer'
 import { createRenderStats, type RenderSetup, type RenderStats } from './render-stats'
 import { createEarthOrbitLayer } from './earth-orbit-layer'
 import { createOortCloudLayer, OORT_CLOUD_RADIUS_PC } from './oort-cloud-layer'
@@ -20,7 +21,7 @@ import { createMotionArrowMesh } from './motion-arrow-layer'
 import { createMapGrid, gridOpacityForDisplay, makeGridGeometry, skyGridOpacityForDisplay } from './map-grid'
 import { createSkyGridLayer, makeSkyGridGeometry, skyGridDirection, skyWindowCone, type SkyGridMode } from './sky-grid'
 import type { SkyHours } from './constellation-visibility'
-import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
+import { apparentVisualMagnitude, displayMotionForStar, formatDistance, galacticToWorld, gridScaleForViewDistance, LIGHT_YEARS_PER_PARSEC, starDisplayColor, type DistanceUnit, type GridScale, type MotionFrame, type MotionMode, type StarColorMode } from './astronomy'
 import { EARTH_ORBIT_DISPLAY_RADIUS_PC, EARTH_ORBIT_MAX_VIEW_DISTANCE_PC, EARTH_ORBIT_SHRINK_DISTANCE_PC } from './earth-orbit'
 import { advanceFrameDeadline, effectiveDampingFactor, estimateRefreshRate, renderMultisampling, renderPixelRatio, targetRenderFps } from './render-scheduling'
 import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLabelCandidates, overlaps, type LabelRect, type OrdinaryLabelPlacement } from './label-layout'
@@ -32,6 +33,7 @@ import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
 import { closeCompanionIndices, mapComponentVisibility } from './star-systems'
 import { createSpaceshipModel, SPACESHIP_LENGTH_PC, spaceshipMoving, stepSpaceship, type Spaceship, type SpaceshipBrightness, type SpaceshipInput, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
 import type { StarPaint, StarPainter } from './star-paint'
+import { shownInBand, wavelengthAbsoluteMagnitude, wavelengthStarColor, type WavelengthBandId } from './wavelength-vision'
 import {
   GUIDE_DASH_PX, GUIDE_GAP_PX,
   MOTION_ARROW_TAIL_OFFSET_PX,
@@ -103,6 +105,13 @@ export interface StarViewer {
   setFaintStars(mode: FaintStars): void
   setShader(shader: Shader): void
   setStarPaint(painter: StarPainter | null): void
+  /** Shows every object as it appears in a wavelength band, from the band's loaded measurements and its model; objects dark in it leave the map. */
+  setWavelengthBand(band: WavelengthBandId): void
+  /**
+   * Outside visible light, shows every source in the band regardless of the magnitude limit, no fainter than a clear
+   * magnitude-3 star, and every nebula in the band at least at a clearly visible exposure.
+   */
+  setWavelengthBoost(enabled: boolean): void
   /** Lets painted stars shrink and fade when zooming out, like unpainted ones. */
   setStarPaintZoomShrink(enabled: boolean): void
   /** hideFainter removes objects beyond the magnitude limit instead of dimming them. */
@@ -127,6 +136,10 @@ export type Shader = typeof SHADERS[number]
 export const MOTION_YEAR_OPTIONS = [1_000, 5_000, 10_000, 25_000, 50_000] as const
 export type MotionYears = typeof MOTION_YEAR_OPTIONS[number]
 export const SIMULATION_YEAR_LIMIT = 500_000
+/** The faintest a boosted source outside visible light is drawn: a clearly visible star. */
+const BAND_BOOST_MAGNITUDE = 3
+/** The faintest a boosted nebula outside visible light is drawn: the exposure of about 22 mag/arcsec², a clearly visible glow. */
+const BAND_BOOST_NEBULA_EXPOSURE = 0.3
 /** How much fainter (10×) a star must be for an ordinary name to cover its dot. */
 const LABEL_COVERS_FAINTER_MAG = 2.5
 
@@ -162,6 +175,8 @@ interface ViewerOptions {
   starBrightness?: StarBrightness
   faintStars?: FaintStars
   shader?: Shader
+  wavelengthBand?: WavelengthBandId
+  wavelengthBoost?: boolean
   earthOrbitDate?: Date | null
   milkyWayVisible?: boolean
   oortCloudVisible?: boolean
@@ -360,6 +375,18 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   /** Whether the paint sizes objects, rather than only coloring them. */
   let starPaintSized = false
   let starPaintZoomShrink = true
+  let wavelengthBand: WavelengthBandId = options.wavelengthBand ?? 'visible'
+  let wavelengthBoost = options.wavelengthBoost ?? false
+  // Each object's absolute magnitude, false color and presence in the band, computed once per band.
+  let bandMagnitudes: (number | null)[] = []
+  let bandColors: (Color | null)[] = []
+  const bandShown = new Uint8Array(stars.length)
+  function computeWavelengthBand(): void {
+    bandMagnitudes = stars.map((star) => wavelengthAbsoluteMagnitude(star, wavelengthBand))
+    bandColors = stars.map((star) => wavelengthBand === 'visible' ? null : wavelengthStarColor(star, wavelengthBand))
+    stars.forEach((star, index) => { bandShown[index] = shownInBand(star, wavelengthBand) ? 1 : 0 })
+  }
+  computeWavelengthBand()
   const starColors = stars.map((star) => starDisplayColor(star, starColorMode))
   const starColorStyles = starColors.map((color) => color.getStyle())
   // Galaxies lie far beyond the catalogs; framing and axes follow the objects around them.
@@ -426,7 +453,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   function updateEarthOrbitVisibility(): void {
     const distance = camera.position.distanceTo(earthOrbitGroup.position)
-    earthOrbitGroup.visible = earthOrbitEnabled && sunShown() && distance <= EARTH_ORBIT_MAX_VIEW_DISTANCE_PC
+    // Earth's orbit, and the cone wall it carries, belong to the Sun's sky: observing from elsewhere never shows them.
+    const observingElsewhere = observerViewEnabled && observerViewAnchorIndex !== sunIndex
+    earthOrbitGroup.visible = earthOrbitEnabled && sunShown() && !observingElsewhere && distance <= EARTH_ORBIT_MAX_VIEW_DISTANCE_PC
     setData(container, 'earthOrbitVisible', String(earthOrbitGroup.visible))
     // Inside 10 ly the ring shrinks with distance, holding its on-screen size; the cone wall keeps its length.
     const scale = Math.min(1, Math.max(1e-4, distance / EARTH_ORBIT_SHRINK_DISTANCE_PC))
@@ -795,6 +824,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const labelRanks = new Int32Array(stars.length)
   let rankedBaseId = ''
   let rankedSelection: string | null | undefined
+  // Zoomed out far enough to see the galaxies, their names come before any star's.
+  let galaxyLabelsFirst = false
+  let rankedGalaxiesFirst = false
   let rankedCandidates: Array<{ index: number; priority: number; magnitude: number }> = []
   let rankedNameGroups: Array<{ priority: number; magnitude: number; indices: number[] }> = []
   // Frame-scoped label layout containers, reused by updateLabels() so camera
@@ -828,6 +860,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let pendingFrame: number | null = null
   let sceneDirty = false
   let milkyWayFading = false
+  // Switching wavelength bands fades the previous band's frame out over the new one.
+  const bandCrossfade = createSceneCrossfade(500)
+  let bandCrossfading = false
   // Shader programs compile on the driver's threads, but a draw that needs an unfinished one waits for it,
   // one program after another. A frame with new materials starts them all instead, and is drawn once they are done.
   let programsStale = true
@@ -1402,6 +1437,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     pendingFrame = null
     sceneDirty = false
     milkyWayFading = false
+    bandCrossfading = false
     nextRenderDeadline = 0
     lastRenderTime = 0
     previousRafTime = 0
@@ -1428,7 +1464,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     ordinaryLayoutDirty = true
     const visibilityBase = observerPoint() ? spaceshipObserver : visibilityBaseStar
     const baseChanged = rankedBaseId !== visibilityBase.id
-    const rankingChanged = baseChanged || rankedSelection !== selectedId
+    const rankingChanged = baseChanged || rankedSelection !== selectedId || rankedGalaxiesFirst !== galaxyLabelsFirst
     if (baseChanged) {
       stars.forEach((star, index) => {
         const distancePc = Math.hypot(
@@ -1439,25 +1475,31 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         // A shared-position component has no usable viewing distance. Its
         // intrinsic display magnitude also keeps its name in the label budget.
         apparentMagnitudes[index] = (distancePc === 0
-          ? mapAbsoluteMagnitude(star)
-          : apparentVisualMagnitude(mapAbsoluteMagnitude(star), distancePc)) ?? Infinity
+          ? bandMagnitudes[index]!
+          : apparentVisualMagnitude(bandMagnitudes[index]!, distancePc)) ?? Infinity
       })
     }
     if (rankingChanged) {
       rankedCandidates = stars.map((star, index) => ({
         index,
         // Extended objects have no point magnitude, so stars fill the budget before them.
-        priority: star.id === selectedId ? 0 : isMolecularCloud[index] ? 3 : isNebula[index] || isBubble[index] || isGalaxy[index] ? 2 : 1,
+        priority: star.id === selectedId ? 0 : galaxyLabelsFirst && isGalaxy[index] ? 0.5 : isMolecularCloud[index] ? 3
+          : isNebula[index] || isBubble[index] || isGalaxy[index] ? 2 : 1,
         magnitude: apparentMagnitudes[index]!,
       })).sort(compareMapLabelCandidates)
       rankedCandidates.forEach(({ index }, rank) => { labelRanks[index] = rank })
       rankedBaseId = visibilityBase.id
       rankedSelection = selectedId
+      rankedGalaxiesFirst = galaxyLabelsFirst
     }
     const observerIndex = hiddenObserverIndex()
     stars.forEach((star, index) => {
-      const magnitude = apparentMagnitudes[index]!
-      const tier = mapVisibilityTier(star, visibilityBase, selectedId, stars[referenceIndex]!.id, magnitude, magnitudeLimit)
+      // A boosted band shows each of its sources wherever the visibility base is: never below the magnitude limit and
+      // no fainter than a clear star; brighter sources keep their own brightness.
+      const boosted = wavelengthBoost && wavelengthBand !== 'visible' && bandShown[index] === 1 && Number.isFinite(apparentMagnitudes[index]!)
+      const magnitude = boosted ? Math.min(apparentMagnitudes[index]!, BAND_BOOST_MAGNITUDE) : apparentMagnitudes[index]!
+      const visibilityTier = mapVisibilityTier(star, visibilityBase, selectedId, stars[referenceIndex]!.id, magnitude, magnitudeLimit)
+      const tier = boosted && visibilityTier === 'background' ? 'eligible' : visibilityTier
       const visible = isObjectMapVisible(
         star,
         visibleKeys,
@@ -1467,11 +1509,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         objectDistanceLimitLy,
         milkyWayVisible,
       ) && neighborhoodInside[index] === 1 && (!objectPredicate || objectPredicate(star, referenceDistancesLy[index]! / LIGHT_YEARS_PER_PARSEC))
+        // Objects dark in the band leave the map, except the selection and the origin.
+        && (bandShown[index] === 1 || star.id === selectedId || index === referenceIndex)
       tiers[index] = tier
       mapVisible[index] = visible && !(hideFainterObjects && tier === 'background') ? 1 : 0
       // Painted magnitudes size every object, independent of distance.
       const paintedMagnitude = starPaints?.[index]!.magnitude
-      const lightMagnitude = paintedMagnitude !== undefined ? paintedMagnitude : tier === 'base' ? mapAbsoluteMagnitude(star) : magnitude
+      const lightMagnitude = paintedMagnitude !== undefined ? paintedMagnitude : tier === 'base' ? bandMagnitudes[index]! : magnitude
       // Painted sizes encode data, so the brightness preference leaves them alone.
       const haloMagnitude = paintedMagnitude === undefined ? displayMagnitude(lightMagnitude, star, starBrightness) : lightMagnitude
       const background = tier === 'background' && paintedMagnitude === undefined
@@ -1545,12 +1589,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   function updateStarColors(): void {
     stars.forEach((star, index) => {
-      const painted = starPaints?.[index]!.color
+      const painted = starPaints?.[index]!.color ?? bandColors[index]
       const color = painted ?? starDisplayColor(star, starColorMode)
       starColors[index] = color
       starColorStyles[index] = color.getStyle()
       starColorAttribute.setXYZ(index, color.r, color.g, color.b)
-      // Painted colors are exact; the temperature-based white core would tint them.
+      // Painted and band colors are exact; the temperature-based white core would tint them.
       coreWhiteStrengths.setX(index, painted ? 0 : starCoreWhiteStrength(star))
     })
     starColorAttribute.needsUpdate = true
@@ -2302,9 +2346,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     requestRender()
   }
 
-  /** High brightness lifts nebulae two exposure steps, a telescope or observatory one more. */
+  /** High brightness lifts nebulae two exposure steps, a telescope or observatory one more; the band boost sets a minimum. */
   function updateNebulaExposure(): void {
     nebulaLayer?.setExposureLift((starBrightness === 'high' ? 2 : 0) + (observerZoom ? 1 : 0))
+    nebulaLayer?.setMinimumExposure(wavelengthBoost && wavelengthBand !== 'visible' ? BAND_BOOST_NEBULA_EXPOSURE : 0)
   }
 
   function setObserverZoom(zoom: ObserverZoom | null, animate = true): void {
@@ -2587,7 +2632,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     previousRafTime = time
     const sceneNeedsFrame = sceneDirty || focusTransition !== null || observerZoomTransition !== null || viewCenterTransition !== null || controlsInteracting || controlsSettling
       || spaceshipFlight !== null || spaceshipFlying || observerFlight !== null
-    if (!sceneNeedsFrame && !milkyWayFading) {
+    if (!sceneNeedsFrame && !milkyWayFading && !bandCrossfading) {
       if (refreshSamplesRemaining > 0) requestRender(false)
       else {
         previousRafTime = 0
@@ -2693,7 +2738,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (updateCameraNearPlane(camera, depthPositions, extendedDepthBounds, cameraIsShip() ? SPACESHIP_MIN_NEAR_PC : undefined)) invalidateProjection()
     if (earthOrbitEnabled) updateEarthOrbitVisibility()
     if (oortCloudEnabled) updateOortCloudVisibility()
-    milkyWay.setSunDistance(camera.position.distanceTo(pickable[sunIndex]!.position))
+    const sunDistance = camera.position.distanceTo(pickable[sunIndex]!.position)
+    milkyWay.setSunDistance(sunDistance)
+    if (galaxyIndices.length > 0 && (sunDistance >= GALAXY_LABEL_PRIORITY_PC) !== galaxyLabelsFirst) {
+      galaxyLabelsFirst = !galaxyLabelsFirst
+      updatePresentation()
+    }
     if (faintClouds.update(camera.position)) updatePresentation()
     // Looking at a distant object from the origin is still a close sky view.
     // Fade the overview only after retreating from both origin and orbit target.
@@ -2735,6 +2785,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (programsCompiling) sceneDirty = true
     else {
       const offscreenCalls = drawPasses()
+      bandCrossfading = bandCrossfade.draw(renderer, time)
       if (nebulaLayer) setData(labelLayer, 'nebulaDrawnPuffCount', String(nebulaLayer.instanceCount()))
       setData(labelLayer, 'drawCalls', String(renderer.info.render.calls - offscreenCalls))
     }
@@ -2744,7 +2795,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       camera.updateMatrixWorld()
     }
     renderStats?.end()
-    if (continueRendering || milkyWayFading || programsCompiling || refreshSamplesRemaining > 0) requestRender(false)
+    if (continueRendering || milkyWayFading || bandCrossfading || programsCompiling || refreshSamplesRemaining > 0) requestRender(false)
     else {
       previousRafTime = 0
       lastRenderTime = 0
@@ -2815,6 +2866,16 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     requestRender()
   })
   sceneObstacleElements.forEach((element) => obstacleObserver.observe(element))
+  function applyWavelengthBand(): void {
+    nebulaLayer?.setBand(wavelengthBand)
+    molecularCloudLayer?.setBand(wavelengthBand)
+    bubbleLayer?.setBand(wavelengthBand)
+    faintClouds.setBand(wavelengthBand)
+    milkyWay.setBand(wavelengthBand)
+    updateStarColors()
+  }
+
+  if (wavelengthBand !== 'visible') applyWavelengthBand()
   updatePresentation()
   updateEarthOrbitVisibility()
   updateOortCloudVisibility()
@@ -3085,6 +3146,25 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       updatePresentation()
       requestRender()
     },
+    setWavelengthBand(band) {
+      // The same band again may bring measured values that arrived after the viewer was built with it.
+      if (band !== wavelengthBand && !reducedMotion.matches && !contextLost && !programsCompiling) bandCrossfade.capture(renderer, drawPasses)
+      wavelengthBand = band
+      computeWavelengthBand()
+      applyWavelengthBand()
+      updateNebulaExposure()
+      // Same base, new magnitudes: recompute them and the label ranking.
+      rankedBaseId = ''
+      updatePresentation()
+      requestRender()
+    },
+    setWavelengthBoost(enabled) {
+      if (enabled === wavelengthBoost) return
+      wavelengthBoost = enabled
+      updateNebulaExposure()
+      updatePresentation()
+      requestRender()
+    },
     setStarPaintZoomShrink(enabled) {
       starPaintZoomShrink = enabled
       requestRender()
@@ -3255,6 +3335,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       arrowGeometry.dispose()
       arrowMaterial.dispose()
       nebulaLayer?.dispose()
+      bandCrossfade.dispose()
       molecularCloudLayer?.dispose()
       scenePass?.dispose()
       bubbleLayer?.dispose()

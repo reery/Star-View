@@ -175,6 +175,19 @@ describe('nebula puff volumes', () => {
     expect(puffs.shapes[0]! / major).toBeLessThan(0.5 * shell.shapes[0]! / planetary.nebula!.shape.semi_axes_pc[1])
   })
 
+  it('draws the Crab Nebula in X-rays as its compact pulsar wind nebula core', () => {
+    const crab = byId('crab-nebula')
+    const [depth, major, minor] = crab.nebula!.shape.semi_axes_pc
+    const xRays = generateNebulaPuffs(crab, sun, undefined, 'x-ray')
+    expect(xRays.count).toBe(crab.nebula!.puff_count)
+    for (let index = 0; index < xRays.count; index++) {
+      const [d, u, v] = xRays.local.subarray(index * 3, index * 3 + 3)
+      expect(Math.hypot(d! / depth, u! / major, v! / minor)).toBeLessThanOrEqual(0.4 + 1e-6)
+    }
+    // Bands without a shape of their own keep the visible-light model.
+    expect(generateNebulaPuffs(crab, sun, 64, 'ultraviolet').local).toEqual(generateNebulaPuffs(crab, sun, 64).local)
+  })
+
   it('samples the planetary nebula as a hollow shell', () => {
     const shell = byId('sh-2-216')
     expect(shell.nebula!.shape.kind).toBe('shell')

@@ -116,7 +116,8 @@ describe('galaxy articles', () => {
       expect(info!.sections.every((section) => section.source?.url.startsWith('https://')), id).toBe(true)
       expect(info?.image?.src, id).toContain(id)
       expect(info?.image?.width, id).toBeLessThanOrEqual(600)
-      expect(info?.image?.license?.url, id).toMatch(/^https:\/\/creativecommons\.org\//)
+      // Public-domain images, such as NASA's, carry no license.
+      if (info?.image?.license) expect(info.image.license.url, id).toMatch(/^https:\/\/creativecommons\.org\//)
     }
   })
 })

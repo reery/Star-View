@@ -151,10 +151,10 @@ export const TIPS: readonly Tip[] = [
   },
   {
     id: 'explore', feature: 'explore', level: 'novice',
-    text: 'Seven tools wait behind [Explore], from star records to a spaceship.',
+    text: 'Eight tools wait behind [Explore], from star records to a spaceship.',
     step: {
       title: 'Explore',
-      body: '[Top lists], [Constellations], [Neighborhood], [Stellar motion], [Paint], [Graphs] and the [Spaceship] each open a card of their own.',
+      body: '[Top lists], [Constellations], [Neighborhood], [Stellar motion], [Paint], [Wavelength vision], [Graphs] and the [Spaceship] each open a card of their own.',
       target: '.discover-controls', flyout: '.discover-controls',
     },
   },
@@ -192,6 +192,18 @@ export const TIPS: readonly Tip[] = [
   },
   exploreTip('paint', '[Paint] the stars by their *mass*, *distance* or *metallicity*.', 'Paint',
     'Pick a property, then let it set the [color], the [size] or both. A legend shows the scale.'),
+  exploreTip('wavelength', 'Want to see how the stars look in *near infrared*? Try [Wavelength vision].', 'Wavelength vision',
+    'Pick a band of the spectrum, from *gamma rays* to *radio*, and the stars, nebulae and the Milky Way shine as they do in that light.'),
+  {
+    id: 'wavelength-remnant', feature: 'wavelength', level: 'novice',
+    when: () => shown('#object-type') && textOf('#object-type') === 'Supernova remnant',
+    text: 'Supernova remnants such as {selected} shine in *X-rays* and *radio*, light our eyes cannot see.',
+    step: {
+      title: 'Wavelength vision',
+      body: 'Pick [X-rays] or [Radio], and the map shows the sky as telescopes in that band see it.',
+      target: '#wavelength-toggle', flyout: '.discover-controls',
+    },
+  },
   exploreTip('graphs', '[Graphs] chart every object on the map, from an *HR diagram* to their masses.', 'Graphs',
     'Select a range in a chart to keep only those objects; the map follows.'),
   exploreTip('top-lists', 'Which stars are the largest or the hottest? [Top lists] know.', 'Top lists',

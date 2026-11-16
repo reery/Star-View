@@ -7,6 +7,7 @@ import {
 import type { NebulaDetails, Star } from './catalog-model'
 import { galacticToWorld, type StarColorMode } from './astronomy'
 import { decodeNebulaMask } from './nebula-overlay-model'
+import { nebulaBandSurfaceBrightness, remnantBandShape, wavelengthBandColor, type RemnantBandShape, type WavelengthBandId } from './wavelength-vision'
 
 // Each puff is one camera-facing quad: all nebulae share a single instanced draw call.
 export const NEBULA_MAX_SCREEN_FRACTION = 0.2
@@ -293,10 +294,17 @@ function shapeSampler(details: NebulaDetails, random: () => number): () => Sampl
   }
 }
 
-/** Generates the first `limit` puffs, the same prefix every larger limit yields. */
-export function generateNebulaPuffs(star: Star, observer: Vector3, limit?: number): NebulaPuffs {
-  const details = star.nebula
-  if (!details) throw new Error(`Not a nebula: ${star.id}`)
+// A band shape replaces the observed mask or measured points, scaled about the same center.
+function withBandShape(details: NebulaDetails, { kind, scale }: RemnantBandShape): NebulaDetails {
+  const { position_angle_deg, layer_offsets_pc, semi_axes_pc } = details.shape
+  return { ...details, shape: { kind, position_angle_deg, layer_offsets_pc, semi_axes_pc: semi_axes_pc.map((axis) => axis * scale) as [number, number, number] } }
+}
+
+/** Generates the first `limit` puffs in a band, the same prefix every larger limit yields. */
+export function generateNebulaPuffs(star: Star, observer: Vector3, limit?: number, band: WavelengthBandId = 'visible'): NebulaPuffs {
+  if (!star.nebula) throw new Error(`Not a nebula: ${star.id}`)
+  const bandShape = remnantBandShape(star.id, band)
+  const details = bandShape ? withBandShape(star.nebula, bandShape) : star.nebula
   const count = details.puff_count
   const generated = Math.min(count, limit ?? count)
   const random = seededRandom(details.seed)
@@ -377,11 +385,12 @@ export function packNebulaInstances(
  */
 export interface PuffSource {
   count: number
-  instances(limit: number): PuffInstances
+  /** In a band, a source may draw a different shape with the same number of puffs. */
+  instances(limit: number, band?: WavelengthBandId): PuffInstances
   /** World center and the two largest semi-axes in pc. */
   extent?: { center: Vector3; semiAxes: readonly [number, number] }
-  /** Opacity scale at an exposure lift; 1 without one. */
-  exposure?(lift: number): number
+  /** Opacity scale at an exposure lift in a wavelength band; 1 without one, 0 where the source is dark. */
+  exposure?(lift: number, band: WavelengthBandId): number
 }
 
 export function puffSource(instances: PuffInstances): PuffSource {
@@ -396,12 +405,18 @@ function nebulaPuffSource(star: Star, observer: Vector3): PuffSource {
   const { puff_count: count, shape } = star.nebula!
   const [first, second] = [...shape.semi_axes_pc].sort((a, b) => b - a)
   let puffs: NebulaPuffs | null = null
+  let puffShape: RemnantBandShape | undefined
   return {
     count,
     extent: { center: galacticToWorld(star), semiAxes: [first!, second!] },
-    exposure: (lift) => nebulaExposure(star.nebula!.surface_brightness_mag_arcsec2, lift),
-    instances(limit) {
-      if (!puffs || puffs.count < limit) puffs = generateNebulaPuffs(star, observer, limit)
+    exposure: (lift, band) => {
+      const surfaceBrightness = nebulaBandSurfaceBrightness(star, band)
+      return surfaceBrightness === null ? 0 : nebulaExposure(surfaceBrightness, lift)
+    },
+    instances(limit, band = 'visible') {
+      const shape = remnantBandShape(star.id, band)
+      if (!puffs || puffs.count < limit || shape !== puffShape) puffs = generateNebulaPuffs(star, observer, limit, band)
+      puffShape = shape
       return puffs
     },
   }
@@ -460,9 +475,16 @@ export interface NebulaLayer {
   setColorMode(mode: StarColorMode): void
   /** Lifts fainter puffs, in steps of a longer exposure. */
   setExposureLift(lift: number): void
+  /** The lowest exposure of any source shown, e.g. to make faint sources visible in a wavelength band; 0 by default. */
+  setMinimumExposure(minimum: number): void
   setViewportHeight(pixels: number): void
   /** Scales every puff's opacity, e.g. to fade the whole layer in. */
   setOpacity(opacity: number): void
+  /**
+   * Shows the layer in a wavelength band: each source's exposure follows the band, the whole layer's opacity scales
+   * by weight, and outside visible light emitting puffs take the band's false colors.
+   */
+  setBand(band: WavelengthBandId, weight?: number): void
   /**
    * Draws the puffs of a half-resolution layer for the coming frame, each source with the detail
    * its size on screen needs; a no-op otherwise.
@@ -574,6 +596,9 @@ export function createPuffLayer(
     viewportHeight: { value: 1 },
     maxScreenFraction: { value: maxScreenFraction },
     minPixels: { value: MIN_PUFF_PIXELS },
+    bandMix: { value: 0 },
+    bandShort: { value: new Color() },
+    bandLong: { value: new Color() },
   }
   const material = new ShaderMaterial({
     uniforms,
@@ -603,6 +628,9 @@ export function createPuffLayer(
       uniform float viewportHeight;
       uniform float maxScreenFraction;
       uniform float minPixels;
+      uniform float bandMix;
+      uniform vec3 bandShort;
+      uniform vec3 bandLong;
       varying vec2 vUv;
       varying vec3 vNoisePosition;
       varying vec3 vColor;
@@ -625,6 +653,9 @@ export function createPuffLayer(
           return;
         }
         vColor = mix(puffRealColor, puffVividColor, colorMix);
+        // Outside visible light, the brightest gas takes the band's short-wavelength color.
+        float brightness = smoothstep(0.02, 0.35, dot(vColor, vec3(0.2126, 0.7152, 0.0722)));
+        vColor = mix(vColor, mix(bandLong, bandShort, brightness), bandMix);
         vUv = position.xy;
         vec2 offset = position.xy * radius * scale * grow;
         // Sample one continuous field across overlapping puffs. Billboard
@@ -688,26 +719,29 @@ export function createPuffLayer(
   let fraction = 1
   let opacity = 1
   let exposureLift = 0
+  let minimumExposure = 0
+  let band: WavelengthBandId = 'visible'
+  let bandWeight = 1
   let packedKey = ''
 
   function repack(): void {
-    const key = `${exposureLift}:${fraction}:${visibility.map((shown, index) => shown ? screenCounts[index] : 0).join()}`
+    const key = `${band}:${exposureLift}:${minimumExposure}:${fraction}:${visibility.map((shown, index) => shown ? screenCounts[index] : 0).join()}`
     if (key === packedKey) return
     packedKey = key
     const drawn = sources.flatMap((source, index) => {
       if (!visibility[index]) return []
+      const exposure = source.exposure?.(exposureLift, band) ?? 1
+      // Sources dark in the band cost nothing.
+      if (exposure === 0) return []
+      const alphaScale = Math.max(exposure, minimumExposure)
       const screenCount = screenCounts[index]!
       const count = Math.max(1, Math.ceil(screenCount * fraction))
-      return [{
-        puffs: source.instances(count), count,
-        radiusScale: Math.sqrt(source.count / screenCount),
-        alphaScale: source.exposure?.(exposureLift) ?? 1,
-      }]
+      return [{ puffs: source.instances(count, band), count, radiusScale: Math.sqrt(source.count / screenCount), alphaScale }]
     })
     const count = packNebulaInstances(drawn, buffers)
     geometry.instanceCount = count
-    mesh.visible = count > 0
-    uniforms.alphaScale.value = opacity / fraction
+    mesh.visible = count > 0 && bandWeight > 0
+    uniforms.alphaScale.value = opacity * bandWeight / fraction
     if (count === 0) return
     for (const [, attribute] of attributes) {
       attribute.clearUpdateRanges()
@@ -723,7 +757,7 @@ export function createPuffLayer(
       if (!source.extent || !visibility[index]) return
       if (puffRadii[index] === 0) {
         const floor = Math.min(source.count, MIN_DETAIL_PUFFS)
-        const { shapes } = source.instances(floor)
+        const { shapes } = source.instances(floor, band)
         for (let puff = 0; puff < floor; puff++) puffRadii[index] = Math.max(puffRadii[index]!, shapes[puff * 4]!)
       }
       // The nearest point of the nebula sets its detail; from inside it, everything is drawn.
@@ -748,6 +782,10 @@ export function createPuffLayer(
       exposureLift = next
       repack()
     },
+    setMinimumExposure(next) {
+      minimumExposure = next
+      repack()
+    },
     setColorMode(next) {
       uniforms.colorMix.value = next === 'exaggerated' ? 1 : 0
       uniforms.gain.value = next === 'exaggerated' ? 2.6 : 2.3
@@ -757,7 +795,18 @@ export function createPuffLayer(
     },
     setOpacity(next) {
       opacity = next
-      uniforms.alphaScale.value = opacity / fraction
+      uniforms.alphaScale.value = opacity * bandWeight / fraction
+    },
+    setBand(next, weight = 1) {
+      band = next
+      bandWeight = weight
+      // A band shape may change puff sizes, which set each source's detail.
+      puffRadii.fill(0)
+      uniforms.bandMix.value = next === 'visible' || absorb ? 0 : 1
+      wavelengthBandColor(next, 0, uniforms.bandShort.value)
+      wavelengthBandColor(next, 1, uniforms.bandLong.value)
+      packedKey = ''
+      repack()
     },
     renderOffscreen(renderer, camera) {
       if (!target || !offscreen || !mesh.visible) return

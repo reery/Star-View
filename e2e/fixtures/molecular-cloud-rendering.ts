@@ -9,6 +9,7 @@ import { galacticToWorld } from '../../src/astronomy'
 import { createStarViewer, type StarViewer } from '../../src/viewer'
 import { renderConstellationStars } from '../../src/constellation-star-appearance'
 import { FILTER_KEYS } from '../../src/object-filter'
+import type { WavelengthBandId } from '../../src/wavelength-vision'
 
 export interface ViewerRenderOptions {
   stars: Star[]
@@ -22,6 +23,7 @@ export interface ViewerRenderOptions {
   hideSun?: boolean
   selectedId?: string
   cameraOffsetPc?: [number, number, number]
+  wavelengthBand?: WavelengthBandId
 }
 
 export interface CloudRenderOptions {
@@ -63,7 +65,7 @@ Object.assign(window, {
     viewerContainer.hidden = false
     const stars = options.stars.filter((star) => options.showClouds || !star.molecular_cloud)
     viewer = createStarViewer(viewerContainer, stars, {
-      colorMode: options.mode, milkyWayVisible: false, earthOrbitDate: null,
+      colorMode: options.mode, milkyWayVisible: false, earthOrbitDate: null, wavelengthBand: options.wavelengthBand,
       onInteraction() {}, onSelect() {}, onStatus() {},
     })
     viewer.setObjectDistanceLimit(2000)

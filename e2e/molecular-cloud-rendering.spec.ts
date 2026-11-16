@@ -221,6 +221,29 @@ test('keeps Orion emission and belt stars visible with its molecular clouds', { 
   }
 })
 
+test('shows Orion in other wavelength bands: glowing dust, clearing dust and vanishing starlight', async ({ page }, testInfo) => {
+  const stars = [sun, ...landmarks.filter((star) => star.constellation === 'Orion'), ...nebulae, ...clouds]
+  const images: Record<string, PNG> = {}
+  let points: Record<string, { x: number; y: number }> = {}
+  for (const wavelengthBand of ['visible', 'x-ray', 'near-infrared', 'far-infrared'] as const) {
+    points = await page.evaluate((input) =>
+      (window as unknown as { renderViewer(options: ViewerRenderOptions): Promise<Record<string, { x: number; y: number }>> }).renderViewer(input),
+    { stars, targetId: 'orion-nebula', observerView: false, mode: 'real', showClouds: true, wavelengthBand } satisfies ViewerRenderOptions)
+    images[wavelengthBand] = PNG.sync.read(await page.locator('div canvas').screenshot({
+      scale: 'css', style: '.projected-labels, .projected-axes { visibility: hidden !important; }', path: testInfo.outputPath(`orion-${wavelengthBand}.png`),
+    }))
+  }
+  const total = (image: PNG) => regionLight(image, { x: image.width / 2, y: image.height / 2 }, Math.hypot(image.width, image.height))
+  // Cold dust in the Orion clouds glows in the far infrared.
+  expect(total(images['far-infrared']!)).toBeGreaterThan(total(images.visible!) * 1.5)
+  // Hot belt stars keep shining in the near infrared but leave the X-ray sky, as does the H II region's light.
+  for (const id of ['bright-mintaka', 'bright-alnitak', 'bright-alnilam']) {
+    expect(regionLight(images['near-infrared']!, points[id]!, 24)).toBeGreaterThan(1000)
+    expect(regionLight(images['x-ray']!, points[id]!, 24)).toBeLessThan(regionLight(images.visible!, points[id]!, 24) * 0.2)
+  }
+  expect(regionLight(images['x-ray']!, points['orion-nebula']!, 18)).toBeLessThan(regionLight(images.visible!, points['orion-nebula']!, 18) * 0.5)
+})
+
 test('uses apparent brightness once in both views while retaining map zoom restraint', async ({ page }, testInfo) => {
   const landmark = landmarks.find((star) => star.id === 'bright-alnilam')!
   const lights: number[][] = []

@@ -30,16 +30,23 @@ function validDetails(value: unknown): value is GalaxyDetails {
   const size = details.angular_size_deg
   const stars = details.star_count
   const mass = details.total_mass as Record<string, unknown> | undefined
+  const spheroid = details.spheroid as Record<string, unknown> | undefined
   const velocity = details.radial_velocity_kms
   return ['morphology', 'classification', 'distance_method', 'position_source', 'model_note'].every((key) => text(details[key]))
     && finite(details.ra_deg) && (details.ra_deg as number) >= 0 && (details.ra_deg as number) < 360
     && finite(details.dec_deg) && Math.abs(details.dec_deg as number) <= 90
     && ['distance_pc', 'distance_error_pc', 'diameter_pc', 'model_radius_pc'].every((key) => positive(details[key]))
-    && validSource(details.distance_source) && validSource(details.size_source) && validSource(details.star_count_source)
+    && validSource(details.distance_source) && validSource(details.size_source)
     && (size === null || (Array.isArray(size) && size.length === 2 && size.every(positive) && size[0]! >= size[1]!))
-    && Array.isArray(stars) && stars.length === 2 && stars.every(positive) && stars[0]! <= stars[1]!
+    && (stars === null
+      ? details.star_count_source === null
+      : Array.isArray(stars) && stars.length === 2 && stars.every(positive) && stars[0]! <= stars[1]! && validSource(details.star_count_source))
     && (mass === undefined || (['value_solar', 'lower_error_solar', 'upper_error_solar'].every((key) => positive(mass[key]))
       && text(mass.scope) && validSource(mass.source)))
+    && (spheroid === undefined || (positive(spheroid.half_light_radius_pc) && finite(spheroid.surface_brightness_v)
+      && finite(spheroid.ellipticity) && (spheroid.ellipticity as number) >= 0 && (spheroid.ellipticity as number) < 1
+      && finite(spheroid.position_angle_deg) && (spheroid.position_angle_deg as number) >= 0 && (spheroid.position_angle_deg as number) < 180
+      && validSource(spheroid.source)))
     && (velocity === null
       ? details.radial_velocity_error_kms === null && details.radial_velocity_source === null
       : finite(velocity) && positive(details.radial_velocity_error_kms) && validSource(details.radial_velocity_source))

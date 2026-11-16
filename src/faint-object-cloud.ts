@@ -3,6 +3,7 @@ import type { Star } from './catalog-model'
 import { LIGHT_YEARS_PER_PARSEC, type StarColorMode } from './astronomy'
 import { createPuffLayer, puffSource, type NebulaLayer } from './nebula-layer'
 import { distanceFade } from './milky-way-layer'
+import { FAINT_CLOUD_BANDS, type WavelengthBandId } from './wavelength-vision'
 
 // From this camera distance, a blob of faint objects is only a clump of
 // overlapping minimum-size dots: one soft cloud stands in for its members.
@@ -72,6 +73,8 @@ export interface FaintObjectClouds {
   /** Hides clouds whose members are all filtered out. */
   setShown(shown: readonly boolean[]): void
   setColorMode(mode: StarColorMode): void
+  /** Brightens or hides the clouds as their red and brown dwarfs shine in the band. */
+  setBand(band: WavelengthBandId): void
   setViewportHeight(pixels: number): void
   dispose(): void
 }
@@ -95,8 +98,9 @@ export function createFaintObjectClouds(blobs: readonly FaintBlob[], mode: StarC
   const collapsed = blobs.map(() => false)
   let shown = blobs.map(() => true)
   const fades = blobs.map(() => 0)
+  let bandWeight = 1
   const sync = (index: number) => {
-    layers[index]!.mesh.visible = shown[index]! && fades[index]! > 0
+    layers[index]!.mesh.visible = shown[index]! && fades[index]! > 0 && bandWeight > 0
   }
   return {
     group,
@@ -120,6 +124,11 @@ export function createFaintObjectClouds(blobs: readonly FaintBlob[], mode: StarC
     },
     setColorMode(next) {
       for (const layer of layers) layer.setColorMode(next)
+    },
+    setBand(band) {
+      bandWeight = FAINT_CLOUD_BANDS[band]
+      for (const layer of layers) layer.setBand(band, bandWeight)
+      blobs.forEach((_, index) => sync(index))
     },
     setViewportHeight(pixels) {
       for (const layer of layers) layer.setViewportHeight(pixels)

@@ -1,16 +1,23 @@
-import { BackSide, BoxGeometry, Group, LinearFilter, Mesh, RepeatWrapping, ShaderMaterial, SRGBColorSpace, Texture, Vector2, type Camera } from 'three'
+import { BackSide, BoxGeometry, Color, Group, LinearFilter, Mesh, RepeatWrapping, ShaderMaterial, SRGBColorSpace, Texture, Vector2, type Camera } from 'three'
 import { LIGHT_YEARS_PER_PARSEC, type StarColorMode } from './astronomy'
 import type { GalaxyLayer } from './galaxy-layer'
 import type { Star } from './catalog-model'
 import type { StarStyle } from './star-appearance'
 import milkyWayAvifUrl from './assets/milky-way.avif'
 import milkyWayJpegUrl from './assets/milky-way.jpg'
+import gammaPanoramaUrl from './assets/wavelength/gamma.avif'
+import xRayPanoramaUrl from './assets/wavelength/x-ray.avif'
+import farInfraredPanoramaUrl from './assets/wavelength/far-infrared.avif'
+import radioPanoramaUrl from './assets/wavelength/radio.avif'
+import { wavelengthBandColor, type WavelengthBandId } from './wavelength-vision'
 
 export interface MilkyWayLayer {
   /** The panorama and, once loaded, the Galaxy and its neighbors seen from outside. */
   group: Group
   setVisible(visible: boolean): void
   setColorMode(mode: StarColorMode): void
+  /** Shows the sky and the galaxy models in a wavelength band; bands without a survey panorama show none. */
+  setBand(band: WavelengthBandId): void
   /** Realistic stars remove the panorama's own star peaks, which blur into blobs when magnified. */
   setStarStyle(style: StarStyle): void
   /** Crossfades from the Sun's sky panorama to the galaxy models as the camera leaves the Sun. */
@@ -36,6 +43,8 @@ const PANORAMA_INTENSITY = 0.12
 // exactly as the panorama, which already shows them, fades, so none is ever drawn twice.
 const PANORAMA_FADE_PC = [2_000, 15_000].map((ly) => ly / LIGHT_YEARS_PER_PARSEC) as [number, number]
 const GALAXY_FADE_PC = [3_000, 40_000].map((ly) => ly / LIGHT_YEARS_PER_PARSEC) as [number, number]
+/** From the Sun, where the Galaxy is half built up (about 11,000 ly): galaxy names take label priority over stars beyond it. */
+export const GALAXY_LABEL_PRIORITY_PC = Math.sqrt(GALAXY_FADE_PC[0] * GALAXY_FADE_PC[1])
 
 /** Smoothstep over the logarithm of distance, so each zoom step changes the fade alike. */
 export function distanceFade(distancePc: number, [start, end]: readonly [number, number]): number {
@@ -62,6 +71,19 @@ async function loadPanorama(url: string): Promise<ImageBitmap> {
   return createImageBitmap(await response.blob(), { imageOrientation: 'flipY', premultiplyAlpha: 'none' })
 }
 
+/** An equirectangular sky texture that wraps in longitude; the decoded image is closed once the GPU holds it. */
+function panoramaTexture(image: ImageBitmap): Texture<ImageBitmap> {
+  const texture = new Texture(image)
+  texture.flipY = false
+  texture.wrapS = RepeatWrapping
+  texture.generateMipmaps = false
+  texture.minFilter = LinearFilter
+  texture.magFilter = LinearFilter
+  texture.onUpdate = () => image.close()
+  texture.needsUpdate = true
+  return texture
+}
+
 // `shown` lets a rebuilt viewer reuse the shared texture without fading in again.
 interface Panorama { texture: Texture<ImageBitmap>; width: number; height: number; shown: boolean }
 
@@ -72,15 +94,8 @@ function loadMilkyWayTexture(): Promise<Panorama> {
   texturePromise ??= supportsAvif().then((avif) => avif
     ? loadPanorama(milkyWayAvifUrl).catch(() => loadPanorama(milkyWayJpegUrl))
     : loadPanorama(milkyWayJpegUrl)).then((image) => {
-    const texture = new Texture(image)
+    const texture = panoramaTexture(image)
     texture.colorSpace = SRGBColorSpace
-    texture.flipY = false
-    texture.wrapS = RepeatWrapping
-    texture.generateMipmaps = false
-    texture.minFilter = LinearFilter
-    texture.magFilter = LinearFilter
-    texture.onUpdate = () => image.close()
-    texture.needsUpdate = true
     return { texture, width: image.width, height: image.height, shown: false }
   })
   const pending = texturePromise
@@ -88,6 +103,37 @@ function loadMilkyWayTexture(): Promise<Panorama> {
     if (texturePromise === pending) texturePromise = undefined
   })
   return pending
+}
+
+// All-sky survey maps outside visible light (scripts/author-wavelength-panoramas.py): red holds the band's
+// longer-wavelength survey, green its shorter one. Each loads the first time its band is shown.
+const BAND_PANORAMAS: Partial<Record<WavelengthBandId, string>> = {
+  gamma: gammaPanoramaUrl, 'x-ray': xRayPanoramaUrl, 'far-infrared': farInfraredPanoramaUrl, radio: radioPanoramaUrl,
+}
+// The survey maps span their full range, unlike the dim photograph, so they need more gain.
+const BAND_PANORAMA_GAIN = 1.2
+const bandTextures = new Map<WavelengthBandId, Promise<Texture<ImageBitmap>>>()
+function loadBandTexture(band: WavelengthBandId): Promise<Texture<ImageBitmap>> | undefined {
+  const url = BAND_PANORAMAS[band]
+  if (!url) return undefined
+  let pending = bandTextures.get(band)
+  if (!pending) {
+    // Survey intensities are data, not display colors, so they stay without a color space.
+    pending = loadPanorama(url).then(panoramaTexture)
+    bandTextures.set(band, pending)
+    pending.catch(() => bandTextures.delete(band))
+  }
+  return pending
+}
+
+function releaseBandTextures(contextLost = false): void {
+  for (const pending of bandTextures.values()) {
+    void pending.then((texture) => {
+      if (!contextLost) texture.dispose()
+      texture.image.close()
+    }, () => undefined)
+  }
+  bandTextures.clear()
 }
 
 function releaseMilkyWayTexture(contextLost = false): void {
@@ -117,6 +163,10 @@ export function createMilkyWayLayer(
     peakSuppression: { value: 0.25 },
     opacity: { value: 1 },
     distanceOpacity: { value: 1 },
+    bandMap: { value: null as Texture | null },
+    bandMix: { value: 0 },
+    bandShort: { value: new Color() },
+    bandLong: { value: new Color() },
   }
   const geometry = new BoxGeometry(1, 1, 1)
   const material = new ShaderMaterial({
@@ -143,10 +193,22 @@ export function createMilkyWayLayer(
       uniform float peakSuppression;
       uniform float opacity;
       uniform float distanceOpacity;
+      uniform sampler2D bandMap;
+      uniform float bandMix;
+      uniform vec3 bandShort;
+      uniform vec3 bandLong;
       varying vec3 worldDirection;
       #include <common>
       void main() {
         vec2 uv = equirectUv(normalize(worldDirection));
+        if (bandMix > 0.5) {
+          vec2 surveys = texture2D(bandMap, uv).rg;
+          vec3 bandColor = (surveys.r * bandLong + surveys.g * bandShort) * intensity * ${BAND_PANORAMA_GAIN.toFixed(1)};
+          gl_FragColor = vec4(bandColor, max(max(bandColor.r, bandColor.g), bandColor.b));
+          #include <colorspace_fragment>
+          gl_FragColor *= distanceOpacity;
+          return;
+        }
         vec3 panorama = texture2D(map, uv).rgb;
         // Reduce tiny star peaks without blurring the broad dust lanes.
         vec3 nearby = 0.25 * (
@@ -189,9 +251,26 @@ export function createMilkyWayLayer(
   let neighborOpacity = 0
   let galaxy: GalaxyLayer | null = null
   let galaxyRequested = false
+  let band: WavelengthBandId = 'visible'
+  let bandRequested: Promise<Texture> | undefined
 
   function updateMeshVisibility(): void {
-    mesh.visible = visible && uniforms.map.value !== null && uniforms.distanceOpacity.value > 0
+    const map = band === 'visible' ? uniforms.map.value : uniforms.bandMap.value
+    mesh.visible = visible && map !== null && uniforms.distanceOpacity.value > 0
+  }
+
+  function loadBand(): void {
+    const pending = band === 'visible' ? undefined : loadBandTexture(band)
+    bandRequested = pending
+    uniforms.bandMap.value = null
+    updateMeshVisibility()
+    pending?.then((texture) => {
+      if (disposed || pending !== bandRequested) return
+      uniforms.bandMap.value = texture
+      updateMeshVisibility()
+      // Like a loaded galaxy model, a new texture needs a frame.
+      onGalaxyLoad()
+    }, () => undefined)
   }
 
   // Generated on first need from a small separate module; never fetched while galaxies are hidden.
@@ -203,6 +282,7 @@ export function createMilkyWayLayer(
         if (disposed) return
         galaxy = createGalaxyLayer(colorMode, galaxies)
         galaxy.setViewportHeight(viewportHeight)
+        galaxy.setBand(band)
         group.add(galaxy.group)
         updateGalaxy()
         onGalaxyLoad()
@@ -246,6 +326,9 @@ export function createMilkyWayLayer(
     uniforms.map.value = null
     mesh.visible = false
     releaseMilkyWayTexture(contextLost)
+    bandRequested = undefined
+    uniforms.bandMap.value = null
+    releaseBandTextures(contextLost)
     if (loaded) onLoad(null)
   }
 
@@ -253,8 +336,10 @@ export function createMilkyWayLayer(
     group,
     setVisible(next) {
       visible = next
-      if (next) load()
-      else release()
+      if (next) {
+        load()
+        loadBand()
+      } else release()
       updateMeshVisibility()
       updateGalaxy()
     },
@@ -262,6 +347,14 @@ export function createMilkyWayLayer(
       colorMode = next
       uniforms.saturation.value = saturationForMode(next)
       galaxy?.setColorMode(next)
+    },
+    setBand(next) {
+      band = next
+      uniforms.bandMix.value = next === 'visible' ? 0 : 1
+      wavelengthBandColor(next, 0, uniforms.bandShort.value)
+      wavelengthBandColor(next, 1, uniforms.bandLong.value)
+      galaxy?.setBand(next)
+      if (visible) loadBand()
     },
     setStarStyle(next) {
       uniforms.peakSuppression.value = next === 'exaggerated' ? 0.25 : 1
@@ -290,7 +383,10 @@ export function createMilkyWayLayer(
     },
     reload() {
       release(true)
-      if (visible) load()
+      if (visible) {
+        load()
+        loadBand()
+      }
     },
     updateFade(time) {
       if (!fading || !mesh.visible) return false
