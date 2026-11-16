@@ -43,7 +43,12 @@ const GRID_SCALE_STEPS: Record<DistanceUnit, readonly GridScaleStep[]> = {
     { maxDistance: 10_000, spacing: 500, size: 20_000 },
     { maxDistance: 20_000, spacing: 1_000, size: 40_000 },
     { maxDistance: 50_000, spacing: 2_000, size: 100_000 },
-    { maxDistance: Infinity, spacing: 5_000, size: 200_000 },
+    { maxDistance: 100_000, spacing: 5_000, size: 200_000 },
+    { maxDistance: 250_000, spacing: 10_000, size: 500_000 },
+    { maxDistance: 500_000, spacing: 25_000, size: 1_000_000 },
+    { maxDistance: 1_000_000, spacing: 50_000, size: 2_000_000 },
+    { maxDistance: 2_000_000, spacing: 100_000, size: 4_000_000 },
+    { maxDistance: Infinity, spacing: 500_000, size: 10_000_000 },
   ],
   pc: [
     { maxDistance: 3, spacing: 0.5, size: 6 },
@@ -56,7 +61,12 @@ const GRID_SCALE_STEPS: Record<DistanceUnit, readonly GridScaleStep[]> = {
     { maxDistance: 3_000, spacing: 150, size: 6_000 },
     { maxDistance: 6_000, spacing: 300, size: 12_000 },
     { maxDistance: 15_000, spacing: 600, size: 30_000 },
-    { maxDistance: Infinity, spacing: 1_500, size: 60_000 },
+    { maxDistance: 30_000, spacing: 1_500, size: 60_000 },
+    { maxDistance: 75_000, spacing: 3_000, size: 150_000 },
+    { maxDistance: 150_000, spacing: 7_500, size: 300_000 },
+    { maxDistance: 300_000, spacing: 15_000, size: 600_000 },
+    { maxDistance: 600_000, spacing: 30_000, size: 1_200_000 },
+    { maxDistance: Infinity, spacing: 150_000, size: 3_000_000 },
   ],
 }
 
@@ -264,11 +274,15 @@ export function starDisplayColor(
   if (star.type === 'pulsar') return new Color(0x42d9ff)
   if (star.type === 'neutron_star') return new Color(0xa78bfa)
   if (star.type === 'black_hole') return new Color(0xff9f43)
-  if (star.type !== 'brown_dwarf' && star.type !== 'sub_brown_dwarf') {
-    const spectralClass = star.type === 'star' ? star.spectral_type?.match(/([OBAFGKM])/)?.[1] as keyof typeof STAR_CLASS_KELVIN | undefined : undefined
-    return temperatureToColor(star.temperature_k ?? (spectralClass ? STAR_CLASS_KELVIN[spectralClass] : null), mode)
-  }
+  if (star.type !== 'brown_dwarf' && star.type !== 'sub_brown_dwarf') return temperatureToColor(appearanceKelvin(star), mode)
   return interpolateColor(BROWN_DWARF_COLORS, brownDwarfAppearanceKelvin(star))
+}
+
+/** The temperature a stellar object's shade is drawn from: measured, or a class stand-in; never show or store it as a temperature. */
+export function appearanceKelvin(star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'>): number | null {
+  if (star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf') return brownDwarfAppearanceKelvin(star)
+  const spectralClass = star.type === 'star' ? star.spectral_type?.match(/([OBAFGKM])/)?.[1] as keyof typeof STAR_CLASS_KELVIN | undefined : undefined
+  return star.temperature_k ?? (spectralClass ? STAR_CLASS_KELVIN[spectralClass] : null)
 }
 
 /** The measured temperature, or a class stand-in for choosing a shade only; never show or store the result as a temperature. */

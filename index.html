@@ -110,6 +110,7 @@
                             <div class="stellar-property"><dt><button type="button" class="mass-metric-help" data-glossary-term="age">Age</button></dt><dd id="age"></dd></div>
                             <div id="magnitude-row" class="stellar-property magnitude-row"><dt><span>Absolute mag. (V)</span><span id="apparent-mag-label">Apparent mag. (V)</span></dt><dd><button id="magnitude-toggle" class="object-type-toggle" type="button" aria-controls="magnitude-card" aria-expanded="false" aria-describedby="absolute-mag apparent-mag"><span id="absolute-mag"></span><span id="apparent-mag" title="Earth-view catalog V magnitude; a snapshot, not current variable-star photometry."></span></button></dd></div>
                             <div id="infrared-magnitude-row" class="stellar-property" hidden><dt id="infrared-magnitude-label"></dt><dd id="infrared-magnitude"></dd></div>
+                            <div id="band-value-row" hidden><dt></dt><dd id="band-value"></dd></div>
                             <div id="parent-remnant-row" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="supernova_remnant">Supernova remnant</button></dt><dd><button id="parent-remnant" class="object-type-toggle" type="button"></button></dd></div>
                             <div class="compact-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Status</button><span id="compact-status-term" class="tooltip mass-metric-tooltip" role="tooltip">Confirmed means astronomers agree on what the object is. A candidate is a strong suspect that still needs more evidence.</span></dt><dd id="compact-status"></dd></div>
                             <div class="compact-property pulsar-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Pulsar type</button><span id="pulsar-classes-term" class="tooltip mass-metric-tooltip" role="tooltip">Groups pulsars by how fast they spin and what light they send out. Millisecond pulsars spin hundreds of times a second; some pulse in X-rays or gamma rays instead of radio waves, and rotating radio transients flash only now and then.</span></dt><dd id="pulsar-classes"></dd></div>
@@ -153,8 +154,8 @@
                             <div class="galaxy-property" hidden><dt>Classification</dt><dd id="galaxy-classification"></dd></div>
                             <div id="galaxy-angular-size-row" class="galaxy-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="apparent-size">Apparent size</button></dt><dd id="galaxy-angular-size"></dd></div>
                             <div class="galaxy-property" hidden><dt>Diameter</dt><dd id="galaxy-diameter"></dd></div>
-                            <div class="galaxy-property" hidden><dt>Stars</dt><dd id="galaxy-stars"></dd></div>
-                            <div id="galaxy-mass-row" class="galaxy-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="mass">Total mass</button><span id="galaxy-mass-term" class="tooltip mass-metric-tooltip" role="tooltip"></span></dt><dd id="galaxy-mass"></dd></div>
+                            <div id="galaxy-stars-row" class="galaxy-property" hidden><dt>Stars</dt><dd id="galaxy-stars"></dd></div>
+                            <div id="galaxy-mass-row" class="galaxy-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="mass">Mass</button><span id="galaxy-mass-term" class="tooltip mass-metric-tooltip" role="tooltip"></span></dt><dd id="galaxy-mass"></dd></div>
                             <div id="galaxy-velocity-row" class="galaxy-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="radial-velocity">Radial velocity</button></dt><dd id="galaxy-velocity"></dd></div>
                             <div class="galaxy-property" hidden><dt>Distance measured by</dt><dd id="galaxy-distance-method"></dd></div>
                             <div class="galaxy-property" hidden><dt>Source</dt><dd><a id="galaxy-source" target="_blank" rel="noreferrer"></a></dd></div>
@@ -810,6 +811,7 @@
                     <button id="neighborhood-toggle" class="icon-button panel-button" type="button" aria-label="Neighborhood" aria-controls="neighborhood-panel" aria-expanded="false"><span id="neighborhood-icon"></span><span class="tooltip">Neighborhood</span></button>
                     <button id="motion-toggle" class="icon-button panel-button" type="button" aria-label="Stellar motion" aria-controls="motion-panel" aria-expanded="false"><span id="motion-icon"></span><span class="tooltip">Stellar motion</span></button>
                     <button id="paint-toggle" class="icon-button panel-button" type="button" aria-label="Paint" aria-controls="paint-panel" aria-expanded="false"><span id="paint-icon"></span><span class="tooltip">Paint</span></button>
+                    <button id="wavelength-toggle" class="icon-button panel-button" type="button" aria-label="Wavelength vision" aria-controls="wavelength-panel" aria-expanded="false"><span id="wavelength-icon"></span><span class="tooltip">Wavelength vision</span></button>
                     <button id="graphs-toggle" class="icon-button panel-button" type="button" aria-label="Graphs" aria-controls="graphs-panel" aria-expanded="false"><span id="graphs-icon"></span><span class="tooltip">Graphs</span></button>
                     <button id="spaceship-toggle" class="icon-button panel-button" type="button" aria-label="Spaceship" aria-controls="spaceship-panel" aria-expanded="false"><span id="spaceship-icon"></span><span class="tooltip">Spaceship</span></button>
                   </div>
@@ -829,6 +831,7 @@
                 <div class="dock-indicators" role="group" aria-label="Active view changes">
                   <button id="motion-active" class="icon-button" type="button" aria-label="Stellar motion active" aria-pressed="true" aria-controls="motion-panel" hidden><span id="motion-active-icon"></span><span class="tooltip">Stellar motion active</span></button>
                   <button id="paint-active" class="icon-button" type="button" aria-label="Paint active" aria-pressed="true" aria-controls="paint-panel" hidden><span id="paint-active-icon"></span><span class="tooltip">Paint active</span></button>
+                  <button id="wavelength-active" class="icon-button" type="button" aria-label="Wavelength vision active" aria-pressed="true" aria-controls="wavelength-panel" hidden><span id="wavelength-active-icon"></span><span class="tooltip">Wavelength vision active</span></button>
                   <button id="top-lists-active" class="icon-button" type="button" aria-label="Top lists minimized" aria-pressed="true" aria-controls="top-lists-panel" hidden><span id="top-lists-active-icon"></span><span class="tooltip">Top lists minimized</span></button>
                   <button id="insights-active" class="icon-button" type="button" aria-label="Insight active" aria-pressed="true" aria-controls="insights-panel" hidden><span id="insights-active-icon"></span><span class="tooltip">Insight active</span></button>
                   <button id="neighborhood-active" class="icon-button" type="button" aria-label="Neighborhood active" aria-pressed="true" aria-controls="neighborhood-panel" hidden><span id="neighborhood-active-icon"></span><span class="tooltip">Neighborhood active</span></button>
@@ -934,6 +937,10 @@
                     <label class="power-saving-choice" for="demo-labels">
                       <span>Labels</span>
                       <span class="switch-control"><input id="demo-labels" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
+                    </label>
+                    <label class="power-saving-choice" for="demo-selection">
+                      <span>Highlight object</span>
+                      <span class="switch-control"><input id="demo-selection" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span></span>
                     </label>
                     <label class="power-saving-choice" for="demo-ui">
                       <span>Show UI</span>
@@ -1127,6 +1134,23 @@
                 </div>
                 <div id="paint-settings" class="filter-controls card-scroll-content" role="group" aria-label="Paint settings"></div>
               </section>
+              <section id="wavelength-panel" class="dock-card" aria-labelledby="wavelength-heading" data-scene-obstacle hidden>
+                <div class="panel-heading wavelength-heading">
+                  <h2 id="wavelength-heading">Wavelength vision</h2>
+                  <button id="wavelength-boost" class="panel-lock" type="button" aria-label="Increase visibility of faint sources outside visible light" title="Increase visibility of faint sources outside visible light" aria-pressed="false"><span id="wavelength-boost-icon"></span></button>
+                  <button id="wavelength-lock" class="panel-lock" type="button" aria-label="Keep Wavelength vision open" aria-pressed="false"><span id="wavelength-lock-icon"></span></button>
+                  <button id="wavelength-close" class="panel-lock" type="button" aria-label="Close wavelength vision card"><span id="wavelength-close-icon"></span></button>
+                </div>
+                <div class="filter-controls card-scroll-content">
+                  <div>
+                    <div id="wavelength-spectrum" class="wavelength-spectrum" aria-hidden="true"></div>
+                    <div id="wavelength-bands" class="wavelength-bands" role="group" aria-label="Wavelength band"></div>
+                    <div class="range-bounds" aria-hidden="true"><span>Shorter wavelength</span><span>Longer wavelength</span></div>
+                  </div>
+                  <div class="range-heading"><strong id="wavelength-band-name"></strong><output id="wavelength-band-range"></output></div>
+                  <div id="wavelength-band-descriptions" class="wavelength-descriptions"></div>
+                </div>
+              </section>
               <section id="insights-panel" class="dock-card" aria-labelledby="insights-heading" data-scene-obstacle hidden>
                 <div class="panel-heading insights-heading">
                   <h2 id="insights-heading">Insights</h2>
@@ -1250,7 +1274,7 @@
                       <label class="filter-toggle" for="milky-way-visible">
                         <span class="mass-metric-help">Galaxies</span>
                         <span class="switch-control"><input id="milky-way-visible" type="checkbox" role="switch" aria-describedby="milky-way-visible-tooltip" checked><span class="switch-track" aria-hidden="true"></span></span>
-                      </label><span id="milky-way-visible-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">The Milky Way as a faint band across the sky behind the stars. Thousands of light-years from the Sun, it gives way to models of the whole Galaxy and its neighbors, the Magellanic Clouds and the Andromeda and Triangulum galaxies, which you can select. With no object distance limit, you can zoom out across the Local Group.</span>
+                      </label><span id="milky-way-visible-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">The Milky Way as a faint band across the sky behind the stars. Thousands of light-years from the Sun, it gives way to models of the whole Galaxy and its neighbors, from the Magellanic Clouds and the Andromeda and Triangulum galaxies to their dwarf satellites, which you can select. With no object distance limit, you can zoom out across the Local Group.</span>
                       <label class="filter-toggle" for="oort-cloud-visible">
                         <span class="mass-metric-help">Oort cloud</span>
                         <span class="switch-control"><input id="oort-cloud-visible" type="checkbox" role="switch" aria-describedby="oort-cloud-visible-tooltip" checked><span class="switch-track" aria-hidden="true"></span></span>
@@ -1289,6 +1313,7 @@
                     <div><dt>Repository</dt><dd><a href="https://github.com/reery/Star-View" target="_blank" rel="noreferrer">GitHub</a></dd></div>
                     <div><dt>License</dt><dd>MIT</dd></div>
                     <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
+                    <div><dt>Wavelength skies</dt><dd>Fermi LAT (NASA) · ROSAT, Snowden et al. 1997 · IRIS, Miville-Deschênes &amp; Lagache 2005 · 408 MHz, Haslam et al. 1982 · CO, Dame et al. 2001<br><span class="attribution-note">via <a href="https://skyview.gsfc.nasa.gov" target="_blank" rel="noreferrer">NASA SkyView</a> · resampled and stretched</span></dd></div>
                     <div><dt>Catalog updated</dt><dd><time datetime="2026-11-14">14 November 2026</time></dd></div>
                     <div><dt>Build date</dt><dd><time datetime="%BUILD_DATE_ISO%">%BUILD_DATE%</time></dd></div>
                     <div><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="catalog-epoch-tooltip">Position reference epoch</button><span id="catalog-epoch-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog positions use the year 2000 as their reference time.</span></dt><dd id="catalog-epoch">J2000.0</dd></div>

@@ -1,9 +1,11 @@
 import { formatDistance, galacticToWorld, galacticVelocityToWorld, sunRelativeMetrics, type DistanceUnit } from './astronomy'
 import { describeObject, type Star } from './catalog-model'
 import { catalogMeasurement, catalogSourceFor } from './catalog-source'
-import { measurement, MISSING_VALUE, quantity } from './format'
+import { formatNumber, measurement, MISSING_VALUE, quantity } from './format'
+import { superscript } from './planet-value'
 import { planetCountForStar } from './planetary-systems'
 import { spaceMotionForStar } from './space-motion'
+import { wavelengthBandData, type MeasuredEntry, type WavelengthBandId } from './wavelength-vision'
 
 export interface SpecValue {
   text: string
@@ -30,11 +32,25 @@ const degrees = (value: number) => `${value.toLocaleString('en-US', { maximumFra
 const compactMassDigits = (error: number | null) => error === null ? 1 : Math.max(1, Math.ceil(-Math.log10(error)) + 1)
 const modelRange = (min: number, max: number, unit: string) => `${quantity(min, '', 1)}–${quantity(max, '', 1)} ${unit}`
 
+const BAND_VALUE_LABELS: Partial<Record<WavelengthBandId, string>> = {
+  gamma: 'Gamma-ray flux', 'x-ray': 'X-ray flux', 'near-infrared': 'Apparent mag. (K)', 'far-infrared': 'Apparent mag. (60 µm)', radio: 'Radio flux density',
+}
+
+/** A measured band value in its file's unit: magnitudes, flux densities in mJy or energy fluxes in erg cm⁻² s⁻¹. */
+function bandValueText([value, error]: MeasuredEntry, unit: string): string {
+  if (unit === 'mag') return measurement(value, error, '', 2).trim()
+  if (unit === 'mJy') return value >= 1000 ? quantity(value / 1000, 'Jy', 1) : quantity(value, 'mJy')
+  const exponent = Number(value.toExponential(2).split('e')[1])
+  const mantissa = (scaled: number) => formatNumber(scaled / 10 ** exponent, 2)
+  const power = `× 10${superscript(exponent)} erg/cm²/s`
+  return error === null ? `${mantissa(value)} ${power}` : `(${mantissa(value)} ± ${mantissa(error)}) ${power}`
+}
+
 /**
  * Formats the Specs values once, keyed by the element id of each value, so the
  * selected and comparison columns share units, precision and source scopes.
  */
-export function specValues(star: Star, sun: Star, unit: DistanceUnit): Record<string, SpecValue> {
+export function specValues(star: Star, sun: Star, unit: DistanceUnit, band: WavelengthBandId = 'visible'): Record<string, SpecValue> {
   const values: Record<string, SpecValue> = {}
   const set = (id: string, text: string, title?: string, label?: string) => { values[id] = { text, title, label } }
   const source = <T extends Parameters<typeof catalogSourceFor>[1]>(id: string, field: T, format: (value: Exclude<Star[T], undefined> | null) => string, label?: string) => {
@@ -94,6 +110,13 @@ export function specValues(star: Star, sun: Star, unit: DistanceUnit): Record<st
   set('infrared-magnitude', infrared ? measurement(infrared.magnitude, infrared.error_mag, '', 2).trim() : MISSING_VALUE,
     infrared ? `${infrared.instrument} ${infrared.band}, ${infrared.wavelength_microns} μm, ${infrared.system} system; ${infrared.observed_on.join(', ')}. ${infrared.reference}. ${infrared.scope}` : undefined,
     infrared ? `Apparent mag. (${infrared.band})` : '')
+  // The measured value in the band the map shows, while one other than visible light is chosen.
+  const bandData = wavelengthBandData(band)
+  const bandEntry = bandData?.objects[star.id]
+  const bandSource = bandEntry && bandData!.sources[bandEntry[2]]
+  set('band-value', bandEntry ? bandValueText(bandEntry, bandData!.unit) : MISSING_VALUE,
+    bandEntry && bandSource ? [bandEntry[3], `${bandSource.label}, ${bandSource.reference}`, bandSource.note, bandEntry[4]].filter(Boolean).join('. ') + '.' : undefined,
+    BAND_VALUE_LABELS[band] ?? '')
 
   for (const axis of ['x', 'y', 'z'] as const) {
     set(`coordinate-${axis}`, formatDistance(star[`${axis}_pc`], unit, 3))

@@ -1,0 +1,22 @@
+{
+ "retrieved": "2026-11-16",
+ "services": {
+  "vizier": "https://vizier.idia.ac.za/viz-bin/asu-tsv",
+  "gaiaTap": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "simbadTap": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+  "fermi": "https://fermi.gsfc.nasa.gov/ssc/data/access/lat/14yr_catalog/gll_psc_v35.fit"
+ },
+ "checksumsSha256": {
+  "fir-iras.json": "a4bcdeaf5f522c0bc8b2c561313d52a64ac7c92b8531bb5c74adda749e37e968",
+  "gamma-4fgl.json": "537191c538885e320a0716497de39e8377014b698148060102c8a04aa3b8b77b",
+  "nir-2mass.json": "40011726d7b2f587af0282fe06878fa815189f0976bc9ed0041ea63c07e134b0",
+  "nir-dirbe.json": "6c5a7955162679d3a062425dbd1ddc9eb4706cd788aab710f7ec7a79d541b900",
+  "nir-simbad.json": "0c0fe359e9a2ca56166c489de56ec349dd9e84bd862696a36e62fc9f2771a2c7",
+  "radio-green.json": "dbc51be2246c4fc450bea509c4d8cfab32ba39a734d0f7b53546716a8113bb59",
+  "radio-wendker.json": "873cccf155cd39d55e83c4ec276cebc9a275d8bc36de8099aaa91630965fe293",
+  "xray-1rxs.json": "fdeca9dd39458daae4256d371da861f3ab3d0a00bb04b4f1b13186d7c92c87f0",
+  "xray-erass1-compact.json": "f7f2810ed51ae5bc75b8e4a85d6ba636d215a69192da4a3230d4a738de003f79",
+  "xray-freund2022.json": "bb95eb7c669a0903e878d0fe3f6c28bd4737e8a8c5c8c45d47073d7c834ecd91",
+  "xray-freund2024.json": "af3f450c96d636ac80c7ea01f6279b689a0d35f17051d75c465cc9bf3e367558"
+ }
+}

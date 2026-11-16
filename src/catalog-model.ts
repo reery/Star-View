@@ -207,10 +207,10 @@ export interface GalaxyDetails {
   /** Major and minor isophotal axes on the sky; null for the Milky Way, which surrounds us. */
   angular_size_deg: [number, number] | null
   size_source: GalaxySource
-  /** Rough published star count range. */
-  star_count: [number, number]
-  star_count_source: GalaxySource
-  /** Total mass including dark matter, with its scope; null without a reviewed measurement. */
+  /** Rough published star count range; null where none is published. */
+  star_count: [number, number] | null
+  star_count_source: GalaxySource | null
+  /** Mass including dark matter, total or within a stated radius as its scope says; absent without a reviewed measurement. */
   total_mass?: { value_solar: number; lower_error_solar: number; upper_error_solar: number; scope: string; source: GalaxySource }
   /** Heliocentric; null for the Milky Way. */
   radial_velocity_kms: number | null
@@ -219,6 +219,18 @@ export interface GalaxyDetails {
   /** Model radius: the drawn disk and the sky area that selects the galaxy. */
   model_radius_pc: number
   palette: { real: string; exaggerated: string }
+  /** Published structure of a dwarf galaxy drawn as a smooth spheroid; absent for the galaxies with their own models. */
+  spheroid?: {
+    /** Along the long axis. */
+    half_light_radius_pc: number
+    /** 1 − minor/major axis ratio. */
+    ellipticity: number
+    /** Long axis, north through east, 0–180°. */
+    position_angle_deg: number
+    /** Mean V-band surface brightness within the half-light radius, mag/arcsec². */
+    surface_brightness_v: number
+    source: GalaxySource
+  }
   position_source: string
   model_note: string
 }

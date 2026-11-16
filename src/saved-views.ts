@@ -7,6 +7,7 @@ import type { SkyGridMode } from './sky-grid'
 import { isPaintSettingId, PAINT_CHANNELS, PAINT_LEVEL_RANGE, type PaintChannel, type PaintSettingId } from './star-paint'
 import type { SavedGraphSelection } from './graphs'
 import { NEIGHBORHOOD_RADIUS_LY } from './neighborhood'
+import { isWavelengthBandId, type WavelengthBandId } from './wavelength-vision'
 
 export const SAVED_VIEWS_STORAGE_KEY = 'star-view-saved-views'
 // The last step, Infinite, shows objects at every distance.
@@ -66,6 +67,8 @@ export interface SavedViewSettings {
   paint?: [PaintSettingId, number, PaintChannel[]?][]
   /** Absent in views saved without a neighborhood. The birth year stays private and is never saved. */
   neighborhood?: { centerId: string; radiusLy: number }
+  /** Absent in views saved before Wavelength vision, which show visible light. */
+  wavelengthBand?: WavelengthBandId
 }
 
 export interface SavedView {
@@ -148,6 +151,7 @@ function isSavedView(value: unknown): value is SavedView {
     && (settings.neighborhood === undefined || (isRecord(settings.neighborhood) && typeof settings.neighborhood.centerId === 'string'
       && Number.isInteger(settings.neighborhood.radiusLy) && (settings.neighborhood.radiusLy as number) >= NEIGHBORHOOD_RADIUS_LY.min
       && (settings.neighborhood.radiusLy as number) <= NEIGHBORHOOD_RADIUS_LY.max))
+    && (settings.wavelengthBand === undefined || isWavelengthBandId(settings.wavelengthBand))
 }
 
 export function readSavedViews(): SavedView[] {
@@ -167,7 +171,7 @@ export function readSavedViews(): SavedView[] {
 const LINK_VALUES = {
   m: ['magnitudeLimit', 7], d: ['objectDistanceLimitLy', 100], e: ['earthOrbitMode', 'now'],
   k: ['visibilityConeMode', 'off'], y: ['motionYears', 1_000], r: ['motionFrame', 'galactic'], g: ['skyGridMode', 'off'],
-  t: ['simulationYears', 0], s: ['selectedId', 'sirius-a'], o: ['referenceId', 'sun'],
+  t: ['simulationYears', 0], s: ['selectedId', 'sirius-a'], o: ['referenceId', 'sun'], x: ['wavelengthBand', 'visible'],
 } as const satisfies Record<string, readonly [keyof SavedViewSettings, string | number]>
 const LINK_FILTERS = new Set<string>(['compact_objects', 'sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'supernova_remnant', 'bubble'])
 /** Bit order of the `b` flags; append only. Each bit marks a flag that differs from its link default. */

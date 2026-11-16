@@ -138,6 +138,8 @@ export const TIP_FEATURES: readonly Feature[] = [
   open('paint', '#paint-toggle, #paint-active', exploreTool),
   deep('paint', 'paint-setting', '.paint-setting-toggle', { key: (control) => control.closest<HTMLElement>('[data-paint-setting]')?.dataset.paintSetting }),
   deep('paint', 'paint-channel', '[data-paint-channel]'),
+  open('wavelength', '#wavelength-toggle, #wavelength-active', exploreTool),
+  deep('wavelength', 'wavelength-band', '.wavelength-band', { key: (control) => (control as HTMLElement).dataset.band }),
   deep('paint', 'paint-scale', '[data-paint-scale]'),
   deep('paint', 'paint-control', '[data-paint-control]'),
   deep('paint', 'paint-keep-size', '#paint-keep-size'),

@@ -1,10 +1,11 @@
 import {
-  AdditiveBlending, Camera, CanvasTexture, Color, DepthTexture, Float32BufferAttribute, Group, HalfFloatType,
+  AdditiveBlending, Camera, CanvasTexture, Color, CustomBlending, DepthTexture, Float32BufferAttribute, Group, HalfFloatType,
   InstancedBufferAttribute, InstancedBufferGeometry, LinearFilter, Mesh, NormalBlending, OrthographicCamera,
-  Material, PlaneGeometry, RedFormat, Scene, ShaderMaterial, Vector2, WebGLRenderer, WebGLRenderTarget,
+  Material, OneFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, PlaneGeometry, RedFormat, Scene, ShaderMaterial, Vector2, WebGLRenderer, WebGLRenderTarget,
 } from 'three'
 import type { Star } from './catalog-model'
 import type { StarColorMode } from './astronomy'
+import { MOLECULAR_CLOUD_BANDS, wavelengthBandColor, type WavelengthBandId } from './wavelength-vision'
 
 export const MOLECULAR_CLOUD_MAX_SCREEN_FRACTION = 0.16
 const MIN_PUFF_PIXELS = 1.6
@@ -146,6 +147,8 @@ export interface MolecularCloudLayer {
   setColorMode(mode: StarColorMode): void
   setViewportHeight(pixels: number): void
   setSelected(id: string | null): void
+  /** Absorbs light as in visible light, more or less, or glows in the band's false colors where clouds emit. */
+  setBand(band: WavelengthBandId): void
   instanceCount(): number
   render(renderer: WebGLRenderer, scene: Scene, camera: Camera): void
   dispose(): void
@@ -322,6 +325,48 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       }
     `,
   })
+  // Cold dust (far infrared) and carbon monoxide (radio) shine where the clouds are densest.
+  const glowScale = { value: 0 }
+  const glowMaterial = new ShaderMaterial({
+    uniforms: { ...uniforms, alphaScale: glowScale, bandShort: { value: new Color() }, bandLong: { value: new Color() } },
+    transparent: true,
+    // The screen compositing of nebula light, so overlapping clouds roll off instead of clipping.
+    blending: CustomBlending,
+    blendSrc: OneFactor,
+    blendDst: OneMinusSrcColorFactor,
+    blendSrcAlpha: OneFactor,
+    blendDstAlpha: OneMinusSrcAlphaFactor,
+    premultipliedAlpha: true,
+    depthTest: true,
+    depthWrite: false,
+    toneMapped: false,
+    vertexShader,
+    fragmentShader: `
+      uniform sampler2D noiseMap;
+      uniform vec3 bandShort;
+      uniform vec3 bandLong;
+      varying vec2 vUv;
+      varying vec2 vNoiseUv;
+      varying float vAlpha;
+      varying float vSelected;
+      void main() {
+        float r2 = dot(vUv, vUv);
+        if (r2 >= 1.0) discard;
+        float falloff = pow(1.0 - r2, 1.65);
+        float noise = texture2D(noiseMap, vNoiseUv).r;
+        float filaments = smoothstep(0.18, 0.92, noise + 0.16 * sin((vUv.x - vUv.y) * 8.0));
+        float column = vAlpha * falloff * (0.4 + 1.4 * filaments) * mix(1.0, 1.6, vSelected);
+        float alpha = 1.0 - exp(-column * 0.6);
+        gl_FragColor = vec4(mix(bandLong, bandShort, filaments), 1.0);
+        #include <colorspace_fragment>
+        gl_FragColor = vec4(gl_FragColor.rgb * alpha, alpha);
+      }
+    `,
+  })
+  const glow = new Mesh(geometry, glowMaterial)
+  glow.frustumCulled = false
+  glow.renderOrder = 1.8
+  glow.visible = false
   const body = new Mesh(geometry, bodyMaterial)
   body.frustumCulled = false
   // Draw every faint rim before darkening the sky. The source attenuation is
@@ -333,7 +378,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
   const sourceAbsorption = new Mesh(geometry, sourceAbsorptionMaterial)
   sourceAbsorption.frustumCulled = false
   const root = new Group()
-  root.add(body, rim)
+  root.add(body, rim, glow)
   root.visible = false
   const absorptionScene = new Scene()
   absorptionScene.add(sourceAbsorption)
@@ -438,6 +483,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
   let fraction = 1
   let sourceDepthCapture = true
   let samples = 2
+  let bandWeights = MOLECULAR_CLOUD_BANDS.visible
   let packedKey = ''
 
   function repack(): void {
@@ -447,7 +493,8 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
     const count = packMolecularCloudInstances(sources, visibility, fraction, buffers)
     geometry.instanceCount = count
     root.visible = count > 0
-    uniforms.alphaScale.value = 1 / fraction
+    uniforms.alphaScale.value = bandWeights.absorption / fraction
+    glowScale.value = bandWeights.glow / fraction
     if (count === 0) {
       // The full-screen capture targets are tens of MB; recreate them when clouds return.
       releaseTargets()
@@ -491,9 +538,20 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
     setSelected(id) {
       uniforms.selectedCloudIndex.value = id === null ? -1 : cloudIndexById.get(id) ?? -1
     },
+    setBand(band) {
+      bandWeights = MOLECULAR_CLOUD_BANDS[band]
+      body.visible = rim.visible = bandWeights.absorption > 0
+      glow.visible = bandWeights.glow > 0
+      wavelengthBandColor(band, 0, glowMaterial.uniforms.bandShort!.value)
+      wavelengthBandColor(band, 1, glowMaterial.uniforms.bandLong!.value)
+      uniforms.alphaScale.value = bandWeights.absorption / fraction
+      glowScale.value = bandWeights.glow / fraction
+      // Without absorption there is nothing to capture; dropping the targets frees tens of MB.
+      if (bandWeights.absorption === 0) releaseTargets()
+    },
     instanceCount: () => geometry.instanceCount,
     render(renderer, scene, camera) {
-      if (!root.visible) {
+      if (!root.visible || bandWeights.absorption === 0) {
         renderer.render(scene, camera)
         return
       }
@@ -551,6 +609,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       compositeGeometry.dispose()
       compositeMaterial.dispose()
       rimMaterial.dispose()
+      glowMaterial.dispose()
       noise.dispose()
     },
   }

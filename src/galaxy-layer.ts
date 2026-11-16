@@ -2,6 +2,7 @@ import { Color, Group, Vector3, type Camera, type ColorRepresentation } from 'th
 import { galacticToWorld, type StarColorMode } from './astronomy'
 import { ICRS_TO_GALACTIC_ROWS, type GalaxyDetails, type Star } from './catalog-model'
 import { createPuffLayer, gaussian, puffSource, seededRandom, type NebulaLayer, type PuffInstances, type PuffSource } from './nebula-layer'
+import { GALAXY_BANDS, type WavelengthBandId } from './wavelength-vision'
 
 // The Galaxy seen from outside, generated from a handful of published parameters:
 // glowing puffs for starlight and absorbing puffs for dust, two instanced draws.
@@ -448,6 +449,43 @@ const LOCAL_GROUP_MODELS: Record<string, () => GalaxyModel> = {
   'triangulum-galaxy': triangulumModel,
 }
 
+// Dwarf spheroidal and dwarf elliptical galaxies: a dust-free Plummer spheroid of old stars, whose projected
+// half-light radius is the published one, flattened and turned on the sky as measured. The unmeasured depth
+// is the geometric mean of the two sky axes. Lower surface brightness dims the puffs, 0.16 dex per magnitude
+// instead of 0.4, so the 11 magnitudes from Messier 32 to the Sextans Dwarf all stay visible.
+const SPHEROID_PUFFS = 2000
+type GalaxyModelSource = Pick<Star, 'id'> & { galaxy: Pick<GalaxyDetails, 'ra_deg' | 'dec_deg' | 'model_radius_pc' | 'palette' | 'spheroid'> }
+
+function spheroidModel({ galaxy: { spheroid, model_radius_pc: limit, palette } }: GalaxyModelSource): GalaxyModel {
+  const { half_light_radius_pc: scale, ellipticity, position_angle_deg: angle, surface_brightness_v: brightness } = spheroid!
+  const real = color(palette.real)
+  const vivid = color(palette.exaggerated)
+  const [sin, cos] = [Math.sin(angle * DEG), Math.cos(angle * DEG)]
+  const ratio = 1 - ellipticity
+  const alpha = Math.min(0.06, 0.025 * 10 ** (-0.16 * (brightness - 21)))
+  return {
+    emission: SPHEROID_PUFFS, dust: 0, featurePc: 2 * scale,
+    sampleEmission(random) {
+      for (;;) {
+        const radius = scale / Math.sqrt(random() ** (-2 / 3) - 1)
+        if (!(radius <= limit)) continue
+        const z = 2 * random() - 1
+        const phi = 2 * Math.PI * random()
+        const along = radius * Math.sqrt(1 - z * z) * Math.cos(phi)
+        const across = radius * Math.sqrt(1 - z * z) * Math.sin(phi) * ratio
+        // Larger puffs outward keep the faint outskirts smooth.
+        return sample([along * sin + across * cos, along * cos - across * sin, radius * z * Math.sqrt(ratio)],
+          scale * (0.2 + 0.25 * Math.min(1, radius / scale)), alpha * (0.7 + 0.3 * random()), real, vivid)
+      }
+    },
+    sampleDust: () => { throw new Error('A spheroid model has no dust.') },
+  }
+}
+
+function galaxyModel(galaxy: GalaxyModelSource): GalaxyModel | undefined {
+  return galaxy.galaxy.spheroid ? spheroidModel(galaxy) : LOCAL_GROUP_MODELS[galaxy.id]?.()
+}
+
 /** World directions of east, north and away from the Sun at a galaxy's center. */
 function skyFrame(details: Pick<GalaxyDetails, 'ra_deg' | 'dec_deg'>): [Vector3, Vector3, Vector3] {
   const toWorld = (equatorial: Vec3) => {
@@ -464,8 +502,8 @@ function skyFrame(details: Pick<GalaxyDetails, 'ra_deg' | 'dec_deg'>): [Vector3,
 }
 
 /** The first `limit` puffs of one galaxy, relative to its center in world axes; every larger limit yields the same prefix. */
-export function generateLocalGalaxyPuffs(galaxy: Pick<Star, 'id'> & { galaxy: Pick<GalaxyDetails, 'ra_deg' | 'dec_deg'> }, kind: 'emission' | 'dust', limit?: number): PuffInstances {
-  const model = LOCAL_GROUP_MODELS[galaxy.id]?.()
+export function generateLocalGalaxyPuffs(galaxy: GalaxyModelSource, kind: 'emission' | 'dust', limit?: number): PuffInstances {
+  const model = galaxyModel(galaxy)
   if (!model) throw new Error(`No galaxy model: ${galaxy.id}`)
   const count = Math.min(model[kind], limit ?? model[kind])
   const random = seededRandom([...galaxy.id].reduce((hash, character) => Math.imul(hash ^ character.charCodeAt(0), 16777619), kind === 'dust' ? 0x9e37 : 0x811c))
@@ -480,11 +518,11 @@ export function generateLocalGalaxyPuffs(galaxy: Pick<Star, 'id'> & { galaxy: Pi
   return buffer.puffs
 }
 
-function localGalaxySource(galaxy: Star & { galaxy: GalaxyDetails }, kind: 'emission' | 'dust'): PuffSource {
+function localGalaxySource(galaxy: Star & { galaxy: GalaxyDetails }, kind: 'emission' | 'dust', count: number): PuffSource {
   const radius = galaxy.galaxy.model_radius_pc
   let puffs: PuffInstances | null = null
   return {
-    count: LOCAL_GROUP_MODELS[galaxy.id]!()[kind],
+    count,
     extent: { center: galacticToWorld(galaxy), semiAxes: [radius, radius] },
     instances(limit) {
       // Generated only as far as the view has needed it.
@@ -499,6 +537,8 @@ export interface GalaxyLayer {
   /** The Milky Way model and the other galaxies fade on their own schedules. */
   setOpacity(milkyWay: number, others: number): void
   setColorMode(mode: StarColorMode): void
+  /** Weighs each galaxy's starlight and dust for the band. */
+  setBand(band: WavelengthBandId): void
   setViewportHeight(pixels: number): void
   /** Picks each galaxy's detail for the camera and draws the farther galaxies first, so nearer dust dims them. */
   update(camera: Camera): void
@@ -518,10 +558,12 @@ export function createGalaxyLayer(mode: StarColorMode, galaxies: readonly Star[]
     ],
   }
   const others = galaxies.flatMap((galaxy) => {
-    if (!galaxy.galaxy || !LOCAL_GROUP_MODELS[galaxy.id]) return []
+    const model = galaxy.galaxy && galaxyModel(galaxy as Star & { galaxy: GalaxyDetails })
+    if (!model) return []
     const center = galacticToWorld(galaxy)
-    const layers = (['emission', 'dust'] as const).map((kind) => {
-      const layer = createPuffLayer([localGalaxySource(galaxy as Star & { galaxy: GalaxyDetails }, kind)], mode, { absorb: kind === 'dust', maxScreenFraction: 0.25 })
+    // Dust-free models draw starlight only.
+    const layers = (['emission', 'dust'] as const).filter((kind) => model[kind] > 0).map((kind) => {
+      const layer = createPuffLayer([localGalaxySource(galaxy as Star & { galaxy: GalaxyDetails }, kind, model[kind])], mode, { absorb: kind === 'dust', maxScreenFraction: 0.25 })
       // Puffs are stored relative to the center, which keeps them precise millions of light-years out.
       layer.mesh.position.copy(center)
       return layer
@@ -529,6 +571,7 @@ export function createGalaxyLayer(mode: StarColorMode, galaxies: readonly Star[]
     return [{ center, layers }]
   })
   const all = [milkyWay, ...others]
+  const renderOrderStep = 0.8 / all.length
   const group = new Group()
   for (const { layers } of all) {
     for (const layer of layers) {
@@ -548,15 +591,20 @@ export function createGalaxyLayer(mode: StarColorMode, galaxies: readonly Star[]
     setColorMode(next) {
       eachLayer((layer) => layer.setColorMode(next))
     },
+    setBand(band) {
+      // Each galaxy's layers are its starlight, then its dust.
+      const { emission, dust } = GALAXY_BANDS[band]
+      for (const { layers } of all) layers.forEach((layer, index) => layer.setBand(band, index === 0 ? emission : dust))
+    },
     setViewportHeight(pixels) {
       eachLayer((layer) => layer.setViewportHeight(pixels))
     },
     update(camera) {
       if (!group.visible) return
       cameraPosition.setFromMatrixPosition(camera.matrixWorld)
-      // Above the panorama and below the sky grid, star marks and labels; each galaxy's dust right after its light.
+      // Above the panorama (-1) and below the sky grid, star marks and labels (1 and up); each galaxy's dust right after its light.
       ;[...all].sort((first, second) => second.center.distanceToSquared(cameraPosition) - first.center.distanceToSquared(cameraPosition))
-        .forEach(({ layers }, rank) => layers.forEach((layer, index) => { layer.mesh.renderOrder = -0.9 + 0.1 * rank + 0.05 * index }))
+        .forEach(({ layers }, rank) => layers.forEach((layer, index) => { layer.mesh.renderOrder = -0.9 + renderOrderStep * (rank + 0.5 * index) }))
       for (const { layers } of others) for (const layer of layers) layer.updateDetail(camera)
     },
     dispose() {

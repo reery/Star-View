@@ -2,11 +2,11 @@
   "schemaVersion": 1,
   "id": "galaxies",
   "label": "Galaxies",
-  "description": "The Milky Way and the four major Local Group galaxies near it, shown while Galaxies is on in Preferences. Their visuals are drawn from published structure, generated on first need.",
+  "description": "The Milky Way, the four major Local Group galaxies near it and thirteen of their dwarf satellites, shown while Galaxies is on in Preferences. Their visuals are drawn from published structure, generated on first need.",
   "epoch": 2000,
-  "objectCount": 5,
+  "objectCount": 18,
   "counts": {
-    "galaxy": 5
+    "galaxy": 18
   },
   "sources": [
     {
@@ -36,8 +36,16 @@
     {
       "name": "NASA/IPAC Extragalactic Database; centers and heliocentric velocities",
       "url": "https://ned.ipac.caltech.edu/"
+    },
+    {
+      "name": "Pace (2025), Local Volume Database v1.1.2; dwarf galaxy centers, distances, structure, velocities and masses",
+      "url": "https://doi.org/10.33232/001c.144859"
+    },
+    {
+      "name": "Monaco et al. (2004); red giant branch tip distance to the Sagittarius Dwarf Galaxy",
+      "url": "https://arxiv.org/abs/astro-ph/0406350"
     }
   ],
-  "cutoffPolicy": "The Milky Way, both Magellanic Clouds, the Andromeda Galaxy and the Triangulum Galaxy: the Local Group galaxies visible to the naked eye.",
-  "snapshot": "J2000 Galactic frame; values reviewed 2026-11-15."
+  "cutoffPolicy": "The Local Group galaxies visible to the naked eye (the Milky Way, both Magellanic Clouds, the Andromeda Galaxy and the Triangulum Galaxy), the four bright satellites of the Andromeda Galaxy and the nine classical dwarf spheroidal satellites of the Milky Way.",
+  "snapshot": "J2000 Galactic frame; values reviewed 2026-11-16."
 }

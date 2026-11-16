@@ -3,7 +3,9 @@ import { ARMS, armRadius, galactocentricToWorld, generateGalaxyPuffs, generateLo
 import { distanceFade } from './milky-way-layer'
 import { parseGalaxyOverlayManifest, parseGalaxyOverlayPayload } from './galaxy-overlay-model'
 import { isObjectMapVisible, maxOrbitDistancePc } from './viewer-primitives'
-import { LIGHT_YEARS_PER_PARSEC } from './astronomy'
+import { galacticToWorld, LIGHT_YEARS_PER_PARSEC } from './astronomy'
+import { ICRS_TO_GALACTIC_ROWS } from './catalog-model'
+import { Vector3 } from 'three'
 import manifestRaw from './data/overlays/galaxies/manifest.json?raw'
 import payloadRaw from './data/overlays/galaxies/objects.json?raw'
 
@@ -64,7 +66,9 @@ describe('Local Group galaxies', () => {
   const galaxy = (id: string) => galaxies.find((candidate) => candidate.id === id)!
 
   it('places each galaxy at its reviewed center and distance', () => {
-    expect(galaxies.map(({ id }) => id)).toEqual(['milky-way', 'large-magellanic-cloud', 'small-magellanic-cloud', 'andromeda-galaxy', 'triangulum-galaxy'])
+    expect(galaxies.map(({ id }) => id)).toEqual(['milky-way', 'large-magellanic-cloud', 'small-magellanic-cloud', 'andromeda-galaxy', 'triangulum-galaxy',
+      'sagittarius-dwarf-galaxy', 'fornax-dwarf-galaxy', 'sculptor-dwarf-galaxy', 'draco-dwarf-galaxy', 'ursa-minor-dwarf-galaxy', 'carina-dwarf-galaxy',
+      'sextans-dwarf-galaxy', 'leo-i-dwarf-galaxy', 'leo-ii-dwarf-galaxy', 'messier-32', 'messier-110', 'ngc-185', 'ngc-147'])
     // Sagittarius A* lies just below the plane toward l = 0°; Andromeda at l = 121.2°, b = −21.6°.
     const center = galaxy('milky-way')
     expect(Math.hypot(center.x_pc, center.y_pc, center.z_pc)).toBeCloseTo(8178, 0)
@@ -92,7 +96,7 @@ describe('Local Group galaxies', () => {
   })
 
   it('generates each model as a deterministic prefix, so any detail level is an unbiased subset', () => {
-    for (const id of ['large-magellanic-cloud', 'small-magellanic-cloud', 'andromeda-galaxy', 'triangulum-galaxy']) {
+    for (const id of galaxies.slice(1).map((galaxy) => galaxy.id)) {
       const target = galaxy(id) as Parameters<typeof generateLocalGalaxyPuffs>[0]
       const coarse = generateLocalGalaxyPuffs(target, 'emission', 64)
       const fine = generateLocalGalaxyPuffs(target, 'emission', 256)
@@ -104,6 +108,33 @@ describe('Local Group galaxies', () => {
         expect(Math.hypot(...fine.centers.subarray(index * 3, index * 3 + 3)), id).toBeLessThan(3 * radius)
       }
     }
+  })
+
+  it('draws each dwarf as its published half-light ellipse, without dust', () => {
+    const fornax = galaxy('fornax-dwarf-galaxy') as Parameters<typeof generateLocalGalaxyPuffs>[0]
+    const { half_light_radius_pc: scale, ellipticity, position_angle_deg: angle } = fornax.galaxy.spheroid!
+    expect(generateLocalGalaxyPuffs(fornax, 'dust').count).toBe(0)
+    const puffs = generateLocalGalaxyPuffs(fornax, 'emission')
+    // Undo the sky frame: world offsets back to east and north, then onto the long and short axes.
+    const alpha = fornax.galaxy.ra_deg * Math.PI / 180
+    const delta = fornax.galaxy.dec_deg * Math.PI / 180
+    const toWorld = (equatorial: number[]) => {
+      const [x, y, z] = [0, 1, 2].map((row) => [0, 1, 2].reduce((sum, column) => sum + ICRS_TO_GALACTIC_ROWS[row]![column]! * equatorial[column]!, 0))
+      return galacticToWorld({ x_pc: x!, y_pc: y!, z_pc: z! })
+    }
+    const east = toWorld([-Math.sin(alpha), Math.cos(alpha), 0])
+    const north = toWorld([-Math.sin(delta) * Math.cos(alpha), -Math.sin(delta) * Math.sin(alpha), Math.cos(delta)])
+    const [along, across] = [[] as number[], [] as number[]]
+    for (let index = 0; index < puffs.count; index++) {
+      const point = new Vector3(...puffs.centers.subarray(index * 3, index * 3 + 3))
+      const [e, n] = [point.dot(east), point.dot(north)]
+      along.push(Math.abs(e * Math.sin(angle * Math.PI / 180) + n * Math.cos(angle * Math.PI / 180)))
+      across.push(Math.abs(e * Math.cos(angle * Math.PI / 180) - n * Math.sin(angle * Math.PI / 180)))
+    }
+    const median = (values: number[]) => values.sort((first, second) => first - second)[values.length >> 1]!
+    // A Plummer profile cut at three scale radii has a median offset along one axis of 0.49 scale radii.
+    expect(median(along) / scale).toBeCloseTo(0.49, 1)
+    expect(median(across) / median(along)).toBeCloseTo(1 - ellipticity, 1)
   })
 
   it('shows galaxies with the Galaxies preference at any distance limit', () => {

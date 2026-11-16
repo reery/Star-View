@@ -313,8 +313,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading #paint-expand { display: none; right: 175px; border-radius: 0; }
 .panel-heading #paint-keep-size { right: 131px; border-radius: 0; }
 .panel-heading #paint-reset { right: 87px; border-radius: 0; }
-.panel-heading:is(.neighborhood-heading, .demo-heading) { padding-right: 142px; }
-.panel-heading :is(#neighborhood-clear, #demo-run) { right: 87px; border-radius: 0; }
+.panel-heading:is(.neighborhood-heading, .demo-heading, .wavelength-heading) { padding-right: 142px; }
+.panel-heading :is(#neighborhood-clear, #demo-run, #wavelength-boost) { right: 87px; border-radius: 0; }
 .dock-card.glossary-card { position: relative; display: flex; flex-direction: column; width: min(640px, calc(var(--ui-width) - var(--dock-gutter))); height: min(520px, calc(var(--ui-height) - 100px)); overflow: hidden; }
 /* Wide enough for the supernova candidates table without horizontal scrolling. */
 .dock-card.top-lists-card { width: min(900px, calc(var(--ui-width) - var(--dock-gutter))); }
@@ -324,7 +324,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .top-lists-card .glossary-heading #top-lists-lock { right: 87px; }
 .top-lists-card .glossary-heading #top-lists-minimize { right: 43px; border-radius: 0; }
 /* Wide enough for the paint setting titles beside their scale buttons, and for an insight's description. */
-#paint-panel, #insights-panel { width: min(400px, calc(var(--ui-width) - var(--dock-gutter))); }
+#paint-panel, #insights-panel, #wavelength-panel { width: min(400px, calc(var(--ui-width) - var(--dock-gutter))); }
 /* The Graphs width toggle switches between the default and compact widths. */
 .control-dock { --graphs-width: 630px; }
 .control-dock[data-graphs-compact] { --graphs-width: 440px; }
@@ -332,7 +332,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading.glossary-heading { flex: 0 0 45px; gap: 18px; padding-right: 98px; }
 /* These headings are 45px tall, 1px more than the others, so their buttons start at the top edge to share the bottom border. */
 :is(.glossary-heading, .constellations-detail-heading) > .panel-lock { top: 0; }
-.panel-heading:is(.objects-heading, .glossary-heading, .paint-heading, .neighborhood-heading, .demo-heading, .filter-heading, .preferences-heading, .insights-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
+.panel-heading:is(.objects-heading, .glossary-heading, .paint-heading, .neighborhood-heading, .demo-heading, .filter-heading, .preferences-heading, .insights-heading, .wavelength-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
 .glossary-heading h2 { flex: 0 0 auto; }
 .glossary-search { position: relative; flex: 1; min-width: 0; }
 .glossary-search > span { position: absolute; top: 50%; left: 9px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
@@ -445,7 +445,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
   :is(.glossary-detail, .info-meta, .object-type-body, .properties, #planet-info, #object-info, .constellation-info, #planet-moons, .constellation-source-links, .constellation-visibility-sources, .mass-method, .radius-method) a:hover, .constellation-info-link:hover { color: #fff0dc; }
 }
 @media (hover: hover) and (pointer: fine) {
-  .visibility-lock:hover, .panel-lock:hover:not(:disabled), .save-view-button:hover:not(:disabled), .paint-setting-heading > .paint-setting-toggle:hover { color: var(--accent-vibrant); background: var(--surface-vibrant-hover); }
+  .visibility-lock:hover, .panel-lock:hover:not(:disabled), .save-view-button:hover:not(:disabled), .paint-setting-heading > .paint-setting-toggle:hover, .wavelength-band:hover > .wavelength-band-icon { color: var(--accent-vibrant); background: var(--surface-vibrant-hover); }
+  .wavelength-spectrum > [data-band]:hover:not([data-current]) { opacity: 0.75; }
 }
 
 .icon-button { position: relative; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; background: #1d1e20f2; border: 1px solid var(--line); border-radius: 7px; color: var(--ink); box-shadow: 0 5px 16px #00000050; }
@@ -463,7 +464,10 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 [data-toolbar-flyout] { position: relative; width: 44px; height: 44px; }
 [data-toolbar-options] { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
 /* Seven Explore cards: three in a row above the toggle and four beside it; the corner above the toggle bridges the pointer to the upper row. */
-.discover-options { top: auto; bottom: 0; display: grid; grid-template-columns: repeat(4, 44px); }
+/* One row hangs below Explore, so a full row, ending in Graphs, sits beside it instead of a single button. */
+/* Spaceship hangs in the right column, directly below Graphs. */
+.discover-options { top: auto; bottom: -48px; display: grid; grid-template-columns: repeat(4, 44px); }
+#spaceship-toggle { grid-column: 4; }
 .discover-options::after { content: ''; position: absolute; top: 0; right: -44px; width: 44px; height: 44px; }
 .discover-controls .discover-options > :nth-child(-n + 4) .tooltip { top: auto; bottom: calc(100% + 8px); }
 .info-controls .tooltip { top: auto; bottom: calc(100% + 8px); right: 0; }
@@ -513,6 +517,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 :root[data-ui-hidden]:not([data-ui-revealed]) .dock-indicators { pointer-events: auto; }
 /* A running demo can hide the map's names, and everything around the map except the active-change buttons and its own card. */
 :root[data-demo-labels-off] .projected-labels { visibility: hidden; }
+/* The object the demo is showing can keep its ring and name. */
+:root[data-demo-labels-off][data-demo-selection] .projected-labels .map-anchor.is-selected { visibility: visible; }
 :root[data-demo-ui-off] :is(.scene-wrap > :not(#scene), .projected-axes) { visibility: hidden; }
 :root[data-demo-ui-off] :is(.dock-indicators, #demo-panel) { visibility: visible; }
 /* During a demo the active-change buttons recede, returning while pointed at or focused. */
@@ -672,6 +678,23 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .paint-legend input::-webkit-slider-thumb { margin-top: -7px; box-shadow: 0 0 0 1px var(--panel); }
 .paint-legend input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 5px; }
 /* Ticks mark each label's place on the legend; the end labels stay inside it. */
+/* Wavelength vision: a spectrum bar on a logarithmic wavelength scale, with the band icons below in an even row; the chosen band stands out. */
+.wavelength-spectrum { display: flex; height: 10px; margin-bottom: 6px; border-radius: 5px; overflow: hidden; }
+.wavelength-spectrum > span { flex: 1 1 0; min-width: 3px; opacity: 0.45; cursor: pointer; transition: opacity 120ms ease; }
+.wavelength-spectrum > [data-current] { opacity: 1; box-shadow: inset 0 0 0 1px var(--accent-vibrant); }
+.wavelength-spectrum > .wavelength-gap { background: var(--line); cursor: default; }
+.wavelength-bands { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); margin-bottom: 4px; }
+.wavelength-band { display: grid; justify-items: center; min-width: 0; padding: 0; color: var(--ink); background: transparent; border: 0; cursor: pointer; }
+.wavelength-band-icon { display: grid; place-items: center; width: 40px; max-width: 100%; height: 40px; border: 1px solid transparent; border-radius: 6px; transition: color 120ms ease, background 120ms ease, border-color 120ms ease; }
+.wavelength-band[aria-pressed="true"] > .wavelength-band-icon { color: var(--accent-vibrant); background: var(--surface-vibrant-pressed); border-color: var(--border-vibrant-pressed); }
+.wavelength-band:focus-visible { outline: none; }
+.wavelength-band:focus-visible > .wavelength-band-icon { outline: 2px solid var(--accent-vibrant); outline-offset: 1px; }
+/* Every description shares one grid cell, so the card keeps the height of the longest one. */
+.wavelength-descriptions { display: grid; }
+.wavelength-descriptions > div { grid-area: 1 / 1; visibility: hidden; }
+.wavelength-descriptions p { margin: 0; }
+.wavelength-descriptions p + p { margin-top: 6px; }
+.wavelength-descriptions > [data-current] { visibility: visible; }
 .range-bounds.paint-ticks { position: relative; display: block; height: 19px; font-variant-numeric: tabular-nums; }
 .paint-ticks > span { position: absolute; top: 0; padding-top: 7px; transform: translateX(-50%); white-space: nowrap; }
 .paint-ticks > span::before { content: ''; position: absolute; top: 0; left: 50%; width: 1px; height: 5px; background: var(--muted); }

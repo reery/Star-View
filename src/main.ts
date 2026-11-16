@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { STREAM_EASING, STREAM_MS, streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, Clapperboard, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, Lightbulb, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, Clapperboard, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, Lightbulb, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sparkles, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipBrightness, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
@@ -67,6 +67,8 @@ import { decodeSavedViewLink, encodeSavedViewLink, OBJECT_DISTANCE_STEPS_LY, rea
 import type { SkyGridMode } from './sky-grid'
 import { browserDataSize, deleteBrowserData, exportBrowserData, importBrowserData } from './browser-data'
 import { readSavedFilter, SAVED_FILTER_STORAGE_KEY, type SavedFilter } from './saved-filter'
+import { DEFAULT_WAVELENGTH_BAND, remnantBandShape, WAVELENGTH_BANDS, wavelengthBand, wavelengthBandGradient, WavelengthVisionIcon, type WavelengthBandId } from './wavelength-vision'
+import { loadWavelengthBandData } from './wavelength-data'
 import { DEFAULT_PAINT_CONTROLS, DEFAULT_PAINT_LEVEL, isPaintSettingId, PAINT_CHANNELS, PAINT_HISTOGRAM_BINS, PAINT_LEVEL_RANGE, PAINT_SETTINGS, paintLegend, starPainter, type PaintChannel, type PaintContext, type PaintControls, type PaintSettingId } from './star-paint'
 
 function element<ElementType extends HTMLElement = HTMLElement>(id: string): ElementType {
@@ -200,6 +202,11 @@ icon('paint-keep-size-icon', Expand)
 icon('paint-reset-icon', RotateCcw)
 icon('paint-lock-icon', Lock)
 icon('paint-close-icon', X)
+icon('wavelength-icon', WavelengthVisionIcon)
+icon('wavelength-active-icon', WavelengthVisionIcon)
+icon('wavelength-boost-icon', Sparkles)
+icon('wavelength-lock-icon', Lock)
+icon('wavelength-close-icon', X)
 icon('constellations-search-icon', Search)
 icon('constellations-maximize-icon', ChevronsUpDown)
 icon('constellations-lock-icon', Lock)
@@ -384,6 +391,10 @@ const paintControls = new Map<PaintSettingId, PaintControls>()
 const paintChannels = new Map<PaintSettingId, readonly PaintChannel[]>()
 const paintChannelsOf = (id: PaintSettingId) => paintChannels.get(id) ?? PAINT_CHANNELS
 let paintZoomShrink = true
+/** The part of the spectrum the map shows. */
+let wavelengthBandId: WavelengthBandId = DEFAULT_WAVELENGTH_BAND
+/** Outside visible light, every source in the band shows regardless of the visibility filter. */
+let wavelengthBoost = false
 let viewer: StarViewer | undefined
 let stars: Star[] = []
 let starIndex = new Map<string, Star>()
@@ -475,10 +486,14 @@ let autoRotationStart: ViewerViewState | null = null
 let demoTour: ReturnType<typeof createDemoTour> | null = null
 let demoFrameRequest: number | null = null
 let demoPreviousTime = 0
+/** The usual frame length, in seconds. */
+let demoFrameSeconds = 1 / 60
 /** A press or zoom on the map hands the camera to the visitor until a few seconds after letting go. */
 let demoResumeTime = 0
 let demoPointerHeld = false
 let demoLabels = false
+/** Whether the demo rings and names the object it shows while other names are hidden. */
+let demoSelection = false
 let demoUi = false
 let demoSpeedLevel = 2
 /** Whether the demo rates brightness from the camera, as an imaginary ship. */
@@ -614,11 +629,11 @@ document.querySelectorAll('.time-markers').forEach((markers) => {
 })
 const selectionHistory = new SelectionHistory(selectedId)
 // The Spaceship card opens in the dock like other cards, but scene clicks leave it open for flying.
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'insights', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation', 'observer', 'demo'] as const
-const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'insights', 'neighborhood', 'preferences', 'rotation', 'observer', 'demo'] as const
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'wavelength', 'insights', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation', 'observer', 'demo'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'wavelength', 'insights', 'neighborhood', 'preferences', 'rotation', 'observer', 'demo'] as const
 // Explore panels and Demo mode open from a flyout, so focus returns to its toggle.
 // The observer card opens with observer view and has no toggle of its own; closed, its indicator reopens it.
-const panelToggleId = (name: typeof panelNames[number]) => name === 'observer' ? 'observer-active' : name === 'demo' ? 'info-toggle' : name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'insights' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
+const panelToggleId = (name: typeof panelNames[number]) => name === 'observer' ? 'observer-active' : name === 'demo' ? 'info-toggle' : name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'wavelength' || name === 'insights' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 // Only the observer card remembers its lock between visits.
 try {
@@ -1944,7 +1959,7 @@ function syncSelectedObjectLayout(): void {
   selectedCard.style.maxHeight = `${Math.max(68, availableHeight)}px`
 }
 
-function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'top-lists-active' | 'motion-active' | 'insights-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active' | 'demo-active', active: boolean): void {
+function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'wavelength-active' | 'top-lists-active' | 'motion-active' | 'insights-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active' | 'demo-active', active: boolean): void {
   if (active) noteTipFeature(id)
   const indicator = element(id)
   if (indicator.hidden !== active) return
@@ -2164,9 +2179,11 @@ function visibilityBaseName(): string {
 
 function stepDemo(time: number): void {
   demoFrameRequest = requestAnimationFrame(stepDemo)
-  // A hidden tab pauses the demo instead of jumping ahead on return.
-  const seconds = demoPreviousTime ? Math.min(0.1, (time - demoPreviousTime) / 1000) : 0
+  const elapsed = demoPreviousTime ? Math.min(0.1, (time - demoPreviousTime) / 1000) : 0
   demoPreviousTime = time
+  // A long frame, such as one showing a new selection's card, or a hidden tab plays as an ordinary frame, so the view never skips ahead.
+  const seconds = elapsed > 2.5 * demoFrameSeconds ? demoFrameSeconds : elapsed
+  if (elapsed) demoFrameSeconds += (elapsed - demoFrameSeconds) * 0.1
   // Boarding a ship or observing from an object hands the camera back.
   if (observerView || spaceship?.piloting) return stopDemo()
   if (!viewer || sceneBusy || demoPointerHeld || performance.now() < demoResumeTime) return
@@ -2190,6 +2207,7 @@ function renderDemo(): void {
   const root = document.documentElement
   root.toggleAttribute('data-demo', running)
   root.toggleAttribute('data-demo-labels-off', running && !demoLabels)
+  root.toggleAttribute('data-demo-selection', running && demoSelection)
   root.toggleAttribute('data-demo-ui-off', running && !demoUi)
   viewer?.setMapGuidesVisible(!running || demoUi)
   const label = running ? 'Stop demo' : 'Start demo'
@@ -2436,7 +2454,7 @@ syncObjectSections()
 
 let detailComparisonId: string | undefined
 const starComparison = initializeStarComparison({
-  context: () => ({ selectedId, unit: distanceUnit, colorMode: starColorMode }),
+  context: () => ({ selectedId, unit: distanceUnit, colorMode: starColorMode, band: wavelengthBandId }),
   star: starById,
   system: (id) => starSystems.get(id),
   select: selectStar,
@@ -2557,7 +2575,7 @@ function renderSelection(): void {
     text('selection-announcement', 'No object selected.')
     return
   }
-  const specs = specValues(star, sun, distanceUnit)
+  const specs = specValues(star, sun, distanceUnit, wavelengthBandId)
   const distanceReference = (observerView ? starById(observerViewAnchorId) : undefined) ?? reference
   const displayedDistancePc = selectedDistancePc ?? sunRelativeMetrics(star, distanceReference).distancePc
   const color = starDisplayColor(star, starColorMode).getStyle()
@@ -2781,7 +2799,9 @@ function renderSelection(): void {
     element('remnant-hot-gas-row').hidden = remnant.hot_gas_kev === null
     text('remnant-hot-gas', remnant.hot_gas_kev === null ? '' : `${(remnant.hot_gas_kev * KELVIN_PER_KEV / 1e6).toLocaleString('en-US', { maximumFractionDigits: 1 })} million K (${remnant.hot_gas_kev} keV)`)
     element('remnant-hot-gas').title = remnant.hot_gas_source ?? ''
-    text('remnant-drawn-as', remnant.drawn_as)
+    // Outside visible light, a remnant without a shape of its own keeps its visible-light model in the band's colors.
+    text('remnant-drawn-as', remnantBandShape(star.id, wavelengthBandId)?.drawnAs
+      ?? (wavelengthBandId === DEFAULT_WAVELENGTH_BAND ? remnant.drawn_as : 'Shape of the visible-light model in false color'))
   }
   if (molecularCloud) {
     const conversion = distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1
@@ -2814,6 +2834,9 @@ function renderSelection(): void {
   element('infrared-magnitude-row').hidden = !infrared || stellarPropertiesHidden
   // Leave the hidden row empty, so a comparison column can mark the missing value explicitly.
   if (!infrared) text('infrared-magnitude', '')
+  const bandValueMissing = specs['band-value']!.text === MISSING_VALUE
+  element('band-value-row').hidden = bandValueMissing
+  if (bandValueMissing) text('band-value', '')
   element<HTMLButtonElement>('magnitude-toggle').disabled = !magnitudeCardAvailable(star) || stellarPropertiesHidden
   element('magnitude-toggle').setAttribute('aria-label', `Explore absolute and apparent magnitude of ${star.name}`)
   if (element<HTMLButtonElement>('magnitude-toggle').disabled) closeMagnitudeCard()
@@ -2854,10 +2877,12 @@ function renderGalaxyProperties(galaxy: GalaxyDetails): void {
   element('galaxy-angular-size-row').hidden = !size
   text('galaxy-angular-size', size ? `${angle(size[0])} × ${angle(size[1])}` : '')
   text('galaxy-diameter', `${significant(galaxy.diameter_pc * (distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1))} ${distanceUnit}`)
+  element('galaxy-diameter').title = galaxy.size_source.label
   const count = (value: number) => value >= 1e12 ? `${Number((value / 1e12).toPrecision(2))} trillion` : `${Number((value / 1e9).toPrecision(3))} billion`
-  const [fewest, most] = galaxy.star_count
+  element('galaxy-stars-row').hidden = !galaxy.star_count
+  const [fewest, most] = galaxy.star_count ?? [0, 0]
   text('galaxy-stars', fewest === most ? `about ${count(fewest)}` : `${count(fewest).replace(/ \w+$/, '')}–${count(most)}`)
-  element('galaxy-stars').title = galaxy.star_count_source.label
+  element('galaxy-stars').title = galaxy.star_count_source?.label ?? ''
   const mass = galaxy.total_mass
   element('galaxy-mass-row').hidden = !mass
   if (mass) {
@@ -3381,6 +3406,8 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       starBrightness,
       faintStars,
       shader,
+      wavelengthBand: wavelengthBandId,
+      wavelengthBoost,
       earthOrbitDate: earthOrbitDateForMode(earthOrbitMode),
       milkyWayVisible,
       oortCloudVisible,
@@ -3779,6 +3806,7 @@ function currentSavedViewSettings(): SavedViewSettings | null {
     graphFilter: graphs?.save() ?? [],
     paint: [...paintSettings].map(([id, level]) => [id, level, [...paintChannelsOf(id)]]),
     ...neighborhoodCenter && { neighborhood: { centerId: neighborhoodCenter.id, radiusLy: neighborhoodRadiusLy } },
+    wavelengthBand: wavelengthBandId,
   }
 }
 
@@ -4027,6 +4055,7 @@ async function loadSavedView(savedView: SavedView, linked = false): Promise<void
   neighborhoodBirthYear = null
   neighborhoodRadiusLy = settings.neighborhood?.radiusLy ?? neighborhoodRadiusLy
   setNeighborhoodCenter(settings.neighborhood ? starById(legacyStarId(settings.neighborhood.centerId)) ?? null : null)
+  setWavelengthBand(settings.wavelengthBand ?? DEFAULT_WAVELENGTH_BAND)
   renderDistances()
   renderSelection()
   syncSavedSettingsInputs()
@@ -4274,6 +4303,7 @@ function focusToolbarButton(id: string): void {
 }
 element('graph-filter-active').addEventListener('click', () => togglePanel('graphs'), { signal: events.signal })
 element('paint-active').addEventListener('click', () => togglePanel('paint'), { signal: events.signal })
+element('wavelength-active').addEventListener('click', () => togglePanel('wavelength'), { signal: events.signal })
 element('top-lists-active').addEventListener('click', () => togglePanel('top-lists'), { signal: events.signal })
 // Minimizing closes Top lists and leaves its indicator to restore it.
 element('top-lists-minimize').addEventListener('click', () => {
@@ -4289,7 +4319,7 @@ element('spaceship-active').addEventListener('click', () => togglePanel('spacesh
 element('rotation-active').addEventListener('click', () => togglePanel('rotation'), { signal: events.signal })
 element('demo-active').addEventListener('click', () => togglePanel('demo'), { signal: events.signal })
 element('demo-run').addEventListener('click', () => demoTour ? stopDemo() : void startDemo(), { signal: events.signal })
-for (const [id, set] of [['demo-labels', (on: boolean) => { demoLabels = on }], ['demo-ui', (on: boolean) => { demoUi = on }]] as const) {
+for (const [id, set] of [['demo-labels', (on: boolean) => { demoLabels = on }], ['demo-selection', (on: boolean) => { demoSelection = on }], ['demo-ui', (on: boolean) => { demoUi = on }]] as const) {
   element(id).addEventListener('change', () => {
     set(element<HTMLInputElement>(id).checked)
     renderDemo()
@@ -4518,6 +4548,86 @@ element('constellations-maximize').addEventListener('click', () => {
 catalogRange.addEventListener('input', () => previewCatalogRange(catalogRange.valueAsNumber), { signal: events.signal })
 element('filter-reset').addEventListener('click', resetAllFilters, { signal: events.signal })
 const paintIcon = (shape: IconNode) => createElement(shape, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' })
+// Wavelength vision: a spectrum bar on a logarithmic wavelength scale, with each band's icon below in an even row.
+function setWavelengthBand(id: WavelengthBandId): void {
+  wavelengthBandId = id
+  renderWavelengthBand()
+  // The band's measured values load first; without them (offline) the map shows the band's model.
+  void loadWavelengthBandData(id).catch(() => undefined).then(() => {
+    if (wavelengthBandId !== id) return
+    viewer?.setWavelengthBand(id)
+    // The Specs show the measured value in the band.
+    if (selectedId !== null) renderSelection()
+  })
+}
+function renderWavelengthBand(): void {
+  const band = wavelengthBand(wavelengthBandId)
+  for (const button of element('wavelength-bands').children) button.setAttribute('aria-pressed', String((button as HTMLElement).dataset.band === band.id))
+  for (const segment of element('wavelength-spectrum').children) segment.toggleAttribute('data-current', (segment as HTMLElement).dataset.band === band.id)
+  text('wavelength-band-name', band.label)
+  text('wavelength-band-range', band.range)
+  for (const description of element('wavelength-band-descriptions').children) description.toggleAttribute('data-current', (description as HTMLElement).dataset.band === band.id)
+  setActiveIndicator('wavelength-active', band.id !== DEFAULT_WAVELENGTH_BAND)
+}
+// Each band's width is the decades of wavelength it spans; the mid infrared between the two infrared bands, which
+// the map does not show, stays a gap. The icon buttons below carry keyboard and screen reader access.
+const spectrumSegment = (decades: number, title: string) => {
+  const segment = Object.assign(document.createElement('span'), { title })
+  segment.style.flexGrow = String(decades)
+  return segment
+}
+element('wavelength-spectrum').append(...WAVELENGTH_BANDS.flatMap((band, index) => {
+  const [shortest, longest] = band.wavelengthsM
+  const segment = spectrumSegment(Math.log10(longest / shortest), `${band.label} (${band.range})`)
+  segment.dataset.band = band.id
+  segment.style.background = wavelengthBandGradient(band)
+  segment.addEventListener('click', () => setWavelengthBand(band.id), { signal: events.signal })
+  const previous = WAVELENGTH_BANDS[index - 1]?.wavelengthsM[1] ?? shortest
+  if (previous >= shortest) return [segment]
+  const gap = spectrumSegment(Math.log10(shortest / previous), 'Mid infrared (not shown)')
+  gap.className = 'wavelength-gap'
+  return [gap, segment]
+}))
+element('wavelength-bands').append(...WAVELENGTH_BANDS.map((band) => {
+  const button = Object.assign(document.createElement('button'), { type: 'button', className: 'wavelength-band', title: `${band.label} (${band.range})` })
+  button.dataset.band = band.id
+  button.setAttribute('aria-label', band.label)
+  const swatch = Object.assign(document.createElement('span'), { className: 'wavelength-band-icon' })
+  swatch.append(paintIcon(band.icon))
+  button.append(swatch)
+  button.addEventListener('click', () => setWavelengthBand(band.id), { signal: events.signal })
+  return button
+}))
+element('wavelength-boost').addEventListener('click', () => {
+  wavelengthBoost = !wavelengthBoost
+  element('wavelength-boost').setAttribute('aria-pressed', String(wavelengthBoost))
+  viewer?.setWavelengthBoost(wavelengthBoost)
+}, { signal: events.signal })
+// Selects an object and opens its Info, from a band's list of Info images taken in that light.
+async function openObjectInfo({ id, catalog }: { id: string; catalog: string }): Promise<void> {
+  await selectTopListObject({ catalog, id, designation: null })
+  if (selectedId !== id || !starInfoAvailable(id)) return
+  activeObjectSection = 'info'
+  element<HTMLDetailsElement>('object-card-details').open = true
+  syncObjectSections()
+}
+element('wavelength-band-descriptions').append(...WAVELENGTH_BANDS.map((band) => {
+  const description = document.createElement('div')
+  description.dataset.band = band.id
+  description.append(Object.assign(document.createElement('p'), { textContent: band.description }))
+  const images: readonly { id: string; name: string; catalog: string }[] = 'infoImages' in band ? band.infoImages : []
+  if (images.length) {
+    const list = Object.assign(document.createElement('p'), { textContent: 'Info images: ' })
+    images.forEach((object, index) => {
+      const link = Object.assign(document.createElement('button'), { type: 'button', className: 'constellation-info-link', textContent: object.name })
+      link.addEventListener('click', () => { void openObjectInfo(object) }, { signal: events.signal })
+      list.append(...index ? [', ', link] : [link])
+    })
+    description.append(list)
+  }
+  return description
+}))
+renderWavelengthBand()
 const paintSettingIcons: Record<PaintSettingId, IconNode> = {
   'absolute-magnitude': Sun, mass: Weight, 'bolometric-luminosity': Sparkle, distance: Ruler, 'radial-velocity': ArrowLeftRight, 'motion-direction': Compass, metallicity: Atom,
   'planet-hosts': Orbit, radius: Radius, density: Box, temperature: Thermometer, 'data-gaps': CircleDashed,
@@ -5106,7 +5216,7 @@ document.addEventListener('click', (event) => {
   event.preventDefault()
   openGlossaryTerm(term)
 }, { signal: events.signal })
-for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'insights', 'neighborhood', 'preferences', 'spaceship', 'rotation', 'observer', 'demo'] as const) {
+for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'wavelength', 'insights', 'neighborhood', 'preferences', 'spaceship', 'rotation', 'observer', 'demo'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()

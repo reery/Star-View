@@ -10,7 +10,7 @@ const defaults: SavedViewSettings = {
   simulationYears: 0, simulationPlaying: false, simulationDirection: 1, playbackSecondsPerThousandYears: 1, followSelection: false,
   selectedId: 'sirius-a', observerId: 'sirius-a', referenceId: 'sun', observerView: false, observerViewAnchorId: null, objectSearch: '',
   viewState: { position: [3.4128765123, -1.98234123, 2.76523412], target: [-0.4938271234, 2.47712345, -0.7591234], home: false, observerRollRadians: 0, observerTelescope: false, observerObservatory: false },
-  graphFilter: [], paint: [],
+  graphFilter: [], paint: [], wavelengthBand: 'visible',
 }
 
 const observer: SavedViewSettings = {
@@ -23,7 +23,7 @@ const observer: SavedViewSettings = {
 const graphs: SavedViewSettings = {
   ...defaults, catalogId: 'nearest-5000', showNakedEyeStars: true, milkyWayVisible: false, selectedId: null, observerId: 'sun',
   graphFilter: [{ section: 'hr', key: '4000 9000 10.00 1000', label: '4,000 to 9,000 K, 10 to 1,000 L☉', range: [4000, 9000, 10, null] }, { section: 'spectral', key: 'G', label: 'G' }],
-  paint: [['temperature', 0.75, ['color']], ['distance', 0.5]], neighborhood: { centerId: 'vega', radiusLy: 20 },
+  paint: [['temperature', 0.75, ['color']], ['distance', 0.5]], neighborhood: { centerId: 'vega', radiusLy: 20 }, wavelengthBand: 'x-ray',
   viewState: { position: [48.12345678, -120.98765432, 33.33333333], target: [0, 0, 0], home: true, observerRollRadians: 0, observerTelescope: false, observerObservatory: false },
 }
 

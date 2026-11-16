@@ -13,16 +13,19 @@ describe('adaptive grid spacing', () => {
   it.each([
     [25, 1, 40], [100, 5, 150], [150, 10, 300], [500, 20, 1_000], [1_000, 50, 2_000], [2_000, 100, 4_000],
     [5_000, 200, 10_000], [10_000, 500, 20_000], [20_000, 1_000, 40_000], [50_000, 2_000, 100_000],
-    [100_000, 5_000, 200_000],
+    [100_000, 5_000, 200_000], [101_000, 10_000, 500_000], [251_000, 25_000, 1_000_000],
+    [501_000, 50_000, 2_000_000], [1_001_000, 100_000, 4_000_000], [2_001_000, 500_000, 10_000_000],
   ])('uses %d ly view distance with %d ly cells across %d ly', (distance, spacing, size) => {
     const scale = gridScaleForViewDistance(distance / 3.261563777, 'ly')
     expect(scale.spacing).toBe(spacing)
-    expect(scale.halfSizePc * 3.261563777 * 2).toBeCloseTo(size)
+    expect(scale.halfSizePc * 3.261563777 * 2 / size).toBeCloseTo(1, 6)
   })
 
   it.each([
     [3, 0.5, 6], [15, 0.5, 30], [50, 2, 100], [150, 3, 300], [300, 6, 600], [600, 30, 1_200],
     [1_500, 60, 3_000], [3_000, 150, 6_000], [6_000, 300, 12_000], [15_000, 600, 30_000], [30_000, 1_500, 60_000],
+    [31_000, 3_000, 150_000], [76_000, 7_500, 300_000], [151_000, 15_000, 600_000], [301_000, 30_000, 1_200_000],
+    [601_000, 150_000, 3_000_000],
   ])('uses %d pc view distance with %d pc cells across %d pc', (distance, spacing, size) => {
     const scale = gridScaleForViewDistance(distance, 'pc')
     expect(scale.spacing).toBe(spacing)

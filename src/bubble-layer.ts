@@ -5,6 +5,7 @@ import {
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 import type { BubbleDetails, BubbleKompaneetsShape, Star } from './catalog-model'
 import type { StarColorMode } from './astronomy'
+import { bubbleBandWeight, wavelengthBandColor, type WavelengthBandId } from './wavelength-vision'
 
 // Smooth model shells read well on an evenly tessellated 980-triangle icosphere.
 const MODEL_SURFACE_DETAIL = 6
@@ -178,6 +179,8 @@ export interface BubbleLayer {
   setVisible(visible: readonly boolean[]): void
   setSelected(id: string | null): void
   setColorMode(mode: StarColorMode): void
+  /** Tints the shells in the band's false color; hot-gas bubbles glow brighter in X-rays. */
+  setBand(band: WavelengthBandId): void
   triangleCount(): number
   dispose(): void
 }
@@ -214,12 +217,14 @@ export function createBubbleLayer(bubbles: readonly Star[], mode: StarColorMode)
     indexOffset += surface.indices.length
   })
 
+  const baseOpacities = opacities.slice()
   const geometry = new BufferGeometry()
   geometry.setAttribute('position', new Float32BufferAttribute(positions, 3))
   geometry.setAttribute('normal', new Float32BufferAttribute(normals, 3))
   geometry.setAttribute('bubbleRealColor', new Float32BufferAttribute(realColors, 3))
   geometry.setAttribute('bubbleVividColor', new Float32BufferAttribute(vividColors, 3))
-  geometry.setAttribute('bubbleOpacity', new Float32BufferAttribute(opacities, 1))
+  const opacityAttribute = new Float32BufferAttribute(opacities, 1)
+  geometry.setAttribute('bubbleOpacity', opacityAttribute)
   const visibleAttribute = new Float32BufferAttribute(vertexCount, 1).setUsage(DynamicDrawUsage)
   const selectedAttribute = new Float32BufferAttribute(vertexCount, 1).setUsage(DynamicDrawUsage)
   geometry.setAttribute('bubbleVisible', visibleAttribute)
@@ -227,7 +232,7 @@ export function createBubbleLayer(bubbles: readonly Star[], mode: StarColorMode)
   geometry.setIndex(new Uint32BufferAttribute(indices, 1))
   geometry.computeBoundingSphere()
 
-  const uniforms = { colorMix: { value: mode === 'exaggerated' ? 1 : 0 } }
+  const uniforms = { colorMix: { value: mode === 'exaggerated' ? 1 : 0 }, bandMix: { value: 0 }, bandColor: { value: new Color() } }
   const material = new ShaderMaterial({
     uniforms,
     side: DoubleSide,
@@ -243,6 +248,8 @@ export function createBubbleLayer(bubbles: readonly Star[], mode: StarColorMode)
       attribute float bubbleVisible;
       attribute float bubbleSelected;
       uniform float colorMix;
+      uniform float bandMix;
+      uniform vec3 bandColor;
       varying vec3 vColor;
       varying vec3 vViewNormal;
       varying vec3 vViewPosition;
@@ -250,7 +257,7 @@ export function createBubbleLayer(bubbles: readonly Star[], mode: StarColorMode)
       varying float vOpacity;
       void main() {
         vec4 viewPosition = modelViewMatrix * vec4(position, 1.0);
-        vColor = mix(bubbleRealColor, bubbleVividColor, colorMix);
+        vColor = mix(mix(bubbleRealColor, bubbleVividColor, colorMix), bandColor, bandMix);
         vViewNormal = normalize(normalMatrix * normal);
         vViewPosition = viewPosition.xyz;
         vWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
@@ -305,6 +312,15 @@ export function createBubbleLayer(bubbles: readonly Star[], mode: StarColorMode)
     },
     setColorMode(next) {
       uniforms.colorMix.value = next === 'exaggerated' ? 1 : 0
+    },
+    setBand(band) {
+      uniforms.bandMix.value = band === 'visible' ? 0 : 1
+      wavelengthBandColor(band, 0.5, uniforms.bandColor.value)
+      for (const { id, start, count } of ranges) {
+        const weight = bubbleBandWeight(id, band)
+        for (let vertex = start; vertex < start + count; vertex++) opacities[vertex] = baseOpacities[vertex]! * weight
+      }
+      updateAttribute(opacityAttribute)
     },
     triangleCount: () => indexCount / 3,
     dispose() {

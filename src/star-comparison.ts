@@ -8,6 +8,7 @@ import { objectSubtypeDescription } from './object-subtype-info'
 import { renderSelectedStarPreview } from './selected-star-preview'
 import { specValues } from './spec-values'
 import type { StarSystem } from './star-systems'
+import type { WavelengthBandId } from './wavelength-vision'
 
 /** Spec values whose comparison column opens the same detail card as the selected column. */
 export const COMPARISON_DETAIL_TOGGLES: Readonly<Record<string, string>> = {
@@ -22,6 +23,7 @@ interface ComparisonContext {
   selectedId: string | null
   unit: DistanceUnit
   colorMode: StarColorMode
+  band: WavelengthBandId
 }
 
 export function initializeStarComparison(options: {
@@ -217,7 +219,7 @@ export function initializeStarComparison(options: {
 
   /** Renders the comparison column into Specs; renderSelection clears the previous column first. */
   function render(): void {
-    const { unit, colorMode } = options.context()
+    const { unit, colorMode, band } = options.context()
     const selected = selectedStar()
     let other = options.star(otherId)
     if (selected?.id !== baseId || !eligible(selected) || otherId !== null && !other) {
@@ -307,7 +309,7 @@ export function initializeStarComparison(options: {
         get('designations-empty-row').hidden = true
       }
     }
-    const values = specValues(other, options.star('sun')!, unit)
+    const values = specValues(other, options.star('sun')!, unit, band)
     for (const row of specs.querySelectorAll<HTMLElement>('.properties > div')) {
       if (row.id === 'object-subtypes-empty-row' && !subtypesRow.hidden) continue
       const main = row.querySelector('dd')!

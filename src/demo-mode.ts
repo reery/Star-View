@@ -24,6 +24,8 @@ interface Move {
   seconds: number
   /** Move seconds per demo second. */
   pace?: number
+  /** Flights count as travel; the tour keeps travelling more than it lingers at objects. */
+  travel?: boolean
   pose(t: number, out: DemoPose): void
   /** Selects the destination this many seconds in. */
   select?: { id: string; at: number }
@@ -33,15 +35,31 @@ interface Move {
 const BLEND_S = 4
 /** It starts at the speed the camera had, which fades over about this time while the move takes over, so it never halts. */
 const MOMENTUM_S = 2.5
-/** Flights keep up to this share of their average speed at both ends instead of coming to rest; short hops fly almost evenly. */
-const CRUISING = 0.8
+/** A move's starting speed is measured over this many seconds. */
+const PROBE_S = 0.01
 /**
  * At their ends flights move about as fast as local moves, in framing distances per second, so a long, fast
  * flight slows seamlessly into the calm move after it.
  */
 const LOCAL_SPEED = 0.15
-/** Each move runs a little faster or slower than the speed setting, within this calm range. */
+/** Each local move runs a little faster or slower than the speed setting, within this calm range. */
 const PACE_RANGE = [0.8, 1.2] as const
+/** Each flight keeps one pace from this wider range, so some drift and some hurry. */
+const TRAVEL_PACE_RANGE = [0.7, 1.5] as const
+/** Flights take longer the farther they go, up to this, so far objects are reached at a higher, steady speed. */
+const TRAVEL_MAX_S = 30
+/** Speeding up and slowing down change speed by about this share a second, so even a fast flight brakes gently near its object. */
+const SPEED_CHANGE = 0.5
+/** Time at objects stays below this share of time travelling. */
+const LOCAL_SHARE = 0.7
+/** The view's turning direction is judged over about this time; moves keep turning that way. */
+const TURN_MEMORY_S = 1.5
+/** Moves are checked for passing through extended objects at this many points along the way. */
+const CLEARANCE_SAMPLES = 256
+/** A flight leaving an object it looks at sets off at least this far to the side of it. */
+const DEPARTURE_ANGLE = 0.5
+/** Objects on the side the view turns away from are this much less likely destinations. */
+const OFF_SIDE_WEIGHT = 0.2
 /** OrbitControls keeps the camera at least 0.08 pc from its target. */
 const MIN_LOOK_PC = 0.12
 /** Destinations are drawn from the nearest unvisited objects, so hops stay short until the area is explored. */
@@ -60,8 +78,8 @@ const VOYAGE_CHANCE = 0.07
 const VOYAGE_DISTANCE_PC = [1_800, 4_600] as const
 /** The far view looks down on the Galactic plane from this elevation. */
 const VOYAGE_ELEVATION = 0.5
-/** About one travel in five is a journey: 30 to 300 ly straight on, turning gently now and then, with no destination. */
-const JOURNEY_CHANCE = 0.2
+/** About one travel in four is a journey: 30 to 300 ly straight on, turning gently now and then, with no destination. */
+const JOURNEY_CHANCE = 0.25
 const JOURNEY_LY = [30, 300] as const
 /** A close flyby misses its star by about 4,000 to 8,000 AU, beyond the 0.01 pc near plane, where it flares. */
 const SKIM_PC = [0.02, 0.04] as const
@@ -81,17 +99,74 @@ const UP = new Vector3(0, 1, 0)
 const smooth = (u: number) => u * u * (3 - 2 * u)
 /** Like smooth, but also without a sudden change of acceleration at its ends. */
 const smoother = (u: number) => u ** 3 * (u * (6 * u - 15) + 10)
-const easeInOut = (u: number) => u < 0.5 ? 4 * u ** 3 : 1 - (-2 * u + 2) ** 3 / 2
-/** The share of a flight's average speed it keeps at its ends: a local move's speed, within the cruising share. */
-const cruisingShare = (framing: number, seconds: number, distance: number) => clamp(LOCAL_SPEED * framing * seconds / Math.max(distance, 1e-9), 0, CRUISING)
-const travelEase = (u: number, cruising: number) => (1 - cruising) * easeInOut(u) + cruising * u
 /** Eases a turn without stopping at its ends. */
 const turnEase = (u: number) => (smooth(u) + u) / 2
+const travelSeconds = (distance: number) => Math.min(TRAVEL_MAX_S, 7 + 5 * Math.log2(1 + distance))
+const wrapAngle = (angle: number) => angle - 2 * Math.PI * Math.round(angle / (2 * Math.PI))
+/** Headings grow as the view turns left, seen from above. */
+const yawOf = (v: Vector3) => Math.atan2(v.x, v.z)
+const pitchOf = (v: Vector3) => Math.atan2(v.y, Math.hypot(v.x, v.z))
 
 function perpendicular(v: Vector3, out = new Vector3()): Vector3 {
   out.crossVectors(v, UP)
   if (out.lengthSq() < 1e-12) out.set(1, 0, 0)
   return out.normalize()
+}
+
+/** Turns from one look to another by heading and pitch, so the view turns evenly and never swings through the camera. */
+function lookBetween(from: Vector3, to: Vector3, share: number, out: Vector3): Vector3 {
+  const yaw = yawOf(from) + wrapAngle(yawOf(to) - yawOf(from)) * share
+  const pitch = pitchOf(from) + (pitchOf(to) - pitchOf(from)) * share
+  const length = from.length() + (to.length() - from.length()) * share
+  return out.set(Math.cos(pitch) * Math.sin(yaw), Math.sin(pitch), Math.cos(pitch) * Math.cos(yaw)).multiplyScalar(length)
+}
+
+/**
+ * A flight's share of its distance over time: it speeds up from the camera's speed, keeps one steady speed for
+ * most of the way, and slows down to the calm speed at objects. Speed changes in proportion, so a fast flight
+ * brakes as smoothly near its object as far from it. It takes about the given seconds.
+ */
+function travelProfile(distance: number, seconds: number, startSpeed: number, endSpeed: number): { seconds: number; share(t: number): number } {
+  const cruise = Math.max(distance / (seconds * 0.75), endSpeed)
+  const last = endSpeed, first = clamp(startSpeed, last * 0.2, cruise)
+  if (distance < 1e-9 || cruise <= last * 1.01) return { seconds: distance / cruise || seconds, share: (t) => clamp(t * cruise / distance, 0, 1) }
+  // Faster when needed, so speeding up and slowing down cover at most two thirds of the way.
+  const rate = Math.max(SPEED_CHANGE, (2 * cruise - first - last) / (distance * 2 / 3))
+  const up = Math.log(cruise / first) / rate, down = Math.log(cruise / last) / rate
+  const upDistance = (cruise - first) / rate, downDistance = (cruise - last) / rate
+  const total = up + down + (distance - upDistance - downDistance) / cruise
+  return {
+    seconds: total,
+    share(t) {
+      if (t <= up) return first * (Math.exp(rate * Math.max(t, 0)) - 1) / rate / distance
+      if (t >= total - down) return clamp(1 - last * (Math.exp(rate * Math.max(total - t, 0)) - 1) / rate / distance, 0, 1)
+      return (upDistance + (t - up) * cruise) / distance
+    },
+  }
+}
+
+/** Traces a curve in even steps of its parameter, so it can be flown by distance at a steady speed. */
+function tracePath(curve: (s: number, out: Vector3) => Vector3, steps = 256) {
+  const points = Array.from({ length: steps + 1 }, (_, index) => curve(index / steps, new Vector3()))
+  const lengths = [0]
+  for (let index = 1; index <= steps; index++) lengths.push(lengths[index - 1]! + points[index]!.distanceTo(points[index - 1]!))
+  return {
+    length: lengths[steps]!,
+    /** Places out at this share of the length and returns the curve's parameter there. */
+    at(share: number, out: Vector3): number {
+      const distance = clamp(share, 0, 1) * lengths[steps]!
+      let low = 0, high = steps
+      while (high - low > 1) {
+        const middle = (low + high) >> 1
+        if (lengths[middle]! <= distance) low = middle
+        else high = middle
+      }
+      const segment = lengths[high]! - lengths[low]!
+      const s = (low + (segment > 0 ? (distance - lengths[low]!) / segment : 0)) / steps
+      curve(s, out)
+      return s
+    },
+  }
 }
 
 const lookVector = new Vector3()
@@ -129,7 +204,8 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
   /** In demo seconds: the camera's speed over the last frame, and at the start of the current move. */
   const velocity: DemoPose = { position: new Vector3(), target: new Vector3() }
   const startVelocity: DemoPose = { position: new Vector3(), target: new Vector3() }
-  const coasting: DemoPose = { position: new Vector3(), target: new Vector3() }
+  /** The camera's start relative to the move's, and its earlier speed relative to the move's own. */
+  const startOffset = new Vector3(), startMismatch = new Vector3(), startSwerve = new Vector3()
   let tracked = false
   let move: Move | null = null
   let time = 0
@@ -142,13 +218,15 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
   let areaHops = AREA_HOPS[0]
   const heading = new Vector3(0, 0, -1)
   let lastTravel: MoveKind | null = null
+  /** Seconds spent travelling and at objects, at the speed setting. */
+  let travelTime = 0
+  let localTime = 0
+  /** The way the view turns, 1 to the left and -1 to the right; moves keep turning this way instead of turning back. */
+  let sense = random() < 0.5 ? -1 : 1
+  let turnRate = 0
+  const look = new Vector3(), lastLook = new Vector3(), poseLook = new Vector3()
+  const probe: DemoPose = { position: new Vector3(), target: new Vector3() }
 
-  const sign = () => random() < 0.5 ? -1 : 1
-  /** Turns a local move the way the camera already goes, so the handover flows; random when it barely moves. */
-  const along = (direction: Vector3, moving: Vector3) => {
-    const share = direction.dot(moving)
-    return Math.abs(share) > 1e-3 * moving.length() + 1e-9 ? Math.sign(share) : sign()
-  }
   /** Across the line of sight the way the camera already moves, or any way across it when heading straight in or out. */
   const acrossMotion = (inward: Vector3) => {
     const moving = velocity.position
@@ -164,11 +242,11 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
   }
 
   /**
-   * One of the nearest unvisited objects, closer ones and those ahead more likely, or now and then one a bit
-   * farther away; all visited starts over.
+   * One of the nearest unvisited objects, closer ones, those ahead and those the way the view turns more likely,
+   * or now and then one a bit farther away; all visited starts over.
    */
   function destination(objects: readonly Star[], from: Vector3, forward: Vector3, currentId: string | null, avoid?: { center: Vector3; radius: number }): Star | null {
-    const nearest: { star: Star; distanceSq: number; ahead: boolean }[] = []
+    const nearest: { star: Star; distanceSq: number; ahead: boolean; onSide: boolean }[] = []
     for (const star of objects) {
       // Galaxies are scenery: flights to them would last far longer than the tour's pace allows.
       if (star.id === currentId || visited.has(star.id) || star.galaxy) continue
@@ -179,7 +257,9 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
       const kept = DISTANT_RANKS[1]
       if (nearest.length === kept && distanceSq >= nearest[kept - 1]!.distanceSq) continue
       const index = nearest.findIndex((candidate) => candidate.distanceSq > distanceSq)
-      nearest.splice(index < 0 ? nearest.length : index, 0, { star, distanceSq, ahead: dx * forward.x + dy * forward.y + dz * forward.z > 0 })
+      nearest.splice(index < 0 ? nearest.length : index, 0, {
+        star, distanceSq, ahead: dx * forward.x + dy * forward.y + dz * forward.z > 0, onSide: (forward.z * dx - forward.x * dz) * sense >= 0,
+      })
       nearest.length = Math.min(nearest.length, kept)
     }
     if (!nearest.length) {
@@ -188,10 +268,13 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
       return destination(objects, from, forward, currentId, avoid)
     }
     if (nearest.length > DISTANT_RANKS[0] && random() < DISTANT_CHANCE) {
-      return nearest[DISTANT_RANKS[0] + Math.floor(random() * (nearest.length - DISTANT_RANKS[0]))]!.star
+      const distant = nearest.slice(DISTANT_RANKS[0])
+      const onSide = distant.filter((candidate) => candidate.onSide)
+      const options = onSide.length ? onSide : distant
+      return options[Math.floor(random() * options.length)]!.star
     }
     nearest.length = Math.min(nearest.length, CANDIDATES)
-    const weights = nearest.map((candidate, rank) => (candidate.ahead ? 2 : 1) / (rank + 1))
+    const weights = nearest.map((candidate, rank) => (candidate.ahead ? 2 : 1) * (candidate.onSide ? 1 : OFF_SIDE_WEIGHT) / (rank + 1))
     let roll = random() * weights.reduce((sum, weight) => sum + weight, 0)
     return nearest.find((_, index) => (roll -= weights[index]!) < 0)?.star ?? nearest[0]!.star
   }
@@ -212,7 +295,7 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     const current = selectedId === null ? undefined : objects.find((star) => star.id === selectedId)
     const at = current && host.position(current.id)
     const near = at && view.position.distanceTo(at) < Math.max(extentPc(current!) * 3, 1.6) * 8
-    if (current && at && near && localMoves < localTarget) {
+    if (current && at && near && localMoves < localTarget && localTime < travelTime * LOCAL_SHARE) {
       localMoves++
       // A close flyby heads for the object, so it does not follow a move leaving it, nor suit extended objects.
       const leaving = velocity.position.dot(at.clone().sub(view.position)) < 0
@@ -221,7 +304,7 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
       // A look around and a close flyby end facing away, so a flight follows, setting off the way it looks.
       if (kind === 'gaze' || kind === 'skim') localMoves = localTarget
       visited.add(current.id)
-      return localMove(kind, view, at, framingPc(current))
+      return clearOf(() => localMove(kind, view, at, framingPc(current!)), current.id)
     }
     const forward = new Vector3().subVectors(view.target, view.position).normalize()
     // A journey leaves the selection far behind, so the tour carries on from where the camera is.
@@ -232,7 +315,7 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
       lastKind = lastTravel = 'journey'
       localMoves = localTarget = 0
       area.length = 0
-      return journey(view)
+      return clearOf(() => journey(view, at), selectedId)
     }
     let voyaging = false
     if (!next && at && !afterJourney && lastTravel !== 'voyage' && random() < VOYAGE_CHANCE) {
@@ -259,11 +342,14 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     // It moves on quickly: often straight to the next object, rarely with two moves around this one.
     const stay = random()
     localTarget = stay < 0.3 ? 0 : stay < 0.85 ? 1 : 2
-    // A close flyby leaves fast, so a cruise carries straight on rather than a glide turning back.
-    const kind = voyaging ? 'voyage' : lastKind === 'skim' ? 'cruise' : pick(TRAVEL_MOVES)
+    // A cruise would turn back on the spot to an object behind, where a glide turns the view first. A close flyby
+    // leaves fast, so otherwise a cruise carries straight on.
+    const behind = forward.dot(to.clone().sub(view.position).normalize()) < -0.2
+    const kind = voyaging ? 'voyage' : behind ? 'glide' : lastKind === 'skim' ? 'cruise' : pick(TRAVEL_MOVES)
     lastKind = lastTravel = kind
-    if (kind === 'voyage') return voyage(view, at!, next.id, to, framingPc(next))
-    return kind === 'glide' ? glide(view, next.id, to, framingPc(next)) : cruise(view, next.id, to, framingPc(next))
+    const framing = framingPc(next)
+    if (kind === 'voyage') return voyage(view, at!, next.id, to, framing)
+    return clearOf(() => kind === 'glide' ? glide(view, next.id, to, framing) : cruise(view, next.id, to, framing, at), next.id, selectedId)
   }
 
   return {
@@ -280,12 +366,26 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
         move = nextMove(start)
         idle = 0
         if (!move) return null
-        move.pace = PACE_RANGE[0] + random() * (PACE_RANGE[1] - PACE_RANGE[0])
+        // A voyage's pull-back already spans every scale, so it keeps the calm range.
+        const [slowest, fastest] = move.travel && lastKind !== 'voyage' ? TRAVEL_PACE_RANGE : PACE_RANGE
+        move.pace = slowest * (fastest / slowest) ** random()
+        if (move.travel) travelTime += move.seconds / move.pace
+        else localTime += move.seconds / move.pace
         // The first frame is a frame into the move; at its very start it would repeat the last one.
         time = seconds * move.pace
         // The earlier speed carries over in the move's own seconds.
         startVelocity.position.copy(velocity.position).divideScalar(move.pace)
         startVelocity.target.copy(velocity.target).divideScalar(move.pace)
+        // How far the move starts from the camera, and how its own starting speed differs from the camera's.
+        move.pose(PROBE_S, pose)
+        startMismatch.copy(pose.position)
+        move.pose(0, pose)
+        startOffset.subVectors(start.position, pose.position)
+        startMismatch.sub(pose.position).divideScalar(-PROBE_S).add(startVelocity.position)
+        // Setting off against the earlier motion, it swerves aside on the way, turning round instead of stopping to reverse.
+        const own = startVelocity.position.clone().sub(startMismatch)
+        const opposed = clamp(-own.dot(startVelocity.position) / (own.length() * startVelocity.position.length() + 1e-12), 0, 1)
+        perpendicular(startMismatch, startSwerve).multiplyScalar(-sense * opposed * startMismatch.length())
       }
       const selection = move.select
       if (selection && time >= selection.at) {
@@ -294,21 +394,28 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
       }
       move.pose(time, pose)
       const blend = smooth(Math.min(1, time / BLEND_S))
-      // The start keeps drifting with the camera's earlier speed, fading, so the handover has no stop.
+      // The camera follows the move, carrying on at its earlier speed while the difference fades, so the handover neither stops nor lurches.
+      const fading = Math.exp(-time / MOMENTUM_S)
+      output.position.copy(pose.position).addScaledVector(startOffset, 1 - blend)
+        .addScaledVector(startMismatch, time * fading).addScaledVector(startSwerve, time * time * fading / MOMENTUM_S)
+      // The view drifts on as it turned, then turns to the move's by heading, rather than its target sliding across.
       const coast = MOMENTUM_S * (1 - Math.exp(-time / MOMENTUM_S))
-      coasting.position.copy(start.position).addScaledVector(startVelocity.position, coast)
-      coasting.target.copy(start.target).addScaledVector(startVelocity.target, coast)
-      output.position.lerpVectors(coasting.position, pose.position, blend)
-      output.target.lerpVectors(coasting.target, pose.target, blend)
-      const look = output.target.distanceTo(output.position)
-      if (look < 1e-9) output.target.set(output.position.x, output.position.y, output.position.z - MIN_LOOK_PC)
-      else if (look < MIN_LOOK_PC) output.target.sub(output.position).multiplyScalar(MIN_LOOK_PC / look).add(output.position)
+      look.copy(start.target).addScaledVector(startVelocity.target, coast).sub(start.position).addScaledVector(startVelocity.position, -coast)
+      lookBetween(look, poseLook.subVectors(pose.target, pose.position), blend, look)
+      output.target.copy(output.position).add(look)
+      const lookLength = look.length()
+      if (lookLength < 1e-9) output.target.set(output.position.x, output.position.y, output.position.z - MIN_LOOK_PC)
+      else if (lookLength < MIN_LOOK_PC) output.target.sub(output.position).multiplyScalar(MIN_LOOK_PC / lookLength).add(output.position)
       limitPitch(output, heading)
       if (Math.hypot(output.target.x - output.position.x, output.target.z - output.position.z) > 1e-9) heading.subVectors(output.target, output.position)
+      look.subVectors(output.target, output.position)
       if (tracked && seconds > 0) {
         velocity.position.subVectors(output.position, previous.position).divideScalar(seconds)
         velocity.target.subVectors(output.target, previous.target).divideScalar(seconds)
+        turnRate += (wrapAngle(yawOf(look) - yawOf(lastLook)) / seconds - turnRate) * Math.min(1, seconds / TURN_MEMORY_S)
+        if (Math.abs(turnRate) > 0.02) sense = Math.sign(turnRate)
       }
+      lastLook.copy(look)
       previous.position.copy(output.position)
       previous.target.copy(output.target)
       tracked = true
@@ -319,23 +426,57 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
       move = null
       idle = Infinity
       tracked = false
+      turnRate = 0
       velocity.position.set(0, 0, 0)
       velocity.target.set(0, 0, 0)
     },
   }
 
-  /** Cruises 30 to 300 ly straight on, looking ahead, with a gentle turn here and there. */
-  function journey(view: DemoPose): Move {
+  /**
+   * Makes a move whose camera keeps clear of extended objects other than the one it leaves or heads for, trying
+   * again a few times, so the tour never flies through a nebula or bubble on its way.
+   */
+  function clearOf(make: () => Move, ...ends: (string | null | undefined)[]): Move {
+    const extended = host.objects().filter((star) => extentPc(star) > 0 && !ends.includes(star.id))
+    let move = make()
+    for (let attempt = 1; attempt < 4 && extended.length; attempt++) {
+      const points = Array.from({ length: CLEARANCE_SAMPLES + 1 }, (_, index) => {
+        move.pose(move.seconds * index / CLEARANCE_SAMPLES, probe)
+        return probe.position.clone()
+      })
+      const spacing = Math.max(...points.slice(1).map((point, index) => point.distanceTo(points[index]!)))
+      const crosses = extended.some((star) => {
+        const at = host.position(star.id), clearance = extentPc(star) * 1.5 + spacing
+        return at !== null && points.some((point) => point.distanceToSquared(at) < clearance * clearance)
+      })
+      if (!crosses) break
+      move = make()
+    }
+    return move
+  }
+
+  /** Leaving an object it looks at, within this reach, a flight veers off rather than flying through it. */
+  function veerOff(forward: Vector3, from: Vector3, leaving: Vector3 | null | undefined, reach: number): void {
+    const past = leaving?.clone().sub(from)
+    if (!past || past.lengthSq() < 1e-12 || past.length() > reach || forward.angleTo(past) >= DEPARTURE_ANGLE) return
+    past.normalize()
+    const away = forward.clone().addScaledVector(past, -forward.dot(past))
+    if (away.lengthSq() < 1e-12) perpendicular(past, away).multiplyScalar(-sense)
+    forward.copy(past).multiplyScalar(Math.cos(DEPARTURE_ANGLE)).addScaledVector(away.normalize(), Math.sin(DEPARTURE_ANGLE))
+  }
+
+  /** Cruises 30 to 300 ly straight on at a steady speed, looking ahead, with a gentle turn here and there. */
+  function journey(view: DemoPose, leaving: Vector3 | null | undefined): Move {
     const from = view.position.clone()
     const forward = view.target.clone().sub(from)
     if (forward.lengthSq() < 1e-12) forward.copy(randomUnit())
     forward.normalize()
     // Evenly spread in proportion, so long and short journeys both come up.
     const distance = JOURNEY_LY[0] * (JOURNEY_LY[1] / JOURNEY_LY[0]) ** random() / LIGHT_YEARS_PER_PARSEC
-    const seconds = 8 + 5 * Math.log2(1 + distance)
-    const cruising = cruisingShare(1, seconds, distance)
-    // Two wide, gentle turns of 15° to 35°, each spread over a quarter of the way.
-    const turns = [0.1 + random() * 0.2, 0.5 + random() * 0.2].map((at) => ({ at, yaw: sign() * (0.26 + random() * 0.35), pitch: (random() - 0.5) * 0.3 }))
+    veerOff(forward, from, leaving, distance)
+    const { seconds, share } = travelProfile(distance, travelSeconds(distance), velocity.position.length(), LOCAL_SPEED)
+    // Two wide, gentle turns of 15° to 35°, each spread over a quarter of the way, both the way the view already turns.
+    const turns = [0.1 + random() * 0.2, 0.5 + random() * 0.2].map((at) => ({ at, yaw: sense * (0.26 + random() * 0.35), pitch: (random() - 0.5) * 0.3 }))
     const sideways = new Vector3(), heading = new Vector3()
     const direction = (share: number, out: Vector3) => {
       let yaw = 0, pitch = 0
@@ -351,23 +492,22 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     const steps = 240
     const path = [from]
     for (let step = 0; step < steps; step++) path.push(path[step]!.clone().addScaledVector(direction((step + 0.5) / steps, heading), distance / steps))
-    const carried = velocity.position.clone().multiplyScalar(seconds)
-    if (carried.length() > distance * 0.3) carried.setLength(distance * 0.3)
-    const lookAhead = Math.max(0.5, distance * 0.05)
+    const lookAhead = Math.max(1, distance * 0.1)
     return {
       seconds,
+      travel: true,
       pose(t, out) {
-        const u = Math.min(1, t / seconds), travelled = travelEase(u, cruising) * steps
+        const travelled = share(t) * steps
         const step = Math.min(steps - 1, Math.floor(travelled))
-        out.position.lerpVectors(path[step]!, path[step + 1]!, travelled - step).addScaledVector(carried, u * (1 - u) ** 2)
+        out.position.lerpVectors(path[step]!, path[step + 1]!, travelled - step)
         out.target.copy(out.position).addScaledVector(direction(travelled / steps, heading), lookAhead)
       },
     }
   }
 
-  /** Flies to the object in an arc that rises above the map, turning to it early. */
+  /** Flies to the object at a steady speed in an arc that rises above the map, turning to it early. */
   function glide(view: DemoPose, id: string, to: Vector3, framing: number): Move {
-    const from = view.position.clone(), lookFrom = view.target.clone()
+    const from = view.position.clone(), lookFrom = view.target.clone().sub(from)
     const offset = from.clone().sub(to)
     const approach = (offset.lengthSq() > 1e-12 ? offset.normalize() : randomUnit()).addScaledVector(randomUnit(), 0.6).normalize()
     const end = to.clone().addScaledVector(approach, framing)
@@ -376,18 +516,17 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     const lift = UP.clone().addScaledVector(travel, -UP.dot(travel))
     if (lift.lengthSq() < 1e-6) perpendicular(travel, lift)
     lift.normalize().multiplyScalar(distance * 0.25)
-    const seconds = 8 + 5 * Math.log2(1 + distance)
-    const cruising = cruisingShare(framing, seconds, distance)
-    // The path bows out the way the camera already moves, starting at that speed, so it never turns back from a halt.
-    const carried = velocity.position.clone().multiplyScalar(seconds)
-    if (carried.length() > distance * 0.5) carried.setLength(distance * 0.5)
+    const path = tracePath((s, out) => out.lerpVectors(from, end, s).addScaledVector(lift, Math.sin(Math.PI * s)))
+    const { seconds, share } = travelProfile(path.length, travelSeconds(distance), velocity.position.length(), LOCAL_SPEED * framing)
+    const toObject = new Vector3(), turned = new Vector3()
     return {
       seconds,
+      travel: true,
       select: { id, at: 0 },
       pose(t, out) {
-        const u = Math.min(1, t / seconds), eased = travelEase(u, cruising)
-        out.position.lerpVectors(from, end, eased).addScaledVector(lift, Math.sin(Math.PI * eased)).addScaledVector(carried, u * (1 - u) ** 2)
-        out.target.lerpVectors(lookFrom, to, smooth(Math.min(1, u * 2)))
+        path.at(share(t), out.position)
+        lookBetween(lookFrom, toObject.subVectors(to, out.position), smooth(Math.min(1, t / seconds * 2)), turned)
+        out.target.copy(out.position).add(turned)
       },
     }
   }
@@ -403,9 +542,9 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     offset.normalize()
     const azimuth = Math.atan2(offset.z, offset.x)
     const elevation = Math.asin(clamp(offset.y, -0.95, 0.95))
-    // It keeps drifting sideways the way the camera moves, even at the far point, and arrives a little around from there.
-    const spin = along(new Vector3(-offset.z, 0, offset.x), velocity.position) * 0.8
-    const arrivalTurn = (random() - 0.5) * 1.6
+    // It keeps circling the way the view turns, even at the far point, and arrives a little farther around.
+    const spin = -sense * 0.8
+    const arrivalTurn = -sense * random() * 0.8
     const arrivalElevation = (random() - 0.5) * 0.6
     const far = VOYAGE_DISTANCE_PC[0] + random() * (VOYAGE_DISTANCE_PC[1] - VOYAGE_DISTANCE_PC[0])
     const [nearLog, farLog, endLog] = [Math.log(startRadius), Math.log(far), Math.log(framing)]
@@ -414,6 +553,7 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     const center = new Vector3()
     return {
       seconds,
+      travel: true,
       select: { id, at: seconds * peak },
       pose(t, out) {
         const u = Math.min(1, t / seconds)
@@ -431,40 +571,44 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     }
   }
 
-  /** Flies like a ship: out along the view, then curving onto the object, which it picks on the way. */
-  function cruise(view: DemoPose, id: string, to: Vector3, framing: number): Move {
+  /** Flies like a ship at a steady speed: out along the view, then curving onto the object, which it picks on the way. */
+  function cruise(view: DemoPose, id: string, to: Vector3, framing: number, leaving?: Vector3 | null): Move {
     const from = view.position.clone()
     const forward = view.target.clone().sub(from).normalize()
+    veerOff(forward, from, leaving, from.distanceTo(to))
     const approach = to.clone().sub(from)
     if (approach.lengthSq() < 1e-12) approach.copy(forward)
     approach.normalize()
-    // It arrives beside the object rather than through it.
-    const end = to.clone().addScaledVector(perpendicular(approach).applyAxisAngle(approach, random() * Math.PI * 2), framing)
+    // It arrives beside the object rather than through it, on the side that lets the view keep turning the same way onto it.
+    const aside = perpendicular(approach).applyAxisAngle(approach, random() * Math.PI * 2)
+    if ((approach.z * aside.x - approach.x * aside.z) * sense > 0) aside.negate()
+    const end = to.clone().addScaledVector(aside, framing)
     const distance = from.distanceTo(end)
-    const seconds = 9 + 5 * Math.log2(1 + distance)
-    const cruising = cruisingShare(framing, seconds, distance)
-    // The flight sets off along the view, bent the way the camera already moves, so it picks up that speed.
-    const carried = velocity.position.clone().multiplyScalar(seconds / (3 * Math.max(cruising, 1e-3)))
-    if (carried.length() > distance * 0.6) carried.setLength(distance * 0.6)
-    const control1 = from.clone().addScaledVector(forward, distance * 0.45).add(carried)
-    const control2 = end.clone().addScaledVector(approach, -distance * 0.35)
+    // It sets off along the view, and comes in from where that leg points, so the turn spreads over the whole way.
+    const control1 = from.clone().addScaledVector(forward, distance * 0.45)
+    const control2 = end.clone().addScaledVector(end.clone().sub(control1).normalize(), -distance * 0.35)
+    const path = tracePath((s, out) => {
+      const r = 1 - s
+      return out.copy(from).multiplyScalar(r ** 3).addScaledVector(control1, 3 * r * r * s).addScaledVector(control2, 3 * r * s * s).addScaledVector(end, s ** 3)
+    })
+    const { seconds, share } = travelProfile(path.length, travelSeconds(distance), velocity.position.length(), LOCAL_SPEED * framing)
     // Bézier derivative legs.
     const leg0 = control1.clone().sub(from), leg1 = control2.clone().sub(control1), leg2 = end.clone().sub(control2)
     const tangent = new Vector3(), toObject = new Vector3()
     const lookAhead = Math.max(0.5, distance * 0.1)
     return {
       seconds,
+      travel: true,
       select: { id, at: seconds * 0.3 },
       pose(t, out) {
-        const u = travelEase(Math.min(1, t / seconds), cruising), v = 1 - u
-        out.position.copy(from).multiplyScalar(v ** 3).addScaledVector(control1, 3 * v * v * u).addScaledVector(control2, 3 * v * u * u).addScaledVector(end, u ** 3)
+        const u = path.at(share(t), out.position), v = 1 - u
         tangent.copy(leg0).multiplyScalar(3 * v * v).addScaledVector(leg1, 6 * v * u).addScaledVector(leg2, 3 * u * u)
         if (tangent.lengthSq() < 1e-12) tangent.copy(forward)
         tangent.normalize()
         toObject.subVectors(to, out.position)
         const objectDistance = toObject.length()
         // The view swings from the flight path onto the object for the arrival, ending on it.
-        const turn = smooth(clamp((u - 0.55) / 0.45, 0, 1))
+        const turn = smooth(clamp((t / seconds - 0.55) / 0.45, 0, 1))
         tangent.lerp(toObject.divideScalar(objectDistance || 1), turn).normalize()
         out.target.copy(out.position).addScaledVector(tangent, lookAhead + (objectDistance - lookAhead) * turn)
       },
@@ -479,25 +623,31 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     return circle(view, at, framing, kind === 'reveal')
   }
 
-  /** Orbits the object; a reveal pulls far back over the region and returns. */
+  /**
+   * Orbits the object slowly while pulling back, so its surroundings come into view; a reveal pulls far back
+   * over the region and returns.
+   */
   function circle(view: DemoPose, at: Vector3, framing: number, reveal: boolean): Move {
     const offset = view.position.clone().sub(at)
     if (offset.lengthSq() < 1e-12) offset.set(framing, 0, 0)
-    // It starts at the camera's distance, easing to the framing one, so it never pulls the camera back.
+    // It starts at the camera's distance, easing to its own.
     const radius = offset.length()
     const azimuth = Math.atan2(offset.z, offset.x)
-    const elevation = Math.asin(clamp(offset.y / offset.length(), -0.95, 0.95))
+    // Within the tilt limit from the start, so the orbit never runs into it; the handover covers the difference.
+    const elevation = clamp(Math.asin(clamp(offset.y / offset.length(), -1, 1)), -1.1, 1.1)
     const finalElevation = (random() - 0.5) * 0.8
-    const zoom = reveal ? 6 + random() * 8 : 1.3
-    const spin = along(new Vector3(-offset.z, 0, offset.x), velocity.position) * Math.PI * 2 / (reveal ? 70 : 50)
+    const zoom = reveal ? 6 + random() * 8 : 1
+    const settled = reveal ? framing : framing * (2.5 + random() * 2)
+    // Orbiting turns the view against the orbit.
+    const spin = -sense * Math.PI * 2 / (reveal ? 70 : 90)
     const seconds = reveal ? 20 + random() * 4 : 12 + random() * 6
     return {
       seconds,
       pose(t, out) {
         // The zoom eases in and out, so a reveal settles into its orbit rather than arriving at speed.
         const u = Math.min(1, t / seconds), arc = Math.sin(Math.PI * smooth(u))
-        const distance = (radius + (framing - radius) * smooth(u)) * zoom ** arc
-        const tilt = clamp(elevation + (finalElevation - elevation) * smooth(u) + (reveal ? 0.3 * arc : 0), -1.2, 1.2)
+        const distance = (radius + (settled - radius) * smooth(u)) * zoom ** arc
+        const tilt = elevation + (finalElevation - elevation) * smooth(u) + (reveal ? 0.3 * arc : 0)
         const turn = azimuth + spin * t
         out.position.set(Math.cos(tilt) * Math.cos(turn), Math.sin(tilt), Math.cos(tilt) * Math.sin(turn)).multiplyScalar(distance).add(at)
         out.target.copy(at)
@@ -531,7 +681,8 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     const axisB = new Vector3().crossVectors(normal, axisA)
     // It starts at the camera's distance, easing into a comfortable orbit.
     const radius = offset.length(), orbit = clamp(radius, framing, framing * 2.5)
-    const spin = along(axisB, velocity.position)
+    // The orbit plane faces up, so the view turns with the orbit.
+    const spin = sense
     const seconds = 12 + random() * 5
     const radial = new Vector3(), ahead = new Vector3()
     return {
@@ -563,7 +714,9 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     const closest = Math.min(range, framing * (0.6 + random() * 0.6))
     const aside = range > 1e-9 ? Math.asin(closest / range) : Math.PI / 2
     const lean = moving.dot(inward) < -0.2 * moving.length() ? -1 : 1
-    const side = across.dot(moving) < 0 ? -1 : 1
+    // It passes on the side that keeps the view turning the way it does, unless it passes over or under.
+    const crossing = inward.z * across.x - inward.x * across.z
+    const side = Math.abs(crossing) > 0.1 ? -sense * Math.sign(crossing) : across.dot(moving) < 0 ? -1 : 1
     const direction = inward.multiplyScalar(lean * Math.cos(aside)).addScaledVector(across, side * Math.sin(aside))
     const length = Math.max(lean > 0 ? 2 * range * Math.cos(aside) + closest : 0, closest * 3)
     const seconds = 10 + random() * 4
@@ -615,8 +768,7 @@ export function createDemoTour(host: DemoHost, random = Math.random) {
     look.normalize()
     const heading = Math.atan2(look.x, look.z)
     const pitch = Math.asin(clamp(look.y, -0.95, 0.95))
-    const turning = new Vector3().subVectors(velocity.target, velocity.position)
-    const sweep = along(new Vector3(Math.cos(heading), 0, -Math.sin(heading)), turning) * Math.PI * (0.8 + random() * 0.3)
+    const sweep = sense * Math.PI * (0.8 + random() * 0.3)
     const seconds = 15 + random() * 5
     return {
       seconds,
