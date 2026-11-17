@@ -40,6 +40,9 @@ const PSF = {
   // Light beyond −1.5 mag compresses smoothly towards −3 mag, so a companion's glare seen
   // from its neighbor (Rigel A from Rigel Ba is about −22 mag) stays a star, not a clipped disc.
   brightFlux: 10 ** 0.6, brightRangeMagnitudes: 1.5,
+  // Once stars fade into the Galaxy model, none outshines Sirius from Earth (V −1.46, display −2.46) in any band,
+  // so the near infrared's −4 mag giants do not flare over the Galaxy; the cap is in full a quarter into the fade.
+  farFlux: 10 ** 0.984, farCapRate: 4,
   // Lifted faint stars: magnitudes fainter than 4 compress to a fifth of their distance from it (11 mag shows as 5.4).
   faintKneeFlux: 10 ** -1.6, faintSqueeze: 0.2,
   // Overlapping stars converge to 1 / crowdOpacity of full brightness, a glow rather than white.
@@ -86,6 +89,8 @@ export function createStarAppearance(starViewDistance: { value: number }, select
   const realism = {
     starRealism: { value: 0 }, starCrowdCoverage: { value: 1 }, starPixelRatio: { value: 1 }, starZoomGain: { value: 1 }, starFaintLift: { value: 0 },
     starBrightCap: { value: 1 }, starExposure: { value: 1 }, starMaxRadius: { value: PSF.maxRadius },
+    // Far beyond the Galaxy every star but the selected one shrinks and dims away into the Galaxy model.
+    starFade: { value: 1 },
   }
   // Magnitude already includes the source's distance. Only zooming out of the
   // map adds display restraint; point depth must not attenuate the light again.
@@ -110,12 +115,15 @@ export function createStarAppearance(starViewDistance: { value: number }, select
   starMaterial.onBeforeCompile = (shader) => {
     shader.uniforms.starViewDistance = starViewDistance
     Object.assign(shader.uniforms, realism)
-    const psfVaryings = 'uniform float starRealism;\nuniform float starCrowdCoverage;\nuniform float starPixelRatio;\nuniform float starZoomGain;\nuniform float starFaintLift;\nuniform float starBrightCap;\nuniform float starExposure;\nuniform float starMaxRadius;\nvarying float vPsfPeak;\nvarying float vPsfSpike;\nvarying float vPsfRadius;\nvarying float vGlareClipped;'
+    const psfVaryings = 'uniform float starRealism;\nuniform float starCrowdCoverage;\nuniform float starPixelRatio;\nuniform float starZoomGain;\nuniform float starFaintLift;\nuniform float starBrightCap;\nuniform float starExposure;\nuniform float starMaxRadius;\nuniform float starFade;\nvarying float vPsfPeak;\nvarying float vPsfSpike;\nvarying float vPsfRadius;\nvarying float vGlareClipped;'
     shader.vertexShader = `${selectionAttribute}\n${psfVaryings}\nuniform float starViewDistance;\nattribute float starFlux;\nattribute float coreDiameter;\nattribute float coreEmphasis;\nattribute float coreWhiteStrength;\nattribute float coreShape;\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\nvarying float vCoreShape;\n${shader.vertexShader}`
-      .replace('gl_PointSize = size;', `float coreOverviewRatio = pow(min(1.0, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC})), ${STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER});
+      .replaceAll('gl_PointSize = size;', `float coreOverviewRatio = pow(min(1.0, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC})), ${STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER});
       float coreViewScale = max(${STAR_CORE_MIN_VIEW_SCALE}, sqrt(coreOverviewRatio));
       float displayDiameter = max(max(coreDiameter * coreViewScale, 10.0 * ${selection}), coreShape > 0.5 ? ${STAR_REMNANT_MIN_DIAMETER_PX}.0 : 0.0);
-      gl_PointSize = size * max(${STAR_CORE_MIN_DIAMETER_PX}.0, displayDiameter);
+      float lodFade = max(starFade, ${selection});
+      gl_PointSize = size * max(${STAR_CORE_MIN_DIAMETER_PX}.0, displayDiameter) * lodFade;
+      // Points never draw below a pixel, so fading stars also thin out, each at its own fixed threshold.
+      if (fract(float(gl_VertexID) * 0.618034) >= lodFade) gl_Position = vec4(2.0, 2.0, 2.0, 1.0);
       vCoreDiameter = displayDiameter;
       vCoreEmphasis = coreEmphasis;
       vCoreWhiteStrength = coreWhiteStrength;
@@ -123,10 +131,14 @@ export function createStarAppearance(starViewDistance: { value: number }, select
       vPsfRadius = 0.0;
       if (starRealism > 0.5 && coreShape < 0.5) {
         // Zooming the map out dims stars the way the illustrative cores shrink.
-        float psfFlux = starFlux * coreViewScale * coreViewScale * starZoomGain * starExposure;
-        if (starBrightCap > 0.5 && psfFlux > ${glsl(PSF.brightFlux)}) {
+        float farCap = min(1.0, ${glsl(PSF.farCapRate)} * (1.0 - starFade));
+        float psfFlux = starFlux * pow(min(1.0, ${glsl(PSF.farFlux)} / max(starFlux, 1e-30)), farCap)
+          * coreViewScale * coreViewScale * starZoomGain * starExposure;
+        // A partial cap, while approaching a star, eases between both in magnitudes.
+        if (starBrightCap > 0.0 && psfFlux > ${glsl(PSF.brightFlux)}) {
           float excessMagnitudes = 1.0857362 * log(psfFlux / ${glsl(PSF.brightFlux)});
-          psfFlux = ${glsl(PSF.brightFlux)} * pow(10.0, 0.4 * ${glsl(PSF.brightRangeMagnitudes)} * (1.0 - exp(-excessMagnitudes / ${glsl(PSF.brightRangeMagnitudes)})));
+          float cappedFlux = ${glsl(PSF.brightFlux)} * pow(10.0, 0.4 * ${glsl(PSF.brightRangeMagnitudes)} * (1.0 - exp(-excessMagnitudes / ${glsl(PSF.brightRangeMagnitudes)})));
+          psfFlux *= pow(cappedFlux / psfFlux, starBrightCap);
         }
         // The lift fades in as the map zooms in, so the overview keeps natural brightness; faint stars keep their order.
         if (starFaintLift > 0.5 && psfFlux < ${glsl(PSF.faintKneeFlux)}) {
@@ -134,7 +146,7 @@ export function createStarAppearance(starViewDistance: { value: number }, select
         }
         psfFlux = max(psfFlux, ${glsl(PSF.selectedFlux)} * ${selection});
         // The faintest stars fade too while the eye adapts to a bright one.
-        vPsfPeak = max(psfFlux * ${glsl(PSF.peakPerFlux)}, ${glsl(PSF.minPeak)} * starExposure);
+        vPsfPeak = max(psfFlux * ${glsl(PSF.peakPerFlux)}, ${glsl(PSF.minPeak)} * starExposure) * lodFade;
         // A negative shape marks a planet, whose disc scatters no diffraction spikes.
         vPsfSpike = coreShape < -0.5 ? 0.0 : vPsfPeak * ${glsl(PSF.spikeWeight)};
         // Extent where each term falls below the cutoff, so the sprite holds all visible light.
@@ -143,11 +155,11 @@ export function createStarAppearance(starViewDistance: { value: number }, select
         float spikeReach = ${glsl(PSF.spikeLength)} * max(sqrt(vPsfSpike / ${glsl(PSF.cutoff)}) - 1.0, 0.0);
         float reach = max(max(coreReach, wingReach), spikeReach) + 1.0;
         // Uncapped glare that outgrows the sprite fades across all of it, so it ends without a rim.
-        vGlareClipped = starBrightCap < 0.5 && reach > starMaxRadius ? 1.0 : 0.0;
+        vGlareClipped = starBrightCap < 1.0 && reach > starMaxRadius ? 1.0 : 0.0;
         vPsfRadius = starPixelRatio * clamp(reach, 1.5, starMaxRadius);
         gl_PointSize = 2.0 * vPsfRadius;
       }`)
-    shader.fragmentShader = `${psfVaryings}\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\nvarying float vCoreShape;\n${shader.fragmentShader}`.replace(
+    shader.fragmentShader = `${psfVaryings}\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\nvarying float vCoreShape;\n${shader.fragmentShader}`.replaceAll(
       '#include <color_fragment>',
       `#include <color_fragment>
       if (vPsfRadius > 0.0) {
@@ -222,14 +234,15 @@ export function createStarAppearance(starViewDistance: { value: number }, select
   })
   haloMaterial.onBeforeCompile = (shader) => {
     shader.uniforms.starViewDistance = starViewDistance
-    shader.vertexShader = `${selectionAttribute}\nuniform float starViewDistance;\nattribute float haloDiameter;\nattribute float haloOpacity;\nvarying float vHaloOpacity;\n${shader.vertexShader}`
-      .replace('gl_PointSize = size;', `float overviewRatio = min(1.0, ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC}));
+    shader.uniforms.starFade = realism.starFade
+    shader.vertexShader = `${selectionAttribute}\nuniform float starViewDistance;\nuniform float starFade;\nattribute float haloDiameter;\nattribute float haloOpacity;\nvarying float vHaloOpacity;\n${shader.vertexShader}`
+      .replaceAll('gl_PointSize = size;', `float overviewRatio = min(1.0, ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_HALO_FULL_STRENGTH_DISTANCE_PC}));
       float haloViewScale = max(${STAR_HALO_MIN_VIEW_SCALE}, sqrt(sqrt(overviewRatio)));
       float haloViewOpacityScale = max(${STAR_HALO_MIN_OPACITY_SCALE}, sqrt(overviewRatio));
       gl_PointSize = size * max(haloDiameter * haloViewScale, 68.0 * ${selection});
-      vHaloOpacity = max(haloOpacity * haloViewOpacityScale, 0.75 * ${selection});`)
+      vHaloOpacity = max(haloOpacity * haloViewOpacityScale * starFade, 0.75 * ${selection});`)
     shader.fragmentShader = `varying float vHaloOpacity;\n${shader.fragmentShader}`
-      .replace('#include <map_particle_fragment>', '#include <map_particle_fragment>\ndiffuseColor.a *= vHaloOpacity;')
+      .replaceAll('#include <map_particle_fragment>', '#include <map_particle_fragment>\ndiffuseColor.a *= vHaloOpacity;')
   }
   // Realistic stars composite their premultiplied light over what is behind them; their large,
   // mostly dark sprites must neither hide fainter stars through depth nor be cut by the alpha test.
@@ -242,5 +255,5 @@ export function createStarAppearance(starViewDistance: { value: number }, select
     starMaterial.depthWrite = !realistic
     starMaterial.alphaTest = realistic ? 0.002 : 0.2
   }
-  return { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle, pixelRatio: realism.starPixelRatio, crowdCoverage: realism.starCrowdCoverage, zoomGain: realism.starZoomGain, faintLift: realism.starFaintLift, brightCap: realism.starBrightCap, exposure: realism.starExposure, maxRadius: realism.starMaxRadius }
+  return { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle, pixelRatio: realism.starPixelRatio, crowdCoverage: realism.starCrowdCoverage, zoomGain: realism.starZoomGain, faintLift: realism.starFaintLift, brightCap: realism.starBrightCap, exposure: realism.starExposure, maxRadius: realism.starMaxRadius, fade: realism.starFade }
 }

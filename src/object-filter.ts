@@ -4,7 +4,7 @@ export const FILTER_CATEGORIES = [
   {
     id: 'compact_objects',
     label: 'Compact objects',
-    description: 'The Sun, stars, brown dwarfs, white dwarfs, neutron stars, pulsars and black holes. Object type below chooses which of them appear.',
+    description: 'The Sun, stars, brown dwarfs, white dwarfs, neutron stars, pulsars and black holes. Open Object types below to choose which of them appear.',
     subtypes: [
       { key: 'sun', label: 'Sun' },
       { key: 'star', label: 'Stars' },
@@ -18,7 +18,7 @@ export const FILTER_CATEGORIES = [
   {
     id: 'interstellar_medium',
     label: 'Interstellar medium',
-    description: 'The gas and dust between the stars: molecular clouds, dark nebulae, reflection nebulae and H II regions. Object type below chooses which of them appear.',
+    description: 'The gas and dust between the stars: molecular clouds, dark nebulae, reflection nebulae and H II regions. The checkboxes in this tile choose which of them appear.',
     subtypes: [
       { key: 'molecular_cloud', label: 'Molecular clouds' },
       { key: 'dark_nebula', label: 'Dark nebulae' },
@@ -29,7 +29,7 @@ export const FILTER_CATEGORIES = [
   {
     id: 'stellar_remnants',
     label: 'Stellar remnants',
-    description: 'The clouds that dying stars leave behind: planetary nebulae, supernova remnants and pulsar-wind nebulae. Object type below chooses which of them appear. Neutron stars, pulsars and black holes are under Compact objects.',
+    description: 'The clouds that dying stars leave behind: planetary nebulae, supernova remnants and pulsar-wind nebulae. The checkboxes in this tile choose which of them appear. Neutron stars, pulsars and black holes are under Compact objects.',
     subtypes: [
       { key: 'planetary_nebula', label: 'Planetary nebulae' },
       { key: 'supernova_remnant', label: 'Supernova remnants' },
@@ -39,7 +39,7 @@ export const FILTER_CATEGORIES = [
   {
     id: 'large_scale_structures',
     label: 'Large-scale structures',
-    description: 'Bubbles, vast cavities blown into the gas between the stars, and dust sheets. Object type below chooses which of them appear.',
+    description: 'Bubbles, vast cavities blown into the gas between the stars, and dust sheets. The checkboxes in this tile choose which of them appear.',
     subtypes: [
       { key: 'bubble', label: 'Bubbles' },
       { key: 'dust_sheet', label: 'Dust sheets' },
@@ -57,7 +57,7 @@ export const FILTER_CATEGORY_IDS: readonly FilterCategoryId[] = FILTER_CATEGORIE
 const CATALOG_FILTER_KEYS: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf']
 
 export const DEFAULT_FILTER_CATEGORIES: readonly FilterCategoryId[] = ['compact_objects']
-export const DEFAULT_FILTER_SUBTYPES: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'supernova_remnant', 'bubble']
+export const DEFAULT_FILTER_SUBTYPES: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'dark_nebula', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'supernova_remnant', 'bubble']
 
 // Types with data before saved filters and views recorded which types they knew.
 const LEGACY_KNOWN_FILTER_KEYS: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'neutron_star', 'pulsar', 'black_hole',
@@ -77,15 +77,11 @@ export function isFilterCategoryId(value: unknown): value is FilterCategoryId {
   return FILTER_CATEGORY_IDS.includes(value as FilterCategoryId)
 }
 
-/** Galaxies have no filter type: the Galaxies preference shows or hides them. */
+/** Galaxies have no filter type: the Galaxies filter shows or hides them. */
 export function filterKeyForObject(star: Pick<Star, 'id' | 'type'>): FilterKey | 'galaxy' {
   if (star.id === 'sun') return 'sun'
   if (star.type === 'sub_brown_dwarf') return 'brown_dwarf'
   return star.type
-}
-
-export function filterCategoryForKey(key: FilterKey): FilterCategoryId {
-  return FILTER_CATEGORIES.find((category) => category.subtypes.some((subtype) => subtype.key === key))!.id
 }
 
 export function availableFilterKeys(...overlayCounts: Readonly<Record<string, number>>[]): Set<FilterKey> {

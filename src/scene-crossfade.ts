@@ -57,6 +57,8 @@ export function createSceneCrossfade(durationMs: number): SceneCrossfade {
         frame.value?.dispose()
         frame.value = new FramebufferTexture(size.x, size.y)
       }
+      // As in the scene pass: three skips activating unit 0 when the target's binding there is cached.
+      renderer.state.activeTexture(renderer.getContext().TEXTURE0)
       renderer.copyFramebufferToTexture(frame.value)
       // The fade starts with the first frame of the new scene, which may wait for its programs to compile.
       started = null

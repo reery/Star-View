@@ -22,7 +22,7 @@
       "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/218"
     }
   },
-  "method": "R-band mag/arcsec^2 (Vega). Planetary nebulae take the mean of their Strasbourg-ESO H-beta flux over the optical disk; emission nebulae at least 12 arcmin across take the peak H-alpha excess of the 6-arcmin Finkbeiner map within their catalogued extent (the frozen mask peak where a mask exists). Others are estimated from photographic plate classes: Lynds classes step one magnitude each from a zero point of 21.13 (the median offset of the measurements they overlap), and reflection-nebula classes map linearly onto the Lynds classes of the nebulae both catalogues list. The remaining few keep their hand estimate, shifted by 1.36 mag (the median offset of the measurements it overlaps); supernova remnants the map cannot isolate are capped at the H-alpha peak of their field.",
+  "method": "R-band mag/arcsec^2 (Vega). Planetary nebulae take the mean of their Strasbourg-ESO H-beta flux over the optical disk; emission nebulae at least 12 arcmin across take the peak H-alpha excess of the 6-arcmin Finkbeiner map within their catalogued extent (the frozen mask peak where a mask exists). Others are estimated from photographic plate classes: Lynds classes step one magnitude each from a zero point of 21.13 (the median offset of the measurements they overlap), and reflection-nebula classes map linearly onto the Lynds classes of the nebulae both catalogues list. The remaining few keep their hand estimate, shifted by 1.36 mag (the median offset of the measurements it overlaps); supernova remnants the map cannot isolate are capped at the H-alpha peak of their field. Barnard's Loop keeps its measured peak but stays out of the zero points: its plate class rates a far larger region than the arc's peak.",
   "calibration": {
     "lynds_offset_mag": 21.13,
     "reflection_lynds_class": {
@@ -1110,6 +1110,96 @@
       "url": null,
       "basis": {
         "retired_brightness": 0.6
+      }
+    },
+    "barnards-loop": {
+      "mag_arcsec2": 23.27,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 297.7 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 297.73
+      }
+    },
+    "lagoon-nebula": {
+      "mag_arcsec2": 19.8,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 7329.4 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 7329.38
+      }
+    },
+    "trifid-nebula": {
+      "mag_arcsec2": 20.93,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 2575.3 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 2575.27
+      }
+    },
+    "eagle-nebula": {
+      "mag_arcsec2": 21.38,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 1701.0 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 1700.95
+      }
+    },
+    "omega-nebula": {
+      "mag_arcsec2": 21.0,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 2408.2 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 2408.19
+      }
+    },
+    "rosette-nebula": {
+      "mag_arcsec2": 22.35,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 698.2 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 698.17
+      }
+    },
+    "carina-nebula": {
+      "mag_arcsec2": 19.76,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 7558.0 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 7557.96
+      }
+    },
+    "north-america-nebula": {
+      "mag_arcsec2": 22.87,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 433.2 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 433.25
+      }
+    },
+    "veil-nebula": {
+      "mag_arcsec2": 24.28,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 118.5 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 118.46
+      }
+    },
+    "tarantula-nebula": {
+      "mag_arcsec2": 20.58,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 3570.7 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 3570.7
       }
     }
   }

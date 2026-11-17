@@ -4,14 +4,22 @@ import { PNG } from 'pngjs'
 import { LIGHT_YEARS_PER_PARSEC } from '../src/astronomy'
 import { openFilter, openPreferences, openViewer, zoomViewer } from './support'
 
-type CloudRow = { id: string; name: string; molecular_cloud: { distance_pc: number; sample_points_pc: number[] } }
+type Geometry = { sample_points_pc: number[] }
+type CloudRow = { id: string; name: string; x_pc: number; y_pc: number; z_pc: number
+  molecular_cloud?: Geometry; dark_nebula?: { geometry: Geometry | null } }
 const CLOUDS: CloudRow[] = JSON.parse(readFileSync(new URL('../src/data/overlays/molecular-clouds/objects.json', import.meta.url), 'utf8')).objects
 const DEFAULT_ROWS = 22
+// Galaxies load with every catalog and count in it.
+const GALAXIES: unknown[] = JSON.parse(readFileSync(new URL('../src/data/overlays/galaxies/objects.json', import.meta.url), 'utf8')).objects
 
+// Clouds and the dark nebulae no cloud holds draw their own dust; the distance filter follows their centers.
 function expectedPuffs(limitLy: number, fraction = 1) {
   return String(CLOUDS
-    .filter((row) => row.molecular_cloud.distance_pc * LIGHT_YEARS_PER_PARSEC <= limitLy)
-    .reduce((sum, row) => sum + Math.max(1, Math.ceil(row.molecular_cloud.sample_points_pc.length / 3 * fraction)), 0))
+    .flatMap((row) => {
+      const geometry = row.molecular_cloud ?? row.dark_nebula?.geometry
+      return geometry && Math.hypot(row.x_pc, row.y_pc, row.z_pc) * LIGHT_YEARS_PER_PARSEC <= limitLy ? [geometry] : []
+    })
+    .reduce((sum, geometry) => sum + Math.max(1, Math.ceil(geometry.sample_points_pc.length / 3 * fraction)), 0))
 }
 
 function darkenedCloudPixels(cloudy: PNG, clear: PNG) {
@@ -26,7 +34,7 @@ function darkenedCloudPixels(cloudy: PNG, clear: PNG) {
   return count
 }
 
-test('loads all 65 Cahlon clouds on demand and exposes sourced cloud properties', { tag: '@mobile' }, async ({ page }, testInfo) => {
+test('loads the clouds and dark nebulae on demand and exposes sourced cloud properties', { tag: '@mobile' }, async ({ page }, testInfo) => {
   test.setTimeout(45_000)
   const cloudRequests: string[] = []
   page.on('request', (request) => {
@@ -50,7 +58,7 @@ test('loads all 65 Cahlon clouds on demand and exposes sourced cloud properties'
   await expect(layer).toHaveAttribute('data-molecular-cloud-puff-count', expectedPuffs(100))
   await page.getByLabel('Object visibility distance', { exact: true }).fill('20')
   await expect(layer).toHaveAttribute('data-molecular-cloud-puff-count', expectedPuffs(1500))
-  await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${DEFAULT_ROWS + CLOUDS.length}$`))
+  await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${DEFAULT_ROWS + GALAXIES.length + CLOUDS.length}$`))
 
   await openPreferences(page)
   await page.getByRole('switch', { name: 'Power saving mode' }).check()
@@ -87,7 +95,7 @@ test('loads all 65 Cahlon clouds on demand and exposes sourced cloud properties'
 
   await openFilter(page)
   await page.getByRole('switch', { name: 'Interstellar medium', exact: true }).uncheck()
-  await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${DEFAULT_ROWS}$`))
+  await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${DEFAULT_ROWS + GALAXIES.length}$`))
   await expect(layer).not.toHaveAttribute('data-molecular-cloud-puff-count')
   expect(cloudRequests).toHaveLength(1)
   await expect(page.locator('#scene')).toHaveAttribute('data-milky-way-ready', 'true')

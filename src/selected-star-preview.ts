@@ -67,11 +67,57 @@ export function renderSelectedStarPreview(canvas: HTMLCanvasElement, star: Star,
   renderedPreviews.set(canvas, key)
 }
 
+/** Illustrative tilted two-armed spiral in the galaxy's display color around a warm central bulge. */
+function drawGalaxyPreview(context: CanvasRenderingContext2D, displayColor: Color): void {
+  const color = `#${displayColor.getHexString()}`
+  const paleColor = `#${displayColor.clone().lerp(new Color(0xffffff), 0.65).getHexString()}`
+  const bulgeColor = `#${displayColor.clone().lerp(new Color(0xffe4b8), 0.7).getHexString()}`
+  const blob = (x: number, y: number, radius: number, fill: string, opacity: number) => {
+    const gradient = context.createRadialGradient(x, y, 0, x, y, radius)
+    gradient.addColorStop(0, translucent(fill, opacity))
+    gradient.addColorStop(1, translucent(fill, 0))
+    context.fillStyle = gradient
+    context.fillRect(x - radius, y - radius, radius * 2, radius * 2)
+  }
+
+  context.save()
+  context.rotate(-0.5)
+  context.scale(1, 0.64)
+  blob(0, 0, 27, color, 0.42)
+  context.globalCompositeOperation = 'lighter'
+  // Logarithmic arms widening and fading outward, with brighter knots along them.
+  const steps = 80, turn = 4.6, growth = Math.log(10) / turn
+  for (const phase of [0, Math.PI]) {
+    for (let step = 0; step < steps; step++) {
+      const progress = step / (steps - 1)
+      const angle = phase + progress * turn
+      const radius = 2.5 * Math.exp(growth * progress * turn)
+      const x = radius * Math.cos(angle), y = radius * Math.sin(angle)
+      blob(x, y, 2.6 + 3.4 * progress, color, 0.2 * (1 - progress) ** 0.6)
+      if (step % 11 === 6) blob(x, y, 1.6 + 0.8 * progress, paleColor, 0.35 * (1 - 0.5 * progress))
+    }
+  }
+  context.restore()
+
+  context.save()
+  context.globalCompositeOperation = 'lighter'
+  context.rotate(-0.5)
+  context.scale(1, 0.8)
+  blob(0, 0, 10, bulgeColor, 0.8)
+  blob(0, 0, 3.5, '#ffffff', 0.9)
+  context.restore()
+}
+
 function drawStarPreview(context: CanvasRenderingContext2D, star: Star, mode: StarColorMode): void {
   const displayColor = starDisplayColor(star, mode)
   const color = `#${displayColor.getHexString()}`
 
-  if (isCompactObject(star) || isNebulaObject(star) || isMolecularCloudObject(star) || isBubbleObject(star) || isGalaxyObject(star)) {
+  if (isGalaxyObject(star)) {
+    drawGalaxyPreview(context, displayColor)
+    return
+  }
+
+  if (isCompactObject(star) || isNebulaObject(star) || isMolecularCloudObject(star) || isBubbleObject(star)) {
     context.fillStyle = color
     context.shadowColor = color
     context.shadowBlur = 6

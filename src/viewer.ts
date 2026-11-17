@@ -5,13 +5,13 @@ import {
   Quaternion, Sphere, SRGBColorSpace, Vector3, Vector4, WebGLRenderer,
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import type { Star } from './catalog-model'
+import { dustGeometry, type Star } from './catalog-model'
 import { createStarAppearance, displayMagnitude, STAR_ADAPTATION_FLUX, STAR_BRIGHTNESSES, starCrowdCoverage, starEyeExposure, STAR_GLARE_MAX_RADIUS_PX, STAR_STYLES, type FaintStars, type StarBrightness, type StarStyle } from './star-appearance'
 import { createDepthLabel } from './depth-label'
 import type { ScenePass } from './scene-shader'
 import { createSceneCrossfade } from './scene-crossfade'
 import { updateCameraNearPlane } from './camera-depth'
-import { createMilkyWayLayer, GALAXY_LABEL_PRIORITY_PC } from './milky-way-layer'
+import { CATALOG_FADE_PC, createMilkyWayLayer, distanceFade, GALAXY_LABEL_PRIORITY_PC } from './milky-way-layer'
 import { createRenderStats, type RenderSetup, type RenderStats } from './render-stats'
 import { createEarthOrbitLayer } from './earth-orbit-layer'
 import { createOortCloudLayer, OORT_CLOUD_RADIUS_PC } from './oort-cloud-layer'
@@ -275,9 +275,10 @@ function expandBoxByBubbleBounds(box: Box3, star: Pick<Star, 'bubble'>): void {
   for (const xPc of x) for (const yPc of y) for (const zPc of z) box.expandByPoint(new Vector3(xPc, zPc, -yPc))
 }
 
-function expandBoxByMolecularCloudBounds(box: Box3, star: Pick<Star, 'molecular_cloud'>): void {
-  if (!star.molecular_cloud) return
-  const { x, y, z } = star.molecular_cloud.bounds_pc
+function expandBoxByMolecularCloudBounds(box: Box3, star: Pick<Star, 'molecular_cloud' | 'dark_nebula'>): void {
+  const geometry = dustGeometry(star)
+  if (!geometry) return
+  const { x, y, z } = geometry.bounds_pc
   for (const xPc of x) for (const yPc of y) for (const zPc of z) box.expandByPoint(new Vector3(xPc, zPc, -yPc))
 }
 
@@ -401,7 +402,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const catalogSphere = starBounds.getBoundingSphere(new Sphere())
   const depthPositions = pickable.map(({ position }) => position)
   const extendedDepthBounds = stars.flatMap((star) => {
-    if (!star.molecular_cloud && !star.bubble) return []
+    if (!dustGeometry(star) && !star.bubble) return []
     const bounds = new Box3()
     expandBoxByMolecularCloudBounds(bounds, star)
     expandBoxByBubbleBounds(bounds, star)
@@ -428,7 +429,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
 
   const starViewDistance = { value: camera.position.distanceTo(controls.target) }
   const { dotTexture, haloTexture, starMaterial, haloMaterial, setStyle: setStarAppearanceStyle, pixelRatio: starPixelRatio, crowdCoverage, zoomGain: starZoomGain, faintLift,
-    brightCap: starBrightCap, exposure: starExposure, maxRadius: starMaxRadius } = createStarAppearance(starViewDistance, true)
+    brightCap: starBrightCap, exposure: starExposure, maxRadius: starMaxRadius, fade: starFade } = createStarAppearance(starViewDistance, true)
   const cappedStarMaxRadius = starMaxRadius.value
   const maxPointSize = (renderer.getContext().getParameter(renderer.getContext().ALIASED_POINT_SIZE_RANGE) as Float32Array)[1]!
   setStarAppearanceStyle(starStyle)
@@ -546,14 +547,21 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const [, major, minor] = stars[index]!.nebula!.shape.semi_axes_pc
     return 0.6 * Math.max(major, minor)
   })
-  const molecularCloudIndices = stars.flatMap((star, index) => star.molecular_cloud ? [index] : [])
+  // Clouds and dark nebulae are dust volumes: no point core, picked by their extent. The layer draws every
+  // cloud and each dark nebula with dust of its own; the others are part of a cloud's dust.
+  const dustIndices = stars.flatMap((star, index) => star.molecular_cloud || star.dark_nebula ? [index] : [])
   const isMolecularCloud = new Uint8Array(stars.length)
-  for (const index of molecularCloudIndices) isMolecularCloud[index] = 1
+  for (const index of dustIndices) isMolecularCloud[index] = 1
+  const molecularCloudIndices = dustIndices.filter((index) => dustGeometry(stars[index]!))
   const molecularCloudLayer = molecularCloudIndices.length > 0
-    ? createMolecularCloudLayer(molecularCloudIndices.map((index) => stars[index]!), starColorMode)
+    ? createMolecularCloudLayer(molecularCloudIndices.map((index) => stars[index]!), starColorMode,
+      dustIndices.flatMap((index) => stars[index]!.dark_nebula?.parent_cloud_id ? [stars[index]!] : []))
     : null
   if (molecularCloudLayer) scene.add(molecularCloudLayer.root)
-  const molecularCloudPickRadii = molecularCloudIndices.map((index) => stars[index]!.molecular_cloud!.equivalent_radius_pc)
+  const dustPickRadii = dustIndices.map((index) => {
+    const { molecular_cloud: cloud, dark_nebula: nebula } = stars[index]!
+    return cloud ? cloud.equivalent_radius_pc : nebula!.distance_pc * Math.tan(nebula!.angular_diameter_arcmin / 120 * Math.PI / 180)
+  })
   const bubbleIndices = stars.flatMap((star, index) => star.bubble ? [index] : [])
   const isBubble = new Uint8Array(stars.length)
   for (const index of bubbleIndices) isBubble[index] = 1
@@ -565,6 +573,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const faintBlobs = faintObjectBlobs(basePositions, (index) => isFaintObject(stars[index]!))
   const faintBlobOf = new Int32Array(stars.length).fill(-1)
   faintBlobs.forEach(({ members }, blob) => members.forEach((index) => { faintBlobOf[index] = blob }))
+  // Far beyond the Galaxy the catalog dissolves into the Galaxy model: its names go as it starts to fade, its drawing once it has.
+  let catalogLod: 'full' | 'fading' | 'gone' = 'full'
   const faintHidden = new Uint8Array(stars.length)
   const faintClouds = createFaintObjectClouds(faintBlobs, starColorMode)
   scene.add(faintClouds.group)
@@ -804,6 +814,13 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   /** A free point brightness is rated from instead of the visibility base or the ship, such as the demo's imaginary ship. */
   let visibilityPoint: Vector3 | null = null
   const observerPoint = () => visibilityPoint ?? (spaceship && spaceshipVisibility ? spaceship.position : null)
+  /** How much brighter each star looks from the orbiting camera than from the visibility base, at least 1. */
+  const closeGains = new Float64Array(stars.length).fill(1)
+  /** Glare from stars the camera approaches fades in over their first 1.5 magnitudes of brightening. */
+  let closeGlare = 0
+  const closeLightPosition = new Vector3()
+  let closeLightOff = true
+  let closeLightTime = -Infinity
   /** Whether the ship, not orbit controls, places the camera. */
   const cameraIsShip = () => spaceshipCockpit || spaceshipFlight !== null
   let viewCenterOffset = 0
@@ -1151,15 +1168,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     return observerPoint() ?? pickable[starsById.get(visibilityBaseStar.id)!.index]!.position
   }
 
-  /** Realistic ship brightness also applies to a free point, which views the map like a ship. */
-  const starGlareActive = () => observerPoint() !== null && spaceshipBrightness === 'realistic'
+  /** Realistic ship brightness also applies to a free point, which views the map like a ship, and to a close camera. */
+  const starGlareActive = () => (observerPoint() !== null || closeGlare > 0) && spaceshipBrightness === 'realistic'
 
   function syncStarGlare(): void {
-    const active = starGlareActive()
-    starBrightCap.value = active ? 0 : 1
+    const glare = !starGlareActive() ? 0 : observerPoint() ? 1 : closeGlare
+    starBrightCap.value = 1 - glare
     // The GPU's point size limit bounds the sprite; beyond it, the edge fade hides the cut.
-    starMaxRadius.value = active ? Math.min(STAR_GLARE_MAX_RADIUS_PX, maxPointSize / 2 / renderer.getPixelRatio()) : cappedStarMaxRadius
-    if (!active) {
+    starMaxRadius.value = glare > 0 ? Math.min(STAR_GLARE_MAX_RADIUS_PX, maxPointSize / 2 / renderer.getPixelRatio()) : cappedStarMaxRadius
+    if (glare === 0) {
       starExposure.value = 1
       milkyWay.setExposure(1)
     }
@@ -1181,7 +1198,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         brightest = Math.max(brightest, starFluxes.getX(index) * starZoomGain.value * weight)
       }
     }
-    starExposure.value = starEyeExposure(brightest)
+    // The eye adapts as far as the cap has lifted, so approaching a star darkens the sky gradually.
+    starExposure.value = starEyeExposure(brightest) ** (1 - starBrightCap.value)
     milkyWay.setExposure(starExposure.value)
   }
 
@@ -1197,6 +1215,45 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     spaceshipObserver.y_pc = -z
     spaceshipObserver.z_pc = y
     // Same id, new position: recompute the magnitudes.
+    rankedBaseId = ''
+    updatePresentation()
+  }
+
+  /**
+   * A star the orbiting camera is closer to than the visibility base brightens as seen from the camera, like from
+   * the ship; rated at most four times a second while the camera moves.
+   */
+  function syncCloseLight(time: number): void {
+    const off = observerPoint() !== null || observerViewEnabled || cameraIsShip()
+    if (off === closeLightOff && (off || camera.position.equals(closeLightPosition))) return
+    if (off === closeLightOff && time - closeLightTime < 250) {
+      // A frame after the camera settles applies its final position.
+      requestRender()
+      return
+    }
+    closeLightTime = time
+    closeLightOff = off
+    closeLightPosition.copy(camera.position)
+    const base = pickable[starsById.get(visibilityBaseStar.id)!.index]!.position
+    let changed = false
+    let brightest = 1
+    for (let index = 0; index < stars.length; index++) {
+      const { position } = pickable[index]!
+      // The base and stars sharing its place show their absolute magnitude, as from 10 pc.
+      const ratio = off ? 0 : (position.distanceTo(base) || 10) / position.distanceTo(camera.position)
+      const gain = ratio > 1 ? ratio * ratio : 1
+      if (gain !== closeGains[index]) {
+        closeGains[index] = gain
+        changed = true
+      }
+      if (coreEnabled[index] && starFluxes.getX(index) > 0) brightest = Math.max(brightest, gain)
+    }
+    const glare = Math.min(1, Math.log10(brightest) / 0.6)
+    if (glare !== closeGlare) {
+      closeGlare = glare
+      syncStarGlare()
+    }
+    if (!changed) return
     rankedBaseId = ''
     updatePresentation()
   }
@@ -1477,6 +1534,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         apparentMagnitudes[index] = (distancePc === 0
           ? bandMagnitudes[index]!
           : apparentVisualMagnitude(bandMagnitudes[index]!, distancePc)) ?? Infinity
+        if (visibilityBase === visibilityBaseStar && closeGains[index]! > 1) apparentMagnitudes[index] -= 2.5 * Math.log10(closeGains[index]!)
       })
     }
     if (rankingChanged) {
@@ -1515,47 +1573,54 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       mapVisible[index] = visible && !(hideFainterObjects && tier === 'background') ? 1 : 0
       // Painted magnitudes size every object, independent of distance.
       const paintedMagnitude = starPaints?.[index]!.magnitude
-      const lightMagnitude = paintedMagnitude !== undefined ? paintedMagnitude : tier === 'base' ? bandMagnitudes[index]! : magnitude
+      // A star is not seen in its own sky, so from afar the visibility base never shines with its absolute magnitude,
+      // which would make Canopus blinding and Sirius dimmer than from Earth (and giants far brighter still in the
+      // near infrared). Selected, it takes the selection glow; otherwise it looks as seen from the origin.
+      const farBase = tier === 'base' && paintedMagnitude === undefined && closeGains[index] === 1
+      const originDistancePc = referenceDistancesLy[index]! / LIGHT_YEARS_PER_PARSEC
+      const lightMagnitude = paintedMagnitude !== undefined ? paintedMagnitude : !farBase ? magnitude
+        : star.id !== selectedId && originDistancePc > 0 ? apparentVisualMagnitude(bandMagnitudes[index]!, originDistancePc) ?? Infinity
+          : bandMagnitudes[index]!
       // Painted sizes encode data, so the brightness preference leaves them alone.
       const haloMagnitude = paintedMagnitude === undefined ? displayMagnitude(lightMagnitude, star, starBrightness) : lightMagnitude
       const background = tier === 'background' && paintedMagnitude === undefined
       const haloEmphasis = starHaloEmphasis(haloMagnitude)
       const diameter = starApparentDiameter(haloMagnitude)
       coreDiameters.setX(index, background ? 3 : diameter)
-      // A star is not seen in its own sky: the selected visibility base takes the selection glow,
-      // not its absolute magnitude, which would make Canopus blinding and Sirius dimmer than from Earth.
-      const ownLight = !background && !(tier === 'base' && paintedMagnitude === undefined && star.id === selectedId)
+      // Up close, the camera sees the base like any other star.
+      const ownLight = !background && !(farBase && (star.id === selectedId || originDistancePc === 0))
       starFluxes.setX(index, ownLight && haloMagnitude !== null && Number.isFinite(haloMagnitude) ? 10 ** (-0.4 * haloMagnitude) : 0)
       coreEmphases.setX(index, haloEmphasis)
       selectionEmphases.setX(index, star.id === selectedId ? 1 : 0)
       haloOpacities.setX(index, background ? 0 : starHaloOpacity(haloMagnitude, star.id === selectedId))
       haloDiameters.setX(index, starHaloDiameter(haloMagnitude) * Math.sqrt(diameter / STAR_DIAMETER_PX))
     })
-    if (nebulaLayer) {
-      nebulaLayer.setVisible(nebulaIndices.map((index) => mapVisible[index] === 1 && index !== observerIndex))
-      labelLayer.dataset.nebulaPuffCount = String(nebulaLayer.puffCount())
-    }
-    if (molecularCloudLayer) {
-      molecularCloudLayer.setVisible(molecularCloudIndices.map((index) => mapVisible[index] === 1 && index !== observerIndex))
-      labelLayer.dataset.molecularCloudPuffCount = String(molecularCloudLayer.instanceCount())
-    }
-    if (bubbleLayer) {
-      const bubbleVisibility = bubbleIndices.map((index) => mapVisible[index] === 1 && index !== observerIndex)
-      bubbleLayer.setVisible(bubbleVisibility)
-      labelLayer.dataset.bubbleVisibleCount = String(bubbleVisibility.filter(Boolean).length)
-    }
-    // The selected object and the origin always stay drawn, even inside a collapsed blob.
+    // The selected object and the origin always stay drawn, even inside a collapsed blob or the faded catalog.
     const faintShown = faintBlobs.map(() => false)
     let faintHiddenCount = 0
     stars.forEach((star, index) => {
+      const kept = mapVisible[index] === 1 && star.id !== selectedId && index !== referenceIndex
       const blob = faintBlobOf[index]!
-      const member = blob >= 0 && mapVisible[index] === 1 && star.id !== selectedId && index !== referenceIndex
-      if (member) faintShown[blob] = true
-      faintHidden[index] = member && faintClouds.collapsed(blob) ? 1 : 0
+      const faded = kept && catalogLod === 'gone' && !isGalaxy[index]
+      if (kept && blob >= 0 && !faded) faintShown[blob] = true
+      faintHidden[index] = faded || (kept && blob >= 0 && faintClouds.collapsed(blob)) ? 1 : 0
       faintHiddenCount += faintHidden[index]!
     })
     faintClouds.setShown(faintShown)
     setData(labelLayer, 'faintCloudHiddenCount', String(faintHiddenCount))
+    if (nebulaLayer) {
+      nebulaLayer.setVisible(nebulaIndices.map((index) => mapVisible[index] === 1 && !faintHidden[index] && index !== observerIndex))
+      labelLayer.dataset.nebulaPuffCount = String(nebulaLayer.puffCount())
+    }
+    if (molecularCloudLayer) {
+      molecularCloudLayer.setVisible(molecularCloudIndices.map((index) => mapVisible[index] === 1 && !faintHidden[index] && index !== observerIndex))
+      labelLayer.dataset.molecularCloudPuffCount = String(molecularCloudLayer.instanceCount())
+    }
+    if (bubbleLayer) {
+      const bubbleVisibility = bubbleIndices.map((index) => mapVisible[index] === 1 && !faintHidden[index] && index !== observerIndex)
+      bubbleLayer.setVisible(bubbleVisibility)
+      labelLayer.dataset.bubbleVisibleCount = String(bubbleVisibility.filter(Boolean).length)
+    }
     coreDiameters.needsUpdate = true
     starFluxes.needsUpdate = true
     adaptingStars.length = 0
@@ -1579,6 +1644,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     rankedNameGroups = []
     for (const candidate of rankedCandidates) {
       if (candidate.index === observerIndex || !componentVisible[candidate.index] || !mapVisible[candidate.index] || faintHidden[candidate.index] || tiers[candidate.index] === 'background') continue
+      if (catalogLod !== 'full' && !isGalaxy[candidate.index] && candidate.priority !== 0) continue
       const group = rankedNameGroups.at(-1)
       if (!group || candidate.priority !== group.priority || candidate.magnitude !== group.magnitude) {
         rankedNameGroups.push({ priority: candidate.priority, magnitude: candidate.magnitude, indices: [candidate.index] })
@@ -1680,7 +1746,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       projected.motionScale = 0
       projected.motionDepthScale = 0
       const index = projected.index
-      if (index === observerIndex || !mapVisible[index] || !componentVisible[index]) continue
+      // Objects inside a collapsed cloud are neither picked nor given motion arrows.
+      if (index === observerIndex || !mapVisible[index] || !componentVisible[index] || faintHidden[index]) continue
       const position = pickable[index]!.position
       if (!projectWorldPointInto(position, viewProjection, viewport, clipPoint, projected)) continue
       projected.visible = true
@@ -2460,15 +2527,24 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     let picked: string | null = null
     let nearestDepth = Infinity
     const projectionScale = camera.projectionMatrix.elements[5]! * 0.5 * viewport.height
-    for (const [indices, radii] of [[nebulaIndices, nebulaPickRadii], [molecularCloudIndices, molecularCloudPickRadii]] as const) {
+    const hits: { id: string; depth: number; radius: number }[] = []
+    for (const [indices, radii] of [[nebulaIndices, nebulaPickRadii], [dustIndices, dustPickRadii]] as const) {
       for (let order = 0; order < indices.length; order++) {
         const projected = projections[indices[order]!]!
-        if (!projected.visible || projected.depth >= nearestDepth) continue
+        if (!projected.visible) continue
         const radius = radii[order]! * projectionScale / projected.depth
         if (Math.hypot(event.clientX - projected.x, event.clientY - projected.y) > radius) continue
-        picked = projected.id
-        nearestDepth = projected.depth
+        hits.push({ id: projected.id, depth: projected.depth, radius })
+        nearestDepth = Math.min(nearestDepth, projected.depth)
       }
+    }
+    // A dark nebula lies inside its cloud at nearly the same depth: the smallest target within 10% of the
+    // nearest depth wins, so the nebula is picked over the cloud around it.
+    let pickedRadius = Infinity
+    for (const hit of hits) {
+      if (hit.depth > 1.1 * nearestDepth || hit.radius >= pickedRadius) continue
+      picked = hit.id
+      pickedRadius = hit.radius
     }
     for (let order = 0; order < galaxyIndices.length; order++) {
       const index = galaxyIndices[order]!
@@ -2740,6 +2816,14 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (oortCloudEnabled) updateOortCloudVisibility()
     const sunDistance = camera.position.distanceTo(pickable[sunIndex]!.position)
     milkyWay.setSunDistance(sunDistance)
+    const catalogFade = 1 - distanceFade(sunDistance, CATALOG_FADE_PC)
+    starFade.value = catalogFade
+    nebulaLayer?.setOpacity(catalogFade)
+    const nextCatalogLod = catalogFade === 1 ? 'full' : catalogFade === 0 ? 'gone' : 'fading'
+    if (nextCatalogLod !== catalogLod) {
+      catalogLod = nextCatalogLod
+      updatePresentation()
+    }
     if (galaxyIndices.length > 0 && (sunDistance >= GALAXY_LABEL_PRIORITY_PC) !== galaxyLabelsFirst) {
       galaxyLabelsFirst = !galaxyLabelsFirst
       updatePresentation()
@@ -2759,6 +2843,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       lastViewerDistanceReport = time
     }
     syncObserverPoint(time)
+    syncCloseLight(time)
     if (spaceship) {
       if (spaceshipModel!.group.visible) {
         const distance = Math.max(1e-9, camera.position.distanceTo(spaceship.position))
@@ -2766,7 +2851,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
       reportSpaceship()
     }
-    if (starBrightCap.value === 0) updateStarExposure()
+    if (starBrightCap.value < 1) updateStarExposure()
     updateGuideDashScales()
     updateMotionArrows()
     setLabelsMoving(continueRendering || simulationPlaying)
@@ -3285,7 +3370,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (neighborhoodSphere.visible) {
         if (!neighborhoodSphere.geometry.getAttribute('position')) {
           neighborhoodSphere.geometry.dispose()
-          neighborhoodSphere.geometry = makeSkyGridGeometry('galactic')
+          neighborhoodSphere.geometry = makeSkyGridGeometry('galactic', 25)
         }
         neighborhoodSphere.position.copy(pickable[center!.index]!.position)
         neighborhoodSphere.scale.setScalar(next!.spherePc)

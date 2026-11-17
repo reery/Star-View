@@ -125,9 +125,12 @@ export function createScenePass(style: ShaderStyle): ScenePass {
         blurMaterial.uniforms.texel!.value.set(1 / size.x, 1 / size.y)
         blurTarget?.setSize(Math.ceil(size.x / 4), Math.ceil(size.y / 4))
       }
+      const gl = renderer.getContext()
+      // three binds the copy target on unit 0 but skips activating it when that binding is cached,
+      // so the copy would otherwise land in whatever texture the active unit holds.
+      renderer.state.activeTexture(gl.TEXTURE0)
       renderer.copyFramebufferToTexture(source.value)
       if (blurTarget) {
-        const gl = renderer.getContext()
         // three copies only the base level; build the rest of the chain on the same texture.
         renderer.state.bindTexture(gl.TEXTURE_2D, (renderer.properties.get(source.value) as { __webglTexture: WebGLTexture }).__webglTexture)
         gl.generateMipmap(gl.TEXTURE_2D)

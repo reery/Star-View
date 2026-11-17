@@ -6266,6 +6266,22 @@
         "Semiregular variable"
       ],
       "reason": "subtypes: SIMBAD class(es) Mira variable withheld. GCVS classifies RS Cyg as SRA, a different variability type; GCVS is the reference catalog of variable-star types, and the star's own spectral class is checked as well. sourceTypes keeps every SIMBAD code."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-2771",
+      "field": "apparent_mag",
+      "expectedPrevious": 18.75,
+      "expectedCurrent": null,
+      "reason": "apparent_mag: the previous V 18.75 came from the MSC 2026-06-19 subsystem magnitude of xi UMa D (WISE J111838.70+312537.9, T8.5). That 18.75 is the 2MASS-system Ks 18.746 +/- 0.150 of Wright et al. 2013 (2013AJ....145...84W), not a V magnitude; a T8.5 dwarf has no measured V. The Ks measurement ships in the near-infrared band data; no V replacement exists."
+    },
+    {
+      "path": "src/data/stellar-companions.json",
+      "id": "cns5-2771",
+      "field": "absolute_mag",
+      "expectedPrevious": 19.044027433,
+      "expectedCurrent": null,
+      "reason": "absolute_mag: the previous absolute V 19.04 derived from it came from the MSC 2026-06-19 subsystem magnitude of xi UMa D (WISE J111838.70+312537.9, T8.5). That 18.75 is the 2MASS-system Ks 18.746 +/- 0.150 of Wright et al. 2013 (2013AJ....145...84W), not a V magnitude; a T8.5 dwarf has no measured V. The Ks measurement ships in the near-infrared band data; no V replacement exists."
     }
   ],
   "recordRetirements": [

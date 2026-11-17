@@ -2,8 +2,8 @@
 """Author Wavelength vision photometry: measured brightness outside visible light.
 
 Every value is joined by exact identity: Gaia DR3 source IDs, catalog designations as SIMBAD lists them, 4FGL
-names and reviewed remnant names. Nothing is matched by position except the compact objects' eRASS1 counterparts,
-which are few and listed for review. Automatic flags keep suspicious values out of the shipped files and list them
+names, UltracoolSheet names and aliases, and reviewed remnant names. Nothing is matched by position except the
+compact objects' eRASS1 counterparts, which are few and listed for review. Automatic flags keep suspicious values out of the shipped files and list them
 in review.json instead.
 
 --refresh downloads the sources (or reuses catalog-work/downloads/wavelength-photometry) and freezes the matched rows
@@ -40,6 +40,8 @@ GAIA_TAP = 'https://gea.esac.esa.int/tap-server/tap/sync'
 SIMBAD_TAP = 'https://simbad.cfa.harvard.edu/simbad/sim-tap/sync'
 FERMI_4FGL = 'https://fermi.gsfc.nasa.gov/ssc/data/access/lat/14yr_catalog/gll_psc_v35.fit'
 TWO_MASS_BIBCODE = '2003yCat.2246....0C'
+ULTRACOOLSHEET = 'https://zenodo.org/records/15802304'
+ULTRACOOLSHEET_FILE = 'https://zenodo.org/api/records/15802304/files/UltracoolSheet%20-%20{}.csv/content'
 
 STELLAR_TYPES = {'star', 'white_dwarf', 'brown_dwarf', 'sub_brown_dwarf'}
 # Counterpart probability above which a single counterpart is adopted (Freund et al. 2022, 2024).
@@ -48,6 +50,9 @@ MATCH_PROBABILITY = 0.5
 COMPACT_RADIUS_ARCSEC = 15
 # Plausible V − K for stars and brown dwarfs (late T dwarfs reach about 13); outside it a K value is a likely mismatch.
 V_MINUS_K_RANGE = (-1.5, 15)
+# An UltracoolSheet K further than this from a 2MASS quality-A Ks is likely saturated (VISTA and UKIRT saturate near
+# K 10–11.5) or a misidentification; MKO K and 2MASS Ks agree within about 0.15 mag for ultracool dwarfs.
+ULTRACOOL_TWO_MASS_TOLERANCE = 0.25
 # Wendker detections near 5 GHz, the most common frequency in the compilation (MHz).
 RADIO_STAR_FREQUENCIES_MHZ = (4000, 6000)
 
@@ -56,12 +61,13 @@ RADIO_STAR_FREQUENCIES_MHZ = (4000, 6000)
 GREEN_REMNANTS = {
     'cassiopeia-a': 'G111.7-02.1', 'crab-nebula': 'G184.6-05.8', 'vela-supernova-remnant': 'G263.9-03.3',
     'tychos-supernova-remnant': 'G120.1+01.4', 'keplers-supernova-remnant': 'G004.5+06.8', 'sn-1006': 'G327.6+14.6',
-    'rcw-86': 'G315.4-02.3', 'rx-j1713-3946': 'G347.3-00.5', 'hoinga': 'G249.5+24.5',
+    'rcw-86': 'G315.4-02.3', 'rx-j1713-3946': 'G347.3-00.5', 'hoinga': 'G249.5+24.5', 'veil-nebula': 'G074.0-08.5',
 }
 FERMI_REMNANTS = {
     'cassiopeia-a': ['4FGL J2323.4+5849'], 'crab-nebula': ['4FGL J0534.5+2201i', '4FGL J0534.5+2201s'],
     'vela-supernova-remnant': ['4FGL J0834.3-4542e'], 'tychos-supernova-remnant': ['4FGL J0025.3+6408'],
     'keplers-supernova-remnant': ['4FGL J1730.4-2131'], 'rx-j1713-3946': ['4FGL J1713.5-3945e'], 'rcw-86': ['4FGL J1443.0-6227e'],
+    'veil-nebula': ['4FGL J2051.0+3049e'],
 }
 REMNANT_SCOPES = {
     'vela-supernova-remnant': 'Vela X, the pulsar wind nebula inside the remnant',
@@ -80,6 +86,10 @@ SOURCES = {
                     '0.2–2.3 keV flux for a power-law spectrum; nearest source within 15″ of the catalogued position'),
     '2mass': ('2MASS Point Source Catalog', 'Skrutskie et al. 2006, AJ 131, 1163', f'{GAIA_TAP} (gaiadr1.tmass_original_valid)',
               'Ks magnitude; quality A–C, or saturated (D–E) with its larger error'),
+    'ultracoolsheet-mko': ('UltracoolSheet v2.1.0, MKO K', 'Best, Dupuy, Liu, Sanghi, Siverd & Zhang 2025, Zenodo 10.5281/zenodo.15802304',
+                           ULTRACOOLSHEET, 'K magnitude on the MKO system, compiled from the measurement cited last; synthetic photometry excluded'),
+    'ultracoolsheet-ks': ('UltracoolSheet v2.1.0, 2MASS-system Ks', 'Best, Dupuy, Liu, Sanghi, Siverd & Zhang 2025, Zenodo 10.5281/zenodo.15802304',
+                          ULTRACOOLSHEET, 'Ks magnitude on the 2MASS system, compiled from the measurement cited last; synthetic photometry excluded'),
     'dirbe': ('COBE DIRBE Point Source Catalog', 'Smith et al. 2004, ApJS 154, 673', f'{VIZIER}?-source=J/ApJS/154/673',
               '2.2 µm flux density as a K magnitude with the 2MASS Ks zero point (666.7 Jy); 0.7° beam'),
     'iras-60': ('IRAS Point Source Catalog, 60 µm', 'Beichman et al. 1988 (IRAS PSC v2.1)', f'{VIZIER}?-source=II/125',
@@ -245,6 +255,33 @@ def refresh(retrieved: str) -> None:
             dirbe[star] = {'source': f'DIRBE {row["DIRBE"]}', 'flux': number(row['F2.2'])}
     frozen['nir-dirbe.json'] = dirbe
 
+    # Ultracool dwarfs: the UltracoolSheet's measured MKO K and 2MASS-system Ks, by exact name or SIMBAD alias.
+    references = {row['code_ref']: row for row in csv.DictReader(io.StringIO(
+        cached('ultracoolsheet-references.csv', lambda: request(ULTRACOOLSHEET_FILE.format('References'))).decode()))}
+    def citation(codes: str) -> str | None:
+        rows = [references.get(code) for code in codes.split(';')]
+        if None in rows or any('synthetic' in row['title_ref'].lower() for row in rows):
+            return None
+        return '; '.join(row['title_ref'] if row['ADSkey_ref'].startswith('noADS') else f'{row["citetext_ref"]}, {row["ADSkey_ref"].strip()}' for row in rows)
+    owners: dict[str, set[str]] = {}
+    for star in stellar.values():
+        for name in star['all_designations'] + [star['name']]:
+            owners.setdefault(normalized(name), set()).add(star['id'])
+    ultracool: dict[str, list] = {}
+    for row in csv.DictReader(io.StringIO(cached('ultracoolsheet-main.csv', lambda: request(ULTRACOOLSHEET_FILE.format('Main'))).decode())):
+        measured = {}
+        for system, value, error, reference in (('mko', 'K_MKO', 'Kerr_MKO', 'ref_K_MKO'), ('ks', 'Ks_2MASS', 'Kserr_2MASS', 'ref_Ks_2MASS')):
+            # A value without an error is an upper limit.
+            if number(row[value]) is not None and number(row[error]) is not None and (cited := citation(row[reference])):
+                measured[system] = {'k': number(row[value]), 'error': number(row[error]), 'reference': cited}
+        if not measured:
+            continue
+        aliases = {row[field] for field in ('name', 'name_simbadable', 'name_simbad', 'designation_2mass', 'designation_MKO', 'designation_WISE')}
+        found = set().union(*(owners.get(normalized(alias), set()) for alias in aliases | set(row['identifiers_simbad'].split('|')) if alias))
+        for star in found:
+            ultracool.setdefault(star, []).append({'source': row['name'], 'twoMass': row['designation_2mass'], **measured})
+    frozen['nir-ultracoolsheet.json'] = ultracool
+
     # Far infrared: IRAS by designation.
     iras_ids = {name[5:].strip(): star['id'] for star in stellar.values() if (name := designation(star, r'^IRAS \d'))}
     frozen['fir-iras.json'] = {iras_ids[row['IRAS']]: {'source': f'IRAS {row["IRAS"]}', **{f'f{band}': number(row[f'Fnu_{band}']) for band in ('60', '100')},
@@ -298,7 +335,7 @@ def refresh(retrieved: str) -> None:
     files = {name: json.dumps(content, indent=1, sort_keys=True, ensure_ascii=False) + '\n' for name, content in frozen.items()}
     files['source-manifest.json'] = json.dumps({
         'retrieved': retrieved,
-        'services': {'vizier': VIZIER, 'gaiaTap': GAIA_TAP, 'simbadTap': SIMBAD_TAP, 'fermi': FERMI_4FGL},
+        'services': {'vizier': VIZIER, 'gaiaTap': GAIA_TAP, 'simbadTap': SIMBAD_TAP, 'fermi': FERMI_4FGL, 'ultracoolSheet': ULTRACOOLSHEET},
         'checksumsSha256': {name: hashlib.sha256(content.encode()).hexdigest() for name, content in sorted(files.items())},
     }, indent=1) + '\n'
     write_managed_files(WORK, files, force=True)
@@ -349,22 +386,50 @@ def build() -> tuple[dict[str, dict], dict]:
 
     # Near infrared: the value with the smallest stated error; DIRBE and SIMBAD values without one count as 0.1 and 0.05 mag.
     nir = bands['near-infrared']
+    # Rows and measurements used for several objects: a companion's row can carry its primary's unresolved 2MASS
+    # designation, and separate component rows can repeat one unresolved measurement under one 2MASS designation.
+    ultracool_users: dict[str, list[str]] = {}
+    measurement_users: dict[tuple, list[str]] = {}
+    for star, rows in frozen['nir-ultracoolsheet.json'].items():
+        for row in rows:
+            ultracool_users.setdefault(row['source'], []).append(star)
+            for system in ('mko', 'ks'):
+                if measured := row.get(system):
+                    measurement_users.setdefault((system, row['twoMass'], measured['k'], measured['reference']), []).append(star)
     for star in sorted(stellar):
         candidates = []
-        if (row := frozen['nir-2mass.json'].get(star)) and row['k'] is not None and row['quality'] and row['quality'] in 'ABCDE':
-            candidates.append((row['error'] or (0.05 if row['quality'] in 'ABC' else 0.3), row['k'], row['error'], '2mass', row['source']))
+        tmass = frozen['nir-2mass.json'].get(star)
+        if tmass and tmass['k'] is not None and tmass['quality'] and tmass['quality'] in 'ABCDE':
+            candidates.append((tmass['error'] or (0.05 if tmass['quality'] in 'ABC' else 0.3), tmass['k'], tmass['error'], '2mass', tmass['source']))
+        ultracool = frozen['nir-ultracoolsheet.json'].get(star, [])
+        if len(ultracool) > 1:
+            flag('Several UltracoolSheet rows match one object', star, {'sources': [row['source'] for row in ultracool]})
+        elif ultracool and len(shared := ultracool_users[ultracool[0]['source']]) > 1:
+            flag('UltracoolSheet row shared by several objects', star, {'source': ultracool[0]['source'], 'shared': shared})
+        elif ultracool:
+            for system in ('mko', 'ks'):
+                if not (row := ultracool[0].get(system)):
+                    continue
+                if len(shared := measurement_users[(system, ultracool[0]['twoMass'], row['k'], row['reference'])]) > 1:
+                    flag('UltracoolSheet measurement shared by several objects', star, {'source': ultracool[0]['source'], 'system': system, 'shared': shared})
+                    continue
+                if tmass and tmass['quality'] == 'A' and tmass['k'] is not None and abs(row['k'] - tmass['k']) > ULTRACOOL_TWO_MASS_TOLERANCE:
+                    flag('UltracoolSheet K far from 2MASS quality A', star, {'source': ultracool[0]['source'], 'system': system, 'k': row['k'],
+                                                                             'twoMass': tmass['k'], 'reference': row['reference']})
+                    continue
+                candidates.append((row['error'], row['k'], row['error'], f'ultracoolsheet-{system}', ultracool[0]['source'], f'Measured by {row["reference"]}'))
         if (row := frozen['nir-simbad.json'].get(star)) and row['k'] is not None:
             candidates.append((row['error'] or 0.05, row['k'], row['error'], f'simbad:{row["bibcode"]}', None))
         if (row := frozen['nir-dirbe.json'].get(star)) and row['flux'] > 0:
             candidates.append((0.1, magnitude(row['flux'], 666.7), None, 'dirbe', row['source']))
         if not candidates:
             continue
-        _, k, error, source, identifier = min(candidates, key=lambda candidate: candidate[0])
+        _, k, error, source, identifier, *scope = min(candidates, key=lambda candidate: candidate[0])
         visual = stellar[star].get('apparent_mag')
         if visual is not None and not V_MINUS_K_RANGE[0] <= visual - k <= V_MINUS_K_RANGE[1]:
             flag('Implausible V − K', star, {'v': visual, 'k': round(k, 3), 'source': source})
             continue
-        nir[star] = [round(k, 3), error, source] + ([identifier] if identifier else [])
+        nir[star] = [round(k, 3), error, source] + ([identifier] if identifier else []) + scope
 
     # Far infrared: 60 µm detections; 100 µm alone is often Galactic cirrus rather than the star.
     fir = bands['far-infrared']
@@ -411,8 +476,8 @@ def build() -> tuple[dict[str, dict], dict]:
         used = sorted({entry[2].split(':')[0] for entry in objects.values()})
         sources = {key: dict(zip(('label', 'reference', 'url', 'note'), SOURCES[key])) for key in used if key in SOURCES}
         if 'simbad' in used:
-            sources['simbad'] = {'label': 'SIMBAD adopted K', 'reference': 'Wenger et al. 2000; bibcode after “simbad:”',
-                                 'url': SIMBAD_TAP, 'note': 'K magnitude from the cited source'}
+            sources['simbad'] = {'label': 'SIMBAD adopted K', 'reference': 'Wenger et al. 2000',
+                                 'url': SIMBAD_TAP, 'note': 'K magnitude from the source cited last'}
         outputs[band] = {'schemaVersion': 1, 'band': band, 'retrieved': manifest['retrieved'], 'unit': BAND_UNITS[band],
                          'entry': ['value', 'error', 'source', 'identifier', 'scope'], 'sources': sources, 'objects': objects}
     return outputs, review

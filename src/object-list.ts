@@ -23,7 +23,7 @@ export function normalizeObjectSearch(value: string): string {
 }
 
 export function objectSearchText(star: Star): string {
-  return normalizeObjectSearch([star.name, star.id, star.spectral_type ?? '', ...(star.subtypes ?? []), ...searchableDesignations(star), star.molecular_cloud?.complex_name ?? ''].join(' '))
+  return normalizeObjectSearch([star.name, star.id, star.spectral_type ?? '', ...(star.subtypes ?? []), ...searchableDesignations(star), star.molecular_cloud?.complex_name ?? '', star.molecular_cloud?.association?.name ?? ''].join(' '))
 }
 
 export function virtualRange(scrollTop: number, viewportHeight: number, count: number): { start: number; end: number } {
@@ -50,13 +50,12 @@ export type ObjectListFilter = (star: Star, distancePc: number) => boolean
 
 export class ObjectList {
   private readonly container: HTMLElement
-  private readonly onCountChange: (shown: number, total: number) => void
+  private readonly onChange: (shown: readonly { star: Star }[], total: number) => void
   private items: ObjectListItem[] = []
   private filtered: ObjectListItem[] = []
   private query = ''
   private compactQuery = ''
   private filter: ObjectListFilter = () => true
-  private countedShown = -1
   private countedTotal = -1
   private selectedId: string | null = null
   private referenceId = 'sun'
@@ -69,9 +68,10 @@ export class ObjectList {
   private readonly database: ObjectDatabase | null
   private expanded = false
 
-  constructor(container: HTMLElement, onSelect: (id: string) => void, onCountChange: (shown: number, total: number) => void, databaseContainer?: HTMLElement) {
+  /** onChange receives the listed objects whenever they or the catalog size change. */
+  constructor(container: HTMLElement, onSelect: (id: string) => void, onChange: (shown: readonly { star: Star }[], total: number) => void, databaseContainer?: HTMLElement) {
     this.container = container
-    this.onCountChange = onCountChange
+    this.onChange = onChange
     this.database = databaseContainer ? new ObjectDatabase(databaseContainer, () => this.refresh(true), onSelect) : null
     container.addEventListener('scroll', () => this.scheduleScrollRender(), { passive: true })
     container.addEventListener('click', (event) => {
@@ -161,12 +161,12 @@ export class ObjectList {
   private refresh(force = false): void {
     const matching = this.items.filter((item) => this.filter(item.star, item.distancePc) && (!this.query || this.matchesQuery(item)))
     const filtered = this.expanded ? this.database!.filterAndSort(matching) : matching
-    if (filtered.length !== this.countedShown || this.items.length !== this.countedTotal) {
-      this.countedShown = filtered.length
+    const unchanged = filtered.length === this.filtered.length && filtered.every((item, index) => item === this.filtered[index])
+    if (!unchanged || this.items.length !== this.countedTotal) {
       this.countedTotal = this.items.length
-      this.onCountChange(filtered.length, this.items.length)
+      this.onChange(filtered, this.items.length)
     }
-    if (!force && filtered.length === this.filtered.length && filtered.every((item, index) => item === this.filtered[index])) return
+    if (!force && unchanged) return
     this.filtered = filtered
     this.container.scrollTop = 0
     if (this.expanded) this.database!.resetScroll()

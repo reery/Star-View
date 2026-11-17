@@ -12,6 +12,8 @@ import nebulaObjects from './data/overlays/nebulae/objects.json'
 import bubbleObjects from './data/overlays/bubbles/objects.json'
 import galaxyDefinitions from './data/galaxy-info.json'
 import galaxyObjects from './data/overlays/galaxies/objects.json'
+import darkCloudDefinitions from './data/dark-cloud-info.json'
+import molecularCloudObjects from './data/overlays/molecular-clouds/objects.json'
 import legacyStarIds from './data/legacy-star-ids.json'
 import westernCsv from './data/catalogs/western-constellation-stars/stars.csv?raw'
 import nearest1000Csv from './data/catalogs/nearest-1000/stars.csv?raw'
@@ -26,7 +28,7 @@ const surviving = (id: string) => (legacyStarIds.ids as Record<string, string>)[
 beforeAll(async () => {
   vi.stubGlobal('fetch', generatedJsonFetch)
   await Promise.all([...Object.keys(definitions.articles), ...Object.keys(nearest100Definitions.articles),
-    ...Object.keys(constellationDefinitions.articles).map(surviving), ...Object.keys(compactDefinitions.articles), ...Object.keys(nebulaDefinitions.articles), ...Object.keys(galaxyDefinitions.articles)].map(loadStarInfo))
+    ...Object.keys(constellationDefinitions.articles).map(surviving), ...Object.keys(compactDefinitions.articles), ...Object.keys(nebulaDefinitions.articles), ...Object.keys(galaxyDefinitions.articles), ...Object.keys(darkCloudDefinitions.articles)].map(loadStarInfo))
 })
 afterAll(() => vi.unstubAllGlobals())
 
@@ -95,13 +97,32 @@ describe('nebula articles', () => {
 
   it('resolve every local image with its dimensions and credit', () => {
     const illustrated = Object.keys(nebulaDefinitions.articles).filter((id) => 'image' in nebulaDefinitions.articles[id as keyof typeof nebulaDefinitions.articles])
-    expect(illustrated).toHaveLength(91)
+    expect(illustrated).toHaveLength(101)
     for (const id of illustrated) {
       const image = starInfoForId(id)?.image
       expect(image?.src, id).toContain(`${id}`)
       expect(image?.width, id).toBeLessThanOrEqual(600)
       expect(image?.alt.length, id).toBeGreaterThan(0)
       expect(image?.credit.length, id).toBeGreaterThan(0)
+    }
+  })
+})
+
+describe('dark nebula and molecular cloud articles', () => {
+  it('serve sourced articles for catalog objects, shared by the parts of one cloud', () => {
+    const ids = new Set(molecularCloudObjects.objects.map(({ id }) => id))
+    for (const [id, article] of Object.entries(darkCloudDefinitions.articles)) {
+      expect(ids.has(id), id).toBe(true)
+      const info = starInfoForId(id)
+      expect(starInfoAvailable(id), id).toBe(true)
+      expect(info?.introduction.text, id).toMatch(/^[a-z]/)
+      expect(info!.introduction.source?.url, id).toMatch(/^https:\/\//)
+      expect(info!.sections.every((section) => section.source?.url.startsWith('https://')), id).toBe(true)
+      if ('image' in article) expect(info?.image?.src, id).toContain(id)
+      for (const alias of 'aliases' in article ? article.aliases : []) {
+        expect(ids.has(alias), alias).toBe(true)
+        expect(starInfoForId(alias), alias).toBe(info)
+      }
     }
   })
 })

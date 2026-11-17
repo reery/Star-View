@@ -35923,11 +35923,9 @@
         ]
       },
       "astrometryScope": "Individual source direction when available; shared system distance/motion for unresolved close members; no orbital phase or individual radial velocity inferred.",
-      "photometry": {
-        "source": "MSC individual subsystem magnitude",
-        "V": 18.75,
-        "distancePc": 8.733624454,
-        "method": "Individual V and adopted component distance; no extinction correction"
+      "withheldPhotometry": {
+        "magnitude": 18.75,
+        "reason": "MSC magnitude of an L, T or Y dwarf is from an infrared band, not V"
       },
       "simbad": {
         "queryId": "WDS J11182+3132D",
@@ -169830,7 +169828,7 @@
   "systems": 1093,
   "components": 2394,
   "selectedFieldCoverage": {
-    "individualApparentMagnitude": 1124,
+    "individualApparentMagnitude": 1123,
     "unresolvedSourcePhotometry": 365,
     "subtypes": 1313,
     "missingSubtypes": [
@@ -171359,6 +171357,7 @@
       "msc-11182+3132-aa",
       "msc-11182+3132-ab",
       "msc-11182+3132-bb",
+      "cns5-2771",
       "msc-11456-6644-ab",
       "msc-11456-6644-b",
       "msc-12225+2551-ab",
@@ -171843,7 +171842,7 @@
       "radius_solar": 850,
       "metallicity_dex": 788,
       "age_gyr": 82,
-      "absolute_mag": 1124
+      "absolute_mag": 1123
     },
     "withoutProperties": [
       "cns5-1615",
@@ -180367,7 +180366,8 @@
         "luminosity_solar",
         "radius_solar",
         "metallicity_dex",
-        "age_gyr"
+        "age_gyr",
+        "absolute_mag"
       ],
       "hip-57363": [
         "mass_solar",
@@ -189214,8 +189214,8 @@
   },
   "inputSha256": {
     "src/data/star-systems.json": "ccb8b300d861fec42a9b95bfeafa8e30f3b4c53298c8c03e3f1743bf4c28fddf",
-    "src/data/object-designations.json": "63f4e48767c0d7b44e0e6ef0c75c8c94dec1d74c42ab1155d83a98fd8a1e216b",
-    "src/data/object-stats.json": "c50c2bca8d452b4551568e8c23ed5f59d9606b9e6b2a8ad188bd761c8c2a701d",
+    "src/data/object-designations.json": "19f28b92a1c12524e1f421c13efc8182dbdd1bee6061990b09ebc41a96ffa0a4",
+    "src/data/object-stats.json": "e2c823b82c3d2c0d0852434be1bae08567bc0c1299b9982fe534faeac3e5450f",
     "catalog-work/bright-stars/retired-catalog/stars.csv": "7323a7558aa7af710cdd3829a865fe1c207629a47252fdcde4eef833dbab0cb1",
     "catalog-work/famous-cluster-stars/retired-catalog/stars.csv": "33177d7aebf518102e1e9df6d8117bb632b8cf2dd344a2a2bbb2caa3b6ffc210",
     "src/data/catalogs/naked-eye-stars/stars.csv": "e6840784bebf3a0df072f304d5ab319bd33c5eb56982e6dd1a0b70ea1f06a887",

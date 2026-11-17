@@ -16,12 +16,42 @@ function payloadWith(change: (object: Record<string, any>) => void) {
 }
 
 describe('molecular-cloud overlay data', () => {
-  it('retains all 65 published 3D cloud features inside 2000 light-years', () => {
-    expect(clouds).toHaveLength(65)
-    expect(manifest).toMatchObject({ sourceVoxelCount: 78_326, displaySampleCount: 19_606 })
-    expect(clouds.every((cloud) => cloud.type === 'molecular_cloud')).toBe(true)
-    expect(Math.min(...clouds.map((cloud) => cloud.molecular_cloud!.distance_pc))).toBe(116)
-    expect(Math.max(...clouds.map((cloud) => cloud.molecular_cloud!.distance_pc)) * LIGHT_YEARS_PER_PARSEC).toBeLessThan(2000)
+  it('retains all 65 published 3D cloud features and adds the smaller clouds within 1000 light-years', () => {
+    const cahlon = clouds.filter((cloud) => cloud.id.startsWith('cahlon-cloud-'))
+    const added = clouds.filter((cloud) => cloud.type === 'molecular_cloud' && !cloud.id.startsWith('cahlon-cloud-'))
+    expect(cahlon).toHaveLength(65)
+    expect(cahlon.reduce((sum, cloud) => sum + cloud.molecular_cloud!.source_voxel_count, 0)).toBe(78_326)
+    expect(Math.min(...cahlon.map((cloud) => cloud.molecular_cloud!.distance_pc))).toBe(116)
+    expect(Math.max(...cahlon.map((cloud) => cloud.molecular_cloud!.distance_pc)) * LIGHT_YEARS_PER_PARSEC).toBeLessThan(2000)
+    expect(added).toHaveLength(manifest.counts.molecular_cloud - 65)
+    expect(added.every((cloud) => cloud.molecular_cloud!.distance_pc * LIGHT_YEARS_PER_PARSEC <= 1000)).toBe(true)
+    expect(added.every((cloud) => cloud.molecular_cloud!.source_voxel_count >= 100)).toBe(true)
+  })
+
+  it('places every dark nebula within 1000 light-years, inside a drawn cloud or with dust of its own', () => {
+    const nebulae = clouds.filter((object) => object.type === 'dark_nebula')
+    expect(nebulae).toHaveLength(manifest.counts.dark_nebula)
+    expect(nebulae.length).toBeGreaterThan(500)
+    for (const nebula of nebulae) {
+      const details = nebula.dark_nebula!
+      expect(details.distance_pc * LIGHT_YEARS_PER_PARSEC).toBeLessThanOrEqual(1000)
+      if (details.parent_cloud_id) expect(byId(details.parent_cloud_id).type).toBe('molecular_cloud')
+      else expect(details.geometry!.source_voxel_count).toBeGreaterThan(0)
+    }
+    // Barnard 68, a small globule in the Pipe Nebula, about 150 pc away.
+    expect(byId('ldn-57')).toMatchObject({ name: 'Barnard 68', designations: ['LDN 57', 'Barnard 68'] })
+    expect(byId('ldn-57').dark_nebula!.distance_pc).toBeGreaterThan(130)
+    expect(byId('ldn-57').dark_nebula!.distance_pc).toBeLessThan(170)
+    expect(byId('ldn-1688').dark_nebula!.parent_cloud_id).toBe('cahlon-cloud-34')
+    // Edenhofer places Corona Australis about 70 pc too far; its nebulae follow the measured cloud.
+    expect(byId('fest-1-445').dark_nebula).toMatchObject({ parent_cloud_id: 'corona-australis-molecular-cloud', distance_pc: 147 })
+  })
+
+  it('names unnamed clouds from measured sightlines and their dark nebulae', () => {
+    expect(byId('cahlon-cloud-30')).toMatchObject({ name: 'Coalsack - Cloud 30', molecular_cloud: { complex_name: null, association: { name: 'Coalsack' } } })
+    expect(byId('cahlon-cloud-0').name).toBe('MBM 12')
+    expect(byId('corona-australis-molecular-cloud').name).toBe('Corona Australis Molecular Cloud')
+    expect(byId('dust-cloud-g2111m365').name).toBe('LDN 1642 Cloud')
   })
 
   it('preserves named complexes and physical cloud properties', () => {
@@ -38,6 +68,16 @@ describe('molecular-cloud overlay data', () => {
       },
     })
     expect(byId('cahlon-cloud-7').molecular_cloud!.sample_points_pc).toHaveLength(1934 * 3)
+  })
+
+  it('rejects dark nebulae off their position or anchored to a missing cloud', () => {
+    const nebula = (change: (object: Record<string, any>) => void) => {
+      const payload = JSON.parse(payloadRaw)
+      change(payload.objects.find((object: Record<string, any>) => object.id === 'ldn-1688'))
+      return payload
+    }
+    expect(() => parseMolecularCloudOverlayPayload(nebula((object) => { object.z_pc += 1 }), manifest)).toThrow(/position/)
+    expect(() => parseMolecularCloudOverlayPayload(nebula((object) => { object.dark_nebula.parent_cloud_id = 'cahlon-cloud-99' }), manifest)).toThrow(/missing cloud/)
   })
 
   it('rejects inconsistent centers, samples and totals', () => {

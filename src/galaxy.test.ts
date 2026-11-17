@@ -137,7 +137,7 @@ describe('Local Group galaxies', () => {
     expect(median(across) / median(along)).toBeCloseTo(1 - ellipticity, 1)
   })
 
-  it('shows galaxies with the Galaxies preference at any distance limit', () => {
+  it('shows galaxies with the Galaxies filter at any distance limit', () => {
     const andromeda = galaxy('andromeda-galaxy')
     expect(isObjectMapVisible(andromeda, new Set(['star']), null, 'sun', 2.5e6, 100, true)).toBe(true)
     expect(isObjectMapVisible(andromeda, new Set(['star']), null, 'sun', 2.5e6, 100, false)).toBe(false)

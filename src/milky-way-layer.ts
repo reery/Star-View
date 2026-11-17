@@ -43,6 +43,8 @@ const PANORAMA_INTENSITY = 0.12
 // exactly as the panorama, which already shows them, fades, so none is ever drawn twice.
 const PANORAMA_FADE_PC = [2_000, 15_000].map((ly) => ly / LIGHT_YEARS_PER_PARSEC) as [number, number]
 const GALAXY_FADE_PC = [3_000, 40_000].map((ly) => ly / LIGHT_YEARS_PER_PARSEC) as [number, number]
+/** From the Sun, the catalog's stars and nebulae dissolve into the Galaxy model between 200,000 and 500,000 ly. */
+export const CATALOG_FADE_PC = [200_000, 500_000].map((ly) => ly / LIGHT_YEARS_PER_PARSEC) as [number, number]
 /** From the Sun, where the Galaxy is half built up (about 11,000 ly): galaxy names take label priority over stars beyond it. */
 export const GALAXY_LABEL_PRIORITY_PC = Math.sqrt(GALAXY_FADE_PC[0] * GALAXY_FADE_PC[1])
 

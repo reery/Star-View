@@ -18,6 +18,7 @@ Usage policies: [NASA](https://www.nasa.gov/nasa-brand-center/images-and-media/)
 | `planetary_nebula.jpg` | [Looking Down a Barrel of Gas at a Doomed Star](https://images.nasa.gov/details/PIA14443) | NASA/JPL-Caltech/ESA, the Hubble Heritage Team STScI/AURA |
 | `supernova_remnant.jpg` | [Revisiting the Veil Nebula](https://esahubble.org/images/heic1520a/), part of the Veil Nebula (NGC 6960) in hydrogen-alpha, [O III] and [S II] filters ([CC BY 4.0](https://esahubble.org/copyright/)) | NASA, ESA, and the Hubble Heritage Team (STScI/AURA) |
 | `molecular_cloud.jpg` | [LH 95 — Large and small stars in harmonious coexistence](https://esahubble.org/images/heic0607a/) | NASA/ESA |
+| `dark_nebula.jpg` | [How to become a star](https://www.eso.org/public/images/eso0102a/), the dark globule Barnard 68 (VLT ANTU and FORS1), cropped to the central 3400 × 3400 pixels ([CC BY 4.0](https://www.eso.org/public/copyright/)) | ESO |
 | `bubble.jpg` | [Hubble Sees a Star ‘Inflating’ a Giant Bubble](https://images.nasa.gov/details/GSFC_20171208_Archive_e000383) | NASA, ESA, and the Hubble Heritage Team (STScI/AURA) |
 | `galaxy.jpg` | [VST snaps a very detailed view of the Triangulum Galaxy](https://www.eso.org/public/images/eso1424a/), cropped to the central square ([CC BY 4.0](https://www.eso.org/public/copyright/)) | ESO |
 
@@ -44,5 +45,6 @@ Display photos are delivered at most 1080 px wide (2026-10-20). Measured photo s
 | `molecular_cloud.jpg` | 1280 × 819 | 1080 × 691 | 387,918 | 235,082 |
 | `supernova_remnant.jpg` | 10681 × 7121 | 1080 × 720 | 85,125,250 | 158,528 |
 | `galaxy.jpg` | 1920 × 2289 | 1080 × 1080 | 1,180,243 | 197,941 |
+| `dark_nebula.jpg` | 4193 × 4193 | 1080 × 1080 | 10,116,043 | 226,482 |
 
-`galaxy.jpg` (2026-11-15) was cropped to its central square and delivered at JPEG quality 84 (mozjpeg), which keeps it below the largest existing photo. `supernova_remnant.jpg` (2026-11-13) was resized from ESA’s large JPEG with macOS `sips` at JPEG quality 60: at quality 88 the dense filament detail stayed near 300 KB.
+`dark_nebula.jpg` (2026-11-16) was cropped to the central 3400 pixels around the globule and resized with macOS `sips` at JPEG quality 45; thousands of background stars kept it above 290 KB at quality 55, and quality 45 shows no visible artifacts at full size. `galaxy.jpg` (2026-11-15) was cropped to its central square and delivered at JPEG quality 84 (mozjpeg), which keeps it below the largest existing photo. `supernova_remnant.jpg` (2026-11-13) was resized from ESA’s large JPEG with macOS `sips` at JPEG quality 60: at quality 88 the dense filament detail stayed near 300 KB.

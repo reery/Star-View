@@ -48,18 +48,18 @@ export function skyConeCardinals(cone: SkyCone): Vector3[] {
   return [around(north, 1), around(east, 1), around(north, -1), around(east, -1)]
 }
 
-export function makeSkyGridGeometry(frame: SkyGridFrame): BufferGeometry {
+export function makeSkyGridGeometry(frame: SkyGridFrame, parallelStepDeg = 20): BufferGeometry {
   const positions: number[] = []
   const emphasis: number[] = []
   function segment(longitude1: number, latitude1: number, longitude2: number, latitude2: number, strength: number): void {
     positions.push(...skyGridDirection(frame, longitude1, latitude1).toArray(), ...skyGridDirection(frame, longitude2, latitude2).toArray())
     emphasis.push(strength, strength)
   }
-  // Two-hour RA / 30-degree longitude meridians, with 20-degree parallels.
+  // Two-hour RA / 30-degree longitude meridians, with 20-degree parallels by default.
   for (let longitude = 0; longitude < 360; longitude += 30) {
     for (let latitude = -90; latitude < 90; latitude += 2) segment(longitude, latitude, longitude, latitude + 2, longitude === 0 ? 0.75 : 0.45)
   }
-  for (let latitude = -80; latitude <= 80; latitude += 20) {
+  for (let latitude = -Math.floor(89 / parallelStepDeg) * parallelStepDeg; latitude < 90; latitude += parallelStepDeg) {
     for (let longitude = 0; longitude < 360; longitude += 2) segment(longitude, latitude, longitude + 2, latitude, latitude === 0 ? 1 : 0.45)
   }
   const geometry = new BufferGeometry()

@@ -109,11 +109,12 @@ The bundled release holds 22 nebulae: 17 reflection nebulae, 4 H II regions and 
 
 ## Molecular-cloud Overlay
 
-The separately loaded package under `src/data/overlays/molecular-clouds/` contains all 65 filtered three-dimensional cloud features from Cahlon et al. (2024). Rows share the selectable scene fields, use type `molecular_cloud`, and add a `molecular_cloud` record:
+The separately loaded package under `src/data/overlays/molecular-clouds/` contains all 65 filtered three-dimensional cloud features from Cahlon et al. (2024), the smaller clouds within 1000 ly from the Edenhofer et al. (2024) map and the Leike et al. cutout of Corona Australis, and the catalogued dark nebulae within 1000 ly ([dark-clouds.md](dark-clouds.md)). Cloud rows share the selectable scene fields, use type `molecular_cloud`, and add a `molecular_cloud` record:
 
 | Field | Meaning |
 | --- | --- |
-| `catalog_id`, `complex_name` | Source Table 1 identifier and associated named cloud complex, when supplied |
+| `catalog_id`, `complex_name` | Source Table 1 identifier (100 and up for added clouds) and the named complex the source supplies |
+| `association` | Optional complex this catalog associates an unnamed cloud with, and its evidence |
 | `distance_pc`, `galactic_longitude_deg`, `galactic_latitude_deg` | Published center position; whole-parsec Cartesian centers introduce sub-degree roundoff |
 | `equivalent_radius_pc`, `mass_solar` | Source equivalent radius and cloud mass |
 | `mean_density_cm3`, `peak_density_cm3` | Mean and peak hydrogen-nucleus number densities |
@@ -123,6 +124,16 @@ The separately loaded package under `src/data/overlays/molecular-clouds/` contai
 | `position_source`, `source_label`, `source_url`, `model_note` | Provenance and explicit display-model note |
 
 The source centers span 116–440 pc (about 378–1435 ly), placing all 65 inside the 2000-ly scope. The 78,326 published one-parsec voxels are reduced to 19,606 display samples by stable coordinate-hash ordering; each cloud retains `ceil(source_voxel_count / 4)` points, so runtime level-of-detail can take an unbiased prefix. This is faithful source geometry with softened display puffs, not a complete molecular-cloud census: the underlying Leike et al. map is effectively limited to about 400 pc, and Cahlon et al. warn against treating the outer 440–613 pc shell as complete.
+
+Dark-nebula rows use type `dark_nebula`, carry their catalogue designations in `designations` and add a `dark_nebula` record:
+
+| Field | Meaning |
+| --- | --- |
+| `catalog`, `galactic_longitude_deg`, `galactic_latitude_deg` | Source catalogue and its position |
+| `angular_diameter_arcmin`, `opacity_class` | Diameter of the circle with the catalogued area; Lynds or Feitzinger & Stüwe opacity class 1 (faintest) to 6 (darkest), null for Barnard |
+| `distance_pc`, `distance_range_pc`, `distance_source`, `distance_url` | Adopted distance with its 16th–84th percentile range: a Zucker et al. (2020) measurement, the voxels of the drawn Leike cloud, or the Edenhofer et al. (2024) dust layer |
+| `parent_cloud_id`, `geometry` | The drawn cloud whose dust makes the nebula, or, when none does, the nebula's own map voxels in the same form as a cloud's samples |
+| `position_source`, `source_label`, `source_url` | Provenance |
 
 ## Bubble Overlay
 

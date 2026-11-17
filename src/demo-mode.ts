@@ -190,6 +190,7 @@ function limitPitch(pose: DemoPose, heading: Vector3): void {
 function extentPc(star: Star): number {
   if (star.nebula) return Math.max(...star.nebula.shape.semi_axes_pc)
   if (star.molecular_cloud) return star.molecular_cloud.equivalent_radius_pc
+  if (star.dark_nebula) return star.dark_nebula.distance_pc * Math.tan(star.dark_nebula.angular_diameter_arcmin / 120 * Math.PI / 180)
   if (star.bubble) return star.bubble.average_radius_pc
   return 0
 }

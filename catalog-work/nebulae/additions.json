@@ -1,9 +1,8 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-11-15",
-  "policy": "Batches 1-3 of the 2000-ly nebula census. Reflection nebulae, H II regions and planetary nebulae at least 5 arcmin across whose adopted distance minus its error is within 613.2 pc (2000 ly). Distances prefer the SIMBAD-adopted parallax of the illuminating or central star; cluster parallaxes or VLBA parallaxes replace stars whose own parallax is unreliable or embedded. Positions and identifiers come from SIMBAD (CfA mirror, retrieved 2026-11-03). Sizes come from Sharpless (1959) for H II regions, Lynds (1965) for NGC/IC nebulae, twice the van den Bergh (1966) maximum radius otherwise, the SIMBAD-adopted angular diameter or HASH radius for planetary nebulae, and ESO/Uppsala or van den Bergh & Herbst (1975) south of the Lynds limit. Batch 4 adds the supernova remnants within 2000 ly whose distances are established: the Vela Supernova Remnant, the Monogem Ring and Hoinga. Their shells are modeled from published centers, sizes and distances, because the H-alpha map cannot trace them. Batch 5 adds the Crab Nebula beyond the cutoff as a showcase, at the VLBI parallax distance of its pulsar, with its filaments from the published 3D map of Martin, Milisavljevic & Drissen (2021). Batch 6 (2026-11-15) adds the remnants of the supernovae with recorded dates beyond the 2000-ly cutoff, for the light-front topics: RCW 86 (SN 185, probable), RX J1713.7-3946 (SN 393, probable), SN 1006, Pa 30 (SN 1181), Tycho’s and Kepler’s remnants, Cassiopeia A (date from its expansion; no certain sighting) and SN 1987A in the Large Magellanic Cloud. 3C 58 and G11.2-0.3 are left out: 3C 58 is too old for SN 1181, and the SN 386 match of G11.2-0.3 is doubtful. The shells are modeled from published centers, sizes and distances.",
+  "reviewed": "2026-11-16",
+  "policy": "Batches 1-3 of the 2000-ly nebula census. Reflection nebulae, H II regions and planetary nebulae at least 5 arcmin across whose adopted distance minus its error is within 613.2 pc (2000 ly). Distances prefer the SIMBAD-adopted parallax of the illuminating or central star; cluster parallaxes or VLBA parallaxes replace stars whose own parallax is unreliable or embedded. Positions and identifiers come from SIMBAD (CfA mirror, retrieved 2026-11-03). Sizes come from Sharpless (1959) for H II regions, Lynds (1965) for NGC/IC nebulae, twice the van den Bergh (1966) maximum radius otherwise, the SIMBAD-adopted angular diameter or HASH radius for planetary nebulae, and ESO/Uppsala or van den Bergh & Herbst (1975) south of the Lynds limit. Batch 4 adds the supernova remnants within 2000 ly whose distances are established: the Vela Supernova Remnant, the Monogem Ring and Hoinga. Their shells are modeled from published centers, sizes and distances, because the H-alpha map cannot trace them. Batch 5 adds the Crab Nebula beyond the cutoff as a showcase, at the VLBI parallax distance of its pulsar, with its filaments from the published 3D map of Martin, Milisavljevic & Drissen (2021). Batch 6 (2026-11-15) adds the remnants of the supernovae with recorded dates beyond the 2000-ly cutoff, for the light-front topics: RCW 86 (SN 185, probable), RX J1713.7-3946 (SN 393, probable), SN 1006, Pa 30 (SN 1181), Tycho’s and Kepler’s remnants, Cassiopeia A (date from its expansion; no certain sighting) and SN 1987A in the Large Magellanic Cloud. 3C 58 and G11.2-0.3 are left out: 3C 58 is too old for SN 1181, and the SN 386 match of G11.2-0.3 is doubtful. The shells are modeled from published centers, sizes and distances. Batch 7 (2026-11-16) adds Barnard’s Loop (Sh 2-276) at 440 pc, the distance of the Orion molecular clouds (Wilson et al. 2005), chosen over the closer published estimates of about 160–170 pc. Batch 8 (2026-11-17) adds the nine most important far nebulae beyond the cutoff: the Lagoon, Trifid, Eagle, Omega, Rosette, Carina, North America and Pelican, Veil (Cygnus Loop) and Tarantula nebulae, at Gaia or eclipsing-binary distances, kept out of the surface-brightness zero points. The Eagle's sky shape is traced from the ESO wide-field image eso0926a, and its Pillars of Creation are 3D columns measured on Hubble's heic1501a and ordered in depth after McLeod et al. (2015).",
   "deferred": {
-    "barnards-loop": "Published distances disagree (about 170 pc against about 440 pc); a 10-degree arc needs a settled distance.",
     "ngc-1788": "Lynds (1965) lists 2 x 2 arcmin, below the 5-arcmin census limit.",
     "ngc-246": "3.7 arcmin SIMBAD-adopted diameter, below the 5-arcmin census limit.",
     "m43": "Inside the 65 x 60 arcmin footprint already drawn for the Orion Nebula.",
@@ -14,7 +13,7 @@
     "abell-24-aro-121": "Central-star parallaxes place them at about 720 and 940 pc.",
     "fp-j1824-0319": "Possible planetary nebula only, like FP J1912-0331.",
     "ngc-6729": "ESO/Uppsala lists 2.5 x 2 arcmin, below the 5-arcmin census limit; it sits just beside NGC 6726/6727.",
-    "ced-110-ced-111-ic-2631": "Chamaeleon I nebulae: Cederblad and ESO/Uppsala give no size for Ced 110 and Ced 111, and Cederblad gives 2 arcmin for IC 2631.",
+    "ced-110-ced-111-ic-2631": "Chamaeleon I nebulae: Cederblad and ESO/Uppsala give no size for Ced 110 and Ced 111, nor do SIMBAD and Magakian (2003) (checked 2026-11-16), and Cederblad gives 2 arcmin for IC 2631.",
     "ngc-1579-ngc-1999-ic-2087": "Lynds (1965) lists 3 x 3, 2 x 2 and 4 x 4 arcmin, below the 5-arcmin census limit; the larger Cederblad sizes are not adopted over Lynds, as for NGC 1788.",
     "ngc-1990": "The parallax of Alnilam is poor (Hipparcos 1.65 +/- 0.45 mas), SIMBAD has no Collinder 70 parallax, and the SIMBAD nebula position is 30 arcmin from the star.",
     "abell-74": "Central-star parallax gives 658 +/- 37 pc, so distance minus error (620 pc) misses the limit.",
@@ -23,7 +22,7 @@
     "hawe-5-tk-2-hdw-1": "No angular size: neither SIMBAD nor Chornay & Walton (2021) list one. Also KPD 0311+4801, PN G134.3+02.5 and PN G093.1+05.3.",
     "sh-2-129": "The parallax of its ionizing star HD 202214 is too poor (Hipparcos 0.76 +/- 0.42 mas) to place it.",
     "ngc-2626-vdbh-81": "vdBH nebulae of at least 5 arcmin that miss the census: the star of NGC 2626, CD-40 4432, lies at about 926 pc (Gaia EDR3), and HD 153771 of vdBH 81 has an unusable parallax of 0.87 +/- 0.59 mas (Gaia DR2).",
-    "cederblad-foreground-stars": "Cederblad names stars that are foreground to the nebula, so their parallaxes do not place it: gamma Cyg (IC 1318), Deneb (IC 5068, IC 5070, NGC 7000), Bellatrix (Ced 45), d Ori (IC 430), HD 35956 (Ced 47) and HD 168276 (IC 4706).",
+    "cederblad-foreground-stars": "Cederblad names stars that are foreground to the nebula, so their parallaxes do not place it: gamma Cyg (IC 1318), Deneb (IC 5068, IC 5070, NGC 7000), Bellatrix (Ced 45), d Ori (IC 430), HD 35956 (Ced 47) and HD 168276 (IC 4706). NGC 7000 and IC 5070 are drawn in batch 8 as Sh 2-117, at the Gaia distance of their own young stars (Kuhn et al. 2020).",
     "ced-106-ced-122-ced-145-ced-214": "Listed only by Cederblad (1946) and not retained by Magakian (2003), so the nebulae are unconfirmed.",
     "ced-125-dg-125-dg-141": "Reflection light around b Sco, 2 Sco and HD 147702, inside or next to Sh 2-1 and Sh 2-9 already drawn.",
     "mu-tau-hd-75649": "Unnamed LBN patches tied to a star only by a positional match with Magakian (2003), not by a reflection-nebula catalogue.",
@@ -1305,6 +1304,155 @@
         "hot_gas_source": null,
         "drawn_as": "Modeled shell at the size of its inner ring"
       }
+    },
+    {
+      "id": "barnards-loop", "name": "Barnard’s Loop", "type": "hii_region",
+      "designations": ["Sh 2-276"],
+      "ra_deg": 81.875, "dec_deg": -3.966667, "position_source": "SIMBAD Sh 2-276",
+      "distance": {"pc": 440, "error_pc": null, "source": "Wilson et al. (2005), A&A 430, 523; distance of the Orion molecular clouds"},
+      "angular_size_arcmin": [1200, 1200],
+      "illuminating_stars": "The O and B stars of the Orion OB1 association",
+      "calibrate": false, "calibrate_note": "Its LBN 918 plate class rates a 26 x 10 degree region, while the map peak is the brightest 6-arcmin spot on the arc; the pair is 3.9 mag apart and would move the Lynds zero point of every estimated nebula.",
+      "shape": "shell", "mask": {"box_arcmin": 1400, "exclude": [[83.82, -5.388, 90], [85.5925, -1.923056, 90], [83.825, 9.933333, 200]]}, "palette": "ionized_gas",
+      "notes": "Faint arc of glowing hydrogen curving around the eastern side of Orion, the brightest part of a shell around the Orion OB1 association. Published distances range from about 160 to 440 pc; the map adopts 440 pc, the distance of the Orion molecular clouds.",
+      "source_label": "Finkbeiner (2003), full-sky H-alpha map", "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "model_note": "Sky shape and relative brightness traced from the Finkbeiner (2003) H-alpha map at 6 arcmin resolution within a 1400-arcmin field, without the Orion Nebula, the Flame Nebula and IC 434, and the Lambda Orionis Nebula, which are drawn separately; the listed extent is the Sharpless (1959) diameter. Drawn as a shell; its thickness is illustrative."
+    },
+    {
+      "id": "lagoon-nebula", "name": "Lagoon Nebula", "type": "hii_region",
+      "designations": ["M8", "NGC 6523", "Sh 2-25", "W 29"],
+      "ra_deg": 270.904167, "dec_deg": -24.386667, "position_source": "SIMBAD M 8",
+      "distance": {"pc": 1234, "error_pc": 16, "source": "Gaia EDR3 distance of the Villafranca O-018 group (NGC 6530 and NGC 6523), 1234 ± 16 pc; Maíz Apellániz et al. 2022, A&A 657, A131"},
+      "angular_size_arcmin": [90, 90],
+      "illuminating_stars": "9 Sagittarii (O3.5 V + O5 V binary), Herschel 36 and the O stars of NGC 6530",
+      "calibrate": false, "calibrate_note": "Beyond the 2000-ly census; kept out of the zero points so the census calibration stays unchanged.",
+      "shape": "ellipsoid", "mask": {"box_arcmin": 112, "depth_fraction": 0.5}, "palette": "ionized_gas",
+      "notes": "With the Orion Nebula, one of only two star-forming nebulae faintly visible to the naked eye from mid-northern latitudes, in Sagittarius. The hot stars of its young cluster, led by 9 Sagittarii, light the gas.",
+      "source_label": "Finkbeiner (2003), full-sky H-alpha map", "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "model_note": "Sky shape and relative brightness traced from the Finkbeiner (2003) H-alpha map at 6 arcmin resolution within a 112-arcmin field; the listed extent is the Sharpless (1959) diameter. Depth is illustrative."
+    },
+    {
+      "id": "trifid-nebula", "name": "Trifid Nebula", "type": "hii_region",
+      "designations": ["M20", "NGC 6514", "Sh 2-30"],
+      "ra_deg": 270.675, "dec_deg": -22.971667, "position_source": "SIMBAD M 20",
+      "distance": {"pc": 1250, "error_pc": null, "source": "Gaia EDR3 parallaxes of its young stars, about 1250 pc; Kalari et al. 2021, ApJ, doi:10.3847/1538-4357/ac178f"},
+      "angular_size_arcmin": [20, 20],
+      "illuminating_stars": "HD 164492 A, the O star at the centre of the nebula",
+      "calibrate": false, "calibrate_note": "Beyond the 2000-ly census; kept out of the zero points so the census calibration stays unchanged.",
+      "shape": "ellipsoid", "mask": {"box_arcmin": 25, "depth_fraction": 0.6}, "palette": "ionized_gas",
+      "notes": "A red H II region split into three lobes by dark dust lanes, next to a blue reflection nebula, in Sagittarius. A single O star at its centre lights the glowing gas.",
+      "source_label": "Finkbeiner (2003), full-sky H-alpha map", "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "model_note": "Sky shape and relative brightness traced from the Finkbeiner (2003) H-alpha map at 6 arcmin resolution within a 25-arcmin field, which barely resolves the nebula; the dust lanes and the blue reflection nebula are not drawn. The listed extent is the Sharpless (1959) diameter. Depth is illustrative."
+    },
+    {
+      "id": "eagle-nebula", "name": "Eagle Nebula", "type": "hii_region",
+      "designations": ["M16", "IC 4703", "Sh 2-49", "RCW 165", "W 37"],
+      "ra_deg": 274.688, "dec_deg": -13.792, "position_source": "SIMBAD M 16",
+      "distance": {"pc": 1697, "error_pc": 31, "source": "Gaia EDR3 distance of the Villafranca O-019 group (NGC 6611), 1697 +31/−30 pc; Maíz Apellániz et al. 2022, A&A 657, A131"},
+      "angular_size_arcmin": [90, 90],
+      "illuminating_stars": "The O stars of NGC 6611, led by HD 168076 (O4)",
+      "calibrate": false, "calibrate_note": "Beyond the 2000-ly census; kept out of the zero points so the census calibration stays unchanged.",
+      "shape": "ellipsoid", "image_mask": {"image": "eso0926a", "cells": 96, "width_arcmin": 28, "depth_fraction": 1, "emission_puffs": 5120, "dust_puffs": 1024}, "palette": "ionized_gas",
+      "pillars": {
+        "image": "heic1501a", "light_pc": [0, 0, 0], "rim_puffs": 3072, "dust_puffs": 4096,
+        "columns": [
+          {"name": "Pillar 1", "points": [[440, 1120, 190, -0.5], [430, 1000, 170, -0.45], [430, 820, 220, -0.3], [425, 650, 150, 0.15], [430, 480, 140, 0.3], [445, 330, 150, 0.25], [500, 225, 190, 0.18], [555, 190, 80, 0.12]]},
+          {"name": "Pillar 2", "points": [[680, 1070, 200, -0.55], [690, 950, 200, -0.6], [700, 780, 180, -0.5], [705, 640, 135, -0.42], [725, 500, 130, -0.33], [752, 410, 85, -0.27], [766, 365, 40, -0.25]]},
+          {"name": "Pillar 3", "points": [[870, 1080, 80, -0.7], [895, 900, 70, -0.75], [890, 780, 60, -0.8], [880, 660, 60, -0.85], [885, 585, 70, -0.88], [888, 555, 40, -0.9]]},
+          {"name": "Pillar 3 arm", "points": [[860, 664, 32, -0.85], [795, 660, 24, -0.84], [740, 670, 14, -0.83]]},
+          {"name": "Spire", "image": "eso0926a", "opacity": 0.6, "tint": "#c0584a", "fade": true, "points": [[277, 620, 30, -0.3], [303, 625, 10, -0.28], [347, 620, 11, -0.26], [393, 613, 12, -0.24], [437, 620, 14, -0.22], [457, 635, 20, -0.2], [470, 632, 10, -0.2]]},
+          {"name": "Base", "lit": false, "opacity": 0.8, "points": [[545, 1335, 120, -0.5], [580, 1200, 420, -0.52], [620, 1070, 400, -0.55]]}
+        ]
+      },
+      "notes": "The H II region around the young cluster NGC 6611 in Serpens, home of the Pillars of Creation: columns of cold gas and dust that the cluster’s ultraviolet light is slowly eroding.",
+      "source_label": "ESO eso0926a; ESA/Hubble heic1501a; Karim et al. (2025); McLeod et al. (2015)", "source_url": "https://www.eso.org/public/images/eso0926a/",
+      "model_note": "Sky shape and relative brightness traced from the ESO wide-field image eso0926a (CC BY 4.0) on a 96 x 96 grid across 28 arcminutes, the brightest part of the Sharpless (1959) extent. The 3D layout follows the model of Karim et al. (2025): NGC 6611 has blown a single cavity about as deep along the line of sight as it is wide, so the glowing gas fills a volume as deep as it is wide; the dark lanes, mostly the Northern Cloud, lie in front of it; and the Pillars of Creation and the Spire belong to the natal cloud around the cluster. The pillars, measured on the 2015 Hubble image heic1501a, rise from a broad, unlit dust base that narrows into the dusty ridge traced from eso0926a (registered on the pillars and two cluster stars, 3.3 arcminutes from its published centre); the Spire is measured on eso0926a. The pillars' order and tilt along the line of sight follow McLeod et al. (2015): Pillar 3 nearest, then Pillar 2, both in front of the cluster, and Pillar 1 with its lower part in front of the cluster and its upper part behind it. Exact depths are illustrative. The skin of the pillars and the Spire glows where it faces the cluster; dust fills them. The Spire's thinner dust is drawn reddish and rises out of the glow from its base."
+    },
+    {
+      "id": "omega-nebula", "name": "Omega Nebula", "type": "hii_region",
+      "designations": ["M17", "NGC 6618", "Sh 2-45", "W 38"],
+      "ra_deg": 275.088333, "dec_deg": -16.226944, "position_source": "SIMBAD Sh 2-45",
+      "distance": {"pc": 1696, "error_pc": 41, "source": "Gaia EDR3 distance of the Villafranca O-009 group (NGC 6618), 1696 +41/−39 pc; Maíz Apellániz et al. 2022, A&A 657, A131"},
+      "angular_size_arcmin": [60, 60],
+      "illuminating_stars": "The embedded O stars of the young cluster NGC 6618",
+      "calibrate": false, "calibrate_note": "Beyond the 2000-ly census; kept out of the zero points so the census calibration stays unchanged.",
+      "shape": "ellipsoid", "mask": {"box_arcmin": 75, "depth_fraction": 0.5}, "palette": "ionized_gas",
+      "notes": "One of the brightest and most massive star-forming regions in the Milky Way, also called the Swan Nebula, in Sagittarius. Its young cluster NGC 6618 is embedded in the glowing gas.",
+      "source_label": "Finkbeiner (2003), full-sky H-alpha map", "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "model_note": "Sky shape and relative brightness traced from the Finkbeiner (2003) H-alpha map at 6 arcmin resolution within a 75-arcmin field; the listed extent is the Sharpless (1959) diameter. Depth is illustrative."
+    },
+    {
+      "id": "rosette-nebula", "name": "Rosette Nebula", "type": "hii_region",
+      "designations": ["NGC 2237", "Sh 2-275", "W 16"],
+      "ra_deg": 98.1115, "dec_deg": 4.793639, "position_source": "SIMBAD Rosette Nebula",
+      "distance": {"pc": 1421, "error_pc": 21, "source": "Gaia EDR3 distance of the Villafranca O-020 group (NGC 2244), 1421 +21/−20 pc; Maíz Apellániz et al. 2022, A&A 657, A131"},
+      "angular_size_arcmin": [100, 100],
+      "illuminating_stars": "The O stars of NGC 2244, led by HD 46223 (O4 V)",
+      "calibrate": false, "calibrate_note": "Beyond the 2000-ly census; kept out of the zero points so the census calibration stays unchanged.",
+      "shape": "shell", "mask": {"box_arcmin": 125}, "palette": "ionized_gas",
+      "notes": "A round H II region in Monoceros whose central cluster NGC 2244 has blown a hole in its middle, so the glowing gas forms a ring like a rose.",
+      "source_label": "Finkbeiner (2003), full-sky H-alpha map", "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "model_note": "Sky shape and relative brightness traced from the Finkbeiner (2003) H-alpha map at 6 arcmin resolution within a 125-arcmin field; the listed extent is the Sharpless (1959) diameter. Drawn as a shell around the cavity; its thickness is illustrative."
+    },
+    {
+      "id": "carina-nebula", "name": "Carina Nebula", "type": "hii_region",
+      "designations": ["NGC 3372", "RCW 53"],
+      "ra_deg": 161.259292, "dec_deg": -59.699944, "position_source": "SIMBAD NGC 3372",
+      "distance": {"pc": 2350, "error_pc": 50, "source": "Gaia EDR3 distances of the young clusters of the Carina Nebula complex, 2.35 ± 0.05 kpc; Göppl & Preibisch 2022, A&A 660, A11"},
+      "angular_size_arcmin": [210, 210],
+      "illuminating_stars": "Eta Carinae and the O stars of Trumpler 14, Trumpler 16 and Collinder 228",
+      "calibrate": false, "calibrate_note": "Beyond the 2000-ly census; kept out of the zero points so the census calibration stays unchanged.",
+      "shape": "ellipsoid", "mask": {"box_arcmin": 262, "depth_fraction": 0.5}, "palette": "ionized_gas",
+      "notes": "One of the largest nebulae in the sky, four times the size of the Orion Nebula and brighter, in Carina. It holds Eta Carinae, one of the most massive and luminous stars known.",
+      "source_label": "Finkbeiner (2003), full-sky H-alpha map", "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "model_note": "Sky shape and relative brightness traced from the Finkbeiner (2003) H-alpha map at 6 arcmin resolution within a 262-arcmin field; the listed extent is the RCW (1960) size of RCW 53. Depth is illustrative."
+    },
+    {
+      "id": "north-america-nebula", "name": "North America and Pelican Nebulae", "type": "hii_region",
+      "designations": ["NGC 7000", "IC 5070", "IC 5067", "Sh 2-117", "W 80"],
+      "ra_deg": 314.71101, "dec_deg": 44.318999, "position_source": "Sharpless (1959) centre of Sh 2-117, Galactic 85.5, −1.0",
+      "distance": {"pc": 795, "error_pc": 25, "source": "Gaia DR2 parallaxes of 395 young members, 795 ± 25 pc; Kuhn et al. 2020, ApJ, doi:10.3847/1538-4357/aba19a"},
+      "angular_size_arcmin": [240, 240],
+      "illuminating_stars": "The Bajamar Star (2MASS J20555125+4352246, O3.5), hidden behind the dark cloud LDN 935",
+      "calibrate": false, "calibrate_note": "Beyond the 2000-ly census; kept out of the zero points so the census calibration stays unchanged.",
+      "shape": "ellipsoid", "mask": {"box_arcmin": 300, "depth_fraction": 0.4}, "palette": "ionized_gas",
+      "notes": "One H II region in Cygnus split in two by the dark cloud LDN 935: the North America Nebula on one side and the Pelican Nebula on the other. The star that lights it is hidden behind the dust.",
+      "source_label": "Finkbeiner (2003), full-sky H-alpha map", "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "model_note": "Sky shape and relative brightness traced from the Finkbeiner (2003) H-alpha map at 6 arcmin resolution within a 300-arcmin field; the gap between the two nebulae is where the dark cloud blocks the light. The listed extent is the Sharpless (1959) diameter. Depth is illustrative."
+    },
+    {
+      "id": "veil-nebula", "name": "Veil Nebula", "type": "supernova_remnant",
+      "designations": ["Cygnus Loop", "NGC 6960", "NGC 6992", "Sh 2-103", "SNR G074.0-08.5"],
+      "ra_deg": 312.75, "dec_deg": 30.666667, "position_source": "Green (2024), A catalogue of Galactic supernova remnants: G74.0−8.5",
+      "distance": {"pc": 725, "error_pc": 15, "source": "Gaia EDR3 parallaxes of stars inside and behind the remnant, 725 ± 15 pc; Fesen et al. 2021, MNRAS, doi:10.1093/mnras/stab2066"},
+      "angular_size_arcmin": [230, 160],
+      "illuminating_stars": "The supernova’s blast wave",
+      "calibrate": false, "calibrate_note": "Beyond the 2000-ly census; kept out of the zero points so the census calibration stays unchanged.",
+      "shape": "filaments", "mask": {"box_arcmin": 288}, "puff_count": 4096, "palette": "shock_filaments",
+      "notes": "The Cygnus Loop: the expanding shell of a star that exploded 10,000–20,000 years ago, about 3 degrees across in Cygnus. Its brightest filaments form the Veil Nebula.",
+      "source_label": "Finkbeiner (2003), full-sky H-alpha map", "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "model_note": "A sphere of the catalogued size, about 3 degrees across (radius about 20 pc at 725 pc), centered on the Green (2024) position. Where the filaments lie on it follows the Finkbeiner (2003) H-alpha map at 6 arcmin resolution, which shows the shell's bright eastern and western arcs; the thin wavy filaments themselves are illustrative, red for hydrogen-alpha with teal [O III] sheaths just outside them. The listed extent is the Green (2024) size.",
+      "remnant": {
+        "age_yr": [10000, 20000],
+        "age_source": "Between 10,000 and 20,000 years; Wikipedia: Veil Nebula",
+        "neutron_star": null,
+        "hot_gas_kev": null,
+        "hot_gas_source": null,
+        "drawn_as": "Modeled red H-alpha and teal [O III] filaments where the all-sky map shows the shell"
+      }
+    },
+    {
+      "id": "tarantula-nebula", "name": "Tarantula Nebula", "type": "hii_region",
+      "designations": ["30 Doradus", "NGC 2070", "LHA 120-N 157"],
+      "ra_deg": 84.65, "dec_deg": -69.086389, "position_source": "SIMBAD 30 Dor Nebula",
+      "distance": {"pc": 49590, "error_pc": 540, "source": "Distance of the Large Magellanic Cloud from 20 eclipsing binaries, 49.59 ± 0.09 (statistical) ± 0.54 (systematic) kpc; Pietrzyński et al. 2019, Nature 567, 200"},
+      "angular_size_arcmin": [40, 25],
+      "illuminating_stars": "R136, the cluster that holds the most massive stars known, such as R136a1",
+      "calibrate": false, "calibrate_note": "Beyond the 2000-ly census; kept out of the zero points so the census calibration stays unchanged.",
+      "shape": "ellipsoid", "mask": {"box_arcmin": 50, "depth_fraction": 0.6}, "palette": "ionized_gas",
+      "notes": "The most active star-forming region in the Local Group of galaxies, in the Large Magellanic Cloud. If it were as close as the Orion Nebula, it would cast shadows on Earth.",
+      "source_label": "Finkbeiner (2003), full-sky H-alpha map", "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "model_note": "Sky shape and relative brightness traced from the Finkbeiner (2003) H-alpha map at 6 arcmin resolution within a 50-arcmin field, against the diffuse glow of the Large Magellanic Cloud; the listed extent is the SIMBAD size. Depth is illustrative."
     }
   ]
 }

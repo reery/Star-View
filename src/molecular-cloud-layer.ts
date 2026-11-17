@@ -1,9 +1,9 @@
 import {
   AdditiveBlending, Camera, CanvasTexture, Color, CustomBlending, DepthTexture, Float32BufferAttribute, Group, HalfFloatType,
-  InstancedBufferAttribute, InstancedBufferGeometry, LinearFilter, Mesh, NormalBlending, OrthographicCamera,
-  Material, OneFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, PlaneGeometry, RedFormat, Scene, ShaderMaterial, Vector2, WebGLRenderer, WebGLRenderTarget,
+  InstancedBufferAttribute, InstancedBufferGeometry, LinearFilter, MaxEquation, Mesh, NormalBlending, OrthographicCamera,
+  Material, OneFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, PlaneGeometry, RedFormat, Scene, ShaderMaterial, Vector2, Vector3, Vector4, WebGLRenderer, WebGLRenderTarget,
 } from 'three'
-import type { Star } from './catalog-model'
+import { dustGeometry, type Star } from './catalog-model'
 import type { StarColorMode } from './astronomy'
 import { MOLECULAR_CLOUD_BANDS, wavelengthBandColor, type WavelengthBandId } from './wavelength-vision'
 
@@ -13,6 +13,12 @@ const MIN_PUFF_PIXELS = 1.6
 // Keep catalog sources readable even through a dense column of overlapping puffs.
 const SOURCE_ABSORPTION_GAIN = 1.2
 const MAX_SOURCE_DIMMING = 0.30
+// The selection outline: a contour of the selected dust's coverage at this level, in the accent of the other
+// selection guides, so clouds too thin to see in a band still show where they are. The dust itself is unchanged.
+const OUTLINE_COLOR = 0xe7a05b
+const OUTLINE_LEVEL = 0.3
+// A dark nebula's outline is its catalogued extent at its distance, kept large enough on screen to find.
+const MIN_OUTLINE_PIXELS = 8
 
 export interface MolecularCloudPuffs {
   count: number
@@ -40,8 +46,8 @@ function colorVariation(target: Color, amount: number): Color {
 }
 
 export function generateMolecularCloudPuffs(star: Star, cloudIndex: number): MolecularCloudPuffs {
-  const cloud = star.molecular_cloud
-  if (!cloud) throw new Error(`Not a molecular cloud: ${star.id}`)
+  const cloud = dustGeometry(star)
+  if (!cloud) throw new Error(`No dust geometry: ${star.id}`)
   const points = cloud.sample_points_pc
   const count = points.length / 3
   const centers = new Float32Array(count * 3)
@@ -154,7 +160,11 @@ export interface MolecularCloudLayer {
   dispose(): void
 }
 
-export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarColorMode): MolecularCloudLayer {
+/**
+ * Draws clouds and free-standing dark nebulae from their dust geometry. A selected dark nebula that a cloud holds
+ * highlights the part of that cloud inside its outline and dust layer.
+ */
+export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarColorMode, anchoredNebulae: readonly Star[] = []): MolecularCloudLayer {
   const sources = clouds.map((cloud, index) => generateMolecularCloudPuffs(cloud, index))
   const capacity = sources.reduce((sum, source) => sum + source.count, 0)
   const geometry = new InstancedBufferGeometry()
@@ -190,6 +200,9 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
     maxScreenFraction: { value: MOLECULAR_CLOUD_MAX_SCREEN_FRACTION },
     minPixels: { value: MIN_PUFF_PIXELS },
     selectedCloudIndex: { value: -1 },
+    // World direction and cosine of the selected dark nebula's outline; w below -1 selects the whole cloud.
+    selectedCone: { value: new Vector4(0, 0, 0, -2) },
+    selectedDepth: { value: new Vector2() },
   }
   const vertexShader = `
     attribute vec3 puffCenter;
@@ -205,17 +218,21 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
     uniform float maxScreenFraction;
     uniform float minPixels;
     uniform float selectedCloudIndex;
+    uniform vec4 selectedCone;
+    uniform vec2 selectedDepth;
     varying vec2 vUv;
     varying vec2 vNoiseUv;
     varying vec3 vBodyColor;
     varying vec3 vRimColor;
     varying float vAlpha;
     varying float vSelected;
+    varying float vFade;
     void main() {
       vec4 viewCenter = modelViewMatrix * vec4(puffCenter, 1.0);
       float depth = -viewCenter.z;
       float radius = puffShape.x;
       float nearFade = smoothstep(radius * 0.7, radius * 3.2, depth);
+      vFade = nearFade;
       float pixelRadius = radius * projectionMatrix[1][1] * 0.5 * viewportHeight / max(depth, 1e-6);
       float screenScale = min(1.0, viewportHeight * maxScreenFraction / max(pixelRadius, 1e-6));
       float grow = max(1.0, minPixels / max(pixelRadius, 1e-6));
@@ -225,6 +242,17 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
         return;
       }
       vSelected = 1.0 - step(0.25, abs(puffCloudIndex - selectedCloudIndex));
+      if (selectedCone.w > -1.5) {
+        float reach = length(puffCenter);
+        vSelected *= step(selectedCone.w, dot(puffCenter / max(reach, 1e-6), selectedCone.xyz))
+          * step(selectedDepth.x, reach) * step(reach, selectedDepth.y);
+      }
+      #ifdef SELECTION_ONLY
+      if (vSelected < 0.5) {
+        gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
+        return;
+      }
+      #endif
       vBodyColor = mix(puffRealBody, puffVividBody, colorMix);
       vRimColor = mix(puffRealRim, puffVividRim, colorMix);
       vUv = position.xy;
@@ -363,6 +391,119 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       }
     `,
   })
+  // Coverage of the selected puffs, independent of the band: the union of their discs, kept by MAX blending.
+  const coverageMaterial = new ShaderMaterial({
+    uniforms: { ...uniforms, alphaScale: { value: 1 } },
+    defines: { SELECTION_ONLY: '' },
+    blending: CustomBlending,
+    blendEquation: MaxEquation,
+    blendSrc: OneFactor,
+    blendDst: OneFactor,
+    depthTest: false,
+    depthWrite: false,
+    vertexShader,
+    fragmentShader: `
+      varying vec2 vUv;
+      varying float vFade;
+      void main() {
+        float r2 = dot(vUv, vUv);
+        if (r2 >= 1.0) discard;
+        // Puffs around the camera fade like the dust, so no stray contours ring the screen from inside a cloud.
+        gl_FragColor = vec4((1.0 - r2) * vFade, 0.0, 0.0, 1.0);
+      }
+    `,
+  })
+  // Only the selected cloud's puffs, so the pass costs nothing for the thousands of others.
+  const coverageMesh = new Mesh(new InstancedBufferGeometry(), coverageMaterial)
+  function selectCoverage(index: number): void {
+    coverageMesh.geometry.dispose()
+    const source = sources[index]
+    const selection = new InstancedBufferGeometry()
+    // Its own quad: disposing a geometry frees its buffers, which must not be the shared puff geometry's.
+    selection.setAttribute('position', new Float32BufferAttribute([-1, -1, 0, 1, -1, 0, 1, 1, 0, -1, 1, 0], 3))
+    selection.setIndex([0, 1, 2, 0, 2, 3])
+    if (source) {
+      selection.setAttribute('puffCenter', new InstancedBufferAttribute(source.centers, 3))
+      selection.setAttribute('puffShape', new InstancedBufferAttribute(source.shapes, 4))
+      selection.setAttribute('puffCloudIndex', new InstancedBufferAttribute(source.cloudIndices, 1))
+    }
+    selection.instanceCount = source ? Math.max(1, Math.ceil(source.count * fraction)) : 0
+    coverageMesh.geometry = selection
+  }
+  coverageMesh.frustumCulled = false
+  const coverageScene = new Scene()
+  // A selected dark nebula's catalogued extent: one disc at its position, at least MIN_OUTLINE_PIXELS across.
+  const discCenter = new Vector3()
+  const discMaterial = new ShaderMaterial({
+    uniforms: {
+      center: { value: discCenter }, radius: { value: 1 },
+      viewportHeight: uniforms.viewportHeight, minPixels: { value: MIN_OUTLINE_PIXELS },
+    },
+    blending: CustomBlending,
+    blendEquation: MaxEquation,
+    blendSrc: OneFactor,
+    blendDst: OneFactor,
+    depthTest: false,
+    depthWrite: false,
+    vertexShader: `
+      uniform vec3 center;
+      uniform float radius;
+      uniform float viewportHeight;
+      uniform float minPixels;
+      varying vec2 vUv;
+      void main() {
+        vec4 viewCenter = modelViewMatrix * vec4(center, 1.0);
+        float depth = max(-viewCenter.z, 1e-6);
+        float pixels = radius * projectionMatrix[1][1] * 0.5 * viewportHeight / depth;
+        vUv = position.xy;
+        gl_Position = projectionMatrix * (viewCenter + vec4(position.xy * radius * max(1.0, minPixels / max(pixels, 1e-6)), 0.0, 0.0));
+        if (viewCenter.z >= 0.0) gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
+      }
+    `,
+    fragmentShader: `
+      varying vec2 vUv;
+      void main() {
+        float r2 = dot(vUv, vUv);
+        if (r2 >= 1.0) discard;
+        gl_FragColor = vec4(1.0 - r2, 0.0, 0.0, 1.0);
+      }
+    `,
+  })
+  const disc = new Mesh(new PlaneGeometry(2, 2), discMaterial)
+  disc.frustumCulled = false
+  disc.visible = false
+  coverageScene.add(coverageMesh, disc)
+  const outlineMaterial = new ShaderMaterial({
+    uniforms: { coverage: { value: null }, color: { value: new Color(OUTLINE_COLOR) } },
+    transparent: true,
+    depthTest: false,
+    depthWrite: false,
+    toneMapped: false,
+    vertexShader: `varying vec2 vUv;
+      void main() { vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }`,
+    fragmentShader: `
+      uniform sampler2D coverage;
+      uniform vec3 color;
+      varying vec2 vUv;
+      void main() {
+        float value = texture2D(coverage, vUv).r;
+        // Distance to the contour in pixels keeps the line about two pixels wide at every zoom.
+        float pixels = (value - ${OUTLINE_LEVEL}) / max(length(vec2(dFdx(value), dFdy(value))), 1e-4);
+        float line = 1.0 - smoothstep(0.6, 1.6, abs(pixels));
+        float alpha = 0.55 * line;
+        if (alpha <= 0.0) discard;
+        gl_FragColor = vec4(color, alpha);
+        #include <colorspace_fragment>
+      }
+    `,
+  })
+  const outlineScene = new Scene()
+  const outline = new Mesh(new PlaneGeometry(2, 2), outlineMaterial)
+  outline.frustumCulled = false
+  outlineScene.add(outline)
+  let outlineTarget: WebGLRenderTarget | undefined
+  const outlineSize = new Vector2()
+
   const glow = new Mesh(geometry, glowMaterial)
   glow.frustumCulled = false
   glow.renderOrder = 1.8
@@ -434,7 +575,8 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
           compile.call(this, shader, renderer)
           shader.uniforms.cloudDisplayCapture = displayCapture
           shader.uniforms.cloudDepthCapture = depthCapture
-          shader.fragmentShader = `uniform bool cloudDisplayCapture;\nuniform bool cloudDepthCapture;\n${shader.fragmentShader}`.replace(
+          // Every output: a shader may write its color on several paths, such as the sky's band and visible-light branches.
+          shader.fragmentShader = `uniform bool cloudDisplayCapture;\nuniform bool cloudDepthCapture;\n${shader.fragmentShader}`.replaceAll(
             '#include <colorspace_fragment>',
             'if (cloudDepthCapture && gl_FragColor.a <= 0.0) discard;\nif (cloudDisplayCapture) gl_FragColor = sRGBTransferOETF(gl_FragColor);\nelse {\n#include <colorspace_fragment>\n}',
           )
@@ -479,6 +621,9 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
     }
   }
   const cloudIndexById = new Map(clouds.map((cloud, index) => [cloud.id, index]))
+  const anchoredById = new Map(anchoredNebulae.map((nebula) => [nebula.id, nebula]))
+  const darkNebulaById = new Map([...anchoredNebulae, ...clouds.filter((cloud) => cloud.dark_nebula)].map((nebula) => [nebula.id, nebula]))
+  const coneDirection = new Vector3()
   let visibility: boolean[] = clouds.map(() => false)
   let fraction = 1
   let sourceDepthCapture = true
@@ -507,6 +652,43 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
     }
   }
 
+  /** Draws the selected cloud's or dark nebula's outline over the frame just rendered. */
+  function drawOutline(renderer: WebGLRenderer, camera: Camera): void {
+    const cloudOutlined = coverageMesh.visible && visibility[uniforms.selectedCloudIndex.value] === true
+    if (!root.visible || !(disc.visible || cloudOutlined)) {
+      outlineTarget?.dispose()
+      outlineTarget = undefined
+      return
+    }
+    const target = renderer.getRenderTarget()
+    if (target) outlineSize.set(target.width, target.height)
+    else renderer.getDrawingBufferSize(outlineSize)
+    outlineSize.set(Math.max(1, Math.ceil(outlineSize.x / 2)), Math.max(1, Math.ceil(outlineSize.y / 2)))
+    outlineTarget ??= new WebGLRenderTarget(outlineSize.x, outlineSize.y, { type: HalfFloatType, format: RedFormat, depthBuffer: false })
+    outlineTarget.setSize(outlineSize.x, outlineSize.y)
+    outlineMaterial.uniforms.coverage!.value = outlineTarget.texture
+    const autoClear = renderer.autoClear
+    const autoReset = renderer.info.autoReset
+    renderer.getClearColor(clearColor)
+    const clearAlpha = renderer.getClearAlpha()
+    renderer.info.autoReset = false
+    try {
+      renderer.setRenderTarget(outlineTarget)
+      renderer.setClearColor(0x000000, 0)
+      renderer.clear()
+      renderer.render(coverageScene, camera)
+      renderer.setRenderTarget(target)
+      renderer.setClearColor(clearColor, clearAlpha)
+      renderer.autoClear = false
+      renderer.render(outlineScene, compositeCamera)
+    } finally {
+      renderer.autoClear = autoClear
+      renderer.info.autoReset = autoReset
+      renderer.setClearColor(clearColor, clearAlpha)
+      renderer.setRenderTarget(target)
+    }
+  }
+
   return {
     root,
     setVisible(next) {
@@ -517,6 +699,8 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       if (!(next > 0 && next <= 1)) return
       fraction = next
       repack()
+      const source = sources[uniforms.selectedCloudIndex.value]
+      if (source) coverageMesh.geometry.instanceCount = Math.max(1, Math.ceil(source.count * fraction))
     },
     setSourceDepthCapture(enabled) {
       sourceDepthCapture = enabled
@@ -536,7 +720,32 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       if (pixels > 0) uniforms.viewportHeight.value = pixels
     },
     setSelected(id) {
-      uniforms.selectedCloudIndex.value = id === null ? -1 : cloudIndexById.get(id) ?? -1
+      const selected = id === null ? undefined : darkNebulaById.get(id)
+      // Galactic (x, y, z) maps to Three.js world (x, z, -y).
+      if (selected) {
+        const details = selected.dark_nebula!
+        discCenter.set(selected.x_pc, selected.z_pc, -selected.y_pc)
+        discMaterial.uniforms.radius!.value = details.distance_pc * Math.tan(details.angular_diameter_arcmin / 120 * Math.PI / 180)
+      }
+      disc.visible = !!selected
+      coverageMesh.visible = !selected
+      const nebula = id === null ? undefined : anchoredById.get(id)?.dark_nebula
+      uniforms.selectedCloudIndex.value = id === null ? -1 : cloudIndexById.get(nebula?.parent_cloud_id ?? id) ?? -1
+      if (!selected) selectCoverage(uniforms.selectedCloudIndex.value)
+      if (!nebula) {
+        uniforms.selectedCone.value.w = -2
+        return
+      }
+      // The highlighted part of the cloud uses the outline and depth window that anchored the nebula to it
+      // (scripts/author-dark-clouds.py), so its sampled puffs fall inside.
+      const longitude = nebula.galactic_longitude_deg * Math.PI / 180
+      const latitude = nebula.galactic_latitude_deg * Math.PI / 180
+      coneDirection.set(Math.cos(latitude) * Math.cos(longitude), Math.sin(latitude), -Math.cos(latitude) * Math.sin(longitude))
+      const [near, far] = nebula.distance_range_pc
+      const margin = Math.max(15, 0.15 * nebula.distance_pc)
+      const radius = Math.max(nebula.angular_diameter_arcmin / 120, 0.3) * Math.PI / 180
+      uniforms.selectedCone.value.set(coneDirection.x, coneDirection.y, coneDirection.z, Math.cos(radius))
+      uniforms.selectedDepth.value.set(Math.min(near, nebula.distance_pc - margin), Math.max(far, nebula.distance_pc + margin))
     },
     setBand(band) {
       bandWeights = MOLECULAR_CLOUD_BANDS[band]
@@ -553,6 +762,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
     render(renderer, scene, camera) {
       if (!root.visible || bandWeights.absorption === 0) {
         renderer.render(scene, camera)
+        drawOutline(renderer, camera)
         return
       }
       const previousTarget = renderer.getRenderTarget()
@@ -600,6 +810,7 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
         renderer.setRenderTarget(previousTarget)
         renderer.info.autoReset = autoReset
       }
+      drawOutline(renderer, camera)
     },
     dispose() {
       geometry.dispose()
@@ -610,6 +821,13 @@ export function createMolecularCloudLayer(clouds: readonly Star[], mode: StarCol
       compositeMaterial.dispose()
       rimMaterial.dispose()
       glowMaterial.dispose()
+      coverageMaterial.dispose()
+      coverageMesh.geometry.dispose()
+      discMaterial.dispose()
+      disc.geometry.dispose()
+      outlineMaterial.dispose()
+      outline.geometry.dispose()
+      outlineTarget?.dispose()
       noise.dispose()
     },
   }

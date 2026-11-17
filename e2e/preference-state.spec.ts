@@ -158,6 +158,7 @@ test('explains filter settings in tooltips while their labels keep working', asy
     ['category-interstellar_medium', 'H II regions'],
     ['category-stellar_remnants', 'planetary nebulae'],
     ['category-large_scale_structures', 'dust sheets'],
+    ['milky-way-visible', 'Magellanic Clouds'],
     ['object-distance-limit', 'from the origin'],
     ['magnitude-limit', 'Visibility from'],
     ['hide-fainter-objects', 'instead of dimming'],
@@ -180,6 +181,7 @@ test('explains filter settings in tooltips while their labels keep working', asy
   await expect(toggle).toBeChecked()
   await page.mouse.move(0, 0)
   // Generated category labels open their tooltip from the keyboard like the static ones.
+  // Interstellar medium's types are disabled while it is off, and Stellar remnants is fully on, so its show-all button is disabled too.
   await page.locator('#category-interstellar_medium').focus()
   await page.keyboard.press('Tab')
   await expect(toggle).toBeFocused()
@@ -214,7 +216,7 @@ test.describe('on touch', () => {
     await expect(toggle).toBeChecked()
     await label.tap()
     await expect(toggle).not.toBeChecked()
-    await page.locator('label[for="milky-way-visible"] .switch-control').tap()
+    await page.locator('.switch-control:has(#milky-way-visible)').tap()
     await expect(page.locator('#milky-way-visible')).not.toBeChecked()
     expect(await page.locator('#milky-way-visible-tooltip').evaluate((element) => element.matches(':popover-open'))).toBe(false)
   })

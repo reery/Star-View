@@ -1,7 +1,7 @@
 export const STELLAR_OBJECT_TYPES = ['star', 'white_dwarf', 'brown_dwarf', 'sub_brown_dwarf'] as const
 export const COMPACT_OBJECT_TYPES = ['pulsar', 'neutron_star', 'black_hole'] as const
 export const NEBULA_OBJECT_TYPES = ['reflection_nebula', 'hii_region', 'planetary_nebula', 'supernova_remnant'] as const
-export const MOLECULAR_CLOUD_OBJECT_TYPES = ['molecular_cloud'] as const
+export const MOLECULAR_CLOUD_OBJECT_TYPES = ['molecular_cloud', 'dark_nebula'] as const
 export const BUBBLE_OBJECT_TYPES = ['bubble'] as const
 export const GALAXY_OBJECT_TYPES = ['galaxy'] as const
 export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES, ...NEBULA_OBJECT_TYPES, ...MOLECULAR_CLOUD_OBJECT_TYPES, ...BUBBLE_OBJECT_TYPES, ...GALAXY_OBJECT_TYPES] as const
@@ -43,6 +43,17 @@ export interface NebulaShape {
   // Measured 3D emission (points only): per puff 8-bit line-of-sight, major and minor offsets
   // spanning ±semi-axes and an opacity, base64. Puffs beyond them fill a smooth body.
   points?: { radius_pc: number; values: string }
+  // Dark lanes seen against the glow, on the grid of `mask` (8-bit optical depth, base64), drawn with `puffs`
+  // absorbing puffs.
+  dust?: { size: [number, number]; puffs: number; values: string }
+  // Measured dust pillars: columns through axis points (toward Galactic north, toward increasing longitude, depth away
+  // from the Sun, radius; pc from the nebula centre), lit by the stars at `light_pc`. `rim_puffs` of `puff_count`
+  // draw their lit skin; `dust_puffs` more absorb the light behind them. A column's `opacity` (1 by default) thins its dust; an unlit column (`lit: false`) has no glowing skin;
+  // a `tint` (hex) is the colour its dust lets through; a fading column (`fade: true`) rises out of the glow from its first point.
+  pillars?: {
+    light_pc: [number, number, number]; rim_puffs: number; dust_puffs: number
+    columns: { name: string; opacity?: number; lit?: boolean; tint?: string; fade?: boolean; points: [number, number, number, number][] }[]
+  }
 }
 
 export interface NebulaDetails {
@@ -84,17 +95,12 @@ export interface RemnantDetails {
   drawn_as: string
 }
 
-export interface MolecularCloudDetails {
+/** Dust drawn from a 3D dust map: one-parsec voxels, sampled for display. */
+export interface DustGeometry {
+  // Seeds the display texture of the samples.
   catalog_id: number
-  complex_name: string | null
-  distance_pc: number
-  galactic_longitude_deg: number
-  galactic_latitude_deg: number
-  equivalent_radius_pc: number
   mean_density_cm3: number
   peak_density_cm3: number
-  surface_area_pc2: number
-  volume_pc3: number
   source_voxel_count: number
   // Flattened Galactic Cartesian display samples: x, y, z, x, y, z, ...
   sample_points_pc: number[]
@@ -104,10 +110,44 @@ export interface MolecularCloudDetails {
     exaggerated: { body: string; rim: string }
   }
   opacity: number
+}
+
+export interface MolecularCloudDetails extends DustGeometry {
+  // The published complex of the source catalog; null when it names none.
+  complex_name: string | null
+  // A complex this catalog associates the cloud with, from its dark nebulae or measured sightlines.
+  association?: { name: string; source: string }
+  distance_pc: number
+  galactic_longitude_deg: number
+  galactic_latitude_deg: number
+  equivalent_radius_pc: number
+  surface_area_pc2: number
+  volume_pc3: number
   position_source: string
   source_label: string
   source_url: string
   model_note: string
+}
+
+export interface DarkNebulaDetails {
+  catalog: string
+  galactic_longitude_deg: number
+  galactic_latitude_deg: number
+  // Diameter of the circle with the catalogued area.
+  angular_diameter_arcmin: number
+  // Lynds and Feitzinger & Stüwe opacity class, 1 (faintest) to 6 (darkest).
+  opacity_class: number | null
+  distance_pc: number
+  // 16th to 84th percentile of the distance measurement, or of the dust layer along the nebula.
+  distance_range_pc: [number, number]
+  distance_source: string
+  distance_url: string
+  // The drawn cloud whose dust makes the nebula; null when the nebula carries its own dust.
+  parent_cloud_id: string | null
+  geometry: DustGeometry | null
+  position_source: string
+  source_label: string
+  source_url: string
 }
 
 export interface BubbleShapeFeature {
@@ -469,6 +509,7 @@ export interface Star {
   compact?: CompactObjectDetails
   nebula?: NebulaDetails
   molecular_cloud?: MolecularCloudDetails
+  dark_nebula?: DarkNebulaDetails
   bubble?: BubbleDetails
   galaxy?: GalaxyDetails
 }
@@ -493,6 +534,11 @@ export function isMolecularCloudObject(star: Pick<Star, 'type'>): boolean {
   return MOLECULAR_CLOUD_OBJECT_TYPES.some((type) => type === star.type)
 }
 
+/** The dust a cloud or a free-standing dark nebula draws. */
+export function dustGeometry(star: Pick<Star, 'molecular_cloud' | 'dark_nebula'>): DustGeometry | null {
+  return star.molecular_cloud ?? star.dark_nebula?.geometry ?? null
+}
+
 export function isBubbleObject(star: Pick<Star, 'type'>): boolean {
   return BUBBLE_OBJECT_TYPES.some((type) => type === star.type)
 }
@@ -515,6 +561,7 @@ export function objectTypeLabel(type: ObjectType): string {
     planetary_nebula: 'Planetary nebula',
     supernova_remnant: 'Supernova remnant',
     molecular_cloud: 'Molecular cloud',
+    dark_nebula: 'Dark nebula',
     bubble: 'Bubble',
     galaxy: 'Galaxy',
   }[type]

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys,
-  FILTER_CATEGORIES, FILTER_KEYS, filterCategoryForKey, filterKeyForObject, filterSummary, restoredFilterSubtypes,
+  FILTER_CATEGORIES, FILTER_KEYS, filterKeyForObject, filterSummary, restoredFilterSubtypes,
 } from './object-filter'
 
 describe('object filter taxonomy', () => {
@@ -25,9 +25,6 @@ describe('object filter taxonomy', () => {
     expect(filterKeyForObject({ id: 'gaia-bh1', type: 'black_hole' })).toBe('black_hole')
     expect(filterKeyForObject({ id: 'orion-nebula', type: 'hii_region' })).toBe('hii_region')
     expect(filterKeyForObject({ id: 'local-bubble', type: 'bubble' })).toBe('bubble')
-    expect(filterCategoryForKey('hii_region')).toBe('interstellar_medium')
-    expect(filterCategoryForKey('bubble')).toBe('large_scale_structures')
-    expect(filterCategoryForKey('sun')).toBe('compact_objects')
   })
 
   it('derives availability from bundled catalogs and positive overlay counts', () => {
