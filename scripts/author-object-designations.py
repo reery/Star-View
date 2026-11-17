@@ -46,7 +46,8 @@ def display(value):
 
 
 def expanded(value):
-    match = re.fullmatch(r"([a-z.]+)(\d{0,2}) ([A-Z][A-Za-z]{2})(.*)", value)
+    # The constellation abbreviation is a whole word: "rho Ophiuchus Cloud" is already spelled out.
+    match = re.fullmatch(r"([a-z.]+)(\d{0,2}) ([A-Z][A-Za-z]{2})((?: .*)?)", value)
     if not match or match[1] not in GREEK or match[3] not in GENITIVES:
         return None
     number = str(int(match[2])) if match[2] else ""
@@ -245,6 +246,12 @@ def build():
                 # an identity match for a separately rendered nebula.
                 if resolved and re.match(r"^(?:ic |ngc |m |sh |lbn |pn |vdb )", resolved):
                     identifiers.append(query)
+        dark_nebula = row["type"] == "dark_nebula"
+        if dark_nebula:
+            for value in row["designations"]:
+                # SIMBAD files a few dark nebulae under an embedded protostar; only cloud records identify them.
+                if (resolved := resolve(value)) and re.match(r"^(?:ldn|barnard|fest|sandqvist|dcld|bhr|tgu|\[db2002b\]|name|co) ", resolved):
+                    identifiers.append(value)
         if identifier in reviewed:
             identifiers.extend(reviewed[identifier].get("identifiers", []))
         main = next((match for value in identifiers if (match := resolve(value))), None)
@@ -257,6 +264,8 @@ def build():
             sources.extend(record["sources"])
             for value in record["aliases"]:
                 if row["type"] == "pulsar" and (value.startswith(("SNR ", "PWN ")) or re.search(r"\b(?:SNR|PWN|Nebula)\b", value, re.I)):
+                    continue
+                if dark_nebula and not re.match(r"^(?:NAME|LDN|Barnard|FEST|Sandqvist|DCld|BHR|TGU|\[DB2002b\]|CB|DOBASHI)\s+", value, re.I):
                     continue
                 if nebula and not re.match(r"^(?:NAME|IC|NGC|M|SH|LBN|Ced|PN|PK|GN|VDB|ESO)\s+", value, re.I):
                     # Some planetary-nebula records also contain central-star
@@ -272,7 +281,8 @@ def build():
                 sources.append("catalog-work/object-designations/iau-names.csv")
             # Keep authored, familiar names; use a published proper name for
             # catalog-number names. Explicit choices resolve ambiguous nicknames.
-            if identifier not in default_names and generic(name) and named:
+            # Dark nebulae keep their catalog names: SIMBAD files several under the cloud that holds them.
+            if identifier not in default_names and generic(name) and named and not dark_nebula:
                 name = next((value for value in named if not generic(value)), name)
         for r, _ in rows:
             aliases.extend(r.get("designations", "").split("|") if isinstance(r.get("designations"), str) else r.get("designations", []))

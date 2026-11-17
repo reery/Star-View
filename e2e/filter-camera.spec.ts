@@ -81,10 +81,13 @@ for (const mode of ['overview', 'manual', 'observer'] as const) {
         await expect(subtype).not.toBeChecked()
         await page.locator('.filter-dropdown summary').press('Space')
       }],
-      ['category', () => page.locator('#category-compact_objects').uncheck()],
       ['catalog', () => page.locator('#catalog-range').fill('1')],
       ['constellation stars on', () => page.locator('#show-western-constellation-stars').check()],
       ['constellation stars off', () => page.locator('#show-western-constellation-stars').uncheck()],
+      // Turning a category off disables its tile, including the catalog controls above.
+      ['category off', () => page.locator('#category-compact_objects').uncheck()],
+      ['category on', () => page.locator('#category-compact_objects').check()],
+      ['show all in category', () => page.locator('[data-enable-category="stellar_remnants"]').click()],
       ['overlay on', () => page.locator('#category-interstellar_medium').check()],
       ['overlay off', () => page.locator('#category-interstellar_medium').uncheck()],
       ['reset filters', () => page.locator('#filter-reset').click()],

@@ -14,6 +14,11 @@ of Martin, Milisavljevic & Drissen (2021). Rebuild the frozen point set with
 --points <directory holding 3dmap_XYZflux.fits and 3dmap_XYZvel.fits>; offline
 builds read only catalog-work/nebulae/point-clouds.json.
 
+The Eagle Nebula takes its sky shape from the ESO wide-field image eso0926a, and its Pillars of
+Creation are 3D columns measured on the 2015 Hubble image heic1501a. Rebuild the frozen trace
+with --images <directory holding eso0926a.jpg>; macOS sips decodes the JPEG. Offline builds read
+only catalog-work/nebulae/image-masks.json.
+
 Every row, including those kept as authored, takes its surface brightness from
 catalog-work/nebulae/surface-brightness.json. Rebuild it with
 --surface-brightness <directory> holding the Finkbeiner map above and these
@@ -39,6 +44,7 @@ WORK = ROOT / "catalog-work/nebulae"
 ADDITIONS = WORK / "additions.json"
 MASKS = WORK / "halpha-masks.json"
 POINTS = WORK / "point-clouds.json"
+IMAGE_MASKS = WORK / "image-masks.json"
 SURFACE_BRIGHTNESS = WORK / "surface-brightness.json"
 OVERLAY = ROOT / "src/data/overlays/nebulae"
 HALPHA_URL = "https://lambda.gsfc.nasa.gov/data/foregrounds/halpha/lambda_halpha_fwhm06_0512.fits"
@@ -91,6 +97,47 @@ POINT_FLUX_CAP_PERCENTILE = 99.9
 # Opacity follows the square root of the summed voxel flux; the 95th percentile of the kept puffs
 # maps to two thirds of the byte range, so brighter filaments keep headroom.
 POINT_ALPHA_HEADROOM = 1.5
+# Published images that trace a nebula: centre, field and orientation are the publisher's, and the screen-size JPEG is
+# the frozen input. The Eagle's sky shape comes from the ESO wide-field image; its pillars are measured on Hubble's.
+IMAGE_SOURCES = {
+    "eso0926a": {
+        "url": "https://www.eso.org/public/images/eso0926a/",
+        "file": "eso0926a.jpg",
+        "download": "https://cdn.eso.org/images/screen/eso0926a.jpg",
+        "sha256": "54910346ee8758b32c9e94521ff3163f2c460090199b12418adc793f0bea3920",
+        "credit": "ESO; MPG/ESO 2.2-metre telescope WFI, B, V and R filters",
+        "license": "CC BY 4.0",
+        # Registered on the Pillars of Creation, HD 168076 and QR Ser: they all lie 12 px west and about 133 px south of where
+        # the published centre (18 18 48.01, -13 49 11.8) puts them, so the image centre is 18" east and 200" north of it.
+        "ra_deg": 274.705190, "dec_deg": -13.764400, "field_arcmin": [32.08, 32.08], "pixels": [1280, 1280], "up_position_angle_deg": 0,
+    },
+    "heic1501a": {
+        "url": "https://esahubble.org/images/heic1501a/",
+        "file": "heic1501a.jpg",
+        "download": "https://cdn.esahubble.org/archives/images/screen/heic1501a.jpg",
+        "sha256": "285e1f921b1fc258f48532e83dcfd30a7f9bcc704e1af9b0fa2c6468e31bc39d",
+        "credit": "NASA, ESA/Hubble and the Hubble Heritage Team",
+        "license": "CC BY 4.0",
+        "ra_deg": 274.719667, "dec_deg": -13.839436, "field_arcmin": [4.53, 4.72], "pixels": [1280, 1335], "up_position_angle_deg": 325,
+    },
+}
+# Each traced cell takes the median of the image pixels it covers, so stars and their spikes drop out; cells still
+# brighter than their 3 x 3 median by more than this are star residuals.
+IMAGE_STAR_EXCESS = 0.08
+# Dark lanes: cells darker than the mean of the glow around them (a box this many cells wide), by this fraction,
+# and only where that glow is at least this bright relative to the peak; dark sky without glow is not dust.
+IMAGE_CONTEXT_CELLS = 9
+IMAGE_DUST_DEFICIT = (0.15, 0.5)
+IMAGE_DUST_GLOW = (0.08, 0.2)
+IMAGE_MIN_DUST_CELLS = 4
+# The photograph's sky background (this percentile of the field) becomes black, and a power compresses its display
+# stretch, so dark clouds read as dark rather than as faint glow.
+IMAGE_BLACK_PERCENTILE = 15
+IMAGE_CONTRAST = 1.5
+# The traced field fades out over this outer fraction of its radius.
+IMAGE_EDGE = 0.3
+# Cells within this many radii of a measured pillar's axis belong to the pillar: the 3D columns replace them.
+PILLAR_FOOTPRINT = 1.3
 # Masks sample the 6-arcmin map at about its native pixel scale.
 MASK_PIXEL_ARCMIN = 6.87
 MASK_MAX_SIZE = 64
@@ -363,6 +410,190 @@ def build_points(directory):
     }
 
 
+def read_bmp(path):
+    """24- or 32-bit uncompressed BMP as an RGB array in 0-1, top row first."""
+    import numpy as np
+    data = Path(path).read_bytes()
+    offset, width, height = (int.from_bytes(data[start:start + 4], "little", signed=True) for start in (10, 18, 22))
+    channels = int.from_bytes(data[28:30], "little") // 8
+    stride = (width * channels + 3) // 4 * 4
+    rows = np.frombuffer(data, np.uint8, count=stride * abs(height), offset=offset).reshape(abs(height), stride)
+    image = rows[:, :width * channels].reshape(abs(height), width, channels)[:, :, 2::-1] / 255
+    return image if height < 0 else image[::-1]
+
+
+def smoothstep(edges, value):
+    import numpy as np
+    low, high = edges
+    t = np.clip((value - low) / (high - low), 0, 1)
+    return t * t * (3 - 2 * t)
+
+
+def shifted(grid, reach=1):
+    """The square grid shifted by every offset within `reach` cells, edges repeated: one layer per offset."""
+    import numpy as np
+    size = grid.shape[0]
+    padded = np.pad(grid, reach, mode="edge")
+    return np.stack([padded[reach + dr:size + reach + dr, reach + dc:size + reach + dc]
+                     for dr in range(-reach, reach + 1) for dc in range(-reach, reach + 1)])
+
+
+def small_components(cells, minimum):
+    """Cells of the 8-connected groups in a boolean grid with fewer than `minimum` cells."""
+    import numpy as np
+    size = cells.shape[0]
+    label = np.zeros(cells.shape, dtype=bool)
+    small = np.zeros(cells.shape, dtype=bool)
+    for start in zip(*np.nonzero(cells)):
+        if label[start]:
+            continue
+        label[start] = True
+        group, stack = [start], [start]
+        while stack:
+            row, column = stack.pop()
+            for r in range(max(0, row - 1), min(size, row + 2)):
+                for c in range(max(0, column - 1), min(size, column + 2)):
+                    if cells[r, c] and not label[r, c]:
+                        label[r, c] = True
+                        group.append((r, c))
+                        stack.append((r, c))
+        if len(group) < minimum:
+            small[tuple(np.array(group).T)] = True
+    return small
+
+
+def image_frame(source, entry):
+    """Transforms between pixels of a source image and Galactic tangent-plane offsets (arcmin) from the nebula centre."""
+    from astropy.coordinates import SkyCoord
+    import astropy.units as units
+    center = SkyCoord(ra=entry["ra_deg"] * units.deg, dec=entry["dec_deg"] * units.deg, frame="icrs")
+    tilt = float(center.position_angle(SkyCoord(l=0 * units.deg, b=90 * units.deg, frame="galactic").icrs).rad)
+    gl, gb = gnomonic_offset(entry, source["ra_deg"], source["dec_deg"])
+    origin = math.degrees(gb) * 60, math.degrees(gl) * 60
+    up = math.radians(source["up_position_angle_deg"])
+    width, height = source["pixels"]
+    scale = source["field_arcmin"][0] / width
+    # Image right is 90 degrees clockwise from up, as in any east-left astronomical image.
+    axes = ((math.cos(up), math.sin(up)), (math.cos(up - math.pi / 2), math.sin(up - math.pi / 2)))
+
+    def to_pixels(north, east):
+        north, east = north - origin[0], east - origin[1]
+        sky_north, sky_east = north * math.cos(tilt) - east * math.sin(tilt), north * math.sin(tilt) + east * math.cos(tilt)
+        upward, right = (sky_north * axis[0] + sky_east * axis[1] for axis in axes)
+        return (width - 1) / 2 + right / scale, (height - 1) / 2 - upward / scale
+
+    def to_offsets(x, y):
+        right, upward = (x - (width - 1) / 2) * scale, ((height - 1) / 2 - y) * scale
+        sky_north = upward * axes[0][0] + right * axes[1][0]
+        sky_east = upward * axes[0][1] + right * axes[1][1]
+        return (sky_north * math.cos(tilt) + sky_east * math.sin(tilt) + origin[0],
+                -sky_north * math.sin(tilt) + sky_east * math.cos(tilt) + origin[1])
+
+    return to_pixels, to_offsets
+
+
+def pillar_columns(entry, distance):
+    """Measured pillars as axis points (toward Galactic north, toward increasing longitude, depth, radius; pc)."""
+    settings = entry["pillars"]
+    pc_per_arcmin = distance * math.tan(math.radians(1 / 60))
+    columns = []
+    for column in settings["columns"]:
+        # A column is measured on the pillars' image unless it names another, such as the wide field for the ridge below.
+        source = IMAGE_SOURCES[column.get("image", settings["image"])]
+        _, to_offsets = image_frame(source, entry)
+        scale = source["field_arcmin"][0] / source["pixels"][0]
+        points = []
+        for x, y, width_px, depth in column["points"]:
+            north, east = to_offsets(x, y)
+            points.append([round(north * pc_per_arcmin, 4), round(east * pc_per_arcmin, 4), depth, round(width_px / 2 * scale * pc_per_arcmin, 4)])
+        columns.append({"name": column["name"], **{key: column[key] for key in ("opacity", "lit", "tint", "fade") if key in column}, "points": points})
+    return columns
+
+
+def build_image_masks(directory):
+    import subprocess
+    import tempfile
+    import numpy as np
+    masks = {}
+    for entry in json.loads(ADDITIONS.read_text())["objects"]:
+        if "image_mask" not in entry:
+            continue
+        settings = entry["image_mask"]
+        source = IMAGE_SOURCES[settings["image"]]
+        path = Path(directory) / source["file"]
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        if digest != source["sha256"]:
+            raise SystemExit(f"Unexpected {source['file']} checksum {digest}")
+        with tempfile.TemporaryDirectory() as scratch:
+            bitmap = Path(scratch) / "image.bmp"
+            subprocess.run(["sips", "-s", "format", "bmp", str(path), "--out", str(bitmap)], check=True, capture_output=True)
+            image = read_bmp(bitmap)
+        cells, half = settings["cells"], settings["width_arcmin"] / 2
+        to_pixels, _ = image_frame(source, entry)
+        # Cell corners; rows run toward Galactic north and columns toward increasing longitude, as for the H-alpha masks.
+        corner_east, corner_north = np.meshgrid(np.linspace(-half, half, cells + 1), np.linspace(-half, half, cells + 1))
+        xs, ys = to_pixels(corner_north, corner_east)
+        # The brightest channel, so red hydrogen-alpha counts as fully as the white core (luminance would weight it by 0.21).
+        gray = image.max(axis=2)
+        luminance = np.zeros((cells, cells))
+        for row in range(cells):
+            for column in range(cells):
+                x, y = xs[row:row + 2, column:column + 2], ys[row:row + 2, column:column + 2]
+                x0, x1 = int(max(0, x.min())), int(min(gray.shape[1], math.ceil(x.max())))
+                y0, y1 = int(max(0, y.min())), int(min(gray.shape[0], math.ceil(y.max())))
+                luminance[row, column] = float(np.median(gray[y0:y1, x0:x1])) if x1 > x0 and y1 > y0 else 0
+        luminance = np.minimum(luminance, np.median(shifted(luminance), axis=0) + IMAGE_STAR_EXCESS)
+        steps = (np.arange(cells) + 0.5) / cells * 2 - 1
+        east, north = np.meshgrid(steps * half, steps * half)
+        # Cells the measured pillars cover: their 3D columns replace both the dark silhouette and the light behind it.
+        pillar = np.zeros((cells, cells), dtype=bool)
+        if "pillars" in entry:
+            distance, _, _ = adopted_distance(entry)
+            pc_per_arcmin = distance * math.tan(math.radians(1 / 60))
+            for column in pillar_columns(entry, distance):
+                for (n0, e0, _, r0), (n1, e1, _, r1) in zip(column["points"], column["points"][1:]):
+                    a, b = np.array([n0, e0]) / pc_per_arcmin, np.array([n1, e1]) / pc_per_arcmin
+                    t = np.clip(((north - a[0]) * (b[0] - a[0]) + (east - a[1]) * (b[1] - a[1])) / max(np.sum((b - a) ** 2), 1e-12), 0, 1)
+                    gap = np.hypot(north - (a[0] + t * (b[0] - a[0])), east - (a[1] + t * (b[1] - a[1])))
+                    pillar |= gap < PILLAR_FOOTPRINT * (r0 + t * (r1 - r0)) / pc_per_arcmin + half / cells
+        # Fill the pillars' cells with the glow around them, spreading inward from their edges.
+        known = ~pillar
+        for _ in range(4 * cells):
+            if known.all():
+                break
+            values, counts = shifted(np.where(known, luminance, 0)).sum(axis=0), shifted(known.astype(float)).sum(axis=0)
+            grow = ~known & (counts > 0)
+            luminance[grow] = values[grow] / counts[grow]
+            known |= grow
+        reach = IMAGE_CONTEXT_CELLS // 2
+        summed = np.pad(np.pad(luminance, reach, mode="edge").cumsum(0).cumsum(1), ((1, 0), (1, 0)))
+        width = 2 * reach + 1
+        context = (summed[width:, width:] - summed[:-width, width:] - summed[width:, :-width] + summed[:-width, :-width]) / width ** 2
+        peak = luminance.max()
+        dust = smoothstep(IMAGE_DUST_DEFICIT, (context - luminance) / np.maximum(context, 1e-6)) * smoothstep(IMAGE_DUST_GLOW, context / peak)
+        dust[small_components(dust > 0.05, IMAGE_MIN_DUST_CELLS)] = 0
+        taper = smoothstep((0, IMAGE_EDGE), 1 - np.hypot(*np.meshgrid(steps, steps)))
+        black = np.percentile(luminance, IMAGE_BLACK_PERCENTILE)
+        emission = np.clip((luminance - black) / (peak - black), 0, 1) ** IMAGE_CONTRAST * taper
+        encode = lambda grid: base64.b64encode(np.round(np.clip(grid, 0, 1) * 255).astype(np.uint8).tobytes()).decode()
+        masks[entry["id"]] = {"image": settings["image"], "cells": cells, "width_arcmin": settings["width_arcmin"],
+                              "emission": encode(emission), "dust": encode(dust * taper)}
+    return {
+        "schemaVersion": 1,
+        "sources": {name: {key: source[key] for key in ("url", "download", "sha256", "credit", "license")} for name, source in IMAGE_SOURCES.items()},
+        "method": (
+            "A square grid centred on the nebula, rows toward Galactic north and columns toward increasing longitude. Each cell takes the "
+            f"median brightest-channel value of the screen-size JPEG pixels it covers; cells more than {IMAGE_STAR_EXCESS} above their 3 x 3 median are "
+            "clipped as star residuals. Cells covered by measured pillars take the glow around them. Emission is luminance from the field's "
+            f"{IMAGE_BLACK_PERCENTILE}th percentile to its peak, raised to the power {IMAGE_CONTRAST}; "
+            f"dust marks cells darker than their {IMAGE_CONTEXT_CELLS}-cell box mean by {IMAGE_DUST_DEFICIT[0]}-{IMAGE_DUST_DEFICIT[1]} of it where "
+            f"that glow is at least {IMAGE_DUST_GLOW[0]}-{IMAGE_DUST_GLOW[1]} of the peak, without groups under {IMAGE_MIN_DUST_CELLS} cells. "
+            f"Both fade out over the outer {IMAGE_EDGE} of the inscribed circle's radius."
+        ),
+        "masks": masks,
+    }
+
+
 def rayleigh_magnitude(rayleigh):
     """H-alpha surface brightness in Rayleigh as R-band mag/arcsec^2."""
     return -2.5 * math.log10(rayleigh * RAYLEIGH_ERG_ARCSEC2 / R_BAND_WIDTH_A / R_BAND_VEGA)
@@ -455,7 +686,10 @@ def build_surface_brightness(directory):
     diameters, fluxes = first(table("V_84_diam")), first(table("V_84_hbeta"))
     masks = json.loads(MASKS.read_text())["masks"]
     previous = json.loads(SURFACE_BRIGHTNESS.read_text())["nebulae"] if SURFACE_BRIGHTNESS.exists() else {}
-    hand = {entry["id"]: entry["brightness"] for entry in json.loads(ADDITIONS.read_text())["objects"] if "brightness" in entry}
+    additions = json.loads(ADDITIONS.read_text())["objects"]
+    hand = {entry["id"]: entry["brightness"] for entry in additions if "brightness" in entry}
+    # A peak on a vast faint arc and a plate class for the whole region measure different things.
+    uncalibrated = {entry["id"] for entry in additions if entry.get("calibrate") is False}
     rows = authored_rows()
 
     def field_peak(row):
@@ -499,14 +733,14 @@ def build_surface_brightness(directory):
 
     # Plate classes step about a magnitude each; their zero point follows the H-alpha measurements they overlap.
     lynds_offset = median(record["mag_arcsec2"] - pending[identifier]["lynds"]["class"]
-                          for identifier, record in measured.items() if pending[identifier]["lynds"])
+                          for identifier, record in measured.items() if pending[identifier]["lynds"] and identifier not in uncalibrated)
     # Reflection classes map linearly onto the Lynds classes of the nebulae both catalogues list.
     overlaps = [(REFLECTION_CLASSES[item["reflection"][0]], item["lynds"]["class"]) for item in pending.values() if item["reflection"] and item["lynds"]]
     slope, intercept = np.polyfit(*zip(*overlaps), 1)
     reflection_level = {name: round(float(intercept + slope * index), 2) for name, index in REFLECTION_CLASSES.items()}
     # The hand scale keeps its slope; its zero point follows the measurements it overlaps.
     hand_offset = median(record["mag_arcsec2"] - rayleigh_magnitude(hand_rayleigh(pending[identifier]["hand"]))
-                         for identifier, record in measured.items() if pending[identifier]["hand"] is not None)
+                         for identifier, record in measured.items() if pending[identifier]["hand"] is not None and identifier not in uncalibrated)
 
     nebulae = {}
     for row in rows:
@@ -550,7 +784,8 @@ def build_surface_brightness(directory):
             f"Lynds classes step one magnitude each from a zero point of {lynds_offset:.2f} (the median offset of the measurements they overlap), "
             "and reflection-nebula classes map linearly onto the Lynds classes of the nebulae both catalogues list. The remaining few keep their "
             f"hand estimate, shifted by {hand_offset:.2f} mag (the median offset of the measurements it overlaps); supernova remnants the map "
-            "cannot isolate are capped at the H-alpha peak of their field."
+            "cannot isolate are capped at the H-alpha peak of their field. Barnard's Loop keeps its measured peak but stays out of the zero points: "
+            "its plate class rates a far larger region than the arc's peak."
         ),
         "calibration": {"lynds_offset_mag": round(lynds_offset, 2), "reflection_lynds_class": reflection_level, "hand_offset_mag": round(hand_offset, 2)},
         "nebulae": nebulae,
@@ -562,7 +797,7 @@ def mask_puff_count(mask):
     return max(16, min(4096, sum(value > 0 for value in base64.b64decode(mask["values"]))))
 
 
-def nebula_row(entry, masks, points):
+def nebula_row(entry, masks, points, images):
     distance, error, distance_source = adopted_distance(entry)
     major, minor = entry["angular_size_arcmin"]
     details = {
@@ -584,7 +819,17 @@ def nebula_row(entry, masks, points):
         depth = round(radius * entry["mask"].get("depth_fraction", 1), 6)
         shape = {"kind": entry["shape"], "semi_axes_pc": [depth, radius, radius], "position_angle_deg": 0,
                  "layer_offsets_pc": [], "mask": {"size": mask["size"], "values": mask["values"]}}
-        puff_count = mask_puff_count(mask)
+        puff_count = entry.get("puff_count", mask_puff_count(mask))
+    elif "image_mask" in entry:
+        settings, image = entry["image_mask"], images["masks"][entry["id"]]
+        if any(image[key] != settings[key] for key in ("image", "cells", "width_arcmin")):
+            raise SystemExit(f"Stale image mask for {entry['id']}; rebuild with --images")
+        radius = semi_axis(distance, settings["width_arcmin"])
+        size = [settings["cells"], settings["cells"]]
+        shape = {"kind": entry["shape"], "semi_axes_pc": [round(radius * settings["depth_fraction"], 6), radius, radius], "position_angle_deg": 0,
+                 "layer_offsets_pc": [], "mask": {"size": size, "values": image["emission"]},
+                 "dust": {"size": size, "puffs": settings["dust_puffs"], "values": image["dust"]}}
+        puff_count = settings["emission_puffs"]
     elif "points" in entry:
         cloud = points["clouds"][entry["id"]]
         if cloud["distance_pc"] != distance or cloud["radius_pc"] != entry["points"]["voxel_pc"]:
@@ -597,6 +842,11 @@ def nebula_row(entry, masks, points):
         radius = semi_axis(distance, math.sqrt(major * minor))
         shape = {"kind": entry["shape"], "semi_axes_pc": [radius, radius, radius], "position_angle_deg": 0, "layer_offsets_pc": []}
         puff_count = entry.get("puff_count", max(64, min(1024, round(1.2 * math.sqrt(major * minor)))))
+    if "pillars" in entry:
+        settings = entry["pillars"]
+        shape["pillars"] = {"light_pc": settings["light_pc"], "rim_puffs": settings["rim_puffs"], "dust_puffs": settings["dust_puffs"],
+                            "columns": pillar_columns(entry, distance)}
+        puff_count += settings["rim_puffs"]
     details.update({
         "shape": shape,
         "palette": PALETTES[entry["palette"]],
@@ -657,9 +907,10 @@ def authored_rows():
     additions = json.loads(ADDITIONS.read_text())["objects"]
     masks = json.loads(MASKS.read_text())
     points = json.loads(POINTS.read_text())
+    images = json.loads(IMAGE_MASKS.read_text())
     listed = {entry["id"] for entry in additions}
     kept = json.loads((OVERLAY / "objects.json").read_text())["objects"]
-    return [row for row in kept if row["id"] not in listed] + [nebula_row(entry, masks, points) for entry in additions]
+    return [row for row in kept if row["id"] not in listed] + [nebula_row(entry, masks, points, images) for entry in additions]
 
 
 def render():
@@ -679,6 +930,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--masks", metavar="HALPHA_FITS", help="Rebuild the frozen H-alpha masks from the Finkbeiner map")
     parser.add_argument("--points", metavar="M1_PAPER_DIR", help="Rebuild the frozen Crab Nebula point cloud from the released 3D maps")
+    parser.add_argument("--images", metavar="IMAGE_DIR", help="Rebuild the frozen image-traced sky shapes from their published images")
     parser.add_argument("--surface-brightness", metavar="SOURCE_DIR", help="Rebuild the frozen surface brightness from the H-alpha map and VizieR tables")
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
@@ -686,6 +938,8 @@ def main():
         MASKS.write_text(json.dumps(build_masks(args.masks), indent=2) + "\n")
     if args.points:
         POINTS.write_text(json.dumps(build_points(args.points), indent=2) + "\n")
+    if args.images:
+        IMAGE_MASKS.write_text(json.dumps(build_image_masks(args.images), indent=2, ensure_ascii=False) + "\n")
     if args.surface_brightness:
         SURFACE_BRIGHTNESS.write_text(json.dumps(build_surface_brightness(args.surface_brightness), indent=2, ensure_ascii=False) + "\n")
     outputs = render()

@@ -696,7 +696,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(catalogSlider).toHaveAttribute('aria-valuetext', 'Nearest neighbors')
   await expect(page.locator('#catalog-range-markers span')).toHaveText(['nearest-neighbors', 'nearest-100', 'nearest-1000', 'nearest-5000'].map((id) => String(shippedObjectCount(id))))
   const categoryNames = ['Compact objects', 'Interstellar medium', 'Stellar remnants', 'Large-scale structures']
-  await expect(page.locator('#object-categories .toggle-text > span:first-child')).toHaveText(categoryNames)
+  await expect(page.locator('.filter-tile-heading .mass-metric-help')).toHaveText([...categoryNames, 'Galaxies'])
   for (const [name, checked, available] of [
     ['Compact objects', true, true], ['Interstellar medium', false, true],
     ['Stellar remnants', false, true], ['Large-scale structures', false, true],
@@ -710,7 +710,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
     }
   }
   await expect(page.locator('.filter-toggle').first()).toHaveCSS('font-size', '14px')
-  await expect(page.locator('.category-toggle').first()).toHaveCSS('font-size', '14px')
+  await expect(page.locator('.filter-tile-heading .filter-toggle').first()).toHaveCSS('font-size', '14px')
   await expect(page.locator('#motion-frame-label')).toHaveCSS('font-size', '14px')
   await expect(page.locator('#motion-frame .unit-options span').first()).toHaveCSS('font-size', '12px')
   const distance = page.getByLabel('Object visibility distance', { exact: true })
@@ -734,11 +734,11 @@ test('presents the selected object beside an expandable control dock', async ({ 
   ]
   const typeDropdown = page.locator('details.filter-dropdown')
   await expect(typeDropdown).not.toHaveAttribute('open')
-  await expect(page.locator('#object-type-options')).toBeHidden()
+  const compactTypes = page.getByRole('group', { name: 'Compact objects types', exact: true })
+  await expect(compactTypes).toBeHidden()
   await typeDropdown.locator('summary').click()
-  await expect(page.locator('#object-type-options')).toBeVisible()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 12')
-  await expect(page.locator('.type-group-heading')).toHaveText(categoryNames)
+  await expect(compactTypes).toBeVisible()
+  await expect(page.locator('.filter-tile-count')).toHaveText('4 of 7')
   await expect(page.locator('.object-type-option > span:not(.filter-hint):not(:empty)')).toHaveText(typeGroups.flat())
   const option = (name: string) => page.getByRole('checkbox', { name, exact: true })
   for (const name of ['Sun', 'Stars', 'Brown dwarfs', 'White dwarfs']) {
@@ -882,13 +882,13 @@ test('filters the map and object browser even when an excluded object is selecte
   const stars = page.getByLabel('Stars', { exact: true })
   const sunChoice = page.getByLabel('Sun', { exact: true })
   const brownDwarfs = page.getByLabel('Brown dwarfs', { exact: true })
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('4 of 12')
+  await expect(page.locator('.filter-tile-count')).toHaveText('4 of 7')
   await stars.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 12')
+  await expect(page.locator('.filter-tile-count')).toHaveText('3 of 7')
   await expect(sun).toHaveAttribute('data-map-visible', 'true')
   await expect(sun).toBeVisible()
   await sunChoice.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('2 of 12')
+  await expect(page.locator('.filter-tile-count')).toHaveText('2 of 7')
   await expect(sun).toHaveCount(0)
   await stars.check()
   await expect(sun).toHaveCount(0)
@@ -896,7 +896,7 @@ test('filters the map and object browser even when an excluded object is selecte
   await expect(sun).toHaveAttribute('data-map-visible', 'true')
   await expect(sun).toBeVisible()
   await brownDwarfs.uncheck()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('3 of 12')
+  await expect(page.locator('.filter-tile-count')).toHaveText('3 of 7')
   await expect(luhmanA).toHaveAttribute('data-map-visible', 'false')
   await expect(luhmanA).toBeHidden()
   await expect(luhmanB).toHaveCount(0)
@@ -1125,7 +1125,7 @@ test('shrinks distant star cores while retaining bright glare around a 1,000-lig
   await page.getByLabel('Object visibility distance', { exact: true }).fill('0')
   await page.getByLabel('V magnitude limit', { exact: true }).fill('0')
   await page.locator('details.filter-dropdown > summary').click()
-  await page.locator('#object-type-filter').getByLabel('Sun', { exact: true }).uncheck()
+  await page.locator('#filter-tiles').getByLabel('Sun', { exact: true }).uncheck()
   await page.getByRole('button', { name: 'Grid', exact: true }).click()
 
   const canvas = page.locator('#scene canvas')

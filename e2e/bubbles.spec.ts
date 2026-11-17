@@ -44,7 +44,6 @@ test('loads the bubble shells on demand as visible sourced shells under Bubbles'
   await expect.poll(() => bubbleRequests.length).toBe(1)
   await expect(page.locator('.projected-labels')).toHaveAttribute('data-bubble-triangle-count', '8060')
   await expect(page.locator('.projected-labels')).toHaveAttribute('data-bubble-visible-count', '1')
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('5 of 12')
   await page.getByRole('button', { name: 'Filter', exact: true }).click()
   const outsideImage = PNG.sync.read(await page.locator('#scene canvas').screenshot({ path: testInfo.outputPath('local-bubble-outside.png') }))
   const outsideBlue = faintBluePixels(outsideImage)

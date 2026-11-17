@@ -1,15 +1,16 @@
 {
   "schemaVersion": 1,
   "id": "molecular-clouds",
-  "label": "Molecular clouds",
-  "description": "The 65 distinct molecular-cloud features segmented in true 3D from the Leike et al. solar-neighborhood dust map by Cahlon et al. (2024).",
+  "label": "Molecular clouds and dark nebulae",
+  "description": "115 molecular clouds in true 3D: the 65 features Cahlon et al. (2024) segmented from the Leike et al. (2020) dust map, plus the smaller clouds within 1000 ly that their 500-solar-mass floor leaves out, from the Edenhofer et al. (2024) map. 607 catalogued dark nebulae within 1000 ly, placed by 3D dust maps and measured cloud distances, anchored to the clouds whose dust makes them.",
   "epoch": 2000,
-  "objectCount": 65,
+  "objectCount": 722,
   "counts": {
-    "molecular_cloud": 65
+    "molecular_cloud": 115,
+    "dark_nebula": 607
   },
-  "sourceVoxelCount": 78326,
-  "displaySampleCount": 19606,
+  "sourceVoxelCount": 106681,
+  "displaySampleCount": 26781,
   "sources": [
     {
       "name": "Cahlon et al. (2024); parsec-scale catalog of molecular clouds in the solar neighborhood",
@@ -22,8 +23,32 @@
     {
       "name": "Leike et al. (2020); parsec-resolution 3D dust map",
       "url": "https://doi.org/10.1051/0004-6361/202038169"
+    },
+    {
+      "name": "Edenhofer et al. (2024); parsec-scale Galactic 3D dust map out to 1.25 kpc",
+      "url": "https://doi.org/10.1051/0004-6361/202347628"
+    },
+    {
+      "name": "Zucker et al. (2021); 3D structure of local molecular clouds (Leike et al. cutouts)",
+      "url": "https://doi.org/10.3847/1538-4357/ac1f96"
+    },
+    {
+      "name": "Zucker et al. (2020); distances to molecular clouds in the Star Formation Handbook",
+      "url": "https://doi.org/10.1051/0004-6361/201936145"
+    },
+    {
+      "name": "Lynds (1962); Catalogue of Dark Nebulae (VizieR VII/7A)",
+      "url": "https://doi.org/10.1086/190072"
+    },
+    {
+      "name": "Feitzinger & Stüwe (1984); dark nebulae and globules for l = 240–360° (VizieR VII/68)",
+      "url": "https://ui.adsabs.harvard.edu/abs/1984A%26AS...58..365F"
+    },
+    {
+      "name": "Barnard (1927); catalogue of 349 dark objects (VizieR VII/220A)",
+      "url": "https://ui.adsabs.harvard.edu/abs/1927cpsm.book.....B"
     }
   ],
-  "cutoffPolicy": "All 65 filtered 3D cloud features in Cahlon et al. (2024) are retained. Their catalog centers span 116-440 pc (about 378-1435 ly), so every feature lies within the Star View 2000-ly scope. The underlying Leike et al. map is effectively limited to about 400 pc and is not a complete census of the outer 440-613 pc shell.",
-  "snapshot": "Cahlon et al. (2024) Harvard Dataverse tables, reviewed and transformed 2026-10-04."
+  "cutoffPolicy": "All 65 filtered 3D cloud features in Cahlon et al. (2024) are retained; their centers span 116-440 pc (about 378-1435 ly), and the underlying Leike et al. map is effectively limited to about 400 pc. Within 1000 ly (306.6 pc) the census adds every connected Edenhofer et al. (2024) structure above Cahlon's n_H = 25 cm^-3 boundary with at least Cahlon's 150 one-parsec voxels, without Cahlon's 500-solar-mass floor, unless a Cahlon cloud already holds it: voxels within 6 pc of a Cahlon cloud, and structures covering the same sky at a similar distance, are that cloud displaced between the two maps. Corona Australis comes from the Leike et al. cutout of Zucker et al. (2021), because Edenhofer places most of its dust about 70 pc behind the Gaia distance of its young stars. Dark nebulae are those of Lynds (1962), Feitzinger & Stüwe (1984) and Barnard (1927) whose dust lies within 1000 ly: the nearest dust layer, in the Edenhofer map, where the nebula holds more dust than a ring around it, with at least half the column of the strongest such layer and an A_V above about 0.14 mag; a small nebula unresolved inside a larger cloud is placed by a single dominant dust layer at |b| >= 3 deg. A Zucker et al. (2020) distance measured inside a nebula replaces the map distance when it agrees within 25%; nebulae whose measured distance contradicts the map are left out. Each nebula is drawn with the cloud whose voxels fill it at its distance, or with its own map voxels where no cloud does.",
+  "snapshot": "Cahlon et al. (2024) Harvard Dataverse tables, reviewed and transformed 2026-10-04. Edenhofer et al. (2024) mean map v1.0, Zucker et al. (2021) Corona Australis cutout and the dark-nebula catalogues measured 2026-11-16 (catalog-work/molecular-clouds/additions.json)."
 }

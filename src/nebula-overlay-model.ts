@@ -36,7 +36,7 @@ function validMask(shape: Record<string, unknown>): boolean {
   if (mask === undefined) return true
   const size = mask?.size
   if (!Array.isArray(size) || size.length !== 2 || !size.every((cells) => Number.isInteger(cells) && cells >= 2 && cells <= 128)
-    || typeof mask.values !== 'string' || !['ellipsoid', 'shell'].includes(shape.kind as string) || shape.position_angle_deg !== 0) return false
+    || typeof mask.values !== 'string' || !['ellipsoid', 'shell', 'filaments'].includes(shape.kind as string) || shape.position_angle_deg !== 0) return false
   // Zero bytes encode as "A", so any other character is a lit cell.
   return base64Bytes(mask.values) === size[0] * size[1] && /[^A=]/.test(mask.values)
 }
@@ -48,6 +48,33 @@ function validPoints(shape: Record<string, unknown>, puffCount: unknown): boolea
   if (shape.kind !== 'points' || !points || !finitePositive(points.radius_pc) || typeof points.values !== 'string') return false
   const bytes = base64Bytes(points.values)
   return bytes > 0 && bytes % 4 === 0 && bytes / 4 <= (puffCount as number)
+}
+
+// Dust lanes share the mask's grid; pillar skins are part of the nebula's puff count.
+function validDust(shape: Record<string, unknown>): boolean {
+  const dust = shape.dust as Record<string, unknown> | undefined
+  if (dust === undefined) return true
+  const mask = shape.mask as { size?: unknown } | undefined
+  return !!dust && !!mask && JSON.stringify(dust.size) === JSON.stringify(mask.size) && Number.isInteger(dust.puffs)
+    && (dust.puffs as number) >= 1 && (dust.puffs as number) <= 4096
+    && typeof dust.values === 'string' && base64Bytes(dust.values) === (mask.size as number[])[0]! * (mask.size as number[])[1]!
+}
+
+function validPillars(shape: Record<string, unknown>, puffCount: unknown): boolean {
+  const pillars = shape.pillars as Record<string, unknown> | undefined
+  if (pillars === undefined) return true
+  const finite = (value: unknown) => typeof value === 'number' && Number.isFinite(value)
+  const count = (value: unknown, max: number) => Number.isInteger(value) && (value as number) >= 1 && (value as number) <= max
+  const columns = pillars?.columns
+  return !!pillars && Array.isArray(pillars.light_pc) && pillars.light_pc.length === 3 && pillars.light_pc.every(finite)
+    && count(pillars.rim_puffs, (puffCount as number) - 16) && count(pillars.dust_puffs, 4096)
+    && Array.isArray(columns) && columns.length > 0 && columns.every((column) => !!column && typeof column.name === 'string'
+      && (column.opacity === undefined || (finite(column.opacity) && column.opacity > 0 && column.opacity <= 1))
+      && (column.lit === undefined || typeof column.lit === 'boolean')
+      && (column.fade === undefined || typeof column.fade === 'boolean')
+      && (column.tint === undefined || (typeof column.tint === 'string' && /^#[0-9a-f]{6}$/i.test(column.tint)))
+      && Array.isArray(column.points) && column.points.length >= 2 && column.points.every((point: unknown) =>
+        Array.isArray(point) && point.length === 4 && point.every(finite) && (point[3] as number) > 0))
 }
 
 function validRemnant(value: unknown, type: unknown): boolean {
@@ -92,6 +119,8 @@ function validDetails(value: unknown): value is NebulaDetails {
     && typeof details.surface_brightness_estimated === 'boolean'
     && Number.isInteger(details.puff_count) && (details.puff_count as number) >= 16 && (details.puff_count as number) <= 8192
     && validPoints(shape, details.puff_count)
+    && validDust(shape)
+    && validPillars(shape, details.puff_count)
     && Number.isInteger(details.seed)
 }
 

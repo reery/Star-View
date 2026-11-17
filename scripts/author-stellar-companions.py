@@ -411,7 +411,10 @@ def build():
                 # An unresolved parent's unchanged magnitude plus an unknown
                 # secondary flux does not establish individual primary photometry.
                 photometry_blended = label != source_label and side == 0 and not number(branch[12])
-                if visual and not photometry_blended:
+                # L, T and Y dwarfs have no V photometry; MSC lists an infrared magnitude for them (xi UMa D: Ks 18.75).
+                if visual and re.match(r"[LTY]", branch[11 + side * 2] or ""):
+                    evidence["withheldPhotometry"] = {"magnitude": visual, "reason": "MSC magnitude of an L, T or Y dwarf is from an infrared band, not V"}
+                elif visual and not photometry_blended:
                     star["apparent_mag"] = visual
                     distance = math.hypot(star["x_pc"], star["y_pc"], star["z_pc"])
                     star["absolute_mag"] = calculated_float(visual - 5 * math.log10(distance / 10))

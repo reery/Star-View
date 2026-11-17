@@ -118,7 +118,7 @@ export function isObjectMapVisible(
   galaxiesVisible = true,
 ): boolean {
   const key = filterKeyForObject(star)
-  // Galaxies are scenery far beyond any distance limit; the Galaxies preference alone shows them.
+  // Galaxies are scenery far beyond any distance limit; the Galaxies filter alone shows them.
   if (key === 'galaxy') return galaxiesVisible || star.id === selectedId || star.id === observerId
   if (key === 'sun') return visibleKeys.has(key)
   return visibleKeys.has(key) && (
@@ -297,16 +297,24 @@ export function pickProjectedStarAtScreenPoint(
     pointer.clientX < viewport.left || pointer.clientX > viewport.left + viewport.width ||
     pointer.clientY < viewport.top || pointer.clientY > viewport.top + viewport.height
   ) return null
-  let selected: string | null = null
-  let nearestDistance = radius
-  let nearestDepth = Infinity
   const query = {
     left: pointer.clientX - radius,
     right: pointer.clientX + radius,
     top: pointer.clientY - radius,
     bottom: pointer.clientY + radius,
   }
-  for (const star of grid.query(query)) {
+  const candidates = grid.query(query)
+  let frontDepth = Infinity
+  for (const star of candidates) {
+    if (star.depth < frontDepth && Math.hypot(pointer.clientX - star.x, pointer.clientY - star.y) <= radius) frontDepth = star.depth
+  }
+  // The object in front wins over those behind it. Objects within 10% of the front depth are side by side
+  // rather than in front of each other, so the one closest to the pointer wins among them.
+  let selected: string | null = null
+  let nearestDistance = radius
+  let nearestDepth = Infinity
+  for (const star of candidates) {
+    if (star.depth > 1.1 * frontDepth) continue
     const distance = Math.hypot(pointer.clientX - star.x, pointer.clientY - star.y)
     if (distance > radius) continue
     if (distance < nearestDistance - 1e-6 || (Math.abs(distance - nearestDistance) < 1e-6 && star.depth < nearestDepth)) {

@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { STREAM_EASING, STREAM_MS, streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, Clapperboard, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, Lightbulb, List, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sparkles, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, Clapperboard, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, Lightbulb, List, ListChecks, ListFilter, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sparkles, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipBrightness, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
@@ -45,7 +45,7 @@ import { loadStarDetails, starDetailsLoaded } from './selected-star-details'
 import { renderObjectLinks } from './object-links'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES, FILTER_KEYS,
-  filterCategoryForKey, filterSummary, isFilterCategoryId, isFilterKey, restoredFilterSubtypes, type FilterCategoryId, type FilterKey,
+  filterSummary, isFilterCategoryId, isFilterKey, restoredFilterSubtypes, type FilterCategoryId, type FilterKey,
 } from './object-filter'
 import { ObjectList, type ObjectListFilter } from './object-list'
 import { SelectionHistory } from './selection-history'
@@ -193,6 +193,7 @@ icon('spectral-kiel-catalog-icon', ChartScatter)
 icon('graphs-width-icon', ChevronsRightLeft)
 icon('graphs-clear-icon', FunnelX)
 icon('graph-filter-active-icon', ChartColumn)
+icon('objects-filter-active-icon', ListFilter)
 icon('paint-active-icon', Paintbrush)
 icon('motion-active-icon', Clock)
 icon('graphs-lock-icon', Lock)
@@ -279,6 +280,7 @@ icon('preferences-close-icon', X)
 icon('objects-lock-icon', Lock)
 icon('objects-close-icon', X)
 icon('objects-expand-icon', ChevronsLeftRight)
+icon('objects-filter-icon', ListFilter)
 icon('objects-shrink-icon', ChevronsDownUp)
 icon('objects-maximize-icon', ChevronsUpDown)
 icon('motion-icon', Clock)
@@ -353,6 +355,10 @@ let constellationBrowser: ReturnType<typeof import('./constellation-browser').in
 let topLists: ReturnType<typeof import('./top-lists').initializeTopLists> | undefined
 let graphs: ReturnType<typeof import('./graphs').initializeGraphs> | undefined
 let graphFilter: ObjectListFilter | null = null
+/** The objects the Objects list shows, and while its filter is on, their ids and the map predicate limiting the 3D view to them. */
+let listedObjects: readonly { star: Star }[] = []
+let listedObjectIds: ReadonlySet<string> | null = null
+let listedObjectsPredicate: ObjectListFilter | null = null
 /** The filter the naked-eye view replaced, restored when it ends; null while the view is off. */
 let nakedEyeRestoreFilter: SavedFilter | null = null
 // Nebulae have no single magnitude, so the naked-eye view lists the ones a dark sky shows. The Pleiades come with the star catalogs.
@@ -1959,7 +1965,7 @@ function syncSelectedObjectLayout(): void {
   selectedCard.style.maxHeight = `${Math.max(68, availableHeight)}px`
 }
 
-function setActiveIndicator(id: 'graph-filter-active' | 'paint-active' | 'wavelength-active' | 'top-lists-active' | 'motion-active' | 'insights-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active' | 'demo-active', active: boolean): void {
+function setActiveIndicator(id: 'graph-filter-active' | 'objects-filter-active' | 'paint-active' | 'wavelength-active' | 'top-lists-active' | 'motion-active' | 'insights-active' | 'neighborhood-active' | 'spaceship-active' | 'rotation-active' | 'observer-active' | 'demo-active', active: boolean): void {
   if (active) noteTipFeature(id)
   const indicator = element(id)
   if (indicator.hidden !== active) return
@@ -2428,6 +2434,10 @@ element('remnant-surviving-star').addEventListener('click', () => {
   const star = starById(selectedId)?.nebula?.remnant?.surviving_star
   if (star) void selectTopListObject({ catalog: star.catalog, id: star.id, designation: null })
 }, { signal: events.signal })
+element('dark-nebula-cloud').addEventListener('click', () => {
+  const cloud = starById(selectedId)?.dark_nebula?.parent_cloud_id
+  if (cloud) void selectTopListObject({ catalog: molecularCloudOverlayManifest.id, id: cloud, designation: null })
+}, { signal: events.signal })
 element('parent-remnant').addEventListener('click', () => {
   const remnant = selectedId === null ? undefined : remnantLinks[selectedId]
   if (remnant) void selectTopListObject({ catalog: nebulaOverlayManifest.id, id: remnant.id, designation: null })
@@ -2653,6 +2663,7 @@ function renderSelection(): void {
   const nebulaObject = isNebulaObject(star)
   const molecularCloud = star.molecular_cloud
   const molecularCloudObject = isMolecularCloudObject(star)
+  const darkNebula = star.dark_nebula
   const bubble = star.bubble
   const bubbleObject = isBubbleObject(star)
   const galaxy = star.galaxy
@@ -2670,10 +2681,12 @@ function renderSelection(): void {
   text('parent-remnant', parentRemnant?.name ?? '')
   element('parent-remnant').setAttribute('aria-label', parentRemnant ? `Select ${parentRemnant.name}` : '')
   element('nebula-illumination-row').hidden = !nebulaObject || !!nebula?.remnant
-  for (const row of document.querySelectorAll<HTMLElement>('.molecular-cloud-property')) row.hidden = !molecularCloudObject
+  for (const row of document.querySelectorAll<HTMLElement>('.molecular-cloud-property')) row.hidden = !molecularCloud
+  for (const row of document.querySelectorAll<HTMLElement>('.dark-nebula-property')) row.hidden = !darkNebula
+  if (darkNebula?.opacity_class === null) element('dark-nebula-opacity-row').hidden = true
   for (const row of document.querySelectorAll<HTMLElement>('.bubble-property')) row.hidden = !bubbleObject
   for (const row of document.querySelectorAll<HTMLElement>('.galaxy-property')) row.hidden = !galaxyObject
-  element('mass-row').hidden = nebulaObject || bubbleObject || galaxyObject
+  element('mass-row').hidden = nebulaObject || bubbleObject || galaxyObject || !!darkNebula
   for (const row of document.querySelectorAll<HTMLElement>('.pulsar-property')) row.hidden = star.type !== 'pulsar'
   for (const row of document.querySelectorAll<HTMLElement>('.rotation-property')) row.hidden = star.type === 'black_hole' || !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.orbit-property')) {
@@ -2806,7 +2819,8 @@ function renderSelection(): void {
   if (molecularCloud) {
     const conversion = distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1
     const format = (value: number, maximumFractionDigits = 1) => (value * conversion).toLocaleString('en-US', { maximumFractionDigits })
-    text('molecular-cloud-complex', molecularCloud.complex_name ?? 'Unassociated catalog feature')
+    text('molecular-cloud-complex', molecularCloud.complex_name ?? molecularCloud.association?.name ?? 'Unassociated catalog feature')
+    element('molecular-cloud-complex').title = molecularCloud.complex_name === null ? molecularCloud.association?.source ?? '' : ''
     text('molecular-cloud-radius', `${format(molecularCloud.equivalent_radius_pc)} ${distanceUnit}`)
     text('molecular-cloud-density', `${molecularCloud.mean_density_cm3.toLocaleString('en-US')} H nuclei/cm³`)
     text('molecular-cloud-peak-density', `${molecularCloud.peak_density_cm3.toLocaleString('en-US')} H nuclei/cm³`)
@@ -2815,6 +2829,20 @@ function renderSelection(): void {
     const source = element<HTMLAnchorElement>('molecular-cloud-source')
     source.textContent = molecularCloud.source_label
     source.href = molecularCloud.source_url
+  }
+  if (darkNebula) {
+    const parent = starById(darkNebula.parent_cloud_id)
+    element('dark-nebula-cloud').hidden = !parent
+    element('dark-nebula-own-dust').hidden = !!parent
+    text('dark-nebula-cloud', parent?.name ?? '')
+    element('dark-nebula-cloud').setAttribute('aria-label', parent ? `Select ${parent.name}` : '')
+    text('dark-nebula-angular-size', `${darkNebula.angular_diameter_arcmin.toLocaleString('en-US')}′`)
+    text('dark-nebula-opacity', darkNebula.opacity_class === null ? '' : `${darkNebula.opacity_class} of 6`)
+    for (const [id, label, url] of [['dark-nebula-distance-source', darkNebula.distance_source, darkNebula.distance_url], ['dark-nebula-source', darkNebula.source_label, darkNebula.source_url]] as const) {
+      const link = element<HTMLAnchorElement>(id)
+      link.textContent = label
+      link.href = url
+    }
   }
   if (bubble) {
     const conversion = distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1
@@ -2922,6 +2950,8 @@ function nakedEyeVisible(star: Star): boolean {
 
 /** The 3D view's narrowing beyond its own type, distance and brightness tests. */
 function mapObjectPredicate(): ObjectListFilter | null {
+  // The list already applies the graph and naked-eye filters.
+  if (listedObjectsPredicate) return listedObjectsPredicate
   const graph = graphFilter
   if (!nakedEyeRestoreFilter) return graph
   return (star, distancePc) => nakedEyeVisible(star) && (!graph || graph(star, distancePc))
@@ -3341,7 +3371,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       loadOverlay(NEBULA_OBJECT_TYPES, loadNebulae),
       loadOverlay(MOLECULAR_CLOUD_OBJECT_TYPES, loadMolecularClouds),
       loadOverlay(BUBBLE_OBJECT_TYPES, loadBubbles),
-      // A few records, always loaded: the Galaxies preference shows and hides them without a reload.
+      // A few records, always loaded: the Galaxies filter shows and hides them without a reload.
       loadGalaxies(),
     ])
     reachLy = selectedCatalog.reduce((farthest, star) => Math.max(farthest, Math.hypot(star.x_pc, star.y_pc, star.z_pc)), 0) * LIGHT_YEARS_PER_PARSEC
@@ -3465,8 +3495,8 @@ function catalogError(error: unknown): void {
   element('catalog-error').hidden = false
 }
 
-const categoryOptions = element('object-categories')
-const typeOptions = element('object-type-options')
+const filterTiles = element('filter-tiles')
+const galaxiesTile = element('milky-way-visible').closest('section')!
 
 function noDataHint(id: string, input: HTMLInputElement): HTMLSpanElement {
   const hint = document.createElement('span')
@@ -3477,11 +3507,15 @@ function noDataHint(id: string, input: HTMLInputElement): HTMLSpanElement {
   return hint
 }
 
+// Each category is a tile: its switch in the banner, a button that turns on everything in it, and its types below.
 for (const category of FILTER_CATEGORIES) {
   const available = categoryAvailable(category.id, availableKeys)
-  const toggle = document.createElement('label')
-  toggle.className = 'filter-toggle category-toggle'
-  toggle.classList.toggle('is-unavailable', !available)
+  const tile = document.createElement('section')
+  tile.className = 'planet-atmosphere filter-tile'
+  tile.dataset.filterTile = category.id
+  tile.setAttribute('aria-label', category.label)
+  const heading = document.createElement('div')
+  heading.className = 'filter-tile-heading'
   const input = document.createElement('input')
   input.id = `category-${category.id}`
   input.type = 'checkbox'
@@ -3489,6 +3523,9 @@ for (const category of FILTER_CATEGORIES) {
   input.setAttribute('aria-label', category.label)
   input.dataset.category = category.id
   input.disabled = !available
+  const toggle = document.createElement('label')
+  toggle.className = 'filter-toggle'
+  toggle.classList.toggle('is-unavailable', !available)
   toggle.htmlFor = input.id
   const toggleText = document.createElement('span')
   toggleText.className = 'toggle-text'
@@ -3497,31 +3534,31 @@ for (const category of FILTER_CATEGORIES) {
   toggleName.textContent = category.label
   toggleText.append(toggleName)
   if (!available) toggleText.append(noDataHint(`${input.id}-hint`, input))
+  toggle.append(toggleText)
   const tooltip = document.createElement('span')
   tooltip.id = `${input.id}-tooltip`
   tooltip.className = 'tooltip mass-metric-tooltip'
   tooltip.setAttribute('role', 'tooltip')
   tooltip.textContent = category.description
   input.setAttribute('aria-describedby', available ? tooltip.id : `${input.id}-hint ${tooltip.id}`)
+  const all = document.createElement('button')
+  Object.assign(all, { type: 'button', className: 'panel-lock filter-tile-all', title: `Show all ${category.label.toLowerCase()}` })
+  all.setAttribute('aria-label', all.title)
+  all.dataset.enableCategory = category.id
+  all.append(createElement(ListChecks, { width: 18, height: 18, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
   const control = document.createElement('span')
   control.className = 'switch-control'
   const track = document.createElement('span')
   track.className = 'switch-track'
   track.setAttribute('aria-hidden', 'true')
   control.append(input, track)
-  toggle.append(toggleText, control)
-  categoryOptions.append(toggle, tooltip)
+  heading.append(toggle, tooltip, all, control)
   attachPopoverTooltip(toggleName, tooltip, undefined, input)
 
-  const group = document.createElement('div')
-  group.className = 'type-group'
-  group.setAttribute('role', 'group')
-  const heading = document.createElement('span')
-  heading.className = 'type-group-heading'
-  heading.id = `type-group-${category.id}`
-  heading.textContent = category.label
-  group.setAttribute('aria-labelledby', heading.id)
-  group.append(heading)
+  const options = document.createElement('div')
+  options.className = 'filter-options'
+  options.setAttribute('role', 'group')
+  options.setAttribute('aria-label', `${category.label} types`)
   for (const subtype of category.subtypes) {
     const option = document.createElement('label')
     option.className = 'object-type-option'
@@ -3546,21 +3583,58 @@ for (const category of FILTER_CATEGORIES) {
       option.classList.add('is-unavailable')
       option.append(noDataHint(`type-${subtype.key}-hint`, checkbox))
     }
-    group.append(option)
+    options.append(option)
   }
-  typeOptions.append(group)
+  const body = document.createElement('div')
+  body.className = 'filter-tile-body'
+  if (category.id === 'compact_objects') {
+    // The catalog controls stay in view; the types fold away below them.
+    const types = document.createElement('details')
+    types.className = 'filter-dropdown'
+    const summary = document.createElement('summary')
+    const count = document.createElement('span')
+    count.className = 'filter-tile-count'
+    summary.append(Object.assign(document.createElement('span'), { textContent: 'Object types' }), count)
+    types.append(summary, options)
+    body.append(element('compact-object-catalogs'), types)
+  } else body.append(options)
+  tile.append(heading, body)
+  filterTiles.insertBefore(tile, galaxiesTile)
 }
 
 function renderObjectFilter(): void {
-  for (const input of categoryOptions.querySelectorAll<HTMLInputElement>('input[data-category]')) {
-    input.checked = !input.disabled && filterCategories.has(input.dataset.category as FilterCategoryId)
+  for (const tile of filterTiles.querySelectorAll<HTMLElement>('[data-filter-tile]')) {
+    const category = FILTER_CATEGORIES.find((candidate) => candidate.id === tile.dataset.filterTile)!
+    const toggle = tile.querySelector<HTMLInputElement>('input[data-category]')!
+    toggle.checked = !toggle.disabled && filterCategories.has(category.id)
+    tile.classList.toggle('is-off', !toggle.checked)
+    for (const input of tile.querySelectorAll<HTMLInputElement>('input[data-filter-key]')) {
+      const key = input.dataset.filterKey as FilterKey
+      input.checked = availableKeys.has(key) && filterSubtypes.has(key)
+      input.disabled = !availableKeys.has(key) || !toggle.checked
+    }
+    const keys = new Set(category.subtypes.map((subtype) => subtype.key).filter((key) => availableKeys.has(key)))
+    const shown = new Set([...keys].filter((key) => filterSubtypes.has(key)))
+    const catalogsShown = category.id !== 'compact_objects' || (showWesternConstellationStars && showNakedEyeStars && showNotableDistantStars)
+    tile.querySelector<HTMLButtonElement>('.filter-tile-all')!.disabled = toggle.disabled || (toggle.checked && shown.size === keys.size && catalogsShown)
+    const count = tile.querySelector('.filter-tile-count')
+    if (count) count.textContent = filterSummary(shown, keys)
   }
-  for (const input of typeOptions.querySelectorAll<HTMLInputElement>('input[data-filter-key]')) {
-    const key = input.dataset.filterKey as FilterKey
-    input.checked = availableKeys.has(key) && filterSubtypes.has(key)
-    input.disabled = !availableKeys.has(key) || !filterCategories.has(filterCategoryForKey(key))
+  const compactShown = filterCategories.has('compact_objects')
+  for (const input of element('compact-object-catalogs').querySelectorAll('input')) input.disabled = !compactShown
+}
+
+function enableFilterCategory(id: FilterCategoryId): void {
+  filterCategories.add(id)
+  for (const { key } of FILTER_CATEGORIES.find((category) => category.id === id)!.subtypes) if (availableKeys.has(key)) filterSubtypes.add(key)
+  if (id === 'compact_objects' && !(showWesternConstellationStars && showNakedEyeStars && showNotableDistantStars)) {
+    showWesternConstellationStars = showNakedEyeStars = showNotableDistantStars = true
+    visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
+    syncFilterInputs()
+    void switchCatalog(activeCatalogId, true)
+    return
   }
-  text('object-type-filter-summary', filterSummary(visibleKeys, availableKeys))
+  applyObjectFilter()
 }
 
 function applyObjectFilter(): void {
@@ -3603,7 +3677,23 @@ function renderCatalogRange(id: string): void {
   previewCatalogRange(index)
 }
 
-const objectList = new ObjectList(element('star-list'), selectStar, (shown, total) => text('catalog-count', `${shown}/${total}`), element('object-database'))
+const objectList = new ObjectList(element('star-list'), selectStar, (shown, total) => {
+  text('catalog-count', `${shown.length}/${total}`)
+  listedObjects = shown
+  // Sorting reorders the list without changing which objects the map shows.
+  const ids = listedObjectIds
+  if (ids && (shown.length !== ids.size || !shown.every(({ star }) => ids.has(star.id)))) setListedObjectsFilter(true)
+}, element('object-database'))
+
+/** Limits the 3D view to the objects the Objects list shows, following its search and column filters. */
+function setListedObjectsFilter(enabled: boolean): void {
+  const ids = enabled ? new Set(listedObjects.map(({ star }) => star.id)) : null
+  listedObjectIds = ids
+  listedObjectsPredicate = ids && ((star) => ids.has(star.id))
+  viewer?.setObjectPredicate(mapObjectPredicate())
+  element('objects-filter').setAttribute('aria-pressed', String(enabled))
+  setActiveIndicator('objects-filter-active', enabled)
+}
 objectList.setColorMode(starColorMode)
 
 function setSavedViewsStatus(message: string): void {
@@ -3888,6 +3978,7 @@ function resetAllFilters(): void {
   magnitudeLimit = 7
   hideFainterObjects = false
   syncFilterInputs()
+  if (!milkyWayVisible) element<HTMLInputElement>('milky-way-visible').click()
   renderCatalogRange('nearest-neighbors')
   void switchCatalog('nearest-neighbors', true)
 }
@@ -4240,7 +4331,7 @@ function setObjectsExpanded(expanded: boolean, height = `${element('objects-pane
   const search = panel.querySelector<HTMLElement>('.object-search')!
   if (expanded) {
     setObjectsHeight(height)
-    panel.querySelector('.objects-heading')!.insertBefore(search, element('objects-shrink'))
+    panel.querySelector('.objects-heading')!.insertBefore(search, element('objects-filter'))
   } else {
     panel.insertBefore(search, element('star-list'))
     panel.style.removeProperty('--objects-height')
@@ -4265,6 +4356,8 @@ element('objects-expand').addEventListener('click', () => {
   storeLayout('objects-expanded', String(expanded))
   syncPanelLayout()
 }, { signal: events.signal })
+element('objects-filter').addEventListener('click', () => setListedObjectsFilter(!listedObjectIds), { signal: events.signal })
+element('objects-filter-active').addEventListener('click', () => togglePanel('objects'), { signal: events.signal })
 element('objects-shrink').addEventListener('click', () => {
   const panel = element('objects-panel')
   // Keep the heading, table header, one data row, and scrollbar accessible.
@@ -5184,23 +5277,26 @@ window.addEventListener('resize', () => {
   if (star && !element('magnitude-card').hidden) renderMagnitudeCard(star)
   refreshDistanceCard()
 }, { signal: events.signal })
-categoryOptions.addEventListener('change', (event) => {
+filterTiles.addEventListener('change', (event) => {
   const input = event.target
   if (!(input instanceof HTMLInputElement)) return
-  const category = input.dataset.category
-  if (!isFilterCategoryId(category)) return
-  if (input.checked) filterCategories.add(category)
-  else filterCategories.delete(category)
+  const { category, filterKey } = input.dataset
+  if (isFilterCategoryId(category)) {
+    if (input.checked) filterCategories.add(category)
+    else filterCategories.delete(category)
+  } else if (isFilterKey(filterKey)) {
+    if (input.checked) filterSubtypes.add(filterKey)
+    else filterSubtypes.delete(filterKey)
+  } else {
+    // A catalog switch, handled by its own listener, can change whether the tile's show-all button has anything left to do.
+    renderObjectFilter()
+    return
+  }
   applyObjectFilter()
 }, { signal: events.signal })
-element('object-type-filter').addEventListener('change', (event) => {
-  const input = event.target
-  if (!(input instanceof HTMLInputElement)) return
-  const key = input.dataset.filterKey
-  if (!isFilterKey(key)) return
-  if (input.checked) filterSubtypes.add(key)
-  else filterSubtypes.delete(key)
-  applyObjectFilter()
+filterTiles.addEventListener('click', (event) => {
+  const id = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-enable-category]')?.dataset.enableCategory : undefined
+  if (isFilterCategoryId(id)) enableFilterCategory(id)
 }, { signal: events.signal })
 for (const name of panelNames) {
   element(name === 'observer' ? 'observer-active' : `${name}-toggle`).addEventListener('click', () => togglePanel(name), { signal: events.signal })

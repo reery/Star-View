@@ -231,17 +231,17 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     shader.uniforms.titanHaze = titanHaze
     shader.uniforms.titanHazeColor = titanHazeColor
     shader.fragmentShader = `${oceanUniforms}uniform float planetExposure;\nuniform float plutoUnobservedCap;\nuniform float jupiterLimbHaze;\nuniform vec3 jupiterHazeColor;\nuniform float titanHaze;\nuniform vec3 titanHazeColor;\nuniform vec3 planetCloudTint;\nuniform float planetMapBlend;\n${shader.fragmentShader}`
-      .replace('#include <map_pars_fragment>', `#include <map_pars_fragment>
+      .replaceAll('#include <map_pars_fragment>', `#include <map_pars_fragment>
         #ifdef USE_MAP
           vec3 jupiterCloudSample(vec2 uv) {
             return texture2D(map, vec2(uv.x, clamp(uv.y, 0.06, 0.94))).rgb;
           }
         #endif`)
-      .replace('#include <map_fragment>', `#include <map_fragment>\n${jupiterCloudFragment}\n${titanCloudFragment}\ndiffuseColor.rgb = mix(planetCloudTint, diffuseColor.rgb, planetMapBlend);\n${earthOceanFragment}
+      .replaceAll('#include <map_fragment>', `#include <map_fragment>\n${jupiterCloudFragment}\n${titanCloudFragment}\ndiffuseColor.rgb = mix(planetCloudTint, diffuseColor.rgb, planetMapBlend);\n${earthOceanFragment}
         #ifdef USE_MAP
           if (plutoUnobservedCap > 0.0 && vMapUv.y < plutoUnobservedCap) diffuseColor.rgb = vec3(0.12);
         #endif`)
-      .replace('#include <opaque_fragment>', `${jupiterLimbFragment}\n${titanLimbFragment}\noutgoingLight *= planetExposure;\n#include <opaque_fragment>`)
+      .replaceAll('#include <opaque_fragment>', `${jupiterLimbFragment}\n${titanLimbFragment}\noutgoingLight *= planetExposure;\n#include <opaque_fragment>`)
   }
   const sphere = new Mesh<BufferGeometry, MeshStandardMaterial>(geometry, material)
   const titanAtmosphereMaterial = new ShaderMaterial({
@@ -320,7 +320,7 @@ function createPlanetGlobe(canvas: HTMLCanvasElement) {
     shader.uniforms.earthOceanLift = { value: earthOceanLift }
     shader.uniforms.earthOceanAdjustment = { value: 1 }
     shader.fragmentShader = `${oceanUniforms}${shader.fragmentShader}`
-      .replace('#include <map_fragment>', `#include <map_fragment>\n${earthOceanFragment}`)
+      .replaceAll('#include <map_fragment>', `#include <map_fragment>\n${earthOceanFragment}`)
   }
   const earthSphere = new Mesh(geometry, earthMaterial)
   earthSphere.visible = false

@@ -113,9 +113,11 @@ export function specValues(star: Star, sun: Star, unit: DistanceUnit, band: Wave
   // The measured value in the band the map shows, while one other than visible light is chosen.
   const bandData = wavelengthBandData(band)
   const bandEntry = bandData?.objects[star.id]
-  const bandSource = bandEntry && bandData!.sources[bandEntry[2]]
+  // A source key can name the cited paper after a colon, as in simbad:<bibcode>.
+  const [sourceKey, citation] = bandEntry?.[2].split(':') ?? []
+  const bandSource = sourceKey && bandData!.sources[sourceKey]
   set('band-value', bandEntry ? bandValueText(bandEntry, bandData!.unit) : MISSING_VALUE,
-    bandEntry && bandSource ? [bandEntry[3], `${bandSource.label}, ${bandSource.reference}`, bandSource.note, bandEntry[4]].filter(Boolean).join('. ') + '.' : undefined,
+    bandEntry && bandSource ? [bandEntry[3], `${bandSource.label}, ${bandSource.reference}`, bandSource.note, citation, bandEntry[4]].filter(Boolean).join('. ') + '.' : undefined,
     BAND_VALUE_LABELS[band] ?? '')
 
   for (const axis of ['x', 'y', 'z'] as const) {
@@ -150,6 +152,6 @@ export function specValues(star: Star, sun: Star, unit: DistanceUnit, band: Wave
       rvReview ? `${rvReview.reference}. ${rvReview.reason}` : rvSource?.scope ?? raw?.radial_velocity_ref ?? undefined)
   }
   set('astrometry-source', raw?.astrometry_ref || compact?.position_source || star.nebula?.position_source
-    || star.molecular_cloud?.position_source || star.bubble?.position_source || star.galaxy?.position_source || MISSING_VALUE)
+    || star.molecular_cloud?.position_source || star.dark_nebula?.position_source || star.bubble?.position_source || star.galaxy?.position_source || MISSING_VALUE)
   return values
 }

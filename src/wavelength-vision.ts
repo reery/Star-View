@@ -125,13 +125,49 @@ function measuredApparentMagnitude(value: number, band: WavelengthBandId): numbe
 const STELLAR_TYPES = new Set<Star['type']>(['star', 'white_dwarf', 'brown_dwarf', 'sub_brown_dwarf'])
 const COMPACT_TYPES = new Set<Star['type']>(['pulsar', 'neutron_star', 'black_hole'])
 
-// Effective wavelengths in µm: GALEX NUV, Johnson V and K.
-const BAND_WAVELENGTH_UM: Partial<Record<WavelengthBandId, number>> = { ultraviolet: 0.23, 'near-infrared': 2.2 }
+// Effective wavelengths in µm: GALEX NUV and Johnson V.
+const NUV_WAVELENGTH_UM = 0.23
 const V_WAVELENGTH_UM = 0.55
 const SECOND_RADIATION_CONSTANT_UM_K = 14_388
 const VEGA_KELVIN = 9600
 const SUN_KELVIN = 5772
 const SUN_ABSOLUTE_V = 4.83
+const SUN_BOLOMETRIC = 4.74
+
+// Teff, V − Ks, Mbol − M_Ks and M_Ks of the mean dwarf sequence, version 2022.04.16 (Pecaut & Mamajek), sparse anchors;
+// null where the table has none. Blackbody colors miss the molecular bands of cool dwarfs by many magnitudes
+// (V − K of a 600 K blackbody is 33), so the near infrared uses these measured colors instead.
+// https://www.pas.rochester.edu/~emamajek/EEM_dwarf_UBVIJHK_colors_Teff.txt
+const DWARF_K_SEQUENCE = [
+  [33300, -1.0, -4.11, -3.2], [26000, -0.87, -3.45, -2.13], [20600, -0.6, -2.63, -1.2], [15700, -0.38, -1.81, -0.38],
+  [12300, -0.25, -0.98, 0.25], [9700, 0.04, -0.17, 0.95], [8100, 0.4, 0.4, 1.61], [7220, 0.73, 0.74, 1.84],
+  [6550, 1.08, 1.06, 2.29], [5770, 1.56, 1.48, 3.24], [5270, 1.95, 1.76, 3.83], [4440, 2.88, 2.25, 4.4],
+  [3850, 3.65, 2.5, 5.15], [3560, 4.23, 2.61, 5.98], [3210, 5.25, 2.74, 7.36], [2810, 7.1, 2.97, 9.22],
+  [2570, 8.7, 3.03, 9.92], [2380, 9.0, 3.14, 10.4], [2270, 9.4, 3.2, 10.55], [2060, 9.9, 3.28, 11.0],
+  [1870, 10.5, 3.27, 11.5], [1710, 11.1, 3.36, 11.87], [1550, null, 3.5, 12.2], [1420, null, 3.38, 12.74],
+  [1255, null, 3.27, 13.12], [1160, null, 2.22, 14.9], [1040, null, 2.24, 15.1], [950, null, 2.24, 15.3],
+  [825, null, 2.37, 15.8], [750, null, 2.09, 16.5], [680, null, 2.12, 16.9], [600, null, 1.27, 18.3],
+  [560, null, 1.52, 18.6], [450, null, 0.04, 21.0], [360, null, null, 22.2],
+] as const
+
+/** A column of the dwarf K sequence interpolated linearly in Teff, held at the hottest row; null below its coolest row. */
+function dwarfK(kelvin: number, column: 1 | 2 | 3): number | null {
+  const rows = DWARF_K_SEQUENCE.filter((row) => row[column] !== null)
+  const index = rows.findIndex((row) => row[0] <= kelvin)
+  if (index <= 0) return index < 0 ? null : rows[0]![column]
+  const [hot, cool] = [rows[index - 1]!, rows[index]!]
+  return cool[column]! + (hot[column]! - cool[column]!) * (kelvin - cool[0]) / (hot[0] - cool[0])
+}
+
+/** Absolute K from V and the dwarf color, else from luminosity and the K bolometric correction, else a brown dwarf's sequence M_Ks. */
+function absoluteK(star: Star, kelvin: number): number | null {
+  const visual = mapAbsoluteMagnitude(star)
+  const color = dwarfK(kelvin, 1)
+  if (visual !== null && color !== null) return visual - color
+  const correction = dwarfK(kelvin, 2)
+  if (star.luminosity_solar && star.luminosity_solar > 0 && correction !== null) return SUN_BOLOMETRIC - 2.5 * Math.log10(star.luminosity_solar) - correction
+  return star.type === 'brown_dwarf' || star.type === 'sub_brown_dwarf' ? dwarfK(kelvin, 3) : null
+}
 
 /** Blackbody spectral radiance at a wavelength, up to a constant factor. */
 const planck = (um: number, kelvin: number) => um ** -5 / Math.expm1(SECOND_RADIATION_CONSTANT_UM_K / (um * kelvin))
@@ -167,7 +203,8 @@ export function shownInBand(star: Star, band: WavelengthBandId): boolean {
   if (band === 'visible' || (band === 'ultraviolet' || band === 'near-infrared') && (STELLAR_TYPES.has(star.type) || COMPACT_TYPES.has(star.type))) return true
   if (star.nebula) return nebulaBandSurfaceBrightness(star, band) !== null
   if (measuredInBand(star.id, band)) return true
-  if (star.molecular_cloud) {
+  // Dark nebulae are cloud dust, so they appear in the bands where their clouds do.
+  if (star.molecular_cloud || star.dark_nebula) {
     const { absorption, glow } = MOLECULAR_CLOUD_BANDS[band]
     return glow > 0 || absorption >= 0.3
   }
@@ -191,9 +228,11 @@ export function wavelengthAbsoluteMagnitude(star: Star, band: WavelengthBandId):
   if (band === 'gamma') return GAMMA_PULSAR_ABSOLUTE
   if (band === 'x-ray') return X_RAY_REMNANT_ABSOLUTE
   const kelvin = STELLAR_TYPES.has(star.type) ? appearanceKelvin(star) : null
-  const visual = absoluteVisual(star, kelvin)
   // Without a temperature the band color is unknown, so the object keeps its visible brightness.
-  return visual === null || kelvin === null ? visual : visual + blackbodyColorIndex(kelvin, BAND_WAVELENGTH_UM[band]!)
+  if (kelvin === null) return mapAbsoluteMagnitude(star)
+  if (band === 'near-infrared') return absoluteK(star, kelvin) ?? mapAbsoluteMagnitude(star)
+  const visual = absoluteVisual(star, kelvin)
+  return visual === null ? null : visual + blackbodyColorIndex(kelvin, NUV_WAVELENGTH_UM)
 }
 
 /** Shade within the band's colors: hot stars toward the short-wavelength end, cool ones toward the long one. */
@@ -214,10 +253,14 @@ const NEBULA_BAND_OFFSETS: Record<NebulaObjectType, Partial<Record<WavelengthBan
   supernova_remnant: { ultraviolet: 1, visible: 0, 'near-infrared': 2.5, 'far-infrared': 2.5 },
 }
 
-// Supernova remnants where their visible light says little and no flux is measured: display surface brightness
+// Nebulae whose light in a band is unlike their kind's offsets and has no measured flux: display surface brightness
 // (mag/arcsec² equivalents) ranked by their observed brightness — the Crab and the young Tycho and Kepler remnants
-// are the brightest X-ray ones. Measured radio (Green's catalog) and gamma-ray (4FGL) fluxes take precedence.
-const REMNANT_BANDS: Record<string, Partial<Record<WavelengthBandId, number>>> = {
+// are the brightest X-ray remnants. Measured radio (Green's catalog) and gamma-ray (4FGL) fluxes take precedence.
+// The Cygnus Loop is one of the brightest soft X-ray sources in the sky (ROSAT, Levenson et al. 1997) and glows
+// across its whole shell in GALEX far-ultraviolet images. Hot gas from the winds of massive stars fills the H II
+// regions of the most massive clusters: 30 Doradus (Townsley et al. 2006), M17 and the Rosette (Townsley et al.
+// 2003) and the Carina Nebula (Townsley et al. 2011).
+const NEBULA_BANDS: Record<string, Partial<Record<WavelengthBandId, number>>> = {
   'cassiopeia-a': { 'x-ray': 21.5 },
   'crab-nebula': { 'x-ray': 20.5, 'near-infrared': 22, 'far-infrared': 23 },
   'vela-supernova-remnant': { 'x-ray': 23.5 },
@@ -230,6 +273,11 @@ const REMNANT_BANDS: Record<string, Partial<Record<WavelengthBandId, number>>> =
   'monogem-ring': { 'x-ray': 27 },
   'pa-30': { 'x-ray': 26 },
   'sn-1987a': { 'x-ray': 22, radio: 22 },
+  'veil-nebula': { 'x-ray': 22.5, ultraviolet: 23 },
+  'tarantula-nebula': { 'x-ray': 21.5 },
+  'omega-nebula': { 'x-ray': 22.5 },
+  'carina-nebula': { 'x-ray': 23 },
+  'rosette-nebula': { 'x-ray': 24 },
 }
 
 // Surface brightness of a measured remnant flux spread over its catalogued ellipse, on the same display scale:
@@ -249,30 +297,37 @@ function measuredSurfaceBrightness(star: Star, band: WavelengthBandId): number |
 export function nebulaBandSurfaceBrightness(star: Star, band: WavelengthBandId): number | null {
   const details = star.nebula
   if (!details) return null
-  const fixed = measuredSurfaceBrightness(star, band) ?? REMNANT_BANDS[star.id]?.[band]
+  const fixed = measuredSurfaceBrightness(star, band) ?? NEBULA_BANDS[star.id]?.[band]
   if (fixed !== undefined) return fixed
   const offset = NEBULA_BAND_OFFSETS[star.type as NebulaObjectType]?.[band]
   return offset === undefined ? null : details.surface_brightness_mag_arcsec2 + offset
 }
 
-/** A remnant's shape in a band where it looks unlike its visible-light model: the kind drawn, its size relative to the catalogued shape, and the card's “Drawn as”. */
+/** A nebula's shape in a band where it looks unlike its visible-light model: the kind drawn, its size relative to the catalogued shape, and a remnant card's “Drawn as”. */
 export interface RemnantBandShape { kind: 'ellipsoid' | 'shell'; scale: number; drawnAs: string }
 
 // The Crab's X-rays and gamma rays come from the pulsar wind nebula's core, about a third of the optical nebula across,
 // while its synchrotron radio and warm dust fill the whole nebula. ROSAT shows Vela and the Monogem Ring as filled
-// glows of hot gas, and RCW 86 is a complete shell in X-rays and gamma rays.
+// glows of hot gas, and RCW 86 and the Cygnus Loop as complete shells. In the H II regions above, the hot gas fills
+// the cavity the cluster has cleared, inside the glowing hydrogen.
 const CRAB_CORE: RemnantBandShape = { kind: 'ellipsoid', scale: 0.4, drawnAs: 'Pulsar wind nebula core in false color' }
 const CRAB_FILLED: RemnantBandShape = { kind: 'ellipsoid', scale: 1, drawnAs: 'Synchrotron nebula in false color' }
 const HOT_GAS: RemnantBandShape = { kind: 'ellipsoid', scale: 1, drawnAs: 'Hot-gas glow in false color' }
-const RCW_86_SHELL: RemnantBandShape = { kind: 'shell', scale: 1, drawnAs: 'Shock shell in false color' }
-const REMNANT_BAND_SHAPES: Record<string, Partial<Record<WavelengthBandId, RemnantBandShape>>> = {
+const SHOCK_SHELL: RemnantBandShape = { kind: 'shell', scale: 1, drawnAs: 'Shock shell in false color' }
+const NEBULA_BAND_SHAPES: Record<string, Partial<Record<WavelengthBandId, RemnantBandShape>>> = {
   'crab-nebula': { gamma: CRAB_CORE, 'x-ray': CRAB_CORE, 'far-infrared': { ...CRAB_FILLED, drawnAs: 'Synchrotron nebula and warm dust in false color' }, radio: CRAB_FILLED },
   'vela-supernova-remnant': { 'x-ray': HOT_GAS },
   'monogem-ring': { 'x-ray': HOT_GAS },
-  'rcw-86': { gamma: RCW_86_SHELL, 'x-ray': RCW_86_SHELL },
+  'rcw-86': { gamma: SHOCK_SHELL, 'x-ray': SHOCK_SHELL },
+  // The traced field spans 1.25 times the Cygnus Loop's catalogued size; its shell is drawn at that size.
+  'veil-nebula': { 'x-ray': { ...SHOCK_SHELL, scale: 0.67 } },
+  'tarantula-nebula': { 'x-ray': { ...HOT_GAS, scale: 0.8 } },
+  'omega-nebula': { 'x-ray': { ...HOT_GAS, scale: 0.6 } },
+  'carina-nebula': { 'x-ray': { ...HOT_GAS, scale: 0.5 } },
+  'rosette-nebula': { 'x-ray': { ...HOT_GAS, scale: 0.4 } },
 }
 
-export const remnantBandShape = (id: string, band: WavelengthBandId): RemnantBandShape | undefined => REMNANT_BAND_SHAPES[id]?.[band]
+export const remnantBandShape = (id: string, band: WavelengthBandId): RemnantBandShape | undefined => NEBULA_BAND_SHAPES[id]?.[band]
 
 /**
  * Molecular clouds: absorption scales their visible-light extinction (near-infrared extinction is about a tenth of

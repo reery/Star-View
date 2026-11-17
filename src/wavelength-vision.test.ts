@@ -50,9 +50,20 @@ describe('wavelength bands', () => {
     expect(wavelengthAbsoluteMagnitude(red, 'visible')).toBe(12)
   })
 
-  it('estimates a missing V from luminosity and temperature, and keeps V without a temperature', () => {
-    expect(wavelengthAbsoluteMagnitude(star({ temperature_k: 5772, luminosity_solar: 1 }), 'near-infrared')).toBeCloseTo(4.83 - 1.19, 2)
+  it('estimates the near infrared from dwarf-sequence colors, and keeps V without a temperature', () => {
+    // Pecaut & Mamajek G2V: V − Ks 1.56; Mbol − M_Ks 1.48 with the solar Mbol of 4.74.
+    expect(wavelengthAbsoluteMagnitude(star({ temperature_k: 5770, absolute_mag: 4.83 }), 'near-infrared')).toBeCloseTo(4.83 - 1.56, 2)
+    expect(wavelengthAbsoluteMagnitude(star({ temperature_k: 5770, luminosity_solar: 1 }), 'near-infrared')).toBeCloseTo(4.74 - 1.48, 2)
     expect(wavelengthAbsoluteMagnitude(star({ absolute_mag: 8 }), 'near-infrared')).toBe(8)
+  })
+
+  it('gives cool brown dwarfs their sequence K brightness instead of a blackbody color', () => {
+    // A 600 K blackbody would be 33 magnitudes brighter in K than in V; a T8.5 dwarf has M_Ks 18.3.
+    const tDwarf = star({ type: 'brown_dwarf', temperature_k: 600, absolute_mag: 19 })
+    expect(wavelengthAbsoluteMagnitude(tDwarf, 'near-infrared')).toBeCloseTo(18.3, 6)
+    expect(wavelengthAbsoluteMagnitude(star({ type: 'brown_dwarf', temperature_k: 600, luminosity_solar: 10 ** -5.6 }), 'near-infrared')).toBeCloseTo(4.74 + 14 - 1.27, 6)
+    // An ordinary star without V or luminosity stays unknown.
+    expect(wavelengthAbsoluteMagnitude(star({ temperature_k: 600 }), 'near-infrared')).toBeNull()
   })
 
   it('removes ordinary stars outside the thermal bands', () => {
@@ -123,5 +134,7 @@ describe('band values on the object card', () => {
     expect(specValues(measured, sun, 'ly', 'radio')['band-value']!.text).toBe('2,400 Jy')
     expect(specValues(measured, sun, 'ly', 'near-infrared')['band-value']!.text).toBe('4.21 ± 0.02')
     expect(specValues(measured, sun, 'ly', 'visible')['band-value']!.text).toBe('—')
+    registerWavelengthBandData('near-infrared', { unit: 'mag', sources: { survey: source }, objects: { 'card-star': [4.213, 0.02, 'survey:2013AJ....145...84W'] } })
+    expect(specValues(measured, sun, 'ly', 'near-infrared')['band-value']!.title).toBe('Survey, Author 2024. 0.2–2.3 keV flux. 2013AJ....145...84W.')
   })
 })

@@ -14,6 +14,7 @@ import hiiRegionImage from './assets/object-types/hii_region.jpg'
 import planetaryNebulaImage from './assets/object-types/planetary_nebula.jpg'
 import supernovaRemnantImage from './assets/object-types/supernova_remnant.jpg'
 import molecularCloudImage from './assets/object-types/molecular_cloud.jpg'
+import darkNebulaImage from './assets/object-types/dark_nebula.jpg'
 import bubbleImage from './assets/object-types/bubble.jpg'
 import galaxyImage from './assets/object-types/galaxy.jpg'
 
@@ -73,6 +74,10 @@ const introductions: Record<ObjectType, TypeIntroduction> = {
   molecular_cloud: {
     description: 'A molecular cloud is a cold, dense region of interstellar gas and dust where atoms can join into molecules, especially molecular hydrogen. Dust shields its interior from starlight, allowing temperatures to remain low. The densest parts can collapse under gravity to form new stars, making these clouds the birthplaces of stellar systems.',
     article: 'Molecular_cloud', image: molecularCloudImage, caption: 'Star-forming gas and dust around LH 95 · Hubble',
+  },
+  dark_nebula: {
+    description: 'A dark nebula is a cloud of interstellar dust dense enough to block the light of the stars behind it, so it shows as a dark patch against the starry Milky Way. Most are the nearest, densest parts of molecular clouds. In near-infrared light the dust grows more transparent and the stars behind it show through; in the far infrared the cold dust itself glows.',
+    article: 'Dark_nebula', image: darkNebulaImage, caption: 'The dark globule Barnard 68 · ESO VLT',
   },
   bubble: {
     description: 'An interstellar bubble is a cavity in the gas between stars, carved out by powerful stellar winds or supernova explosions. The expanding hot gas sweeps surrounding material into a shell, leaving a relatively sparse interior. Large cavities created by groups of massive stars are called superbubbles; the Sun lies within one known as the Local Bubble.',

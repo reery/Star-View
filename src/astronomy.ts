@@ -260,8 +260,10 @@ export function temperatureSpectrumColor(kelvin: number): Color {
   return interpolateColor(BROWN_DWARF_COLORS, kelvin).lerp(temperatureToColor(kelvin, 'exaggerated'), Math.max(0, Math.min(1, (kelvin - 1300) / 500)))
 }
 
+const DARK_NEBULA_RIM = { real: '#7e7c78', exaggerated: '#a9a19a' } as const
+
 export function starDisplayColor(
-  star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'> & Partial<Pick<Star, 'nebula' | 'molecular_cloud' | 'bubble' | 'galaxy'>>,
+  star: Pick<Star, 'type' | 'temperature_k' | 'spectral_type'> & Partial<Pick<Star, 'nebula' | 'molecular_cloud' | 'dark_nebula' | 'bubble' | 'galaxy'>>,
   mode: StarColorMode = 'real',
 ): Color {
   if (star.nebula) {
@@ -269,6 +271,8 @@ export function starDisplayColor(
     return new Color(palette[Math.floor(palette.length / 2)]!)
   }
   if (star.molecular_cloud) return new Color(star.molecular_cloud.palette[mode].rim)
+  // A dark nebula drawn with its cloud's dust takes the neutral dust rim.
+  if (star.dark_nebula) return new Color(star.dark_nebula.geometry?.palette[mode].rim ?? DARK_NEBULA_RIM[mode])
   if (star.bubble) return new Color(star.bubble.palette[mode])
   if (star.galaxy) return new Color(star.galaxy.palette[mode])
   if (star.type === 'pulsar') return new Color(0x42d9ff)

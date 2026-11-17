@@ -7,7 +7,7 @@ import compactInfo from './data/compact-object-info.json'
 import { equatorialToGalacticPc, type Star } from './catalog-model'
 import { galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor } from './astronomy'
 import { decodeNebulaMask, parseNebulaOverlayManifest, parseNebulaOverlayPayload } from './nebula-overlay-model'
-import { detailPuffCount, generateNebulaPuffs, nebulaBasis, nebulaExposure, packNebulaInstances, puffSource, seededRandom } from './nebula-layer'
+import { detailPuffCount, generateNebulaDust, generateNebulaPuffs, nebulaBasis, nebulaExposure, packNebulaInstances, puffSource, seededRandom } from './nebula-layer'
 
 const manifest = parseNebulaOverlayManifest(manifestRaw)
 const nebulae = parseNebulaOverlayPayload(JSON.parse(payloadRaw), manifest)
@@ -26,16 +26,25 @@ describe('nebula overlay data', () => {
       ['pleiades-nebula', 'reflection_nebula'],
       ['orion-nebula', 'hii_region'],
     ])
-    expect(nebulae).toHaveLength(101)
-    expect(manifest.counts).toEqual({ reflection_nebula: 59, hii_region: 14, planetary_nebula: 16, supernova_remnant: 12 })
+    expect(nebulae).toHaveLength(111)
+    expect(manifest.counts).toEqual({ reflection_nebula: 59, hii_region: 23, planetary_nebula: 16, supernova_remnant: 13 })
     expect(byId('sh-2-216').type).toBe('planetary_nebula')
+  })
+
+  it('draws Barnard’s Loop as an H-alpha shell at the distance of the Orion clouds', () => {
+    const loop = byId('barnards-loop')
+    expect(loop).toMatchObject({ type: 'hii_region', constellation: 'Orion' })
+    expect(loop.nebula).toMatchObject({ distance_pc: 440, distance_error_pc: null, angular_size_arcmin: [1200, 1200] })
+    expect(loop.nebula!.shape.kind).toBe('shell')
+    expect(loop.nebula!.shape.mask).toBeDefined()
   })
 
   it('keeps every census nebula within 1 sigma of 2000 ly and at least 5 arcmin across', () => {
     const cutoffPc = 2000 / LIGHT_YEARS_PER_PARSEC
-    // Showcases and the remnants of supernovae with recorded dates lie beyond the census.
+    // Showcases, the remnants of supernovae with recorded dates and the most important far nebulae lie beyond the census.
     const showcases = ['orion-nebula', 'crab-nebula', 'rcw-86', 'rx-j1713-3946', 'sn-1006', 'pa-30', 'tychos-supernova-remnant',
-      'keplers-supernova-remnant', 'cassiopeia-a', 'sn-1987a']
+      'keplers-supernova-remnant', 'cassiopeia-a', 'sn-1987a', 'lagoon-nebula', 'trifid-nebula', 'eagle-nebula', 'omega-nebula',
+      'rosette-nebula', 'carina-nebula', 'north-america-nebula', 'veil-nebula', 'tarantula-nebula']
     for (const nebula of nebulae.filter((candidate) => !showcases.includes(candidate.id))) {
       const { distance_pc, distance_error_pc, angular_size_arcmin } = nebula.nebula!
       expect(distance_pc - (distance_error_pc ?? 0), nebula.id).toBeLessThanOrEqual(cutoffPc)
@@ -148,12 +157,59 @@ describe('nebula puff volumes', () => {
       [star.id, compactInfo.articles[star.id as keyof typeof compactInfo.articles]?.name ?? star.name]))
     const remnants = nebulae.filter((nebula) => nebula.type === 'supernova_remnant')
     expect(remnants.map(({ id }) => id)).toEqual(['vela-supernova-remnant', 'monogem-ring', 'hoinga', 'crab-nebula', 'rcw-86', 'rx-j1713-3946', 'sn-1006', 'pa-30',
-      'tychos-supernova-remnant', 'keplers-supernova-remnant', 'cassiopeia-a', 'sn-1987a'])
+      'tychos-supernova-remnant', 'keplers-supernova-remnant', 'cassiopeia-a', 'sn-1987a', 'veil-nebula'])
     for (const { id, nebula } of remnants) {
       const star = nebula!.remnant!.neutron_star
       if (star) expect(compact.get(star.id), id).toBe(star.name)
     }
     expect(() => parseNebulaOverlayPayload(payloadWith((object) => { object.nebula.remnant = remnants[0]!.nebula!.remnant }), manifest)).toThrow(/Invalid nebula payload row/)
+  })
+
+  it('draws the Eagle’s pillars as lit, dusty columns along their measured axes', () => {
+    const eagle = byId('eagle-nebula')
+    const { pillars, dust, mask } = eagle.nebula!.shape
+    expect(pillars!.columns.map(({ name }) => name)).toEqual(['Pillar 1', 'Pillar 2', 'Pillar 3', 'Pillar 3 arm', 'Spire', 'Base'])
+    expect(dust!.size).toEqual(mask!.size)
+    // Distance of a local point (line of sight, north, east) from the nearest column axis, in column radii.
+    const reach = ([d, u, v]: number[]) => Math.min(...pillars!.columns.flatMap(({ points }) => points.slice(1).map((end, index) => {
+      const [n0, e0, d0, r0] = points[index]!
+      const [n1, e1, d1, r1] = end
+      const along = [d1 - d0, n1 - n0, e1 - e0]
+      const offset = [d! - d0, u! - n0, v! - e0]
+      const t = Math.max(0, Math.min(1, offset.reduce((sum, value, axis) => sum + value * along[axis]!, 0) / along.reduce((sum, value) => sum + value * value, 0)))
+      return Math.hypot(...offset.map((value, axis) => value - t * along[axis]!)) / (r0 + t * (r1 - r0))
+    })))
+    const puffs = generateNebulaPuffs(eagle, sun)
+    const share = pillars!.rim_puffs / eagle.nebula!.puff_count
+    let skins = 0
+    for (let index = 0; index < puffs.count; index++) {
+      if (Math.floor((index + 1) * share) === Math.floor(index * share)) continue
+      skins++
+      // The skin, or the haze just lifted off it.
+      expect(reach([...puffs.local.subarray(index * 3, index * 3 + 3)])).toBeLessThan(2.2)
+    }
+    expect(skins).toBe(pillars!.rim_puffs)
+    const absorbers = generateNebulaDust(eagle, sun)
+    expect(absorbers.count).toBe(dust!.puffs + pillars!.dust_puffs)
+    const inside = Array.from({ length: absorbers.count }, (_, index) => reach([...absorbers.local.subarray(index * 3, index * 3 + 3)]) <= 0.86)
+    expect(inside.filter(Boolean).length).toBeGreaterThanOrEqual(pillars!.dust_puffs)
+    // A column needs at least two axis points.
+    const malformed = JSON.parse(payloadRaw)
+    malformed.objects.find((object: Star) => object.id === 'eagle-nebula').nebula.shape.pillars.columns[0].points = [[0, 0, 0, 0.1]]
+    expect(() => parseNebulaOverlayPayload(malformed, manifest)).toThrow(/Invalid nebula payload row: eagle-nebula/)
+  })
+
+  it('keeps the Veil’s threads where the H-alpha map shows its shell, at the catalogued size', () => {
+    const veil = byId('veil-nebula')
+    const [, major] = veil.nebula!.shape.semi_axes_pc
+    const [a, b] = veil.nebula!.angular_size_arcmin
+    const radius = veil.nebula!.distance_pc * Math.tan(Math.sqrt(a * b) / 120 * Math.PI / 180)
+    const puffs = generateNebulaPuffs(veil, sun)
+    for (let index = 0; index < puffs.count; index++) {
+      const [d, u, v] = puffs.local.subarray(index * 3, index * 3 + 3)
+      expect(Math.hypot(d!, u!, v!) / radius).toBeGreaterThan(0.9)
+      expect(Math.hypot(u!, v!)).toBeLessThan(major)
+    }
   })
 
   it('draws remnant filaments as thin threads on the shell surface', () => {

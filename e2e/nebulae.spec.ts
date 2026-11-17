@@ -8,6 +8,8 @@ type NebulaRow = { type: string; nebula: { distance_pc: number; puff_count: numb
 const NEBULAE: NebulaRow[] = JSON.parse(readFileSync(new URL('../src/data/overlays/nebulae/objects.json', import.meta.url), 'utf8')).objects
 const INTERSTELLAR = ['reflection_nebula', 'hii_region']
 const DEFAULT_ROWS = 22
+// Galaxies load with every catalog and count in it.
+const GALAXIES: unknown[] = JSON.parse(readFileSync(new URL('../src/data/overlays/galaxies/objects.json', import.meta.url), 'utf8')).objects
 
 function expectedPuffs(limitLy: number, types = INTERSTELLAR, fraction = 1) {
   return String(NEBULAE
@@ -29,6 +31,7 @@ async function enableNebulae(page: Page, distanceStep = '20') {
   const typeDropdown = page.locator('details.filter-dropdown')
   if (await typeDropdown.getAttribute('open') === null) await typeDropdown.locator('summary').click()
   await page.getByLabel('Molecular clouds', { exact: true }).uncheck()
+  await page.getByLabel('Dark nebulae', { exact: true }).uncheck()
   await expect(page.locator('.projected-labels')).toHaveAttribute('data-nebula-puff-count', /\d+/)
   await page.getByLabel('Object visibility distance', { exact: true }).fill(distanceStep)
 }
@@ -73,10 +76,9 @@ test('loads nebulae on demand through the interstellar-medium category', async (
   const reflection = page.getByLabel('Reflection nebulae', { exact: true })
   await expect(hii).toBeDisabled()
   await enableNebulae(page, '14')
-  await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${DEFAULT_ROWS + NEBULAE.length}$`))
+  await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${DEFAULT_ROWS + GALAXIES.length + NEBULAE.length}$`))
   expect(nebulaRequests).toHaveLength(1)
   await expect(hii).toBeEnabled()
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('6 of 12')
   const layer = page.locator('.projected-labels')
   // Nebulae follow the Sun-centered distance filter by their centers.
   await expect(layer).toHaveAttribute('data-nebula-puff-count', '0')
@@ -87,11 +89,11 @@ test('loads nebulae on demand through the interstellar-medium category', async (
   await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500))
   await reflection.uncheck()
   await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500, ['hii_region']))
-  await expect(page.locator('#object-type-filter-summary')).toHaveText('5 of 12')
+  await expect(reflection).not.toBeChecked()
   await reflection.check()
-  // Planetary nebulae share the overlay but live under Stellar remnants.
+  // Planetary nebulae and supernova remnants share the overlay but live under Stellar remnants.
   await page.getByRole('switch', { name: 'Stellar remnants', exact: true }).check()
-  await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500, [...INTERSTELLAR, 'planetary_nebula']))
+  await expect(layer).toHaveAttribute('data-nebula-puff-count', expectedPuffs(1500, [...INTERSTELLAR, 'planetary_nebula', 'supernova_remnant']))
   await page.getByRole('switch', { name: 'Stellar remnants', exact: true }).uncheck()
   expect(nebulaRequests).toHaveLength(1)
 
@@ -119,7 +121,7 @@ test('loads nebulae on demand through the interstellar-medium category', async (
 
   await openFilter(page)
   await page.getByRole('switch', { name: 'Interstellar medium', exact: true }).uncheck()
-  await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${DEFAULT_ROWS}$`))
+  await expect(page.locator('#catalog-count')).toHaveText(new RegExp(`/${DEFAULT_ROWS + GALAXIES.length}$`))
   await expect(layer).not.toHaveAttribute('data-nebula-puff-count')
   await expect(page.locator('#star-details')).toBeHidden()
 })

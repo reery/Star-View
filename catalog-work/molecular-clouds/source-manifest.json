@@ -18,5 +18,45 @@
     }
   ],
   "displaySampling": "Each cloud's published one-parsec voxels are sorted by a stable coordinate hash and the first ceil(N/4) are retained. Runtime LOD uses prefixes of that spatially distributed sample.",
-  "notes": "The published source FITS files remain available from https://dataverse.harvard.edu/api/access/datafile/<dataverseFileId>. Generated overlay data is checked in under src/data/overlays/molecular-clouds."
+  "notes": "The published source FITS files remain available from https://dataverse.harvard.edu/api/access/datafile/<dataverseFileId>. Generated overlay data is checked in under src/data/overlays/molecular-clouds.",
+  "additions": {
+    "measured": "2026-11-16",
+    "script": "scripts/author-dark-clouds.py --measure",
+    "output": "catalog-work/molecular-clouds/additions.json",
+    "inputs": [
+      {
+        "name": "mean_and_std_healpix.fits",
+        "source": "Edenhofer et al. (2024), Zenodo 8187943",
+        "sha256": "7c36dd928afcd2a774ce746ccddba95a1d8490d7a034073fd622c57217c63ae6"
+      },
+      {
+        "name": "Galactic_Positions_For_All_Filtered_Clouds_Table1_Cahlon2023.fits",
+        "dataverseFileId": 7280031,
+        "sha256": "bbad4cfb1f2787074451a35ca54d1c557ba5c014a169510fbe22ceeb30fb75bb"
+      },
+      {
+        "name": "coraus_3D_density.fits",
+        "source": "Zucker et al. (2021) 3D Cloud Density Cutouts, doi:10.7910/DVN/IADP7W",
+        "dataverseFileId": 4327240,
+        "sha256": "fc079073396b029aba3847308f12c07df85d37b48d359cbbdc67a7e60ad1cb7d"
+      },
+      {
+        "name": "VII_7A.tsv",
+        "source": "VizieR VII/7A, Lynds (1962)"
+      },
+      {
+        "name": "VII_68.tsv",
+        "source": "VizieR VII/68A, Feitzinger & Stuewe (1984)"
+      },
+      {
+        "name": "VII_220A.tsv",
+        "source": "VizieR VII/220A, Barnard (1927)"
+      },
+      {
+        "name": "J_A_A_633_A51.tsv",
+        "source": "VizieR J/A+A/633/A51, Zucker et al. (2020)"
+      }
+    ],
+    "notes": "See docs/dark-clouds.md. The VizieR tables were retrieved 2026-11-16 from vizier.idia.ac.za; the 3.2 GB map is not checked in."
+  }
 }

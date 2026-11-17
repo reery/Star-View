@@ -1,6 +1,6 @@
 # Nebula Info images
 
-Retrieved and reviewed on 2026-11-04; the Vela Supernova Remnant and Crab Nebula images were added on 2026-11-13, and the images of the eight historical supernova remnants on 2026-11-15. 91 images for the articles in `src/data/nebula-info.json`, 2.9 MB in total (mean 32 KB). They load only when a visitor opens that nebula’s Info, so they add nothing to startup.
+Retrieved and reviewed on 2026-11-04; the Vela Supernova Remnant and Crab Nebula images were added on 2026-11-13, the images of the eight historical supernova remnants on 2026-11-15, those of Barnard’s Loop and eight dark nebulae and molecular clouds on 2026-11-17, and those of the nine far nebulae of batch 8 the same day. 109 images for the articles in `src/data/nebula-info.json` and `src/data/dark-cloud-info.json`, 3.6 MB in total (mean 33 KB). They load only when a visitor opens that object’s Info, so they add nothing to startup.
 
 ## Delivery
 
@@ -10,9 +10,9 @@ Credits, captions and licenses are stored with each article in `nebula-info.json
 
 ## Choosing an image
 
-Visible light comes first. Three images use other wavelengths because the nebula is hidden or far more striking there: W40 (Spitzer infrared), IC 348 (Webb near-infrared) and NGC 2071 (Euclid near-infrared). Four supernova remnants that are faint or invisible in visible light are shown in X-rays, alone or in false-color composites: SN 1006, RX J1713.7-3946, Tycho’s and Kepler’s remnants. Narrowband filter images are labeled in their captions. Where no published image exists, the image is a cutout from the Digitized Sky Survey.
+Visible light comes first. Three images use other wavelengths because the nebula is hidden or far more striking there: W40 (Spitzer infrared), IC 348 (Webb near-infrared) and NGC 2071 (Euclid near-infrared). The Tarantula Nebula’s Hubble mosaic adds the near-infrared I band to ground-based [O III] and hydrogen-alpha images. Four supernova remnants that are faint or invisible in visible light are shown in X-rays, alone or in false-color composites: SN 1006, RX J1713.7-3946, Tycho’s and Kepler’s remnants. Narrowband filter images are labeled in their captions. Where no published image exists, the image is a cutout from the Digitized Sky Survey.
 
-## Published images (65)
+## Published images (83)
 
 | File | Credit | Pixels (source → delivered) | Bytes | Source | License |
 | --- | --- | --- | ---: | --- | --- |
@@ -81,8 +81,26 @@ Visible light comes first. Three images use other wavelengths because the nebula
 | `keplers-supernova-remnant.avif` | NASA/ESA/JHU/R. Sankrit & W. Blair | 750 × 750 → 600 × 600 | 13,152 | [Wikimedia Commons: Keplers supernova.jpg](https://commons.wikimedia.org/wiki/File:Keplers_supernova.jpg) | public domain (NASA) |
 | `cassiopeia-a.avif` | NASA, ESA and the Hubble Heritage (STScI/AURA)-ESA/Hubble Collaboration; acknowledgement: R. A. Fesen & J. Long | 1280 × 1280 → 600 × 600 | 38,923 | [Wikimedia Commons: Hubble’s view of Cassiopeia A (weic2311c)](https://commons.wikimedia.org/wiki/File:Hubble%E2%80%99s_view_of_Cassiopeia_A_(weic2311c).jpg) | CC BY 4.0 |
 | `sn-1987a.avif` | ESA/Hubble & NASA | 850 × 850 → 600 × 600 | 20,854 | [Wikimedia Commons: SN 1987A HST.jpg](https://commons.wikimedia.org/wiki/File:SN_1987A_HST.jpg) | CC BY 4.0 |
+| `barnards-loop.avif` | Giuseppe Donatiello | 4500 × 2874 → 600 × 383 | 41,029 | [Wikimedia Commons: Barnard Loop 5RGB 1Ha](https://commons.wikimedia.org/wiki/File:Barnard_Loop_5RGB_1Ha_2002-2010_rwk_(21223105453).jpg) | CC0 1.0 |
+| `ldn-57.avif` | ESO | 4193 × 4193 → 600 × 600 | 44,712 | [ESO: How to become a star](https://www.eso.org/public/images/eso0102a/) | CC BY 4.0 |
+| `cahlon-cloud-30.avif` | ESO/Digitized Sky Survey 2; acknowledgment: Davide De Martin | 4000 × 2995 → 600 × 449 | 42,247 | [ESO: Wide-field view of part of the Coalsack Nebula](https://www.eso.org/public/images/eso1539c/) | CC BY 4.0 |
+| `cahlon-cloud-22.avif` | Keesscherer | 3858 × 2984 → 600 × 464 | 42,995 | [Wikimedia Commons: Taurus Molecular Cloud 1 and IC 2087](https://commons.wikimedia.org/wiki/File:Taurus_moleculair_Cloud_1_IC2087.jpg) | CC BY-SA 4.0 |
+| `ldn-66.avif` | Friendlystar | 3600 × 3600 → 600 × 600 | 38,966 | [Wikimedia Commons: Snake Nebula](https://commons.wikimedia.org/wiki/File:Snake_Nebula.jpg) | CC BY 3.0 |
+| `ldn-1746.avif` | ESO | 1280 × 1197 → 600 × 561 | 41,445 | [ESO: The mouthpiece of the Pipe Nebula](https://www.eso.org/public/images/eso1233a/) | CC BY 4.0 |
+| `ldn-42.avif` | ESO/Yuri Beletsky | 3000 × 1983 → 600 × 396 | 40,132 | [Wikimedia Commons: The Pipe Nebula](https://commons.wikimedia.org/wiki/File:The_Pipe_Nebula.jpg) | CC BY 4.0 |
+| `ldn-1551.avif` | ESA/Hubble and NASA; acknowledgement: Judy Schmidt | 4135 × 4009 → 600 × 581 | 6,560 | [ESA/Hubble: Jets, bubbles and bursts of light in Taurus](https://esahubble.org/images/heic1424a/) | CC BY 4.0 |
+| `cahlon-cloud-20.avif` | CTIO/NOIRLab/DOE/NSF/AURA; T.A. Rector (University of Alaska Anchorage/NSF NOIRLab), M. Zamani & D. de Martin (NSF NOIRLab) | 19507 × 17582 → 600 × 540 | 40,706 | [NOIRLab: The Ominous Chamaeleon I Dark Cloud](https://noirlab.edu/public/images/noirlab2519a/) | CC BY 4.0 |
+| `lagoon-nebula.avif` | ESO/VPHAS+ team | 1280 × 875 → 600 × 410 | 42,023 | [ESO: VST images the Lagoon Nebula](https://www.eso.org/public/images/eso1403a/) | CC BY 4.0 |
+| `trifid-nebula.avif` | Todd Boroson/NOIRLab/NSF/AURA | 1280 × 1280 → 600 × 600 | 43,245 | [NOIRLab: Trifid, M20, NGC 6514](https://noirlab.edu/public/images/noao-m20/) | CC BY 4.0 |
+| `eagle-nebula.avif` | NASA, ESA/Hubble and the Hubble Heritage Team | 1280 × 1335 → 600 × 625 | 25,515 | [ESA/Hubble: New view of the Pillars of Creation — visible](https://esahubble.org/images/heic1501a/) | CC BY 4.0 |
+| `omega-nebula.avif` | ESO | 1280 × 1280 → 600 × 600 | 28,333 | [ESO: The Omega Nebula](https://www.eso.org/public/images/eso0925a/) | CC BY 4.0 |
+| `rosette-nebula.avif` | KPNO/NOIRLab/NSF/AURA/N. A. Sharp | 1280 × 1280 → 600 × 600 | 44,747 | [NOIRLab: Rosette Nebula, NGC 2237](https://noirlab.edu/public/images/noao-rosette/) | CC BY 4.0 |
+| `carina-nebula.avif` | NASA, ESA, N. Smith (University of California, Berkeley) and The Hubble Heritage Team (STScI/AURA) | 1280 × 620 → 600 × 290 | 24,784 | [ESA/Hubble: Star birth in the extreme](https://esahubble.org/images/heic0707a/) | CC BY 4.0 |
+| `north-america-nebula.avif` | KPNO/NOIRLab/NSF/AURA/Adam Block | 1280 × 877 → 600 × 411 | 40,900 | [NOIRLab: NGC 7000, the North America and Pelican nebulae](https://noirlab.edu/public/images/noao-n7000mosblock/) | CC BY 4.0 |
+| `veil-nebula.avif` | NASA, ESA and the Hubble Heritage Team | 1280 × 853 → 600 × 400 | 42,166 | [ESA/Hubble: Revisiting the Veil Nebula](https://esahubble.org/images/heic1520a/) | CC BY 4.0 |
+| `tarantula-nebula.avif` | NASA, ESA, ESO, D. Lennon and E. Sabbi (ESA/STScI) et al. | 1280 × 1024 → 600 × 480 | 38,344 | [ESA/Hubble: Hubble’s panoramic view of a star-forming region](https://esahubble.org/images/heic1206a/) | CC BY 4.0 |
 
-Source pixels are the rendition downloaded, usually the publisher’s web size. `ic-4812.avif` and `ic-426.avif` are crops of the full `eso1027a` and `noao-ic426` frames. `ngc-6726.avif` and `ic-4812.avif` show the same ESO field. Pixels marked as crops in the article credits were trimmed to the 5:4 limit.
+Source pixels are the rendition downloaded, usually the publisher’s web size. `ic-4812.avif` and `ic-426.avif` are crops of the full `eso1027a` and `noao-ic426` frames. `ngc-6726.avif` and `ic-4812.avif` show the same ESO field. Pixels marked as crops in the article credits were trimmed to the 5:4 limit. The dark-cloud images were converted with macOS `sips`; Barnard 68 and the Snake Nebula, dense star fields, needed quality 26 and 30 to stay within 45 KB.
 
 ## Digitized Sky Survey cutouts (26)
 

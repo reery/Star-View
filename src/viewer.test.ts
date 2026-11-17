@@ -414,8 +414,22 @@ describe('projected star picking', () => {
     const grid = new ScreenSpaceGrid<ProjectedPickable>(32)
     for (const star of stars) grid.insert({ left: star.x, right: star.x, top: star.y, bottom: star.y }, star)
     expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 310, clientY: 240 }, 16)).toBe('near-depth')
-    expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 306, clientY: 240 }, 16)).toBe('closer-screen')
+    expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 306, clientY: 240 }, 16)).toBe('near-depth')
+    expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 293, clientY: 240 }, 16)).toBe('closer-screen')
     expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 100, clientY: 240 }, 500)).toBeNull()
+  })
+
+  it('prefers the object in front within the pointer radius and the closest among similar depths', () => {
+    const stars: ProjectedPickable[] = [
+      { id: 'front', x: 330, y: 240, depth: 3 },
+      { id: 'behind', x: 310, y: 240, depth: 40 },
+      { id: 'beside-behind', x: 312, y: 240, depth: 42 },
+    ]
+    const grid = new ScreenSpaceGrid<ProjectedPickable>()
+    for (const star of stars) grid.insert({ left: star.x, right: star.x, top: star.y, bottom: star.y }, star)
+    expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 310, clientY: 240 }, 24)).toBe('front')
+    expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 310, clientY: 240 }, 16)).toBe('behind')
+    expect(pickProjectedStarAtScreenPoint(grid, viewport, { clientX: 300, clientY: 240 }, 16)).toBe('behind')
   })
 })
 

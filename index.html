@@ -140,6 +140,11 @@
                             <div class="remnant-property" hidden><dt>Drawn as</dt><dd id="remnant-drawn-as"></dd></div>
                             <div class="nebula-property" hidden><dt>Distance source</dt><dd id="nebula-distance-source"></dd></div>
                             <div class="nebula-property" hidden><dt>Source</dt><dd><a id="nebula-source" target="_blank" rel="noreferrer"></a></dd></div>
+                            <div class="dark-nebula-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="molecular_cloud">Part of</button></dt><dd><button id="dark-nebula-cloud" class="object-type-toggle" type="button"></button><span id="dark-nebula-own-dust">Its own dust in the 3D dust map</span></dd></div>
+                            <div class="dark-nebula-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="apparent-size">Apparent size</button></dt><dd id="dark-nebula-angular-size"></dd></div>
+                            <div id="dark-nebula-opacity-row" class="dark-nebula-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Opacity class</button><span id="dark-nebula-opacity-term" class="tooltip mass-metric-tooltip" role="tooltip">How dark the nebula looked on the survey photographs, from 1 (faintest) to 6 (darkest).</span></dt><dd id="dark-nebula-opacity"></dd></div>
+                            <div class="dark-nebula-property" hidden><dt>Distance source</dt><dd><a id="dark-nebula-distance-source" target="_blank" rel="noreferrer"></a></dd></div>
+                            <div class="dark-nebula-property" hidden><dt>Source</dt><dd><a id="dark-nebula-source" target="_blank" rel="noreferrer"></a></dd></div>
                             <div class="molecular-cloud-property" hidden><dt>Cloud complex</dt><dd id="molecular-cloud-complex"></dd></div>
                             <div class="molecular-cloud-property" hidden><dt>Equivalent radius</dt><dd id="molecular-cloud-radius"></dd></div>
                             <div class="molecular-cloud-property" hidden><dt>Mean density</dt><dd id="molecular-cloud-density"></dd></div>
@@ -839,6 +844,7 @@
                   <button id="observer-active" class="icon-button" type="button" aria-label="Observer view active" aria-pressed="true" aria-controls="observer-panel" hidden><span id="observer-active-icon"></span><span class="tooltip">Observer view active</span></button>
                   <button id="rotation-active" class="icon-button" type="button" aria-label="Automatic rotation active" aria-pressed="true" aria-controls="rotation-panel" hidden><span id="rotation-active-icon"></span><span class="tooltip">Automatic rotation active</span></button>
                   <button id="demo-active" class="icon-button" type="button" aria-label="Demo mode active" aria-pressed="true" aria-controls="demo-panel" hidden><span id="demo-active-icon"></span><span class="tooltip">Demo mode active</span></button>
+                  <button id="objects-filter-active" class="icon-button" type="button" aria-label="Objects filter active" aria-pressed="true" aria-controls="objects-panel" hidden><span id="objects-filter-active-icon"></span><span class="tooltip">Objects filter active</span></button>
                   <button id="graph-filter-active" class="icon-button" type="button" aria-label="Graph filter active" aria-pressed="true" aria-controls="graphs-panel" hidden><span id="graph-filter-active-icon"></span><span class="tooltip">Graph filter active</span></button>
                 </div>
               </div>
@@ -963,27 +969,37 @@
                   <button id="filter-close" class="panel-lock" type="button" aria-label="Close filter card"><span id="filter-close-icon"></span></button>
                 </div>
                 <div class="filter-controls card-scroll-content">
-                  <div class="range-filter">
-                    <div class="range-heading"><label for="catalog-range"><span class="mass-metric-help">Nearest objects</span></label><span id="catalog-range-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">How many of the objects closest to the Sun to load: stars, brown dwarfs and white dwarfs, from the nearest neighbors to the nearest 5000. Larger sets reach farther out.</span></div>
-                    <input id="catalog-range" type="range" min="0" max="0" step="1" value="0" aria-describedby="catalog-range-tooltip">
-                    <div id="catalog-range-markers" class="range-markers" aria-hidden="true"></div>
+                  <div id="filter-tiles" class="filter-tiles">
+                    <!-- Category tiles are generated in main.ts; these catalog controls move into the Compact objects tile. -->
+                    <div id="compact-object-catalogs" class="filter-tile-catalogs">
+                      <div class="range-filter">
+                        <div class="range-heading"><label for="catalog-range"><span class="mass-metric-help">Nearest objects</span></label><span id="catalog-range-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">How many of the objects closest to the Sun to load: stars, brown dwarfs and white dwarfs, from the nearest neighbors to the nearest 5000. Larger sets reach farther out.</span></div>
+                        <input id="catalog-range" type="range" min="0" max="0" step="1" value="0" aria-describedby="catalog-range-tooltip">
+                        <div id="catalog-range-markers" class="range-markers" aria-hidden="true"></div>
+                      </div>
+                      <p id="catalog-error" class="catalog-error" role="alert" hidden></p>
+                      <div class="catalog-toggles" role="group" aria-label="Additional catalogs">
+                        <label class="filter-toggle" for="show-western-constellation-stars">
+                          <span class="mass-metric-help">Western constellation stars</span>
+                          <span class="switch-control"><input id="show-western-constellation-stars" type="checkbox" role="switch" aria-describedby="show-western-constellation-stars-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
+                        </label><span id="show-western-constellation-stars-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">The stars that draw the Western constellation figures, landmark stars in seven famous star groups and other bright landmarks, with their companions. Raise Object visibility distance to see the distant ones.</span>
+                        <label class="filter-toggle" for="show-naked-eye-stars">
+                          <span class="mass-metric-help">Naked-eye stars</span>
+                          <span class="switch-control"><input id="show-naked-eye-stars" type="checkbox" role="switch" aria-describedby="show-naked-eye-stars-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
+                        </label><span id="show-naked-eye-stars-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Every star brighter than magnitude 6.5, visible without a telescope from a dark site. Raise Object visibility distance to see the distant ones.</span>
+                        <label class="filter-toggle" for="show-notable-distant-stars">
+                          <span class="mass-metric-help">Notable distant stars</span>
+                          <span class="switch-control"><input id="show-notable-distant-stars" type="checkbox" role="switch" aria-describedby="show-notable-distant-stars-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
+                        </label><span id="show-notable-distant-stars-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Distant stars in notable systems, such as the companions of pulsars. They also load whenever pulsars, neutron stars or black holes are shown. Raise Object visibility distance to see them.</span>
+                      </div>
+                    </div>
+                    <section class="planet-atmosphere filter-tile" aria-label="Galaxies">
+                      <div class="filter-tile-heading">
+                        <label class="filter-toggle" for="milky-way-visible"><span class="mass-metric-help">Galaxies</span></label><span id="milky-way-visible-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">The Milky Way as a faint band across the sky behind the stars. Thousands of light-years from the Sun, it gives way to models of the whole Galaxy and its neighbors, from the Magellanic Clouds and the Andromeda and Triangulum galaxies to their dwarf satellites, which you can select. With no object distance limit, you can zoom out across the Local Group.</span>
+                        <span class="switch-control"><input id="milky-way-visible" type="checkbox" role="switch" aria-describedby="milky-way-visible-tooltip" checked><span class="switch-track" aria-hidden="true"></span></span>
+                      </div>
+                    </section>
                   </div>
-                  <p id="catalog-error" class="catalog-error" role="alert" hidden></p>
-                  <div class="catalog-toggles" role="group" aria-label="Additional catalogs">
-                    <label class="filter-toggle" for="show-western-constellation-stars">
-                      <span class="mass-metric-help">Western constellation stars</span>
-                      <span class="switch-control"><input id="show-western-constellation-stars" type="checkbox" role="switch" aria-describedby="show-western-constellation-stars-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
-                    </label><span id="show-western-constellation-stars-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">The stars that draw the Western constellation figures, landmark stars in seven famous star groups and other bright landmarks, with their companions. Raise Object visibility distance to see the distant ones.</span>
-                    <label class="filter-toggle" for="show-naked-eye-stars">
-                      <span class="mass-metric-help">Naked-eye stars</span>
-                      <span class="switch-control"><input id="show-naked-eye-stars" type="checkbox" role="switch" aria-describedby="show-naked-eye-stars-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
-                    </label><span id="show-naked-eye-stars-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Every star brighter than magnitude 6.5, visible without a telescope from a dark site. Raise Object visibility distance to see the distant ones.</span>
-                    <label class="filter-toggle" for="show-notable-distant-stars">
-                      <span class="mass-metric-help">Notable distant stars</span>
-                      <span class="switch-control"><input id="show-notable-distant-stars" type="checkbox" role="switch" aria-describedby="show-notable-distant-stars-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
-                    </label><span id="show-notable-distant-stars-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Distant stars in notable systems, such as the companions of pulsars. They also load whenever pulsars, neutron stars or black holes are shown. Raise Object visibility distance to see them.</span>
-                  </div>
-                  <div id="object-categories" class="category-toggles" role="group" aria-label="Object categories"></div>
                   <div class="range-filter">
                     <div class="range-heading"><label for="object-distance-limit"><span class="mass-metric-help">Object visibility distance</span></label><span id="object-distance-limit-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Hides objects farther than this from the origin, which is the Sun unless you set another object. Infinite shows objects at every distance. This limit never hides the Sun or the selected object.</span><output id="object-distance-limit-value" for="object-distance-limit">100 ly</output></div>
                     <input id="object-distance-limit" type="range" min="0" max="25" step="1" value="14" aria-valuetext="100 light-years" aria-describedby="object-distance-steps object-distance-limit-tooltip">
@@ -1001,18 +1017,12 @@
                     <span class="mass-metric-help">Hide fainter objects</span>
                     <span class="switch-control"><input id="hide-fainter-objects" type="checkbox" role="switch" aria-describedby="hide-fainter-objects-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
                   </label><span id="hide-fainter-objects-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Removes objects fainter than the V magnitude limit from the map and the Objects list, instead of dimming them.</span>
-                  <details class="filter-dropdown">
-                    <summary><span>Object type</span><span id="object-type-filter-summary">All</span></summary>
-                    <fieldset id="object-type-filter" class="type-filter">
-                      <legend class="sr-only">Object types</legend>
-                      <div id="object-type-options" class="filter-options"></div>
-                    </fieldset>
-                  </details>
                 </div>
               </section>
               <section id="objects-panel" class="dock-card catalog" aria-labelledby="catalog-heading" hidden>
                 <div class="panel-heading objects-heading">
                   <h2 id="catalog-heading">Objects <span id="catalog-count"></span></h2>
+                  <button id="objects-filter" class="panel-lock" type="button" aria-label="Show only listed objects on the map" aria-pressed="false" aria-controls="objects-panel" title="Show only listed objects on the map"><span id="objects-filter-icon"></span></button>
                   <button id="objects-shrink" class="panel-lock objects-height-control" type="button" aria-label="Halve objects card height" aria-controls="objects-panel" title="Halve objects card height" hidden><span id="objects-shrink-icon"></span></button>
                   <button id="objects-maximize" class="panel-lock objects-height-control" type="button" aria-label="Maximize objects card height" aria-controls="objects-panel" title="Maximize objects card height" hidden><span id="objects-maximize-icon"></span></button>
                   <button id="objects-expand" class="panel-lock objects-expand" type="button" aria-label="Expand objects list" aria-expanded="false" aria-controls="object-database" title="Expand objects list"><span id="objects-expand-icon"></span></button>
@@ -1271,10 +1281,6 @@
                       <span id="visibility-cone-mode-description" class="sr-only">Stops are Off, Now, then two-hour windows from 18 to 20 through 6 to 8.</span>
                     </div>
                     <div class="catalog-toggles" role="group" aria-label="Scene layers">
-                      <label class="filter-toggle" for="milky-way-visible">
-                        <span class="mass-metric-help">Galaxies</span>
-                        <span class="switch-control"><input id="milky-way-visible" type="checkbox" role="switch" aria-describedby="milky-way-visible-tooltip" checked><span class="switch-track" aria-hidden="true"></span></span>
-                      </label><span id="milky-way-visible-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">The Milky Way as a faint band across the sky behind the stars. Thousands of light-years from the Sun, it gives way to models of the whole Galaxy and its neighbors, from the Magellanic Clouds and the Andromeda and Triangulum galaxies to their dwarf satellites, which you can select. With no object distance limit, you can zoom out across the Local Group.</span>
                       <label class="filter-toggle" for="oort-cloud-visible">
                         <span class="mass-metric-help">Oort cloud</span>
                         <span class="switch-control"><input id="oort-cloud-visible" type="checkbox" role="switch" aria-describedby="oort-cloud-visible-tooltip" checked><span class="switch-track" aria-hidden="true"></span></span>
@@ -1314,7 +1320,7 @@
                     <div><dt>License</dt><dd>MIT</dd></div>
                     <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
                     <div><dt>Wavelength skies</dt><dd>Fermi LAT (NASA) · ROSAT, Snowden et al. 1997 · IRIS, Miville-Deschênes &amp; Lagache 2005 · 408 MHz, Haslam et al. 1982 · CO, Dame et al. 2001<br><span class="attribution-note">via <a href="https://skyview.gsfc.nasa.gov" target="_blank" rel="noreferrer">NASA SkyView</a> · resampled and stretched</span></dd></div>
-                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-14">14 November 2026</time></dd></div>
+                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-17">17 November 2026</time></dd></div>
                     <div><dt>Build date</dt><dd><time datetime="%BUILD_DATE_ISO%">%BUILD_DATE%</time></dd></div>
                     <div><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="catalog-epoch-tooltip">Position reference epoch</button><span id="catalog-epoch-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog positions use the year 2000 as their reference time.</span></dt><dd id="catalog-epoch">J2000.0</dd></div>
                     <div><dt>Version</dt><dd>%APP_VERSION%</dd></div>

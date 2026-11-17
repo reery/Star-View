@@ -11,6 +11,204 @@
    "source": "1eRASS J090206.7-403316"
   }
  ],
+ "UltracoolSheet row shared by several objects": [
+  {
+   "id": "10pc-0042",
+   "name": "Epsilon Indi Ba",
+   "source": "eps Indi B",
+   "shared": [
+    "10pc-0042",
+    "10pc-0043"
+   ]
+  },
+  {
+   "id": "10pc-0043",
+   "name": "Epsilon Indi Bb",
+   "source": "eps Indi B",
+   "shared": [
+    "10pc-0042",
+    "10pc-0043"
+   ]
+  },
+  {
+   "id": "cns5-2284",
+   "name": "Pi1 Cnc C",
+   "source": "Gl 337CD",
+   "shared": [
+    "cns5-2284",
+    "cns5-gj-337-d"
+   ]
+  },
+  {
+   "id": "cns5-2733",
+   "name": "GJ 417 B",
+   "source": "Gl 417BC",
+   "shared": [
+    "cns5-2733",
+    "cns5-gj-417-c"
+   ]
+  },
+  {
+   "id": "cns5-2974",
+   "name": "SDSS J120747.17+024424.8",
+   "source": "SDSS J120747.17+024424.8",
+   "shared": [
+    "cns5-2974",
+    "cns5-3190"
+   ]
+  },
+  {
+   "id": "cns5-3636",
+   "name": "GJ 9492",
+   "source": "G 239-25B",
+   "shared": [
+    "cns5-3636",
+    "cns5-3637"
+   ]
+  },
+  {
+   "id": "cns5-3637",
+   "name": "GJ 9492 B",
+   "source": "G 239-25B",
+   "shared": [
+    "cns5-3636",
+    "cns5-3637"
+   ]
+  },
+  {
+   "id": "cns5-3668",
+   "name": "GJ 564 B",
+   "source": "HD 130948BC",
+   "shared": [
+    "cns5-3668",
+    "cns5-gj-564-c"
+   ]
+  },
+  {
+   "id": "cns5-gj-337-d",
+   "name": "Pi1 Cnc D",
+   "source": "Gl 337CD",
+   "shared": [
+    "cns5-2284",
+    "cns5-gj-337-d"
+   ]
+  },
+  {
+   "id": "cns5-gj-417-c",
+   "name": "GJ 417 C",
+   "source": "Gl 417BC",
+   "shared": [
+    "cns5-2733",
+    "cns5-gj-417-c"
+   ]
+  },
+  {
+   "id": "cns5-gj-564-c",
+   "name": "GJ 564 C",
+   "source": "HD 130948BC",
+   "shared": [
+    "cns5-3668",
+    "cns5-gj-564-c"
+   ]
+  }
+ ],
+ "UltracoolSheet K far from 2MASS quality A": [
+  {
+   "id": "cns5-0536",
+   "name": "APMPM J0207-3722",
+   "source": "APMPM J0207-3722",
+   "system": "ks",
+   "k": 11.6807,
+   "twoMass": 11.382,
+   "reference": "McMahon et al. (2021), 2021yCat.2367....0M"
+  },
+  {
+   "id": "cns5-1400",
+   "name": "LP 658-106",
+   "source": "LP 658-106",
+   "system": "ks",
+   "k": 11.7518,
+   "twoMass": 11.348,
+   "reference": "McMahon et al. (2021), 2021yCat.2367....0M"
+  },
+  {
+   "id": "cns5-2669",
+   "name": "UPM J1055-7356",
+   "source": "UPM J1055-7356",
+   "system": "ks",
+   "k": 10.1436,
+   "twoMass": 9.666,
+   "reference": "McMahon et al. (2021), 2021yCat.2367....0M"
+  },
+  {
+   "id": "cns5-3086",
+   "name": "DENIS J123217.8-685600",
+   "source": "DENIS J123217.8-685600",
+   "system": "ks",
+   "k": 11.8206,
+   "twoMass": 11.318,
+   "reference": "McMahon et al. (2021), 2021yCat.2367....0M"
+  },
+  {
+   "id": "cns5-3801",
+   "name": "LSPM J1524+2925",
+   "source": "2MASP J1524248+292535",
+   "system": "mko",
+   "k": 10.468,
+   "twoMass": 10.155,
+   "reference": "Lawrence et al. (2012), 2012yCat.2314....0L"
+  },
+  {
+   "id": "cns5-5725",
+   "name": "LP 702-50",
+   "source": "LP 702-50",
+   "system": "ks",
+   "k": 10.9541,
+   "twoMass": 10.228,
+   "reference": "McMahon et al. (2021), 2021yCat.2367....0M"
+  },
+  {
+   "id": "cns5-5781",
+   "name": "LP 822-7",
+   "source": "LP 822-7",
+   "system": "ks",
+   "k": 11.3419,
+   "twoMass": 10.835,
+   "reference": "McMahon et al. (2021), 2021yCat.2367....0M"
+  }
+ ],
+ "Several UltracoolSheet rows match one object": [
+  {
+   "id": "cns5-3190",
+   "name": "VHS J1256-1257B",
+   "sources": [
+    "SDSS J120747.17+024424.8",
+    "VHS J125601.92-125723.9 b"
+   ]
+  }
+ ],
+ "UltracoolSheet measurement shared by several objects": [
+  {
+   "id": "cns5-5504",
+   "name": "LP 399-193 B",
+   "source": "LP 399-193B",
+   "system": "ks",
+   "shared": [
+    "cns5-5504",
+    "cns5-5505"
+   ]
+  },
+  {
+   "id": "cns5-5505",
+   "name": "LP 399-193 A",
+   "source": "LP 399-193A",
+   "system": "ks",
+   "shared": [
+    "cns5-5504",
+    "cns5-5505"
+   ]
+  }
+ ],
  "IRAS 100 µm detection without 60 µm (possible cirrus)": [
   {
    "id": "10pc-0112",
