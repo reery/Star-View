@@ -190,9 +190,11 @@ def build():
     pulsars = {}
     # Pre-1993 pulsars keep their B1950 names in the literature (PSR B1919+21).
     b_names = {}
-    atnf_path = ROOT / "catalog-work/compact-remnants/atnf-subset.db"
-    inputs[str(atnf_path.relative_to(ROOT))] = hashlib.sha256(atnf_path.read_bytes()).hexdigest()
-    for block in atnf_path.read_text(encoding="latin-1").split("\n@"):
+    # The frozen ATNF subset and the landmark pulsars beyond its radius.
+    atnf_paths = [ROOT / "catalog-work/compact-remnants/atnf-subset.db", ROOT / "catalog-work/compact-remnants/atnf-landmarks.db"]
+    for atnf_path in atnf_paths:
+        inputs[str(atnf_path.relative_to(ROOT))] = hashlib.sha256(atnf_path.read_bytes()).hexdigest()
+    for block in "\n@".join(path.read_text(encoding="latin-1") for path in atnf_paths).split("\n@"):
         fields = {parts[0]: parts[1] for parts in (line.split() for line in block.splitlines() if not line.startswith("#")) if len(parts) > 1}
         if "PSRJ" not in fields:
             continue
@@ -262,7 +264,11 @@ def build():
         if main:
             record = records[main]
             sources.extend(record["sources"])
+            # A reviewed decision can withhold aliases SIMBAD merged in from a larger structure.
+            withheld = {key(value) for value in reviewed.get(identifier, {}).get("withheld", [])}
             for value in record["aliases"]:
+                if key(value) in withheld:
+                    continue
                 if row["type"] == "pulsar" and (value.startswith(("SNR ", "PWN ")) or re.search(r"\b(?:SNR|PWN|Nebula)\b", value, re.I)):
                     continue
                 if dark_nebula and not re.match(r"^(?:NAME|LDN|Barnard|FEST|Sandqvist|DCld|BHR|TGU|\[DB2002b\]|CB|DOBASHI)\s+", value, re.I):

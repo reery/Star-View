@@ -1,6 +1,6 @@
 # Nebula Info images
 
-Retrieved and reviewed on 2026-11-04; the Vela Supernova Remnant and Crab Nebula images were added on 2026-11-13, the images of the eight historical supernova remnants on 2026-11-15, those of Barnard’s Loop and eight dark nebulae and molecular clouds on 2026-11-17, and those of the nine far nebulae of batch 8 the same day. 109 images for the articles in `src/data/nebula-info.json` and `src/data/dark-cloud-info.json`, 3.6 MB in total (mean 33 KB). They load only when a visitor opens that object’s Info, so they add nothing to startup.
+Retrieved and reviewed on 2026-11-04; the Vela Supernova Remnant and Crab Nebula images were added on 2026-11-13, the images of the eight historical supernova remnants on 2026-11-15, those of Barnard’s Loop and eight dark nebulae and molecular clouds on 2026-11-17, and those of the nine far nebulae of batch 8 the same day, those of the seven landmark remnants of batch 9 on 2026-11-18, and those of the seven H II regions of batch 10 the same day. 123 images for the articles in `src/data/nebula-info.json` and `src/data/dark-cloud-info.json`, 4.1 MB in total (mean 34 KB). They load only when a visitor opens that object’s Info, so they add nothing to startup.
 
 ## Delivery
 
@@ -10,9 +10,9 @@ Credits, captions and licenses are stored with each article in `nebula-info.json
 
 ## Choosing an image
 
-Visible light comes first. Three images use other wavelengths because the nebula is hidden or far more striking there: W40 (Spitzer infrared), IC 348 (Webb near-infrared) and NGC 2071 (Euclid near-infrared). The Tarantula Nebula’s Hubble mosaic adds the near-infrared I band to ground-based [O III] and hydrogen-alpha images. Four supernova remnants that are faint or invisible in visible light are shown in X-rays, alone or in false-color composites: SN 1006, RX J1713.7-3946, Tycho’s and Kepler’s remnants. Narrowband filter images are labeled in their captions. Where no published image exists, the image is a cutout from the Digitized Sky Survey.
+Visible light comes first. Six images use other wavelengths because the nebula is hidden or far more striking there: W40 (Spitzer infrared), IC 348 (Webb near-infrared), NGC 2071 (Euclid near-infrared), and W49A (UKIDSS near-infrared), W51 and Cygnus X (Spitzer infrared), which dust hides in visible light. The Heart Nebula is shown through narrowband filters. The Tarantula Nebula’s Hubble mosaic adds the near-infrared I band to ground-based [O III] and hydrogen-alpha images. Supernova remnants that are faint or invisible in visible light are shown in X-rays or radio waves, alone or in false-color composites: SN 1006, RX J1713.7-3946, Tycho’s and Kepler’s remnants, G1.9+0.3 and 3C 58 in X-rays, W44 in gamma rays, X-rays, infrared and radio, and the Manatee Nebula (W50) in radio waves over infrared. Narrowband filter images are labeled in their captions. Where no published image exists, the image is a cutout from the Digitized Sky Survey.
 
-## Published images (83)
+## Published images (97)
 
 | File | Credit | Pixels (source → delivered) | Bytes | Source | License |
 | --- | --- | --- | ---: | --- | --- |
@@ -99,8 +99,22 @@ Visible light comes first. Three images use other wavelengths because the nebula
 | `north-america-nebula.avif` | KPNO/NOIRLab/NSF/AURA/Adam Block | 1280 × 877 → 600 × 411 | 40,900 | [NOIRLab: NGC 7000, the North America and Pelican nebulae](https://noirlab.edu/public/images/noao-n7000mosblock/) | CC BY 4.0 |
 | `veil-nebula.avif` | NASA, ESA and the Hubble Heritage Team | 1280 × 853 → 600 × 400 | 42,166 | [ESA/Hubble: Revisiting the Veil Nebula](https://esahubble.org/images/heic1520a/) | CC BY 4.0 |
 | `tarantula-nebula.avif` | NASA, ESA, ESO, D. Lennon and E. Sabbi (ESA/STScI) et al. | 1280 × 1024 → 600 × 480 | 38,344 | [ESA/Hubble: Hubble’s panoramic view of a star-forming region](https://esahubble.org/images/heic1206a/) | CC BY 4.0 |
+| `simeis-147.avif` | Rogelio Bernal Andreo | 1280 × 689 → crop 700 × 689 → 600 × 590 | 43,565 | [Wikimedia Commons: Simeis 147](https://commons.wikimedia.org/wiki/File:Simeis_147.jpg) | CC BY-SA 3.0 |
+| `ic-443.avif` | KPNO/NOIRLab/NSF/AURA/Tom Bash and John Fox/Adam Block | 1280 × 833 → 600 × 390 | 43,049 | [Wikimedia Commons: IC 443 Widefield (noao-ic443block2)](https://commons.wikimedia.org/wiki/File:IC_443_Widefield_(noao-ic443block2).jpg) | CC BY 4.0 |
+| `puppis-a.avif` | CTIO/NOIRLab/DOE/NSF/AURA; T.A. Rector (University of Alaska Anchorage/NSF’s NOIRLab), M. Zamani & D. de Martin (NSF’s NOIRLab) | 1280 × 1280 → 600 × 600 | 42,582 | [Wikimedia Commons: Supernova Remnant Puppis A (noirlab2406f)](https://commons.wikimedia.org/wiki/File:Supernova_Remnant_Puppis_A_(noirlab2406f).jpg) | CC BY 4.0 |
+| `w44.avif` | NASA/DOE/Fermi LAT Collaboration, ROSAT, JPL-Caltech and NRAO/AUI | 1280 × 1450 → 600 × 679 | 43,131 | [Wikimedia Commons: 425991main W44 multi](https://commons.wikimedia.org/wiki/File:425991main_W44_multi.jpg) | public domain (NASA) |
+| `g1-9p0-3.avif` | NASA/CXC/NCSU/K. Borkowski et al. | 1280 × 1280 → crop 600 × 600 | 14,605 | [Wikimedia Commons: The Remarkable Remains of a Recent Supernova](https://commons.wikimedia.org/wiki/File:The_Remarkable_Remains_of_a_Recent_Supernova_(9933992404).jpg) | public domain (NASA) |
+| `w50.avif` | NRAO/AUI/NSF, K. Golap, M. Goss; NASA WISE | 1280 × 763 → 600 × 357 | 43,445 | [Wikimedia Commons: W50 medium](https://commons.wikimedia.org/wiki/File:W50_medium.jpg) | CC BY 4.0 |
+| `3c-58.avif` | X-ray: NASA/CXC/ICE-CSIC/A. Marino et al.; Optical: SDSS; Image processing: NASA/CXC/SAO/J. Major | 4403 × 1479 → crop 3300 × 1479 → 600 × 269 | 22,132 | [Chandra X-ray Observatory: 3C 58 (2024)](https://chandra.harvard.edu/photo/2024/3c58/) | public domain (NASA) |
+| `w49a.avif` | OtterAM (UKIDSS) | 574 × 815 original → crop 574 × 718 → 500 × 625 | 39,967 | [Wikimedia Commons: W49 UKIDSS JHK](https://commons.wikimedia.org/wiki/File:W49_UKIDSS_JHK.tiff) | CC BY-SA 4.0 |
+| `w51.avif` | NASA/JPL-Caltech | 1280 × 720 Commons rendition → 600 × 337 | 37,693 | [Wikimedia Commons: PIA23865-W51Nebula-StarFactory-20200825](https://commons.wikimedia.org/wiki/File:PIA23865-W51Nebula-StarFactory-20200825.jpg) | public domain (NASA) |
+| `cygnus-x.avif` | NASA | 1280 × 960 Commons rendition → 600 × 450 | 37,415 | [Wikimedia Commons: Cygnus X](https://commons.wikimedia.org/wiki/File:Cygnus_X.jpg) | public domain (NASA) |
+| `rcw-49.avif` | ESO | 1280 × 1288 Commons rendition → 600 × 603 | 41,770 | [Wikimedia Commons: Stellar nursery Gum 29 aka RCW 49](https://commons.wikimedia.org/wiki/File:Stellar_nursery_Gum_29_aka_RCW_49.jpg) | CC BY 4.0 |
+| `heart-nebula.avif` | Ram Samudrala | 1280 × 965 Commons rendition → 600 × 452 | 42,826 | [Wikimedia Commons: Heart Nebula (2020-08-11)](https://commons.wikimedia.org/wiki/File:Heart_Nebula_(2020-08-11).jpg) | CC BY 4.0 |
+| `soul-nebula.avif` | paramsach | 1280 × 1628 Commons rendition → 600 × 750 | 39,485 | [Wikimedia Commons: Soul nebula (53327273623)](https://commons.wikimedia.org/wiki/File:Soul_nebula_(53327273623).jpg) | CC BY 2.0 |
+| `sh-2-106.avif` | NASA & ESA | 1280 × 941 Commons rendition → 600 × 441 | 30,969 | [Wikimedia Commons: Star-forming region S106 (captured by the Hubble Space Telescope)](https://commons.wikimedia.org/wiki/File:Star-forming_region_S106_(captured_by_the_Hubble_Space_Telescope).jpg) | CC BY 4.0 |
 
-Source pixels are the rendition downloaded, usually the publisher’s web size. `ic-4812.avif` and `ic-426.avif` are crops of the full `eso1027a` and `noao-ic426` frames. `ngc-6726.avif` and `ic-4812.avif` show the same ESO field. Pixels marked as crops in the article credits were trimmed to the 5:4 limit. The dark-cloud images were converted with macOS `sips`; Barnard 68 and the Snake Nebula, dense star fields, needed quality 26 and 30 to stay within 45 KB.
+Source pixels are the rendition downloaded, usually the publisher’s web size. `ic-4812.avif` and `ic-426.avif` are crops of the full `eso1027a` and `noao-ic426` frames. `ngc-6726.avif` and `ic-4812.avif` show the same ESO field. Pixels marked as crops in the article credits were trimmed to the 5:4 limit. The dark-cloud images were converted with macOS `sips`; Barnard 68 and the Snake Nebula, dense star fields, needed quality 26 and 30 to stay within 45 KB. The seven batch 9 remnant images were converted the same way; Simeis 147 uses Rogelio Bernal Andreo’s wide frame cropped to the remnant, because the denser star field of Giuseppe Donatiello’s CC0 close-up needed quality 22 and showed blocking.
 
 ## Digitized Sky Survey cutouts (26)
 

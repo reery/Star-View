@@ -34,6 +34,28 @@
         "position_source": "Pleiades cluster center, Gaia DR3 (Gaia Collaboration 2023, A&A 674, A37)",
         "angular_size_arcmin": [90, 70],
         "illuminating_stars": "Merope, Alcyone, Electra, Maia and other B-type members",
+        "illuminating_star_links": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-17608",
+            "name": "Merope"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-17702",
+            "name": "Alcyone"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-17499",
+            "name": "Electra"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-17573",
+            "name": "Maia"
+          }
+        ],
         "shape": {
           "kind": "layers",
           "semi_axes_pc": [0.12, 1.776934, 1.382029],
@@ -86,6 +108,13 @@
         "position_source": "SIMBAD M42",
         "angular_size_arcmin": [65, 60],
         "illuminating_stars": "theta1 Orionis C (Trapezium Cluster)",
+        "illuminating_star_links": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "trapezium-theta1-orionis-c",
+            "name": "theta1 Orionis C"
+          }
+        ],
         "shape": {
           "kind": "blister",
           "semi_axes_pc": [1.8, 3.66821, 3.386025],
@@ -294,6 +323,13 @@
         "position_source": "SIMBAD IC 4604",
         "angular_size_arcmin": [60, 25],
         "illuminating_stars": "rho Ophiuchi A and B (B2 V pair)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hd-147933",
+            "name": "rho Ophiuchi A"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.500766, 1.201864, 0.500766],
@@ -346,6 +382,13 @@
         "position_source": "SIMBAD IC 4605",
         "angular_size_arcmin": [30, 15],
         "illuminating_stars": "22 Scorpii (i Sco, B2 V)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-80815",
+            "name": "22 Scorpii"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.274759, 0.54952, 0.274759],
@@ -398,6 +441,13 @@
         "position_source": "SIMBAD IC 4606",
         "angular_size_arcmin": [60, 40],
         "illuminating_stars": "Antares (M1.5 Iab supergiant with a B-type companion)",
+        "illuminating_star_links": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-80763",
+            "name": "Antares"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.987751, 1.481648, 0.987751],
@@ -450,6 +500,13 @@
         "position_source": "SIMBAD HD 146834 (illuminating star)",
         "angular_size_arcmin": [11.4, 11.4],
         "illuminating_stars": "HD 146834 (K5 III)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-79945",
+            "name": "HD 146834"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.214703, 0.214703, 0.214703],
@@ -502,6 +559,13 @@
         "position_source": "SIMBAD 24 Sco (illuminating star)",
         "angular_size_arcmin": [36, 36],
         "illuminating_stars": "24 Scorpii (G8 II)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-81724",
+            "name": "24 Scorpii"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.617329, 0.617329, 0.617329],
@@ -658,6 +722,13 @@
         "position_source": "SIMBAD HD 26676 (illuminating star)",
         "angular_size_arcmin": [11.4, 11.4],
         "illuminating_stars": "HD 26676 (B8)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-19720",
+            "name": "HD 26676"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.239093, 0.239093, 0.239093],
@@ -762,6 +833,13 @@
         "position_source": "SIMBAD T Tau (illuminating star)",
         "angular_size_arcmin": [12.4, 12.4],
         "illuminating_stars": "T Tauri (G5e young star)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-16511",
+            "name": "T Tauri"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.261761, 0.261761, 0.261761],
@@ -814,6 +892,13 @@
         "position_source": "SIMBAD vdB 7",
         "angular_size_arcmin": [6.2, 6.2],
         "illuminating_stars": "RZ Cassiopeiae (A2 V eclipsing binary)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-13133",
+            "name": "RZ Cassiopeiae"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.058885, 0.058885, 0.058885],
@@ -866,6 +951,13 @@
         "position_source": "SIMBAD theta Aql (illuminating star)",
         "angular_size_arcmin": [96, 96],
         "illuminating_stars": "theta Aquilae (B9.5 III)",
+        "illuminating_star_links": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-99473",
+            "name": "theta Aquilae"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.978565, 0.978565, 0.978565],
@@ -918,6 +1010,13 @@
         "position_source": "SIMBAD omicron And (illuminating star)",
         "angular_size_arcmin": [188, 188],
         "illuminating_stars": "omicron Andromedae (B6p)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-113726",
+            "name": "omicron Andromedae"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [2.939338, 2.939338, 2.939338],
@@ -970,6 +1069,13 @@
         "position_source": "SIMBAD LBN 006.00+24.73 (Sh 2-27)",
         "angular_size_arcmin": [480, 480],
         "illuminating_stars": "zeta Ophiuchi (O9.5 V runaway star)",
+        "illuminating_star_links": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-81377",
+            "name": "zeta Ophiuchi"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [9.438022, 9.438022, 9.438022],
@@ -1022,6 +1128,13 @@
         "position_source": "SIMBAD LBN 1099 (Sh 2-7)",
         "angular_size_arcmin": [240, 240],
         "illuminating_stars": "delta Scorpii (B0.3 IV)",
+        "illuminating_star_links": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-78401",
+            "name": "delta Scorpii"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [5.259068, 5.259068, 5.259068],
@@ -1178,6 +1291,13 @@
         "position_source": "SIMBAD Sh 2-264",
         "angular_size_arcmin": [390, 390],
         "illuminating_stars": "Lambda Orionis (O8 III) in the Collinder 69 cluster",
+        "illuminating_star_links": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-26207",
+            "name": "Lambda Orionis"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [28.995873, 28.995873, 28.995873],
@@ -1234,6 +1354,13 @@
         "position_source": "SIMBAD Sh 2-277",
         "angular_size_arcmin": [120, 120],
         "illuminating_stars": "The embedded young star NGC 2024 IRS 2b and Sigma Orionis",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-26549",
+            "name": "Sigma Orionis"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [4.396745, 8.793491, 8.793491],
@@ -1290,6 +1417,13 @@
         "position_source": "SIMBAD NGC 1499",
         "angular_size_arcmin": [160, 40],
         "illuminating_stars": "Xi Persei (O7.5 III runaway star)",
+        "illuminating_star_links": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-18614",
+            "name": "Xi Persei"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [4.758877, 11.897193, 11.897193],
@@ -1346,6 +1480,13 @@
         "position_source": "SIMBAD IC 405",
         "angular_size_arcmin": [65, 65],
         "illuminating_stars": "AE Aurigae (O9.5 V runaway star)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-24575",
+            "name": "AE Aurigae"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [4.520607, 4.520607, 4.520607],
@@ -1402,6 +1543,13 @@
         "position_source": "SIMBAD LBN 1093 (Sh 2-1)",
         "angular_size_arcmin": [150, 150],
         "illuminating_stars": "Pi Scorpii (B1 V + B2 V)",
+        "illuminating_star_links": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-78265",
+            "name": "Pi Scorpii"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [4.962463, 4.962463, 4.962463],
@@ -1458,6 +1606,13 @@
         "position_source": "SIMBAD sigma Sco (ionizing star of Sh 2-9)",
         "angular_size_arcmin": [80, 80],
         "illuminating_stars": "Sigma Scorpii (B1 III + B1 V)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-80112",
+            "name": "Sigma Scorpii"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [3.108069, 3.108069, 3.108069],
@@ -1514,6 +1669,13 @@
         "position_source": "SIMBAD IC 63",
         "angular_size_arcmin": [10, 3],
         "illuminating_stars": "Gamma Cassiopeiae (B0.5 IVe)",
+        "illuminating_star_links": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-4427",
+            "name": "Gamma Cassiopeiae"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.134113, 0.134113, 0.134113],
@@ -1566,6 +1728,13 @@
         "position_source": "SIMBAD NGC 1977",
         "angular_size_arcmin": [20, 20],
         "illuminating_stars": "42 Orionis (B1 V) and neighbouring B stars",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-26237",
+            "name": "42 Orionis"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [1.15387, 1.15387, 1.15387],
@@ -1774,6 +1943,13 @@
         "position_source": "SIMBAD IC 2118",
         "angular_size_arcmin": [180, 60],
         "illuminating_stars": "Rigel (B8 Ia)",
+        "illuminating_star_links": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-24436",
+            "name": "Rigel"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [3.998976, 3.998976, 3.998976],
@@ -1930,6 +2106,13 @@
         "position_source": "SIMBAD IC 59",
         "angular_size_arcmin": [10, 5],
         "illuminating_stars": "Gamma Cassiopeiae (B0.5 IVe)",
+        "illuminating_star_links": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-4427",
+            "name": "Gamma Cassiopeiae"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.173139, 0.173139, 0.173139],
@@ -2554,6 +2737,13 @@
         "position_source": "SIMBAD SU Cas (illuminating star)",
         "angular_size_arcmin": [7.4, 7.4],
         "illuminating_stars": "SU Cassiopeiae (F-type Cepheid variable)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-13367",
+            "name": "SU Cassiopeiae"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.497018, 0.497018, 0.497018],
@@ -2918,6 +3108,13 @@
         "position_source": "SIMBAD HD 34989 (illuminating star)",
         "angular_size_arcmin": [28.0, 28.0],
         "illuminating_stars": "HD 34989 (B1 V)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-25041",
+            "name": "HD 34989"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [1.592616, 1.592616, 1.592616],
@@ -3074,6 +3271,13 @@
         "position_source": "SIMBAD omega Ori (illuminating star)",
         "angular_size_arcmin": [42.0, 42.0],
         "illuminating_stars": "Omega Orionis (B3 IIIe, Be star)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-26594",
+            "name": "Omega Orionis"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [3.091322, 3.091322, 3.091322],
@@ -3282,6 +3486,13 @@
         "position_source": "SIMBAD IC 1287",
         "angular_size_arcmin": [36.0, 36.0],
         "illuminating_stars": "HD 170740 (B2 V binary)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-90804",
+            "name": "HD 170740"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [1.1857, 1.1857, 1.1857],
@@ -3334,6 +3545,13 @@
         "position_source": "SIMBAD delta Sge (illuminating star)",
         "angular_size_arcmin": [66.0, 66.0],
         "illuminating_stars": "Delta Sagittae (M2 II giant with a hot companion)",
+        "illuminating_star_links": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-97365",
+            "name": "Delta Sagittae"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [1.608702, 1.608702, 1.608702],
@@ -3386,6 +3604,13 @@
         "position_source": "SIMBAD omega1 Cyg (illuminating star)",
         "angular_size_arcmin": [22.0, 22.0],
         "illuminating_stars": "Omega-1 Cygni (B2.5 IV)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-101138",
+            "name": "Omega-1 Cygni"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [1.256842, 1.256842, 1.256842],
@@ -3802,6 +4027,13 @@
         "position_source": "SIMBAD HD 211073 (illuminating star)",
         "angular_size_arcmin": [10.8, 10.8],
         "illuminating_stars": "HD 211073 (K3 III)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-109754",
+            "name": "HD 211073"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.274701, 0.274701, 0.274701],
@@ -3906,6 +4138,13 @@
         "position_source": "SIMBAD c2 Sco (illuminating star); the SIMBAD nebula position is rounded to 0.1 degree",
         "angular_size_arcmin": [12, 10],
         "illuminating_stars": "c2 Scorpii (B2 V)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-79404",
+            "name": "c2 Scorpii"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.234831, 0.234831, 0.234831],
@@ -4010,6 +4249,13 @@
         "position_source": "SIMBAD 6 Cep (illuminating star)",
         "angular_size_arcmin": [30, 15],
         "illuminating_stars": "6 Cephei (B3 IVe)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-105268",
+            "name": "6 Cephei"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [1.244536, 1.244536, 1.244536],
@@ -4114,6 +4360,13 @@
         "position_source": "SIMBAD IC 4812",
         "angular_size_arcmin": [20, 20],
         "illuminating_stars": "HD 176269 and HD 176270 (both B9 V)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-93371",
+            "name": "HD 176270"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.451256, 0.451256, 0.451256],
@@ -4166,6 +4419,13 @@
         "position_source": "SIMBAD IC 2220",
         "angular_size_arcmin": [6, 4],
         "illuminating_stars": "V341 Carinae (HD 65750, M1 II)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-38834",
+            "name": "V341 Carinae"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [0.309885, 0.309885, 0.309885],
@@ -4322,6 +4582,13 @@
         "position_source": "Sharpless (1959) position precessed to J2000; the SIMBAD position lies 2 degrees from it and from the object's own LBN 094.98-16.95 name",
         "angular_size_arcmin": [160, 160],
         "illuminating_stars": "10 Lacertae (O9 V)",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-111841",
+            "name": "10 Lacertae"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [13.274064, 13.274064, 13.274064],
@@ -5493,6 +5760,13 @@
         "position_source": "SIMBAD M 8",
         "angular_size_arcmin": [90, 90],
         "illuminating_stars": "9 Sagittarii (O3.5 V + O5 V binary), Herschel 36 and the O stars of NGC 6530",
+        "illuminating_star_links": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-88469",
+            "name": "9 Sagittarii"
+          }
+        ],
         "shape": {
           "kind": "ellipsoid",
           "semi_axes_pc": [10.051659, 20.103317, 20.103317],
@@ -6052,6 +6326,833 @@
         "source_label": "Finkbeiner (2003), full-sky H-alpha map",
         "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
         "model_note": "Sky shape and relative brightness traced from the Finkbeiner (2003) H-alpha map at 6 arcmin resolution within a 50-arcmin field, against the diffuse glow of the Large Magellanic Cloud; the listed extent is the SIMBAD size. Depth is illustrative."
+      }
+    },
+    {
+      "type": "supernova_remnant",
+      "id": "simeis-147",
+      "name": "Simeis 147",
+      "spectral_type": null,
+      "constellation": "Taurus",
+      "x_pc": -1332.322736,
+      "y_pc": -3.95732,
+      "z_pc": -42.302085,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A shell of tangled hydrogen filaments 3 degrees across on the border of Taurus and Auriga, left by a star that exploded about 30,000 years ago. Its pulsar and the star that was once its companion both fly away from the same point.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["Spaghetti Nebula", "Sh 2-240", "S147", "SNR G180.0-01.7"],
+        "ra_deg": 84.75,
+        "dec_deg": 27.833333,
+        "distance_pc": 1333,
+        "distance_error_pc": 112,
+        "distance_source": "Distance of HD 37424, the runaway star that was the exploded star’s companion, 1333 +103/−112 pc; Dinçel et al. 2015, MNRAS, doi:10.1093/mnras/stv124. The VLBA parallax of PSR J0538+2817 gives 1.3 kpc (ATNF)",
+        "position_source": "Green (2025), A catalogue of Galactic supernova remnants: G180.0−1.7",
+        "angular_size_arcmin": [180, 180],
+        "illuminating_stars": "The supernova’s blast wave",
+        "shape": {
+          "kind": "filaments",
+          "semi_axes_pc": [43.637902, 43.637902, 43.637902],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": [],
+          "mask": {
+            "size": [33, 33],
+            "values": "AAAAAAAAAAAAAAAAAAECBQgJBQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQkOFCIpJCkcDgYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg8cJTI8Q1dNIBUQBwAAAAAAAAAAAAAAAAAAAAAAAAMDCxcqMjxFSFFGKSYdHxMCAAAAAAAAAAAAAAAAAAACGRcVKTRZc26CX1NLMi4wNSoXBQAAAAAAAAAAAAAAAAAACCVDY3mMl5SUiJB0Wj42NDQoFAUAAAAAAAAAAAAAAAAAAB5Khpurp5KOk5ikkIFSSywqJRcDAAAAAAAAAAAAAAAAFixImaOloJCPeYSrsaWcf1MjLigVAAAAAAAAAAAAAAAFN0timaeWi4yfcnigu7C2t4p3MigcDAAAAAAAAAAAAAAVOGRxfXeJlKSWbGZ/jMzBscK1ZiYbEwAAAAAAAAAAAAAELl5lWGeAm6qngWRuf6a+q6q+mD8mHgoAAAAACAoHAAAAIVdxYnKAmqaYppmChpy4rZ2cgmAvJRIAAAAHFxcdLRAQCCpYhoB9laKTs7WclqGuuJ6RgoRlNhsAAAATHRQjRkUWFChWcXBncneYprSZkpW00aigtb2XRSUIAAAiIw8yV0otIytBU0lARoWamI+Vmn+s2K2iy/HTnzcRAAAfLR09aFE7KjNANjg4ToKcXmaCi2leuKqHuOH/yFwUAAAcIilJcVI+TEJKQT1HU3hiQE5meFFhl5d5n8jmzk0UAAAOITRRamdUYHRfUExSXWRJN0k+V3VifYiZkr/VyEMRAAAdKT9lcG1cYmluY1JUXDw+Lh4XOVk9M12dsr/VuDsNAAATRVVxb2NVUVVRUUFBLRYRAgAALUwdFCiOrq6xhCwHAAAMNWJ+lUo4PUxNNDI0IwsAAAAAAB0lEB5zq6aQYhgAAAAQJD57e0MuKjg3JyQrJA8BAAAAAA4bMUKLs6l+MAwAAAAKHjBQcmMxISUrIxIiIBoEAAAAAAAUMmOUtKhwGgUAAAAAFzJKcH1yRlFAMyYWHjIdAAAAAAAVNGR4j55VFAAAAAAAATVEY3N7bWlmUzw4VWZtQR4KESMuQl9vcnVBCQAAAAAAABAqQUBmclI5Lzddb63PoWFXTWFfU11fXUseAAAAAAAAAAA2Ox1IXVQhJjNFU4XBxIJiWV5eT0RLQRgDAAAAAAAAAAAFKB4iKyQmJCRKUUFai0I2KhIWJ1Y6GQUAAAAAAAAAAAABCREWEBseHBwkOztPazYACwUAIjkiBgAAAAAAAAAAAAAAAQYIFyguTTlCUFpxXxgAAAMGCxEDAAAAAAAAAAAAAAAAAAAHFTRQcHdeWExCMh8PBwECAAAAAAAAAAAAAAAAAAAAAAAAAA8mOTs3JxIBAAAQCgUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUCAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        "palette": {
+          "real": ["#e8a4ac", "#c45468", "#8cbcb6"],
+          "exaggerated": ["#ff8a6a", "#ff3355", "#00fff0"]
+        },
+        "surface_brightness_mag_arcsec2": 25.61,
+        "surface_brightness_source": "Finkbeiner (2003) H-alpha map: peak 34.5 R above the diffuse background at 6 arcmin resolution",
+        "surface_brightness_estimated": false,
+        "puff_count": 4096,
+        "seed": 3955,
+        "source_label": "Dinçel et al. (2015)",
+        "source_url": "https://doi.org/10.1093/mnras/stv124",
+        "model_note": "A sphere 3 degrees across (radius about 35 pc at 1.33 kpc) centered on the Green (2025) position. Where the filaments lie on it follows the Finkbeiner (2003) H-alpha map at 6 arcmin resolution; the thin wavy filaments themselves are illustrative, red for hydrogen-alpha with teal [O III] sheaths just outside them.",
+        "remnant": {
+          "age_yr": [26000, 34000],
+          "age_source": "30 ± 4 thousand years since the runaway star HD 37424 and PSR J0538+2817 were at the same place; Dinçel et al. 2015, MNRAS, doi:10.1093/mnras/stv124",
+          "neutron_star": {
+            "id": "psr-j0538p2817",
+            "name": "PSR J0538+2817"
+          },
+          "hot_gas_kev": null,
+          "hot_gas_source": null,
+          "drawn_as": "Modeled red H-alpha and teal [O III] filaments where the all-sky map shows the shell"
+        }
+      }
+    },
+    {
+      "type": "supernova_remnant",
+      "id": "ic-443",
+      "name": "Jellyfish Nebula",
+      "spectral_type": null,
+      "constellation": "Gemini",
+      "x_pc": -1677.634312,
+      "y_pc": -266.707588,
+      "z_pc": 88.380867,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A supernova remnant in Gemini, near the star Eta Geminorum, whose blast wave is running into a dense molecular cloud. It is one of the clearest places where supernova shocks are seen accelerating cosmic rays.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["IC 443", "Sh 2-248", "3C 157", "SNR G189.1+03.0"],
+        "ra_deg": 94.25,
+        "dec_deg": 22.566667,
+        "distance_pc": 1701,
+        "distance_error_pc": 55,
+        "distance_source": "Gaia DR3 distance of HD 254577, the runaway star that was the exploded star’s companion, 1701 +55/−54 pc; Dinçel et al. 2026, A&A 707, A50",
+        "position_source": "Green (2025), A catalogue of Galactic supernova remnants: G189.1+3.0",
+        "angular_size_arcmin": [45, 45],
+        "illuminating_stars": "The supernova’s blast wave",
+        "shape": {
+          "kind": "filaments",
+          "semi_axes_pc": [13.85473, 13.85473, 13.85473],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": [],
+          "mask": {
+            "size": [9, 9],
+            "values": "AAAAH0RWBAAAAABHa6yyvEgAAC9bd4uXsKMDACxRUGaCkWUoACdtbXePe0UhA2/FxsbGqzsKAZbx/+38wT8AADCusc+00xwAAAADMj8mAQAA"
+          }
+        },
+        "palette": {
+          "real": ["#e8a4ac", "#c45468", "#8cbcb6"],
+          "exaggerated": ["#ff8a6a", "#ff3355", "#00fff0"]
+        },
+        "surface_brightness_mag_arcsec2": 24.38,
+        "surface_brightness_source": "Finkbeiner (2003) H-alpha map: peak 107.6 R above the diffuse background at 6 arcmin resolution",
+        "surface_brightness_estimated": false,
+        "puff_count": 2048,
+        "seed": 9066,
+        "source_label": "Dinçel et al. (2026)",
+        "source_url": "https://doi.org/10.1051/0004-6361/202556086",
+        "model_note": "A sphere 45 arcminutes across (radius about 11 pc at 1.7 kpc) centered on the Green (2025) position. Where the filaments lie on it follows the Finkbeiner (2003) H-alpha map at 6 arcmin resolution, which resolves the remnant only coarsely; the thin wavy filaments themselves are illustrative.",
+        "remnant": {
+          "age_yr": [3000, 30000],
+          "age_source": "Most estimates lie between 3,000 and 30,000 years; Wikipedia: IC 443",
+          "neutron_star": {
+            "id": "cxou-j061705",
+            "name": "CXOU J061705.3+222127"
+          },
+          "hot_gas_kev": null,
+          "hot_gas_source": null,
+          "drawn_as": "Modeled red H-alpha and teal [O III] filaments where the all-sky map shows the shell"
+        }
+      }
+    },
+    {
+      "type": "supernova_remnant",
+      "id": "puppis-a",
+      "name": "Puppis A",
+      "spectral_type": null,
+      "constellation": "Puppis",
+      "x_pc": -216.418903,
+      "y_pc": -1279.485239,
+      "z_pc": -77.9768,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A supernova remnant about a degree across in Puppis, seen through the much closer Vela remnant and brightest in X-rays. Its neutron star, the Cosmic Cannonball, is racing away from the explosion site at hundreds of kilometres per second.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["MSH 08-44", "SNR G260.4-03.4"],
+        "ra_deg": 125.541667,
+        "dec_deg": -43,
+        "distance_pc": 1300,
+        "distance_error_pc": 300,
+        "distance_source": "H I absorption with ATCA, systemic velocity 8–12 km/s, 1.3 ± 0.3 kpc; Reynoso, Cichowolski & Walsh 2017, MNRAS 464, 3029. It replaces the same group’s earlier 2.2 kpc (Reynoso et al. 2003)",
+        "position_source": "Green (2025), A catalogue of Galactic supernova remnants: G260.4−3.4",
+        "angular_size_arcmin": [60, 50],
+        "illuminating_stars": "The supernova’s blast wave",
+        "shape": {
+          "kind": "shell",
+          "semi_axes_pc": [10.356411, 10.356411, 10.356411],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": []
+        },
+        "palette": {
+          "real": ["#d4d8ff", "#a4acf0", "#7880d0"],
+          "exaggerated": ["#c0c8ff", "#7c86ff", "#5a48ff"]
+        },
+        "surface_brightness_mag_arcsec2": 27.7,
+        "surface_brightness_source": "Hand-authored visual estimate, calibrated against the measurements",
+        "surface_brightness_estimated": true,
+        "puff_count": 66,
+        "seed": 7330,
+        "source_label": "Reynoso, Cichowolski & Walsh (2017)",
+        "source_url": "https://ui.adsabs.harvard.edu/abs/2017MNRAS.464.3029R",
+        "model_note": "A shell of equal area to the catalogued 60 × 50 arcminutes (radius about 10 pc at 1.3 kpc) centered on the Green (2025) position, drawn in false color because the remnant is seen mainly in X-rays.",
+        "remnant": {
+          "age_yr": [4000, 5300],
+          "age_source": "4,600 +700/−600 years from the proper motion of its neutron star away from the expansion centre; Mayer et al. 2020, ApJ 899, 138",
+          "neutron_star": {
+            "id": "psr-j0821m4300",
+            "name": "PSR J0821-4300"
+          },
+          "hot_gas_kev": null,
+          "hot_gas_source": null,
+          "drawn_as": "X-ray shell in false color"
+        }
+      }
+    },
+    {
+      "type": "supernova_remnant",
+      "id": "w44",
+      "name": "W44",
+      "spectral_type": null,
+      "constellation": "Aquila",
+      "x_pc": 2467.318878,
+      "y_pc": 1706.434057,
+      "z_pc": -20.502796,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A supernova remnant in Aquila whose radio shell is filled with X-ray-hot gas, a so-called mixed-morphology remnant. Its shock is running into molecular clouds, and its gamma rays were among the first direct evidence that supernova remnants accelerate cosmic-ray protons.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["3C 392", "SNR G034.7-00.4"],
+        "ra_deg": 284,
+        "dec_deg": 1.366667,
+        "distance_pc": 3000,
+        "distance_error_pc": null,
+        "distance_source": "H I absorption, about 3 kpc (Radhakrishnan et al. 1972), the distance adopted by Harrus et al. 1997, ApJ 488, 781; later H I and CO studies give 2.5–3.3 kpc",
+        "position_source": "Green (2025), A catalogue of Galactic supernova remnants: G34.7−0.4",
+        "angular_size_arcmin": [35, 27],
+        "illuminating_stars": "The supernova’s blast wave",
+        "shape": {
+          "kind": "ellipsoid",
+          "semi_axes_pc": [13.413317, 13.413317, 13.413317],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": []
+        },
+        "palette": {
+          "real": ["#d4d8ff", "#a4acf0", "#7880d0"],
+          "exaggerated": ["#c0c8ff", "#7c86ff", "#5a48ff"]
+        },
+        "surface_brightness_mag_arcsec2": 29.57,
+        "surface_brightness_source": "Hand-authored visual estimate, calibrated against the measurements",
+        "surface_brightness_estimated": true,
+        "puff_count": 64,
+        "seed": 9317,
+        "source_label": "Harrus et al. (1997)",
+        "source_url": "https://doi.org/10.1086/304717",
+        "model_note": "A filled ellipsoid of equal area to the catalogued 35 × 27 arcminutes (radius about 13 pc at 3 kpc) centered on the Green (2025) position, drawn in false color because the remnant is seen in X-rays and radio waves; its X-ray-emitting gas fills the interior.",
+        "remnant": {
+          "age_yr": [20000, 20000],
+          "age_source": "About 20,000 years, the characteristic age of its pulsar PSR B1853+01; Harrus et al. 1997, ApJ 488, 781",
+          "neutron_star": {
+            "id": "psr-j1856p0113",
+            "name": "PSR B1853+01"
+          },
+          "hot_gas_kev": 0.9,
+          "hot_gas_source": "Mean temperature of the hot plasma; Harrus et al. 1997, ApJ 488, 781",
+          "drawn_as": "Hot-gas glow in false color"
+        }
+      }
+    },
+    {
+      "type": "supernova_remnant",
+      "id": "g1-9p0-3",
+      "name": "G1.9+0.3",
+      "spectral_type": null,
+      "constellation": "Sagittarius",
+      "x_pc": 8495.329443,
+      "y_pc": 277.547493,
+      "z_pc": 48.425604,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The youngest known supernova remnant in the Milky Way: its star exploded around 1900, but dust near the Galactic Center hid the explosion from view. It is seen only in X-rays and radio waves.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["SNR G001.9+00.3"],
+        "ra_deg": 267.1875,
+        "dec_deg": -27.166667,
+        "distance_pc": 8500,
+        "distance_error_pc": null,
+        "distance_source": "Near the Galactic Center, from its very high X-ray absorbing column (5.5 × 10²² cm⁻²), about 8.5 kpc; Reynolds et al. 2008, arXiv:0803.1487",
+        "position_source": "Green (2025), A catalogue of Galactic supernova remnants: G1.9+0.3",
+        "angular_size_arcmin": [1.5, 1.5],
+        "illuminating_stars": "The supernova’s blast wave",
+        "shape": {
+          "kind": "shell",
+          "semi_axes_pc": [1.854412, 1.854412, 1.854412],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": []
+        },
+        "palette": {
+          "real": ["#d4d8ff", "#a4acf0", "#7880d0"],
+          "exaggerated": ["#c0c8ff", "#7c86ff", "#5a48ff"]
+        },
+        "surface_brightness_mag_arcsec2": 30.82,
+        "surface_brightness_source": "Hand-authored visual estimate, calibrated against the measurements",
+        "surface_brightness_estimated": true,
+        "puff_count": 64,
+        "seed": 9839,
+        "source_label": "Carlton et al. (2011)",
+        "source_url": "https://doi.org/10.1088/2041-8205/737/1/L22",
+        "model_note": "A shell 1.5 arcminutes across (radius about 1.9 pc at 8.5 kpc) centered on the Green (2025) position, drawn in false color because the remnant is seen only in X-rays and radio waves.",
+        "remnant": {
+          "age_yr": [126, 173],
+          "age_source": "Expansion between Chandra images of 2007 and 2009: about 110 years then with deceleration (explosion about 1900), at most 156 ± 11 years without it; Carlton et al. 2011, ApJ 737, L22. Counted to 2026",
+          "neutron_star": null,
+          "hot_gas_kev": null,
+          "hot_gas_source": null,
+          "drawn_as": "X-ray shell in false color"
+        }
+      }
+    },
+    {
+      "type": "supernova_remnant",
+      "id": "w50",
+      "name": "Manatee Nebula",
+      "spectral_type": null,
+      "constellation": "Aquila",
+      "x_pc": 4228.404558,
+      "y_pc": 3509.717207,
+      "z_pc": -229.085177,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The radio shell around the microquasar SS 433 in Aquila, stretched into the shape of a manatee by the jets of SS 433, which have punched out its two lobes.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["W50", "SNR G039.7-02.0"],
+        "ra_deg": 288.083333,
+        "dec_deg": 4.916667,
+        "distance_pc": 5500,
+        "distance_error_pc": 200,
+        "distance_source": "Distance of SS 433 from the light-travel time of its precessing jets, 5.5 ± 0.2 kpc; Blundell & Bowler 2004, ApJ 616, L159. H I absorption puts W50 at the same distance (Lockman, Blundell & Goss 2007, arXiv:0707.0506)",
+        "position_source": "Green (2025), A catalogue of Galactic supernova remnants: G39.7−2.0",
+        "angular_size_arcmin": [120, 60],
+        "illuminating_stars": "The supernova’s blast wave and the jets of SS 433",
+        "shape": {
+          "kind": "shell",
+          "semi_axes_pc": [67.880825, 67.880825, 67.880825],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": []
+        },
+        "palette": {
+          "real": ["#d4d8ff", "#a4acf0", "#7880d0"],
+          "exaggerated": ["#c0c8ff", "#7c86ff", "#5a48ff"]
+        },
+        "surface_brightness_mag_arcsec2": 29.57,
+        "surface_brightness_source": "Hand-authored visual estimate, calibrated against the measurements",
+        "surface_brightness_estimated": true,
+        "puff_count": 102,
+        "seed": 6381,
+        "source_label": "Lockman, Blundell & Goss (2007)",
+        "source_url": "https://arxiv.org/abs/0707.0506",
+        "model_note": "A shell of equal area to the catalogued 120 × 60 arcminutes (radius about 68 pc at 5.5 kpc) centered on the Green (2025) position, drawn in false color because the remnant is seen in radio waves and X-rays. The two lobes blown by the jets of SS 433 are not drawn.",
+        "remnant": {
+          "age_yr": [20000, 30000],
+          "age_source": "20,000–30,000 years from an X-ray shell around SS 433 (Chi et al. 2024, arXiv:2410.06510); H I limits it to less than 100,000 years (Lockman, Blundell & Goss 2007)",
+          "neutron_star": null,
+          "black_hole": {
+            "id": "ss-433",
+            "name": "SS 433"
+          },
+          "hot_gas_kev": null,
+          "hot_gas_source": null,
+          "drawn_as": "Radio shell in false color"
+        }
+      }
+    },
+    {
+      "type": "supernova_remnant",
+      "id": "3c-58",
+      "name": "3C 58",
+      "spectral_type": null,
+      "constellation": "Cassiopeia",
+      "x_pc": -1303.055673,
+      "y_pc": 1513.452324,
+      "z_pc": 107.275233,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A pulsar wind nebula in Cassiopeia, a cloud of fast particles blown by the pulsar PSR J0205+6449. For 50 years it was taken to be the remnant of the supernova of 1181, until that title passed to Pa 30.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["SNR G130.7+03.1"],
+        "ra_deg": 31.420833,
+        "dec_deg": 64.816667,
+        "distance_pc": 2000,
+        "distance_error_pc": null,
+        "distance_source": "H I in the Canadian Galactic Plane Survey and parallax distances of nearby objects, 2 kpc; Kothes 2013, A&A 560, A18. It replaces the kinematic 3.2 kpc of Roberts et al. 1993",
+        "position_source": "Green (2025), A catalogue of Galactic supernova remnants: G130.7+3.1",
+        "angular_size_arcmin": [9, 5],
+        "illuminating_stars": "The wind of PSR J0205+6449",
+        "shape": {
+          "kind": "ellipsoid",
+          "semi_axes_pc": [1.951338, 1.951338, 1.951338],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": []
+        },
+        "palette": {
+          "real": ["#d4d8ff", "#a4acf0", "#7880d0"],
+          "exaggerated": ["#c0c8ff", "#7c86ff", "#5a48ff"]
+        },
+        "surface_brightness_mag_arcsec2": 30.2,
+        "surface_brightness_source": "Hand-authored visual estimate, calibrated against the measurements",
+        "surface_brightness_estimated": true,
+        "puff_count": 64,
+        "seed": 9789,
+        "source_label": "Kothes (2013)",
+        "source_url": "https://doi.org/10.1051/0004-6361/201219839",
+        "model_note": "A filled ellipsoid of equal area to the catalogued 9 × 5 arcminutes (radius about 2 pc at 2 kpc) centered on the Green (2025) position, drawn in false color because the nebula shines by synchrotron radiation in radio waves and X-rays.",
+        "remnant": {
+          "age_yr": [3500, 7000],
+          "age_source": "About 3,500 years from the proper motions of its optical knots and about 7,000 years from the expansion of its radio filaments; Wikipedia: 3C 58",
+          "neutron_star": {
+            "id": "psr-j0205p6449",
+            "name": "PSR J0205+6449"
+          },
+          "hot_gas_kev": null,
+          "hot_gas_source": null,
+          "drawn_as": "Synchrotron glow in false color"
+        }
+      }
+    },
+    {
+      "type": "hii_region",
+      "id": "w49a",
+      "name": "W49A",
+      "spectral_type": null,
+      "constellation": "Aquila",
+      "x_pc": 8102.976854,
+      "y_pc": 7600.912181,
+      "z_pc": 0.349932,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A giant H II region on the far side of the Milky Way, in Aquila, often compared with NGC 3603. Dust hides it completely in visible light; it shines in radio waves and infrared.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["W 49A", "G43.2+0.0"],
+        "ra_deg": 287.565417,
+        "dec_deg": 9.101389,
+        "distance_pc": 11110,
+        "distance_error_pc": 790,
+        "distance_source": "VLBA parallax of the water masers of W49N, 11.11 +0.79/−0.69 kpc; Zhang et al. 2013, ApJ 775, 79",
+        "position_source": "SIMBAD W 49a",
+        "angular_size_arcmin": [3.4, 3.4],
+        "illuminating_stars": "The O stars of its embedded young clusters, among them W49nr1, one of the most massive stars known",
+        "shape": {
+          "kind": "ellipsoid",
+          "semi_axes_pc": [5.494006, 5.494006, 5.494006],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": []
+        },
+        "palette": {
+          "real": ["#f2d4da", "#d98898", "#9c3a52"],
+          "exaggerated": ["#ff8fb8", "#ff4f7a", "#d1203c"]
+        },
+        "surface_brightness_mag_arcsec2": 30.82,
+        "surface_brightness_source": "Hand-authored visual estimate, calibrated against the measurements",
+        "surface_brightness_estimated": true,
+        "puff_count": 64,
+        "seed": 8937,
+        "source_label": "SIMBAD W 49a",
+        "source_url": "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=W+49a",
+        "model_note": "Sky extent from the SIMBAD size, drawn as a filled sphere; clumping is illustrative. Its visible-light brightness is a faint estimate, because dust absorbs nearly all of its light on the way to Earth."
+      }
+    },
+    {
+      "type": "hii_region",
+      "id": "w51",
+      "name": "W51",
+      "spectral_type": null,
+      "constellation": "Aquila",
+      "x_pc": 3527.767094,
+      "y_pc": 4101.406207,
+      "z_pc": -37.768533,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "One of the largest star factories of the Milky Way, in Aquila: two groups of H II regions, W51A and W51B, in a giant molecular cloud. Dust hides it in visible light; it shines in radio waves and infrared. The supernova remnant W51C overlaps it to the southeast.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["W 51", "Westerhout 51", "W51A", "W51B"],
+        "ra_deg": 290.85174,
+        "dec_deg": 14.33644,
+        "distance_pc": 5410,
+        "distance_error_pc": 310,
+        "distance_source": "VLBA parallax of the water masers of W51 Main/South, 5.41 +0.31/−0.28 kpc; Sato et al. 2010, ApJ 720, 1055",
+        "position_source": "Midpoint of its two groups of H II regions, W51A (G49.5−0.4) and W51B (G49.1−0.4), Galactic 49.3, −0.4",
+        "angular_size_arcmin": [60, 60],
+        "illuminating_stars": "The young clusters of W51A and W51B, rich in O stars",
+        "shape": {
+          "kind": "ellipsoid",
+          "semi_axes_pc": [47.212355, 47.212355, 47.212355],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": []
+        },
+        "palette": {
+          "real": ["#f2d4da", "#d98898", "#9c3a52"],
+          "exaggerated": ["#ff8fb8", "#ff4f7a", "#d1203c"]
+        },
+        "surface_brightness_mag_arcsec2": 30.82,
+        "surface_brightness_source": "Hand-authored visual estimate, calibrated against the measurements",
+        "surface_brightness_estimated": true,
+        "puff_count": 72,
+        "seed": 9595,
+        "source_label": "Fujita et al., extent of the H II regions of W51 (arXiv:1711.01695)",
+        "source_url": "https://arxiv.org/abs/1711.01695",
+        "model_note": "Sky extent of the H II regions, about 1° (100 pc at 5.4 kpc), drawn as a filled sphere; clumping is illustrative. Its visible-light brightness is a faint estimate, because dust absorbs nearly all of its light on the way to Earth."
+      }
+    },
+    {
+      "type": "hii_region",
+      "id": "cygnus-x",
+      "name": "Cygnus X",
+      "spectral_type": null,
+      "constellation": "Cygnus",
+      "x_pc": 254.985469,
+      "y_pc": 1376.366493,
+      "z_pc": 24.44763,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The richest star-forming complex within 6,500 light-years, behind the Cygnus Rift. Its gas and newborn stars are best seen in infrared light; the H-alpha glow reaches Earth through gaps in the dust.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["Cygnus X", "Cyg X"],
+        "ra_deg": 307.52,
+        "dec_deg": 40.86,
+        "distance_pc": 1400,
+        "distance_error_pc": 80,
+        "distance_source": "Common distance of the VLBI maser parallaxes of W75N, DR20, DR21 and IRAS 20290+4052, 1.40 ± 0.08 kpc; Rygl et al. 2012, A&A 539, A79",
+        "position_source": "SIMBAD Cygnus X",
+        "angular_size_arcmin": [420, 420],
+        "illuminating_stars": "Cygnus OB2, one of the most massive young associations in the Milky Way, and Cygnus OB9",
+        "shape": {
+          "kind": "ellipsoid",
+          "semi_axes_pc": [44.858038, 89.716076, 89.716076],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": [],
+          "mask": {
+            "size": [64, 64],
+            "values": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADCQcAAAAAAAAAAAAA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"
+          }
+        },
+        "palette": {
+          "real": ["#f2d4da", "#d98898", "#9c3a52"],
+          "exaggerated": ["#ff8fb8", "#ff4f7a", "#d1203c"]
+        },
+        "surface_brightness_mag_arcsec2": 23.08,
+        "surface_brightness_source": "Finkbeiner (2003) H-alpha map: peak 356.5 R above the diffuse background at 6 arcmin resolution",
+        "surface_brightness_estimated": false,
+        "puff_count": 1573,
+        "seed": 5833,
+        "source_label": "Finkbeiner (2003), full-sky H-alpha map",
+        "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+        "model_note": "Sky shape and relative brightness traced from the Finkbeiner (2003) H-alpha map at 6 arcmin resolution within a 440-arcmin field, with Sh 2-106 left out; the listed extent is 7° × 7° (Wikipedia: Cygnus X). Dust in front dims and patches the traced light. Depth is illustrative."
+      }
+    },
+    {
+      "type": "hii_region",
+      "id": "rcw-49",
+      "name": "RCW 49",
+      "spectral_type": null,
+      "constellation": "Carina",
+      "x_pc": 1097.265723,
+      "y_pc": -4302.201258,
+      "z_pc": -25.9281,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "One of the brightest and most massive H II regions of the Milky Way, in Carina. Its central cluster Westerlund 2 holds some of the hottest and most massive stars known.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["RCW 49", "Gum 29", "NGC 3247"],
+        "ra_deg": 156.060833,
+        "dec_deg": -57.782778,
+        "distance_pc": 4440,
+        "distance_error_pc": 230,
+        "distance_source": "Gaia EDR3 distance of the Villafranca O-004 group (Westerlund 2), 4440 +230/−210 pc; Maíz Apellániz et al. 2022, A&A 657, A131",
+        "position_source": "SIMBAD Gum 29",
+        "angular_size_arcmin": [90, 35],
+        "illuminating_stars": "Westerlund 2, a young cluster with a dozen early O stars and the Wolf–Rayet binary WR 20a",
+        "shape": {
+          "kind": "ellipsoid",
+          "semi_axes_pc": [36.166421, 72.332842, 72.332842],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": [],
+          "mask": {
+            "size": [17, 17],
+            "values": "AAAAAAAABgkHCwgAAAAAAAAAAAAAFi4kIAkNFBADAAAAAAAAA1FdVkwmCw0NDQgIAAAAAABZX2dnPjAuHAcIBAsRAAAAHy1IXlNAOT0mCxAIDBUGAAANGC5FOztCRysfGg8MDQoAAAIMKzgtMUtYWTQlEQ0NDAMAER4iKSY0f510RCsbFRQWCAAPFBkgJUSs/616NhsVFhkbAAAAAxIaNI/CsKN1IRQSJSEAAAAAAAgeNWSinUkbEhUYGQAAAAAAAAACJmdAJAoNDA8AAAAAAAAAAAAPJxcFAAABAwAAAAAAAAAAABcfCwAAAAAAAAAAAAAAAAAQOTALAAAAAAAAAAAAAAAAABtEKQAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAA=="
+          }
+        },
+        "palette": {
+          "real": ["#f2d4da", "#d98898", "#9c3a52"],
+          "exaggerated": ["#ff8fb8", "#ff4f7a", "#d1203c"]
+        },
+        "surface_brightness_mag_arcsec2": 22.78,
+        "surface_brightness_source": "Finkbeiner (2003) H-alpha map: peak 467.6 R above the diffuse background at 6 arcmin resolution",
+        "surface_brightness_estimated": false,
+        "puff_count": 169,
+        "seed": 4709,
+        "source_label": "Finkbeiner (2003), full-sky H-alpha map",
+        "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+        "model_note": "Sky shape and relative brightness traced from the Finkbeiner (2003) H-alpha map at 6 arcmin resolution within a 112-arcmin field; the listed extent is the RCW (1960) size. Depth is illustrative."
+      }
+    },
+    {
+      "type": "hii_region",
+      "id": "heart-nebula",
+      "name": "Heart Nebula",
+      "spectral_type": null,
+      "constellation": "Cassiopeia",
+      "x_pc": -1460.015785,
+      "y_pc": 1474.066389,
+      "z_pc": 33.274442,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "An H II region in Cassiopeia whose central cluster IC 1805 has blown a cavity into it. With the Soul Nebula next door, it forms the Heart and Soul, part of the W3/W4/W5 complex in the Perseus Arm.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["IC 1805", "Sh 2-190", "W 4", "Running Dog Nebula"],
+        "ra_deg": 38.175,
+        "dec_deg": 61.45,
+        "distance_pc": 2075,
+        "distance_error_pc": 44,
+        "distance_source": "Gaia EDR3 distance of the Villafranca O-017 group (IC 1805), 2075 +44/−42 pc; Maíz Apellániz et al. 2022, A&A 657, A131",
+        "position_source": "SIMBAD Heart Nebula",
+        "angular_size_arcmin": [150, 150],
+        "illuminating_stars": "The O stars of the cluster IC 1805, led by HD 15570 (O4 If) and HD 15558 (O4.5 III)",
+        "shape": {
+          "kind": "shell",
+          "semi_axes_pc": [56.75189, 56.75189, 56.75189],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": [],
+          "mask": {
+            "size": [28, 28],
+            "values": "AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAELFCIRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUOFyQzIwUAAAAAAAAAAAAAAAAAAAAAAgEDBgoTGyk2Q0ozEQELBgAAAAAAAAAAAAACBgoLEBEaIy4/RlVbWkpwUTsVAAAAAAAAAAACDRUZHCEnMDlJW2Bvc3qXtMKAVgoBAAAAAAAADSMnMDA4P0ldcHyHk5OdmbatmV8mCwAAAAAABR80PEZITldmf4+hqrW1uLCPg4JhLg8AAAAAABAyQk9XXWZshZmtwcXPz8zEg2qCezoXBgAAAAEbPlFbaG54iaGvxtXd5OLf07p6pKFKOisZBwAGJ0dZZ3V8i6G0x9jj7fPw7eHUx76odllMPBsCCjFPXW99h52uxNbj8Pf7+vTs3dGznYVwYls5Bw45UmJzgY6ktsva6vX7//748eTXvJmHfW5lRwAOOFNnc4KOnbPJ1ujw+v79+O/k1cSzjoR4ZkoADDVSZHJ9iJamvcve6fL3+PPs39HCsI+FfGRHEgcuUV1ueIGLlq2/0Nzn6u/r5tjMvbOgi3xnRwsBJEtaZnB3f4qbq8HJ19vh4dzQxriwpJWCYjwCABdEU1xkbXN7i5ass8HJz9HPx7uyrJ6PeF8pAAAKL0hRVV9mbHeBk56psbu7wbuzrKOViHREEgAAABs8RUpRWV1nb3yFk5mlqq+vq6Sajn5pLAAAAAAIJDtBRUpRWV9sc4KLlZ2hoqKakoNyRA0AAAAAAA8oOD1ARU1RWmBwfIWOlJWVkIp6UxwAAAAAAAAAECU1ODtBRElQW2h1e4OFhYZ+WCQAAAAAAAAAAAANHi8yNzk8PklQX2hvc3R0TiIAAAAAAAAAAAAAAAYTIS0uMC82PUhUV1pMMhEAAAAAAAAAAAAAAAAAAAcQFxseIiYrLCkfEAAAAAAAAAAAAAAAAAAAAAAAAAEEBggICQYBAAAAAAAAAAAAAA=="
+          }
+        },
+        "palette": {
+          "real": ["#f2d4da", "#d98898", "#9c3a52"],
+          "exaggerated": ["#ff8fb8", "#ff4f7a", "#d1203c"]
+        },
+        "surface_brightness_mag_arcsec2": 23.43,
+        "surface_brightness_source": "Finkbeiner (2003) H-alpha map: peak 258.6 R above the diffuse background at 6 arcmin resolution",
+        "surface_brightness_estimated": false,
+        "puff_count": 558,
+        "seed": 3537,
+        "source_label": "Finkbeiner (2003), full-sky H-alpha map",
+        "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+        "model_note": "Sky shape and relative brightness traced from the Finkbeiner (2003) H-alpha map at 6 arcmin resolution within a 188-arcmin field, with the Soul Nebula left out; the listed extent is the Sharpless (1959) diameter. Drawn as a shell around the cavity; its thickness is illustrative."
+      }
+    },
+    {
+      "type": "hii_region",
+      "id": "soul-nebula",
+      "name": "Soul Nebula",
+      "spectral_type": null,
+      "constellation": "Cassiopeia",
+      "x_pc": -1510.35073,
+      "y_pc": 1397.538576,
+      "z_pc": 33.02425,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The eastern half of the Heart and Soul in Cassiopeia. Its massive stars have carved cavities into the gas, and successive generations of younger stars line their edges.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["IC 1848", "Sh 2-199", "W 5", "LBN 667", "Embryo Nebula"],
+        "ra_deg": 42.855,
+        "dec_deg": 60.418889,
+        "distance_pc": 2058,
+        "distance_error_pc": 8,
+        "distance_source": "Gaia DR3 median distance of 261 members of the cluster IC 1848, 2058 ± 8 pc (statistical); Hunt & Reffert 2023, A&A 673, A114",
+        "position_source": "SIMBAD IC 1848",
+        "angular_size_arcmin": [120, 120],
+        "illuminating_stars": "The O stars of the cluster IC 1848",
+        "shape": {
+          "kind": "ellipsoid",
+          "semi_axes_pc": [22.45286, 44.90572, 44.90572],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": [],
+          "mask": {
+            "size": [22, 22],
+            "values": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAABAgMDEiIUAgAAAAAAAAAAAAABAgUHBwcLESQ2Hg8BAgAAAAAAAAEEBgoTHBsfOHNndU43JhMHAAAAAAAKBQkOIDFDcanE28Gpi2RKFwQAAAAJIBIKESRCbL7Y3NHUvaiSdy4LAQAAGT4cExs7XqHa8fbsxaagqodGEgcDACRHKx4kQmuc0Oj199+2qq2qZjcVCQElSigeIDdLbJ7N39vWw7W9vaiEQSEGHVA/EhQaJTdPn8DXzsbI1d/Eq4VJCxBNPBwJDBEhMlaQzOXc3/Hx5sanfgoAPUAfEAoNGyMpQrfj4+js/vfawXoAACBHJhYOEBcfITp+wtLV4P3/7NBKAAABJCYXEA8SFSRCZJKZlcDx++2gAwAAAAkZFA0MDhMbJzZMSUt3z+LAMgAAAAAABw0ODAsODw8YGR8dLXeLLQAAAAAAAAAECw0LDAoJCQsODxIbDgAAAAAAAAAAAAADBQcIBgQDBAICAAAAAAAAAAAAAAAAAAABAQEAAAAAAAAAAAAAAA=="
+          }
+        },
+        "palette": {
+          "real": ["#f2d4da", "#d98898", "#9c3a52"],
+          "exaggerated": ["#ff8fb8", "#ff4f7a", "#d1203c"]
+        },
+        "surface_brightness_mag_arcsec2": 23.24,
+        "surface_brightness_source": "Finkbeiner (2003) H-alpha map: peak 307.0 R above the diffuse background at 6 arcmin resolution",
+        "surface_brightness_estimated": false,
+        "puff_count": 308,
+        "seed": 5776,
+        "source_label": "Finkbeiner (2003), full-sky H-alpha map",
+        "source_url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+        "model_note": "Sky shape and relative brightness traced from the Finkbeiner (2003) H-alpha map at 6 arcmin resolution within a 150-arcmin field, with the Heart Nebula left out; the listed extent is the Sharpless (1959) diameter. Depth is illustrative."
+      }
+    },
+    {
+      "type": "hii_region",
+      "id": "sh-2-106",
+      "name": "Sh 2-106",
+      "spectral_type": null,
+      "constellation": "Cygnus",
+      "x_pc": 388.420449,
+      "y_pc": 1603.530287,
+      "z_pc": -17.893368,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A bipolar nebula in Cygnus, shaped like a snow angel by the hot gas that a young massive star blows out from its poles, while a dusty disk pinches its waist.",
+      "raw_astrometry": null,
+      "nebula": {
+        "designations": ["Sh 2-106", "S106", "Celestial Snow Angel"],
+        "ra_deg": 306.861834,
+        "dec_deg": 37.380246,
+        "distance_pc": 1650,
+        "distance_error_pc": 40,
+        "distance_source": "Gaia DR3 parallax of its young cluster, 0.607 ± 0.013 mas (1.65 ± 0.04 kpc); preprint arXiv:2606.31835 (2026). It replaces the extinction estimate of 1.09 kpc",
+        "position_source": "SIMBAD Sh 2-106",
+        "angular_size_arcmin": [3, 3],
+        "illuminating_stars": "S106 IR, an O8 star still wrapped in its birth cloud",
+        "shape": {
+          "kind": "ellipsoid",
+          "semi_axes_pc": [0.719948, 0.719948, 0.719948],
+          "position_angle_deg": 0,
+          "layer_offsets_pc": []
+        },
+        "palette": {
+          "real": ["#f2d4da", "#d98898", "#9c3a52"],
+          "exaggerated": ["#ff8fb8", "#ff4f7a", "#d1203c"]
+        },
+        "surface_brightness_mag_arcsec2": 22.07,
+        "surface_brightness_source": "Hand-authored visual estimate, calibrated against the measurements",
+        "surface_brightness_estimated": true,
+        "puff_count": 64,
+        "seed": 6816,
+        "source_label": "Sharpless (1959), Catalogue of H II Regions",
+        "source_url": "https://ui.adsabs.harvard.edu/abs/1959ApJS....4..257S",
+        "model_note": "Sky extent from the Sharpless (1959) diameter, drawn as a filled sphere; the two lobes and clumping are not modeled."
       }
     }
   ]

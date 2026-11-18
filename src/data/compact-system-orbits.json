@@ -299,6 +299,39 @@
       ]
     },
     {
+      "systemId": "grs-1915p105-system",
+      "name": "GRS 1915+105",
+      "orbits": [
+        {
+          "id": "grs-1915p105-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "grs-1915p105"
+          ],
+          "secondaryIds": [
+            "grs-1915p105-b"
+          ],
+          "periodYears": 0.09267624914442163,
+          "semiMajorAxisAu": 0.4645,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Reid & Miller-Jones 2023",
+          "sourceUrl": "https://arxiv.org/abs/2309.15027",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the relative semi-major axis follows from Kepler's third law with both measured masses. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
       "systemId": "gs-2000p25-system",
       "name": "GS 2000+25",
       "orbits": [
@@ -1586,6 +1619,239 @@
       ]
     },
     {
+      "systemId": "sgr-a-star-system",
+      "name": "Sagittarius A*",
+      "orbits": [
+        {
+          "id": "sgr-a-star-system-0",
+          "primary": "Sgr A*",
+          "secondary": "S2",
+          "primaryIds": [
+            "sgr-a-star"
+          ],
+          "secondaryIds": [
+            "s2"
+          ],
+          "periodYears": 16.0447,
+          "semiMajorAxisAu": 1034.21,
+          "eccentricity": 0.88441,
+          "inclinationDeg": 134.7,
+          "nodeDeg": 228.19,
+          "argumentDeg": 66.25,
+          "periastronEpoch": 2018.3789,
+          "epochKind": "Decimal year",
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "GRAVITY Collaboration 2022, Table 1",
+          "sourceUrl": "https://arxiv.org/abs/2112.07478",
+          "nodeAmbiguous": false,
+          "argumentComponent": "S2",
+          "uncertainties": {
+            "eccentricity": 6e-05,
+            "inclinationDeg": 0.03,
+            "nodeDeg": 0.03,
+            "argumentDeg": 0.03,
+            "periastronEpochYears": 0.0001
+          },
+          "axisSource": {
+            "angularAxisMas": 124.95,
+            "angularAxisErrorMas": 0.04,
+            "adoptedDistancePc": 8277,
+            "scope": "Converted from the published angular axis at the fitted distance of GRAVITY Collaboration 2022."
+          },
+          "scope": "Osculating elements of the four-star fit with M = 4.297e6 M_sun and R0 = 8277 pc, converted at 2010.35, near the star's apocenter. The physical axis converts the angular axis at that R0; the period follows from Kepler's third law with that mass.",
+          "axisDerivation": null
+        },
+        {
+          "id": "sgr-a-star-system-1",
+          "primary": "Sgr A*",
+          "secondary": "S29",
+          "primaryIds": [
+            "sgr-a-star"
+          ],
+          "secondaryIds": [
+            "s29"
+          ],
+          "periodYears": 91.04,
+          "semiMajorAxisAu": 3290.11,
+          "eccentricity": 0.9693,
+          "inclinationDeg": 144.37,
+          "nodeDeg": 7.0,
+          "argumentDeg": 205.79,
+          "periastronEpoch": 2021.4104,
+          "epochKind": "Decimal year",
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "GRAVITY Collaboration 2022, Table 1",
+          "sourceUrl": "https://arxiv.org/abs/2112.07478",
+          "nodeAmbiguous": false,
+          "argumentComponent": "S29",
+          "uncertainties": {
+            "eccentricity": 0.0001,
+            "inclinationDeg": 0.07,
+            "nodeDeg": 0.33,
+            "argumentDeg": 0.33,
+            "periastronEpochYears": 0.0002
+          },
+          "axisSource": {
+            "angularAxisMas": 397.5,
+            "angularAxisErrorMas": 1.6,
+            "adoptedDistancePc": 8277,
+            "scope": "Converted from the published angular axis at the fitted distance of GRAVITY Collaboration 2022."
+          },
+          "scope": "Osculating elements of the four-star fit with M = 4.297e6 M_sun and R0 = 8277 pc, converted at 1977, near the star's apocenter. The physical axis converts the angular axis at that R0; the period follows from Kepler's third law with that mass.",
+          "axisDerivation": null
+        },
+        {
+          "id": "sgr-a-star-system-2",
+          "primary": "Sgr A*",
+          "secondary": "S38",
+          "primaryIds": [
+            "sgr-a-star"
+          ],
+          "secondaryIds": [
+            "s38"
+          ],
+          "periodYears": 19.5493,
+          "semiMajorAxisAu": 1179.8,
+          "eccentricity": 0.8145,
+          "inclinationDeg": 166.65,
+          "nodeDeg": 109.45,
+          "argumentDeg": 27.17,
+          "periastronEpoch": 2022.7044,
+          "epochKind": "Decimal year",
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "GRAVITY Collaboration 2022, Table 1",
+          "sourceUrl": "https://arxiv.org/abs/2112.07478",
+          "nodeAmbiguous": false,
+          "argumentComponent": "S38",
+          "uncertainties": {
+            "eccentricity": 0.0002,
+            "inclinationDeg": 0.4,
+            "nodeDeg": 1.0,
+            "argumentDeg": 1.02,
+            "periastronEpochYears": 0.008
+          },
+          "axisSource": {
+            "angularAxisMas": 142.54,
+            "angularAxisErrorMas": 0.04,
+            "adoptedDistancePc": 8277,
+            "scope": "Converted from the published angular axis at the fitted distance of GRAVITY Collaboration 2022."
+          },
+          "scope": "Osculating elements of the four-star fit with M = 4.297e6 M_sun and R0 = 8277 pc, converted at 2000, near the star's apocenter. The physical axis converts the angular axis at that R0; the period follows from Kepler's third law with that mass.",
+          "axisDerivation": null
+        },
+        {
+          "id": "sgr-a-star-system-3",
+          "primary": "Sgr A*",
+          "secondary": "S55",
+          "primaryIds": [
+            "sgr-a-star"
+          ],
+          "secondaryIds": [
+            "s55"
+          ],
+          "periodYears": 12.254,
+          "semiMajorAxisAu": 864.119,
+          "eccentricity": 0.7267,
+          "inclinationDeg": 158.52,
+          "nodeDeg": 314.94,
+          "argumentDeg": 322.78,
+          "periastronEpoch": 2021.694,
+          "epochKind": "Decimal year",
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "GRAVITY Collaboration 2022, Table 1",
+          "sourceUrl": "https://arxiv.org/abs/2112.07478",
+          "nodeAmbiguous": false,
+          "argumentComponent": "S55",
+          "uncertainties": {
+            "eccentricity": 0.0002,
+            "inclinationDeg": 0.22,
+            "nodeDeg": 1.14,
+            "argumentDeg": 1.13,
+            "periastronEpochYears": 0.0083
+          },
+          "axisSource": {
+            "angularAxisMas": 104.4,
+            "angularAxisErrorMas": 0.05,
+            "adoptedDistancePc": 8277,
+            "scope": "Converted from the published angular axis at the fitted distance of GRAVITY Collaboration 2022."
+          },
+          "scope": "Osculating elements of the four-star fit with M = 4.297e6 M_sun and R0 = 8277 pc, converted at 2012, near the star's apocenter. The physical axis converts the angular axis at that R0; the period follows from Kepler's third law with that mass.",
+          "axisDerivation": null
+        },
+        {
+          "id": "sgr-a-star-system-4",
+          "primary": "Sgr A*",
+          "secondary": "S4716",
+          "primaryIds": [
+            "sgr-a-star"
+          ],
+          "secondaryIds": [
+            "s4716"
+          ],
+          "periodYears": 4.02,
+          "semiMajorAxisAu": 400.154,
+          "eccentricity": 0.756,
+          "inclinationDeg": 161.13,
+          "nodeDeg": 153.55,
+          "argumentDeg": 2.25,
+          "periastronEpoch": 2017.41,
+          "epochKind": "Decimal year",
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Pei\u00dfker et al. 2022, Table 2",
+          "sourceUrl": "https://arxiv.org/abs/2207.02142",
+          "nodeAmbiguous": false,
+          "argumentComponent": "S4716",
+          "uncertainties": {
+            "eccentricity": 0.02,
+            "inclinationDeg": 2.8,
+            "nodeDeg": 1.54,
+            "argumentDeg": 0.02,
+            "periastronEpochYears": 0.004
+          },
+          "scope": "Maximum-likelihood (MCMC) Keplerian fit; the axis is published in milliparsecs and the period in the text (Section 3.6).",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "ss-433-system",
+      "name": "SS 433",
+      "orbits": [
+        {
+          "id": "ss-433-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "ss-433"
+          ],
+          "secondaryIds": [
+            "ss-433-b"
+          ],
+          "periodYears": 0.03581656399726215,
+          "semiMajorAxisAu": null,
+          "eccentricity": null,
+          "inclinationDeg": null,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Blundell & Bowler 2004",
+          "sourceUrl": "https://arxiv.org/abs/astro-ph/0410456",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
       "systemId": "v404-cygni-system",
       "name": "V404 Cygni",
       "orbits": [
@@ -1713,6 +1979,85 @@
           "nodeAmbiguous": true,
           "argumentComponent": null,
           "scope": "Period and eccentricity from the published orbit; the semi-major axis is not adopted because a component mass is unmeasured. The orbit's orientation on the sky is not adopted.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "wr-140-system",
+      "name": "WR 140",
+      "orbits": [
+        {
+          "id": "wr-140-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "wr-140-a"
+          ],
+          "secondaryIds": [
+            "wr-140-b"
+          ],
+          "periodYears": 7.92608,
+          "semiMajorAxisAu": 13.54,
+          "eccentricity": 0.8993,
+          "inclinationDeg": 119.07,
+          "nodeDeg": 353.87,
+          "argumentDeg": 227.44,
+          "periastronEpoch": 2024.8918,
+          "epochKind": "Decimal year",
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Thomas et al. 2021, Table 4",
+          "sourceUrl": "https://arxiv.org/abs/2101.10563",
+          "nodeAmbiguous": false,
+          "argumentComponent": "A",
+          "uncertainties": {
+            "eccentricity": 0.0013,
+            "inclinationDeg": 0.88,
+            "nodeDeg": 0.67,
+            "argumentDeg": 0.52,
+            "periastronEpochYears": 0.0015
+          },
+          "axisSource": {
+            "angularAxisMas": 8.922,
+            "angularAxisErrorMas": 0.067,
+            "adoptedDistancePc": 1518,
+            "scope": "Converted from the published angular axis at the adopted distance."
+          },
+          "scope": "Combined visual (CHARA and earlier interferometry) and spectroscopic orbit; the argument of periastron is the Wolf\u2013Rayet star's, and periastron T0 = MJD 60636.23 \u00b1 0.53. The physical axis converts the angular axis at the orbital-parallax distance.",
+          "axisDerivation": null
+        }
+      ]
+    },
+    {
+      "systemId": "wr-104-system",
+      "name": "WR 104",
+      "orbits": [
+        {
+          "id": "wr-104-system-0",
+          "primary": "A",
+          "secondary": "B",
+          "primaryIds": [
+            "wr-104-a"
+          ],
+          "secondaryIds": [
+            "wr-104-b"
+          ],
+          "periodYears": 0.661191,
+          "semiMajorAxisAu": 2.888,
+          "eccentricity": null,
+          "inclinationDeg": 41.8,
+          "nodeDeg": null,
+          "argumentDeg": null,
+          "periastronEpoch": null,
+          "epochKind": null,
+          "grade": null,
+          "catalog": "Reviewed literature",
+          "reference": "Tuthill et al. 2008; Richardson et al. 2026",
+          "sourceUrl": "https://arxiv.org/abs/2602.23606",
+          "nodeAmbiguous": true,
+          "argumentComponent": null,
+          "scope": "Period 241.5 \u00b1 0.5 days from the rotation of the dust pinwheel (Tuthill et al. 2008, https://arxiv.org/abs/0712.2111). Inclination 41.8 +13.0/\u221214.9\u00b0 from the dust eclipses in its light curve (Richardson et al. 2026), in line with the spectroscopic orbit of Hill 2024 but not with the face-on spiral seen in images, which suggested less than 16\u00b0. The relative semi-major axis follows from Kepler's third law with both component masses, and inherits their large uncertainty.",
           "axisDerivation": null
         }
       ]

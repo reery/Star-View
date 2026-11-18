@@ -21,6 +21,8 @@ Usage policies: [NASA](https://www.nasa.gov/nasa-brand-center/images-and-media/)
 | `dark_nebula.jpg` | [How to become a star](https://www.eso.org/public/images/eso0102a/), the dark globule Barnard 68 (VLT ANTU and FORS1), cropped to the central 3400 × 3400 pixels ([CC BY 4.0](https://www.eso.org/public/copyright/)) | ESO |
 | `bubble.jpg` | [Hubble Sees a Star ‘Inflating’ a Giant Bubble](https://images.nasa.gov/details/GSFC_20171208_Archive_e000383) | NASA, ESA, and the Hubble Heritage Team (STScI/AURA) |
 | `galaxy.jpg` | [VST snaps a very detailed view of the Triangulum Galaxy](https://www.eso.org/public/images/eso1424a/), cropped to the central square ([CC BY 4.0](https://www.eso.org/public/copyright/)) | ESO |
+| `open_cluster.jpg` | [A snapshot of the Jewel Box cluster with the ESO VLT](https://www.eso.org/public/images/eso0940a/), the open cluster NGC 4755, resized from the 1280-pixel screen size to 1080 × 1082 ([CC BY 4.0](https://www.eso.org/public/copyright/)) | ESO/Y. Beletsky |
+| `globular_cluster.jpg` | [The globular cluster Messier 30 (heic0918a)](https://esahubble.org/images/heic0918a/), Hubble ACS, the central 1280 × 1280 of the 1280-pixel Commons rendition resized to 1080 × 1080 at JPEG quality 42 (289 KB; the dense star field compresses poorly) ([CC BY 4.0](https://esahubble.org/copyright/)) | NASA/ESA |
 
 Additional stellar photographs:
 

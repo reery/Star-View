@@ -40,16 +40,17 @@ GALAXIES = [
     {
         'id': 'milky-way',
         'name': 'Milky Way',
-        'designations': ['The Galaxy', 'Galactic Center', 'Sagittarius A*'],
+        'designations': ['The Galaxy', 'Galactic Center'],
         'constellation': 'Sagittarius',
-        'notes': 'The home galaxy of the Sun. Its map position is the Galactic Center, marked by the black hole Sagittarius A*; the drawn model is the Reid et al. (2019) spiral-arm fit centered 8.15 kpc away.',
+        'notes': 'The home galaxy of the Sun. Its map position is the Galactic Center, marked by the black hole Sagittarius A*; the drawn model is the Reid et al. (2019) spiral-arm fit centered 8.15 kpc away. The center distance follows the GRAVITY Collaboration (2022) four-star orbit fit, 8277 ± 9 (stat) ± 30 (sys) pc; it supersedes their S2-only 2019 value of 8178 ± 13 (stat) ± 22 (sys) pc, which predates the 2021 correction of the instrument\'s optical aberrations (https://doi.org/10.1051/0004-6361/201935656).',
         'morphology': 'SB(rs)bc',
         'classification': 'Barred spiral galaxy',
-        # Sagittarius A*, Petrov et al. (2011) VLBI position.
-        'ra_deg': 266.4168338, 'dec_deg': -29.0078250,
-        'distance_pc': 8178, 'distance_error_pc': 26,
-        'distance_method': 'Orbit of the star S2 around Sagittarius A* (GRAVITY interferometry)',
-        'distance_source': source('GRAVITY Collaboration (2019)', 'https://doi.org/10.1051/0004-6361/201935656'),
+        # Sagittarius A*, SIMBAD ICRS position (Petrov et al. 2011 VLBA), shared with its compact-remnant record.
+        'ra_deg': 266.416816625, 'dec_deg': -29.007824972,
+        # Statistical and systematic errors (9 and 30 pc) combined.
+        'distance_pc': 8277, 'distance_error_pc': 31,
+        'distance_method': 'Orbits of the stars S2, S29, S38 and S55 around Sagittarius A* (GRAVITY interferometry)',
+        'distance_source': source('GRAVITY Collaboration (2022)', 'https://doi.org/10.1051/0004-6361/202142465'),
         'diameter_pc': 26800, 'angular_size_deg': None,
         'size_source': source('Goodwin, Gribbin & Hendry (1998), D25 isophote', 'https://ui.adsabs.harvard.edu/abs/1998Obs...118..201G'),
         'star_count': [1e11, 4e11], 'star_count_source': source('Wikipedia: Milky Way', WIKIPEDIA + 'Milky_Way'),
@@ -306,7 +307,7 @@ def dwarfs() -> list[dict]:
 
 
 SOURCES = [
-    {'name': 'GRAVITY Collaboration (2019); geometric distance to Sagittarius A*', 'url': 'https://doi.org/10.1051/0004-6361/201935656'},
+    {'name': 'GRAVITY Collaboration (2022); geometric distance to Sagittarius A*', 'url': 'https://doi.org/10.1051/0004-6361/202142465'},
     {'name': 'Pietrzyński et al. (2019); eclipsing-binary distance to the Large Magellanic Cloud', 'url': 'https://doi.org/10.1038/s41586-019-0999-4'},
     {'name': 'Graczyk et al. (2020); eclipsing-binary distance to the Small Magellanic Cloud', 'url': 'https://doi.org/10.3847/1538-4357/abbb2b'},
     {'name': 'Li et al. (2021); HST Cepheid distance to M31', 'url': 'https://doi.org/10.3847/1538-4357/ac1597'},
@@ -322,6 +323,13 @@ def galactic_pc(ra_deg: float, dec_deg: float, distance_pc: float) -> list[float
     alpha, delta = math.radians(ra_deg), math.radians(dec_deg)
     equatorial = (math.cos(delta) * math.cos(alpha), math.cos(delta) * math.sin(alpha), math.sin(delta))
     return [round(distance_pc * sum(row[i] * equatorial[i] for i in range(3)), 1) for row in ICRS_TO_GALACTIC]
+
+
+def sagittarius_a_star_pc() -> list[float]:
+    """The black hole's plotted position, so the Milky Way's center and Sagittarius A* coincide when drawn up close."""
+    objects = json.loads((ROOT / 'src/data/overlays/compact-remnants/objects.json').read_text())['objects']
+    star = next(item for item in objects if item['id'] == 'sgr-a-star')
+    return [star['x_pc'], star['y_pc'], star['z_pc']]
 
 
 def galactic_lb(position: list[float]) -> tuple[float, float]:
@@ -344,10 +352,10 @@ def record(galaxy: dict) -> dict:
         *(['total_mass'] if 'total_mass' in galaxy else []),
         'radial_velocity_kms', 'radial_velocity_error_kms', 'radial_velocity_source', 'model_radius_pc', 'palette',
         *(['spheroid'] if 'spheroid' in galaxy else [])]}
-    x, y, z = galactic_pc(galaxy['ra_deg'], galaxy['dec_deg'], galaxy['distance_pc'])
+    x, y, z = sagittarius_a_star_pc() if galaxy['id'] == 'milky-way' else galactic_pc(galaxy['ra_deg'], galaxy['dec_deg'], galaxy['distance_pc'])
     longitude, latitude = galactic_lb([x, y, z])
     details['position_source'] = f'{galaxy.get("center_label", "NED J2000 center")} (l = {longitude:.2f}°, b = {latitude:.2f}°) at the {details["distance_source"]["label"]} distance' \
-        if galaxy['id'] != 'milky-way' else f'Sagittarius A* (l = {longitude:.3f}°, b = {latitude:.3f}°) at the GRAVITY Collaboration (2019) distance'
+        if galaxy['id'] != 'milky-way' else f'Sagittarius A* (l = {longitude:.3f}°, b = {latitude:.3f}°) at the GRAVITY Collaboration (2022) distance'
     details['model_note'] = galaxy['model_note']
     return {
         'type': 'galaxy', 'id': galaxy['id'], 'name': galaxy['name'], 'designations': galaxy['designations'],

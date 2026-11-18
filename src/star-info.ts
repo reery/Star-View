@@ -1,4 +1,4 @@
-import { renderObjectInfoContent, type InfoImage, type InfoSource, type ObjectInfo } from './object-info-content'
+import { renderObjectInfoContent, type InfoImage, type InfoInline, type InfoSource, type ObjectInfo } from './object-info-content'
 import { starInfoArticleId } from './star-info-availability'
 import { loadDataShardEntry } from './data-shards'
 import sun from './assets/stars/sun.jpg'
@@ -72,8 +72,8 @@ const images: Readonly<Record<string, InfoImage>> = {
   },
 }
 
-// Nebula and galaxy articles name their own image file, so the credits stay in the deferred article payloads.
-const articleImages = import.meta.glob<string>(['./assets/nebulae/*.avif', './assets/galaxies/*.avif'], { query: '?url&no-inline', import: 'default', eager: true })
+// Nebula, galaxy, star-cluster and compact-object articles name their own image file, so the credits stay in the deferred article payloads.
+const articleImages = import.meta.glob<string>(['./assets/nebulae/*.avif', './assets/galaxies/*.avif', './assets/star-clusters/*.avif', './assets/compact-objects/*.avif'], { query: '?url&no-inline', import: 'default', eager: true })
 
 interface ArticlePayload {
   reviewedAt: string
@@ -95,7 +95,7 @@ function articleContent(id: string, dataset: ArticlePayload): ObjectInfo {
       ? { title: `Wikipedia: ${article.name} · reviewed ${dataset.reviewedAt}`, url: article.wikipedia }
       : undefined
   const file = article.image?.file
-  const image = article.image && { ...article.image, src: (articleImages[`./assets/nebulae/${file}`] ?? articleImages[`./assets/galaxies/${file}`])! }
+  const image = article.image && { ...article.image, src: ['nebulae', 'galaxies', 'star-clusters', 'compact-objects'].map((folder) => articleImages[`./assets/${folder}/${file}`]).find(Boolean)! }
   return {
     image: images[id] ?? image,
     introduction: { label: article.name, text: article.introduction, source },
@@ -130,6 +130,6 @@ export function starInfoForId(starId: string): ObjectInfo | undefined {
   return id ? articles.get(id) : undefined
 }
 
-export function renderStarInfo(container: HTMLElement, starId: string | null): boolean {
-  return renderObjectInfoContent(container, starId ? starInfoForId(starId) : undefined)
+export function renderStarInfo(container: HTMLElement, starId: string | null, inline?: InfoInline): boolean {
+  return renderObjectInfoContent(container, starId ? starInfoForId(starId) : undefined, inline)
 }

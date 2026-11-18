@@ -526,6 +526,29 @@ DIST_DM1 1.713                         cl02
 DIST_DM  1.385                         ymw17
 SURVEY   jb1,gb3,gbncc,lotaas
 @-----------------------------------------------------------------
+PSRJ     J0205+6449                    mss+02 
+RAJ      02:05:37.92247           15    bkr+13
+DECJ     +64:49:41.3343           10    bkr+13
+POSEPOCH 55487                         bkr+13
+PMRA     -1.40                    16   bkr+13
+PMDEC    0.54                     16   bkr+13
+DM       140.7                    3    csl+02
+F0       15.21701089718           2    lrc+09
+PEPOCH   54114.46                      lrc+09
+F1       -4.48652358E-11          9    lrc+09
+F2       5.85153E-21              5    lrc+09
+S800     0.13                          csl+02
+S1400    0.045                         csl+02
+W50      2.3                      3    csl+02
+SPINDX   -2.1                     18   bkk+16
+NGLT 9
+DIST_A   3.2                           rgk+93
+DIST_DM1 4.536                         cl02
+DIST_DM  2.784                         ymw17
+TYPE     HE[aab+22]
+ASSOC    GRS:4FGL_J0205.7+6449[aab+22],SNR:3C58[bie06],PWN:3C58[bie06]
+SURVEY   misc,FermiBlind
+@-----------------------------------------------------------------
 PSRJ     J0212+5321                    pbhg23 
 RAJ      02:12:10.47274                pbhg23
 DECJ     53:21:38.8110                 pbhg23
@@ -12239,6 +12262,33 @@ FRACAV   0.09                     4    whx+23
 DIST_DM1 0.948                         cl02
 DIST_DM  0.635                         ymw17
 SURVEY   fast_gpps
+@-----------------------------------------------------------------
+PSRB     B1853+01                      wcd91
+PSRJ     J1856+0113 
+ELONG    285.39089                17   hlk+04
+ELAT     23.9146                  4    hlk+04
+POSEPOCH 49780.0                       hlk+04
+DM       96.10                    10   sjk+21
+F0       3.7391619008             9    hlk+04
+PEPOCH   49780.0                       hlk+04
+F1       -2.913147E-12            8    hlk+04
+F2       2.76E-23                 3    hlk+04
+RM       -122.0                   3    sjk+21
+S400     3.4                           lylg95
+S600     4.7                      6    lylg95
+S1400    0.19                     3    hfs+04
+W50      2.9                           pkj+21
+W10      6.8                           pkj+21
+TAU_SC   1.6E-6                   7    kl07 
+NGLT 2
+DIST_A   3.3                           cmr+75
+DIST_AMN 2.7                           cmr+75
+DIST_AMX 3.9                           cmr+75
+DIST_DM1 3.063                         cl02
+DIST_DM  2.808                         ymw17
+TYPE     HE[lsg+15]
+ASSOC    SNR:W44,XRS:PWN[pks02]
+SURVEY   misc,palfa,pksmb
 @-----------------------------------------------------------------
 PSRJ     J1856-3754                    tm07 
 RAJ      18:56:35.41              16    wm97 

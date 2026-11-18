@@ -16,6 +16,15 @@ export const FILTER_CATEGORIES = [
     ],
   },
   {
+    id: 'star_clusters',
+    label: 'Star clusters',
+    description: 'Groups of stars born together and still bound by their gravity: young open clusters and ancient globular clusters. The checkboxes in this tile choose which of them appear; the brightest members of the nearby open clusters are ordinary stars under Compact objects.',
+    subtypes: [
+      { key: 'open_cluster', label: 'Open clusters' },
+      { key: 'globular_cluster', label: 'Globular clusters' },
+    ],
+  },
+  {
     id: 'interstellar_medium',
     label: 'Interstellar medium',
     description: 'The gas and dust between the stars: molecular clouds, dark nebulae, reflection nebulae and H II regions. The checkboxes in this tile choose which of them appear.',
@@ -56,8 +65,8 @@ export const FILTER_CATEGORY_IDS: readonly FilterCategoryId[] = FILTER_CATEGORIE
 // Bundled stellar catalogs always contain these; overlay keys come from manifest counts.
 const CATALOG_FILTER_KEYS: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf']
 
-export const DEFAULT_FILTER_CATEGORIES: readonly FilterCategoryId[] = ['compact_objects']
-export const DEFAULT_FILTER_SUBTYPES: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'dark_nebula', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'supernova_remnant', 'bubble']
+export const DEFAULT_FILTER_CATEGORIES: readonly FilterCategoryId[] = ['compact_objects', 'star_clusters']
+export const DEFAULT_FILTER_SUBTYPES: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'dark_nebula', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'supernova_remnant', 'bubble', 'open_cluster', 'globular_cluster']
 
 // Types with data before saved filters and views recorded which types they knew.
 const LEGACY_KNOWN_FILTER_KEYS: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'neutron_star', 'pulsar', 'black_hole',
@@ -67,6 +76,15 @@ const LEGACY_KNOWN_FILTER_KEYS: readonly FilterKey[] = ['sun', 'star', 'brown_dw
 export function restoredFilterSubtypes(saved: readonly FilterKey[], known: readonly FilterKey[] | undefined, available: ReadonlySet<FilterKey>): Set<FilterKey> {
   const knownWhenSaved = new Set(known ?? LEGACY_KNOWN_FILTER_KEYS)
   return new Set([...saved, ...DEFAULT_FILTER_SUBTYPES.filter((key) => available.has(key) && !knownWhenSaved.has(key))])
+}
+
+/** Restores saved categories; a default category whose types all gained data after the entry was saved starts on, like in a fresh session. */
+export function restoredFilterCategories(saved: readonly FilterCategoryId[], known: readonly FilterKey[] | undefined, available: ReadonlySet<FilterKey>): Set<FilterCategoryId> {
+  const knownWhenSaved = new Set(known ?? LEGACY_KNOWN_FILTER_KEYS)
+  return new Set([...saved, ...DEFAULT_FILTER_CATEGORIES.filter((id) => {
+    const keys = FILTER_CATEGORIES.find((category) => category.id === id)!.subtypes.map(({ key }) => key)
+    return keys.some((key) => available.has(key)) && keys.every((key) => !knownWhenSaved.has(key))
+  })])
 }
 
 export function isFilterKey(value: unknown): value is FilterKey {

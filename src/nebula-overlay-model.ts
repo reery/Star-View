@@ -84,10 +84,12 @@ function validRemnant(value: unknown, type: unknown): boolean {
   const age = remnant.age_yr
   const star = remnant.neutron_star as Record<string, unknown> | null | undefined
   const survivor = remnant.surviving_star as Record<string, unknown> | undefined
+  const blackHole = remnant.black_hole as Record<string, unknown> | undefined
   const text = (field: unknown) => typeof field === 'string' && field.length > 0
   return Array.isArray(age) && age.length === 2 && age.every(finitePositive) && age[0]! <= age[1]!
     && text(remnant.age_source) && text(remnant.drawn_as)
     && (star === null || (!!star && typeof star === 'object' && text(star.id) && text(star.name)))
+    && (blackHole === undefined || (star === null && !!blackHole && typeof blackHole === 'object' && text(blackHole.id) && text(blackHole.name)))
     && (survivor === undefined || (!!survivor && typeof survivor === 'object' && text(survivor.catalog) && text(survivor.id) && text(survivor.name)))
     && (remnant.hot_gas_kev === null ? remnant.hot_gas_source === null : finitePositive(remnant.hot_gas_kev) && text(remnant.hot_gas_source))
 }
@@ -107,6 +109,9 @@ function validDetails(value: unknown): value is NebulaDetails {
     && ['distance_source', 'position_source', 'illuminating_stars', 'source_label', 'source_url', 'model_note', 'surface_brightness_source']
       .every((field) => typeof details[field] === 'string' && (details[field] as string).length > 0)
     && /^https:\/\//.test(details.source_url as string)
+    && (details.illuminating_star_links === undefined || (Array.isArray(details.illuminating_star_links) && details.illuminating_star_links.every((link) =>
+      !!link && typeof link === 'object' && ['catalog', 'id', 'name'].every((field) => typeof link[field] === 'string' && link[field].length > 0)
+      && (details.illuminating_stars as string).includes(link.name))))
     && Array.isArray(angular) && angular.length === 2 && angular.every(finitePositive)
     && !!shape && NEBULA_SHAPE_KINDS.includes(shape.kind as never)
     && Array.isArray(shape.semi_axes_pc) && shape.semi_axes_pc.length === 3 && shape.semi_axes_pc.every(finitePositive)

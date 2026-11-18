@@ -71,10 +71,10 @@ export function budgetVisibleLabelIndices(
   return selected
 }
 
-/** The selection and origin stay eligible; extended nebulae, clouds and bubbles have no point magnitude to limit. */
+/** The selection and origin stay eligible; extended nebulae, clouds, bubbles and clusters have no point magnitude to limit. */
 export function mapVisibilityTier(star: Star, observer: Star, selectedId: string | null, originId: string, magnitude: number, limit: number): ReturnType<typeof visibilityTier> {
   if (isMapVisibilityBase(star, observer)) return 'base'
-  return star.id === selectedId || star.id === originId || star.nebula || star.molecular_cloud || star.bubble || star.galaxy || magnitude <= limit ? 'eligible' : 'background'
+  return star.id === selectedId || star.id === originId || star.nebula || star.molecular_cloud || star.bubble || star.galaxy || star.cluster || magnitude <= limit ? 'eligible' : 'background'
 }
 
 export function starBlocksLabels(tier: ReturnType<typeof visibilityTier>): boolean {
@@ -117,13 +117,13 @@ export function isObjectMapVisible(
   distanceLimitLy = Infinity,
   galaxiesVisible = true,
 ): boolean {
+  // The selected object shows even when its type is filtered out, and leaves again with the selection.
+  if (star.id === selectedId) return true
   const key = filterKeyForObject(star)
   // Galaxies are scenery far beyond any distance limit; the Galaxies filter alone shows them.
-  if (key === 'galaxy') return galaxiesVisible || star.id === selectedId || star.id === observerId
+  if (key === 'galaxy') return galaxiesVisible || star.id === observerId
   if (key === 'sun') return visibleKeys.has(key)
-  return visibleKeys.has(key) && (
-    star.id === selectedId || star.id === observerId || distanceLy <= distanceLimitLy
-  )
+  return visibleKeys.has(key) && (star.id === observerId || distanceLy <= distanceLimitLy)
 }
 
 export function focusProgress(elapsedMs: number): number {

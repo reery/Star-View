@@ -1,7 +1,8 @@
 """Build the selected-object reading links from frozen, exact-identity sources.
 
 Wikipedia articles come from Wikidata items carrying an object's exact SIMBAD
-identifier (P3083). Jim Kaler's STARS pages and ESA/Hubble observations match
+identifier (P3083); reviewed-wikipedia.json adds checked articles for objects that
+no identifier reaches. Jim Kaler's STARS pages and ESA/Hubble observations match
 exact designations; ATNF links use the frozen PSRJ names. No positional or
 fuzzy matching. Run --refresh to freeze the network sources, --extend to add
 Wikidata and Wikipedia records only for identifiers without one, --check to
@@ -340,7 +341,11 @@ def build():
                 for member in members:
                     links[member].setdefault(field, value)
 
-    atnf = re.findall(r"^PSRJ\s+(\S+)", (ROOT / "catalog-work/compact-remnants/atnf-subset.db").read_text(), re.M)
+    # Reviewed articles for objects exact identities cannot reach, such as a component without a SIMBAD record.
+    for identifier, entry in json.loads((WORK / "reviewed-wikipedia.json").read_text())["objects"].items():
+        links[identifier].setdefault("wikipedia", entry["article"])
+
+    atnf = re.findall(r"^PSRJ\s+(\S+)", "".join((ROOT / f"catalog-work/compact-remnants/{name}").read_text() for name in ("atnf-subset.db", "atnf-landmarks.db")), re.M)
     pulsars = {row["id"] for row in json.loads((ROOT / "src/data/overlays/compact-remnants/objects.json").read_text())["objects"] if row["type"] == "pulsar"}
     for psrj in atnf:
         identifier = f"psr-{psrj.lower().replace('+', 'p').replace('-', 'm')}"

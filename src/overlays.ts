@@ -5,6 +5,7 @@ import { parseCompactOverlayManifest, parseCompactOverlayPayload } from './compa
 import { parseGalaxyOverlayManifest, parseGalaxyOverlayPayload } from './galaxy-overlay-model'
 import { parseMolecularCloudOverlayManifest, parseMolecularCloudOverlayPayload } from './molecular-cloud-overlay-model'
 import { parseNebulaOverlayManifest, parseNebulaOverlayPayload } from './nebula-overlay-model'
+import { parseStarClusterOverlayManifest, parseStarClusterOverlayPayload } from './star-cluster-overlay-model'
 
 const manifests = import.meta.glob<string>('./data/overlays/*/manifest.json', { query: '?raw', import: 'default', eager: true })
 const payloads = import.meta.glob<string>([
@@ -33,3 +34,4 @@ export const { manifest: nebulaOverlayManifest, load: loadNebulae } = overlay('n
 export const { manifest: molecularCloudOverlayManifest, load: loadMolecularClouds } = overlay('molecular-clouds', parseMolecularCloudOverlayManifest, parseMolecularCloudOverlayPayload)
 export const { manifest: bubbleOverlayManifest, load: loadBubbles } = overlay('bubbles', parseBubbleOverlayManifest, parseBubbleOverlayPayload)
 export const { load: loadGalaxies } = overlay('galaxies', parseGalaxyOverlayManifest, parseGalaxyOverlayPayload)
+export const { manifest: starClusterOverlayManifest, load: loadStarClusters } = overlay('star-clusters', parseStarClusterOverlayManifest, parseStarClusterOverlayPayload)

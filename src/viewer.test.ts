@@ -218,15 +218,17 @@ describe('object map filtering', () => {
     expect(isObjectMapVisible(orion, new Set(['reflection_nebula']), null, 'sun', 1265, 1500)).toBe(false)
   })
 
-  it('lets selection bypass distance but never a disabled object type', () => {
+  it('shows the selected object past the distance limit and a disabled object type, only while selected', () => {
     expect(isObjectMapVisible(star, new Set(['white_dwarf']), 'target', 'sun', 101, 5)).toBe(true)
-    expect(isObjectMapVisible(star, new Set(), 'target', 'sun', 101, 5)).toBe(false)
+    expect(isObjectMapVisible(star, new Set(), 'target', 'sun', 101, 5)).toBe(true)
+    expect(isObjectMapVisible(star, new Set(), 'other', 'sun', 101, 5)).toBe(false)
     expect(isObjectMapVisible(star, new Set(), null, 'target', 101, 5)).toBe(false)
   })
 
   it('controls the Sun independently from the star object type', () => {
     expect(isObjectMapVisible(sun, new Set(['sun']), null, 'target')).toBe(true)
-    expect(isObjectMapVisible(sun, new Set(['star']), 'sun', 'sun', 0, Infinity)).toBe(false)
+    expect(isObjectMapVisible(sun, new Set(['star']), null, 'sun', 0, Infinity)).toBe(false)
+    expect(isObjectMapVisible(sun, new Set(['star']), 'sun', 'sun', 0, Infinity)).toBe(true)
   })
 
   it('keeps the origin eligible past the magnitude limit', () => {

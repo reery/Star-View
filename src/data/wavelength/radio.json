@@ -1,7 +1,7 @@
 {
 "schemaVersion":1,
 "band":"radio",
-"retrieved":"2026-11-16",
+"retrieved":"2026-11-18",
 "unit":"mJy",
 "entry":["value","error","source","identifier","scope"],
 "sources":{"green":{"label":"A Catalogue of Galactic Supernova Remnants","reference":"Green 2025","url":"https://vizier.idia.ac.za/viz-bin/asu-tsv?-source=VII/297","note":"1 GHz flux density in mJy"},"wendker":{"label":"Radio continuum emission from stars","reference":"Wendker 1995, A&AS 109, 177","url":"https://vizier.idia.ac.za/viz-bin/asu-tsv?-source=II/199A","note":"Median of the detections at 4–6 GHz in mJy; observations from the 1960s to 1994"}},
@@ -105,15 +105,22 @@
 "luyten-726-8-b":[1.8265,null,"wendker"],
 "proxima-centauri":[21.65,null,"wendker"],
 "wolf-359":[0.505,null,"wendker"],
+"3c-58":[33000.0,null,"green","G130.7+03.1"],
 "cassiopeia-a":[2300000.0,null,"green","G111.7-02.1"],
 "crab-nebula":[900000.0,null,"green","G184.6-05.8"],
+"g1-9p0-3":[600.0,null,"green","G001.9+00.3"],
 "hoinga":[27000.0,null,"green","G249.5+24.5"],
+"ic-443":[165000.0,null,"green","G189.1+03.0"],
 "keplers-supernova-remnant":[19000.0,null,"green","G004.5+06.8"],
+"puppis-a":[130000.0,null,"green","G260.4-03.4"],
 "rcw-86":[49000.0,null,"green","G315.4-02.3"],
 "rx-j1713-3946":[30000.0,null,"green","G347.3-00.5"],
+"simeis-147":[65000.0,null,"green","G180.0-01.7"],
 "sn-1006":[19000.0,null,"green","G327.6+14.6"],
 "tychos-supernova-remnant":[50000.0,null,"green","G120.1+01.4"],
 "veil-nebula":[210000.0,null,"green","G074.0-08.5"],
-"vela-supernova-remnant":[1750000.0,null,"green","G263.9-03.3"]
+"vela-supernova-remnant":[1750000.0,null,"green","G263.9-03.3"],
+"w44":[240000.0,null,"green","G034.7-00.4"],
+"w50":[85000.0,null,"green","G039.7-02.0"]
 }
 }

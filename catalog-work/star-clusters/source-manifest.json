@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "retrieved": "2026-11-18",
+  "sources": [
+    {
+      "file": "hunt-reffert-2024.tsv",
+      "catalog": "J/A+A/686/A42/clusters",
+      "reference": "Hunt & Reffert (2024), A&A 686, A42",
+      "doi": "https://doi.org/10.1051/0004-6361/202348662",
+      "query": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2BA/686/A42/clusters&-out.all&-c=<center>&-c.rd=3",
+      "selection": "Rows Melotte_22 (Pleiades) and Melotte_25 (Hyades); all published columns. The CWNU_1242 row on the Hyades sightline is a distinct group 290 pc away and is not used. Rows NGC_2632 (Beehive Cluster), NGC_869, NGC_884 (Double Cluster), NGC_2682 (M67) and NGC_3532 were added on 2026-11-18 while every VizieR mirror was unreachable, from the full clusters table redistributed as hunt24.csv with Zenodo record 19177686 (https://zenodo.org/records/19177686). That copy matches the two VizieR rows above in every shared column. It lacks the VizieR recno and computed _RA.icrs/_DE.icrs, which stay empty in the added rows. The NGC_869 radial velocity (6 stars) and NGC_884 radial velocity (2 stars) are not adopted; both use Dalessandro et al. (2021)."
+    },
+    {
+      "file": "netopil-2016.tsv",
+      "catalog": "J/A+A/585/A150",
+      "reference": "Netopil et al. (2016), A&A 585, A150",
+      "doi": "https://doi.org/10.1051/0004-6361/201526370",
+      "query": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2BA/585/A150&-out.all&-out.max=unlimited",
+      "selection": "Rows Melotte 22 and Melotte 25; the high-quality-sample [Fe/H] is adopted. Rows NGC 2632, NGC 2682 and NGC 3532 were added on 2026-11-18 from the table “Metallicities of the open clusters” in the arXiv source (arXiv:1511.08884v1), as the VizieR mirrors were unreachable; its Melotte 22 and Melotte 25 rows match VizieR. recno, _RA and _DE stay empty. NGC 869 and NGC 884 are not in the table."
+    },
+    {
+      "file": null,
+      "catalog": "Literature values in scripts/author-star-clusters.py",
+      "reference": "Dalessandro et al. (2021), ApJ 909, 90; Fanelli et al. (2022), A&A 660, A7",
+      "doi": "https://doi.org/10.3847/1538-4357/abda43",
+      "query": "arXiv:2101.04133 Sect. 3 and arXiv:2112.08402 Sect. 4",
+      "selection": "Double Cluster radial velocity −47.4 km/s, dispersion 2.9 km/s, the HARPS-N mean of the stars within 16.5–25′ of the two centers (Dalessandro et al. 2021). [Fe/H] = −0.30, dispersion 0.03 dex, the mean of 27 red supergiants of the Perseus complex (Fanelli et al. 2022, https://doi.org/10.1051/0004-6361/202142492)."
+    },
+    {
+      "file": "baumgardt-globular-clusters.tsv",
+      "catalog": "Fundamental parameters of Galactic globular clusters (Baumgardt, Hilker, Sollima, Bellini, Vasiliev et al.)",
+      "reference": "Baumgardt & Vasiliev (2021), MNRAS 505, 5957; Vasiliev & Baumgardt (2021), MNRAS 505, 5978",
+      "doi": "https://doi.org/10.1093/mnras/stab1474",
+      "query": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html and https://people.smp.uq.edu.au/HolgerBaumgardt/globular/orbits.html",
+      "selection": "Rows NGC 104, NGC 5139, NGC 6121, NGC 6205, NGC 6656, NGC 7078 and Ter 5, retrieved 2026-11-18. Center (Goldsbury et al. 2010; Lanzoni et al. 2010 for Ter 5), distance (Baumgardt & Vasiliev 2021), mass, core radius (Spitzer 1987 definition), projected half-light radius, 3D half-mass radius and tidal radius from parameter.html; radial velocity and Gaia EDR3 proper motion (Vasiliev & Baumgardt 2021) from orbits.html. Masses are written out from the page's ‘a ± b · 10^n’ notation."
+    },
+    {
+      "file": "carretta-2009.tsv",
+      "catalog": "Compilation of cluster metallicities on the present scale (table A.1)",
+      "reference": "Carretta et al. (2009), A&A 508, 695",
+      "doi": "https://doi.org/10.1051/0004-6361/200913003",
+      "query": "arXiv:0910.0675v1 source, table ‘Compilation of cluster metallicities on the present scale’ (VizieR mirrors lacked J/A+A/508/695 on 2026-11-18)",
+      "selection": "Rows NGC104, NGC5139, NGC6121, NGC6205, NGC6656, NGC7078 and Ter5. Note 1: weighted average of UVES, GC97, KI03, Q39 and W′ metallicities; note 2: Harris (1996) value plus 0.025 dex. The Ter5 row (+0.16, note 2) blends the two main populations of Terzan 5 and is not adopted; Origlia et al. (2011) gives −0.25 (rms 0.07) for the dominant metal-poor population."
+    },
+    {
+      "file": "vandenberg-2013.tsv",
+      "catalog": "Ages and Other Properties of the Globular Cluster Sample (table 2)",
+      "reference": "VandenBerg et al. (2013), ApJ 775, 134",
+      "doi": "https://doi.org/10.1088/0004-637X/775/2/134",
+      "query": "arXiv:1308.2257 source, table ‘Ages and Other Properties of the Globular Cluster Sample’",
+      "selection": "Rows 104 (47 Tuc), 6121 (M 4), 6205 (M 13), 6656 (M 22) and 7078 (M 15): [Fe/H], age, its error and method (V vertical, H horizontal, A average). NGC 5139 and Terzan 5 are not in the sample."
+    },
+    {
+      "file": null,
+      "catalog": "Literature values in scripts/author-star-clusters.py",
+      "reference": "Clontz et al. (2024), oMEGACat IV; Zullo et al. (2026), A&A; Origlia et al. (2011), ApJL 726, L20",
+      "doi": "https://doi.org/10.1051/0004-6361/202659349",
+      "query": "arXiv:2409.13855 abstract; arXiv:2604.00098 abstract; arXiv abstract of Origlia et al. (2011)",
+      "selection": "Omega Centauri: mean age 12.08 Gyr of about 8,100 subgiants, intrinsic age spread 0.75 Gyr (Clontz et al. 2024, https://arxiv.org/abs/2409.13855). Terzan 5: old population 12.5 ± 0.5 Gyr, young population 4.7 ± 0.5 Gyr (Zullo et al. 2026); [Fe/H] −0.25 (rms 0.07) and +0.27 (rms 0.04) for the two populations (Origlia et al. 2011, https://doi.org/10.1088/2041-8205/726/2/L20)."
+    }
+  ]
+}

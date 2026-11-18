@@ -9,7 +9,7 @@
     "naked-eye-stars",
     "notable-distant-stars"
   ],
-  "uniqueObjects": 14078,
+  "uniqueObjects": 14098,
   "classes": [
     {
       "spectral": "A0.5V",
@@ -2513,7 +2513,7 @@
       "letter": "A",
       "subtype": 7,
       "stage": "I",
-      "count": 2,
+      "count": 3,
       "metrics": {
         "mass": {
           "value": null,
@@ -4341,15 +4341,15 @@
       "letter": "B",
       "subtype": 1,
       "stage": "III",
-      "count": 8,
+      "count": 9,
       "metrics": {
         "mass": {
-          "value": 11.6,
+          "value": 25.9,
           "range": [
             11.6,
-            11.6
+            40.2
           ],
-          "count": 1
+          "count": 2
         },
         "gravity": {
           "value": 56.2577,
@@ -19791,6 +19791,40 @@
       }
     },
     {
+      "spectral": "M1I",
+      "letter": "M",
+      "subtype": 1,
+      "stage": "I",
+      "count": 1,
+      "metrics": {
+        "mass": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "gravity": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "escapeKms": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "density": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": null,
+          "count": 0
+        }
+      }
+    },
+    {
       "spectral": "M1Iab",
       "letter": "M",
       "subtype": 1,
@@ -21572,6 +21606,40 @@
       }
     },
     {
+      "spectral": "M4Ia",
+      "letter": "M",
+      "subtype": 4,
+      "stage": "I",
+      "count": 1,
+      "metrics": {
+        "mass": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "gravity": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "escapeKms": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "density": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": null,
+          "count": 0
+        }
+      }
+    },
+    {
       "spectral": "M4II",
       "letter": "M",
       "subtype": 4,
@@ -21964,6 +22032,40 @@
             0.0128837
           ],
           "count": 1
+        }
+      }
+    },
+    {
+      "spectral": "M5I",
+      "letter": "M",
+      "subtype": 5,
+      "stage": "I",
+      "count": 1,
+      "metrics": {
+        "mass": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "gravity": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "escapeKms": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "density": {
+          "value": null,
+          "range": null,
+          "count": 0
+        },
+        "luminosityPerMass": {
+          "value": null,
+          "range": null,
+          "count": 0
         }
       }
     },
@@ -24332,10 +24434,10 @@
       "label": "B-type main-sequence star",
       "low": 21.6127,
       "high": 31622.8,
-      "count": 313,
-      "median": 150.196,
-      "p10": 50.3789,
-      "p90": 678.362
+      "count": 314,
+      "median": 151.002,
+      "p10": 50.385,
+      "p90": 697.555
     },
     {
       "key": "DA",
@@ -24541,11 +24643,11 @@
       "key": "MI",
       "label": "M-type supergiant",
       "low": 10367.6,
-      "high": 226594,
-      "count": 8,
-      "median": 66509.3,
-      "p10": 21712.7,
-      "p90": 121107
+      "high": 290000,
+      "count": 12,
+      "median": 75878.2,
+      "p10": 27189.1,
+      "p90": 280059
     },
     {
       "key": "MII",

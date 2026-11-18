@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "id": "notable-distant-stars",
   "label": "Notable distant stars",
-  "description": "Reviewed stars beyond the nearby catalogs that belong to notable systems: measured stellar companions of pulsars, the luminous stars of dormant black-hole and neutron-star systems and stars that survived historical supernovae, plus the Sun.",
+  "description": "Reviewed stars beyond the nearby catalogs that belong to notable systems: measured stellar companions of pulsars, the luminous stars of dormant black-hole and neutron-star systems, stars that survived historical supernovae, stars around the Galactic Center black hole, extreme giants, the most massive known stars, Wolf–Rayet binaries and hypervelocity stars leaving the Milky Way, plus the Sun.",
   "epoch": 2000,
-  "objectCount": 51,
+  "objectCount": 72,
   "sources": [
     {
       "name": "ATNF Pulsar Catalogue v2.9.0; host pulsar positions and system astrometry",
@@ -79,8 +79,16 @@
       "url": "https://arxiv.org/abs/2203.09423"
     },
     {
-      "name": "Khargharia et al. 2010; system orbit and astrometry",
-      "url": "https://arxiv.org/abs/1004.5358"
+      "name": "Blundell & Bowler 2004; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/astro-ph/0410456"
+    },
+    {
+      "name": "Reid & Miller-Jones 2023; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/2309.15027"
+    },
+    {
+      "name": "GRAVITY Collaboration 2022; system orbit and astrometry",
+      "url": "https://arxiv.org/abs/2112.07478"
     },
     {
       "name": "Antoniadis et al. 2012",
@@ -91,8 +99,20 @@
       "url": "https://arxiv.org/abs/1807.02059"
     },
     {
+      "name": "Arroyo-Torres et al. 2013",
+      "url": "https://arxiv.org/abs/1305.6179"
+    },
+    {
       "name": "Bailer-Jones et al. 2021; Gaia geometric distances",
       "url": "https://ui.adsabs.harvard.edu/abs/2021AJ....161..147B"
+    },
+    {
+      "name": "Beasor et al. 2021",
+      "url": "https://arxiv.org/abs/2103.02609"
+    },
+    {
+      "name": "Brands et al. 2022",
+      "url": "https://arxiv.org/abs/2202.11080"
     },
     {
       "name": "Burdge et al. 2024",
@@ -127,6 +147,10 @@
       "url": "https://arxiv.org/abs/2402.06722"
     },
     {
+      "name": "GRAVITY Collaboration 2022, Table 1",
+      "url": "https://arxiv.org/abs/2112.07478"
+    },
+    {
       "name": "Gaia Collaboration 2024",
       "url": "https://arxiv.org/abs/2404.10486"
     },
@@ -135,8 +159,16 @@
       "url": "https://arxiv.org/abs/2208.00211"
     },
     {
+      "name": "Geier et al. 2015",
+      "url": "https://arxiv.org/abs/1503.01650"
+    },
+    {
       "name": "Guo et al. 2021",
       "url": "https://arxiv.org/abs/2107.09474"
+    },
+    {
+      "name": "Habibi et al. 2017, Table 2",
+      "url": "https://arxiv.org/abs/1708.06353"
     },
     {
       "name": "Hey et al. 2025",
@@ -153,6 +185,14 @@
     {
       "name": "Kirichenko et al. 2018",
       "url": "https://arxiv.org/abs/1807.09442"
+    },
+    {
+      "name": "Koposov et al. 2020",
+      "url": "https://arxiv.org/abs/1907.11725"
+    },
+    {
+      "name": "Levesque et al. 2009",
+      "url": "https://arxiv.org/abs/0903.2260"
     },
     {
       "name": "Lykou et al. 2023",
@@ -175,6 +215,10 @@
       "url": "https://arxiv.org/abs/2102.09091"
     },
     {
+      "name": "Najarro et al. 2009",
+      "url": "https://arxiv.org/abs/0809.3185"
+    },
+    {
       "name": "Negueruela et al. 2011",
       "url": "https://arxiv.org/abs/1103.4636"
     },
@@ -187,8 +231,20 @@
       "url": "https://arxiv.org/abs/1206.6515"
     },
     {
+      "name": "Paumard et al. 2014",
+      "url": "https://arxiv.org/abs/1406.5320"
+    },
+    {
+      "name": "Peißker et al. 2022, Table 2",
+      "url": "https://arxiv.org/abs/2207.02142"
+    },
+    {
       "name": "Reardon et al. 2024",
       "url": "https://arxiv.org/abs/2407.07132"
+    },
+    {
+      "name": "Richardson et al. 2026",
+      "url": "https://arxiv.org/abs/2602.23606"
     },
     {
       "name": "Saffer et al. 2024",
@@ -207,8 +263,24 @@
       "url": "https://arxiv.org/abs/1708.07355"
     },
     {
+      "name": "Siebert et al. 2026",
+      "url": "https://arxiv.org/abs/2609.31362"
+    },
+    {
+      "name": "Steeghs et al. 2013",
+      "url": "https://arxiv.org/abs/1304.1808"
+    },
+    {
       "name": "Swiggum et al. 2017",
       "url": "https://arxiv.org/abs/1708.09386"
+    },
+    {
+      "name": "Thomas et al. 2021",
+      "url": "https://arxiv.org/abs/2101.10563"
+    },
+    {
+      "name": "Wittkowski et al. 2012",
+      "url": "https://arxiv.org/abs/1203.5194"
     },
     {
       "name": "Zhang et al. 2025",
@@ -227,6 +299,6 @@
       "url": "https://arxiv.org/abs/astro-ph/9606045"
     }
   ],
-  "cutoffPolicy": "Explicitly reviewed members of notable systems only; no magnitude or distance cutoff. Luminous companions of compact objects are included with whichever individual values are published. Single stars that survived a historical supernova are included at their own Gaia distance. Sun is included only as the map origin.",
-  "snapshot": "J2000 map positions from the compact-remnant overlay, and from Gaia DR3 for single stars; measurements reviewed 2026-11-15."
+  "cutoffPolicy": "Explicitly reviewed members of notable systems only; no magnitude or distance cutoff. Luminous companions of compact objects are included with whichever individual values are published. Single stars that survived a historical supernova are included at their own Gaia distance. The S-stars that weigh Sagittarius A* share its position; GCIRS 7 is placed at its distance. Extreme giants, the most massive known stars and Wolf–Rayet binaries are placed at the distance of their adopted values. Hypervelocity stars are placed at their spectroscopic distances. Sun is included only as the map origin.",
+  "snapshot": "J2000 map positions from the compact-remnant overlay, and from Gaia DR3 for supernova survivors; measurements reviewed 2026-11-18."
 }

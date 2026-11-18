@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "id": "star-clusters",
+  "label": "Star clusters",
+  "description": "Landmark open clusters, from the nearby Hyades and Pleiades to the Double Cluster in the Perseus Arm, and landmark globular clusters, from the nearby Messier 4 to Omega Centauri and Terzan 5. Each is drawn as a soft glow for its faint members; the bright members of the nearby open clusters are the stars of the bundled catalogs, and the brightest giants of a globular cluster resolve as the camera approaches.",
+  "epoch": 2000,
+  "objectCount": 14,
+  "counts": {
+    "open_cluster": 7,
+    "globular_cluster": 7
+  },
+  "sources": [
+    {
+      "name": "Hunt & Reffert (2023); Gaia DR3 cluster centers, members, distances, proper motions and radial velocities",
+      "url": "https://doi.org/10.1051/0004-6361/202346285"
+    },
+    {
+      "name": "Hunt & Reffert (2024); Gaia DR3 cluster masses, tidal radii and member counts",
+      "url": "https://doi.org/10.1051/0004-6361/202348662"
+    },
+    {
+      "name": "Netopil et al. (2016); spectroscopic cluster metallicities",
+      "url": "https://doi.org/10.1051/0004-6361/201526370"
+    },
+    {
+      "name": "Alfonso & García-Varela (2023); Gaia DR3 distance to the Pleiades",
+      "url": "https://doi.org/10.1051/0004-6361/202346569"
+    },
+    {
+      "name": "Stauffer, Schultz & Kirkpatrick (1998); lithium-depletion-boundary age of the Pleiades",
+      "url": "https://doi.org/10.1086/311379"
+    },
+    {
+      "name": "Martín et al. (2018); lithium-depletion-boundary age of the Hyades",
+      "url": "https://doi.org/10.3847/1538-4357/aaaeb8"
+    },
+    {
+      "name": "Douglas et al. (2019); compiled isochrone age of the Beehive Cluster",
+      "url": "https://doi.org/10.3847/1538-4357/ab2468"
+    },
+    {
+      "name": "Currie et al. (2010); age of the Double Cluster",
+      "url": "https://doi.org/10.1088/0067-0049/186/2/191"
+    },
+    {
+      "name": "Dalessandro et al. (2021); radial velocity of the Double Cluster",
+      "url": "https://doi.org/10.3847/1538-4357/abda43"
+    },
+    {
+      "name": "Fanelli et al. (2022); metallicity of the red supergiants around the Double Cluster",
+      "url": "https://doi.org/10.1051/0004-6361/202142492"
+    },
+    {
+      "name": "Reyes et al. (2025); asteroseismic age of Messier 67",
+      "url": "https://doi.org/10.1093/mnras/staf353"
+    },
+    {
+      "name": "Fritzewski et al. (2019); isochrone age of NGC 3532",
+      "url": "https://doi.org/10.1051/0004-6361/201833587"
+    },
+    {
+      "name": "Baumgardt et al.; globular cluster masses, core, half-light and tidal radii and radial velocities",
+      "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/"
+    },
+    {
+      "name": "Baumgardt & Vasiliev (2021); globular cluster distances",
+      "url": "https://doi.org/10.1093/mnras/stab1474"
+    },
+    {
+      "name": "Vasiliev & Baumgardt (2021); Gaia EDR3 globular cluster proper motions",
+      "url": "https://doi.org/10.1093/mnras/stab1475"
+    },
+    {
+      "name": "Carretta et al. (2009); globular cluster metallicities",
+      "url": "https://doi.org/10.1051/0004-6361/200913003"
+    },
+    {
+      "name": "VandenBerg et al. (2013); globular cluster ages",
+      "url": "https://doi.org/10.1088/0004-637X/775/2/134"
+    },
+    {
+      "name": "Clontz et al. (2024); ages of Omega Centauri subgiants",
+      "url": "https://arxiv.org/abs/2409.13855"
+    },
+    {
+      "name": "Origlia et al. (2011); metallicity of the two populations of Terzan 5",
+      "url": "https://doi.org/10.1088/2041-8205/726/2/L20"
+    },
+    {
+      "name": "Zullo et al. (2026); ages of the populations of Terzan 5 from Webb and Hubble",
+      "url": "https://doi.org/10.1051/0004-6361/202659349"
+    },
+    {
+      "name": "Ferraro et al. (2016); first ages of the two populations of Terzan 5",
+      "url": "https://doi.org/10.3847/0004-637X/828/2/75"
+    }
+  ],
+  "cutoffPolicy": "Reviewed landmark open clusters: the Hyades, the Pleiades, the Beehive Cluster, the two halves of the Double Cluster, Messier 67 and NGC 3532; further open clusters follow from the Hunt & Reffert (2024) census. Reviewed landmark globular clusters: Omega Centauri, 47 Tucanae, Messier 4, Messier 13, Messier 22, Messier 15 and Terzan 5; further globular clusters follow from Baumgardt’s database.",
+  "snapshot": "J2000 Galactic frame; values reviewed 2026-11-18."
+}

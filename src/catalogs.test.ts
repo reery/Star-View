@@ -22,9 +22,10 @@ import clusterProvenance from '../catalog-work/famous-cluster-stars/retired-cata
 import compactIdentities from './data/compact-system-identities.json'
 import compactManifestRaw from './data/overlays/compact-remnants/manifest.json?raw'
 import compactPayloadRaw from './data/overlays/compact-remnants/objects.json?raw'
+import notableCsv from './data/catalogs/notable-distant-stars/stars.csv?raw'
 import { buildCatalog, catalogCoverage, catalogSelection, DEFAULT_CATALOG_MANIFEST, loadCatalog, parseCatalogManifest } from './catalogs'
 import { CONSTELLATIONS, parseStarCatalog } from './catalog'
-import { apparentVisualMagnitude, displayMotionForStar, formatDistance, temperatureToColor, visibilityTier } from './astronomy'
+import { apparentVisualMagnitude, displayMotionForStar, formatDistance, rawAstrometryVelocityToWorld, temperatureToColor, visibilityTier } from './astronomy'
 import { catalogLoader, mergeCatalogStars, parseCatalogPayload } from './catalog-runtime'
 import { mapComponentVisibility, indexStarSystems } from './star-systems'
 import { completeCatalogCompanions } from './stellar-companions'
@@ -627,17 +628,30 @@ describe('catalog packages and display settings', () => {
     execFileSync('python3', ['scripts/author-landmark-stars.py'], { cwd: fileURLToPath(new URL('../', import.meta.url)) })
   })
 
+  it('moves the hypervelocity stars with their Gaia proper motions and measured radial velocities', () => {
+    const notable = parseStarCatalog(notableCsv)
+    const speed = (id: string) => rawAstrometryVelocityToWorld(notable.find((star) => star.id === id)!.raw_astrometry!)!.length()
+    // Relative to the Sun; Koposov et al. (2020) give 1755 km/s for S5-HVS1 in the Galactic rest frame.
+    expect(speed('s5-hvs1')).toBeGreaterThan(1700)
+    expect(speed('us-708')).toBeGreaterThan(900)
+  })
+
   it('validates the source-defined compact-remnant overlay and its nullable measurements', () => {
     const compactManifest = parseCompactOverlayManifest(compactManifestRaw)
     const compact = parseCompactOverlayPayload(JSON.parse(compactPayloadRaw), compactManifest)
-    expect(compact).toHaveLength(448)
-    expect(compactManifest.counts).toEqual({ pulsar: 420, neutron_star: 17, black_hole: 11 })
-    // Only the reviewed neutron stars of historical supernova remnants lie beyond the radius.
-    expect(compact.filter((object) => Math.hypot(object.x_pc, object.y_pc, object.z_pc) * 3.261563777 > 10000).map((object) => object.id)).toEqual(['cxou-j232327', 'ns-1987a'])
+    expect(compact).toHaveLength(457)
+    expect(compactManifest.counts).toEqual({ pulsar: 425, neutron_star: 18, black_hole: 14 })
+    // Only reviewed landmarks lie beyond the radius: the fastest-spinning pulsar, neutron stars of historical remnants, microquasars, magnetars and Sagittarius A*.
+    expect(compact.filter((object) => Math.hypot(object.x_pc, object.y_pc, object.z_pc) * 3.261563777 > 10000).map((object) => object.id)).toEqual(['psr-j1748m2446ad', 'cxou-j232327', 'ns-1987a', 'ss-433', 'grs-1915p105', 'sgr-1806m20', 'sgr-1900p14', 'sgr-a-star'])
+    // The landmark pulsar renders from its verbatim ATNF record like the pulsars inside the radius.
+    expect(compact.find((object) => object.id === 'psr-j1748m2446ad')?.compact).toMatchObject({
+      rotation_period_s: 0.00139595482, orbital_period_days: 1.09443034, companion: 'Main-sequence star', companion_min_mass_solar: 0.1386,
+      associations: ['Globular cluster: Terzan5'], pulsar_classes: ['Millisecond', 'Radio'],
+    })
     // Beyond 3000 light-years, dispersion-measure model distances do not qualify.
     expect(compact.filter((object) => object.compact?.distance_method === 'Dispersion measure model'
       && Math.hypot(object.x_pc, object.y_pc, object.z_pc) * 3.261563777 > 3000)).toEqual([])
-    expect(compact.filter((object) => object.type === 'pulsar' && object.compact?.rotation_period_s !== null)).toHaveLength(417)
+    expect(compact.filter((object) => object.type === 'pulsar' && object.compact?.rotation_period_s !== null)).toHaveLength(422)
     // astropy spellings (Ophiucus, Boötes, Chamaleon) would break constellation links.
     expect(compact.filter((object) => !CONSTELLATIONS.includes(object.constellation as never))).toEqual([])
     // ATNF writes 0 for a missing uncertainty; the overlay stores null instead.
@@ -653,6 +667,10 @@ describe('catalog packages and display settings', () => {
     })
     expect(compact.find((object) => object.id === 'gaia-ns1')).toMatchObject({
       type: 'neutron_star', mass_solar: 1.9, compact: { confidence: 'candidate' },
+    })
+    // Curated magnetars beyond the radius derive spin-down values from their ATNF timing, as psrcat does.
+    expect(compact.find((object) => object.id === 'sgr-1806m20')?.compact).toMatchObject({
+      rotation_period_s: 7.55592, period_derivative: 5.49e-10, characteristic_age_yr: 218, surface_magnetic_field_gauss: 2.06e15, pulsar_classes: ['Magnetar'],
     })
     // Only reviewed timing masses are adopted; ATNF companion limits never become pulsar masses.
     expect(compact.filter((object) => object.type === 'pulsar' && object.mass_solar !== null).map((object) => object.id).sort()).toEqual([

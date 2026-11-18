@@ -5,17 +5,18 @@
     "catalog-work/bright-stars/retired-catalog/provenance.json": "9c846215a78203e53a35872b356cbb441697ec4b52869f88e89034639d25a668",
     "catalog-work/bright-stars/retired-catalog/stars.csv": "7323a7558aa7af710cdd3829a865fe1c207629a47252fdcde4eef833dbab0cb1",
     "catalog-work/bright-stars/simbad.csv": "8d1e328df0d1601b94f9d1cc6e051f6e78ebea3cd65b4ce5a1cfd8dad2f0eede",
-    "catalog-work/compact-remnants/atnf-subset.db": "00b6d440bd282249e87c97afdebe84d43c7a4b6754446ce4603deed8257a7013",
+    "catalog-work/compact-remnants/atnf-landmarks.db": "9a98c8edbc46e10325bf53b7246bd4ffe7d488c07ca7ca6ef28667db295228d9",
+    "catalog-work/compact-remnants/atnf-subset.db": "7a7909687789dcd7bb33289bd6eedff4240f628c03bbdc784cede2e7636ea06f",
     "catalog-work/famous-cluster-stars/simbad.csv": "31f7d87d2f684fca025388ed409856ab5fbe0038de62d9a214c77b1f5a3c1c01",
     "catalog-work/naked-eye-stars/simbad.csv": "deec1fb922b1e9afc3ed20ea0c24f7905d6840af0b6df71a82f617948054b85c",
     "catalog-work/nearest-1000/simbad.csv": "0d1ab9881afdfbbac62ea7d05d31cb0d8ca4c4235a4b14eb3d0e5b789a932dbd",
     "catalog-work/nearest-5000/simbad.csv": "d9810d3115ecb453f3566eb0c97afbace55f19b9b1efd942e4d51ef2766b4935",
     "catalog-work/object-designations/components.csv": "4e0c1bec3a3089dc6acc19a250b460c7a2876fcc0cfdf0b2595afe44f4166291",
-    "catalog-work/object-designations/extended.csv": "69199f0d3ab98431193121a3efc9410ece02decdb8b01da810eb298fc3a9af10",
+    "catalog-work/object-designations/extended.csv": "ee86c63e19f28d816bee05189d681c11be7ea5615b8f75b42736be6ca97545f7",
     "catalog-work/object-designations/iau-names.csv": "ad39e5c1a6ec5d47f1da6f4595647ed2f5f663408d3d6500124ddf04cac188c9",
-    "catalog-work/object-designations/preferred-names.json": "b8c663cf3f28382d99be356a08caa020a9301e53ded778c0b6da8326b9cd07c1",
+    "catalog-work/object-designations/preferred-names.json": "fd269af9e56e63eb93bd9595c2fa84e2b5d4a15eb3712921cb83feeb3243ecd8",
     "catalog-work/object-designations/simbad.csv": "d2f31fe2362ae8b8b56b672e93ab48e144457ed5795e3b90fb905ffc78bdea12",
-    "catalog-work/object-designations/source-manifest.json": "97d4512fc399355e967d98b370392215d6a630fbb592b4511b959a4ec7c500f8",
+    "catalog-work/object-designations/source-manifest.json": "caaf87f64d2c01f1462f10994cc740ed8421d266e65f45bc9033facc9fa493aa",
     "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede",
     "src/data/catalogs/naked-eye-stars/provenance.json": "8f3e41b7b19b9bd922b774af28ad20e0def798900b77953045bee721a3eac359",
     "src/data/catalogs/naked-eye-stars/stars.csv": "e6840784bebf3a0df072f304d5ab319bd33c5eb56982e6dd1a0b70ea1f06a887",
@@ -25,15 +26,16 @@
     "src/data/catalogs/nearest-1000/stars.csv": "801789f131e2a21dcd5e2d8ffb6e4d7f929eb244da5fa3e6396fa458cbf62d17",
     "src/data/catalogs/nearest-5000/provenance.json": "341aebc5ab23a7a7c7325c52bd37d7d0926c040d620446fe9a239aad40ac6067",
     "src/data/catalogs/nearest-5000/stars.csv": "d68a715ed91b28b4691b093a2b4988bab253c878bf9ce0f0e7d246c456fc798b",
-    "src/data/catalogs/notable-distant-stars/stars.csv": "e9e876192358196c9559e13d2ac671eaf1fb93e874c16fc6ca45a4b4724fec26",
-    "src/data/catalogs/western-constellation-stars/provenance.json": "c48cddbf01e7bd7d0f3877deba16cf5eab085e1c989d635eb04eac79eb370dcd",
+    "src/data/catalogs/notable-distant-stars/stars.csv": "049db56780c61cbac64b8dd98914c1529eba01422b0b968823971b19fa32bc12",
+    "src/data/catalogs/western-constellation-stars/provenance.json": "c488c27c47fd59c2d47fa7ed4ceb3b5051aaeea61deee54c7915db03cc9be5a4",
     "src/data/catalogs/western-constellation-stars/stars.csv": "f094b4f53be6c5d73bca10c803845831096d7a2dd48b1606d68ca65ea287dcc8",
     "src/data/legacy-star-ids.json": "1b3022e79a02fac18f035fd4323dc43c582730ec66b4dd5baa85a1d0873362a3",
     "src/data/overlays/bubbles/objects.json": "1fb673285045e35cb4caafa2a672d6d0ad2bc6c3218badd4861cb582a8429926",
-    "src/data/overlays/compact-remnants/objects.json": "35aa257f163e30596dfcbbfd2a2157e885fb113e7fad0142b3911984d0c711f6",
-    "src/data/overlays/galaxies/objects.json": "aab0b719881c2cf3ef6bd1d0e758530448ad7a78880f696b4a8a868b71a2fab4",
+    "src/data/overlays/compact-remnants/objects.json": "da3679a83fc446420fb6a0bf51187bc8ce5615877337866f77281a22f30f75ed",
+    "src/data/overlays/galaxies/objects.json": "7c142945a281784cc319eae2a55b6def16f234c5b86f016b51909e015cc7bb7c",
     "src/data/overlays/molecular-clouds/objects.json": "4c223b3cbd9686e2e9a91ad7607dd65f674f292c54287b9146ef5c29c9977225",
-    "src/data/overlays/nebulae/objects.json": "a37e344b707ce2da50c3382152b97d18c4fc79f7d4d028aad6c09e6975fcff90",
+    "src/data/overlays/nebulae/objects.json": "3442bdde3db4537c65d4bd90bd352a08be8125493566b143649444cb7cab8be6",
+    "src/data/overlays/star-clusters/objects.json": "7f69b250a7fe29bd9efa7b28995df43391fca22a49f773be3fdff34134fcaac8",
     "src/data/stars.csv": "44288f83123f36b349c58a72e4ae23608ec242e5ff25850fabf6a42ca2ae616a",
     "src/data/stellar-companions.json": "8017682bf7c76ddfbb1cc204bbd2aca93ab917266cfdb23ca84d6f947acb10d2"
   },
@@ -3895,6 +3897,18 @@
       ],
       "simbadId": "*  36 And B"
     },
+    "3c-58": {
+      "name": "3C 58",
+      "designations": [
+        "SNR G130.7+03.1"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=3C+58",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "SNR G130.7+03.1"
+    },
     "4-lyn-a": {
       "name": "4 Lyn A",
       "designations": [
@@ -3940,6 +3954,53 @@
         "src/data/catalogs/naked-eye-stars/stars.csv"
       ],
       "simbadId": "*  46 Vir A"
+    },
+    "47-tucanae": {
+      "name": "47 Tucanae",
+      "designations": [
+        "47 Tuc Cluster",
+        "HD 2051",
+        "HIP 1902",
+        "0FGL J0025.1-7202",
+        "1E 0021.8-7221",
+        "1ES 0021-72.3",
+        "1FGL J0023.9-7204",
+        "1RXS J002404.6-720456",
+        "2E 0021.8-7221",
+        "2E 82",
+        "2FGL J0023.9-7204",
+        "2MASX J00240535-7204531",
+        "3FGL J0023.9-7203",
+        "3FHL J0024.2-7205",
+        "47 Tuc",
+        "4FGL J0024.0-7204",
+        "9Y-MST J0024-7206",
+        "[BM83] X0021-723",
+        "[FS2003] 0013",
+        "[KPS2012] MWSC 0038",
+        "C 0021-723",
+        "Caldwell 106",
+        "CD-72 20",
+        "Cl Melotte 1",
+        "CPD-72 35",
+        "FAUST 10",
+        "FL8Y J0023.9-7204",
+        "GCl 1",
+        "GCRV 128 E",
+        "HR 95",
+        "IRAS 00218-7221",
+        "IRAS F00218-7221",
+        "ksi Tuc",
+        "NGC 104",
+        "RBS 55",
+        "Xi Tucanae"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+104",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "NGC   104"
     },
     "49-leo-a": {
       "name": "49 Leo A",
@@ -4672,6 +4733,32 @@
         "src/data/stars.csv"
       ],
       "simbadId": "NAME Barnard's star"
+    },
+    "beehive-cluster": {
+      "name": "Beehive Cluster",
+      "designations": [
+        "Beehive",
+        "Praesepe",
+        "Praesepe Cluster",
+        "[KC2019] Theia 1184",
+        "[KPR2004b] 201",
+        "[KPS2012] MWSC 1527",
+        "C 0837+201",
+        "Cl Melotte 88",
+        "Collinder 189",
+        "M 44",
+        "M44",
+        "Melotte 88",
+        "Messier 44",
+        "NGC 2632",
+        "OCl 507.0"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+44",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "NGC  2632"
     },
     "bright-achernar": {
       "name": "Achernar",
@@ -7831,12 +7918,20 @@
     "carina-nebula": {
       "name": "Carina Nebula",
       "designations": [
+        "Car Nebula",
+        "eta Car Nebula",
+        "Keyhole",
+        "Keyhole Nebula",
+        "Eta Carinae Nebula",
         "NGC 3372",
         "RCW 53"
       ],
       "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+3372",
         "src/data/overlays/nebulae/objects.json"
-      ]
+      ],
+      "simbadId": "NGC  3372"
     },
     "cassiopeia-a": {
       "name": "Cassiopeia A",
@@ -141424,6 +141519,27 @@
         "src/data/overlays/nebulae/objects.json"
       ]
     },
+    "cxou-j061705": {
+      "name": "CXOU J061705.3+222127",
+      "designations": [
+        "1RXH J061706.0+222131",
+        "1WGA J0617.1+2221",
+        "2XMM J061705.2+222129",
+        "[BB2000b] A",
+        "[BB2003] 5",
+        "GAL 189.22+02.90",
+        "SAX J0617.1+2221",
+        "USNO-A2.0 1050-03263791",
+        "XMMU J061705.5+222129",
+        "XMMU J061705.5+222130"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://doi.org/10.1051/0004-6361/202556086",
+        "src/data/overlays/compact-remnants/objects.json"
+      ],
+      "simbadId": "2XMM J061705.2+222129"
+    },
     "cxou-j085201": {
       "name": "CXOU J085201.4-461753",
       "designations": [
@@ -141443,6 +141559,19 @@
       "sources": [
         "src/data/overlays/compact-remnants/objects.json"
       ]
+    },
+    "cygnus-x": {
+      "name": "Cygnus X",
+      "designations": [
+        "Cyg X",
+        "Cygnus Cocoon"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NAME+Cygnus+X",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "NAME Cyg X"
     },
     "cygnus-x-1": {
       "name": "Cygnus X-1",
@@ -142035,15 +142164,23 @@
     "eagle-nebula": {
       "name": "Eagle Nebula",
       "designations": [
+        "Star Queen",
         "IC 4703",
+        "LBN 016.96+00.78",
+        "LBN 67",
+        "M 16",
         "M16",
+        "NGC 6611",
         "RCW 165",
         "Sh 2-49",
         "W 37"
       ],
       "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+16",
         "src/data/overlays/nebulae/objects.json"
-      ]
+      ],
+      "simbadId": "M  16"
     },
     "epsilon-eridani": {
       "name": "Epsilon Eridani",
@@ -144107,6 +144244,18 @@
         "src/data/overlays/galaxies/objects.json"
       ]
     },
+    "g1-9p0-3": {
+      "name": "G1.9+0.3",
+      "designations": [
+        "SNR G001.9+00.3"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=SNR+G001.9+00.3",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "SNR G001.9+00.3"
+    },
     "gaia-bh1": {
       "name": "Gaia BH1",
       "designations": [
@@ -144219,6 +144368,36 @@
         "src/data/catalogs/nearest-1000/stars.csv",
         "src/data/catalogs/western-constellation-stars/stars.csv"
       ]
+    },
+    "gcirs-7": {
+      "name": "GCIRS 7",
+      "designations": [
+        "Gal Center IRS 7",
+        "Galactic Center IRS 7",
+        "GC IRS 7",
+        "Sgr A IRS 7",
+        "2MASS J17454004-2900225",
+        "[BSD96] 66",
+        "[CRG2001b] 1",
+        "[DFM2002] 9",
+        "[FGK2003] 416",
+        "[GPE2000] 5.75",
+        "[IDF98] SiO 359.944-0.046 6",
+        "[MKN2009] 646",
+        "[OEG99] 1",
+        "[VES2006] 25",
+        "AP J17454004-2900225",
+        "BHA 13",
+        "IRS 7",
+        "SSTGC 525210",
+        "TIC 321993603"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://arxiv.org/abs/1406.5320",
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ],
+      "simbadId": "GCIRS  7"
     },
     "gj-1001-c": {
       "name": "GJ 1001 C",
@@ -144340,6 +144519,42 @@
       "designations": [
         "Gaia DR3 172650748928103552",
         "V518 Per"
+      ],
+      "sources": [
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ]
+    },
+    "grs-1915p105": {
+      "name": "GRS 1915+105",
+      "designations": [
+        "2MASS J19151155+1056449",
+        "[KRL2007b] 360",
+        "Granat 1915+10",
+        "Granat 1915+105",
+        "INTEGRAL1 112",
+        "NOVA Aql 1992",
+        "PBC J1915.1+1056",
+        "SRGA J191511.1+105648",
+        "SWIFT J1915.1+1056",
+        "SWIFT J1915.3+1057",
+        "TIC 209140669",
+        "UGPS J191511.54+105644.7",
+        "V1487 Aql",
+        "WISE J191511.54+105644.7",
+        "WISEA J191511.57+105645.2"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/GRS_1915%2B105",
+        "src/data/overlays/compact-remnants/objects.json"
+      ],
+      "simbadId": "Granat 1915+105"
+    },
+    "grs-1915p105-b": {
+      "name": "GRS 1915+105 B",
+      "designations": [
+        "2MASS J19151155+1056449",
+        "V1487 Aql"
       ],
       "sources": [
         "src/data/catalogs/notable-distant-stars/stars.csv"
@@ -149346,6 +149561,24 @@
         "src/data/catalogs/naked-eye-stars/stars.csv"
       ],
       "simbadId": "*  57 UMa A"
+    },
+    "heart-nebula": {
+      "name": "Heart Nebula",
+      "designations": [
+        "AFGL 333 Cloud",
+        "IC 1805",
+        "LBN 134.96+00.75",
+        "LBN 654",
+        "Running Dog Nebula",
+        "Sh 2-190",
+        "W 4"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=IC+1805",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC 1805"
     },
     "helix-nebula": {
       "name": "Helix Nebula",
@@ -474985,6 +475218,28 @@
       ],
       "simbadId": "HD 224635"
     },
+    "hyades": {
+      "name": "Hyades",
+      "designations": [
+        "Hyades Cluster",
+        "[KC2019] Theia 1004",
+        "C 0424+157",
+        "Caldwell 41",
+        "Cl Collinder 50",
+        "Cl Melotte 25",
+        "Collinder 50",
+        "Melotte 25",
+        "OCl 456.0",
+        "OCSN 220",
+        "Taurus Moving Cluster"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Cl+Melotte+25",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "Cl Melotte   25"
+    },
     "i-ori-a": {
       "name": "i Ori A",
       "designations": [
@@ -475087,6 +475342,23 @@
         "src/data/overlays/nebulae/objects.json"
       ],
       "simbadId": "IC  435"
+    },
+    "ic-443": {
+      "name": "Jellyfish Nebula",
+      "designations": [
+        "Gem A",
+        "3C 157",
+        "IC 443",
+        "LBN 189.13+02.97",
+        "LBN 844",
+        "Sh 2-248",
+        "SNR G189.1+03.0"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC  443"
     },
     "ic-4591": {
       "name": "IC 4591",
@@ -475396,14 +475668,21 @@
     "lagoon-nebula": {
       "name": "Lagoon Nebula",
       "designations": [
+        "Lagoon",
+        "LBN 006.06-01.23",
+        "LBN 25",
+        "M 8",
         "M8",
         "NGC 6523",
         "Sh 2-25",
         "W 29"
       ],
       "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+8",
         "src/data/overlays/nebulae/objects.json"
-      ]
+      ],
+      "simbadId": "M   8"
     },
     "lalande-21185": {
       "name": "Lalande 21185",
@@ -480815,6 +481094,67 @@
         "src/data/overlays/galaxies/objects.json"
       ]
     },
+    "messier-13": {
+      "name": "Messier 13",
+      "designations": [
+        "Hercules Globular Cluster",
+        "2MASX J16414163+3627407",
+        "[KPS2012] MWSC 2445",
+        "C 1639+365",
+        "GCl 45",
+        "Great Globular Cluster in Hercules",
+        "M 13",
+        "M13",
+        "NGC 6205"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+13",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "M  13"
+    },
+    "messier-15": {
+      "name": "Messier 15",
+      "designations": [
+        "[KPS2012] MWSC 3518",
+        "C 2127+119",
+        "GCl 120",
+        "Great Pegasus Cluster",
+        "M 15",
+        "M15",
+        "NGC 7078"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+15",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "M  15"
+    },
+    "messier-22": {
+      "name": "Messier 22",
+      "designations": [
+        "HD 171560",
+        "1E 1833.3-2357",
+        "[KPS2012] MWSC 2961",
+        "C 1833-239",
+        "CD-24 14516",
+        "GCl 99",
+        "GCRV 11055",
+        "GCRV 6244 E",
+        "Great Sagittarius Cluster",
+        "M 22",
+        "M22",
+        "NGC 6656"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+22",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "M  22"
+    },
     "messier-32": {
       "name": "Messier 32",
       "designations": [
@@ -480827,6 +481167,50 @@
       "sources": [
         "src/data/overlays/galaxies/objects.json"
       ]
+    },
+    "messier-4": {
+      "name": "Messier 4",
+      "designations": [
+        "HD 147552",
+        "[KPS2012] MWSC 2396",
+        "C 1620-264",
+        "CD-26 11314",
+        "GCl 41",
+        "GCRV 5569 E",
+        "M 4",
+        "M4",
+        "NGC 6121",
+        "Spider Globular Cluster"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+4",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "M   4"
+    },
+    "messier-67": {
+      "name": "Messier 67",
+      "designations": [
+        "[KPR2004b] 212",
+        "[KPS2012] MWSC 1585",
+        "C 0847+120",
+        "Collinder 204",
+        "Golden Eye Cluster",
+        "HR 3515",
+        "King Cobra Cluster",
+        "M 67",
+        "M67",
+        "Melotte 94",
+        "NGC 2682",
+        "OCl 549.0"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+67",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "NGC  2682"
     },
     "messier-78": {
       "name": "Messier 78",
@@ -480847,7 +481231,6 @@
       "name": "Milky Way",
       "designations": [
         "Galactic Center",
-        "Sagittarius A*",
         "The Galaxy"
       ],
       "sources": [
@@ -480990,6 +481373,30 @@
       ],
       "simbadId": "NGC  2071"
     },
+    "ngc-3532": {
+      "name": "NGC 3532",
+      "designations": [
+        "[KC2019] Theia 720",
+        "[KPR2004b] 276",
+        "[KPS2012] MWSC 1890",
+        "C 1104-584",
+        "Caldwell 91",
+        "Cl VDBH 109",
+        "Collinder 238",
+        "Football Cluster",
+        "LISC 2266",
+        "Melotte 103",
+        "OCl 839.0",
+        "OCSN 236",
+        "Wishing Well Cluster"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+3532",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "NGC  3532"
+    },
     "ngc-6726": {
       "name": "NGC 6726/6727",
       "designations": [
@@ -481004,18 +481411,81 @@
       ],
       "simbadId": "NGC  6726"
     },
+    "ngc-869": {
+      "name": "NGC 869",
+      "designations": [
+        "h Per Cluster",
+        "h Persei Cluster",
+        "[KPR2004b] 29",
+        "[KPS2012] MWSC 0175",
+        "C 0215+569",
+        "Caldwell 14",
+        "Cl Collinder 24",
+        "Cl Melotte 13",
+        "Collinder 24",
+        "Double Cluster",
+        "h Persei",
+        "Melotte 13",
+        "OCISM 84",
+        "OCl 350",
+        "OCl 350.0",
+        "Raab 9"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+869",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "NGC   869"
+    },
+    "ngc-884": {
+      "name": "NGC 884",
+      "designations": [
+        "chi Per Cluster",
+        "khi Per Cluster",
+        "[KPR2004b] 30",
+        "[KPS2012] MWSC 0184",
+        "C 0218+568",
+        "Caldwell 14",
+        "Chi Persei Cluster",
+        "Cl Collinder 25",
+        "Cl Melotte 14",
+        "Collinder 25",
+        "Double Cluster",
+        "Melotte 14",
+        "OCISM 86",
+        "OCl 353",
+        "OCl 353.0",
+        "Raab 10"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+884",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "NGC   884"
+    },
     "north-america-nebula": {
       "name": "North America and Pelican Nebulae",
       "designations": [
+        "Bermuda Cluster",
+        "NORTH AMER NEB",
+        "North America",
+        "North America Nebula",
         "IC 5067",
         "IC 5070",
+        "LBN 085.75-01.48",
+        "LBN 373",
         "NGC 7000",
         "Sh 2-117",
         "W 80"
       ],
       "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+7000",
         "src/data/overlays/nebulae/objects.json"
-      ]
+      ],
+      "simbadId": "NGC  7000"
     },
     "ns-1987a": {
       "name": "NS 1987A",
@@ -481036,6 +481506,36 @@
       ],
       "simbadId": "OGLE-2011-BLG-0462"
     },
+    "omega-centauri": {
+      "name": "Omega Centauri",
+      "designations": [
+        "ome Cen Cluster",
+        "HD 116790",
+        "1E 1323.8-4713",
+        "2FGL J1326.4-4729",
+        "3FGL J1326.7-4727",
+        "4FGL J1326.6-4729",
+        "[KPS2012] MWSC 2120",
+        "C 1323-472",
+        "Caldwell 80",
+        "CD-46 8646",
+        "CPD-46 6348",
+        "FL8Y J1326.7-4729",
+        "GCl 24",
+        "GCRV 4762 E",
+        "NGC 5139",
+        "ome Cen",
+        "Omega Centauri Cluster",
+        "ω Cen",
+        "ω Centauri"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+5139",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "NGC  5139"
+    },
     "omega-leo-a": {
       "name": "Omega Leo A",
       "designations": [
@@ -481055,14 +481555,24 @@
     "omega-nebula": {
       "name": "Omega Nebula",
       "designations": [
+        "Checkmark Nebula",
+        "Lobster Nebula",
+        "NGC 6618 Horseshoe",
+        "Swan Nebula",
+        "LBN 015.28-00.67",
+        "LBN 60",
+        "M 17",
         "M17",
         "NGC 6618",
         "Sh 2-45",
         "W 38"
       ],
       "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+17",
         "src/data/overlays/nebulae/objects.json"
-      ]
+      ],
+      "simbadId": "NGC  6618"
     },
     "orion-eridanus-superbubble": {
       "name": "Orion–Eridanus Superbubble",
@@ -481165,6 +481675,57 @@
         "src/data/catalogs/naked-eye-stars/stars.csv"
       ],
       "simbadId": "* pi. Cep A"
+    },
+    "pistol-star": {
+      "name": "Pistol Star",
+      "designations": [
+        "2MASS J17461524-2850035",
+        "[CEC96] Source A",
+        "[DWC2011] 68",
+        "[FMG99] 5",
+        "[FMM95] 3",
+        "[GMC2001] 13-4",
+        "[GMC99] D4",
+        "[GSL2002] 64",
+        "[MKN2009] 1207",
+        "[NHS93] 25",
+        "qF 134",
+        "SSTGC 622017",
+        "TIC 322752144",
+        "V4647 Sgr"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/Pistol_Star",
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ],
+      "simbadId": "[FMM95] 3"
+    },
+    "pleiades": {
+      "name": "Pleiades",
+      "designations": [
+        "Seven Sisters",
+        "[KC2019] Theia 369",
+        "[KPR2004b] 47",
+        "[KPS2012] MWSC 0305",
+        "[MGC2022] Crius 232",
+        "C 0344+239",
+        "Cl Melotte 22",
+        "Collinder 42",
+        "H 0346+24",
+        "M 45",
+        "M45",
+        "Melotte 22",
+        "Messier 45",
+        "OCl 421.0",
+        "Subaru"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Cl+Melotte+22",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "Cl Melotte   22"
     },
     "pleiades-nebula": {
       "name": "Pleiades Nebula",
@@ -481489,6 +482050,24 @@
         "src/data/overlays/compact-remnants/objects.json"
       ],
       "simbadId": "PSR B0154+61"
+    },
+    "psr-j0205p6449": {
+      "name": "PSR J0205+6449",
+      "designations": [
+        "PSR J0205+64",
+        "1FGL J0205.6+6449",
+        "1FHL J0205.7+6448",
+        "2FGL J0205.8+6448",
+        "2FHL J0205.4+6450",
+        "3FGL J0205.5+6448",
+        "3FHL J0205.5+6449",
+        "4FGL J0205.7+6449"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/compact-remnants/objects.json"
+      ],
+      "simbadId": "PSR J0205+6449"
     },
     "psr-j0212p5321": {
       "name": "PSR J0212+5321",
@@ -485499,6 +486078,17 @@
       ],
       "simbadId": "PSR B1742-30"
     },
+    "psr-j1748m2446ad": {
+      "name": "PSR J1748-2446ad",
+      "designations": [
+        "[LMD90] Terzan 5 Psr ad"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/compact-remnants/objects.json"
+      ],
+      "simbadId": "PSR J1748-2446ad"
+    },
     "psr-j1751m0542": {
       "name": "PSR J1751-0542",
       "designations": [],
@@ -486019,6 +486609,17 @@
         "src/data/overlays/compact-remnants/objects.json"
       ],
       "simbadId": "RX J1856.6-3754"
+    },
+    "psr-j1856p0113": {
+      "name": "PSR B1853+01",
+      "designations": [
+        "PSR J1856+0113"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/compact-remnants/objects.json"
+      ],
+      "simbadId": "PSR B1853+01"
     },
     "psr-j1857p0943": {
       "name": "PSR B1855+09",
@@ -487242,6 +487843,23 @@
       ],
       "simbadId": "PSR B2351+61"
     },
+    "puppis-a": {
+      "name": "Puppis A",
+      "designations": [
+        "Pup A",
+        "Puppis SNR",
+        "SNR Pup A",
+        "SNR Puppis A",
+        "MSH 08-44",
+        "SNR G260.4-03.4"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NAME+Puppis+A",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "NAME Pup A"
+    },
     "puwe-1": {
       "name": "PuWe 1",
       "designations": [
@@ -487254,6 +487872,38 @@
         "src/data/overlays/nebulae/objects.json"
       ],
       "simbadId": "PN PuWe    1"
+    },
+    "r136a1": {
+      "name": "R136a1",
+      "designations": [
+        "[CHH92] 1",
+        "[H2013] LMCe 1398",
+        "[HSH95] 3",
+        "[P93] 954",
+        "[WO84] 1b",
+        "BAT99 108",
+        "Cl* NGC 2070 MH 498",
+        "RMC 136a1"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/R136a1",
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ],
+      "simbadId": "BAT99 108"
+    },
+    "rcw-49": {
+      "name": "RCW 49",
+      "designations": [
+        "Gum 29",
+        "NGC 3247"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=RCW+49",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "GUM 29"
     },
     "rcw-86": {
       "name": "RCW 86",
@@ -487295,13 +487945,19 @@
     "rosette-nebula": {
       "name": "Rosette Nebula",
       "designations": [
+        "LBN 206.39-01.87",
+        "LBN 948",
+        "LBN 949",
         "NGC 2237",
         "Sh 2-275",
         "W 16"
       ],
       "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Sh+2-275",
         "src/data/overlays/nebulae/objects.json"
-      ]
+      ],
+      "simbadId": "NAME Rosette Nebula"
     },
     "ross-128": {
       "name": "Ross 128",
@@ -487548,6 +488204,74 @@
         "src/data/overlays/nebulae/objects.json"
       ]
     },
+    "s2": {
+      "name": "S2",
+      "designations": [
+        "[CRG2004] 13",
+        "[EG97] S2",
+        "[FNS2015] 2314",
+        "[GKM98] S0-2",
+        "[GPE2000] 0.15",
+        "[PGM2006] E1",
+        "[SME2009] 2",
+        "[SOG2003] 1",
+        "S0-2"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/S2_(star)",
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ],
+      "simbadId": "[EG97] S2"
+    },
+    "s29": {
+      "name": "S29",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ]
+    },
+    "s38": {
+      "name": "S38",
+      "designations": [
+        "S0-38"
+      ],
+      "sources": [
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ]
+    },
+    "s4716": {
+      "name": "S4716",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ]
+    },
+    "s5-hvs1": {
+      "name": "S5-HVS1",
+      "designations": [
+        "2MASS J22545163-5111440",
+        "Gaia DR2 6513109241989477504",
+        "Gaia DR3 6513109241989477504",
+        "HE 2251-5127",
+        "TIC 161355564"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=HE+2251-5127",
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ],
+      "simbadId": "HE 2251-5127"
+    },
+    "s55": {
+      "name": "S55",
+      "designations": [
+        "S0-102"
+      ],
+      "sources": [
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ]
+    },
     "sagittarius-dwarf-galaxy": {
       "name": "Sagittarius Dwarf Galaxy",
       "designations": [
@@ -487643,6 +488367,75 @@
         "src/data/overlays/galaxies/objects.json"
       ]
     },
+    "sgr-1806m20": {
+      "name": "SGR 1806-20",
+      "designations": [
+        "PSR J1808-2024",
+        "2XMM J180839.2-202439",
+        "[ABH87] 25",
+        "[FMC99] O",
+        "[KRL2007b] 305",
+        "AX 1805.7-2025",
+        "CXOU J180839.3-202439",
+        "EQ 1805.7-2025",
+        "GBS 1806-20",
+        "GRB 041227",
+        "GRB 790107",
+        "GRB 970912",
+        "HETE Trigger 1566",
+        "HETE Trigger 3800",
+        "HETE Trigger 3801",
+        "INTEGRAL1 84",
+        "INTREF 882",
+        "KONUS 07.01.79",
+        "MITG J1808-2024",
+        "PBC J1808.5-2025",
+        "RX J1808.6-2024",
+        "SWIFT J1808.6-2024",
+        "SWIFT J1808.7-2024"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/SGR_1806%E2%88%9220",
+        "src/data/overlays/compact-remnants/objects.json"
+      ],
+      "simbadId": "PSR J1808-2024"
+    },
+    "sgr-1900p14": {
+      "name": "SGR 1900+14",
+      "designations": [
+        "PSR J1907+0919",
+        "2XMM J190714.3+091920"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/SGR_1900%2B14",
+        "src/data/overlays/compact-remnants/objects.json"
+      ],
+      "simbadId": "PSR J1907+0919"
+    },
+    "sgr-a-star": {
+      "name": "Sagittarius A*",
+      "designations": [
+        "Sgr A *",
+        "Sgr A*",
+        "Sgr A* IR",
+        "Sgr A*/L'",
+        "SgrA*/IR",
+        "[BGM2005] J174540.08-290028.48",
+        "[BGM2005] J174540.14-290028.40",
+        "[SKM2002] 28",
+        "AX J1745.6-2900",
+        "CXOGC J174540.0-290027",
+        "SWIFT J1746.3-2850A"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Sgr+A*",
+        "src/data/overlays/compact-remnants/objects.json"
+      ],
+      "simbadId": "NAME Sgr A*"
+    },
     "sh-2-1": {
       "name": "Sh 2-1",
       "designations": [
@@ -487654,6 +488447,19 @@
         "src/data/overlays/nebulae/objects.json"
       ],
       "simbadId": "LBN  1093"
+    },
+    "sh-2-106": {
+      "name": "Sh 2-106",
+      "designations": [
+        "Celestial Snow Angel",
+        "S106"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Sh+2-106",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "SH  2-106"
     },
     "sh-2-126": {
       "name": "Sh 2-126",
@@ -487794,6 +488600,22 @@
         "src/data/catalogs/naked-eye-stars/stars.csv"
       ],
       "simbadId": "* sig Cas A"
+    },
+    "simeis-147": {
+      "name": "Simeis 147",
+      "designations": [
+        "LBN 180.05-01.66",
+        "LBN 822",
+        "S147",
+        "Sh 2-240",
+        "SNR G180.0-01.7",
+        "Spaghetti Nebula"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "LBN 180.05-01.66"
     },
     "sirius-a": {
       "name": "Sirius A",
@@ -487969,6 +488791,123 @@
         "src/data/overlays/nebulae/objects.json"
       ]
     },
+    "soul-nebula": {
+      "name": "Soul Nebula",
+      "designations": [
+        "Embryo Nebula",
+        "IC 1848",
+        "LBN 137.24+00.77",
+        "LBN 667",
+        "Sh 2-199",
+        "W 5"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=IC+1848",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "IC 1848"
+    },
+    "ss-433": {
+      "name": "SS 433",
+      "designations": [
+        "1A 1909+04",
+        "1ES 1909+04.8",
+        "1H 1908+047",
+        "1RXS J191149.7+045857",
+        "1WGA J1911.8+0459",
+        "2CXO J191149.5+045857",
+        "2E 1909.3+0453",
+        "2E 4204",
+        "2MASS J19114957+0458578",
+        "2SXPS J191149.4+045857",
+        "2XMM J191149.5+045858",
+        "3A 1909+048",
+        "4C 04.66",
+        "4U 1908+05",
+        "4XMM J191149.5+045857",
+        "87GB 190920.8+045332",
+        "[BM83] X1909+048",
+        "[BSF97] J191149.56+045857.4",
+        "[DPS86] B1909+048",
+        "[HCS79] B190924.0+045402.2",
+        "[KRL2007b] 358",
+        "[KW97] 36-17",
+        "AAVSO 1906+04",
+        "BWE 1909+0453",
+        "F3R 1368",
+        "Gaia DR2 4293406612283985024",
+        "Gaia DR3 4293406612283985024",
+        "GAL 039.7-02.0",
+        "GB6 B1909+0453",
+        "GPS 1909+049",
+        "GRS G039.60 -01.80",
+        "HBHA 204-02",
+        "INTEGRAL1 110",
+        "INTREF 969",
+        "NEK 40.1-02.1",
+        "NVSS J191149+045858",
+        "PBC J1911.8+0459",
+        "PLX 4470.01",
+        "RFC J1911+0458",
+        "RGB J1911+049",
+        "RX J1911.7+0459",
+        "SBC9 1129",
+        "SRGA J191149.6+045850",
+        "SWIFT J1911.7+0500",
+        "SWIFT J1912.0+0500",
+        "TGSSADR J191149.5+045856",
+        "TIC 181547773",
+        "TXS 1909+048",
+        "UCAC4 475-089770",
+        "USNO 659",
+        "V1343 Aql",
+        "WEB 16429",
+        "WISE J191149.56+045857.8"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/SS_433",
+        "src/data/overlays/compact-remnants/objects.json"
+      ],
+      "simbadId": "SS 433"
+    },
+    "ss-433-b": {
+      "name": "SS 433 B",
+      "designations": [
+        "2MASS J19114957+0458578",
+        "Gaia DR3 4293406612283985024",
+        "V1343 Aql"
+      ],
+      "sources": [
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ]
+    },
+    "stephenson-2-18": {
+      "name": "Stephenson 2-18",
+      "designations": [
+        "2MASS J18390238-0605106",
+        "[DNZ2010] St2-18",
+        "AKARI-IRC-V1 J1839024-060511",
+        "Cl* Stephenson 2 DFK 1",
+        "DENIS J183902.4-060510",
+        "Gaia DR2 4253084565963481856",
+        "Gaia DR3 4253084565963481856",
+        "IRAS 18363-0607",
+        "MSX6C G026.1044-00.0283",
+        "RSGC2-01",
+        "St2-18",
+        "Stephenson 2 DFK 1",
+        "TIC 7759998",
+        "WISE J183902.34-060511.3"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/Stephenson_2-18",
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ],
+      "simbadId": "Cl* Stephenson    2    DFK       1"
+    },
     "sun": {
       "name": "Sun",
       "designations": [],
@@ -487985,13 +488924,18 @@
     "tarantula-nebula": {
       "name": "Tarantula Nebula",
       "designations": [
+        "30 Dor Nebula",
+        "30 Doradus Nebula",
         "30 Doradus",
         "LHA 120-N 157",
         "NGC 2070"
       ],
       "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NAME+30+Dor+Nebula",
         "src/data/overlays/nebulae/objects.json"
-      ]
+      ],
+      "simbadId": "NAME 30 Dor Nebula"
     },
     "tau-scl-a": {
       "name": "Tau Scl A",
@@ -488024,6 +488968,34 @@
         "src/data/catalogs/naked-eye-stars/stars.csv"
       ],
       "simbadId": "* tau01 Hyi A"
+    },
+    "terzan-5": {
+      "name": "Terzan 5",
+      "designations": [
+        "1FGL J1747.9-2448",
+        "1FIG J1748.1-2449",
+        "2AGL J1749-2448",
+        "2FGL J1748.0-2447",
+        "3FGL J1748.0-2447",
+        "3FHL J1748.0-2446",
+        "4FGL J1748.0-2446",
+        "[KPS2012] MWSC 2699",
+        "[OKM2018] SWIFT J1748.1-2477",
+        "C 1745-247",
+        "Cl Terzan 5",
+        "ESO 520-27",
+        "GCl 76.1",
+        "NVSS J174804-244641",
+        "Ter 5",
+        "Terzan 11",
+        "TeV J1747-248"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Cl+Terzan+5",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "Cl Terzan    5"
     },
     "tk-1": {
       "name": "TK 1",
@@ -488378,13 +489350,19 @@
     "trifid-nebula": {
       "name": "Trifid Nebula",
       "designations": [
+        "LBN 006.99-00.17",
+        "LBN 27",
+        "M 20",
         "M20",
         "NGC 6514",
         "Sh 2-30"
       ],
       "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+20",
         "src/data/overlays/nebulae/objects.json"
-      ]
+      ],
+      "simbadId": "M  20"
     },
     "tychos-supernova-remnant": {
       "name": "Tycho’s Supernova Remnant",
@@ -488425,6 +489403,53 @@
       "sources": [
         "src/data/overlays/galaxies/objects.json"
       ]
+    },
+    "us-708": {
+      "name": "US 708",
+      "designations": [
+        "[BGK2006] HV 2",
+        "Gaia DR2 815106177700219392",
+        "Gaia DR3 815106177700219392",
+        "HVS 2",
+        "SDSS J093320.86+441705.4",
+        "SDSS J093320.86+441705.5",
+        "USNO-B1.0 1342-00209722"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=US+708",
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ],
+      "simbadId": "US  708"
+    },
+    "uy-scuti": {
+      "name": "UY Scuti",
+      "designations": [
+        "2MASS J18273652-1227589",
+        "BD-12 5055",
+        "Gaia DR2 4152993273702130432",
+        "Gaia DR3 4152993273702130432",
+        "GEN# -0.01205055",
+        "GSC 05698-05176",
+        "IRAS 18248-1229",
+        "IRC -10422",
+        "JP11 293",
+        "PPM 234561",
+        "RAFGL 2162",
+        "SV* HV 3805",
+        "TIC 177198220",
+        "TYC 5698-5176-1",
+        "UBV M 5387",
+        "UCAC3 156-208543",
+        "UY Sct",
+        "WISE J182736.57-122800.7"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/UY_Scuti",
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ],
+      "simbadId": "V* UY Sct"
     },
     "v404-cygni": {
       "name": "V404 Cygni",
@@ -488846,6 +489871,112 @@
         "src/data/catalogs/notable-distant-stars/stars.csv"
       ]
     },
+    "vy-canis-majoris": {
+      "name": "VY Canis Majoris",
+      "designations": [
+        "HD 58061",
+        "HIP 35793",
+        "2MASS J07225830-2546030",
+        "[LFO93] 0720-25",
+        "[PCC93] 116",
+        "[TCH91] 07209-2540",
+        "[TVH89] 21",
+        "[WCP90] 072054.739-254012.27",
+        "AAVSO 0718-25",
+        "ADS 6033 AB",
+        "AN 60.1931",
+        "B 719",
+        "CD-25 4441",
+        "CPD-25 2286",
+        "Gaia DR3 5616197646838713728",
+        "GCRV 27369",
+        "GCRV 27408",
+        "GCRV 4908",
+        "GEN# +1.00058061",
+        "GSC 06541-02525",
+        "HIC 35793",
+        "IRAS 07209-2540",
+        "IRC -30087",
+        "JCMTSE J072258.5-254602",
+        "JCMTSF J072258.5-254602",
+        "OH 239.3-05.1",
+        "PPM 252258",
+        "RAFGL 1111",
+        "SAO 173591",
+        "SKY# 13432",
+        "SRS 7681",
+        "SV* P 468",
+        "TIC 107149174",
+        "UCAC4 322-023976",
+        "VY CMa",
+        "WDS J07230-2546AB",
+        "WEB 7134",
+        "WISE J072258.10-254603.5",
+        "YZ 115 4839"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/VY_Canis_Majoris",
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ],
+      "simbadId": "V* VY CMa"
+    },
+    "w44": {
+      "name": "W44",
+      "designations": [
+        "3C 392",
+        "SNR G034.7-00.4",
+        "W 44"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=W+44",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "SNR G034.6-00.5"
+    },
+    "w49a": {
+      "name": "W49A",
+      "designations": [
+        "G43.2+0.0",
+        "W 49a"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=W+49a",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "W 49a"
+    },
+    "w50": {
+      "name": "Manatee Nebula",
+      "designations": [
+        "SNR G039.7-02.0",
+        "W 50",
+        "W50"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=W+50",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "SNR G039.7-02.0"
+    },
+    "w51": {
+      "name": "W51",
+      "designations": [
+        "W 51",
+        "W51A",
+        "W51B",
+        "Westerhout 51"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=W+51",
+        "src/data/overlays/nebulae/objects.json"
+      ],
+      "simbadId": "W 51"
+    },
     "wede-1": {
       "name": "WeDe 1",
       "designations": [
@@ -488859,6 +489990,25 @@
         "src/data/overlays/nebulae/objects.json"
       ],
       "simbadId": "PN G197.4-06.4"
+    },
+    "westerlund-1-w26": {
+      "name": "Westerlund 1 W26",
+      "designations": [
+        "2MASS J16470540-4550367",
+        "Cl* Westerlund 1 BKS A",
+        "Cl* Westerlund 1 BKS AS",
+        "Cl* Westerlund 1 W 26",
+        "Gaia DR2 5940106041452150272",
+        "Gaia DR3 5940106041452150272",
+        "TIC 237063796",
+        "Wd1-26"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/Westerlund_1_W26",
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ],
+      "simbadId": "2MASS J16470540-4550367"
     },
     "wise-0855-0714": {
       "name": "WISE 0855-0714",
@@ -488891,6 +490041,32 @@
         "src/data/overlays/nebulae/objects.json"
       ],
       "simbadId": "NGC  1909"
+    },
+    "woh-g64": {
+      "name": "WOH G64",
+      "designations": [
+        "2MASS J04551048-6820298",
+        "2MASSI J0455105-682029",
+        "[VOG2010] 6",
+        "[YBJ2018] 77",
+        "DCMC J045510.49-682030.2",
+        "Gaia DR2 4661527262798576768",
+        "Gaia DR3 4661527262798576768",
+        "IRAS 04553-6825",
+        "LI-LMC 181",
+        "MACHO 47.2368.9",
+        "MSX LMC 1182",
+        "OGLE LMC-LPV-6819",
+        "TIC 30186593",
+        "WISE J045510.51-682030.2",
+        "WOH G 64"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/WOH_G64",
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ],
+      "simbadId": "WOH G  64"
     },
     "wolf-359": {
       "name": "Wolf 359",
@@ -488962,6 +490138,111 @@
         "src/data/stars.csv"
       ],
       "simbadId": "Wolf  359"
+    },
+    "wr-104-a": {
+      "name": "WR 104 A",
+      "designations": [
+        "2MASS J18020412-2337419",
+        "ASAS J180205-2337.7",
+        "BAaDE ad3a-06452",
+        "CSI-23-17590",
+        "Gaia DR2 4069167258796371712",
+        "Gaia DR3 4069167258796371712",
+        "Had V82",
+        "IRAS 17590-2337",
+        "IRC -20417",
+        "JP11 5559",
+        "MR 80",
+        "MSX6C G006.4432-00.4858",
+        "RAFGL 2048",
+        "TIC 110170548",
+        "UCAC2 22296214",
+        "UCAC4 332-127589",
+        "V5097 Sgr",
+        "Ve 2-45",
+        "WISE J180204.06-233739.9",
+        "WR 104"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/WR_104",
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ],
+      "simbadId": "MR  80"
+    },
+    "wr-104-b": {
+      "name": "WR 104 B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ]
+    },
+    "wr-140-a": {
+      "name": "WR 140 A",
+      "designations": [
+        "HD 193793",
+        "HIP 100287",
+        "1ES 2018+43.6",
+        "1RXS J202028.5+435111",
+        "2MASS J20202798+4351164",
+        "[KW97] 45-31",
+        "[SKV93] 4-61",
+        "ADS 13736 A",
+        "AG+43 1809",
+        "AKARI-IRC-V1 J2020280+435114",
+        "ALS 11192",
+        "BD+43 3571",
+        "BU 1207A",
+        "CCDM J20205+4351A",
+        "CEL 5033",
+        "CMC 413912",
+        "CSI+43 3571 1",
+        "DO 38301",
+        "EM* CDS 1159",
+        "Gaia DR1 2081261368330789632",
+        "Gaia DR2 2081261372633822592",
+        "Gaia DR3 2081261372633822592",
+        "GC 28303",
+        "GCRV 12706",
+        "GOS G080.93+04.18 01",
+        "GSC 03164-01678",
+        "HIC 100287",
+        "IDS 20171+4332 A",
+        "IRAS 20187+4341",
+        "JP11 3234",
+        "LS III +43 7",
+        "MCW 874",
+        "MR 107",
+        "NSV 13030",
+        "PLX 4850",
+        "PPM 59749",
+        "SAO 49491",
+        "SBC9 1232",
+        "SKY# 38412",
+        "TD1 26580",
+        "TIC 193109650",
+        "TYC 3164-1678-1",
+        "UBV 17647",
+        "UBV M 24766",
+        "UCAC3 268-193927",
+        "V1687 Cyg",
+        "WDS J20205+4351A",
+        "WEB 18089",
+        "WR 140"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://en.wikipedia.org/wiki/WR_140",
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ],
+      "simbadId": "HD 193793"
+    },
+    "wr-140-b": {
+      "name": "WR 140 B",
+      "designations": [],
+      "sources": [
+        "src/data/catalogs/notable-distant-stars/stars.csv"
+      ]
     },
     "wt-766-close-companion": {
       "name": "WT 766 B",

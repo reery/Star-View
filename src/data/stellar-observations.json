@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-11-01",
+  "reviewed": "2026-11-18",
   "policy": "Exact reviewed object identities only. Passband-specific photometry, conditional model ranges, withheld radial-velocity evidence, published rotation models and GCVS variability are display metadata; they never fill Johnson V, scalar mass, radius or the space-motion astrometry bundle.",
   "objects": {
     "wise-0855-0714": {
@@ -4077,6 +4077,72 @@
           "reference": "Howarth et al. 2023, MNRAS 520, 1193, Table 5 (adopted base model)",
           "source_url": "https://arxiv.org/abs/2301.05018",
           "scope": "Roche model with omega-model gravity darkening fitted to photopolarimetry, flux distribution and line profiles: equatorial radius 2.82 and polar radius 2.21 +/- 0.02 solar radii, inclination 84.9 deg (85 +5/-7), rotation rate 0.946 of critical, equatorial rotation period 11.12 h matched to the TESS photometric period. Equatorial velocity is derived as 2 pi R_eq / P."
+        }
+      }
+    },
+    "vy-canis-majoris": {
+      "expected_name": "VY Canis Majoris",
+      "expected_designation": "HIP 35793",
+      "observations": {
+        "mass_model": {
+          "value_solar": 17,
+          "status": "model-derived",
+          "reference": "Wittkowski et al. 2012, A&A 540, L12, Table 2",
+          "source_url": "https://arxiv.org/abs/1203.5194",
+          "scope": "Current mass 17 ± 8 M_sun from the star's position against evolutionary tracks (initial mass 25 ± 10 M_sun); not a dynamical measurement."
+        }
+      }
+    },
+    "r136a1": {
+      "expected_name": "R136a1",
+      "expected_designation": "BAT99 108",
+      "observations": {
+        "mass_model": {
+          "value_solar": 222,
+          "status": "model-derived",
+          "reference": "Brands et al. 2022, A&A 663, A36",
+          "source_url": "https://arxiv.org/abs/2202.11080",
+          "scope": "Evolutionary mass 222 +29/−28 M_sun from the same spectral analysis as the adopted temperature and luminosity. Other estimates span about 150–300 M_sun: 303 +123/−79 M_sun from the surface gravity (Brands et al. 2022), 291 ± 46 M_sun from models fitted to the helium abundance (Keszthelyi et al. 2025, https://arxiv.org/abs/2506.15230) and 150–200 M_sun from lower speckle-imaging luminosities (Kalari et al. 2022, https://arxiv.org/abs/2207.13078)."
+        }
+      }
+    },
+    "stephenson-2-18": {
+      "expected_name": "Stephenson 2-18",
+      "expected_designation": "Stephenson 2 DFK 1",
+      "observations": {
+        "modelled_values": {
+          "temperature_k": {
+            "status": "model-derived",
+            "reference": "Siebert et al. 2026",
+            "source_url": "https://arxiv.org/abs/2609.31362",
+            "scope": "3200 K is the temperature assumed for the M5–6 spectral type in the dust model, not a measured temperature."
+          },
+          "radius_solar": {
+            "status": "model-derived",
+            "reference": "Siebert et al. 2026",
+            "source_url": "https://arxiv.org/abs/2609.31362",
+            "scope": "1840 R_sun follows from the fitted luminosity of 321,000 ± 115,000 L_sun and the assumed 3200 K by the Stefan–Boltzmann law: 1480–2150 R_sun across the luminosity range."
+          }
+        }
+      }
+    },
+    "westerlund-1-w26": {
+      "expected_name": "Westerlund 1 W26",
+      "expected_designation": "Wd1-26",
+      "observations": {
+        "modelled_values": {
+          "temperature_k": {
+            "status": "model-derived",
+            "reference": "Levesque et al. 2005, ApJ 628, 973, Table 5",
+            "source_url": "https://arxiv.org/abs/astro-ph/0504337",
+            "scope": "3450 K is the temperature of the M5 I class on the Galactic red-supergiant scale; the star's spectrum varies between M2 (3660 K) and M5 (3450 K)."
+          },
+          "radius_solar": {
+            "status": "model-derived",
+            "reference": "Beasor et al. 2021; Levesque et al. 2005",
+            "source_url": "https://arxiv.org/abs/2103.02609",
+            "scope": "1510 R_sun follows from the luminosity of 290,000 L_sun and the M5 class temperature by the Stefan–Boltzmann law; with the M2 temperature it is 1340 R_sun, and a warmer published temperature of 3782 K gives about 1150–1250 R_sun."
+          }
         }
       }
     }

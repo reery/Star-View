@@ -1,0 +1,1259 @@
+{
+  "schemaVersion": 1,
+  "overlayId": "star-clusters",
+  "objects": [
+    {
+      "type": "open_cluster",
+      "id": "hyades",
+      "name": "Hyades",
+      "designations": [
+        "Melotte 25",
+        "Collinder 50",
+        "Caldwell 41",
+        "Taurus Moving Cluster"
+      ],
+      "spectral_type": null,
+      "constellation": "Taurus",
+      "x_pc": -43.686336,
+      "y_pc": 0.096572,
+      "z_pc": -17.846154,
+      "vx_kms": -41.698,
+      "vy_kms": -19.583,
+      "vz_kms": -1.858,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The nearest open cluster. Aldebaran lies in front of it, at less than half its distance, and is not a member. Hunt & Reffert (2023) also list the group CWNU 1242 on the same sightline, 290 pc away; it is unrelated. Space velocity from the mean Gaia DR3 proper motion and radial velocity of the members (Hunt & Reffert 2023).",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 66.70864584,
+        "dec_deg": 16.0807978,
+        "distance_pc": 47.191,
+        "distance_error_pc": 0.005,
+        "distance_method": "Gaia DR3 parallaxes of 334 members",
+        "distance_source": {
+          "label": "Hunt & Reffert (2023), Gaia DR3 cluster census",
+          "url": "https://doi.org/10.1051/0004-6361/202346285"
+        },
+        "age_myr": 650,
+        "age_error_myr": 70,
+        "age_method": "Lithium depletion boundary: the faintest brown dwarfs that still hold lithium",
+        "age_source": {
+          "label": "Martín et al. (2018)",
+          "url": "https://doi.org/10.3847/1538-4357/aaaeb8"
+        },
+        "metallicity_fe_h": 0.13,
+        "metallicity_error_dex": 0.05,
+        "metallicity_source": {
+          "label": "Netopil et al. (2016), high-quality spectroscopic sample",
+          "url": "https://doi.org/10.1051/0004-6361/201526370"
+        },
+        "members_within_tidal_radius": 569,
+        "members_total": 927,
+        "members_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "mass_solar": 193,
+        "mass_error_solar": 43,
+        "half_member_radius_pc": 4.08,
+        "core_radius_pc": null,
+        "tidal_radius_pc": 8.06,
+        "structure_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "radial_velocity_kms": 39.26,
+        "radial_velocity_error_kms": 0.42,
+        "radial_velocity_source": {
+          "label": "Hunt & Reffert (2023), Gaia DR3 cluster census",
+          "url": "https://doi.org/10.1051/0004-6361/202346285"
+        },
+        "notable_members": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-20894",
+            "name": "Chamukuy"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-20889",
+            "name": "Ain"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-20205",
+            "name": "Prima Hyadum"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-20455",
+            "name": "Secunda Hyadum"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-20885",
+            "name": "Theta1 Tau"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-20635",
+            "name": "Kappa1 Tau"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-21589",
+            "name": "c Tau"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-20711",
+            "name": "Upsilon Tau"
+          }
+        ],
+        "palette": {
+          "real": "#fff0dc",
+          "exaggerated": "#ffd9a6"
+        },
+        "position_source": "Hunt & Reffert (2023) Gaia DR3 member center (l = 179.87°, b = -22.22°) at the Hunt & Reffert (2023), Gaia DR3 cluster census distance",
+        "model_note": "The glow stands in for the faint members that the catalogs do not hold: a Plummer sphere with the published half-member radius, cut at the tidal radius. It fades as the camera comes close enough to see the member stars. Its colors are illustrative."
+      }
+    },
+    {
+      "type": "open_cluster",
+      "id": "pleiades",
+      "name": "Pleiades",
+      "designations": [
+        "Messier 45",
+        "M45",
+        "Melotte 22",
+        "Collinder 42",
+        "Seven Sisters",
+        "Subaru"
+      ],
+      "spectral_type": null,
+      "constellation": "Taurus",
+      "x_pc": -120.990211,
+      "y_pc": 28.991464,
+      "z_pc": -54.279015,
+      "vx_kms": -6.496,
+      "vy_kms": -28.44,
+      "vz_kms": -14.07,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The blue reflection nebulosity around its brightest stars is an unrelated dust cloud the cluster is passing through; it is the separate Pleiades Nebula record. Gaia DR3 astrometry of Alcyone, Merope and Taygeta is too poor for Hunt & Reffert (2023) to list them; SIMBAD lists them as members. A Bayesian lithium-age model gives 124.5 (+3.3, −2.7) Myr (Chronos 2026 preprint, https://arxiv.org/abs/2605.25957). Space velocity from the mean Gaia DR3 proper motion and radial velocity of the members (Hunt & Reffert 2023).",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 56.67978318,
+        "dec_deg": 24.10845447,
+        "distance_pc": 135.74,
+        "distance_error_pc": 0.1,
+        "distance_method": "Gaia DR3 parallaxes of the members",
+        "distance_source": {
+          "label": "Alfonso & García-Varela (2023)",
+          "url": "https://doi.org/10.1051/0004-6361/202346569"
+        },
+        "age_myr": 125,
+        "age_error_myr": 8,
+        "age_method": "Lithium depletion boundary: the faintest stars that still hold lithium",
+        "age_source": {
+          "label": "Stauffer, Schultz & Kirkpatrick (1998)",
+          "url": "https://doi.org/10.1086/311379"
+        },
+        "metallicity_fe_h": -0.01,
+        "metallicity_error_dex": 0.05,
+        "metallicity_source": {
+          "label": "Netopil et al. (2016), high-quality spectroscopic sample",
+          "url": "https://doi.org/10.1051/0004-6361/201526370"
+        },
+        "members_within_tidal_radius": 1639,
+        "members_total": 1721,
+        "members_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "mass_solar": 947,
+        "mass_error_solar": 87,
+        "half_member_radius_pc": 3.61,
+        "core_radius_pc": null,
+        "tidal_radius_pc": 13.69,
+        "structure_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "radial_velocity_kms": 5.34,
+        "radial_velocity_error_kms": 1.1,
+        "radial_velocity_source": {
+          "label": "Hunt & Reffert (2023), Gaia DR3 cluster census",
+          "url": "https://doi.org/10.1051/0004-6361/202346285"
+        },
+        "notable_members": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-17702",
+            "name": "Alcyone"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-17847",
+            "name": "Atlas"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-17499",
+            "name": "Electra"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-17573",
+            "name": "Maia"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-17608",
+            "name": "Merope"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-17531",
+            "name": "Taygeta"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-17851",
+            "name": "Pleione"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-17489",
+            "name": "Celaeno"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-17579",
+            "name": "Asterope"
+          }
+        ],
+        "palette": {
+          "real": "#d6e2ff",
+          "exaggerated": "#a9c4ff"
+        },
+        "position_source": "Hunt & Reffert (2023) Gaia DR3 member center (l = 166.52°, b = -23.57°) at the Alfonso & García-Varela (2023) distance",
+        "model_note": "The glow stands in for the faint members that the catalogs do not hold: a Plummer sphere with the published half-member radius, cut at the tidal radius. It fades as the camera comes close enough to see the member stars. Its colors are illustrative."
+      }
+    },
+    {
+      "type": "open_cluster",
+      "id": "beehive-cluster",
+      "name": "Beehive Cluster",
+      "designations": [
+        "Praesepe",
+        "Messier 44",
+        "M44",
+        "NGC 2632",
+        "Melotte 88",
+        "Collinder 189"
+      ],
+      "spectral_type": null,
+      "constellation": "Cancer",
+      "x_pc": -139.233158,
+      "y_pc": -67.655516,
+      "z_pc": 98.51805,
+      "vx_kms": -41.929,
+      "vy_kms": -20.034,
+      "vz_kms": -9.8,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "Asellus Borealis and Asellus Australis, the two donkeys of the myth that flank the cluster, lie far in front of it and are not members. Space velocity from the mean Gaia DR3 proper motion and radial velocity of the members (Hunt & Reffert 2023).",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 130.08810396,
+        "dec_deg": 19.66587324,
+        "distance_pc": 183.491,
+        "distance_error_pc": 0.039,
+        "distance_method": "Gaia DR3 parallaxes of 728 members",
+        "distance_source": {
+          "label": "Hunt & Reffert (2023), Gaia DR3 cluster census",
+          "url": "https://doi.org/10.1051/0004-6361/202346285"
+        },
+        "age_myr": 670,
+        "age_error_myr": 67,
+        "age_method": "Median and spread of eleven isochrone ages from the literature",
+        "age_source": {
+          "label": "Douglas et al. (2019)",
+          "url": "https://doi.org/10.3847/1538-4357/ab2468"
+        },
+        "metallicity_fe_h": 0.16,
+        "metallicity_error_dex": 0.08,
+        "metallicity_source": {
+          "label": "Netopil et al. (2016), high-quality spectroscopic sample",
+          "url": "https://doi.org/10.1051/0004-6361/201526370"
+        },
+        "members_within_tidal_radius": 1224,
+        "members_total": 1314,
+        "members_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "mass_solar": 945,
+        "mass_error_solar": 73,
+        "half_member_radius_pc": 3.95,
+        "core_radius_pc": null,
+        "tidal_radius_pc": 13.73,
+        "structure_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "radial_velocity_kms": 33.94,
+        "radial_velocity_error_kms": 0.6,
+        "radial_velocity_source": {
+          "label": "Hunt & Reffert (2023), Gaia DR3 cluster census",
+          "url": "https://doi.org/10.1051/0004-6361/202346285"
+        },
+        "notable_members": [
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-42556",
+            "name": "Meleph"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-42549",
+            "name": "HD 73710"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-42516",
+            "name": "39 Cnc"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-42133",
+            "name": "35 Cnc"
+          },
+          {
+            "catalog": "western-constellation-stars",
+            "id": "hip-42497",
+            "name": "HD 73598"
+          }
+        ],
+        "palette": {
+          "real": "#fff3e2",
+          "exaggerated": "#ffe0b0"
+        },
+        "position_source": "Hunt & Reffert (2023) Gaia DR3 member center (l = 205.92°, b = 32.47°) at the Hunt & Reffert (2023), Gaia DR3 cluster census distance",
+        "model_note": "The glow stands in for the faint members that the catalogs do not hold: a Plummer sphere with the published half-member radius, cut at the tidal radius. It fades as the camera comes close enough to see the member stars. Its colors are illustrative."
+      }
+    },
+    {
+      "type": "open_cluster",
+      "id": "ngc-869",
+      "name": "NGC 869",
+      "designations": [
+        "h Persei",
+        "Double Cluster",
+        "Caldwell 14",
+        "Melotte 13",
+        "Collinder 24"
+      ],
+      "spectral_type": null,
+      "constellation": "Perseus",
+      "x_pc": -1598.282213,
+      "y_pc": 1618.709898,
+      "z_pc": -148.181692,
+      "vx_kms": 35.693,
+      "vy_kms": -32.508,
+      "vz_kms": -10.893,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The western half of the Double Cluster; NGC 884 lies 0.4° to the east at nearly the same distance. Both are the core of the Perseus OB1 association. Gaia DR3 measured the radial velocities of too few bright members, so the velocity is the mean of HARPS-N spectra of stars in both clusters (Dalessandro et al. 2021). [Fe/H] is the mean of 27 red supergiants across the surrounding Perseus complex (Fanelli et al. 2022). Space velocity from the mean Gaia DR3 proper motion of the members (Hunt & Reffert 2023) and this radial velocity.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 34.76550547,
+        "dec_deg": 57.14011243,
+        "distance_pc": 2279.624,
+        "distance_error_pc": 5.847,
+        "distance_method": "Gaia DR3 parallaxes of 402 members",
+        "distance_source": {
+          "label": "Hunt & Reffert (2023), Gaia DR3 cluster census",
+          "url": "https://doi.org/10.1051/0004-6361/202346285"
+        },
+        "age_myr": 14,
+        "age_error_myr": 2,
+        "age_method": "Main-sequence turnoff, red supergiants and pre-main-sequence stars all give the same age",
+        "age_source": {
+          "label": "Currie et al. (2010)",
+          "url": "https://doi.org/10.1088/0067-0049/186/2/191"
+        },
+        "metallicity_fe_h": -0.3,
+        "metallicity_error_dex": 0.03,
+        "metallicity_source": {
+          "label": "Fanelli et al. (2022), 27 red supergiants of the Perseus complex",
+          "url": "https://doi.org/10.1051/0004-6361/202142492"
+        },
+        "members_within_tidal_radius": 403,
+        "members_total": 403,
+        "members_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "mass_solar": 2402,
+        "mass_error_solar": 419,
+        "half_member_radius_pc": 2.97,
+        "core_radius_pc": null,
+        "tidal_radius_pc": 21.34,
+        "structure_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "radial_velocity_kms": -47.4,
+        "radial_velocity_error_kms": 2.9,
+        "radial_velocity_source": {
+          "label": "Dalessandro et al. (2021), HARPS-N velocities of the cluster stars",
+          "url": "https://doi.org/10.3847/1538-4357/abda43"
+        },
+        "notable_members": [],
+        "palette": {
+          "real": "#dce6ff",
+          "exaggerated": "#b4c8ff"
+        },
+        "position_source": "Hunt & Reffert (2023) Gaia DR3 member center (l = 134.64°, b = -3.73°) at the Hunt & Reffert (2023), Gaia DR3 cluster census distance",
+        "model_note": "The glow stands in for the faint members that the catalogs do not hold: a Plummer sphere with the published half-member radius, cut at the tidal radius. It fades as the camera comes close enough to see the member stars. Its colors are illustrative."
+      }
+    },
+    {
+      "type": "open_cluster",
+      "id": "ngc-884",
+      "name": "NGC 884",
+      "designations": [
+        "Chi Persei Cluster",
+        "Double Cluster",
+        "Caldwell 14",
+        "Melotte 14",
+        "Collinder 25"
+      ],
+      "spectral_type": null,
+      "constellation": "Perseus",
+      "x_pc": -1618.934554,
+      "y_pc": 1617.713904,
+      "z_pc": -143.5066,
+      "vx_kms": 35.496,
+      "vy_kms": -32.64,
+      "vz_kms": -10.961,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The eastern half of the Double Cluster; NGC 869 lies 0.4° to the west at nearly the same distance. Both are the core of the Perseus OB1 association. Gaia DR3 measured the radial velocities of too few bright members, so the velocity is the mean of HARPS-N spectra of stars in both clusters (Dalessandro et al. 2021). [Fe/H] is the mean of 27 red supergiants across the surrounding Perseus complex (Fanelli et al. 2022). Space velocity from the mean Gaia DR3 proper motion of the members (Hunt & Reffert 2023) and this radial velocity.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 35.5193295,
+        "dec_deg": 57.14091475,
+        "distance_pc": 2293.151,
+        "distance_error_pc": 6.961,
+        "distance_method": "Gaia DR3 parallaxes of 287 members",
+        "distance_source": {
+          "label": "Hunt & Reffert (2023), Gaia DR3 cluster census",
+          "url": "https://doi.org/10.1051/0004-6361/202346285"
+        },
+        "age_myr": 14,
+        "age_error_myr": 2,
+        "age_method": "Main-sequence turnoff, red supergiants and pre-main-sequence stars all give the same age",
+        "age_source": {
+          "label": "Currie et al. (2010)",
+          "url": "https://doi.org/10.1088/0067-0049/186/2/191"
+        },
+        "metallicity_fe_h": -0.3,
+        "metallicity_error_dex": 0.03,
+        "metallicity_source": {
+          "label": "Fanelli et al. (2022), 27 red supergiants of the Perseus complex",
+          "url": "https://doi.org/10.1051/0004-6361/202142492"
+        },
+        "members_within_tidal_radius": 287,
+        "members_total": 287,
+        "members_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "mass_solar": 1656,
+        "mass_error_solar": 337,
+        "half_member_radius_pc": 2.61,
+        "core_radius_pc": null,
+        "tidal_radius_pc": 18.87,
+        "structure_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "radial_velocity_kms": -47.4,
+        "radial_velocity_error_kms": 2.9,
+        "radial_velocity_source": {
+          "label": "Dalessandro et al. (2021), HARPS-N velocities of the cluster stars",
+          "url": "https://doi.org/10.3847/1538-4357/abda43"
+        },
+        "notable_members": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-11020",
+            "name": "HD 14433"
+          }
+        ],
+        "palette": {
+          "real": "#dce6ff",
+          "exaggerated": "#b4c8ff"
+        },
+        "position_source": "Hunt & Reffert (2023) Gaia DR3 member center (l = 135.02°, b = -3.59°) at the Hunt & Reffert (2023), Gaia DR3 cluster census distance",
+        "model_note": "The glow stands in for the faint members that the catalogs do not hold: a Plummer sphere with the published half-member radius, cut at the tidal radius. It fades as the camera comes close enough to see the member stars. Its colors are illustrative."
+      }
+    },
+    {
+      "type": "open_cluster",
+      "id": "messier-67",
+      "name": "Messier 67",
+      "designations": [
+        "M67",
+        "NGC 2682",
+        "King Cobra Cluster",
+        "Golden Eye Cluster",
+        "Melotte 94",
+        "Collinder 204"
+      ],
+      "spectral_type": null,
+      "constellation": "Cancer",
+      "x_pc": -577.159038,
+      "y_pc": -414.567667,
+      "z_pc": 442.762688,
+      "vx_kms": -46.843,
+      "vy_kms": -24.116,
+      "vz_kms": -19.787,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "60 Cancri, a SIMBAD candidate member in front of the cluster, lies at a third of its distance and is not a member. Space velocity from the mean Gaia DR3 proper motion and radial velocity of the members (Hunt & Reffert 2023).",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 132.84984192,
+        "dec_deg": 11.81745461,
+        "distance_pc": 837.268,
+        "distance_error_pc": 0.629,
+        "distance_method": "Gaia DR3 parallaxes of 797 members",
+        "distance_source": {
+          "label": "Hunt & Reffert (2023), Gaia DR3 cluster census",
+          "url": "https://doi.org/10.1051/0004-6361/202346285"
+        },
+        "age_myr": 3950,
+        "age_error_myr": 350,
+        "age_method": "Asteroseismology: the oscillations of its subgiants and red giants",
+        "age_source": {
+          "label": "Reyes et al. (2025)",
+          "url": "https://doi.org/10.1093/mnras/staf353"
+        },
+        "metallicity_fe_h": 0.03,
+        "metallicity_error_dex": 0.05,
+        "metallicity_source": {
+          "label": "Netopil et al. (2016), high-quality spectroscopic sample",
+          "url": "https://doi.org/10.1051/0004-6361/201526370"
+        },
+        "members_within_tidal_radius": 1834,
+        "members_total": 1844,
+        "members_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "mass_solar": 2779,
+        "mass_error_solar": 399,
+        "half_member_radius_pc": 4.1,
+        "core_radius_pc": null,
+        "tidal_radius_pc": 20.56,
+        "structure_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "radial_velocity_kms": 33.77,
+        "radial_velocity_error_kms": 0.25,
+        "radial_velocity_source": {
+          "label": "Hunt & Reffert (2023), Gaia DR3 cluster census",
+          "url": "https://doi.org/10.1051/0004-6361/202346285"
+        },
+        "notable_members": [],
+        "palette": {
+          "real": "#fff0d6",
+          "exaggerated": "#ffd79a"
+        },
+        "position_source": "Hunt & Reffert (2023) Gaia DR3 member center (l = 215.69°, b = 31.93°) at the Hunt & Reffert (2023), Gaia DR3 cluster census distance",
+        "model_note": "The glow stands in for the faint members that the catalogs do not hold: a Plummer sphere with the published half-member radius, cut at the tidal radius. It fades as the camera comes close enough to see the member stars. Its colors are illustrative."
+      }
+    },
+    {
+      "type": "open_cluster",
+      "id": "ngc-3532",
+      "name": "NGC 3532",
+      "designations": [
+        "Wishing Well Cluster",
+        "Football Cluster",
+        "Caldwell 91",
+        "Melotte 103",
+        "Collinder 238"
+      ],
+      "spectral_type": null,
+      "constellation": "Carina",
+      "x_pc": 157.767671,
+      "y_pc": -444.5811,
+      "z_pc": 11.509171,
+      "vx_kms": -22.972,
+      "vy_kms": -13.009,
+      "vz_kms": 1.616,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "HD 96544, a K giant near the center, is the brightest member that a bundled catalog holds; x Carinae, 0.5° away, lies far behind the cluster and is not a member. Space velocity from the mean Gaia DR3 proper motion and radial velocity of the members (Hunt & Reffert 2023).",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 166.39353892,
+        "dec_deg": -58.69378637,
+        "distance_pc": 471.885,
+        "distance_error_pc": 0.109,
+        "distance_method": "Gaia DR3 parallaxes of 1,706 members",
+        "distance_source": {
+          "label": "Hunt & Reffert (2023), Gaia DR3 cluster census",
+          "url": "https://doi.org/10.1051/0004-6361/202346285"
+        },
+        "age_myr": 300,
+        "age_error_myr": 50,
+        "age_method": "Isochrone fit to the spectroscopically confirmed members",
+        "age_source": {
+          "label": "Fritzewski et al. (2019)",
+          "url": "https://doi.org/10.1051/0004-6361/201833587"
+        },
+        "metallicity_fe_h": 0.0,
+        "metallicity_error_dex": 0.07,
+        "metallicity_source": {
+          "label": "Netopil et al. (2016), high-quality spectroscopic sample",
+          "url": "https://doi.org/10.1051/0004-6361/201526370"
+        },
+        "members_within_tidal_radius": 3411,
+        "members_total": 3414,
+        "members_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "mass_solar": 4875,
+        "mass_error_solar": 189,
+        "half_member_radius_pc": 4.1,
+        "core_radius_pc": null,
+        "tidal_radius_pc": 23.16,
+        "structure_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "radial_velocity_kms": 4.62,
+        "radial_velocity_error_kms": 0.29,
+        "radial_velocity_source": {
+          "label": "Hunt & Reffert (2023), Gaia DR3 cluster census",
+          "url": "https://doi.org/10.1051/0004-6361/202346285"
+        },
+        "notable_members": [
+          {
+            "catalog": "naked-eye-stars",
+            "id": "hip-54294",
+            "name": "HD 96544"
+          }
+        ],
+        "palette": {
+          "real": "#f2f0ff",
+          "exaggerated": "#d2d0ff"
+        },
+        "position_source": "Hunt & Reffert (2023) Gaia DR3 member center (l = 289.54°, b = 1.40°) at the Hunt & Reffert (2023), Gaia DR3 cluster census distance",
+        "model_note": "The glow stands in for the faint members that the catalogs do not hold: a Plummer sphere with the published half-member radius, cut at the tidal radius. It fades as the camera comes close enough to see the member stars. Its colors are illustrative."
+      }
+    },
+    {
+      "type": "globular_cluster",
+      "id": "omega-centauri",
+      "name": "Omega Centauri",
+      "designations": [
+        "NGC 5139",
+        "ω Centauri",
+        "ω Cen",
+        "Caldwell 80"
+      ],
+      "spectral_type": null,
+      "constellation": "Centaurus",
+      "x_pc": 3308.512273,
+      "y_pc": -4070.831998,
+      "z_pc": 1402.488281,
+      "vx_kms": 84.833,
+      "vy_kms": -274.002,
+      "vz_kms": -94.184,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The most massive globular cluster of the Milky Way. Its stars formed over more than a billion years and differ widely in iron, so it is thought to be the core of a dwarf galaxy the Milky Way swallowed. [Fe/H] is the Harris (1996) value on the Carretta et al. (2009) scale, a mean over its populations. Space velocity from the Gaia EDR3 proper motion (Vasiliev & Baumgardt 2021) and the mean radial velocity of the members.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 201.696991,
+        "dec_deg": -47.479473,
+        "distance_pc": 5430,
+        "distance_error_pc": 50,
+        "distance_method": "Gaia EDR3 parallaxes combined with kinematic, photometric and earlier distances",
+        "distance_source": {
+          "label": "Baumgardt & Vasiliev (2021), accurate distances to Galactic globular clusters",
+          "url": "https://doi.org/10.1093/mnras/stab1474"
+        },
+        "age_myr": 12080,
+        "age_error_myr": 750,
+        "age_method": "Mean age of about 8,100 subgiants fitted one by one; the ± is the spread of their ages",
+        "age_source": {
+          "label": "Clontz et al. (2024), oMEGACat IV",
+          "url": "https://arxiv.org/abs/2409.13855"
+        },
+        "metallicity_fe_h": -1.64,
+        "metallicity_error_dex": 0.09,
+        "metallicity_source": {
+          "label": "Carretta et al. (2009), a new metallicity scale for globular clusters",
+          "url": "https://doi.org/10.1051/0004-6361/200913003"
+        },
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 3940000,
+        "mass_error_solar": 20000,
+        "half_member_radius_pc": 7.56,
+        "core_radius_pc": 4.3,
+        "tidal_radius_pc": 208.6,
+        "structure_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "radial_velocity_kms": 232.78,
+        "radial_velocity_error_kms": 0.21,
+        "radial_velocity_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "notable_members": [],
+        "palette": {
+          "real": "#fff0d8",
+          "exaggerated": "#ffd69a"
+        },
+        "position_source": "Cluster center of Goldsbury et al. (2010) at the Baumgardt & Vasiliev (2021) distance",
+        "model_note": "The glow stands in for the cluster’s stars: an Elson–Fall–Freeman profile fitted to the published core and half-light radii, cut at the tidal radius. Its brightest giants are drawn as stars that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "globular_cluster",
+      "id": "47-tucanae",
+      "name": "47 Tucanae",
+      "designations": [
+        "NGC 104",
+        "47 Tuc",
+        "Caldwell 106"
+      ],
+      "spectral_type": null,
+      "constellation": "Tucana",
+      "x_pc": 1877.49629,
+      "y_pc": -2594.161775,
+      "z_pc": -3189.942376,
+      "vx_kms": -88.588,
+      "vy_kms": -81.387,
+      "vz_kms": 38.772,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The second brightest globular cluster in the sky, after Omega Centauri. It appears beside the Small Magellanic Cloud, a separate galaxy more than ten times farther away. Space velocity from the Gaia EDR3 proper motion (Vasiliev & Baumgardt 2021) and the mean radial velocity of the members.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 6.023792,
+        "dec_deg": -72.081306,
+        "distance_pc": 4520,
+        "distance_error_pc": 30,
+        "distance_method": "Gaia EDR3 parallaxes combined with kinematic, photometric and earlier distances",
+        "distance_source": {
+          "label": "Baumgardt & Vasiliev (2021), accurate distances to Galactic globular clusters",
+          "url": "https://doi.org/10.1093/mnras/stab1474"
+        },
+        "age_myr": 11750,
+        "age_error_myr": 250,
+        "age_method": "Isochrone fit to the turnoff and subgiant branch (vertical method)",
+        "age_source": {
+          "label": "VandenBerg et al. (2013), ages of 55 globular clusters",
+          "url": "https://doi.org/10.1088/0004-637X/775/2/134"
+        },
+        "metallicity_fe_h": -0.76,
+        "metallicity_error_dex": 0.02,
+        "metallicity_source": {
+          "label": "Carretta et al. (2009), a new metallicity scale for globular clusters",
+          "url": "https://doi.org/10.1051/0004-6361/200913003"
+        },
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 853000,
+        "mass_error_solar": 5000,
+        "half_member_radius_pc": 4.03,
+        "core_radius_pc": 0.61,
+        "tidal_radius_pc": 124.63,
+        "structure_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "radial_velocity_kms": -17.45,
+        "radial_velocity_error_kms": 0.16,
+        "radial_velocity_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "notable_members": [],
+        "palette": {
+          "real": "#ffe6c2",
+          "exaggerated": "#ffc77a"
+        },
+        "position_source": "Cluster center of Goldsbury et al. (2010) at the Baumgardt & Vasiliev (2021) distance",
+        "model_note": "The glow stands in for the cluster’s stars: an Elson–Fall–Freeman profile fitted to the published core and half-light radii, cut at the tidal radius. Its brightest giants are drawn as stars that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "globular_cluster",
+      "id": "messier-4",
+      "name": "Messier 4",
+      "designations": [
+        "M4",
+        "NGC 6121",
+        "Spider Globular Cluster"
+      ],
+      "spectral_type": null,
+      "constellation": "Scorpius",
+      "x_pc": 1756.552498,
+      "y_pc": -279.061579,
+      "z_pc": 509.065768,
+      "vx_kms": 45.127,
+      "vy_kms": -206.841,
+      "vz_kms": -10.279,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The nearest globular cluster, 1.3° west of Antares. The pulsar PSR B1620-26, orbited by a white dwarf and a planet, lies just outside its core. Space velocity from the Gaia EDR3 proper motion (Vasiliev & Baumgardt 2021) and the mean radial velocity of the members.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 245.896744,
+        "dec_deg": -26.525749,
+        "distance_pc": 1850,
+        "distance_error_pc": 20,
+        "distance_method": "Gaia EDR3 parallaxes combined with kinematic, photometric and earlier distances",
+        "distance_source": {
+          "label": "Baumgardt & Vasiliev (2021), accurate distances to Galactic globular clusters",
+          "url": "https://doi.org/10.1093/mnras/stab1474"
+        },
+        "age_myr": 11500,
+        "age_error_myr": 380,
+        "age_method": "Isochrone fit to the turnoff and subgiant branch (vertical method)",
+        "age_source": {
+          "label": "VandenBerg et al. (2013), ages of 55 globular clusters",
+          "url": "https://doi.org/10.1088/0004-637X/775/2/134"
+        },
+        "metallicity_fe_h": -1.18,
+        "metallicity_error_dex": 0.02,
+        "metallicity_source": {
+          "label": "Carretta et al. (2009), a new metallicity scale for globular clusters",
+          "url": "https://doi.org/10.1051/0004-6361/200913003"
+        },
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 90400,
+        "mass_error_solar": 1100,
+        "half_member_radius_pc": 2.5,
+        "core_radius_pc": 0.45,
+        "tidal_radius_pc": 53.94,
+        "structure_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "radial_velocity_kms": 71.22,
+        "radial_velocity_error_kms": 0.13,
+        "radial_velocity_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "notable_members": [
+          {
+            "catalog": "compact-remnants",
+            "id": "psr-j1623m2631",
+            "name": "PSR B1620-26"
+          }
+        ],
+        "palette": {
+          "real": "#fff0d8",
+          "exaggerated": "#ffd69a"
+        },
+        "position_source": "Cluster center of Goldsbury et al. (2010) at the Baumgardt & Vasiliev (2021) distance",
+        "model_note": "The glow stands in for the cluster’s stars: an Elson–Fall–Freeman profile fitted to the published core and half-light radii, cut at the tidal radius. Its brightest giants are drawn as stars that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "globular_cluster",
+      "id": "messier-13",
+      "name": "Messier 13",
+      "designations": [
+        "M13",
+        "NGC 6205",
+        "Hercules Globular Cluster",
+        "Great Globular Cluster in Hercules"
+      ],
+      "spectral_type": null,
+      "constellation": "Hercules",
+      "x_pc": 2887.374255,
+      "y_pc": 4806.796231,
+      "z_pc": 4859.442345,
+      "vx_kms": -41.462,
+      "vy_kms": -267.209,
+      "vz_kms": -84.994,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The brightest globular cluster of the northern sky, in the Keystone of Hercules. The Arecibo message of 1974 was beamed toward it. Space velocity from the Gaia EDR3 proper motion (Vasiliev & Baumgardt 2021) and the mean radial velocity of the members.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 250.421814,
+        "dec_deg": 36.459862,
+        "distance_pc": 7420,
+        "distance_error_pc": 80,
+        "distance_method": "Gaia EDR3 parallaxes combined with kinematic, photometric and earlier distances",
+        "distance_source": {
+          "label": "Baumgardt & Vasiliev (2021), accurate distances to Galactic globular clusters",
+          "url": "https://doi.org/10.1093/mnras/stab1474"
+        },
+        "age_myr": 12000,
+        "age_error_myr": 380,
+        "age_method": "Mean of two isochrone fits to the turnoff and subgiant branch",
+        "age_source": {
+          "label": "VandenBerg et al. (2013), ages of 55 globular clusters",
+          "url": "https://doi.org/10.1088/0004-637X/775/2/134"
+        },
+        "metallicity_fe_h": -1.58,
+        "metallicity_error_dex": 0.04,
+        "metallicity_source": {
+          "label": "Carretta et al. (2009), a new metallicity scale for globular clusters",
+          "url": "https://doi.org/10.1051/0004-6361/200913003"
+        },
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 484000,
+        "mass_error_solar": 6000,
+        "half_member_radius_pc": 3.47,
+        "core_radius_pc": 1.75,
+        "tidal_radius_pc": 130.27,
+        "structure_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "radial_velocity_kms": -244.9,
+        "radial_velocity_error_kms": 0.3,
+        "radial_velocity_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "notable_members": [],
+        "palette": {
+          "real": "#fff0d8",
+          "exaggerated": "#ffd69a"
+        },
+        "position_source": "Cluster center of Goldsbury et al. (2010) at the Baumgardt & Vasiliev (2021) distance",
+        "model_note": "The glow stands in for the cluster’s stars: an Elson–Fall–Freeman profile fitted to the published core and half-light radii, cut at the tidal radius. Its brightest giants are drawn as stars that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "globular_cluster",
+      "id": "messier-22",
+      "name": "Messier 22",
+      "designations": [
+        "M22",
+        "NGC 6656",
+        "Great Sagittarius Cluster"
+      ],
+      "spectral_type": null,
+      "constellation": "Sagittarius",
+      "x_pc": 3222.741323,
+      "y_pc": 562.009898,
+      "z_pc": -433.685644,
+      "vx_kms": -166.393,
+      "vy_kms": -39.338,
+      "vz_kms": -155.812,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "One of the nearest globular clusters, in front of the Galactic bulge near the Teapot of Sagittarius. Space velocity from the Gaia EDR3 proper motion (Vasiliev & Baumgardt 2021) and the mean radial velocity of the members.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 279.099762,
+        "dec_deg": -23.904749,
+        "distance_pc": 3300,
+        "distance_error_pc": 40,
+        "distance_method": "Gaia EDR3 parallaxes combined with kinematic, photometric and earlier distances",
+        "distance_source": {
+          "label": "Baumgardt & Vasiliev (2021), accurate distances to Galactic globular clusters",
+          "url": "https://doi.org/10.1093/mnras/stab1474"
+        },
+        "age_myr": 12500,
+        "age_error_myr": 500,
+        "age_method": "Isochrone fit to the turnoff color (horizontal method)",
+        "age_source": {
+          "label": "VandenBerg et al. (2013), ages of 55 globular clusters",
+          "url": "https://doi.org/10.1088/0004-637X/775/2/134"
+        },
+        "metallicity_fe_h": -1.7,
+        "metallicity_error_dex": 0.08,
+        "metallicity_source": {
+          "label": "Carretta et al. (2009), a new metallicity scale for globular clusters",
+          "url": "https://doi.org/10.1051/0004-6361/200913003"
+        },
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 470000,
+        "mass_error_solar": 6000,
+        "half_member_radius_pc": 3.18,
+        "core_radius_pc": 0.88,
+        "tidal_radius_pc": 76.82,
+        "structure_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "radial_velocity_kms": -148.72,
+        "radial_velocity_error_kms": 0.78,
+        "radial_velocity_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "notable_members": [],
+        "palette": {
+          "real": "#fff0d8",
+          "exaggerated": "#ffd69a"
+        },
+        "position_source": "Cluster center of Goldsbury et al. (2010) at the Baumgardt & Vasiliev (2021) distance",
+        "model_note": "The glow stands in for the cluster’s stars: an Elson–Fall–Freeman profile fitted to the published core and half-light radii, cut at the tidal radius. Its brightest giants are drawn as stars that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "globular_cluster",
+      "id": "messier-15",
+      "name": "Messier 15",
+      "designations": [
+        "M15",
+        "NGC 7078",
+        "Great Pegasus Cluster"
+      ],
+      "spectral_type": null,
+      "constellation": "Pegasus",
+      "x_pc": 4019.737413,
+      "y_pc": 8625.318441,
+      "z_pc": -4914.233708,
+      "vx_kms": 94.926,
+      "vy_kms": -198.288,
+      "vz_kms": -37.536,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "One of the densest globular clusters: its core has collapsed. It holds Pease 1, the first planetary nebula found in a globular cluster, too small to draw here. Space velocity from the Gaia EDR3 proper motion (Vasiliev & Baumgardt 2021) and the mean radial velocity of the members.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 322.493042,
+        "dec_deg": 12.167001,
+        "distance_pc": 10710,
+        "distance_error_pc": 100,
+        "distance_method": "Gaia EDR3 parallaxes combined with kinematic, photometric and earlier distances",
+        "distance_source": {
+          "label": "Baumgardt & Vasiliev (2021), accurate distances to Galactic globular clusters",
+          "url": "https://doi.org/10.1093/mnras/stab1474"
+        },
+        "age_myr": 12750,
+        "age_error_myr": 250,
+        "age_method": "Isochrone fit to the turnoff and subgiant branch (vertical method)",
+        "age_source": {
+          "label": "VandenBerg et al. (2013), ages of 55 globular clusters",
+          "url": "https://doi.org/10.1088/0004-637X/775/2/134"
+        },
+        "metallicity_fe_h": -2.33,
+        "metallicity_error_dex": 0.02,
+        "metallicity_source": {
+          "label": "Carretta et al. (2009), a new metallicity scale for globular clusters",
+          "url": "https://doi.org/10.1051/0004-6361/200913003"
+        },
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 518000,
+        "mass_error_solar": 7000,
+        "half_member_radius_pc": 2.03,
+        "core_radius_pc": 0.06,
+        "tidal_radius_pc": 132.13,
+        "structure_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "radial_velocity_kms": -106.84,
+        "radial_velocity_error_kms": 0.3,
+        "radial_velocity_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "notable_members": [],
+        "palette": {
+          "real": "#fff0d8",
+          "exaggerated": "#ffd69a"
+        },
+        "position_source": "Cluster center of Goldsbury et al. (2010) at the Baumgardt & Vasiliev (2021) distance",
+        "model_note": "The glow stands in for the cluster’s stars: an Elson–Fall–Freeman profile fitted to the published core and half-light radii, cut at the tidal radius. Its brightest giants are drawn as stars that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "globular_cluster",
+      "id": "terzan-5",
+      "name": "Terzan 5",
+      "designations": [
+        "Ter 5",
+        "Terzan 11"
+      ],
+      "spectral_type": null,
+      "constellation": "Sagittarius",
+      "x_pc": 6602.279629,
+      "y_pc": 443.091285,
+      "z_pc": 194.868703,
+      "vx_kms": -69.577,
+      "vy_kms": -172.539,
+      "vz_kms": -35.013,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "Hidden behind thick dust near the Galactic center and seen mostly in infrared light. It holds the most millisecond pulsars of any cluster. Long classed as a globular cluster, it formed stars in several bursts and is now thought to be a fossil fragment of the young Galactic bulge. [Fe/H] and the age are those of the dominant old population; the main younger population, 4.7 ± 0.5 billion years old (Zullo et al. 2026), is richer in iron than the Sun, [Fe/H] = +0.27 (Origlia et al. 2011). The Carretta et al. (2009) value, +0.16 from the Harris (1996) catalog, blends both and is not adopted; Ferraro et al. (2016) gave 12 ± 1 billion years for the old population. Space velocity from the Gaia EDR3 proper motion (Vasiliev & Baumgardt 2021) and the mean radial velocity of the members.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 267.0202,
+        "dec_deg": -24.779055,
+        "distance_pc": 6620,
+        "distance_error_pc": 150,
+        "distance_method": "Gaia EDR3 parallaxes combined with kinematic, photometric and earlier distances",
+        "distance_source": {
+          "label": "Baumgardt & Vasiliev (2021), accurate distances to Galactic globular clusters",
+          "url": "https://doi.org/10.1093/mnras/stab1474"
+        },
+        "age_myr": 12500,
+        "age_error_myr": 500,
+        "age_method": "Isochrone fit to the older of two main-sequence turnoffs in Webb and Hubble photometry",
+        "age_source": {
+          "label": "Zullo et al. (2026)",
+          "url": "https://doi.org/10.1051/0004-6361/202659349"
+        },
+        "metallicity_fe_h": -0.25,
+        "metallicity_error_dex": 0.07,
+        "metallicity_source": {
+          "label": "Origlia et al. (2011), the metal-poor population of Terzan 5; ± is the star-to-star spread",
+          "url": "https://doi.org/10.1088/2041-8205/726/2/L20"
+        },
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 1090000,
+        "mass_error_solar": 80000,
+        "half_member_radius_pc": 1.77,
+        "core_radius_pc": 0.67,
+        "tidal_radius_pc": 51.26,
+        "structure_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "radial_velocity_kms": -81.97,
+        "radial_velocity_error_kms": 0.85,
+        "radial_velocity_source": {
+          "label": "Baumgardt et al., Fundamental parameters of Galactic globular clusters (N-body fits)",
+          "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+        },
+        "notable_members": [
+          {
+            "catalog": "compact-remnants",
+            "id": "psr-j1748m2446ad",
+            "name": "PSR J1748-2446ad"
+          }
+        ],
+        "palette": {
+          "real": "#ffe6c2",
+          "exaggerated": "#ffc77a"
+        },
+        "position_source": "Cluster center of Lanzoni et al. (2010) at the Baumgardt & Vasiliev (2021) distance",
+        "model_note": "The glow stands in for the cluster’s stars: an Elson–Fall–Freeman profile fitted to the published core and half-light radii, cut at the tidal radius. Its brightest giants are drawn as stars that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    }
+  ]
+}

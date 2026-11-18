@@ -62,16 +62,20 @@ GREEN_REMNANTS = {
     'cassiopeia-a': 'G111.7-02.1', 'crab-nebula': 'G184.6-05.8', 'vela-supernova-remnant': 'G263.9-03.3',
     'tychos-supernova-remnant': 'G120.1+01.4', 'keplers-supernova-remnant': 'G004.5+06.8', 'sn-1006': 'G327.6+14.6',
     'rcw-86': 'G315.4-02.3', 'rx-j1713-3946': 'G347.3-00.5', 'hoinga': 'G249.5+24.5', 'veil-nebula': 'G074.0-08.5',
+    'simeis-147': 'G180.0-01.7', 'ic-443': 'G189.1+03.0', 'puppis-a': 'G260.4-03.4', 'w44': 'G034.7-00.4', 'g1-9p0-3': 'G001.9+00.3',
+    'w50': 'G039.7-02.0', '3c-58': 'G130.7+03.1',
 }
 FERMI_REMNANTS = {
     'cassiopeia-a': ['4FGL J2323.4+5849'], 'crab-nebula': ['4FGL J0534.5+2201i', '4FGL J0534.5+2201s'],
     'vela-supernova-remnant': ['4FGL J0834.3-4542e'], 'tychos-supernova-remnant': ['4FGL J0025.3+6408'],
     'keplers-supernova-remnant': ['4FGL J1730.4-2131'], 'rx-j1713-3946': ['4FGL J1713.5-3945e'], 'rcw-86': ['4FGL J1443.0-6227e'],
-    'veil-nebula': ['4FGL J2051.0+3049e'],
+    'veil-nebula': ['4FGL J2051.0+3049e'], 'ic-443': ['4FGL J0617.2+2234e'], 'w44': ['4FGL J1855.9+0121e'], 'puppis-a': ['4FGL J0822.1-4253e'],
+    '3c-58': ['4FGL J0205.6+6449e'],
 }
 REMNANT_SCOPES = {
     'vela-supernova-remnant': 'Vela X, the pulsar wind nebula inside the remnant',
     'crab-nebula': 'The nebula’s inverse-Compton and synchrotron components, without the pulsar',
+    '3c-58': 'The pulsar wind nebula, without PSR J0205+6449',
 }
 
 # Shipped sources: label, reference, catalog URL and what the value covers.

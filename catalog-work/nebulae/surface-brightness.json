@@ -22,7 +22,7 @@
       "url": "https://vizier.cfa.harvard.edu/viz-bin/VizieR?-source=VII/218"
     }
   },
-  "method": "R-band mag/arcsec^2 (Vega). Planetary nebulae take the mean of their Strasbourg-ESO H-beta flux over the optical disk; emission nebulae at least 12 arcmin across take the peak H-alpha excess of the 6-arcmin Finkbeiner map within their catalogued extent (the frozen mask peak where a mask exists). Others are estimated from photographic plate classes: Lynds classes step one magnitude each from a zero point of 21.13 (the median offset of the measurements they overlap), and reflection-nebula classes map linearly onto the Lynds classes of the nebulae both catalogues list. The remaining few keep their hand estimate, shifted by 1.36 mag (the median offset of the measurements it overlaps); supernova remnants the map cannot isolate are capped at the H-alpha peak of their field. Barnard's Loop keeps its measured peak but stays out of the zero points: its plate class rates a far larger region than the arc's peak.",
+  "method": "R-band mag/arcsec^2 (Vega). Planetary nebulae take the mean of their Strasbourg-ESO H-beta flux over the optical disk; emission nebulae at least 12 arcmin across take the peak H-alpha excess of the 6-arcmin Finkbeiner map within their catalogued extent (the frozen mask peak where a mask exists). Others are estimated from photographic plate classes: Lynds classes step one magnitude each from a zero point of 21.13 (the median offset of the measurements they overlap), and reflection-nebula classes map linearly onto the Lynds classes of the nebulae both catalogues list. The remaining few keep their hand estimate, shifted by 1.36 mag (the median offset of the measurements it overlaps); supernova remnants the map cannot isolate, and H II regions hidden by dust, are capped at the H-alpha peak of their field. Barnard's Loop keeps its measured peak but stays out of the zero points: its plate class rates a far larger region than the arc's peak.",
   "calibration": {
     "lynds_offset_mag": 21.13,
     "reflection_lynds_class": {
@@ -1200,6 +1200,136 @@
       "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
       "basis": {
         "halpha_peak_excess_rayleigh": 3570.7
+      }
+    },
+    "simeis-147": {
+      "mag_arcsec2": 25.61,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 34.5 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 34.54
+      }
+    },
+    "ic-443": {
+      "mag_arcsec2": 24.38,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 107.6 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 107.63
+      }
+    },
+    "puppis-a": {
+      "mag_arcsec2": 27.7,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "halpha_field_peak_rayleigh": 35.06,
+        "retired_brightness": 0.3
+      }
+    },
+    "w44": {
+      "mag_arcsec2": 29.57,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "halpha_field_peak_rayleigh": 4.1,
+        "retired_brightness": 0.15
+      }
+    },
+    "g1-9p0-3": {
+      "mag_arcsec2": 30.82,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "retired_brightness": 0.05
+      }
+    },
+    "w50": {
+      "mag_arcsec2": 29.57,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "halpha_field_peak_rayleigh": 23.1,
+        "retired_brightness": 0.15
+      }
+    },
+    "3c-58": {
+      "mag_arcsec2": 30.2,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "retired_brightness": 0.1
+      }
+    },
+    "w49a": {
+      "mag_arcsec2": 30.82,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "retired_brightness": 0.05
+      }
+    },
+    "w51": {
+      "mag_arcsec2": 30.82,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "halpha_field_peak_rayleigh": 22.87,
+        "retired_brightness": 0.05
+      }
+    },
+    "cygnus-x": {
+      "mag_arcsec2": 23.08,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 356.5 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 356.47
+      }
+    },
+    "rcw-49": {
+      "mag_arcsec2": 22.78,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 467.6 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 467.61
+      }
+    },
+    "heart-nebula": {
+      "mag_arcsec2": 23.43,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 258.6 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 258.56
+      }
+    },
+    "soul-nebula": {
+      "mag_arcsec2": 23.24,
+      "estimated": false,
+      "source": "Finkbeiner (2003) H-alpha map: peak 307.0 R above the diffuse background at 6 arcmin resolution",
+      "url": "https://ui.adsabs.harvard.edu/abs/2003ApJS..146..407F",
+      "basis": {
+        "halpha_peak_excess_rayleigh": 307.03
+      }
+    },
+    "sh-2-106": {
+      "mag_arcsec2": 22.07,
+      "estimated": true,
+      "source": "Hand-authored visual estimate, calibrated against the measurements",
+      "url": null,
+      "basis": {
+        "retired_brightness": 0.75
       }
     }
   }

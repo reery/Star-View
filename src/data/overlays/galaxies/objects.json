@@ -8,14 +8,13 @@
       "name": "Milky Way",
       "designations": [
         "The Galaxy",
-        "Galactic Center",
-        "Sagittarius A*"
+        "Galactic Center"
       ],
       "spectral_type": null,
       "constellation": "Sagittarius",
-      "x_pc": 8178.0,
-      "y_pc": -8.0,
-      "z_pc": -6.6,
+      "x_pc": 8276.993393635,
+      "y_pc": -8.05575948,
+      "z_pc": -6.668317677,
       "vx_kms": null,
       "vy_kms": null,
       "vz_kms": null,
@@ -27,19 +26,19 @@
       "age_gyr": null,
       "absolute_mag": null,
       "epoch": 2000,
-      "notes": "The home galaxy of the Sun. Its map position is the Galactic Center, marked by the black hole Sagittarius A*; the drawn model is the Reid et al. (2019) spiral-arm fit centered 8.15 kpc away.",
+      "notes": "The home galaxy of the Sun. Its map position is the Galactic Center, marked by the black hole Sagittarius A*; the drawn model is the Reid et al. (2019) spiral-arm fit centered 8.15 kpc away. The center distance follows the GRAVITY Collaboration (2022) four-star orbit fit, 8277 ± 9 (stat) ± 30 (sys) pc; it supersedes their S2-only 2019 value of 8178 ± 13 (stat) ± 22 (sys) pc, which predates the 2021 correction of the instrument's optical aberrations (https://doi.org/10.1051/0004-6361/201935656).",
       "raw_astrometry": null,
       "galaxy": {
         "morphology": "SB(rs)bc",
         "classification": "Barred spiral galaxy",
-        "ra_deg": 266.4168338,
-        "dec_deg": -29.007825,
-        "distance_pc": 8178,
-        "distance_error_pc": 26,
-        "distance_method": "Orbit of the star S2 around Sagittarius A* (GRAVITY interferometry)",
+        "ra_deg": 266.416816625,
+        "dec_deg": -29.007824972,
+        "distance_pc": 8277,
+        "distance_error_pc": 31,
+        "distance_method": "Orbits of the stars S2, S29, S38 and S55 around Sagittarius A* (GRAVITY interferometry)",
         "distance_source": {
-          "label": "GRAVITY Collaboration (2019)",
-          "url": "https://doi.org/10.1051/0004-6361/201935656"
+          "label": "GRAVITY Collaboration (2022)",
+          "url": "https://doi.org/10.1051/0004-6361/202142465"
         },
         "diameter_pc": 26800,
         "angular_size_deg": null,
@@ -73,7 +72,7 @@
           "real": "#ffe2b8",
           "exaggerated": "#ffcd85"
         },
-        "position_source": "Sagittarius A* (l = 359.944°, b = -0.046°) at the GRAVITY Collaboration (2019) distance",
+        "position_source": "Sagittarius A* (l = 359.944°, b = -0.046°) at the GRAVITY Collaboration (2022) distance",
         "model_note": "Generated from published spiral-arm fits (Reid et al. 2019) with a bar, bulge and dust lanes; the Sun sits on the inner edge of the Local Arm."
       }
     },

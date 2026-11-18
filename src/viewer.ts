@@ -5,13 +5,13 @@ import {
   Quaternion, Sphere, SRGBColorSpace, Vector3, Vector4, WebGLRenderer,
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import { dustGeometry, type Star } from './catalog-model'
+import { clusterHasCatalogMembers, dustGeometry, type Star } from './catalog-model'
 import { createStarAppearance, displayMagnitude, STAR_ADAPTATION_FLUX, STAR_BRIGHTNESSES, starCrowdCoverage, starEyeExposure, STAR_GLARE_MAX_RADIUS_PX, STAR_STYLES, type FaintStars, type StarBrightness, type StarStyle } from './star-appearance'
 import { createDepthLabel } from './depth-label'
 import type { ScenePass } from './scene-shader'
 import { createSceneCrossfade } from './scene-crossfade'
 import { updateCameraNearPlane } from './camera-depth'
-import { CATALOG_FADE_PC, createMilkyWayLayer, distanceFade, GALAXY_LABEL_PRIORITY_PC } from './milky-way-layer'
+import { CATALOG_FADE_PC, createMilkyWayLayer, distanceFade, GALAXY_FADE_PC, GALAXY_LABEL_PRIORITY_PC } from './milky-way-layer'
 import { createRenderStats, type RenderSetup, type RenderStats } from './render-stats'
 import { createEarthOrbitLayer } from './earth-orbit-layer'
 import { createOortCloudLayer, OORT_CLOUD_RADIUS_PC } from './oort-cloud-layer'
@@ -28,9 +28,11 @@ import { centeredForegroundLabelBounds, chooseOrdinaryLabelPlacement, ordinaryLa
 import { createNebulaLayer } from './nebula-layer'
 import { createMolecularCloudLayer } from './molecular-cloud-layer'
 import { createBubbleLayer } from './bubble-layer'
+import { createStarClusterLayer } from './star-cluster-layer'
+import { createGalacticCenterLayer, decimalYear, GALACTIC_CENTER_ID, GALACTIC_CENTER_SYSTEM_ID } from './galactic-center-layer'
 import { createFaintObjectClouds, faintObjectBlobs, isFaintObject } from './faint-object-cloud'
 import { FILTER_KEYS, isFilterKey, type FilterKey } from './object-filter'
-import { closeCompanionIndices, mapComponentVisibility } from './star-systems'
+import { closeCompanionIndices, indexStarSystems, mapComponentVisibility } from './star-systems'
 import { createSpaceshipModel, SPACESHIP_LENGTH_PC, spaceshipMoving, stepSpaceship, type Spaceship, type SpaceshipBrightness, type SpaceshipInput, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
 import type { StarPaint, StarPainter } from './star-paint'
 import { shownInBand, wavelengthAbsoluteMagnitude, wavelengthStarColor, type WavelengthBandId } from './wavelength-vision'
@@ -515,7 +517,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   // the rasterizer. The visible subset only changes with selection/settings.
   haloGeometry.setIndex(stars.map((_, index) => index))
   const haloIndices = haloGeometry.getIndex()!
-  const closeCompanions = closeCompanionIndices(stars)
+  const starSystems = indexStarSystems(stars)
+  const closeCompanions = closeCompanionIndices(stars, starSystems)
+  // A component of the visibility base's own system shares the base's place: the few hundred AU between them
+  // (often inflated by separate parallaxes) would otherwise give a K dwarf companion a blinding magnitude near −10.
+  const sharesBasePlace = (star: Star, base: Star) => base === visibilityBaseStar && starSystems.has(base.id)
+    && starSystems.get(star.id) === starSystems.get(base.id)
   let componentVisible = mapComponentVisibility(stars, null, closeCompanions)
   const coreEnabled = new Uint8Array(stars.length)
   const nextCoreEnabled = new Uint8Array(stars.length)
@@ -569,6 +576,44 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     ? createBubbleLayer(bubbleIndices.map((index) => stars[index]!), starColorMode)
     : null
   if (bubbleLayer) scene.add(bubbleLayer.mesh)
+  // Clusters have no point core: a glow for their faint members, picked within their half-member radius.
+  const clusterIndices = stars.flatMap((star, index) => star.cluster ? [index] : [])
+  const isCluster = new Uint8Array(stars.length)
+  for (const index of clusterIndices) isCluster[index] = 1
+  const clusterPickRadii = clusterIndices.map((index) => stars[index]!.cluster!.half_member_radius_pc)
+  const clusterMembers = clusterIndices.map((index) => new Set(stars[index]!.cluster!.notable_members.map(({ id }) => id)))
+  // Clusters whose bright members the catalogs hold keep the visibility base; the others are observed from like a nebula.
+  const glowOnlyClusters = new Set(clusterIndices.filter((index) => !clusterHasCatalogMembers(stars[index]!, stars)).map((index) => stars[index]!.id))
+  const clusterLayer = clusterIndices.length > 0
+    ? createStarClusterLayer(clusterIndices.map((index) => stars[index]!), starColorMode, glowOnlyClusters)
+    : null
+  if (clusterLayer) scene.add(clusterLayer.group)
+  const clusterCenters = clusterIndices.map((index) => pickable[index]!.position)
+  // Sagittarius A* and the stars on its orbits draw in a layer of their own, placed at the black hole, so they stay precise
+  // 27,000 light-years out; picking and names keep using the catalog points.
+  const galacticCenterIndex = starsById.get(GALACTIC_CENTER_ID)?.index ?? -1
+  const galacticCenterSky = galacticCenterIndex < 0 ? undefined : stars[galacticCenterIndex]!.compact
+  const galacticCenter = galacticCenterSky?.ra_deg != null && galacticCenterSky.dec_deg != null
+    ? createGalacticCenterLayer(galacticCenterSky.ra_deg, galacticCenterSky.dec_deg) : null
+  const galacticCenterYear = decimalYear(new Date())
+  const isGalacticCenterDrawn = new Uint8Array(stars.length)
+  let galacticCenterStars: number[] = []
+  if (galacticCenter) {
+    isGalacticCenterDrawn[galacticCenterIndex] = 1
+    galacticCenter.group.position.copy(pickable[galacticCenterIndex]!.position)
+    scene.add(galacticCenter.group)
+    void import('./stellar-orbit-data').then(({ loadStellarOrbitData }) => loadStellarOrbitData(GALACTIC_CENTER_SYSTEM_ID)).then((orbits) => {
+      if (disposed) return
+      galacticCenterStars = orbits.flatMap((orbit) => starsById.get(orbit.secondaryIds[0]!)?.index ?? [])
+      for (const index of galacticCenterStars) isGalacticCenterDrawn[index] = 1
+      galacticCenter.setOrbits(orbits, galacticCenterColors())
+      applySimulationYears()
+      updatePresentation()
+    }, () => {})
+  }
+  function galacticCenterColors(): Map<string, Color> {
+    return new Map(galacticCenterStars.map((index) => [stars[index]!.id, starColors[index]!]))
+  }
   // Far away, blobs of red dwarfs and fainter objects draw as one cloud each.
   const faintBlobs = faintObjectBlobs(basePositions, (index) => isFaintObject(stars[index]!))
   const faintBlobOf = new Int32Array(stars.length).fill(-1)
@@ -736,7 +781,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let hideFainterObjects = false
   let visibleKeys = new Set<FilterKey>(FILTER_KEYS)
   let objectPredicate: ((star: Star, distancePc: number) => boolean) | null = null
-  let labelLimit = 40
+  let labelLimit = 20
   let motionArrowsVisible = false
   let motionFrame: MotionFrame = 'galactic'
   let motionYears: MotionYears = 1_000
@@ -1182,20 +1227,29 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
   }
 
-  /** Adapts to the brightest star ahead: fully within the view, fading out towards the side. */
+  /**
+   * Adapts to the brightest star ahead, fully within the view and fading out towards the side, by the light that reaches
+   * the camera: a star rated from a distant visibility base, such as a selected star 1,000 ly away, is fainter at the
+   * camera and dims neither the sky nor the other stars.
+   */
   function updateStarExposure(): void {
     let brightest = 0
     if (adaptingStars.length) {
       camera.getWorldDirection(viewDirection)
       const halfDiagonal = Math.atan(Math.tan(camera.fov * Math.PI / 360) / camera.zoom * Math.hypot(1, camera.aspect))
       const viewEdge = Math.cos(halfDiagonal)
+      // Ratings from a free point or the observer's place are already from the camera.
+      const base = closeLightOff ? null : pickable[starsById.get(visibilityBaseStar.id)!.index]!.position
       for (const index of adaptingStars) {
         if (!coreEnabled[index]) continue
-        const direction = adaptingDirection.subVectors(pickable[index]!.position, camera.position)
+        const { position } = pickable[index]!
+        const direction = adaptingDirection.subVectors(position, camera.position)
         const distance = direction.length()
         const cosine = distance > 0 ? viewDirection.dot(direction) / distance : 1
         const weight = Math.min(1, Math.max(0, cosine / viewEdge))
-        brightest = Math.max(brightest, starFluxes.getX(index) * starZoomGain.value * weight)
+        // As in syncCloseLight, the base itself is rated as from 10 pc; a nearer camera already has the close gain.
+        const ratio = base && distance > 0 ? (position.distanceTo(base) || 10) / distance : 1
+        brightest = Math.max(brightest, starFluxes.getX(index) * Math.min(1, ratio * ratio) * starZoomGain.value * weight)
       }
     }
     // The eye adapts as far as the cap has lifted, so approaching a star darkens the sky gradually.
@@ -1240,7 +1294,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     for (let index = 0; index < stars.length; index++) {
       const { position } = pickable[index]!
       // The base and stars sharing its place show their absolute magnitude, as from 10 pc.
-      const ratio = off ? 0 : (position.distanceTo(base) || 10) / position.distanceTo(camera.position)
+      const fromBase = sharesBasePlace(stars[index]!, visibilityBaseStar) ? 0 : position.distanceTo(base)
+      const ratio = off ? 0 : (fromBase || 10) / position.distanceTo(camera.position)
       const gain = ratio > 1 ? ratio * ratio : 1
       if (gain !== closeGains[index]) {
         closeGains[index] = gain
@@ -1371,6 +1426,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       const yearlyMotion = yearlyMotionVectors[index]
       if (yearlyMotion) position.addScaledVector(yearlyMotion, simulationYears)
       starPositionAttribute.setXYZ(index, position.x, position.y, position.z)
+    }
+    if (galacticCenter) {
+      galacticCenter.setYear(galacticCenterYear + simulationYears)
+      for (const index of galacticCenterStars) {
+        pickable[index]!.position.copy(pickable[galacticCenterIndex]!.position).add(galacticCenter.offset(stars[index]!.id)!)
+      }
     }
     starPositionAttribute.needsUpdate = true
     if (neighborhood && updateNeighborhoodMembership()) updatePresentation()
@@ -1531,7 +1592,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         )
         // A shared-position component has no usable viewing distance. Its
         // intrinsic display magnitude also keeps its name in the label budget.
-        apparentMagnitudes[index] = (distancePc === 0
+        apparentMagnitudes[index] = (distancePc === 0 || sharesBasePlace(star, visibilityBase)
           ? bandMagnitudes[index]!
           : apparentVisualMagnitude(bandMagnitudes[index]!, distancePc)) ?? Infinity
         if (visibilityBase === visibilityBaseStar && closeGains[index]! > 1) apparentMagnitudes[index] -= 2.5 * Math.log10(closeGains[index]!)
@@ -1542,7 +1603,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         index,
         // Extended objects have no point magnitude, so stars fill the budget before them.
         priority: star.id === selectedId ? 0 : galaxyLabelsFirst && isGalaxy[index] ? 0.5 : isMolecularCloud[index] ? 3
-          : isNebula[index] || isBubble[index] || isGalaxy[index] ? 2 : 1,
+          : isNebula[index] || isBubble[index] || isGalaxy[index] || isCluster[index] ? 2 : 1,
         magnitude: apparentMagnitudes[index]!,
       })).sort(compareMapLabelCandidates)
       rankedCandidates.forEach(({ index }, rank) => { labelRanks[index] = rank })
@@ -1556,7 +1617,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       // no fainter than a clear star; brighter sources keep their own brightness.
       const boosted = wavelengthBoost && wavelengthBand !== 'visible' && bandShown[index] === 1 && Number.isFinite(apparentMagnitudes[index]!)
       const magnitude = boosted ? Math.min(apparentMagnitudes[index]!, BAND_BOOST_MAGNITUDE) : apparentMagnitudes[index]!
-      const visibilityTier = mapVisibilityTier(star, visibilityBase, selectedId, stars[referenceIndex]!.id, magnitude, magnitudeLimit)
+      const visibilityTier = sharesBasePlace(star, visibilityBase) ? 'base'
+        : mapVisibilityTier(star, visibilityBase, selectedId, stars[referenceIndex]!.id, magnitude, magnitudeLimit)
       const tier = boosted && visibilityTier === 'background' ? 'eligible' : visibilityTier
       const visible = isObjectMapVisible(
         star,
@@ -1616,6 +1678,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       molecularCloudLayer.setVisible(molecularCloudIndices.map((index) => mapVisible[index] === 1 && !faintHidden[index] && index !== observerIndex))
       labelLayer.dataset.molecularCloudPuffCount = String(molecularCloudLayer.instanceCount())
     }
+    if (galacticCenter) {
+      const shown = (index: number) => mapVisible[index] === 1 && !faintHidden[index] && index !== observerIndex
+      galacticCenter.setVisible(shown(galacticCenterIndex), new Set(galacticCenterStars.filter(shown).map((index) => stars[index]!.id)))
+    }
+    clusterLayer?.setVisible(clusterIndices.map((index) => mapVisible[index] === 1 && !faintHidden[index] && index !== observerIndex))
     if (bubbleLayer) {
       const bubbleVisibility = bubbleIndices.map((index) => mapVisible[index] === 1 && !faintHidden[index] && index !== observerIndex)
       bubbleLayer.setVisible(bubbleVisibility)
@@ -1672,7 +1739,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const observerIndex = hiddenObserverIndex()
     for (let index = 0; index < stars.length; index++) {
       nextCoreEnabled[index] = componentVisible[index] && mapVisible[index] && !faintHidden[index] && index !== observerIndex
-        && !isNebula[index] && !isMolecularCloud[index] && !isBubble[index] && !isGalaxy[index] ? 1 : 0
+        && !isNebula[index] && !isMolecularCloud[index] && !isBubble[index] && !isGalaxy[index] && !isCluster[index] && !isGalacticCenterDrawn[index] ? 1 : 0
     }
     for (let index = 0; index < stars.length; index++) {
       nextHaloEnabled[index] = starStyle === 'exaggerated' && nextCoreEnabled[index] && (tiers[index] !== 'background' || starPaints?.[index]!.magnitude !== undefined) ? 1 : 0
@@ -1752,7 +1819,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (!projectWorldPointInto(position, viewProjection, viewport, clipPoint, projected)) continue
       projected.visible = true
       // Draw the default representative and any explicitly selected companion.
-      if (coreEnabled[index] || isNebula[index] || isMolecularCloud[index] || isBubble[index] || isGalaxy[index]) projectedPickables.push(projected)
+      if (coreEnabled[index] || isNebula[index] || isMolecularCloud[index] || isBubble[index] || isGalaxy[index] || isCluster[index] || isGalacticCenterDrawn[index]) projectedPickables.push(projected)
       if (!motionArrowsVisible) continue
       const motion = motions[index]
       if (!motion || tiers[index] === 'background') continue
@@ -1994,7 +2061,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       starObstacles.clear()
       const radius = STAR_DIAMETER_PX / 2
       for (const projected of projectedPickables) {
-        if (isNebula[projected.index] || isMolecularCloud[projected.index] || isBubble[projected.index] || isGalaxy[projected.index] || !starBlocksLabels(tiers[projected.index]!)) continue
+        if (isNebula[projected.index] || isMolecularCloud[projected.index] || isBubble[projected.index] || isGalaxy[projected.index] || isCluster[projected.index] || !starBlocksLabels(tiers[projected.index]!)) continue
         const obstacle = starObstacleEntries[projected.index]!
         obstacle.depth = projected.depth
         obstacle.magnitude = apparentMagnitudes[projected.index]!
@@ -2137,8 +2204,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     selectedId = id
     molecularCloudLayer?.setSelected(id)
     bubbleLayer?.setSelected(id)
+    galacticCenter?.setSelected(id)
     obstacleBoundsDirty = true
-    if (star && !observerViewEnabled && !visibilityLocked) visibilityBaseStar = star
+    if (star && (!star.cluster || glowOnlyClusters.has(star.id)) && !observerViewEnabled && !visibilityLocked) visibilityBaseStar = star
     updatePresentation()
     disposeGeometry(guides)
     guides.clear()
@@ -2482,6 +2550,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     syncStarGlare()
     renderer.setSize(width, height)
     nebulaLayer?.setViewportHeight(height * pixelRatio)
+    clusterLayer?.setViewportHeight(height * pixelRatio)
     milkyWay.setViewportHeight(height * pixelRatio)
     molecularCloudLayer?.setViewportHeight(height * pixelRatio)
     faintClouds.setViewportHeight(height * pixelRatio)
@@ -2520,15 +2589,55 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       }
       projectionGridDirty = false
     }
-    return pickProjectedStarAtScreenPoint(projectionGrid, projectionViewport, event, event.pointerType === 'touch' ? 24 : 16)
-      ?? pickExtendedVolume(event, projectionViewport)
+    const radius = event.pointerType === 'touch' ? 24 : 16
+    const id = pickProjectedStarAtScreenPoint(projectionGrid, projectionViewport, event, radius)
+    return id ? galaxyAroundPick(id, event, radius) ?? clusterAroundPick(id, event, projectionViewport, radius) ?? id : pickExtendedVolume(event, projectionViewport)
+  }
+  // While a cluster looks small, it wins over its members: its notable members, whose own distances can be poor, and
+  // the stars within its tidal radius. A pointer right on a member's drawn core, at least a quarter and at most half
+  // the pick radius, still picks the star. Once its half-member radius spans a tenth of the view, the stars win again.
+  function clusterAroundPick(id: string, event: PointerPosition, viewport: DOMRect, radius: number): string | null {
+    const index = starsById.get(id)!.index
+    if (isCluster[index]) return null
+    const star = projections[index]!
+    const directHit = Math.min(radius / 2, Math.max(radius / 4, coreDiameters.getX(index) / 2))
+    if (Math.hypot(event.clientX - star.x, event.clientY - star.y) <= directHit) return null
+    const projectionScale = camera.projectionMatrix.elements[5]! * 0.5 * viewport.height
+    for (let order = 0; order < clusterIndices.length; order++) {
+      const clusterIndex = clusterIndices[order]!
+      const projected = projections[clusterIndex]!
+      const cluster = stars[clusterIndex]!.cluster!
+      if (!projected.visible || cluster.half_member_radius_pc * projectionScale / projected.depth > 0.1 * viewport.height) continue
+      if (clusterMembers[order]!.has(id) || pickable[index]!.position.distanceTo(pickable[clusterIndex]!.position) <= cluster.tidal_radius_pc) return projected.id
+    }
+    return null
+  }
+  // The extent in pc around a galaxy's center that picks it: all of it seen from outside. From inside, once the
+  // Milky Way model draws, its core picks it while the camera is clear of that core; otherwise nothing does.
+  function galaxyPickExtent(order: number, depth: number): number {
+    const radius = galaxyPickRadii[order]!
+    if (depth >= 1.5 * radius) return radius
+    return depth >= radius / 2 && camera.position.distanceTo(pickable[sunIndex]!.position) > GALAXY_FADE_PC[0] ? radius / 4 : 0
+  }
+  // A galaxy wins over the objects inside its pick extent that draw on its center, such as Sagittarius A* and the
+  // stars orbiting it.
+  function galaxyAroundPick(id: string, event: PointerPosition, radius: number): string | null {
+    const position = pickable[starsById.get(id)!.index]!.position
+    for (let order = 0; order < galaxyIndices.length; order++) {
+      const index = galaxyIndices[order]!
+      const projected = projections[index]!
+      const extent = projected.visible ? galaxyPickExtent(order, projected.depth) : 0
+      if (extent === 0 || Math.hypot(event.clientX - projected.x, event.clientY - projected.y) > radius) continue
+      if (position.distanceTo(pickable[index]!.position) <= extent) return projected.id
+    }
+    return null
   }
   function pickExtendedVolume(event: PointerPosition, viewport: DOMRect): string | null {
     let picked: string | null = null
     let nearestDepth = Infinity
     const projectionScale = camera.projectionMatrix.elements[5]! * 0.5 * viewport.height
     const hits: { id: string; depth: number; radius: number }[] = []
-    for (const [indices, radii] of [[nebulaIndices, nebulaPickRadii], [dustIndices, dustPickRadii]] as const) {
+    for (const [indices, radii] of [[nebulaIndices, nebulaPickRadii], [dustIndices, dustPickRadii], [clusterIndices, clusterPickRadii]] as const) {
       for (let order = 0; order < indices.length; order++) {
         const projected = projections[indices[order]!]!
         if (!projected.visible) continue
@@ -2549,9 +2658,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     for (let order = 0; order < galaxyIndices.length; order++) {
       const index = galaxyIndices[order]!
       const projected = projections[index]!
-      const radius = galaxyPickRadii[order]!
-      if (!projected.visible || projected.depth >= nearestDepth || projected.depth < 1.5 * radius) continue
-      if (Math.hypot(event.clientX - projected.x, event.clientY - projected.y) > radius * projectionScale / projected.depth) continue
+      const extent = projected.visible && projected.depth < nearestDepth ? galaxyPickExtent(order, projected.depth) : 0
+      if (extent === 0 || Math.hypot(event.clientX - projected.x, event.clientY - projected.y) > extent * projectionScale / projected.depth) continue
       picked = projected.id
       nearestDepth = projected.depth
     }
@@ -2819,6 +2927,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     const catalogFade = 1 - distanceFade(sunDistance, CATALOG_FADE_PC)
     starFade.value = catalogFade
     nebulaLayer?.setOpacity(catalogFade)
+    clusterLayer?.update(camera, clusterCenters, catalogFade)
     const nextCatalogLod = catalogFade === 1 ? 'full' : catalogFade === 0 ? 'gone' : 'fading'
     if (nextCatalogLod !== catalogLod) {
       catalogLod = nextCatalogLod
@@ -2860,6 +2969,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     // The fade alone does not move labels, so it keeps frames coming without setLabelsMoving().
     milkyWayFading = milkyWay.updateFade(time)
     milkyWay.update(camera)
+    galacticCenter?.update(camera, renderWidth, renderHeight, renderer.getPixelRatio())
     renderer.info.reset()
     if (programsStale) {
       programsStale = false
@@ -3192,7 +3302,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       nebulaLayer?.setColorMode(mode)
       molecularCloudLayer?.setColorMode(mode)
       bubbleLayer?.setColorMode(mode)
+      clusterLayer?.setColorMode(mode)
       faintClouds.setColorMode(mode)
+      galacticCenter?.setColors(galacticCenterColors())
       requestRender()
     },
     setStarStyle(style) {
@@ -3424,6 +3536,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       molecularCloudLayer?.dispose()
       scenePass?.dispose()
       bubbleLayer?.dispose()
+      clusterLayer?.dispose()
+      galacticCenter?.dispose()
       faintClouds.dispose()
       spaceshipModel?.dispose()
       dotTexture.dispose()

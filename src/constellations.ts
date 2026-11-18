@@ -82,7 +82,7 @@ export async function loadConstellationByName(name: string): Promise<Constellati
 
 /** Catalogue sky position as seen from the Sun, independent of the 3D-map origin. */
 export function objectSkyPosition(object: Star): SkyPosition | null {
-  const astrometry = object.raw_astrometry ?? object.sky_position ?? object.nebula ?? object.compact ?? object.galaxy
+  const astrometry = object.raw_astrometry ?? object.sky_position ?? object.nebula ?? object.compact ?? object.galaxy ?? object.cluster
   if (astrometry && Number.isFinite(astrometry.ra_deg) && Number.isFinite(astrometry.dec_deg)) {
     return { ra_deg: astrometry.ra_deg, dec_deg: astrometry.dec_deg }
   }

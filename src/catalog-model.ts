@@ -4,12 +4,14 @@ export const NEBULA_OBJECT_TYPES = ['reflection_nebula', 'hii_region', 'planetar
 export const MOLECULAR_CLOUD_OBJECT_TYPES = ['molecular_cloud', 'dark_nebula'] as const
 export const BUBBLE_OBJECT_TYPES = ['bubble'] as const
 export const GALAXY_OBJECT_TYPES = ['galaxy'] as const
-export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES, ...NEBULA_OBJECT_TYPES, ...MOLECULAR_CLOUD_OBJECT_TYPES, ...BUBBLE_OBJECT_TYPES, ...GALAXY_OBJECT_TYPES] as const
+export const STAR_CLUSTER_OBJECT_TYPES = ['open_cluster', 'globular_cluster'] as const
+export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES, ...NEBULA_OBJECT_TYPES, ...MOLECULAR_CLOUD_OBJECT_TYPES, ...BUBBLE_OBJECT_TYPES, ...GALAXY_OBJECT_TYPES, ...STAR_CLUSTER_OBJECT_TYPES] as const
 export type ObjectType = typeof OBJECT_TYPES[number]
 export type NebulaObjectType = typeof NEBULA_OBJECT_TYPES[number]
 export type MolecularCloudObjectType = typeof MOLECULAR_CLOUD_OBJECT_TYPES[number]
 export type BubbleObjectType = typeof BUBBLE_OBJECT_TYPES[number]
 export type GalaxyObjectType = typeof GALAXY_OBJECT_TYPES[number]
+export type StarClusterObjectType = typeof STAR_CLUSTER_OBJECT_TYPES[number]
 
 // IAU ICRS-to-Galactic rotation (Hipparcos convention), row-major.
 export const ICRS_TO_GALACTIC_ROWS = [
@@ -66,6 +68,8 @@ export interface NebulaDetails {
   position_source: string
   angular_size_arcmin: [number, number]
   illuminating_stars: string
+  // Stars named in illuminating_stars that a shipped catalog holds; each name is the text it links.
+  illuminating_star_links?: { catalog: string; id: string; name: string }[]
   shape: NebulaShape
   // Hex sRGB colors ordered from the illuminated core outward.
   palette: { real: string[]; exaggerated: string[] }
@@ -86,6 +90,8 @@ export interface RemnantDetails {
   age_source: string
   // The neutron star the explosion left behind, when one is identified in the compact-object overlay.
   neutron_star: { id: string; name: string } | null
+  // A black hole (or candidate) left instead of a neutron star; neutron_star is then null.
+  black_hole?: { id: string; name: string }
   // The star that survived the explosion, in the star catalog that holds it.
   surviving_star?: { catalog: string; id: string; name: string }
   // Temperature of the X-ray-emitting gas; null when not adopted.
@@ -271,6 +277,48 @@ export interface GalaxyDetails {
     surface_brightness_v: number
     source: GalaxySource
   }
+  position_source: string
+  model_note: string
+}
+
+export interface StarClusterDetails {
+  /** Center of the Gaia DR3 members, J2000. */
+  ra_deg: number
+  dec_deg: number
+  distance_pc: number
+  distance_error_pc: number
+  distance_method: string
+  distance_source: GalaxySource
+  age_myr: number
+  age_error_myr: number
+  age_method: string
+  age_source: GalaxySource
+  metallicity_fe_h: number
+  metallicity_error_dex: number
+  metallicity_source: GalaxySource
+  /** Gaia DR3 members within the tidal radius, and all members including those beyond it; null for globular clusters. */
+  members_within_tidal_radius: number | null
+  members_total: number | null
+  members_source: GalaxySource | null
+  /** Mass within the tidal radius. */
+  mass_solar: number
+  mass_error_solar: number
+  /**
+   * Projected radius holding half the members within the tidal radius, or half the light of a globular cluster; it also
+   * sets the drawn glow.
+   */
+  half_member_radius_pc: number
+  /** Core radius of a globular cluster (Spitzer 1987 definition); with the half-light radius it shapes the glow. Null for open clusters. */
+  core_radius_pc: number | null
+  /** Beyond it, the Milky Way's tides pull harder than the cluster holds; it bounds the drawn glow and its pick area. */
+  tidal_radius_pc: number
+  structure_source: GalaxySource
+  radial_velocity_kms: number
+  radial_velocity_error_kms: number
+  radial_velocity_source: GalaxySource
+  /** Reviewed members that a bundled catalog holds. */
+  notable_members: { catalog: string; id: string; name: string }[]
+  palette: { real: string; exaggerated: string }
   position_source: string
   model_note: string
 }
@@ -512,6 +560,7 @@ export interface Star {
   dark_nebula?: DarkNebulaDetails
   bubble?: BubbleDetails
   galaxy?: GalaxyDetails
+  cluster?: StarClusterDetails
 }
 
 export type DesignationPart = { key: string } | { names: readonly string[] }
@@ -547,6 +596,27 @@ export function isGalaxyObject(star: Pick<Star, 'type'>): boolean {
   return GALAXY_OBJECT_TYPES.some((type) => type === star.type)
 }
 
+export function isStarClusterObject(star: Pick<Star, 'type'>): boolean {
+  return STAR_CLUSTER_OBJECT_TYPES.some((type) => type === star.type)
+}
+
+// A stray star or two inside the tidal radius does not stand for a cluster's bright members.
+const CLUSTER_CATALOG_MEMBERS = 3
+
+/**
+ * Whether the catalogs hold a cluster's bright members, as stars inside its tidal radius. They take over from its glow up
+ * close and would dazzle at its center. A distant cluster without them is only its glow, and is observed from like a nebula.
+ */
+export function clusterHasCatalogMembers(cluster: Pick<Star, 'x_pc' | 'y_pc' | 'z_pc' | 'cluster'>, stars: readonly Star[]): boolean {
+  const radius = cluster.cluster?.tidal_radius_pc ?? 0
+  let count = 0
+  for (const star of stars) {
+    if (!STELLAR_OBJECT_TYPES.some((type) => type === star.type)) continue
+    if (Math.hypot(star.x_pc - cluster.x_pc, star.y_pc - cluster.y_pc, star.z_pc - cluster.z_pc) <= radius && ++count >= CLUSTER_CATALOG_MEMBERS) return true
+  }
+  return false
+}
+
 export function objectTypeLabel(type: ObjectType): string {
   return {
     star: 'Star',
@@ -564,6 +634,8 @@ export function objectTypeLabel(type: ObjectType): string {
     dark_nebula: 'Dark nebula',
     bubble: 'Bubble',
     galaxy: 'Galaxy',
+    open_cluster: 'Open cluster',
+    globular_cluster: 'Globular cluster',
   }[type]
 }
 

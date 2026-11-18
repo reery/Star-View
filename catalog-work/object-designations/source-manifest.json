@@ -8,9 +8,9 @@
     "simbad.csv": "d2f31fe2362ae8b8b56b672e93ab48e144457ed5795e3b90fb905ffc78bdea12",
     "components.adql": "060f2470f9a4f0aedbca9c9393a7e33e1b4e154328ab4af6bb8e4ade02d4e07b",
     "components.csv": "4e0c1bec3a3089dc6acc19a250b460c7a2876fcc0cfdf0b2595afe44f4166291",
-    "extended.adql": "81c43d225a09d212aa18fad01d80b7bb3f4ea304dd1b3d3be4136819474a0e65",
-    "extended.csv": "69199f0d3ab98431193121a3efc9410ece02decdb8b01da810eb298fc3a9af10",
-    "preferred-names.json": "b8c663cf3f28382d99be356a08caa020a9301e53ded778c0b6da8326b9cd07c1",
+    "extended.adql": "bd94415236f54145a8b5621a002c21505d759231921ee52202318477d205b192",
+    "extended.csv": "ee86c63e19f28d816bee05189d681c11be7ea5615b8f75b42736be6ca97545f7",
+    "preferred-names.json": "fd269af9e56e63eb93bd9595c2fa84e2b5d4a15eb3712921cb83feeb3243ecd8",
     "iau-names.csv": "ad39e5c1a6ec5d47f1da6f4595647ed2f5f663408d3d6500124ddf04cac188c9"
   },
   "iauSource": "https://iauarchive.eso.org/public/themes/naming_stars/",
@@ -51,6 +51,60 @@
         "extended.csv"
       ],
       "note": "Five extended.adql queries appended for the 607 dark nebulae within 1000 ly (LDN, Barnard, FeSt 1 and Sandqvist identifiers). LDN 1535 resolves to the protostar IRAS 04325+2402, so only cloud records identify dark nebulae. A sixth query adds Sh 2-276 (Barnard’s Loop). Earlier rows are unchanged."
+    },
+    {
+      "retrieved": "2026-11-18",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "extended.adql",
+        "extended.csv"
+      ],
+      "note": "A query appended for the Galactic Center: Sagittarius A*, S2 and GCIRS 7. S29, S38, S55 and S4716 have no SIMBAD record under these names. Earlier rows are unchanged."
+    },
+    {
+      "retrieved": "2026-11-18",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "extended.adql",
+        "extended.csv"
+      ],
+      "note": "A query appended for the landmark remnants and compact objects: IC 443 and Sh 2-240 (Simeis 147), SS 433, GRS 1915+105, the magnetars SGR 1806-20 and SGR 1900+14 under their ATNF names, CXOU J061705.3+222127, PSR J0205+6449 and PSR B1853+01. Earlier rows are unchanged."
+    },
+    {
+      "retrieved": "2026-11-18",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "extended.adql",
+        "extended.csv"
+      ],
+      "note": "A query appended for the open clusters Cl Melotte 22 (Pleiades) and Cl Melotte 25 (Hyades). Earlier rows are unchanged."
+    },
+    {
+      "retrieved": "2026-11-18",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "extended.adql",
+        "extended.csv"
+      ],
+      "note": "A query appended for the extreme giants, massive stars and Wolf–Rayet binaries of the Notable distant stars catalog: VY CMa, UY Sct, Stephenson 2 DFK 1, WOH G 64, the Pistol Star, RMC 136a1, Westerlund 1 W 26, WR 140 and WR 104. The SIMBAD records of WR 140 and WR 104 are the unresolved systems and identify their Wolf–Rayet components A. Earlier rows are unchanged."
+    },
+    {
+      "retrieved": "2026-11-18",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "extended.adql",
+        "extended.csv"
+      ],
+      "note": "A query appended for the globular clusters NGC 104, NGC 5139, M 4, M 13, M 22, M 15 and Cl Terzan 5 and the H II regions W 49a, W 51, Cygnus X, RCW 49 (GUM 29), IC 1805, IC 1848 and Sh 2-106. Earlier rows are unchanged."
+    },
+    {
+      "retrieved": "2026-11-18",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "extended.adql",
+        "extended.csv"
+      ],
+      "note": "A query appended for spec-card identities of the open clusters M 44, NGC 869, NGC 884, M 67 and NGC 3532, the far nebulae and remnants M 8, M 16, M 17, M 20, the Rosette, Carina, North America and Tarantula nebulae, Puppis A, W 44, W 50, 3C 58 and G1.9+0.3, the hypervelocity stars HE 2251-5127 (S5-HVS1) and US 708, and PSR J1748-2446ad. Earlier rows are unchanged."
     }
   ],
   "compactExpansion": {
