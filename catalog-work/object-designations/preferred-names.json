@@ -359,5 +359,500 @@
     "sources": [
       "https://simbad.cds.unistra.fr/simbad/sim-basic?Ident=Sh+2-276"
     ]
+  },
+  "sgr-a-star": {
+    "name": "Sagittarius A*",
+    "identifiers": [
+      "NAME Sgr A*"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Sgr+A*"
+    ],
+    "withheld": [
+      "NAME Sgr A",
+      "NAME Sagittarius A"
+    ],
+    "note": "SIMBAD merges the names of the larger Sagittarius A radio complex into the black hole's record; they are withheld because the complex also holds Sgr A East and Sgr A West."
+  },
+  "s2": {
+    "name": "S2",
+    "identifiers": [
+      "[EG97] S2"
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/S2_(star)"
+    ]
+  },
+  "gcirs-7": {
+    "name": "GCIRS 7",
+    "identifiers": [
+      "GCIRS 7"
+    ],
+    "sources": [
+      "https://arxiv.org/abs/1406.5320"
+    ]
+  },
+  "ss-433": {
+    "name": "SS 433",
+    "sources": [
+      "https://en.wikipedia.org/wiki/SS_433"
+    ],
+    "identifiers": [
+      "SS 433"
+    ]
+  },
+  "grs-1915p105": {
+    "name": "GRS 1915+105",
+    "sources": [
+      "https://en.wikipedia.org/wiki/GRS_1915%2B105"
+    ],
+    "identifiers": [
+      "Granat 1915+105"
+    ]
+  },
+  "sgr-1806m20": {
+    "name": "SGR 1806-20",
+    "sources": [
+      "https://en.wikipedia.org/wiki/SGR_1806%E2%88%9220"
+    ],
+    "identifiers": [
+      "PSR J1808-2024"
+    ]
+  },
+  "sgr-1900p14": {
+    "name": "SGR 1900+14",
+    "sources": [
+      "https://en.wikipedia.org/wiki/SGR_1900%2B14"
+    ],
+    "identifiers": [
+      "PSR J1907+0919"
+    ]
+  },
+  "cxou-j061705": {
+    "name": "CXOU J061705.3+222127",
+    "sources": [
+      "https://doi.org/10.1051/0004-6361/202556086"
+    ],
+    "identifiers": [
+      "CXOU J061705.3+222127"
+    ]
+  },
+  "hyades": {
+    "name": "Hyades",
+    "identifiers": [
+      "Cl Melotte 25"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Cl+Melotte+25"
+    ],
+    "note": "The open-cluster record; its member stars keep their own SIMBAD records."
+  },
+  "pleiades": {
+    "name": "Pleiades",
+    "identifiers": [
+      "Cl Melotte 22"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Cl+Melotte+22"
+    ],
+    "note": "The open-cluster record; its member stars keep their own SIMBAD records."
+  },
+  "vy-canis-majoris": {
+    "name": "VY Canis Majoris",
+    "identifiers": [
+      "V* VY CMa"
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/VY_Canis_Majoris"
+    ]
+  },
+  "uy-scuti": {
+    "name": "UY Scuti",
+    "identifiers": [
+      "V* UY Sct"
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/UY_Scuti"
+    ]
+  },
+  "stephenson-2-18": {
+    "name": "Stephenson 2-18",
+    "identifiers": [
+      "Cl* Stephenson 2 DFK 1"
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Stephenson_2-18"
+    ]
+  },
+  "woh-g64": {
+    "name": "WOH G64",
+    "identifiers": [
+      "WOH G 64"
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/WOH_G64"
+    ]
+  },
+  "pistol-star": {
+    "name": "Pistol Star",
+    "identifiers": [
+      "NAME Pistol Star"
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Pistol_Star"
+    ]
+  },
+  "r136a1": {
+    "name": "R136a1",
+    "identifiers": [
+      "RMC 136a1"
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/R136a1"
+    ]
+  },
+  "westerlund-1-w26": {
+    "name": "Westerlund 1 W26",
+    "identifiers": [
+      "Cl* Westerlund 1 W 26"
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/Westerlund_1_W26"
+    ]
+  },
+  "wr-140-a": {
+    "name": "WR 140 A",
+    "identifiers": [
+      "WR 140"
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/WR_140"
+    ]
+  },
+  "wr-104-a": {
+    "name": "WR 104 A",
+    "identifiers": [
+      "WR 104"
+    ],
+    "sources": [
+      "https://en.wikipedia.org/wiki/WR_104"
+    ]
+  },
+  "omega-centauri": {
+    "name": "Omega Centauri",
+    "identifiers": [
+      "NGC 5139"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+5139"
+    ],
+    "note": "The globular-cluster record; its member stars and pulsars keep their own SIMBAD records."
+  },
+  "47-tucanae": {
+    "name": "47 Tucanae",
+    "identifiers": [
+      "NGC 104"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+104"
+    ],
+    "note": "The globular-cluster record; its member stars and pulsars keep their own SIMBAD records."
+  },
+  "messier-4": {
+    "name": "Messier 4",
+    "identifiers": [
+      "M 4"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+4"
+    ],
+    "note": "The globular-cluster record; its member stars and pulsars keep their own SIMBAD records."
+  },
+  "messier-13": {
+    "name": "Messier 13",
+    "identifiers": [
+      "M 13"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+13"
+    ],
+    "note": "The globular-cluster record; its member stars and pulsars keep their own SIMBAD records."
+  },
+  "messier-22": {
+    "name": "Messier 22",
+    "identifiers": [
+      "M 22"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+22"
+    ],
+    "note": "The globular-cluster record; its member stars and pulsars keep their own SIMBAD records."
+  },
+  "messier-15": {
+    "name": "Messier 15",
+    "identifiers": [
+      "M 15"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+15"
+    ],
+    "note": "The globular-cluster record; its member stars and pulsars keep their own SIMBAD records."
+  },
+  "terzan-5": {
+    "name": "Terzan 5",
+    "identifiers": [
+      "Cl Terzan 5"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Cl+Terzan+5"
+    ],
+    "note": "The globular-cluster record; its member stars and pulsars keep their own SIMBAD records."
+  },
+  "w49a": {
+    "name": "W49A",
+    "identifiers": [
+      "W 49a"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=W+49a"
+    ],
+    "note": "The giant H II region W49A; W 49 is the whole radio source, including the supernova remnant W49B."
+  },
+  "w51": {
+    "name": "W51",
+    "identifiers": [
+      "W 51"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=W+51"
+    ],
+    "note": "SIMBAD files the whole Westerhout 51 source, including the supernova remnant W51C, under W 51; only its nebular names are kept."
+  },
+  "cygnus-x": {
+    "name": "Cygnus X",
+    "identifiers": [
+      "NAME Cygnus X"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NAME+Cygnus+X"
+    ]
+  },
+  "rcw-49": {
+    "name": "RCW 49",
+    "identifiers": [
+      "RCW 49"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=RCW+49"
+    ]
+  },
+  "heart-nebula": {
+    "name": "Heart Nebula",
+    "identifiers": [
+      "IC 1805"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=IC+1805"
+    ],
+    "note": "SIMBAD files the nebula Sh 2-190 and its cluster under IC 1805."
+  },
+  "soul-nebula": {
+    "name": "Soul Nebula",
+    "identifiers": [
+      "IC 1848"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=IC+1848"
+    ],
+    "note": "SIMBAD files the nebula Sh 2-199 and its cluster under IC 1848."
+  },
+  "sh-2-106": {
+    "name": "Sh 2-106",
+    "identifiers": [
+      "Sh 2-106"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Sh+2-106"
+    ]
+  },
+  "beehive-cluster": {
+    "name": "Beehive Cluster",
+    "identifiers": [
+      "M 44"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+44"
+    ]
+  },
+  "ngc-869": {
+    "name": "NGC 869",
+    "identifiers": [
+      "NGC 869"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+869"
+    ]
+  },
+  "ngc-884": {
+    "name": "NGC 884",
+    "identifiers": [
+      "NGC 884"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+884"
+    ]
+  },
+  "messier-67": {
+    "name": "Messier 67",
+    "identifiers": [
+      "M 67"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+67"
+    ]
+  },
+  "ngc-3532": {
+    "name": "NGC 3532",
+    "identifiers": [
+      "NGC 3532"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+3532"
+    ]
+  },
+  "lagoon-nebula": {
+    "name": "Lagoon Nebula",
+    "identifiers": [
+      "M 8"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+8"
+    ]
+  },
+  "trifid-nebula": {
+    "name": "Trifid Nebula",
+    "identifiers": [
+      "M 20"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+20"
+    ]
+  },
+  "eagle-nebula": {
+    "name": "Eagle Nebula",
+    "identifiers": [
+      "M 16"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+16"
+    ]
+  },
+  "omega-nebula": {
+    "name": "Omega Nebula",
+    "identifiers": [
+      "M 17"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=M+17"
+    ]
+  },
+  "rosette-nebula": {
+    "name": "Rosette Nebula",
+    "identifiers": [
+      "Sh 2-275"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Sh+2-275"
+    ]
+  },
+  "carina-nebula": {
+    "name": "Carina Nebula",
+    "identifiers": [
+      "NGC 3372"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+3372"
+    ]
+  },
+  "north-america-nebula": {
+    "name": "North America and Pelican Nebulae",
+    "identifiers": [
+      "NGC 7000"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+7000"
+    ]
+  },
+  "tarantula-nebula": {
+    "name": "Tarantula Nebula",
+    "identifiers": [
+      "NAME 30 Dor Nebula"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NAME+30+Dor+Nebula"
+    ]
+  },
+  "puppis-a": {
+    "name": "Puppis A",
+    "identifiers": [
+      "NAME Puppis A"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NAME+Puppis+A"
+    ]
+  },
+  "w44": {
+    "name": "W44",
+    "identifiers": [
+      "W 44"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=W+44"
+    ]
+  },
+  "g1-9p0-3": {
+    "name": "G1.9+0.3",
+    "identifiers": [
+      "SNR G001.9+00.3"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=SNR+G001.9+00.3"
+    ]
+  },
+  "w50": {
+    "name": "Manatee Nebula",
+    "identifiers": [
+      "W 50"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=W+50"
+    ]
+  },
+  "3c-58": {
+    "name": "3C 58",
+    "identifiers": [
+      "3C 58"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=3C+58"
+    ]
+  },
+  "s5-hvs1": {
+    "name": "S5-HVS1",
+    "identifiers": [
+      "HE 2251-5127"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=HE+2251-5127"
+    ]
+  },
+  "us-708": {
+    "name": "US 708",
+    "identifiers": [
+      "US 708"
+    ],
+    "sources": [
+      "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=US+708"
+    ]
   }
 }

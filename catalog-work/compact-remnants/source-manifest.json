@@ -6,17 +6,19 @@
     "downloadUrl": "https://www.atnf.csiro.au/research/pulsar/psrcat/downloads/psrcat_pkg.tar.gz",
     "downloaded": "2026-10-26",
     "archiveSha256": "55daa29f71f344c8de4064969b5812d6cb3a9b851efae0bef004ac9d5f6740c0",
-    "subsetSha256": "00b6d440bd282249e87c97afdebe84d43c7a4b6754446ce4603deed8257a7013",
-    "glitchSubsetSha256": "30066c806c1dc5d0fd436b4b0effaac8609d827bbf7a2db33aebb984462215a6",
+    "subsetSha256": "7a7909687789dcd7bb33289bd6eedff4240f628c03bbdc784cede2e7636ea06f",
+    "glitchSubsetSha256": "d66d06deaf241ba60ffdb9a9eaf0fc26cbbba76bcbe5211f94a4a66cd7836d94",
     "selection": "Reviewed or ATNF DIST <= 3.0660139380 kpc (10000 ly), and <= 0.9198041814 kpc when only a dispersion-measure model distance exists; no CAND or INTERIM type; verbatim psrcat.db records and their glitch.db rows",
-    "rows": 420,
+    "rows": 422,
     "previous": {
       "catalogVersion": "2.9.0",
       "downloaded": "2026-10-26",
       "archiveSha256": "55daa29f71f344c8de4064969b5812d6cb3a9b851efae0bef004ac9d5f6740c0",
       "rows": 272,
-      "change": "Selection widened on 2026-11-05 from 3000 to 10000 light-years, requiring a distance independent of the dispersion-measure model beyond 3000 light-years. All 272 earlier pulsars remain selected."
-    }
+      "change": "Selection widened on 2026-11-05 from 3000 to 10000 light-years, requiring a distance independent of the dispersion-measure model beyond 3000 light-years. All 272 earlier pulsars remain selected. On 2026-11-18 the same package was refrozen after reviewed remnant distances placed PSR J0205+6449 (3C 58, 2 kpc) and PSR J1856+0113 (W44, 3 kpc) inside the radius; all 420 earlier pulsars remain selected."
+    },
+    "landmarkSubsetSha256": "9a98c8edbc46e10325bf53b7246bd4ffe7d488c07ca7ca6ef28667db295228d9",
+    "landmarkSelection": "Reviewed landmark pulsars beyond the radius listed in atnf-landmarks.json, from the same package; added 2026-11-18 with PSR J1748-2446ad."
   },
   "blackcat": {
     "catalogVersion": "2025",

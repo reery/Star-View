@@ -259,7 +259,10 @@ const NEBULA_BAND_OFFSETS: Record<NebulaObjectType, Partial<Record<WavelengthBan
 // The Cygnus Loop is one of the brightest soft X-ray sources in the sky (ROSAT, Levenson et al. 1997) and glows
 // across its whole shell in GALEX far-ultraviolet images. Hot gas from the winds of massive stars fills the H II
 // regions of the most massive clusters: 30 Doradus (Townsley et al. 2006), M17 and the Rosette (Townsley et al.
-// 2003) and the Carina Nebula (Townsley et al. 2011).
+// 2003) and the Carina Nebula (Townsley et al. 2011). Dust hides W49A and W51 in visible light, but they are among the
+// strongest thermal radio sources and the most luminous far-infrared regions of the Milky Way (Westerhout 1958; Harvey et
+// al. 1977): W49A, small and dense, rivals the Orion Nebula per area in radio waves (Paladini et al. 2003). Cygnus X, dimmed by the Cygnus Rift
+// in visible light, glows brighter than its H-alpha suggests in the far infrared and radio waves.
 const NEBULA_BANDS: Record<string, Partial<Record<WavelengthBandId, number>>> = {
   'cassiopeia-a': { 'x-ray': 21.5 },
   'crab-nebula': { 'x-ray': 20.5, 'near-infrared': 22, 'far-infrared': 23 },
@@ -278,6 +281,9 @@ const NEBULA_BANDS: Record<string, Partial<Record<WavelengthBandId, number>>> = 
   'omega-nebula': { 'x-ray': 22.5 },
   'carina-nebula': { 'x-ray': 23 },
   'rosette-nebula': { 'x-ray': 24 },
+  w49a: { 'near-infrared': 23, 'far-infrared': 19, radio: 19.3 },
+  w51: { 'near-infrared': 25, 'far-infrared': 21.5, radio: 22 },
+  'cygnus-x': { 'far-infrared': 21, radio: 21.5 },
 }
 
 // Surface brightness of a measured remnant flux spread over its catalogued ellipse, on the same display scale:

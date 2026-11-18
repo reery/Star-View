@@ -38,6 +38,8 @@ ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/star-systems"
 OUTPUT = ROOT / "src/data/stellar-companions.json"
 IDENTITIES = ROOT / "src/data/stellar-system-identities.json"
+# Systems reviewed with the Notable distant stars catalog, such as Wolf–Rayet binaries, keep their own components.
+COMPACT_IDENTITIES = ROOT / "src/data/compact-system-identities.json"
 FIELDS = ("temperature_k", "mass_solar", "luminosity_solar", "radius_solar", "metallicity_dex", "age_gyr")
 COMPOSITE = re.compile(r"\+\s*(?:[OBAFGKM](?:\d|:|$)|D[A-Z]|W[CN])", re.I)
 
@@ -315,6 +317,8 @@ def build():
         definitions.append(system)
 
     reviewed_ids = set(pool) | {alias for s in reviewed["systems"] for c in s["components"] for alias in c.get("alternateStarIds", [])}
+    inputs.append(COMPACT_IDENTITIES)
+    reviewed_ids |= {c["starId"] for s in read_json(COMPACT_IDENTITIES)["systems"] for c in s["components"]}
     comp = collections.defaultdict(dict)
     for line in msc["tables"]["comp.tsv"]:
         row = list(map(str.strip, line.split("|")))

@@ -1,5 +1,5 @@
 {
-  "reviewed": "2026-11-05",
+  "reviewed": "2026-11-18",
   "policy": "The visible stars of X-ray and gamma-ray binaries, of Gaia BH2 and of pulsars with a recorded optical counterpart or a main-sequence companion in the compact-remnant overlay, with each value from the cited paper. A value stays empty when no individual measurement was verified; none is inferred from a mass ratio. Very low-mass, ablated black-widow companions are classed as brown dwarfs.",
   "companions": [
     {
@@ -540,6 +540,33 @@
       "spectral_type": null,
       "designations": [],
       "note": "The original black-widow companion, heated on its pulsar-facing side and cooler than about 2800 K on its far side (Fruchter et al. 1995, https://arxiv.org/abs/astro-ph/9502084). The pulsar outweighs it 69.2 ± 0.8 times (van Kerkwijk et al. 2011, https://arxiv.org/abs/1009.5427)."
+    },
+    {
+      "host": "ss-433",
+      "type": "star",
+      "spectral_type": "A7Ib",
+      "designations": [
+        "V1343 Aql",
+        "Gaia DR3 4293406612283985024",
+        "2MASS J19114957+0458578"
+      ],
+      "note": "The A-type supergiant that overflows its Roche lobe and feeds the compact object; spectral type from Hillwig et al. 2004 (https://arxiv.org/abs/astro-ph/0403634). Its mass is debated with the compact object's, so none is adopted."
+    },
+    {
+      "host": "grs-1915p105",
+      "type": "star",
+      "spectral_type": "K III",
+      "designations": [
+        "V1487 Aql",
+        "2MASS J19151155+1056449"
+      ],
+      "note": "The K giant that feeds the black hole (Reid et al. 2014, https://arxiv.org/abs/1409.2453).",
+      "mass_solar": 0.47,
+      "mass_error_solar": 0.27,
+      "mass_source": {
+        "label": "Steeghs et al. 2013",
+        "url": "https://arxiv.org/abs/1304.1808"
+      }
     }
   ]
 }

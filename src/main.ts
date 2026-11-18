@@ -7,14 +7,14 @@ import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipBrightness, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
 import { FIRST_BIRTH_YEAR, NEIGHBORHOOD_RADIUS_LY, NeighborhoodIcon, neighborhoodBounds } from './neighborhood'
 import { initializeInsights, InsightsIcon } from './insights'
-import { BUBBLE_OBJECT_TYPES, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isGalaxyObject, isMolecularCloudObject, isNebulaObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, type GalaxyDetails, type Star } from './catalog-model'
+import { BUBBLE_OBJECT_TYPES, clusterHasCatalogMembers, COMPACT_OBJECT_TYPES, describeObject, isBubbleObject, isCompactObject, isGalaxyObject, isMolecularCloudObject, isNebulaObject, isStarClusterObject, MOLECULAR_CLOUD_OBJECT_TYPES, NEBULA_OBJECT_TYPES, STAR_CLUSTER_OBJECT_TYPES, type GalaxyDetails, type Star, type StarClusterDetails } from './catalog-model'
 import { catalogSelection, mergeCatalogStars } from './catalog-runtime'
 import { catalogMeasurement, catalogSourceFor } from './catalog-source'
 import { completeLoadedCompanions as completeCatalogCompanions } from './constellation-companions'
 import { hipNumber, objectDesignations, objectHipNumbers } from './designations'
 import { designationsAvailable, loadCatalogDesignations } from './catalog-designations'
 import { completeCompanionRecords } from './companion-records'
-import { bubbleOverlayManifest, compactOverlayManifest, loadBubbles, loadCompactRemnants, loadGalaxies, loadMolecularClouds, loadNebulae, molecularCloudOverlayManifest, nebulaOverlayManifest } from './overlays'
+import { bubbleOverlayManifest, compactOverlayManifest, loadBubbles, loadCompactRemnants, loadGalaxies, loadMolecularClouds, loadNebulae, loadStarClusters, molecularCloudOverlayManifest, nebulaOverlayManifest, starClusterOverlayManifest } from './overlays'
 import { catalogs, catalogErrors } from './registry'
 import legacyStarIds from './data/legacy-star-ids.json'
 import { apparentVisualMagnitude, mapAbsoluteMagnitude, displayMotionForStar, formatDistance, galacticToWorld, LIGHT_YEARS_PER_PARSEC, starDisplayColor, sunRelativeMetrics, type DistanceUnit, type GridScale, type MotionFrame, type StarColorMode } from './astronomy'
@@ -28,6 +28,7 @@ import { targetRenderFps } from './render-scheduling'
 import { renderSelectedStarPreview } from './selected-star-preview'
 import { COMPARISON_DETAIL_TOGGLES, initializeStarComparison } from './star-comparison'
 import { radialVelocitySource, specValues, type SpecValue } from './spec-values'
+import { GALACTIC_CENTER_ID, GALACTIC_CENTER_SYSTEM_ID } from './galactic-center-layer'
 import { starInfoAvailable } from './star-info-availability'
 import type { HrMagnitudeMode } from './hr-diagram'
 import { hrCardAvailable, spectralReference } from './spectral-properties'
@@ -38,14 +39,14 @@ import { MAGNITUDE_VISIBILITY_GUIDES, magnitudeCardAvailable } from './magnitude
 import { temperatureCardAvailable } from './temperature-properties'
 import { constellationCardAvailable, loadConstellationChart, type ConstellationChart } from './constellations'
 import type { RadiusReference } from './radius-comparison'
-import { indexStarSystems, type StarSystem } from './star-systems'
+import { indexStarSystems, reviewedCompactSystems, type StarSystem } from './star-systems'
 import { loadStellarOrbits } from './stellar-orbits'
 import { loadPlanetarySystem, planetCountForStar, planetarySystemForStar, planetHostId } from './planetary-systems'
 import { loadStarDetails, starDetailsLoaded } from './selected-star-details'
 import { renderObjectLinks } from './object-links'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys, FILTER_CATEGORIES, FILTER_KEYS,
-  filterSummary, isFilterCategoryId, isFilterKey, restoredFilterSubtypes, type FilterCategoryId, type FilterKey,
+  filterSummary, isFilterCategoryId, isFilterKey, restoredFilterCategories, restoredFilterSubtypes, type FilterCategoryId, type FilterKey,
 } from './object-filter'
 import { ObjectList, type ObjectListFilter } from './object-list'
 import { SelectionHistory } from './selection-history'
@@ -361,8 +362,13 @@ let listedObjectIds: ReadonlySet<string> | null = null
 let listedObjectsPredicate: ObjectListFilter | null = null
 /** The filter the naked-eye view replaced, restored when it ends; null while the view is off. */
 let nakedEyeRestoreFilter: SavedFilter | null = null
-// Nebulae have no single magnitude, so the naked-eye view lists the ones a dark sky shows. The Pleiades come with the star catalogs.
-const NAKED_EYE_NEBULA_IDS: ReadonlySet<string> = new Set(['orion-nebula'])
+// Nebulae, clusters and galaxies carry no integrated magnitude, so the naked-eye view lists the ones a dark sky shows.
+const NAKED_EYE_EXTENDED_IDS: ReadonlySet<string> = new Set([
+  'orion-nebula', 'carina-nebula', 'lagoon-nebula',
+  'hyades', 'pleiades', 'beehive-cluster', 'ngc-869', 'ngc-884', 'ngc-3532',
+  'omega-centauri', '47-tucanae', 'messier-4', 'messier-13', 'messier-22',
+  'milky-way', 'large-magellanic-cloud', 'small-magellanic-cloud', 'andromeda-galaxy', 'triangulum-galaxy',
+])
 /** The Neighborhood keeps its center while active, so selecting a neighbor does not move it. */
 let neighborhoodCenter: Star | null = null
 /** Session-only: the ship survives catalog changes but is never saved in a view. */
@@ -434,7 +440,7 @@ let renderStatsVisible = false
 // Touch-first devices start with fewer labels; a stored preference overrides this below.
 const touchFirstInput = window.matchMedia('(hover: none) and (pointer: coarse)')
 const wideLayout = window.matchMedia('(min-width: 721px)')
-let labelLimit = touchFirstInput.matches ? 20 : 40
+let labelLimit = 20
 let motionArrowsVisible = false
 let earthOrbitMode: EarthOrbitMode = 'now'
 let milkyWayVisible = true
@@ -514,7 +520,7 @@ let catalogRequest = 0
 let sceneBusy = true
 const filterCategories = new Set<FilterCategoryId>(DEFAULT_FILTER_CATEGORIES)
 const filterSubtypes = new Set<FilterKey>(DEFAULT_FILTER_SUBTYPES)
-const availableKeys = availableFilterKeys(compactOverlayManifest.counts, nebulaOverlayManifest.counts, molecularCloudOverlayManifest.counts, bubbleOverlayManifest.counts)
+const availableKeys = availableFilterKeys(compactOverlayManifest.counts, nebulaOverlayManifest.counts, molecularCloudOverlayManifest.counts, bubbleOverlayManifest.counts, starClusterOverlayManifest.counts)
 let visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
 let distanceUnit: DistanceUnit = 'ly'
 let starColorMode: StarColorMode = 'exaggerated'
@@ -552,7 +558,7 @@ function setFilterState(filter: SavedFilter): void {
   showNakedEyeStars = filter.showNakedEyeStars ?? false
   showNotableDistantStars = filter.showNotableDistantStars ?? false
   filterCategories.clear()
-  filter.filterCategories.forEach((category) => filterCategories.add(category))
+  restoredFilterCategories(filter.filterCategories, filter.knownFilterSubtypes, availableKeys).forEach((category) => filterCategories.add(category))
   filterSubtypes.clear()
   restoredFilterSubtypes(filter.filterSubtypes, filter.knownFilterSubtypes, availableKeys).forEach((subtype) => filterSubtypes.add(subtype))
   magnitudeLimit = filter.magnitudeLimit
@@ -2351,7 +2357,7 @@ async function renderActiveObjectSection(): Promise<void> {
     if (section === 'specs') {
       renderSelection()
     } else if (section === 'info') {
-      starInfoModule!.renderStarInfo(container, star.id)
+      starInfoModule!.renderStarInfo(container, star.id, clusterMentionLinks(star.id))
       infoContentStarId = star.id
     } else {
       systemCardModule!.renderSystemCard(container, planetarySystemForStar(star.id), starSystems.get(star.id), star, starColorMode, selectSystemPlanet)
@@ -2427,12 +2433,16 @@ element('object-card-toggle').addEventListener('click', () => {
   details.open = !details.open
 }, { signal: events.signal })
 element('remnant-neutron-star').addEventListener('click', () => {
-  const id = starById(selectedId)?.nebula?.remnant?.neutron_star?.id
+  const remnant = starById(selectedId)?.nebula?.remnant
+  const id = (remnant?.neutron_star ?? remnant?.black_hole)?.id
   if (id) void selectTopListObject({ catalog: compactOverlayManifest.id, id, designation: null })
 }, { signal: events.signal })
 element('remnant-surviving-star').addEventListener('click', () => {
   const star = starById(selectedId)?.nebula?.remnant?.surviving_star
   if (star) void selectTopListObject({ catalog: star.catalog, id: star.id, designation: null })
+}, { signal: events.signal })
+element('galaxy-black-hole-row').addEventListener('click', () => {
+  if (selectedId === 'milky-way') void selectTopListObject({ catalog: compactOverlayManifest.id, id: GALACTIC_CENTER_ID, designation: null })
 }, { signal: events.signal })
 element('dark-nebula-cloud').addEventListener('click', () => {
   const cloud = starById(selectedId)?.dark_nebula?.parent_cloud_id
@@ -2668,7 +2678,9 @@ function renderSelection(): void {
   const bubbleObject = isBubbleObject(star)
   const galaxy = star.galaxy
   const galaxyObject = isGalaxyObject(star)
-  const extendedObject = nebulaObject || molecularCloudObject || bubbleObject || galaxyObject
+  const cluster = star.cluster
+  const clusterObject = isStarClusterObject(star)
+  const extendedObject = nebulaObject || molecularCloudObject || bubbleObject || galaxyObject || clusterObject
   element('known-planets-row').hidden = knownPlanetCount === 0 || extendedObject
   element('object-subtypes-empty-row').hidden = subtypes.length > 0 || extendedObject
   const stellarPropertiesHidden = compactObject || extendedObject
@@ -2686,7 +2698,8 @@ function renderSelection(): void {
   if (darkNebula?.opacity_class === null) element('dark-nebula-opacity-row').hidden = true
   for (const row of document.querySelectorAll<HTMLElement>('.bubble-property')) row.hidden = !bubbleObject
   for (const row of document.querySelectorAll<HTMLElement>('.galaxy-property')) row.hidden = !galaxyObject
-  element('mass-row').hidden = nebulaObject || bubbleObject || galaxyObject || !!darkNebula
+  for (const row of document.querySelectorAll<HTMLElement>('.cluster-property')) row.hidden = !clusterObject
+  element('mass-row').hidden = nebulaObject || bubbleObject || galaxyObject || clusterObject || !!darkNebula
   for (const row of document.querySelectorAll<HTMLElement>('.pulsar-property')) row.hidden = star.type !== 'pulsar'
   for (const row of document.querySelectorAll<HTMLElement>('.rotation-property')) row.hidden = star.type === 'black_hole' || !compactObject
   for (const row of document.querySelectorAll<HTMLElement>('.orbit-property')) {
@@ -2787,7 +2800,16 @@ function renderSelection(): void {
     const extent = (pc: number) => (pc * (distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1)).toLocaleString('en-US', { maximumFractionDigits: 1 })
     text('nebula-angular-size', `${nebula.angular_size_arcmin[0]}′ × ${nebula.angular_size_arcmin[1]}′`)
     text('nebula-extent', `${extent(2 * major)} × ${extent(2 * minor)} × ${extent(deepPc)} ${distanceUnit}`)
-    text('nebula-illumination', nebula.illuminating_stars)
+    // Named stars a catalog holds link to them; the rest of the text stays plain.
+    const illumination: (string | Node)[] = []
+    let rest = nebula.illuminating_stars
+    for (const link of nebula.illuminating_star_links ?? []) {
+      const at = rest.indexOf(link.name)
+      if (at < 0) continue
+      illumination.push(rest.slice(0, at), catalogStarButton(link))
+      rest = rest.slice(at + link.name.length)
+    }
+    element('nebula-illumination').replaceChildren(...illumination, rest)
     text('nebula-distance-source', nebula.distance_source)
     const source = element<HTMLAnchorElement>('nebula-source')
     source.textContent = nebula.source_label
@@ -2798,7 +2820,10 @@ function renderSelection(): void {
     const [youngest, oldest] = remnant.age_yr.map((years) => years.toLocaleString('en-US'))
     text('remnant-age', `${youngest === oldest ? youngest : `${youngest}–${oldest}`} years`)
     element('remnant-age').title = remnant.age_source
-    const neutronStar = remnant.neutron_star
+    // A remnant that left a black hole reuses the neutron-star row under its own label.
+    const neutronStar = remnant.neutron_star ?? remnant.black_hole ?? null
+    text('remnant-compact-label', remnant.black_hole ? 'Black hole' : 'Neutron star')
+    element('remnant-compact-label').dataset.glossaryTerm = remnant.black_hole ? 'black_hole' : 'neutron_star'
     element('remnant-neutron-star').hidden = !neutronStar
     element('remnant-neutron-star-missing').hidden = !!neutronStar
     text('remnant-neutron-star', neutronStar?.name ?? '')
@@ -2858,6 +2883,12 @@ function renderSelection(): void {
     source.href = bubble.source_url
   }
   if (galaxy) renderGalaxyProperties(galaxy)
+  if (cluster) renderStarClusterProperties(cluster)
+  // Sagittarius A* sits at the Milky Way's center; selecting it loads the compact objects when they are filtered out.
+  const centralBlackHole = star.id === 'milky-way' ? reviewedCompactSystems.find((system) => system.id === GALACTIC_CENTER_SYSTEM_ID)?.name : undefined
+  element('galaxy-black-hole-row').hidden = !centralBlackHole
+  text('galaxy-black-hole', centralBlackHole ?? '')
+  element('galaxy-black-hole').setAttribute('aria-label', centralBlackHole ? `Select ${centralBlackHole}` : '')
   const infrared = star.stellar_observations?.infrared_photometry
   element('infrared-magnitude-row').hidden = !infrared || stellarPropertiesHidden
   // Leave the hidden row empty, so a comparison column can mark the missing value explicitly.
@@ -2888,8 +2919,9 @@ function renderSelection(): void {
   const observationNotes = new Set([observations?.mass_range, observations?.mass_model, observations?.temperature_range, observations?.radius_range, observations?.infrared_photometry, observations?.radial_velocity_review, observations?.atmosphere_temperature, observations?.modelled_values?.temperature_k, observations?.modelled_values?.radius_solar]
     .filter((observation) => observation !== undefined)
     .map((observation) => `${'scope' in observation ? observation.scope : observation.reason} ${observation.reference}: ${observation.source_url}`))
-  text('star-notes', starDetailsLoaded(star) ? [star.notes, ...observationNotes, ...[...sourceNotes].map((source) => `${source.scope} ${source.record.notes}`)]
-    .filter(Boolean).join('\n\n') || 'No source notes available.' : 'Loading…')
+  const notes = starDetailsLoaded(star) ? [star.notes, ...observationNotes, ...[...sourceNotes].map((source) => `${source.scope} ${source.record.notes}`)]
+    .filter(Boolean).join('\n\n') || 'No source notes available.' : 'Loading…'
+  element('star-notes').replaceChildren(...clusterMentionLinks(star.id)(notes))
   specsContentStar = starDetailsLoaded(star) ? star : undefined
   starComparison.render()
   const referenceName = distanceReference.id === 'sun' ? 'the Sun' : distanceReference.name
@@ -2931,6 +2963,70 @@ function renderGalaxyProperties(galaxy: GalaxyDetails): void {
   source.href = galaxy.distance_source.url
 }
 
+/**
+ * Turns mentions of a loaded star cluster into buttons that select it. The cluster's own text stays plain, and so do the
+ * separate objects named after it, such as the Pleiades Nebula and the Hyades Stream.
+ */
+function clusterMentionLinks(selfId: string): (text: string) => (string | Node)[] {
+  if (loadedClusters.source !== stars) Object.assign(loadedClusters, { source: stars, clusters: stars.filter((star) => star.cluster) })
+  const clusters = new Map(loadedClusters.clusters.filter((star) => star.id !== selfId).map((star) => [star.name, star.id]))
+  if (!clusters.size) return (text) => [text]
+  const names = [...clusters.keys()].map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+  const mention = new RegExp(`\\b(${names.join('|')})\\b(?! (?:Nebula|Stream|Supercluster)\\b)`)
+  return (text) => text.split(mention).map((part, index) => index % 2
+    ? catalogStarButton({ catalog: starClusterOverlayManifest.id, id: clusters.get(part)!, name: part }) : part)
+}
+const loadedClusters: { source: Star[] | null; clusters: Star[] } = { source: null, clusters: [] }
+
+/** A button that selects a named star of a bundled catalog. */
+function catalogStarButton(link: { catalog: string; id: string; name: string }): HTMLButtonElement {
+  const button = document.createElement('button')
+  button.type = 'button'
+  button.className = 'constellation-info-link'
+  button.textContent = link.name
+  button.setAttribute('aria-label', `Select ${link.name}`)
+  button.addEventListener('click', () => void selectTopListObject({ catalog: link.catalog, id: link.id, designation: null }))
+  return button
+}
+
+function renderStarClusterProperties(cluster: StarClusterDetails): void {
+  const extent = (pc: number) => `${formatNumber(pc * (distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1), 1)} ${distanceUnit}`
+  const billions = cluster.age_myr >= 1000
+  const age = (myr: number) => billions ? String(myr / 1000) : myr.toLocaleString('en-US')
+  text('cluster-age', `${age(cluster.age_myr)} ± ${age(cluster.age_error_myr)} ${billions ? 'billion' : 'million'} years`)
+  element('cluster-age').title = `${cluster.age_method}. ${cluster.age_source.label}`
+  // Globular clusters have no Gaia member counts; their glow follows a core and a half-light radius instead.
+  const globular = cluster.core_radius_pc !== null
+  element('cluster-members-row').hidden = globular
+  text('cluster-members', globular ? '' : `${cluster.members_within_tidal_radius!.toLocaleString('en-US')} within the tidal radius, ${cluster.members_total!.toLocaleString('en-US')} in all`)
+  element('cluster-members').title = cluster.members_source?.label ?? ''
+  text('cluster-mass', measurement(cluster.mass_solar, cluster.mass_error_solar, 'M☉', 0))
+  element('cluster-mass').title = cluster.structure_source.label
+  text('cluster-half-member-radius-label', globular ? 'Half the light within' : 'Half the members within')
+  text('cluster-half-member-radius-term', globular
+    ? 'The distance from the center, as seen on the sky, inside which the cluster gives off half of its light.'
+    : 'The distance from the center that holds half of the members within the tidal radius.')
+  text('cluster-half-member-radius', extent(cluster.half_member_radius_pc))
+  element('cluster-half-member-radius').title = cluster.structure_source.label
+  element('cluster-core-radius-row').hidden = !globular
+  text('cluster-core-radius', globular ? extent(cluster.core_radius_pc!) : '')
+  element('cluster-core-radius').title = cluster.structure_source.label
+  const tidalAngle = 2 * Math.atan(cluster.tidal_radius_pc / cluster.distance_pc) * 180 / Math.PI
+  text('cluster-tidal-radius', `${extent(cluster.tidal_radius_pc)} · ${formatNumber(tidalAngle, 1)}° across the sky`)
+  element('cluster-tidal-radius').title = cluster.structure_source.label
+  text('cluster-metallicity', measurement(cluster.metallicity_fe_h, cluster.metallicity_error_dex, 'dex', 2))
+  element('cluster-metallicity').title = cluster.metallicity_source.label
+  text('cluster-velocity', measurement(cluster.radial_velocity_kms, cluster.radial_velocity_error_kms, 'km/s', 2))
+  element('cluster-velocity').title = cluster.radial_velocity_source.label
+  const members = cluster.notable_members.flatMap((member, index) => index ? [', ', catalogStarButton(member)] : [catalogStarButton(member)])
+  element('cluster-notable-members-row').hidden = members.length === 0
+  element('cluster-notable-members').replaceChildren(...members)
+  text('cluster-distance-method', cluster.distance_method)
+  const source = element<HTMLAnchorElement>('cluster-source')
+  source.textContent = cluster.distance_source.label
+  source.href = cluster.distance_source.url
+}
+
 function baseObjectListFilter(selected = selectedId): ObjectListFilter {
   const observer = hideFainterObjects ? starById(observerId) : undefined
   // Brightness is seen from the observer, while list distances are from the reference.
@@ -2945,7 +3041,7 @@ function baseObjectListFilter(selected = selectedId): ObjectListFilter {
 }
 
 function nakedEyeVisible(star: Star): boolean {
-  return !nakedEyeRestoreFilter || !star.nebula || NAKED_EYE_NEBULA_IDS.has(star.id)
+  return !nakedEyeRestoreFilter || !(star.nebula || star.cluster || star.galaxy) || NAKED_EYE_EXTENDED_IDS.has(star.id)
 }
 
 /** The 3D view's narrowing beyond its own type, distance and brightness tests. */
@@ -3195,7 +3291,9 @@ function selectStar(id: string | null, recordHistory = true): void {
     lastSelectedId = id
     noteTipFeature('select')
   }
-  if (id !== null && !observerView && visibilityLockId === null) observerId = id
+  // Nobody observes from a cluster's empty center, where its catalog members would dazzle: the visibility base stays.
+  const selectedStar = id === null ? undefined : starById(id)
+  if (id !== null && !observerView && visibilityLockId === null && !(selectedStar?.cluster && clusterHasCatalogMembers(selectedStar, stars))) observerId = id
   updateObjectListFilter()
   renderSelection()
   viewer?.select(id)
@@ -3362,7 +3460,7 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
     const additive = additiveCatalogIds(id)
     const loadAdditive = (catalogId: string) => additive.includes(catalogId)
       ? catalogs.find((catalog) => catalog.manifest.id === catalogId)!.load() : Promise.resolve([])
-    const [selectedCatalog, westernConstellationCatalog, nakedEyeCatalog, notableDistantCatalog, compactObjects, nebulae, molecularClouds, bubbles, galaxies] = await Promise.all([
+    const [selectedCatalog, westernConstellationCatalog, nakedEyeCatalog, notableDistantCatalog, compactObjects, nebulae, molecularClouds, bubbles, starClusters, galaxies] = await Promise.all([
       definition.load(),
       loadAdditive(WESTERN_CONSTELLATION_CATALOG_ID),
       loadAdditive(NAKED_EYE_CATALOG_ID),
@@ -3371,12 +3469,13 @@ async function switchCatalog(id: string, refresh = false): Promise<void> {
       loadOverlay(NEBULA_OBJECT_TYPES, loadNebulae),
       loadOverlay(MOLECULAR_CLOUD_OBJECT_TYPES, loadMolecularClouds),
       loadOverlay(BUBBLE_OBJECT_TYPES, loadBubbles),
+      loadOverlay(STAR_CLUSTER_OBJECT_TYPES, loadStarClusters),
       // A few records, always loaded: the Galaxies filter shows and hides them without a reload.
       loadGalaxies(),
     ])
     reachLy = selectedCatalog.reduce((farthest, star) => Math.max(farthest, Math.hypot(star.x_pc, star.y_pc, star.z_pc)), 0) * LIGHT_YEARS_PER_PARSEC
     const withConstellationStars = mergedCatalogLayers(id, selectedCatalog, westernConstellationCatalog, nakedEyeCatalog, notableDistantCatalog)
-    nextStars = [...withConstellationStars, ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles, ...galaxies]
+    nextStars = [...withConstellationStars, ...compactObjects, ...nebulae, ...molecularClouds, ...bubbles, ...starClusters, ...galaxies]
     nextStars = mergeCatalogStars(nextStars, [...constellationSelectedSystems.values()].flat())
   } catch (error) {
     if (request !== catalogRequest) return
@@ -3641,7 +3740,7 @@ function applyObjectFilter(): void {
   const previous = visibleKeys
   visibleKeys = effectiveFilterKeys(filterCategories, filterSubtypes, availableKeys)
   renderObjectFilter()
-  const overlayChanged = [COMPACT_OBJECT_TYPES, NEBULA_OBJECT_TYPES, MOLECULAR_CLOUD_OBJECT_TYPES, BUBBLE_OBJECT_TYPES].some((types) =>
+  const overlayChanged = [COMPACT_OBJECT_TYPES, NEBULA_OBJECT_TYPES, MOLECULAR_CLOUD_OBJECT_TYPES, BUBBLE_OBJECT_TYPES, STAR_CLUSTER_OBJECT_TYPES].some((types) =>
     types.some((type) => previous.has(type)) !== types.some((type) => visibleKeys.has(type)))
     // Pulsars also load their companions from the notable distant catalog.
     || (!showNotableDistantStars && compactObjectsVisible(previous) !== compactObjectsVisible(visibleKeys))
@@ -4011,7 +4110,7 @@ function nakedEyeMagnitudeLimit(): number {
   return Math.min(MAGNITUDE_VISIBILITY_GUIDES.find(({ id }) => id === guideId)!.limit, Number(magnitudeLimitInput.max))
 }
 
-/** Shows what a dark sky offers the eye: stars to the V limit at any distance, and the nebulae in NAKED_EYE_NEBULA_IDS. */
+/** Shows what a dark sky offers the eye: stars to the V limit at any distance, and the objects in NAKED_EYE_EXTENDED_IDS. */
 function setNakedEyeView(enabled: boolean): void {
   if (sceneBusy || enabled === (nakedEyeRestoreFilter !== null)) return
   const restore = nakedEyeRestoreFilter
@@ -4021,8 +4120,8 @@ function setNakedEyeView(enabled: boolean): void {
     showWesternConstellationStars: true,
     showNakedEyeStars: true,
     showNotableDistantStars: false,
-    filterCategories: ['compact_objects', 'interstellar_medium'],
-    filterSubtypes: ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'hii_region'],
+    filterCategories: ['compact_objects', 'star_clusters', 'interstellar_medium'],
+    filterSubtypes: ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'open_cluster', 'globular_cluster', 'hii_region'],
     magnitudeLimit: nakedEyeMagnitudeLimit(),
     hideFainterObjects: true,
     objectDistanceLimitLy: OBJECT_DISTANCE_STEPS_LY.at(-1)!,
@@ -4087,7 +4186,7 @@ async function loadSavedView(savedView: SavedView, linked = false): Promise<void
   showNakedEyeStars = settings.showNakedEyeStars ?? false
   showNotableDistantStars = settings.showNotableDistantStars ?? false
   filterCategories.clear()
-  settings.filterCategories.forEach((category) => filterCategories.add(category))
+  restoredFilterCategories(settings.filterCategories, linked ? FILTER_KEYS : settings.knownFilterSubtypes, availableKeys).forEach((category) => filterCategories.add(category))
   filterSubtypes.clear()
   // Links record differences from the current defaults, so they already account for every type.
   restoredFilterSubtypes(settings.filterSubtypes, linked ? FILTER_KEYS : settings.knownFilterSubtypes, availableKeys).forEach((subtype) => filterSubtypes.add(subtype))

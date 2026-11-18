@@ -17,6 +17,8 @@ import molecularCloudImage from './assets/object-types/molecular_cloud.jpg'
 import darkNebulaImage from './assets/object-types/dark_nebula.jpg'
 import bubbleImage from './assets/object-types/bubble.jpg'
 import galaxyImage from './assets/object-types/galaxy.jpg'
+import openClusterImage from './assets/object-types/open_cluster.jpg'
+import globularClusterImage from './assets/object-types/globular_cluster.jpg'
 
 interface TypeIntroduction {
   description: string
@@ -86,6 +88,14 @@ const introductions: Record<ObjectType, TypeIntroduction> = {
   galaxy: {
     description: 'A galaxy is a vast system of stars, gas, dust and dark matter held together by gravity. The smallest hold a few hundred million stars, the largest trillions. Spiral galaxies such as the Milky Way keep young stars and gas in a rotating disk, while irregular galaxies have no clear shape. Every star visible to the naked eye belongs to the Milky Way; the nearest other galaxies appear as faint clouds in the sky.',
     article: 'Galaxy', image: galaxyImage, caption: 'The Triangulum Galaxy · ESO VLT Survey Telescope',
+  },
+  open_cluster: {
+    description: 'An open cluster is a loose group of up to a few thousand stars that formed together from the same cloud of gas and still travel through the Galaxy as a group. Their shared age, distance and composition make open clusters natural laboratories for how stars evolve. Encounters and the Milky Way’s tides pull most of them apart within a few hundred million years.',
+    article: 'Open_cluster', image: openClusterImage, caption: 'The Jewel Box cluster, NGC 4755 · ESO VLT',
+  },
+  globular_cluster: {
+    description: 'A globular cluster is a dense ball of tens of thousands to millions of stars, held tightly together by their gravity and crowded toward its center. Globular clusters are the largest and most massive star clusters and among the oldest objects in the Milky Way, poor in heavy elements. More than 150 are known, most of them in the halo around the Galaxy’s disk. Early in the 20th century, their distribution in the sky showed that the Sun lies far from the Galaxy’s center.',
+    article: 'Globular_cluster', image: globularClusterImage, caption: 'The globular cluster Messier 30 · Hubble',
   },
 }
 

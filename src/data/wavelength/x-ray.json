@@ -1,7 +1,7 @@
 {
 "schemaVersion":1,
 "band":"x-ray",
-"retrieved":"2026-11-16",
+"retrieved":"2026-11-18",
 "unit":"erg cm-2 s-1",
 "entry":["value","error","source","identifier","scope"],
 "sources":{"1rxs":{"label":"ROSAT All-Sky Survey (1RXS)","reference":"Voges et al. 1999, 2000; flux from count rate and HR1 after Schmitt et al. 1995","url":"https://vizier.idia.ac.za/viz-bin/asu-tsv?-source=IX/10A","note":"0.1–2.4 keV flux, ROSAT 1990–1991; SIMBAD’s 1RXS identification of the star or its system"},"2rxs":{"label":"2RXS stellar counterparts","reference":"Freund et al. 2022, A&A 664, A105","url":"https://vizier.idia.ac.za/viz-bin/asu-tsv?-source=J/A+A/664/A105/main","note":"0.1–2.4 keV flux, ROSAT 1990–1991; unresolved within about 30″"},"erass1":{"label":"eRASS1 coronal counterparts","reference":"Freund et al. 2024, A&A 684, A121","url":"https://vizier.idia.ac.za/viz-bin/asu-tsv?-source=J/A+A/684/A121/like_ctp","note":"0.2–2.3 keV flux, SRG/eROSITA 2019–2020; unresolved within about 15″"},"erass1-main":{"label":"eRASS1 main catalog","reference":"Merloni et al. 2024, A&A 682, A34","url":"https://vizier.idia.ac.za/viz-bin/asu-tsv?-source=J/A+A/682/A34","note":"0.2–2.3 keV flux for a power-law spectrum; nearest source within 15″ of the catalogued position"}},
@@ -3601,6 +3601,7 @@
 "1wga-j1713":[1.74865374e-12,1.30109113e-13,"erass1-main","1eRASS J171328.4-394956"],
 "a0535p26":[1.80652368e-11,4.2952973e-13,"erass1-main","1eRASS J053854.4+261856"],
 "centaurus-x-4":[7.57343407e-13,7.97293004e-14,"erass1-main","1eRASS J145822.0-314009"],
+"cxou-j061705":[1.44324093e-12,1.82529488e-13,"erass1-main","1eRASS J061705.8+222139"],
 "cxou-j085201":[8.42292219e-13,8.48025263e-14,"erass1-main","1eRASS J085201.2-461754"],
 "psr-j0420m5022":[1.34060623e-13,1.7804724e-14,"erass1-main","1eRASS J042001.8-502246"],
 "psr-j0630m2834":[4.58471592e-14,2.0879706e-14,"erass1-main","1eRASS J063049.8-283439"],

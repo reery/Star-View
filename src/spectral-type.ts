@@ -42,6 +42,8 @@ const indexNames: Record<string, string> = {
   Hdel: 'Hydrogen Hδ line', C2: 'Carbon (C₂) bands', Sr: 'Strontium lines', Mg: 'Magnesium lines', Cr: 'Chromium lines',
 }
 const elements: Record<string, string> = { Sr: 'strontium', Cr: 'chromium', Eu: 'europium', Si: 'silicon', Hg: 'mercury', Mn: 'manganese' }
+const wolfRayetElements: Record<string, string> = { N: 'nitrogen', C: 'carbon', O: 'oxygen' }
+const wolfRayetSuffixes: Record<string, string> = { h: 'Hydrogen lines: a very massive star still burning hydrogen', p: 'Peculiar spectrum', d: 'Dust forms in the wind' }
 const whiteDwarfFlags: Record<string, string> = { H: 'Magnetic field splits the lines', P: 'Magnetic, with polarized light', E: 'Emission lines', V: 'Variable: the star pulsates' }
 const gravity: Record<string, string> = {
   alpha: 'Normal surface gravity', beta: 'Low surface gravity: a young object',
@@ -89,6 +91,12 @@ export function readSpectralType(type: string | null): SpectralReading {
     [/([khm])([OBAFGKM])(\d(?:\.\d+)?)/y, (match) => {
       add(match[0], amTypes[match[1]!]!)
       if (match[1] === 'h' || reading.letter === null) [reading.letter, reading.subtype] = [match[2]!, Number(match[3]!)]
+    }],
+    [/W([NCO])(\d+(?:\.\d+)?)?([hpd]*)/y, (match) => {
+      if (reading.letter !== null || reading.whiteDwarf !== null) return false
+      add(`W${match[1]}`, `Wolf–Rayet star: broad emission lines of ${wolfRayetElements[match[1]!]} from a dense, fast wind`)
+      if (match[2]) add(match[2], 'Ionization subclass; lower numbers are hotter')
+      for (const suffix of match[3]!) add(suffix, wolfRayetSuffixes[suffix]!)
     }],
     [/([OBAFGKMLTY])(\d+(?:\.\d+)?)?/y, (match) => {
       if (reading.letter !== null || reading.whiteDwarf !== null) return false

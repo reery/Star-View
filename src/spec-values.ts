@@ -93,7 +93,8 @@ export function specValues(star: Star, sun: Star, unit: DistanceUnit, band: Wave
   markModelled('radius', 'radius_solar', 'Radius (model)')
   const metallicitySource = source('metallicity', 'metallicity_dex', (value) => quantity(value, 'dex'))
   values.metallicity!.label = `Metallicity ${(metallicitySource ? metallicitySource.record.metallicity_kind : star.metallicity_kind) ?? ''}`.trim()
-  source('age', 'age_gyr', (value) => quantity(value, 'Gyr'))
+  // Ages below 10 Myr would round away in Gyr.
+  source('age', 'age_gyr', (value) => value !== null && value < 0.01 ? quantity(value * 1000, 'Myr', 2) : quantity(value, 'Gyr'))
 
   source('absolute-mag', 'absolute_mag', (value) => quantity(value, '', 2))
   const resolved = star.resolved_photometry
@@ -152,6 +153,6 @@ export function specValues(star: Star, sun: Star, unit: DistanceUnit, band: Wave
       rvReview ? `${rvReview.reference}. ${rvReview.reason}` : rvSource?.scope ?? raw?.radial_velocity_ref ?? undefined)
   }
   set('astrometry-source', raw?.astrometry_ref || compact?.position_source || star.nebula?.position_source
-    || star.molecular_cloud?.position_source || star.dark_nebula?.position_source || star.bubble?.position_source || star.galaxy?.position_source || MISSING_VALUE)
+    || star.molecular_cloud?.position_source || star.dark_nebula?.position_source || star.bubble?.position_source || star.galaxy?.position_source || star.cluster?.position_source || MISSING_VALUE)
   return values
 }

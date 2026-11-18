@@ -14,7 +14,7 @@ Read this before adding or editing Info text for a star, system or other object 
 - `introduction` starts with a lowercase verb, because the name is rendered in front of it: `"is the brightest star in Earth’s night sky…"`. Two or three sentences.
 - Each section has a short title that works as a hook (“The sky’s fastest-moving star”, “Planets that were not there”, “A red Sirius?”). Avoid generic titles such as “Activity matters”, “Rotation and companions” or “Discovery and motion”.
 - One section covers one theme, usually 40–90 words in a single paragraph. Order the sections from the most striking to the least.
-- Multiple systems share one article. Key it by the reviewed system ID from `stellar-system-identities.json`, not by a component ID, so that A, B and every other component show the same Info. Name the components clearly (A, B, C) and explain how they relate to each other.
+- Multiple systems share one article. Key it by the reviewed system ID from `stellar-system-identities.json`, not by a component ID, so that A, B and every other component show the same Info. Name the components clearly (A, B, C) and explain how they relate to each other. A component with a story of its own, such as a star orbiting a black hole (S2 around Sagittarius A*), can have its own article keyed by its star ID; it takes precedence over the system article, which the other components keep.
 - If the same single star appears in another catalog under a different ID, add that exact ID to the article’s `aliases` list instead of writing a second article. Link only by an exact shared identifier, such as a HIP number, never by name or position.
 
 ## Sources

@@ -29,7 +29,7 @@ function aladinFieldDeg(star: Star): number {
   const extent = star.nebula ? Math.max(...star.nebula.angular_size_arcmin) / 60
     : star.dark_nebula ? star.dark_nebula.angular_diameter_arcmin / 60
     : cloud ? 2 * Math.atan(cloud.equivalent_radius_pc / cloud.distance_pc) * 180 / Math.PI
-      : star.galaxy?.angular_size_deg?.[0] ?? 0
+      : star.galaxy?.angular_size_deg?.[0] ?? (star.cluster ? 2 * Math.atan(star.cluster.tidal_radius_pc / star.cluster.distance_pc) * 180 / Math.PI : 0)
   return Number(Math.min(60, Math.max(0.25, extent * 1.6)).toPrecision(2))
 }
 

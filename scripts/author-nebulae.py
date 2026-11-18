@@ -690,6 +690,8 @@ def build_surface_brightness(directory):
     hand = {entry["id"]: entry["brightness"] for entry in additions if "brightness" in entry}
     # A peak on a vast faint arc and a plate class for the whole region measure different things.
     uncalibrated = {entry["id"] for entry in additions if entry.get("calibrate") is False}
+    # Dust hides some H II regions in visible light; the H-alpha in their field is foreground gas, so it only caps them.
+    obscured = {entry["id"] for entry in additions if entry.get("obscured")}
     rows = authored_rows()
 
     def field_peak(row):
@@ -725,9 +727,9 @@ def build_surface_brightness(directory):
                 "url": url, "basis": {"png": record["PNG"], "log_hbeta_flux": log_flux, "diameter_arcsec": arcsec}}
         elif identifier in masks:
             measured[identifier] = halpha_record(masks[identifier]["peak_excess_rayleigh"], "peak")
-        elif kind in ("hii_region", "planetary_nebula") and diameter >= HALPHA_MIN_DIAMETER_ARCMIN:
+        elif kind in ("hii_region", "planetary_nebula") and diameter >= HALPHA_MIN_DIAMETER_ARCMIN and identifier not in obscured:
             measured[identifier] = halpha_record(field_peak(row), "peak")
-        elif kind == "supernova_remnant" and diameter >= HALPHA_MIN_DIAMETER_ARCMIN:
+        elif (kind == "supernova_remnant" or identifier in obscured) and diameter >= HALPHA_MIN_DIAMETER_ARCMIN:
             # The map cannot isolate a remnant's shell, but its peak in the field bounds it.
             pending[identifier]["upper_limit_rayleigh"] = round(field_peak(row), 2)
 
@@ -784,7 +786,7 @@ def build_surface_brightness(directory):
             f"Lynds classes step one magnitude each from a zero point of {lynds_offset:.2f} (the median offset of the measurements they overlap), "
             "and reflection-nebula classes map linearly onto the Lynds classes of the nebulae both catalogues list. The remaining few keep their "
             f"hand estimate, shifted by {hand_offset:.2f} mag (the median offset of the measurements it overlaps); supernova remnants the map "
-            "cannot isolate are capped at the H-alpha peak of their field. Barnard's Loop keeps its measured peak but stays out of the zero points: "
+            "cannot isolate, and H II regions hidden by dust, are capped at the H-alpha peak of their field. Barnard's Loop keeps its measured peak but stays out of the zero points: "
             "its plate class rates a far larger region than the arc's peak."
         ),
         "calibration": {"lynds_offset_mag": round(lynds_offset, 2), "reflection_lynds_class": reflection_level, "hand_offset_mag": round(hand_offset, 2)},
@@ -811,6 +813,9 @@ def nebula_row(entry, masks, points, images):
         "angular_size_arcmin": [major, minor],
         "illuminating_stars": entry["illuminating_stars"],
     }
+    # Stars named in the text that a shipped catalog holds, matched by exact name or designation.
+    if "illuminating_star_links" in entry:
+        details["illuminating_star_links"] = entry["illuminating_star_links"]
     if "mask" in entry:
         mask = masks["masks"][entry["id"]]
         if mask["box_arcmin"] != entry["mask"]["box_arcmin"]:

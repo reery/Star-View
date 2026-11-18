@@ -18,7 +18,11 @@
      "distance_pc": 5830,
      "distance_source": "Stephenson 2 cluster distance (Davies et al. 2007)",
      "constellation": "Scutum",
-     "object": null
+     "object": {
+      "catalog": "notable-distant-stars",
+      "id": "stephenson-2-18",
+      "designation": null
+     }
     },
     {
      "name": "NML Cygni",
@@ -66,7 +70,11 @@
      "distance_pc": 1170,
      "distance_source": "Wikipedia: VY Canis Majoris",
      "constellation": "Canis Major",
-     "object": null
+     "object": {
+      "catalog": "notable-distant-stars",
+      "id": "vy-canis-majoris",
+      "designation": "HIP 35793"
+     }
     },
     {
      "name": "AH Scorpii",
@@ -199,10 +207,14 @@
     {
      "name": "GCIRS 7",
      "value": 1170,
-     "distance_pc": 8178,
-     "distance_source": "Galactic Center distance (GRAVITY Collaboration 2019)",
+     "distance_pc": 8277,
+     "distance_source": "Galactic Center distance (GRAVITY Collaboration 2022)",
      "constellation": "Sagittarius",
-     "object": null
+     "object": {
+      "catalog": "notable-distant-stars",
+      "id": "gcirs-7",
+      "designation": null
+     }
     },
     {
      "name": "Westerlund 1 W26",
@@ -210,7 +222,11 @@
      "distance_pc": 3780,
      "distance_source": "Westerlund 1 cluster distance (Rate & Crowther 2020)",
      "constellation": "Ara",
-     "object": null
+     "object": {
+      "catalog": "notable-distant-stars",
+      "id": "westerlund-1-w26",
+      "designation": null
+     }
     },
     {
      "name": "[A72c] 16",
@@ -1154,7 +1170,11 @@
      "name": "VY Canis Majoris",
      "distance_pc": 1205,
      "constellation": "Canis Major",
-     "object": null,
+     "object": {
+      "catalog": "notable-distant-stars",
+      "id": "vy-canis-majoris",
+      "designation": "HIP 35793"
+     },
      "fields": [
       "M5eIa",
       "Red hypergiant",
@@ -1390,7 +1410,11 @@
      "name": "WR 104",
      "distance_pc": 4108,
      "constellation": "Sagittarius",
-     "object": null,
+     "object": {
+      "catalog": "notable-distant-stars",
+      "id": "wr-104-a",
+      "designation": null
+     },
      "fields": [
       "WC9d/OB",
       "Wolf–Rayet star",
@@ -4603,6 +4627,17 @@
    },
    "entries": [
     {
+     "name": "PSR J1748-2446ad",
+     "value": 716.4,
+     "distance_pc": 6620.0,
+     "constellation": "Sagittarius",
+     "object": {
+      "catalog": "compact-remnants",
+      "id": "psr-j1748m2446ad",
+      "designation": null
+     }
+    },
+    {
      "name": "PSR B1937+21",
      "value": 641.9,
      "distance_pc": 2900.0,
@@ -4808,17 +4843,6 @@
      "object": {
       "catalog": "compact-remnants",
       "id": "psr-j0646m5455",
-      "designation": null
-     }
-    },
-    {
-     "name": "PSR J0646-54",
-     "value": 398.4,
-     "distance_pc": 367.0,
-     "constellation": "Carina",
-     "object": {
-      "catalog": "compact-remnants",
-      "id": "psr-j0646m54",
       "designation": null
      }
     }

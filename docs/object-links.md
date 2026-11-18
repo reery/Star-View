@@ -33,7 +33,11 @@ Only exact identifiers are used; there is no positional or fuzzy matching.
   parent is a binary, double, multiple or triple star, or the SIMBAD identifier
   without its component suffix (`* 61 Cyg A` → *61 Cygni*). Asterisms, moving
   groups and clusters are never used. Reviewed star systems share that
-  article with components that have none.
+  article with components that have none. Where no identifier can reach an
+  article, `catalog-work/object-links/reviewed-wikipedia.json` names it with
+  the reason, for example WR 140, whose article’s Wikidata item has no SIMBAD
+  identifier, and the companions WR 140 B and WR 104 B, which have no SIMBAD
+  record. Automatic links always win over these entries.
 - **Aladin Lite.** Built at runtime from the catalogue sky position, so every
   object with one gets a sky-survey view. Nebulae and molecular clouds open at
   their catalogued extent. The Sun and the Local Bubble have no link.

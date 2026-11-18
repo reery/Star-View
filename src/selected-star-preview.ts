@@ -1,6 +1,6 @@
 import { Color } from 'three'
 import { starDisplayColor, type StarColorMode } from './astronomy'
-import { isBubbleObject, isCompactObject, isGalaxyObject, isMolecularCloudObject, isNebulaObject, type Star } from './catalog-model'
+import { isBubbleObject, isCompactObject, isGalaxyObject, isMolecularCloudObject, isNebulaObject, isStarClusterObject, type Star } from './catalog-model'
 
 const renderedPreviews = new WeakMap<HTMLCanvasElement, string>()
 
@@ -117,7 +117,7 @@ function drawStarPreview(context: CanvasRenderingContext2D, star: Star, mode: St
     return
   }
 
-  if (isCompactObject(star) || isNebulaObject(star) || isMolecularCloudObject(star) || isBubbleObject(star)) {
+  if (isCompactObject(star) || isNebulaObject(star) || isMolecularCloudObject(star) || isBubbleObject(star) || isStarClusterObject(star)) {
     context.fillStyle = color
     context.shadowColor = color
     context.shadowBlur = 6

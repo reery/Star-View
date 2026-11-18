@@ -1,7 +1,8 @@
 """Rebuild the compact-remnant overlay from frozen, source-defined inputs.
 
 `--freeze PSRCAT_DB GLITCH_DB` selects the overlay's pulsars from a downloaded
-ATNF package and stores their verbatim records; without arguments the overlay
+ATNF package and stores their verbatim records, and those of the reviewed
+landmark pulsars beyond the radius named in atnf-landmarks.json; without arguments the overlay
 is rendered from those frozen records. Derived values follow psrcat v1.54
 (defineParams.c): distance precedence, P0/P1 from F0/F1, characteristic age,
 surface field, spin-down power and companion masses for a 1.35 M_sun pulsar.
@@ -23,6 +24,9 @@ ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/compact-remnants"
 ATNF = WORK / "atnf-subset.db"
 GLITCHES = WORK / "atnf-glitches.db"
+# Reviewed pulsars beyond the radius, each with its reason, and their verbatim ATNF records.
+LANDMARK_REVIEW = WORK / "atnf-landmarks.json"
+LANDMARKS = WORK / "atnf-landmarks.db"
 CURATED = WORK / "curated.json"
 BINARIES = WORK / "pulsar-binaries.json"
 SOURCE_MANIFEST = WORK / "source-manifest.json"
@@ -352,6 +356,10 @@ def pulsar_object(record, glitch_count, measured, adopted=None, modelled=None):
     distance_kpc, distance_method, distance_source = (
         (adopted["distance_pc"] / 1000, adopted["distance_method"], adopted["source_label"]) if adopted else (atnf_kpc, atnf_method, atnf_source))
     period, period_error, derivative, derivative_error = spin(record)
+    # ATNF writes P1 = 0 with an uncertainty where the spin-down is not measured, only bounded; it stays in the notes.
+    unmeasured_p1 = derivative_error if derivative == 0 else None
+    if unmeasured_p1 is not None:
+        derivative = derivative_error = None
     age, field, power = spin_down(period, derivative)
     flux = value(record, "S1400")
     period_days, period_days_error = orbital_period(record)
@@ -428,6 +436,8 @@ def pulsar_object(record, glitch_count, measured, adopted=None, modelled=None):
         note += f" Mass {measured['mass_solar']} ± {measured['mass_error_solar']} M_sun: {measured['source_label']}, {measured['source_url']}."
         if measured.get("note"):
             note += f" {measured['note']}"
+    if unmeasured_p1 is not None:
+        note += f" ATNF lists P1 = 0 ± {unmeasured_p1:g}: the spin-down is not measured, so no characteristic age, field or spin-down power follows."
     if minimum is not None:
         note += " Companion minimum and median masses assume a 1.35 M_sun pulsar and inclinations of 90 and 60 degrees."
     return empty_scene_object(
@@ -476,6 +486,8 @@ def curated_object(source):
     astrometry = source.get("astrometry")
     # The reviewed system astrometry describes the unresolved binary, shared by both components.
     raw_astrometry = {"ra_deg": source["ra_deg"], "dec_deg": source["dec_deg"], **astrometry} if astrometry else None
+    # Pulsars beyond the radius, such as magnetars, carry their ATNF timing; spin-down values follow psrcat as above.
+    age, field, power = spin_down(source.get("rotation_period_s"), source.get("period_derivative"))
     details = {
         "confidence": source["confidence"],
         "distance_method": source["distance_method"],
@@ -485,9 +497,9 @@ def curated_object(source):
         "rotation_period_s": source.get("rotation_period_s"),
         "rotation_period_error_s": source.get("rotation_period_error_s"),
         "radio_luminosity_1400_mjy_kpc2": None,
-        "characteristic_age_yr": None,
-        "surface_magnetic_field_gauss": None,
-        "spin_down_power_erg_s": None,
+        "characteristic_age_yr": age,
+        "surface_magnetic_field_gauss": field,
+        "spin_down_power_erg_s": power,
         "orbital_period_days": source["orbital_period_days"],
         "orbital_period_error_days": source["orbital_period_error_days"],
         "companion": source["companion"],
@@ -498,6 +510,7 @@ def curated_object(source):
         "dec_deg": source["dec_deg"],
         **empty_pulsar_details(),
         "eccentricity": source.get("eccentricity"),
+        **{key: source[key] for key in ("period_derivative", "period_derivative_error", "pulsar_classes", "associations") if key in source},
     }
     if source.get("mass_model"):
         details["mass_model"] = source["mass_model"]
@@ -535,6 +548,12 @@ def freeze(catalogue_path, glitch_path):
     names = {record["PSRJ"][0] for _, record in records}
     ATNF.write_text(f"#CATALOGUE {version}\n# Verbatim ATNF records selected by scripts/author-compact-remnants.py --freeze.\n"
                     + "".join(text + "@" + "-" * 65 + "\n" for text, _ in records))
+    landmarks = json.loads(LANDMARK_REVIEW.read_text())["landmarks"]
+    landmark_records = [text for text, record in parse_records(catalogue) if record["PSRJ"][0] in landmarks]
+    if len(landmark_records) != len(landmarks):
+        raise SystemExit("A reviewed landmark pulsar is missing from the ATNF package")
+    LANDMARKS.write_text(f"#CATALOGUE {version}\n# Verbatim ATNF records of the reviewed landmark pulsars in atnf-landmarks.json.\n"
+                         + "".join(text + "@" + "-" * 65 + "\n" for text in landmark_records))
     glitch_lines = Path(glitch_path).read_text(encoding="latin-1").splitlines()
     rows = [line for line in glitch_lines[3:] if len(line.split()) > 2 and line.split()[1] in names]
     GLITCHES.write_text("\n".join(glitch_lines[:3] + rows) + "\n")
@@ -544,7 +563,7 @@ def freeze(catalogue_path, glitch_path):
 def render():
     source_manifest = json.loads(SOURCE_MANIFEST.read_text())
     atnf = source_manifest["atnf"]
-    for path, expected in ((ATNF, atnf["subsetSha256"]), (GLITCHES, atnf["glitchSubsetSha256"])):
+    for path, expected in ((ATNF, atnf["subsetSha256"]), (GLITCHES, atnf["glitchSubsetSha256"]), (LANDMARKS, atnf["landmarkSubsetSha256"])):
         if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
             raise ValueError(f"Frozen {path.name} checksum does not match source-manifest.json")
     records = [record for _, record in parse_records(ATNF.read_text(encoding="latin-1"))]
@@ -560,14 +579,20 @@ def render():
         raise ValueError("Reviewed pulsar masses and distances name pulsars outside the overlay")
     if set(masses) & set(modelled_masses):
         raise ValueError("A measured pulsar mass must replace its modelled mass")
-    objects = list(pulsars.values())
+    # Landmark pulsars beyond the radius render from their verbatim records like the others.
+    landmark_reasons = json.loads(LANDMARK_REVIEW.read_text())["landmarks"]
+    landmarks = [record for _, record in parse_records(LANDMARKS.read_text(encoding="latin-1"))]
+    if sorted(record["PSRJ"][0] for record in landmarks) != sorted(landmark_reasons) or any(selected(record, distances) for record in landmarks):
+        raise ValueError("Frozen landmark pulsars do not match atnf-landmarks.json or lie inside the radius")
+    objects = list(pulsars.values()) + [pulsar_object(record, glitches.get(record["PSRJ"][0]), None) for record in landmarks]
     objects.extend(neutron_star_companion(source, pulsars[source["pulsar"]]) for source in reviewed["neutronStarCompanions"])
     curated = json.loads(CURATED.read_text())
     objects.extend(curated_object(source) for source in curated)
     if len({item["id"] for item in objects}) != len(objects):
         raise ValueError("Compact-object IDs must be unique")
-    # Reviewed neutron stars of historical supernova remnants may lie beyond the radius; each names its reason.
+    # Reviewed landmarks may lie beyond the radius: neutron stars of historical remnants, magnetars, microquasars and Sagittarius A*; each names its reason.
     outside = {source["id"]: source["name"] for source in curated if source.get("outside_radius")}
+    outside.update({object_id(psrj): f"PSR {psrj}" for psrj in landmark_reasons})
     for item in objects:
         distance_ly = math.hypot(item["x_pc"], item["y_pc"], item["z_pc"]) * LY_PER_PC
         if (distance_ly > RADIUS_LY + 0.001) != (item["id"] in outside):
@@ -577,7 +602,7 @@ def render():
         "schemaVersion": 1,
         "id": "compact-remnants",
         "label": "Compact remnants",
-        "description": "A separately loaded, source-defined overlay of catalogued pulsars, their measured neutron-star companions and reviewed black holes and neutron stars within 10000 light-years, plus the neutron stars of historical supernova remnants beyond it.",
+        "description": "A separately loaded, source-defined overlay of catalogued pulsars, their measured neutron-star companions and reviewed black holes and neutron stars within 10000 light-years, plus reviewed landmarks beyond it: neutron stars of historical supernova remnants, magnetars, microquasars, the fastest-spinning pulsar and the Galactic Center black hole.",
         "epoch": 2000,
         "objectCount": len(objects),
         "radiusLy": RADIUS_LY,
@@ -590,8 +615,8 @@ def render():
             *({"name": entry["reference"], "url": entry["source_url"]} for entry in modelled_masses.values()),
             {"name": "BlackCAT catalogue of black-hole X-ray transients", "url": "https://arxiv.org/abs/1510.08869"},
         ],
-        "cutoffPolicy": f"ATNF v{atnf['catalogVersion']} non-candidate, non-interim pulsars within 10000 light-years; beyond 3000 light-years ({MODEL_DISTANCE_LIMIT_KPC} kpc) only those with a distance independent of the dispersion-measure model. Reviewed distances replace superseded ATNF values. Their reviewed neutron-star companions with measured masses, plus reviewed black-hole and non-pulsar neutron-star systems within 10000 light-years. Beyond the radius, only the reviewed neutron stars of historical supernova remnants: {', '.join(outside.values())}. Candidate status is explicit.",
-        "snapshot": f"J2000 map positions; ATNF package downloaded {atnf['downloaded']}; binary masses reviewed {reviewed['reviewed']}; curated literature reviewed 2026-11-15.",
+        "cutoffPolicy": f"ATNF v{atnf['catalogVersion']} non-candidate, non-interim pulsars within 10000 light-years; beyond 3000 light-years ({MODEL_DISTANCE_LIMIT_KPC} kpc) only those with a distance independent of the dispersion-measure model. Reviewed distances replace superseded ATNF values. Their reviewed neutron-star companions with measured masses, plus reviewed black-hole and non-pulsar neutron-star systems within 10000 light-years. Beyond the radius, only reviewed landmarks, each with its reason: {'; '.join(outside.values())}. Candidate status is explicit.",
+        "snapshot": f"J2000 map positions; ATNF package downloaded {atnf['downloaded']}; binary masses reviewed {reviewed['reviewed']}; curated literature reviewed 2026-11-18.",
     }
     payload = {"schemaVersion": 1, "overlayId": "compact-remnants", "objects": objects}
     provenance = {

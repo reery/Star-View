@@ -1,0 +1,30 @@
+{
+  "reviewed": "2026-11-18",
+  "policy": "English Wikipedia articles for objects that exact SIMBAD identities cannot reach. Each entry was checked on Wikipedia and states why the automatic Wikidata match misses it. Automatic links always win.",
+  "objects": {
+    "wr-140-a": {
+      "article": "WR 140",
+      "reason": "The article's Wikidata item, Q114632222, is the Wolf–Rayet star and has no SIMBAD identifier; SIMBAD's HD 193793 resolves to the binary's item, Q5840888, which has no English article."
+    },
+    "wr-140-b": {
+      "article": "WR 140",
+      "reason": "The O-type companion has no SIMBAD record or article of its own; the WR 140 article describes both stars and their orbit."
+    },
+    "wr-104-b": {
+      "article": "WR 104",
+      "reason": "The OB companion has no SIMBAD record or article of its own; the WR 104 article describes both stars of the binary."
+    },
+    "w49a": {
+      "article": "Westerhout 49",
+      "reason": "SIMBAD’s W 49a resolves to Wikidata item Q83500069, which has no English article; the Westerhout 49 article (SIMBAD W 49, the whole radio source) describes W49A as its giant H II region."
+    },
+    "veil-nebula": {
+      "article": "Veil Nebula",
+      "reason": "The record is the whole Cygnus Loop, drawn and named as the Veil Nebula; its Info article and name follow the Veil Nebula article. SIMBAD’s NAME Cygnus Loop resolves to the separate Cygnus Loop article."
+    },
+    "simeis-147": {
+      "article": "Simeis 147",
+      "reason": "Its designation Sh 2-240 resolves to SIMBAD LBN 180.05-01.66, whose Wikidata item has no English article; the Simeis 147 article belongs to the item of SNR G180.0-01.7."
+    }
+  }
+}

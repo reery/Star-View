@@ -1,0 +1,456 @@
+{
+  "reviewed": "2026-11-18",
+  "policy": "Extreme giants, the most massive known stars and Wolf–Rayet binaries. Each star is placed at the distance its adopted physical values were derived for: a maser or Gaia parallax, an orbital parallax, its cluster's distance, or the distance of the Galactic Center or the Large Magellanic Cloud. Where published values disagree, the notes give the spread with ± ranges and name every source; values that follow from a spectral-type temperature scale or a stellar model are flagged as modelled in stellar-observations.json.",
+  "stars": [
+    {
+      "id": "vy-canis-majoris",
+      "type": "star",
+      "name": "VY Canis Majoris",
+      "designations": [
+        "VY CMa",
+        "HD 58061",
+        "HIP 35793",
+        "IRC -30087",
+        "Gaia DR3 5616197646838713728",
+        "2MASS J07225830-2546030"
+      ],
+      "spectral_type": "M4",
+      "constellation": "Canis Major",
+      "distance_pc": 1170,
+      "distance_note": "1170 +80/−70 pc: the mean of the VERA (Choi et al. 2008) and VLBA (Zhang et al. 2012) maser parallaxes, as adopted by Wittkowski et al. 2012, https://arxiv.org/abs/1203.5194. Gaia DR3 gives 0.42 ± 0.41 mas with RUWE 14.3, which is not usable for this star",
+      "temperature_k": 3490,
+      "temperature_note": "3490 ± 90 K from the Rosseland angular diameter of 11.3 ± 0.3 mas and the bolometric flux",
+      "luminosity_solar": 270000,
+      "luminosity_note": "270,000 ± 40,000 L_sun at 1.17 kpc: Wittkowski et al. 2012, https://arxiv.org/abs/1203.5194",
+      "radius_solar": 1420,
+      "radius_note": "Radius 1420 ± 120 R_sun, the Rosseland radius at 1.17 kpc:",
+      "atmosphere_source": {
+        "label": "Wittkowski et al. 2012",
+        "url": "https://arxiv.org/abs/1203.5194"
+      },
+      "astrometry": {
+        "ra_deg": 110.74301250858,
+        "dec_deg": -25.767544076158973,
+        "epoch": 2016.0,
+        "parallax_mas": 0.83,
+        "parallax_error_mas": 0.08,
+        "pm_ra_cosdec_masyr": -2.8,
+        "pm_ra_error_masyr": 0.2,
+        "pm_dec_masyr": 2.6,
+        "pm_dec_error_masyr": 0.2,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Position Gaia DR3 (RUWE 14.3); parallax and proper motion of the star from H2O masers, Zhang et al. 2012, https://arxiv.org/abs/1109.3036",
+        "radial_velocity_ref": null
+      },
+      "note": "Red hypergiant inside a dusty nebula of its own ejecta, losing about 6 × 10^-4 M_sun per year. Spectral type M4 (range M3–M4.5) from Wittkowski et al. 2012. The VLBA parallax alone, 0.83 ± 0.08 mas, gives 1.20 +0.13/−0.10 kpc. Current mass 17 ± 8 M_sun and initial mass 25 ± 10 M_sun from evolutionary tracks (Wittkowski et al. 2012); the current mass is shown as a model value. No radial velocity is adopted: the Gaia DR3 value of 56.1 km/s does not match the system velocity of the masers."
+    },
+    {
+      "id": "uy-scuti",
+      "type": "star",
+      "name": "UY Scuti",
+      "designations": [
+        "UY Sct",
+        "BD-12 5055",
+        "IRC -10422",
+        "Gaia DR3 4152993273702130432",
+        "2MASS J18273652-1227589"
+      ],
+      "spectral_type": "M4Ia",
+      "constellation": "Scutum",
+      "distance_pc": 1867,
+      "distance_note": "1867 +222/−173 pc: geometric distance from the Gaia DR3 parallax of 0.517 ± 0.049 mas (RUWE 1.04), Bailer-Jones et al. 2021, https://ui.adsabs.harvard.edu/abs/2021AJ....161..147B. It replaces the 2.9 ± 0.3 kpc that Arroyo-Torres et al. 2013 assumed",
+      "temperature_k": 3365,
+      "temperature_note": "3365 ± 134 K from the Rosseland angular diameter and the bolometric flux, independent of distance",
+      "luminosity_solar": 140000,
+      "luminosity_note": "140,000 L_sun from the measured bolometric flux of (1.28 ± 0.19) × 10^-9 W/m² (Arroyo-Torres et al. 2013) at the Gaia distance: 115,000–175,000 L_sun across the distance range, and ±15% from the flux. Arroyo-Torres et al. 2013 give 340,000 L_sun at their assumed 2.9 kpc; Healy et al. 2024 give 124,000 L_sun from photometry at the Gaia DR3 distance with an assumed 3550 K, https://arxiv.org/abs/2307.08785",
+      "radius_solar": 1100,
+      "radius_note": "Radius 1100 R_sun from the Rosseland angular diameter of 5.48 ± 0.10 mas at the Gaia distance: 1000–1230 R_sun across the distance range. The published 1708 ± 192 R_sun assumes 2.9 kpc, and Healy et al. 2024 give 909 R_sun with an assumed temperature. Angular diameter and flux:",
+      "atmosphere_source": {
+        "label": "Arroyo-Torres et al. 2013",
+        "url": "https://arxiv.org/abs/1305.6179"
+      },
+      "astrometry": {
+        "ra_deg": 276.90219940862755,
+        "dec_deg": -12.46637279296229,
+        "epoch": 2016.0,
+        "parallax_mas": 0.5166,
+        "parallax_error_mas": 0.0494,
+        "pm_ra_cosdec_masyr": -0.2876,
+        "pm_ra_error_masyr": 0.0526,
+        "pm_dec_masyr": -2.7176,
+        "pm_dec_error_masyr": 0.0435,
+        "radial_velocity_kms": 16.78,
+        "radial_velocity_error_kms": 0.54,
+        "astrometry_ref": "Gaia DR3, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": "Gaia DR3, https://arxiv.org/abs/2206.05902"
+      },
+      "note": "Pulsating red supergiant once ranked as the largest known star. Spectral type M4 Ia (Arroyo-Torres et al. 2013). Arroyo-Torres et al. 2013 place it near evolutionary tracks of 25 M_sun with rotation or 30–40 M_sun without; no mass is adopted."
+    },
+    {
+      "id": "stephenson-2-18",
+      "type": "star",
+      "name": "Stephenson 2-18",
+      "designations": [
+        "St2-18",
+        "Stephenson 2 DFK 1",
+        "RSGC2-01",
+        "IRAS 18363-0607",
+        "Gaia DR3 4253084565963481856",
+        "2MASS J18390238-0605106"
+      ],
+      "spectral_type": "M5-6",
+      "constellation": "Scutum",
+      "distance_pc": 5800,
+      "distance_note": "5800 ± 1000 pc, the distance of the red-supergiant cluster Stephenson 2 adopted by Siebert et al. 2026; it rests on the kinematic distance of 5.83 +1.91/−0.78 kpc from the cluster's radial velocity, Davies et al. 2007, https://arxiv.org/abs/0708.0821. The Gaia DR3 parallax, −0.15 ± 0.23 mas, is not usable",
+      "temperature_k": 3200,
+      "temperature_note": "the temperature that Siebert et al. 2026 assume for its M5–6 spectral type, not a measurement",
+      "luminosity_solar": 321000,
+      "luminosity_note": "321,000 ± 115,000 L_sun from a radiative-transfer fit of its dusty spectral energy distribution at 5.8 kpc; the error includes the cluster distance and the extinction: Siebert et al. 2026, https://arxiv.org/abs/2609.31362. None of their CO line models reproduces this star's molecular emission across apertures, which they say might mean it is not a cluster member and needs a revised distance",
+      "radius_solar": 1840,
+      "radius_note": "Radius 1840 R_sun from that luminosity and the assumed 3200 K by the Stefan–Boltzmann law: 1480–2150 R_sun across the luminosity range. Luminosity and temperature:",
+      "atmosphere_source": {
+        "label": "Siebert et al. 2026",
+        "url": "https://arxiv.org/abs/2609.31362"
+      },
+      "astrometry": {
+        "ra_deg": 279.7598652517792,
+        "dec_deg": -6.0862863700636245,
+        "epoch": 2016.0,
+        "parallax_mas": null,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": null,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": null,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Gaia DR3, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": null
+      },
+      "note": "Red supergiant at the base of the Scutum–Centaurus arm, by far the brightest star of the cluster Stephenson 2 in the K band and among the largest known stars. Spectral type M5–6 from its CO absorption (Davies et al. 2007), who found a strong infrared excess and suggested it may be an extreme red hypergiant like VY CMa; its radial velocity, about 20 km/s below the cluster's, made a foreground giant unlikely to them. Its membership of the cluster is still questioned (Siebert et al. 2026). Published luminosities differ by a factor of several, depending on the assumed distance and on how its circumstellar dust is modelled; the adopted value is the most recent fit with far-infrared and millimetre constraints. No mass is adopted."
+    },
+    {
+      "id": "woh-g64",
+      "type": "star",
+      "name": "WOH G64",
+      "designations": [
+        "WOH G 64",
+        "IRAS 04553-6825",
+        "LI-LMC 181",
+        "MSX LMC 1182",
+        "Gaia DR3 4661527262798576768",
+        "2MASS J04551048-6820298"
+      ],
+      "spectral_type": "M5I",
+      "constellation": "Dorado",
+      "distance_pc": 49590,
+      "distance_note": "49,590 ± 540 pc, the distance of the Large Magellanic Cloud from eclipsing binaries, Pietrzyński et al. 2019, https://arxiv.org/abs/1903.08096. The adopted analyses assume 50 kpc, 0.8% farther, which is well within their errors",
+      "temperature_k": 3400,
+      "temperature_note": "3400 ± 25 K from a fit of the 2007 optical spectrum, when it was classified M5 I",
+      "luminosity_solar": 286000,
+      "luminosity_note": "286,000 L_sun from M_bol = −8.9 with M_bol,sun = 4.74 (Levesque et al. 2009); 2D modelling of the dust torus gives log L = 5.45 ± 0.05, 282,000 ± 34,000 L_sun (Ohnaka et al. 2008, https://arxiv.org/abs/0803.3823), the value Muñoz-Sanchez et al. 2026 also adopt",
+      "radius_solar": 1540,
+      "radius_note": "Radius 1540 ± 77 R_sun from that temperature and luminosity:",
+      "atmosphere_source": {
+        "label": "Levesque et al. 2009",
+        "url": "https://arxiv.org/abs/0903.2260"
+      },
+      "astrometry": {
+        "ra_deg": 73.79386870935333,
+        "dec_deg": -68.34167200555116,
+        "epoch": 2016.0,
+        "parallax_mas": null,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": null,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": null,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Gaia DR3, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": null
+      },
+      "note": "Red supergiant in the Large Magellanic Cloud, wrapped in a thick dust torus of 3–9 M_sun (Ohnaka et al. 2008). In 2024, the VLT interferometer made the first close-up image of a star in another galaxy of it, an elongated cocoon of about 2 × 1.5 mas (Ohnaka et al. 2024, https://arxiv.org/abs/2412.01921). Its present state is disputed. Around 2014 its spectrum changed and filled with emission lines; Muñoz-Sanchez et al. 2026 (Nature Astronomy, https://arxiv.org/abs/2411.19329) measured 4800 ± 300 K from its H-band spectrum and a radius of about 800 R_sun, a late-G or early-K yellow hypergiant with a hot companion. Spectra taken from November 2024 to December 2025 show TiO bands at all times, which van Loon & Ohnaka 2026 read as a red supergiant still, perhaps one that never changed (https://arxiv.org/abs/2601.02057). The adopted temperature, luminosity and radius are those measured before the change, so the temperature is 3400–4800 K depending on the interpretation. Initial mass 25–28 M_sun (Ohnaka et al. 2008; Muñoz-Sanchez et al. 2026); no current mass is adopted."
+    },
+    {
+      "id": "pistol-star",
+      "type": "star",
+      "name": "Pistol Star",
+      "designations": [
+        "V4647 Sgr",
+        "qF 134",
+        "[FMM95] 3",
+        "2MASS J17461524-2850035"
+      ],
+      "spectral_type": null,
+      "constellation": "Sagittarius",
+      "distance_pc": 8230,
+      "distance_note": "8230 pc, the Galactic Center distance from the kinematics of bar stars (Leung et al. 2023, https://arxiv.org/abs/2204.12551) at which Bernini-Peron et al. 2026 rescale its luminosity; the star lies in the Quintuplet cluster, about 30 pc in projection from Sagittarius A* (8277 pc), and its depth along the line of sight is unmeasured",
+      "temperature_k": 11800,
+      "temperature_note": "11,800 ± 1500 K from a non-LTE model of its near-infrared spectrum at 8 kpc",
+      "luminosity_solar": 1660000,
+      "luminosity_note": "1,660,000 L_sun (log L = 6.22): the luminosity of Najarro et al. 2009, 1.6 × 10^6 L_sun at 8 kpc, rescaled to 8.23 kpc by Bernini-Peron et al. 2026, https://arxiv.org/abs/2601.03072. Najarro et al. 2009 halved the earlier estimate of Figer et al. 1998",
+      "radius_solar": 308,
+      "radius_note": "Radius 308 R_sun from that luminosity and temperature by the Stefan–Boltzmann law; Najarro et al. 2009 give 306 R_sun at 8 kpc. Temperature:",
+      "atmosphere_source": {
+        "label": "Najarro et al. 2009",
+        "url": "https://arxiv.org/abs/0809.3185"
+      },
+      "astrometry": {
+        "ra_deg": 266.5635,
+        "dec_deg": -28.834328,
+        "epoch": 2000.0,
+        "parallax_mas": null,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": null,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": null,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "2MASS (Cutri et al. 2003), via SIMBAD",
+        "radial_velocity_ref": null
+      },
+      "note": "Candidate luminous blue variable in the Quintuplet cluster near the Galactic Center, surrounded by the Pistol Nebula of gas it shed in giant outbursts. Its spectral type is given only as LBV. It loses about 2.1 × 10^-5 M_sun per year, with solar iron and about twice-solar α-element abundances (Najarro et al. 2009). No mass is adopted: Najarro et al. 2009 give an initial mass of about 100 M_sun and a present mass of 27.5 M_sun from the wind, which they say should be regarded with caution."
+    },
+    {
+      "id": "r136a1",
+      "type": "star",
+      "name": "R136a1",
+      "designations": [
+        "RMC 136a1",
+        "BAT99 108",
+        "[HSH95] 3",
+        "Cl* NGC 2070 MH 498"
+      ],
+      "spectral_type": "WN5h",
+      "constellation": "Dorado",
+      "distance_pc": 49590,
+      "distance_note": "49,590 ± 540 pc, the distance of the Large Magellanic Cloud from eclipsing binaries, Pietrzyński et al. 2019, https://arxiv.org/abs/1903.08096; Brands et al. 2022 adopt the same distance modulus of 18.48 mag",
+      "temperature_k": 46000,
+      "temperature_note": "46,000 +1250/−2375 K from a fit of its optical and ultraviolet HST/STIS spectra; earlier analyses found 53,000–56,000 K",
+      "luminosity_solar": 7240000,
+      "luminosity_note": "7,240,000 +700,000/−1,080,000 L_sun (log L = 6.86 +0.04/−0.07): Brands et al. 2022, https://arxiv.org/abs/2202.11080. Kalari et al. 2022 resolved the cluster core with speckle imaging and found lower luminosities for the WN5h stars, https://arxiv.org/abs/2207.13078",
+      "radius_solar": 42.7,
+      "radius_note": "Radius 42.7 +1.6/−0.9 R_sun:",
+      "age_gyr": 0.00114,
+      "atmosphere_source": {
+        "label": "Brands et al. 2022",
+        "url": "https://arxiv.org/abs/2202.11080"
+      },
+      "astrometry": {
+        "ra_deg": 84.67665,
+        "dec_deg": -69.100797,
+        "epoch": 2000.0,
+        "parallax_mas": null,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": null,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": null,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Brands et al. 2022, via SIMBAD",
+        "radial_velocity_ref": null
+      },
+      "note": "The most massive and most luminous star known, a hydrogen-rich Wolf–Rayet star in the R136 cluster at the heart of the Tarantula Nebula. Its mass is a model value and estimates disagree: 222 +29/−28 M_sun from evolutionary tracks (Brands et al. 2022), 303 +123/−79 M_sun from its surface gravity (Brands et al. 2022), 291 ± 46 M_sun from models matched to its helium abundance (Keszthelyi et al. 2025, https://arxiv.org/abs/2506.15230), and 150–200 M_sun from the lower luminosities of Kalari et al. 2022, so about 150–300 M_sun. Initial mass 273 +25/−36 M_sun and age 1.14 +0.17/−0.14 Myr (Brands et al. 2022). Kalari et al. 2022 found a visual companion of mid-O type at least 40 mas, about 2000 au, away."
+    },
+    {
+      "id": "westerlund-1-w26",
+      "type": "star",
+      "name": "Westerlund 1 W26",
+      "designations": [
+        "Wd1-26",
+        "Cl* Westerlund 1 W 26",
+        "Cl* Westerlund 1 BKS AS",
+        "Gaia DR3 5940106041452150272",
+        "2MASS J16470540-4550367"
+      ],
+      "spectral_type": "M2-5Ia",
+      "constellation": "Ara",
+      "distance_pc": 4230,
+      "distance_note": "4230 +230/−210 pc, the distance of the Westerlund 1 cluster from the Gaia EDR3 parallaxes of its members, Negueruela et al. 2022, https://arxiv.org/abs/2204.00422. The star's own Gaia DR3 parallax, 0.05 ± 0.09 mas, is not usable",
+      "temperature_k": 3450,
+      "temperature_note": "the temperature of an M5 I red supergiant on the scale of Levesque et al. 2005, https://arxiv.org/abs/astro-ph/0504337, not a measurement; its spectrum varies between M2 and M5, 3660–3450 K on the same scale",
+      "luminosity_solar": 290000,
+      "luminosity_note": "290,000 +84,000/−49,000 L_sun: log L = 5.44 −0.08/+0.11 from its spectral energy distribution at 4.12 kpc (Beasor et al. 2021), rescaled to 4.23 kpc; their K-band estimate gives log L = 5.46",
+      "radius_solar": 1510,
+      "radius_note": "Radius 1510 R_sun from that luminosity and the M5 temperature by the Stefan–Boltzmann law; with the M2 temperature it is 1340 R_sun, and a 2019 thesis (Arévalo, via Wikipedia's list of largest stars) gives 1145–1240 R_sun with 3782 K at 4.35 kpc, so about 1150–1510 R_sun. Luminosity:",
+      "atmosphere_source": {
+        "label": "Beasor et al. 2021",
+        "url": "https://arxiv.org/abs/2103.02609"
+      },
+      "astrometry": {
+        "ra_deg": 251.77252030149674,
+        "dec_deg": -45.843522113922276,
+        "epoch": 2016.0,
+        "parallax_mas": null,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": null,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": null,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": -49.82,
+        "radial_velocity_error_kms": 0.11,
+        "astrometry_ref": "Gaia DR3, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": "Gaia DR3, https://arxiv.org/abs/2206.05902"
+      },
+      "note": "Red supergiant on the outskirts of Westerlund 1, the most massive young cluster known in the Milky Way. It is the only red supergiant known inside an ionized nebula: a shell about 0.1 pc across plus a filamentary triangular nebula, whose source of ionizing light is unclear because the star is too cool to provide it (Wright et al. 2014, https://arxiv.org/abs/1309.4086). Its spectral type varies between M2 and M5 Ia as its TiO bands change. Beasor et al. 2021 date the cluster to 10.4 +1.3/−1.2 Myr. No mass is adopted."
+    }
+  ],
+  "systems": [
+    {
+      "id": "wr-140",
+      "name": "WR 140",
+      "constellation": "Cygnus",
+      "distance_pc": 1518,
+      "distance_note": "1518 ± 21 pc, the orbital parallax from the combined visual and spectroscopic orbit, Thomas et al. 2021, https://arxiv.org/abs/2101.10563. Published distances disagree: the orbit of Monnier et al. 2011 gives 1.67 ± 0.03 kpc and the Gaia DR2 parallax 1.64 +0.08/−0.07 kpc, while the Gaia DR3 parallax of 0.538 ± 0.024 mas, 1.86 kpc, is probably disturbed by the orbital motion near periastron; so 1.52–1.67 kpc",
+      "astrometry": {
+        "ra_deg": 305.1165394492402,
+        "dec_deg": 43.854515794667826,
+        "epoch": 2016.0,
+        "parallax_mas": 0.6588,
+        "parallax_error_mas": 0.0091,
+        "pm_ra_cosdec_masyr": -4.2746,
+        "pm_ra_error_masyr": 0.0269,
+        "pm_dec_masyr": -1.8737,
+        "pm_dec_error_masyr": 0.0256,
+        "radial_velocity_kms": 3.99,
+        "radial_velocity_error_kms": 0.37,
+        "astrometry_ref": "Position and proper motion Gaia DR3, https://arxiv.org/abs/2208.00211; parallax the orbital parallax of Thomas et al. 2021, https://arxiv.org/abs/2101.10563",
+        "radial_velocity_ref": "Systemic velocity of the O star's orbit, Thomas et al. 2021"
+      },
+      "orbit": {
+        "primary_label": "A",
+        "period_days": 2895.0,
+        "period_error_days": 0.29,
+        "eccentricity": 0.8993,
+        "eccentricity_error": 0.0013,
+        "inclination_deg": 119.07,
+        "inclination_error_deg": 0.88,
+        "node_deg": 353.87,
+        "node_error_deg": 0.67,
+        "argument_deg": 227.44,
+        "argument_error_deg": 0.52,
+        "argument_component": "A",
+        "periastron_year": 2024.8918,
+        "periastron_error_year": 0.0015,
+        "angular_axis_mas": 8.922,
+        "angular_axis_error_mas": 0.067,
+        "source": {
+          "label": "Thomas et al. 2021, Table 4",
+          "url": "https://arxiv.org/abs/2101.10563"
+        },
+        "scope": "Combined visual (CHARA and earlier interferometry) and spectroscopic orbit; the argument of periastron is the Wolf–Rayet star's, and periastron T0 = MJD 60636.23 ± 0.53. The physical axis converts the angular axis at the orbital-parallax distance."
+      },
+      "components": [
+        {
+          "id": "wr-140-a",
+          "component": "A",
+          "type": "star",
+          "name": "WR 140 A",
+          "designations": [
+            "WR 140",
+            "HD 193793",
+            "HIP 100287",
+            "Gaia DR3 2081261372633822592"
+          ],
+          "spectral_type": "WC7pd",
+          "mass_solar": 10.31,
+          "mass_note": "10.31 ± 0.45 M_sun from the orbit at its orbital-parallax distance; at the Gaia DR2 distance it would be 12.99 ± 1.54 M_sun",
+          "atmosphere_source": {
+            "label": "Thomas et al. 2021",
+            "url": "https://arxiv.org/abs/2101.10563"
+          },
+          "note": "Carbon-rich Wolf–Rayet star (WC7pd; Fahed et al. 2011) in an eccentric 7.93-year orbit with an O star. Near each periastron the colliding winds form dust, and JWST imaged more than 17 nested dust shells from about 130 years of these episodes (Lau et al. 2022, https://arxiv.org/abs/2210.06452). No temperature or luminosity is adopted: the published values come from binary evolution models (Thomas et al. 2021) rather than an analysis of the spectrum."
+        },
+        {
+          "id": "wr-140-b",
+          "component": "B",
+          "type": "star",
+          "name": "WR 140 B",
+          "designations": [],
+          "spectral_type": "O5.5fc",
+          "mass_solar": 29.27,
+          "mass_note": "29.27 ± 1.14 M_sun from the orbit at its orbital-parallax distance; at the Gaia DR2 distance it would be 36.87 ± 4.34 M_sun",
+          "atmosphere_source": {
+            "label": "Thomas et al. 2021",
+            "url": "https://arxiv.org/abs/2101.10563"
+          },
+          "note": "O-type companion of the Wolf–Rayet star WR 140 A, spectral type O5.5fc (Fahed et al. 2011); Thomas et al. 2021 note that its orbital mass suggests a later type. No temperature or luminosity is adopted."
+        }
+      ]
+    },
+    {
+      "id": "wr-104",
+      "name": "WR 104",
+      "constellation": "Sagittarius",
+      "distance_pc": 2580,
+      "distance_note": "2580 ± 120 pc from the expansion of its dust spiral, assuming the 1220 km/s wind speed of WC9 stars, Soulain et al. 2018, https://arxiv.org/abs/1806.08525; with 1600 km/s it would be 3.38 ± 0.15 kpc. The Gaia DR3 parallax of 1.56 ± 0.20 mas has RUWE 5.5 and is not usable",
+      "astrometry": {
+        "ra_deg": 270.51718314751105,
+        "dec_deg": -23.62838158545535,
+        "epoch": 2016.0,
+        "parallax_mas": null,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": null,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": null,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "astrometry_ref": "Gaia DR3, https://arxiv.org/abs/2208.00211",
+        "radial_velocity_ref": null
+      },
+      "orbit": {
+        "primary_label": "A",
+        "period_days": 241.5,
+        "inclination_deg": 41.8,
+        "source": {
+          "label": "Tuthill et al. 2008; Richardson et al. 2026",
+          "url": "https://arxiv.org/abs/2602.23606"
+        },
+        "scope": "Period 241.5 ± 0.5 days from the rotation of the dust pinwheel (Tuthill et al. 2008, https://arxiv.org/abs/0712.2111). Inclination 41.8 +13.0/−14.9° from the dust eclipses in its light curve (Richardson et al. 2026), in line with the spectroscopic orbit of Hill 2024 but not with the face-on spiral seen in images, which suggested less than 16°. The relative semi-major axis follows from Kepler's third law with both component masses, and inherits their large uncertainty."
+      },
+      "components": [
+        {
+          "id": "wr-104-a",
+          "component": "A",
+          "type": "star",
+          "name": "WR 104 A",
+          "designations": [
+            "WR 104",
+            "V5097 Sgr",
+            "MR 80",
+            "Gaia DR3 4069167258796371712",
+            "2MASS J18020412-2337419"
+          ],
+          "spectral_type": "WC9d",
+          "mass_solar": 14.9,
+          "mass_note": "14.9 +28.9/−6.6 M_sun from the spectroscopic orbit of Hill 2024 with the eclipse inclination",
+          "atmosphere_source": {
+            "label": "Richardson et al. 2026",
+            "url": "https://arxiv.org/abs/2602.23606"
+          },
+          "note": "Dust-forming carbon-rich Wolf–Rayet star (WC9d) whose wind collides with that of its companion every 241.5-day orbit, laying down the dust pinwheel discovered with Keck aperture masking (Tuthill et al. 1999, https://arxiv.org/abs/astro-ph/9904092). A third star, an O8–O5 dwarf, lies about 1 arcsecond away (Soulain et al. 2018). No temperature or luminosity is adopted: Soulain et al. 2018 assumed them for their models."
+        },
+        {
+          "id": "wr-104-b",
+          "component": "B",
+          "type": "star",
+          "name": "WR 104 B",
+          "designations": [],
+          "spectral_type": "B1III:",
+          "mass_solar": 40.2,
+          "mass_note": "40.2 +77.7/−17.9 M_sun from the spectroscopic orbit of Hill 2024 with the eclipse inclination",
+          "atmosphere_source": {
+            "label": "Richardson et al. 2026",
+            "url": "https://arxiv.org/abs/2602.23606"
+          },
+          "note": "OB companion of the Wolf–Rayet star WR 104 A, seen through its absorption lines. Hill 2024 suggested type B1 III, though that type might belong to the wider third star. No temperature or luminosity is adopted."
+        }
+      ]
+    }
+  ]
+}

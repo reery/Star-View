@@ -1,16 +1,17 @@
 import { describe, expect, it } from 'vitest'
 import {
   availableFilterKeys, categoryAvailable, DEFAULT_FILTER_CATEGORIES, DEFAULT_FILTER_SUBTYPES, effectiveFilterKeys,
-  FILTER_CATEGORIES, FILTER_KEYS, filterKeyForObject, filterSummary, restoredFilterSubtypes,
+  FILTER_CATEGORIES, FILTER_KEYS, filterKeyForObject, filterSummary, restoredFilterCategories, restoredFilterSubtypes,
 } from './object-filter'
 
 describe('object filter taxonomy', () => {
   it('lists the requested categories and subtypes in order', () => {
     expect(FILTER_CATEGORIES.map((category) => category.label)).toEqual([
-      'Compact objects', 'Interstellar medium', 'Stellar remnants', 'Large-scale structures',
+      'Compact objects', 'Star clusters', 'Interstellar medium', 'Stellar remnants', 'Large-scale structures',
     ])
     expect(FILTER_CATEGORIES.map((category) => category.subtypes.map((subtype) => subtype.label))).toEqual([
       ['Sun', 'Stars', 'Brown dwarfs', 'White dwarfs', 'Neutron stars', 'Pulsars', 'Black holes'],
+      ['Open clusters', 'Globular clusters'],
       ['Molecular clouds', 'Dark nebulae', 'Reflection nebulae', 'H II regions'],
       ['Planetary nebulae', 'Supernova remnants', 'Pulsar-wind nebulae'],
       ['Bubbles', 'Dust sheets'],
@@ -25,6 +26,8 @@ describe('object filter taxonomy', () => {
     expect(filterKeyForObject({ id: 'gaia-bh1', type: 'black_hole' })).toBe('black_hole')
     expect(filterKeyForObject({ id: 'orion-nebula', type: 'hii_region' })).toBe('hii_region')
     expect(filterKeyForObject({ id: 'local-bubble', type: 'bubble' })).toBe('bubble')
+    expect(filterKeyForObject({ id: 'pleiades', type: 'open_cluster' })).toBe('open_cluster')
+    expect(filterKeyForObject({ id: 'omega-centauri', type: 'globular_cluster' })).toBe('globular_cluster')
   })
 
   it('derives availability from bundled catalogs and positive overlay counts', () => {
@@ -54,6 +57,15 @@ describe('object filter taxonomy', () => {
     expect(restoredFilterSubtypes(['star', 'hii_region'], [...available], available)).toEqual(new Set(['star', 'hii_region']))
     // Types without data stay off.
     expect(restoredFilterSubtypes(['star'], undefined, availableFilterKeys({ hii_region: 1 }))).toEqual(new Set(['star']))
+  })
+
+  it('turns on a default category whose types all gained data after the filter was saved', () => {
+    const available = availableFilterKeys({ open_cluster: 2 })
+    expect(restoredFilterCategories(['compact_objects'], undefined, available)).toEqual(new Set(['compact_objects', 'star_clusters']))
+    // Saved knowing open clusters, with their category switched off.
+    expect(restoredFilterCategories(['compact_objects'], [...available], available)).toEqual(new Set(['compact_objects']))
+    // A category without data stays off.
+    expect(restoredFilterCategories(['compact_objects'], undefined, availableFilterKeys())).toEqual(new Set(['compact_objects']))
   })
 
   it('summarizes effective selections against available types', () => {

@@ -1,17 +1,20 @@
 {
 "schemaVersion":1,
 "band":"gamma",
-"retrieved":"2026-11-16",
+"retrieved":"2026-11-18",
 "unit":"erg cm-2 s-1",
 "entry":["value","error","source","identifier","scope"],
 "sources":{"4fgl":{"label":"Fermi LAT 14-year Source Catalog (4FGL-DR4)","reference":"Ballet et al. 2023, arXiv:2307.12546","url":"https://fermi.gsfc.nasa.gov/ssc/data/access/lat/14yr_catalog/gll_psc_v35.fit","note":"Energy flux 100 MeV–100 GeV"}},
 "objects":{
+"3c-58":[1.4907839e-11,6.2921153e-12,"4fgl","4FGL J0205.6+6449e","The pulsar wind nebula, without PSR J0205+6449"],
 "cassiopeia-a":[6.182081e-11,1.6620434e-12,"4fgl","4FGL J2323.4+5849"],
 "crab-nebula":[4.97726856e-10,null,"4fgl","4FGL J0534.5+2201i + 4FGL J0534.5+2201s","The nebula’s inverse-Compton and synchrotron components, without the pulsar"],
+"ic-443":[4.5278767e-10,7.47081e-12,"4fgl","4FGL J0617.2+2234e"],
 "keplers-supernova-remnant":[4.068268e-12,1.1485615e-12,"4fgl","4FGL J1730.4-2131"],
 "psr-j0007p7303":[4.3272858e-10,3.0444221e-12,"4fgl","4FGL J0007.0+7303"],
 "psr-j0023p0923":[7.969599e-12,4.9869614e-13,"4fgl","4FGL J0023.4+0920"],
 "psr-j0030p0451":[6.066861e-11,1.0250205e-12,"4fgl","4FGL J0030.4+0451"],
+"psr-j0205p6449":[4.647376e-11,6.4157295e-12,"4fgl","4FGL J0205.7+6449"],
 "psr-j0248p6021":[2.9173795e-11,2.0757718e-12,"4fgl","4FGL J0248.4+6021"],
 "psr-j0307p7443":[1.6900061e-11,5.7131367e-13,"4fgl","4FGL J0307.8+7443"],
 "psr-j0312m0921":[5.645763e-12,4.0418222e-13,"4fgl","4FGL J0312.1-0921"],
@@ -106,10 +109,12 @@
 "psr-j2302p4442":[3.933193e-11,7.987082e-13,"4fgl","4FGL J2302.7+4443"],
 "psr-j2317p1439":[9.0254654e-13,2.285643e-13,"4fgl","4FGL J2317.3+1433"],
 "psr-j2339m0533":[2.9285584e-11,7.1844137e-13,"4fgl","4FGL J2339.6-0533"],
+"puppis-a":[7.4025494e-11,2.3421783e-12,"4fgl","4FGL J0822.1-4253e"],
 "rcw-86":[9.22062e-12,9.564077e-13,"4fgl","4FGL J1443.0-6227e"],
 "rx-j1713-3946":[7.129946e-11,3.0453682e-12,"4fgl","4FGL J1713.5-3945e"],
 "tychos-supernova-remnant":[1.0946713e-11,1.0050801e-12,"4fgl","4FGL J0025.3+6408"],
 "veil-nebula":[9.971673e-11,1.7875767e-12,"4fgl","4FGL J2051.0+3049e"],
-"vela-supernova-remnant":[1.6661125e-10,8.54052e-12,"4fgl","4FGL J0834.3-4542e","Vela X, the pulsar wind nebula inside the remnant"]
+"vela-supernova-remnant":[1.6661125e-10,8.54052e-12,"4fgl","4FGL J0834.3-4542e","Vela X, the pulsar wind nebula inside the remnant"],
+"w44":[4.6173954e-10,2.160302e-11,"4fgl","4FGL J1855.9+0121e"]
 }
 }

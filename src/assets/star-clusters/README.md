@@ -1,0 +1,25 @@
+# Star cluster Info images
+
+Retrieved and reviewed on 2026-11-18. Thirteen images for the articles in `src/data/star-cluster-info.json`, 464 KB in total. The two halves of the Double Cluster share the article and image keyed `ngc-869`. They load only when a visitor opens that cluster’s Info, so they add nothing to startup.
+
+## Delivery
+
+As for the galaxy images (`src/assets/galaxies/README.md`): the 1280-pixel Commons rendition resized to 600 px wide and encoded to AVIF with macOS `sips` at quality 62, stepping down until the file is at most 45 KB (58 for the Beehive Cluster). The dense star field of NGC 3532 is 480 px wide at quality 38, as for the Hubble star fields of the galaxy images. Colors are unchanged. Credits, captions and licenses are stored with each article and shown on the card.
+
+| File | Credit | Pixels (source → delivered) | Bytes | Source | License |
+| --- | --- | --- | ---: | --- | --- |
+| `pleiades.avif` | Brody Wesner | 1280 × 831 Commons rendition → 600 × 389 | 31,261 | [Wikimedia Commons: Pleiades 2024](https://commons.wikimedia.org/wiki/File:Pleiades_2024.jpg) | CC BY 4.0 |
+| `hyades.avif` | NOIRLab/NSF/AURA/Digitized Sky Survey 2 | 1280 × 747 Commons rendition → 600 × 350 | 10,976 | [Wikimedia Commons: The Hyades star cluster (noirlab2018e)](https://commons.wikimedia.org/wiki/File:The_Hyades_star_cluster_(noirlab2018e).jpg) | CC BY 4.0 |
+| `beehive-cluster.avif` | NOIRLab/NSF/AURA | 1280 × 1280 Commons rendition → 600 × 600 | 35,267 | [Wikimedia Commons: M44, NGC 2632 (noao-m44)](https://commons.wikimedia.org/wiki/File:M44,_NGC_2632_(noao-m44).jpg) | CC BY 4.0 |
+| `ngc-869.avif` | Taavi Niittee | 1280 × 854 Commons rendition → 600 × 400 | 29,251 | [Wikimedia Commons: Double cluster](https://commons.wikimedia.org/wiki/File:Double_cluster.jpg) | CC0 1.0 |
+| `messier-67.avif` | Starhopper | 1280 × 1309 Commons rendition → 600 × 613 | 24,128 | [Wikimedia Commons: M067](https://commons.wikimedia.org/wiki/File:M067.jpg) | CC BY-SA 4.0 |
+| `ngc-3532.avif` | ESO/G. Beccari | 1280 × 1237 Commons rendition → 480 × 464 | 41,402 | [Wikimedia Commons: Eso1439a](https://commons.wikimedia.org/wiki/File:Eso1439a.jpg) | CC BY 4.0 |
+| `omega-centauri.avif` | ESO | 1280 × 1204 Commons rendition → 480 × 451 | 41,701 | [Wikimedia Commons: Omega Centauri by ESO](https://commons.wikimedia.org/wiki/File:Omega_Centauri_by_ESO.jpg) | CC BY 4.0 |
+| `47-tucanae.avif` | NOIRLab/NSF/AURA | 1280 × 1024 Commons rendition → 600 × 480 | 44,220 | [Wikimedia Commons: 47 Tucanae, NGC 104 (noao-02212)](https://commons.wikimedia.org/wiki/File:47_Tucanae,_NGC_104_(noao-02212).jpg) | CC BY 4.0 |
+| `messier-4.avif` | ESO Imaging Survey | 1280 × 1237 Commons rendition → 600 × 580 | 40,009 | [Wikimedia Commons: Globular star cluster Messier 4](https://commons.wikimedia.org/wiki/File:Globular_star_cluster_Messier_4.jpg) | CC BY 4.0 |
+| `messier-13.avif` | Astrowimp | 1280 × 1012 Commons rendition → 600 × 474 | 41,629 | [Wikimedia Commons: M13 (Hercules globular cluster)](https://commons.wikimedia.org/wiki/File:M13_(Hercules_globular_cluster).jpg) | CC BY-SA 4.0 |
+| `messier-22.avif` | ESA/Hubble & NASA | 1280 × 1307 Commons rendition → 480 × 490 | 39,290 | [Wikimedia Commons: The crammed centre of Messier 22](https://commons.wikimedia.org/wiki/File:The_crammed_centre_of_Messier_22.jpg) | CC BY 4.0 |
+| `messier-15.avif` | ESA/Hubble & NASA | 1280 × 1280 Commons rendition → 480 × 480 | 41,432 | [Wikimedia Commons: Messier 15 HST](https://commons.wikimedia.org/wiki/File:Messier_15_HST.jpg) | public domain (Commons) |
+| `terzan-5.avif` | NASA, ESA, CSA, STScI, G. Zullo, F. R. Ferraro; processing A. Pagan | 1280 × 936 Commons rendition → 600 × 438 | 43,670 | [Wikimedia Commons: Bulge fossil fragment Terzan 5 (Webb and Hubble image) (weic2611a)](https://commons.wikimedia.org/wiki/File:Bulge_fossil_fragment_Terzan_5_(Webb_and_Hubble_image)_(weic2611a).jpg) | CC BY 4.0 |
+
+The seven globular-cluster images were added on 2026-11-18, 292 KB in total, with the same delivery. The dense star fields of Omega Centauri, Messier 22 and Messier 15 are 480 px wide, as for NGC 3532.

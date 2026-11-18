@@ -12,6 +12,8 @@ import nebulaObjects from './data/overlays/nebulae/objects.json'
 import bubbleObjects from './data/overlays/bubbles/objects.json'
 import galaxyDefinitions from './data/galaxy-info.json'
 import galaxyObjects from './data/overlays/galaxies/objects.json'
+import starClusterDefinitions from './data/star-cluster-info.json'
+import starClusterObjects from './data/overlays/star-clusters/objects.json'
 import darkCloudDefinitions from './data/dark-cloud-info.json'
 import molecularCloudObjects from './data/overlays/molecular-clouds/objects.json'
 import legacyStarIds from './data/legacy-star-ids.json'
@@ -28,7 +30,7 @@ const surviving = (id: string) => (legacyStarIds.ids as Record<string, string>)[
 beforeAll(async () => {
   vi.stubGlobal('fetch', generatedJsonFetch)
   await Promise.all([...Object.keys(definitions.articles), ...Object.keys(nearest100Definitions.articles),
-    ...Object.keys(constellationDefinitions.articles).map(surviving), ...Object.keys(compactDefinitions.articles), ...Object.keys(nebulaDefinitions.articles), ...Object.keys(galaxyDefinitions.articles), ...Object.keys(darkCloudDefinitions.articles)].map(loadStarInfo))
+    ...Object.keys(constellationDefinitions.articles).map(surviving), ...Object.keys(compactDefinitions.articles), ...Object.keys(nebulaDefinitions.articles), ...Object.keys(galaxyDefinitions.articles), ...Object.keys(starClusterDefinitions.articles), ...Object.keys(darkCloudDefinitions.articles)].map(loadStarInfo))
 })
 afterAll(() => vi.unstubAllGlobals())
 
@@ -97,7 +99,7 @@ describe('nebula articles', () => {
 
   it('resolve every local image with its dimensions and credit', () => {
     const illustrated = Object.keys(nebulaDefinitions.articles).filter((id) => 'image' in nebulaDefinitions.articles[id as keyof typeof nebulaDefinitions.articles])
-    expect(illustrated).toHaveLength(101)
+    expect(illustrated).toHaveLength(115)
     for (const id of illustrated) {
       const image = starInfoForId(id)?.image
       expect(image?.src, id).toContain(`${id}`)
@@ -127,15 +129,22 @@ describe('dark nebula and molecular cloud articles', () => {
   })
 })
 
-describe('galaxy articles', () => {
-  it('cover every galaxy with a sourced, illustrated article', () => {
-    expect(Object.keys(galaxyDefinitions.articles).sort()).toEqual(galaxyObjects.objects.map(({ id }) => id).sort())
-    for (const { id } of galaxyObjects.objects) {
+describe.each([
+  ['galaxy', galaxyDefinitions, galaxyObjects],
+  ['star cluster', starClusterDefinitions, starClusterObjects],
+] as const)('%s articles', (kind, articles, overlay) => {
+  it(`cover every ${kind} with a sourced, illustrated article`, () => {
+    // An article may be shared by its aliases, such as the two halves of the Double Cluster; its image is named after its key.
+    const keyOf = Object.fromEntries(Object.entries(articles.articles).flatMap(([key, article]) =>
+      [key, ...'aliases' in article ? article.aliases as string[] : []].map((id) => [id, key])))
+    expect(Object.keys(keyOf).sort()).toEqual(overlay.objects.map(({ id }) => id).sort())
+    for (const { id } of overlay.objects) {
       const info = starInfoForId(id)
+      expect(info, id).toBe(starInfoForId(keyOf[id]!))
       expect(starInfoAvailable(id), id).toBe(true)
       expect(info?.introduction.text, id).toMatch(/^[a-z]/)
       expect(info!.sections.every((section) => section.source?.url.startsWith('https://')), id).toBe(true)
-      expect(info?.image?.src, id).toContain(id)
+      expect(info?.image?.src, id).toContain(keyOf[id])
       expect(info?.image?.width, id).toBeLessThanOrEqual(600)
       // Public-domain images, such as NASA's, carry no license.
       if (info?.image?.license) expect(info.image.license.url, id).toMatch(/^https:\/\/creativecommons\.org\//)

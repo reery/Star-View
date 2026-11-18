@@ -154,7 +154,7 @@ function radialStrength(signed: number, level: number): number {
 }
 
 function extended(star: Star): boolean {
-  return Boolean(star.nebula || star.molecular_cloud || star.dark_nebula || star.bubble || star.galaxy)
+  return Boolean(star.nebula || star.molecular_cloud || star.dark_nebula || star.bubble || star.galaxy || star.cluster)
 }
 
 /** The keys of the visible objects a setting paints, and how many of those objects lack one. */

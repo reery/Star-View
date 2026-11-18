@@ -1,0 +1,80 @@
+{
+  "reviewed": "2026-11-18",
+  "policy": "Runaway and hypervelocity stars fast enough to leave the Milky Way. Gaia DR3 parallaxes cannot place them, so each is placed at its spectroscopic distance; that distance stands in for the parallax, so that its Gaia DR3 proper motion and measured radial velocity give its motion through space.",
+  "stars": [
+    {
+      "id": "s5-hvs1",
+      "type": "star",
+      "name": "S5-HVS1",
+      "designations": [
+        "HE 2251-5127",
+        "Gaia DR3 6513109241989477504"
+      ],
+      "spectral_type": null,
+      "constellation": "Grus",
+      "distance_pc": 8630,
+      "distance_note": "8630 ± 300 pc, the spectro-photometric distance (log D/kpc = 0.936 ± 0.015) of Koposov et al. 2020, https://arxiv.org/abs/1907.11725; if the star started at Sagittarius A*, its orbit requires 8884 ± 11 pc. The Gaia DR3 parallax, 0.035 ± 0.040 mas, does not constrain it",
+      "temperature_k": 9630,
+      "temperature_note": "9630 ± 110 K from its spectrum",
+      "metallicity_dex": 0.29,
+      "metallicity_kind": "[Fe/H]",
+      "metallicity_note": "[Fe/H] = +0.29 ± 0.08 from its spectrum",
+      "atmosphere_source": {
+        "label": "Koposov et al. 2020",
+        "url": "https://arxiv.org/abs/1907.11725"
+      },
+      "astrometry": {
+        "ra_deg": 343.7153533738027,
+        "dec_deg": -51.195607570733266,
+        "epoch": 2016.0,
+        "parallax_mas": 0.1159,
+        "parallax_error_mas": 0.004,
+        "pm_ra_cosdec_masyr": 35.406,
+        "pm_ra_error_masyr": 0.029,
+        "pm_dec_masyr": 0.535,
+        "pm_dec_error_masyr": 0.038,
+        "radial_velocity_kms": 1017.0,
+        "radial_velocity_error_kms": 2.7,
+        "astrometry_ref": "Position and proper motion Gaia DR3, https://arxiv.org/abs/2208.00211; the parallax is the inverse of the spectro-photometric distance of Koposov et al. 2020, https://arxiv.org/abs/1907.11725",
+        "radial_velocity_ref": "Heliocentric radial velocity from AAT/2dF and follow-up spectra, Koposov et al. 2020"
+      },
+      "note": "The fastest main-sequence hypervelocity star found by 2019, an A-type star leaving the Milky Way at 1755 +55/−45 km/s in the Galactic rest frame. Traced back, its orbit leads unambiguously to the Galactic Center: Sagittarius A* flung it out about 4.8 million years ago at about 1800 km/s (Koposov et al. 2020). Its path and travel time match the disk of young stars around Sagittarius A*. A mass of 2.35 ± 0.06 M_sun and an age of about 50 million years (log age 7.72 +0.25/−0.33) come from isochrones fitted to its spectrum and photometry; they are model values and not adopted."
+    },
+    {
+      "id": "us-708",
+      "type": "star",
+      "name": "US 708",
+      "designations": [
+        "HVS 2",
+        "SDSS J093320.86+441705.4",
+        "Gaia DR3 815106177700219392"
+      ],
+      "spectral_type": null,
+      "constellation": "Ursa Major",
+      "distance_pc": 8500,
+      "distance_note": "8500 ± 1000 pc, the spectroscopic distance for the canonical 0.3 M_sun of a helium star, Geier et al. 2015, https://arxiv.org/abs/1503.01650. The Gaia DR3 parallax, 0.067 ± 0.204 mas, does not constrain it",
+      "temperature_k": 47200,
+      "temperature_note": "47,200 ± 400 K from its spectrum",
+      "atmosphere_source": {
+        "label": "Geier et al. 2015",
+        "url": "https://arxiv.org/abs/1503.01650"
+      },
+      "astrometry": {
+        "ra_deg": 143.33689612635976,
+        "dec_deg": 44.28486773968608,
+        "epoch": 2016.0,
+        "parallax_mas": 0.1176,
+        "parallax_error_mas": 0.0138,
+        "pm_ra_cosdec_masyr": -5.447,
+        "pm_ra_error_masyr": 0.193,
+        "pm_dec_masyr": 1.776,
+        "pm_dec_error_masyr": 0.164,
+        "radial_velocity_kms": 917.0,
+        "radial_velocity_error_kms": 7.0,
+        "astrometry_ref": "Position and proper motion Gaia DR3, https://arxiv.org/abs/2208.00211; the parallax is the inverse of the spectroscopic distance of Geier et al. 2015, https://arxiv.org/abs/1503.01650",
+        "radial_velocity_ref": "Coadded Keck/ESI spectrum, Geier et al. 2015"
+      },
+      "note": "A helium-rich hot subdwarf (spectral class He-sdO) and one of the fastest stars known to be leaving the Milky Way. It is probably the surviving companion of a thermonuclear supernova: it fed a white dwarf in an orbit of about 10 minutes until the white dwarf exploded and released it at its orbital speed. Tides in that tight orbit spun it up; it still rotates at 115 ± 8 km/s (projected). Its surface gravity is log g = 5.69 ± 0.09. Geier et al. 2015 derived 1157 ± 53 km/s in the Galactic rest frame from ground-based proper motions (−8.0 ± 1.8, +9.1 ± 1.6 mas/yr). Gaia DR3 measures a smaller, far more precise proper motion, which lowers its speed across the sky; a 2023 reanalysis with Gaia still finds it unbound (Heber et al., https://arxiv.org/abs/2304.02969). The mass of 0.3 M_sun is assumed for a helium star, not measured, and is not adopted."
+    }
+  ]
+}

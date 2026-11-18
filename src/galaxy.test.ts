@@ -71,7 +71,7 @@ describe('Local Group galaxies', () => {
       'sextans-dwarf-galaxy', 'leo-i-dwarf-galaxy', 'leo-ii-dwarf-galaxy', 'messier-32', 'messier-110', 'ngc-185', 'ngc-147'])
     // Sagittarius A* lies just below the plane toward l = 0°; Andromeda at l = 121.2°, b = −21.6°.
     const center = galaxy('milky-way')
-    expect(Math.hypot(center.x_pc, center.y_pc, center.z_pc)).toBeCloseTo(8178, 0)
+    expect(Math.hypot(center.x_pc, center.y_pc, center.z_pc)).toBeCloseTo(8277, 0)
     const andromeda = galaxy('andromeda-galaxy')
     expect((Math.atan2(andromeda.y_pc, andromeda.x_pc) * 180 / Math.PI + 360) % 360).toBeCloseTo(121.17, 1)
     expect(Math.asin(andromeda.z_pc / andromeda.galaxy!.distance_pc) * 180 / Math.PI).toBeCloseTo(-21.57, 1)

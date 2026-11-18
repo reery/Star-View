@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { Vector3 } from 'three'
 import manifestRaw from './data/overlays/nebulae/manifest.json?raw'
@@ -26,9 +27,19 @@ describe('nebula overlay data', () => {
       ['pleiades-nebula', 'reflection_nebula'],
       ['orion-nebula', 'hii_region'],
     ])
-    expect(nebulae).toHaveLength(111)
-    expect(manifest.counts).toEqual({ reflection_nebula: 59, hii_region: 23, planetary_nebula: 16, supernova_remnant: 13 })
+    expect(nebulae).toHaveLength(125)
+    expect(manifest.counts).toEqual({ reflection_nebula: 59, hii_region: 30, planetary_nebula: 16, supernova_remnant: 20 })
     expect(byId('sh-2-216').type).toBe('planetary_nebula')
+  })
+
+  it('links illuminating stars to records of their catalogs', () => {
+    const catalogIds = (catalog: string) => new Set(readFileSync(new URL(`./data/catalogs/${catalog}/stars.csv`, import.meta.url), 'utf8')
+      .split('\n').slice(1).map((line) => line.split(',')[1]))
+    const links = nebulae.flatMap((nebula) => nebula.nebula!.illuminating_star_links ?? [])
+    expect(links.length).toBeGreaterThan(30)
+    for (const link of links) expect(catalogIds(link.catalog).has(link.id), `${link.name} in ${link.catalog}`).toBe(true)
+    expect(byId('pleiades-nebula').nebula!.illuminating_star_links!.map((link) => link.name)).toEqual(['Merope', 'Alcyone', 'Electra', 'Maia'])
+    expect(() => parseNebulaOverlayPayload(payloadWith((object) => { object.nebula.illuminating_star_links = [{ catalog: 'naked-eye-stars', id: 'hip-1', name: 'Not in the text' }] }), manifest)).toThrow(/row/)
   })
 
   it('draws Barnard’s Loop as an H-alpha shell at the distance of the Orion clouds', () => {
@@ -41,10 +52,11 @@ describe('nebula overlay data', () => {
 
   it('keeps every census nebula within 1 sigma of 2000 ly and at least 5 arcmin across', () => {
     const cutoffPc = 2000 / LIGHT_YEARS_PER_PARSEC
-    // Showcases, the remnants of supernovae with recorded dates and the most important far nebulae lie beyond the census.
+    // Showcases, the remnants of supernovae with recorded dates, the most important far nebulae and landmark H II regions lie beyond the census.
     const showcases = ['orion-nebula', 'crab-nebula', 'rcw-86', 'rx-j1713-3946', 'sn-1006', 'pa-30', 'tychos-supernova-remnant',
       'keplers-supernova-remnant', 'cassiopeia-a', 'sn-1987a', 'lagoon-nebula', 'trifid-nebula', 'eagle-nebula', 'omega-nebula',
-      'rosette-nebula', 'carina-nebula', 'north-america-nebula', 'veil-nebula', 'tarantula-nebula']
+      'rosette-nebula', 'carina-nebula', 'north-america-nebula', 'veil-nebula', 'tarantula-nebula', 'simeis-147', 'ic-443', 'puppis-a', 'w44',
+      'g1-9p0-3', 'w50', '3c-58', 'w49a', 'w51', 'cygnus-x', 'rcw-49', 'heart-nebula', 'soul-nebula', 'sh-2-106']
     for (const nebula of nebulae.filter((candidate) => !showcases.includes(candidate.id))) {
       const { distance_pc, distance_error_pc, angular_size_arcmin } = nebula.nebula!
       expect(distance_pc - (distance_error_pc ?? 0), nebula.id).toBeLessThanOrEqual(cutoffPc)
@@ -151,17 +163,27 @@ describe('nebula puff volumes', () => {
     }
   })
 
-  it('links each supernova remnant to a neutron star in the compact-object overlay', () => {
-    // The app titles these pulsars by their Info article names.
+  it('links each supernova remnant to a neutron star or black hole in the compact-object overlay', () => {
+    // The app titles these objects by their Info article names, then by their preferred designations (B names for pre-1993 pulsars).
+    const names = JSON.parse(readFileSync(new URL('./data/object-designations.json', import.meta.url), 'utf8')).objects as Record<string, { name: string }>
     const compact = new Map((JSON.parse(compactPayloadRaw).objects as Star[]).map((star) =>
-      [star.id, compactInfo.articles[star.id as keyof typeof compactInfo.articles]?.name ?? star.name]))
+      [star.id, compactInfo.articles[star.id as keyof typeof compactInfo.articles]?.name ?? names[star.id]?.name ?? star.name]))
     const remnants = nebulae.filter((nebula) => nebula.type === 'supernova_remnant')
     expect(remnants.map(({ id }) => id)).toEqual(['vela-supernova-remnant', 'monogem-ring', 'hoinga', 'crab-nebula', 'rcw-86', 'rx-j1713-3946', 'sn-1006', 'pa-30',
-      'tychos-supernova-remnant', 'keplers-supernova-remnant', 'cassiopeia-a', 'sn-1987a', 'veil-nebula'])
+      'tychos-supernova-remnant', 'keplers-supernova-remnant', 'cassiopeia-a', 'sn-1987a', 'veil-nebula', 'simeis-147', 'ic-443', 'puppis-a', 'w44', 'g1-9p0-3',
+      'w50', '3c-58'])
     for (const { id, nebula } of remnants) {
-      const star = nebula!.remnant!.neutron_star
-      if (star) expect(compact.get(star.id), id).toBe(star.name)
+      for (const star of [nebula!.remnant!.neutron_star, nebula!.remnant!.black_hole]) if (star) expect(compact.get(star.id), id).toBe(star.name)
     }
+    expect(byId('w50').nebula!.remnant).toMatchObject({ neutron_star: null, black_hole: { id: 'ss-433' } })
+    // A remnant links either a neutron star or a black hole, never both.
+    const crabWith = (blackHole: unknown) => {
+      const payload = JSON.parse(payloadRaw)
+      payload.objects.find((object: Star) => object.id === 'crab-nebula').nebula.remnant.black_hole = blackHole
+      return payload
+    }
+    expect(() => parseNebulaOverlayPayload(crabWith({ id: 'ss-433', name: 'SS 433' }), manifest)).toThrow(/Invalid nebula payload row/)
+    expect(() => parseNebulaOverlayPayload(crabWith(undefined), manifest)).not.toThrow()
     expect(() => parseNebulaOverlayPayload(payloadWith((object) => { object.nebula.remnant = remnants[0]!.nebula!.remnant }), manifest)).toThrow(/Invalid nebula payload row/)
   })
 

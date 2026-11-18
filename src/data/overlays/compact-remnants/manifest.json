@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "id": "compact-remnants",
   "label": "Compact remnants",
-  "description": "A separately loaded, source-defined overlay of catalogued pulsars, their measured neutron-star companions and reviewed black holes and neutron stars within 10000 light-years, plus the neutron stars of historical supernova remnants beyond it.",
+  "description": "A separately loaded, source-defined overlay of catalogued pulsars, their measured neutron-star companions and reviewed black holes and neutron stars within 10000 light-years, plus reviewed landmarks beyond it: neutron stars of historical supernova remnants, magnetars, microquasars, the fastest-spinning pulsar and the Galactic Center black hole.",
   "epoch": 2000,
-  "objectCount": 448,
+  "objectCount": 457,
   "radiusLy": 10000,
   "counts": {
-    "pulsar": 420,
-    "neutron_star": 17,
-    "black_hole": 11
+    "pulsar": 425,
+    "neutron_star": 18,
+    "black_hole": 14
   },
   "sources": [
     {
@@ -65,6 +65,14 @@
       "url": "https://arxiv.org/abs/2412.02850"
     },
     {
+      "name": "Bibby et al. 2008",
+      "url": "https://arxiv.org/abs/0802.0815"
+    },
+    {
+      "name": "Blundell & Bowler 2004",
+      "url": "https://arxiv.org/abs/astro-ph/0410456"
+    },
+    {
       "name": "Caballero et al. 2011",
       "url": "https://arxiv.org/abs/1107.3417"
     },
@@ -85,6 +93,14 @@
       "url": "https://arxiv.org/abs/astro-ph/0407333"
     },
     {
+      "name": "Davies et al. 2009",
+      "url": "https://arxiv.org/abs/0910.4859"
+    },
+    {
+      "name": "Din\u00e7el et al. 2026",
+      "url": "https://doi.org/10.1051/0004-6361/202556086"
+    },
+    {
       "name": "Doroshenko et al. 2022",
       "url": "https://www.nature.com/articles/s41550-022-01800-1"
     },
@@ -99,6 +115,10 @@
     {
       "name": "Fransson et al. 2024",
       "url": "https://doi.org/10.1126/science.adj5796"
+    },
+    {
+      "name": "GRAVITY Collaboration 2022",
+      "url": "https://arxiv.org/abs/2112.07478"
     },
     {
       "name": "Gaia Collaboration et al. 2024",
@@ -135,6 +155,10 @@
     {
       "name": "Posselt et al. 2007",
       "url": "https://arxiv.org/abs/astro-ph/0609275"
+    },
+    {
+      "name": "Reid & Miller-Jones 2023",
+      "url": "https://arxiv.org/abs/2309.15027"
     },
     {
       "name": "Sahu et al. 2025",
@@ -181,6 +205,14 @@
       "url": "https://arxiv.org/abs/1108.3340"
     },
     {
+      "name": "Harrus et al. 1997",
+      "url": "https://doi.org/10.1086/304717"
+    },
+    {
+      "name": "Kothes 2013",
+      "url": "https://doi.org/10.1051/0004-6361/201219839"
+    },
+    {
       "name": "Lin et al. 2023",
       "url": "https://arxiv.org/abs/2306.01617"
     },
@@ -191,6 +223,10 @@
     {
       "name": "Posselt et al. 2007",
       "url": "https://arxiv.org/abs/astro-ph/0609275"
+    },
+    {
+      "name": "Reynoso, Cichowolski & Walsh 2017",
+      "url": "https://ui.adsabs.harvard.edu/abs/2017MNRAS.464.3029R"
     },
     {
       "name": "Shamohammadi et al. 2024",
@@ -209,6 +245,6 @@
       "url": "https://arxiv.org/abs/1510.08869"
     }
   ],
-  "cutoffPolicy": "ATNF v2.9.0 non-candidate, non-interim pulsars within 10000 light-years; beyond 3000 light-years (0.9198041814 kpc) only those with a distance independent of the dispersion-measure model. Reviewed distances replace superseded ATNF values. Their reviewed neutron-star companions with measured masses, plus reviewed black-hole and non-pulsar neutron-star systems within 10000 light-years. Beyond the radius, only the reviewed neutron stars of historical supernova remnants: CXOU J232327.9+584842, NS 1987A. Candidate status is explicit.",
-  "snapshot": "J2000 map positions; ATNF package downloaded 2026-10-26; binary masses reviewed 2026-11-05; curated literature reviewed 2026-11-15."
+  "cutoffPolicy": "ATNF v2.9.0 non-candidate, non-interim pulsars within 10000 light-years; beyond 3000 light-years (0.9198041814 kpc) only those with a distance independent of the dispersion-measure model. Reviewed distances replace superseded ATNF values. Their reviewed neutron-star companions with measured masses, plus reviewed black-hole and non-pulsar neutron-star systems within 10000 light-years. Beyond the radius, only reviewed landmarks, each with its reason: CXOU J232327.9+584842; NS 1987A; SS 433; GRS 1915+105; SGR 1806-20; SGR 1900+14; Sagittarius A*; PSR J1748-2446ad. Candidate status is explicit.",
+  "snapshot": "J2000 map positions; ATNF package downloaded 2026-10-26; binary masses reviewed 2026-11-18; curated literature reviewed 2026-11-18."
 }

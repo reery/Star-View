@@ -949,11 +949,13 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 }
 .properties > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: baseline; padding: 3px 0; font-size: var(--property-text-size); line-height: 1.2; }
 .properties dt { color: var(--muted); }
+/* An inline-block label takes the baseline of its last line; top-aligned, a wrapped label keeps its first line on the row's baseline instead of rising into the row above. */
+.properties dt > .mass-metric-help { vertical-align: top; }
 /* Long remnant descriptions wrap beside their label instead of squeezing it. */
-.properties > .remnant-property { grid-template-columns: auto minmax(0, 1fr); }
+.properties > :is(.remnant-property, .galaxy-property, .cluster-property) { grid-template-columns: auto minmax(0, 1fr); }
 .properties dd { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
 .properties .unresolved-measurement, .mass-fact .unresolved-measurement, .selected-object .missing-value { color: var(--muted); }
-.properties > :is(.object-type-row, .metallicity-row, .radius-row, .spectral-row, .temperature-row, .distance-row, .mass-row, .luminosity-row, .magnitude-row, .constellation-row, #known-planets-row, #rotation-row, #remnant-neutron-star-row) { position: relative; isolation: isolate; }
+.properties > :is(.object-type-row, .metallicity-row, .radius-row, .spectral-row, .temperature-row, .distance-row, .mass-row, .luminosity-row, .magnitude-row, .constellation-row, #known-planets-row, #rotation-row, :has(> dd > .object-type-toggle)) { position: relative; isolation: isolate; }
 .magnitude-row dt, .magnitude-row .object-type-toggle { display: grid; gap: 6px; }
 .properties > div:has(.object-type-toggle:not(:disabled)) { cursor: pointer; }
 .object-type-toggle { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: right; }

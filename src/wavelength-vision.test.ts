@@ -94,6 +94,14 @@ describe('wavelength bands', () => {
     expect(shownInBand(nebula('orion-nebula'), 'radio')).toBe(true)
   })
 
+  it('hides the dust-shrouded W49A and W51 in visible light and lets them shine in radio waves and the far infrared', () => {
+    for (const id of ['w49a', 'w51']) {
+      const visible = nebulaBandSurfaceBrightness(nebula(id), 'visible')!
+      expect(visible, id).toBeGreaterThan(nebulaBandSurfaceBrightness(nebula('orion-nebula'), 'visible')! + 8)
+      for (const band of ['radio', 'far-infrared'] as const) expect(nebulaBandSurfaceBrightness(nebula(id), band)!, `${id} ${band}`).toBeLessThan(visible - 7)
+    }
+  })
+
   it('prefers measured values over the model once a band’s data is loaded', () => {
     const data = (objects: WavelengthBandData['objects']): WavelengthBandData => ({ unit: '', sources: {}, objects })
     // At 10 pc the absolute magnitude equals the apparent one.

@@ -75,7 +75,7 @@ LARGEST_STARS = [
     ("IRC −10414", "IRC -10414", 1200, 2000, "Wikipedia: IRC −10414"),
     ("V517 Monocerotis", "V517 Mon", 1196, 5254, GAIA),
     ("RSGC1-F05", "[FMR2006] 5", 1190, 6600, RSGC1),
-    ("GCIRS 7", "GCIRS 7", 1170, 8178, "Galactic Center distance (GRAVITY Collaboration 2019)"),
+    ("GCIRS 7", "GCIRS 7", 1170, 8277, "Galactic Center distance (GRAVITY Collaboration 2022)"),
     ("Westerlund 1 W26", "Cl* Westerlund 1 W 26", 1165, 3780, WESTERLUND1),
     ("[A72c] 16", "[A72c] 16", 1157, 6049, GAIA),
     ("WY Velorum A", "WY Vel", 1157, 1900, "Wikipedia: WY Velorum"),

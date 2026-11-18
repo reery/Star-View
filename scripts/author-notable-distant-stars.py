@@ -3,7 +3,8 @@
 The catalog holds reviewed stars beyond the nearby catalogs that belong to a
 notable system: the measured stellar companions of pulsars and the luminous
 stars of dormant black-hole and neutron-star systems, plus single stars that
-survived a historical supernova. A companion shares its compact host's plotted
+survived a historical supernova, extreme giants, the most massive known stars,
+Wolf–Rayet binaries and hypervelocity stars. A companion shares its compact host's plotted
 position and system astrometry; every physical value is the star's own
 published measurement.
 Run with --check to compare the checked-in files without writing them.
@@ -19,8 +20,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "catalog-work/notable-distant-stars"
-COMPANION_FILES = [WORK / "pulsar-companions.json", WORK / "gaia-companions.json", WORK / "binary-companions.json"]
+GALACTIC_CENTER = WORK / "galactic-center-stars.json"
+COMPANION_FILES = [WORK / "pulsar-companions.json", WORK / "gaia-companions.json", WORK / "binary-companions.json", GALACTIC_CENTER]
 STANDALONE = WORK / "standalone-stars.json"
+MASSIVE = WORK / "massive-stars.json"
+HYPERVELOCITY = WORK / "hypervelocity-stars.json"
 NEUTRON_STARS = ROOT / "catalog-work/compact-remnants/pulsar-binaries.json"
 COMPACT = ROOT / "src/data/overlays/compact-remnants/objects.json"
 WESTERN = ROOT / "src/data/catalogs/western-constellation-stars/stars.csv"
@@ -29,6 +33,7 @@ IDENTITIES = ROOT / "src/data/compact-system-identities.json"
 PREFERRED_NAMES = ROOT / "catalog-work/object-designations/preferred-names.json"
 ORBITS = ROOT / "src/data/compact-system-orbits.json"
 DAYS_PER_YEAR = 365.25
+AU_PER_PC = 206264.806
 SOLAR_TEMPERATURE_K = 5772
 ATNF_URL = "https://www.atnf.csiro.au/research/pulsar/psrcat/psrcat_help.html"
 
@@ -37,8 +42,14 @@ def number(value):
     return "" if value is None else repr(value)
 
 
+def companion_id(source):
+    """Named stars of a cluster around one host carry their own IDs; a single companion is the host's B."""
+    return source.get("id", f"{source['host']}-{source.get('component', 'B').lower()}")
+
+
 def companion_row(source, host, header):
-    astrometry = host["raw_astrometry"] or {}
+    # Catalog astrometry needs a parallax; a host without one, such as Sagittarius A*, lends only its position.
+    astrometry = host["raw_astrometry"] if (host["raw_astrometry"] or {}).get("parallax_mas") is not None else {}
     mass = source.get("mass_source")
     component = source.get("component", "B")
     period = host["compact"]["orbital_period_days"]
@@ -73,8 +84,8 @@ def companion_row(source, host, header):
         notes.append(f"Position and motion are the unresolved system's: {astrometry['astrometry_ref']}; {astrometry['radial_velocity_ref']}.")
     values = {
         "type": source["type"],
-        "id": f"{host['id']}-{component.lower()}",
-        "name": f"{host['name']} {component}",
+        "id": companion_id(source),
+        "name": source.get("name", f"{host['name']} {component}"),
         "designations": "|".join(source.get("designations", [])),
         "spectral_type": source["spectral_type"] or "",
         "x_pc": number(host["x_pc"]),
@@ -112,20 +123,29 @@ def standalone_row(source, header):
     from astropy.coordinates import SkyCoord
     import astropy.units as units
     astrometry = source["astrometry"]
+    measured = astrometry["parallax_mas"] is not None
     galactic = SkyCoord(ra=astrometry["ra_deg"] * units.deg, dec=astrometry["dec_deg"] * units.deg, distance=source["distance_pc"] * units.pc, frame="icrs").galactic.cartesian
     atmosphere = source["atmosphere_source"]
     notes = [source["note"], f"Distance {source['distance_note']}.",
-             f"Effective temperature {source['temperature_k']} K: {source['temperature_note']}, {atmosphere['label']}, {atmosphere['url']}.",
-             f"Luminosity {source['luminosity_note']}.", "No radial velocity is adopted."]
+             *([f"Effective temperature {source['temperature_k']} K: {source['temperature_note']}, {atmosphere['label']}, {atmosphere['url']}."] if "temperature_note" in source else []),
+             *([f"Luminosity {source['luminosity_note']}."] if "luminosity_note" in source else []),
+             *([f"{source['radius_note']} {atmosphere['label']}, {atmosphere['url']}."] if "radius_note" in source else []),
+             *([f"Mass {source['mass_note']}: {atmosphere['label']}, {atmosphere['url']}."] if "mass_note" in source else []),
+             *([f"Metallicity {source['metallicity_note']}: {atmosphere['label']}, {atmosphere['url']}."] if "metallicity_note" in source else []),
+             *([] if measured else [f"Position RA {astrometry['ra_deg']}°, Dec {astrometry['dec_deg']}° (ICRS, J{astrometry['epoch']:g}): {astrometry['astrometry_ref']}." + (f" Radial velocity {astrometry['radial_velocity_kms']} ± {astrometry['radial_velocity_error_kms']} km/s: {astrometry['radial_velocity_ref']}." if astrometry["radial_velocity_kms"] is not None else "")]),
+             *([] if astrometry["radial_velocity_kms"] is not None else ["No radial velocity is adopted."])]
     values = {
         "type": source["type"], "id": source["id"], "name": source["name"], "designations": "|".join(source["designations"]),
         "spectral_type": source["spectral_type"] or "",
         "x_pc": number(round(float(galactic.x.value), 6)), "y_pc": number(round(float(galactic.y.value), 6)), "z_pc": number(round(float(galactic.z.value), 6)),
-        "temperature_k": number(source["temperature_k"]), "luminosity_solar": number(source["luminosity_solar"]),
+        "temperature_k": number(source.get("temperature_k")), "luminosity_solar": number(source.get("luminosity_solar")),
+        "radius_solar": number(source.get("radius_solar")), "mass_solar": number(source.get("mass_solar")), "age_gyr": number(source.get("age_gyr")),
+        "metallicity_dex": number(source.get("metallicity_dex")), "metallicity_kind": source.get("metallicity_kind") or "",
         "epoch": "2000.0", "notes": " ".join(notes), "constellation": source["constellation"],
-        "astrometry_epoch": number(astrometry["epoch"]), "astrometry_ref": astrometry["astrometry_ref"], "radial_velocity_ref": astrometry["radial_velocity_ref"] or "",
-        **{key: number(astrometry[key]) for key in ("ra_deg", "dec_deg", "parallax_mas", "parallax_error_mas", "pm_ra_cosdec_masyr", "pm_ra_error_masyr",
-                                                     "pm_dec_masyr", "pm_dec_error_masyr", "radial_velocity_kms", "radial_velocity_error_kms")},
+        # Catalog astrometry needs a parallax; without one, the position and radial velocity stay in the notes.
+        **({"astrometry_epoch": number(astrometry["epoch"]), "astrometry_ref": astrometry["astrometry_ref"], "radial_velocity_ref": astrometry["radial_velocity_ref"] or "",
+            **{key: number(astrometry[key]) for key in ("ra_deg", "dec_deg", "parallax_mas", "parallax_error_mas", "pm_ra_cosdec_masyr", "pm_ra_error_masyr",
+                                                         "pm_dec_masyr", "pm_dec_error_masyr", "radial_velocity_kms", "radial_velocity_error_kms")}} if measured else {}),
     }
     return [values.get(field, "") for field in header]
 
@@ -164,6 +184,91 @@ def orbit(pulsar, companion_mass, range_years=None):
     }]}
 
 
+def published_orbit(host, source, index):
+    """A star's full published orbit around its host; the secondary's argument of periastron."""
+    elements = source["orbit"]
+    if "angular_axis_arcsec" in elements:
+        distance = elements["distance_pc"]
+        axis = elements["angular_axis_arcsec"] * distance
+        # The paper's own mass and distance: Kepler's third law gives the period it implies.
+        period = (axis ** 3 / host["mass_solar"]) ** 0.5
+        axis_source = {"angularAxisMas": round(elements["angular_axis_arcsec"] * 1000, 6), "angularAxisErrorMas": round(elements["angular_axis_error_arcsec"] * 1000, 6),
+                       "adoptedDistancePc": distance, "scope": f"Converted from the published angular axis at the fitted distance of {elements['source']['label'].split(',')[0]}."}
+    else:
+        axis = elements["axis_mpc"] * 1e-3 * AU_PER_PC
+        period = elements["period_years"]
+        axis_source = None
+    return {
+        "id": f"{host['id']}-system-{index}",
+        "primary": elements["primary_label"],
+        "secondary": source["component"],
+        "primaryIds": [host["id"]],
+        "secondaryIds": [companion_id(source)],
+        "periodYears": float(f"{period:.6g}"),
+        "semiMajorAxisAu": float(f"{axis:.6g}"),
+        "eccentricity": elements["eccentricity"],
+        "inclinationDeg": elements["inclination_deg"],
+        "nodeDeg": elements["node_deg"],
+        "argumentDeg": elements["argument_deg"],
+        "periastronEpoch": elements["periastron_year"],
+        "epochKind": "Decimal year",
+        "grade": None,
+        "catalog": "Reviewed literature",
+        "reference": elements["source"]["label"],
+        "sourceUrl": elements["source"]["url"],
+        "nodeAmbiguous": False,
+        "argumentComponent": source["component"],
+        "uncertainties": {key: elements[f"{field}_error{unit}"] for key, field, unit in (
+            ("eccentricity", "eccentricity", ""), ("inclinationDeg", "inclination", "_deg"), ("nodeDeg", "node", "_deg"),
+            ("argumentDeg", "argument", "_deg"), ("periastronEpochYears", "periastron", "_year"))},
+        **({"axisSource": axis_source} if axis_source else {}),
+        "scope": elements["scope"],
+        "axisDerivation": None,
+    }
+
+
+def binary_orbit(system, masses):
+    """A Wolf–Rayet binary's published orbit; a missing axis follows from Kepler's third law with both masses."""
+    elements = system["orbit"]
+    period = elements["period_days"] / DAYS_PER_YEAR
+    if "angular_axis_mas" in elements:
+        axis = elements["angular_axis_mas"] * 1e-3 * system["distance_pc"]
+        axis_source = {"angularAxisMas": elements["angular_axis_mas"], "angularAxisErrorMas": elements["angular_axis_error_mas"],
+                       "adoptedDistancePc": system["distance_pc"], "scope": "Converted from the published angular axis at the adopted distance."}
+    else:
+        axis = (sum(masses) * period ** 2) ** (1 / 3)
+        axis_source = None
+    full = "node_deg" in elements
+    labels = [component["component"] for component in system["components"]]
+    return {
+        "id": f"{system['id']}-system-0",
+        "primary": labels[0],
+        "secondary": labels[1],
+        "primaryIds": [system["components"][0]["id"]],
+        "secondaryIds": [system["components"][1]["id"]],
+        "periodYears": float(f"{period:.6g}"),
+        "semiMajorAxisAu": float(f"{axis:.4g}"),
+        "eccentricity": elements.get("eccentricity"),
+        "inclinationDeg": elements.get("inclination_deg"),
+        "nodeDeg": elements.get("node_deg"),
+        "argumentDeg": elements.get("argument_deg"),
+        "periastronEpoch": elements.get("periastron_year"),
+        "epochKind": "Decimal year" if full else None,
+        "grade": None,
+        "catalog": "Reviewed literature",
+        "reference": elements["source"]["label"],
+        "sourceUrl": elements["source"]["url"],
+        "nodeAmbiguous": not full,
+        "argumentComponent": elements.get("argument_component"),
+        **({"uncertainties": {key: elements[f"{field}_error{unit}"] for key, field, unit in (
+            ("eccentricity", "eccentricity", ""), ("inclinationDeg", "inclination", "_deg"), ("nodeDeg", "node", "_deg"),
+            ("argumentDeg", "argument", "_deg"), ("periastronEpochYears", "periastron", "_year"))}} if full else {}),
+        **({"axisSource": axis_source} if axis_source else {}),
+        "scope": elements["scope"],
+        "axisDerivation": None,
+    }
+
+
 def build():
     reviewed_files = [json.loads(path.read_text()) for path in COMPANION_FILES]
     companions = [source for reviewed in reviewed_files for source in reviewed["companions"]]
@@ -174,51 +279,72 @@ def build():
         header = next(reader)
         sun = next(row for row in reader if row[header.index("id")] == "sun")
     standalone = json.loads(STANDALONE.read_text())
+    massive = json.loads(MASSIVE.read_text())
+    hypervelocity = json.loads(HYPERVELOCITY.read_text())
+    # Binary components share their system's position, distance and astrometry.
+    shared = ("constellation", "distance_pc", "distance_note", "astrometry")
+    binaries = [{**{key: system[key] for key in shared}, **component} for system in massive["systems"] for component in system["components"]]
+    single_stars = [*standalone["stars"], *json.loads(GALACTIC_CENTER.read_text())["stars"], *massive["stars"], *binaries, *hypervelocity["stars"]]
     rows = [sun, *(companion_row(source, compact[source["host"]], header) for source in companions),
-            *(standalone_row(source, header) for source in standalone["stars"])]
+            *(standalone_row(source, header) for source in single_stars)]
     buffer = io.StringIO()
     writer = csv.writer(buffer, lineterminator="\n")
     writer.writerow(header)
     writer.writerows(rows)
     sources = {(source["mass_source"]["label"], source["mass_source"]["url"]) for source in companions if "mass_source" in source}
     sources |= {(source[key]["label"], source[key]["url"]) for source in companions for key in ("temperature_source", "atmosphere_source") if key in source}
-    sources |= {(source["atmosphere_source"]["label"], source["atmosphere_source"]["url"]) for source in standalone["stars"]}
+    sources |= {(source["atmosphere_source"]["label"], source["atmosphere_source"]["url"]) for source in single_stars}
+    sources |= {(source["orbit"]["source"]["label"], source["orbit"]["source"]["url"]) for source in companions if "orbit" in source}
     sources |= {("Gaia DR3; astrometry of single stars", "https://arxiv.org/abs/2208.00211"), ("Bailer-Jones et al. 2021; Gaia geometric distances", "https://ui.adsabs.harvard.edu/abs/2021AJ....161..147B")}
     manifest = {
         "schemaVersion": 1,
         "id": "notable-distant-stars",
         "label": "Notable distant stars",
-        "description": "Reviewed stars beyond the nearby catalogs that belong to notable systems: measured stellar companions of pulsars, the luminous stars of dormant black-hole and neutron-star systems and stars that survived historical supernovae, plus the Sun.",
+        "description": "Reviewed stars beyond the nearby catalogs that belong to notable systems: measured stellar companions of pulsars, the luminous stars of dormant black-hole and neutron-star systems, stars that survived historical supernovae, stars around the Galactic Center black hole, extreme giants, the most massive known stars, Wolf–Rayet binaries and hypervelocity stars leaving the Milky Way, plus the Sun.",
         "epoch": 2000,
         "objectCount": len(rows),
         "sources": [{"name": "ATNF Pulsar Catalogue v2.9.0; host pulsar positions and system astrometry", "url": ATNF_URL},
-                    *({"name": f"{host['compact']['source_label']}; system orbit and astrometry", "url": host["compact"]["source_url"]}
-                      for host in (compact[source["host"]] for source in companions) if host["type"] != "pulsar"),
+                    *({"name": f"{label}; system orbit and astrometry", "url": url} for label, url in dict.fromkeys(
+                        (host["compact"]["source_label"], host["compact"]["source_url"]) for host in (compact[source["host"]] for source in companions) if host["type"] != "pulsar")),
                     *({"name": label, "url": url} for label, url in sorted(sources))],
-        "cutoffPolicy": "Explicitly reviewed members of notable systems only; no magnitude or distance cutoff. Luminous companions of compact objects are included with whichever individual values are published. Single stars that survived a historical supernova are included at their own Gaia distance. Sun is included only as the map origin.",
-        "snapshot": f"J2000 map positions from the compact-remnant overlay, and from Gaia DR3 for single stars; measurements reviewed {max(reviewed['reviewed'] for reviewed in [*reviewed_files, standalone])}.",
+        "cutoffPolicy": "Explicitly reviewed members of notable systems only; no magnitude or distance cutoff. Luminous companions of compact objects are included with whichever individual values are published. Single stars that survived a historical supernova are included at their own Gaia distance. The S-stars that weigh Sagittarius A* share its position; GCIRS 7 is placed at its distance. Extreme giants, the most massive known stars and Wolf–Rayet binaries are placed at the distance of their adopted values. Hypervelocity stars are placed at their spectroscopic distances. Sun is included only as the map origin.",
+        "snapshot": f"J2000 map positions from the compact-remnant overlay, and from Gaia DR3 for supernova survivors; measurements reviewed {max(reviewed['reviewed'] for reviewed in [*reviewed_files, standalone, massive, hypervelocity])}.",
     }
     provenance = {
         "schemaVersion": 1,
         "catalogId": "notable-distant-stars",
-        "policy": " ".join(reviewed["policy"] for reviewed in [*reviewed_files, standalone]),
-        "objects": {**{f"{source['host']}-{source.get('component', 'B').lower()}": {"hostId": source["host"], **source} for source in companions},
-                    **{source["id"]: source for source in standalone["stars"]}},
+        "policy": " ".join(reviewed["policy"] for reviewed in [*reviewed_files, standalone, massive, hypervelocity]),
+        "objects": {**{companion_id(source): {"hostId": source["host"], **source} for source in companions},
+                    **{source["id"]: source for source in single_stars}},
     }
-    # Runtime system identities: each compact object is component A, its measured companion B.
+    # Runtime system identities: each compact object is component A, its measured companion B, then any others.
     inner = [source for source in companions if source.get("component", "B") == "B"]
-    pairs = sorted([*(source["host"] for source in inner), *(f"psr-{source['pulsar'].lower().replace('+', 'p').replace('-', 'm')}" for source in neutron_stars)])
-    outer = {source["host"]: source["component"] for source in companions if source.get("component", "B") != "B"}
+    members = {}
+    for source in companions:
+        members.setdefault(source["host"], []).append(source)
+    pairs = sorted([*members, *(f"psr-{source['pulsar'].lower().replace('+', 'p').replace('-', 'm')}" for source in neutron_stars)])
     preferred = json.loads(PREFERRED_NAMES.read_text())
+    # A cluster of named stars labels its host by a short name, so each orbit reads "Sgr A*–S2".
+    host_label = lambda pulsar: next((source["orbit"]["primary_label"] for source in members.get(pulsar, []) if "orbit" in source), "A")
     identities = {"systems": [
         {"id": f"{pulsar}-system", "name": preferred.get(pulsar, {}).get("name", compact[pulsar]["name"]), "components": [
-            {"starId": pulsar, "label": "A"}, {"starId": f"{pulsar}-b", "label": "B"},
-            *([{"starId": f"{pulsar}-{outer[pulsar].lower()}", "label": outer[pulsar]}] if pulsar in outer else [])]}
-        for pulsar in pairs]}
+            {"starId": pulsar, "label": host_label(pulsar)},
+            *({"starId": companion_id(source), "label": source.get("component", "B")}
+              for source in sorted(members.get(pulsar, [{"host": pulsar}]), key=lambda source: source.get("component", "B") != "B"))]}
+        for pulsar in pairs] + [
+        {"id": f"{system['id']}-system", "name": system["name"], "components": [
+            {"starId": component["id"], "label": component["component"]} for component in system["components"]]}
+        for system in massive["systems"]]}
     companion_masses = {source["host"]: source.get("mass_solar") for source in inner}
     period_ranges = {source["host"]: source["orbit_period_range_years"] for source in inner if "orbit_period_range_years" in source}
     companion_masses.update({f"psr-{source['pulsar'].lower().replace('+', 'p').replace('-', 'm')}": source["mass_solar"] for source in neutron_stars})
-    orbits = {"schemaVersion": 1, "systems": [orbit(compact[pulsar], companion_masses[pulsar], period_ranges.get(pulsar)) for pulsar in pairs]}
+    orbits = {"schemaVersion": 1, "systems": [
+        {"systemId": f"{pulsar}-system", "name": compact[pulsar]["name"],
+         "orbits": [published_orbit(compact[pulsar], source, index) for index, source in enumerate(members[pulsar])]}
+        if host_label(pulsar) != "A" else orbit(compact[pulsar], companion_masses[pulsar], period_ranges.get(pulsar)) for pulsar in pairs] + [
+        {"systemId": f"{system['id']}-system", "name": system["name"],
+         "orbits": [binary_orbit(system, [component["mass_solar"] for component in system["components"]])]}
+        for system in massive["systems"]]}
     return {
         OUTPUT / "stars.csv": buffer.getvalue(),
         ORBITS: json.dumps(orbits, indent=2) + "\n",

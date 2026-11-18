@@ -53,10 +53,10 @@ function projectedSeparationAu(a: Star, b: Star): number {
 const knownDifference = (a: number | null, b: number | null) => a === null || b === null ? 0 : a - b
 
 /** Close components other than the brightest of their group; the map draws them only while selected. */
-export function closeCompanionIndices(stars: readonly Star[]): number[] {
+export function closeCompanionIndices(stars: readonly Star[], systems = indexStarSystems(stars)): number[] {
   const indices = new Map(stars.map((star, index) => [star.id, index]))
   const companions: number[] = []
-  for (const system of new Set(indexStarSystems(stars).values())) {
+  for (const system of new Set(systems.values())) {
     const remaining = new Set(system.components)
     while (remaining.size > 0) {
       const group = [remaining.values().next().value!]

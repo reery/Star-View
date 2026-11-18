@@ -661,7 +661,7 @@ test('presents the selected object beside an expandable control dock', async ({ 
   await expect(labels).toHaveAttribute('min', '0')
   await expect(labels).toHaveAttribute('max', '140')
   await expect(labels).toHaveAttribute('step', '20')
-  await expect(labels).toHaveValue('40')
+  await expect(labels).toHaveValue('20')
   await labels.fill('0')
   await expect(page.locator('#label-limit-value')).toHaveText('Off')
   await expect(page.locator('.star-label:visible')).toHaveCount(0)

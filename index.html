@@ -134,7 +134,7 @@
                             <div class="nebula-property" hidden><dt>Modeled extent</dt><dd id="nebula-extent"></dd></div>
                             <div id="nebula-illumination-row" class="nebula-property" hidden><dt>Illuminated by</dt><dd id="nebula-illumination"></dd></div>
                             <div class="remnant-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="age">Age</button></dt><dd id="remnant-age"></dd></div>
-                            <div id="remnant-neutron-star-row" class="remnant-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="neutron_star">Neutron star</button></dt><dd><button id="remnant-neutron-star" class="object-type-toggle" type="button"></button><span id="remnant-neutron-star-missing" class="missing-value" hidden></span></dd></div>
+                            <div id="remnant-neutron-star-row" class="remnant-property" hidden><dt><button id="remnant-compact-label" type="button" class="mass-metric-help" data-glossary-term="neutron_star">Neutron star</button></dt><dd><button id="remnant-neutron-star" class="object-type-toggle" type="button"></button><span id="remnant-neutron-star-missing" class="missing-value" hidden></span></dd></div>
                             <div id="remnant-surviving-star-row" class="remnant-property" hidden><dt>Surviving star</dt><dd><button id="remnant-surviving-star" class="object-type-toggle" type="button"></button></dd></div>
                             <div id="remnant-hot-gas-row" class="remnant-property" hidden><dt>Hot gas</dt><dd id="remnant-hot-gas"></dd></div>
                             <div class="remnant-property" hidden><dt>Drawn as</dt><dd id="remnant-drawn-as"></dd></div>
@@ -161,9 +161,21 @@
                             <div class="galaxy-property" hidden><dt>Diameter</dt><dd id="galaxy-diameter"></dd></div>
                             <div id="galaxy-stars-row" class="galaxy-property" hidden><dt>Stars</dt><dd id="galaxy-stars"></dd></div>
                             <div id="galaxy-mass-row" class="galaxy-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="mass">Mass</button><span id="galaxy-mass-term" class="tooltip mass-metric-tooltip" role="tooltip"></span></dt><dd id="galaxy-mass"></dd></div>
+                            <div id="galaxy-black-hole-row" class="galaxy-property" hidden><dt>Central black hole</dt><dd><button id="galaxy-black-hole" class="object-type-toggle" type="button"></button></dd></div>
                             <div id="galaxy-velocity-row" class="galaxy-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="radial-velocity">Radial velocity</button></dt><dd id="galaxy-velocity"></dd></div>
                             <div class="galaxy-property" hidden><dt>Distance measured by</dt><dd id="galaxy-distance-method"></dd></div>
                             <div class="galaxy-property" hidden><dt>Source</dt><dd><a id="galaxy-source" target="_blank" rel="noreferrer"></a></dd></div>
+                            <div class="cluster-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="age">Age</button></dt><dd id="cluster-age"></dd></div>
+                            <div id="cluster-members-row" class="cluster-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Members</button><span id="cluster-members-term" class="tooltip mass-metric-tooltip" role="tooltip">Stars that Gaia ties to the cluster by their position, motion and distance. The tidal radius bounds the stars the cluster still holds; the others are drifting away. Faint stars and unresolved companions are not counted.</span></dt><dd id="cluster-members"></dd></div>
+                            <div id="cluster-notable-members-row" class="cluster-property" hidden><dt>Notable members</dt><dd id="cluster-notable-members"></dd></div>
+                            <div class="cluster-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="mass">Mass</button><span id="cluster-mass-term" class="tooltip mass-metric-tooltip" role="tooltip">The combined mass of the stars within the tidal radius.</span></dt><dd id="cluster-mass"></dd></div>
+                            <div class="cluster-property" hidden><dt class="mass-metric-copy"><button id="cluster-half-member-radius-label" type="button" class="mass-metric-help">Half the members within</button><span id="cluster-half-member-radius-term" class="tooltip mass-metric-tooltip" role="tooltip">The distance from the center that holds half of the members within the tidal radius.</span></dt><dd id="cluster-half-member-radius"></dd></div>
+                            <div id="cluster-core-radius-row" class="cluster-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Core radius</button><span id="cluster-core-radius-term" class="tooltip mass-metric-tooltip" role="tooltip">The size of the dense core, where the stars crowd most closely together.</span></dt><dd id="cluster-core-radius"></dd></div>
+                            <div class="cluster-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Tidal radius</button><span id="cluster-tidal-radius-term" class="tooltip mass-metric-tooltip" role="tooltip">Beyond this distance from the center, the Milky Way pulls harder on a star than the cluster does, and the star drifts away. The angle is how wide this sphere appears from Earth.</span></dt><dd id="cluster-tidal-radius"></dd></div>
+                            <div class="cluster-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="metallicity">Metallicity [Fe/H]</button></dt><dd id="cluster-metallicity"></dd></div>
+                            <div class="cluster-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="radial-velocity">Radial velocity</button></dt><dd id="cluster-velocity"></dd></div>
+                            <div class="cluster-property" hidden><dt>Distance measured by</dt><dd id="cluster-distance-method"></dd></div>
+                            <div class="cluster-property" hidden><dt>Source</dt><dd><a id="cluster-source" target="_blank" rel="noreferrer"></a></dd></div>
                             <div id="designations-empty-row" hidden><dt>Designations</dt><dd id="designations-empty"></dd></div>
                           </dl>
                           <dl class="properties"><div id="object-links-row" class="object-links-row"><dt>Links</dt><dd id="object-links" class="object-links" role="group" aria-label="Links"></dd><dd id="object-comparison-links" class="object-links comparison-value" role="group" hidden></dd></div></dl>
@@ -1250,8 +1262,8 @@
                     <span class="switch-control"><input id="color-blind-palette" type="checkbox" role="switch" aria-describedby="color-blind-palette-tooltip"><span class="switch-track" aria-hidden="true"></span></span>
                   </label><span id="color-blind-palette-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Changes the Distance and Motion direction paints to colors that stay distinct with red-green or blue-yellow color blindness. Other paints and object colors stay the same.</span>
                   <div class="range-filter">
-                    <div class="range-heading"><label for="label-limit">Labels</label><output id="label-limit-value" for="label-limit">40</output></div>
-                    <input id="label-limit" type="range" min="0" max="140" step="20" value="40" aria-valuetext="40 labels">
+                    <div class="range-heading"><label for="label-limit">Labels</label><output id="label-limit-value" for="label-limit">20</output></div>
+                    <input id="label-limit" type="range" min="0" max="140" step="20" value="20" aria-valuetext="20 labels">
                     <div class="range-bounds" aria-hidden="true"><span>Off</span><span>140</span></div>
                   </div>
                   <div class="catalog-toggles" role="group" aria-label="Rendering">
@@ -1320,7 +1332,7 @@
                     <div><dt>License</dt><dd>MIT</dd></div>
                     <div><dt>Sky image</dt><dd><a href="https://www.eso.org/public/images/eso0932a/" target="_blank" rel="noreferrer">ESO/S. Brunier</a><br><span class="attribution-note">resized and dimmed · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a></span></dd></div>
                     <div><dt>Wavelength skies</dt><dd>Fermi LAT (NASA) · ROSAT, Snowden et al. 1997 · IRIS, Miville-Deschênes &amp; Lagache 2005 · 408 MHz, Haslam et al. 1982 · CO, Dame et al. 2001<br><span class="attribution-note">via <a href="https://skyview.gsfc.nasa.gov" target="_blank" rel="noreferrer">NASA SkyView</a> · resampled and stretched</span></dd></div>
-                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-17">17 November 2026</time></dd></div>
+                    <div><dt>Catalog updated</dt><dd><time datetime="2026-11-18">18 November 2026</time></dd></div>
                     <div><dt>Build date</dt><dd><time datetime="%BUILD_DATE_ISO%">%BUILD_DATE%</time></dd></div>
                     <div><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" aria-describedby="catalog-epoch-tooltip">Position reference epoch</button><span id="catalog-epoch-tooltip" class="tooltip mass-metric-tooltip" role="tooltip">Catalog positions use the year 2000 as their reference time.</span></dt><dd id="catalog-epoch">J2000.0</dd></div>
                     <div><dt>Version</dt><dd>%APP_VERSION%</dd></div>

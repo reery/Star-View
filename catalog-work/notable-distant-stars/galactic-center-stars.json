@@ -1,0 +1,226 @@
+{
+  "reviewed": "2026-11-18",
+  "policy": "The S-stars whose orbits weigh Sagittarius A*, with orbital elements and physical values from the cited papers, and the red supergiant GCIRS 7 of the central parsec. An S-star shares the black hole's plotted position and system astrometry, because its orbit, well under a light-year across, is part of the system; GCIRS 7 is placed at the black hole's distance in its own direction, because its depth along the line of sight is unmeasured.",
+  "companions": [
+    {
+      "host": "sgr-a-star",
+      "id": "s2",
+      "name": "S2",
+      "component": "S2",
+      "type": "star",
+      "spectral_type": "B0-B3V",
+      "designations": [
+        "S0-2"
+      ],
+      "mass_solar": 13.6,
+      "mass_error_solar": 2.2,
+      "mass_source": {
+        "label": "Habibi et al. 2017, Table 2",
+        "url": "https://arxiv.org/abs/1708.06353"
+      },
+      "temperature_k": 28513,
+      "temperature_error_k": 2923,
+      "radius_solar": 5.53,
+      "radius_note": "5.53 +1.77/−0.79 R_sun",
+      "luminosity_solar": 22400,
+      "luminosity_note": "log(L/L_sun) = 4.35 +0.18/−0.19",
+      "age_gyr": 0.0066,
+      "age_note": "6.6 +3.4/−4.7 Myr",
+      "atmosphere_source": {
+        "label": "Habibi et al. 2017, Table 2",
+        "url": "https://arxiv.org/abs/1708.06353"
+      },
+      "note": "The best-measured star around the black hole: a young B dwarf (B0–B3 V; log g = 4.10, v sin i = 110 km/s, m_K = 14.1). Mass 13.6 +2.2/−1.8 M_sun is its evolutionary initial mass, stored as the larger side of the interval; the temperature interval is +2388/−2923 K.",
+      "orbit": {
+        "primary_label": "Sgr A*",
+        "source": {
+          "label": "GRAVITY Collaboration 2022, Table 1",
+          "url": "https://arxiv.org/abs/2112.07478"
+        },
+        "angular_axis_arcsec": 0.12495,
+        "angular_axis_error_arcsec": 4e-05,
+        "eccentricity": 0.88441,
+        "eccentricity_error": 6e-05,
+        "inclination_deg": 134.7,
+        "inclination_error_deg": 0.03,
+        "node_deg": 228.19,
+        "node_error_deg": 0.03,
+        "argument_deg": 66.25,
+        "argument_error_deg": 0.03,
+        "periastron_year": 2018.3789,
+        "periastron_error_year": 0.0001,
+        "distance_pc": 8277,
+        "scope": "Osculating elements of the four-star fit with M = 4.297e6 M_sun and R0 = 8277 pc, converted at 2010.35, near the star's apocenter. The physical axis converts the angular axis at that R0; the period follows from Kepler's third law with that mass."
+      }
+    },
+    {
+      "host": "sgr-a-star",
+      "id": "s29",
+      "name": "S29",
+      "component": "S29",
+      "type": "star",
+      "spectral_type": "",
+      "designations": [],
+      "note": "Passed the black hole in 2021 at about 100 AU and 8740 km/s, the closest approach GRAVITY has measured. m_K = 17.6: GRAVITY Collaboration 2022, https://arxiv.org/abs/2112.07478.",
+      "orbit": {
+        "primary_label": "Sgr A*",
+        "source": {
+          "label": "GRAVITY Collaboration 2022, Table 1",
+          "url": "https://arxiv.org/abs/2112.07478"
+        },
+        "angular_axis_arcsec": 0.3975,
+        "angular_axis_error_arcsec": 0.0016,
+        "eccentricity": 0.9693,
+        "eccentricity_error": 0.0001,
+        "inclination_deg": 144.37,
+        "inclination_error_deg": 0.07,
+        "node_deg": 7.0,
+        "node_error_deg": 0.33,
+        "argument_deg": 205.79,
+        "argument_error_deg": 0.33,
+        "periastron_year": 2021.4104,
+        "periastron_error_year": 0.0002,
+        "distance_pc": 8277,
+        "scope": "Osculating elements of the four-star fit with M = 4.297e6 M_sun and R0 = 8277 pc, converted at 1977, near the star's apocenter. The physical axis converts the angular axis at that R0; the period follows from Kepler's third law with that mass."
+      }
+    },
+    {
+      "host": "sgr-a-star",
+      "id": "s38",
+      "name": "S38",
+      "component": "S38",
+      "type": "star",
+      "spectral_type": "",
+      "designations": [
+        "S0-38"
+      ],
+      "note": "One of the four stars whose orbits fix the black hole's mass and distance. m_K = 18.3: GRAVITY Collaboration 2022, https://arxiv.org/abs/2112.07478.",
+      "orbit": {
+        "primary_label": "Sgr A*",
+        "source": {
+          "label": "GRAVITY Collaboration 2022, Table 1",
+          "url": "https://arxiv.org/abs/2112.07478"
+        },
+        "angular_axis_arcsec": 0.14254,
+        "angular_axis_error_arcsec": 4e-05,
+        "eccentricity": 0.8145,
+        "eccentricity_error": 0.0002,
+        "inclination_deg": 166.65,
+        "inclination_error_deg": 0.4,
+        "node_deg": 109.45,
+        "node_error_deg": 1.0,
+        "argument_deg": 27.17,
+        "argument_error_deg": 1.02,
+        "periastron_year": 2022.7044,
+        "periastron_error_year": 0.008,
+        "distance_pc": 8277,
+        "scope": "Osculating elements of the four-star fit with M = 4.297e6 M_sun and R0 = 8277 pc, converted at 2000, near the star's apocenter. The physical axis converts the angular axis at that R0; the period follows from Kepler's third law with that mass."
+      }
+    },
+    {
+      "host": "sgr-a-star",
+      "id": "s55",
+      "name": "S55",
+      "component": "S55",
+      "type": "star",
+      "spectral_type": "",
+      "designations": [
+        "S0-102"
+      ],
+      "note": "A shorter orbit than S2's, reported in 2012 as S0-102. m_K = 17.2: GRAVITY Collaboration 2022, https://arxiv.org/abs/2112.07478.",
+      "orbit": {
+        "primary_label": "Sgr A*",
+        "source": {
+          "label": "GRAVITY Collaboration 2022, Table 1",
+          "url": "https://arxiv.org/abs/2112.07478"
+        },
+        "angular_axis_arcsec": 0.1044,
+        "angular_axis_error_arcsec": 5e-05,
+        "eccentricity": 0.7267,
+        "eccentricity_error": 0.0002,
+        "inclination_deg": 158.52,
+        "inclination_error_deg": 0.22,
+        "node_deg": 314.94,
+        "node_error_deg": 1.14,
+        "argument_deg": 322.78,
+        "argument_error_deg": 1.13,
+        "periastron_year": 2021.694,
+        "periastron_error_year": 0.0083,
+        "distance_pc": 8277,
+        "scope": "Osculating elements of the four-star fit with M = 4.297e6 M_sun and R0 = 8277 pc, converted at 2012, near the star's apocenter. The physical axis converts the angular axis at that R0; the period follows from Kepler's third law with that mass."
+      }
+    },
+    {
+      "host": "sgr-a-star",
+      "id": "s4716",
+      "name": "S4716",
+      "component": "S4716",
+      "type": "star",
+      "spectral_type": "B8/9V",
+      "designations": [],
+      "note": "Orbital period 4.02 ± 0.08 years, the shortest known when reported in 2022; pericenter 99 ± 8 AU. Spectral type B8/9 V and m_K = 17.02 ± 0.22: Peißker et al. 2022, https://arxiv.org/abs/2207.02142.",
+      "orbit": {
+        "primary_label": "Sgr A*",
+        "source": {
+          "label": "Peißker et al. 2022, Table 2",
+          "url": "https://arxiv.org/abs/2207.02142"
+        },
+        "axis_mpc": 1.94,
+        "axis_error_mpc": 0.02,
+        "period_years": 4.02,
+        "period_error_years": 0.08,
+        "eccentricity": 0.756,
+        "eccentricity_error": 0.02,
+        "inclination_deg": 161.13,
+        "inclination_error_deg": 2.8,
+        "node_deg": 153.55,
+        "node_error_deg": 1.54,
+        "argument_deg": 2.25,
+        "argument_error_deg": 0.02,
+        "periastron_year": 2017.41,
+        "periastron_error_year": 0.004,
+        "scope": "Maximum-likelihood (MCMC) Keplerian fit; the axis is published in milliparsecs and the period in the text (Section 3.6)."
+      }
+    }
+  ],
+  "stars": [
+    {
+      "id": "gcirs-7",
+      "type": "star",
+      "name": "GCIRS 7",
+      "designations": [
+        "IRS 7"
+      ],
+      "spectral_type": "M1I",
+      "constellation": "Sagittarius",
+      "distance_pc": 8277,
+      "distance_note": "8277 pc, the distance of Sagittarius A* (GRAVITY Collaboration 2022, https://arxiv.org/abs/2112.07478); the star lies about 6 arcseconds, 0.24 pc in projection, north of the black hole, and its depth along the line of sight is unmeasured",
+      "temperature_k": 3600,
+      "temperature_note": "the mean over its pulsation, ± 195 K",
+      "luminosity_solar": 187000,
+      "luminosity_note": "187,000 L_sun from the mean M_bol = −8.44 ± 0.22 with M_bol,sun = 4.74",
+      "radius_solar": 960,
+      "radius_note": "Radius 960 ± 92 R_sun from the 2013 H-band uniform-disk diameter of 1.076 ± 0.093 mas at 8.33 kpc.",
+      "atmosphere_source": {
+        "label": "Paumard et al. 2014",
+        "url": "https://arxiv.org/abs/1406.5320"
+      },
+      "astrometry": {
+        "ra_deg": 266.4166125,
+        "dec_deg": -29.006177778,
+        "epoch": 2000.0,
+        "parallax_mas": null,
+        "parallax_error_mas": null,
+        "pm_ra_cosdec_masyr": null,
+        "pm_ra_error_masyr": null,
+        "pm_dec_masyr": null,
+        "pm_dec_error_masyr": null,
+        "radial_velocity_kms": -126.5,
+        "radial_velocity_error_kms": 1.5,
+        "astrometry_ref": "SIMBAD ICRS position (Yusef-Zadeh et al. 1989)",
+        "radial_velocity_ref": "Zhu et al. 2008, via SIMBAD"
+      },
+      "note": "Pulsating M1 red supergiant of the central parsec (2MASS m_K = 6.503 ± 0.017), with periods near 470 days and 2700–2850 days. Paumard et al. 2014 give an initial mass of 22.5 ± 2.5 M_sun and an age of 6.5–10 Myr; no present mass is adopted."
+    }
+  ]
+}
