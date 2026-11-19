@@ -18,10 +18,11 @@ export const FILTER_CATEGORIES = [
   {
     id: 'star_clusters',
     label: 'Star clusters',
-    description: 'Groups of stars born together and still bound by their gravity: young open clusters and ancient globular clusters. The checkboxes in this tile choose which of them appear; the brightest members of the nearby open clusters are ordinary stars under Compact objects.',
+    description: 'Groups of stars born together and still bound by their gravity: young open clusters, ancient globular clusters and young super star clusters, the most massive clusters still forming today. The checkboxes in this tile choose which of them appear; the brightest members of the nearby open clusters are ordinary stars under Compact objects.',
     subtypes: [
       { key: 'open_cluster', label: 'Open clusters' },
       { key: 'globular_cluster', label: 'Globular clusters' },
+      { key: 'super_star_cluster', label: 'Super star clusters' },
     ],
   },
   {
@@ -65,8 +66,8 @@ export const FILTER_CATEGORY_IDS: readonly FilterCategoryId[] = FILTER_CATEGORIE
 // Bundled stellar catalogs always contain these; overlay keys come from manifest counts.
 const CATALOG_FILTER_KEYS: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf']
 
-export const DEFAULT_FILTER_CATEGORIES: readonly FilterCategoryId[] = ['compact_objects', 'star_clusters']
-export const DEFAULT_FILTER_SUBTYPES: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'dark_nebula', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'supernova_remnant', 'bubble', 'open_cluster', 'globular_cluster']
+export const DEFAULT_FILTER_CATEGORIES: readonly FilterCategoryId[] = ['compact_objects']
+export const DEFAULT_FILTER_SUBTYPES: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'molecular_cloud', 'dark_nebula', 'reflection_nebula', 'hii_region', 'planetary_nebula', 'supernova_remnant', 'bubble', 'open_cluster', 'globular_cluster', 'super_star_cluster']
 
 // Types with data before saved filters and views recorded which types they knew.
 const LEGACY_KNOWN_FILTER_KEYS: readonly FilterKey[] = ['sun', 'star', 'brown_dwarf', 'white_dwarf', 'neutron_star', 'pulsar', 'black_hole',

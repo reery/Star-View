@@ -68,7 +68,7 @@ export function createSolarSystemSkyLayer(container: HTMLElement, starMaterial: 
   const selectionEmphases = attribute(1)
   const coreGeometry = new BufferGeometry()
     .setAttribute('position', positions).setAttribute('color', colors).setAttribute('selectionEmphasis', selectionEmphases)
-    .setAttribute('coreDiameter', attribute(1)).setAttribute('starFlux', attribute(1)).setAttribute('coreEmphasis', attribute(1))
+    .setAttribute('coreDiameter', attribute(1)).setAttribute('starFlux', attribute(1)).setAttribute('ratedDistance', attribute(1)).setAttribute('coreEmphasis', attribute(1))
     .setAttribute('coreWhiteStrength', attribute(1, PLANET_CORE_WHITE_STRENGTH)).setAttribute('coreShape', attribute(1, PLANET_CORE_SHAPE))
   const haloGeometry = new BufferGeometry()
     .setAttribute('position', positions).setAttribute('color', colors).setAttribute('selectionEmphasis', selectionEmphases)

@@ -70,9 +70,9 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .inspector { position: absolute; z-index: 4; inset: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left); pointer-events: none; }
 .selected-object, .dock-card, .spaceship-hud { color: var(--ink); background: linear-gradient(145deg, #26282af7, var(--panel-glass)); border: 1px solid #5a5148; border-radius: var(--card-radius); box-shadow: 0 14px 38px #00000080, inset 0 1px #ffffff0a; }
 .selected-object, .dock-card { isolation: isolate; }
-/* A tip is a tile like the welcome, beside the toolbar: a large bulb, then its text and actions. Cards, which come later in the page, cover it, and it stays away from a tour, the welcome and a hidden interface. */
+/* A tip is a tile beside the toolbar: a large icon, then its text and actions; the welcome shares it. Cards, which come later in the page, cover it, and it stays away from a tour, the welcome and a hidden interface. */
 .tip-tile { position: absolute; top: 20px; right: 74px; display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 12px; width: min(320px, calc(100% - 94px)); padding: 14px 14px 12px; font-size: var(--property-text-size); pointer-events: auto; }
-:root:is([data-ui-hidden], :has(.tutorial-tile, #welcome-tile:not([hidden]))) .tip-tile { display: none; }
+:root:is([data-ui-hidden], :has(.tutorial-tile)) .tip-tile, :root:has(#welcome-tile:not([hidden])) #tip-tile { display: none; }
 .tip-text { align-self: center; padding-right: 28px; line-height: 1.45; }
 .tip-object { white-space: nowrap; }
 .tip-object > .star-swatch { margin-right: 5px; vertical-align: middle; }
@@ -831,20 +831,17 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .info-brand, .tip-tile, .tutorial-tile.is-tip { background: linear-gradient(125deg, #393029 0%, #2a2b32 55%, var(--panel) 100%); }
 .info-brand { display: flex; align-items: center; gap: 12px; padding: 18px 16px; border-bottom: 1px solid var(--line); }
 .info-brand-icon { display: grid; place-items: center; width: 42px; height: 42px; flex: 0 0 42px; color: var(--accent-strong); background: #171819; border: 1px solid #73583e; border-radius: 50%; box-shadow: 0 0 18px #e7a05b24; }
-.info-brand h2 { font-size: 19px; line-height: 1.2; font-weight: 600; }
-.info-brand p { margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.4; }
+.info-brand h2, .welcome-body h2 { font-size: 19px; line-height: 1.2; font-weight: 600; }
+.info-brand p, .welcome-motto { margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.4; }
 .info-meta { padding: 9px 16px 12px; }
 .info-meta > div { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 7px 0; font-size: 13px; }
 .info-meta dt { color: var(--muted); }
 .info-meta dd { text-align: right; font-weight: 500; }
 .attribution-note { color: var(--muted); font-size: 10px; font-weight: 400; }
 .dock-card.info-card { width: min(320px, calc(var(--ui-width) - var(--dock-gutter))); }
-.welcome-tile, .tip-tile { color: var(--ink); border: 1px solid var(--line); border-radius: var(--card-radius); box-shadow: 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; }
-.welcome-tile { position: fixed; top: 50%; left: 50%; z-index: 20; background: var(--panel); width: min(440px, calc(var(--ui-width) - 24px)); max-height: calc(var(--ui-height) - 24px); overflow: auto; transform: translate(-50%, -50%); }
-.welcome-tile .info-brand h2 { font-size: 26px; }
-.welcome-tile .info-brand p { margin-top: 5px; font-size: var(--property-text-size); }
-.welcome-body { padding: 16px; font-size: var(--property-text-size); line-height: 1.4; }
-.welcome-body button { color: var(--accent); }
+.tip-tile { color: var(--ink); border: 1px solid var(--line); border-radius: var(--card-radius); box-shadow: 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; }
+.welcome-body { align-self: center; line-height: 1.45; }
+.welcome-motto { margin-bottom: 8px; }
 #welcome-yes, #tip-show { color: var(--accent-strong); background: var(--panel-selected); border-color: var(--border-active); }
 .legal-notice { margin-inline: 16px; margin-bottom: 16px; font-size: 12px; }
 .legal-notice > summary { padding-block: 5px; }
@@ -1846,6 +1843,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   .spaceship-throttle { right: calc(66px + var(--safe-right)); bottom: calc(68px + var(--safe-bottom)); }
   .dock-card { max-height: calc(var(--ui-height) - 24px); }
   .dock-card.catalog.is-expanded { max-height: calc(var(--ui-height) - 36px); }
+  /* Locked, Filter, Preferences, Paint and Graphs leave the upper 60% to the 3D view, which centers above them. */
+  #filter-panel:has(#filter-lock[aria-pressed="true"]), #preferences-panel:has(#preferences-lock[aria-pressed="true"]),
+  #paint-panel:has(#paint-lock[aria-pressed="true"]), #graphs-panel:has(#graphs-lock[aria-pressed="true"]) { max-height: calc(var(--ui-height) * 0.4 - 12px); }
   /* While painting, the Paint card shows only the painting settings, leaving the map in view. */
   #paint-panel.is-compact .paint-setting:not(:has(.paint-setting-toggle[aria-pressed="true"])) { display: none; }
   .panel-heading #paint-expand { display: grid; }

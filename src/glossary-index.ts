@@ -180,7 +180,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
     ['dust_sheet', 'Dust sheet', 'A dust sheet is a thin layer of the tiny solid grains that float between the stars.', 'interstellar dust'],
     ['interstellar-medium', 'Interstellar medium', 'The interstellar medium is the thin gas and dust that fills the space between the stars.', 'ISM gas dust'],
     ['local-bubble', 'Local Bubble', 'The Local Bubble is the hot, thin cavity in the interstellar medium that surrounds the Sun.', 'Local Hot Bubble Solar System neighborhood supernovae'],
-    ['star-cluster', 'Star cluster', 'A star cluster is a group of stars born together and bound by gravity.', 'open cluster globular association Pleiades'],
+    ['star-cluster', 'Star cluster', 'A star cluster is a group of stars born together and bound by gravity.', 'open cluster globular association Pleiades super star cluster young massive cluster'],
     ['milky-way', 'Milky Way', 'The Milky Way is our home galaxy, a barred spiral of more than 100 billion stars.', 'Galaxy galactic disk bar spiral'],
   ]),
   ...terms('Distance & size', [

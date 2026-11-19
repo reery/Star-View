@@ -8,6 +8,15 @@ function translucent(color: string, opacity: number): string {
   return `${color}${Math.round(Math.max(0, Math.min(1, opacity)) * 255).toString(16).padStart(2, '0')}`
 }
 
+/** Soft radial glow fading from `opacity` at its center to nothing at `radius`. */
+function blob(context: CanvasRenderingContext2D, x: number, y: number, radius: number, fill: string, opacity: number): void {
+  const gradient = context.createRadialGradient(x, y, 0, x, y, radius)
+  gradient.addColorStop(0, translucent(fill, opacity))
+  gradient.addColorStop(1, translucent(fill, 0))
+  context.fillStyle = gradient
+  context.fillRect(x - radius, y - radius, radius * 2, radius * 2)
+}
+
 export function renderSelectedStarPreview(canvas: HTMLCanvasElement, star: Star, mode: StarColorMode, members: readonly Star[] = [star], hasKnownPlanets = false): void {
   const key = `${hasKnownPlanets}:` + members.map((member) => `${member.id}:${member.type}:${starDisplayColor(member, mode).getHexString()}:${member.radius_solar}:${member.luminosity_solar}`).join('|')
   if (renderedPreviews.get(canvas) === key) return
@@ -72,18 +81,11 @@ function drawGalaxyPreview(context: CanvasRenderingContext2D, displayColor: Colo
   const color = `#${displayColor.getHexString()}`
   const paleColor = `#${displayColor.clone().lerp(new Color(0xffffff), 0.65).getHexString()}`
   const bulgeColor = `#${displayColor.clone().lerp(new Color(0xffe4b8), 0.7).getHexString()}`
-  const blob = (x: number, y: number, radius: number, fill: string, opacity: number) => {
-    const gradient = context.createRadialGradient(x, y, 0, x, y, radius)
-    gradient.addColorStop(0, translucent(fill, opacity))
-    gradient.addColorStop(1, translucent(fill, 0))
-    context.fillStyle = gradient
-    context.fillRect(x - radius, y - radius, radius * 2, radius * 2)
-  }
 
   context.save()
   context.rotate(-0.5)
   context.scale(1, 0.64)
-  blob(0, 0, 27, color, 0.42)
+  blob(context, 0, 0, 27, color, 0.42)
   context.globalCompositeOperation = 'lighter'
   // Logarithmic arms widening and fading outward, with brighter knots along them.
   const steps = 80, turn = 4.6, growth = Math.log(10) / turn
@@ -93,8 +95,8 @@ function drawGalaxyPreview(context: CanvasRenderingContext2D, displayColor: Colo
       const angle = phase + progress * turn
       const radius = 2.5 * Math.exp(growth * progress * turn)
       const x = radius * Math.cos(angle), y = radius * Math.sin(angle)
-      blob(x, y, 2.6 + 3.4 * progress, color, 0.2 * (1 - progress) ** 0.6)
-      if (step % 11 === 6) blob(x, y, 1.6 + 0.8 * progress, paleColor, 0.35 * (1 - 0.5 * progress))
+      blob(context, x, y, 2.6 + 3.4 * progress, color, 0.2 * (1 - progress) ** 0.6)
+      if (step % 11 === 6) blob(context, x, y, 1.6 + 0.8 * progress, paleColor, 0.35 * (1 - 0.5 * progress))
     }
   }
   context.restore()
@@ -103,8 +105,83 @@ function drawGalaxyPreview(context: CanvasRenderingContext2D, displayColor: Colo
   context.globalCompositeOperation = 'lighter'
   context.rotate(-0.5)
   context.scale(1, 0.8)
-  blob(0, 0, 10, bulgeColor, 0.8)
-  blob(0, 0, 3.5, '#ffffff', 0.9)
+  blob(context, 0, 0, 10, bulgeColor, 0.8)
+  blob(context, 0, 0, 3.5, '#ffffff', 0.9)
+  context.restore()
+}
+
+/** Thin four-pointed diffraction spikes, as telescopes show around the brightest stars of a dense young cluster. */
+function spikes(context: CanvasRenderingContext2D, x: number, y: number, length: number, fill: string): void {
+  for (const angle of [0, Math.PI / 2]) {
+    context.save()
+    context.translate(x, y)
+    context.rotate(angle + 0.12)
+    const gradient = context.createLinearGradient(-length, 0, length, 0)
+    gradient.addColorStop(0, translucent(fill, 0))
+    gradient.addColorStop(0.5, translucent(fill, 0.85))
+    gradient.addColorStop(1, translucent(fill, 0))
+    context.fillStyle = gradient
+    context.fillRect(-length, -0.3, length * 2, 0.6)
+    context.restore()
+  }
+}
+
+/**
+ * Illustrative super star cluster: a few blazing stars with diffraction spikes over a compact, crowded core that thins
+ * quickly into a sparse halo, in the cluster's display color.
+ */
+function drawSuperClusterPreview(context: CanvasRenderingContext2D, displayColor: Color): void {
+  const color = `#${displayColor.getHexString()}`
+  const paleColor = `#${displayColor.clone().lerp(new Color(0xffffff), 0.7).getHexString()}`
+  blob(context, 0, 0, 25, color, 0.3)
+  context.save()
+  context.globalCompositeOperation = 'lighter'
+  blob(context, 0, 0, 10, paleColor, 0.8)
+  blob(context, 0, 0, 4, '#ffffff', 0.9)
+  // Fixed golden-angle scatter with hashed radii, steeply concentrated toward the core.
+  const count = 110
+  for (let index = 0; index < count; index++) {
+    const spread = Math.abs(Math.sin(index * 12.9898) * 43758.5453 % 1)
+    const progress = (index + 0.5) / count
+    const radius = 24 * progress ** 2 * (0.7 + 0.3 * spread)
+    const angle = index * 2.39996
+    const x = radius * Math.cos(angle), y = radius * Math.sin(angle)
+    const size = 0.7 + 1.1 * spread
+    blob(context, x, y, size, index % 3 ? paleColor : color, 0.95 - 0.35 * radius / 24)
+    blob(context, x, y, size * 0.4, '#ffffff', 0.8)
+  }
+  for (const [x, y, length] of [[-5, -3, 13], [6, 4, 11], [2, -9, 8], [-11, 9, 7], [14, -12, 6]] as const) {
+    blob(context, x, y, 2.6, paleColor, 0.95)
+    blob(context, x, y, 1.2, '#ffffff', 1)
+    spikes(context, x, y, length, paleColor)
+  }
+  context.restore()
+}
+
+/**
+ * Illustrative star clusters in the cluster's display color: a loose swarm for an open cluster,
+ * a dense ball crowding into a bright core for a globular cluster.
+ */
+function drawClusterPreview(context: CanvasRenderingContext2D, displayColor: Color, globular: boolean): void {
+  const color = `#${displayColor.getHexString()}`
+  const paleColor = `#${displayColor.clone().lerp(new Color(0xffffff), 0.7).getHexString()}`
+
+  blob(context, 0, 0, globular ? 24 : 20, color, globular ? 0.45 : 0.28)
+  context.save()
+  context.globalCompositeOperation = 'lighter'
+  if (globular) blob(context, 0, 0, 9, paleColor, 0.75)
+  // Fixed golden-angle scatter with hashed radii, so every cluster of a kind shows the same arrangement.
+  const count = globular ? 160 : 46
+  for (let index = 0; index < count; index++) {
+    const spread = Math.abs(Math.sin(index * 12.9898) * 43758.5453 % 1)
+    const progress = (index + 0.5) / count
+    const radius = globular ? 23 * progress ** 1.6 * (0.8 + 0.2 * spread) : 23 * progress ** 0.85 * (0.75 + 0.25 * spread)
+    const angle = index * 2.39996
+    const size = globular ? (index % 17 === 0 ? 2.2 : 0.8 + 0.8 * spread) : index % 9 === 0 ? 3.4 : 1.4 + 1.4 * spread
+    const x = radius * Math.cos(angle), y = radius * Math.sin(angle)
+    blob(context, x, y, size, index % 3 ? color : paleColor, 0.9 - 0.3 * radius / 23)
+    blob(context, x, y, size * 0.35, '#ffffff', 0.75)
+  }
   context.restore()
 }
 
@@ -117,7 +194,17 @@ function drawStarPreview(context: CanvasRenderingContext2D, star: Star, mode: St
     return
   }
 
-  if (isCompactObject(star) || isNebulaObject(star) || isMolecularCloudObject(star) || isBubbleObject(star) || isStarClusterObject(star)) {
+  if (star.type === 'super_star_cluster') {
+    drawSuperClusterPreview(context, displayColor)
+    return
+  }
+
+  if (isStarClusterObject(star)) {
+    drawClusterPreview(context, displayColor, star.type === 'globular_cluster')
+    return
+  }
+
+  if (isCompactObject(star) || isNebulaObject(star) || isMolecularCloudObject(star) || isBubbleObject(star)) {
     context.fillStyle = color
     context.shadowColor = color
     context.shadowBlur = 6

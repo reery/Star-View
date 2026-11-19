@@ -11,7 +11,7 @@ describe('object filter taxonomy', () => {
     ])
     expect(FILTER_CATEGORIES.map((category) => category.subtypes.map((subtype) => subtype.label))).toEqual([
       ['Sun', 'Stars', 'Brown dwarfs', 'White dwarfs', 'Neutron stars', 'Pulsars', 'Black holes'],
-      ['Open clusters', 'Globular clusters'],
+      ['Open clusters', 'Globular clusters', 'Super star clusters'],
       ['Molecular clouds', 'Dark nebulae', 'Reflection nebulae', 'H II regions'],
       ['Planetary nebulae', 'Supernova remnants', 'Pulsar-wind nebulae'],
       ['Bubbles', 'Dust sheets'],
@@ -61,11 +61,12 @@ describe('object filter taxonomy', () => {
 
   it('turns on a default category whose types all gained data after the filter was saved', () => {
     const available = availableFilterKeys({ open_cluster: 2 })
-    expect(restoredFilterCategories(['compact_objects'], undefined, available)).toEqual(new Set(['compact_objects', 'star_clusters']))
-    // Saved knowing open clusters, with their category switched off.
-    expect(restoredFilterCategories(['compact_objects'], [...available], available)).toEqual(new Set(['compact_objects']))
-    // A category without data stays off.
-    expect(restoredFilterCategories(['compact_objects'], undefined, availableFilterKeys())).toEqual(new Set(['compact_objects']))
+    // Saved before any compact-object type had data.
+    expect(restoredFilterCategories([], [], available)).toEqual(new Set(['compact_objects']))
+    // Saved knowing them, with their category switched off.
+    expect(restoredFilterCategories([], [...available], available)).toEqual(new Set())
+    // Star clusters start off, so gaining data does not turn them on.
+    expect(restoredFilterCategories(['compact_objects'], undefined, available)).toEqual(new Set(['compact_objects']))
   })
 
   it('summarizes effective selections against available types', () => {

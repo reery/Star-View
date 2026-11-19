@@ -87,6 +87,7 @@ export const glossaryArticles: Readonly<Record<string, GlossaryArticle>> = {
     sections: [
       { title: 'Open and globular', text: 'Open clusters are young, loose groups of up to a few thousand stars, such as the Pleiades and the Hyades. They drift apart within millions to billions of years. Globular clusters are dense, ancient spheres of hundreds of thousands of stars, more than 10 billion years old, orbiting the Milky Way.' },
       { title: 'Reading a cluster’s age', text: 'Massive stars die first, so the top of a cluster’s main sequence gets shorter as it ages. The point where stars are just leaving, the “turnoff”, acts as a clock. That is how astronomers date clusters.' },
+      { title: 'Super star clusters', source: wiki('Super_star_cluster'), text: 'The most massive young clusters, such as Westerlund 1 in the Milky Way, hold far more mass and light than ordinary open clusters, with many of the most massive stars known. Most are found in other galaxies, especially where galaxies collide or form stars in bursts. They are thought to be young globular clusters.' },
     ],
     related: ['hr-diagram', 'age', 'subtype-main-sequence', 'subtype-blue-straggler'],
   },

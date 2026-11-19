@@ -8,9 +8,9 @@
     "simbad.csv": "d2f31fe2362ae8b8b56b672e93ab48e144457ed5795e3b90fb905ffc78bdea12",
     "components.adql": "060f2470f9a4f0aedbca9c9393a7e33e1b4e154328ab4af6bb8e4ade02d4e07b",
     "components.csv": "4e0c1bec3a3089dc6acc19a250b460c7a2876fcc0cfdf0b2595afe44f4166291",
-    "extended.adql": "bd94415236f54145a8b5621a002c21505d759231921ee52202318477d205b192",
-    "extended.csv": "ee86c63e19f28d816bee05189d681c11be7ea5615b8f75b42736be6ca97545f7",
-    "preferred-names.json": "fd269af9e56e63eb93bd9595c2fa84e2b5d4a15eb3712921cb83feeb3243ecd8",
+    "extended.adql": "8c7a75153ecb9f8e6e111863c1ce77327ebfc7180bbc080c5b605b93eb7ae7ba",
+    "extended.csv": "a3d7f35c83eb597d648b3e9e5f90d5953128eb555fdeffe2f938921255a213bc",
+    "preferred-names.json": "ca597c9a7fa730e9a6f169adbd9f7f4957da22429c3b6a1ba53dfb6f23d66f00",
     "iau-names.csv": "ad39e5c1a6ec5d47f1da6f4595647ed2f5f663408d3d6500124ddf04cac188c9"
   },
   "iauSource": "https://iauarchive.eso.org/public/themes/naming_stars/",
@@ -105,6 +105,15 @@
         "extended.csv"
       ],
       "note": "A query appended for spec-card identities of the open clusters M 44, NGC 869, NGC 884, M 67 and NGC 3532, the far nebulae and remnants M 8, M 16, M 17, M 20, the Rosette, Carina, North America and Tarantula nebulae, Puppis A, W 44, W 50, 3C 58 and G1.9+0.3, the hypervelocity stars HE 2251-5127 (S5-HVS1) and US 708, and PSR J1748-2446ad. Earlier rows are unchanged."
+    },
+    {
+      "retrieved": "2026-11-19",
+      "source": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync",
+      "files": [
+        "extended.adql",
+        "extended.csv"
+      ],
+      "note": "A query appended for spec-card identities of Trumpler 14 and the super star clusters Westerlund 1, Westerlund 2, NGC 3603, the Arches and Quintuplet clusters, R136 (RMC 136), RSGC 1, Stephenson 2 and RSGC 3. Earlier rows are unchanged."
     }
   ],
   "compactExpansion": {

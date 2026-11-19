@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Author the star-cluster overlay: the open clusters Hyades, Pleiades, Beehive Cluster, Double Cluster, M67 and
-NGC 3532, and the globular clusters Omega Centauri, 47 Tucanae, M4, M13, M22, M15 and Terzan 5.
+"""Author the star-cluster overlay: the open clusters Hyades, Pleiades, Beehive Cluster, Double Cluster, M67, NGC 3532
+and Trumpler 14, the globular clusters Omega Centauri, 47 Tucanae, M4, M13, M22, M15 and Terzan 5, and the super star
+clusters Westerlund 1 and 2, NGC 3603, the Arches and Quintuplet clusters, R136, RSGC1, Stephenson 2 and RSGC3.
 
 Open clusters: centers, member counts, masses, radii, proper motions and radial velocities come from the frozen
 Hunt & Reffert (2024) Gaia DR3 rows, metallicities from the frozen Netopil et al. (2016) rows, both
@@ -15,6 +16,12 @@ come from the frozen rows of Baumgardt's globular cluster database (Baumgardt & 
 Baumgardt 2021 proper motions), metallicities from the frozen Carretta et al. (2009) rows and ages from the frozen
 VandenBerg et al. (2013) rows, all in catalog-work/star-clusters. Omega Centauri and Terzan 5, which hold stars of
 several ages, name dedicated studies instead.
+
+Super star clusters: ages, photometric masses, core and effective (half-light) radii come from the frozen rows of the
+young-massive-cluster compilation of Portegies Zwart, McMillan & Gieles (2010), in catalog-work/star-clusters, unless a
+cluster names the dedicated study it compiles with its error. Centers are SIMBAD's; each distance is the one the app's
+related records adopt (the H II region, a notable member star or Sagittarius A*). Young massive clusters show no tidal
+edge, so no tidal radius is given. No space motion, metallicity or radial velocity is adopted for them yet.
 
 Usage: author-star-clusters.py --write | --check
 """
@@ -178,7 +185,25 @@ CLUSTERS = [
         'notable_members': [(NAKED_EYE, 'hip-54294', 'HD 96544')],
         'palette': {'real': '#f2f0ff', 'exaggerated': '#d2d0ff'},
     },
+    {
+        'id': 'trumpler-14',
+        'name': 'Trumpler 14',
+        'designations': ['Tr 14', 'Villafranca O-002'],
+        'constellation': 'Carina',
+        'row': 'Trumpler_14',
+        'metallicity': None,
+        'notes': 'One of the youngest and densest clusters of the Carina Nebula, 0.2° from Eta Carinae and its cluster Trumpler 16. Its brightest star, HD 93129 A, is one of the hottest and most massive stars known. The mass of 890 ± 180 M☉ counts only the 96 members that Hunt & Reffert (2023) find in Gaia DR3; Portegies Zwart et al. (2010) list a photometric mass of about 10,000 M☉, among the young massive clusters. The distance is the Gaia EDR3 distance of its O and B stars (Villafranca O-002); Hunt & Reffert (2023) give 2,390 ± 11 pc from their members, statistical error only. Gaia DR3 measured the radial velocities of only seven members, hence the large error. No [Fe/H] is adopted.',
+        'distance': (2363, 61, 'Gaia EDR3 parallaxes of 184 O and B stars and other members, with a zero-point correction',
+                     source('Maíz Apellániz et al. (2022), Villafranca catalog of Galactic OB groups II', 'https://doi.org/10.1051/0004-6361/202142364')),
+        'age_myr': 1, 'age_error_myr': 1,
+        'age_method': 'Distribution of the ages of 717 young low-mass members from VLT/MUSE spectra: about 1 million years',
+        'age_source': source('Itrich et al. (2024)', 'https://doi.org/10.1051/0004-6361/202347380'),
+        'notable_members': [],
+        'palette': {'real': '#dfe6ff', 'exaggerated': '#b4c6ff'},
+    },
 ]
+
+PORTEGIES_ZWART_2010_URL = 'https://doi.org/10.1146/annurev-astro-081309-130834'
 
 SOURCES = [
     {'name': 'Hunt & Reffert (2023); Gaia DR3 cluster centers, members, distances, proper motions and radial velocities', 'url': HUNT_REFFERT_2023['url']},
@@ -193,6 +218,8 @@ SOURCES = [
     {'name': 'Fanelli et al. (2022); metallicity of the red supergiants around the Double Cluster', 'url': FANELLI_2022['url']},
     {'name': 'Reyes et al. (2025); asteroseismic age of Messier 67', 'url': 'https://doi.org/10.1093/mnras/staf353'},
     {'name': 'Fritzewski et al. (2019); isochrone age of NGC 3532', 'url': 'https://doi.org/10.1051/0004-6361/201833587'},
+    {'name': 'Maíz Apellániz et al. (2022); Gaia EDR3 distances of Trumpler 14, Westerlund 2 and NGC 3603', 'url': 'https://doi.org/10.1051/0004-6361/202142364'},
+    {'name': 'Itrich et al. (2024); age of Trumpler 14', 'url': 'https://doi.org/10.1051/0004-6361/202347380'},
     {'name': 'Baumgardt et al.; globular cluster masses, core, half-light and tidal radii and radial velocities', 'url': 'https://people.smp.uq.edu.au/HolgerBaumgardt/globular/'},
     {'name': 'Baumgardt & Vasiliev (2021); globular cluster distances', 'url': 'https://doi.org/10.1093/mnras/stab1474'},
     {'name': 'Vasiliev & Baumgardt (2021); Gaia EDR3 globular cluster proper motions', 'url': 'https://doi.org/10.1093/mnras/stab1475'},
@@ -201,6 +228,13 @@ SOURCES = [
     {'name': 'Clontz et al. (2024); ages of Omega Centauri subgiants', 'url': 'https://arxiv.org/abs/2409.13855'},
     {'name': 'Origlia et al. (2011); metallicity of the two populations of Terzan 5', 'url': 'https://doi.org/10.1088/2041-8205/726/2/L20'},
     {'name': 'Zullo et al. (2026); ages of the populations of Terzan 5 from Webb and Hubble', 'url': 'https://doi.org/10.1051/0004-6361/202659349'},
+    {'name': 'Portegies Zwart, McMillan & Gieles (2010); ages, masses, core and half-light radii of young massive clusters', 'url': PORTEGIES_ZWART_2010_URL},
+    {'name': 'Negueruela et al. (2022); Gaia EDR3 distance of Westerlund 1', 'url': 'https://doi.org/10.1051/0004-6361/202142985'},
+    {'name': 'GRAVITY Collaboration (2022); distance of Sagittarius A*, adopted for the Arches and Quintuplet clusters', 'url': 'https://arxiv.org/abs/2112.07478'},
+    {'name': 'Pietrzyński et al. (2019); distance of the Large Magellanic Cloud', 'url': 'https://doi.org/10.1038/s41586-019-0999-4'},
+    {'name': 'Davies et al. (2007, 2008); kinematic distances and ages of Stephenson 2 and RSGC1', 'url': 'https://doi.org/10.1086/527350'},
+    {'name': 'Clark et al. (2009); distance and age of RSGC3', 'url': 'https://doi.org/10.1051/0004-6361/200911945'},
+    {'name': 'Crowther et al. (2016); age of R136 from Hubble ultraviolet spectra', 'url': 'https://doi.org/10.1093/mnras/stw273'},
     {'name': 'Ferraro et al. (2016); first ages of the two populations of Terzan 5', 'url': 'https://doi.org/10.3847/0004-637X/828/2/75'},
 ]
 
@@ -248,7 +282,7 @@ def record(cluster: dict, rows: dict, metallicities: dict, members_available: di
     motion_velocity = radial_velocity[0] if 'radial_velocity' in cluster else number('RV')
     position, velocity = galactic(ra, dec, distance_pc, number('pmRA'), number('pmDE'), motion_velocity)
     if 'metallicity' in cluster:
-        metallicity = cluster['metallicity']
+        metallicity = cluster['metallicity'] or (None, None, None)
     else:
         row_metallicity = metallicities[cluster['metallicity_row']]
         metallicity = (float(row_metallicity['[Fe/H]HQS']), float(row_metallicity['e_[Fe/H]HQS']), NETOPIL_2016)
@@ -407,26 +441,179 @@ def globular_record(cluster: dict, rows: dict, metallicities: dict, ages: dict, 
     }
 
 
+PORTEGIES_ZWART_2010 = source('Portegies Zwart, McMillan & Gieles (2010), young massive star clusters', PORTEGIES_ZWART_2010_URL)
+NOTABLE_DISTANT = 'notable-distant-stars'
+YOUNG_PALETTE = {'real': '#dae4ff', 'exaggerated': '#a9c1ff'}
+RED_SUPERGIANT_PALETTE = {'real': '#ffd9bc', 'exaggerated': '#ffb07a'}
+VILLAFRANCA_2022 = source('Maíz Apellániz et al. (2022), Villafranca catalog of Galactic OB groups II', 'https://doi.org/10.1051/0004-6361/202142364')
+VILLAFRANCA_METHOD = 'Gaia EDR3 parallaxes of its O and B stars and other members, with a zero-point correction'
+# Sagittarius A*: 8277 ± 9 (statistical) ± 30 (systematic) pc; the error combines both.
+GALACTIC_CENTER = (8277, 31, 'Distance of Sagittarius A*, which the cluster orbits closely',
+                   source('GRAVITY Collaboration (2022)', 'https://arxiv.org/abs/2112.07478'))
+SIMBAD_CENTER = 'SIMBAD center'
+
+SUPER_STAR_CLUSTERS = [
+    {
+        'id': 'westerlund-1', 'name': 'Westerlund 1', 'row': 'Wd 1', 'constellation': 'Ara',
+        'designations': ['Wd 1', 'Ara Cluster'],
+        'ra_deg': 251.76, 'dec_deg': -45.851944,
+        'distance': (4230, 230, 'Gaia EDR3 parallaxes of its members', source('Negueruela et al. (2022)', 'https://doi.org/10.1051/0004-6361/202142985')),
+        'notes': 'The most massive young cluster known in the Milky Way, hidden behind thick dust. It holds 24 Wolf–Rayet stars, yellow hypergiants, red supergiants such as Westerlund 1 W26, and the magnetar CXOU J164710.2−455216. Its velocity dispersion gives a dynamical mass of about 63,000 M☉ (log M = 4.8, Portegies Zwart et al. 2010). Its age is debated: Beasor et al. (2021) find 10.4 (+1.3/−1.2) million years from its red supergiants, much older than the 3.5–5 million years of earlier work. The TeV gamma-ray source HESS J1646−458 surrounds it.',
+        'notable_members': [(NOTABLE_DISTANT, 'westerlund-1-w26', 'Westerlund 1 W26')],
+        'palette': {'real': '#e4e8fa', 'exaggerated': '#bccbff'},
+    },
+    {
+        'id': 'westerlund-2', 'name': 'Westerlund 2', 'row': 'Wd 2', 'constellation': 'Carina',
+        'designations': ['Wd 2', 'Villafranca O-004'],
+        'ra_deg': 155.992083, 'dec_deg': -57.763611,
+        'distance': (4440, 230, VILLAFRANCA_METHOD, VILLAFRANCA_2022),
+        'notes': 'The young cluster at the heart of the H II region RCW 49, with a dozen early O stars and the Wolf–Rayet binary WR 20a, one of the most massive binaries known. It sits inside the TeV gamma-ray source HESS J1023−575. The distance is that of the RCW 49 record.',
+        'notable_members': [],
+        'palette': YOUNG_PALETTE,
+    },
+    {
+        'id': 'ngc-3603', 'name': 'NGC 3603', 'row': 'NGC 3603', 'constellation': 'Carina',
+        'designations': ['Villafranca O-001', 'HD 97950 cluster'],
+        'ra_deg': 168.7411, 'dec_deg': -61.2422,
+        'distance': (7130, 590, VILLAFRANCA_METHOD, VILLAFRANCA_2022),
+        'notes': 'The young cluster inside the giant H II region NGC 3603 in the Carina arm, one of the most luminous star-forming regions of the Milky Way. Its compact core, catalogued as the single star HD 97950, holds several of the most massive stars known. The blue supergiant Sher 25, long thought a member, lies in front of it. Hunt & Reffert (2023) give 6,780 ± 100 pc from its Gaia DR3 members, statistical error only.',
+        'notable_members': [],
+        'palette': YOUNG_PALETTE,
+    },
+    {
+        'id': 'arches-cluster', 'name': 'Arches Cluster', 'row': 'Arches', 'constellation': 'Sagittarius',
+        'designations': ['Arches', 'GAL 000.12+00.02'],
+        'ra_deg': 266.460417, 'dec_deg': -28.824444,
+        'distance': GALACTIC_CENTER,
+        'notes': 'One of the densest star clusters in the Milky Way, about 27 pc in projection from Sagittarius A*; it takes the distance of Sagittarius A* (GRAVITY Collaboration 2022, 8277 ± 9 ± 30 pc), and its offset along the line of sight is not included in the error. Dust hides it in visible light, so it is studied in infrared light, radio waves and X-rays. It holds 13 Wolf–Rayet stars and eight O hypergiants; its X-rays suggest that many of its massive stars are close binaries.',
+        'notable_members': [],
+        'palette': YOUNG_PALETTE,
+    },
+    {
+        'id': 'quintuplet-cluster', 'name': 'Quintuplet Cluster', 'row': 'Quintuplet', 'constellation': 'Sagittarius',
+        'designations': ['Quintuplet', 'IRAS 17430-2848'],
+        'ra_deg': 266.557783, 'dec_deg': -28.830033,
+        'distance': GALACTIC_CENTER,
+        'notes': 'A young cluster about 31 pc in projection from Sagittarius A*, whose distance it takes (GRAVITY Collaboration 2022, 8277 ± 9 ± 30 pc; its offset along the line of sight is not included in the error), named for its five bright infrared sources, dusty Wolf–Rayet stars. It holds the Pistol Star, a candidate luminous blue variable, placed at the same distance. Like the Arches Cluster, it is hidden in visible light and studied in infrared light, radio waves and X-rays. Its hot stars ionize the Sickle Nebula.',
+        'notable_members': [(NOTABLE_DISTANT, 'pistol-star', 'Pistol Star')],
+        'palette': YOUNG_PALETTE,
+    },
+    {
+        'id': 'r136', 'name': 'R136', 'row': 'R136', 'constellation': 'Dorado',
+        'designations': ['RMC 136', 'Radcliffe 136'],
+        'ra_deg': 84.67665, 'dec_deg': -69.100933,
+        'distance': (49590, 540, 'Distance of the Large Magellanic Cloud from 20 eclipsing binaries', source('Pietrzyński et al. (2019)', 'https://doi.org/10.1038/s41586-019-0999-4')),
+        'age_myr': 1.5, 'age_error_myr': 0.7,
+        'age_method': 'Hertzsprung–Russell diagram of its most massive O stars from Hubble ultraviolet spectra: 1.5 (+0.3/−0.7) million years',
+        'age_source': source('Crowther et al. (2016)', 'https://doi.org/10.1093/mnras/stw273'),
+        'notes': 'The central concentration of the cluster NGC 2070, at the heart of the Tarantula Nebula in the Large Magellanic Cloud. It holds the most massive stars known, among them R136a1, and produces most of the light that makes the nebula glow. Portegies Zwart et al. (2010) list 3 million years from earlier work. The distance is that of the Large Magellanic Cloud and the Tarantula Nebula record.',
+        'notable_members': [(NOTABLE_DISTANT, 'r136a1', 'R136a1')],
+        'palette': YOUNG_PALETTE,
+    },
+    {
+        'id': 'rsgc-1', 'name': 'RSGC1', 'row': 'RSGC 01', 'constellation': 'Scutum',
+        'designations': ['RSGC 1', 'Red Supergiant Cluster 1'],
+        'ra_deg': 279.491667, 'dec_deg': -6.883333,
+        'distance': (6600, 890, 'Kinematic distance from the mean radial velocity of its red supergiants', source('Davies et al. (2008)', 'https://doi.org/10.1086/527350')),
+        'age_myr': 12, 'age_error_myr': 2,
+        'age_method': 'Luminosities of its red supergiants compared with evolutionary models',
+        'age_source': source('Davies et al. (2008)', 'https://doi.org/10.1086/527350'),
+        'notes': 'A cluster of 14 red supergiants at the base of the Scutum–Centaurus arm, near the end of the Galactic bar, hidden behind thick dust and found in 2006 in 2MASS images. With Stephenson 2 and RSGC3 nearby, it belongs to a burst of star formation 10–20 million years ago. Davies et al. (2008) estimate an initial mass of (3 ± 1) × 10^4 M☉.',
+        'notable_members': [],
+        'palette': RED_SUPERGIANT_PALETTE,
+    },
+    {
+        'id': 'stephenson-2', 'name': 'Stephenson 2', 'row': 'RSGC 02', 'constellation': 'Scutum',
+        'designations': ['RSGC2', 'RSGC 2', 'Red Supergiant Cluster 2'],
+        'ra_deg': 279.833333, 'dec_deg': -6.028333,
+        'distance': (5800, 1000, 'Kinematic distance from its mean radial velocity', source('Davies et al. (2007)', 'https://doi.org/10.1086/522224')),
+        'notes': 'The richest known cluster of red supergiants, 26 of them, at the base of the Scutum–Centaurus arm, a few hundred parsecs from RSGC1. Its brightest star in infrared light, Stephenson 2-18, is among the largest stars known, though its membership is questioned. Davies et al. (2007) give 5.83 (+1.91/−0.78) kpc; like the Stephenson 2-18 record, it adopts 5.8 ± 1.0 kpc as Siebert et al. (2026) do.',
+        'notable_members': [(NOTABLE_DISTANT, 'stephenson-2-18', 'Stephenson 2-18')],
+        'palette': RED_SUPERGIANT_PALETTE,
+    },
+    {
+        'id': 'rsgc-3', 'name': 'RSGC3', 'row': 'RSGC 03', 'constellation': 'Aquila',
+        'designations': ['RSGC 3', 'Red Supergiant Cluster 3'],
+        'ra_deg': 281.333333, 'dec_deg': -3.411944,
+        'distance': (6000, 1000, 'Its place at the end of the Galactic bar, like RSGC1 and Stephenson 2', source('Clark et al. (2009)', 'https://doi.org/10.1051/0004-6361/200911945')),
+        'age_myr': 18, 'age_error_myr': 2,
+        'age_method': 'Luminosities and spectral types of its red supergiants: 16–20 million years',
+        'age_source': source('Clark et al. (2009)', 'https://doi.org/10.1051/0004-6361/200911945'),
+        'notes': 'The third cluster of red supergiants found at the base of the Scutum–Centaurus arm, with 16 strong candidate members; just across the border of Aquila from Scutum. Clark et al. (2009) estimate a mass of 2–4 × 10^4 M☉; Its extinction allows a distance of up to 7.2 kpc, which Alexander et al. (2009) favor.',
+        'notable_members': [],
+        'palette': RED_SUPERGIANT_PALETTE,
+    },
+]
+
+
+def super_record(cluster: dict, rows: dict, members_available: dict[str, set[str]]) -> dict:
+    row = rows[cluster['row']]
+    distance_pc, distance_error, distance_method, distance_source = cluster['distance']
+    ra, dec = cluster['ra_deg'], cluster['dec_deg']
+    position, _ = galactic(ra, dec, distance_pc, 0, 0, 0)
+    missing = [f'{catalog}/{member}' for catalog, member, _ in cluster['notable_members'] if member not in members_available[catalog]]
+    if missing:
+        raise SystemExit(f'{cluster["id"]}: notable members missing from their catalogs: {", ".join(missing)}')
+    log_mass = float(row['logMphot'])
+    if 'age_myr' in cluster:
+        age = (cluster['age_myr'], cluster['age_error_myr'], cluster['age_method'], cluster['age_source'])
+    else:
+        age = (float(row['Age_Myr']), None, 'Compiled from the literature; no error given', PORTEGIES_ZWART_2010)
+    core = float(row['rc_pc']) if row['rc_pc'] else None
+    details = {
+        'ra_deg': ra, 'dec_deg': dec,
+        'distance_pc': distance_pc, 'distance_error_pc': distance_error,
+        'distance_method': distance_method, 'distance_source': distance_source,
+        'age_myr': age[0], 'age_error_myr': age[1], 'age_method': age[2], 'age_source': age[3],
+        'metallicity_fe_h': None, 'metallicity_error_dex': None, 'metallicity_source': None,
+        'members_within_tidal_radius': None, 'members_total': None, 'members_source': None,
+        # log M is given to 0.1 dex, so two significant figures.
+        'mass_solar': int(float(f'{10 ** log_mass:.2g}')), 'mass_error_solar': None,
+        'half_member_radius_pc': float(row['reff_pc']), 'core_radius_pc': core, 'tidal_radius_pc': None,
+        'structure_source': source(f'Portegies Zwart, McMillan & Gieles (2010), photometric log M = {log_mass:.2f}', PORTEGIES_ZWART_2010['url']),
+        'radial_velocity_kms': None, 'radial_velocity_error_kms': None, 'radial_velocity_source': None,
+        'notable_members': [{'catalog': catalog, 'id': member, 'name': name} for catalog, member, name in cluster['notable_members']],
+        'palette': cluster['palette'],
+        'position_source': f'{SIMBAD_CENTER} at the {distance_source["label"]} distance',
+        'model_note': 'The glow stands in for the cluster’s stars: ' + (
+            'an Elson–Fall–Freeman profile fitted to the published core and half-light radii' if core is not None else
+            'a Plummer sphere with the published half-light radius') + ', drawn out to ten half-light radii, since young massive clusters show no tidal edge. Its brightest stars are drawn as points that resolve as the camera comes close; their number, places and colors are illustrative.',
+    }
+    return {
+        'type': 'super_star_cluster', 'id': cluster['id'], 'name': cluster['name'], 'designations': cluster['designations'],
+        'spectral_type': None, 'constellation': cluster['constellation'],
+        'x_pc': position[0], 'y_pc': position[1], 'z_pc': position[2],
+        'vx_kms': None, 'vy_kms': None, 'vz_kms': None,
+        'temperature_k': None, 'mass_solar': None, 'luminosity_solar': None, 'radius_solar': None,
+        'metallicity_dex': None, 'age_gyr': None, 'absolute_mag': None, 'epoch': 2000,
+        'notes': cluster['notes'] + ' Age, mass and radii: Portegies Zwart et al. (2010), unless the age names its own source. No space motion is adopted.',
+        'raw_astrometry': None,
+        'cluster': details,
+    }
+
+
 def files() -> dict[str, str]:
     rows = read_tsv('hunt-reffert-2024.tsv', 'Name')
     metallicities = read_tsv('netopil-2016.tsv', 'Cluster')
-    members_available = {catalog: catalog_ids(catalog) for catalog in {member[0] for cluster in CLUSTERS + GLOBULARS for member in cluster['notable_members']}}
+    members_available = {catalog: catalog_ids(catalog) for catalog in {member[0] for cluster in CLUSTERS + GLOBULARS + SUPER_STAR_CLUSTERS for member in cluster['notable_members']}}
     globular_rows = read_tsv('baumgardt-globular-clusters.tsv', 'Cluster')
     globular_metallicities = read_tsv('carretta-2009.tsv', 'Cluster')
     ages = read_tsv('vandenberg-2013.tsv', 'NGC')
+    young_rows = read_tsv('portegies-zwart-2010.tsv', 'Name')
     objects = [record(cluster, rows, metallicities, members_available) for cluster in CLUSTERS] + [
-        globular_record(cluster, globular_rows, globular_metallicities, ages, members_available) for cluster in GLOBULARS]
+        globular_record(cluster, globular_rows, globular_metallicities, ages, members_available) for cluster in GLOBULARS] + [
+        super_record(cluster, young_rows, members_available) for cluster in SUPER_STAR_CLUSTERS]
     manifest = {
         'schemaVersion': 1,
         'id': 'star-clusters',
         'label': 'Star clusters',
-        'description': 'Landmark open clusters, from the nearby Hyades and Pleiades to the Double Cluster in the Perseus Arm, and landmark globular clusters, from the nearby Messier 4 to Omega Centauri and Terzan 5. Each is drawn as a soft glow for its faint members; the bright members of the nearby open clusters are the stars of the bundled catalogs, and the brightest giants of a globular cluster resolve as the camera approaches.',
+        'description': 'Landmark open clusters, from the nearby Hyades and Pleiades to the Double Cluster in the Perseus Arm; landmark globular clusters, from the nearby Messier 4 to Omega Centauri and Terzan 5; and the super star clusters of the Milky Way and R136 in the Large Magellanic Cloud. Each is drawn as a soft glow for its faint members; the bright members of the nearby open clusters are the stars of the bundled catalogs, and the brightest stars of a globular or super star cluster resolve as the camera approaches.',
         'epoch': 2000,
         'objectCount': len(objects),
-        'counts': {kind: sum(row['type'] == kind for row in objects) for kind in ('open_cluster', 'globular_cluster')},
+        'counts': {kind: sum(row['type'] == kind for row in objects) for kind in ('open_cluster', 'globular_cluster', 'super_star_cluster')},
         'sources': SOURCES,
-        'cutoffPolicy': 'Reviewed landmark open clusters: the Hyades, the Pleiades, the Beehive Cluster, the two halves of the Double Cluster, Messier 67 and NGC 3532; further open clusters follow from the Hunt & Reffert (2024) census. Reviewed landmark globular clusters: Omega Centauri, 47 Tucanae, Messier 4, Messier 13, Messier 22, Messier 15 and Terzan 5; further globular clusters follow from Baumgardt’s database.',
-        'snapshot': 'J2000 Galactic frame; values reviewed 2026-11-18.',
+        'cutoffPolicy': 'Reviewed landmark open clusters: the Hyades, the Pleiades, the Beehive Cluster, the two halves of the Double Cluster, Messier 67, NGC 3532 and Trumpler 14; further open clusters follow from the Hunt & Reffert (2024) census. Reviewed landmark globular clusters: Omega Centauri, 47 Tucanae, Messier 4, Messier 13, Messier 22, Messier 15 and Terzan 5; further globular clusters follow from Baumgardt’s database. Super star clusters: the young massive clusters of Portegies Zwart et al. (2010) of at least 10^4 M☉ that are not open clusters of the app (h and χ Persei, Trumpler 14) or Galactic-center candidates without a dedicated record ([DBS2003] 179), and R136.',
+        'snapshot': 'J2000 Galactic frame; values reviewed 2026-11-18, super star clusters and Trumpler 14 on 2026-11-19.',
     }
     dump = lambda value: json.dumps(value, indent=2, ensure_ascii=False) + '\n'
     return {
@@ -444,7 +631,7 @@ def main() -> int:
         DIRECTORY.mkdir(parents=True, exist_ok=True)
         for name, content in expected.items():
             (DIRECTORY / name).write_text(content)
-        print(f'Wrote {len(CLUSTERS) + len(GLOBULARS)} star clusters to {DIRECTORY.relative_to(ROOT)}.')
+        print(f'Wrote {len(CLUSTERS) + len(GLOBULARS) + len(SUPER_STAR_CLUSTERS)} star clusters to {DIRECTORY.relative_to(ROOT)}.')
         return 0
     stale = [name for name, content in expected.items() if not (DIRECTORY / name).exists() or (DIRECTORY / name).read_text() != content]
     if stale:

@@ -24,26 +24,39 @@ function validSource(value: unknown): boolean {
   return !!source && typeof source === 'object' && text(source.label) && typeof source.url === 'string' && /^https:\/\//.test(source.url)
 }
 
-// Open clusters count their Gaia members; globular clusters have a core radius instead.
+// A measurement with its error and source, or none of them.
+function optionalMeasurement(details: Record<string, unknown>, value: string, error: string, source: string): boolean {
+  return details[value] === null ? details[error] === null && details[source] === null
+    : finite(details[value]) && positive(details[error]) && validSource(details[source])
+}
+
+// Open clusters count their Gaia members within a tidal radius; globular clusters have a core and a tidal radius; super
+// star clusters, from a compilation without errors, have a half-light radius, perhaps a core, and no tidal edge.
 function validDetails(value: unknown, type: StarClusterObjectType): value is StarClusterDetails {
   if (!value || typeof value !== 'object') return false
   const details = value as Record<string, unknown>
-  const globular = type === 'globular_cluster'
+  const superStar = type === 'super_star_cluster'
   const palette = details.palette as Record<string, unknown> | undefined
   const members = details.notable_members
+  const half = details.half_member_radius_pc as number
+  const core = details.core_radius_pc
+  const tidal = details.tidal_radius_pc
+  const errorOrMissing = (key: string) => positive(details[key]) || (superStar && details[key] === null)
   return ['distance_method', 'age_method', 'position_source', 'model_note'].every((key) => text(details[key]))
     && finite(details.ra_deg) && (details.ra_deg as number) >= 0 && (details.ra_deg as number) < 360
     && finite(details.dec_deg) && Math.abs(details.dec_deg as number) <= 90
-    && ['distance_pc', 'distance_error_pc', 'age_myr', 'age_error_myr', 'metallicity_error_dex', 'mass_solar', 'mass_error_solar',
-      'half_member_radius_pc', 'tidal_radius_pc', 'radial_velocity_error_kms'].every((key) => positive(details[key]))
-    && finite(details.metallicity_fe_h) && finite(details.radial_velocity_kms)
-    && (globular
-      ? details.members_within_tidal_radius === null && details.members_total === null && details.members_source === null
-        && positive(details.core_radius_pc) && (details.core_radius_pc as number) < (details.half_member_radius_pc as number)
-      : count(details.members_within_tidal_radius) && count(details.members_total) && validSource(details.members_source)
-        && (details.members_within_tidal_radius as number) <= (details.members_total as number) && details.core_radius_pc === null)
-    && (details.half_member_radius_pc as number) < (details.tidal_radius_pc as number)
-    && ['distance_source', 'age_source', 'metallicity_source', 'structure_source', 'radial_velocity_source'].every((key) => validSource(details[key]))
+    && ['distance_pc', 'distance_error_pc', 'age_myr', 'mass_solar', 'half_member_radius_pc'].every((key) => positive(details[key]))
+    && errorOrMissing('age_error_myr') && errorOrMissing('mass_error_solar')
+    && optionalMeasurement(details, 'metallicity_fe_h', 'metallicity_error_dex', 'metallicity_source')
+    && optionalMeasurement(details, 'radial_velocity_kms', 'radial_velocity_error_kms', 'radial_velocity_source')
+    && (superStar || details.radial_velocity_kms !== null)
+    && (type === 'open_cluster'
+      ? count(details.members_within_tidal_radius) && count(details.members_total) && validSource(details.members_source)
+        && (details.members_within_tidal_radius as number) <= (details.members_total as number) && core === null
+      : details.members_within_tidal_radius === null && details.members_total === null && details.members_source === null
+        && (superStar && core === null || positive(core) && (core as number) < half))
+    && (superStar ? tidal === null : positive(tidal) && half < (tidal as number))
+    && ['distance_source', 'age_source', 'structure_source'].every((key) => validSource(details[key]))
     && Array.isArray(members) && members.every((member) => !!member && typeof member === 'object'
       && ['catalog', 'id', 'name'].every((key) => text((member as Record<string, unknown>)[key])))
     && !!palette && color(palette.real) && color(palette.exaggerated)
@@ -65,7 +78,10 @@ export function parseStarClusterOverlayPayload(value: unknown, manifest: StarClu
   for (const object of objects) {
     if (!object || !text(object.id) || ids.has(object.id) || !text(object.name) || !validDesignations(object.designations)
       || !STAR_CLUSTER_OBJECT_TYPES.includes(object.type as StarClusterObjectType)
-      || !['x_pc', 'y_pc', 'z_pc', 'vx_kms', 'vy_kms', 'vz_kms'].every((field) => finite(object[field]))
+      || !['x_pc', 'y_pc', 'z_pc'].every((field) => finite(object[field]))
+      // A super star cluster without a measured space motion has none at all.
+      || !(['vx_kms', 'vy_kms', 'vz_kms'].every((field) => finite(object[field]))
+        || object.type === 'super_star_cluster' && ['vx_kms', 'vy_kms', 'vz_kms'].every((field) => object[field] === null))
       || object.epoch !== manifest.epoch || object.absolute_mag !== null || object.mass_solar !== null || !validDetails(object.cluster, object.type as StarClusterObjectType)) {
       throw new Error(`Invalid star cluster payload row: ${String(object?.id ?? 'unknown')}`)
     }

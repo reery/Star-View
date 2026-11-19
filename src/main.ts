@@ -654,7 +654,8 @@ try {
     element('observer-lock').setAttribute('aria-pressed', 'true')
   }
 } catch {}
-// On desktop, these cards move the 3D view center left while locked, so the scene stays visible beside them.
+// While locked, these cards move the 3D view center so the scene stays visible: left of them on desktop,
+// above them on phones, where they shrink to the lower part of the screen.
 const viewCenteringPanels: readonly typeof lockablePanelNames[number][] = ['paint', 'graphs', 'preferences', 'filter']
 
 function selectedStarAvailable(id: string): boolean {
@@ -944,11 +945,17 @@ function syncPanelLayout(): void {
 
 // The view centers between the locked card and the selected object card, counting half of the latter:
 // it covers only the top of the view, so a full share pushes the center visibly right.
+// On phones, the view centers above the locked card instead.
 function syncViewCenterInset(): void {
+  const scene = element('scene').getBoundingClientRect()
   const name = viewCenteringPanels.find((candidate) => lockedPanels.has(candidate) && panelIsOpen(candidate))
-  const scene = element('scene').getBoundingClientRect(), selectedCard = element('selected-object-card')
+  if (!wideLayout.matches) {
+    viewer?.setViewCenterInset(0, name ? Math.max(0, scene.bottom - element(`${name}-panel`).getBoundingClientRect().top) : 0)
+    return
+  }
+  const selectedCard = element('selected-object-card')
   const left = selectedCard.hidden ? 0 : Math.max(0, selectedCard.getBoundingClientRect().right - scene.left) / 2
-  const inset = name && wideLayout.matches && !touchFirstInput.matches
+  const inset = name && !touchFirstInput.matches
     ? scene.right - element(`${name}-panel`).getBoundingClientRect().left - left : 0
   viewer?.setViewCenterInset(Math.max(0, inset))
 }
@@ -2041,9 +2048,12 @@ function togglePanelLock(name: typeof lockablePanelNames[number]): void {
   const locked = !lockedPanels.has(name)
   if (locked) lockedPanels.add(name)
   else lockedPanels.delete(name)
-  button.setAttribute('aria-pressed', String(locked))
+  // The view centers on the card's final height, measured before it eases there.
+  resizeCard(element(`${name}-panel`), () => {
+    button.setAttribute('aria-pressed', String(locked))
+    syncViewCenterInset()
+  })
   if (name === 'observer') try { localStorage.setItem('star-view-observer-locked', String(locked)) } catch {}
-  syncViewCenterInset()
 }
 
 function sceneStatus(message: string | null, loading = false): void {
@@ -2993,31 +3003,38 @@ function renderStarClusterProperties(cluster: StarClusterDetails): void {
   const extent = (pc: number) => `${formatNumber(pc * (distanceUnit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1), 1)} ${distanceUnit}`
   const billions = cluster.age_myr >= 1000
   const age = (myr: number) => billions ? String(myr / 1000) : myr.toLocaleString('en-US')
-  text('cluster-age', `${age(cluster.age_myr)} ± ${age(cluster.age_error_myr)} ${billions ? 'billion' : 'million'} years`)
+  const error = cluster.age_error_myr === null ? '' : ` ± ${age(cluster.age_error_myr)}`
+  text('cluster-age', `${age(cluster.age_myr)}${error} ${billions ? 'billion' : 'million'} years`)
   element('cluster-age').title = `${cluster.age_method}. ${cluster.age_source.label}`
-  // Globular clusters have no Gaia member counts; their glow follows a core and a half-light radius instead.
-  const globular = cluster.core_radius_pc !== null
-  element('cluster-members-row').hidden = globular
-  text('cluster-members', globular ? '' : `${cluster.members_within_tidal_radius!.toLocaleString('en-US')} within the tidal radius, ${cluster.members_total!.toLocaleString('en-US')} in all`)
+  // Only open clusters count their Gaia members; the others' glow follows their half-light radius.
+  const counted = cluster.members_total !== null
+  element('cluster-members-row').hidden = !counted
+  text('cluster-members', counted ? `${cluster.members_within_tidal_radius!.toLocaleString('en-US')} within the tidal radius, ${cluster.members_total!.toLocaleString('en-US')} in all` : '')
   element('cluster-members').title = cluster.members_source?.label ?? ''
   text('cluster-mass', measurement(cluster.mass_solar, cluster.mass_error_solar, 'M☉', 0))
+  text('cluster-mass-term', cluster.tidal_radius_pc === null
+    ? 'The combined mass of the cluster’s stars, estimated from its light.'
+    : 'The combined mass of the stars within the tidal radius.')
   element('cluster-mass').title = cluster.structure_source.label
-  text('cluster-half-member-radius-label', globular ? 'Half the light within' : 'Half the members within')
-  text('cluster-half-member-radius-term', globular
-    ? 'The distance from the center, as seen on the sky, inside which the cluster gives off half of its light.'
-    : 'The distance from the center that holds half of the members within the tidal radius.')
+  text('cluster-half-member-radius-label', counted ? 'Half the members within' : 'Half the light within')
+  text('cluster-half-member-radius-term', counted
+    ? 'The distance from the center that holds half of the members within the tidal radius.'
+    : 'The distance from the center, as seen on the sky, inside which the cluster gives off half of its light.')
   text('cluster-half-member-radius', extent(cluster.half_member_radius_pc))
   element('cluster-half-member-radius').title = cluster.structure_source.label
-  element('cluster-core-radius-row').hidden = !globular
-  text('cluster-core-radius', globular ? extent(cluster.core_radius_pc!) : '')
+  element('cluster-core-radius-row').hidden = cluster.core_radius_pc === null
+  text('cluster-core-radius', cluster.core_radius_pc === null ? '' : extent(cluster.core_radius_pc))
   element('cluster-core-radius').title = cluster.structure_source.label
-  const tidalAngle = 2 * Math.atan(cluster.tidal_radius_pc / cluster.distance_pc) * 180 / Math.PI
-  text('cluster-tidal-radius', `${extent(cluster.tidal_radius_pc)} · ${formatNumber(tidalAngle, 1)}° across the sky`)
+  const tidal = cluster.tidal_radius_pc
+  element('cluster-tidal-radius-row').hidden = tidal === null
+  text('cluster-tidal-radius', tidal === null ? '' : `${extent(tidal)} · ${formatNumber(2 * Math.atan(tidal / cluster.distance_pc) * 180 / Math.PI, 1)}° across the sky`)
   element('cluster-tidal-radius').title = cluster.structure_source.label
+  element('cluster-metallicity-row').hidden = cluster.metallicity_fe_h === null
   text('cluster-metallicity', measurement(cluster.metallicity_fe_h, cluster.metallicity_error_dex, 'dex', 2))
-  element('cluster-metallicity').title = cluster.metallicity_source.label
+  element('cluster-metallicity').title = cluster.metallicity_source?.label ?? ''
+  element('cluster-velocity-row').hidden = cluster.radial_velocity_kms === null
   text('cluster-velocity', measurement(cluster.radial_velocity_kms, cluster.radial_velocity_error_kms, 'km/s', 2))
-  element('cluster-velocity').title = cluster.radial_velocity_source.label
+  element('cluster-velocity').title = cluster.radial_velocity_source?.label ?? ''
   const members = cluster.notable_members.flatMap((member, index) => index ? [', ', catalogStarButton(member)] : [catalogStarButton(member)])
   element('cluster-notable-members-row').hidden = members.length === 0
   element('cluster-notable-members').replaceChildren(...members)
@@ -4942,7 +4959,7 @@ function paintSettingParts(setting: HTMLElement) {
     channels: setting.querySelectorAll<HTMLButtonElement>('[data-paint-channel]'),
   }
 }
-element('paint-settings').addEventListener('click', (event) => resizePaintCard(() => {
+element('paint-settings').addEventListener('click', (event) => resizeCard(element('paint-panel'), () => {
   // The chevron sits right of the scale buttons, outside the expand button, and expands like it.
   const chevron = event.target instanceof Element ? event.target.closest('.paint-setting-chevron') : null
   const button = event.target instanceof Element ? chevron?.parentElement!.querySelector('.paint-setting-expand') ?? event.target.closest('button') : null
@@ -5053,16 +5070,15 @@ function setPaintCompact(compact: boolean): void {
   button.title = label
   icon('paint-expand-icon', compact ? ChevronsUpDown : ChevronsDownUp)
 }
-let paintCardResize: Animation | undefined
-/** On mobile, the Paint card eases to the height a change leaves it with, as a stepped-to card eases to its size. */
-function resizePaintCard(change: () => void): void {
-  const card = element('paint-panel')
+let cardResize: Animation | undefined
+/** On mobile, a dock card eases to the height a change leaves it with, as a stepped-to card eases to its size. */
+function resizeCard(card: HTMLElement, change: () => void): void {
   const from = card.offsetHeight
-  paintCardResize?.cancel()
+  cardResize?.cancel()
   change()
   const to = card.offsetHeight
   if (!from || to === from || wideLayout.matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-  paintCardResize = card.animate({ height: [`${from}px`, `${to}px`] }, { duration: STREAM_MS, easing: STREAM_EASING })
+  cardResize = card.animate({ height: [`${from}px`, `${to}px`] }, { duration: STREAM_MS, easing: STREAM_EASING })
 }
 /** The objects the map filter shows, leaving out a selection it shows only because it is selected. */
 function paintableStars(): Star[] {
@@ -5104,8 +5120,8 @@ function setPaintZoomShrink(enabled: boolean): void {
   viewer?.setStarPaintZoomShrink(enabled)
 }
 element('paint-keep-size').addEventListener('click', () => setPaintZoomShrink(!paintZoomShrink), { signal: events.signal })
-element('paint-reset').addEventListener('click', () => resizePaintCard(() => applyPaint([])), { signal: events.signal })
-element('paint-expand').addEventListener('click', () => resizePaintCard(() => setPaintCompact(!element('paint-panel').classList.contains('is-compact'))), { signal: events.signal })
+element('paint-reset').addEventListener('click', () => resizeCard(element('paint-panel'), () => applyPaint([])), { signal: events.signal })
+element('paint-expand').addEventListener('click', () => resizeCard(element('paint-panel'), () => setPaintCompact(!element('paint-panel').classList.contains('is-compact'))), { signal: events.signal })
 element('filter-save').addEventListener('click', saveCurrentFilter, { signal: events.signal })
 catalogRange.addEventListener('change', () => {
   const catalog = sliderCatalogs[catalogRange.valueAsNumber]
@@ -5418,16 +5434,28 @@ for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constel
     focusToolbarButton(panelToggleId(name))
   }, { signal: events.signal })
 }
+/** The welcome appears 10 seconds after the visitor's first input, and leaves for good after a minute unless they are reading it. */
+const WELCOME_DELAY_MS = 10_000
+const WELCOME_SHOWN_MS = 60_000
 const welcomeTile = element('welcome-tile')
-function showWelcome(): void {
+let welcomeTimer = 0
+function showWelcome(focus = false): void {
   if (document.querySelector('.tutorial-tile')) return
   welcomeTile.hidden = false
-  element('welcome-yes').focus({ preventScroll: true })
+  if (focus) element('welcome-yes').focus({ preventScroll: true })
+  clearTimeout(welcomeTimer)
+  welcomeTimer = window.setTimeout(leaveWelcome, WELCOME_SHOWN_MS)
+}
+function leaveWelcome(): void {
+  if (welcomeTile.matches(':hover, :focus-within')) welcomeTimer = window.setTimeout(leaveWelcome, WELCOME_DELAY_MS)
+  else answerWelcome()
 }
 function answerWelcome(): void {
+  clearTimeout(welcomeTimer)
   storeLayout('welcome-answered', 'true')
   welcomeTile.hidden = true
 }
+events.signal.addEventListener('abort', () => clearTimeout(welcomeTimer), { once: true })
 async function startTutorial(): Promise<void> {
   // Only a visitor who accepts downloads the tour.
   const result = await loadWithRecovery(element('welcome-body'), () => import('./tutorial'), {
@@ -5444,10 +5472,17 @@ const tutorialHost: import('./tutorial').TutorialHost = {
     && starComparison.canCompare(id, selectedId) && openSceneContextMenu(id, x, y, null),
   thousandLightYearsStep: OBJECT_DISTANCE_STEPS_LY.indexOf(1000),
 }
-element('tutorial-toggle').addEventListener('click', showWelcome, { signal: events.signal })
+element('tutorial-toggle').addEventListener('click', () => showWelcome(true), { signal: events.signal })
 element('welcome-no').addEventListener('click', answerWelcome, { signal: events.signal })
 element('welcome-yes').addEventListener('click', () => { void startTutorial() }, { signal: events.signal })
-if (storedLayout('welcome-answered') === null) showWelcome()
+if (storedLayout('welcome-answered') === null) {
+  const welcomeInputs = ['pointerdown', 'keydown', 'wheel'] as const
+  const awaitInput = () => {
+    for (const type of welcomeInputs) removeEventListener(type, awaitInput, true)
+    welcomeTimer = window.setTimeout(() => { if (welcomeTile.hidden && storedLayout('welcome-answered') === null) showWelcome() }, WELCOME_DELAY_MS)
+  }
+  for (const type of welcomeInputs) addEventListener(type, awaitInput, { capture: true, passive: true, signal: events.signal })
+}
 initializeTips({
   tutorial: tutorialHost,
   store: storeLayout,

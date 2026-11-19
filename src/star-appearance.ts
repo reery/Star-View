@@ -83,6 +83,9 @@ const glsl = (value: number) => Number.isInteger(value) ? `${value}.0` : String(
 export function createStarAppearance(starViewDistance: { value: number }, selectionEnabled = false) {
   const selectionAttribute = selectionEnabled ? 'attribute float selectionEmphasis;' : ''
   const selection = selectionEnabled ? 'selectionEmphasis' : '0.0'
+  // The map rates each star's flux from the visibility base, this many parsecs away (0 when not rated from a distance).
+  const ratedDistanceAttribute = selectionEnabled ? 'attribute float ratedDistance;' : ''
+  const ratedDistance = selectionEnabled ? 'ratedDistance' : '0.0'
   // Only the map switches to realistic stars; the distance card keeps the defaults.
   // A magnifying view gathers light like an aperture: zoom² more flux per star, while the sky's surface brightness stays.
   // Uncapped, very bright stars keep their full flux; the exposure then stands in for the eye adapting to them.
@@ -116,7 +119,7 @@ export function createStarAppearance(starViewDistance: { value: number }, select
     shader.uniforms.starViewDistance = starViewDistance
     Object.assign(shader.uniforms, realism)
     const psfVaryings = 'uniform float starRealism;\nuniform float starCrowdCoverage;\nuniform float starPixelRatio;\nuniform float starZoomGain;\nuniform float starFaintLift;\nuniform float starBrightCap;\nuniform float starExposure;\nuniform float starMaxRadius;\nuniform float starFade;\nvarying float vPsfPeak;\nvarying float vPsfSpike;\nvarying float vPsfRadius;\nvarying float vGlareClipped;'
-    shader.vertexShader = `${selectionAttribute}\n${psfVaryings}\nuniform float starViewDistance;\nattribute float starFlux;\nattribute float coreDiameter;\nattribute float coreEmphasis;\nattribute float coreWhiteStrength;\nattribute float coreShape;\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\nvarying float vCoreShape;\n${shader.vertexShader}`
+    shader.vertexShader = `${selectionAttribute}\n${ratedDistanceAttribute}\n${psfVaryings}\nuniform float starViewDistance;\nattribute float starFlux;\nattribute float coreDiameter;\nattribute float coreEmphasis;\nattribute float coreWhiteStrength;\nattribute float coreShape;\nvarying float vCoreDiameter;\nvarying float vCoreEmphasis;\nvarying float vCoreWhiteStrength;\nvarying float vCoreShape;\n${shader.vertexShader}`
       .replaceAll('gl_PointSize = size;', `float coreOverviewRatio = pow(min(1.0, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC} / max(starViewDistance, ${STAR_CORE_FULL_STRENGTH_DISTANCE_PC})), ${STAR_CORE_VIEW_DISTANCE_FALLOFF_POWER});
       float coreViewScale = max(${STAR_CORE_MIN_VIEW_SCALE}, sqrt(coreOverviewRatio));
       float displayDiameter = max(max(coreDiameter * coreViewScale, 10.0 * ${selection}), coreShape > 0.5 ? ${STAR_REMNANT_MIN_DIAMETER_PX}.0 : 0.0);
@@ -130,10 +133,15 @@ export function createStarAppearance(starViewDistance: { value: number }, select
       vCoreShape = coreShape;
       vPsfRadius = 0.0;
       if (starRealism > 0.5 && coreShape < 0.5) {
-        // Zooming the map out dims stars the way the illustrative cores shrink.
+        // Light as at the camera: a star brightens as the camera comes closer to it than the visibility base, every frame.
+        float distanceGain = ${ratedDistance} / max(length(mvPosition.xyz), 1e-12);
+        distanceGain *= distanceGain;
+        float litFlux = starFlux * max(1.0, distanceGain);
+        // Zooming the map out dims stars the way the illustrative cores shrink, but never more than the distance itself
+        // would, so stars about as far from the camera as from the base keep their brightness at any zoom.
         float farCap = min(1.0, ${glsl(PSF.farCapRate)} * (1.0 - starFade));
-        float psfFlux = starFlux * pow(min(1.0, ${glsl(PSF.farFlux)} / max(starFlux, 1e-30)), farCap)
-          * coreViewScale * coreViewScale * starZoomGain * starExposure;
+        float psfFlux = litFlux * pow(min(1.0, ${glsl(PSF.farFlux)} / max(litFlux, 1e-30)), farCap)
+          * max(coreViewScale * coreViewScale, min(1.0, distanceGain)) * starZoomGain * starExposure;
         // A partial cap, while approaching a star, eases between both in magnitudes.
         if (starBrightCap > 0.0 && psfFlux > ${glsl(PSF.brightFlux)}) {
           float excessMagnitudes = 1.0857362 * log(psfFlux / ${glsl(PSF.brightFlux)});

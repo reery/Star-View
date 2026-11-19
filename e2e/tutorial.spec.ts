@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
-import { openViewer } from './support'
+import { awaitWelcome, openViewer } from './support'
 
 const tutorialRequests = (page: Page) => {
   const requests: string[] = []
@@ -22,7 +22,7 @@ test.describe('on a first visit', () => {
   test('welcomes once, loads the tour only on acceptance and remembers the answer @mobile', async ({ page, isMobile }) => {
     const requests = tutorialRequests(page)
     await page.goto('/')
-    await expect(page.locator('#welcome-tile')).toBeVisible()
+    await awaitWelcome(page)
     await expect(page.locator('#welcome-heading')).toHaveText('Welcome to Star View')
     await expect(page.locator('#welcome-tile')).toContainText('Explore · Ask · Investigate · Understand')
     await expect(page.locator('#welcome-tile')).toContainText('Do you want to be shown around here?')
@@ -48,12 +48,28 @@ test.describe('on a first visit', () => {
 
   test('quitting the tour also keeps the tile away', async ({ page }) => {
     await page.goto('/')
+    await awaitWelcome(page)
     await page.locator('#welcome-yes').click()
     await page.locator('.tutorial-tile').getByRole('button', { name: 'Quit tutorial' }).click()
     await expect(page.locator('.tutorial-tile')).toHaveCount(0)
     await page.reload()
     await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
     await expect(page.locator('#welcome-tile')).toBeHidden()
+  })
+
+  test('the welcome leaves for good after a minute', async ({ page }) => {
+    await page.goto('/')
+    await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+    await page.clock.install()
+    await page.keyboard.press('Shift')
+    await page.clock.runFor(9_000)
+    await expect(page.locator('#welcome-tile')).toBeHidden()
+    await page.clock.runFor(1_000)
+    await expect(page.locator('#welcome-tile')).toBeVisible()
+    await page.mouse.move(1, 1)
+    await page.clock.runFor(60_000)
+    await expect(page.locator('#welcome-tile')).toBeHidden()
+    expect(await page.evaluate(() => localStorage.getItem('star-view-welcome-answered'))).toBe('true')
   })
 })
 

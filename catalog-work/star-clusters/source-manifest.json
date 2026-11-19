@@ -8,7 +8,7 @@
       "reference": "Hunt & Reffert (2024), A&A 686, A42",
       "doi": "https://doi.org/10.1051/0004-6361/202348662",
       "query": "https://vizier.cfa.harvard.edu/viz-bin/asu-tsv?-source=J/A%2BA/686/A42/clusters&-out.all&-c=<center>&-c.rd=3",
-      "selection": "Rows Melotte_22 (Pleiades) and Melotte_25 (Hyades); all published columns. The CWNU_1242 row on the Hyades sightline is a distinct group 290 pc away and is not used. Rows NGC_2632 (Beehive Cluster), NGC_869, NGC_884 (Double Cluster), NGC_2682 (M67) and NGC_3532 were added on 2026-11-18 while every VizieR mirror was unreachable, from the full clusters table redistributed as hunt24.csv with Zenodo record 19177686 (https://zenodo.org/records/19177686). That copy matches the two VizieR rows above in every shared column. It lacks the VizieR recno and computed _RA.icrs/_DE.icrs, which stay empty in the added rows. The NGC_869 radial velocity (6 stars) and NGC_884 radial velocity (2 stars) are not adopted; both use Dalessandro et al. (2021)."
+      "selection": "Rows Melotte_22 (Pleiades) and Melotte_25 (Hyades); all published columns. The CWNU_1242 row on the Hyades sightline is a distinct group 290 pc away and is not used. Rows NGC_2632 (Beehive Cluster), NGC_869, NGC_884 (Double Cluster), NGC_2682 (M67) and NGC_3532 were added on 2026-11-18 while every VizieR mirror was unreachable, from the full clusters table redistributed as hunt24.csv with Zenodo record 19177686 (https://zenodo.org/records/19177686). That copy matches the two VizieR rows above in every shared column. It lacks the VizieR recno and computed _RA.icrs/_DE.icrs, which stay empty in the added rows. The NGC_869 radial velocity (6 stars) and NGC_884 radial velocity (2 stars) are not adopted; both use Dalessandro et al. (2021). Row Trumpler_14 was added on 2026-11-19 from the same Zenodo copy (hunt24.csv, record 19177686), with RAdeg and DEdeg written as RA_ICRS and DE_ICRS; its distance is not used (Maíz Apellániz et al. 2022 instead)."
     },
     {
       "file": "netopil-2016.tsv",
@@ -57,6 +57,22 @@
       "doi": "https://doi.org/10.1051/0004-6361/202659349",
       "query": "arXiv:2409.13855 abstract; arXiv:2604.00098 abstract; arXiv abstract of Origlia et al. (2011)",
       "selection": "Omega Centauri: mean age 12.08 Gyr of about 8,100 subgiants, intrinsic age spread 0.75 Gyr (Clontz et al. 2024, https://arxiv.org/abs/2409.13855). Terzan 5: old population 12.5 ± 0.5 Gyr, young population 4.7 ± 0.5 Gyr (Zullo et al. 2026); [Fe/H] −0.25 (rms 0.07) and +0.27 (rms 0.04) for the two populations (Origlia et al. 2011, https://doi.org/10.1088/2041-8205/726/2/L20)."
+    },
+    {
+      "file": "portegies-zwart-2010.tsv",
+      "catalog": "Properties of young massive clusters in the Milky Way (table 2, upper block) and in the Local Group (table 3, R136 row)",
+      "reference": "Portegies Zwart, McMillan & Gieles (2010), ARA&A 48, 431",
+      "doi": "https://doi.org/10.1146/annurev-astro-081309-130834",
+      "query": "https://arxiv.org/e-print/1002.1961 (main.tex, tables Tab:Galactic_Clusters and Tab:Local_Group_Clusters), retrieved 2026-11-19",
+      "selection": "Every young-massive-cluster row of table 2 (Arches to χ Persei; the associations of its lower block are omitted) and the LMC row R136 of table 3, all columns as printed: reference key, age, log photometric and dynamical mass, core and effective radius, EFF slope γ, one-dimensional velocity dispersion, virial radius, dynamical time and age over dynamical time. ‘$-$’ (no value) is written as an empty field. The table gives no errors."
+    },
+    {
+      "file": null,
+      "catalog": "Literature values in scripts/author-star-clusters.py",
+      "reference": "Maíz Apellániz et al. (2022), A&A 657, A131; Negueruela et al. (2022), A&A 664, A146; Davies et al. (2007), ApJ 671, 781; Davies et al. (2008), ApJ 676, 1016; Clark et al. (2009), A&A 498, 109; Crowther et al. (2016), MNRAS 458, 624; Itrich et al. (2024), A&A 685, A100; GRAVITY Collaboration (2022); Pietrzyński et al. (2019)",
+      "doi": "https://doi.org/10.1051/0004-6361/202142364",
+      "query": "arXiv:2110.01464 source (table of group distances); arXiv:0711.4757 source, Sect. 4; abstracts of arXiv:0903.1754, arXiv:1603.04994 and arXiv:2309.14168",
+      "selection": "Villafranca distances (Gaia EDR3, zero-point corrected): O-001 NGC 3603 7130 (+590/−500) pc, O-002 Trumpler 14 2363 (+61/−58) pc, O-004 Westerlund 2 4440 (+230/−210) pc; the larger side is the error. Westerlund 1: 4230 (+230/−210) pc (Negueruela et al. 2022). RSGC1: kinematic distance 6.60 ± 0.89 kpc and age 12 ± 2 Myr (Davies et al. 2008). Stephenson 2: 5.83 (+1.91/−0.78) kpc (Davies et al. 2007), adopted as 5800 ± 1000 pc as for the Stephenson 2-18 record. RSGC3: 6 ± 1 kpc and 16–20 Myr (Clark et al. 2009). R136: 1.5 (+0.3/−0.7) Myr (Crowther et al. 2016) and the LMC distance 49.59 kpc (Pietrzyński et al. 2019). Arches and Quintuplet: the Sagittarius A* distance 8277 ± 9 ± 30 pc (GRAVITY Collaboration 2022). Trumpler 14: 0.9 (+1.4/−0.6) Myr, adopted as about 1 Myr (Itrich et al. 2024). Centers of the super star clusters: SIMBAD (CfA mirror), 2026-11-19."
     }
   ]
 }
