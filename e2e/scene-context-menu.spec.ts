@@ -14,7 +14,7 @@ test('right-clicking an object offers comparison, origin and distance to the sel
   await expect(page.locator('#scene-context-compare')).toHaveText('Compare Sun against Sirius A')
   // The Sun is already the origin.
   await expect(page.locator('#scene-context-origin')).toBeHidden()
-  await expect(page.locator('#scene-context-distance')).toHaveText(/^\d+\.\d{2} ly from Sun to Sirius A$/)
+  await expect(page.locator('#scene-context-distance')).toHaveText(/^[\d,]+\.\d{2} ly from Sun to Sirius A$/)
   const bounds = (await menu.boundingBox())!
   expect(bounds.x).toBeGreaterThan(point.x)
   expect(bounds.y).toBeGreaterThan(point.y)
@@ -75,7 +75,7 @@ test('right-clicking an Objects card row opens the menu without selecting it', a
   const menu = page.locator('#scene-context-menu')
   await expect(menu).toBeVisible()
   await expect(page.locator('#scene-context-compare')).toHaveText('Compare Sun against Sirius A')
-  await expect(page.locator('#scene-context-distance')).toHaveText(/^\d+\.\d{2} ly from Sun to Sirius A$/)
+  await expect(page.locator('#scene-context-distance')).toHaveText(/^[\d,]+\.\d{2} ly from Sun to Sirius A$/)
   await expect(page.locator('#inspector')).toHaveAttribute('data-selected-star', 'sirius-a')
   await page.locator('#scene-context-compare').click()
   await expect(page.locator('#comparison-other-name')).toHaveText('Sun')

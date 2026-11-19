@@ -151,10 +151,10 @@ export const TIPS: readonly Tip[] = [
   },
   {
     id: 'explore', feature: 'explore', level: 'novice',
-    text: 'Eight tools wait behind [Explore], from star records to a spaceship.',
+    text: 'Nine features wait behind [Explore], from star records to a spaceship.',
     step: {
       title: 'Explore',
-      body: '[Top lists], [Constellations], [Neighborhood], [Stellar motion], [Paint], [Wavelength vision], [Graphs] and the [Spaceship] each open a card of their own.',
+      body: '[Top lists], [Constellations], [Neighborhood], [Stellar motion], [Paint], [Wavelength vision], [Graphs] and the [Spaceship] each open a card of their own. [Tools] lists small calculators to play with.',
       target: '.discover-controls', flyout: '.discover-controls',
     },
   },
@@ -212,6 +212,8 @@ export const TIPS: readonly Tip[] = [
     'Time runs up to 500,000 years forward or back, and every star moves with its measured *motion*.'),
   exploreTip('neighborhood', 'Which objects are the closest neighbors of a star? Ask [Neighborhood].', 'Neighborhood',
     'Keep only the objects within a chosen radius of a star.'),
+  exploreTip('tools', 'Watch two stars circle each other with the *binary star orbit* in [Tools].', 'Tools',
+    'Set the masses and the orbit of two stars, or load a real pair such as Sirius A and B, and press play.'),
   exploreTip('spaceship', 'Fly between the stars yourself in the [Spaceship].', 'Spaceship',
     'Steer with the keyboard or the on-screen controls, and pick how fast you travel.'),
   {

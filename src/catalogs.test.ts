@@ -799,6 +799,7 @@ describe('catalog packages and display settings', () => {
     expect(formatDistance(0.5, 'pc')).toBe('0.50 pc')
     expect(formatDistance(-1, 'ly', 3)).toBe('-3.262 ly')
     expect(formatDistance(-0.00001, 'pc')).toBe('0.00 pc')
+    expect(formatDistance(63_467.79, 'pc')).toBe('63,467.79 pc')
     expect(temperatureToColor(null).r).toBe(temperatureToColor(null).b)
   })
 

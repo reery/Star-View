@@ -3,6 +3,7 @@ import { smallBodies } from './small-body-properties'
 import { svgNode as svgElement } from './spectral-chart'
 import type { StarColorMode } from './astronomy'
 import type { StarSystem } from './star-systems'
+import type { BinaryPair } from './stellar-orbits'
 import { renderStellarSystem } from './stellar-system-card'
 import { Earth, Leaf, createElement } from 'lucide'
 import type { Star } from './catalog-model'
@@ -121,7 +122,7 @@ function planetList(planets: readonly KnownPlanet[], hostName: string, onPlanetS
 }
 
 export function renderSystemCard(container: HTMLElement, planets: PlanetarySystem | undefined, system: StarSystem | undefined,
-  selectedStar: Star, colorMode: StarColorMode, onPlanetSelect: (planetId: string) => void): void {
+  selectedStar: Star, colorMode: StarColorMode, onPlanetSelect: (planetId: string) => void, onOrbitTool: (pair: BinaryPair) => void): void {
   const selectedId = selectedStar.id
   const stellarCount = system?.components.length ?? 1
   const key = `${planets?.hostStarId ?? ''}:${system?.components.map(({ star }) => star.id).join('|') ?? ''}:${selectedId}:${colorMode}:${selectedStar.luminosity_solar}:${selectedStar.temperature_k}`
@@ -188,7 +189,7 @@ export function renderSystemCard(container: HTMLElement, planets: PlanetarySyste
     }
     content.push(section)
   }
-  if (system) content.push(renderStellarSystem(system, selectedId, colorMode))
+  if (system) content.push(renderStellarSystem(system, selectedId, colorMode, onOrbitTool))
   container.replaceChildren(...content)
   if (!planets?.planets.length) habitableZoneVisibility.delete(container)
   else if (habitableZoneVisibility.get(container)?.hostStarId !== planets.hostStarId) {
