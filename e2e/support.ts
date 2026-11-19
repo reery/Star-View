@@ -22,6 +22,14 @@ export function landmarkStarId(id: string): string {
 
 export type { MotionArrowSnapshot }
 
+/** On a first visit the welcome appears 10 seconds after the visitor's first input. */
+export async function awaitWelcome(page: Page): Promise<void> {
+  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
+  await expect(page.locator('#welcome-tile')).toBeHidden()
+  await page.keyboard.press('Shift')
+  await expect(page.locator('#welcome-tile')).toBeVisible({ timeout: 15_000 })
+}
+
 type Point = { x: number; y: number }
 type Segment = readonly [number, number, number, number]
 

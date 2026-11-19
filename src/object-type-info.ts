@@ -19,6 +19,7 @@ import bubbleImage from './assets/object-types/bubble.jpg'
 import galaxyImage from './assets/object-types/galaxy.jpg'
 import openClusterImage from './assets/object-types/open_cluster.jpg'
 import globularClusterImage from './assets/object-types/globular_cluster.jpg'
+import superStarClusterImage from './assets/object-types/super_star_cluster.jpg'
 
 interface TypeIntroduction {
   description: string
@@ -96,6 +97,10 @@ const introductions: Record<ObjectType, TypeIntroduction> = {
   globular_cluster: {
     description: 'A globular cluster is a dense ball of tens of thousands to millions of stars, held tightly together by their gravity and crowded toward its center. Globular clusters are the largest and most massive star clusters and among the oldest objects in the Milky Way, poor in heavy elements. More than 150 are known, most of them in the halo around the Galaxy’s disk. Early in the 20th century, their distribution in the sky showed that the Sun lies far from the Galaxy’s center.',
     article: 'Globular_cluster', image: globularClusterImage, caption: 'The globular cluster Messier 30 · Hubble',
+  },
+  super_star_cluster: {
+    description: 'A super star cluster is a very massive young cluster, far brighter and heavier than an ordinary open cluster. It packs tens of thousands of times the Sun’s mass or more into a few light-years, including many of the hottest and most massive stars known. Their light often ionizes the surrounding gas into an H II region, while thick dust can hide them in visible light. Most known super star clusters lie in other galaxies, especially colliding and starburst ones; they are thought to be young globular clusters.',
+    article: 'Super_star_cluster', image: superStarClusterImage, caption: 'The super star cluster R136 in the Tarantula Nebula · Hubble',
   },
 }
 

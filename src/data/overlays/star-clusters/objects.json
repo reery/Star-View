@@ -704,6 +704,82 @@
       }
     },
     {
+      "type": "open_cluster",
+      "id": "trumpler-14",
+      "name": "Trumpler 14",
+      "designations": [
+        "Tr 14",
+        "Villafranca O-002"
+      ],
+      "spectral_type": null,
+      "constellation": "Carina",
+      "x_pc": 706.984804,
+      "y_pc": -2254.633515,
+      "z_pc": -23.857873,
+      "vx_kms": -72.522,
+      "vy_kms": -20.024,
+      "vz_kms": -14.165,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "One of the youngest and densest clusters of the Carina Nebula, 0.2° from Eta Carinae and its cluster Trumpler 16. Its brightest star, HD 93129 A, is one of the hottest and most massive stars known. The mass of 890 ± 180 M☉ counts only the 96 members that Hunt & Reffert (2023) find in Gaia DR3; Portegies Zwart et al. (2010) list a photometric mass of about 10,000 M☉, among the young massive clusters. The distance is the Gaia EDR3 distance of its O and B stars (Villafranca O-002); Hunt & Reffert (2023) give 2,390 ± 11 pc from their members, statistical error only. Gaia DR3 measured the radial velocities of only seven members, hence the large error. No [Fe/H] is adopted. Space velocity from the mean Gaia DR3 proper motion and radial velocity of the members (Hunt & Reffert 2023).",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 160.98540129,
+        "dec_deg": -59.55184119,
+        "distance_pc": 2363,
+        "distance_error_pc": 61,
+        "distance_method": "Gaia EDR3 parallaxes of 184 O and B stars and other members, with a zero-point correction",
+        "distance_source": {
+          "label": "Maíz Apellániz et al. (2022), Villafranca catalog of Galactic OB groups II",
+          "url": "https://doi.org/10.1051/0004-6361/202142364"
+        },
+        "age_myr": 1,
+        "age_error_myr": 1,
+        "age_method": "Distribution of the ages of 717 young low-mass members from VLT/MUSE spectra: about 1 million years",
+        "age_source": {
+          "label": "Itrich et al. (2024)",
+          "url": "https://doi.org/10.1051/0004-6361/202347380"
+        },
+        "metallicity_fe_h": null,
+        "metallicity_error_dex": null,
+        "metallicity_source": null,
+        "members_within_tidal_radius": 96,
+        "members_total": 96,
+        "members_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "mass_solar": 892,
+        "mass_error_solar": 179,
+        "half_member_radius_pc": 1.36,
+        "core_radius_pc": null,
+        "tidal_radius_pc": 12.92,
+        "structure_source": {
+          "label": "Hunt & Reffert (2024), Gaia DR3 cluster masses and radii",
+          "url": "https://doi.org/10.1051/0004-6361/202348662"
+        },
+        "radial_velocity_kms": -2.45,
+        "radial_velocity_error_kms": 16.85,
+        "radial_velocity_source": {
+          "label": "Hunt & Reffert (2023), Gaia DR3 cluster census",
+          "url": "https://doi.org/10.1051/0004-6361/202346285"
+        },
+        "notable_members": [],
+        "palette": {
+          "real": "#dfe6ff",
+          "exaggerated": "#b4c6ff"
+        },
+        "position_source": "Hunt & Reffert (2023) Gaia DR3 member center (l = 287.41°, b = -0.58°) at the Maíz Apellániz et al. (2022), Villafranca catalog of Galactic OB groups II distance",
+        "model_note": "The glow stands in for the faint members that the catalogs do not hold: a Plummer sphere with the published half-member radius, cut at the tidal radius. It fades as the camera comes close enough to see the member stars. Its colors are illustrative."
+      }
+    },
+    {
       "type": "globular_cluster",
       "id": "omega-centauri",
       "name": "Omega Centauri",
@@ -1253,6 +1329,661 @@
         },
         "position_source": "Cluster center of Lanzoni et al. (2010) at the Baumgardt & Vasiliev (2021) distance",
         "model_note": "The glow stands in for the cluster’s stars: an Elson–Fall–Freeman profile fitted to the published core and half-light radii, cut at the tidal radius. Its brightest giants are drawn as stars that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "super_star_cluster",
+      "id": "westerlund-1",
+      "name": "Westerlund 1",
+      "designations": [
+        "Wd 1",
+        "Ara Cluster"
+      ],
+      "spectral_type": null,
+      "constellation": "Ara",
+      "x_pc": 3963.211555,
+      "y_pc": -1478.167023,
+      "z_pc": -29.604412,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The most massive young cluster known in the Milky Way, hidden behind thick dust. It holds 24 Wolf–Rayet stars, yellow hypergiants, red supergiants such as Westerlund 1 W26, and the magnetar CXOU J164710.2−455216. Its velocity dispersion gives a dynamical mass of about 63,000 M☉ (log M = 4.8, Portegies Zwart et al. 2010). Its age is debated: Beasor et al. (2021) find 10.4 (+1.3/−1.2) million years from its red supergiants, much older than the 3.5–5 million years of earlier work. The TeV gamma-ray source HESS J1646−458 surrounds it. Age, mass and radii: Portegies Zwart et al. (2010), unless the age names its own source. No space motion is adopted.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 251.76,
+        "dec_deg": -45.851944,
+        "distance_pc": 4230,
+        "distance_error_pc": 230,
+        "distance_method": "Gaia EDR3 parallaxes of its members",
+        "distance_source": {
+          "label": "Negueruela et al. (2022)",
+          "url": "https://doi.org/10.1051/0004-6361/202142985"
+        },
+        "age_myr": 3.5,
+        "age_error_myr": null,
+        "age_method": "Compiled from the literature; no error given",
+        "age_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), young massive star clusters",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "metallicity_fe_h": null,
+        "metallicity_error_dex": null,
+        "metallicity_source": null,
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 32000,
+        "mass_error_solar": null,
+        "half_member_radius_pc": 1.0,
+        "core_radius_pc": 0.4,
+        "tidal_radius_pc": null,
+        "structure_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), photometric log M = 4.50",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "radial_velocity_source": null,
+        "notable_members": [
+          {
+            "catalog": "notable-distant-stars",
+            "id": "westerlund-1-w26",
+            "name": "Westerlund 1 W26"
+          }
+        ],
+        "palette": {
+          "real": "#e4e8fa",
+          "exaggerated": "#bccbff"
+        },
+        "position_source": "SIMBAD center at the Negueruela et al. (2022) distance",
+        "model_note": "The glow stands in for the cluster’s stars: an Elson–Fall–Freeman profile fitted to the published core and half-light radii, drawn out to ten half-light radii, since young massive clusters show no tidal edge. Its brightest stars are drawn as points that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "super_star_cluster",
+      "id": "westerlund-2",
+      "name": "Westerlund 2",
+      "designations": [
+        "Wd 2",
+        "Villafranca O-004"
+      ],
+      "spectral_type": null,
+      "constellation": "Carina",
+      "x_pc": 1094.168809,
+      "y_pc": -4302.988359,
+      "z_pc": -26.187703,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The young cluster at the heart of the H II region RCW 49, with a dozen early O stars and the Wolf–Rayet binary WR 20a, one of the most massive binaries known. It sits inside the TeV gamma-ray source HESS J1023−575. The distance is that of the RCW 49 record. Age, mass and radii: Portegies Zwart et al. (2010), unless the age names its own source. No space motion is adopted.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 155.992083,
+        "dec_deg": -57.763611,
+        "distance_pc": 4440,
+        "distance_error_pc": 230,
+        "distance_method": "Gaia EDR3 parallaxes of its O and B stars and other members, with a zero-point correction",
+        "distance_source": {
+          "label": "Maíz Apellániz et al. (2022), Villafranca catalog of Galactic OB groups II",
+          "url": "https://doi.org/10.1051/0004-6361/202142364"
+        },
+        "age_myr": 2.0,
+        "age_error_myr": null,
+        "age_method": "Compiled from the literature; no error given",
+        "age_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), young massive star clusters",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "metallicity_fe_h": null,
+        "metallicity_error_dex": null,
+        "metallicity_source": null,
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 10000,
+        "mass_error_solar": null,
+        "half_member_radius_pc": 0.8,
+        "core_radius_pc": null,
+        "tidal_radius_pc": null,
+        "structure_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), photometric log M = 4.00",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "radial_velocity_source": null,
+        "notable_members": [],
+        "palette": {
+          "real": "#dae4ff",
+          "exaggerated": "#a9c1ff"
+        },
+        "position_source": "SIMBAD center at the Maíz Apellániz et al. (2022), Villafranca catalog of Galactic OB groups II distance",
+        "model_note": "The glow stands in for the cluster’s stars: a Plummer sphere with the published half-light radius, drawn out to ten half-light radii, since young massive clusters show no tidal edge. Its brightest stars are drawn as points that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "super_star_cluster",
+      "id": "ngc-3603",
+      "name": "NGC 3603",
+      "designations": [
+        "Villafranca O-001",
+        "HD 97950 cluster"
+      ],
+      "spectral_type": null,
+      "constellation": "Carina",
+      "x_pc": 2623.896937,
+      "y_pc": -6629.328798,
+      "z_pc": -63.753846,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The young cluster inside the giant H II region NGC 3603 in the Carina arm, one of the most luminous star-forming regions of the Milky Way. Its compact core, catalogued as the single star HD 97950, holds several of the most massive stars known. The blue supergiant Sher 25, long thought a member, lies in front of it. Hunt & Reffert (2023) give 6,780 ± 100 pc from its Gaia DR3 members, statistical error only. Age, mass and radii: Portegies Zwart et al. (2010), unless the age names its own source. No space motion is adopted.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 168.7411,
+        "dec_deg": -61.2422,
+        "distance_pc": 7130,
+        "distance_error_pc": 590,
+        "distance_method": "Gaia EDR3 parallaxes of its O and B stars and other members, with a zero-point correction",
+        "distance_source": {
+          "label": "Maíz Apellániz et al. (2022), Villafranca catalog of Galactic OB groups II",
+          "url": "https://doi.org/10.1051/0004-6361/202142364"
+        },
+        "age_myr": 2.0,
+        "age_error_myr": null,
+        "age_method": "Compiled from the literature; no error given",
+        "age_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), young massive star clusters",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "metallicity_fe_h": null,
+        "metallicity_error_dex": null,
+        "metallicity_source": null,
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 13000,
+        "mass_error_solar": null,
+        "half_member_radius_pc": 0.7,
+        "core_radius_pc": 0.15,
+        "tidal_radius_pc": null,
+        "structure_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), photometric log M = 4.10",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "radial_velocity_source": null,
+        "notable_members": [],
+        "palette": {
+          "real": "#dae4ff",
+          "exaggerated": "#a9c1ff"
+        },
+        "position_source": "SIMBAD center at the Maíz Apellániz et al. (2022), Villafranca catalog of Galactic OB groups II distance",
+        "model_note": "The glow stands in for the cluster’s stars: an Elson–Fall–Freeman profile fitted to the published core and half-light radii, drawn out to ten half-light radii, since young massive clusters show no tidal edge. Its brightest stars are drawn as points that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "super_star_cluster",
+      "id": "arches-cluster",
+      "name": "Arches Cluster",
+      "designations": [
+        "Arches",
+        "GAL 000.12+00.02"
+      ],
+      "spectral_type": null,
+      "constellation": "Sagittarius",
+      "x_pc": 8276.981293,
+      "y_pc": 17.429916,
+      "z_pc": 2.421844,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "One of the densest star clusters in the Milky Way, about 27 pc in projection from Sagittarius A*; it takes the distance of Sagittarius A* (GRAVITY Collaboration 2022, 8277 ± 9 ± 30 pc), and its offset along the line of sight is not included in the error. Dust hides it in visible light, so it is studied in infrared light, radio waves and X-rays. It holds 13 Wolf–Rayet stars and eight O hypergiants; its X-rays suggest that many of its massive stars are close binaries. Age, mass and radii: Portegies Zwart et al. (2010), unless the age names its own source. No space motion is adopted.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 266.460417,
+        "dec_deg": -28.824444,
+        "distance_pc": 8277,
+        "distance_error_pc": 31,
+        "distance_method": "Distance of Sagittarius A*, which the cluster orbits closely",
+        "distance_source": {
+          "label": "GRAVITY Collaboration (2022)",
+          "url": "https://arxiv.org/abs/2112.07478"
+        },
+        "age_myr": 2.0,
+        "age_error_myr": null,
+        "age_method": "Compiled from the literature; no error given",
+        "age_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), young massive star clusters",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "metallicity_fe_h": null,
+        "metallicity_error_dex": null,
+        "metallicity_source": null,
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 20000,
+        "mass_error_solar": null,
+        "half_member_radius_pc": 0.4,
+        "core_radius_pc": 0.2,
+        "tidal_radius_pc": null,
+        "structure_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), photometric log M = 4.30",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "radial_velocity_source": null,
+        "notable_members": [],
+        "palette": {
+          "real": "#dae4ff",
+          "exaggerated": "#a9c1ff"
+        },
+        "position_source": "SIMBAD center at the GRAVITY Collaboration (2022) distance",
+        "model_note": "The glow stands in for the cluster’s stars: an Elson–Fall–Freeman profile fitted to the published core and half-light radii, drawn out to ten half-light radii, since young massive clusters show no tidal edge. Its brightest stars are drawn as points that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "super_star_cluster",
+      "id": "quintuplet-cluster",
+      "name": "Quintuplet Cluster",
+      "designations": [
+        "Quintuplet",
+        "IRAS 17430-2848"
+      ],
+      "spectral_type": null,
+      "constellation": "Sagittarius",
+      "x_pc": 8276.963234,
+      "y_pc": 23.151557,
+      "z_pc": -8.521616,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A young cluster about 31 pc in projection from Sagittarius A*, whose distance it takes (GRAVITY Collaboration 2022, 8277 ± 9 ± 30 pc; its offset along the line of sight is not included in the error), named for its five bright infrared sources, dusty Wolf–Rayet stars. It holds the Pistol Star, a candidate luminous blue variable, placed at the same distance. Like the Arches Cluster, it is hidden in visible light and studied in infrared light, radio waves and X-rays. Its hot stars ionize the Sickle Nebula. Age, mass and radii: Portegies Zwart et al. (2010), unless the age names its own source. No space motion is adopted.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 266.557783,
+        "dec_deg": -28.830033,
+        "distance_pc": 8277,
+        "distance_error_pc": 31,
+        "distance_method": "Distance of Sagittarius A*, which the cluster orbits closely",
+        "distance_source": {
+          "label": "GRAVITY Collaboration (2022)",
+          "url": "https://arxiv.org/abs/2112.07478"
+        },
+        "age_myr": 4.0,
+        "age_error_myr": null,
+        "age_method": "Compiled from the literature; no error given",
+        "age_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), young massive star clusters",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "metallicity_fe_h": null,
+        "metallicity_error_dex": null,
+        "metallicity_source": null,
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 10000,
+        "mass_error_solar": null,
+        "half_member_radius_pc": 2.0,
+        "core_radius_pc": 1.0,
+        "tidal_radius_pc": null,
+        "structure_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), photometric log M = 4.00",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "radial_velocity_source": null,
+        "notable_members": [
+          {
+            "catalog": "notable-distant-stars",
+            "id": "pistol-star",
+            "name": "Pistol Star"
+          }
+        ],
+        "palette": {
+          "real": "#dae4ff",
+          "exaggerated": "#a9c1ff"
+        },
+        "position_source": "SIMBAD center at the GRAVITY Collaboration (2022) distance",
+        "model_note": "The glow stands in for the cluster’s stars: an Elson–Fall–Freeman profile fitted to the published core and half-light radii, drawn out to ten half-light radii, since young massive clusters show no tidal edge. Its brightest stars are drawn as points that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "super_star_cluster",
+      "id": "r136",
+      "name": "R136",
+      "designations": [
+        "RMC 136",
+        "Radcliffe 136"
+      ],
+      "spectral_type": null,
+      "constellation": "Dorado",
+      "x_pc": 6940.439583,
+      "y_pc": -41629.921928,
+      "z_pc": -26037.434566,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The central concentration of the cluster NGC 2070, at the heart of the Tarantula Nebula in the Large Magellanic Cloud. It holds the most massive stars known, among them R136a1, and produces most of the light that makes the nebula glow. Portegies Zwart et al. (2010) list 3 million years from earlier work. The distance is that of the Large Magellanic Cloud and the Tarantula Nebula record. Age, mass and radii: Portegies Zwart et al. (2010), unless the age names its own source. No space motion is adopted.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 84.67665,
+        "dec_deg": -69.100933,
+        "distance_pc": 49590,
+        "distance_error_pc": 540,
+        "distance_method": "Distance of the Large Magellanic Cloud from 20 eclipsing binaries",
+        "distance_source": {
+          "label": "Pietrzyński et al. (2019)",
+          "url": "https://doi.org/10.1038/s41586-019-0999-4"
+        },
+        "age_myr": 1.5,
+        "age_error_myr": 0.7,
+        "age_method": "Hertzsprung–Russell diagram of its most massive O stars from Hubble ultraviolet spectra: 1.5 (+0.3/−0.7) million years",
+        "age_source": {
+          "label": "Crowther et al. (2016)",
+          "url": "https://doi.org/10.1093/mnras/stw273"
+        },
+        "metallicity_fe_h": null,
+        "metallicity_error_dex": null,
+        "metallicity_source": null,
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 60000,
+        "mass_error_solar": null,
+        "half_member_radius_pc": 1.7,
+        "core_radius_pc": 0.1,
+        "tidal_radius_pc": null,
+        "structure_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), photometric log M = 4.78",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "radial_velocity_source": null,
+        "notable_members": [
+          {
+            "catalog": "notable-distant-stars",
+            "id": "r136a1",
+            "name": "R136a1"
+          }
+        ],
+        "palette": {
+          "real": "#dae4ff",
+          "exaggerated": "#a9c1ff"
+        },
+        "position_source": "SIMBAD center at the Pietrzyński et al. (2019) distance",
+        "model_note": "The glow stands in for the cluster’s stars: an Elson–Fall–Freeman profile fitted to the published core and half-light radii, drawn out to ten half-light radii, since young massive clusters show no tidal edge. Its brightest stars are drawn as points that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "super_star_cluster",
+      "id": "rsgc-1",
+      "name": "RSGC1",
+      "designations": [
+        "RSGC 1",
+        "Red Supergiant Cluster 1"
+      ],
+      "spectral_type": null,
+      "constellation": "Scutum",
+      "x_pc": 5968.200151,
+      "y_pc": 2817.846567,
+      "z_pc": -18.102064,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "A cluster of 14 red supergiants at the base of the Scutum–Centaurus arm, near the end of the Galactic bar, hidden behind thick dust and found in 2006 in 2MASS images. With Stephenson 2 and RSGC3 nearby, it belongs to a burst of star formation 10–20 million years ago. Davies et al. (2008) estimate an initial mass of (3 ± 1) × 10^4 M☉. Age, mass and radii: Portegies Zwart et al. (2010), unless the age names its own source. No space motion is adopted.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 279.491667,
+        "dec_deg": -6.883333,
+        "distance_pc": 6600,
+        "distance_error_pc": 890,
+        "distance_method": "Kinematic distance from the mean radial velocity of its red supergiants",
+        "distance_source": {
+          "label": "Davies et al. (2008)",
+          "url": "https://doi.org/10.1086/527350"
+        },
+        "age_myr": 12,
+        "age_error_myr": 2,
+        "age_method": "Luminosities of its red supergiants compared with evolutionary models",
+        "age_source": {
+          "label": "Davies et al. (2008)",
+          "url": "https://doi.org/10.1086/527350"
+        },
+        "metallicity_fe_h": null,
+        "metallicity_error_dex": null,
+        "metallicity_source": null,
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 32000,
+        "mass_error_solar": null,
+        "half_member_radius_pc": 1.5,
+        "core_radius_pc": null,
+        "tidal_radius_pc": null,
+        "structure_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), photometric log M = 4.50",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "radial_velocity_source": null,
+        "notable_members": [],
+        "palette": {
+          "real": "#ffd9bc",
+          "exaggerated": "#ffb07a"
+        },
+        "position_source": "SIMBAD center at the Davies et al. (2008) distance",
+        "model_note": "The glow stands in for the cluster’s stars: a Plummer sphere with the published half-light radius, drawn out to ten half-light radii, since young massive clusters show no tidal edge. Its brightest stars are drawn as points that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "super_star_cluster",
+      "id": "stephenson-2",
+      "name": "Stephenson 2",
+      "designations": [
+        "RSGC2",
+        "RSGC 2",
+        "Red Supergiant Cluster 2"
+      ],
+      "spectral_type": null,
+      "constellation": "Scutum",
+      "x_pc": 5204.563854,
+      "y_pc": 2559.779201,
+      "z_pc": -6.747617,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The richest known cluster of red supergiants, 26 of them, at the base of the Scutum–Centaurus arm, a few hundred parsecs from RSGC1. Its brightest star in infrared light, Stephenson 2-18, is among the largest stars known, though its membership is questioned. Davies et al. (2007) give 5.83 (+1.91/−0.78) kpc; like the Stephenson 2-18 record, it adopts 5.8 ± 1.0 kpc as Siebert et al. (2026) do. Age, mass and radii: Portegies Zwart et al. (2010), unless the age names its own source. No space motion is adopted.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 279.833333,
+        "dec_deg": -6.028333,
+        "distance_pc": 5800,
+        "distance_error_pc": 1000,
+        "distance_method": "Kinematic distance from its mean radial velocity",
+        "distance_source": {
+          "label": "Davies et al. (2007)",
+          "url": "https://doi.org/10.1086/522224"
+        },
+        "age_myr": 17.0,
+        "age_error_myr": null,
+        "age_method": "Compiled from the literature; no error given",
+        "age_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), young massive star clusters",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "metallicity_fe_h": null,
+        "metallicity_error_dex": null,
+        "metallicity_source": null,
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 40000,
+        "mass_error_solar": null,
+        "half_member_radius_pc": 2.7,
+        "core_radius_pc": null,
+        "tidal_radius_pc": null,
+        "structure_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), photometric log M = 4.60",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "radial_velocity_source": null,
+        "notable_members": [
+          {
+            "catalog": "notable-distant-stars",
+            "id": "stephenson-2-18",
+            "name": "Stephenson 2-18"
+          }
+        ],
+        "palette": {
+          "real": "#ffd9bc",
+          "exaggerated": "#ffb07a"
+        },
+        "position_source": "SIMBAD center at the Davies et al. (2007) distance",
+        "model_note": "The glow stands in for the cluster’s stars: a Plummer sphere with the published half-light radius, drawn out to ten half-light radii, since young massive clusters show no tidal edge. Its brightest stars are drawn as points that resolve as the camera comes close; their number, places and colors are illustrative."
+      }
+    },
+    {
+      "type": "super_star_cluster",
+      "id": "rsgc-3",
+      "name": "RSGC3",
+      "designations": [
+        "RSGC 3",
+        "Red Supergiant Cluster 3"
+      ],
+      "spectral_type": null,
+      "constellation": "Aquila",
+      "x_pc": 5237.506879,
+      "y_pc": 2927.129413,
+      "z_pc": -20.858815,
+      "vx_kms": null,
+      "vy_kms": null,
+      "vz_kms": null,
+      "temperature_k": null,
+      "mass_solar": null,
+      "luminosity_solar": null,
+      "radius_solar": null,
+      "metallicity_dex": null,
+      "age_gyr": null,
+      "absolute_mag": null,
+      "epoch": 2000,
+      "notes": "The third cluster of red supergiants found at the base of the Scutum–Centaurus arm, with 16 strong candidate members; just across the border of Aquila from Scutum. Clark et al. (2009) estimate a mass of 2–4 × 10^4 M☉; Its extinction allows a distance of up to 7.2 kpc, which Alexander et al. (2009) favor. Age, mass and radii: Portegies Zwart et al. (2010), unless the age names its own source. No space motion is adopted.",
+      "raw_astrometry": null,
+      "cluster": {
+        "ra_deg": 281.333333,
+        "dec_deg": -3.411944,
+        "distance_pc": 6000,
+        "distance_error_pc": 1000,
+        "distance_method": "Its place at the end of the Galactic bar, like RSGC1 and Stephenson 2",
+        "distance_source": {
+          "label": "Clark et al. (2009)",
+          "url": "https://doi.org/10.1051/0004-6361/200911945"
+        },
+        "age_myr": 18,
+        "age_error_myr": 2,
+        "age_method": "Luminosities and spectral types of its red supergiants: 16–20 million years",
+        "age_source": {
+          "label": "Clark et al. (2009)",
+          "url": "https://doi.org/10.1051/0004-6361/200911945"
+        },
+        "metallicity_fe_h": null,
+        "metallicity_error_dex": null,
+        "metallicity_source": null,
+        "members_within_tidal_radius": null,
+        "members_total": null,
+        "members_source": null,
+        "mass_solar": 32000,
+        "mass_error_solar": null,
+        "half_member_radius_pc": 5.0,
+        "core_radius_pc": null,
+        "tidal_radius_pc": null,
+        "structure_source": {
+          "label": "Portegies Zwart, McMillan & Gieles (2010), photometric log M = 4.50",
+          "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+        },
+        "radial_velocity_kms": null,
+        "radial_velocity_error_kms": null,
+        "radial_velocity_source": null,
+        "notable_members": [],
+        "palette": {
+          "real": "#ffd9bc",
+          "exaggerated": "#ffb07a"
+        },
+        "position_source": "SIMBAD center at the Clark et al. (2009) distance",
+        "model_note": "The glow stands in for the cluster’s stars: a Plummer sphere with the published half-light radius, drawn out to ten half-light radii, since young massive clusters show no tidal edge. Its brightest stars are drawn as points that resolve as the camera comes close; their number, places and colors are illustrative."
       }
     }
   ]

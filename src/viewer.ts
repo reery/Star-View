@@ -5,7 +5,7 @@ import {
   Quaternion, Sphere, SRGBColorSpace, Vector3, Vector4, WebGLRenderer,
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import { clusterHasCatalogMembers, dustGeometry, type Star } from './catalog-model'
+import { clusterExtentPc, clusterHasCatalogMembers, dustGeometry, type Star } from './catalog-model'
 import { createStarAppearance, displayMagnitude, STAR_ADAPTATION_FLUX, STAR_BRIGHTNESSES, starCrowdCoverage, starEyeExposure, STAR_GLARE_MAX_RADIUS_PX, STAR_STYLES, type FaintStars, type StarBrightness, type StarStyle } from './star-appearance'
 import { createDepthLabel } from './depth-label'
 import type { ScenePass } from './scene-shader'
@@ -118,8 +118,8 @@ export interface StarViewer {
   setStarPaintZoomShrink(enabled: boolean): void
   /** hideFainter removes objects beyond the magnitude limit instead of dimming them. */
   setVisibility(observerId: string, limit: number, hideFainter: boolean): void
-  /** Centers the view in the area left of a right-edge inset, in CSS pixels; 0 restores the full view. */
-  setViewCenterInset(right: number): void
+  /** Centers the view in the area left of a right-edge inset and above a bottom-edge inset, in CSS pixels; 0 restores the full view. */
+  setViewCenterInset(right: number, bottom?: number): void
   /** Keeps the visibility base when the selection changes. */
   setVisibilityLocked(locked: boolean): void
   setDistanceUnit(unit: DistanceUnit): void
@@ -499,6 +499,9 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   // Linear flux relative to magnitude 0, for realistic stars.
   const starFluxes = new Float32BufferAttribute(stars.map(() => 0), 1)
   starGeometry.setAttribute('starFlux', starFluxes)
+  // How far from the star its flux is rated, so the shader brightens it every frame the camera is closer; 0 when fixed.
+  const ratedDistances = new Float32BufferAttribute(stars.map(() => 0), 1)
+  starGeometry.setAttribute('ratedDistance', ratedDistances)
   starGeometry.setAttribute('coreEmphasis', coreEmphases)
   const coreWhiteStrengths = new Float32BufferAttribute(stars.map(starCoreWhiteStrength), 1)
   starGeometry.setAttribute('coreWhiteStrength', coreWhiteStrengths)
@@ -861,6 +864,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const observerPoint = () => visibilityPoint ?? (spaceship && spaceshipVisibility ? spaceship.position : null)
   /** How much brighter each star looks from the orbiting camera than from the visibility base, at least 1. */
   const closeGains = new Float64Array(stars.length).fill(1)
+  /** Whether magnitudes, labels and the magnitude limit still miss the latest close gains. */
+  let closeGainsStale = false
   /** Glare from stars the camera approaches fades in over their first 1.5 magnitudes of brightening. */
   let closeGlare = 0
   const closeLightPosition = new Vector3()
@@ -868,8 +873,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   let closeLightTime = -Infinity
   /** Whether the ship, not orbit controls, places the camera. */
   const cameraIsShip = () => spaceshipCockpit || spaceshipFlight !== null
-  let viewCenterOffset = 0
-  let viewCenterTransition: { from: number; to: number; started: number } | null = null
+  let viewCenterOffset = { x: 0, y: 0 }
+  let viewCenterTransition: { from: { x: number; y: number }; to: { x: number; y: number }; started: number } | null = null
   let savedOrbitSettings: {
     enablePan: boolean
     enableZoom: boolean
@@ -1238,18 +1243,15 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       camera.getWorldDirection(viewDirection)
       const halfDiagonal = Math.atan(Math.tan(camera.fov * Math.PI / 360) / camera.zoom * Math.hypot(1, camera.aspect))
       const viewEdge = Math.cos(halfDiagonal)
-      // Ratings from a free point or the observer's place are already from the camera.
-      const base = closeLightOff ? null : pickable[starsById.get(visibilityBaseStar.id)!.index]!.position
       for (const index of adaptingStars) {
         if (!coreEnabled[index]) continue
-        const { position } = pickable[index]!
-        const direction = adaptingDirection.subVectors(position, camera.position)
+        const direction = adaptingDirection.subVectors(pickable[index]!.position, camera.position)
         const distance = direction.length()
         const cosine = distance > 0 ? viewDirection.dot(direction) / distance : 1
         const weight = Math.min(1, Math.max(0, cosine / viewEdge))
-        // As in syncCloseLight, the base itself is rated as from 10 pc; a nearer camera already has the close gain.
-        const ratio = base && distance > 0 ? (position.distanceTo(base) || 10) / distance : 1
-        brightest = Math.max(brightest, starFluxes.getX(index) * Math.min(1, ratio * ratio) * starZoomGain.value * weight)
+        // Ratings from a free point or the observer's place are already from the camera.
+        const ratio = ratedDistances.getX(index) > 0 && distance > 0 ? ratedDistances.getX(index) / distance : 1
+        brightest = Math.max(brightest, starFluxes.getX(index) * ratio * ratio * starZoomGain.value * weight)
       }
     }
     // The eye adapts as far as the cap has lifted, so approaching a star darkens the sky gradually.
@@ -1273,43 +1275,66 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     updatePresentation()
   }
 
+  /** The base and stars sharing its place show their absolute magnitude, as from 10 pc. */
+  function closeBaseDistance(index: number, base: Vector3): number {
+    return (sharesBasePlace(stars[index]!, visibilityBaseStar) ? 0 : pickable[index]!.position.distanceTo(base)) || 10
+  }
+
+  /** Stars bright enough at the camera to adapt the eye. */
+  function collectAdaptingStars(): void {
+    adaptingStars.length = 0
+    for (let index = 0; index < stars.length; index++) {
+      if (starFluxes.getX(index) * (ratedDistances.getX(index) > 0 ? closeGains[index]! : 1) > STAR_ADAPTATION_FLUX) adaptingStars.push(index)
+    }
+  }
+
   /**
    * A star the orbiting camera is closer to than the visibility base brightens as seen from the camera, like from
-   * the ship; rated at most four times a second while the camera moves.
+   * the ship. The star shader follows the camera every frame, and so do glare and eye adaptation here, except in power
+   * saving mode; magnitudes, labels and the magnitude limit catch up at most four times a second while the camera moves.
    */
   function syncCloseLight(time: number): void {
     const off = observerPoint() !== null || observerViewEnabled || cameraIsShip()
-    if (off === closeLightOff && (off || camera.position.equals(closeLightPosition))) return
-    if (off === closeLightOff && time - closeLightTime < 250) {
+    const switched = off !== closeLightOff
+    const moved = switched || (!off && !camera.position.equals(closeLightPosition))
+    if (moved && !switched && powerSavingMode && time - closeLightTime < 250) {
+      // Power saving rates glare and eye adaptation with the magnitudes; a frame after the camera settles applies it.
+      requestRender()
+      return
+    }
+    if (moved) {
+      closeLightOff = off
+      closeLightPosition.copy(camera.position)
+      const base = pickable[starsById.get(visibilityBaseStar.id)!.index]!.position
+      let brightest = 1
+      for (let index = 0; index < stars.length; index++) {
+        const ratio = off ? 0 : closeBaseDistance(index, base) / pickable[index]!.position.distanceTo(camera.position)
+        const gain = ratio > 1 ? ratio * ratio : 1
+        if (gain !== closeGains[index]) {
+          closeGains[index] = gain
+          closeGainsStale = true
+        }
+        if (coreEnabled[index] && starFluxes.getX(index) > 0) brightest = Math.max(brightest, gain)
+      }
+      const glare = Math.min(1, Math.log10(brightest) / 0.6)
+      if (glare !== closeGlare) {
+        closeGlare = glare
+        syncStarGlare()
+      }
+      collectAdaptingStars()
+      // Switching close light on or off applies at once.
+      if (switched) {
+        closeGainsStale = true
+        closeLightTime = -Infinity
+      }
+    }
+    if (!closeGainsStale) return
+    if (time - closeLightTime < 250) {
       // A frame after the camera settles applies its final position.
       requestRender()
       return
     }
     closeLightTime = time
-    closeLightOff = off
-    closeLightPosition.copy(camera.position)
-    const base = pickable[starsById.get(visibilityBaseStar.id)!.index]!.position
-    let changed = false
-    let brightest = 1
-    for (let index = 0; index < stars.length; index++) {
-      const { position } = pickable[index]!
-      // The base and stars sharing its place show their absolute magnitude, as from 10 pc.
-      const fromBase = sharesBasePlace(stars[index]!, visibilityBaseStar) ? 0 : position.distanceTo(base)
-      const ratio = off ? 0 : (fromBase || 10) / position.distanceTo(camera.position)
-      const gain = ratio > 1 ? ratio * ratio : 1
-      if (gain !== closeGains[index]) {
-        closeGains[index] = gain
-        changed = true
-      }
-      if (coreEnabled[index] && starFluxes.getX(index) > 0) brightest = Math.max(brightest, gain)
-    }
-    const glare = Math.min(1, Math.log10(brightest) / 0.6)
-    if (glare !== closeGlare) {
-      closeGlare = glare
-      syncStarGlare()
-    }
-    if (!changed) return
-    rankedBaseId = ''
     updatePresentation()
   }
 
@@ -1581,7 +1606,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     componentVisible[referenceIndex] = 1
     ordinaryLayoutDirty = true
     const visibilityBase = observerPoint() ? spaceshipObserver : visibilityBaseStar
-    const baseChanged = rankedBaseId !== visibilityBase.id
+    const baseChanged = closeGainsStale || rankedBaseId !== visibilityBase.id
+    closeGainsStale = false
     const rankingChanged = baseChanged || rankedSelection !== selectedId || rankedGalaxiesFirst !== galaxyLabelsFirst
     if (baseChanged) {
       stars.forEach((star, index) => {
@@ -1612,6 +1638,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       rankedGalaxiesFirst = galaxyLabelsFirst
     }
     const observerIndex = hiddenObserverIndex()
+    const basePosition = visibilityBasePosition()
     stars.forEach((star, index) => {
       // A boosted band shows each of its sources wherever the visibility base is: never below the magnitude limit and
       // no fainter than a clear star; brighter sources keep their own brightness.
@@ -1651,7 +1678,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       coreDiameters.setX(index, background ? 3 : diameter)
       // Up close, the camera sees the base like any other star.
       const ownLight = !background && !(farBase && (star.id === selectedId || originDistancePc === 0))
-      starFluxes.setX(index, ownLight && haloMagnitude !== null && Number.isFinite(haloMagnitude) ? 10 ** (-0.4 * haloMagnitude) : 0)
+      // Light rated from the base leaves the close gain to the shader, which follows the camera every frame.
+      const rated = !closeLightOff && visibilityBase === visibilityBaseStar && paintedMagnitude === undefined && !farBase
+        && magnitude === apparentMagnitudes[index]
+      const flux = ownLight && haloMagnitude !== null && Number.isFinite(haloMagnitude) ? 10 ** (-0.4 * haloMagnitude) : 0
+      starFluxes.setX(index, rated ? flux / closeGains[index]! : flux)
+      ratedDistances.setX(index, rated ? closeBaseDistance(index, basePosition) : 0)
       coreEmphases.setX(index, haloEmphasis)
       selectionEmphases.setX(index, star.id === selectedId ? 1 : 0)
       haloOpacities.setX(index, background ? 0 : starHaloOpacity(haloMagnitude, star.id === selectedId))
@@ -1690,13 +1722,12 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
     coreDiameters.needsUpdate = true
     starFluxes.needsUpdate = true
-    adaptingStars.length = 0
-    if (starGlareActive()) {
-      for (let index = 0; index < stars.length; index++) if (starFluxes.getX(index) > STAR_ADAPTATION_FLUX) adaptingStars.push(index)
-    }
+    ratedDistances.needsUpdate = true
+    collectAdaptingStars()
     if (starStyle === 'realistic') {
       for (let index = 0; index < stars.length; index++) {
-        coreDrawBrightness[index] = stars[index]!.id === selectedId ? Infinity : starFluxes.getX(index)
+        coreDrawBrightness[index] = stars[index]!.id === selectedId ? Infinity
+          : starFluxes.getX(index) * (ratedDistances.getX(index) > 0 ? closeGains[index]! : 1)
       }
       coreDrawOrder.sort((first, second) => coreDrawBrightness[first]! - coreDrawBrightness[second]! || first - second)
       coreOrderDirty = true
@@ -2566,10 +2597,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     requestRender()
   }
 
-  // An asymmetric frustum moves the projection center left without moving the camera, so orbiting stays around the target.
-  function applyViewCenterOffset(offset: number): void {
+  // An asymmetric frustum moves the projection center left or up without moving the camera, so orbiting stays around the target.
+  function applyViewCenterOffset(offset: { x: number; y: number }): void {
     viewCenterOffset = offset
-    if (offset && renderWidth && renderHeight) camera.setViewOffset(renderWidth, renderHeight, offset, 0, renderWidth, renderHeight)
+    if ((offset.x || offset.y) && renderWidth && renderHeight) camera.setViewOffset(renderWidth, renderHeight, offset.x, offset.y, renderWidth, renderHeight)
     else camera.clearViewOffset()
     invalidateProjection()
     ordinaryLayoutDirty = true
@@ -2608,7 +2639,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       const projected = projections[clusterIndex]!
       const cluster = stars[clusterIndex]!.cluster!
       if (!projected.visible || cluster.half_member_radius_pc * projectionScale / projected.depth > 0.1 * viewport.height) continue
-      if (clusterMembers[order]!.has(id) || pickable[index]!.position.distanceTo(pickable[clusterIndex]!.position) <= cluster.tidal_radius_pc) return projected.id
+      if (clusterMembers[order]!.has(id) || pickable[index]!.position.distanceTo(pickable[clusterIndex]!.position) <= clusterExtentPc(cluster)) return projected.id
     }
     return null
   }
@@ -2890,7 +2921,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (viewCenterTransition) {
       const progress = Math.min(1, Math.max(0, (time - viewCenterTransition.started) / OBSERVER_ZOOM_DURATION_MS))
       const eased = progress * progress * (3 - 2 * progress)
-      applyViewCenterOffset(viewCenterTransition.from + (viewCenterTransition.to - viewCenterTransition.from) * eased)
+      const { from, to } = viewCenterTransition
+      applyViewCenterOffset({ x: from.x + (to.x - from.x) * eased, y: from.y + (to.y - from.y) * eased })
       if (progress === 1) viewCenterTransition = null
       else continueRendering = true
     }
@@ -3065,6 +3097,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     nebulaLayer?.setBand(wavelengthBand)
     molecularCloudLayer?.setBand(wavelengthBand)
     bubbleLayer?.setBand(wavelengthBand)
+    clusterLayer?.setBand(wavelengthBand)
     faintClouds.setBand(wavelengthBand)
     milkyWay.setBand(wavelengthBand)
     updateStarColors()
@@ -3379,10 +3412,10 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     setVisibilityLocked(locked) {
       visibilityLocked = locked
     },
-    setViewCenterInset(right) {
-      const to = Math.round(right / 2)
+    setViewCenterInset(right, bottom = 0) {
+      const to = { x: Math.round(right / 2), y: Math.round(bottom / 2) }
       const from = viewCenterTransition?.to ?? viewCenterOffset
-      if (to === from) return
+      if (to.x === from.x && to.y === from.y) return
       viewCenterTransition = null
       if (reducedMotion.matches) applyViewCenterOffset(to)
       else viewCenterTransition = { from: viewCenterOffset, to, started: performance.now() }
@@ -3422,7 +3455,6 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
         spaceshipLabels = labels
         ordinaryLayoutDirty = true
       }
-      const glareWasActive = starGlareActive()
       const visibilityChanged = (next !== null && visibilityFromShip) !== (spaceship !== null && spaceshipVisibility)
       spaceshipVisibility = visibilityFromShip
       spaceshipBrightness = brightness
@@ -3454,7 +3486,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
       if (visibilityChanged) {
         if (next && visibilityFromShip) syncObserverPoint(performance.now())
         updatePresentation()
-      } else if (glareWasActive !== starGlareActive()) updatePresentation()
+      }
       container.dataset.spaceship = next ? next.piloting ? 'piloting' : 'parked' : 'off'
       requestRender()
     },

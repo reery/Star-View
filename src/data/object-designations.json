@@ -12,11 +12,11 @@
     "catalog-work/nearest-1000/simbad.csv": "0d1ab9881afdfbbac62ea7d05d31cb0d8ca4c4235a4b14eb3d0e5b789a932dbd",
     "catalog-work/nearest-5000/simbad.csv": "d9810d3115ecb453f3566eb0c97afbace55f19b9b1efd942e4d51ef2766b4935",
     "catalog-work/object-designations/components.csv": "4e0c1bec3a3089dc6acc19a250b460c7a2876fcc0cfdf0b2595afe44f4166291",
-    "catalog-work/object-designations/extended.csv": "ee86c63e19f28d816bee05189d681c11be7ea5615b8f75b42736be6ca97545f7",
+    "catalog-work/object-designations/extended.csv": "a3d7f35c83eb597d648b3e9e5f90d5953128eb555fdeffe2f938921255a213bc",
     "catalog-work/object-designations/iau-names.csv": "ad39e5c1a6ec5d47f1da6f4595647ed2f5f663408d3d6500124ddf04cac188c9",
-    "catalog-work/object-designations/preferred-names.json": "fd269af9e56e63eb93bd9595c2fa84e2b5d4a15eb3712921cb83feeb3243ecd8",
+    "catalog-work/object-designations/preferred-names.json": "ca597c9a7fa730e9a6f169adbd9f7f4957da22429c3b6a1ba53dfb6f23d66f00",
     "catalog-work/object-designations/simbad.csv": "d2f31fe2362ae8b8b56b672e93ab48e144457ed5795e3b90fb905ffc78bdea12",
-    "catalog-work/object-designations/source-manifest.json": "caaf87f64d2c01f1462f10994cc740ed8421d266e65f45bc9033facc9fa493aa",
+    "catalog-work/object-designations/source-manifest.json": "9d7550408d1c969bad7ab8287298ba362e97daa0a332ddde58088184922eeff3",
     "catalog-work/western-constellation-stars/simbad.csv": "c45f9d1adb165751c0cf8f77a28efc18dfef5427760de6be0dad20f4aff92ede",
     "src/data/catalogs/naked-eye-stars/provenance.json": "8f3e41b7b19b9bd922b774af28ad20e0def798900b77953045bee721a3eac359",
     "src/data/catalogs/naked-eye-stars/stars.csv": "e6840784bebf3a0df072f304d5ab319bd33c5eb56982e6dd1a0b70ea1f06a887",
@@ -31,11 +31,11 @@
     "src/data/catalogs/western-constellation-stars/stars.csv": "f094b4f53be6c5d73bca10c803845831096d7a2dd48b1606d68ca65ea287dcc8",
     "src/data/legacy-star-ids.json": "1b3022e79a02fac18f035fd4323dc43c582730ec66b4dd5baa85a1d0873362a3",
     "src/data/overlays/bubbles/objects.json": "1fb673285045e35cb4caafa2a672d6d0ad2bc6c3218badd4861cb582a8429926",
-    "src/data/overlays/compact-remnants/objects.json": "da3679a83fc446420fb6a0bf51187bc8ce5615877337866f77281a22f30f75ed",
+    "src/data/overlays/compact-remnants/objects.json": "d316587f0c211bd598fd8d162e64421eab4206fc06f3baea4a08f3e7d6a3544f",
     "src/data/overlays/galaxies/objects.json": "7c142945a281784cc319eae2a55b6def16f234c5b86f016b51909e015cc7bb7c",
     "src/data/overlays/molecular-clouds/objects.json": "4c223b3cbd9686e2e9a91ad7607dd65f674f292c54287b9146ef5c29c9977225",
     "src/data/overlays/nebulae/objects.json": "3442bdde3db4537c65d4bd90bd352a08be8125493566b143649444cb7cab8be6",
-    "src/data/overlays/star-clusters/objects.json": "7f69b250a7fe29bd9efa7b28995df43391fca22a49f773be3fdff34134fcaac8",
+    "src/data/overlays/star-clusters/objects.json": "fd7bf48447f3124466b0dd86aaf6d0b433b54ce5f1baf6a86881ca42e9846974",
     "src/data/stars.csv": "44288f83123f36b349c58a72e4ae23608ec242e5ff25850fabf6a42ca2ae616a",
     "src/data/stellar-companions.json": "8017682bf7c76ddfbb1cc204bbd2aca93ab917266cfdb23ca84d6f947acb10d2"
   },
@@ -4410,6 +4410,26 @@
       "sources": [
         "src/data/overlays/galaxies/objects.json"
       ]
+    },
+    "arches-cluster": {
+      "name": "Arches Cluster",
+      "designations": [
+        "2CXO J174550.4-284919",
+        "3XMM J174550.4-284919",
+        "[BDB2003] G000.12+00.01",
+        "[GSL2002] 61",
+        "[NHS93] 17",
+        "Arches",
+        "GAL 000.12+00.02",
+        "GAL 000.121+00.017",
+        "SWIFT J174550.3-284920"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NAME+Arches+Cluster",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "NAME Arches Cluster"
     },
     "barnard-124": {
       "name": "Barnard 124",
@@ -481397,6 +481417,32 @@
       ],
       "simbadId": "NGC  3532"
     },
+    "ngc-3603": {
+      "name": "NGC 3603",
+      "designations": [
+        "HD 97950 cluster",
+        "[FSR2007] 1576",
+        "[GG70] 291.6-0.5",
+        "[GSL2002] 27",
+        "[KPS2012] MWSC 1926",
+        "BRAN 348B",
+        "C 1112-609",
+        "Cl VDBH 115",
+        "GAL 291.63-00.54",
+        "GRS G291.60 -00.50",
+        "GUM 38b",
+        "MHR 14",
+        "RCW 57B",
+        "SRGA J111457.9-611432",
+        "Villafranca O-001"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NGC+3603",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "NGC  3603"
+    },
     "ngc-6726": {
       "name": "NGC 6726/6727",
       "designations": [
@@ -487873,6 +487919,64 @@
       ],
       "simbadId": "PN PuWe    1"
     },
+    "quintuplet-cluster": {
+      "name": "Quintuplet Cluster",
+      "designations": [
+        "[BDB2003] G000.16-00.06",
+        "IRAS 17430-2848",
+        "MGM 5",
+        "Quintuplet",
+        "RAFGL 2004"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=NAME+Quintuplet+Cluster",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "NAME Quintuplet Cluster"
+    },
+    "r136": {
+      "name": "R136",
+      "designations": [
+        "HD 38268",
+        "1ES 0538-69.1B",
+        "2E 0539.1-6906",
+        "2E 1513",
+        "[NO95] 10",
+        "[SHP2000] LMC 301",
+        "Brey 82",
+        "CAL 72",
+        "CCDM J05387-6906ABCD",
+        "CD-69 324",
+        "CPD-69 456",
+        "CSI-69 456 41",
+        "Dor IRS 99",
+        "FD 66",
+        "GC 7114",
+        "GCRV 56615",
+        "GEN# +1.00038268",
+        "GSC 09163-01014",
+        "HTR 15",
+        "IDS 05394-6909 ABCD",
+        "JP11 1249",
+        "MH 15",
+        "PPM 354885",
+        "Radcliffe 136",
+        "RMC 136",
+        "SAO 249329",
+        "SK -69 243",
+        "SKY# 9173",
+        "TYC 9163-1014-1",
+        "UCAC2 1803442",
+        "WHHW 0539.1-6908"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=RMC+136",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "RMC 136"
+    },
     "r136a1": {
       "name": "R136a1",
       "designations": [
@@ -488163,6 +488267,34 @@
       "sources": [
         "src/data/catalogs/nearest-1000/stars.csv"
       ]
+    },
+    "rsgc-1": {
+      "name": "RSGC1",
+      "designations": [
+        "[BDS2003] 122",
+        "Red Supergiant Cluster 1",
+        "RSGC 1"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=RSGC+1",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "RSGC 1"
+    },
+    "rsgc-3": {
+      "name": "RSGC3",
+      "designations": [
+        "[AKC2009] Cluster",
+        "Red Supergiant Cluster 3",
+        "RSGC 3"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=RSGC+3",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "RSGC 3"
     },
     "running-man-nebula": {
       "name": "Running Man Nebula",
@@ -488883,6 +489015,23 @@
         "src/data/catalogs/notable-distant-stars/stars.csv"
       ]
     },
+    "stephenson-2": {
+      "name": "Stephenson 2",
+      "designations": [
+        "[BDB2003] G026.18-00.06",
+        "[KPS2012] MWSC 2969",
+        "Cl Stephenson 2",
+        "Red Supergiant Cluster 2",
+        "RSGC 2",
+        "RSGC2"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Cl+Stephenson+2",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "Cl Stephenson    2"
+    },
     "stephenson-2-18": {
       "name": "Stephenson 2-18",
       "designations": [
@@ -489363,6 +489512,25 @@
         "src/data/overlays/nebulae/objects.json"
       ],
       "simbadId": "M  20"
+    },
+    "trumpler-14": {
+      "name": "Trumpler 14",
+      "designations": [
+        "[DBS2003] 54",
+        "[KPR2004b] 263",
+        "[KPS2012] MWSC 1846",
+        "C 1041-593",
+        "Cl Trumpler 14",
+        "Cl VDBH 102",
+        "Tr 14",
+        "Villafranca O-002"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Cl+Trumpler+14",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "Cl Trumpler   14"
     },
     "tychos-supernova-remnant": {
       "name": "Tycho’s Supernova Remnant",
@@ -489991,6 +490159,26 @@
       ],
       "simbadId": "PN G197.4-06.4"
     },
+    "westerlund-1": {
+      "name": "Westerlund 1",
+      "designations": [
+        "Ara Cluster",
+        "[KPS2012] MWSC 2461",
+        "C 1644-457",
+        "Cl Westerlund 1",
+        "ESO 277-12",
+        "IRAS 16434-4545",
+        "TeV J1647-458",
+        "Villafranca O-033",
+        "Wd 1"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Cl+Westerlund+1",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "Cl Westerlund    1"
+    },
     "westerlund-1-w26": {
       "name": "Westerlund 1 W26",
       "designations": [
@@ -490009,6 +490197,29 @@
         "src/data/catalogs/notable-distant-stars/stars.csv"
       ],
       "simbadId": "2MASS J16470540-4550367"
+    },
+    "westerlund-2": {
+      "name": "Westerlund 2",
+      "designations": [
+        "3FHL J1023.3-5747e",
+        "4FGL J1023.3-5747e",
+        "[KPS2012] MWSC 1801",
+        "[MBP2001] 82A",
+        "C 1022-575",
+        "Cl VDBH 95",
+        "Cl Westerlund 2",
+        "ESO 127-18",
+        "OCl 807",
+        "TeV J1023-575",
+        "Villafranca O-004",
+        "Wd 2"
+      ],
+      "sources": [
+        "catalog-work/object-designations/extended.csv",
+        "https://simbad.cfa.harvard.edu/simbad/sim-id?Ident=Cl+Westerlund+2",
+        "src/data/overlays/star-clusters/objects.json"
+      ],
+      "simbadId": "Cl Westerlund    2"
     },
     "wise-0855-0714": {
       "name": "WISE 0855-0714",

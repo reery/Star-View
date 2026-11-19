@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { expect, test, type Locator } from '@playwright/test'
 import { PNG } from 'pngjs'
-import { openFilter, openPreferences, openSpecs, openViewer, selectObject, zoomViewer } from './support'
+import { awaitWelcome, openFilter, openPreferences, openSpecs, openViewer, selectObject, zoomViewer } from './support'
 
 test('persists constellation latitude across reloads and ignores unsupported stored values', async ({ page }) => {
   await openViewer(page)
@@ -250,14 +250,12 @@ test('runs with browser storage blocked and asks the welcome question on every v
   })
   const welcome = page.locator('#welcome-tile')
   await page.goto('/')
-  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
   await expect(page.locator('#scene-status')).toBeHidden()
-  await expect(welcome).toBeVisible()
+  await awaitWelcome(page)
   await page.locator('#welcome-no').click()
   await expect(welcome).toBeHidden()
   await page.reload()
-  await expect(page.locator('#scene')).toHaveAttribute('data-ready', 'true')
-  await expect(welcome).toBeVisible()
+  await awaitWelcome(page)
   await page.locator('#welcome-yes').click()
   const tour = page.locator('.tutorial-tile')
   await expect(tour).toBeVisible()

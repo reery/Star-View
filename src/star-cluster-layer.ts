@@ -1,8 +1,9 @@
 import { Color, Group, Vector3, type Camera } from 'three'
 import type { StarColorMode } from './astronomy'
-import type { Star, StarClusterDetails } from './catalog-model'
+import { clusterExtentPc, type Star, type StarClusterDetails, type StarClusterObjectType } from './catalog-model'
 import { distanceFade } from './milky-way-layer'
 import { createPuffLayer, seededRandom, type NebulaLayer, type PuffInstances, type PuffSource } from './nebula-layer'
+import { clusterBandWeight, RED_SUPERGIANT_CLUSTER_AGE_MYR, type WavelengthBandId } from './wavelength-vision'
 
 // A cluster's faint members, which no catalog holds, drawn as one soft glow: a Plummer sphere whose scale is the
 // published half-member radius, cut at the tidal radius. Where the bright members are catalog stars, the glow fades
@@ -13,21 +14,23 @@ const GLOW_ALPHA = 0.02
 // Up close, a glow puff grows no larger than this fraction of the view height: it keeps its opacity, so the glow
 // dims as the camera enters the cluster, and the fill stays within a few screens instead of a hundred.
 const GLOW_MAX_SCREEN_FRACTION = 0.06
-// A globular cluster is far denser: its glow follows its measured core and half-light radii, and its brightest giants
-// are drawn as stars, too small to see from afar, that resolve as the camera approaches.
-const GLOBULAR_GLOW_PUFFS = 1200
-const GLOBULAR_GLOW_ALPHA = 0.03
+// Globular and super star clusters are far denser: their glow follows their half-light radius (and core radius, where
+// measured), and their brightest stars are drawn as points, too small to see from afar, that resolve as the camera
+// approaches. A super star cluster holds fewer of them than a globular cluster.
+const DENSE_GLOW_PUFFS = 1200
+const DENSE_GLOW_ALPHA = 0.03
 const GLOBULAR_STARS = 3000
-const GLOBULAR_STAR_PC = 0.15
-const GLOBULAR_STAR_ALPHA = 1.6
-// The giants stay points up close: their size on screen is capped at this fraction of the view height.
-const GLOBULAR_STAR_MAX_SCREEN_FRACTION = 0.003
-// Beyond this distance from a globular cluster's edge, every giant is far below a pixel and fades to nothing
+const SUPER_STARS = 1200
+const CLUSTER_STAR_PC = 0.15
+const CLUSTER_STAR_ALPHA = 1.6
+// The stars stay points up close: their size on screen is capped at this fraction of the view height.
+const CLUSTER_STAR_MAX_SCREEN_FRACTION = 0.003
+// Beyond this distance from a dense cluster's edge, every star is far below a pixel and fades to nothing
 // (1.5-pixel minimum, energy-preserving alpha under 0.001 for a 1080-pixel view), so their layer is not drawn.
-const GLOBULAR_STARS_RANGE_PC = 4000
-// A globular cluster's light is concentrated: its level of detail follows twice its half-light radius, not its tidal
-// radius, so a distant cluster draws only a few dozen glow puffs.
-const GLOBULAR_DETAIL_RADII = 2
+const CLUSTER_STARS_RANGE_PC = 4000
+// A dense cluster's light is concentrated: its level of detail follows twice its half-light radius, not its outer edge,
+// so a distant cluster draws only a few dozen glow puffs.
+const DENSE_DETAIL_RADII = 2
 // Old stars: red giants, the brightest giants near the tip of their branch, subgiants at the turnoff, and blue
 // horizontal-branch stars, which metal-poor clusters hold in numbers (real and exaggerated colors).
 const GIANT = ['#ffcf96', '#ffb466'] as const
@@ -35,6 +38,12 @@ const TIP_GIANT = ['#ffad78', '#ff8a4a'] as const
 const SUBGIANT = ['#fff2dc', '#ffe6b8'] as const
 const BLUE_HORIZONTAL_BRANCH = ['#d2deff', '#9ab8ff'] as const
 const METAL_POOR_FE_H = -1.4
+// Young massive stars: hot O and B stars, blue supergiants and Wolf–Rayet stars, and, from about 10 million years on,
+// red supergiants; a few yellow hypergiants mark the short phase between them.
+const O_B_STAR = ['#cfdcff', '#9db8ff'] as const
+const BLUE_SUPERGIANT = ['#e6ecff', '#c4d2ff'] as const
+const YELLOW_HYPERGIANT = ['#fff1d0', '#ffdf9c'] as const
+const RED_SUPERGIANT = ['#ffb27a', '#ff8a48'] as const
 
 const seedFor = (id: string) => [...id].reduce((hash, character) => Math.imul(hash ^ character.charCodeAt(0), 16777619), 0x811c)
 
@@ -85,14 +94,15 @@ function projectedHalfRadius({ radii, cumulative }: ReturnType<typeof truncatedP
 }
 
 /**
- * Draws 3D radii (pc) for a globular cluster: an Elson–Fall–Freeman profile, surface brightness ∝ (1 + R²/a²)^(−γ/2),
+ * Draws 3D radii (pc) for a dense cluster: an Elson–Fall–Freeman profile, surface brightness ∝ (1 + R²/a²)^(−γ/2),
  * whose core radius (half the central surface brightness) is the published one and whose slope γ puts half the light
- * within the published half-light radius once the profile is cut at the tidal radius.
+ * within the published half-light radius once the profile is cut at its edge. Being cut, it may be shallower than
+ * γ = 2, as young clusters such as R136 are.
  */
 export function globularRadius(core: number, halfLight: number, limit: number): (random: number) => number {
   const scaleFor = (slope: number) => core / Math.sqrt(2 ** (2 / slope) - 1)
   // A flatter halo (smaller slope) moves the half-light radius outward.
-  let [low, high] = [2.0001, 60]
+  let [low, high] = [1.0001, 60]
   for (let step = 0; step < 40; step++) {
     const middle = (low + high) / 2
     if (projectedHalfRadius(truncatedProfile(middle, scaleFor(middle), limit)) > halfLight) low = middle
@@ -112,6 +122,22 @@ export function globularRadius(core: number, halfLight: number, limit: number): 
   }
 }
 
+/** Draws 3D radii (pc) from a cluster's profile: fitted to its core and half-light radii, or a Plummer sphere, cut at its edge. */
+function clusterRadius(details: StarClusterDetails): (random: () => number) => number {
+  const { core_radius_pc: core, half_member_radius_pc: scale } = details
+  const limit = clusterExtentPc(details)
+  if (core !== null) {
+    const radius = globularRadius(core, scale, limit)
+    return (random) => radius(random())
+  }
+  return (random) => {
+    let radius: number
+    do radius = scale / Math.sqrt(random() ** (-2 / 3) - 1)
+    while (!(radius <= limit))
+    return radius
+  }
+}
+
 function placeOnSphere(puffs: PuffInstances, index: number, radius: number, random: () => number): void {
   const z = 2 * random() - 1
   const phi = 2 * Math.PI * random()
@@ -120,23 +146,21 @@ function placeOnSphere(puffs: PuffInstances, index: number, radius: number, rand
 }
 
 /** The glow's puffs, relative to the cluster center; the sphere looks the same along any axes. */
-export function starClusterGlowPuffs(id: string, details: StarClusterDetails): PuffInstances {
-  const { half_member_radius_pc: scale, tidal_radius_pc: limit, core_radius_pc: core, palette } = details
+export function starClusterGlowPuffs(id: string, type: StarClusterObjectType, details: StarClusterDetails): PuffInstances {
+  const { half_member_radius_pc: scale, core_radius_pc: core, palette } = details
   const random = seededRandom(seedFor(id))
-  const globularRadii = core === null ? null : globularRadius(core, scale, limit)
-  const count = globularRadii ? GLOBULAR_GLOW_PUFFS : GLOW_PUFFS
-  const alpha = globularRadii ? GLOBULAR_GLOW_ALPHA : GLOW_ALPHA
+  const sample = clusterRadius(details)
+  const dense = type !== 'open_cluster'
+  const count = dense ? DENSE_GLOW_PUFFS : GLOW_PUFFS
+  const alpha = dense ? DENSE_GLOW_ALPHA : GLOW_ALPHA
   const puffs = puffBuffer(count)
   const real = new Color(palette.real).toArray()
   const vivid = new Color(palette.exaggerated).toArray()
   for (let index = 0; index < count; index++) {
-    let radius: number
-    if (globularRadii) radius = globularRadii(random())
-    else do radius = scale / Math.sqrt(random() ** (-2 / 3) - 1)
-    while (!(radius <= limit))
+    const radius = sample(random)
     placeOnSphere(puffs, index, radius, random)
-    // Larger puffs outward keep the faint outskirts smooth; a globular cluster's core keeps smaller ones.
-    const size = globularRadii ? Math.max(core!, scale * 0.5 * Math.min(1, radius / scale)) : scale * (0.25 + 0.25 * Math.min(1, radius / scale))
+    // Larger puffs outward keep the faint outskirts smooth; a dense cluster's core keeps smaller ones.
+    const size = dense ? Math.max(core ?? scale * 0.25, scale * 0.5 * Math.min(1, radius / scale)) : scale * (0.25 + 0.25 * Math.min(1, radius / scale))
     puffs.shapes.set([size, alpha * (0.7 + 0.3 * random()), 1 / (2 * scale), 0.37], index * 4)
     puffs.realColors.set(real, index * 3)
     puffs.vividColors.set(vivid, index * 3)
@@ -144,20 +168,29 @@ export function starClusterGlowPuffs(id: string, details: StarClusterDetails): P
   return puffs
 }
 
-/** A globular cluster's brightest giants, relative to its center, following the same profile as its glow. */
-export function globularClusterStarPuffs(id: string, details: StarClusterDetails): PuffInstances {
-  const { half_member_radius_pc: scale, tidal_radius_pc: limit, core_radius_pc: core, metallicity_fe_h: metallicity } = details
+/** Kind of a dense cluster's bright star at a uniform draw: old giants in a globular cluster, young massive stars in a super star cluster. */
+function brightStarKind(type: StarClusterObjectType, details: StarClusterDetails): (kind: number) => readonly [string, string] {
+  if (type === 'globular_cluster') {
+    const blueFraction = details.metallicity_fe_h! < METAL_POOR_FE_H ? 0.25 : 0.03
+    return (kind) => kind < blueFraction ? BLUE_HORIZONTAL_BRANCH : kind < blueFraction + 0.1 ? TIP_GIANT : kind < 0.75 ? GIANT : SUBGIANT
+  }
+  const red = details.age_myr >= RED_SUPERGIANT_CLUSTER_AGE_MYR ? 0.3 : 0.02
+  return (kind) => kind < red ? RED_SUPERGIANT : kind < red + 0.02 ? YELLOW_HYPERGIANT : kind < red + 0.2 ? BLUE_SUPERGIANT : O_B_STAR
+}
+
+/** A dense cluster's brightest stars, relative to its center, following the same profile as its glow. */
+export function clusterStarPuffs(id: string, type: StarClusterObjectType, details: StarClusterDetails): PuffInstances {
   const random = seededRandom(seedFor(`${id}:stars`))
-  const radius = globularRadius(core!, scale, limit)
-  const blueFraction = metallicity < METAL_POOR_FE_H ? 0.25 : 0.03
-  const puffs = puffBuffer(GLOBULAR_STARS)
+  const sample = clusterRadius(details)
+  const kindOf = brightStarKind(type, details)
+  const count = type === 'globular_cluster' ? GLOBULAR_STARS : SUPER_STARS
+  const puffs = puffBuffer(count)
   const color = new Color()
-  for (let index = 0; index < GLOBULAR_STARS; index++) {
-    placeOnSphere(puffs, index, radius(random()), random)
-    const kind = random()
-    const [real, vivid] = kind < blueFraction ? BLUE_HORIZONTAL_BRANCH : kind < blueFraction + 0.1 ? TIP_GIANT : kind < 0.75 ? GIANT : SUBGIANT
-    // Few stars are bright: the luminosity function falls steeply toward the tip of the giant branch.
-    puffs.shapes.set([GLOBULAR_STAR_PC, GLOBULAR_STAR_ALPHA * (0.25 + 0.75 * random() ** 2), 0, 0.37], index * 4)
+  for (let index = 0; index < count; index++) {
+    placeOnSphere(puffs, index, sample(random), random)
+    const [real, vivid] = kindOf(random())
+    // Few stars are bright: the luminosity function falls steeply toward its brightest stars.
+    puffs.shapes.set([CLUSTER_STAR_PC, CLUSTER_STAR_ALPHA * (0.25 + 0.75 * random() ** 2), 0, 0.37], index * 4)
     puffs.realColors.set(color.set(real).toArray(), index * 3)
     puffs.vividColors.set(color.set(vivid).toArray(), index * 3)
   }
@@ -168,6 +201,8 @@ export interface StarClusterLayer {
   group: Group
   setVisible(visible: readonly boolean[]): void
   setColorMode(mode: StarColorMode): void
+  /** Shows each cluster with its light in a wavelength band, in the band's false colors outside visible light. */
+  setBand(band: WavelengthBandId): void
   setViewportHeight(pixels: number): void
   /** Follows each cluster's moving center and fades its glow, scaled by `opacity`, as the camera nears its stars. */
   update(camera: Camera, centers: readonly Vector3[], opacity: number): void
@@ -178,25 +213,32 @@ export function createStarClusterLayer(clusters: readonly Star[], mode: StarColo
   const group = new Group()
   const glows = clusters.map((star) => {
     const cluster = star.cluster!
+    const type = star.type as StarClusterObjectType
     let puffs: PuffInstances | null = null
-    const globular = cluster.core_radius_pc !== null
-    const detailRadius = globular ? GLOBULAR_DETAIL_RADII * cluster.half_member_radius_pc : cluster.tidal_radius_pc
+    const dense = type !== 'open_cluster'
+    const detailRadius = dense ? DENSE_DETAIL_RADII * cluster.half_member_radius_pc : clusterExtentPc(cluster)
+    const exposure = (_lift: number, band: WavelengthBandId) => clusterBandWeight(star, band)
     const source: PuffSource = {
-      count: globular ? GLOBULAR_GLOW_PUFFS : GLOW_PUFFS,
+      count: dense ? DENSE_GLOW_PUFFS : GLOW_PUFFS,
       extent: { center: new Vector3(), semiAxes: [detailRadius, detailRadius] },
+      exposure,
       // Generated on first draw.
-      instances: () => (puffs ??= starClusterGlowPuffs(star.id, cluster)),
+      instances: () => (puffs ??= starClusterGlowPuffs(star.id, type, cluster)),
     }
     const layers = [createPuffLayer([source], mode, { maxScreenFraction: GLOW_MAX_SCREEN_FRACTION })]
-    if (globular) {
-      // Within range every giant is drawn: from afar each is far below a pixel and fades; nearer, it resolves.
+    if (dense) {
+      // Within range every star is drawn: from afar each is far below a pixel and fades; nearer, it resolves.
       let stars: PuffInstances | null = null
-      const starSource: PuffSource = { count: GLOBULAR_STARS, instances: () => (stars ??= globularClusterStarPuffs(star.id, cluster)) }
-      layers.push(createPuffLayer([starSource], mode, { maxScreenFraction: GLOBULAR_STAR_MAX_SCREEN_FRACTION }))
+      const starSource: PuffSource = {
+        count: type === 'globular_cluster' ? GLOBULAR_STARS : SUPER_STARS,
+        exposure,
+        instances: () => (stars ??= clusterStarPuffs(star.id, type, cluster)),
+      }
+      layers.push(createPuffLayer([starSource], mode, { maxScreenFraction: CLUSTER_STAR_MAX_SCREEN_FRACTION }))
     }
     for (const layer of layers) group.add(layer.mesh)
     const fade = glowOnly.has(star.id) ? null : GLOW_FADE_RADII.map((radii) => radii * cluster.half_member_radius_pc) as [number, number]
-    return { layers, source, fade, starsRange: globular ? cluster.tidal_radius_pc + GLOBULAR_STARS_RANGE_PC : 0, starsShown: false }
+    return { layers, source, fade, starsRange: dense ? clusterExtentPc(cluster) + CLUSTER_STARS_RANGE_PC : 0, starsShown: false }
   })
   const visibility = glows.map(() => false)
   const cameraPosition = new Vector3()
@@ -216,6 +258,9 @@ export function createStarClusterLayer(clusters: readonly Star[], mode: StarColo
     },
     setColorMode(next) {
       eachLayer((layer) => layer.setColorMode(next))
+    },
+    setBand(band) {
+      eachLayer((layer) => layer.setBand(band))
     },
     setViewportHeight(pixels) {
       eachLayer((layer) => layer.setViewportHeight(pixels))

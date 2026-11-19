@@ -202,6 +202,7 @@ const emitsXRays = (star: Star) => !!star.compact && (/X-ray/.test(star.compact.
 export function shownInBand(star: Star, band: WavelengthBandId): boolean {
   if (band === 'visible' || (band === 'ultraviolet' || band === 'near-infrared') && (STELLAR_TYPES.has(star.type) || COMPACT_TYPES.has(star.type))) return true
   if (star.nebula) return nebulaBandSurfaceBrightness(star, band) !== null
+  if (star.cluster) return clusterBandWeight(star, band) > 0
   if (measuredInBand(star.id, band)) return true
   // Dark nebulae are cloud dust, so they appear in the bands where their clouds do.
   if (star.molecular_cloud || star.dark_nebula) {
@@ -363,6 +364,30 @@ export const GALAXY_BANDS: Record<WavelengthBandId, { emission: number; dust: nu
 // Hot gas fills the Local Bubble, Loop I and the Orion–Eridanus superbubble, so their shells glow brighter in X-rays.
 const X_RAY_BUBBLES = new Set(['local-bubble', 'loop-i-superbubble', 'orion-eridanus-superbubble'])
 export const bubbleBandWeight = (id: string, band: WavelengthBandId) => band === 'x-ray' && X_RAY_BUBBLES.has(id) ? 1.8 : 1
+
+// Star clusters' combined starlight in a band, as a weight on their visible glow. Hot young O and B stars outshine the rest
+// in ultraviolet; red supergiants (from about 10 million years on) and the giants of old clusters lead in the near
+// infrared. In clusters younger than about 5 million years, the colliding winds of massive stars and the coronae of young
+// stars glow in X-rays, as Chandra showed for Westerlund 1, the Arches, the Quintuplet, NGC 3603 and Trumpler 14.
+// Westerlund 1 and 2 are TeV gamma-ray sources (HESS J1646−458, HESS J1023−575). Clusters emit little in the far
+// infrared and radio; there, the gas and dust around young clusters shine as their nebulae.
+export const RED_SUPERGIANT_CLUSTER_AGE_MYR = 10
+const X_RAY_CLUSTER_AGE_MYR = 5
+const GAMMA_RAY_CLUSTERS = new Set(['westerlund-1', 'westerlund-2'])
+
+/** A star cluster's glow in the band relative to visible light; 0 where it is dark. */
+export function clusterBandWeight(star: Star, band: WavelengthBandId): number {
+  const age = star.cluster?.age_myr
+  if (age === undefined) return 0
+  switch (band) {
+    case 'visible': return 1
+    case 'ultraviolet': return age < RED_SUPERGIANT_CLUSTER_AGE_MYR ? 1.3 : age < 100 ? 0.8 : 0.3
+    case 'near-infrared': return age >= RED_SUPERGIANT_CLUSTER_AGE_MYR && age < 50 ? 1.4 : age >= 1000 ? 1.2 : 0.8
+    case 'x-ray': return age <= X_RAY_CLUSTER_AGE_MYR ? 0.5 : 0
+    case 'gamma': return GAMMA_RAY_CLUSTERS.has(star.id) ? 0.4 : 0
+    default: return 0
+  }
+}
 
 /** Collapsed clouds of distant red and brown dwarfs: brighter in the near infrared, gone where such stars are dark. */
 export const FAINT_CLOUD_BANDS: Record<WavelengthBandId, number> = {

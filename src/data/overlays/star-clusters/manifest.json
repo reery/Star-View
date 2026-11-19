@@ -2,12 +2,13 @@
   "schemaVersion": 1,
   "id": "star-clusters",
   "label": "Star clusters",
-  "description": "Landmark open clusters, from the nearby Hyades and Pleiades to the Double Cluster in the Perseus Arm, and landmark globular clusters, from the nearby Messier 4 to Omega Centauri and Terzan 5. Each is drawn as a soft glow for its faint members; the bright members of the nearby open clusters are the stars of the bundled catalogs, and the brightest giants of a globular cluster resolve as the camera approaches.",
+  "description": "Landmark open clusters, from the nearby Hyades and Pleiades to the Double Cluster in the Perseus Arm; landmark globular clusters, from the nearby Messier 4 to Omega Centauri and Terzan 5; and the super star clusters of the Milky Way and R136 in the Large Magellanic Cloud. Each is drawn as a soft glow for its faint members; the bright members of the nearby open clusters are the stars of the bundled catalogs, and the brightest stars of a globular or super star cluster resolve as the camera approaches.",
   "epoch": 2000,
-  "objectCount": 14,
+  "objectCount": 24,
   "counts": {
-    "open_cluster": 7,
-    "globular_cluster": 7
+    "open_cluster": 8,
+    "globular_cluster": 7,
+    "super_star_cluster": 9
   },
   "sources": [
     {
@@ -59,6 +60,14 @@
       "url": "https://doi.org/10.1051/0004-6361/201833587"
     },
     {
+      "name": "Maíz Apellániz et al. (2022); Gaia EDR3 distances of Trumpler 14, Westerlund 2 and NGC 3603",
+      "url": "https://doi.org/10.1051/0004-6361/202142364"
+    },
+    {
+      "name": "Itrich et al. (2024); age of Trumpler 14",
+      "url": "https://doi.org/10.1051/0004-6361/202347380"
+    },
+    {
       "name": "Baumgardt et al.; globular cluster masses, core, half-light and tidal radii and radial velocities",
       "url": "https://people.smp.uq.edu.au/HolgerBaumgardt/globular/"
     },
@@ -91,10 +100,38 @@
       "url": "https://doi.org/10.1051/0004-6361/202659349"
     },
     {
+      "name": "Portegies Zwart, McMillan & Gieles (2010); ages, masses, core and half-light radii of young massive clusters",
+      "url": "https://doi.org/10.1146/annurev-astro-081309-130834"
+    },
+    {
+      "name": "Negueruela et al. (2022); Gaia EDR3 distance of Westerlund 1",
+      "url": "https://doi.org/10.1051/0004-6361/202142985"
+    },
+    {
+      "name": "GRAVITY Collaboration (2022); distance of Sagittarius A*, adopted for the Arches and Quintuplet clusters",
+      "url": "https://arxiv.org/abs/2112.07478"
+    },
+    {
+      "name": "Pietrzyński et al. (2019); distance of the Large Magellanic Cloud",
+      "url": "https://doi.org/10.1038/s41586-019-0999-4"
+    },
+    {
+      "name": "Davies et al. (2007, 2008); kinematic distances and ages of Stephenson 2 and RSGC1",
+      "url": "https://doi.org/10.1086/527350"
+    },
+    {
+      "name": "Clark et al. (2009); distance and age of RSGC3",
+      "url": "https://doi.org/10.1051/0004-6361/200911945"
+    },
+    {
+      "name": "Crowther et al. (2016); age of R136 from Hubble ultraviolet spectra",
+      "url": "https://doi.org/10.1093/mnras/stw273"
+    },
+    {
       "name": "Ferraro et al. (2016); first ages of the two populations of Terzan 5",
       "url": "https://doi.org/10.3847/0004-637X/828/2/75"
     }
   ],
-  "cutoffPolicy": "Reviewed landmark open clusters: the Hyades, the Pleiades, the Beehive Cluster, the two halves of the Double Cluster, Messier 67 and NGC 3532; further open clusters follow from the Hunt & Reffert (2024) census. Reviewed landmark globular clusters: Omega Centauri, 47 Tucanae, Messier 4, Messier 13, Messier 22, Messier 15 and Terzan 5; further globular clusters follow from Baumgardt’s database.",
-  "snapshot": "J2000 Galactic frame; values reviewed 2026-11-18."
+  "cutoffPolicy": "Reviewed landmark open clusters: the Hyades, the Pleiades, the Beehive Cluster, the two halves of the Double Cluster, Messier 67, NGC 3532 and Trumpler 14; further open clusters follow from the Hunt & Reffert (2024) census. Reviewed landmark globular clusters: Omega Centauri, 47 Tucanae, Messier 4, Messier 13, Messier 22, Messier 15 and Terzan 5; further globular clusters follow from Baumgardt’s database. Super star clusters: the young massive clusters of Portegies Zwart et al. (2010) of at least 10^4 M☉ that are not open clusters of the app (h and χ Persei, Trumpler 14) or Galactic-center candidates without a dedicated record ([DBS2003] 179), and R136.",
+  "snapshot": "J2000 Galactic frame; values reviewed 2026-11-18, super star clusters and Trumpler 14 on 2026-11-19."
 }

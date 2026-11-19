@@ -59,6 +59,18 @@
                 <button id="tip-show" type="button">Show me</button>
               </div>
             </section>
+            <section id="welcome-tile" class="tip-tile welcome-tile" aria-labelledby="welcome-heading" aria-live="polite" data-scene-obstacle hidden>
+              <span id="welcome-icon" class="info-brand-icon" aria-hidden="true"></span>
+              <div id="welcome-body" class="welcome-body">
+                <h2 id="welcome-heading">Welcome to Star View</h2>
+                <p class="welcome-motto">Explore · Ask · Investigate · Understand</p>
+                <p>Do you want to be shown around here?</p>
+              </div>
+              <div class="browser-data-actions">
+                <button id="welcome-no" type="button">No</button>
+                <button id="welcome-yes" type="button">Yes</button>
+              </div>
+            </section>
             <section id="selected-object-card" class="selected-object" aria-label="Selected object" data-scene-obstacle>
               <div class="selected-object-content">
                 <div id="star-details" hidden>
@@ -171,9 +183,9 @@
                             <div class="cluster-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help" data-glossary-term="mass">Mass</button><span id="cluster-mass-term" class="tooltip mass-metric-tooltip" role="tooltip">The combined mass of the stars within the tidal radius.</span></dt><dd id="cluster-mass"></dd></div>
                             <div class="cluster-property" hidden><dt class="mass-metric-copy"><button id="cluster-half-member-radius-label" type="button" class="mass-metric-help">Half the members within</button><span id="cluster-half-member-radius-term" class="tooltip mass-metric-tooltip" role="tooltip">The distance from the center that holds half of the members within the tidal radius.</span></dt><dd id="cluster-half-member-radius"></dd></div>
                             <div id="cluster-core-radius-row" class="cluster-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Core radius</button><span id="cluster-core-radius-term" class="tooltip mass-metric-tooltip" role="tooltip">The size of the dense core, where the stars crowd most closely together.</span></dt><dd id="cluster-core-radius"></dd></div>
-                            <div class="cluster-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Tidal radius</button><span id="cluster-tidal-radius-term" class="tooltip mass-metric-tooltip" role="tooltip">Beyond this distance from the center, the Milky Way pulls harder on a star than the cluster does, and the star drifts away. The angle is how wide this sphere appears from Earth.</span></dt><dd id="cluster-tidal-radius"></dd></div>
-                            <div class="cluster-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="metallicity">Metallicity [Fe/H]</button></dt><dd id="cluster-metallicity"></dd></div>
-                            <div class="cluster-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="radial-velocity">Radial velocity</button></dt><dd id="cluster-velocity"></dd></div>
+                            <div id="cluster-tidal-radius-row" class="cluster-property" hidden><dt class="mass-metric-copy"><button type="button" class="mass-metric-help">Tidal radius</button><span id="cluster-tidal-radius-term" class="tooltip mass-metric-tooltip" role="tooltip">Beyond this distance from the center, the Milky Way pulls harder on a star than the cluster does, and the star drifts away. The angle is how wide this sphere appears from Earth.</span></dt><dd id="cluster-tidal-radius"></dd></div>
+                            <div id="cluster-metallicity-row" class="cluster-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="metallicity">Metallicity [Fe/H]</button></dt><dd id="cluster-metallicity"></dd></div>
+                            <div id="cluster-velocity-row" class="cluster-property" hidden><dt><button type="button" class="mass-metric-help" data-glossary-term="radial-velocity">Radial velocity</button></dt><dd id="cluster-velocity"></dd></div>
                             <div class="cluster-property" hidden><dt>Distance measured by</dt><dd id="cluster-distance-method"></dd></div>
                             <div class="cluster-property" hidden><dt>Source</dt><dd><a id="cluster-source" target="_blank" rel="noreferrer"></a></dd></div>
                             <div id="designations-empty-row" hidden><dt>Designations</dt><dd id="designations-empty"></dd></div>
@@ -1411,19 +1423,6 @@
         <button id="browser-data-no" type="button" autofocus>No</button>
       </div>
     </dialog>
-    <section id="welcome-tile" class="welcome-tile" role="dialog" aria-labelledby="welcome-heading" hidden>
-      <div class="info-brand">
-        <span id="welcome-icon" class="info-brand-icon"></span>
-        <div><h2 id="welcome-heading">Welcome to Star View</h2><p>Explore · Ask · Investigate · Understand</p></div>
-      </div>
-      <div id="welcome-body" class="welcome-body">
-        <p>Do you want to be shown around here?</p>
-        <div class="browser-data-actions">
-          <button id="welcome-no" type="button">No</button>
-          <button id="welcome-yes" type="button">Yes</button>
-        </div>
-      </div>
-    </section>
     <noscript>This nearby-object viewer requires JavaScript.</noscript>
     <script type="module" src="/src/bootstrap.ts"></script>
   </body>

@@ -4,7 +4,7 @@ export const NEBULA_OBJECT_TYPES = ['reflection_nebula', 'hii_region', 'planetar
 export const MOLECULAR_CLOUD_OBJECT_TYPES = ['molecular_cloud', 'dark_nebula'] as const
 export const BUBBLE_OBJECT_TYPES = ['bubble'] as const
 export const GALAXY_OBJECT_TYPES = ['galaxy'] as const
-export const STAR_CLUSTER_OBJECT_TYPES = ['open_cluster', 'globular_cluster'] as const
+export const STAR_CLUSTER_OBJECT_TYPES = ['open_cluster', 'globular_cluster', 'super_star_cluster'] as const
 export const OBJECT_TYPES = [...STELLAR_OBJECT_TYPES, ...COMPACT_OBJECT_TYPES, ...NEBULA_OBJECT_TYPES, ...MOLECULAR_CLOUD_OBJECT_TYPES, ...BUBBLE_OBJECT_TYPES, ...GALAXY_OBJECT_TYPES, ...STAR_CLUSTER_OBJECT_TYPES] as const
 export type ObjectType = typeof OBJECT_TYPES[number]
 export type NebulaObjectType = typeof NEBULA_OBJECT_TYPES[number]
@@ -282,7 +282,7 @@ export interface GalaxyDetails {
 }
 
 export interface StarClusterDetails {
-  /** Center of the Gaia DR3 members, J2000. */
+  /** Cluster center, J2000: the Gaia DR3 members' for open clusters, a published center otherwise. */
   ra_deg: number
   dec_deg: number
   distance_pc: number
@@ -290,32 +290,39 @@ export interface StarClusterDetails {
   distance_method: string
   distance_source: GalaxySource
   age_myr: number
-  age_error_myr: number
+  /** Null where the source gives no error. */
+  age_error_myr: number | null
   age_method: string
   age_source: GalaxySource
-  metallicity_fe_h: number
-  metallicity_error_dex: number
-  metallicity_source: GalaxySource
-  /** Gaia DR3 members within the tidal radius, and all members including those beyond it; null for globular clusters. */
+  /** [Fe/H] with its error and source; all null where no measurement is adopted. */
+  metallicity_fe_h: number | null
+  metallicity_error_dex: number | null
+  metallicity_source: GalaxySource | null
+  /** Gaia DR3 members within the tidal radius, and all members including those beyond it; null for other clusters. */
   members_within_tidal_radius: number | null
   members_total: number | null
   members_source: GalaxySource | null
-  /** Mass within the tidal radius. */
+  /** Mass within the tidal radius, or the photometric mass of a super star cluster. */
   mass_solar: number
-  mass_error_solar: number
+  /** Null where the source gives no error. */
+  mass_error_solar: number | null
   /**
-   * Projected radius holding half the members within the tidal radius, or half the light of a globular cluster; it also
-   * sets the drawn glow.
+   * Projected radius holding half the members within the tidal radius, or half the light of a globular or super star
+   * cluster; it also sets the drawn glow.
    */
   half_member_radius_pc: number
-  /** Core radius of a globular cluster (Spitzer 1987 definition); with the half-light radius it shapes the glow. Null for open clusters. */
+  /** Core radius where measured; with the half-light radius it shapes the glow. Null for open clusters. */
   core_radius_pc: number | null
-  /** Beyond it, the Milky Way's tides pull harder than the cluster holds; it bounds the drawn glow and its pick area. */
-  tidal_radius_pc: number
+  /**
+   * Beyond it, the Milky Way's tides pull harder than the cluster holds; it bounds the drawn glow and its pick area.
+   * Null for super star clusters, whose young halos show no tidal edge; `clusterExtentPc` bounds them instead.
+   */
+  tidal_radius_pc: number | null
   structure_source: GalaxySource
-  radial_velocity_kms: number
-  radial_velocity_error_kms: number
-  radial_velocity_source: GalaxySource
+  /** Mean radial velocity with its error and source; all null where none is adopted. */
+  radial_velocity_kms: number | null
+  radial_velocity_error_kms: number | null
+  radial_velocity_source: GalaxySource | null
   /** Reviewed members that a bundled catalog holds. */
   notable_members: { catalog: string; id: string; name: string }[]
   palette: { real: string; exaggerated: string }
@@ -600,6 +607,14 @@ export function isStarClusterObject(star: Pick<Star, 'type'>): boolean {
   return STAR_CLUSTER_OBJECT_TYPES.some((type) => type === star.type)
 }
 
+// Young massive clusters show no tidal edge (Elson, Fall & Freeman 1987): their drawn halo ends at this many half-light radii.
+const UNTRUNCATED_EXTENT_RADII = 10
+
+/** The radius that bounds a cluster's glow and pick area: its tidal radius, or a display edge for an untruncated halo. */
+export function clusterExtentPc(cluster: Pick<StarClusterDetails, 'tidal_radius_pc' | 'half_member_radius_pc'>): number {
+  return cluster.tidal_radius_pc ?? UNTRUNCATED_EXTENT_RADII * cluster.half_member_radius_pc
+}
+
 // A stray star or two inside the tidal radius does not stand for a cluster's bright members.
 const CLUSTER_CATALOG_MEMBERS = 3
 
@@ -608,7 +623,7 @@ const CLUSTER_CATALOG_MEMBERS = 3
  * close and would dazzle at its center. A distant cluster without them is only its glow, and is observed from like a nebula.
  */
 export function clusterHasCatalogMembers(cluster: Pick<Star, 'x_pc' | 'y_pc' | 'z_pc' | 'cluster'>, stars: readonly Star[]): boolean {
-  const radius = cluster.cluster?.tidal_radius_pc ?? 0
+  const radius = cluster.cluster ? clusterExtentPc(cluster.cluster) : 0
   let count = 0
   for (const star of stars) {
     if (!STELLAR_OBJECT_TYPES.some((type) => type === star.type)) continue
@@ -636,6 +651,7 @@ export function objectTypeLabel(type: ObjectType): string {
     galaxy: 'Galaxy',
     open_cluster: 'Open cluster',
     globular_cluster: 'Globular cluster',
+    super_star_cluster: 'Super star cluster',
   }[type]
 }
 
