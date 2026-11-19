@@ -1,8 +1,8 @@
 import { starDisplayColor, type StarColorMode } from './astronomy'
-import { Orbit, Sparkles, createElement } from 'lucide'
+import { Orbit, PencilRuler, Sparkles, createElement } from 'lucide'
 import { svgNode as svg } from './spectral-chart'
 import { starComponentIdentity, type StarSystem, type StarSystemComponent } from './star-systems'
-import { orbitalPlanePoint, orbitBarycenterVisible, orbitHasGeometry, orbitMassFraction, projectedOrbitPoint, stellarOrbitsForSystem, type StellarOrbit } from './stellar-orbits'
+import { binaryForOrbit, orbitalPlanePoint, orbitBarycenterVisible, orbitHasGeometry, orbitMassFraction, projectedOrbitPoint, stellarOrbitsForSystem, type BinaryPair, type StellarOrbit } from './stellar-orbits'
 
 let topView = false
 
@@ -10,17 +10,47 @@ function componentId(component: StarSystemComponent): string {
   return starComponentIdentity(component.star.id)?.canonicalStarId ?? component.star.id
 }
 
-function starMarker(component: StarSystemComponent, x: number, y: number, colorMode: StarColorMode, labelSide: 'left' | 'right' | 'below' = 'below'): SVGGElement {
-  const group = svg('g', { 'data-stellar-component': component.star.id })
-  const color = starDisplayColor(component.star, colorMode).getStyle()
-  group.append(svg('title', {}, component.star.name),
+/** A glowing star symbol with its component label. */
+export function stellarMarker(color: string, name: string, label: string, x: number, y: number, labelSide: 'left' | 'right' | 'below' = 'below'): SVGGElement {
+  const group = svg('g')
+  group.append(svg('title', {}, name),
     svg('circle', { cx: x, cy: y, r: 13, fill: color, opacity: 0.06 }),
     svg('circle', { cx: x, cy: y, r: 8, fill: color, opacity: 0.12 }),
     svg('circle', { cx: x, cy: y, r: 4, fill: color, class: 'planet-marker' }),
     svg('circle', { cx: x, cy: y, r: 1.7, fill: '#fff8ed' }),
     svg('text', { x: x + (labelSide === 'left' ? -12 : labelSide === 'right' ? 12 : 0), y: y + (labelSide === 'below' ? 23 : 4),
-      'text-anchor': labelSide === 'left' ? 'end' : labelSide === 'right' ? 'start' : 'middle', class: 'planet-diagram-label' }, component.label))
+      'text-anchor': labelSide === 'left' ? 'end' : labelSide === 'right' ? 'start' : 'middle', class: 'planet-diagram-label' }, label))
   return group
+}
+
+function starMarker(component: StarSystemComponent, x: number, y: number, colorMode: StarColorMode, labelSide: 'left' | 'right' | 'below' = 'below'): SVGGElement {
+  const group = stellarMarker(starDisplayColor(component.star, colorMode).getStyle(), component.star.name, component.label, x, y, labelSide)
+  group.dataset.stellarComponent = component.star.id
+  return group
+}
+
+/** The center of mass both members orbit, drawn as a ringed cross. */
+export function barycenterMarker(x: number, y: number, description: string): SVGGElement {
+  const marker = svg('g', { class: 'stellar-barycenter' })
+  marker.append(svg('title', {}, description),
+    svg('circle', { cx: x, cy: y, r: 3.5, fill: '#000', stroke: 'var(--muted)', 'stroke-width': 1 }),
+    svg('path', { d: `M${x - 6},${y}h12 M${x},${y - 6}v12`, stroke: 'var(--muted)', 'stroke-width': 0.7 }))
+  return marker
+}
+
+/** A 1/2/5 distance scale in astronomical units, about 50 px long, ending at `right`. */
+export function orbitScaleBar(pixelsPerAu: number, description: string, right = 244, baseline = 149): SVGGElement {
+  const targetAu = 50 / pixelsPerAu
+  const magnitude = 10 ** Math.floor(Math.log10(targetAu))
+  const fractionOfMagnitude = targetAu / magnitude
+  const distanceAu = (fractionOfMagnitude >= 5 ? 5 : fractionOfMagnitude >= 2 ? 2 : 1) * magnitude
+  const left = right - distanceAu * pixelsPerAu
+  const scaleBar = svg('g', { 'data-orbit-scale-au': distanceAu })
+  scaleBar.append(svg('title', {}, description),
+    svg('path', { d: `M${left},${baseline - 20}v6 M${left},${baseline - 17}H${right} M${right},${baseline - 20}v6`, fill: 'none', stroke: 'var(--muted)', 'stroke-width': 1 }),
+    svg('text', { x: right, y: baseline, 'text-anchor': 'end', class: 'planet-diagram-label' },
+      `${distanceAu.toLocaleString('en-US', { maximumSignificantDigits: 3 })} AU`))
+  return scaleBar
 }
 
 function stellarDiagram(system: StarSystem, orbit: StellarOrbit | undefined, colorMode: StarColorMode): SVGSVGElement {
@@ -62,11 +92,9 @@ function stellarDiagram(system: StarSystem, orbit: StellarOrbit | undefined, col
   })
   if (barycentric && orbitBarycenterVisible(system, orbit)) {
     const center = transform({ x: 0, y: 0 }, 1)
-    const marker = svg('g', { class: 'stellar-barycenter', 'data-barycenter': orbit.id })
-    marker.append(svg('title', {}, 'Center of mass: the point both members orbit, calculated from their catalog masses. Stellar symbols are enlarged.'),
-      svg('circle', { cx: center.x, cy: center.y, r: 3.5, fill: '#000', stroke: 'var(--muted)', 'stroke-width': 1 }),
-      svg('path', { d: `M${center.x - 6},${center.y}h12 M${center.x},${center.y - 6}v12`, stroke: 'var(--muted)', 'stroke-width': 0.7 }),
-      svg('text', { x: 16, y: 149, 'text-anchor': 'start', class: 'planet-diagram-label' }, 'Center of mass ⊕'))
+    const marker = barycenterMarker(center.x, center.y, 'Center of mass: the point both members orbit, calculated from their catalog masses. Stellar symbols are enlarged.')
+    marker.dataset.barycenter = orbit.id
+    marker.append(svg('text', { x: 16, y: 149, 'text-anchor': 'start', class: 'planet-diagram-label' }, 'Center of mass ⊕'))
     diagram.append(marker)
   }
   // Fixed anomaly communicates the measured geometry without claiming today's phase.
@@ -81,18 +109,7 @@ function stellarDiagram(system: StarSystem, orbit: StellarOrbit | undefined, col
     })
   })
   // A 1/2/5 scale bar follows the pair's physical axis and current projection.
-  const targetAu = 50 * orbit.semiMajorAxisAu! / scale
-  const magnitude = 10 ** Math.floor(Math.log10(targetAu))
-  const fractionOfMagnitude = targetAu / magnitude
-  const distanceAu = (fractionOfMagnitude >= 5 ? 5 : fractionOfMagnitude >= 2 ? 2 : 1) * magnitude
-  const barWidth = distanceAu / orbit.semiMajorAxisAu! * scale
-  const right = 244, left = right - barWidth
-  const scaleBar = svg('g', { 'data-orbit-scale-au': distanceAu })
-  scaleBar.append(svg('title', {}, `Distance scale in ${topView ? 'the orbital plane' : 'the projected sky plane'}, in astronomical units.`),
-    svg('path', { d: `M${left},129v6 M${left},132H${right} M${right},129v6`, fill: 'none', stroke: 'var(--muted)', 'stroke-width': 1 }),
-    svg('text', { x: right, y: 149, 'text-anchor': 'end', class: 'planet-diagram-label' },
-      `${distanceAu.toLocaleString('en-US', { maximumSignificantDigits: 3 })} AU`))
-  diagram.append(scaleBar)
+  diagram.append(orbitScaleBar(scale / orbit.semiMajorAxisAu!, `Distance scale in ${topView ? 'the orbital plane' : 'the projected sky plane'}, in astronomical units.`))
   return diagram
 }
 
@@ -169,7 +186,7 @@ function orbitDetails(orbit: StellarOrbit | undefined): HTMLElement {
   return list
 }
 
-export function renderStellarSystem(system: StarSystem, selectedId: string, colorMode: StarColorMode): HTMLElement {
+export function renderStellarSystem(system: StarSystem, selectedId: string, colorMode: StarColorMode, onOrbitTool: (pair: BinaryPair) => void): HTMLElement {
   const section = document.createElement('section')
   section.className = 'stellar-system-section'
   const heading = document.createElement('h3')
@@ -183,7 +200,12 @@ export function renderStellarSystem(system: StarSystem, selectedId: string, colo
   viewToggle.setAttribute('aria-label', 'Top view of stellar orbit')
   viewToggle.setAttribute('aria-controls', 'stellar-system-figure')
   viewToggle.append(createElement(Orbit, { width: 18, height: 18, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
-  heading.append(viewToggle)
+  const toolButton = document.createElement('button')
+  toolButton.id = 'stellar-orbit-tool'
+  toolButton.type = 'button'
+  toolButton.className = 'panel-lock stellar-header-control stellar-orbit-tool-button'
+  toolButton.append(createElement(PencilRuler, { width: 18, height: 18, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
+  heading.append(toolButton, viewToggle)
   const figure = document.createElement('figure')
   figure.id = 'stellar-system-figure'
   figure.className = 'planet-system-figure'
@@ -197,6 +219,8 @@ export function renderStellarSystem(system: StarSystem, selectedId: string, colo
   const details = document.createElement('div')
   const orbits = stellarOrbitsForSystem(system)
   let activeOrbit: StellarOrbit | undefined
+  let activePair: BinaryPair | null = null
+  toolButton.addEventListener('click', () => { if (activePair) onOrbitTool(activePair) })
   function updateDiagram(): void {
     const available = Boolean(activeOrbit && orbitHasGeometry(activeOrbit))
     viewToggle.disabled = !available
@@ -210,6 +234,11 @@ export function renderStellarSystem(system: StarSystem, selectedId: string, colo
   })
   function show(orbit: StellarOrbit | undefined): void {
     activeOrbit = orbit
+    activePair = orbit ? binaryForOrbit(system, orbit) : null
+    toolButton.disabled = !activePair
+    toolButton.title = activePair ? 'Play this orbit in the binary star orbit tool'
+      : 'The binary star orbit tool needs two single stars with known masses, orbital size and eccentricity'
+    toolButton.setAttribute('aria-label', toolButton.title)
     updateDiagram()
     details.replaceChildren(orbitDetails(orbit))
     for (const button of controls.querySelectorAll<HTMLButtonElement>('button')) button.setAttribute('aria-pressed', String(button.dataset.orbitId === orbit?.id))

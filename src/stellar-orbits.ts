@@ -1,3 +1,4 @@
+import type { Star } from './catalog-model'
 import { starComponentIdentity, type StarSystem } from './star-systems'
 
 export interface StellarOrbit {
@@ -69,7 +70,7 @@ export function projectedOrbitPoint(orbit: StellarOrbit, eccentricAnomaly: numbe
 }
 
 /** Face-on orbital plane, with periastron to the right; unit axis. */
-export function orbitalPlanePoint(orbit: StellarOrbit, eccentricAnomaly: number): { x: number; y: number } {
+export function orbitalPlanePoint(orbit: Pick<StellarOrbit, 'eccentricity'>, eccentricAnomaly: number): { x: number; y: number } {
   return { x: Math.cos(eccentricAnomaly) - orbit.eccentricity!,
     y: -Math.sqrt(1 - orbit.eccentricity! ** 2) * Math.sin(eccentricAnomaly) }
 }
@@ -96,4 +97,29 @@ export function orbitBarycenterVisible(system: StarSystem, orbit: StellarOrbit):
   const primary = system.components.find(({ star }) => (starComponentIdentity(star.id)?.canonicalStarId ?? star.id) === orbit.primaryIds[0])?.star
   return primary?.radius_solar !== null && primary?.radius_solar !== undefined && primary.radius_solar > 0
     && orbit.semiMajorAxisAu * (1 - orbit.eccentricity) * fraction > 2 * primary.radius_solar * 0.00465046726
+}
+
+/** Solves Kepler's equation M = E − e sin E for the eccentric anomaly E. */
+export function eccentricAnomaly(meanAnomaly: number, eccentricity: number): number {
+  let E = eccentricity < 0.8 ? meanAnomaly : Math.PI
+  for (let i = 0; i < 12; i++) E -= (E - eccentricity * Math.sin(E) - meanAnomaly) / (1 - eccentricity * Math.cos(E))
+  return E
+}
+
+/** A catalog pair the orbit tool can replay: one star on each side, both masses, and the true relative orbit's size and shape. */
+export interface BinaryPair {
+  name: string
+  stars: readonly [Star, Star]
+  orbit: StellarOrbit & { semiMajorAxisAu: number; eccentricity: number }
+}
+
+export function binaryForOrbit(system: StarSystem, orbit: StellarOrbit): BinaryPair | null {
+  const { semiMajorAxisAu: axis, eccentricity } = orbit
+  // A photocenter solution (grade 9) describes the center of light, not the separation of the stars.
+  if (orbit.grade === 9 || orbit.primaryIds.length !== 1 || orbit.secondaryIds.length !== 1
+    || axis === null || !(axis > 0) || eccentricity === null || !(eccentricity >= 0 && eccentricity < 1)) return null
+  const star = (id: string) => system.components.find(({ star }) => (starComponentIdentity(star.id)?.canonicalStarId ?? star.id) === id)?.star
+  const primary = star(orbit.primaryIds[0]!), secondary = star(orbit.secondaryIds[0]!)
+  if (!primary?.mass_solar || !secondary?.mass_solar || primary.mass_solar <= 0 || secondary.mass_solar <= 0) return null
+  return { name: `${system.name} ${orbit.primary}–${orbit.secondary}`, stars: [primary, secondary], orbit: { ...orbit, semiMajorAxisAu: axis, eccentricity } }
 }

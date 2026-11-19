@@ -1,7 +1,7 @@
 import { SaveCheck } from 'lucide'
 import { clearLoadRecovery, createLoadError, loadWithRecovery } from './load-recovery'
 import { STREAM_EASING, STREAM_MS, streamWhenLoaded } from './content-stream'
-import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, Clapperboard, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, Lightbulb, List, ListChecks, ListFilter, Lock, Minus, Moon, Orbit, Paintbrush, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sparkles, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
+import { ArrowLeft, ArrowLeftRight, ArrowRight, Atom, BookOpen, Box, Cake, ChartColumn, Clapperboard, ChartScatter, ChevronUp, FunnelX, ChevronsDownUp, ChevronsLeftRight, ChevronsRightLeft, ChevronsUpDown, CircleDashed, CircleHelp, Clock, Cloud, Compass, Cone, Crosshair, Dome, Earth, Ellipsis, Eye, Filter, Focus, Galaxy, Globe, GraduationCap, Grid2X2, Lightbulb, List, ListChecks, ListFilter, Lock, Minus, Moon, Orbit, Paintbrush, PencilRuler, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, Plus, Radius, Rotate3d, RotateCcw, Ruler, RotateCw, Save, Expand, Search, Copy, Settings2, Sparkle, Sparkles, Sun, Telescope, Thermometer, Trophy, Weight, X, ArrowDown, ArrowUp, ChevronDown, LogIn, LogOut, Rocket, Trash2, createElement, type IconNode } from 'lucide'
 import { ObserverOriginIcon, OriginIcon } from './origin-icon'
 import { ConstellationIcon } from './constellation-icon'
 import { createSpaceship, createSpaceshipGizmo, SPACESHIP_KEYS, SPACESHIP_LABELS, SPACESHIP_SPEEDS_LY_PER_S, type Spaceship, type SpaceshipBrightness, type SpaceshipKey, type SpaceshipLabels, type SpaceshipTelemetry } from './spaceship'
@@ -40,7 +40,7 @@ import { temperatureCardAvailable } from './temperature-properties'
 import { constellationCardAvailable, loadConstellationChart, type ConstellationChart } from './constellations'
 import type { RadiusReference } from './radius-comparison'
 import { indexStarSystems, reviewedCompactSystems, type StarSystem } from './star-systems'
-import { loadStellarOrbits } from './stellar-orbits'
+import { loadStellarOrbits, type BinaryPair } from './stellar-orbits'
 import { loadPlanetarySystem, planetCountForStar, planetarySystemForStar, planetHostId } from './planetary-systems'
 import { loadStarDetails, starDetailsLoaded } from './selected-star-details'
 import { renderObjectLinks } from './object-links'
@@ -171,6 +171,10 @@ icon('neighborhood-clear-icon', FunnelX)
 icon('neighborhood-birth-icon', Cake)
 icon('neighborhood-lock-icon', Lock)
 icon('neighborhood-close-icon', X)
+icon('tools-icon', PencilRuler)
+icon('tools-menu-orbit-icon', Orbit)
+icon('tools-lock-icon', Lock)
+icon('tools-close-icon', X)
 icon('spaceship-icon', Rocket)
 icon('spaceship-active-icon', Rocket)
 icon('rotation-active-icon', Rotate3d)
@@ -355,6 +359,9 @@ attachPopoverTooltip(element<HTMLButtonElement>('spaceship-help'), element('spac
 let constellationBrowser: ReturnType<typeof import('./constellation-browser').initializeConstellationBrowser> | undefined
 let topLists: ReturnType<typeof import('./top-lists').initializeTopLists> | undefined
 let graphs: ReturnType<typeof import('./graphs').initializeGraphs> | undefined
+let orbitTool: ReturnType<typeof import('./orbit-tool').initializeOrbitTool> | undefined
+let pendingOrbitPair: BinaryPair | undefined
+let orbitToolSystems: Promise<ReadonlyMap<string, StarSystem>> | undefined
 let graphFilter: ObjectListFilter | null = null
 /** The objects the Objects list shows, and while its filter is on, their ids and the map predicate limiting the 3D view to them. */
 let listedObjects: readonly { star: Star }[] = []
@@ -641,11 +648,11 @@ document.querySelectorAll('.time-markers').forEach((markers) => {
 })
 const selectionHistory = new SelectionHistory(selectedId)
 // The Spaceship card opens in the dock like other cards, but scene clicks leave it open for flying.
-const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'wavelength', 'insights', 'neighborhood', 'preferences', 'info', 'spaceship', 'rotation', 'observer', 'demo'] as const
-const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'wavelength', 'insights', 'neighborhood', 'preferences', 'rotation', 'observer', 'demo'] as const
+const panelNames = ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'wavelength', 'insights', 'neighborhood', 'preferences', 'info', 'tools', 'spaceship', 'rotation', 'observer', 'demo'] as const
+const lockablePanelNames = ['motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'wavelength', 'insights', 'neighborhood', 'preferences', 'tools', 'rotation', 'observer', 'demo'] as const
 // Explore panels and Demo mode open from a flyout, so focus returns to its toggle.
 // The observer card opens with observer view and has no toggle of its own; closed, its indicator reopens it.
-const panelToggleId = (name: typeof panelNames[number]) => name === 'observer' ? 'observer-active' : name === 'demo' ? 'info-toggle' : name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'wavelength' || name === 'insights' || name === 'neighborhood' || name === 'motion' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
+const panelToggleId = (name: typeof panelNames[number]) => name === 'observer' ? 'observer-active' : name === 'demo' ? 'info-toggle' : name === 'constellations' || name === 'top-lists' || name === 'graphs' || name === 'paint' || name === 'wavelength' || name === 'insights' || name === 'neighborhood' || name === 'motion' || name === 'tools' || name === 'spaceship' ? 'discover-toggle' : `${name}-toggle`
 const lockedPanels = new Set<typeof lockablePanelNames[number]>()
 // Only the observer card remembers its lock between visits.
 try {
@@ -825,6 +832,13 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
     if (neighborhoodCenter) renderNeighborhood()
     else setNeighborhoodCenter(defaultNeighborhoodCenter())
   }
+  if (name === 'tools' && open) {
+    if (!orbitTool) void loadOrbitTool()
+    else {
+      orbitTool.open(pendingOrbitPair)
+      pendingOrbitPair = undefined
+    }
+  }
   if (name === 'spaceship') {
     // Opening turns the camera into a ship; an existing one keeps its place.
     if (open && !spaceship) launchSpaceship()
@@ -836,6 +850,73 @@ function setPanelOpen(name: typeof panelNames[number], open: boolean): void {
     if (open && !demoTour) void startDemo()
     else renderDemo()
   }
+}
+
+/** Opens the binary star orbit tool, replaying a catalog pair when one is given. */
+function openOrbitTool(pair?: BinaryPair): void {
+  // Opening the card, or a module still loading, takes the pair from here.
+  pendingOrbitPair = pair
+  if (!panelIsOpen('tools')) togglePanel('tools')
+  else if (orbitTool) {
+    orbitTool.open(pair)
+    pendingOrbitPair = undefined
+  }
+}
+
+async function loadOrbitTool(): Promise<void> {
+  const body = element('tools-body')
+  const result = await streamWhenLoaded(body, loadWithRecovery(body, () => import('./orbit-tool'), {
+    label: 'the orbit tool', silent: true, retry: () => { void loadOrbitTool() },
+    isCurrent: () => !events.signal.aborted && panelIsOpen('tools'),
+    focusTarget: element('tools-close'), onChange: syncPanelLayout,
+  }))
+  if (!result || orbitTool) return
+  const findSystem = (systems: ReadonlyMap<string, StarSystem>, id: string) => {
+    for (const system of systems.values()) if (system.id === id) return system
+  }
+  orbitTool = result.value.initializeOrbitTool(body, events.signal, {
+    systemById: (id) => findSystem(starSystems, id),
+    // Every notable pair of the tool is in the nearest-1000 catalog, which loads only when the map lacks one.
+    catalogSystemById: async (id) => findSystem(await (orbitToolSystems ??= catalogs.find((catalog) => catalog.manifest.id === 'nearest-1000')!.load()
+      .then(indexStarSystems, (error: unknown) => { orbitToolSystems = undefined; throw error })), id),
+    colorMode: () => starColorMode,
+  })
+  orbitTool.open(pendingOrbitPair)
+  pendingOrbitPair = undefined
+  syncPanelLayout()
+}
+
+/** Closes the Tools menu; the Explore icons it holds open retract too, unless the visitor is still among them. */
+function closeToolsMenu(restoreFocus = false, keepExplore = false): void {
+  const menu = element('tools-menu')
+  if (menu.hidden) return
+  menu.hidden = true
+  const explore = element('discover-toggle').parentElement!
+  explore.removeAttribute('data-menu-open')
+  if (!keepExplore) explore.setAttribute('data-dismissed', '')
+  if (restoreFocus) focusToolbarButton('discover-toggle')
+}
+
+/** The Tools button lists the tools in a menu that leaves the Explore icons uncovered. */
+function openToolsMenu(): void {
+  const menu = element('tools-menu')
+  if (!menu.hidden) return closeToolsMenu(false, true)
+  const anchor = element('tools-toggle').getBoundingClientRect()
+  // The Explore icons stay out while the menu is open, so another Explore card is one click away.
+  element('discover-toggle').parentElement!.setAttribute('data-menu-open', '')
+  menu.style.left = '0px'
+  menu.style.top = '0px'
+  menu.hidden = false
+  const bounds = menu.getBoundingClientRect()
+  // The menu overlaps a corner of its button, so it visibly comes from it: hanging down and to the left where there is room.
+  const OVERLAP = 12
+  const toLeft = anchor.left + OVERLAP - bounds.width >= 8
+  const down = anchor.bottom - OVERLAP + bounds.height <= window.innerHeight - 8
+  const left = toLeft ? anchor.left + OVERLAP - bounds.width : anchor.right - OVERLAP
+  const top = down ? anchor.bottom - OVERLAP : anchor.top + OVERLAP - bounds.height
+  menu.style.left = `${Math.max(8, Math.min(left, window.innerWidth - bounds.width - 8))}px`
+  menu.style.top = `${Math.max(8, Math.min(top, window.innerHeight - bounds.height - 8))}px`
+  menu.querySelector<HTMLButtonElement>('[role="menuitem"]')!.focus({ preventScroll: true })
 }
 
 async function loadGlossaryPanel(): Promise<void> {
@@ -2370,7 +2451,7 @@ async function renderActiveObjectSection(): Promise<void> {
       starInfoModule!.renderStarInfo(container, star.id, clusterMentionLinks(star.id))
       infoContentStarId = star.id
     } else {
-      systemCardModule!.renderSystemCard(container, planetarySystemForStar(star.id), starSystems.get(star.id), star, starColorMode, selectSystemPlanet)
+      systemCardModule!.renderSystemCard(container, planetarySystemForStar(star.id), starSystems.get(star.id), star, starColorMode, selectSystemPlanet, openOrbitTool)
       if (activePlanetId && !element('planet-card').hidden) highlightSystemPlanet(container, activePlanetId, activePlanetId)
     }
     syncSelectedObjectLayout()
@@ -4490,7 +4571,8 @@ element('objects-maximize').addEventListener('click', () => {
 // Touch taps reopen it through the toolbar's touch toggle.
 const discoverControls = element('discover-toggle').parentElement!
 element('discover-options').addEventListener('click', (event) => {
-  if (event.target instanceof Element && event.target.closest('button')) discoverControls.setAttribute('data-dismissed', '')
+  // The Tools button opens a menu instead of a card, so the icons stay until a tool is chosen.
+  if (event.target instanceof Element && event.target.closest('button:not(#tools-toggle)')) discoverControls.setAttribute('data-dismissed', '')
 }, { signal: events.signal })
 // Any retracted flyout reopens when the pointer returns to its button or keyboard navigation resumes.
 const toolbarFlyouts = document.querySelectorAll<HTMLElement>('[data-toolbar-flyout]')
@@ -5414,8 +5496,34 @@ filterTiles.addEventListener('click', (event) => {
   if (isFilterCategoryId(id)) enableFilterCategory(id)
 }, { signal: events.signal })
 for (const name of panelNames) {
-  element(name === 'observer' ? 'observer-active' : `${name}-toggle`).addEventListener('click', () => togglePanel(name), { signal: events.signal })
+  element(name === 'observer' ? 'observer-active' : `${name}-toggle`).addEventListener('click', () => name === 'tools' ? openToolsMenu() : togglePanel(name), { signal: events.signal })
 }
+element('tools-menu-orbit').addEventListener('click', () => {
+  closeToolsMenu()
+  openOrbitTool()
+}, { signal: events.signal })
+// A press outside the Tools menu only closes it and does nothing more, as the other context menus' backdrops do.
+// Among the Explore icons it keeps them out, faded no longer, so the next press can choose another card.
+document.addEventListener('pointerdown', (event) => {
+  if (element('tools-menu').hidden) return
+  const target = event.target instanceof Element ? event.target : null
+  if (target?.closest('#tools-menu, #tools-toggle')) return
+  closeToolsMenu(false, Boolean(target?.closest('.discover-controls')))
+  event.preventDefault()
+  event.stopPropagation()
+  const swallow = (click: Event) => {
+    click.preventDefault()
+    click.stopPropagation()
+  }
+  document.addEventListener('click', swallow, { capture: true, once: true })
+  document.addEventListener('contextmenu', swallow, { capture: true, once: true })
+  // A press that ends without a click, such as a drag, must not swallow a later one.
+  document.addEventListener('pointerup', () => setTimeout(() => {
+    document.removeEventListener('click', swallow, true)
+    document.removeEventListener('contextmenu', swallow, true)
+  }), { capture: true, once: true })
+}, { capture: true, signal: events.signal })
+element('tools-menu').addEventListener('keydown', navigateContextMenu, { signal: events.signal })
 for (const name of lockablePanelNames) {
   element(`${name}-lock`).addEventListener('click', () => togglePanelLock(name), { signal: events.signal })
 }
@@ -5427,7 +5535,7 @@ document.addEventListener('click', (event) => {
   event.preventDefault()
   openGlossaryTerm(term)
 }, { signal: events.signal })
-for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'wavelength', 'insights', 'neighborhood', 'preferences', 'spaceship', 'rotation', 'observer', 'demo'] as const) {
+for (const name of ['views', 'motion', 'filter', 'objects', 'glossary', 'constellations', 'top-lists', 'graphs', 'paint', 'wavelength', 'insights', 'neighborhood', 'preferences', 'tools', 'spaceship', 'rotation', 'observer', 'demo'] as const) {
   element(`${name}-close`).addEventListener('click', () => {
     setPanelOpen(name, false)
     syncPanelLayout()
@@ -5656,6 +5764,7 @@ document.addEventListener('click', (event) => {
 window.addEventListener('resize', () => {
   closeSavedViewContextMenu()
   closeSceneContextMenu()
+  closeToolsMenu()
 }, { signal: events.signal })
 document.addEventListener('keydown', (event) => {
   if (element<HTMLDialogElement>('browser-data-dialog').open) return
@@ -5669,6 +5778,13 @@ document.addEventListener('keydown', (event) => {
   if (!element('scene-context-menu').hidden) {
     if (event.key === 'Escape' || event.key === 'Tab') {
       closeSceneContextMenu()
+      event.preventDefault()
+      return
+    }
+  }
+  if (!element('tools-menu').hidden) {
+    if (event.key === 'Escape' || event.key === 'Tab') {
+      closeToolsMenu(true)
       event.preventDefault()
       return
     }

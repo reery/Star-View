@@ -1,12 +1,7 @@
 import { drawing, note, number, player, readouts, slider, svgNode, text, type WidgetMount } from './glossary-widget'
+import { eccentricAnomaly } from './stellar-orbits'
 
 const CENTER = { x: 180, y: 104 }
-
-function eccentricAnomaly(meanAnomaly: number, eccentricity: number): number {
-  let E = eccentricity < 0.8 ? meanAnomaly : Math.PI
-  for (let i = 0; i < 12; i++) E -= (E - eccentricity * Math.sin(E) - meanAnomaly) / (1 - eccentricity * Math.cos(E))
-  return E
-}
 
 /** Variants: `shape` for size and eccentricity, `tilt` for how the same orbit looks when inclined. */
 export const mount: WidgetMount = (host, signal, variant = 'shape') => {

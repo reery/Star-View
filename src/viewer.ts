@@ -866,6 +866,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
   const closeGains = new Float64Array(stars.length).fill(1)
   /** Whether magnitudes, labels and the magnitude limit still miss the latest close gains. */
   let closeGainsStale = false
+  /** The visibility base the close gains were rated against. */
+  let closeGainsBase = visibilityBaseStar
   /** Glare from stars the camera approaches fades in over their first 1.5 magnitudes of brightening. */
   let closeGlare = 0
   const closeLightPosition = new Vector3()
@@ -1288,6 +1290,27 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     }
   }
 
+  /** Rates each star's close gain and the glare from the camera against the current visibility base. */
+  function rateCloseGains(): void {
+    closeGainsBase = visibilityBaseStar
+    const base = pickable[starsById.get(visibilityBaseStar.id)!.index]!.position
+    let brightest = 1
+    for (let index = 0; index < stars.length; index++) {
+      const ratio = closeLightOff ? 0 : closeBaseDistance(index, base) / pickable[index]!.position.distanceTo(camera.position)
+      const gain = ratio > 1 ? ratio * ratio : 1
+      if (gain !== closeGains[index]) {
+        closeGains[index] = gain
+        closeGainsStale = true
+      }
+      if (coreEnabled[index] && starFluxes.getX(index) > 0) brightest = Math.max(brightest, gain)
+    }
+    const glare = Math.min(1, Math.log10(brightest) / 0.6)
+    if (glare !== closeGlare) {
+      closeGlare = glare
+      syncStarGlare()
+    }
+  }
+
   /**
    * A star the orbiting camera is closer to than the visibility base brightens as seen from the camera, like from
    * the ship. The star shader follows the camera every frame, and so do glare and eye adaptation here, except in power
@@ -1305,22 +1328,7 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     if (moved) {
       closeLightOff = off
       closeLightPosition.copy(camera.position)
-      const base = pickable[starsById.get(visibilityBaseStar.id)!.index]!.position
-      let brightest = 1
-      for (let index = 0; index < stars.length; index++) {
-        const ratio = off ? 0 : closeBaseDistance(index, base) / pickable[index]!.position.distanceTo(camera.position)
-        const gain = ratio > 1 ? ratio * ratio : 1
-        if (gain !== closeGains[index]) {
-          closeGains[index] = gain
-          closeGainsStale = true
-        }
-        if (coreEnabled[index] && starFluxes.getX(index) > 0) brightest = Math.max(brightest, gain)
-      }
-      const glare = Math.min(1, Math.log10(brightest) / 0.6)
-      if (glare !== closeGlare) {
-        closeGlare = glare
-        syncStarGlare()
-      }
+      rateCloseGains()
       collectAdaptingStars()
       // Switching close light on or off applies at once.
       if (switched) {
@@ -1605,6 +1613,8 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
     componentVisible = mapComponentVisibility(stars, selectedId, closeCompanions)
     componentVisible[referenceIndex] = 1
     ordinaryLayoutDirty = true
+    // Gains rated against the previous base would light a newly selected far base as if the camera were beside it.
+    if (closeGainsBase !== visibilityBaseStar) rateCloseGains()
     const visibilityBase = observerPoint() ? spaceshipObserver : visibilityBaseStar
     const baseChanged = closeGainsStale || rankedBaseId !== visibilityBase.id
     closeGainsStale = false

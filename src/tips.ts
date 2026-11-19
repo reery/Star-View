@@ -148,6 +148,8 @@ export const TIP_FEATURES: readonly Feature[] = [
   deep('graphs', 'graph', '#graphs-terms .glossary-term', byLabel),
   deep('graphs', 'graph-filter-active'),
   deep('graphs', 'graphs-width', '#graphs-width'),
+  open('tools', '#tools-toggle, #stellar-orbit-tool', exploreTool),
+  deep('tools', 'orbit-tool-system', '#orbit-tool-system'),
   open('spaceship', '#spaceship-toggle, #spaceship-active', exploreTool),
   deep('spaceship', 'spaceship-active'),
   deep('spaceship', 'spaceship-speed', '#spaceship-speed-level'),

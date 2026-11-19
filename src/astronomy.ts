@@ -82,10 +82,17 @@ export function gridScaleForViewDistance(distancePc: number, unit: DistanceUnit)
   }
 }
 
+const distanceFormatters = new Map<number, Intl.NumberFormat>()
+
 export function formatDistance(distancePc: number, unit: DistanceUnit, digits = 2): string {
   const converted = distancePc * (unit === 'ly' ? LIGHT_YEARS_PER_PARSEC : 1)
   const value = Math.abs(converted) < 0.5 * 10 ** -digits ? 0 : converted
-  return `${value.toFixed(digits)} ${unit}`
+  let formatter = distanceFormatters.get(digits)
+  if (!formatter) {
+    formatter = new Intl.NumberFormat('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })
+    distanceFormatters.set(digits, formatter)
+  }
+  return `${formatter.format(value)} ${unit}`
 }
 
 export function isMapVisibilityBase(target: Pick<Star, 'id'> & Position, observer: Pick<Star, 'id'> & Position): boolean {

@@ -4,10 +4,11 @@ import { readFileSync } from 'node:fs'
 import { parseStarCatalog } from './catalog'
 import { completeCatalogCompanions } from './stellar-companions'
 import { indexStarSystems, reviewedCompactSystems, reviewedStarSystems } from './star-systems'
-import { loadStellarOrbits, orbitalPlanePoint, orbitBarycenterVisible, orbitHasGeometry, orbitMassFraction, projectedOrbitPoint, stellarOrbitsForSystem, type StellarOrbit } from './stellar-orbits'
+import { binaryForOrbit, eccentricAnomaly, loadStellarOrbits, orbitalPlanePoint, orbitBarycenterVisible, orbitHasGeometry, orbitMassFraction, projectedOrbitPoint, stellarOrbitsForSystem, type StellarOrbit } from './stellar-orbits'
 import data from './data/stellar-orbits.json'
 import compactData from './data/compact-system-orbits.json'
 import audit from '../catalog-work/star-systems/stellar-orbits-audit.json'
+import { NOTABLE_ORBITS } from './orbit-tool'
 
 const stars = completeCatalogCompanions(parseStarCatalog(readFileSync(new URL('./data/stars.csv', import.meta.url), 'utf8')))
 const systems = indexStarSystems(stars)
@@ -224,6 +225,38 @@ describe('reviewed stellar orbits', () => {
     expect(orbitBarycenterVisible(missing, orbit)).toBe(false)
   })
 
+  it('offers only single-star pairs with both masses and a complete relative orbit to the orbit tool', () => {
+    const sirius = systems.get('sirius-a')!
+    const orbit = stellarOrbitsForSystem(sirius)[0]!
+    const pair = binaryForOrbit(sirius, orbit)!
+    expect(pair.name).toBe('Sirius A–B')
+    expect(pair.stars.map((star) => star.id)).toEqual(['sirius-a', 'sirius-b'])
+    expect(pair.orbit.semiMajorAxisAu).toBeCloseTo(19.7666, 3)
+    expect(binaryForOrbit({ ...sirius, components: sirius.components.map((c) => ({ ...c, star: { ...c.star, mass_solar: null } })) }, orbit)).toBeNull()
+    expect(binaryForOrbit(sirius, { ...orbit, eccentricity: null })).toBeNull()
+    expect(binaryForOrbit(sirius, { ...orbit, grade: 9 })).toBeNull()
+    const centauri = systems.get('proxima-centauri')!
+    expect(binaryForOrbit(centauri, stellarOrbitsForSystem(centauri).find((o) => o.secondary === 'C')!)).toBeNull()
+  })
+
+  it('keeps every notable orbit tool pair complete in the nearest-1000 catalog the tool falls back to', () => {
+    const catalog = JSON.parse(readFileSync(new URL('./data/generated/catalogs/nearest-1000.json', import.meta.url), 'utf8')) as { stars: Parameters<typeof indexStarSystems>[0] }
+    const byId = new Map([...indexStarSystems(catalog.stars).values()].map((system) => [system.id, system]))
+    for (const [systemId, orbitId] of NOTABLE_ORBITS) {
+      const system = byId.get(systemId)!
+      expect(binaryForOrbit(system, stellarOrbitsForSystem(system).find(({ id }) => id === orbitId)!), orbitId).not.toBeNull()
+    }
+  })
+
+  it('solves Kepler’s equation even for very elongated orbits', () => {
+    for (const eccentricity of [0, 0.5, 0.95]) {
+      for (const meanAnomaly of [0.1, 1, 3, 6]) {
+        const E = eccentricAnomaly(meanAnomaly, eccentricity)
+        expect(E - eccentricity * Math.sin(E)).toBeCloseTo(meanAnomaly, 9)
+      }
+    }
+  })
+
   it('suppresses an interior barycenter and incomplete orbital geometry', () => {
     const system = systems.get('sirius-a')!
     const orbit = stellarOrbitsForSystem(system)[0]!
@@ -246,6 +279,6 @@ describe('reviewed stellar orbits', () => {
     const top = orbitalPlanePoint(orbit, Math.PI / 2)
     expect(top.x).toBeCloseTo(-0.5)
     expect(top.y).toBeCloseTo(-Math.sqrt(0.75))
-    expect(orbitalPlanePoint({ ...orbit, inclinationDeg: 0, nodeDeg: 0, argumentDeg: 0 }, Math.PI / 2)).toEqual(top)
+    expect(orbitalPlanePoint({ ...orbit, inclinationDeg: 0, nodeDeg: 0, argumentDeg: 0 } as StellarOrbit, Math.PI / 2)).toEqual(top)
   })
 })

@@ -138,6 +138,9 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 #scene-context-menu:focus-visible { outline: none; }
 .scene-context-item { display: block; width: 100%; padding: 7px 10px; color: var(--ink); background: transparent; border: 0; border-radius: 3px; text-align: left; }
 .scene-context-item:focus-visible, .scene-context-item[data-highlighted] { background: var(--panel-hover); }
+.tools-menu-title { margin: 0 0 4px; padding: 4px 10px 7px; color: var(--muted); font-size: 12px; font-weight: 600; border-bottom: var(--mass-metric-divider); }
+.tools-menu-item { display: flex; align-items: center; gap: 10px; }
+.tools-menu-item > span { display: grid; color: var(--accent-strong); }
 .scene-context-distance { margin: 0; padding: 7px 10px; color: var(--muted); }
 .scene-context-item:not([hidden]) ~ .scene-context-distance { margin-top: 4px; border-top: var(--mass-metric-divider); }
 .observer-direction-object { display: inline-flex; align-items: center; gap: 6px; min-width: 0; padding: 0; color: var(--ink); background: transparent; border: 0; font: inherit; cursor: pointer; }
@@ -201,6 +204,21 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .spaceship-dock { position: fixed; z-index: -1; left: 50%; bottom: calc(20px + var(--safe-bottom)); width: 250px; translate: -50% 0; pointer-events: none; }
 .scene-wrap:has(.control-dock[data-motion-open]) .spaceship-dock { bottom: var(--motion-panel-clearance, 150px); }
 .dock-card.spaceship-card { width: max-content; max-width: calc(var(--ui-width) - var(--dock-gutter)); }
+.dock-card.tools-card { width: min(560px, calc(var(--ui-width) - var(--dock-gutter))); }
+.orbit-tool > svg { display: block; width: 100%; height: auto; overflow: visible; }
+.orbit-tool-system > select { flex: 0 1 260px; }
+.orbit-tool-trail { fill: none; stroke-width: 1.6; stroke-opacity: 0.75; stroke-linecap: round; }
+/* The drawing shrinks with a phone-width card; its labels grow to stay legible. */
+@media (max-width: 600px) { .orbit-tool .planet-diagram-label { font-size: 16px; } }
+.orbit-tool-timeline { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: 10px 12px; }
+.orbit-tool-timeline > .glossary-widget-choices { grid-column: 1 / -1; }
+.orbit-tool-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.orbit-tool-group { display: grid; align-content: start; gap: 12px; }
+.orbit-tool-group > .card-subgroup-heading { margin: 0; padding: 7px 12px; }
+/* A slider's value the reader can also type. */
+.range-value { display: inline-flex; align-items: baseline; gap: 4px; color: var(--accent-strong); font-variant-numeric: tabular-nums; }
+.range-value > input { width: 8ch; padding: 1px 4px; color: inherit; text-align: right; background: transparent; border: 1px solid transparent; border-radius: 6px; font-variant-numeric: tabular-nums; }
+.range-value > input:is(:hover, :focus) { background: var(--surface-control); border-color: var(--line); }
 .panel-heading.spaceship-heading { padding-right: 142px; }
 .panel-heading #spaceship-clear { right: 87px; border-radius: 0; }
 .panel-heading #spaceship-help { right: 43px; border-radius: 0; }
@@ -332,7 +350,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading.glossary-heading { flex: 0 0 45px; gap: 18px; padding-right: 98px; }
 /* These headings are 45px tall, 1px more than the others, so their buttons start at the top edge to share the bottom border. */
 :is(.glossary-heading, .constellations-detail-heading) > .panel-lock { top: 0; }
-.panel-heading:is(.objects-heading, .glossary-heading, .paint-heading, .neighborhood-heading, .demo-heading, .filter-heading, .preferences-heading, .insights-heading, .wavelength-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
+.panel-heading:is(.objects-heading, .glossary-heading, .paint-heading, .neighborhood-heading, .demo-heading, .filter-heading, .preferences-heading, .insights-heading, .wavelength-heading, .tools-heading) > .panel-lock[aria-pressed] { right: 43px; border-radius: 0; }
 .glossary-heading h2 { flex: 0 0 auto; }
 .glossary-search { position: relative; flex: 1; min-width: 0; }
 .glossary-search > span { position: absolute; top: 50%; left: 9px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
@@ -430,7 +448,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .glossary-related { margin-top: 18px; color: var(--muted); font-size: 12px; line-height: 1.7; }
 .glossary-lead + .glossary-related { margin-top: 0; }
 /* Links in cards; plain selectors keep each container's specificity for the credit lines that inherit their color. */
-.glossary-detail a, .info-meta a, .object-type-body a, .properties a, :is(#planet-info, #object-info, .constellation-info) a, #planet-moons a, .constellation-source-links a, .constellation-visibility-sources a, .mass-method a, .radius-method a, .constellation-info-link { color: var(--accent-strong); text-underline-offset: 3px; }
+.glossary-detail a, .info-meta a, .object-type-body a, .properties a, .orbit-tool a, :is(#planet-info, #object-info, .constellation-info) a, #planet-moons a, .constellation-source-links a, .constellation-visibility-sources a, .mass-method a, .radius-method a, .constellation-info-link { color: var(--accent-strong); text-underline-offset: 3px; }
 :is(.glossary-detail, .info-meta, .object-type-body, .properties, #planet-info, #object-info, .constellation-info, #planet-moons, .constellation-source-links, .constellation-visibility-sources, .mass-method, .radius-method) a:focus-visible, .constellation-info-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 .glossary-source { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 18px; font-size: 12px; }
 .glossary-attribution { color: var(--muted); font-size: 10px; line-height: 1.6; }
@@ -450,7 +468,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 }
 
 .icon-button { position: relative; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; background: #1d1e20f2; border: 1px solid var(--line); border-radius: 7px; color: var(--ink); box-shadow: 0 5px 16px #00000050; }
-.icon-button[aria-pressed="true"], .panel-button[aria-expanded="true"], .discover-controls:not([data-dismissed]):is(:focus-within, [data-touch-open]) > .icon-button { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
+.icon-button[aria-pressed="true"], .panel-button[aria-expanded="true"], .discover-controls:not([data-dismissed]):is(:focus-within, [data-touch-open]) > .icon-button, .discover-controls[data-menu-open] > .icon-button { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
 /* Fade the button's own paint rather than its opacity, so tooltips on greyed-out buttons stay legible. */
 .icon-button:disabled { opacity: 1; color: color-mix(in srgb, var(--ink) 40%, transparent); background: #1d1e2066; border-color: color-mix(in srgb, var(--line) 40%, transparent); box-shadow: 0 5px 16px #00000020; }
 .icon-button:is([aria-pressed="true"], [aria-expanded="true"]):disabled { color: color-mix(in srgb, var(--accent-strong) 40%, transparent); background: color-mix(in srgb, var(--panel-selected) 40%, transparent); border-color: color-mix(in srgb, var(--border-active) 40%, transparent); }
@@ -465,8 +483,15 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 [data-toolbar-options] { position: absolute; top: 0; right: 100%; display: flex; gap: 4px; padding-right: 4px; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms; }
 /* Seven Explore cards: three in a row above the toggle and four beside it; the corner above the toggle bridges the pointer to the upper row. */
 /* One row hangs below Explore, so a full row, ending in Graphs, sits beside it instead of a single button. */
-/* Spaceship hangs in the right column, directly below Graphs. */
+/* Tools and Spaceship hang in the two right columns, directly below Wavelength vision and Graphs. */
 .discover-options { top: auto; bottom: -48px; display: grid; grid-template-columns: repeat(4, 44px); }
+#tools-toggle { grid-column: 3; }
+/* While the Tools menu is open, its button stays lit and the other icons fade until a press among them restores them. */
+.discover-controls[data-menu-open] #tools-toggle { background: var(--panel-selected); color: var(--accent-strong); border-color: var(--border-active); }
+.discover-options > button { transition: opacity 120ms ease; }
+.discover-controls[data-menu-open] .discover-options > button:not(#tools-toggle) { opacity: 0.35; }
+.discover-controls[data-menu-open] .discover-options > button:not(#tools-toggle):hover { color: var(--ink); background: #1d1e20f2; border-color: var(--line); }
+.discover-controls[data-menu-open] .tooltip { display: none !important; }
 #spaceship-toggle { grid-column: 4; }
 .discover-options::after { content: ''; position: absolute; top: 0; right: -44px; width: 44px; height: 44px; }
 .discover-controls .discover-options > :nth-child(-n + 4) .tooltip { top: auto; bottom: calc(100% + 8px); }
@@ -475,6 +500,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .origin-controls:focus-visible, .observer-view-controls:focus-visible, .selection-controls:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; border-radius: 7px; }
 [data-toolbar-flyout]:has([data-toolbar-options] button:not(:disabled)) > button:disabled { pointer-events: none; }
 .discover-controls:not([data-dismissed]):focus-within .discover-options,
+.discover-controls[data-menu-open] .discover-options,
 [data-toolbar-flyout][data-touch-open]:not([data-dismissed]):has(button:not(:disabled)) > [data-toolbar-options],
 .camera-view-controls:not([data-dismissed]):focus-within:has(:is(#reset-view, #hide-ui):not(:disabled)) .camera-view-options,
 .origin-controls:not([data-dismissed]):focus-within:has(#go-to-origin:not(:disabled)) .origin-options,
@@ -926,6 +952,8 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .system-heading-icon { flex: 0 0 18px; color: var(--accent-strong); }
 .stellar-header-control { width: 40px; height: auto; border-left: 1px solid var(--line); border-radius: 0; }
 .stellar-orbit-view-toggle { position: absolute; top: 0; right: 0; height: 100%; }
+.stellar-orbit-tool-button { position: absolute; top: 0; right: 40px; height: 100%; }
+.stellar-system-heading:has(> .stellar-orbit-tool-button) { padding-right: 96px; }
 .habitable-zone-toggle[aria-pressed="true"] { color: #8cbd9b; background: #8cbd9b14; border-color: #8cbd9b70; }
 .planet-habitable-zone path { fill: #8cbd9b; fill-opacity: 0.14; stroke: #8cbd9b; stroke-opacity: 0.4; stroke-width: 0.6; }
 .stellar-orbit-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }

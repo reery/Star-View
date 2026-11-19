@@ -26,30 +26,58 @@ interface SliderOptions {
   format(value: number): string
   /** Slide along a logarithmic scale; min and max must be positive. */
   log?: boolean
+  /** Shows the value in a field the reader can type into, followed by this unit, instead of the formatted text. */
+  unit?: string
+  /** Glossary term the label opens. */
+  term?: string
   signal: AbortSignal
   onInput(value: number): void
 }
 
-export function slider(host: HTMLElement, options: SliderOptions): { value(): number; set(value: number): void } {
-  const { min, max, log } = options
+export function slider(host: HTMLElement, options: SliderOptions): { value(): number; set(value: number): void; row: HTMLElement } {
+  const { min, max, log, unit } = options
   const toValue = (position: number) => log ? min * (max / min) ** position : min + (max - min) * position
   const toPosition = (value: number) => log ? Math.log(value / min) / Math.log(max / min) : (value - min) / (max - min)
-  const row = Object.assign(document.createElement('label'), { className: 'range-filter' })
+  // With a typed field, the row holds two inputs, so each is labelled on its own.
+  const row = Object.assign(document.createElement(unit === undefined ? 'label' : 'div'), { className: 'range-filter' })
   const heading = Object.assign(document.createElement('span'), { className: 'range-heading' })
+  const label = Object.assign(document.createElement('span'), { textContent: options.label })
+  if (options.term) Object.assign(label, { className: 'mass-metric-help' }).dataset.glossaryTerm = options.term
   const output = document.createElement('output')
-  heading.append(Object.assign(document.createElement('span'), { textContent: options.label }), output)
+  // A text field keeps the app's number format; a number field would follow the browser's locale.
+  const field = Object.assign(document.createElement('input'), { type: 'text', inputMode: 'decimal', autocomplete: 'off' })
+  if (unit === undefined) heading.append(label, output)
+  else {
+    field.setAttribute('aria-label', `${options.label}${unit ? ` in ${unit}` : ''}, typed value`)
+    const value = Object.assign(document.createElement('span'), { className: 'range-value' })
+    value.append(field, unit)
+    heading.append(label, value)
+  }
   const input = Object.assign(document.createElement('input'), { type: 'range', min: '0', max: '1', step: options.step === undefined ? '0.001' : String(options.step / (max - min)) })
+  if (unit !== undefined) input.setAttribute('aria-label', options.label)
   input.value = String(toPosition(options.value))
   row.append(heading, input)
   host.append(row)
-  const value = () => toValue(Number(input.value))
+  // The exact value, so a typed or set value survives the slider's step.
+  let current = options.value
   const show = () => {
-    output.textContent = options.format(value())
-    input.setAttribute('aria-valuetext', output.textContent)
+    const formatted = options.format(current)
+    output.textContent = formatted
+    field.value = String(Number(current.toPrecision(3)))
+    input.setAttribute('aria-valuetext', formatted)
   }
   show()
-  input.addEventListener('input', () => { show(); options.onInput(value()) }, { signal: options.signal })
-  return { value, set(next) { input.value = String(toPosition(next)); show() } }
+  input.addEventListener('input', () => { current = toValue(Number(input.value)); show(); options.onInput(current) }, { signal: options.signal })
+  field.addEventListener('change', () => {
+    const typed = Number(field.value.trim().replace(',', '.'))
+    if (field.value.trim() && Number.isFinite(typed)) {
+      current = Math.min(max, Math.max(min, typed))
+      input.value = String(toPosition(current))
+      options.onInput(current)
+    }
+    show()
+  }, { signal: options.signal })
+  return { value: () => current, set(next) { current = next; input.value = String(toPosition(next)); show() }, row }
 }
 
 /** Labelled results below a drawing; returns one setter per label. */
