@@ -1,5 +1,5 @@
 import { ChevronUp, createElement } from 'lucide'
-import { GLOSSARY_GROUPS, GLOSSARY_TERMS, linkGlossaryTerms, loadGlossaryArticles, searchGlossary, type GlossaryArticle, type GlossaryFigure, type GlossaryTerm, type GlossaryWidget, wiki } from './glossary-index'
+import { GLOSSARY_GROUPS, GLOSSARY_TERMS, linkGlossaryTerms, loadGlossaryArticles, searchGlossary, type GlossaryArticle, type GlossaryFigure, type GlossaryTerm, type GlossaryTool, type GlossaryWidget, wiki } from './glossary-index'
 import type { WidgetMount } from './glossary-widget'
 import { clearLoadRecovery, loadWithRecovery } from './load-recovery'
 
@@ -24,7 +24,12 @@ export interface GlossaryBrowser {
   show(id: string): void
 }
 
-export function initializeGlossary(signal: AbortSignal): GlossaryBrowser {
+/** How each Explore tool is offered, around a link with its name that opens it. */
+const TOOLS: Record<GlossaryTool, readonly [before: string, name: string, after: string]> = {
+  orbit: ['Set two stars of your own, or replay a real pair such as Sirius A and B, in the ', 'Binary star orbit', ' tool.'],
+}
+
+export function initializeGlossary(signal: AbortSignal, openTool: (tool: GlossaryTool) => void): GlossaryBrowser {
   const get = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T
   const terms = get('glossary-terms')
   const body = terms.closest<HTMLElement>('.glossary-body')!
@@ -140,6 +145,14 @@ export function initializeGlossary(signal: AbortSignal): GlossaryBrowser {
     if (article?.details) parts.push(paragraph(article.details, seen))
     const widgetHost = article?.interactive && term ? Object.assign(document.createElement('div'), { className: 'glossary-widget' }) : null
     if (widgetHost) parts.push(widgetHost)
+    if (article?.tool) {
+      const [before, name, after] = TOOLS[article.tool]
+      const link = Object.assign(document.createElement('button'), { type: 'button', className: 'constellation-info-link', textContent: name })
+      link.dataset.glossaryTool = article.tool
+      const line = Object.assign(document.createElement('p'), { className: 'glossary-description' })
+      line.append(before, link, after)
+      parts.push(line)
+    }
     for (const { title, text, source, figure } of article?.sections ?? []) {
       const section = document.createElement('section')
       const heading = Object.assign(document.createElement('h4'), { className: 'card-subgroup-heading', textContent: title })
@@ -289,6 +302,8 @@ export function initializeGlossary(signal: AbortSignal): GlossaryBrowser {
   }, { signal })
   detail.addEventListener('click', (event) => {
     if (!(event.target instanceof Element)) return
+    const tool = event.target.closest<HTMLButtonElement>('[data-glossary-tool]')?.dataset.glossaryTool as GlossaryTool | undefined
+    if (tool) return openTool(tool)
     const term = termById.get(event.target.closest<HTMLButtonElement>('[data-glossary-link]')?.dataset.glossaryLink ?? '')
     if (!term) return
     if (selected) trail.push(selected)

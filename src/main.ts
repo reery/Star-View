@@ -173,6 +173,7 @@ icon('neighborhood-lock-icon', Lock)
 icon('neighborhood-close-icon', X)
 icon('tools-icon', PencilRuler)
 icon('tools-menu-orbit-icon', Orbit)
+icon('tools-reset-icon', RotateCcw)
 icon('tools-lock-icon', Lock)
 icon('tools-close-icon', X)
 icon('spaceship-icon', Rocket)
@@ -276,6 +277,7 @@ icon('demo-lock-icon', Lock)
 icon('demo-close-icon', X)
 icon('tip-icon', Lightbulb)
 icon('tip-close-icon', X)
+icon('info-close-icon', X)
 icon('filter-lock-icon', Lock)
 icon('filter-close-icon', X)
 icon('filter-reset-icon', RotateCcw)
@@ -927,7 +929,7 @@ async function loadGlossaryPanel(): Promise<void> {
       focusTarget: element('glossary-close'), onChange: syncPanelLayout,
     })
   if (!result || glossary) return
-  glossary = result.value.initializeGlossary(events.signal)
+  glossary = result.value.initializeGlossary(events.signal, () => openOrbitTool())
   if (pendingGlossaryTerm) glossary.show(pendingGlossaryTerm)
   pendingGlossaryTerm = undefined
 }
@@ -1012,7 +1014,9 @@ async function selectTopListObject(object: import('./top-lists').TopListObject):
 function syncPanelLayout(): void {
   const dock = element('control-dock')
   const motionOpen = panelIsOpen('motion')
-  const dockPanel = panelNames.find((name) => name !== 'views' && name !== 'motion' && panelIsOpen(name))
+  // A card under Info keeps sizing the dock.
+  const dockPanel = panelNames.find((name) => name !== 'views' && name !== 'motion' && name !== 'info' && panelIsOpen(name))
+    ?? (panelIsOpen('info') ? 'info' : undefined)
   if (dockPanel) dock.dataset.open = dockPanel
   else if (motionOpen) dock.dataset.open = 'motion'
   else delete dock.dataset.open
@@ -2092,7 +2096,8 @@ function togglePanel(name: typeof panelNames[number]): void {
     return
   }
   for (const candidate of panelNames) {
-    if (candidate === name) continue
+    // Info lays itself over the open cards instead of closing them.
+    if (candidate === name || name === 'info') continue
     if (candidate === 'motion' && name !== 'motion' && lockedPanels.has('motion')) continue
     setPanelOpen(candidate, false)
   }
@@ -2100,7 +2105,7 @@ function togglePanel(name: typeof panelNames[number]): void {
   syncPanelLayout()
   const selectedCard = element('selected-object-card')
   const objectDetails = element<HTMLDetailsElement>('object-card-details')
-  if (name !== 'motion' && !selectedCard.hidden && objectDetails.open && !cardsHaveClearance(selectedCard, element(`${name}-panel`))) objectDetails.open = false
+  if (name !== 'motion' && name !== 'info' && !selectedCard.hidden && objectDetails.open && !cardsHaveClearance(selectedCard, element(`${name}-panel`))) objectDetails.open = false
 }
 
 function onSceneInteraction(): void {
@@ -5202,6 +5207,7 @@ function setPaintZoomShrink(enabled: boolean): void {
   viewer?.setStarPaintZoomShrink(enabled)
 }
 element('paint-keep-size').addEventListener('click', () => setPaintZoomShrink(!paintZoomShrink), { signal: events.signal })
+element('tools-reset').addEventListener('click', () => orbitTool?.reset(), { signal: events.signal })
 element('paint-reset').addEventListener('click', () => resizeCard(element('paint-panel'), () => applyPaint([])), { signal: events.signal })
 element('paint-expand').addEventListener('click', () => resizeCard(element('paint-panel'), () => setPaintCompact(!element('paint-panel').classList.contains('is-compact'))), { signal: events.signal })
 element('filter-save').addEventListener('click', saveCurrentFilter, { signal: events.signal })
@@ -5498,6 +5504,10 @@ filterTiles.addEventListener('click', (event) => {
 for (const name of panelNames) {
   element(name === 'observer' ? 'observer-active' : `${name}-toggle`).addEventListener('click', () => name === 'tools' ? openToolsMenu() : togglePanel(name), { signal: events.signal })
 }
+element('info-close').addEventListener('click', () => {
+  togglePanel('info')
+  focusToolbarButton('info-toggle')
+}, { signal: events.signal })
 element('tools-menu-orbit').addEventListener('click', () => {
   closeToolsMenu()
   openOrbitTool()
@@ -5847,7 +5857,7 @@ document.addEventListener('keydown', (event) => {
     closeObjectTypeCard(true)
     return
   }
-  const open = panelNames.find((name) => name !== 'motion' && panelIsOpen(name))
+  const open = (panelIsOpen('info') ? 'info' : panelNames.find((name) => name !== 'motion' && panelIsOpen(name)))
     ?? (panelIsOpen('motion') ? 'motion' : undefined)
   if (!open) return
   togglePanel(open)

@@ -1,3 +1,4 @@
+import { Pause, Play, createElement } from 'lucide'
 import { svgNode } from './spectral-chart'
 
 export { svgNode }
@@ -114,16 +115,28 @@ export function choices<T extends string>(host: HTMLElement, label: string, opti
   host.append(group)
 }
 
-/** A play button that advances until paused; nothing runs until it is pressed, and it stops when the widget or card goes away. */
-export function player(host: HTMLElement, signal: AbortSignal, advance: (elapsedMs: number) => void): void {
-  if (reducedMotion()) return
-  const button = Object.assign(document.createElement('button'), { type: 'button', className: 'glossary-widget-play', textContent: 'Play' })
+/**
+ * A play button that advances until paused; nothing runs until it is pressed, and it stops when the widget or card goes away.
+ * With a label, it shows the Stellar motion card's play and pause icons instead of words. Returns a function that pauses it.
+ */
+export function player(host: HTMLElement, signal: AbortSignal, advance: (elapsedMs: number) => void, label?: string): () => void {
+  if (reducedMotion()) return () => {}
+  const button = Object.assign(document.createElement('button'), { type: 'button', className: label ? 'panel-lock' : 'glossary-widget-play' })
   let frame = 0
   let last = 0
+  const show = (playing: boolean) => {
+    if (!label) {
+      button.textContent = playing ? 'Pause' : 'Play'
+      return
+    }
+    button.replaceChildren(createElement(playing ? Pause : Play, { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' }))
+    button.setAttribute('aria-label', `${playing ? 'Pause' : 'Play'} ${label}`)
+    button.setAttribute('aria-pressed', String(playing))
+  }
   const stop = () => {
     cancelAnimationFrame(frame)
     frame = 0
-    button.textContent = 'Play'
+    show(false)
   }
   const tick = (now: number) => {
     if (signal.aborted || !button.checkVisibility()) return stop()
@@ -133,10 +146,12 @@ export function player(host: HTMLElement, signal: AbortSignal, advance: (elapsed
   }
   button.addEventListener('click', () => {
     if (frame) return stop()
-    button.textContent = 'Pause'
+    show(true)
     last = performance.now()
     frame = requestAnimationFrame(tick)
   }, { signal })
   signal.addEventListener('abort', stop, { once: true })
+  show(false)
   host.append(button)
+  return stop
 }

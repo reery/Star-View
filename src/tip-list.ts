@@ -214,6 +214,15 @@ export const TIPS: readonly Tip[] = [
     'Keep only the objects within a chosen radius of a star.'),
   exploreTip('tools', 'Watch two stars circle each other with the *binary star orbit* in [Tools].', 'Tools',
     'Set the masses and the orbit of two stars, or load a real pair such as Sirius A and B, and press play.'),
+  {
+    id: 'orbit-tool-sirius', feature: 'tools', level: 'novice', select: 'sirius-a',
+    text: '{sirius-a} and its white dwarf companion circle each other every 50 years. Replay their *orbit* in the [Binary star orbit].',
+    step: {
+      title: 'Binary star orbit',
+      body: 'A star with a measured *orbit* opens it in the [Binary star orbit] from its [System] tab. Change the masses or the orbit, and press play.',
+      target: '#stellar-orbit-tool', avoid: '#selected-object-card', ...opening('#object-system-toggle'),
+    },
+  },
   exploreTip('spaceship', 'Fly between the stars yourself in the [Spaceship].', 'Spaceship',
     'Steer with the keyboard or the on-screen controls, and pick how fast you travel.'),
   {

@@ -281,6 +281,7 @@
     "hip-78400",
     "hip-78649",
     "hip-79358",
+    "hip-80112",
     "hip-80628",
     "hip-8068",
     "hip-81231",
@@ -335,8 +336,17 @@
     "hip-99675",
     "hip-99848"
   ],
-  "nakedEyePolicy": "Naked-eye rows admitted to the companion pool: 49 Lib by review, plus every double-lined SB9 system whose exact identity matches one otherwise single naked-eye row and whose SB9 entry is the whole star or its A component.",
+  "nakedEyePolicy": "Naked-eye rows admitted to the companion pool: 49 Lib and Alniyat (sigma Sco, hip-80112, a single-lined grade-1 SB9 entry resolved by the North et al. 2007 interferometric ORB6 orbit) by review, plus every double-lined SB9 system whose exact identity matches one otherwise single naked-eye row and whose SB9 entry is the whole star or its A component.",
   "nakedEyeHeld": {
     "hip-20284": "HD 27483: SB9 gives an F6V + F6V close pair, while the SIMBAD composite DA3+F6V describes the white dwarf elsewhere in the system. The composite-spectrum rule would make the primary a white dwarf, so it needs a reviewed hierarchy."
+  },
+  "compositeLabels": {
+    "hip-80112": {
+      "labels": [
+        "Aa1",
+        "Aa2"
+      ],
+      "evidence": "Alniyat (sigma Sco, WDS J16212-2536) is a quadruple. The composite B1III+B1:V spectrum describes the 33-day spectroscopic pair Aa1 (B1 III, beta Cephei primary) + Aa2 (B1 V), resolved by SUSI interferometry (North et al. 2007, MNRAS 380, 1276, arXiv:0707.0897; ORB6 16212-2536 Aa1,2 'Nor2007'). Ab is the B7 tertiary 0.4 arcsec away and B the B9 visual companion 20 arcsec away (Tkachenko et al. 2014, MNRAS 442, 616, Sect. 1-2), so the automatic A/B labels would name the wrong stars."
+    }
   }
 }

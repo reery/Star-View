@@ -80,7 +80,7 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 /* Controls to look for stand out in the signature orange, astronomy terms in the reference blue. */
 .tip-feature { color: var(--accent-vibrant); font-weight: 600; }
 .tip-term { color: var(--stat-bar-reference); font-weight: 600; }
-.tip-tile > .panel-lock { position: absolute; top: 4px; right: 4px; width: 36px; height: 36px; }
+.tip-tile > .panel-lock, .info-card > .panel-lock { position: absolute; top: 4px; right: 4px; width: 36px; height: 36px; }
 .tip-tile > .browser-data-actions { grid-column: 1 / -1; margin: 0; }
 .tip-tile > .browser-data-actions button { color: var(--accent); }
 #tips-off { margin-right: auto; }
@@ -206,15 +206,28 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .dock-card.spaceship-card { width: max-content; max-width: calc(var(--ui-width) - var(--dock-gutter)); }
 .dock-card.tools-card { width: min(560px, calc(var(--ui-width) - var(--dock-gutter))); }
 .orbit-tool > svg { display: block; width: 100%; height: auto; overflow: visible; }
-.orbit-tool-system > select { flex: 0 1 260px; }
 .orbit-tool-trail { fill: none; stroke-width: 1.6; stroke-opacity: 0.75; stroke-linecap: round; }
+.orbit-tool-live { font-variant-numeric: tabular-nums; white-space: pre; }
 /* The drawing shrinks with a phone-width card; its labels grow to stay legible. */
 @media (max-width: 600px) { .orbit-tool .planet-diagram-label { font-size: 16px; } }
-.orbit-tool-timeline { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: 10px 12px; }
-.orbit-tool-timeline > .glossary-widget-choices { grid-column: 1 / -1; }
-.orbit-tool-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-.orbit-tool-group { display: grid; align-content: start; gap: 12px; }
-.orbit-tool-group > .card-subgroup-heading { margin: 0; padding: 7px 12px; }
+/* Tiles sit side by side and wrap below each other in a narrow card. */
+.orbit-tool .planet-facts-grid.orbit-tool-tiles { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.orbit-tool .planet-facts-grid > .planet-fact-tile { align-content: start; gap: 12px; padding: 10px 12px; }
+.orbit-tool .planet-facts-grid > .orbit-tool-summary { display: flex; flex-wrap: wrap; gap: 12px 16px; }
+.orbit-tool-system { display: grid; flex: 1 1 180px; align-content: start; gap: 8px; }
+.orbit-tool-summary > .glossary-widget-readouts { flex: 1.6 1 240px; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: center; }
+.orbit-tool-summary > dl :is(dt, dd) { margin-left: 0; }
+.orbit-tool-tile-heading { display: flex; align-items: center; gap: 8px; min-height: 32px; }
+.orbit-tool-tile-heading > .luminosity-factor-icon { flex: none; height: auto; }
+.orbit-tool-tile-heading > .luminosity-factor-title { color: var(--ink); font-size: var(--property-text-size); }
+.orbit-tool-tile-heading > .orbit-tool-set-by { width: 32px; height: 32px; flex-basis: 32px; margin: -2px -4px -2px auto; }
+.orbit-tool-timeline { display: flex; align-items: center; gap: 8px; }
+.orbit-tool-timeline > .range-filter { flex: 1; min-width: 0; }
+.orbit-tool-timeline .range-heading { flex-wrap: wrap; gap: 0 12px; }
+@media (max-width: 600px) { .orbit-tool-timeline > .panel-lock { width: 36px; flex-basis: 36px; } }
+/* Playback speed: the usual color at normal, the reference blue when slow, red when fast. */
+.orbit-tool .panel-lock.orbit-tool-speed[data-speed="slow"] { color: var(--stat-bar-reference); }
+.orbit-tool .panel-lock.orbit-tool-speed[data-speed="fast"] { color: var(--danger); }
 /* A slider's value the reader can also type. */
 .range-value { display: inline-flex; align-items: baseline; gap: 4px; color: var(--accent-strong); font-variant-numeric: tabular-nums; }
 .range-value > input { width: 8ch; padding: 1px 4px; color: inherit; text-align: right; background: transparent; border: 1px solid transparent; border-radius: 6px; font-variant-numeric: tabular-nums; }
@@ -331,8 +344,8 @@ button, p, h2, dd { overflow-wrap: anywhere; }
 .panel-heading #paint-expand { display: none; right: 175px; border-radius: 0; }
 .panel-heading #paint-keep-size { right: 131px; border-radius: 0; }
 .panel-heading #paint-reset { right: 87px; border-radius: 0; }
-.panel-heading:is(.neighborhood-heading, .demo-heading, .wavelength-heading) { padding-right: 142px; }
-.panel-heading :is(#neighborhood-clear, #demo-run, #wavelength-boost) { right: 87px; border-radius: 0; }
+.panel-heading:is(.neighborhood-heading, .demo-heading, .wavelength-heading, .tools-heading) { padding-right: 142px; }
+.panel-heading :is(#neighborhood-clear, #demo-run, #wavelength-boost, #tools-reset) { right: 87px; border-radius: 0; }
 .dock-card.glossary-card { position: relative; display: flex; flex-direction: column; width: min(640px, calc(var(--ui-width) - var(--dock-gutter))); height: min(520px, calc(var(--ui-height) - 100px)); overflow: hidden; }
 /* Wide enough for the supernova candidates table without horizontal scrolling. */
 .dock-card.top-lists-card { width: min(900px, calc(var(--ui-width) - var(--dock-gutter))); }
@@ -864,7 +877,9 @@ select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
 .info-meta dt { color: var(--muted); }
 .info-meta dd { text-align: right; font-weight: 500; }
 .attribution-note { color: var(--muted); font-size: 10px; font-weight: 400; }
-.dock-card.info-card { width: min(320px, calc(var(--ui-width) - var(--dock-gutter))); }
+/* Info opens over other dock cards beside the rail, without resizing the dock under it. */
+.dock-card.info-card { position: absolute; right: 54px; bottom: 0; z-index: 1; width: min(320px, calc(var(--ui-width) - var(--dock-gutter))); }
+.info-card > .info-brand { padding-right: 44px; }
 .tip-tile { color: var(--ink); border: 1px solid var(--line); border-radius: var(--card-radius); box-shadow: 0 2px 6px #00000059, 0 18px 48px #000000a6, inset 0 1px #ffffff0a; }
 .welcome-body { align-self: center; line-height: 1.45; }
 .welcome-motto { margin-bottom: 8px; }

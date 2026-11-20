@@ -49,3 +49,11 @@ al. 2018 (GJ 2060), Muterspaugh et al. 2010 (Eta CrB), Tokovinin 2023
 approves the splits and records three deferred systems;
 `../reviewed-component-split-data.json` maps the adopted values. See
 `docs/combined-cns5-components.md`.
+
+# Alniyat, 2026-11-20
+
+`alniyat-20261120-selected.json` freezes the orbit and physical tables of North et al.
+2007 (SUSI interferometry, arXiv:0707.0897) and Tkachenko et al. 2014 (spectral
+disentangling and seismic modelling, arXiv:1405.0924), with the hashes of the arXiv HTML
+versions read on 2026-11-20. `../reviewed-companion-literature.json` adopts the
+Aa1/Aa2 values; see `docs/catalog-sourcing.md`.

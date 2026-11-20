@@ -1317,7 +1317,11 @@ export function createStarViewer(container: HTMLElement, stars: readonly Star[],
    * saving mode; magnitudes, labels and the magnitude limit catch up at most four times a second while the camera moves.
    */
   function syncCloseLight(time: number): void {
-    const off = observerPoint() !== null || observerViewEnabled || cameraIsShip()
+    // An extended object's center often holds its own star (Alniyat in Sh 2-9, Antares beside IC 4606), which looks
+    // blinding from there. Observed from such an object, stars keep the bright cap; lifting it floods the view with glare.
+    const base = starsById.get(visibilityBaseStar.id)!.index
+    const extendedBase = isNebula[base] || isMolecularCloud[base] || isBubble[base] || isGalaxy[base] || isCluster[base]
+    const off = observerPoint() !== null || observerViewEnabled || cameraIsShip() || extendedBase === 1
     const switched = off !== closeLightOff
     const moved = switched || (!off && !camera.position.equals(closeLightPosition))
     if (moved && !switched && powerSavingMode && time - closeLightTime < 250) {

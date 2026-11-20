@@ -1,6 +1,7 @@
+import { Orbit, Sparkles, Telescope, Timer, createElement, type IconNode } from 'lucide'
 import { starDisplayColor, temperatureToColor, type StarColorMode } from './astronomy'
 import type { Star } from './catalog-model'
-import { choices, drawing, note, number, player, readouts, slider, svgNode, text } from './glossary-widget'
+import { drawing, note, number, player, readouts, slider, svgNode, text } from './glossary-widget'
 import type { StarSystem } from './star-systems'
 import { barycenterMarker, orbitScaleBar, stellarMarker } from './stellar-system-card'
 import { binaryForOrbit, eccentricAnomaly, loadStellarOrbits, orbitalPlanePoint, stellarOrbitsForSystem, type BinaryPair } from './stellar-orbits'
@@ -22,8 +23,17 @@ const PERIOD_RANGE_YEARS = [0.001, 100_000] as const
 /** One astronomical unit per Julian year, in km/s. */
 const KM_S_PER_AU_YEAR = 149_597_870.7 / (365.25 * 86_400)
 const SPEEDS = [['slow', 'Slow', 20_000], ['normal', 'Normal', 8000], ['fast', 'Fast', 3000]] as const
-const CENTER = { x: 220, y: 100 }
+const NORMAL_SPEED = 1
+const CENTER = { x: 220, y: 118 }
 const TRAIL_SAMPLES = 32
+
+const ICON_SIZE = { width: 20, height: 20, 'stroke-width': 1.7, 'aria-hidden': 'true' } as const
+/** Three columns rising left to right, one more filled per faster speed. */
+const speedIcon = (speed: number): IconNode => [4, 10, 16].map((x, index) =>
+  ['rect', { x, y: 15 - 5 * index, width: 4, height: 5 + 5 * index, rx: 1, fill: index <= speed ? 'currentColor' : 'none' }])
+/** Two stars held apart by a line: the orbit set by its separation. */
+const SeparationIcon: IconNode = [['circle', { cx: 5, cy: 12, r: 3 }], ['circle', { cx: 19, cy: 12, r: 3 }], ['path', { d: 'M8 12h8' }]]
+const SET_BY = { axis: ['separation', SeparationIcon], period: ['period', Timer] } as const
 
 /** Kepler's third law in solar units: years, astronomical units and solar masses. */
 export const keplerPeriodYears = (axisAu: number, totalMass: number) => Math.sqrt(axisAu ** 3 / totalMass)
@@ -33,6 +43,10 @@ export const keplerAxisAu = (periodYears: number, totalMass: number) => Math.cbr
 export function relativeSpeedKmS(totalMass: number, axisAu: number, distanceAu: number): number {
   return 2 * Math.PI * Math.sqrt(totalMass * (2 / distanceAu - 1 / axisAu)) * KM_S_PER_AU_YEAR
 }
+
+/** Decimal places that give the smallest value of a changing quantity two significant digits; larger values keep them. */
+export const fixedDigits = (smallest: number) => Math.max(0, 1 - Math.floor(Math.log10(smallest)))
+const fixed = (value: number, digits: number) => value.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })
 
 /** Hours, days or years, picked by `scale`, so a time within an orbit shares the period's unit. */
 export function formatDuration(years: number, scale = years): string {
@@ -55,58 +69,75 @@ interface Member {
   star: Star | null
 }
 
-export function initializeOrbitTool(container: HTMLElement, signal: AbortSignal, host: OrbitToolHost): { open(pair?: BinaryPair): void } {
+export function initializeOrbitTool(container: HTMLElement, signal: AbortSignal, host: OrbitToolHost): { open(pair?: BinaryPair): void; reset(): void } {
   const members: [Member, Member] = [{ mass: BASIC.masses[0], star: null }, { mass: BASIC.masses[1], star: null }]
   let axis: number = BASIC.axisAu
   let eccentricity: number = BASIC.eccentricity
   let period = keplerPeriodYears(axis, members[0].mass + members[1].mass)
   let setBy: 'axis' | 'period' = 'axis'
   let phase = 0
-  let orbitMs: number = SPEEDS[1][2]
+  let speed = NORMAL_SPEED
   /** The catalog pair on display, until a value changes. */
   let loaded: BinaryPair | null = null
+  /** The pair last chosen or opened, which a reset returns to; null for the basic setup. */
+  let chosen: BinaryPair | null = null
   let opened: BinaryPair | null = null
   const notable = new Map<string, BinaryPair>()
 
-  const systemRow = Object.assign(document.createElement('div'), { className: 'range-heading orbit-tool-system' })
-  const select = Object.assign(document.createElement('select'), { id: 'orbit-tool-system' })
-  systemRow.append(Object.assign(document.createElement('label'), { htmlFor: select.id, textContent: 'System' }), select)
-  container.append(systemRow)
+  /** A row naming a part of the tool by an icon and a title, as the detail cards' fact tiles do. */
+  const heading = (host: HTMLElement, icon: IconNode, title: HTMLElement) => {
+    const row = Object.assign(document.createElement('div'), { className: 'orbit-tool-tile-heading' })
+    title.classList.add('luminosity-factor-title')
+    const symbol = createElement(icon, ICON_SIZE)
+    symbol.classList.add('luminosity-factor-icon')
+    row.append(symbol, title)
+    host.append(row)
+    return row
+  }
+  const tiles = () => container.appendChild(Object.assign(document.createElement('div'), { className: 'planet-facts-grid orbit-tool-tiles' }))
+  const tile = (host: HTMLElement, className: string) => host.appendChild(Object.assign(document.createElement('section'), { className: `planet-fact-tile ${className}` }))
 
-  const svg = drawing(container, 196, 'Two stars orbiting their common center of mass, seen face-on', 440)
+  // The system and its orbit's size side by side.
+  const summary = tile(tiles(), 'orbit-tool-summary')
+  const system = summary.appendChild(Object.assign(document.createElement('div'), { className: 'orbit-tool-system' }))
+  const select = Object.assign(document.createElement('select'), { id: 'orbit-tool-system' })
+  heading(system, Telescope, Object.assign(document.createElement('label'), { htmlFor: select.id, textContent: 'System' }))
+  system.append(select)
+  const [periodValue, axisValue, closest, farthest] = readouts(summary, ['Orbit', 'Semi-major axis', 'Closest approach', 'Farthest apart'])
+
+  const svg = drawing(container, 214, 'Two stars orbiting their common center of mass, seen face-on', 440)
   const orbits = [svgNode('path', { class: 'planet-orbit stellar-orbit' }), svgNode('path', { class: 'planet-orbit stellar-orbit' })]
   const trails = [svgNode('path', { class: 'orbit-tool-trail' }), svgNode('path', { class: 'orbit-tool-trail' })]
   const link = svgNode('line', { class: 'gw-guide' })
   const markerLayer = svgNode('g')
   const scaleLayer = svgNode('g')
+  const apart = text('', 8, 14, 'start', 'planet-diagram-label orbit-tool-live')
+  const speeds = [text('', 432, 14, 'end', 'planet-diagram-label orbit-tool-live'), text('', 432, 32, 'end', 'planet-diagram-label orbit-tool-live')]
   svg.append(...orbits, ...trails, link,
     barycenterMarker(CENTER.x, CENTER.y, 'Center of mass: the point both stars orbit. Star symbols are enlarged.'),
-    markerLayer, scaleLayer, text('Center of mass ⊕', 8, 190, 'start', 'planet-diagram-label'))
+    markerLayer, scaleLayer, apart, ...speeds, text('Center of mass ⊕', 8, 208, 'start', 'planet-diagram-label'))
   const markers: SVGGElement[] = []
 
   const timeline = Object.assign(document.createElement('div'), { className: 'orbit-tool-timeline' })
   container.append(timeline)
-  player(timeline, signal, (elapsedMs) => {
-    phase = (phase + elapsedMs / orbitMs) % 1
+  const pause = player(timeline, signal, (elapsedMs) => {
+    phase = (phase + elapsedMs / SPEEDS[speed]![2]) % 1
     time.set(phase)
     renderPositions()
-  })
+  }, 'orbit')
   const time = slider(timeline, { label: 'Time since closest approach', term: 'periastron', min: 0, max: 1, value: 0,
     format: (value) => `${formatDuration(value * period, period)} of ${formatDuration(period)}`, signal, onInput: (value) => { phase = value; renderPositions() } })
-  choices(timeline, 'Playback speed', SPEEDS.map(([id, label]) => [id, label] as const), 'normal', signal, (id) => {
-    orbitMs = SPEEDS.find(([candidate]) => candidate === id)![2]
-  })
+  const speedButton = Object.assign(document.createElement('button'), { type: 'button', className: 'panel-lock orbit-tool-speed' })
+  timeline.append(speedButton)
+  speedButton.addEventListener('click', () => setSpeed((speed + 1) % SPEEDS.length), { signal })
 
-  const groups = Object.assign(document.createElement('div'), { className: 'orbit-tool-groups' })
-  const group = (title: string) => {
-    const section = Object.assign(document.createElement('section'), { className: 'orbit-tool-group' })
-    section.append(Object.assign(document.createElement('h3'), { className: 'card-subgroup-heading', textContent: title }))
-    groups.append(section)
-    return section
-  }
-  const starsGroup = group('Stars')
-  const orbitGroup = group('Orbit')
-  container.append(groups)
+  const groups = tiles()
+  const starsGroup = tile(groups, 'orbit-tool-group')
+  heading(starsGroup, Sparkles, Object.assign(document.createElement('h3'), { textContent: 'Stars' }))
+  const orbitGroup = tile(groups, 'orbit-tool-group')
+  const setByButton = Object.assign(document.createElement('button'), { type: 'button', className: 'panel-lock orbit-tool-set-by' })
+  heading(orbitGroup, Orbit, Object.assign(document.createElement('h3'), { textContent: 'Orbit' })).append(setByButton)
+  setByButton.addEventListener('click', () => setSetBy(setBy === 'axis' ? 'period' : 'axis'), { signal })
   const massSliders = members.map((member, index) => slider(starsGroup, {
     label: `Mass of star ${index ? 'B' : 'A'}`, term: 'mass', min: MASS_RANGE[0], max: MASS_RANGE[1], log: true, value: member.mass, unit: 'M☉',
     format: (value) => `${number(value)} solar masses`, signal,
@@ -116,23 +147,35 @@ export function initializeOrbitTool(container: HTMLElement, signal: AbortSignal,
       changed()
     },
   }))
-  choices(orbitGroup, 'Set the orbit by', [['axis', 'Separation'], ['period', 'Period']], setBy, signal, (value) => {
-    setBy = value
-    axisSlider.row.hidden = setBy !== 'axis'
-    periodSlider.row.hidden = setBy !== 'period'
-  })
   const axisSlider = slider(orbitGroup, { label: 'Semi-major axis', term: 'semi-major-axis', min: AXIS_RANGE_AU[0], max: AXIS_RANGE_AU[1], log: true, value: axis, unit: 'AU',
     format: (value) => `${number(value)} astronomical units`, signal, onInput: (value) => { axis = value; changed() } })
   const periodSlider = slider(orbitGroup, { label: 'Orbital period', term: 'orbital-period', min: PERIOD_RANGE_YEARS[0], max: PERIOD_RANGE_YEARS[1], log: true, value: period, unit: 'years',
     format: (value) => formatDuration(value), signal, onInput: (value) => { period = value; changed() } })
-  periodSlider.row.hidden = true
   const eccentricitySlider = slider(orbitGroup, { label: 'Eccentricity', term: 'eccentricity', min: 0, max: 0.95, value: eccentricity, unit: '',
     format: (value) => number(value), signal, onInput: (value) => { eccentricity = value; changed() } })
 
-  const [periodValue, axisValue, closest, farthest, center, speedA, speedB] = readouts(container,
-    ['One orbit takes', 'Semi-major axis', 'Closest approach', 'Farthest apart', 'Center of mass', 'Speed of A', 'Speed of B'])
   const source = note(container, '')
   note(container, 'Seen face-on, closest approach to the right. Star symbols are enlarged. A star whose mass you change takes the color of a main-sequence star of that mass.')
+
+  function setSpeed(next: number): void {
+    speed = next
+    const [id, label] = SPEEDS[speed]!
+    speedButton.dataset.speed = id
+    speedButton.replaceChildren(createElement(speedIcon(speed), ICON_SIZE))
+    speedButton.title = `${label} playback`
+    speedButton.setAttribute('aria-label', `Playback speed: ${label.toLowerCase()}. Change speed`)
+  }
+
+  /** The slider the orbit is set by shows; the button shows that choice's icon. */
+  function setSetBy(next: typeof setBy): void {
+    setBy = next
+    axisSlider.row.hidden = setBy !== 'axis'
+    periodSlider.row.hidden = setBy !== 'period'
+    const [name, icon] = SET_BY[setBy]
+    setByButton.replaceChildren(createElement(icon, ICON_SIZE))
+    setByButton.title = `Orbit set by ${name}`
+    setByButton.setAttribute('aria-label', `Orbit set by ${name}. Set it by ${SET_BY[setBy === 'axis' ? 'period' : 'axis'][0]} instead`)
+  }
 
   function totalMass(): number {
     return members[0].mass + members[1].mass
@@ -153,7 +196,7 @@ export function initializeOrbitTool(container: HTMLElement, signal: AbortSignal,
   }
 
   function apply(pair: BinaryPair | null): void {
-    loaded = pair
+    loaded = chosen = pair
     members.forEach((member, index) => {
       member.star = pair?.stars[index] ?? null
       member.mass = member.star?.mass_solar ?? BASIC.masses[index]!
@@ -179,6 +222,9 @@ export function initializeOrbitTool(container: HTMLElement, signal: AbortSignal,
   }
 
   let pixelsPerAu = 1
+  /** The live labels keep their decimals through an orbit, so they don't flicker between precisions. */
+  let distanceDigits = 0
+  let speedDigits = 0
   /** Unit-axis position of the relative orbit at a fraction of the period since periastron. */
   const relative = (fraction: number) => orbitalPlanePoint({ eccentricity }, eccentricAnomaly(2 * Math.PI * (fraction - Math.floor(fraction)), eccentricity))
   const factors = () => [-members[1].mass / totalMass(), members[0].mass / totalMass()] as const
@@ -208,17 +254,13 @@ export function initializeOrbitTool(container: HTMLElement, signal: AbortSignal,
     markerLayer.replaceChildren(...markers)
     members.forEach((member, index) => trails[index]!.setAttribute('stroke', memberColor(member)))
 
-    const mass = totalMass()
-    const speed = (distance: number) => relativeSpeedKmS(mass, axis, distance)
-    const [nearest, widest] = [axis * (1 - eccentricity), axis * (1 + eccentricity)]
-    const formatSpeed = (share: number) => `${number(speed(widest) * share)}–${number(speed(nearest) * share)} km/s`
     periodValue!(formatDuration(period))
     axisValue!(`${number(axis)} AU`)
-    closest!(`${number(nearest)} AU`)
-    farthest!(`${number(widest)} AU`)
-    center!(`${number(axis * members[1].mass / mass)} AU from A`)
-    speedA!(formatSpeed(members[1].mass / mass))
-    speedB!(formatSpeed(members[0].mass / mass))
+    closest!(`${number(axis * (1 - eccentricity))} AU`)
+    farthest!(`${number(axis * (1 + eccentricity))} AU`)
+    distanceDigits = fixedDigits(axis * (1 - eccentricity))
+    // The heavier star moves slowest, most of all when the pair is farthest apart.
+    speedDigits = fixedDigits(relativeSpeedKmS(totalMass(), axis, axis * (1 + eccentricity)) * Math.min(...members.map(({ mass }) => mass)) / totalMass())
     time.set(phase)
     renderSource()
     renderPositions()
@@ -235,7 +277,8 @@ export function initializeOrbitTool(container: HTMLElement, signal: AbortSignal,
 
   function renderPositions(): void {
     const factorPair = factors()
-    const positions = factorPair.map((factor) => screen(relative(phase), factor))
+    const point = relative(phase)
+    const positions = factorPair.map((factor) => screen(point, factor))
     positions.forEach(({ x, y }, index) => {
       markers[index]?.setAttribute('transform', `translate(${x.toFixed(2)} ${y.toFixed(2)})`)
       // The trail covers the last fifth of an orbit, ending at the star.
@@ -248,6 +291,11 @@ export function initializeOrbitTool(container: HTMLElement, signal: AbortSignal,
     link.setAttribute('y1', positions[0]!.y.toFixed(2))
     link.setAttribute('x2', positions[1]!.x.toFixed(2))
     link.setAttribute('y2', positions[1]!.y.toFixed(2))
+    // Vis-viva gives the relative speed at this distance; each star moves its mass share of it around the center of mass.
+    const distance = axis * Math.hypot(point.x, point.y)
+    const relativeSpeed = relativeSpeedKmS(totalMass(), axis, distance)
+    apart.textContent = `${fixed(distance, distanceDigits)} AU apart`
+    speeds.forEach((label, index) => { label.textContent = `${index ? 'B' : 'A'}  ${fixed(relativeSpeed * members[1 - index]!.mass / totalMass(), speedDigits)} km/s` })
   }
 
   function renderOptions(): void {
@@ -287,9 +335,18 @@ export function initializeOrbitTool(container: HTMLElement, signal: AbortSignal,
     }, () => { notableLoad = undefined })
   }
 
+  setSpeed(NORMAL_SPEED)
+  setSetBy('axis')
   apply(null)
   renderOptions()
   return {
+    /** Back to the chosen pair, or the basic setup, at closest approach, paused, at normal speed. */
+    reset() {
+      pause()
+      setSpeed(NORMAL_SPEED)
+      setSetBy('axis')
+      apply(chosen)
+    },
     open(pair) {
       loadNotable()
       if (!pair) return render()

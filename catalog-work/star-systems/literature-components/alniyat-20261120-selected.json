@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-11-20",
+  "object": {
+    "name": "Alniyat",
+    "identifiers": [
+      "sig Sco",
+      "HD 147165",
+      "HIP 80112",
+      "HR 6084",
+      "SBC9 896",
+      "WDS J16212-2536",
+      "Gaia DR3 6048602103663486592"
+    ],
+    "hierarchy": "Quadruple: the 33-day double-lined pair Aa1 (B1 III, beta Cephei) + Aa2 (B1 V); the B7 tertiary Ab about 0.4 arcsec away; the B9 visual companion B about 20 arcsec away (ADS 10009)."
+  },
+  "sources": {
+    "north-2007": {
+      "reference": "North, Davis, Tuthill, Tango & Robertson 2007, MNRAS 380, 1276",
+      "bibcode": "2007MNRAS.380.1276N",
+      "doi": "10.1111/j.1365-2966.2007.12188.x",
+      "sourceUrl": "https://arxiv.org/html/0707.0897v1",
+      "retrievedOn": "2026-11-20",
+      "documentSha256": "99de390ff8d23b736999c4fc825ec2448cc992390af45ffa11848513e22e31ac",
+      "method": "SUSI long-baseline interferometry resolving the spectroscopic pair, combined with the Mathias et al. (1991) radial-velocity amplitudes.",
+      "table4": {
+        "P_days": "33.010 +/- 0.002",
+        "e": "0.3220 +/- 0.0012",
+        "T0_MJD": "34889.0 +/- 1.0",
+        "omega_deg": "283 +/- 5 (180 deg ambiguity)",
+        "a_mas": "3.62 +/- 0.06",
+        "Omega_deg": "104 +/- 5 (180 deg ambiguity)",
+        "i_deg": "158.2 +/- 2.3",
+        "theta1_uniformDisc_mas": "0.67 +/- 0.03",
+        "theta2_mas": "0.34 +/- 0.04 (adopted, not fitted)",
+        "brightnessRatio_700nm": "0.48 +/- 0.02",
+        "K1_kms": "31.9 +/- 1.3 (Mathias et al. 1991)",
+        "K2_kms": "49.3 +/- 7.3 (Mathias et al. 1991)"
+      },
+      "table5": {
+        "a1_AU": "0.25 +/- 0.03",
+        "a2_AU": "0.38 +/- 0.07",
+        "dynamicalParallax_mas": "5.76 +/- 0.68",
+        "distance_pc": "174 +23/-18",
+        "literatureDistance_pc": {
+          "ESA 1997": "225 +50/-35",
+          "de Bruijne 1999": "190 +19/-16"
+        },
+        "age_Myr": 10,
+        "Aa1_B1III": {
+          "mass_Msun": "18.4 +/- 5.4",
+          "M_V_mag": "-4.12 +/- 0.34",
+          "luminosity_Lsun": "(2.9 +/- 0.8) x 10^4",
+          "radius_Rsun": "12.7 +/- 1.8"
+        },
+        "Aa2_B1V": {
+          "mass_Msun": "11.9 +/- 3.1",
+          "M_V_mag": "-3.32 +/- 0.34",
+          "luminosity_Lsun": "(1.6 +/- 0.4) x 10^4"
+        }
+      },
+      "section3": {
+        "tertiaryMagnitudeDifference_mag": "2.23 +/- 0.18, relative to the combined spectroscopic pair, from Hartkopf et al. 2006 values adjusted to the SUSI passband",
+        "tertiaryFluxRatio_I3": "0.128 +/- 0.023 (tertiary / pair)",
+        "tertiarySeparationAtB2006_357": "rho = 486 mas, theta = 238 deg"
+      },
+      "section4_5": {
+        "V_mag": "2.88 +/- 0.02 (Johnson et al. 1966)",
+        "A_V_mag": "1.23 +/- 0.20",
+        "M_V_pair_mag": -4.55,
+        "V_bandBrightnessRatio": "0.48 +/- 0.02 (700 nm ratio adjusted by 0.996)",
+        "note": "The paper applies V = 2.88 to the spectroscopic pair alone, although that total includes the 2.23 mag fainter tertiary, so its component M_V are about 0.13 mag too bright."
+      },
+      "section4_6": {
+        "BC_V_Aa1_mag": -2.28,
+        "BC_V_Aa2_mag": -2.47,
+        "Teff_Aa1_K": "26150 +/- 1070 (Vander Linden & Butler 1988), pulsation variation 4000 +/- 2000",
+        "Teff_Aa2_K": "25400 +/- 2000 (Lang 1991)"
+      }
+    },
+    "tkachenko-2014": {
+      "reference": "Tkachenko, Aerts, Pavlovski, Degroote, Papics, Moravveji, Lehmann, Kolbas & Clemer 2014, MNRAS 442, 616",
+      "bibcode": "2014MNRAS.442..616T",
+      "doi": "10.1093/mnras/stu885",
+      "sourceUrl": "https://arxiv.org/html/1405.0924v1",
+      "retrievedOn": "2026-11-20",
+      "documentSha256": "d1c222afa53963ab7ea4fcf54037af5ce02ff05c3b2c619f47f7503604fc972a",
+      "method": "High-resolution spectroscopy with spectral disentangling, NLTE atmosphere fits per component, and seismic modelling of the primary.",
+      "table3_prewhitened": {
+        "P_days": "33.016(12)",
+        "K1_kms": "30.14(35)",
+        "e": "0.333(61)",
+        "omega_deg": "281.4(1.6)",
+        "T0_HJD": "2434885.8(1.0)",
+        "gamma_kms": "-1.52(25)"
+      },
+      "table6_solution2_orbitPlusSpectra": {
+        "P_days": "33.016(12), fixed",
+        "K1_kms": "30.14(35), fixed",
+        "K2_kms": "47.01(98)",
+        "e": "0.383(8), fixed to the Orbit solution",
+        "omega_deg": "288.1(8)",
+        "T0_HJD": "2434886.11(4)",
+        "note": "Adopted as final by the authors."
+      },
+      "table7": {
+        "uncertaintyConvention": "3 sigma",
+        "Teff_K": {
+          "Aa1": "25200 +/- 1500",
+          "Aa2": "25000 +/- 2400"
+        },
+        "logg_dex": {
+          "Aa1": "3.68 +/- 0.15",
+          "Aa2": "4.16 +/- 0.15"
+        },
+        "vsini_kms": {
+          "Aa1": "31.5 +/- 4.5",
+          "Aa2": "43.0 +/- 4.5"
+        },
+        "vturb_kms": {
+          "Aa1": "14.0 +/- 3.0",
+          "Aa2": "4.0 +/- 3.0"
+        },
+        "abundances": "Individual He, C, N, O, Si, Mg, Al relative to log N(H) = 12; no [Fe/H] or [M/H] is given."
+      },
+      "table8": {
+        "uncertaintyConvention": "1 sigma",
+        "i_deg": "21.8 +/- 2.3 (North et al. 2007)",
+        "a_AU": "0.583 +/- 0.064",
+        "mass_Msun": {
+          "Aa1": "14.7 +/- 4.5",
+          "Aa2": "9.5 +/- 2.9",
+          "basis": "Dynamical: spectroscopic orbit with the interferometric inclination"
+        },
+        "radius_Rsun": {
+          "Aa1": "9.2 +/- 1.9",
+          "Aa2": "4.2 +/- 1.0",
+          "basis": "Dynamical mass and spectroscopic log g"
+        },
+        "radiusFromAngularDiameter_Rsun": {
+          "Aa1": "11.3 +/- 1.6",
+          "Aa2": "5.8 +/- 1.2"
+        },
+        "logL_Lsun": {
+          "Aa1": "4.49 +/- 0.24",
+          "Aa2": "3.80 +/- 0.26",
+          "basis": "Consistent with the Stefan-Boltzmann law from the radius and Teff above (30,752 and 6,208 Lsun)"
+        },
+        "logLFromAngularDiameter_Lsun": {
+          "Aa1": "4.67 +/- 0.17",
+          "Aa2": "4.07 +/- 0.26"
+        }
+      },
+      "table9_model1": {
+        "Teff_K": "23945 +500/-990",
+        "logg_dex": "3.67 +0.01/-0.03",
+        "mass_Msun": "13.5 +0.5/-1.4",
+        "radius_Rsun": "8.95 +0.43/-0.66",
+        "f_ov": "0.000 +0.015",
+        "X_c": "0.14 +0.05/-0.01",
+        "age_Myr": "12.1 +2.0/-1.0",
+        "basis": "MESA/GYRE seismic modelling of the primary; errors exclude systematics of the evolution code and input physics"
+      },
+      "table10": {
+        "mass_Msun": {
+          "Aa1": "13.5 +0.5/-1.4",
+          "Aa2": "8.7 +0.6/-1.2"
+        },
+        "radius_Rsun": {
+          "Aa1": "8.95 +0.43/-0.66",
+          "Aa2": "3.90 +0.58/-0.36"
+        },
+        "logL_Lsun": {
+          "Aa1": "4.38 +0.07/-0.15",
+          "Aa2": "3.73 +0.13/-0.15"
+        },
+        "systemAge_Myr": "12.1 +2.0/-1.0",
+        "basis": "After seismic modelling. Aa2's mass is the primary's model mass times the spectroscopic mass ratio, not an independent measurement."
+      },
+      "section8": {
+        "lightContribution": "The primary contributes about 62% of the optical light."
+      }
+    }
+  }
+}

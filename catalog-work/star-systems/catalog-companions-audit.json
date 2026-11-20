@@ -69055,6 +69055,416 @@
         "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
       }
     },
+    "hip-80112": {
+      "membership": {
+        "source": "frozen SIMBAD composite spectral classification",
+        "mainId": null,
+        "originalSpectralType": "B1III+B1:V",
+        "spectralBibcode": null
+      },
+      "withheldIntegratedFields": {
+        "absolute_mag": -3.758771
+      },
+      "unresolvedPhotometry": {
+        "magnitude_v": 2.89,
+        "error_mag": null,
+        "scope": "Alniyat catalog source; unresolved component contributions",
+        "source": "Reviewed parent catalog Johnson V; inverse of its adopted distance modulus",
+        "source_url": "https://simbad.cds.unistra.fr/simbad/sim-id?Ident=%2A+sig+Sco",
+        "sourceStarId": "hip-80112",
+        "sourceAbsoluteMagnitude": -3.758771,
+        "sourceDistancePc": 213.675213661,
+        "sourceNotes": "Naked-eye star: SIMBAD compiled Johnson V=2.89 (2002yCat.2237....0D). SIMBAD identity * sig Sco; inverse SIMBAD compiled parallax distance; absolute V uses no extinction correction.",
+        "policy": "Observed catalog-source photometry only; no individual component flux inferred."
+      },
+      "reviewedPhysicalOverride": {
+        "values": {
+          "subtypes": [
+            "Beta Cephei variable"
+          ]
+        },
+        "source": "North et al. 2007, MNRAS 380, 1276, Section 1; Tkachenko et al. 2014, MNRAS 442, 616, Sections 6-8",
+        "sourceUrl": "https://arxiv.org/abs/1405.0924",
+        "scope": "Alniyat Aa1; classification",
+        "note": "GCVS lists sig Sco as BCEP for the unresolved system; the three pulsation modes are intrinsic to the B1 III primary Aa1 (Tkachenko et al. 2014)."
+      },
+      "reviewedLiterature": {
+        "expectedName": "Alniyat Aa1",
+        "systemId": "spectroscopic-hip-80112",
+        "component": "Aa1",
+        "expectedType": "star",
+        "gaiaDr3Id": "6048602103663486592",
+        "fields": {
+          "temperature_k": {
+            "value": 25200,
+            "status": "measured",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 7",
+            "uncertainty": 1500,
+            "uncertaintyConvention": "3 sigma",
+            "quantity": "NLTE effective temperature from the disentangled component spectrum",
+            "caveat": "Aa1 is a beta Cephei pulsator whose temperature varies over the cycle; Vander Linden & Butler (1988) give 26,150 +/- 1,070 K for the composite. The seismic model gives 23,945 +500/-990 K."
+          },
+          "mass_solar": {
+            "value": 14.7,
+            "status": "measured",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 8",
+            "uncertainty": 4.5,
+            "uncertaintyConvention": "1 sigma",
+            "quantity": "dynamical mass",
+            "method": "Tkachenko et al.'s spectroscopic orbit (K1 = 30.14, K2 = 47.01 km/s, e = 0.383) with North et al.'s interferometric inclination of 21.8 +/- 2.3 deg.",
+            "caveat": "The seismic model mass is 13.5 +0.5/-1.4 Msun (Table 10). North et al. (2007) obtain 18.4 +/- 5.4 Msun from older, less precise velocity amplitudes."
+          },
+          "radius_solar": {
+            "value": 9.2,
+            "status": "derived",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 8",
+            "uncertainty": 1.9,
+            "uncertaintyConvention": "1 sigma",
+            "method": "Dynamical mass and spectroscopic log g = 3.68 +/- 0.15",
+            "caveat": "The seismic model gives 8.95 +0.43/-0.66 Rsun. The interferometric angular diameter gives 11.3 +/- 1.6 Rsun at the orbital distance; North et al. give 12.7 +/- 1.8 Rsun."
+          },
+          "luminosity_solar": {
+            "value": 30903,
+            "status": "derived",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 8",
+            "uncertainty": null,
+            "publishedValue": "log L/Lsun = 4.49 +/- 0.24 (1 sigma)",
+            "method": "10^4.49 from the published log L, itself the Stefan-Boltzmann value of the adopted radius and temperature",
+            "caveat": "Seismic modelling gives log L = 4.38 +0.07/-0.15; North et al. give (2.9 +/- 0.8) x 10^4 Lsun."
+          },
+          "age_gyr": {
+            "value": 0.0121,
+            "status": "model-derived",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Tables 9-10 (model 1)",
+            "uncertainty": {
+              "plus": 0.002,
+              "minus": 0.001
+            },
+            "uncertaintyConvention": "1 sigma",
+            "method": "MESA/GYRE seismic modelling of the primary's pulsation modes; errors exclude systematics of the evolution code and input physics",
+            "scope": "Age of the system from modelling Aa1; the components are taken as coeval.",
+            "caveat": "North et al. (2007) find about 10 Myr from single-star tracks; the Upper Scorpius group is about 11 Myr (Pecaut et al. 2012)."
+          },
+          "apparent_mag": {
+            "value": 3.437,
+            "status": "derived",
+            "reference": "North et al. 2007; 2007MNRAS.380.1276N",
+            "sourceUrl": "https://arxiv.org/abs/0707.0897",
+            "section": "Sections 3 and 4.5",
+            "uncertainty": 0.032,
+            "uncertaintyConvention": "1 sigma, Monte Carlo over the three inputs",
+            "method": "Spectroscopic-pair V = V_total + 2.5 log10(1 + 10^(-0.4 dm_Ab)); Aa1 = pair + 2.5 log10(1 + beta); Aa2 = Aa1 - 2.5 log10(beta)",
+            "inputs": {
+              "V_total": 2.88,
+              "dm_Ab": 2.23,
+              "beta": 0.48
+            },
+            "scope": "Individual Johnson V of Aa1, with the 0.4 arcsec tertiary Ab removed from the unresolved total.",
+            "caveat": "North et al. apply V = 2.88 to the pair alone and so list M_V about 0.13 mag too bright. The tertiary's magnitude difference is from the SUSI passband near 700 nm, not V. Tkachenko et al. (2014) find the primary gives about 62% of the light at 381-681 nm, against 68% from North's V-band ratio."
+          }
+        },
+        "note": "Alniyat Aa1: B1 III beta Cephei primary of the 33-day pair, from the disentangled spectra and dynamical masses of Tkachenko et al. (2014) with the SUSI orbit of North et al. (2007). Seismic model mass 13.5 Msun and radius 8.95 Rsun, and North's 18.4 Msun and 12.7 Rsun, stay in the review. The orbital (dynamical) parallax, 5.76 +/- 0.68 mas (174 pc), differs from the adopted Hipparcos 4.68 +/- 0.60 mas (214 pc) by about 1.3 sigma; the catalog distance is unchanged.",
+        "adopted": {
+          "temperature_k": {
+            "value": 25200,
+            "status": "measured",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 7",
+            "uncertainty": 1500,
+            "uncertaintyConvention": "3 sigma",
+            "quantity": "NLTE effective temperature from the disentangled component spectrum",
+            "caveat": "Aa1 is a beta Cephei pulsator whose temperature varies over the cycle; Vander Linden & Butler (1988) give 26,150 +/- 1,070 K for the composite. The seismic model gives 23,945 +500/-990 K."
+          },
+          "mass_solar": {
+            "value": 14.7,
+            "status": "measured",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 8",
+            "uncertainty": 4.5,
+            "uncertaintyConvention": "1 sigma",
+            "quantity": "dynamical mass",
+            "method": "Tkachenko et al.'s spectroscopic orbit (K1 = 30.14, K2 = 47.01 km/s, e = 0.383) with North et al.'s interferometric inclination of 21.8 +/- 2.3 deg.",
+            "caveat": "The seismic model mass is 13.5 +0.5/-1.4 Msun (Table 10). North et al. (2007) obtain 18.4 +/- 5.4 Msun from older, less precise velocity amplitudes."
+          },
+          "radius_solar": {
+            "value": 9.2,
+            "status": "derived",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 8",
+            "uncertainty": 1.9,
+            "uncertaintyConvention": "1 sigma",
+            "method": "Dynamical mass and spectroscopic log g = 3.68 +/- 0.15",
+            "caveat": "The seismic model gives 8.95 +0.43/-0.66 Rsun. The interferometric angular diameter gives 11.3 +/- 1.6 Rsun at the orbital distance; North et al. give 12.7 +/- 1.8 Rsun."
+          },
+          "luminosity_solar": {
+            "value": 30903,
+            "status": "derived",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 8",
+            "uncertainty": null,
+            "publishedValue": "log L/Lsun = 4.49 +/- 0.24 (1 sigma)",
+            "method": "10^4.49 from the published log L, itself the Stefan-Boltzmann value of the adopted radius and temperature",
+            "caveat": "Seismic modelling gives log L = 4.38 +0.07/-0.15; North et al. give (2.9 +/- 0.8) x 10^4 Lsun."
+          },
+          "age_gyr": {
+            "value": 0.0121,
+            "status": "model-derived",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Tables 9-10 (model 1)",
+            "uncertainty": {
+              "plus": 0.002,
+              "minus": 0.001
+            },
+            "uncertaintyConvention": "1 sigma",
+            "method": "MESA/GYRE seismic modelling of the primary's pulsation modes; errors exclude systematics of the evolution code and input physics",
+            "scope": "Age of the system from modelling Aa1; the components are taken as coeval.",
+            "caveat": "North et al. (2007) find about 10 Myr from single-star tracks; the Upper Scorpius group is about 11 Myr (Pecaut et al. 2012)."
+          },
+          "apparent_mag": {
+            "value": 3.437,
+            "status": "derived",
+            "reference": "North et al. 2007; 2007MNRAS.380.1276N",
+            "sourceUrl": "https://arxiv.org/abs/0707.0897",
+            "section": "Sections 3 and 4.5",
+            "uncertainty": 0.032,
+            "uncertaintyConvention": "1 sigma, Monte Carlo over the three inputs",
+            "method": "Spectroscopic-pair V = V_total + 2.5 log10(1 + 10^(-0.4 dm_Ab)); Aa1 = pair + 2.5 log10(1 + beta); Aa2 = Aa1 - 2.5 log10(beta)",
+            "inputs": {
+              "V_total": 2.88,
+              "dm_Ab": 2.23,
+              "beta": 0.48
+            },
+            "scope": "Individual Johnson V of Aa1, with the 0.4 arcsec tertiary Ab removed from the unresolved total.",
+            "caveat": "North et al. apply V = 2.88 to the pair alone and so list M_V about 0.13 mag too bright. The tertiary's magnitude difference is from the SUSI passband near 700 nm, not V. Tkachenko et al. (2014) find the primary gives about 62% of the light at 381-681 nm, against 68% from North's V-band ratio."
+          },
+          "absolute_mag": {
+            "value": -3.211770734,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 3.437,
+              "distance_pc": 213.675213661
+            }
+          }
+        },
+        "retained": {}
+      },
+      "spectralSubtypes": {
+        "spectralType": "B1III",
+        "labels": [
+          "Giant"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
+    "hip-80112-component-aa2": {
+      "membership": {
+        "source": "frozen SIMBAD composite spectral classification",
+        "mainId": null,
+        "originalSpectralType": "B1III+B1:V",
+        "spectralBibcode": null
+      },
+      "withheldIntegratedFields": {
+        "absolute_mag": -3.758771
+      },
+      "reviewedLiterature": {
+        "expectedName": "Alniyat Aa2",
+        "systemId": "spectroscopic-hip-80112",
+        "component": "Aa2",
+        "expectedType": "star",
+        "fields": {
+          "temperature_k": {
+            "value": 25000,
+            "status": "measured",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 7",
+            "uncertainty": 2400,
+            "uncertaintyConvention": "3 sigma",
+            "quantity": "NLTE effective temperature from the disentangled component spectrum",
+            "caveat": "North et al. (2007) adopt 25,400 +/- 2,000 K from the B1 V calibration of Lang (1991)."
+          },
+          "mass_solar": {
+            "value": 9.5,
+            "status": "measured",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 8",
+            "uncertainty": 2.9,
+            "uncertaintyConvention": "1 sigma",
+            "quantity": "dynamical mass",
+            "method": "Tkachenko et al.'s spectroscopic orbit (K1 = 30.14, K2 = 47.01 km/s, e = 0.383) with North et al.'s interferometric inclination of 21.8 +/- 2.3 deg.",
+            "caveat": "Table 10 lists 8.7 +0.6/-1.2 Msun, the primary's seismic model mass times the mass ratio, not an independent value. North et al. (2007) obtain 11.9 +/- 3.1 Msun."
+          },
+          "radius_solar": {
+            "value": 4.2,
+            "status": "derived",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 8",
+            "uncertainty": 1.0,
+            "uncertaintyConvention": "1 sigma",
+            "method": "Dynamical mass and spectroscopic log g = 4.16 +/- 0.15",
+            "caveat": "Table 10 gives 3.90 +0.58/-0.36 Rsun from the seismic mass. The adopted, not fitted, angular diameter of North et al. implies 5.8 +/- 1.2 Rsun."
+          },
+          "luminosity_solar": {
+            "value": 6310,
+            "status": "derived",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 8",
+            "uncertainty": null,
+            "publishedValue": "log L/Lsun = 3.80 +/- 0.26 (1 sigma)",
+            "method": "10^3.80 from the published log L, itself the Stefan-Boltzmann value of the adopted radius and temperature",
+            "caveat": "Table 10 gives log L = 3.73 +0.13/-0.15; North et al. give (1.6 +/- 0.4) x 10^4 Lsun from a B1 V bolometric correction."
+          },
+          "age_gyr": {
+            "value": 0.0121,
+            "status": "model-derived",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Tables 9-10 (model 1)",
+            "uncertainty": {
+              "plus": 0.002,
+              "minus": 0.001
+            },
+            "uncertaintyConvention": "1 sigma",
+            "method": "MESA/GYRE seismic modelling of the primary's pulsation modes; errors exclude systematics of the evolution code and input physics",
+            "scope": "Age of the system from modelling Aa1; the components are taken as coeval. Not a separate fit to Aa2.",
+            "caveat": "North et al. (2007) find about 10 Myr from single-star tracks; the Upper Scorpius group is about 11 Myr (Pecaut et al. 2012)."
+          },
+          "apparent_mag": {
+            "value": 4.234,
+            "status": "derived",
+            "reference": "North et al. 2007; 2007MNRAS.380.1276N",
+            "sourceUrl": "https://arxiv.org/abs/0707.0897",
+            "section": "Sections 3 and 4.5",
+            "uncertainty": 0.042,
+            "uncertaintyConvention": "1 sigma, Monte Carlo over the three inputs",
+            "method": "Spectroscopic-pair V = V_total + 2.5 log10(1 + 10^(-0.4 dm_Ab)); Aa1 = pair + 2.5 log10(1 + beta); Aa2 = Aa1 - 2.5 log10(beta)",
+            "inputs": {
+              "V_total": 2.88,
+              "dm_Ab": 2.23,
+              "beta": 0.48
+            },
+            "scope": "Individual Johnson V of Aa2, with the 0.4 arcsec tertiary Ab removed from the unresolved total.",
+            "caveat": "North et al. apply V = 2.88 to the pair alone and so list M_V about 0.13 mag too bright. The tertiary's magnitude difference is from the SUSI passband near 700 nm, not V. Tkachenko et al. (2014) find the primary gives about 62% of the light at 381-681 nm, against 68% from North's V-band ratio."
+          }
+        },
+        "note": "Alniyat Aa2: B1 V secondary of the 33-day pair, from the disentangled spectra and dynamical masses of Tkachenko et al. (2014) with the SUSI orbit of North et al. (2007). Both stars have the same temperature; Aa2 is smaller, with higher surface gravity.",
+        "adopted": {
+          "temperature_k": {
+            "value": 25000,
+            "status": "measured",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 7",
+            "uncertainty": 2400,
+            "uncertaintyConvention": "3 sigma",
+            "quantity": "NLTE effective temperature from the disentangled component spectrum",
+            "caveat": "North et al. (2007) adopt 25,400 +/- 2,000 K from the B1 V calibration of Lang (1991)."
+          },
+          "mass_solar": {
+            "value": 9.5,
+            "status": "measured",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 8",
+            "uncertainty": 2.9,
+            "uncertaintyConvention": "1 sigma",
+            "quantity": "dynamical mass",
+            "method": "Tkachenko et al.'s spectroscopic orbit (K1 = 30.14, K2 = 47.01 km/s, e = 0.383) with North et al.'s interferometric inclination of 21.8 +/- 2.3 deg.",
+            "caveat": "Table 10 lists 8.7 +0.6/-1.2 Msun, the primary's seismic model mass times the mass ratio, not an independent value. North et al. (2007) obtain 11.9 +/- 3.1 Msun."
+          },
+          "radius_solar": {
+            "value": 4.2,
+            "status": "derived",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 8",
+            "uncertainty": 1.0,
+            "uncertaintyConvention": "1 sigma",
+            "method": "Dynamical mass and spectroscopic log g = 4.16 +/- 0.15",
+            "caveat": "Table 10 gives 3.90 +0.58/-0.36 Rsun from the seismic mass. The adopted, not fitted, angular diameter of North et al. implies 5.8 +/- 1.2 Rsun."
+          },
+          "luminosity_solar": {
+            "value": 6310,
+            "status": "derived",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Table 8",
+            "uncertainty": null,
+            "publishedValue": "log L/Lsun = 3.80 +/- 0.26 (1 sigma)",
+            "method": "10^3.80 from the published log L, itself the Stefan-Boltzmann value of the adopted radius and temperature",
+            "caveat": "Table 10 gives log L = 3.73 +0.13/-0.15; North et al. give (1.6 +/- 0.4) x 10^4 Lsun from a B1 V bolometric correction."
+          },
+          "age_gyr": {
+            "value": 0.0121,
+            "status": "model-derived",
+            "reference": "Tkachenko et al. 2014; 2014MNRAS.442..616T",
+            "sourceUrl": "https://arxiv.org/abs/1405.0924",
+            "section": "Tables 9-10 (model 1)",
+            "uncertainty": {
+              "plus": 0.002,
+              "minus": 0.001
+            },
+            "uncertaintyConvention": "1 sigma",
+            "method": "MESA/GYRE seismic modelling of the primary's pulsation modes; errors exclude systematics of the evolution code and input physics",
+            "scope": "Age of the system from modelling Aa1; the components are taken as coeval. Not a separate fit to Aa2.",
+            "caveat": "North et al. (2007) find about 10 Myr from single-star tracks; the Upper Scorpius group is about 11 Myr (Pecaut et al. 2012)."
+          },
+          "apparent_mag": {
+            "value": 4.234,
+            "status": "derived",
+            "reference": "North et al. 2007; 2007MNRAS.380.1276N",
+            "sourceUrl": "https://arxiv.org/abs/0707.0897",
+            "section": "Sections 3 and 4.5",
+            "uncertainty": 0.042,
+            "uncertaintyConvention": "1 sigma, Monte Carlo over the three inputs",
+            "method": "Spectroscopic-pair V = V_total + 2.5 log10(1 + 10^(-0.4 dm_Ab)); Aa1 = pair + 2.5 log10(1 + beta); Aa2 = Aa1 - 2.5 log10(beta)",
+            "inputs": {
+              "V_total": 2.88,
+              "dm_Ab": 2.23,
+              "beta": 0.48
+            },
+            "scope": "Individual Johnson V of Aa2, with the 0.4 arcsec tertiary Ab removed from the unresolved total.",
+            "caveat": "North et al. apply V = 2.88 to the pair alone and so list M_V about 0.13 mag too bright. The tertiary's magnitude difference is from the SUSI passband near 700 nm, not V. Tkachenko et al. (2014) find the primary gives about 62% of the light at 381-681 nm, against 68% from North's V-band ratio."
+          },
+          "absolute_mag": {
+            "value": -2.414770734,
+            "status": "derived",
+            "method": "Component Johnson V and adopted catalog distance; no extinction correction",
+            "inputs": {
+              "apparent_mag": 4.234,
+              "distance_pc": 213.675213661
+            }
+          }
+        },
+        "retained": {}
+      },
+      "spectralSubtypes": {
+        "spectralType": "B1:V",
+        "labels": [
+          "Main-sequence"
+        ],
+        "method": "Physical subtype from this component's own adopted spectrum; no aggregate-label inheritance"
+      }
+    },
     "hip-90313": {
       "membership": {
         "source": "frozen SIMBAD composite spectral classification",
@@ -138236,6 +138646,24 @@
       ]
     },
     {
+      "wds": "16212-2536",
+      "designation": "NOR   1Aa1,2",
+      "grade": "8",
+      "labels": [
+        "Aa1",
+        "Aa2"
+      ],
+      "implicitPair": false,
+      "catalogIds": [
+        "hip-80112"
+      ],
+      "reference": "Nor2007",
+      "decision": "covered-reviewed-system",
+      "relevantCatalogIds": [
+        "hip-80112"
+      ]
+    },
+    {
       "wds": "16240+4822",
       "designation": "HEN   1Aa,Ab",
       "grade": "2",
@@ -151889,6 +152317,40 @@
       ],
       "catalogIds": [
         "scorpius-x-1-b"
+      ],
+      "uniqueIdentity": true,
+      "decision": "covered-reviewed-system"
+    },
+    {
+      "sb9": "896",
+      "component": "A",
+      "spectra": [
+        "B1III",
+        ""
+      ],
+      "doubleLined": false,
+      "orbits": [
+        {
+          "orbit": "1",
+          "periodDays": "34.23",
+          "periodErrorDays": null,
+          "periastron": "34895.2",
+          "periastronFlag": "0",
+          "k1Kms": "34.0",
+          "k2Kms": null,
+          "eccentricity": "0.36",
+          "eccentricityError": null,
+          "argumentDeg": "308.",
+          "argumentErrorDeg": null,
+          "systemicKms": "+2.5",
+          "systemicErrorKms": null,
+          "grade": "1.0",
+          "bibcode": "1961ApJ...133..509S",
+          "timeReference": "JD"
+        }
+      ],
+      "catalogIds": [
+        "hip-80112"
       ],
       "uniqueIdentity": true,
       "decision": "covered-reviewed-system"
@@ -169947,12 +170409,12 @@
   ],
   "schemaVersion": 1,
   "reviewedOn": "2026-10-13",
-  "systems": 1093,
-  "components": 2394,
+  "systems": 1094,
+  "components": 2396,
   "selectedFieldCoverage": {
-    "individualApparentMagnitude": 1123,
+    "individualApparentMagnitude": 1125,
     "unresolvedSourcePhotometry": 365,
-    "subtypes": 1313,
+    "subtypes": 1315,
     "missingSubtypes": [
       "gj-105-c",
       "cns5-1723",
@@ -171957,14 +172419,14 @@
       "absolute_mag"
     ],
     "available": {
-      "spectral_type": 1554,
-      "temperature_k": 1288,
-      "mass_solar": 603,
-      "luminosity_solar": 826,
-      "radius_solar": 850,
+      "spectral_type": 1556,
+      "temperature_k": 1290,
+      "mass_solar": 605,
+      "luminosity_solar": 828,
+      "radius_solar": 852,
       "metallicity_dex": 788,
-      "age_gyr": 82,
-      "absolute_mag": 1123
+      "age_gyr": 84,
+      "absolute_mag": 1125
     },
     "withoutProperties": [
       "cns5-1615",
@@ -182064,6 +182526,12 @@
         "age_gyr",
         "absolute_mag"
       ],
+      "hip-80112": [
+        "metallicity_dex"
+      ],
+      "hip-80112-component-aa2": [
+        "metallicity_dex"
+      ],
       "hip-90313": [
         "temperature_k",
         "mass_solar",
@@ -189309,8 +189777,8 @@
     }
   },
   "sourcePreservation": {
-    "componentRecordsWithSources": 1096,
-    "sourceRecords": 1792,
+    "componentRecordsWithSources": 1097,
+    "sourceRecords": 1793,
     "missingIndividualFieldsWithSourceValues": {
       "temperature_k": 280,
       "mass_solar": 153,
@@ -189327,16 +189795,16 @@
     }
   },
   "coverage": {
-    "temperature_k": 1288,
-    "mass_solar": 603,
-    "luminosity_solar": 826,
-    "radius_solar": 850,
+    "temperature_k": 1290,
+    "mass_solar": 605,
+    "luminosity_solar": 828,
+    "radius_solar": 852,
     "metallicity_dex": 788,
-    "age_gyr": 82
+    "age_gyr": 84
   },
   "inputSha256": {
     "src/data/star-systems.json": "ccb8b300d861fec42a9b95bfeafa8e30f3b4c53298c8c03e3f1743bf4c28fddf",
-    "src/data/object-designations.json": "60ddba1ee576b1e0fdec08d9c274efcf99ebc29e9d80664fe967b67e0c9e55ac",
+    "src/data/object-designations.json": "7dafc0f9923f299e208363c309eb8518ed6eec3994428154b6949267c18702b4",
     "src/data/object-stats.json": "005cf5f3ba92653794e42fb7e8c44c6401cbc78d9bce705d4dc1f9a7a108bfc5",
     "catalog-work/bright-stars/retired-catalog/stars.csv": "7323a7558aa7af710cdd3829a865fe1c207629a47252fdcde4eef833dbab0cb1",
     "catalog-work/famous-cluster-stars/retired-catalog/stars.csv": "33177d7aebf518102e1e9df6d8117bb632b8cf2dd344a2a2bbb2caa3b6ffc210",
@@ -189352,7 +189820,7 @@
     "catalog-work/star-systems/catalog-companions-simbad.csv": "9cd56e663e725c3aa715acfd18918c91e6851c307e9b2efbeeb37d8f4d969042",
     "catalog-work/star-systems/catalog-companions-atmospheres.csv": "7c4ab8e29a52125e7e8879228631f210760d85200a212fd3b6e5ecc7d8d8ac5b",
     "catalog-work/star-systems/catalog-companions-gaia.csv": "5ae6a8cbe672091b57b8d6412668b55137745cdbdedce72f5dc22825e3305a24",
-    "catalog-work/star-systems/catalog-companions-overrides.json": "5173c83edc9bb6ccddb3233be71347dfed1b88bea2b719a688cd66218f138080",
+    "catalog-work/star-systems/catalog-companions-overrides.json": "b9b05f9fba98f56a2174553c2ef22941242d2ca8827b5e69dbf0a0651a79e4a3",
     "catalog-work/star-systems/reviewed-regor.json": "8e88908ce6de75b304b830edc18ef7fe470ed98777287dccca91fdd2b783fc09",
     "catalog-work/star-systems/catalog-companions-reviewed.json": "a30efb358f89c7e805580fe8401cfa35260f16d05b7f24081d355901113b214b",
     "catalog-work/star-systems/adhara-b-simbad.txt": "4392455cb01b0101e38dd2404558b26d1913c10daf5dd0bcf42322508b4b4c81",
@@ -189370,13 +189838,13 @@
     "catalog-work/star-systems/sb9-20240621/Orbits.dta": "3c2b7817032b07f9511e3d9c2871c1c3c6a249f80aa43d7e90e3842f70188ef5",
     "catalog-work/star-systems/sb9-20240621/Alias.dta": "6b79ca197a62b48459b2d6cb5558ee8d62436cec58be46255e5af3d3f7f3c2d2",
     "catalog-work/star-systems/sb9-20240621/ReadMe.txt": "ed3b9eb4a962132f3037a83dd105d754a219fe737b8264bc46342b8bcb6ebaba",
-    "catalog-work/star-systems/spectroscopic-binaries-review.json": "4160a4b39d58376119ba11408bd65a3cf61a14381fa43de951d4256b8bb294a8",
+    "catalog-work/star-systems/spectroscopic-binaries-review.json": "6f0ef840e35c827c54735ceb697605e3368fe248d71d3d65ffab9acdaa31b1c4",
     "catalog-work/star-systems/gaia-double-lined-review.json": "2cf20687a84e7a12a438aee100e1523316b29db53c3d7e23402b4e5c19c763fa",
     "catalog-work/star-systems/reviewed-constellation-hierarchies.json": "1c595ad68e82e5f58a291e3792bf7ee8793d99d33c86d219678398432f93c859",
     "catalog-work/star-systems/literature-components/constellation-20261019-selected.json": "afc8cdc55981eabcf43557bb77aa94355c79c9ecd10ce84201bcd39b75344e2d",
     "catalog-work/star-systems/reviewed-component-splits.json": "d44a31bec7893b29cc4f5dc8b3d9c57b6d149488af1e72e7dc046095412ed8e4",
     "catalog-work/star-systems/literature-components/component-splits-20261102-selected.json": "50b5e748148b373860188cce8e3fdcc4b150cf58d404b82d692246baa21b49c8",
-    "catalog-work/star-systems/reviewed-companion-literature.json": "69d3dd2a292e6b334051a281ea949fe6f09d6e6ed87e17cdcd6df7e8020e26ea",
+    "catalog-work/star-systems/reviewed-companion-literature.json": "a37cd655b4d6138304a5141446ccefe435e26bae4b622a3e05d097d5e991d303",
     "catalog-work/star-systems/literature-components/debcat-20261011.dat": "51af2a4e465a4e2dd8a5671926a1e1069b49eadd80402c4a8bec6785c3505bbe",
     "catalog-work/star-systems/literature-components/piccotti-2020-ReadMe": "d36919462d3dc36e85f4cde8e93ce83b8c9da8b49fc92c546112bbcbaeeccd06",
     "catalog-work/star-systems/literature-components/piccotti-2020-table1.dat": "f5c73a9e5b438837432968eafafdc53b94abd9ccbfe7c633765234cd15a6f89c",
@@ -189400,6 +189868,7 @@
     "catalog-work/star-systems/literature-components/sb9-20261030-selected.json": "9a9b1612bdcecaba78babfc8db5cc02b728284e58cec7ef3081d2ffa691ba5f3",
     "catalog-work/shared-enrichment/literature/spectroscopy.csv": "85da8f4ab1bef2d73d791b9a72a804fe69173ac3ac84772ddda926759a4afc0e",
     "catalog-work/star-systems/literature-components/49-lib-20261106-selected.json": "9cc3d5902f04b0f680a35ba717b4605a4ff0cc4433c8b712f4c95122615c5acb",
+    "catalog-work/star-systems/literature-components/alniyat-20261120-selected.json": "4c9309b9229e0a7bf1ab6875691da2e78b6705f6ca8ccb7529336ad22b4f823a",
     "catalog-work/star-systems/reviewed-constellation-literature.json": "d93fefcabbb347ba5eafdff2f48c5ca973b53965e8eebcea2125eda59c791848",
     "catalog-work/star-systems/reviewed-constellation-data.json": "3a37cfde2607a0d583eed0ba6c2721b956c49177e94304c40fceac27d6673b63",
     "catalog-work/star-systems/literature-components/constellation-20261019-motion-selected.json": "a1a95aba0ce31aef48807a80a068a31f06b1e46e782557b002d232c83b1d0d2b",

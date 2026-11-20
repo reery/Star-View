@@ -138,6 +138,32 @@ are frozen in `literature-components/49-lib-20261106-selected.json`.
 pool does, and counts compact systems as reviewed. A full run otherwise reports 44
 naked-eye name pairs and V404 Cygni as unreviewed. Those 44 pairs have no system yet.
 
+## Alniyat binary review (2026-11-20)
+
+Alniyat (sigma Sco) was a single naked-eye row with the composite spectrum B1III+B1:V.
+SB9 lists it as system 896, but only with a single-lined grade-1 orbit from 1961, so
+the double-lined rule left it out. `nakedEyeParents` now admits it by review, and
+`compositeLabels` in the same file names the pair Aa1 and Aa2: the automatic A/B labels
+would collide with the B9 visual companion B, 20″ away. The system is
+`spectroscopic-hip-80112`; Aa1 keeps the catalog row `hip-80112`. Source values are frozen
+in `literature-components/alniyat-20261120-selected.json`.
+
+- **Temperatures:** 25,200 ± 1,500 K and 25,000 ± 2,400 K (3σ) from the disentangled
+  spectra of [Tkachenko et al. (2014), Table 7](https://arxiv.org/abs/1405.0924).
+- **Masses:** the dynamical 14.7 ± 4.5 and 9.5 ± 2.9 M☉ (Table 8), from their orbit and the
+  interferometric inclination of [North et al. (2007)](https://arxiv.org/abs/0707.0897).
+  The seismic model masses of 13.5 and 8.7 M☉ that Wikipedia quotes stay in the review.
+  Aa2's 8.7 M☉ is the model mass of Aa1 times the mass ratio. North's 18.4 and 11.9 M☉
+  rest on older velocity amplitudes.
+- **Radii and luminosities:** 9.2 and 4.2 R☉ follow from mass and spectroscopic log g;
+  log L of 4.49 and 3.80 then follows from Stefan-Boltzmann (Table 8).
+- **Age:** 12.1 +2.0/−1.0 Myr from seismic modelling of Aa1, applied to both stars.
+- **Photometry:** V = 3.44 ± 0.03 and 4.23 ± 0.04. The V = 2.88 total includes the
+  tertiary Ab (2.23 mag fainter), which North et al. left in their component M_V.
+- **Distance is unchanged:** the orbital parallax of 5.76 ± 0.68 mas (174 pc) is 1.3σ from
+  Hipparcos (4.68 ± 0.60 mas, 214 pc), which Sh 2-9 also uses.
+- **Not added:** Ab (B7, 0.4″) and B (B9 V, 20″) have no individual records yet.
+
 ## WISE 0855-0714 physical review (2026-11-06)
 
 Reviewed values live in `catalog-work/nearest-100/physical-overrides.json`, which
