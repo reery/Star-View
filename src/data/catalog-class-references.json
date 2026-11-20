@@ -9,7 +9,7 @@
     "naked-eye-stars",
     "notable-distant-stars"
   ],
-  "uniqueObjects": 14098,
+  "uniqueObjects": 14099,
   "classes": [
     {
       "spectral": "A0.5V",
@@ -4341,47 +4341,47 @@
       "letter": "B",
       "subtype": 1,
       "stage": "III",
-      "count": 9,
+      "count": 10,
       "metrics": {
         "mass": {
-          "value": 25.9,
+          "value": 22.1667,
           "range": [
             11.6,
             40.2
           ],
-          "count": 2
+          "count": 3
         },
         "gravity": {
-          "value": 56.2577,
+          "value": 51.94,
           "range": [
-            56.2577,
+            47.6222,
             56.2577
           ],
-          "count": 1
+          "count": 2
         },
         "escapeKms": {
-          "value": 767.19,
+          "value": 773.981,
           "range": [
             767.19,
-            767.19
+            780.773
           ],
-          "count": 1
+          "count": 2
         },
         "density": {
-          "value": 0.0384675,
+          "value": 0.0325406,
           "range": [
-            0.0384675,
+            0.0266137,
             0.0384675
           ],
-          "count": 1
+          "count": 2
         },
         "luminosityPerMass": {
-          "value": 854.328,
+          "value": 1478.29,
           "range": [
             854.328,
-            854.328
+            2102.24
           ],
-          "count": 1
+          "count": 2
         }
       }
     },
@@ -4427,47 +4427,47 @@
       "letter": "B",
       "subtype": 1,
       "stage": "V",
-      "count": 27,
+      "count": 28,
       "metrics": {
         "mass": {
-          "value": 9.315,
+          "value": 9.37667,
           "range": [
             7.2,
             11.43
           ],
-          "count": 2
+          "count": 3
         },
         "gravity": {
-          "value": 137.763,
+          "value": 141.065,
           "range": [
             56.1659,
             219.36
           ],
-          "count": 2
+          "count": 3
         },
         "escapeKms": {
-          "value": 860.475,
+          "value": 883.303,
           "range": [
             764.051,
             956.898
           ],
-          "count": 2
+          "count": 3
         },
         "density": {
-          "value": 0.207299,
+          "value": 0.198456,
           "range": [
             0.0386577,
             0.375941
           ],
-          "count": 2
+          "count": 3
         },
         "luminosityPerMass": {
-          "value": 951.16,
+          "value": 855.51,
           "range": [
             107.778,
             1794.54
           ],
-          "count": 2
+          "count": 3
         }
       }
     },
@@ -24383,11 +24383,11 @@
       "key": "BIII",
       "label": "B-type giant",
       "low": 60.5551,
-      "high": 11560,
-      "count": 110,
-      "median": 317.661,
-      "p10": 127.868,
-      "p90": 981.405
+      "high": 30903,
+      "count": 111,
+      "median": 318.582,
+      "p10": 128.015,
+      "p90": 1120.05
     },
     {
       "key": "BIV",
@@ -24434,10 +24434,10 @@
       "label": "B-type main-sequence star",
       "low": 21.6127,
       "high": 31622.8,
-      "count": 314,
-      "median": 151.002,
-      "p10": 50.385,
-      "p90": 697.555
+      "count": 315,
+      "median": 151.807,
+      "p10": 50.391,
+      "p90": 716.166
     },
     {
       "key": "DA",

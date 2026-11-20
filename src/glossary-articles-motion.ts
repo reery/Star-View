@@ -46,6 +46,7 @@ export const glossaryArticles: Readonly<Record<string, GlossaryArticle>> = {
     source: wiki('Orbital_period'),
     details: 'Earth’s orbital period around the Sun is one year. In a binary, the period may be a few hours for a close pair, or hundreds of thousands of years for a wide one. Longer periods go with wider orbits, and they get shorter with greater mass.',
     interactive: { id: 'orbit' },
+    tool: 'orbit',
     sections: [
       { title: 'Easy to measure, hard to wait for', text: 'A short period can be timed with great accuracy through a repeating eclipse or Doppler shift. Long periods are another matter: an orbit that takes a thousand years has only been followed for a small part of its path, so its period remains an estimate.' },
     ],
@@ -56,6 +57,7 @@ export const glossaryArticles: Readonly<Record<string, GlossaryArticle>> = {
     source: wiki('Semi-major_and_semi-minor_axes'),
     details: 'An orbit is an ellipse, a slightly squashed circle. The longest line across it is the major axis, and half that is the semi-major axis. It works like an average orbital distance: Earth’s is 1 astronomical unit, by near definition, and Neptune’s about 30.',
     interactive: { id: 'orbit' },
+    tool: 'orbit',
     sections: [
       { title: 'The size that sets the clock', text: 'A semi-major axis alone fixes how long an orbit takes around a star of known mass, however stretched that orbit is. In a binary, Star View gives the value for the relative orbit of the two stars: how far one moves as seen from the other.' },
     ],
@@ -66,6 +68,7 @@ export const glossaryArticles: Readonly<Record<string, GlossaryArticle>> = {
     source: wiki('Orbital_eccentricity'),
     details: 'A value of 0 is a perfect circle, and values approaching 1 mean a long, thin ellipse. Earth’s orbit is nearly circular, at 0.017. Halley’s Comet, at 0.967, comes inside Venus’s orbit and travels out past Neptune’s.',
     interactive: { id: 'orbit' },
+    tool: 'orbit',
     sections: [
       { title: 'Shape tells a story', text: 'Close binaries tend to have circular orbits, because tides gradually round them out. Wide binaries can have very stretched orbits. Many exoplanets also have far more eccentric orbits than our planets, a sign of past encounters between planets. An orbit with e of 1 or more is no longer closed: the body never returns.' },
     ],
@@ -87,6 +90,7 @@ export const glossaryArticles: Readonly<Record<string, GlossaryArticle>> = {
     source: wiki('Apsis'),
     details: 'Bodies move fastest at closest approach and slowest when farthest apart. Each kind of orbit has its own word: perihelion and aphelion for the Sun, perigee and apogee for Earth. Periastron and apastron are the general words for stars.',
     interactive: { id: 'orbit' },
+    tool: 'orbit',
     sections: [
       { title: 'The numbers on a System card', text: 'Star View’s System card lists the periastron epoch, the date the two stars last came closest, and the argument of periastron, which says how the closest point is rotated within the orbit. Together with the longitude of the node, they place the ellipse on the sky.' },
     ],
@@ -96,6 +100,7 @@ export const glossaryArticles: Readonly<Record<string, GlossaryArticle>> = {
   barycenter: {
     source: wiki('Barycenter_(astronomy)'), figure: barycenter,
     details: 'Two bodies orbit a shared point, like a see-saw balancing nearer the heavier child. Earth and Moon’s balance point lies inside Earth. The Sun itself wobbles around a point that is often outside its surface, mostly because of Jupiter.',
+    tool: 'orbit',
     sections: [
       { title: 'A wobble that finds planets', text: 'A star’s wobble around its barycenter reveals planets too small and faint to see. Astronomers track it with Doppler shifts, and Gaia can detect it directly as a movement on the sky.' },
     ],
@@ -106,6 +111,7 @@ export const glossaryArticles: Readonly<Record<string, GlossaryArticle>> = {
     source: wiki('Kepler%27s_laws_of_planetary_motion'),
     details: 'Johannes Kepler worked out these laws between 1609 and 1619 from Tycho Brahe’s careful records of Mars, breaking with 2,000 years of belief in perfect circles. They apply to planets, moons and stars alike, anywhere one body orbits another.',
     interactive: { id: 'orbit' },
+    tool: 'orbit',
     sections: [
       { title: 'One: orbits are ellipses', text: 'Every planet follows an ellipse with the Sun at one focus, not at the center. The star sits to one side of the orbit, so the planet’s distance changes as it goes around.' },
       { title: 'Two: equal areas in equal times', text: 'A line joining planet and star sweeps out equal areas in equal times. So planets speed up as they near the star, and slow down as they move away. Press play in the diagram above to see this.' },

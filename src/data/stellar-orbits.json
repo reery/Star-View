@@ -12893,6 +12893,42 @@
       ]
     },
     {
+      "systemId": "spectroscopic-hip-80112",
+      "name": "Alniyat",
+      "orbits": [
+        {
+          "periodYears": 0.09037645448323066,
+          "eccentricity": 0.322,
+          "inclinationDeg": 158.2,
+          "nodeDeg": 104.0,
+          "argumentDeg": 283.0,
+          "periastronEpoch": 34889.0,
+          "epochKind": "MJD",
+          "grade": 8.0,
+          "reference": "Nor2007",
+          "catalog": "ORB6",
+          "sourceUrl": "https://www.astro.gsu.edu/wds/orb6/orb6orbits.html",
+          "nodeAmbiguous": true,
+          "argumentComponent": "Aa2",
+          "primaryIds": [
+            "hip-80112"
+          ],
+          "secondaryIds": [
+            "hip-80112-component-aa2"
+          ],
+          "primary": "Aa1",
+          "secondary": "Aa2",
+          "semiMajorAxisAu": 0.77350427,
+          "axisDerivation": {
+            "angularAxisArcsec": 0.0036200000000000004,
+            "parallaxMas": 4.68,
+            "parallaxStarId": "hip-80112"
+          },
+          "id": "spectroscopic-hip-80112-0"
+        }
+      ]
+    },
+    {
       "systemId": "spectroscopic-hip-90313",
       "name": "HD 169689",
       "orbits": [

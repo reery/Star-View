@@ -178,7 +178,8 @@ def build():
     stars = {}
     catalog_sources = []
     # Naked-eye stars copies curated rows and adds unresolved single records; only reviewed SB9 parents are authored here.
-    naked_eye_parents = set(read_json(WORK / "spectroscopic-binaries-review.json")["nakedEyeParents"]) | set(read_json(WORK / "gaia-double-lined-review.json")["adopted"])
+    sb9_review = read_json(WORK / "spectroscopic-binaries-review.json")
+    naked_eye_parents = set(sb9_review["nakedEyeParents"]) | set(read_json(WORK / "gaia-double-lined-review.json")["adopted"])
     sources = [*sorted((ROOT / "src/data/catalogs").glob("*/stars.csv")),
                ROOT / "catalog-work/famous-cluster-stars/retired-catalog/stars.csv",
                ROOT / "catalog-work/bright-stars/retired-catalog/stars.csv"]
@@ -522,8 +523,12 @@ def build():
             reviewed_ids.add(identifier)
             continue
         system = {"id": f"spectroscopic-{identifier}", "name": name, "sourceRef": "catalog-companions-simbad", "sourceUrl": "https://simbad.cds.unistra.fr/simbad/", "compositeSimbadId": main, "components": []}
+        # A reviewed hierarchy keeps WDS labels where A/B would name the wrong stars (Alniyat B is a 20" visual companion).
+        labels = sb9_review["compositeLabels"].get(identifier, {}).get("labels") or [chr(65 + index) for index in range(len(parts))]
+        if len(labels) != len(parts):
+            raise ValueError(f"Reviewed composite labels drifted: {identifier}")
         for index, part in enumerate(parts):
-            label = chr(65 + index)
+            label = labels[index]
             component_id = identifier if index == 0 else f"{identifier}-component-{label.lower()}"
             star = blank_component(component_id, f"{name} {label}", parent)
             star["spectral_type"] = spectrum(part)

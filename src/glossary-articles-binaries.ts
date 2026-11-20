@@ -7,6 +7,7 @@ export const glossaryArticles: Readonly<Record<string, GlossaryArticle>> = {
     also: ['Star', 'Mizar_and_Alcor'],
     source: wiki('Binary_star'), figure: barycenter,
     details: 'A binary star is two stars held together by gravity, each circling their shared balance point. Pairs are very common: around half of Sun-like stars have at least one companion, so a planet with two suns is no fantasy.',
+    tool: 'orbit',
     sections: [
       { title: 'How we weigh a star', text: 'Binaries are the main way to measure star masses directly. Gravity sets how fast the two stars orbit each other, so timing their dance gives their masses.' },
       { title: 'Ways to spot a pair', text: 'Some pairs can be seen separately through a telescope (visual binaries). Others are revealed by shifting spectral lines (spectroscopic binaries), or by the dips in light when one star blocks the other (eclipsing binaries).' },

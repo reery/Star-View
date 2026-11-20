@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatDuration, keplerAxisAu, keplerPeriodYears, relativeSpeedKmS } from './orbit-tool'
+import { fixedDigits, formatDuration, keplerAxisAu, keplerPeriodYears, relativeSpeedKmS } from './orbit-tool'
 
 describe('binary star orbit tool', () => {
   it('applies Kepler’s third law in years, astronomical units and solar masses', () => {
@@ -13,6 +13,12 @@ describe('binary star orbit tool', () => {
     expect(relativeSpeedKmS(1, 1, 1)).toBeCloseTo(29.78, 1)
     // Faster at closest approach than at the farthest point.
     expect(relativeSpeedKmS(2, 10, 5)).toBeGreaterThan(relativeSpeedKmS(2, 10, 15))
+  })
+
+  it('fixes the live labels’ decimals by the smallest value of the orbit', () => {
+    expect(fixedDigits(0.0348)).toBe(3)
+    expect(fixedDigits(7)).toBe(1)
+    expect(fixedDigits(200)).toBe(0)
   })
 
   it('formats durations in hours, days or years', () => {

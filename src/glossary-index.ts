@@ -22,6 +22,7 @@ export interface GlossaryFigure {
   creditUrl?: string
 }
 
+export type GlossaryTool = 'orbit'
 export type GlossaryWidget = 'temperature' | 'parallax' | 'magnitude' | 'orbit' | 'lightcurve' | 'hr' | 'fate' | 'habitable' | 'velocity' | 'angular' | 'coordinates'
 
 export interface GlossarySection {
@@ -43,6 +44,8 @@ export interface GlossaryArticle {
   figure?: GlossaryFigure
   details?: string
   interactive?: { id: GlossaryWidget; variant?: string }
+  /** An Explore tool to try the idea in, linked below the diagram. */
+  tool?: GlossaryTool
   sections?: readonly GlossarySection[]
   /** One collapsed part with notation and numbers for hobbyists. */
   deeper?: string
